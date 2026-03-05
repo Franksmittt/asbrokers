@@ -5,6 +5,9 @@ import { TrustBar } from "@/components/TrustBar";
 import { DualPathway } from "@/components/DualPathway";
 import { RunOutCalculator } from "@/components/RunOutCalculator";
 import { SolutionsBento } from "@/components/SolutionsBento";
+import { HomeStatsSection } from "@/components/HomeStatsSection";
+import { HomeValueProps } from "@/components/HomeValueProps";
+import { HomeCtaStrip } from "@/components/HomeCtaStrip";
 import { Footer } from "@/components/Footer";
 
 export default function HomePage() {
@@ -47,6 +50,10 @@ export default function HomePage() {
         </p>
         <SolutionsBento />
       </section>
+
+      <HomeStatsSection />
+      <HomeValueProps />
+      <HomeCtaStrip />
 
       <Footer />
     </div>

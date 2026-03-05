@@ -52,15 +52,28 @@ export function Hero() {
           </div>
         </div>
 
+        {/* Mobile only: scroll hint in flow between copy and calculator so it never overlaps */}
+        <a
+          href="#lab"
+          className="flex md:hidden flex-col items-center gap-0.5 text-zinc-500 hover:text-zinc-400 transition-colors text-xs py-4"
+          aria-label="Scroll to content"
+        >
+          <span className="uppercase tracking-widest">Scroll for more</span>
+          <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </a>
+
         {/* Column 3 (33%): calculator */}
         <div className="md:col-span-1 flex justify-start md:justify-end min-w-0">
           <HeroCalculator />
         </div>
       </div>
 
+      {/* Desktop only: scroll hint fixed at bottom (no overlap with 66/33 layout) */}
       <a
         href="#lab"
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5 text-zinc-500 hover:text-zinc-400 transition-colors text-xs"
+        className="hidden md:flex absolute bottom-4 left-1/2 -translate-x-1/2 flex-col items-center gap-0.5 text-zinc-500 hover:text-zinc-400 transition-colors text-xs"
         aria-label="Scroll to content"
       >
         <span className="uppercase tracking-widest">Scroll</span>

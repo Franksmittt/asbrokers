@@ -131,14 +131,14 @@ export default function EverestWealthPage() {
                     <li key={f}>· {f}</li>
                   ))}
                 </ul>
-                <Link href={opt.href} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
+                <Link href={opt.href} prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
                   {opt.cta} →
                 </Link>
               </div>
             ))}
           </div>
           <div className="mt-6 text-center">
-            <Link href="/everest-128-product" className="text-zinc-500 text-sm hover:text-white">
+            <Link href="/everest-128-product" prefetch={false} className="text-zinc-500 text-sm hover:text-white">
               ⚖ Compare 12.8% vs 14.2% side by side (use both calculators)
             </Link>
           </div>
@@ -159,7 +159,7 @@ export default function EverestWealthPage() {
                   <li key={f}>· {f}</li>
                 ))}
               </ul>
-              <Link href={growthOption.href} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
+              <Link href={growthOption.href} prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
                 {growthOption.cta} →
               </Link>
             </div>
@@ -174,7 +174,7 @@ export default function EverestWealthPage() {
                   <li key={f}>· {f}</li>
                 ))}
               </ul>
-              <Link href={amethystOption.href} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
+              <Link href={amethystOption.href} prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
                 {amethystOption.cta} →
               </Link>
             </div>
@@ -187,7 +187,7 @@ export default function EverestWealthPage() {
           <p className="text-zinc-400 mb-6">
             Not sure which one fits? Most clients don&apos;t know until we&apos;ve discussed their full picture income needs, tax position, estate plan, and time horizon. The calculators give you clarity. A conversation gives you confidence.
           </p>
-          <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors">
+          <Link href="/contact" prefetch={false} className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors">
             Let&apos;s have that conversation
           </Link>
           <p className="text-zinc-500 text-sm mt-4">or WhatsApp: 067 242 9946</p>
@@ -200,7 +200,7 @@ export default function EverestWealthPage() {
           <p className="text-zinc-500 text-sm mb-4">
             Everest Wealth Management (Pty) Ltd is an authorised Financial Services Provider (FSP 795). AS Brokers (FSP 17273) acts as an independent intermediary. All returns shown are based on current product terms and are not guaranteed. Past performance is not indicative of future results. These investments involve unlisted shares with limited liquidity during the investment term. Please consult with a qualified financial adviser before making any investment decisions.
           </p>
-          <Link href="/everest-wealth/about" className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline mb-6">
+          <Link href="/everest-wealth/about" prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline mb-6">
             Read a detailed guide: how it works, structure, risks and tax →
           </Link>
           <div className="flex flex-wrap gap-4 text-sm text-zinc-500">
@@ -214,9 +214,9 @@ export default function EverestWealthPage() {
 
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-4 sm:gap-6 text-sm">
-          <Link href="/everest-wealth/about" className="text-blue-400 hover:underline">Understanding Everest Wealth</Link>
+          <Link href="/everest-wealth/about" prefetch={false} className="text-blue-400 hover:underline">Understanding Everest Wealth</Link>
           <a href="https://wa.me/27672429946" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white">Contact us on WhatsApp 067 242 9946</a>
-          <Link href="/contact" className="text-blue-400 hover:underline">Contact</Link>
+          <Link href="/contact" prefetch={false} className="text-blue-400 hover:underline">Contact</Link>
         </div>
       </section>
       <Footer />

@@ -73,7 +73,7 @@ export function Nav() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" prefetch={false} className="flex items-center gap-3">
           <div className="bg-gradient-to-br from-blue-500 to-teal-400 p-2 rounded-xl">
             <ShieldCheck className="w-6 h-6 text-white" />
           </div>
@@ -86,7 +86,7 @@ export function Nav() {
         </Link>
 
         <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
-          <Link href="/" className={`px-3 py-2 rounded-lg ${linkClass}`}>Home</Link>
+          <Link href="/" prefetch={false} className={`px-3 py-2 rounded-lg ${linkClass}`}>Home</Link>
 
           {/* Solutions dropdown */}
           <div className="relative" ref={solutionsRef}>
@@ -108,6 +108,7 @@ export function Nav() {
                   <Link
                     key={item.href + item.label}
                     href={item.href}
+                    prefetch={false}
                     onClick={() => setSolutionsOpen(false)}
                     className="block px-4 py-2.5 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-colors first:rounded-t-xl last:rounded-b-xl"
                   >
@@ -138,6 +139,7 @@ export function Nav() {
                   <Link
                     key={item.href + item.label}
                     href={item.href}
+                    prefetch={false}
                     onClick={() => setCalculatorsOpen(false)}
                     className="block px-4 py-2.5 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-colors first:rounded-t-xl last:rounded-b-xl"
                   >
@@ -148,7 +150,7 @@ export function Nav() {
             )}
           </div>
 
-          <Link href="/team" className={`px-3 py-2 rounded-lg ${linkClass}`}>
+          <Link href="/team" prefetch={false} className={`px-3 py-2 rounded-lg ${linkClass}`}>
             Team
           </Link>
         </div>
@@ -163,6 +165,7 @@ export function Nav() {
           </button>
           <Link
             href="/contact"
+            prefetch={false}
             className="hidden sm:flex items-center px-5 py-2 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/10 transition-all"
           >
             Contact Us
@@ -184,18 +187,18 @@ export function Nav() {
           <div className="py-4 px-4 sm:px-6 flex flex-col gap-0">
             <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest px-2 py-2">Solutions</span>
             {solutionsItems.map((item) => (
-              <Link key={item.href} href={item.href} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-lg active:bg-white/10 -mx-1">
+              <Link key={item.href} href={item.href} prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-lg active:bg-white/10 -mx-1">
                 {item.label}
               </Link>
             ))}
             <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest px-2 py-3 mt-2 border-t border-white/10">Calculators</span>
             {calculatorsItems.map((item) => (
-              <Link key={item.href + item.label} href={item.href} onClick={closeMobile} className="py-2.5 pl-4 pr-2 text-zinc-200 hover:text-white hover:bg-white/5 text-sm rounded-lg -mx-1 border-l-2 border-transparent hover:border-blue-500 ml-2">
+              <Link key={item.href + item.label} href={item.href} prefetch={false} onClick={closeMobile} className="py-2.5 pl-4 pr-2 text-zinc-200 hover:text-white hover:bg-white/5 text-sm rounded-lg -mx-1 border-l-2 border-transparent hover:border-blue-500 ml-2">
                 {item.label}
               </Link>
             ))}
             <div className="border-t border-white/10 mt-4 pt-4 flex flex-col gap-2">
-              <Link href="/team" onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-lg text-center -mx-1">
+              <Link href="/team" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-lg text-center -mx-1">
                 Team
               </Link>
               <button
@@ -205,7 +208,7 @@ export function Nav() {
               >
                 <User className="w-4 h-4" /> Client Login
               </button>
-              <Link href="/contact" onClick={closeMobile} className="w-full py-3.5 text-center text-white font-medium border-2 border-white/30 rounded-full hover:bg-white/10 active:bg-white/15">
+              <Link href="/contact" prefetch={false} onClick={closeMobile} className="w-full py-3.5 text-center text-white font-medium border-2 border-white/30 rounded-full hover:bg-white/10 active:bg-white/15">
                 Contact Us
               </Link>
             </div>

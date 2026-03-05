@@ -33,7 +33,7 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Brand column */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-3 mb-4">
+            <Link href="/" prefetch={false} className="inline-flex items-center gap-3 mb-4">
               <div className="bg-gradient-to-br from-blue-500 to-teal-400 p-2.5 rounded-xl">
                 <ShieldCheck className="w-7 h-7 text-white" />
               </div>
@@ -64,7 +64,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-zinc-400 hover:text-white text-sm transition-colors">
+                  <Link href={link.href} prefetch={false} className="text-zinc-400 hover:text-white text-sm transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -78,7 +78,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-zinc-400 hover:text-white text-sm transition-colors">
+                  <Link href={link.href} prefetch={false} className="text-zinc-400 hover:text-white text-sm transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -102,7 +102,7 @@ export function Footer() {
           </span>
           <nav className="flex flex-wrap items-center justify-center gap-6 text-xs">
             {legalLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="text-zinc-500 hover:text-white transition-colors">
+              <Link key={link.label} href={link.href} prefetch={false} className="text-zinc-500 hover:text-white transition-colors">
                 {link.label}
               </Link>
             ))}

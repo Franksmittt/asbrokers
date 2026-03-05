@@ -1,0 +1,279 @@
+================================================================================
+  AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
+================================================================================
+
+Last updated: March 2025
+
+--------------------------------------------------------------------------------
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+
+Project name:     as-brokers (AS Brokers website)
+Repository:        https://github.com/Franksmittt/asbrokers.git
+Framework:         Next.js 15 (App Router)
+Language:          TypeScript
+Styling:           Tailwind CSS
+Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge
+
+Purpose:
+  Marketing and lead-generation website for AS Brokers CC, an independent
+  authorised financial services provider in South Africa. The site presents
+  retirement planning, insurance, estate planning, and Everest Wealth
+  fixed-return products, with interactive calculators and clear paths to
+  contact and book consultations.
+
+Design:
+  Dark theme (#0a0a0c, #151518), glassmorphism nav on scroll, gradient orbs
+  on hero, bento-style solution cards. Responsive (mobile, tablet, desktop)
+  with frosted header (80% opacity) when scrolling.
+
+--------------------------------------------------------------------------------
+2. BUSINESS INFORMATION
+--------------------------------------------------------------------------------
+
+Legal name:        AS Brokers CC
+Tagline:           "Protecting Your Legacy. Engineering Your Wealth."
+FSP number:        FSP 17273
+Regulation:        Independent Authorised Financial Services Provider
+Category:          Category 1.8 (Securities and Instruments: Shares) for
+                   advising on and distributing Everest Wealth products
+
+Location:           Alberton, East Rand, Gauteng, South Africa
+Established:       Est. 1998 (25+ years experience)
+
+Founders / team:
+  - Albert Schuurman  – Co-founder; retirement income planning, certainty for clients
+  - Johnny Farinha    – Co-founder; estate structuring, business continuity, risk planning
+
+Services offered:
+  - Retirement & investment planning (fixed-income, living annuities, RA)
+  - Short-term insurance (personal: home, car, valuables; business: commercial, fleet)
+  - Life insurance (personal: death, disability, income protection; business: key person, buy-and-sell)
+  - Estate planning (wills, trusts, estate duty reduction)
+  - Business structuring (buy-and-sell, key person, tax-efficient corporate protection)
+  - Medical aid & gap cover structuring
+  - Wellness & integration (high-income earners)
+  - Everest Wealth products (Code 1.8 alternative / fixed-return investments)
+
+Contact:
+  - WhatsApp: 067 242 9946
+  - Contact form: /contact
+  - No advice fees on investments; personal response (no call centre)
+
+Key partners / product providers:
+  - Everest Wealth Management (FSP 795) – fixed-return product structurer
+  - Santam, Old Mutual, Bryte (recognised partners; referenced in trust bar)
+
+--------------------------------------------------------------------------------
+3. ALL PAGES (ROUTES & SUMMARIES)
+--------------------------------------------------------------------------------
+
+/ (Home)
+  - Hero with tagline, location, CTA, and compact run-out calculator
+  - Trust bar (FSP 17273, partners)
+  - Dual pathway: "Protect my assets" vs "Grow my capital"
+  - Interactive Run-Out Calculator hub (full version with email-for-PDF)
+  - Architectural Solutions bento (Retirement, Insurance, Business, Estate, Medical)
+  - Stats strip (25+ years, FSP 17273, 1.8 shares authority)
+  - "Why AS Brokers" value props (Independent, Full-service, Personal)
+  - Final CTA strip (Book consultation, WhatsApp)
+  - Footer
+
+/calculators
+  - Hub for all financial calculators and education
+  - Sections: Retirement Reality & Readiness, Tax & Estate Exposure,
+    Life Insurance & Risk Planning, Product Quotations, Financial Education,
+    Business Risk Management
+  - Cards link to individual calculator pages and contact
+  - Quick links to Solutions and WhatsApp
+
+/contact
+  - Two-column layout: left = intro, trust badges, "We work best with" and CTAs;
+    right = contact enquiry form
+  - Form: name, phone, email, "What would you like to discuss?" (dropdown),
+    consent checkbox
+  - Trust badges: FSP 17273, 25+ years, zero advice fees on investments
+
+/team
+  - Introduces Albert Schuurman and Johnny Farinha
+  - Roles, short bios, and FSP 17273 trust line
+
+/solutions
+  - Solutions hub grouped by category:
+    Retirement & Investment Planning, Insurance & Risk Planning,
+    Medical & Wellness, Estate & Business Structuring
+  - Each item links to a dedicated page or calculator
+  - CTAs: All calculators, Book a consultation
+
+/solutions/personal-insurance
+  - Personal short-term insurance: home, car, valuables, asset protection
+
+/solutions/business-insurance
+  - Business short-term insurance: commercial property, liability,
+    business interruption, fleet
+
+/solutions/life-insurance
+  - Personal life insurance: death cover, disability, income protection,
+    severe illness
+
+/solutions/business-life
+  - Business life insurance: buy-and-sell, key person, loan account,
+    employee benefits
+
+/everest-wealth
+  - Everest Wealth product hub
+  - Income options: 12.8% Strategic Income, 14.2% Onyx Income+
+  - Growth option: 14.5% Strategic Growth
+  - Amethyst Living Annuity (pension/RA money)
+  - Trust points (Everest FSP 795, fixed returns, zero broker fees)
+  - Link to "Understanding Everest Wealth" (/everest-wealth/about)
+
+/everest-wealth/about
+  - Detailed "Everest Wealth Explained" page
+  - Why alternative investments in SA; regulatory architecture (Everest FSP 795,
+    AS Brokers FSP 17273 & Category 1.8, Laudian); product suite; how returns
+    are generated; risks; fees; tax benefits
+
+/lab
+  - "The Lab" – entry point for run-out calculator and links to other tools
+  - Full Run-Out Calculator (portfolio, drawdown, lifespan; email for PDF)
+  - More tools: Retirement Reality, Life cover needs, Estate liquidity
+
+/retirement
+  - Retirement Reality Calculator
+  - Inputs: current age, retirement age, life expectancy, monthly income needed,
+    inflation, growth rate, tax in retirement
+  - Output: total capital required (present value of growing annuity)
+  - Editorial content on not saving enough for retirement
+
+/income-in-retirement
+  - Life of Capital / Retirement Longevity Calculator
+  - Inputs: capital, monthly income needed, return %, tax %, inflation %
+  - Output: years capital lasts (or "sustainable indefinitely")
+  - Year-by-year simulation with escalating withdrawals
+
+/cost-of-inflation-over-time
+  - Future Value / Cost of Inflation Calculator
+  - Inputs: present value (R), inflation % p.a., time period (years)
+  - Outputs: future cost, future buying power, purchasing power lost %
+
+/income-tax-calculator
+  - South African Income Tax (PAYE) Calculator (SARS 2025/26 tables)
+  - Inputs: gross monthly salary, age (rebates for 65+, 75+)
+  - Outputs: annual tax, monthly PAYE, effective rate, net monthly pay
+  - Editorial on tax in retirement
+
+/estate-duty-calculator
+  - South African Estate Duty Calculator
+  - Inputs: gross estate, liabilities, bequests to spouse
+  - Outputs: executor fees, estate duty (20%/25% brackets), total estate costs
+
+/annual-estate-reduction-strategy
+  - Annual Estate Reduction / Trust Donation Calculator
+  - Inputs: single (R100k/year) or couple (R200k/year), current age, planned age,
+    growth rate
+  - Outputs: donation period, total donations, estate duty saved (20%), trust value
+
+/premium-increase-calculator
+  - Insurance Premium Comparison Calculator
+  - Two policies: enter monthly premiums per year from policy schedules
+  - Outputs: year-on-year change %, annual totals, average annual increase,
+    cumulative spend at 5/10/15/20/25 years
+
+/everest-128-product
+  - Everest 12.8% Strategic Income Calculator
+  - Input: investment amount
+  - Outputs: net monthly income (after 20% dividend tax), annual income,
+    5-year loyalty bonus, total 5-year return, return on capital %,
+    "Why dividends beat income tax" comparison
+
+/immediate-higher-income-calculator
+  - Everest 14.2% Immediate Higher Income Calculator
+  - Input: investment amount
+  - Outputs: gross annual return, dividends tax, net annual/monthly return
+
+/everest-strategic-growth-145
+  - Everest 14.5% Strategic Growth Calculator
+  - Input: investment amount
+  - Outputs: capital after 5 years (after tax), year-by-year gross growth,
+    tax on growth (20%), net growth
+
+/everest-amethyst-living-annuity
+  - Amethyst Living Annuity Calculator
+  - Inputs: retirement capital, drawdown rate (2.5%–10%)
+  - Outputs: gross monthly income, estimated monthly tax (SARS 2025/26, 65+),
+    net monthly income
+
+--------------------------------------------------------------------------------
+4. SITE STRUCTURE & NAVIGATION
+--------------------------------------------------------------------------------
+
+Header (global):
+  - Logo + "AS Brokers" + FSP 17273
+  - Home | Solutions (dropdown) | Calculators (dropdown) | Team
+  - Client Login (opens lead form) | Contact Us
+  - Mobile: hamburger with Solutions and Calculators sections, Client Login,
+    Contact Us
+
+Solutions dropdown:
+  All solutions, Wealth & Retirement, Everest Wealth, Understanding Everest Wealth,
+  Personal/Business/Life insurance, Legacy & Estate, Team
+
+Calculators dropdown:
+  Calculator Hub, Everest Wealth Calculators, Run-Out, Retirement Reality,
+  Income in Retirement, Income Tax, Future Value/Inflation, Estate Duty,
+  Annual Estate Reduction, Premium Increase, Estate & Property Tools
+
+Footer:
+  - Brand (logo, tagline, FSP, WhatsApp button)
+  - Quick links: Home, Solutions, Calculators, Contact, Team
+  - Services: Retirement & Everest, Insurance & Risk, Estate, Understanding Everest
+  - Trust badge: Authorised Financial Services Provider | FSP 17273
+  - Legal: Privacy Policy, Terms of Use, Complaints Procedure, FAIS & POPIA
+  - Copyright AS Brokers CC
+
+--------------------------------------------------------------------------------
+5. KEY COMPONENTS (NON-PAGE)
+--------------------------------------------------------------------------------
+
+AppShell          – Wraps app with Nav + LeadForm context
+Nav               – Fixed header; frosted (80% opacity) on scroll
+Footer            – Multi-column footer with links and WhatsApp
+Hero              – Home hero with copy + HeroCalculator
+HeroCalculator    – Compact run-out (portfolio, drawdown, lifespan) in hero
+BackgroundOrbs    – Ambient gradient orbs on hero
+TrustBar          – FSP + partners strip
+DualPathway       – "Protect assets" / "Grow capital" cards
+SolutionsBento    – Retirement, Insurance, Business, Estate, Medical cards
+HomeStatsSection  – 25+ years, FSP 17273, 1.8
+HomeValueProps    – Independent, Full-service, Personal
+HomeCtaStrip      – "Ready for a conversation?" + Contact + WhatsApp
+RunOutCalculator  – Full run-out with email capture for PDF
+ContactEnquiryForm – Contact form with dropdown and validation
+LeadFormContext   – Global lead form modal (e.g. Client Login)
+
+Calculator components (one per calculator page):
+  RetirementRealityCalculator, LifeOfCapitalCalculator,
+  CostOfInflationCalculator, IncomeTaxCalculator, EstateDutyCalculator,
+  AnnualEstateReductionCalculator, PremiumIncreaseCalculator,
+  Everest128Calculator, ImmediateHigherIncomeCalculator,
+  EverestStrategicGrowth145Calculator, AmethystLivingAnnuityCalculator
+
+--------------------------------------------------------------------------------
+6. METADATA (DEFAULT)
+--------------------------------------------------------------------------------
+
+Title:       AS Brokers | The Private Vault
+Description: 25+ years helping South Africans with retirement planning,
+             insurance, estate structuring & business continuity. Albert
+             Schuurman & Johnny Farinha. Independent Authorised Financial
+             Service Provider.
+Keywords:    financial advisor, retirement planning, South Africa, insurance,
+             estate planning, AS Brokers, FSP 17273
+
+Individual pages override title and description where set (e.g. /calculators,
+/contact, /everest-wealth, /everest-wealth/about).
+
+--------------------------------------------------------------------------------
+END OF PROJECT OVERVIEW
+================================================================================

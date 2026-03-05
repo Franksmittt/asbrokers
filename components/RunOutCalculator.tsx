@@ -92,17 +92,17 @@ export function RunOutCalculator() {
                 e.preventDefault();
                 setEmailCaptured(true);
               }}
-              className="flex w-full max-w-sm gap-2"
+              className="flex flex-col w-full max-w-sm gap-3"
             >
               <input
                 type="email"
                 required
                 placeholder="Enter your email address"
-                className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
+                className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
               />
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors"
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3.5 rounded-full text-sm font-semibold transition-colors"
               >
                 Reveal
               </button>

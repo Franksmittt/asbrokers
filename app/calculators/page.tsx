@@ -131,6 +131,7 @@ function CalculatorCard({
   bullets,
   leadsTo,
   href,
+  featured,
 }: {
   tag: string;
   title: string;
@@ -138,14 +139,20 @@ function CalculatorCard({
   bullets: string[];
   leadsTo: string;
   href: string;
+  featured?: boolean;
 }) {
   return (
     <Link
       href={href}
-      className="group block bg-[#151518] rounded-[2rem] p-6 md:p-8 border border-white/5 hover:border-white/20 transition-all"
+      prefetch={false}
+      className={`group block bg-[#151518] rounded-[2rem] border border-white/5 hover:border-white/20 transition-all ${
+        featured ? "p-6 md:p-8 lg:p-10 max-w-3xl mx-auto" : "p-6 md:p-8"
+      }`}
     >
       <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">{tag}</span>
-      <h3 className="text-xl font-bold text-white mt-2 mb-3 group-hover:text-blue-300 transition-colors">{title}</h3>
+      <h3 className={`font-bold text-white mt-2 mb-3 group-hover:text-blue-300 transition-colors ${featured ? "text-xl md:text-2xl" : "text-xl"}`}>
+        {title}
+      </h3>
       <p className="text-zinc-400 text-sm leading-relaxed mb-4">{description}</p>
       <ul className="space-y-1.5 mb-4">
         {bullets.map((b) => (
@@ -167,9 +174,9 @@ function CalculatorCard({
 
 function SectionHeading({ title, question }: { title: string; question: string }) {
   return (
-    <div className="mb-8">
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{title}</h2>
-      <p className="text-zinc-400">Key question: {question}</p>
+    <div className="mb-6 md:mb-8">
+      <h2 className="text-xl md:text-2xl font-bold text-white mb-1">{title}</h2>
+      <p className="text-zinc-500 text-sm">Key question: {question}</p>
     </div>
   );
 }
@@ -178,56 +185,58 @@ export default function CalculatorsPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
       {/* Hero */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">
-            AS Brokers · Retirement & Financial Freedom
-          </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
-            Calculators. Products. Education.
-          </h1>
-          <p className="text-xl text-zinc-400 leading-relaxed">
-            Everything you need to understand your retirement, protect your wealth, and take control of your financial
-            future, in one place.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {pillarLinks.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-zinc-300 text-sm font-medium hover:bg-white/10 hover:border-white/20 transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+      <section className="relative pt-28 pb-16 px-4 sm:px-6 md:px-8 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[320px] h-[320px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
+        <div className="relative max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="lg:col-span-7">
+              <p className="text-zinc-500 text-xs font-medium uppercase tracking-[0.2em] mb-3">
+                AS Brokers
+              </p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 leading-[1.15]">
+                Calculators. Products. Education.
+              </h1>
+              <p className="text-lg text-zinc-400 leading-relaxed max-w-xl">
+                Everything you need to understand your retirement, protect your wealth, and take control of your financial future.
+              </p>
+            </div>
+            <div className="lg:col-span-5">
+              <div className="rounded-2xl bg-[#151518] border border-white/10 p-5 md:p-6">
+                <p className="text-zinc-500 text-xs font-semibold uppercase tracking-wider mb-4">Jump to section</p>
+                <nav className="flex flex-col gap-2">
+                  {pillarLinks.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="block py-3 px-4 rounded-xl text-white font-medium text-sm hover:bg-white/10 transition-colors border border-transparent hover:border-white/10"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* How to Use These Tools */}
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">How to Use These Tools</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Each tool answers a specific question and naturally leads to a practical solution.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            You do not need to complete them in any specific order. Start with the area most relevant to your current
-            situation.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-2">
-            The calculators are used in client discussions to explain:
-          </p>
-          <ul className="text-zinc-400 space-y-1 list-disc list-inside">
-            <li>What the problem is</li>
-            <li>Why it exists</li>
-            <li>Which product or structure solves it, and why</li>
-          </ul>
+      <section className="py-8 md:py-10 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-black/20">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
+            <div className="md:max-w-xs shrink-0">
+              <h2 className="text-lg font-bold text-white">How to use these tools</h2>
+            </div>
+            <div className="text-zinc-400 text-sm leading-relaxed space-y-2">
+              <p>Each tool answers a specific question and leads to a practical solution. Use any order; start with what matters most to you.</p>
+              <p className="text-zinc-500">In client discussions we use them to explain: what the problem is, why it exists, and which product or structure solves it.</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Retirement Reality & Readiness */}
-      <section id="retirement" className="py-16 px-4 sm:px-6 md:px-8">
+      <section id="retirement" className="py-16 px-4 sm:px-6 md:px-8 scroll-mt-24">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="Retirement Reality & Readiness"
@@ -256,61 +265,58 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      {/* Life Insurance & Risk Planning */}
+      {/* Life Insurance & Risk Planning — single card, full-width layout */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="Life Insurance & Risk Planning"
             question="What happens if something goes wrong?"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="w-full">
             {lifeInsuranceCalculators.map((calc) => (
-              <CalculatorCard key={calc.title} {...calc} />
+              <CalculatorCard key={calc.title} {...calc} featured />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Product Quotations */}
-      <section id="product-quotations" className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
+      {/* Product Quotations — single card, full-width layout */}
+      <section id="product-quotations" className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 scroll-mt-24">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="Product Quotations"
             question="What does this look like in a real product?"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="w-full">
             {productCalculators.map((calc) => (
-              <CalculatorCard key={calc.title} {...calc} />
+              <CalculatorCard key={calc.title} {...calc} featured />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Financial Education */}
-      <section id="financial-education" className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
+      {/* Financial Education — single full-width card */}
+      <section id="financial-education" className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 scroll-mt-24">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
             title="Financial Education"
             question="What is it costing you not to learn how money really works?"
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="w-full max-w-3xl mx-auto">
             <Link
               href="/contact"
-              className="group block md:col-span-2 bg-[#151518] rounded-[2rem] p-6 md:p-8 border border-white/5 hover:border-white/20 transition-all"
+              prefetch={false}
+              className="group block bg-[#151518] rounded-[2rem] p-6 md:p-8 lg:p-10 border border-white/5 hover:border-white/20 transition-all"
             >
               <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">Education & Growth</span>
-              <h3 className="text-xl font-bold text-white mt-2 mb-3 group-hover:text-blue-300 transition-colors">
+              <h3 className="text-xl md:text-2xl font-bold text-white mt-2 mb-3 group-hover:text-blue-300 transition-colors">
                 The Cost of Not Learning
               </h3>
               <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                Most people leave their investments in the hands of others and accept whatever return they get. But with
-                the right education, you can learn to create and manage your own investments, and earn a significantly
-                higher return than the market delivers.
+                Most people leave their investments in the hands of others and accept whatever return they get. With the right education, you can learn to create and manage your own investments and earn a significantly higher return than the market delivers.
               </p>
               <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                This calculator shows the real cost of procrastination. Every month you delay learning, the gap between
-                where you are and where you could be gets wider. Not because you lost money, but because you missed the
-                growth you could have created.
+                Every month you delay learning, the gap between where you are and where you could be gets wider. Not because you lost money, but because you missed the growth you could have created.
               </p>
               <ul className="space-y-1.5 mb-4">
                 {[
@@ -326,11 +332,10 @@ export default function CalculatorsPage() {
                 ))}
               </ul>
               <p className="text-zinc-500 text-xs mb-4">
-                <span className="text-zinc-400">Leads to:</span> Financial education resources, structured learning
-                programmes, and the tools to take control of your own investment growth.
+                <span className="text-zinc-400">Leads to:</span> Financial education resources, structured learning programmes, and the tools to take control of your own investment growth.
               </p>
               <span className="inline-flex items-center gap-1 text-blue-400 text-sm font-medium group-hover:gap-2 transition-all">
-                Open calculator
+                Get in touch
               </span>
             </Link>
           </div>
@@ -369,6 +374,7 @@ export default function CalculatorsPage() {
           </p>
           <Link
             href="/contact"
+            prefetch={false}
             className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
           >
             Assess your business risk
@@ -376,55 +382,65 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      {/* Using These Tools Together */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">Using These Tools Together</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Each calculator highlights a specific problem.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Each problem naturally points toward a solution.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-8">
-            The purpose of these tools is not to replace advice, but to ensure that when advice is given, it is
-            understood, logical, and supported by numbers.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-8">
-            If you would like help interpreting any result or implementing the appropriate solution, you can request a
-            review.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
-          >
-            Request a review
-          </Link>
+      {/* Next step: from numbers to a plan */}
+      <section className="py-16 md:py-20 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-[2rem] bg-gradient-to-br from-[#151518] to-[#1a1a24] border border-white/10 p-8 md:p-12 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-teal-600/5 pointer-events-none" />
+            <div className="relative text-center">
+              <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-4">
+                From numbers to a plan
+              </p>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Clarity from the calculators. Confidence from a conversation.
+              </h2>
+              <p className="text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+                These tools surface the gaps. We help you close them with advice that&apos;s logical, structured, and backed by the same numbers you just ran.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/contact"
+                  prefetch={false}
+                  className="w-full sm:w-auto inline-flex items-center justify-center bg-white text-black font-bold px-8 py-4 rounded-full hover:bg-zinc-200 transition-colors"
+                >
+                  Request a review
+                </Link>
+                <a
+                  href="https://wa.me/27672429946"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-8 py-4 rounded-full transition-colors"
+                >
+                  WhatsApp 067 242 9946
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Quick links strip */}
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm">
+      <section className="py-10 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <a
               href="https://wa.me/27672429946"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white transition-colors"
             >
-              WhatsApp us · 067 242 9946
+              WhatsApp 067 242 9946
             </a>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
               Income in retirement
             </Link>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
               Insurance & risk planning
             </Link>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
               Estate planning
             </Link>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
               Business insurance
             </Link>
           </div>

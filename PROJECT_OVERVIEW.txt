@@ -2,7 +2,7 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: March 2025
+Last updated: March 2026
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -13,7 +13,8 @@ Repository:        https://github.com/Franksmittt/asbrokers.git
 Framework:         Next.js 15 (App Router)
 Language:          TypeScript
 Styling:           Tailwind CSS
-Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge
+Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
+                   Recharts (calculator charts)
 
 Purpose:
   Marketing and lead-generation website for AS Brokers CC, an independent
@@ -22,10 +23,19 @@ Purpose:
   fixed-return products, with interactive calculators and clear paths to
   contact and book consultations.
 
+Data currency (2026):
+  Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
+  brackets and rebates (Budget 2026). Estate duty, donations (R100k/R200k),
+  and other calcs use current legislation; review periodically.
+
 Design:
   Dark theme (#0a0a0c, #151518), glassmorphism nav on scroll, gradient orbs
-  on hero, bento-style solution cards. Responsive (mobile, tablet, desktop)
-  with frosted header (80% opacity) when scrolling.
+  on hero (parallax/mouse-reactive via Framer Motion), glass-card styling on
+  key cards (Solutions bento, value props). Responsive (mobile, tablet, desktop)
+  with frosted header (80% opacity) when scrolling. PWA manifest for
+  installability. Accessibility: skip link to main content, prefers-reduced-motion
+  respected (orbs and animations disabled when set). See ROADMAP.md for
+  premium upgrade phases.
 
 --------------------------------------------------------------------------------
 2. BUSINESS INFORMATION
@@ -86,12 +96,13 @@ Key partners / product providers:
     Business Risk Management
   - Cards link to individual calculator pages and contact
   - Quick links to Solutions and WhatsApp
+  - FAQ schema (JSON-LD) for SEO
 
 /contact
   - Two-column layout: left = intro, trust badges, "We work best with" and CTAs;
     right = contact enquiry form
   - Form: name, phone, email, "What would you like to discuss?" (dropdown),
-    consent checkbox
+    consent checkbox; honeypot field (hidden) for bot protection
   - Trust badges: FSP 17273, 25+ years, zero advice fees on investments
 
 /team
@@ -143,8 +154,10 @@ Key partners / product providers:
   - Retirement Reality Calculator
   - Inputs: current age, retirement age, life expectancy, monthly income needed,
     inflation, growth rate, tax in retirement
-  - Output: total capital required (present value of growing annuity)
+  - Output: total capital required (present value of growing annuity); scenario
+    "What if growth is 2% lower?" with extra capital; Recharts bar comparison
   - Editorial content on not saving enough for retirement
+  - FAQ schema (JSON-LD) for SEO
 
 /income-in-retirement
   - Life of Capital / Retirement Longevity Calculator
@@ -158,7 +171,7 @@ Key partners / product providers:
   - Outputs: future cost, future buying power, purchasing power lost %
 
 /income-tax-calculator
-  - South African Income Tax (PAYE) Calculator (SARS 2025/26 tables)
+  - South African Income Tax (PAYE) Calculator (SARS 2026/27 tables, Budget 2026)
   - Inputs: gross monthly salary, age (rebates for 65+, 75+)
   - Outputs: annual tax, monthly PAYE, effective rate, net monthly pay
   - Editorial on tax in retirement
@@ -201,8 +214,20 @@ Key partners / product providers:
 /everest-amethyst-living-annuity
   - Amethyst Living Annuity Calculator
   - Inputs: retirement capital, drawdown rate (2.5%–10%)
-  - Outputs: gross monthly income, estimated monthly tax (SARS 2025/26, 65+),
+  - Outputs: gross monthly income, estimated monthly tax (SARS 2026/27, 65+),
     net monthly income
+
+/insights
+  - Insights & Education placeholder
+  - Coming-soon message; links to calculators and contact
+  - Intended for future blog/articles, podcasts, resources
+
+/quiz
+  - Financial Health Quiz (multi-step, rule-based)
+  - Steps: biggest concern (retirement/estate/insurance/tax/general) → age range
+    → have you calculated retirement? → result with recommended calculator
+    and solution links
+  - Drives users to relevant calculators and contact
 
 --------------------------------------------------------------------------------
 4. SITE STRUCTURE & NAVIGATION
@@ -212,12 +237,14 @@ Header (global):
   - Logo + "AS Brokers" + FSP 17273
   - Home | Solutions (dropdown) | Calculators (dropdown) | Team
   - Client Login (opens lead form) | Contact Us
+  - Skip link: "Skip to main content" (focus-only, for accessibility)
   - Mobile: hamburger with Solutions and Calculators sections, Client Login,
     Contact Us
 
 Solutions dropdown:
   All solutions, Wealth & Retirement, Everest Wealth, Understanding Everest Wealth,
-  Personal/Business/Life insurance, Legacy & Estate, Team
+  Personal/Business/Life insurance, Legacy & Estate, Insights, Financial Health
+  Quiz, Team
 
 Calculators dropdown:
   Calculator Hub, Everest Wealth Calculators, Run-Out, Retirement Reality,
@@ -225,8 +252,10 @@ Calculators dropdown:
   Annual Estate Reduction, Premium Increase, Estate & Property Tools
 
 Footer:
+  - Compliance strip: FAIS compliant, FSCA regulated, POPIA compliant, FSP 17273
   - Brand (logo, tagline, FSP, WhatsApp button)
-  - Quick links: Home, Solutions, Calculators, Contact, Team
+  - Quick links: Home, Solutions, Calculators, Insights, Financial Health Quiz,
+    Contact, Team
   - Services: Retirement & Everest, Insurance & Risk, Estate, Understanding Everest
   - Trust badge: Authorised Financial Services Provider | FSP 17273
   - Legal: Privacy Policy, Terms of Use, Complaints Procedure, FAIS & POPIA
@@ -248,12 +277,16 @@ SolutionsBento    – Retirement, Insurance, Business, Estate, Medical cards
 HomeStatsSection  – 25+ years, FSP 17273, 1.8
 HomeValueProps    – Independent, Full-service, Personal
 HomeCtaStrip      – "Ready for a conversation?" + Contact + WhatsApp
-RunOutCalculator  – Full run-out with email capture for PDF
-ContactEnquiryForm – Contact form with dropdown and validation
+RunOutCalculator  – Full run-out with email capture for PDF; after reveal,
+                   Recharts area chart "Projection over time"
+ContactEnquiryForm – Contact form with dropdown, honeypot (bot protection),
+                     and validation
 LeadFormContext   – Global lead form modal (e.g. Client Login)
+SchemaOrg         – JSON-LD FinancialService schema (root layout)
+FAQSchema         – Reusable FAQPage JSON-LD (used on /retirement, /calculators)
 
 Calculator components (one per calculator page):
-  RetirementRealityCalculator, LifeOfCapitalCalculator,
+  RetirementRealityCalculator (incl. scenario + Recharts bar), LifeOfCapitalCalculator,
   CostOfInflationCalculator, IncomeTaxCalculator, EstateDutyCalculator,
   AnnualEstateReductionCalculator, PremiumIncreaseCalculator,
   Everest128Calculator, ImmediateHigherIncomeCalculator,
@@ -272,7 +305,10 @@ Keywords:    financial advisor, retirement planning, South Africa, insurance,
              estate planning, AS Brokers, FSP 17273
 
 Individual pages override title and description where set (e.g. /calculators,
-/contact, /everest-wealth, /everest-wealth/about).
+/contact, /everest-wealth, /everest-wealth/about, /insights, /quiz).
+
+PWA:  public/manifest.json (name, theme, start_url). Root layout references
+      manifest in metadata.
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

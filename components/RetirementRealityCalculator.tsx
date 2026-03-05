@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from "recharts";
 
 const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", maximumFractionDigits: 0 }).format(val);
@@ -59,6 +60,30 @@ export function RetirementRealityCalculator() {
       error: null as string | null,
     };
   }, [currentAge, retirementAge, lifeExpectancy, monthlyIncomeToday, inflationRate, growthRate, taxRate]);
+
+  const scenarioGrowth = Math.max(inflationRate / 100 + 0.01, (growthRate - 2) / 100);
+  const scenarioResult = useMemo(() => {
+    const yearsToRetirement = Math.max(0, retirementAge - currentAge);
+    const yearsInRetirement = Math.max(0, lifeExpectancy - retirementAge);
+    const inflationDec = inflationRate / 100;
+    const growthDec = scenarioGrowth;
+    const taxDec = taxRate / 100;
+    const futureMonthlyNetIncome = monthlyIncomeToday * Math.pow(1 + inflationDec, yearsToRetirement);
+    const futureMonthlyGrossIncome = futureMonthlyNetIncome / (1 - taxDec);
+    const firstYearAnnualWithdrawal = futureMonthlyGrossIncome * 12;
+    if (growthDec <= inflationDec) return null;
+    const pvFactor =
+      (1 - Math.pow((1 + inflationDec) / (1 + growthDec), yearsInRetirement)) / (growthDec - inflationDec);
+    return Math.round(firstYearAnnualWithdrawal * pvFactor);
+  }, [currentAge, retirementAge, lifeExpectancy, monthlyIncomeToday, inflationRate, taxRate, scenarioGrowth]);
+
+  const chartData = useMemo(() => {
+    if (!result.capital || !scenarioResult) return [];
+    return [
+      { name: "Your assumption", value: result.capital, fill: "rgb(59, 130, 246)" },
+      { name: "If growth 2% lower", value: scenarioResult, fill: "rgb(251, 146, 60)" },
+    ];
+  }, [result.capital, scenarioResult]);
 
   const inputClass =
     "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors";
@@ -180,6 +205,33 @@ export function RetirementRealityCalculator() {
                 <p className="text-zinc-500 text-xs mt-1">
                   First year gross withdrawal (approx.): {formatCurrency(result.firstYearAnnualWithdrawal)}/year
                 </p>
+              )}
+              {scenarioResult != null && result.capital != null && (
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <p className="text-zinc-400 text-sm font-medium mb-1">Scenario: what if growth is 2% lower?</p>
+                  <p className="text-amber-300 text-sm">
+                    You would need {formatCurrency(scenarioResult)} — {formatCurrency(scenarioResult - result.capital)} more.
+                  </p>
+                </div>
+              )}
+              {chartData.length > 0 && (
+                <div className="mt-4 h-32">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData} layout="vertical" margin={{ top: 0, right: 8, left: 8, bottom: 0 }}>
+                      <XAxis type="number" tick={{ fill: "#71717a", fontSize: 11 }} tickFormatter={(v) => `${(v / 1e6).toFixed(0)}M`} />
+                      <YAxis type="category" dataKey="name" tick={{ fill: "#a1a1aa", fontSize: 11 }} width={100} />
+                      <Tooltip
+                        contentStyle={{ backgroundColor: "#151518", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px" }}
+                        formatter={(value) => [typeof value === "number" ? formatCurrency(value) : "", "Capital required"]}
+                      />
+                      <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                        {chartData.map((entry, i) => (
+                          <Cell key={i} fill={entry.fill} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               )}
             </>
           )}

@@ -1,5 +1,19 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { FAQSchema } from "@/components/FAQSchema";
+
+const calculatorFAQs = [
+  {
+    question: "What calculators does AS Brokers offer?",
+    answer:
+      "We offer retirement reality, income in retirement (run-out), inflation impact, income tax, estate duty, annual estate reduction, premium increase comparison, and Everest Wealth product calculators.",
+  },
+  {
+    question: "Are calculator results financial advice?",
+    answer:
+      "No. Our calculators are educational tools to illustrate concepts and rough estimates. For personalised advice, book a consultation with an AS Brokers adviser.",
+  },
+];
 
 export const metadata = {
   title: "Financial Calculators for South Africans | AS Brokers",
@@ -184,6 +198,7 @@ function SectionHeading({ title, question }: { title: string; question: string }
 export default function CalculatorsPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <FAQSchema faqs={calculatorFAQs} />
       {/* Hero */}
       <section className="relative pt-28 pb-16 px-4 sm:px-6 md:px-8 overflow-hidden">
         <div className="absolute top-0 right-0 w-[320px] h-[320px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
 import { Lock } from "./icons";
 
 const formatCurrency = (val: number) =>
@@ -30,6 +31,11 @@ export function RunOutCalculator() {
 
   const hitZeroYear = chartData.find((d) => d.isZero)?.year ?? "> 25";
   const maxBalance = Math.max(...chartData.map((d) => d.balance), portfolio);
+
+  const lineChartData = useMemo(
+    () => [{ year: 0, balance: portfolio, display: "Start" }, ...chartData.map((d) => ({ ...d, display: `Year ${d.year}` }))],
+    [chartData, portfolio]
+  );
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -132,6 +138,33 @@ export function RunOutCalculator() {
           <span>Year 1</span>
           <span>Year {chartData.length}</span>
         </div>
+
+        {emailCaptured && (
+          <div className="mt-8 pt-8 border-t border-white/10">
+            <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-4">Projection over time</p>
+            <div className="h-48 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={lineChartData} margin={{ top: 4, right: 4, left: 4, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="rgb(59, 130, 246)" stopOpacity={0.4} />
+                      <stop offset="100%" stopColor="rgb(59, 130, 246)" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="year" tick={{ fill: "#71717a", fontSize: 11 }} axisLine={{ stroke: "rgba(255,255,255,0.1)" }} />
+                  <YAxis tick={{ fill: "#71717a", fontSize: 11 }} axisLine={false} tickFormatter={(v) => `${(v / 1e6).toFixed(0)}M`} width={36} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: "#151518", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px" }}
+                    labelStyle={{ color: "#a1a1aa" }}
+                    formatter={(value) => [typeof value === "number" ? formatCurrency(value) : String(value ?? ""), "Balance"]}
+                    labelFormatter={(_, payload) => payload[0]?.payload?.display ?? ""}
+                  />
+                  <Area type="monotone" dataKey="balance" stroke="rgb(59, 130, 246)" strokeWidth={2} fill="url(#balanceGradient)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

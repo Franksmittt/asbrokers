@@ -5,6 +5,8 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "Solutions", href: "/solutions" },
   { label: "Calculators", href: "/calculators" },
+  { label: "Insights", href: "/insights" },
+  { label: "Financial Health Quiz", href: "/quiz" },
   { label: "Contact", href: "/contact" },
   { label: "Team", href: "/team" },
 ];
@@ -26,6 +28,15 @@ const legalLinks = [
 export function Footer() {
   return (
     <footer className="relative z-10 bg-[#0a0a0c] border-t border-white/10">
+      {/* Compliance / trust strip */}
+      <div className="border-b border-white/5 py-3 px-4 sm:px-6 md:px-8">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-zinc-500">
+          <span>FAIS compliant</span>
+          <span>FSCA regulated</span>
+          <span>POPIA compliant</span>
+          <span>FSP 17273</span>
+        </div>
+      </div>
       {/* Top accent */}
       <div className="h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
 

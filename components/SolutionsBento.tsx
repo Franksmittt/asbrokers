@@ -7,7 +7,7 @@ export function SolutionsBento() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
       {/* Retirement - 2 col, 2 row */}
-      <div className="md:col-span-2 md:row-span-2 bg-gradient-to-br from-[#121214] to-[#1a1a24] rounded-[2rem] p-6 sm:p-8 md:p-12 border border-white/5 relative overflow-hidden group hover:border-blue-500/30 transition-colors">
+      <div className="md:col-span-2 md:row-span-2 glass-card glass-card-hover bg-gradient-to-br from-[#121214] to-[#1a1a24] rounded-[2rem] p-6 sm:p-8 md:p-12 border border-white/5 relative overflow-hidden group hover:border-blue-500/30 transition-colors">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-3xl rounded-full -mr-20 -mt-20 group-hover:bg-blue-600/20 transition-all duration-700" />
         <div className="relative z-10 h-full flex flex-col justify-between">
           <div>
@@ -32,7 +32,7 @@ export function SolutionsBento() {
       </div>
 
       {/* Insurance */}
-      <Link href="/solutions#insurance" className="bg-[#121214] rounded-[2rem] p-6 sm:p-8 border border-white/5 flex flex-col justify-between group hover:border-white/20 transition-colors block min-h-[200px] md:min-h-0">
+      <Link href="/solutions#insurance" className="glass-card glass-card-hover bg-[#121214] rounded-[2rem] p-6 sm:p-8 border border-white/5 flex flex-col justify-between group hover:border-white/20 transition-colors block min-h-[200px] md:min-h-0">
         <div>
           <HeartPulse className="w-8 h-8 text-red-400 mb-4" />
           <h3 className="text-xl font-bold text-white mb-2">Insurance & Risk</h3>

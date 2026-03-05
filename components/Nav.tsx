@@ -15,6 +15,8 @@ const solutionsItems = [
   { label: "Life insurance", href: "/solutions/life-insurance" },
   { label: "Business life", href: "/solutions/business-life" },
   { label: "Legacy & Estate", href: "/solutions#estate" },
+  { label: "Insights", href: "/insights" },
+  { label: "Financial Health Quiz", href: "/quiz" },
   { label: "Team", href: "/team" },
 ];
 

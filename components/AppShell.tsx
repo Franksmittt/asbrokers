@@ -9,8 +9,13 @@ import { LeadModal } from "./LeadModal";
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <LeadFormProvider>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <Nav />
-      <main className="min-h-screen">{children}</main>
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
+        {children}
+      </main>
       <QuickActionBar />
       <FloatingWhatsApp />
       <LeadModal />

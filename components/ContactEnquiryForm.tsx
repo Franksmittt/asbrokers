@@ -28,6 +28,7 @@ const schema = z.object({
   email: z.string().email("Please enter a valid email"),
   topics: z.array(z.string()).min(1, "Please select at least one topic"),
   consent: z.boolean().refine((v) => v === true, { message: "Please accept to continue" }),
+  website: z.string().max(0).optional(), // honeypot: must stay empty
 });
 
 type FormData = z.infer<typeof schema>;
@@ -51,6 +52,7 @@ export function ContactEnquiryForm() {
       email: "",
       topics: [],
       consent: false,
+      website: "",
     },
   });
 
@@ -77,6 +79,7 @@ export function ContactEnquiryForm() {
   };
 
   const onSubmit = (data: FormData) => {
+    if (data.website && String(data.website).length > 0) return; // honeypot: reject bots
     // In production: send to API
     console.log("Contact enquiry", data);
   };
@@ -141,6 +144,12 @@ export function ContactEnquiryForm() {
           className={inputClass}
         />
         {errors.email && <p className="mt-1 text-sm text-amber-400">{errors.email.message}</p>}
+      </div>
+
+      {/* Honeypot: hidden from users, leave empty. Bots that fill it get rejected. */}
+      <div className="absolute -left-[9999px] w-1 h-1 overflow-hidden" aria-hidden>
+        <label htmlFor="website">Website</label>
+        <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
       </div>
 
       <div ref={topicsRef}>

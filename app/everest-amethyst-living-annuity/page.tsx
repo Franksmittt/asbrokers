@@ -4,7 +4,7 @@ import { AmethystAnnuityCalculator } from "@/components/AmethystAnnuityCalculato
 
 export const metadata = {
   title: "Amethyst Living Annuity Calculator | Fixed 10.2% Retirement Income | AS Brokers",
-  description: "Estimate your monthly retirement income from the Amethyst living annuity. Drawdown 2.5%–17.5%, SARS tax estimate for 65+.",
+  description: "Estimate your monthly retirement income from the Amethyst living annuity. Drawdown 2.5%–17.5%, SARS 2026/27 tax estimate for 65+.",
 };
 
 export default function AmethystAnnuityPage() {
@@ -30,7 +30,7 @@ export default function AmethystAnnuityPage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-xl font-bold text-white mb-4">Understanding the Results Above</h2>
           <p className="text-zinc-400 leading-relaxed mb-4">
-            The figures illustrate how the Amethyst Living Annuity behaves based on your inputs. The investment earns a fixed net return of 10.2% per year. Returns are not linked to market movements. If your income drawdown stays below the return, capital is preserved. A 9% capital bonus is added after five years. Income figures are after estimated tax based on current SARS tables.
+            The figures illustrate how the Amethyst Living Annuity behaves based on your inputs. The investment earns a fixed net return of 10.2% per year. Returns are not linked to market movements. If your income drawdown stays below the return, capital is preserved. A 9% capital bonus is added after five years. Income figures are after estimated tax based on SARS 2026/27 tables (Budget 2026).
           </p>
           <h2 className="text-xl font-bold text-white mb-4 mt-8">Who Typically Considers the Amethyst Living Annuity</h2>
           <p className="text-zinc-400 leading-relaxed mb-2">Generally considered by retirees or pre-retirees who:</p>

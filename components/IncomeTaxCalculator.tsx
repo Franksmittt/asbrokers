@@ -6,23 +6,24 @@ const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", maximumFractionDigits: 0 }).format(val);
 
 /**
- * SARS 2025/26 tax brackets (annual taxable income).
- * Source: SARS rates for individuals 2025/2026.
+ * SARS 2026/27 tax brackets (annual taxable income).
+ * Source: Budget 2026 / SARS rates for individuals (year of assessment 2027).
+ * Rates as of Budget 2026 — consult a tax practitioner for latest.
  */
 const TAX_BRACKETS: { limit: number; baseTax: number; rate: number }[] = [
-  { limit: 237_100, baseTax: 0, rate: 0.18 },
-  { limit: 370_500, baseTax: 42_678, rate: 0.26 },
-  { limit: 512_800, baseTax: 77_362, rate: 0.31 },
-  { limit: 673_000, baseTax: 121_475, rate: 0.36 },
-  { limit: 857_900, baseTax: 179_147, rate: 0.39 },
-  { limit: 1_817_000, baseTax: 251_258, rate: 0.41 },
-  { limit: Infinity, baseTax: 644_489, rate: 0.45 },
+  { limit: 245_100, baseTax: 0, rate: 0.18 },
+  { limit: 383_100, baseTax: 44_118, rate: 0.26 },
+  { limit: 530_200, baseTax: 79_998, rate: 0.31 },
+  { limit: 695_800, baseTax: 125_599, rate: 0.36 },
+  { limit: 887_000, baseTax: 185_215, rate: 0.39 },
+  { limit: 1_878_600, baseTax: 259_783, rate: 0.41 },
+  { limit: Infinity, baseTax: 666_339, rate: 0.45 },
 ];
 
-const BRACKET_THRESHOLDS = [0, 237_100, 370_500, 512_800, 673_000, 857_900, 1_817_000];
+const BRACKET_THRESHOLDS = [0, 245_100, 383_100, 530_200, 695_800, 887_000, 1_878_600];
 
-/** Rebates 2025/26: under 65, 65–74, 75+ */
-const REBATES = [17_235, 26_679, 29_824];
+/** Rebates 2026/27: under 65 (primary), 65–74 (primary + secondary), 75+ (primary + secondary + tertiary) */
+const REBATES = [17_820, 17_820 + 9_765, 17_820 + 9_765 + 3_249];
 
 function getRebate(age: number): number {
   if (age >= 75) return REBATES[2];
@@ -74,7 +75,7 @@ export function IncomeTaxCalculator() {
     <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5">
       <h2 className="text-2xl font-bold text-white mb-2">AS Brokers – Income Tax Calculator</h2>
       <p className="text-zinc-400 text-sm mb-6">
-        Calculate your South African PAYE based on 2025/26 tax tables.
+        Calculate your South African PAYE based on 2026/27 tax tables (Budget 2026).
       </p>
 
       <div className="grid sm:grid-cols-2 gap-6">
@@ -107,7 +108,7 @@ export function IncomeTaxCalculator() {
       </div>
 
       <p className="text-zinc-500 text-xs mt-4 mb-6">
-        This calculator uses official SARS 2025/26 tax brackets and rebates.
+        This calculator uses official SARS 2026/27 tax brackets and rebates (Budget 2026).
       </p>
 
       <button
@@ -140,9 +141,9 @@ export function IncomeTaxCalculator() {
       )}
 
       <p className="text-zinc-500 text-xs mt-6">
-        About this estimate: This calculator provides an estimate based on SARS 2025/26 tax brackets and rebates. It
+        About this estimate: This calculator provides an estimate based on SARS 2026/27 tax brackets and rebates (Budget 2026). It
         does not account for UIF, medical aid tax credits, retirement fund contributions, or other deductions that may
-        reduce your tax liability. For a complete tax calculation, consult a qualified tax practitioner.
+        reduce your tax liability. Rates as of Budget 2026 — consult a qualified tax practitioner for the latest.
       </p>
     </div>
   );

@@ -3,9 +3,9 @@ import { Footer } from "@/components/Footer";
 import { IncomeTaxCalculator } from "@/components/IncomeTaxCalculator";
 
 export const metadata = {
-  title: "South African Income Tax Calculator (2025–2026) | AS Brokers",
+  title: "South African Income Tax Calculator (2026/27) | AS Brokers",
   description:
-    "Calculate your South African PAYE based on official SARS 2025/26 tax tables. See annual tax, monthly PAYE, effective tax rate and net pay.",
+    "Calculate your South African PAYE based on official SARS 2026/27 tax tables (Budget 2026). See annual tax, monthly PAYE, effective tax rate and net pay.",
 };
 
 export default function IncomeTaxCalculatorPage() {
@@ -21,10 +21,13 @@ export default function IncomeTaxCalculatorPage() {
             Income Tax Calculator
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed">
-            Calculate your South African PAYE based on official SARS 2025/26 tax tables.
+            Calculate your South African PAYE based on official SARS 2026/27 tax tables (Budget 2026).
           </p>
           <p className="text-zinc-500 mt-4">
             Enter your gross monthly salary and age to see exactly how much goes to SARS, and how much you actually take home.
+          </p>
+          <p className="text-zinc-500 text-sm mt-2">
+            Rates as of Budget 2026. Consult a tax practitioner for the latest.
           </p>
         </div>
       </section>
@@ -44,7 +47,7 @@ export default function IncomeTaxCalculatorPage() {
           </h2>
           <p className="text-zinc-400 leading-relaxed mb-4">
             The calculator above estimates your South African income tax based on the income you entered and the current
-            2025–2026 SARS tax tables. Its purpose is simple: to show you how much income you actually keep after tax,
+            2026/27 SARS tax tables (Budget 2026). Its purpose is simple: to show you how much income you actually keep after tax,
             not just what you earn before tax.
           </p>
           <p className="text-zinc-400 leading-relaxed mb-4">

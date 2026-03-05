@@ -17,6 +17,18 @@
 html {
   scroll-behavior: smooth;
 }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 body {
   background: var(--bg-primary);
@@ -63,4 +75,45 @@ input[type="range"]:focus {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Premium: button glow on focus/active */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+}
+button:active:not(:disabled),
+a[href]:active {
+  transform: scale(0.98);
+}
+
+/* Glassmorphism utility for cards */
+.glass-card {
+  background: rgba(21, 21, 24, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.glass-card-hover:hover {
+  background: rgba(21, 21, 24, 0.92);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.08);
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: #2563eb;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 1rem;
 }

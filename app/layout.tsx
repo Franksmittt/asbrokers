@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
+import { SchemaOrg } from "@/components/SchemaOrg";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
     "AS Brokers",
     "FSP 17273",
   ],
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -32,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} font-sans antialiased bg-[#0a0a0c] text-white selection:bg-blue-500 selection:text-white min-h-screen`}>
+        <SchemaOrg />
         <AppShell>{children}</AppShell>
       </body>
     </html>

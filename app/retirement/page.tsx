@@ -1,6 +1,25 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RetirementRealityCalculator } from "@/components/RetirementRealityCalculator";
+import { FAQSchema } from "@/components/FAQSchema";
+
+const retirementFAQs = [
+  {
+    question: "How much capital do I need for retirement?",
+    answer:
+      "The amount depends on your target monthly income, inflation, investment growth, tax rate, and how long you expect to live. Use our Retirement Reality Calculator to get an estimate based on your own inputs.",
+  },
+  {
+    question: "Why does the calculator show such a high number?",
+    answer:
+      "Retirement capital must fund income for 20–30+ years while inflation increases your income need each year. The calculator uses the present value of a growing annuity, so the figure reflects real purchasing power over time.",
+  },
+  {
+    question: "What if my growth rate is lower than inflation?",
+    answer:
+      "If assumed investment growth does not exceed inflation, the calculation is not valid—your capital would erode in real terms. You need growth above inflation to sustain income over a long retirement.",
+  },
+];
 
 export const metadata = {
   title: "You're Not Saving Enough for Retirement | AS Brokers",
@@ -11,6 +30,7 @@ export const metadata = {
 export default function RetirementPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <FAQSchema faqs={retirementFAQs} />
       {/* Hero */}
       <section className="relative pt-28 pb-16 px-4 sm:px-6 md:px-8 overflow-hidden">
         <div className="absolute top-0 right-0 w-[280px] h-[280px] bg-blue-600/10 blur-[80px] rounded-full pointer-events-none" />

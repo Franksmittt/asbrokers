@@ -9,10 +9,12 @@ import { Footer } from "@/components/Footer";
 
 export default function HomePage() {
   return (
-    <div className="relative overflow-hidden bg-[#0a0a0c] pb-24 md:pb-0">
-      <BackgroundOrbs />
-
-      <Hero />
+    <div className="relative bg-[#0a0a0c] pb-24 md:pb-0">
+      {/* Above the fold: only nav (in AppShell) + hero. Nothing else until scroll. */}
+      <div className="h-screen min-h-[600px] relative overflow-hidden">
+        <BackgroundOrbs />
+        <Hero />
+      </div>
 
       <TrustBar />
 

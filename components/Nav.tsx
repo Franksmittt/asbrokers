@@ -42,7 +42,8 @@ export function Nav() {
   const solutionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 0);
+    setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -67,7 +68,7 @@ export function Nav() {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
         scrolled
-          ? "bg-[#0a0a0c]/90 backdrop-blur-xl border-white/10 py-3 shadow-lg shadow-black/20"
+          ? "bg-[#0a0a0c]/80 backdrop-blur-xl border-white/10 py-3 shadow-lg shadow-black/20"
           : "bg-transparent border-transparent py-6"
       }`}
     >
@@ -177,34 +178,37 @@ export function Nav() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu - solid background for readability */}
       {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0a0a0c]/98 backdrop-blur-2xl border-b border-white/10 py-4 px-4 sm:px-6 max-h-[80vh] overflow-y-auto overscroll-contain">
-          <div className="flex flex-col gap-0">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0a0a0c] border-b border-white/10 shadow-2xl max-h-[85vh] overflow-y-auto overscroll-contain">
+          <div className="py-4 px-4 sm:px-6 flex flex-col gap-0">
+            <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest px-2 py-2">Solutions</span>
             {solutionsItems.map((item) => (
-              <Link key={item.href} href={item.href} onClick={closeMobile} className="py-3 text-zinc-300 hover:text-white font-medium">
+              <Link key={item.href} href={item.href} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-lg active:bg-white/10 -mx-1">
                 {item.label}
               </Link>
             ))}
-            <span className="text-zinc-500 text-[10px] font-medium uppercase tracking-widest px-2 py-2 mt-2">Calculators</span>
+            <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest px-2 py-3 mt-2 border-t border-white/10">Calculators</span>
             {calculatorsItems.map((item) => (
-              <Link key={item.href + item.label} href={item.href} onClick={closeMobile} className="py-2.5 pl-4 text-zinc-300 hover:text-white text-sm border-l-2 border-transparent hover:border-blue-500">
+              <Link key={item.href + item.label} href={item.href} onClick={closeMobile} className="py-2.5 pl-4 pr-2 text-zinc-200 hover:text-white hover:bg-white/5 text-sm rounded-lg -mx-1 border-l-2 border-transparent hover:border-blue-500 ml-2">
                 {item.label}
               </Link>
             ))}
-            <Link href="/team" onClick={closeMobile} className="py-3 mt-2 text-zinc-300 hover:text-white font-medium border-t border-white/5 pt-4">
-              Team
-            </Link>
-            <button
-              type="button"
-              onClick={() => { openLeadForm(); closeMobile(); }}
-              className="mt-4 w-full flex items-center justify-center gap-2 bg-white/10 border border-white/10 text-white py-3 rounded-full text-sm font-semibold"
-            >
-              <User className="w-4 h-4" /> Client Login
-            </button>
-            <Link href="/contact" onClick={closeMobile} className="mt-3 py-3 text-center text-zinc-300 hover:text-white font-medium border border-white/20 rounded-full">
-              Contact Us
-            </Link>
+            <div className="border-t border-white/10 mt-4 pt-4 flex flex-col gap-2">
+              <Link href="/team" onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-lg text-center -mx-1">
+                Team
+              </Link>
+              <button
+                type="button"
+                onClick={() => { openLeadForm(); closeMobile(); }}
+                className="w-full flex items-center justify-center gap-2 bg-white text-black py-3.5 rounded-full text-sm font-semibold hover:bg-zinc-200 active:bg-zinc-300"
+              >
+                <User className="w-4 h-4" /> Client Login
+              </button>
+              <Link href="/contact" onClick={closeMobile} className="w-full py-3.5 text-center text-white font-medium border-2 border-white/30 rounded-full hover:bg-white/10 active:bg-white/15">
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       )}

@@ -94,8 +94,8 @@ export function Nav() {
           <div className="relative" ref={solutionsRef}>
             <button
               type="button"
-              onClick={() => setSolutionsOpen(!solutionsOpen)}
-              onMouseEnter={() => setSolutionsOpen(true)}
+              onClick={() => { setSolutionsOpen(!solutionsOpen); setCalculatorsOpen(false); }}
+              onMouseEnter={() => { setSolutionsOpen(true); setCalculatorsOpen(false); }}
               className={`flex items-center gap-1 px-3 py-2 rounded-lg ${linkClass} ${solutionsOpen ? "text-white bg-white/5" : ""}`}
             >
               Solutions
@@ -125,8 +125,8 @@ export function Nav() {
           <div className="relative" ref={calculatorsRef}>
             <button
               type="button"
-              onClick={() => setCalculatorsOpen(!calculatorsOpen)}
-              onMouseEnter={() => setCalculatorsOpen(true)}
+              onClick={() => { setCalculatorsOpen(!calculatorsOpen); setSolutionsOpen(false); }}
+              onMouseEnter={() => { setCalculatorsOpen(true); setSolutionsOpen(false); }}
               className={`flex items-center gap-1 px-3 py-2 rounded-lg ${linkClass} ${calculatorsOpen ? "text-white bg-white/5" : ""}`}
             >
               Calculators

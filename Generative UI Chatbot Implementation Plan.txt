@@ -1,0 +1,213 @@
+﻿Architectural Blueprint and Implementation Plan for the AS Brokers Digital Wealth Assistant
+Executive Architectural Overview
+The technological transition into Phase 2 of the AS Brokers CC (FSP 17273) platform introduces a highly sophisticated digital wealth assistant designed specifically for high-net-worth individuals exploring Everest Wealth private equity products. Deploying Artificial Intelligence within the South African financial services sector necessitates a foundational architecture that completely eliminates the probabilistic risks and hallucination tendencies inherent in Large Language Models (LLMs). Because the platform operates under the strict regulatory framework of the Financial Sector Conduct Authority (FSCA) Category 1.8, mathematical accuracy, fiduciary compliance, and deterministic advice are non-negotiable legal imperatives.1
+To fulfill these rigorous requirements, the architecture leverages the Vercel AI SDK 3.0 integrated within a Next.js 15 App Router environment. This stack provides the necessary infrastructure to implement Generative User Interfaces (Generative UI) utilizing React Server Components (RSCs). The system is explicitly designed to transcend traditional markdown-based chatbot interactions. Instead, the architecture streams interactive, data-rich React components directly into the client's chat feed, driven by strict Tool Calling protocols.3 This paradigm ensures that the LLM acts exclusively as a natural language processing router and conversational interface, while all complex financial calculations—including retirement shortfalls, Amethyst Living Annuity drawdowns, and estate duty liabilities—are executed by proprietary, deterministic TypeScript algorithms hosted securely on the server.5
+Furthermore, to guarantee absolute adherence to the Financial Advisory and Intermediary Services (FAIS) Act, the architecture incorporates a robust Retrieval-Augmented Generation (RAG) pipeline utilizing PostgreSQL with the pgvector extension. This pipeline aggressively intercepts all user queries to retrieve and inject proprietary constraints, ensuring the digital assistant never hallucinates product terms, tax implications, or investment thresholds.7 This exhaustive report meticulously details the implementation roadmap, component boundaries, schema definitions, and deterministic mathematical models required to safely and legally deploy the AS Brokers digital wealth assistant.
+The Regulatory Imperative: FAIS Category 1.8 and AI Governance
+The integration of advanced computational models into financial advisory services operates within a highly sensitive regulatory landscape. The Financial Sector Conduct Authority (FSCA) and the Prudential Authority (PA) have recently issued comprehensive reports detailing the integration of Artificial Intelligence in the South African financial sector, emphasizing that while AI adoption is accelerating—with 52% of banking institutions already utilizing the technology—strict governance and risk management frameworks must be enforced.10
+Mitigating Algorithmic Risk and Ensuring Explainability
+Under Section 38 of the Determination of Fit and Proper Requirements for Financial Services Providers (Board Notice 194 of 2017), institutions rendering "automated advice" are subject to elevated compliance standards.2 An FSP providing automated advice must possess adequate and appropriate human resources to understand the technology and algorithms used, as well as the methodological approaches and embedded assumptions.13 This regulatory mandate directly prohibits the use of "black box" LLMs for financial calculations. If an LLM were permitted to probabilistically generate a tax calculation or a living annuity drawdown projection, the FSP would be entirely unable to monitor, control, or reconstruct the methodology behind that specific piece of advice, thereby violating FAIS requirements.1
+International regulatory bodies, such as the Consumer Financial Protection Bureau (CFPB) in the United States, have also issued stern warnings regarding the deployment of sophisticated chatbots in consumer finance. The CFPB notes that while institutions are moving toward large language models to reduce customer service costs, the technical limitations of these models often lead to significant negative outcomes, including the provision of inaccurate information and the violation of consumer protection laws.14 Furthermore, emerging legislation regarding AI systems explicitly targets the simulation of human-like relationships and the potential for consumer harm.17
+The Deterministic Mandate
+To satisfy the FSCA Category 1.8 requirements and mitigate the risks highlighted by global regulatory bodies, the AS Brokers architecture mandates a strict decoupling of natural language generation from financial computation. The LLM is structurally isolated from the mathematics. When a user requests a financial projection, the LLM is restricted to identifying the user's intent and extracting the relevant numerical parameters. These parameters are then validated against strict schemas and passed to deterministic, rule-based TypeScript functions that have been thoroughly audited and tested by human compliance officers. The output of these deterministic functions is what is presented to the user, ensuring 100% accuracy, complete methodological transparency, and full compliance with the FAIS Act.19
+Next.js 15 and the React Server Components (RSC) Paradigm
+The foundation of the digital wealth assistant is built upon Next.js 15, which inherently champions the React Server Components (RSC) architecture. This structural decision is critical for both the performance of the Generative UI and the security of the proprietary financial algorithms.21
+The Network Boundary and the RSC Payload
+Historically, React applications relied heavily on client-side rendering, where large bundles of JavaScript were transmitted to the browser, which then fetched data and constructed the UI. Next.js 15 shifts this paradigm by establishing a conceptual network boundary between the server and the client environments.22 By default, components in Next.js 15 are Server Components. They execute exclusively on the backend, allowing them to directly access databases, secure API keys, and proprietary logic without exposing any of this underlying architecture to the client's browser.21
+When the AS Brokers platform generates the AmethystLivingAnnuityCalculator, it does so on the server. The server processes the deterministic TypeScript math and constructs the React component tree. Instead of sending the heavy mathematical logic to the client, the server transmits the React Server Component Payload (RSC Payload). The RSC Payload is a highly optimized, compact binary representation of the rendered UI.25 It contains the finalized HTML structure, placeholders for interactive client-side elements, and any necessary static data props.25 This ensures that the complex, multi-tiered South African tax calculation algorithms remain completely hidden from the public internet, protecting Everest Wealth's intellectual property and ensuring that bad actors cannot manipulate the client-side code to generate fraudulent financial projections.
+Vercel AI SDK 3.0 and Generative UI Streaming
+The Vercel AI SDK 3.0 provides the critical connective tissue between the LLM's natural language processing capabilities and the Next.js 15 RSC architecture. Specifically, the SDK's streamUI functionality (and its core abstractions) allows the application to transcend plaintext responses, enabling the LLM to output rich, interactive React components directly into the chat feed.3
+The AI State versus UI State Bifurcation
+Implementing Generative UI requires solving a fundamental state management challenge: React components cannot be serialized into JSON, making it impossible to feed a generated user interface directly back into an LLM's context window for subsequent conversational turns.26 The Vercel AI SDK resolves this by bifurcating the application state into two synchronized streams: the AI State and the UI State.
+The AI State functions as the definitive, serializable JSON representation of the conversation history. It strictly records the roles (user, assistant, system, tool), the raw text inputs, the specific tool calls made by the model, and the precise JSON data returned by the deterministic mathematical tools.26 This state serves as the persistent memory for the LLM.
+Conversely, the UI State is the visual, client-facing proxy of the AI State. When the LLM triggers the calculateAmethystLivingAnnuity tool, the backend server executes the math and updates the UI State by yielding the interactive AmethystLivingAnnuityCalculator component.6 Simultaneously, the server updates the AI State by appending the raw numerical output of the calculation.19 This dual-state mechanism acts much like a Lego set: the AI State is the instruction manual detailing exactly which pieces were used and their precise numerical dimensions, while the UI State is the physical, assembled Lego structure presented to the user.26 Consequently, when the user asks a follow-up question regarding the presented calculator, the LLM possesses the exact numerical context required to answer accurately, without having to "see" the React component itself.
+The Route Handler and Streaming Protocol
+The central nervous system of the chatbot resides in the Next.js API route handler, typically located at app/api/chat/route.ts. This endpoint receives the user's UIMessage array and initializes the Vercel AI SDK's streaming functions.27 The route handler defines the specific LLM model to be used (e.g., openai('gpt-4o')), injects the overarching system prompt formulated by the RAG pipeline, and exposes the library of deterministic financial tools.4
+When the streamUI function is invoked, it opens a persistent HTTP stream to the client. If the LLM generates standard text, the text chunks are streamed progressively. However, if the user explicitly asks about their retirement shortfall, the LLM generates a tool call. The SDK automatically suspends text generation, executes the designated TypeScript tool on the server, and streams the resulting React component back through the same HTTP connection, rendering it dynamically in the user's browser.6
+Component Boundaries and Interactive Client Wrappers
+While Server Components provide unparalleled security and performance benefits, they are inherently static. They cannot utilize React hooks like useState or useEffect, nor can they attach event listeners to handle user interactions.23 Because the AmethystLivingAnnuityCalculator requires interactive sliders for users to adjust their targeted drawdown rates dynamically, the architecture must rigorously define and maintain client-server component boundaries.
+The Client Wrapper Pattern
+To resolve the tension between secure server-side execution and necessary client-side interactivity, the AS Brokers platform implements the "Client Wrapper" pattern.23 The chat stream wrapper and the parent container of the Generative UI response remain strict React Server Components. The data fetching, the tool execution, and the generation of the baseline financial projection occur entirely on the backend.
+The interactive elements within the streamed calculator are meticulously abstracted into isolated micro-components, such as DrawdownSlider.tsx and InteractiveIncomeChart.tsx. These specific files begin with the 'use client' directive, formally establishing a network boundary.22 When the server yields the AmethystLivingAnnuityCalculator via the streamUI function, it passes the deterministically calculated baseline numbers—such as the projected capital depletion curve and the initial tax liabilities—as static props to these Client Components.25
+Upon reaching the browser, these Client Components initialize localized React state using the provided static props as their default values. When the high-net-worth individual drags the slider to adjust their drawdown percentage from 5% to 7.5%, the localized state updates the visual charting elements instantaneously using pre-calculated interpolation data arrays provided by the server.31 This localized state management prevents the application from initiating a costly, high-latency network roundtrip to the LLM for every minor adjustment. Crucially, the heavy taxation algorithms and compounding interest formulas remain isolated behind the server boundary, while the client component simply manages the fluid visualization of the data.24
+Strict Tool Calling and Zod Schema Enforcement
+The integration of Tool Calling is the primary mechanism through which the architecture guarantees mathematical accuracy and prevents the LLM from hallucinating financial figures.19 Large Language Models are inherently probabilistic text prediction engines; they do not possess innate computational logic. Attempting to force an LLM to calculate compounding interest over a 20-year horizon factoring in tiered South African tax brackets will inevitably result in catastrophic mathematical failure.
+Programmatic Execution and Schema Validation
+To bypass this limitation, the LLM is provided with programmatic tools. When the model detects an intent requiring calculation, it outputs a structured JSON object requesting the execution of a specific tool, alongside the necessary arguments extracted from the user's natural language input.32
+However, LLMs can also hallucinate tool parameters, passing strings instead of integers or generating parameters that violate legal thresholds. To intercept and neutralize these errors, the Vercel AI SDK 3.0 utilizes Zod, a TypeScript-first schema declaration and validation library.4 Every tool exposed to the LLM features a rigorously defined inputSchema.
+If the LLM attempts to pass an invalid parameter, the Zod schema automatically rejects the invocation, throwing an error back to the model and forcing it to self-correct its parameters before the backend execution function is permitted to run.4
+Defining the Core Financial Schemas
+The architecture defines three critical computational tools to service the Everest Wealth product suite, each guarded by an exhaustive Zod schema.
+Tool Definition
+	Parameter Variable
+	Zod Type Definition
+	Validation Constraints
+	Description of Variable
+	calculateEstateDuty
+	grossEstateValue
+	z.number()
+	.min(0)
+	The total market value of the deceased's worldwide property.
+	calculateEstateDuty
+	liabilities
+	z.number()
+	.min(0)
+	Allowable deductions, including funeral costs and administration fees.
+	calculateEstateDuty
+	spousalInheritance
+	z.number()
+	.min(0)
+	The Section 4(q) deduction for assets left to a surviving spouse.
+	calculateEstateDuty
+	charityDonations
+	z.number()
+	.min(0)
+	Bequests made to approved public benefit organizations.
+	calculateStrategicIncome
+	capitalAmount
+	z.number()
+	.min(100000)
+	The initial lump sum investment. Must strictly meet the R100,000 threshold.
+	calcAmethystAnnuity
+	capitalAmount
+	z.number()
+	.min(100000)
+	The initial transfer amount from existing retirement funds.
+	calcAmethystAnnuity
+	drawdownPercentage
+	z.number()
+	.min(2.5).max(17.5)
+	The annual withdrawal rate, strictly bounded by South African law.
+	Table 1: Zod Input Schema Definitions for Deterministic Financial Calculation Tools.
+By establishing these strict boundaries, the inputSchema guarantees that the backend TypeScript execution functions only receive clean, typed, and legally compliant data. For instance, the Zod schema physically prevents the LLM from executing a living annuity calculation with a 20% drawdown rate, as South African legislation caps the maximum drawdown at 17.5%.34
+Deterministic Mathematical Execution Engines
+Once the Zod schema successfully validates the parameters, the Vercel AI SDK invokes the tool's execute function. This function resides entirely on the secure backend server and runs pure, deterministic TypeScript logic to calculate the exact cash flows, tax liabilities, and future estate values based on the prevailing rules set by the South African Revenue Service (SARS) and Everest Wealth's specific product documentation.
+Estate Duty Calculation Mechanics
+Estate duty in South Africa is levied under the Estate Duty Act, functioning as a tax on the transfer of wealth upon death.36 The calculation is highly structured, requiring a precise sequence of allowable deductions to arrive at the net dutiable amount. The TypeScript execution function for calculateEstateDuty follows this exact algebraic progression:
+1. Determination of Net Value: The gross value of all worldwide property is aggregated. Let    represent grossEstateValue. Allowable deductions include liabilities (  ), bequests to a surviving spouse under Section 4(q) (  ), and donations to approved public benefit organizations (  ).38
+  
+2. Application of the Section 4A Abatement: South African tax law provides a primary basic deduction (abatement) of R3,500,000.38 Let    represent this abatement. The dutiable amount is the net value minus the abatement, floor-bounded at zero.
+  
+3. Tiered Estate Duty Tax Calculation: The estate duty is levied on the dutiable amount at a progressive rate: 20% on the first R30 million, and 25% on any amount exceeding R30 million.39 If   :
+  
+If   :
+  
+The execution function calculates these variables flawlessly, returning a structured JSON object containing the gross value, net value, dutiable amount, and final tax liability. The AI SDK subsequently streams a React component visualizing this exact breakdown, while the LLM receives the numbers in its AI State to contextually advise the user on potential liquidity shortfalls within their estate.
+Strategic Income 128 Calculation Mechanics
+The Everest Wealth Strategic Income 128 Portfolio represents a core unlisted private equity and debt offering tailored for high-net-worth individuals. The product mechanics dictate a targeted annual return of 12.80%.41 Crucially, this return is generated through a preference share structure, meaning the returns are classified as dividends rather than standard interest. Therefore, the returns are subject to a flat 20% Dividends Withholding Tax (DWT) rather than the investor's marginal income tax rate, which can reach up to 45% for high earners.43
+The TypeScript execution function for calculateStrategicIncome128 processes the validated capitalAmount (which the Zod schema ensures is    R100,000):
+   1. Calculation of Gross Annual Dividend:
+Let    be the principal capital investment.
+  
+   2. Calculation of Net Annual Dividend (Applying DWT): The function deducts the 20% flat tax rate.44
+  
+This mathematically results in a net effective yield of 10.24% per annum.
+   3. Calculation of Monthly Cash Flow:
+  
+   4. Calculation of Special Dividend Bonus: The Strategic Income product offers a fixed 10% special dividend applied to the initial capital investment upon reaching maturity at the end of the 5-year term.41
+  
+The tool execution returns these precise yields. By hardcoding the 20% DWT mathematically on the server, the Generative UI component can dynamically render a comparative chart demonstrating the massive tax efficiency of the Strategic Income product against traditional interest-bearing accounts, visually representing the alpha generated by avoiding the 45% marginal tax bracket.
+Amethyst Living Annuity Calculation Mechanics
+The Amethyst Living Annuity is a post-retirement investment vehicle designed to provide flexible income. South African legislation mandates that retirees must draw down an income of between 2.5% and 17.5% of the total fund value per annum.34 The underlying Everest Wealth portfolio targets an annual return of 12.80%. Furthermore, the Amethyst product features a unique 9% Inflation Protector Special Dividend that is applied to the capital base after the initial 5-year period.31
+The calculateAmethystLivingAnnuity function utilizes a recursive algorithm to model capital depletion and growth over a multi-year horizon:
+      1. Annual Iteration and Depletion Logic:
+Let    represent the remaining capital at the start of year   . Let    represent the user-selected drawdownPercentage. The targeted portfolio growth rate    is 0.128.
+The gross annual income drawn    is calculated as:
+  
+The capital is then depleted by the income drawn, and the remainder is grown by the targeted return:
+  
+      2. Application of the Inflation Protector Bonus: When the iteration reaches   , the algorithm injects an additional 9% bonus into the capital base to combat purchasing power erosion.46
+  
+      3. Progressive Income Tax Application: Unlike the Strategic Income portfolio where returns are subjected to a flat 20% DWT, living annuity drawdowns are classified as gross income and are therefore taxed according to the progressive SARS personal income tax tables.45 The algorithm applies the exact 2024/2025 SARS tax brackets.43 Furthermore, it factors in the primary (R17,235), secondary (R9,444 for individuals over 65), and tertiary (R3,145 for individuals over 75) tax rebates to project the highly accurate net monthly income for the retiree.47
+The output of this intensive computational tool is an array of projected values spanning 5, 10, 15, and 20 years. This array is directly passed as a prop into the client-side InteractiveIncomeChart.tsx component, empowering the user to visualize capital longevity and income sustainability without relying on an LLM to guess the trajectory of compounding interest and progressive taxation.31
+Retrieval-Augmented Generation (RAG) Architecture for Compliance
+To ensure the digital wealth assistant operates strictly within the bounds of its FAIS Category 1.8 mandate, it is imperative to prevent the AI from recommending inappropriate products, misstating liquidity terms, or violating fiduciary duties. To achieve this, the architecture implements a sophisticated Retrieval-Augmented Generation (RAG) pipeline to ground the LLM's responses in Everest Wealth's proprietary documentation.9
+Vector Storage and Cosine Similarity Retrieval
+The RAG pipeline is built upon a PostgreSQL database enhanced with the pgvector extension, which enables the efficient storage and querying of high-dimensional vector embeddings.7 Drizzle ORM is employed to define a type-safe database schema, managing the tables required for raw text chunks and their corresponding mathematical vectors.50
+During the system's initialization phase, Everest Wealth's product brochures, FAIS compliance manuals, and the latest SARS tax guidelines are ingested into the system. The text is processed using semantic chunking strategies to break the documents into coherent, contextually relevant paragraphs.7 Each chunk is then passed through an advanced embedding model—such as OpenAI's text-embedding-3-small—to generate a dense vector representation. These vectors, along with the source text and metadata, are upserted into the pgvector database.49
+In a live production environment, when a high-net-worth client asks a specific question, such as, "What happens if I need to withdraw my capital from the Strategic Income portfolio early?", the backend system aggressively intercepts this query before it reaches the generative LLM. The user's query is embedded into a vector, and the system executes a cosine similarity search against the pgvector database. The database instantly retrieves the most semantically relevant text chunks—in this instance, the specific legal clauses detailing the mandatory 120-day notice period and the punitive 15% early exit penalty applicable prior to the 60-month maturity date.50
+The Interceptor System Prompt Engineering
+The retrieved textual context is not simply appended to the user's message; it is injected directly into a dynamically constructed "Interceptor System Prompt." This prompt acts as the ultimate authority, an unbreakable set of instructions governing the AI's behavior and tone.
+To guarantee absolute compliance, the baseline system prompt permanently hardcodes the critical safety constraints dictated by Everest Wealth's operational parameters, regardless of what the retrieved RAG context provides. The architecture enforces the following directives [User Query]:
+         1. Minimum Investment Enforcement: The prompt dictates that the absolute minimum investment threshold for any Everest voluntary product is R100,000.41 If the user's query implies an investment below this amount, the AI is instructed to courteously decline generating a projection and explicitly state the minimum requirement.
+         2. Liquidity Risk Disclosure: To fulfill the FSP's general duty to provide transparent and suitable information, the AI is strictly mandated to warn users of the liquidity constraints associated with private equity structures. It must explicitly articulate the mandatory 120-day notice period and highlight the potential 15% early exit penalty for exceptional withdrawals.13 This prevents the omission of material facts, actively mitigating consumer harm.20
+         3. Taxation Structuring Accuracy: The AI is instructed to accurately articulate the tax benefits of the preference share structure. It must consistently highlight the 20% flat Dividends Withholding Tax (DWT) advantage, explicitly contrasting it with the maximum marginal income tax rate (up to 45%) to ensure the user understands the specific value proposition of the product without the LLM hallucinating tax advice.43
+By continuously reinforcing these parameters through the integration of the RAG pipeline and the static system prompt, the architecture fundamentally neutralizes the risk of the LLM generating favorable but legally inaccurate product terms.
+Step-by-Step Implementation Plan
+The execution of this highly regulated architecture requires a systematic, phased deployment strategy to ensure the integrity of the component boundaries, the accuracy of the mathematical engines, and the stability of the RAG pipeline.
+Phase 1: Infrastructure and Database Initialization
+         1. PostgreSQL Configuration: Provision a production-grade PostgreSQL database instance. Execute the necessary SQL commands to enable the pgvector extension (CREATE EXTENSION IF NOT EXISTS vector;) to facilitate similarity searches.7
+         2. Drizzle ORM Setup: Configure the drizzle.config.ts file. Establish the schema.ts file to formally define the resources table (designed to store the raw text chunks) and the embeddings table (designed to store the high-dimensional vectors and map them to their corresponding resources).50
+         3. Document Ingestion Pipeline: Develop a secure backend utility script utilizing the Vercel AI SDK and Puppeteer (or a dedicated PDF parser) to ingest Everest Wealth brochures, FAIS compliance manuals, and the current SARS tax tables. Utilize a recursive character text-splitter to chunk the documents, generate embeddings via the OpenAI API, and upsert the structured data into the pgvector database.49
+Phase 2: Core Tool Development and Schema Enforcement
+         1. Zod Declaration Architecture: Create the file app/api/chat/schemas.ts. Within this file, define the strict Zod inputSchema validations for the financial tools as meticulously outlined in Table 1. Ensure all z.number() boundaries accurately reflect South African regulatory limits (e.g., the 2.5% to 17.5% living annuity drawdown rules).
+         2. Deterministic Logic Implementation: Create the file app/api/chat/tools.ts. Implement the calculateEstateDuty, calculateStrategicIncome128, and calculateAmethystLivingAnnuity asynchronous execution functions. These functions must contain the exact mathematical algorithms detailed in Section 7 of this report.54 Ensure these functions return strictly typed JSON objects representing the calculated output.
+Phase 3: Generative UI Component Engineering
+         1. React Server Components (RSC): Develop the primary calculator wrappers, specifically components/calculators/AmethystLivingAnnuityCalculator.tsx. Ensure these files do not contain the 'use client' directive. They must be engineered to accept the tool's deterministic execution output as static props and structure the foundational HTML payload.
+         2. Client Component Boundaries: Abstract the interactive elements—such as the drawdown sliders, toggle switches, and data visualization charting libraries—into entirely separate files (e.g., components/ui/DrawdownSlider.tsx). Prefix these specific files with the 'use client' directive to establish the network boundary.23 Pass the calculated data from the parent server components into these client components to hydrate their local state, enabling smooth interactivity without server roundtrips.
+Phase 4: AI Route Handler and RAG Integration
+         1. Route Initialization: Establish the core API endpoint responsible for managing the streaming connection at app/api/chat/route.ts.27
+         2. RAG Interception Mechanics: Within the POST request handler, extract the user's latest conversational query. Generate an embedding for this specific query and perform a cosine similarity search against the pgvector database to retrieve the top mathematically and contextually relevant document chunks.9
+         3. Prompt Construction: Dynamically construct the Interceptor System Prompt. Inject the retrieved RAG context alongside the hardcoded FSCA safety constraints (the R100,000 minimum threshold, the 120-day notice period, and the 20% DWT advantage).
+         4. Stream Invocation: Utilize the core Vercel AI SDK 3.0 functions (e.g., streamUI or the combination of streamText with tools yielding React nodes) to pass the highly augmented system prompt, the user's conversation history, and the defined deterministic tools to the designated LLM.55 Configure the route to return the UI message stream response to the client interface.
+Phase 5: Quality Assurance and Compliance Auditing
+         1. Boundary Integrity Testing: Conduct rigorous build analysis to verify that no heavy charting libraries or proprietary mathematical logic are leaking into the client-side JavaScript bundle. Ensure the RSC payloads represent pure HTML structures with localized interactive JS references.25
+         2. Hallucination and Adversarial Testing: Subject the chat interface to aggressive adversarial prompt injections designed to elicit non-compliant financial advice. Verify that the Zod schemas correctly and consistently reject invalid mathematical parameters, and confirm that the Interceptor System Prompt successfully overrides inappropriate recommendations, maintaining strict adherence to the FAIS Category 1.8 mandate.
+Await my explicit approval before executing the multi-file generation.
+Works cited
+         1. When are digital advisors or 'Finfluencers' regulated? - EBnet, accessed March 6, 2026, https://www.ebnet.co.za/when-are-digital-advisors-or-finfluencers-regulated/
+         2. Determination of fit and proper requirements for financial services providers, accessed March 6, 2026, https://www.gov.za/sites/default/files/gcis_document/201712/41321bn194.pdf
+         3. Introducing AI SDK 3.0 with Generative UI support - Vercel, accessed March 6, 2026, https://vercel.com/blog/ai-sdk-3-generative-ui
+         4. Tool Calling - AI SDK Core, accessed March 6, 2026, https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling
+         5. Generative User Interfaces - AI SDK UI, accessed March 6, 2026, https://ai-sdk.dev/docs/ai-sdk-ui/generative-user-interfaces
+         6. Streaming React Components - AI SDK RSC, accessed March 6, 2026, https://ai-sdk.dev/docs/ai-sdk-rsc/streaming-react-components
+         7. HamedMP/NextRag: Next.js RAG with PGVector - GitHub, accessed March 6, 2026, https://github.com/HamedMP/NextRag
+         8. Tutorial: Build RAG Chatbot with Needle and Vercel AI SDK, accessed March 6, 2026, https://docs.needle.app/docs/guides/hello-needle/vercel/
+         9. Completing the RAG Pipeline: Building a Q&A Interface with Next.js and LLMs - Medium, accessed March 6, 2026, https://medium.com/@syntax-sky/completing-the-rag-pipeline-building-a-q-a-interface-with-next-js-and-llms-af84eb4b4821
+         10. FSCA and PA publish comprehensive study into AI use in financial sector, accessed March 6, 2026, https://www.moonstone.co.za/fsca-and-pa-publish-comprehensive-study-into-ai-use-in-financial-sector/
+         11. Artificial Intelligence in the South African Financial Sector | Banks, accessed March 6, 2026, https://www.resbank.co.za/content/dam/sarb/publications/prudential-authority/pa-public-awareness/covid-19-response/2025/artificial-intelligence-in-the-south-african-financial-sector/Artificial%20Intelligence%20in%20the%20South%20African%20Financial%20Sector.pdf
+         12. An overview of the Artificial Intelligence in the South African Financial Sector report, accessed March 6, 2026, https://www.cliffedekkerhofmeyr.com/en/news/publications/2025/Practice/Corporate-Commercial/combined-corporate-and-commercial-and-technology-and-communications-alert-3-december-An-overview-of-the-Artificial-Intelligence-in-the-South-African-Financial-Sector-report
+         13. BN 80 of 8 August 2003: General Code of Conduct for Authorised Financial Services Providers and Representatives - Masthead, accessed March 6, 2026, https://www.masthead.co.za/wp-content/uploads/2022/10/BN-80-of-2003-FAIS-GCOC-June-2020.pdf
+         14. CFPB Warns About Risks of Chatbot Use in Consumer Finance, accessed March 6, 2026, https://www.consumerfinancialserviceslawmonitor.com/2023/06/cfpb-warns-about-risks-of-chatbot-use-in-consumer-finance/
+         15. Chatbots in consumer finance | Consumer Financial Protection Bureau, accessed March 6, 2026, https://www.consumerfinance.gov/data-research/research-reports/chatbots-in-consumer-finance/chatbots-in-consumer-finance/
+         16. Chatbots in consumer finance - files.consumerfinance.gov., accessed March 6, 2026, https://files.consumerfinance.gov/f/documents/cfpb_chatbot-issue-spotlight_2023-06.pdf
+         17. Analyzing the New AI Companion Chatbot Laws | Privacy + Cyber + AI, accessed March 6, 2026, https://www.troutmanprivacy.com/2026/01/analyzing-the-new-ai-companion-chatbot-laws/
+         18. Understanding the New Wave of Chatbot Legislation: California SB 243 and Beyond - FPF, accessed March 6, 2026, https://fpf.org/blog/understanding-the-new-wave-of-chatbot-legislation-california-sb-243-and-beyond/
+         19. Foundations: Tools - AI SDK, accessed March 6, 2026, https://ai-sdk.dev/docs/foundations/tools
+         20. Artificial Intelligence in the South African financial sector | FCSA AI report - Michalsons, accessed March 6, 2026, https://www.michalsons.com/blog/ai-in-the-south-african-financial-sector/80615
+         21. Client vs Server Components in Next.js 15 — A Deep Dive (With Real Examples) - Medium, accessed March 6, 2026, https://medium.com/@technoharsh21/client-vs-server-components-in-next-js-15-a-deep-dive-with-real-examples-f40af6c9d12e
+         22. React Foundations: Server and Client Components - Next.js, accessed March 6, 2026, https://nextjs.org/learn/react-foundations/server-and-client-components
+         23. Client‑Server Component Boundaries | Vercel Academy, accessed March 6, 2026, https://vercel.com/academy/nextjs-foundations/client-server-boundaries
+         24. Why Server Components Are the Secret Weapon for Generative UI - DEV Community, accessed March 6, 2026, https://dev.to/programmingcentral/why-server-components-are-the-secret-weapon-for-generative-ui-5bj1
+         25. Getting Started: Server and Client Components - Next.js, accessed March 6, 2026, https://nextjs.org/docs/app/getting-started/server-and-client-components
+         26. AI SDK RSC: Managing Generative UI State, accessed March 6, 2026, https://ai-sdk.dev/docs/ai-sdk-rsc/generative-ui-state
+         27. Next.js: Stream Text with Chat Prompt - AI SDK, accessed March 6, 2026, https://ai-sdk.dev/cookbook/next/stream-text-with-chat-prompt
+         28. Next.js: Stream Text with Image Prompt - AI SDK, accessed March 6, 2026, https://ai-sdk.dev/cookbook/next/stream-text-with-image-prompt
+         29. Can someone explain the real benefit of Next.js Server Components? I'm confused. : r/nextjs, accessed March 6, 2026, https://www.reddit.com/r/nextjs/comments/1pdsu2y/can_someone_explain_the_real_benefit_of_nextjs/
+         30. generative-ui-patterns | Skills Mark... - LobeHub, accessed March 6, 2026, https://lobehub.com/bg/skills/vanman2024-ai-dev-marketplace-generative-ui-patterns
+         31. Amethyst Living Annuity Calculator - AS Brokers, accessed March 6, 2026, https://www.asbrokers.co.za/calculator-hub/everest-wealth-calculators/amethyst-living-annuity-calculator
+         32. How to build AI Agents with Vercel and the AI SDK, accessed March 6, 2026, https://vercel.com/kb/guide/how-to-build-ai-agents-with-vercel-and-the-ai-sdk
+         33. AI SDK - Vercel, accessed March 6, 2026, https://vercel.com/docs/ai-sdk
+         34. What's a Safe Living Annuity Drawdown Rate? - Investonline, accessed March 6, 2026, https://www.investonline.co.za/insights/whats-a-safe-living-annuity-drawdown-rate/
+         35. Decoding drawdown rates: How much can you safely withdraw from your Living Annuity?, accessed March 6, 2026, https://www.10x.co.za/blog/drawdown-rates-and-your-living-annuity
+         36. Frequently Asked Questions Deceased Estates | SARS, accessed March 6, 2026, https://www.sars.gov.za/wp-content/uploads/Ops/Guides/LAPD-IT-G31-FAQs-on-Deceased-Estates.pdf
+         37. TAX GUIDE Estate Duty Guide, accessed March 6, 2026, https://saicawebprstorage.blob.core.windows.net/uploads/resources/Estate-Duty-Guide.pdf
+         38. UNDERSTANDING ESTATE DUTY: A SIMPLIFIED GUIDE TO CALCULATING THE DUTIA, accessed March 6, 2026, https://www.albaraka.co.za/blogs/legalease-3-2024/understanding-estate-duty-a-simplified-guide-to-calculating-the-dutiable-value-of-your-estate
+         39. This SARS tax pocket guide provides a summary of the most important information relating to taxes, duties and levies for 2024/25. - INCOME TAX: INDIVIDUALS AND TRUSTS, accessed March 6, 2026, https://www.treasury.gov.za/documents/national%20budget/2024/sars/Budget%202024%20Tax%20guide.pdf
+         40. South African Tax Guide 2024/2025 - RSM Global, accessed March 6, 2026, https://www.rsm.global/southafrica/sites/default/files/media/PDFs/RSM%20South%20Africa%20Tax%20Guide%202024-25.pdf
+         41. EW_OnePager_STRATEGIC INCOME PORTFOLIO_V3 - Everest Wealth, accessed March 6, 2026, https://everestwealth.co.za/wp-content/uploads/2023/04/EW_OnePager_STRATEGIC-INCOME-PORTFOLIO_V3.pdf
+         42. Strategic Income Portfolio - Everest Wealth, accessed March 6, 2026, https://everestwealth.co.za/wp-content/uploads/2024/02/Strategic-Income-Portfolio-March-2024-1.pdf
+         43. Rates of Tax for Individuals | South African Revenue Service, accessed March 6, 2026, https://www.sars.gov.za/tax-rates/income-tax/rates-of-tax-for-individuals/
+         44. Dividends vs Interests digital - Everest Wealth, accessed March 6, 2026, https://everestwealth.co.za/wp-content/uploads/2025/07/Dividends-vs-Interests-digital.pdf
+         45. Amethyst Living Annuity - Everest Wealth, accessed March 6, 2026, https://everestwealth.co.za/wp-content/uploads/2024/05/Amethyst_Brochure_v4_20_05.pdf
+         46. SIMPLE - Everest Wealth, accessed March 6, 2026, https://everestwealth.co.za/wp-content/uploads/2024/09/Amethyst_Brochure_V3.pdf
+         47. SARS Tax Brackets & Tax Tables for 2025-2026 | QuickBooks South Africa - Intuit, accessed March 6, 2026, https://quickbooks.intuit.com/za/tax-brackets-and-tax-tables/
+         48. SARS Income Tax Calculator for 2025 - Huppi, accessed March 6, 2026, https://www.huppi.io/employee/tax_calculator
+         49. Create a RAG application using Next.JS, Supabase and OpenAI's text-embedding-3-small model | by Ollie | Medium, accessed March 6, 2026, https://medium.com/@olliedoesdev/create-a-rag-application-using-next-js-supabase-and-openais-text-embedding-3-small-model-7f290c028766
+         50. RAG Agent Guide, accessed March 6, 2026, https://ai-sdk.dev/cookbook/guides/rag-chatbot
+         51. Next.js 15 + Drizzle ORM: A Beginner's Guide to CRUD Operations | by Nahom Tesfaye, accessed March 6, 2026, https://medium.com/@aslandjc7/next-js-15-drizzle-orm-a-beginners-guide-to-crud-operations-ae7f2701a8c3
+         52. EW_OnePager_STRATEGIC USD INCOME PORTFOLIO_V4 - Everest Wealth, accessed March 6, 2026, https://everestwealth.co.za/wp-content/uploads/2023/04/EW_OnePager_STRATEGIC-USD-INCOME-PORTFOLIO_V3.pdf
+         53. Tool‑Augmented RAG Chatbot: GPT‑4, pgVector & Next.js - Perficient Blogs, accessed March 6, 2026, https://blogs.perficient.com/2025/07/25/tool-augmented-rag-chatbot/
+         54. Tool Use | Vercel Academy, accessed March 6, 2026, https://vercel.com/academy/ai-sdk/tool-use
+         55. Multi-Step & Generative UI | Vercel Academy, accessed March 6, 2026, https://vercel.com/academy/ai-sdk/multi-step-and-generative-ui
+         56. Migrating from RSC to UI - AI SDK, accessed March 6, 2026, https://ai-sdk.dev/docs/ai-sdk-rsc/migrating-to-ui

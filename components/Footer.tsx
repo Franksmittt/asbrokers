@@ -5,6 +5,7 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Solutions", href: "/solutions" },
+  { label: "Chat (Wealth Assistant)", href: "/chat" },
   { label: "Calculators", href: "/calculators" },
   { label: "Insights", href: "/insights" },
   { label: "Financial Health Quiz", href: "/quiz" },

@@ -14,7 +14,8 @@ Framework:         Next.js 15 (App Router)
 Language:          TypeScript
 Styling:           Tailwind CSS
 Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
-                   Recharts (calculator charts)
+                   Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/openai,
+                   @ai-sdk/react), Drizzle ORM, pg, pgvector for Digital Wealth Assistant and RAG
 
 Purpose:
   Marketing and lead-generation website for AS Brokers CC, an independent
@@ -24,10 +25,11 @@ Purpose:
   contact and book consultations.
 
 Latest repo update:
-  March 2026: SEO & Schema implementation (Next.js SEO Plan). GlobalSchema
-  (Organization + FinancialService, XSS-safe), title template, MotionConfig
-  reducedMotion, /about, /regulatory-compliance, /insights/semigration-retirement,
-  FAQPage schemas (everest-wealth, everest-amethyst), semantic silos, investmentSchema.
+  March 2026: RAG pipeline for Digital Wealth Assistant. Drizzle ORM + pgvector schema
+  (resources, embeddings); lib/db/rag.ts cosine-similarity search; chat route injects
+  retrieved context into system prompt (baseline constraints unchanged). Build works
+  without DATABASE_URL. Earlier: Generative UI Chatbot (/chat, tools, FSCA prompt),
+  SEO & Schema (GlobalSchema, title template, MotionConfig, new pages, FAQPage, silos).
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -258,6 +260,19 @@ Key partners / product providers:
     and solution links
   - Drives users to relevant calculators and contact
 
+/chat (Digital Wealth Assistant)
+  - Chat UI (useChat, DefaultChatTransport) for conversational queries
+  - Deterministic tool-calling: estate duty, 12.8% Strategic Income, Amethyst
+    Living Annuity (server-side execution only; no LLM math)
+  - System prompt: R100k min, 120-day notice & 15% early exit disclosure, 20% DWT
+  - Tool result cards for estate duty, strategic income, amethyst outputs
+  - Links to calculators, Everest Wealth, Contact
+
+/api/chat (POST)
+  - Vercel AI SDK streamText; OpenAI gpt-4o-mini; convertToModelMessages
+  - Tools: calculateEstateDuty, calculateStrategicIncome128, calcAmethystAnnuity
+  - Schemas and execution in app/api/chat/schemas.ts and tools.ts
+
 --------------------------------------------------------------------------------
 4. SITE STRUCTURE & NAVIGATION
 --------------------------------------------------------------------------------
@@ -271,9 +286,9 @@ Header (global):
     Contact Us
 
 Solutions dropdown:
-  All solutions, Wealth & Retirement, Everest Wealth, Understanding Everest Wealth,
-  Personal/Business/Life insurance, Legacy & Estate, Insights, Financial Health
-  Quiz, Team
+  All solutions, Digital Wealth Assistant (/chat), Wealth & Retirement, Everest Wealth,
+  Understanding Everest Wealth, Personal/Business/Life insurance, Legacy & Estate,
+  Insights, Financial Health Quiz, Team
 
 Calculators dropdown:
   Calculator Hub, Everest Wealth Calculators, Run-Out, Retirement Reality,
@@ -283,8 +298,8 @@ Calculators dropdown:
 Footer:
   - Compliance strip: FAIS compliant, FSCA regulated, POPIA compliant, FSP 17273
   - Brand (logo, tagline, FSP, WhatsApp button)
-  - Quick links: Home, About, Solutions, Calculators, Insights, Financial Health Quiz,
-    Contact, Team, Regulatory & Compliance
+  - Quick links: Home, About, Solutions, Chat (Wealth Assistant), Calculators,
+    Insights, Financial Health Quiz, Contact, Team, Regulatory & Compliance
   - Services: Retirement & Everest, Insurance & Risk, Estate, Understanding Everest
   - Trust badge: Authorised Financial Services Provider | FSP 17273
   - Legal: Privacy Policy, Terms of Use, Complaints Procedure, FAIS & POPIA
@@ -323,6 +338,13 @@ FAQSchema         – Reusable FAQPage JSON-LD (XSS-safe); used on /retirement, 
                       /everest-wealth, /everest-amethyst-living-annuity
 EverestLiquidityWarning – 120-day notice, 15% early exit penalty (voluntary products)
 Skip link         – Global accessibility skip link to #main-content
+
+Digital Wealth Assistant (chat):
+  app/api/chat/route.ts   – POST handler; streamText, system prompt, three tools
+  app/api/chat/schemas.ts – Zod: calculateEstateDuty, calculateStrategicIncome128,
+                            calcAmethystAnnuity (R100k min, 2.5–17.5% drawdown)
+  app/api/chat/tools.ts   – Deterministic: estate duty, 12.8% income, Amethyst tax
+  app/chat/page.tsx       – useChat, DefaultChatTransport, tool result cards
 
 Calculator components (one per calculator page):
   RetirementRealityCalculator (incl. scenario + Recharts bar), LifeOfCapitalCalculator,
@@ -394,6 +416,67 @@ Implementation follows: Next.js SEO & Schema Implementation Plan.txt
 (Architectural blueprint: global Organization/FinancialService schemas, FAQPage
 per product/calculator, metadata keyword strategy, semantic siloing, RSC-first,
 prefers-reduced-motion, XSS-safe JSON-LD.)
+
+--------------------------------------------------------------------------------
+9. GENERATIVE UI CHATBOT (DIGITAL WEALTH ASSISTANT)
+--------------------------------------------------------------------------------
+
+Source: Generative UI Chatbot Implementation Plan.txt
+
+Architecture:
+  - LLM as router only; all financial math in deterministic TypeScript tools
+  - Zod validation on tool inputs (R100k min, 2.5–17.5% drawdown, non-negative)
+  - Baseline system prompt hardcodes FSCA constraints (R100k, 120-day notice, 15% penalty, 20% DWT)
+  - RAG pipeline: before each streamText call, the latest user message is embedded and
+    used for cosine-similarity search; retrieved chunks are injected into the
+    "Interceptor System Prompt" below the baseline (baseline unchanged)
+
+Tools:
+  - calculateEstateDuty: gross estate, liabilities, spousal inheritance, charity;
+    executor 4.025%, abatement R3.5m, duty 20%/25%
+  - calculateStrategicIncome128: capital ≥ R100k; 12.8% gross, 20% DWT, 10% bonus
+  - calcAmethystAnnuity: capital ≥ R100k, drawdown 2.5–17.5%; SARS 2026/27 65+ tax
+
+Requires: OPENAI_API_KEY in environment for /api/chat. DATABASE_URL optional (see RAG).
+
+--------------------------------------------------------------------------------
+10. RAG PIPELINE (RETRIEVAL-AUGMENTED GENERATION)
+--------------------------------------------------------------------------------
+
+Purpose: Ground the chat assistant in Everest Wealth and FAIS/SARS documentation
+via pgvector similarity search. Baseline constraints remain in code; RAG adds
+retrieved context only.
+
+Database (Drizzle ORM + PostgreSQL + pgvector):
+  - lib/db/schema.ts:
+    - resources: id, content (text), source (varchar 255), metadata (jsonb), created_at
+    - embeddings: id, resource_id (FK → resources.id ON DELETE CASCADE), embedding (vector(1536)), created_at
+    - HNSW index on embeddings.embedding with vector_cosine_ops for cosine similarity
+  - Extension: CREATE EXTENSION vector; (run manually or via custom migration)
+  - drizzle.config.ts: schema ./lib/db/schema.ts, out ./drizzle, dialect postgresql, dbCredentials.url from DATABASE_URL
+
+Retrieval:
+  - lib/db/rag.ts:
+    - getRagContext(query, limit?) → Promise<string>
+    - Embeds query via AI SDK embed + openai.embedding('text-embedding-3-small')
+    - If DATABASE_URL missing: returns "" (no DB connection)
+    - Otherwise: Drizzle select from embeddings join resources, orderBy sql`embedding <=> $vector::vector`, limit 5
+    - Returns concatenated "[Source: ...]\ncontent" blocks or "" on error
+  - lib/db/index.ts: getDb() returns Drizzle client or null; lazy pool from DATABASE_URL
+
+Chat route (app/api/chat/route.ts):
+  - getLatestUserMessageText(messages) → last user message text from parts/content
+  - systemPrompt = BASELINE_SYSTEM_PROMPT + "\n\n[Retrieved context]:\n" + (await getRagContext(latestText, 5)) or "[No relevant context retrieved.]"
+  - streamText({ system: systemPrompt, ... }) — baseline constraints untouched
+
+Environment:
+  - OPENAI_API_KEY: required for chat (and for RAG embedding)
+  - DATABASE_URL: optional; if set, RAG retrieval runs; if unset, chat still works with empty retrieved context
+
+Document ingestion:
+  - Not part of this codebase. Populate resources + embeddings via separate script or tool
+  (chunk documents → embed with text-embedding-3-small → insert into resources and embeddings).
+  - Plan: docs/RAG_IMPLEMENTATION_PLAN.md
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

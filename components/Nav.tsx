@@ -7,6 +7,7 @@ import { useLeadForm } from "./LeadFormContext";
 
 const solutionsItems = [
   { label: "All solutions", href: "/solutions" },
+  { label: "Digital Wealth Assistant", href: "/chat" },
   { label: "Wealth & Retirement", href: "/#wealth" },
   { label: "Everest Wealth", href: "/everest-wealth" },
   { label: "Understanding Everest Wealth", href: "/everest-wealth/about" },

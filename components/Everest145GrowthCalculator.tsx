@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { EverestLiquidityWarning } from "./EverestLiquidityWarning";
 
 const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(val);
@@ -45,7 +46,8 @@ export function Everest145GrowthCalculator() {
     <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5">
       <h2 className="text-2xl font-bold text-white mb-2">Strategic Growth Calculator</h2>
       <p className="text-zinc-400 text-sm mb-2">14.5% fixed compound growth · 20% flat tax on dividends</p>
-      <p className="text-zinc-500 text-sm mb-6">See what your capital becomes after 5 years of compound growth.</p>
+      <p className="text-zinc-500 text-sm mb-2">See what your capital becomes after 5 years of compound growth.</p>
+      <p className="text-zinc-500 text-xs mb-6">No monthly withdrawals; value paid at maturity (60 months).</p>
 
       <div className="mb-6">
         <label className={labelClass}>Investment amount (R)</label>
@@ -113,6 +115,7 @@ export function Everest145GrowthCalculator() {
         </>
       )}
 
+      <EverestLiquidityWarning />
       <ul className="text-zinc-500 text-xs mt-6 space-y-1">
         <li>· Fixed 14.5% compound growth per annum</li>
         <li>· No monthly income returns accumulate</li>

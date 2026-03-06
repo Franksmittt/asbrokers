@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ChevronDown } from "./icons";
+import { submitContactEnquiry } from "@/app/actions/contact";
 
 const serviceOptions = [
   { id: "everest", label: "Investment Review / Everest Wealth Quote" },
@@ -78,10 +79,17 @@ export function ContactEnquiryForm() {
     setValue("topics", next, { shouldValidate: true });
   };
 
-  const onSubmit = (data: FormData) => {
-    if (data.website && String(data.website).length > 0) return; // honeypot: reject bots
-    // In production: send to API
-    console.log("Contact enquiry", data);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const onSubmit = async (data: FormData) => {
+    if (data.website && String(data.website).length > 0) return;
+    setSubmitError(null);
+    const result = await submitContactEnquiry(data);
+    if (!result.success) {
+      setSubmitError(result.error ?? "Something went wrong. Please try again.");
+      return;
+    }
+    // Success: form state will show isSubmitSuccessful
   };
 
   if (isSubmitSuccessful) {
@@ -208,6 +216,9 @@ export function ContactEnquiryForm() {
         {errors.consent && <p className="mt-1 text-sm text-amber-400">{errors.consent.message}</p>}
       </div>
 
+      {submitError && (
+        <p className="text-sm text-amber-400 mt-2">{submitError}</p>
+      )}
       <button
         type="submit"
         className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-zinc-200 transition-colors mt-4"

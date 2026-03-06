@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { EverestLiquidityWarning } from "./EverestLiquidityWarning";
 
 const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(val);
@@ -98,6 +99,7 @@ export function Everest128Calculator() {
         </>
       )}
 
+      <EverestLiquidityWarning />
       <ul className="text-zinc-500 text-xs mt-6 space-y-1">
         <li>· Fixed 12.8% per annum for 5 years</li>
         <li>· Dividends taxed at flat 20% (not income tax)</li>

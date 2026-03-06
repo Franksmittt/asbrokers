@@ -19,7 +19,7 @@ function taxBeforeRebates(annual: number): number {
 
 const REBATES_65 = 17_820 + 9_765;
 
-const DRAWDOWN_OPTIONS = [2.5, 3, 4, 5, 6, 7, 8, 9, 10];
+const DRAWDOWN_OPTIONS = [2.5, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17.5];
 
 export function AmethystAnnuityCalculator() {
   const [retirementCapital, setRetirementCapital] = useState(2_000_000);

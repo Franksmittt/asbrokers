@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { EverestLiquidityWarning } from "./EverestLiquidityWarning";
 
 const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(val);
@@ -27,7 +28,8 @@ export function Everest142Calculator() {
   return (
     <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5">
       <h2 className="text-2xl font-bold text-white mb-2">Everest 14.2% Investment Calculator</h2>
-      <p className="text-zinc-400 text-sm mb-6">Fixed 14.2% p.a. maximum income from day one.</p>
+      <p className="text-zinc-400 text-sm mb-2">Fixed 14.2% p.a. maximum income from day one.</p>
+      <p className="text-zinc-500 text-xs mb-6">No loyalty bonus; higher immediate yield instead.</p>
 
       <div className="mb-6">
         <label className={labelClass}>Investment amount (R)</label>
@@ -71,8 +73,9 @@ export function Everest142Calculator() {
         </div>
       )}
 
+      <EverestLiquidityWarning />
       <p className="text-zinc-500 text-xs mt-6">
-        This is an illustration based on a fixed 14.2% annual return with 20% dividend tax. Not an official quote. Capital access during the term is limited. Please consult a qualified financial adviser.
+        This is an illustration based on a fixed 14.2% annual return with 20% dividend tax. Not an official quote. Please consult a qualified financial adviser.
       </p>
     </div>
   );

@@ -23,6 +23,11 @@ Purpose:
   fixed-return products, with interactive calculators and clear paths to
   contact and book consultations.
 
+Latest repo update:
+  March 2026: Rolls-Royce blueprint — agents.md, .cursor/rules, Server Action
+  contact form, Everest liquidity warnings, Amethyst drawdown 2.5–17.5%,
+  glassmorphism enhancement (blur, ring), app/calculators/CONTEXT.md.
+
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
   brackets and rebates (Budget 2026). Estate duty, donations (R100k/R200k),
@@ -30,12 +35,11 @@ Data currency (2026):
 
 Design:
   Dark theme (#0a0a0c, #151518), glassmorphism nav on scroll, gradient orbs
-  on hero (parallax/mouse-reactive via Framer Motion), glass-card styling on
-  key cards (Solutions bento, value props). Responsive (mobile, tablet, desktop)
-  with frosted header (80% opacity) when scrolling. PWA manifest for
-  installability. Accessibility: skip link to main content, prefers-reduced-motion
-  respected (orbs and animations disabled when set). See ROADMAP.md for
-  premium upgrade phases.
+  on hero (parallax/mouse-reactive via Framer Motion). Primary cards use
+  glass-card: backdrop-blur-xl, ring/border, edge illumination (see globals.css).
+  Responsive (mobile, tablet, desktop) with frosted header (80% opacity) when
+  scrolling. PWA manifest for installability. Accessibility: skip link to main
+  content, prefers-reduced-motion respected. See ROADMAP.md for phases.
 
 --------------------------------------------------------------------------------
 2. BUSINESS INFORMATION
@@ -103,6 +107,8 @@ Key partners / product providers:
     right = contact enquiry form
   - Form: name, phone, email, "What would you like to discuss?" (dropdown),
     consent checkbox; honeypot field (hidden) for bot protection
+  - Submissions via Server Action (app/actions/contact.ts); Zod server-side;
+    ready for HubSpot CRM integration
   - Trust badges: FSP 17273, 25+ years, zero advice fees on investments
 
 /team
@@ -213,7 +219,7 @@ Key partners / product providers:
 
 /everest-amethyst-living-annuity
   - Amethyst Living Annuity Calculator
-  - Inputs: retirement capital, drawdown rate (2.5%–10%)
+  - Inputs: retirement capital, drawdown rate (2.5%–17.5%, pension rules)
   - Outputs: gross monthly income, estimated monthly tax (SARS 2026/27, 65+),
     net monthly income
 
@@ -261,6 +267,11 @@ Footer:
   - Legal: Privacy Policy, Terms of Use, Complaints Procedure, FAIS & POPIA
   - Copyright AS Brokers CC
 
+PWA (installability):
+  - Manifest: /public/manifest.json
+  - Note: No service worker is implemented yet. Offline calculator support would
+    require adding a service worker (Phase 5).
+
 --------------------------------------------------------------------------------
 5. KEY COMPONENTS (NON-PAGE)
 --------------------------------------------------------------------------------
@@ -280,10 +291,12 @@ HomeCtaStrip      – "Ready for a conversation?" + Contact + WhatsApp
 RunOutCalculator  – Full run-out with email capture for PDF; after reveal,
                    Recharts area chart "Projection over time"
 ContactEnquiryForm – Contact form with dropdown, honeypot (bot protection),
-                     and validation
+                     validation; submits via submitContactEnquiry Server Action
 LeadFormContext   – Global lead form modal (e.g. Client Login)
 SchemaOrg         – JSON-LD FinancialService schema (root layout)
 FAQSchema         – Reusable FAQPage JSON-LD (used on /retirement, /calculators)
+EverestLiquidityWarning – 120-day notice, 15% early exit penalty (voluntary products)
+Skip link         – Global accessibility skip link to #main-content
 
 Calculator components (one per calculator page):
   RetirementRealityCalculator (incl. scenario + Recharts bar), LifeOfCapitalCalculator,
@@ -309,6 +322,24 @@ Individual pages override title and description where set (e.g. /calculators,
 
 PWA:  public/manifest.json (name, theme, start_url). Root layout references
       manifest in metadata.
+
+--------------------------------------------------------------------------------
+7. CURSOR AI & PROJECT MEMORY (Rolls-Royce Blueprint)
+--------------------------------------------------------------------------------
+
+Memory bank:
+  - agents.md          – Root: tech stack, business/regulatory context, architecture,
+                         Everest product constraints, liquidity warning policy
+  - app/calculators/CONTEXT.md – Formula and tax context for all calculators
+
+Cursor rules:
+  - .cursor/rules/asbrokers.mdc – RSC default, Server Actions for mutations,
+    Zod at boundaries, Tailwind glassmorphism, prefers-reduced-motion, Everest
+    R100k min and liquidity copy. alwaysApply: true.
+
+Server Actions:
+  - app/actions/contact.ts – submitContactEnquiry(payload). Zod validation;
+    honeypot check; stub for HubSpot (keys server-side only).
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

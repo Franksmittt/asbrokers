@@ -15,7 +15,8 @@ Language:          TypeScript
 Styling:           Tailwind CSS
 Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
                    Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/openai,
-                   @ai-sdk/react), Drizzle ORM, pg, pgvector for Digital Wealth Assistant and RAG
+                   @ai-sdk/react), Drizzle ORM, pg, pgvector, server-only (HubSpot),
+                   Resend (email); Trigger.dev v3 + Puppeteer (dev, background PDF jobs).
 
 Purpose:
   Marketing and lead-generation website for AS Brokers CC, an independent
@@ -25,11 +26,12 @@ Purpose:
   contact and book consultations.
 
 Latest repo update:
-  March 2026: RAG pipeline for Digital Wealth Assistant. Drizzle ORM + pgvector schema
-  (resources, embeddings); lib/db/rag.ts cosine-similarity search; chat route injects
-  retrieved context into system prompt (baseline constraints unchanged). Build works
-  without DATABASE_URL. Earlier: Generative UI Chatbot (/chat, tools, FSCA prompt),
-  SEO & Schema (GlobalSchema, title template, MotionConfig, new pages, FAQPage, silos).
+  March 2026: Phase 2 asynchronous PDF generation and email. Trigger.dev v3 task
+  generate-financial-pdf (Puppeteer + Resend): headless visit to /internal/pdf-report,
+  networkidle0, page.pdf() → buffer, email via Resend with AS_Brokers_Wealth_Projection.pdf.
+  Print route: app/internal/pdf-report (Recharts isAnimationActive={false}, A4, print CSS).
+  Contact action: after syncContactToHubSpot success, POST to Trigger API to enqueue PDF job;
+  client gets immediate success. Earlier: Phase 4 HubSpot, RAG, chatbot, SEO & Schema.
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -110,8 +112,8 @@ Key partners / product providers:
     right = contact enquiry form
   - Form: name, phone, email, "What would you like to discuss?" (dropdown),
     consent checkbox; honeypot field (hidden) for bot protection
-  - Submissions via Server Action (app/actions/contact.ts); Zod server-side;
-    ready for HubSpot CRM integration
+  - Submissions via useActionState + submitContactEnquiry (app/actions/contact.ts);
+    Zod contactFormSchema; HubSpot sync (search-patch, cumulative lead score)
   - Trust badges: FSP 17273, 25+ years, zero advice fees on investments
 
 /about
@@ -273,6 +275,12 @@ Key partners / product providers:
   - Tools: calculateEstateDuty, calculateStrategicIncome128, calcAmethystAnnuity
   - Schemas and execution in app/api/chat/schemas.ts and tools.ts
 
+/internal/pdf-report (machine-only, unlisted)
+  - Print-optimised page for headless browser (Trigger.dev task). No nav/footer in print.
+  - Reads searchParams: portfolio, drawdown; renders run-out Recharts AreaChart
+    (isAnimationActive={false}). @page A4; @media print hides all but .pdf-content.
+  - Used by generate-financial-pdf task to produce PDF attachment for Resend email.
+
 --------------------------------------------------------------------------------
 4. SITE STRUCTURE & NAVIGATION
 --------------------------------------------------------------------------------
@@ -328,8 +336,12 @@ HomeValueProps    – Independent, Full-service, Personal
 HomeCtaStrip      – "Ready for a conversation?" + Contact + WhatsApp
 RunOutCalculator  – Full run-out with email capture for PDF; after reveal,
                    Recharts area chart "Projection over time"
-ContactEnquiryForm – Contact form with dropdown, honeypot (bot protection),
-                     validation; submits via submitContactEnquiry Server Action
+ContactEnquiryForm – components/forms/ContactEnquiryForm.tsx. Main contact form
+                     (name, phone, email, topics dropdown, consent); useActionState +
+                     submitContactEnquiry(prevState, formData); pending disables inputs;
+                     honeypot; field-level errors from ContactActionState; syncs to
+                     HubSpot (search-patch, cumulative lead score). No capitalAmount
+                     on main form (calculator lead forms only).
 LeadFormContext   – Global lead form modal (e.g. Client Login)
 GlobalSchema       – Organization + FinancialService JSON-LD (root layout); XSS-safe
                       (escapeJsonLd); FSP 17273, founders, Alberton, Category 1.8
@@ -401,12 +413,25 @@ Cursor rules:
     R100k min and liquidity copy. alwaysApply: true.
 
 Server Actions:
-  - app/actions/contact.ts – submitContactEnquiry(payload). Zod validation;
-    honeypot check; stub for HubSpot (keys server-side only).
+  - app/actions/contact.ts – submitContactEnquiry(prevState, formData) for useActionState.
+    contactFormSchema (Zod); flatten().fieldErrors for UI; honeypot; syncContactToHubSpot
+    (lib/hubspot.service). After HubSpot success, triggers PDF job via POST to Trigger.dev
+    API (generate-financial-pdf) so client gets immediate success; PDF generated async.
+    Returns ContactActionState (success, message, fieldErrors).
 
 Validations:
+  - lib/validations/schema.ts – contactFormSchema (main form), financialCalculatorSchema
+    (contact + optional capitalAmount for calculator lead capture), ContactActionState.
   - lib/validations/investmentSchema.ts – investmentLeadSchema with R100,000 minimum
     (EVEREST_MIN_INVESTMENT) for Everest voluntary products; for use on lead forms.
+
+HubSpot CRM (Phase 4):
+  - lib/hubspot.service.ts – "server-only"; getContactByEmail (GET by idProperty=email,
+    returns id + platform_lead_score); syncContactToHubSpot: search-patch (PATCH if
+    exists, POST if 404). Cumulative lead score: read existing + add (+20 if
+    capitalAmount > R1M, +15 if topic short_business or trust). Properties:
+    financial_inquiry_topic (string), financial_capital_input (when capital present),
+    platform_lead_score (string). Env: HUBSPOT_ACCESS_TOKEN or HUBSPOT_PRIVATE_APP_TOKEN.
 
 --------------------------------------------------------------------------------
 8. SEO IMPLEMENTATION SOURCE
@@ -477,6 +502,35 @@ Document ingestion:
   - Not part of this codebase. Populate resources + embeddings via separate script or tool
   (chunk documents → embed with text-embedding-3-small → insert into resources and embeddings).
   - Plan: docs/RAG_IMPLEMENTATION_PLAN.md
+
+--------------------------------------------------------------------------------
+11. PHASE 2: PDF GENERATION & EMAIL (TRIGGER.DEV + RESEND)
+--------------------------------------------------------------------------------
+
+Asynchronous print route + background job so serverless timeouts and Recharts DOM
+requirements are avoided; PDFs are generated in Trigger.dev workers and emailed via Resend.
+
+Print route (app/internal/pdf-report):
+  - page.tsx: Client component; useSearchParams() for portfolio, drawdown. Run-out
+    chart data; Recharts AreaChart with isAnimationActive={false} (required for
+    Puppeteer capture). Wrapper class pdf-content for print visibility.
+  - print.css: @media print { body * hidden; .pdf-content visible }; @page { size: A4; margin: 0 }.
+  - layout: robots noindex,nofollow. No navigation/footer in DOM; print CSS isolates content.
+
+Trigger.dev (trigger/generatePdf.ts, trigger.config.ts):
+  - Task id: generate-financial-pdf. Payload: email, fullName?, portfolio?, drawdown?.
+  - Puppeteer: launch headless, goto APP_URL/internal/pdf-report?portfolio=...&drawdown=...,
+    waitUntil networkidle0, page.pdf(A4, printBackground) → buffer.
+  - Resend: send email to payload.email with subject "Your AS Brokers Wealth Projection",
+    attachment AS_Brokers_Wealth_Projection.pdf (buffer).
+  - trigger.config.ts: build.extensions [puppeteer()]. Excluded from Next tsconfig (Trigger CLI only).
+  - App triggers via HTTP: POST api.trigger.dev/api/v1/tasks/generate-financial-pdf/trigger
+    with TRIGGER_SECRET_KEY; no SDK in Next bundle.
+
+Env:
+  - Next: TRIGGER_SECRET_KEY (to enqueue job).
+  - Trigger worker: APP_URL or NEXT_PUBLIC_APP_URL, RESEND_API_KEY, RESEND_FROM (optional),
+    PUPPETEER_EXECUTABLE_PATH (optional per Trigger docs).
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

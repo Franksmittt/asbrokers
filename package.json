@@ -23,10 +23,14 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.53.0",
     "recharts": "^3.7.0",
+    "resend": "^6.9.3",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^2.5.0",
     "zod": "^3.23.0"
   },
   "devDependencies": {
+    "@trigger.dev/build": "^3.0.0",
+    "@trigger.dev/sdk": "^3.0.0",
     "@types/node": "^22.0.0",
     "@types/pg": "^8.18.0",
     "@types/react": "^19.0.0",

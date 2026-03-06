@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { ContactEnquiryForm } from "@/components/ContactEnquiryForm";
+import { ContactEnquiryForm } from "@/components/forms/ContactEnquiryForm";
 import { ShieldCheck } from "@/components/icons";
 
 const trustBadges = [

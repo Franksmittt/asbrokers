@@ -1,11 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { ChevronDown } from "./icons";
-import { submitContactEnquiry } from "@/app/actions/contact";
+import { useActionState, useState, useRef, useEffect } from "react";
+import { ChevronDown } from "@/components/icons";
+import { submitContactEnquiry, type ContactActionState } from "@/app/actions/contact";
 
 const serviceOptions = [
   { id: "everest", label: "Investment Review / Everest Wealth Quote" },
@@ -23,43 +20,18 @@ const serviceOptions = [
   { id: "general", label: "General enquiry" },
 ];
 
-const schema = z.object({
-  fullName: z.string().min(2, "Please enter your full name"),
-  phone: z.string().min(9, "Please enter a valid phone number"),
-  email: z.string().email("Please enter a valid email"),
-  topics: z.array(z.string()).min(1, "Please select at least one topic"),
-  consent: z.boolean().refine((v) => v === true, { message: "Please accept to continue" }),
-  website: z.string().max(0).optional(), // honeypot: must stay empty
-});
-
-type FormData = z.infer<typeof schema>;
-
 const inputClass =
-  "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors";
+  "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
 const labelClass = "block text-sm font-medium text-zinc-300 mb-2";
 
-export function ContactEnquiryForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitSuccessful },
-    watch,
-    setValue,
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      fullName: "",
-      phone: "",
-      email: "",
-      topics: [],
-      consent: false,
-      website: "",
-    },
-  });
+const initialState: ContactActionState = { success: false };
 
+export function ContactEnquiryForm() {
+  const [state, formAction, isPending] = useActionState(submitContactEnquiry, initialState);
+
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [topicsOpen, setTopicsOpen] = useState(false);
   const topicsRef = useRef<HTMLDivElement>(null);
-  const selectedTopics = watch("topics") || [];
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -72,27 +44,14 @@ export function ContactEnquiryForm() {
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [topicsOpen]);
+
   const toggleTopic = (id: string) => {
-    const next = selectedTopics.includes(id)
-      ? selectedTopics.filter((t) => t !== id)
-      : [...selectedTopics, id];
-    setValue("topics", next, { shouldValidate: true });
+    setSelectedTopics((prev) =>
+      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
+    );
   };
 
-  const [submitError, setSubmitError] = useState<string | null>(null);
-
-  const onSubmit = async (data: FormData) => {
-    if (data.website && String(data.website).length > 0) return;
-    setSubmitError(null);
-    const result = await submitContactEnquiry(data);
-    if (!result.success) {
-      setSubmitError(result.error ?? "Something went wrong. Please try again.");
-      return;
-    }
-    // Success: form state will show isSubmitSuccessful
-  };
-
-  if (isSubmitSuccessful) {
+  if (state.success) {
     return (
       <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5 text-center">
         <div className="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -117,47 +76,63 @@ export function ContactEnquiryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5 space-y-6">
+    <form action={formAction} className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5 space-y-6">
+      <input type="hidden" name="topics" value={JSON.stringify(selectedTopics)} />
+
       <div>
         <label htmlFor="fullName" className={labelClass}>Full name *</label>
         <input
           id="fullName"
+          name="fullName"
           type="text"
           placeholder="Full name"
-          {...register("fullName")}
           className={inputClass}
+          disabled={isPending}
+          aria-invalid={!!state.fieldErrors?.fullName}
+          aria-describedby={state.fieldErrors?.fullName ? "fullName-error" : undefined}
         />
-        {errors.fullName && <p className="mt-1 text-sm text-amber-400">{errors.fullName.message}</p>}
+        {state.fieldErrors?.fullName?.[0] && (
+          <p id="fullName-error" className="mt-1 text-sm text-amber-400">{state.fieldErrors.fullName[0]}</p>
+        )}
       </div>
 
       <div>
         <label htmlFor="phone" className={labelClass}>Phone *</label>
         <input
           id="phone"
+          name="phone"
           type="tel"
           placeholder="Phone number"
-          {...register("phone")}
           className={inputClass}
+          disabled={isPending}
+          aria-invalid={!!state.fieldErrors?.phone}
+          aria-describedby={state.fieldErrors?.phone ? "phone-error" : undefined}
         />
-        {errors.phone && <p className="mt-1 text-sm text-amber-400">{errors.phone.message}</p>}
+        {state.fieldErrors?.phone?.[0] && (
+          <p id="phone-error" className="mt-1 text-sm text-amber-400">{state.fieldErrors.phone[0]}</p>
+        )}
       </div>
 
       <div>
         <label htmlFor="email" className={labelClass}>Email *</label>
         <input
           id="email"
+          name="email"
           type="email"
           placeholder="Email address"
-          {...register("email")}
           className={inputClass}
+          disabled={isPending}
+          aria-invalid={!!state.fieldErrors?.email}
+          aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
         />
-        {errors.email && <p className="mt-1 text-sm text-amber-400">{errors.email.message}</p>}
+        {state.fieldErrors?.email?.[0] && (
+          <p id="email-error" className="mt-1 text-sm text-amber-400">{state.fieldErrors.email[0]}</p>
+        )}
       </div>
 
-      {/* Honeypot: hidden from users, leave empty. Bots that fill it get rejected. */}
       <div className="absolute -left-[9999px] w-1 h-1 overflow-hidden" aria-hidden>
         <label htmlFor="website">Website</label>
-        <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <div ref={topicsRef}>
@@ -167,8 +142,9 @@ export function ContactEnquiryForm() {
           <button
             type="button"
             onClick={() => setTopicsOpen(!topicsOpen)}
-            className={`w-full flex items-center justify-between gap-2 py-3 px-4 rounded-xl border text-left transition-colors ${
-              errors.topics ? "border-amber-500/50" : "border-white/10 hover:border-white/20"
+            disabled={isPending}
+            className={`w-full flex items-center justify-between gap-2 py-3 px-4 rounded-xl border text-left transition-colors disabled:opacity-60 ${
+              state.fieldErrors?.topics ? "border-amber-500/50" : "border-white/10 hover:border-white/20"
             } ${topicsOpen ? "border-blue-500/50 bg-white/5" : "bg-white/5"}`}
           >
             <span className="text-sm text-zinc-300 truncate">
@@ -185,12 +161,13 @@ export function ContactEnquiryForm() {
                   key={opt.id}
                   className={`flex items-center gap-3 py-2 px-4 cursor-pointer transition-colors hover:bg-white/5 ${
                     selectedTopics.includes(opt.id) ? "bg-blue-500/10" : ""
-                  }`}
+                  } ${isPending ? "pointer-events-none opacity-60" : ""}`}
                 >
                   <input
                     type="checkbox"
                     checked={selectedTopics.includes(opt.id)}
                     onChange={() => toggleTopic(opt.id)}
+                    disabled={isPending}
                     className="w-4 h-4 rounded border-white/20 bg-white/5 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
                   />
                   <span className="text-sm text-zinc-300">{opt.label}</span>
@@ -199,31 +176,39 @@ export function ContactEnquiryForm() {
             </div>
           )}
         </div>
-        {errors.topics && <p className="mt-1 text-sm text-amber-400">{errors.topics.message}</p>}
+        {state.fieldErrors?.topics?.[0] && (
+          <p className="mt-1 text-sm text-amber-400">{state.fieldErrors.topics[0]}</p>
+        )}
       </div>
 
       <div>
         <label className="flex items-start gap-3 cursor-pointer group">
           <input
             type="checkbox"
-            {...register("consent")}
-            className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-blue-500 focus:ring-blue-500"
+            name="consent"
+            value="true"
+            disabled={isPending}
+            className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-blue-500 focus:ring-blue-500 disabled:opacity-60"
           />
           <span className="text-xs text-zinc-500 group-hover:text-zinc-400">
             I consent to receive transactional messages related to my enquiry (appointment reminders, confirmations, account notifications). Message & data rates may apply. Reply HELP for help or STOP to opt out.
           </span>
         </label>
-        {errors.consent && <p className="mt-1 text-sm text-amber-400">{errors.consent.message}</p>}
+        {state.fieldErrors?.consent?.[0] && (
+          <p className="mt-1 text-sm text-amber-400">{state.fieldErrors.consent[0]}</p>
+        )}
       </div>
 
-      {submitError && (
-        <p className="text-sm text-amber-400 mt-2">{submitError}</p>
+      {state.message && !state.success && (
+        <p className="text-sm text-amber-400 mt-2" role="alert">{state.message}</p>
       )}
+
       <button
         type="submit"
-        className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-zinc-200 transition-colors mt-4"
+        disabled={isPending}
+        className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-zinc-200 transition-colors mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Request a quote / review
+        {isPending ? "Sending…" : "Request a quote / review"}
       </button>
     </form>
   );

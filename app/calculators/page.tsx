@@ -16,9 +16,9 @@ const calculatorFAQs = [
 ];
 
 export const metadata = {
-  title: "Financial Calculators for South Africans | AS Brokers",
+  title: "Financial Calculators for South Africans | AS Brokers CC",
   description:
-    "Calculators, products, and education. Retirement reality, tax and estate, life insurance, and financial planning tools for South Africans.",
+    "Retirement reality, income tax, estate duty, inflation, premium comparison, and Everest Wealth calculators. Financial planning tools for South Africans. FSP 17273.",
 };
 
 const pillarLinks = [

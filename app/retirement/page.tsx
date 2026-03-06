@@ -22,9 +22,9 @@ const retirementFAQs = [
 ];
 
 export const metadata = {
-  title: "You're Not Saving Enough for Retirement | AS Brokers",
+  title: "Retirement Reality Calculator | Semigration & Retirement Villages Western Cape",
   description:
-    "Calculate how much capital you really need for retirement. Proof is in the calculator. Retirement income planning for South Africans.",
+    "Calculate how much capital you really need for retirement. Semigration and retirement villages Western Cape planning. Proof is in the calculator. Retirement income planning for South Africans.",
 };
 
 export default function RetirementPage() {
@@ -141,6 +141,25 @@ export default function RetirementPage() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Semantic silo: retirement to Amethyst Living Annuity */}
+      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-[#151518]/50">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-2xl border border-white/10 bg-[#151518] p-6 md:p-8">
+            <h2 className="text-xl font-bold text-white mb-3">From retirement capital to income: the Amethyst Living Annuity</h2>
+            <p className="text-zinc-400 text-sm leading-relaxed mb-4">
+              If you have pension, provident, preservation or retirement annuity funds, the Amethyst Living Annuity offers a structured return profile (around 10.2% net p.a.) without the volatility of market-linked funds. Unlike pre-retirement funds governed by Regulation 28, the Amethyst operates under long-term insurance and FSCA rules, with full drawdown flexibility: you choose an annual income of between <strong className="text-zinc-300">2.5% and 17.5%</strong> of your capital. Growth inside the annuity is tax-free; only the income you draw is taxed.
+            </p>
+            <Link
+              href="/everest-amethyst-living-annuity"
+              prefetch={false}
+              className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
+            >
+              Amethyst Living Annuity calculator
+            </Link>
           </div>
         </div>
       </section>

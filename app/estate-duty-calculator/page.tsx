@@ -94,8 +94,8 @@ export default function EstateDutyCalculatorPage() {
             One of the most effective tools available to South Africans is the annual donations allowance.
           </p>
           <p className="text-zinc-400 leading-relaxed mb-4">
-            By using the R100,000 per person per year exemption and redirecting growth outside your personal estate,
-            future estate duty can be reduced without drastic once-off decisions.
+            South African tax residents may donate up to <strong className="text-zinc-300">R100,000 per individual</strong> or{" "}
+            <strong className="text-zinc-300">R200,000 per married couple</strong> each tax year free of donations tax. By using this exemption and redirecting growth outside your personal estate (for example into a family trust), future estate duty can be reduced without drastic once-off decisions.
           </p>
           <p className="text-zinc-400 leading-relaxed mb-2">
             This result is not a prediction.
@@ -117,9 +117,10 @@ export default function EstateDutyCalculatorPage() {
           </p>
           <Link
             href="/annual-estate-reduction-strategy"
+            prefetch={false}
             className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
           >
-            Calculate your annual estate reduction strategy
+            Calculate your annual estate reduction strategy (R100k / R200k)
           </Link>
         </div>
       </section>

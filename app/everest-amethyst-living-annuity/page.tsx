@@ -1,15 +1,36 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { AmethystAnnuityCalculator } from "@/components/AmethystAnnuityCalculator";
+import { FAQSchema } from "@/components/FAQSchema";
 
 export const metadata = {
-  title: "Amethyst Living Annuity Calculator | Fixed 10.2% Retirement Income | AS Brokers",
-  description: "Estimate your monthly retirement income from the Amethyst living annuity. Drawdown 2.5%–17.5%, SARS 2026/27 tax estimate for 65+.",
+  title: "Amethyst Living Annuity | Fixed 10.2% Retirement Income | AS Brokers CC",
+  description:
+    "Amethyst Living Annuity for pension, provident, preservation and RA funds. Drawdown 2.5%–17.5%. Non-Regulation 28. Tax-sheltered growth. SARS 2026/27 estimate for 65+.",
 };
+
+const amethystFAQs = [
+  {
+    question: "Is the Amethyst Living Annuity subject to Regulation 28?",
+    answer:
+      "The Amethyst Living Annuity is governed by the Long-term Insurance Act and FSCA regulations applicable to living annuities. It is not restricted by Regulation 28 of the Pension Funds Act (which applies to pension and RA funds before retirement). This allows greater investment flexibility, including exposure to the structured return profile that targets around 10.2% net per annum.",
+  },
+  {
+    question: "What drawdown rates can I choose?",
+    answer:
+      "Pension fund rules for living annuities allow an annual drawdown of between 2.5% and 17.5% of the capital value. You can select a rate within this range to match your income needs. The Amethyst product targets a structured net return of approximately 10.2% per year; if your drawdown is below the return, capital can be preserved or grow.",
+  },
+  {
+    question: "How is tax applied to the Amethyst Living Annuity?",
+    answer:
+      "Growth inside the annuity is tax-free. Only the income you draw down is taxed at your marginal income tax rate (e.g. under SARS 2026/27 tables). This is different from interest or rental income outside an annuity wrapper, which are fully taxable at your marginal rate.",
+  },
+];
 
 export default function AmethystAnnuityPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <FAQSchema faqs={amethystFAQs} />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">AS Brokers</p>

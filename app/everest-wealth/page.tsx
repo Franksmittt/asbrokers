@@ -1,10 +1,35 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { FAQSchema } from "@/components/FAQSchema";
 
 export const metadata = {
-  title: "Everest Wealth Products | Fixed-Return Retirement Investments SA | AS Brokers",
-  description: "Which Everest product fits your retirement? 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity.",
+  title: "Everest Wealth Products | Alternative Private Equity Investments South Africa",
+  description:
+    "Everest Wealth brokers: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity. Fixed-return alternative private equity investments South Africa. FSP 17273.",
 };
+
+const everestWealthFAQs = [
+  {
+    question: "How are Everest Wealth returns taxed compared to interest?",
+    answer:
+      "Returns from Everest Wealth unlisted preference shares are distributed as dividends and subject to a flat 20% Dividends Withholding Tax (DWT) at source. Interest income and salary are taxed at your marginal income tax rate, which can be up to 45%. For high earners, the 20% DWT can preserve significantly more of your yield than marginal tax on interest.",
+  },
+  {
+    question: "What is the minimum investment for Everest voluntary products?",
+    answer:
+      "Participation in the Strategic Growth, Strategic Income, or Onyx Income+ portfolios requires a minimum lump-sum investment of R100,000. This threshold is set by the product issuer and is enforced for all investors.",
+  },
+  {
+    question: "Can I withdraw my capital early from Everest voluntary products?",
+    answer:
+      "Everest Wealth voluntary capital products are illiquid. Redemptions are not an automatic investor right and are subject to the discretion of the security issuer. If an exceptional early withdrawal is approved, you must give a 120-day notice period. An early exit penalty of up to 15% of the capital amount may be applied to protect the fund and remaining shareholders.",
+  },
+  {
+    question: "Why is there a 120-day notice and 15% early exit penalty?",
+    answer:
+      "Unlisted private equity is illiquid by nature. The 120-day notice and potential 15% early exit penalty protect the underlying assets and remaining investors from sudden liquidity demands. They are disclosed in the product terms and form part of the structural risk of these alternative investments.",
+  },
+];
 
 const trustPoints = [
   "Everest Wealth FSP 795",
@@ -83,6 +108,7 @@ const amethystOption = {
 export default function EverestWealthPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <FAQSchema faqs={everestWealthFAQs} />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">AS Brokers</p>

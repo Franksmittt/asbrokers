@@ -3,12 +3,14 @@ import { ShieldCheck } from "./icons";
 
 const quickLinks = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Solutions", href: "/solutions" },
   { label: "Calculators", href: "/calculators" },
   { label: "Insights", href: "/insights" },
   { label: "Financial Health Quiz", href: "/quiz" },
   { label: "Contact", href: "/contact" },
   { label: "Team", href: "/team" },
+  { label: "Regulatory & Compliance", href: "/regulatory-compliance" },
 ];
 
 const serviceLinks = [

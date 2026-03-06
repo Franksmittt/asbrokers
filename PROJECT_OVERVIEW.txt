@@ -24,9 +24,10 @@ Purpose:
   contact and book consultations.
 
 Latest repo update:
-  March 2026: Rolls-Royce blueprint — agents.md, .cursor/rules, Server Action
-  contact form, Everest liquidity warnings, Amethyst drawdown 2.5–17.5%,
-  glassmorphism enhancement (blur, ring), app/calculators/CONTEXT.md.
+  March 2026: SEO & Schema implementation (Next.js SEO Plan). GlobalSchema
+  (Organization + FinancialService, XSS-safe), title template, MotionConfig
+  reducedMotion, /about, /regulatory-compliance, /insights/semigration-retirement,
+  FAQPage schemas (everest-wealth, everest-amethyst), semantic silos, investmentSchema.
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -111,9 +112,25 @@ Key partners / product providers:
     ready for HubSpot CRM integration
   - Trust badges: FSP 17273, 25+ years, zero advice fees on investments
 
+/about
+  - Independent Financial Advisor Alberton; about AS Brokers CC
+  - FSP 17273, Category 1.8, Alberton; links to Team and Contact
+  - Metadata targets "independent financial advisor Alberton"
+
+/regulatory-compliance
+  - Code 1.8 FSP license broker; FSCA Category 1.8 (Securities and Instruments: Shares)
+  - What Category 1.8 means; regulatory identifiers (AS Brokers FSP 17273, Everest FSP 795)
+  - Metadata targets "Code 1.8 FSP license broker"
+
+/insights/semigration-retirement
+  - Semigration & retirement villages Western Cape; HNWI relocation planning
+  - Links to Retirement calculator, Amethyst Living Annuity, Contact
+  - Metadata targets "semigration", "retirement villages western cape"
+
 /team
   - Introduces Albert Schuurman and Johnny Farinha
   - Roles, short bios, and FSP 17273 trust line
+  - Metadata: independent financial advisors Alberton
 
 /solutions
   - Solutions hub grouped by category:
@@ -144,6 +161,8 @@ Key partners / product providers:
   - Amethyst Living Annuity (pension/RA money)
   - Trust points (Everest FSP 795, fixed returns, zero broker fees)
   - Link to "Understanding Everest Wealth" (/everest-wealth/about)
+  - FAQPage JSON-LD: DWT 20% vs marginal tax, R100k min, 120-day notice, 15% early exit
+  - Metadata: alternative private equity investments South Africa, Everest Wealth brokers
 
 /everest-wealth/about
   - Detailed "Everest Wealth Explained" page
@@ -163,7 +182,9 @@ Key partners / product providers:
   - Output: total capital required (present value of growing annuity); scenario
     "What if growth is 2% lower?" with extra capital; Recharts bar comparison
   - Editorial content on not saving enough for retirement
+  - Semantic silo: CTA section linking to Amethyst Living Annuity (non-Reg 28, 2.5–17.5% drawdown)
   - FAQ schema (JSON-LD) for SEO
+  - Metadata: semigration, retirement villages Western Cape
 
 /income-in-retirement
   - Life of Capital / Retirement Longevity Calculator
@@ -186,6 +207,7 @@ Key partners / product providers:
   - South African Estate Duty Calculator
   - Inputs: gross estate, liabilities, bequests to spouse
   - Outputs: executor fees, estate duty (20%/25% brackets), total estate costs
+  - Semantic silo: bridge copy R100k/R200k donations tax; CTA to Annual Estate Reduction Strategy
 
 /annual-estate-reduction-strategy
   - Annual Estate Reduction / Trust Donation Calculator
@@ -222,6 +244,7 @@ Key partners / product providers:
   - Inputs: retirement capital, drawdown rate (2.5%–17.5%, pension rules)
   - Outputs: gross monthly income, estimated monthly tax (SARS 2026/27, 65+),
     net monthly income
+  - FAQPage JSON-LD: non-Regulation 28, 2.5–17.5% drawdown, tax on drawdown
 
 /insights
   - Insights & Education placeholder
@@ -260,8 +283,8 @@ Calculators dropdown:
 Footer:
   - Compliance strip: FAIS compliant, FSCA regulated, POPIA compliant, FSP 17273
   - Brand (logo, tagline, FSP, WhatsApp button)
-  - Quick links: Home, Solutions, Calculators, Insights, Financial Health Quiz,
-    Contact, Team
+  - Quick links: Home, About, Solutions, Calculators, Insights, Financial Health Quiz,
+    Contact, Team, Regulatory & Compliance
   - Services: Retirement & Everest, Insurance & Risk, Estate, Understanding Everest
   - Trust badge: Authorised Financial Services Provider | FSP 17273
   - Legal: Privacy Policy, Terms of Use, Complaints Procedure, FAIS & POPIA
@@ -293,8 +316,11 @@ RunOutCalculator  – Full run-out with email capture for PDF; after reveal,
 ContactEnquiryForm – Contact form with dropdown, honeypot (bot protection),
                      validation; submits via submitContactEnquiry Server Action
 LeadFormContext   – Global lead form modal (e.g. Client Login)
-SchemaOrg         – JSON-LD FinancialService schema (root layout)
-FAQSchema         – Reusable FAQPage JSON-LD (used on /retirement, /calculators)
+GlobalSchema       – Organization + FinancialService JSON-LD (root layout); XSS-safe
+                      (escapeJsonLd); FSP 17273, founders, Alberton, Category 1.8
+MotionConfigProvider – Framer Motion reducedMotion="user" for vestibular accessibility
+FAQSchema         – Reusable FAQPage JSON-LD (XSS-safe); used on /retirement, /calculators,
+                      /everest-wealth, /everest-amethyst-living-annuity
 EverestLiquidityWarning – 120-day notice, 15% early exit penalty (voluntary products)
 Skip link         – Global accessibility skip link to #main-content
 
@@ -306,22 +332,37 @@ Calculator components (one per calculator page):
   EverestStrategicGrowth145Calculator, AmethystLivingAnnuityCalculator
 
 --------------------------------------------------------------------------------
-6. METADATA (DEFAULT)
+6. METADATA & TECHNICAL SEO
 --------------------------------------------------------------------------------
 
-Title:       AS Brokers | The Private Vault
-Description: 25+ years helping South Africans with retirement planning,
-             insurance, estate structuring & business continuity. Albert
-             Schuurman & Johnny Farinha. Independent Authorised Financial
-             Service Provider.
-Keywords:    financial advisor, retirement planning, South Africa, insurance,
-             estate planning, AS Brokers, FSP 17273
+Root layout:
+  Title template:  %s | AS Brokers CC
+  Default title:   AS Brokers CC | Independent Financial Advisor Alberton
+  Description:     25+ years; retirement, insurance, estate, Code 1.8.
+  Keywords:        independent financial advisor Alberton, Code 1.8 FSP license broker,
+                   Everest Wealth brokers, alternative private equity investments South Africa, ...
+  OpenGraph:       type website, locale en_ZA, siteName AS Brokers CC
 
-Individual pages override title and description where set (e.g. /calculators,
-/contact, /everest-wealth, /everest-wealth/about, /insights, /quiz).
+Page-level metadata (keyword targeting per SEO plan):
+  /about                    – independent financial advisor Alberton
+  /contact (layout)         – independent financial advisor Alberton
+  /regulatory-compliance    – Code 1.8 FSP license broker
+  /everest-wealth           – alternative private equity South Africa, Everest Wealth brokers
+  /retirement               – semigration, retirement villages Western Cape
+  /insights/semigration-retirement – semigration, retirement villages Western Cape
+  /team                     – independent financial advisors Alberton
 
-PWA:  public/manifest.json (name, theme, start_url). Root layout references
-      manifest in metadata.
+Structured data:
+  GlobalSchema (root): Organization + FinancialService @graph; legalName AS Brokers CC;
+    FSP 17273, founders, Alberton address; XSS-safe JSON-LD.
+  FAQSchema: FAQPage on /calculators, /retirement, /everest-wealth, /everest-amethyst-living-annuity;
+    escapeJsonLd for safe script injection.
+
+Semantic silos (internal linking):
+  Retirement page → Amethyst Living Annuity (Reg 28, 2.5–17.5% drawdown bridge copy).
+  Estate duty calculator → Annual Estate Reduction Strategy (R100k/R200k donations copy).
+
+PWA:  public/manifest.json (name, theme, start_url). Root layout references manifest.
 
 --------------------------------------------------------------------------------
 7. CURSOR AI & PROJECT MEMORY (Rolls-Royce Blueprint)
@@ -340,6 +381,19 @@ Cursor rules:
 Server Actions:
   - app/actions/contact.ts – submitContactEnquiry(payload). Zod validation;
     honeypot check; stub for HubSpot (keys server-side only).
+
+Validations:
+  - lib/validations/investmentSchema.ts – investmentLeadSchema with R100,000 minimum
+    (EVEREST_MIN_INVESTMENT) for Everest voluntary products; for use on lead forms.
+
+--------------------------------------------------------------------------------
+8. SEO IMPLEMENTATION SOURCE
+--------------------------------------------------------------------------------
+
+Implementation follows: Next.js SEO & Schema Implementation Plan.txt
+(Architectural blueprint: global Organization/FinancialService schemas, FAQPage
+per product/calculator, metadata keyword strategy, semantic siloing, RSC-first,
+prefers-reduced-motion, XSS-safe JSON-LD.)
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

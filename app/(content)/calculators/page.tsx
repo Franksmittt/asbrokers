@@ -159,27 +159,27 @@ function CalculatorCard({
     <Link
       href={href}
       prefetch={false}
-      className={`group block bg-[#151518] rounded-[2rem] border border-white/5 hover:border-white/20 transition-all ${
+      className={`group block rim-light rounded-[2rem] border-0 hover:bg-white/[0.07] transition-all duration-500 ${
         featured ? "p-6 md:p-8 lg:p-10 max-w-3xl mx-auto" : "p-6 md:p-8"
       }`}
     >
-      <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">{tag}</span>
-      <h3 className={`font-bold text-white mt-2 mb-3 group-hover:text-blue-300 transition-colors ${featured ? "text-xl md:text-2xl" : "text-xl"}`}>
+      <span className="text-xs font-semibold text-cinematic-teal uppercase tracking-[0.15em]">{tag}</span>
+      <h3 className={`font-bold text-white mt-2 mb-3 tracking-tight group-hover:text-cinematic-teal/90 transition-colors duration-300 ${featured ? "text-xl md:text-2xl" : "text-xl"}`}>
         {title}
       </h3>
-      <p className="text-zinc-400 text-sm leading-relaxed mb-4">{description}</p>
+      <p className="text-gray-400 text-sm leading-relaxed mb-4 tracking-[0.01em]">{description}</p>
       <ul className="space-y-1.5 mb-4">
         {bullets.map((b) => (
-          <li key={b} className="text-zinc-500 text-sm flex items-start gap-2">
-            <span className="text-blue-400 mt-0.5">→</span>
+          <li key={b} className="text-gray-500 text-sm flex items-start gap-2">
+            <span className="text-cinematic-teal mt-0.5">→</span>
             <span>{b}</span>
           </li>
         ))}
       </ul>
-      <p className="text-zinc-500 text-xs mb-4">
-        <span className="text-zinc-400">Leads to:</span> {leadsTo}
+      <p className="text-gray-500 text-xs mb-4">
+        <span className="text-gray-400">Leads to:</span> {leadsTo}
       </p>
-      <span className="inline-flex items-center gap-1 text-blue-400 text-sm font-medium group-hover:gap-2 transition-all">
+      <span className="inline-flex items-center gap-1 text-cinematic-teal text-sm font-medium group-hover:gap-2 transition-all duration-300">
         Open calculator
       </span>
     </Link>
@@ -197,33 +197,34 @@ function SectionHeading({ title, question }: { title: string; question: string }
 
 export default function CalculatorsPage() {
   return (
-    <div className="bg-[#0a0a0c] min-h-screen">
+    <div className="bg-void min-h-screen">
       <FAQSchema faqs={calculatorFAQs} />
       {/* Hero */}
       <section className="relative pt-28 pb-16 px-4 sm:px-6 md:px-8 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[320px] h-[320px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-cinematic-teal/20 blur-[150px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gold-orange/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="relative max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <p className="text-zinc-500 text-xs font-medium uppercase tracking-[0.2em] mb-3">
                 AS Brokers
               </p>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 leading-[1.15]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-white mb-4 leading-[1.15]">
                 Calculators. Products. Education.
               </h1>
-              <p className="text-lg text-zinc-400 leading-relaxed max-w-xl">
+              <p className="text-lg text-gray-400 leading-relaxed max-w-xl tracking-[0.01em]">
                 Everything you need to understand your retirement, protect your wealth, and take control of your financial future.
               </p>
             </div>
             <div className="lg:col-span-5">
-              <div className="rounded-2xl bg-[#151518] border border-white/10 p-5 md:p-6">
+              <div className="rounded-[2rem] rim-light p-5 md:p-6">
                 <p className="text-zinc-500 text-xs font-semibold uppercase tracking-wider mb-4">Jump to section</p>
                 <nav className="flex flex-col gap-2">
                   {pillarLinks.map((item) => (
                     <a
                       key={item.href}
                       href={item.href}
-                      className="block py-3 px-4 rounded-xl text-white font-medium text-sm hover:bg-white/10 transition-colors border border-transparent hover:border-white/10"
+                      className="block py-3 px-4 rounded-2xl text-white font-medium text-sm hover:bg-white/10 transition-colors duration-300"
                     >
                       {item.label}
                     </a>
@@ -321,10 +322,10 @@ export default function CalculatorsPage() {
             <Link
               href="/contact"
               prefetch={false}
-              className="group block bg-[#151518] rounded-[2rem] p-6 md:p-8 lg:p-10 border border-white/5 hover:border-white/20 transition-all"
+              className="group block rim-light rounded-[2rem] p-6 md:p-8 lg:p-10 border-0 hover:bg-white/[0.07] transition-all duration-500"
             >
-              <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">Education & Growth</span>
-              <h3 className="text-xl md:text-2xl font-bold text-white mt-2 mb-3 group-hover:text-blue-300 transition-colors">
+              <span className="text-xs font-semibold text-cinematic-teal uppercase tracking-[0.15em]">Education & Growth</span>
+              <h3 className="text-xl md:text-2xl font-bold text-white mt-2 mb-3 tracking-tight group-hover:text-cinematic-teal/90 transition-colors">
                 The Cost of Not Learning
               </h3>
               <p className="text-zinc-400 text-sm leading-relaxed mb-4">
@@ -340,16 +341,16 @@ export default function CalculatorsPage() {
                   "Why the best time to start learning was yesterday, and the second best is today",
                   "The difference between hoping for growth and building it yourself",
                 ].map((b) => (
-                  <li key={b} className="text-zinc-500 text-sm flex items-start gap-2">
-                    <span className="text-blue-400 mt-0.5">→</span>
+                  <li key={b} className="text-gray-500 text-sm flex items-start gap-2">
+                    <span className="text-cinematic-teal mt-0.5">→</span>
                     <span>{b}</span>
                   </li>
                 ))}
               </ul>
-              <p className="text-zinc-500 text-xs mb-4">
-                <span className="text-zinc-400">Leads to:</span> Financial education resources, structured learning programmes, and the tools to take control of your own investment growth.
+              <p className="text-gray-500 text-xs mb-4">
+                <span className="text-gray-400">Leads to:</span> Financial education resources, structured learning programmes, and the tools to take control of your own investment growth.
               </p>
-              <span className="inline-flex items-center gap-1 text-blue-400 text-sm font-medium group-hover:gap-2 transition-all">
+              <span className="inline-flex items-center gap-1 text-cinematic-teal text-sm font-medium group-hover:gap-2 transition-all duration-300">
                 Get in touch
               </span>
             </Link>
@@ -390,7 +391,7 @@ export default function CalculatorsPage() {
           <Link
             href="/contact"
             prefetch={false}
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
+            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-[2rem] hover:bg-zinc-200 hover:scale-[1.03] hover:shadow-cta-glow-gold transition-all duration-500"
           >
             Assess your business risk
           </Link>
@@ -400,23 +401,23 @@ export default function CalculatorsPage() {
       {/* Next step: from numbers to a plan */}
       <section className="py-16 md:py-20 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <div className="rounded-[2rem] bg-gradient-to-br from-[#151518] to-[#1a1a24] border border-white/10 p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-teal-600/5 pointer-events-none" />
+          <div className="rounded-[2rem] rim-light p-8 md:p-12 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-cinematic-teal/10 to-gold-orange/5 pointer-events-none" />
             <div className="relative text-center">
-              <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-4">
+              <p className="text-cinematic-teal text-xs font-semibold uppercase tracking-[0.2em] mb-4">
                 From numbers to a plan
               </p>
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                 Clarity from the calculators. Confidence from a conversation.
               </h2>
-              <p className="text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+              <p className="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed tracking-[0.01em]">
                 These tools surface the gaps. We help you close them with advice that&apos;s logical, structured, and backed by the same numbers you just ran.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   href="/contact"
                   prefetch={false}
-                  className="w-full sm:w-auto inline-flex items-center justify-center bg-white text-black font-bold px-8 py-4 rounded-full hover:bg-zinc-200 transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center bg-white text-black font-bold px-8 py-4 rounded-[2rem] hover:bg-zinc-200 hover:scale-[1.03] hover:shadow-cta-glow-gold transition-all duration-500"
                 >
                   Request a review
                 </Link>
@@ -424,7 +425,7 @@ export default function CalculatorsPage() {
                   href="https://wa.me/27672429946"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-8 py-4 rounded-full transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center rim-light hover:bg-white/15 text-white font-semibold px-8 py-4 rounded-[2rem] transition-all duration-500"
                 >
                   WhatsApp 067 242 9946
                 </a>
@@ -442,20 +443,20 @@ export default function CalculatorsPage() {
               href="https://wa.me/27672429946"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors"
             >
               WhatsApp 067 242 9946
             </a>
-            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-cinematic-teal hover:underline">
               Income in retirement
             </Link>
-            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-cinematic-teal hover:underline">
               Insurance & risk planning
             </Link>
-            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-cinematic-teal hover:underline">
               Estate planning
             </Link>
-            <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">
+            <Link href="/solutions" prefetch={false} className="text-cinematic-teal hover:underline">
               Business insurance
             </Link>
           </div>

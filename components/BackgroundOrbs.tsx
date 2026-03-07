@@ -3,15 +3,16 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-const springConfig = { damping: 30, stiffness: 100 };
+const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
+const springConfig = { damping: 35, stiffness: 60 };
 
 export function BackgroundOrbs() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const x1 = useSpring(mouseX, springConfig);
   const y1 = useSpring(mouseY, springConfig);
-  const x2 = useSpring(mouseX, { ...springConfig, stiffness: 60 });
-  const y2 = useSpring(mouseY, { ...springConfig, stiffness: 60 });
+  const x2 = useSpring(mouseX, { ...springConfig, stiffness: 40 });
+  const y2 = useSpring(mouseY, { ...springConfig, stiffness: 40 });
   const [mounted, setMounted] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -49,33 +50,35 @@ export function BackgroundOrbs() {
   if (!mounted) {
     return (
       <>
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 blur-[150px] rounded-full pointer-events-none" aria-hidden />
-        <div className="absolute top-[30%] right-[-10%] w-[30%] h-[50%] bg-teal-500/10 blur-[150px] rounded-full pointer-events-none" aria-hidden />
+        <div className="absolute top-[-20%] left-[-15%] w-[70%] h-[70%] bg-[#008080]/25 blur-[180px] rounded-full pointer-events-none" aria-hidden />
+        <div className="absolute top-[10%] right-[-20%] w-[60%] h-[80%] bg-[#FF7F50]/20 blur-[180px] rounded-full pointer-events-none" aria-hidden />
       </>
     );
   }
 
   return (
     <>
+      {/* Nightography: Cinematic Teal — massive, heavily blurred */}
       <motion.div
-        className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 blur-[150px] rounded-full pointer-events-none"
+        className="absolute top-[-20%] left-[-15%] w-[70%] h-[70%] bg-[#008080]/25 blur-[180px] rounded-full pointer-events-none"
         style={{ x: reduceMotion ? 0 : x1, y: reduceMotion ? 0 : y1 }}
-        animate={reduceMotion ? {} : { scale: [1, 1.03, 1] }}
-        transition={reduceMotion ? { duration: 0 } : { duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        animate={reduceMotion ? {} : { scale: [1, 1.02, 1] }}
+        transition={{ duration: 8, repeat: Infinity, ease: APPLE_EASE }}
+        aria-hidden
+      />
+      {/* Nightography: Gold/Orange — blockbuster OLED contrast */}
+      <motion.div
+        className="absolute top-[10%] right-[-20%] w-[60%] h-[80%] bg-[#FF7F50]/20 blur-[180px] rounded-full pointer-events-none"
+        style={{ x: reduceMotion ? 0 : x2, y: reduceMotion ? 0 : y2 }}
+        animate={reduceMotion ? {} : { scale: [1, 1.025, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: APPLE_EASE }}
         aria-hidden
       />
       <motion.div
-        className="absolute top-[30%] right-[-10%] w-[30%] h-[50%] bg-teal-500/10 blur-[150px] rounded-full pointer-events-none"
+        className="absolute bottom-[15%] left-[10%] w-[40%] h-[40%] bg-[#008080]/10 blur-[120px] rounded-full pointer-events-none"
         style={{ x: reduceMotion ? 0 : x2, y: reduceMotion ? 0 : y2 }}
-        animate={reduceMotion ? {} : { scale: [1, 1.05, 1] }}
-        transition={reduceMotion ? { duration: 0 } : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        aria-hidden
-      />
-      <motion.div
-        className="absolute bottom-[20%] left-[20%] w-[25%] h-[25%] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none"
-        style={{ x: reduceMotion ? 0 : x2, y: reduceMotion ? 0 : y2 }}
-        animate={reduceMotion ? {} : { opacity: [0.6, 0.9, 0.6] }}
-        transition={reduceMotion ? { duration: 0 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        animate={reduceMotion ? {} : { opacity: [0.6, 0.85, 0.6] }}
+        transition={{ duration: 6, repeat: Infinity, ease: APPLE_EASE }}
         aria-hidden
       />
     </>

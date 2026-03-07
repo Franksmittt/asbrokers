@@ -9,20 +9,20 @@ export function TrustBar() {
   ];
 
   return (
-    <section className="relative z-10 py-8 px-6 border-y border-white/5 bg-black/20">
+    <section className="relative z-10 py-8 px-6 border-y border-white/10 bg-shark/80 backdrop-blur-xl">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-        <div className="flex items-center gap-2">
-          <span className="text-zinc-500 text-xs font-medium tracking-widest uppercase">Licensed & Authorised</span>
-          <span className="text-white font-bold tracking-tight">FSP 17273</span>
+        <div className="flex items-center gap-3">
+          <span className="text-gray-500 text-[10px] font-semibold uppercase tracking-[0.2em]">Licensed & Authorised</span>
+          <span className="trust-hallmark text-lg font-bold">FSP 17273</span>
         </div>
         <div className="hidden sm:block w-px h-6 bg-white/10" />
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
-          <span className="text-zinc-500 text-xs font-medium tracking-widest uppercase">Recognised partners</span>
+          <span className="text-gray-500 text-[10px] font-semibold uppercase tracking-[0.2em]">Recognised partners</span>
           <div className="flex flex-wrap items-center gap-6 sm:gap-8">
             {partners.map((p) => (
               <span
                 key={p.name}
-                className="text-zinc-500 text-sm font-medium hover:text-zinc-400 transition-colors"
+                className="text-gray-500 text-sm font-medium hover:text-gray-400 transition-colors duration-300"
                 title={p.name}
               >
                 {p.abbr}

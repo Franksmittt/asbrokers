@@ -119,8 +119,19 @@ export async function syncContactToHubSpot(
   });
   if (!res.ok) {
     const err = await res.text();
-    if (process.env.NODE_ENV === "development") console.error("[HubSpot] POST failed:", res.status, err);
-    return { success: false, error: "Could not create contact." };
+    if (process.env.NODE_ENV === "development") {
+      console.error("[HubSpot] POST failed:", res.status, err);
+    }
+    // Surface HubSpot message when possible (e.g. property doesn't exist)
+    let message = "Could not create contact.";
+    try {
+      const body = JSON.parse(err) as { message?: string; errors?: Array<{ message?: string }> };
+      if (body.message) message = body.message;
+      else if (body.errors?.[0]?.message) message = body.errors[0].message;
+    } catch {
+      // keep default message
+    }
+    return { success: false, error: message };
   }
   return { success: true };
 }

@@ -42,14 +42,14 @@ export function HomeValueProps() {
             <Link
               key={item.title}
               href={item.href}
-              className="group block p-6 md:p-8 rounded-2xl glass-card glass-card-hover bg-[#151518] border border-white/5 hover:border-white/15 transition-all duration-300"
+              className="group block p-6 md:p-8 rounded-[2rem] rim-light border-0 hover:bg-white/[0.07] transition-all duration-500"
             >
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-5 group-hover:bg-blue-500/20 transition-colors">
-                <item.icon className="w-6 h-6 text-blue-400" />
+              <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center mb-5 group-hover:bg-cinematic-teal/20 transition-colors duration-500">
+                <item.icon className="w-6 h-6 text-cinematic-teal" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-              <p className="text-zinc-500 text-sm leading-relaxed mb-4">{item.body}</p>
-              <span className="text-blue-400 text-sm font-semibold group-hover:underline">
+              <p className="text-gray-400 text-sm leading-relaxed mb-4 tracking-[0.01em]">{item.body}</p>
+              <span className="text-cinematic-teal text-sm font-semibold group-hover:underline">
                 {item.cta} →
               </span>
             </Link>

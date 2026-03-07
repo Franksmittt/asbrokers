@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} font-sans antialiased bg-[#0a0a0c] text-white selection:bg-blue-500 selection:text-white min-h-screen`}>
+      <body className={`${inter.variable} font-sans antialiased bg-void text-white selection:bg-samsung-blue selection:text-white min-h-screen`}>
         <NuqsAdapter>
           <ConsentProvider>
             <MotionConfigProvider>

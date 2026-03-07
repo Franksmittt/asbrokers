@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
+import { ConsentProvider } from "@/components/analytics/ConsentProvider";
 import { AppShell } from "@/components/AppShell";
 import { GlobalSchema } from "@/components/seo/GlobalSchema";
 import { MotionConfigProvider } from "@/components/MotionConfigProvider";
@@ -47,10 +49,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} font-sans antialiased bg-[#0a0a0c] text-white selection:bg-blue-500 selection:text-white min-h-screen`}>
-        <MotionConfigProvider>
-          <GlobalSchema />
-          <AppShell>{children}</AppShell>
-        </MotionConfigProvider>
+        <NuqsAdapter>
+          <ConsentProvider>
+            <MotionConfigProvider>
+              <GlobalSchema />
+              <AppShell>{children}</AppShell>
+            </MotionConfigProvider>
+          </ConsentProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

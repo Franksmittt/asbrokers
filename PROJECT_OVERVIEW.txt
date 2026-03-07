@@ -2,7 +2,7 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: March 2026
+Last updated: March 2026 (Phase 4 Analytics & POPIA)
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -17,6 +17,10 @@ Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
                    Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/openai,
                    @ai-sdk/react), Drizzle ORM, pg, pgvector, server-only (HubSpot),
                    Resend (email); Trigger.dev v3 + Puppeteer (dev, background PDF jobs).
+                   Quiz: Zustand (state), nuqs (URL query state for shareable results).
+                   Phase 3: next-sanity, sanity (v3), @portabletext/react; Studio deps:
+                   is-hotkey, styled-components, hoist-non-react-statics, uuid (v11).
+                   Phase 4: @next/third-parties (GA4); analytics only after cookie consent.
 
 Purpose:
   Marketing and lead-generation website for AS Brokers CC, an independent
@@ -26,12 +30,11 @@ Purpose:
   contact and book consultations.
 
 Latest repo update:
-  March 2026: Phase 2 asynchronous PDF generation and email. Trigger.dev v3 task
-  generate-financial-pdf (Puppeteer + Resend): headless visit to /internal/pdf-report,
-  networkidle0, page.pdf() → buffer, email via Resend with AS_Brokers_Wealth_Projection.pdf.
-  Print route: app/internal/pdf-report (Recharts isAnimationActive={false}, A4, print CSS).
-  Contact action: after syncContactToHubSpot success, POST to Trigger API to enqueue PDF job;
-  client gets immediate success. Earlier: Phase 4 HubSpot, RAG, chatbot, SEO & Schema.
+  March 2026: Phase 4 Analytics & POPIA. GA4 (@next/third-parties) and Hotjar
+  (async script) load only after "Accept All" in cookie consent banner. Consent
+  stored in localStorage; banner (glassmorphism, POPIA copy) fixed bottom with
+  Accept All / Essential Only. Phase 3: Sanity v3 CMS, insights, draft mode,
+  Visual Editing. Phase 2: Trigger.dev PDF, quiz (Zustand + nuqs). HubSpot, RAG, chatbot, SEO.
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -251,16 +254,39 @@ Key partners / product providers:
   - FAQPage JSON-LD: non-Regulation 28, 2.5–17.5% drawdown, tax on drawdown
 
 /insights
-  - Insights & Education placeholder
-  - Coming-soon message; links to calculators and contact
-  - Intended for future blog/articles, podcasts, resources
+  - Insights & Education (Phase 3 Sanity). List of articles from GROQ (insightsList);
+    links to /insights/[slug]?locale=... . Empty state: coming-soon message + links
+    to calculators and contact.
+  - Articles: title, slug (unique per locale), locale (en|af), publishedAt, excerpt,
+    body (Portable Text + FSP disclosure blocks). SEO: seoMetadata (metaTitle,
+    metaDescription, canonicalUrl, openGraphImage, noIndex).
+
+/insights/[slug]
+  - Single article page. Fetched via cachedSanityFetch(articleBySlugQuery) in
+    generateMetadata and page; locale from searchParams (default en). Renders
+    title, date, excerpt, ArticlePortableText (custom FSP disclaimer block:
+    styled box with FSP name, number, disclaimerText resolved in GROQ).
+
+/studio (embedded Sanity Studio)
+  - Sanity Studio v3 at /studio/[[...tool]]. Loaded client-only (dynamic import,
+    ssr: false) to avoid server-bundle dependency issues. Config: sanity/config.ts
+    (deskTool, presentationTool with previewUrl.previewMode.enable /api/draft-mode/enable).
 
 /quiz
-  - Financial Health Quiz (multi-step, rule-based)
-  - Steps: biggest concern (retirement/estate/insurance/tax/general) → age range
-    → have you calculated retirement? → result with recommended calculator
-    and solution links
-  - Drives users to relevant calculators and contact
+  - Financial Health Quiz (Phase 2 core): multi-step progressive profiling with
+    shareable results. State: Zustand (store/useQuizStore) — ageBracket (Under 40 /
+    40-55 / 55+), primaryConcern (Retirement Shortfall, Estate Taxes, Business Risk,
+    Low Investment Yields), availableCapital (under R100k, R100k–R500k, R500k+).
+  - Steps: concern → age → capital → result. On result, state synced to URL via nuqs
+    (?concern=, ?age=, ?capital=) so results are bookmarkable/shareable; shared
+    links hydrate store and show result view.
+  - UI: app/(content)/quiz/page.tsx (client); AnimatePresence mode="wait"; step
+    transitions slide left/right (or opacity-only when prefers-reduced-motion).
+  - Routing rules: (1) Low Investment Yields + capital > R100k → Everest 12.8%
+    Strategic Income (/everest-128-product); (2) Retirement Shortfall + 55+ →
+    Amethyst Living Annuity (/everest-amethyst-living-annuity); (3) Estate Taxes →
+    Annual Estate Reduction Strategy (/annual-estate-reduction-strategy). Fallback
+    links by concern. Results CTA "Get a personalised plan" opens LeadFormContext.
 
 /chat (Digital Wealth Assistant)
   - Chat UI (useChat, DefaultChatTransport) for conversational queries
@@ -275,11 +301,25 @@ Key partners / product providers:
   - Tools: calculateEstateDuty, calculateStrategicIncome128, calcAmethystAnnuity
   - Schemas and execution in app/api/chat/schemas.ts and tools.ts
 
+/api/draft-mode/enable (GET)
+  - next-sanity defineEnableDraftMode; enables draft mode for Visual Editing.
+  - Client: sanity client with SANITY_VIEWER_TOKEN. Used by presentation tool
+    (previewUrl.previewMode.enable). Requires NEXT_PUBLIC_SANITY_PROJECT_ID set.
+
 /internal/pdf-report (machine-only, unlisted)
   - Print-optimised page for headless browser (Trigger.dev task). No nav/footer in print.
   - Reads searchParams: portfolio, drawdown; renders run-out Recharts AreaChart
     (isAnimationActive={false}). @page A4; @media print hides all but .pdf-content.
   - Used by generate-financial-pdf task to produce PDF attachment for Resend email.
+
+Route structure (App Router):
+  - Root layout: app/layout.tsx (html, body, font, AppShell, GlobalSchema).
+  - Route group (content): app/(content)/layout.tsx wraps all front-facing routes;
+    renders children + conditional <VisualEditing /> when draftMode().isEnabled.
+  - All public pages live under app/(content)/ (home, about, calculators, insights,
+    solutions, contact, team, etc.). Studio and API routes stay outside (content).
+  - Ensures Visual Editing and draft-aware fetches apply only to content; studio
+    at /studio avoids infinite reload / overlay conflicts.
 
 --------------------------------------------------------------------------------
 4. SITE STRUCTURE & NAVIGATION
@@ -350,6 +390,25 @@ FAQSchema         – Reusable FAQPage JSON-LD (XSS-safe); used on /retirement, 
                       /everest-wealth, /everest-amethyst-living-annuity
 EverestLiquidityWarning – 120-day notice, 15% early exit penalty (voluntary products)
 Skip link         – Global accessibility skip link to #main-content
+
+Sanity / Portable Text (Phase 3):
+  sanity/lib/client.ts     – createClient (next-sanity); stega when studio URL set
+  sanity/lib/live.ts       – getClient() (draft-aware token), sanityFetch()
+  sanity/lib/fetch.ts      – cachedSanityFetch (React cache) for shared article request
+  sanity/lib/queries.ts    – insightsListQuery, articleBySlugQuery (body with fspDisclosure→fsp)
+  sanity/config.ts         – deskTool, presentationTool; schema from schemaTypes
+  sanity/schemaTypes/     – seoMetadata, article (slug unique per locale), fspEntity, fspDisclosure
+  components/portable-text/ArticlePortableText.tsx – PortableText; types.fspDisclosure → FspDisclosureBlock
+  components/portable-text/FspDisclosureBlock.tsx  – Styled disclaimer box (fsp.name, fspNumber, disclaimerText)
+
+Financial Health Quiz (Phase 2):
+  store/useQuizStore.ts   – Zustand: ageBracket, primaryConcern, availableCapital;
+                            hasCapitalOver100k() for Everest 12.8% rule
+  app/(content)/quiz/page.tsx – Multi-step client component; nuqs (concern, age, capital)
+                            for shareable result URL; AnimatePresence + useReducedMotion;
+                            QuizResults applies routing rules, CTA opens LeadFormContext.
+                            Wrapped in Suspense (fallback: loading state) for useQueryState/useSearchParams.
+  Root layout             – NuqsAdapter (nuqs/adapters/next/app) wraps app for useQueryState
 
 Digital Wealth Assistant (chat):
   app/api/chat/route.ts   – POST handler; streamText, system prompt, three tools
@@ -531,6 +590,84 @@ Env:
   - Next: TRIGGER_SECRET_KEY (to enqueue job).
   - Trigger worker: APP_URL or NEXT_PUBLIC_APP_URL, RESEND_API_KEY, RESEND_FROM (optional),
     PUPPETEER_EXECUTABLE_PATH (optional per Trigger docs).
+
+--------------------------------------------------------------------------------
+12. PHASE 3: SANITY V3 HEADLESS CMS
+--------------------------------------------------------------------------------
+
+Purpose: Replace /insights placeholder with Sanity-driven articles, draft mode,
+and Visual Editing; FAIS-oriented FSP disclaimers as inline blocks in article body.
+
+Architecture:
+  - Route group (content): app/(content)/layout.tsx wraps front-facing routes with
+    conditional <VisualEditing /> when draftMode().isEnabled. Studio at /studio
+    is outside (content) to avoid reload/overlay conflicts.
+  - Document model: Single article document with locale field ('en'|'af'); slug
+    validated unique per locale (custom rule in article schema). No document-i18n plugin.
+  - FSP disclaimer: Resolved in GROQ (articleBySlug expands body so fspDisclosure
+    blocks include "fsp": fspEntity->). Frontend serializer only renders resolved data.
+
+Schemas (sanity/schemaTypes/):
+  - seoMetadata: metaTitle (max 65), metaDescription (max 160), canonicalUrl,
+    openGraphImage, noIndex.
+  - article: title, slug, locale, publishedAt, excerpt, body (block + fspDisclosure), seo.
+  - fspEntity: name, fspNumber, disclaimerText.
+  - fspDisclosure: block type; reference to fspEntity (resolved in GROQ).
+
+Data fetching:
+  - getClient() in live.ts: returns client with viewer token + previewDrafts when
+    draftMode().isEnabled; otherwise default client.
+  - cachedSanityFetch (fetch.ts): React cache(sanityFetch) so generateMetadata
+    and page share one request per article.
+  - Queries: insightsList (ordered by publishedAt); articleBySlug(slug, locale)
+    with body[] expanded for fspDisclosure → fsp.
+
+Studio:
+  - app/studio/[[...tool]]/page.tsx: dynamic import of NextStudio + config (ssr: false)
+    to avoid server-bundle issues. Config: deskTool(), presentationTool(previewUrl
+    with previewMode.enable: /api/draft-mode/enable).
+
+Build / env:
+  - next.config.ts: webpack alias/fallback for hoist-non-react-statics (path to
+    dist/hoist-non-react-statics.min.js) so @sentry/react (pulled in by sanity) resolves.
+  - Sanity client uses projectId || "placeholder" when NEXT_PUBLIC_SANITY_PROJECT_ID
+    unset so build (e.g. draft-mode route) does not throw.
+  - Env: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET,
+    NEXT_PUBLIC_SANITY_STUDIO_URL, SANITY_VIEWER_TOKEN. See .env.example.
+
+--------------------------------------------------------------------------------
+13. PHASE 4: ANALYTICS & POPIA COOKIE CONSENT
+--------------------------------------------------------------------------------
+
+Purpose: Enterprise analytics (GA4, Hotjar) with strict POPIA compliance: no
+non-essential tracking until the user explicitly accepts cookies.
+
+Cookie consent (components/ui/CookieConsent.tsx):
+  - Fixed bottom banner; glassmorphism (bg-[#0a0a0c]/90 backdrop-blur-xl ring-white/10).
+  - Copy: cookies for analytics and saving calculator progress; POPIA compliance.
+  - Buttons: "Accept All" (enables GA4 + Hotjar), "Essential Only" (no analytics).
+  - Choice persisted in localStorage (key: asbrokers-cookie-consent). Banner only
+    shown after client hydration to avoid flash for returning users.
+
+Consent state (components/analytics/ConsentProvider.tsx):
+  - React context: consent ("all" | "essential" | null), setConsent, hasChosen.
+  - On mount, reads localStorage; ConsentProvider wraps app and renders
+    CookieConsent + ConditionalAnalytics.
+
+Conditional script loading:
+  - GA4: @next/third-parties/google <GoogleAnalytics gaId="..." />. Mounted only
+    when consent === "all" (ConditionalAnalytics).
+  - Hotjar: components/analytics/HotjarAnalytics.tsx; next/script strategy="lazyOnload",
+    injected only when consent === "all". Snippet loads Hotjar async.
+  - If user has not consented or chooses "Essential Only", GA4 and Hotjar never mount.
+
+Root layout:
+  - ConsentProvider wraps MotionConfigProvider and app content; renders
+    CookieConsent (when hasHydrated) and ConditionalAnalytics.
+
+Env:
+  - NEXT_PUBLIC_GA_MEASUREMENT_ID (GA4 measurement ID, e.g. G-XXXXXXXX).
+  - NEXT_PUBLIC_HOTJAR_ID (Hotjar site ID). See .env.example.
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

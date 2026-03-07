@@ -28,7 +28,7 @@ export function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cinematic-teal opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cinematic-teal" />
             </span>
-            Alberton, Gauteng · Est. 1998 · FSP 17273
+            Est. 1998 · FSP 17273
           </motion.div>
 
           <motion.h1

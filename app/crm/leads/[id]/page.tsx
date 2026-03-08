@@ -9,7 +9,7 @@ import {
   SERVICE_LABELS,
   MOCK_STAFF,
   type LeadStatus,
-} from "@/lib/mock-crm";
+} from "@/lib/crm-data";
 import { ArrowLeft } from "@/components/icons";
 
 const statusLabel: Record<LeadStatus, string> = {
@@ -24,16 +24,18 @@ const statusLabel: Record<LeadStatus, string> = {
 export default async function LeadDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const session = await getMockSession();
-  const lead = getLeadById(id);
+  const lead = await getLeadById(id);
   if (!lead) notFound();
 
   const isOwner = session?.role === "admin";
   const canView = isOwner || lead.assignedAdvisorId === session?.staffId;
   if (!canView) notFound();
 
-  const correspondence = getCorrespondenceForLead(id);
-  const notes = getNotesForLead(id);
-  const tasks = getTasksForLead(id);
+  const [correspondence, notes, tasks] = await Promise.all([
+    getCorrespondenceForLead(id),
+    getNotesForLead(id),
+    getTasksForLead(id),
+  ]);
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -62,7 +64,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ id:
               <select
                 defaultValue={lead.assignedAdvisorId}
                 className="mt-1 px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm"
-                title="Reassign (mock – no save)"
+                title="Reassign lead"
               >
                 {MOCK_STAFF.map((s) => (
                   <option key={s.id} value={s.id}>{s.name}</option>

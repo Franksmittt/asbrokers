@@ -31,8 +31,32 @@ const SLIDES = [
   },
 ];
 
+function HighlightCard({
+  title,
+  tease,
+  gradient,
+  accent,
+}: {
+  title: string;
+  tease: string;
+  gradient: string;
+  accent: string;
+}) {
+  return (
+    <div
+      className={`relative rounded-[2rem] overflow-hidden rim-light border-0 min-h-[200px] flex flex-col justify-end p-6 text-left bg-gradient-to-br ${gradient} ${accent}`}
+    >
+      <p className="text-base sm:text-lg font-bold text-white tracking-tight mb-1">
+        {title}
+      </p>
+      <p className="text-sm text-gray-400">{tease}</p>
+    </div>
+  );
+}
+
 /**
- * 3-slide narrative carousel (moved from hero in v1.2). Expertise highlights below hero.
+ * Mix of option 1 (full-width) and option 2 (cards + carousel).
+ * Mobile: carousel (full width). md: 2 cards per row. lg: 3 cards in a row.
  */
 export function ExpertiseHighlights() {
   const [index, setIndex] = useState(0);
@@ -58,8 +82,26 @@ export function ExpertiseHighlights() {
       <h2 id="expertise-heading" className="text-2xl md:text-4xl font-bold tracking-tight text-white text-center mb-10">
         Expertise highlights
       </h2>
+
+      {/* md and up: card grid (2 cols at md, 3 at lg) — option 1 width + option 2 cards */}
       <div
-        className="max-w-2xl mx-auto"
+        className="max-w-7xl mx-auto hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        role="list"
+      >
+        {SLIDES.map((slide) => (
+          <HighlightCard
+            key={slide.id}
+            title={slide.title}
+            tease={slide.tease}
+            gradient={slide.gradient}
+            accent={slide.accent}
+          />
+        ))}
+      </div>
+
+      {/* Mobile only: full-width carousel (option 1 width + option 2 carousel) */}
+      <div
+        className="max-w-7xl mx-auto md:hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         role="region"

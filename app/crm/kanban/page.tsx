@@ -1,5 +1,5 @@
 import { getMockSession } from "@/lib/mock-auth";
-import { getLeadsForAdvisor, getLeadsByService, MOCK_LEADS, type ServiceCategory } from "@/lib/mock-crm";
+import { getLeadsForAdvisor, getLeadsByService, getAllLeads, type ServiceCategory } from "@/lib/crm-data";
 import { LeadsKanban } from "@/components/crm/LeadsKanban";
 import { ServiceFilter } from "@/components/crm/ServiceFilter";
 
@@ -15,7 +15,7 @@ export default async function KanbanPage({
 }) {
   const session = await getMockSession();
   const isOwner = session?.role === "admin";
-  const rawLeads = isOwner ? MOCK_LEADS : getLeadsForAdvisor(session?.staffId ?? "s5");
+  const rawLeads = isOwner ? await getAllLeads() : await getLeadsForAdvisor(session?.staffId ?? "s5");
   const { service: serviceParam } = await searchParams;
   const service = serviceParam as ServiceCategory | undefined;
   const leads = getLeadsByService(rawLeads, service);
@@ -26,7 +26,7 @@ export default async function KanbanPage({
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Pipeline</h1>
           <p className="text-zinc-400 text-sm">
-            {isOwner ? "All leads." : "Your assigned leads."} Drag cards to change stage; status is saved in browser until backend is connected.
+            {isOwner ? "All leads." : "Your assigned leads."} Drag cards to change stage; status is saved to Supabase when configured.
           </p>
         </div>
         <ServiceFilter />

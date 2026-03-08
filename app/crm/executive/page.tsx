@@ -6,9 +6,9 @@ import {
   getPipelineByService,
   getStaffPerformance,
   getHighPriorityLeads,
-  MOCK_LEADS,
-  MOCK_CLIENTS,
-} from "@/lib/mock-crm";
+  getAllLeads,
+  getAllClients,
+} from "@/lib/crm-data";
 import { ExecutiveCharts } from "@/components/crm/ExecutiveCharts";
 import { ArrowRight } from "@/components/icons";
 
@@ -21,34 +21,41 @@ export default async function ExecutivePage() {
   const session = await getMockSession();
   if (session?.role !== "admin") redirect("/crm");
 
-  const stats = getCrmStats();
-  const byService = getPipelineByService();
-  const staffPerf = getStaffPerformance();
-  const highPriority = getHighPriorityLeads();
+  const [stats, byService, staffPerf, highPriority, allLeads, allClients] = await Promise.all([
+    getCrmStats(),
+    getPipelineByService(),
+    getStaffPerformance(),
+    getHighPriorityLeads(),
+    getAllLeads(),
+    getAllClients(),
+  ]);
   const conversionRate =
-    MOCK_LEADS.length > 0 ? Math.round((MOCK_CLIENTS.length / MOCK_LEADS.length) * 100) : 0;
+    allLeads.length > 0 ? Math.round((allClients.length / allLeads.length) * 100) : 0;
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div>
+        <p className="trust-hallmark text-[10px] font-semibold uppercase tracking-wider text-zinc-500 tabular-nums mb-2">
+          FSP 17273 · Executive
+        </p>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Command center</h1>
-        <p className="text-zinc-400 text-sm">Pipeline health, service mix, and team performance (owner only)</p>
+        <p className="text-zinc-400 text-sm">Pipeline health, service mix, and team performance</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-2xl bg-vault-card border border-white/10 p-4">
+        <div className="rounded-2xl rim-light bg-vault-card border border-white/10 p-4">
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Total leads</p>
           <p className="text-2xl font-bold text-white mt-1">{stats.total}</p>
         </div>
-        <div className="rounded-2xl bg-vault-card border border-white/10 p-4">
+        <div className="rounded-2xl rim-light bg-vault-card border border-white/10 p-4">
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Clients</p>
-          <p className="text-2xl font-bold text-cinematic-teal mt-1">{MOCK_CLIENTS.length}</p>
+          <p className="text-2xl font-bold text-cinematic-teal mt-1">{allClients.length}</p>
         </div>
-        <div className="rounded-2xl bg-vault-card border border-white/10 p-4">
+        <div className="rounded-2xl rim-light bg-vault-card border border-white/10 p-4">
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Conversion</p>
           <p className="text-2xl font-bold text-white mt-1">{conversionRate}%</p>
         </div>
-        <div className="rounded-2xl bg-vault-card border border-white/10 p-4">
+        <div className="rounded-2xl rim-light bg-vault-card border border-white/10 p-4">
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">In pipeline</p>
           <p className="text-2xl font-bold text-amber-400 mt-1">
             {stats.new + stats.contacted + stats.qualified + stats.proposal}

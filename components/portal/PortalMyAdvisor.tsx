@@ -11,7 +11,7 @@ export function PortalMyAdvisor({ advisor }: { advisor: Advisor }) {
   const whatsAppUrl = `https://wa.me/27${advisor.whatsApp.replace(/\D/g, "").slice(-9)}`;
 
   return (
-    <div className="rounded-2xl bg-vault-card border border-white/10 p-6 flex flex-wrap items-center justify-between gap-4">
+    <div className="rounded-2xl rim-light bg-vault-card border border-white/10 p-6 flex flex-wrap items-center justify-between gap-4">
       <div>
         <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Your advisor</p>
         <p className="text-xl font-bold text-white mt-1">{advisor.name}</p>

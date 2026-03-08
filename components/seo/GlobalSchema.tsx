@@ -18,7 +18,7 @@ export function GlobalSchema() {
         name: "AS Brokers CC",
         legalName: "AS Brokers CC",
         url: "https://asbrokers.online",
-        logo: { "@type": "ImageObject", url: "https://asbrokers.online/logo.png" },
+        logo: { "@type": "ImageObject", url: "https://asbrokers.online/images/logo.jpg" },
         image: "https://asbrokers.online/og.png",
         description:
           "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Retirement planning, insurance, estate structuring, Everest Wealth. Krugersdorp, East Rand, Gauteng.",

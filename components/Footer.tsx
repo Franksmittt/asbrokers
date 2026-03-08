@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShieldCheck, X, LinkedIn, ChevronDown, ArrowUp } from "./icons";
+import { X, LinkedIn, ChevronDown, ArrowUp } from "./icons";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
 
 const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
@@ -197,9 +197,7 @@ export function Footer() {
                   className="inline-flex items-center gap-2 text-white hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-cinematic-teal rounded-lg"
                   aria-label="AS Brokers CC – Home"
                 >
-                  <span className="bg-gradient-to-br from-cinematic-teal to-supernova-gold p-1.5 rounded-xl inline-flex">
-                    <ShieldCheck className="w-5 h-5 text-white" />
-                  </span>
+                  <img src="/images/logo.jpg" alt="" className="h-6 w-auto rounded-xl object-contain" />
                   <span className="font-bold">AS Brokers</span>
                 </Link>
                 <p className="text-gray-400 text-sm tracking-[0.01em]">

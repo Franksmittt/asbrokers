@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getMockSession } from "@/lib/mock-auth";
-import { getTasksForAdvisor, MOCK_TASKS } from "@/lib/mock-crm";
+import { getTasksForAdvisor, getAllTasks } from "@/lib/crm-data";
 
 export const metadata = {
   title: "Tasks",
@@ -10,7 +10,7 @@ export const metadata = {
 export default async function TasksPage() {
   const session = await getMockSession();
   const isOwner = session?.role === "admin";
-  const tasks = isOwner ? MOCK_TASKS : getTasksForAdvisor(session?.staffId ?? "s5");
+  const tasks = isOwner ? await getAllTasks() : await getTasksForAdvisor(session?.staffId ?? "s5");
   const open = tasks.filter((t) => !t.completed);
   const done = tasks.filter((t) => t.completed);
 

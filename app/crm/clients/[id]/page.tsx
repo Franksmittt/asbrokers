@@ -7,22 +7,24 @@ import {
   getNotesForLead,
   getTasksForClient,
   SERVICE_LABELS,
-} from "@/lib/mock-crm";
+} from "@/lib/crm-data";
 import { ArrowLeft } from "@/components/icons";
 
 export default async function ClientDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const session = await getMockSession();
-  const client = getClientById(id);
+  const client = await getClientById(id);
   if (!client) notFound();
 
   const isOwner = session?.role === "admin";
   const canView = isOwner || client.assignedAdvisorId === session?.staffId;
   if (!canView) notFound();
 
-  const correspondence = getCorrespondenceForClient(id);
-  const notes = getNotesForLead(client.leadId);
-  const tasks = getTasksForClient(id);
+  const [correspondence, notes, tasks] = await Promise.all([
+    getCorrespondenceForClient(id),
+    getNotesForLead(client.leadId),
+    getTasksForClient(id),
+  ]);
   const whatsAppUrl = client.advisorWhatsApp
     ? `https://wa.me/27${client.advisorWhatsApp.replace(/\D/g, "").slice(-9)}`
     : null;

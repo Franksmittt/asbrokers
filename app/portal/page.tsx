@@ -24,24 +24,28 @@ export default function PortalDashboardPage() {
   return (
     <div className="space-y-8">
       <div>
+        <p className="trust-hallmark text-[10px] font-semibold uppercase tracking-wider text-zinc-500 tabular-nums mb-2">
+          FSP 17273
+        </p>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Wealth dashboard</h1>
-        <p className="text-zinc-400 text-sm">Unified view of your holdings and projections (mock data)</p>
+        <p className="text-zinc-400 text-sm">Your wealth at a glance — holdings, income and projections</p>
+        <p className="text-zinc-500/80 text-xs mt-1 italic">Protecting Your Legacy. Engineering Your Wealth.</p>
       </div>
 
       <PortalMyAdvisor advisor={getPortalAdvisor()} />
 
       <div className="grid sm:grid-cols-2 gap-4">
-        <div className="rounded-2xl bg-vault-card border border-white/10 p-6">
+        <div className="rounded-2xl rim-light bg-vault-card border border-white/10 p-6">
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Total portfolio value</p>
           <p className="text-3xl font-bold text-white mt-1">{formatZar(summary.totalValueZar)}</p>
         </div>
-        <div className="rounded-2xl bg-vault-card border border-white/10 p-6">
+        <div className="rounded-2xl rim-light bg-vault-card border border-white/10 p-6">
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Monthly income (projected)</p>
           <p className="text-3xl font-bold text-cinematic-teal mt-1">{formatZar(summary.monthlyIncomeZar)}</p>
         </div>
       </div>
 
-      <div className="rounded-2xl bg-vault-card border border-white/10 overflow-hidden">
+      <div className="rounded-2xl rim-light bg-vault-card border border-white/10 overflow-hidden">
         <h2 className="px-4 sm:px-6 py-4 border-b border-white/10 text-lg font-bold text-white">Holdings</h2>
         <ul className="divide-y divide-white/5">
           {MOCK_HOLDINGS.map((h) => (
@@ -66,9 +70,6 @@ export default function PortalDashboardPage() {
 
       <PortalDashboardCharts incomeData={incomeChartData} drawdownData={drawdownChartData} />
 
-      <p className="text-zinc-500 text-xs">
-        Backend (Supabase, RLS) will replace mock data. Recharts show sample projections.
-      </p>
     </div>
   );
 }

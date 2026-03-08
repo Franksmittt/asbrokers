@@ -22,16 +22,19 @@ export default async function LoginPage({
 
   return (
     <div className="min-h-screen bg-vault-dark flex flex-col items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md rounded-[2rem] bg-vault-card border border-white/10 p-8 shadow-2xl">
+      <div className="w-full max-w-md rounded-[2rem] rim-light bg-vault-card/80 border border-white/10 p-8 shadow-2xl">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-white mb-2">CRM & Client Portal</h1>
-          <p className="text-zinc-400 text-sm">Choose a role to sign in (mock — no password)</p>
+          <h1 className="text-2xl font-bold text-white mb-1">AS Brokers</h1>
+          <p className="text-zinc-400 text-sm mb-2">CRM & Client Portal</p>
+          <p className="trust-hallmark text-[10px] font-semibold uppercase tracking-wider text-zinc-500 tabular-nums">
+            FSP 17273
+          </p>
         </div>
         <LoginForm next={next} />
+        <p className="text-zinc-500 text-[10px] text-center mt-6">
+          Demo: choose your view to explore the platform
+        </p>
       </div>
-      <p className="text-zinc-500 text-xs mt-6 text-center max-w-md">
-        This is a mock login for development. Backend auth (e.g. Supabase Magic Links) will replace it.
-      </p>
     </div>
   );
 }

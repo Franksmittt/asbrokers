@@ -1,9 +1,11 @@
 ---
-description: AS Brokers CRM & Portal – Rolls-Royce wealth concierge; AI-infused, compliance-first, service-aligned. Apply when editing /crm, /portal, /login or CRM/portal libs.
+description: AS Brokers CRM & Portal – Rolls-Royce wealth concierge (v1.0 Mar 2026); AI-infused, compliance-first, service-aligned. Apply when editing /crm, /portal, /login or CRM/portal libs.
 alwaysApply: true
 ---
 
 # AS Brokers CRM Rules: Rolls-Royce Wealth Concierge
+
+**Version 1.0 (March 7, 2026).** Full rules: docs/CRM_ROLLS_ROYCE.md. Vision narrative: ROLLS_ROYCE_CRM_VISION.txt. Success metrics: 90% client satisfaction, 30% faster onboarding, zero compliance breaches; cost band R500k–1M.
 
 Purpose: Guide building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 17273, Category 1.8). Luxurious, AI-infused, compliance-first system for seamless client experiences, staff efficiency, and owner oversight. Build on existing mock (lib/mock-*.ts) by replacing with real backend. Tech: Next.js App Router, TypeScript, Tailwind (rim-light glassmorphism, void/shark, Nightography), Framer Motion, Supabase (auth/DB/Storage/RLS), HubSpot bi-sync, Trigger.dev (automations/PDFs), OpenAI gpt-4o-mini for AI agents, Drizzle ORM + pgvector for RAG, Sanity CMS. Prioritize: Security (POPIA/FAIS), personalization (AI), scalability (1k+ clients), mobile-first (PWA).
 
@@ -43,7 +45,8 @@ Purpose: Guide building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 1
 
 ## References
 
-- Full vision narrative: ROLLS_ROYCE_CRM_VISION.txt
-- Current CRM/portal behaviour and mock data: CRM_AND_PORTAL.txt
-- Services list: AS_BROKERS_SERVICES.txt
-- Backend checklist: BACKEND.md
+- Full rules + principles: docs/CRM_ROLLS_ROYCE.md
+- Vision narrative: ROLLS_ROYCE_CRM_VISION.txt
+- Current CRM/portal behaviour and mock data: CRM_AND_PORTAL.txt (if present)
+- Services list: AS_BROKERS_SERVICES.txt (if present)
+- Backend checklist: BACKEND.md (if present)

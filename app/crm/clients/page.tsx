@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getMockSession } from "@/lib/mock-auth";
-import { getClientsForAdvisor, MOCK_CLIENTS, SERVICE_LABELS } from "@/lib/mock-crm";
+import { getClientsForAdvisor, getAllClients, SERVICE_LABELS } from "@/lib/crm-data";
 
 export const metadata = {
   title: "Clients",
@@ -10,7 +10,7 @@ export const metadata = {
 export default async function ClientsPage() {
   const session = await getMockSession();
   const isOwner = session?.role === "admin";
-  const clients = isOwner ? MOCK_CLIENTS : getClientsForAdvisor(session?.staffId ?? "s5");
+  const clients = isOwner ? await getAllClients() : await getClientsForAdvisor(session?.staffId ?? "s5");
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -21,7 +21,7 @@ export default async function ClientsPage() {
         </p>
       </div>
 
-      <div className="rounded-2xl bg-vault-card border border-white/10 overflow-hidden">
+      <div className="rounded-2xl rim-light bg-vault-card border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>

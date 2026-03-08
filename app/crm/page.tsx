@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getMockSession } from "@/lib/mock-auth";
-import { getCrmStats, getLeadsForAdvisor, MOCK_LEADS } from "@/lib/mock-crm";
+import { getCrmStats, getLeadsForAdvisor, getAllLeads } from "@/lib/crm-data";
 import { ArrowRight } from "@/components/icons";
 
 export const metadata = {
@@ -12,15 +12,20 @@ export default async function CrmDashboardPage() {
   const session = await getMockSession();
   const isOwner = session?.role === "admin";
   const advisorId = isOwner ? undefined : session?.staffId ?? undefined;
-  const stats = getCrmStats(advisorId);
-  const leads = advisorId ? getLeadsForAdvisor(advisorId) : MOCK_LEADS;
+  const [stats, leads] = await Promise.all([
+    getCrmStats(advisorId),
+    advisorId ? getLeadsForAdvisor(advisorId) : getAllLeads(),
+  ]);
   const recentLeads = leads.slice(0, 5);
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <div>
+        <p className="trust-hallmark text-[10px] font-semibold uppercase tracking-wider text-zinc-500 tabular-nums mb-2">
+          FSP 17273
+        </p>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Dashboard</h1>
-        <p className="text-zinc-400 text-sm">Lead pipeline and activity (mock data)</p>
+        <p className="text-zinc-400 text-sm">Lead pipeline and activity</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -32,14 +37,14 @@ export default async function CrmDashboardPage() {
           { label: "Won", value: stats.closedWon, color: "bg-green-500/20 text-green-400" },
           { label: "Lost", value: stats.closedLost, color: "bg-zinc-500/20 text-zinc-400" },
         ].map(({ label, value, color }) => (
-          <div key={label} className="rounded-2xl bg-vault-card border border-white/10 p-4">
+          <div key={label} className="rounded-2xl rim-light bg-vault-card border border-white/10 p-4">
             <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">{label}</p>
             <p className={`text-2xl font-bold mt-1 ${color}`}>{value}</p>
           </div>
         ))}
       </div>
 
-      <div className="rounded-2xl bg-vault-card border border-white/10 overflow-hidden">
+      <div className="rounded-2xl rim-light bg-vault-card border border-white/10 overflow-hidden">
         <div className="px-4 sm:px-6 py-4 border-b border-white/10 flex items-center justify-between">
           <h2 className="text-lg font-bold text-white">Recent leads</h2>
           <div className="flex items-center gap-3">
@@ -89,9 +94,6 @@ export default async function CrmDashboardPage() {
         </div>
       </div>
 
-      <p className="text-zinc-500 text-xs">
-        Backend integration (Supabase, HubSpot sync, RLS) will replace this mock data.
-      </p>
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
-import { ShieldCheck, User, ChevronDown, Menu, X } from "./icons";
+import { User, ChevronDown, Menu, X } from "./icons";
 import { useLeadForm } from "./LeadFormContext";
 
 const solutionsItems = [
@@ -77,9 +77,7 @@ export function Nav() {
       <nav className="fixed top-0 w-full z-50 border-b bg-vault-card/80 backdrop-blur border-white/10 py-3">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" prefetch={false} className="flex items-center gap-3">
-            <div className="bg-gradient-to-br from-cinematic-teal to-gold-orange/90 p-2 rounded-2xl shadow-lg">
-              <ShieldCheck className="w-6 h-6 text-white" />
-            </div>
+            <img src="/images/logo.jpg" alt="" className="h-9 w-auto rounded-2xl object-contain" />
             <span className="text-xl font-bold tracking-tight text-white">AS Brokers</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -113,9 +111,7 @@ export function Nav() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link href="/" prefetch={false} className="flex items-center gap-3">
-          <div className="bg-gradient-to-br from-cinematic-teal to-gold-orange/90 p-2 rounded-2xl shadow-lg">
-            <ShieldCheck className="w-6 h-6 text-white" />
-          </div>
+          <img src="/images/logo.jpg" alt="" className="h-9 w-auto rounded-2xl object-contain" />
           <div>
             <span className="text-xl font-bold tracking-tight block leading-none text-white">AS Brokers</span>
             <span className={`trust-hallmark text-[10px] font-semibold uppercase mt-1 block transition-colors duration-300 ${scrolled ? "text-zinc-300" : "text-zinc-400"}`}>

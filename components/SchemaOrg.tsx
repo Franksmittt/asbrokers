@@ -5,7 +5,7 @@ export function SchemaOrg() {
     name: "AS Brokers CC",
     description: "Independent Authorised Financial Services Provider. Retirement planning, insurance, estate structuring, and Code 1.8 alternative investments. Krugersdorp, Gauteng.",
     url: "https://asbrokers.online",
-    logo: "https://asbrokers.online/logo.png",
+    logo: "https://asbrokers.online/images/logo.jpg",
     image: "https://asbrokers.online/og.png",
     address: {
       "@type": "PostalAddress",

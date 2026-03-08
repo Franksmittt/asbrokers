@@ -11,10 +11,12 @@ import {
   getNotesForClient,
   getTasksForLead,
   getTasksForClient,
+  updateLeadStatus as updateLeadStatusInDb,
   SERVICE_LABELS,
+  type LeadStatus,
   type MockLead,
   type MockClient,
-} from "@/lib/mock-crm";
+} from "@/lib/crm-data";
 
 function buildSummary(type: "lead" | "client", entity: MockLead | MockClient, extra: string) {
   const name = entity.name;
@@ -32,21 +34,21 @@ export async function generateMeetingBrief(
   entityId: string
 ): Promise<{ ok: true; markdown: string } | { ok: false; error: string }> {
   try {
-    const entity = type === "lead" ? getLeadById(entityId) : getClientById(entityId);
+    const entity = type === "lead" ? await getLeadById(entityId) : await getClientById(entityId);
     if (!entity) return { ok: false, error: "Not found" };
 
     const correspondence =
       type === "lead"
-        ? getCorrespondenceForLead(entityId)
-        : getCorrespondenceForClient(entityId);
+        ? await getCorrespondenceForLead(entityId)
+        : await getCorrespondenceForClient(entityId);
     const notes =
       type === "lead"
-        ? getNotesForLead(entityId)
-        : getNotesForClient(entityId);
+        ? await getNotesForLead(entityId)
+        : await getNotesForClient(entityId);
     const tasks =
       type === "lead"
-        ? getTasksForLead(entityId)
-        : getTasksForClient(entityId);
+        ? await getTasksForLead(entityId)
+        : await getTasksForClient(entityId);
 
     const lead = type === "lead" ? (entity as MockLead) : null;
     const client = type === "client" ? (entity as MockClient) : null;
@@ -82,4 +84,8 @@ export async function generateMeetingBrief(
     const message = e instanceof Error ? e.message : "Failed to generate brief";
     return { ok: false, error: message };
   }
+}
+
+export async function updateLeadStatus(leadId: string, status: LeadStatus): Promise<{ ok: boolean; error?: string }> {
+  return updateLeadStatusInDb(leadId, status);
 }

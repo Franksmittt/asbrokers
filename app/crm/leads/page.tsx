@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getMockSession } from "@/lib/mock-auth";
-import { getLeadsForAdvisor, getLeadsByService, MOCK_LEADS, SERVICE_LABELS, type LeadStatus, type ServiceCategory } from "@/lib/mock-crm";
+import { getLeadsForAdvisor, getLeadsByService, getAllLeads, SERVICE_LABELS, type LeadStatus, type ServiceCategory } from "@/lib/crm-data";
 import { ServiceFilter } from "@/components/crm/ServiceFilter";
 
 export const metadata = {
@@ -24,7 +24,7 @@ export default async function LeadsPage({
 }) {
   const session = await getMockSession();
   const isOwner = session?.role === "admin";
-  const rawLeads = isOwner ? MOCK_LEADS : getLeadsForAdvisor(session?.staffId ?? "s5");
+  const rawLeads = isOwner ? await getAllLeads() : await getLeadsForAdvisor(session?.staffId ?? "s5");
   const { service: serviceParam } = await searchParams;
   const service = serviceParam as ServiceCategory | undefined;
   const leads = getLeadsByService(rawLeads, service);
@@ -41,7 +41,7 @@ export default async function LeadsPage({
         <ServiceFilter />
       </div>
 
-      <div className="rounded-2xl bg-vault-card border border-white/10 overflow-hidden">
+      <div className="rounded-2xl rim-light bg-vault-card border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -56,6 +56,13 @@ export default async function LeadsPage({
               </tr>
             </thead>
             <tbody>
+              {leads.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="px-4 sm:px-6 py-12 text-center text-zinc-500 text-sm">
+                    No leads yet. {service ? "Try another service filter." : "Leads will appear here when captured."}
+                  </td>
+                </tr>
+              )}
               {leads.map((lead) => (
                 <tr key={lead.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                   <td className="px-4 sm:px-6 py-3">

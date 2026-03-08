@@ -36,6 +36,9 @@ Create `.env.local` (and add the same in your host: Vercel, Trigger.dev, etc.). 
 | `SANITY_VIEWER_TOKEN` | For draft/preview | Sanity API token with read access (see §5). |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional, Phase 4 | GA4 measurement ID (only used after consent). |
 | `NEXT_PUBLIC_HOTJAR_ID` | Optional, Phase 4 | Hotjar site ID (only used after consent). |
+| `NEXT_PUBLIC_SUPABASE_URL` | For CRM | Supabase project URL (see §3.1). |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | For CRM | Supabase anon key. |
+| `SUPABASE_SERVICE_ROLE_KEY` | For CRM (server) | Supabase service role key; never expose to client. |
 
 ### Trigger.dev worker (Trigger dashboard or `trigger dev` env)
 
@@ -106,6 +109,21 @@ Used for RAG in the Digital Wealth Assistant (chat). Without it, chat still work
    - Use the ingestion script: put **.txt** or **.md** files in `scripts/rag-documents/` (e.g. Everest brochures, FAIS compliance, SARS guidelines). For PDFs, export text to .txt first.
    - Run: `npm run rag:ingest` (or `npx tsx scripts/ingest-rag.ts [directory]`). Requires `OPENAI_API_KEY` and `DATABASE_URL` in `.env.local`.
    - The script chunks text (~600 chars with overlap), inserts into `resources`, embeds with OpenAI `text-embedding-3-small`, and inserts into `embeddings`.
+
+### 3.1 Supabase CRM (optional)
+
+The CRM (`/crm`, `/portal`) uses **mock data** by default. To use a **real Supabase backend**:
+
+1. **Env vars** (in `.env.local` and your host):
+   - `NEXT_PUBLIC_SUPABASE_URL` – Supabase project URL.
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` – anon/public key.
+   - `SUPABASE_SERVICE_ROLE_KEY` – service role key (server-only; never expose to client). Used by `lib/crm-data.ts` and `lib/supabase/server.ts` for CRM reads/writes until Supabase Auth + RLS are wired (Phase 2).
+
+2. **Run migrations** in the Supabase project (SQL Editor or CLI):
+   - First: `supabase/migrations/20260308000000_crm_schema.sql` (tables: staff, households, leads, clients, correspondence, tasks, notes).
+   - Then: `supabase/migrations/20260308100000_crm_seed.sql` (seed staff, households, sample leads).
+
+3. **Behaviour**: When both URL and service role key are set, `lib/crm-data.ts` uses Supabase; otherwise it falls back to mock data. Auth remains mock (cookies) until Phase 2 (Supabase Auth + RLS). See `docs/CRM_IMPLEMENTATION_PROGRESS.md` for the rollout plan.
 
 ---
 

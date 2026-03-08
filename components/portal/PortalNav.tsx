@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShieldCheck, LayoutDashboard, FileText, MessageCircle, LogOut } from "@/components/icons";
+import { LayoutDashboard, FileText, MessageCircle, LogOut } from "@/components/icons";
 import { logout } from "@/app/login/logout";
 
 const nav = [
@@ -18,9 +18,7 @@ export function PortalNav({ name }: { name: string }) {
     <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-vault-card/95 backdrop-blur border-b border-white/10">
       <div className="h-full max-w-5xl mx-auto px-4 flex items-center justify-between">
         <Link href="/portal" className="flex items-center gap-2">
-          <div className="bg-gradient-to-br from-cinematic-teal to-gold-orange/90 p-1.5 rounded-xl">
-            <ShieldCheck className="w-5 h-5 text-white" />
-          </div>
+          <img src="/images/logo.jpg" alt="" className="h-8 w-auto rounded-xl object-contain" />
           <span className="font-bold text-white">Client Portal</span>
         </Link>
         <nav className="flex items-center gap-1">

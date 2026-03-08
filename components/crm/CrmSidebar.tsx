@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShieldCheck, LayoutDashboard, Users, LogOut, Briefcase, CheckSquare } from "@/components/icons";
+import { LayoutDashboard, Users, LogOut, Briefcase, CheckSquare } from "@/components/icons";
 import { logout } from "@/app/login/logout";
 
 const navItems = [
@@ -26,9 +26,7 @@ export function CrmSidebar({ role, name }: { role: string; name: string }) {
       <aside className="hidden md:flex flex-col fixed left-0 top-0 h-full w-56 bg-vault-card border-r border-white/10 z-40">
         <div className="p-4 border-b border-white/10">
           <Link href="/crm" className="flex items-center gap-2">
-            <div className="bg-gradient-to-br from-cinematic-teal to-gold-orange/90 p-2 rounded-xl">
-              <ShieldCheck className="w-5 h-5 text-white" />
-            </div>
+            <img src="/images/logo.jpg" alt="" className="h-8 w-auto rounded-xl object-contain" />
             <span className="font-bold text-white">AS Brokers CRM</span>
           </Link>
         </div>
@@ -73,7 +71,7 @@ export function CrmSidebar({ role, name }: { role: string; name: string }) {
       {/* Mobile: top bar only; main nav in page or hamburger if needed later */}
       <div className="md:hidden fixed top-0 left-0 right-0 h-14 z-50 bg-vault-card/95 backdrop-blur border-b border-white/10 flex items-center justify-between px-4">
         <Link href="/crm" className="flex items-center gap-2">
-          <ShieldCheck className="w-6 h-6 text-cinematic-teal" />
+          <img src="/images/logo.jpg" alt="" className="h-8 w-auto rounded-xl object-contain" />
           <span className="font-bold text-white">CRM</span>
         </Link>
         <div className="flex items-center gap-1 overflow-x-auto">

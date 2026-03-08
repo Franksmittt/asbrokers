@@ -18,6 +18,8 @@ export type ConsentLevel = "all" | "essential" | null;
 type ConsentContextValue = {
   consent: ConsentLevel;
   setConsent: (level: "all" | "essential") => void;
+  /** Clear stored consent so the cookie banner shows again (e.g. from Manage Cookie Preferences page). */
+  clearConsent: () => void;
   hasChosen: boolean;
 };
 
@@ -52,6 +54,15 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     setConsentState(level);
   }, []);
 
+  const clearConsent = useCallback(() => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+    setConsentState(null);
+  }, []);
+
   const hasChosen = hasHydrated && consent !== null;
 
   return (
@@ -59,6 +70,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
       value={{
         consent: hasHydrated ? consent : null,
         setConsent,
+        clearConsent,
         hasChosen: hasChosen ?? false,
       }}
     >

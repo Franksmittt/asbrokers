@@ -1,4 +1,5 @@
 import {
+  boolean,
   index,
   integer,
   jsonb,
@@ -6,6 +7,7 @@ import {
   serial,
   text,
   timestamp,
+  uuid,
   varchar,
   vector,
 } from "drizzle-orm/pg-core";

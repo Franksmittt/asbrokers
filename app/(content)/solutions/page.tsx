@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { SolutionsSectionNav } from "@/components/SolutionsSectionNav";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { LineChart, HeartPulse, Lock, Scroll, ArrowRight } from "@/components/icons";
 
 const trustBadges = [
@@ -136,6 +137,14 @@ export default function SolutionsPage() {
                 {badge}
               </span>
             ))}
+          </div>
+          <div className="mt-12 max-w-4xl mx-auto">
+            <ImagePlaceholder
+              src="/images/solutions-hero.jpg"
+              alt="Architectural solutions for retirement, insurance, estate and business"
+              aspectRatio="16/9"
+              placeholderLabel="solutions-hero.jpg"
+            />
           </div>
         </div>
       </section>

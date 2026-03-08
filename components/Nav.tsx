@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { ShieldCheck, User, ChevronDown, Menu, X } from "./icons";
 import { useLeadForm } from "./LeadFormContext";
@@ -35,7 +36,11 @@ const calculatorsItems = [
   { label: "Estate & Property Tools", href: "/lab" },
 ];
 
+const dashboardPaths = ["/crm", "/portal", "/login"];
+
 export function Nav() {
+  const pathname = usePathname();
+  const isDashboard = dashboardPaths.some((p) => pathname?.startsWith(p));
   const { openLeadForm } = useLeadForm();
   const [scrolled, setScrolled] = useState(false);
   const [calculatorsOpen, setCalculatorsOpen] = useState(false);
@@ -66,6 +71,37 @@ export function Nav() {
 
   const dropdownPanelClass =
     "absolute top-full left-0 mt-1 py-2 min-w-[200px] rim-light rounded-[2rem] shadow-2xl z-50";
+
+  if (isDashboard) {
+    return (
+      <nav className="fixed top-0 w-full z-50 border-b bg-vault-card/80 backdrop-blur border-white/10 py-3">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          <Link href="/" prefetch={false} className="flex items-center gap-3">
+            <div className="bg-gradient-to-br from-cinematic-teal to-gold-orange/90 p-2 rounded-2xl shadow-lg">
+              <ShieldCheck className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-white">AS Brokers</span>
+          </Link>
+          <div className="flex items-center gap-4">
+            {pathname?.startsWith("/login") ? (
+              <Link href="/" prefetch={false} className="text-sm text-zinc-400 hover:text-white">
+                Back to site
+              </Link>
+            ) : (
+              <>
+                <Link href="/" prefetch={false} className="text-sm text-zinc-400 hover:text-white">
+                  Back to site
+                </Link>
+                <Link href="/login" prefetch={false} className="text-sm rim-light px-4 py-2 rounded-2xl text-white hover:bg-white/10">
+                  Switch account
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <nav
@@ -151,13 +187,12 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={openLeadForm}
+          <Link
+            href="/login"
             className="hidden sm:flex items-center gap-2 rim-light hover:bg-white/10 border-0 text-white px-5 py-2.5 rounded-[2rem] text-sm font-semibold transition-all duration-500 hover:scale-[1.02] hover:shadow-cta-glow-blue"
           >
-            <User className="w-4 h-4" /> Client Login
-          </button>
+            <User className="w-4 h-4" /> CRM & Client Portal
+          </Link>
           <Link
             href="/contact"
             prefetch={false}
@@ -195,13 +230,13 @@ export function Nav() {
               <Link href="/team" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl text-center -mx-1">
                 Team
               </Link>
-              <button
-                type="button"
-                onClick={() => { openLeadForm(); closeMobile(); }}
+              <Link
+                href="/login"
+                onClick={closeMobile}
                 className="w-full flex items-center justify-center gap-2 bg-white text-black py-3.5 rounded-[2rem] text-sm font-semibold hover:bg-zinc-200 hover:scale-[1.02] hover:shadow-cta-glow-blue transition-all duration-300"
               >
-                <User className="w-4 h-4" /> Client Login
-              </button>
+                <User className="w-4 h-4" /> CRM & Client Portal
+              </Link>
               <Link href="/contact" prefetch={false} onClick={closeMobile} className="w-full py-3.5 text-center text-white font-medium rim-light rounded-[2rem] hover:bg-white/10 active:bg-white/15">
                 Contact Us
               </Link>

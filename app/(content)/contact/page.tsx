@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { ContactEnquiryForm } from "@/components/forms/ContactEnquiryForm";
 import { ShieldCheck } from "@/components/icons";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 
 const trustBadges = [
   "FSP 17273",
@@ -63,9 +64,17 @@ export default function ContactPage() {
                     </span>
                   ))}
                 </div>
-                <p className="text-zinc-500 text-sm leading-relaxed mb-10 lg:mb-0">
+                <p className="text-zinc-500 text-sm leading-relaxed mb-6">
                   Submit the form and we&apos;ll get back to you personally. No call centre. Select what you&apos;d like to discuss and we&apos;ll prepare for a relevant conversation.
                 </p>
+                <div className="max-w-md mb-10 lg:mb-0">
+                  <ImagePlaceholder
+                    src="/images/contact-trust.jpg"
+                    alt="Personal financial consultation"
+                    aspectRatio="3/2"
+                    placeholderLabel="contact-trust.jpg"
+                  />
+                </div>
               </div>
 
               {/* Spacer so next block sits at bottom of column (same height as form) */}

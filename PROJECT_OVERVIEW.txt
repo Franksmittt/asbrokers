@@ -2,7 +2,7 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: March 2026 (Design overhaul + backend setup)
+Last updated: March 2026 (Design overhaul, backend setup, CRM & Client Portal)
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -38,12 +38,14 @@ What this project can do:
   - POPIA cookie consent; GA4 and Hotjar only after "Accept All".
   - PWA manifest; SEO (Organization/FinancialService schema, FAQPage, metadata per page).
   - Run-out and product calculators (retirement, tax, estate, inflation, Everest Wealth, Amethyst).
+  - CRM & Client Portal: mock-auth login (/login); role-based CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence, notes, reassign); Client Portal (wealth dashboard, My Advisor, documents with upload, messages with reply). See CRM_AND_PORTAL.txt.
 
 Recent work done:
   - Design system overhaul: Apple Pro × Samsung Galaxy fused language (void/shark backgrounds, rim-light glass, squircle cards, Nightography teal/orange orbs, Samsung Blue/Gold CTA glows, trust hallmarks). See §1 Design below.
   - Home hero UI upgrades: HeroCalculator replaced by HeroChatTerminal (frosted-glass AI chat terminal with pulsing input glow); primary CTA "Financial Health Check" has Galaxy AI–style particle/sparkle glow on hover; SolutionsBento cards use TiltCard (3D tilt + cursor-following glare). Apple easing and void theme preserved.
   - Backend: Supabase PostgreSQL + pgvector for RAG; HubSpot Private App (contact sync); Trigger.dev v4 worker (PDF + Resend); RAG ingest script (scripts/ingest-rag.ts). See BACKEND.md for full checklist and "where you left off" (HubSpot custom properties for contact form).
   - Trigger v4: maxDuration in config; jose/puppeteer external; puppeteer devDep; build passes.
+  - CRM & Client Portal: mock login (role + staff picker), CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence/notes/reassign), Client Portal (dashboard with My Advisor + Recharts, documents with mock upload, messages with mock reply). Role-based visibility (owner vs staff vs client). Full doc: CRM_AND_PORTAL.txt.
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -88,7 +90,7 @@ Regulation:        Independent Authorised Financial Services Provider
 Category:          Category 1.8 (Securities and Instruments: Shares) for
                    advising on and distributing Everest Wealth products
 
-Location:           Alberton, East Rand, Gauteng, South Africa
+Location:           Krugersdorp, East Rand, Gauteng, South Africa
 Established:       Est. 1998 (25+ years experience)
 
 Founders / team:
@@ -138,7 +140,7 @@ Quick index (all routes):
   Hero (tagline, location, CTAs with Galaxy AI particle glow on primary CTA, embedded AI chat terminal HeroChatTerminal), TrustBar (FSP 17273, partners), DualPathway ("Protect assets" / "Grow capital"), Run-Out Calculator hub (email-for-PDF), Architectural Solutions bento (3D tilt + cursor-following glare on cards), HomeStatsSection (25+, FSP 17273, 1.8), HomeValueProps (Independent, Full-service, Personal), HomeCtaStrip, Footer. Design: void background, Nightography orbs, rim-light cards, squircle.
 
 /about
-  About AS Brokers CC: independent financial advisor Alberton, FSP 17273, Category 1.8, Alberton. Links to Team and Contact. Metadata: independent financial advisor Alberton.
+  About AS Brokers CC: independent financial advisor Krugersdorp, FSP 17273, Category 1.8, Krugersdorp. Links to Team and Contact. Metadata: independent financial advisor Krugersdorp.
 
 /calculators
   Calculator hub: bento sections (Retirement Reality & Readiness, Tax & Estate, Life Insurance, Product Quotations, Financial Education, Business Risk). Cards link to each calculator; jump links; FAQ schema. Design: rim-light cards, squircle, cinematic-teal accents.
@@ -147,7 +149,7 @@ Quick index (all routes):
   Two-column: intro, trust badges, "We work best with" and CTAs left; contact form right. Form: name, phone, email, topics dropdown, consent, honeypot. Server action submitContactEnquiry → HubSpot (search-patch, lead score) and optional Trigger PDF job. Trust: FSP 17273, 25+ years, zero advice fees.
 
 /team
-  Albert Schuurman and Johnny Farinha: roles, bios, FSP 17273. Metadata: independent financial advisors Alberton.
+  Albert Schuurman and Johnny Farinha: roles, bios, FSP 17273. Metadata: independent financial advisors Krugersdorp.
 
 /regulatory-compliance
   Code 1.8 FSP; FSCA Category 1.8 (Securities and Instruments: Shares); AS Brokers FSP 17273, Everest FSP 795. Metadata: Code 1.8 FSP license broker.
@@ -236,6 +238,39 @@ Quick index (all routes):
 /api/draft-mode/enable (GET)
   next-sanity defineEnableDraftMode; enables draft for Visual Editing. SANITY_VIEWER_TOKEN.
 
+/login
+  CRM & Client Portal mock login. Choose role (Admin, Staff, Client); Staff pick advisor from dropdown. Sets cookies (mock-crm-role, mock-crm-user, mock-crm-staff-id); redirects to /crm (admin/staff) or /portal (client). See CRM_AND_PORTAL.txt.
+
+/crm
+  CRM dashboard: pipeline stats (New→Won/Lost) and recent leads; role-filtered (admin = all, staff = assigned). Links to Kanban and Leads.
+
+/crm/kanban
+  Pipeline Kanban: columns New, Contacted, Qualified, Proposal, Won, Lost; drag-drop cards (mock, resets on refresh). Role-filtered. Cards link to lead detail.
+
+/crm/leads
+  Leads table: Name, Contact, Service, Intent, Status, Assigned, Fit/Eng. Role-filtered. Name links to /crm/leads/[id].
+
+/crm/leads/[id]
+  Lead detail: contact, intent, status, service, reassign (admin only), correspondence thread, notes, tasks.
+
+/crm/clients
+  Clients table (converted leads); role-filtered. Name links to /crm/clients/[id].
+
+/crm/clients/[id]
+  Client detail: contact, services, advisor, WhatsApp; same correspondence, notes, tasks as CRM side.
+
+/crm/tasks
+  Tasks list: To do and Completed; linked to lead/client; role-filtered by assignee.
+
+/portal
+  Client Portal dashboard: My Advisor (name, WhatsApp, Call), portfolio value, monthly income, holdings list, Recharts (income + drawdown). Mock data.
+
+/portal/documents
+  Document vault: mock list + DocumentUpload (mock file upload). Backend will use Supabase Storage + audit.
+
+/portal/messages
+  Unified message thread (portal/email/WhatsApp) + MessageReply (mock send). Same thread as CRM client/lead correspondence.
+
 Route structure (App Router):
   Root layout: app/layout.tsx (Inter, bg-void); NuqsAdapter → ConsentProvider → MotionConfigProvider → GlobalSchema, AppShell. Cookie banner + conditional GA4/Hotjar in ConsentProvider.
   Route group (content): app/(content)/layout.tsx wraps public routes; conditional <VisualEditing /> when draft. Studio and API outside (content).
@@ -247,7 +282,8 @@ Route structure (App Router):
 Header (global, components/Nav.tsx):
   - Logo (teal→gold-orange gradient) + "AS Brokers" + FSP 17273 (trust-hallmark)
   - Home | Solutions (dropdown) | Calculators (dropdown) | Team
-  - Client Login (opens lead form) | Contact Us — rim-light buttons, Samsung Blue / Gold glow on hover
+  - CRM & Client Portal (link to /login) | Contact Us — rim-light buttons, Samsung Blue / Gold glow on hover
+  - On /crm, /portal, /login: minimal bar (logo, Back to site, Switch account to /login)
   - When scrolled: frosted glass (bg-white/5 backdrop-blur-2xl border-white/10) so teal/orange orbs blur behind nav
   - Skip link: "Skip to main content" (focus-only)
   - Mobile: hamburger; dropdowns and panels use rim-light, rounded-[2rem]
@@ -302,7 +338,7 @@ ContactEnquiryForm – components/forms/ContactEnquiryForm.tsx. Main contact for
                      on main form (calculator lead forms only).
 LeadFormContext   – Global lead form modal (e.g. Client Login)
 GlobalSchema       – Organization + FinancialService JSON-LD (root layout); XSS-safe
-                      (escapeJsonLd); FSP 17273, founders, Alberton, Category 1.8
+                      (escapeJsonLd); FSP 17273, founders, Krugersdorp, Category 1.8
 MotionConfigProvider – Framer Motion reducedMotion="user" for vestibular accessibility
 FAQSchema         – Reusable FAQPage JSON-LD (XSS-safe); used on /retirement, /calculators,
                       /everest-wealth, /everest-amethyst-living-annuity
@@ -349,30 +385,40 @@ Calculator components (one per calculator page):
   Everest128Calculator, ImmediateHigherIncomeCalculator,
   EverestStrategicGrowth145Calculator, AmethystLivingAnnuityCalculator
 
+CRM & Client Portal (see CRM_AND_PORTAL.txt):
+  CrmSidebar         – Desktop: nav (Dashboard, Kanban, Leads, Clients, Tasks), role/name, Log out, Back to site. Mobile: top bar with same links.
+  LeadsKanban        – Client component: columns by lead status; drag-drop cards; role-filtered initialLeads.
+  PortalNav          – Fixed top nav: logo, Dashboard/Documents/Messages, user, Log out, Site.
+  PortalDashboardCharts – Recharts: cumulative income area chart, annuity drawdown area chart (mock data).
+  PortalMyAdvisor    – Card: advisor name, role, WhatsApp button, Call link.
+  DocumentUpload     – Mock file input; appends “uploaded” item to list (no real storage).
+  MessageReply       – Textarea + Send (mock); shows “Sent (mock)”.
+  Mock data: lib/mock-auth.ts (session cookies), lib/mock-crm.ts (leads, clients, staff, correspondence, tasks, notes), lib/mock-portal.ts (holdings, documents, messages, advisor, chart data).
+
 --------------------------------------------------------------------------------
 6. METADATA & TECHNICAL SEO
 --------------------------------------------------------------------------------
 
 Root layout:
   Title template:  %s | AS Brokers CC
-  Default title:   AS Brokers CC | Independent Financial Advisor Alberton
+  Default title:   AS Brokers CC | Independent Financial Advisor Krugersdorp
   Description:     25+ years; retirement, insurance, estate, Code 1.8.
-  Keywords:        independent financial advisor Alberton, Code 1.8 FSP license broker,
+  Keywords:        independent financial advisor Krugersdorp, Code 1.8 FSP license broker,
                    Everest Wealth brokers, alternative private equity investments South Africa, ...
   OpenGraph:       type website, locale en_ZA, siteName AS Brokers CC
 
 Page-level metadata (keyword targeting per SEO plan):
-  /about                    – independent financial advisor Alberton
-  /contact (layout)         – independent financial advisor Alberton
+  /about                    – independent financial advisor Krugersdorp
+  /contact (layout)         – independent financial advisor Krugersdorp
   /regulatory-compliance    – Code 1.8 FSP license broker
   /everest-wealth           – alternative private equity South Africa, Everest Wealth brokers
   /retirement               – semigration, retirement villages Western Cape
   /insights/semigration-retirement – semigration, retirement villages Western Cape
-  /team                     – independent financial advisors Alberton
+  /team                     – independent financial advisors Krugersdorp
 
 Structured data:
   GlobalSchema (root): Organization + FinancialService @graph; legalName AS Brokers CC;
-    FSP 17273, founders, Alberton address; XSS-safe JSON-LD.
+    FSP 17273, founders, Krugersdorp address; XSS-safe JSON-LD.
   FAQSchema: FAQPage on /calculators, /retirement, /everest-wealth, /everest-amethyst-living-annuity;
     escapeJsonLd for safe script injection.
 
@@ -388,6 +434,9 @@ PWA:  public/manifest.json (name, theme, start_url). Root layout references mani
 
 Memory bank:
   - BACKEND.md         – Backend setup checklist; env vars; Supabase, HubSpot, Trigger.dev, Resend, Sanity, OpenAI, RAG; "Where you left off" (e.g. HubSpot custom properties for contact form)
+  - CRM_AND_PORTAL.txt – CRM & Client Portal: what it does, features, benefits, how it works (mock vs planned backend), routes, key files
+  - ROLLS_ROYCE_CRM_VISION.txt – Vision for bespoke “Rolls-Royce” CRM: client portal (private wealth terminal), staff (precision engine), owner (command center); AI-infused, compliance-first, implementation roadmap
+  - .cursor/rules/crm-rolls-royce.mdc – Cursor rule for CRM/portal work: design language, AI, compliance, service alignment, user-specific (client/staff/owner), phasing
   - agents.md          – Root: tech stack, business/regulatory context, architecture, Everest constraints, liquidity warning
   - app/(content)/calculators/CONTEXT.md – Formula and tax context for all calculators
 
@@ -556,7 +605,37 @@ Build / env:
     NEXT_PUBLIC_SANITY_STUDIO_URL, SANITY_VIEWER_TOKEN. See .env.example.
 
 --------------------------------------------------------------------------------
-13. PHASE 4: ANALYTICS & POPIA COOKIE CONSENT
+13. CRM & CLIENT PORTAL
+--------------------------------------------------------------------------------
+
+Purpose: Authenticated CRM for staff/owners and Client Portal for clients; currently
+mock data and mock auth (cookie-based role/staff). Built for backend swap (Supabase,
+RLS, Magic Links, HubSpot sync).
+
+Entry: Nav "CRM & Client Portal" → /login. Choose Admin / Staff / Client; Staff
+also choose team member. Redirect to /crm or /portal.
+
+CRM (admin/staff):
+  - Dashboard: pipeline counts + recent leads (role-filtered).
+  - Kanban: drag-drop pipeline (New→Won/Lost); role-filtered.
+  - Leads: table + detail (contact, correspondence, notes, tasks, reassign for admin).
+  - Clients: table + detail (same correspondence/notes/tasks; advisor + WhatsApp).
+  - Tasks: to do / completed; linked to lead or client; role-filtered.
+  - Visibility: admin sees all; staff see only assigned leads/clients/tasks.
+
+Client Portal (client role only):
+  - Dashboard: My Advisor (WhatsApp/Call), portfolio value, holdings, Recharts.
+  - Documents: list + mock upload (real storage planned via Supabase).
+  - Messages: unified thread + mock reply (same thread as CRM correspondence).
+
+Data: lib/mock-crm.ts (leads, clients, staff, correspondence, tasks, notes; service
+categories aligned with AS Brokers solutions). lib/mock-portal.ts (holdings,
+documents, messages, advisor). lib/mock-auth.ts (session cookies).
+
+Full documentation: CRM_AND_PORTAL.txt (features, benefits, how it works, routes, files).
+
+--------------------------------------------------------------------------------
+14. PHASE 4: ANALYTICS & POPIA COOKIE CONSENT
 --------------------------------------------------------------------------------
 
 Purpose: Enterprise analytics (GA4, Hotjar) with strict POPIA compliance: no

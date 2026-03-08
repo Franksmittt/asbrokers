@@ -5,8 +5,8 @@ import { ArrowRight, ShieldCheck, LineChart } from "./icons";
 
 export function DualPathway() {
   return (
-    <section className="relative z-10 py-16 md:py-24 px-6">
-      <div className="max-w-5xl mx-auto">
+    <section className="relative z-10 py-16 md:py-24 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+      <div>
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white text-center mb-4">
           How can we help you?
         </h2>

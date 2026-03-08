@@ -63,7 +63,7 @@ Styling:
 Path: components/Hero.tsx
 
 What it does:
-  Above-the-fold hero: location badge (Alberton · Est. 1998 · FSP 17273),
+  Above-the-fold hero: location badge (Krugersdorp · Est. 1998 · FSP 17273),
   main headline “Protecting Your Legacy. Engineering Your Wealth.” (gradient
   on second line), supporting copy, two CTAs (Financial Health Check → lead
   form; Run The Numbers → #lab), and optional scroll hint. On desktop, a

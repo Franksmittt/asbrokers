@@ -6,7 +6,7 @@ export function HomeStatsSection() {
   ];
 
   return (
-    <section className="relative z-10 py-16 md:py-20 px-4 sm:px-6 md:px-8 border-y border-white/10 bg-shark/60 backdrop-blur-xl">
+    <section className="relative z-10 py-16 md:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
           {stats.map((stat) => (

@@ -88,7 +88,7 @@ function PdfReportContent() {
 
         <footer className="text-zinc-500 text-xs border-t border-white/10 pt-6">
           <p>This projection is for illustration only. Assumes 6% growth and does not constitute advice.</p>
-          <p className="mt-2">AS Brokers CC · FSP 17273 · Alberton, Gauteng</p>
+          <p className="mt-2">AS Brokers CC · FSP 17273 · Krugersdorp, Gauteng</p>
         </footer>
       </div>
     </div>

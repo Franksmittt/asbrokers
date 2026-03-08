@@ -18,8 +18,14 @@ export const financialCalculatorSchema = contactFormSchema.extend({
     .pipe(z.number().min(0).optional()),
 });
 
+/** Footer newsletter signup: email only. HubSpot +10 lead score on submit. */
+export const newsletterSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+
 export type ContactFormPayload = z.infer<typeof contactFormSchema>;
 export type FinancialCalculatorPayload = z.infer<typeof financialCalculatorSchema>;
+export type NewsletterPayload = z.infer<typeof newsletterSchema>;
 
 /** Action state returned to client for useActionState; supports field-level errors. */
 export interface ContactActionState {

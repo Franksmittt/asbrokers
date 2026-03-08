@@ -1,7 +1,7 @@
 /**
  * Global Organization + FinancialService JSON-LD for AS Brokers CC.
  * Injected at root layout. XSS-safe: no user input; structured data only.
- * FSCA FSP 17273, Category 1.8, Alberton, founders.
+ * FSCA FSP 17273, Category 1.8, Krugersdorp, founders.
  */
 function escapeJsonLd(obj: unknown): string {
   const str = JSON.stringify(obj);
@@ -21,10 +21,10 @@ export function GlobalSchema() {
         logo: { "@type": "ImageObject", url: "https://asbrokers.online/logo.png" },
         image: "https://asbrokers.online/og.png",
         description:
-          "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Retirement planning, insurance, estate structuring, Everest Wealth. Alberton, East Rand, Gauteng.",
+          "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Retirement planning, insurance, estate structuring, Everest Wealth. Krugersdorp, East Rand, Gauteng.",
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Alberton",
+          addressLocality: "Krugersdorp",
           addressRegion: "Gauteng",
           addressCountry: "ZA",
         },
@@ -42,7 +42,7 @@ export function GlobalSchema() {
         "@id": "https://asbrokers.online/#financialservice",
         name: "AS Brokers CC",
         description:
-          "Independent financial advisor Alberton. FSP 17273. Category 1.8 broker for unlisted shares and Everest Wealth. Retirement, insurance, estate planning.",
+          "Independent financial advisor Krugersdorp. FSP 17273. Category 1.8 broker for unlisted shares and Everest Wealth. Retirement, insurance, estate planning.",
         url: "https://asbrokers.online",
         provider: { "@id": "https://asbrokers.online/#organization" },
         areaServed: { "@type": "Country", name: "South Africa" },

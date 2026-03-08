@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { ContactFormPayload } from "@/lib/validations/schema";
+import type { ContactFormPayload, NewsletterPayload } from "@/lib/validations/schema";
 
 /** Token must be set server-side only; this file must not be imported from client. */
 const HUBSPOT_TOKEN = process.env.HUBSPOT_ACCESS_TOKEN ?? process.env.HUBSPOT_PRIVATE_APP_TOKEN;
@@ -132,6 +132,58 @@ export async function syncContactToHubSpot(
       // keep default message
     }
     return { success: false, error: message };
+  }
+  return { success: true };
+}
+
+/** Newsletter signup: create/update contact with email only; +10 lead score for nurturing. */
+const NEWSLETTER_SCORE_INCREMENT = 10;
+
+export async function syncNewsletterToHubSpot(
+  payload: NewsletterPayload
+): Promise<{ success: boolean; error?: string }> {
+  if (!HUBSPOT_TOKEN) {
+    return { success: false, error: "HubSpot is not configured." };
+  }
+
+  const existing = await getContactByEmail(payload.email);
+  const newScore = (existing?.platform_lead_score ?? 0) + NEWSLETTER_SCORE_INCREMENT;
+
+  const properties: Record<string, string> = {
+    email: payload.email,
+    firstname: "",
+    lastname: "",
+    platform_lead_score: String(newScore),
+  };
+
+  if (existing) {
+    const url = `${BASE}/crm/v3/objects/contacts/${existing.id}`;
+    const res = await fetch(url, {
+      method: "PATCH",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ properties }),
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("[HubSpot] PATCH newsletter failed:", res.status, await res.text());
+      }
+      return { success: false, error: "Could not update contact." };
+    }
+    return { success: true };
+  }
+
+  const url = `${BASE}/crm/v3/objects/contacts`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ properties }),
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    if (process.env.NODE_ENV === "development") console.error("[HubSpot] POST newsletter failed:", res.status, err);
+    return { success: false, error: "Could not subscribe." };
   }
   return { success: true };
 }

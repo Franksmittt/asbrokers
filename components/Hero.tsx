@@ -47,9 +47,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: APPLE_EASE }}
-            className="text-base sm:text-lg text-gray-400 font-light leading-relaxed mb-8 max-w-lg tracking-[0.01em]"
+            className="text-base sm:text-lg text-gray-400 font-light leading-relaxed mb-8 max-w-xl tracking-[0.01em]"
           >
-            Independent financial advice and Code 1.8 alternative investments. Fiduciary architecture, risk management, and wealth structuring from the East Rand to the Western Cape.
+            Independent Financial Advisors in Krugersdorp, Gauteng – 25+ Years of Certainty in Retirement, Risk Protection, and Estate Mastery. No Advice Fees.
           </motion.p>
 
           <motion.div

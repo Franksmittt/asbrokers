@@ -6,22 +6,22 @@ import { ShieldCheck, LineChart, User } from "./icons";
 const props = [
   {
     icon: ShieldCheck,
-    title: "Independent",
-    body: "We're not tied to a single product house. Our advice is built around your goals, not quotas.",
+    title: "100% Independent",
+    body: "Authorised Category 1.8 Advice. We're not tied to a single product house—our advice is built around your goals, not quotas.",
     href: "/solutions",
     cta: "Our solutions",
   },
   {
     icon: LineChart,
-    title: "Full-service",
-    body: "Retirement, insurance, estate, and business structuring under one roof. One relationship.",
+    title: "Zero Advice Fees on Investments",
+    body: "No advice fees on investments. Retirement, living annuities, and Code 1.8 alternative investments under one roof.",
     href: "/calculators",
     cta: "Calculators and tools",
   },
   {
     icon: User,
-    title: "Personal",
-    body: "No call centres. You deal with experienced advisers who know your file.",
+    title: "Personal Concierge Service",
+    body: "No call centres. You deal with experienced advisers who know your file—a true concierge relationship.",
     href: "/contact",
     cta: "Start a conversation",
   },
@@ -29,8 +29,8 @@ const props = [
 
 export function HomeValueProps() {
   return (
-    <section className="relative z-10 py-20 md:py-24 px-4 sm:px-6 md:px-8">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative z-10 py-20 md:py-24 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+      <div>
         <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-3">
           Why AS Brokers
         </h2>

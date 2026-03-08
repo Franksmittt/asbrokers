@@ -1,14 +1,17 @@
 import { Footer } from "@/components/Footer";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 
 const team = [
   {
     name: "Albert Schuurman",
+    slug: "team-albert",
     role: "Independent Financial Advisor",
     bio: "Co-founder of AS Brokers. Focus on retirement income planning and helping clients create certainty.",
     quote: "You can't buy insurance when you need it.",
   },
   {
     name: "Johnny Farinha",
+    slug: "team-johnny",
     role: "Independent Financial Advisor",
     bio: "Co-founder of AS Brokers. Expertise in estate structuring, business continuity and risk planning.",
   },
@@ -29,9 +32,14 @@ export default function TeamPage() {
         <div className="grid sm:grid-cols-2 gap-4">
           {team.map((person) => (
             <div key={person.name} className="bg-[#151518] rounded-[2rem] p-8 border border-white/5">
-              <p className="text-blue-400 text-2xl font-bold mb-4">
-                {person.name.split(" ").map((n) => n[0]).join("")}
-              </p>
+              <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6">
+                <ImagePlaceholder
+                  src={`/images/${person.slug}.jpg`}
+                  alt={person.name}
+                  aspectRatio="1/1"
+                  placeholderLabel={`${person.slug}.jpg`}
+                />
+              </div>
               <h2 className="text-xl font-bold text-white">{person.name}</h2>
               <p className="text-zinc-500 text-xs uppercase tracking-widest mt-1">{person.role}</p>
               <p className="text-zinc-400 text-sm mt-6 leading-relaxed">{person.bio}</p>

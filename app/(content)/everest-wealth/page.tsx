@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { FAQSchema } from "@/components/FAQSchema";
+import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 
 export const metadata = {
   title: "Everest Wealth Products | Alternative Private Equity Investments South Africa",
@@ -126,6 +127,17 @@ export default function EverestWealthPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="px-4 sm:px-6 md:px-8 py-8 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <ImagePlaceholder
+            src="/images/everest-visual.jpg"
+            alt="Everest Wealth fixed-return investment options"
+            aspectRatio="16/9"
+            placeholderLabel="everest-visual.jpg"
+          />
         </div>
       </section>
 

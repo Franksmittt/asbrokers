@@ -161,13 +161,17 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
 
   Home page structure (top to bottom)
   -----------------------------------
-  1. Hero (full viewport, h-screen)
+  1. Hero (full viewport, h-screen) – “Reality Check”
      • BackgroundOrbs (ambient teal and gold-orange orbs).
-     • HeroSection: headline, tagline “Engineering Your Wealth”, location
-       (Krugersdorp), primary CTA “Financial Health Check” (with hover glow),
-       secondary CTAs, trust cues (FSP 17273).
-     • HeroChatTerminal: embedded AI chat teaser (frosted glass); “Open full
-       chat” links to /chat.
+     • HeroSection: headline “You think your retirement is safe. The math might
+       disagree.”; subhead “Protecting Your Legacy. Engineering Your Wealth.
+       Discover if your capital will outlive you, and how to fix it if it won’t.”;
+       primary CTA “Run the Numbers” (smooth scroll to Run-Out Calculator);
+       secondary “Explore Code 1.8 Wealth Engineering” (scroll to #code18);
+       trust bar: FSP 17273, Category 1.8, 25+ Years; partner names (Everest
+       Wealth, Santam, Old Mutual, Bryte) below fold.
+     • FloatingChat: Digital Wealth Assistant (HeroChatTerminal) in a floating
+       panel bottom-right; FAB opens/closes the chat.
 
   2. The Interactive Calculator Hub (section id="lab")
      • Placed directly below the hero.
@@ -176,9 +180,11 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
        calculators” (retirement, tax, estate, life insurance, Everest Wealth).
      • RunOutCalculator: sliders for Total Portfolio Value and Monthly Drawdown;
        displays Estimated Capital Lifespan; warning if capital depletion risk;
-       “Unlock the Full Actuarial Breakdown” — email capture to generate PDF
-       (year-by-year trajectory, tax implications, inflation). Recharts area
-       chart “Projection over time” after reveal.
+       “Unlock the Full Actuarial Breakdown” gate: name, email, and POPIA
+       consent required to reveal full year-by-year trajectory (PDF via
+       Trigger.dev). Gate overlay is scrollable on mobile so all fields and
+       the Reveal button remain visible. Recharts area chart “Projection over
+       time” after reveal.
 
   3. Choose Your Path
      • Cards guiding visitors (e.g. protect assets / grow capital or similar
@@ -218,18 +224,13 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
 
   Global navigation (Nav)
   -----------------------
-  • Logo + “AS Brokers” + FSP 17273 (trust-hallmark).
-  • Home | Solutions (dropdown) | Calculators (dropdown) | Team.
-  • CRM & Client Portal (→ /login) | Contact Us.
+  • Logo + “AS Brokers” + “FSP 17273 · Category 1.8 · 25+ Years” (trust-hallmark).
+  • Home | Solutions (→ /solutions) | Calculators (→ /calculators) | Team.
+  • CRM & Client Portal (→ /login) | Contact Us. No dropdowns; Solutions and
+    Calculators are direct links to their hub pages.
   • On scroll: frosted glass (rim-light) over orbs.
-  • Solutions dropdown: All solutions, Digital Wealth Assistant (/chat), Wealth
-    & Retirement, Everest Wealth, Understanding Everest, Personal/Business/Life
-    insurance, Legacy & Estate, Insights, Financial Health Quiz, Team.
-  • Calculators dropdown: Calculator Hub, Everest calculators, Run-Out,
-    Retirement Reality, Income in Retirement, Income Tax, Future Value/Inflation,
-    Estate Duty, Annual Estate Reduction, Premium Increase, Estate & Property
-    Tools.
-  • Mobile: hamburger; same links in panels.
+  • Mobile: hamburger; same top-level links (Home, Solutions, Calculators,
+    Team) plus CRM & Client Portal and Contact Us.
 
 
   Other public routes (summary)
@@ -247,7 +248,16 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
   /team               — Albert Schuurman and Johnny Farinha: roles, bios, FSP.
   /regulatory-compliance — Code 1.8 FSP, FSCA Category 1.8, AS Brokers FSP 17273,
                        Everest FSP 795.
-  /solutions          — Solutions hub with links to sub-pages and calculators.
+  /solutions          — “Engineered Wealth & Risk Architecture” hero; sticky
+                       section nav (Private Wealth & Yield, Risk Architecture,
+                       Health & Integration, Legacy Structuring). Section 1:
+                       Private Wealth & Yield with featured cards (Everest
+                       Wealth Products, Retirement Reality Calculator) spanning
+                       two columns and blue glow. Phase 2: Wealth Protection &
+                       Fiduciary Defense groups Insurance, Medical, Estate in
+                       muted cards (bg #101014). CTA “Stop Guessing. Start
+                       Engineering.” with Book Private Consultation and All
+                       calculators. Links to sub-pages and calculators.
   /solutions/personal-insurance   — Personal short-term (home, car, valuables).
   /solutions/business-insurance   — Business short-term (commercial, liability,
                        fleet).
@@ -267,9 +277,11 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
   ---------------------------------------------------
   • RunOutCalculator: Total Portfolio Value (slider), Monthly Drawdown (slider).
   • Output: Estimated Capital Lifespan (years); warning if depletion risk.
-  • Email gate: “Unlock the Full Actuarial Breakdown” — year-by-year trajectory,
-    tax implications, inflation; PDF generation via Trigger.dev + Resend.
-  • Recharts area chart “Projection over time” after email reveal.
+  • Gate: “Unlock the Full Actuarial Breakdown” requires full name, email, and
+    POPIA consent checkbox; then reveals year-by-year trajectory (PDF via
+    Trigger.dev + Resend). Overlay is scrollable on mobile so the full form
+    and Reveal button stay visible on small screens.
+  • Recharts area chart “Projection over time” after reveal.
 
   Retirement & readiness
   ----------------------

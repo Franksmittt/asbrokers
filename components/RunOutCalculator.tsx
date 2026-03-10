@@ -87,54 +87,56 @@ export function RunOutCalculator() {
       {/* Chart */}
       <div className="lg:col-span-8 bg-[#151518] rounded-[2rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden flex flex-col justify-end min-h-[400px]">
         {!emailCaptured && (
-          <div className="absolute inset-0 z-20 bg-[#0a0a0c]/80 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center">
-            <Lock className="w-10 h-10 text-blue-400 mb-4" />
-            <h3 className="text-2xl font-bold text-white mb-2">Unlock the Full Actuarial Breakdown</h3>
-            <p className="text-zinc-400 mb-6 max-w-md text-sm">
-              See how to extend your capital lifespan: exact year-by-year trajectory, tax implications, and inflation adjustments. Enter your details to generate the PDF.
-            </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setEmailCaptured(true);
-              }}
-              className="flex flex-col w-full max-w-sm gap-3"
-            >
-              <input
-                type="text"
-                name="name"
-                required
-                placeholder="Full name"
-                className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
-                aria-label="Full name"
-              />
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Email address"
-                className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
-                aria-label="Email address"
-              />
-              <label className="flex items-start gap-2.5 text-left cursor-pointer group">
-                <input
-                  type="checkbox"
-                  name="popia"
-                  required
-                  className="mt-1 rounded border-white/20 bg-white/5 text-cinematic-teal focus:ring-cinematic-teal/50"
-                  aria-describedby="popia-desc"
-                />
-                <span id="popia-desc" className="text-xs text-zinc-400 group-hover:text-zinc-300">
-                  I consent to AS Brokers (FSP 17273) processing my personal information in accordance with POPIA. I understand my data will be used to deliver the actuarial report and relevant financial services communication.
-                </span>
-              </label>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3.5 rounded-full text-sm font-semibold transition-colors"
+          <div className="absolute inset-0 z-20 bg-[#0a0a0c]/80 backdrop-blur-md overflow-y-auto overflow-x-hidden">
+            <div className="flex flex-col items-center p-4 sm:p-6 pb-8 min-h-full box-border">
+              <Lock className="w-10 h-10 text-blue-400 mb-4 shrink-0" />
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 px-1 text-center">Unlock the Full Actuarial Breakdown</h3>
+              <p className="text-zinc-400 mb-4 sm:mb-6 max-w-md text-sm px-1 text-center">
+                See how to extend your capital lifespan: exact year-by-year trajectory, tax implications, and inflation adjustments. Enter your details to generate the PDF.
+              </p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setEmailCaptured(true);
+                }}
+                className="flex flex-col w-full max-w-sm gap-3 text-left"
               >
-                Reveal
-              </button>
-            </form>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="Full name"
+                  className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
+                  aria-label="Full name"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Email address"
+                  className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
+                  aria-label="Email address"
+                />
+                <label className="flex items-start gap-2.5 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="popia"
+                    required
+                    className="mt-1 rounded border-white/20 bg-white/5 text-cinematic-teal focus:ring-cinematic-teal/50 shrink-0"
+                    aria-describedby="popia-desc"
+                  />
+                  <span id="popia-desc" className="text-xs text-zinc-400 group-hover:text-zinc-300">
+                    I consent to AS Brokers (FSP 17273) processing my personal information in accordance with POPIA. I understand my data will be used to deliver the actuarial report and relevant financial services communication.
+                  </span>
+                </label>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3.5 rounded-full text-sm font-semibold transition-colors mt-1"
+                >
+                  Reveal
+                </button>
+              </form>
+            </div>
           </div>
         )}
 

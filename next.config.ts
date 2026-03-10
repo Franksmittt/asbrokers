@@ -3,7 +3,6 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  outputFileTracingRoot: path.join(__dirname),
   webpack: (config) => {
     const hoistPath = path.join(
       __dirname,

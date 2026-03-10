@@ -115,7 +115,7 @@ export function Nav() {
           <div>
             <span className="text-xl font-bold tracking-tight block leading-none text-white">AS Brokers</span>
             <span className={`trust-hallmark text-[10px] font-semibold uppercase mt-1 block transition-colors duration-300 ${scrolled ? "text-zinc-300" : "text-zinc-400"}`}>
-              FSP 17273
+              FSP 17273 · Category 1.8 · 25+ Years
             </span>
           </div>
         </Link>

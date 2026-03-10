@@ -1,0 +1,626 @@
+================================================================================
+  AS BROKERS — CUSTOMER & PROJECT OVERVIEW
+  Complete in-depth reference for the client and the digital platform
+================================================================================
+
+Document version:  March 2026
+Prepared by:       Endpoint Media
+
+  Frank Smit
+  Endpoint Media
+  076 972 4559
+  hello@endpointmedia.co.za
+
+--------------------------------------------------------------------------------
+  INTELLECTUAL PROPERTY & COPYRIGHT
+--------------------------------------------------------------------------------
+
+All intellectual property, source code, designs, documentation, and deliverables
+produced for this project are and shall remain the exclusive property of
+Endpoint Media until the agreed project fee has been paid in full pursuant to
+the signed agreement between AS Brokers CC and Endpoint Media.
+
+Until such time as full payment is received, no transfer of ownership, licence,
+or right to use, reproduce, modify, or deploy the deliverables (including but
+not limited to the website, CRM, Client Portal, and any associated software or
+content) is granted. Unauthorised use, reproduction, distribution, or transfer
+of any part of this project is prohibited.
+
+Upon receipt of the full agreed amount, transfer of rights (if any) will be
+governed solely by the terms of the signed agreement.
+
+================================================================================
+  PART ONE — THE CUSTOMER (AS BROKERS CC)
+================================================================================
+
+Legal name:        AS Brokers CC
+Tagline:           "Protecting Your Legacy. Engineering Your Wealth."
+FSP number:        FSP 17273
+Regulation:        Independent Authorised Financial Services Provider (South Africa)
+Category:          Category 1.8 (Securities and Instruments: Shares) — advising on
+                   and distributing Everest Wealth products and related instruments.
+
+Location:          Krugersdorp, East Rand, Gauteng, South Africa
+Established:       Est. 1998 (25+ years in operation)
+
+Positioning:       High-net-worth and retirement-focused independent advisor;
+                   no advice fees on investments; personal response with no
+                   call centre; WhatsApp and direct contact preferred.
+
+Contact:           WhatsApp 067 242 9946 | Contact form on website | No advice
+                   fees on investments; personal response (no call centre).
+
+
+  Founders & leadership
+  ---------------------
+  • Albert Schuurman   — Co-founder; Manager & Key Individual. Retirement income
+                         planning, strategic oversight, escalations, ultra HNW.
+  • Johnny Farinha     — Co-founder; Financial Advisor. Estate structuring,
+                         business continuity, business development, domestic/
+                         commercial and life.
+
+
+  Team (CRM/staff data model; roles reflected in CRM)
+  ---------------------------------------------------
+  • Elize Schuurman    — Director & Head of Negotiations (corporate claim
+                         disputes, underwriter negotiation).
+  • Corne Schuurman    — IT, Systems & Accounts (system alerts, API integration,
+                         commission tracking).
+  • Monique Schuurman  — Operations Manager (risk assessments, short-term
+                         insurance, renewals).
+  • Petro Vermeulen    — Technical Underwriter (commercial underwriting, risk
+                         assessment).
+  • Shanel van Niekerk — Specialized Claims Consultant (domestic/commercial
+                         claims).
+  • Sharine van Vollenstee — Medical Aid & Life Assistant (medical aid, life
+                         onboarding, appointments).
+
+
+  Services offered
+  ----------------
+  • Retirement & investment planning — Fixed-income, living annuities, RA;
+    capital preservation and drawdown strategies.
+  • Short-term insurance — Personal (home, car, valuables); business (commercial,
+    fleet, business interruption).
+  • Life insurance — Personal (death, disability, income protection, severe illness);
+    business (key person, buy-and-sell, loan account).
+  • Estate planning — Wills, trusts, estate duty reduction (e.g. R100k/R200k
+    annual donation strategies).
+  • Business structuring — Buy-and-sell, key person cover, tax-efficient
+    corporate protection.
+  • Medical aid & gap cover — Structuring and onboarding.
+  • Wellness & integration — For high-income earners.
+  • Everest Wealth products — Code 1.8 alternative / fixed-return investments
+    (e.g. 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth,
+    Amethyst Living Annuity). Distributed under FSP 17273; product structurer
+    Everest Wealth Management (FSP 795).
+
+
+  Key partners / product providers
+  ---------------------------------
+  • Everest Wealth Management (FSP 795) — Fixed-return product structurer.
+  • Santam, Old Mutual, Bryte — Recognised insurance partners (referenced in
+    trust bar and site).
+
+
+  Target audience
+  ---------------
+  High-net-worth individuals, retirees, business owners, and families in South
+  Africa (especially Gauteng / East Rand / Krugersdorp) seeking retirement
+  planning, estate structuring, insurance, and fixed-return investment options
+  with a personal, non-call-centre advisor experience.
+
+================================================================================
+  PART TWO — THE PROJECT (PURPOSE & SCOPE)
+================================================================================
+
+Project name:      as-brokers (AS Brokers website and platform)
+Repository:        https://github.com/Franksmittt/asbrokers.git
+
+Purpose:           A single, cohesive digital platform that serves as (1) the
+                   public marketing and lead-generation website for AS Brokers
+                   CC, (2) a suite of regulatory-aware financial calculators,
+                   (3) an AI-powered Digital Wealth Assistant, (4) a CRM for
+                   staff and owners, and (5) a secure Client Portal for clients.
+                   The platform is designed to present retirement planning,
+                   insurance, estate planning, and Everest Wealth products with
+                   interactive tools and clear paths to contact and consultations.
+
+What was built:    One codebase spanning:
+                   • Public website (hero, solutions, calculators hub, team,
+                     about, contact, insights, regulatory compliance).
+                   • Interactive calculator suite (retirement, tax, estate,
+                     inflation, Everest product tools) with email-for-PDF where
+                     applicable.
+                   • Digital Wealth Assistant (AI chat with tool-calling and
+                     optional RAG).
+                   • Financial Health Quiz (shareable results, routing to
+                     calculators and contact).
+                   • Contact form with HubSpot sync and optional Trigger.dev
+                     PDF automation.
+                   • CRM (dashboard, Kanban, leads, clients, tasks, executive
+                     view) with role-based access.
+                   • Client Portal (wealth dashboard, My Advisor, documents,
+                     messages).
+                   • Login and role-based entry (Admin, Staff, Client) for CRM
+                     and Portal.
+
+Design mandate:    Luxury, trust-led experience: custom design system (void/
+                   shark backgrounds, rim-light glassmorphism, teal and gold
+                   accents, trust hallmarks such as FSP 17273 and 25+ years).
+                   Mobile-first, responsive; no off-the-shelf theme.
+
+Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
+                   brackets and rebates. Estate duty, donations (R100k/R200k),
+                   and other calculator logic use current legislation; review
+                   periodically.
+
+================================================================================
+  PART THREE — HOME PAGE & PUBLIC WEBSITE (DETAIL)
+================================================================================
+
+  Home page structure (top to bottom)
+  -----------------------------------
+  1. Hero (full viewport, h-screen)
+     • BackgroundOrbs (ambient teal and gold-orange orbs).
+     • HeroSection: headline, tagline “Engineering Your Wealth”, location
+       (Krugersdorp), primary CTA “Financial Health Check” (with hover glow),
+       secondary CTAs, trust cues (FSP 17273).
+     • HeroChatTerminal: embedded AI chat teaser (frosted glass); “Open full
+       chat” links to /chat.
+
+  2. The Interactive Calculator Hub (section id="lab")
+     • Placed directly below the hero.
+     • Heading: “The Interactive Calculator Hub.”
+     • Intro: “A bold claim requires concrete math…” with link to “View all
+       calculators” (retirement, tax, estate, life insurance, Everest Wealth).
+     • RunOutCalculator: sliders for Total Portfolio Value and Monthly Drawdown;
+       displays Estimated Capital Lifespan; warning if capital depletion risk;
+       “Unlock the Full Actuarial Breakdown” — email capture to generate PDF
+       (year-by-year trajectory, tax implications, inflation). Recharts area
+       chart “Projection over time” after reveal.
+
+  3. Choose Your Path
+     • Cards guiding visitors (e.g. protect assets / grow capital or similar
+       paths) with links to solutions and calculators.
+
+  4. Expertise Highlights
+     • Three service pillars (e.g. Protect, Wealth, Service) — on desktop three
+       side-by-side cards; on mobile carousel. Same content and gradients;
+       FSP and trust messaging.
+
+  5. Architectural Solutions (section id="solutions", id="wealth")
+     • Heading “Architectural Solutions.” and short intro.
+     • Link to Financial Health Quiz (“Which fits you?”).
+     • SolutionsBento: bento grid of solution cards (Retirement, Insurance,
+       Business, Estate, Medical, etc.) with 3D tilt and rim-light; links to
+       /solutions sub-pages and calculators.
+
+  6. Home Stats Section
+     • Trust hallmarks: 25+ years, FSP 17273, Category 1.8.
+
+  7. Home Value Props
+     • Cards: Independent, Full-service, Personal (with icons and short copy).
+
+  8. Home Insights Teaser
+     • Teaser for insights/articles (Sanity-driven when content exists) with
+       link to /insights.
+
+  9. Home CTA Strip
+     • “Ready for a conversation?” with Contact and WhatsApp buttons.
+
+  10. Footer
+      • Multi-column: brand (logo, tagline, FSP), quick links (Home, About,
+        Solutions, Chat, Calculators, Quiz, Contact, Team, Regulatory), services,
+        compliance strip (FAIS, FSCA, POPIA, FSP 17273), legal (Privacy, Terms,
+        Complaints, FAIS & POPIA), copyright AS Brokers CC.
+
+
+  Global navigation (Nav)
+  -----------------------
+  • Logo + “AS Brokers” + FSP 17273 (trust-hallmark).
+  • Home | Solutions (dropdown) | Calculators (dropdown) | Team.
+  • CRM & Client Portal (→ /login) | Contact Us.
+  • On scroll: frosted glass (rim-light) over orbs.
+  • Solutions dropdown: All solutions, Digital Wealth Assistant (/chat), Wealth
+    & Retirement, Everest Wealth, Understanding Everest, Personal/Business/Life
+    insurance, Legacy & Estate, Insights, Financial Health Quiz, Team.
+  • Calculators dropdown: Calculator Hub, Everest calculators, Run-Out,
+    Retirement Reality, Income in Retirement, Income Tax, Future Value/Inflation,
+    Estate Duty, Annual Estate Reduction, Premium Increase, Estate & Property
+    Tools.
+  • Mobile: hamburger; same links in panels.
+
+
+  Other public routes (summary)
+  ----------------------------
+  /about              — About AS Brokers CC, Krugersdorp, FSP 17273, Category 1.8;
+                       links to Team and Contact.
+  /calculators        — Calculator hub: bento sections (Retirement Reality &
+                       Readiness, Tax & Estate, Life Insurance, Product
+                       Quotations, Financial Education, Business Risk); cards
+                       link to each calculator; FAQ schema.
+  /contact            — Two-column: intro, trust badges, “We work best with”,
+                       CTAs left; contact form right (name, phone, email,
+                       topics, consent, honeypot). Submits to HubSpot + optional
+                       Trigger PDF.
+  /team               — Albert Schuurman and Johnny Farinha: roles, bios, FSP.
+  /regulatory-compliance — Code 1.8 FSP, FSCA Category 1.8, AS Brokers FSP 17273,
+                       Everest FSP 795.
+  /solutions          — Solutions hub with links to sub-pages and calculators.
+  /solutions/personal-insurance   — Personal short-term (home, car, valuables).
+  /solutions/business-insurance   — Business short-term (commercial, liability,
+                       fleet).
+  /solutions/life-insurance       — Personal life (death, disability, income
+                       protection).
+  /solutions/business-life         — Business life (buy-and-sell, key person).
+  /everest-wealth      — Everest product hub (12.8%, 14.2%, 14.5%, Amethyst);
+                       trust points, link to /everest-wealth/about; FAQ schema.
+  /everest-wealth/about — “Everest Wealth Explained”: regulatory architecture,
+                       product suite, returns, risks, fees, tax.
+
+================================================================================
+  PART FOUR — CALCULATORS (COMPLETE LIST & DETAIL)
+================================================================================
+
+  Run-out / capital lifespan (on home page, id="lab")
+  ---------------------------------------------------
+  • RunOutCalculator: Total Portfolio Value (slider), Monthly Drawdown (slider).
+  • Output: Estimated Capital Lifespan (years); warning if depletion risk.
+  • Email gate: “Unlock the Full Actuarial Breakdown” — year-by-year trajectory,
+    tax implications, inflation; PDF generation via Trigger.dev + Resend.
+  • Recharts area chart “Projection over time” after email reveal.
+
+  Retirement & readiness
+  ----------------------
+  • /retirement — Retirement Reality Calculator: age, retirement age, life
+    expectancy, income needed, inflation, growth, tax → capital required;
+    “What if growth 2% lower?” scenario; Recharts bar; CTA to Amethyst;
+    FAQ schema.
+  • /income-in-retirement — Life of Capital: capital, income needed, return %,
+    tax %, inflation % → years capital lasts; year-by-year simulation.
+
+  Tax & estate
+  ------------
+  • /income-tax-calculator — SA Income Tax (SARS 2026/27): gross monthly, age
+    → annual tax, PAYE, effective rate, net pay.
+  • /estate-duty-calculator — Estate duty: gross estate, liabilities, spouse
+    bequests → executor fees, duty (20%/25%), total costs.
+  • /annual-estate-reduction-strategy — Trust donation: R100k/R200k per year,
+    ages, growth → donation period, total donations, estate duty saved, trust
+    value.
+
+  Inflation & future value
+  ------------------------
+  • /cost-of-inflation-over-time — Future Value / Inflation: present value,
+    inflation %, years → future cost, buying power, power lost %.
+
+  Life insurance / premiums
+  -------------------------
+  • /premium-increase-calculator — Two policies’ monthly premiums by year →
+    YoY %, totals, average increase, cumulative spend (5/10/15/20/25 years).
+
+  Everest Wealth product calculators
+  ----------------------------------
+  • /everest-128-product — 12.8% Strategic Income: input amount → net monthly
+    (20% DWT), annual, 5-year bonus, return %; “Why dividends beat income tax”
+    comparison.
+  • /immediate-higher-income-calculator — 14.2% Immediate Higher Income: input
+    amount → gross annual, dividends tax, net annual/monthly.
+  • /everest-strategic-growth-145 — 14.5% Strategic Growth: input amount →
+    capital after 5 years (after tax), year-by-year growth.
+  • /everest-amethyst-living-annuity — Amethyst Living Annuity: retirement
+    capital, drawdown 2.5–17.5% → gross/monthly tax (SARS 2026/27 65+), net
+    income; FAQ schema.
+
+  Calculator hub page (/calculators)
+  ----------------------------------
+  Bento layout with sections: Retirement Reality & Readiness, Tax & Estate,
+  Life Insurance, Product Quotations, Financial Education, Business Risk.
+  Each card links to the relevant calculator; jump links and FAQ schema.
+
+================================================================================
+  PART FIVE — LEAD GENERATION & MARKETING AUTOMATION
+================================================================================
+
+  Contact form
+  ------------
+  • Location: /contact (and embedded in lead modal where used).
+  • Fields: name, phone, email, topic dropdown, consent, honeypot (anti-spam).
+  • Validation: Zod schemas; server-side validation in Server Action.
+  • On submit: sync to HubSpot (search by email, create or patch contact,
+    cumulative lead score by topic). Custom properties (e.g. platform_lead_score,
+    financial_inquiry_topic) must exist in HubSpot for full sync.
+  • Optional: trigger Trigger.dev task to generate PDF report and email via
+    Resend (Puppeteer renders /internal/pdf-report, Resend sends attachment).
+
+  Financial Health Quiz
+  ---------------------
+  • Route: /quiz.
+  • Steps: primary concern, age bracket, available capital (with shareable
+    URL via nuqs: ?concern=, ?age=, ?capital=).
+  • Routing logic: e.g. yields + capital > R100k → Everest 12.8%; retirement
+    55+ → Amethyst; estate taxes → Annual Estate Reduction; links to
+    calculators and Contact.
+  • CTA can open LeadFormContext (modal) for capture.
+  • State: Zustand (useQuizStore); nuqs for shareable result URLs.
+
+================================================================================
+  PART SIX — AI & CONTENT
+================================================================================
+
+  Digital Wealth Assistant (chat)
+  -------------------------------
+  • Routes: /chat (full page); hero embeds HeroChatTerminal (teaser with “Open
+    full chat” to /chat).
+  • API: POST /api/chat — Vercel AI SDK streamText, OpenAI gpt-4o-mini.
+  • Tools (deterministic): calculateEstateDuty, calculateStrategicIncome128,
+    calcAmethystAnnuity (R100k min, drawdown 2.5–17.5%, SARS 2026/27 tax).
+  • Optional RAG: when DATABASE_URL and embeddings exist, getRagContext()
+    injects retrieved chunks into system prompt for grounded, product/compliance-
+    aware answers.
+  • System prompt: R100k minimum, 120-day notice, 15% early exit penalty, 20%
+    DWT; links to calculators and Contact.
+  • UI: useChat, tool result cards, streaming responses.
+
+  Sanity CMS (insights & articles)
+  --------------------------------
+  • Headless CMS for insights and thought leadership (e.g. semigration,
+    retirement).
+  • Routes: /insights (list), /insights/[slug] (article). Optional static
+    /insights/semigration-retirement.
+  • Features: draft mode, Visual Editing (presentation tool); FSP disclaimer
+    blocks in content (fspDisclosure → FspDisclosureBlock in Portable Text).
+  • SEO: metadata per article; schema and internal linking.
+  • Studio: /studio/[[...tool]] (embedded Sanity Studio v3).
+
+================================================================================
+  PART SEVEN — CRM (STAFF & OWNERS) — DETAIL
+================================================================================
+
+  Entry:            /login — choose role (Admin, Staff, Client). Staff choose
+                   their profile (e.g. Johnny Farinha). Cookies: mock-crm-role,
+                   mock-crm-user, mock-crm-staff-id. Redirect: admin/staff → /crm;
+                   client → /portal.
+
+  Data:             lib/crm-data.ts (unified API). When Supabase is configured
+                   (NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY), reads
+                   from Supabase (leads, clients, staff, households, tasks,
+                   correspondence, notes). Otherwise uses mock data from
+                   lib/mock-crm.ts. Kanban status updates persist to Supabase
+                   via updateLeadStatus.
+
+  Roles:            Admin (owner): sees all leads, all clients, all tasks; can
+                   reassign any lead. Staff: sees only leads/clients/tasks
+                   assigned to them. Client: sees only Client Portal (no CRM).
+
+  Dashboard (/crm)
+  ----------------
+  • Pipeline counts: New, Contacted, Qualified, Proposal, Won, Lost (role-
+    filtered).
+  • Recent leads table: name (link to detail), intent, status, assigned, Fit/Eng
+    score; links to Kanban and full Leads list.
+  • Trust hallmark (FSP 17273) in header.
+
+  Kanban (/crm/kanban)
+  -------------------
+  • Columns: New → Contacted → Qualified → Proposal → Won → Lost.
+  • Drag-and-drop cards (LeadsKanban); each card: name, intent, service
+    category, Fit/Eng, (for owner) assigned advisor. Click name → lead detail.
+  • Status updates: updateLeadStatus(leadId, status); persists to Supabase when
+    configured.
+  • Service filter available (Retirement & Everest, Short-Term Personal/Business,
+    Life Personal/Business, Medical & Wellness, Estate & Business, Claims).
+
+  Leads list (/crm/leads)
+  ----------------------
+  • Table: Name (link to detail), Contact, Service, Intent, Status, Assigned,
+    Fit/Eng. Role-filtered. Optional service filter. Empty state when no leads.
+
+  Lead detail (/crm/leads/[id])
+  -----------------------------
+  • Full contact (name, email, phone), intent, status, service, Fit/Eng,
+    assigned advisor, household (if any).
+  • Reassign (owner only): dropdown to assign another staff member.
+  • Correspondence: chronological thread (portal, email, WhatsApp) for this
+    lead.
+  • Notes: internal notes with author and date.
+  • Tasks: tasks linked to this lead (or to client once converted).
+  • Tabs/sections for clear layout (CrmDetailTabs where used).
+
+  Clients list (/crm/clients)
+  --------------------------
+  • Converted clients; columns: Name (link to detail), Contact, Services,
+    Advisor, Converted date. Role-filtered. Empty state when none.
+
+  Client detail (/crm/clients/[id])
+  ---------------------------------
+  • Contact, services, assigned advisor, WhatsApp link to advisor.
+  • Same correspondence, notes, and tasks as on lead side (continuous history).
+
+  Tasks (/crm/tasks)
+  -----------------
+  • Two blocks: To do and Completed. Each task: title, due date, assignee, link
+    to related lead or client. Role-filtered by assignee.
+
+  Executive (/crm/executive) — owner only
+  ---------------------------------------
+  • Redirect if not admin. Pipeline health: total leads, clients, conversion %,
+    in-pipeline count.
+  • Recharts: pipeline and service mix (ExecutiveCharts).
+  • Staff performance table: advisor name, leads count, clients count.
+  • High-priority leads (e.g. Fit or Engagement ≥ 80) with links to lead detail.
+  • Trust hallmark “FSP 17273 · Executive” in header.
+
+  Service categories (data model)
+  -------------------------------
+  Retirement & Everest, Short-Term Personal, Short-Term Business, Life
+  (Personal), Life (Business), Medical & Wellness, Estate & Business, Claims.
+  Used for filtering and display; ready for intent-based routing when backend
+  is extended.
+
+================================================================================
+  PART EIGHT — CLIENT PORTAL — DETAIL
+================================================================================
+
+  Entry:            Same /login; choose “Client” to enter portal. Redirect to
+                   /portal.
+
+  Wealth dashboard (/portal)
+  -------------------------
+  • Trust hallmark (FSP 17273) and tagline “Protecting Your Legacy. Engineering
+    Your Wealth.”
+  • My Advisor: advisor name, role, one-tap WhatsApp button, Call link.
+  • Portfolio summary: total value (ZAR), monthly income (projected) from
+    holdings (mock data from lib/mock-portal).
+  • Holdings list: e.g. 12.8% Strategic Income, short-term, life; value, monthly
+    income, maturity where relevant.
+  • PortalDashboardCharts: Recharts — cumulative income over 60 months;
+    annuity drawdown / capital over time (mock). Rim-light cards.
+
+  Documents (/portal/documents)
+  ----------------------------
+  • Document vault: list of documents (FICA, quotes) from mock data.
+  • DocumentUpload: client can select file (PDF/image); upload is mock (no
+    Supabase Storage yet); UI shows “View” per document. Copy: “Upload and
+    view securely.” Architecture ready for Supabase Storage + audit trail.
+
+  Messages (/portal/messages)
+  ---------------------------
+  • Unified thread: all messages (portal, email, WhatsApp) in one chronological
+    list; matches CRM correspondence for that client.
+  • MessageReply: text area + Send; currently mock send. Copy: “Unified thread
+    with your advisor — email, WhatsApp and portal in one place.”
+  • Backend integration will centralise channels and persistence.
+
+  Portal nav:       Logo, Dashboard, Documents, Messages, user name, Log out,
+                   “Site” (back to main site).
+
+================================================================================
+  PART NINE — TECH STACK & INTEGRATIONS (COMPLETE)
+================================================================================
+
+  Core
+  ----
+  • Next.js 15 (App Router), React 19, TypeScript.
+  • Tailwind CSS: custom tokens (void, shark, cinematic-teal, gold-orange,
+    samsung-blue, supernova-gold); rim-light, squircle, ease-apple; CTA glows.
+  • Framer Motion: transitions, reducedMotion support.
+  • Recharts: calculator charts, portal dashboard charts, executive charts.
+
+  Backend & data
+  --------------
+  • Supabase: PostgreSQL; migrations (supabase/migrations/) for staff,
+    households, leads, clients, correspondence, tasks, notes. Seed (staff,
+    households, sample leads). Auth and Storage wired for Magic Link and
+    document vault; RLS-ready.
+  • lib/crm-data.ts: single API for CRM; Supabase when env set, else mock.
+  • Drizzle ORM + pgvector: used for RAG (resources, embeddings) elsewhere in
+    project.
+
+  Integrations
+  -----------
+  • HubSpot: contact/lead sync (search-patch, lead scoring); custom properties
+    required for full form sync (see BACKEND.md).
+  • Trigger.dev v4: serverless workflows; PDF report generation (Puppeteer +
+    Resend). Config: maxDuration, jose/puppeteer external.
+  • Sanity (v3): next-sanity, @portabletext/react; Studio at /studio/[[...tool]];
+    draft mode via /api/draft-mode/enable (SANITY_VIEWER_TOKEN).
+  • OpenAI: Vercel AI SDK (ai, @ai-sdk/openai, @ai-sdk/react); gpt-4o-mini for
+    chat; optional RAG with getRagContext.
+
+  Validation & forms
+  ------------------
+  • Zod: API schemas (chat tools, contact); lib/validations where used.
+  • React Hook Form + @hookform/resolvers: contact and forms where applicable.
+  • Server Actions: contact submit, login (mock), logout (mock).
+
+  Other
+  -----
+  • nuqs: shareable quiz URL state. Zustand: quiz store.
+  • PWA: public/manifest.json. Cookie consent: POPIA; GA4 and Hotjar only after
+    “Accept All” (ConsentProvider, ConditionalAnalytics).
+  • Schema.org: GlobalSchema (Organization, FinancialService); FAQSchema on
+    calculators and key pages. Logo and metadata per page.
+
+================================================================================
+  PART TEN — COMPLIANCE & SECURITY
+================================================================================
+
+  • POPIA: Cookie consent banner; analytics (GA4, Hotjar) only after consent.
+  • FAIS / FSP: FSP 17273, Category 1.8, Everest FSP 795 referenced in content,
+    metadata, and schema. FSP disclaimer blocks in Sanity articles.
+  • Schema.org: Organisation and FinancialService JSON-LD; XSS-safe (escapeJsonLd).
+  • Role-based access: admin (all), staff (assigned), client (own). RLS-ready for
+    database-level enforcement when Supabase Auth is enabled.
+  • Audit-ready: correspondence and notes with author and timestamp; document
+    access and key actions can be logged when Storage is connected.
+  • Everest product copy: 120-day notice, 15% early exit penalty, 20% DWT where
+    relevant (EverestLiquidityWarning, chat system prompt).
+
+================================================================================
+  PART ELEVEN — CURRENT STATE (DEMO VS PRODUCTION)
+================================================================================
+
+  Demo (current default)
+  ----------------------
+  • Auth: mock (cookies: mock-crm-role, mock-crm-user, mock-crm-staff-id). No
+    Supabase Auth yet.
+  • CRM/Portal data: when Supabase env is not set, lib/crm-data.ts and portal
+    pages use mock data (lib/mock-crm.ts, lib/mock-portal.ts). Full UI and
+    flows work for presentations and training.
+  • Contact form: requires HubSpot credentials and custom properties for sync;
+    see BACKEND.md “Where you left off.”
+  • Trigger PDF: requires Trigger.dev project and Resend; worker runs with
+    npx trigger.dev@latest dev.
+
+  Production (when backend is connected)
+  --------------------------------------
+  • Set NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    SUPABASE_SERVICE_ROLE_KEY. Run supabase/migrations (schema + seed).
+  • CRM and Portal then use real Supabase data; Kanban status and future
+    mutations persist. Add Supabase Auth (Magic Link, profiles) and RLS for
+    full multi-tenant security.
+  • HubSpot: create custom contact properties; set HUBSPOT_ACCESS_TOKEN or
+    HUBSPOT_PRIVATE_APP_TOKEN.
+  • Trigger.dev: set TRIGGER_SECRET_KEY, RESEND_API_KEY, APP_URL in worker env.
+  • Sanity: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET,
+    SANITY_VIEWER_TOKEN for draft.
+  • OpenAI: OPENAI_API_KEY for chat and optional RAG. DATABASE_URL + pgvector
+    for RAG ingest (scripts/ingest-rag.ts).
+
+================================================================================
+  PART TWELVE — DOCUMENTATION & SUPPORT
+================================================================================
+
+  In-project documentation:
+  • BACKEND.md — Full backend checklist; env vars; Supabase, HubSpot, Trigger.dev,
+    Resend, Sanity, OpenAI, RAG; “Where you left off” (e.g. HubSpot custom
+    properties).
+  • docs/CRM_IMPLEMENTATION_PROGRESS.md — CRM/Portal rollout: what is done (data
+    layer, schema, seed, presentation polish), what is next (auth, RLS, AI,
+    integrations).
+  • PROJECT_OVERVIEW.txt — Technical reference: all routes, design tokens,
+    components, metadata, data flow.
+  • CRM_AND_PORTAL.txt — CRM and Client Portal behaviour, features, mock vs
+    backend, key files.
+  • app/(content)/calculators/CONTEXT.md — Formula and tax context for
+    calculators.
+
+  Build & run:
+  • npm run dev   — Local development.
+  • npm run build — Production build.
+  • Repository:  https://github.com/Franksmittt/asbrokers.git
+
+  For questions, scope, handover, or payment and IP matters:
+
+  Frank Smit
+  Endpoint Media
+  076 972 4559
+  hello@endpointmedia.co.za
+
+================================================================================
+  © Endpoint Media. All rights reserved.
+  Intellectual property and copyright remain with Endpoint Media until
+  the agreed project fee has been paid in full. See notice at top.
+================================================================================

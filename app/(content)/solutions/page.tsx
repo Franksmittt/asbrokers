@@ -13,21 +13,21 @@ const trustBadges = [
 const categories = [
   {
     id: "retirement",
-    title: "Retirement & Investment Planning",
-    tagline: "Engineered for certainty. Portfolios built to outpace inflation and protect your lifestyle.",
+    title: "Private Wealth & Yield",
+    tagline: "Bypass traditional markets. Secure fixed-return private equity, living annuities, and capital longevity planning.",
     icon: LineChart,
     accent: "blue",
     items: [
-      { name: "Retirement Income Planning", desc: "Fixed-income solutions for retirees who want certainty.", href: "/everest-wealth", badge: null },
-      { name: "Retirement Reality Calculator", desc: "How much capital you really need for retirement.", href: "/retirement", badge: "Calculator" },
-      { name: "Income in Retirement (Life of Capital)", desc: "How long your savings will last with withdrawals and inflation.", href: "/income-in-retirement", badge: "Calculator" },
-      { name: "Everest Wealth Products", desc: "Fixed-return investments: 12.8%, 14.2%, 14.5%, Amethyst living annuity.", href: "/everest-wealth", badge: "Popular" },
-      { name: "Financial Education & Calculators", desc: "Tools and structure, not just product sales.", href: "/calculators", badge: null },
+      { name: "Retirement Income Planning", desc: "Fixed-income solutions for retirees who want certainty.", href: "/everest-wealth", badge: null, featured: false },
+      { name: "Retirement Reality Calculator", desc: "How much capital you really need for retirement.", href: "/retirement", badge: "Calculator", featured: true },
+      { name: "Income in Retirement (Life of Capital)", desc: "How long your savings will last with withdrawals and inflation.", href: "/income-in-retirement", badge: "Calculator", featured: false },
+      { name: "Everest Wealth Products", desc: "Fixed-return investments: 12.8%, 14.2%, 14.5%, Amethyst living annuity.", href: "/everest-wealth", badge: "Popular", featured: true },
+      { name: "Financial Education & Calculators", desc: "Tools and structure, not just product sales.", href: "/calculators", badge: null, featured: false },
     ],
   },
   {
     id: "insurance",
-    title: "Insurance & Risk Planning",
+    title: "Risk Architecture",
     tagline: "Uncompromising personal and commercial cover. Protection for what matters most.",
     icon: Lock,
     accent: "rose",
@@ -41,7 +41,7 @@ const categories = [
   },
   {
     id: "medical",
-    title: "Medical & Wellness",
+    title: "Health & Integration",
     tagline: "Premium medical aid and gap cover. Because true wealth requires the health to enjoy it.",
     icon: HeartPulse,
     accent: "teal",
@@ -52,7 +52,7 @@ const categories = [
   },
   {
     id: "estate",
-    title: "Estate & Business Structuring",
+    title: "Legacy Structuring",
     tagline: "Wills, trusts, and generational wealth transfer. Asset protection that lasts.",
     icon: Scroll,
     accent: "amber",
@@ -78,22 +78,29 @@ function ServiceCard({
   href,
   badge,
   accent,
+  featured = false,
+  muted = false,
 }: {
   name: string;
   desc: string;
   href: string;
   badge: string | null;
   accent: string;
+  featured?: boolean;
+  muted?: boolean;
 }) {
   const style = accentStyles[accent] ?? accentStyles.blue;
+  const isFocus = featured && accent === "blue";
   return (
     <Link
       href={href}
       prefetch={false}
-      className={`group block rounded-2xl p-6 bg-[#151518] border ${style.border} ${style.hoverBorder} transition-all duration-300 hover:bg-[#1a1a1e] hover:shadow-lg hover:shadow-black/20`}
+      className={`group block rounded-2xl p-6 border transition-all duration-300 ${
+        muted ? "bg-[#101014] hover:bg-[#121218]" : "bg-[#151518] hover:bg-[#1a1a1e]"
+      } ${isFocus ? "border-blue-500/40 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:border-blue-500/60" : `${style.border} ${style.hoverBorder}`} hover:shadow-lg hover:shadow-black/20 ${featured ? "md:col-span-2" : ""}`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        <h3 className="font-semibold text-white text-base group-hover:text-white">
+        <h3 className={`font-semibold text-white group-hover:text-white ${featured ? "text-xl md:text-2xl" : "text-base"}`}>
           {name}
         </h3>
         {badge && (
@@ -102,7 +109,7 @@ function ServiceCard({
           </span>
         )}
       </div>
-      <p className="text-zinc-500 text-sm leading-relaxed mb-4">{desc}</p>
+      <p className={`text-zinc-500 leading-relaxed mb-4 ${featured ? "text-base md:text-lg" : "text-sm"}`}>{desc}</p>
       <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 group-hover:gap-2.5 transition-all">
         Explore
         <ArrowRight className="w-4 h-4" />
@@ -112,6 +119,9 @@ function ServiceCard({
 }
 
 export default function SolutionsPage() {
+  const [focusCategory, ...defenseCategories] = categories;
+  const FocusIcon = focusCategory.icon;
+
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
       {/* Hero */}
@@ -123,12 +133,12 @@ export default function SolutionsPage() {
             For individuals and business owners
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
-            Architectural
+            Engineered Wealth
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">Solutions</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">& Risk Architecture.</span>
           </h1>
           <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Independent advice built around you. Retirement, insurance, medical, estate and business structuring under one roof.
+            Bypass traditional markets and secure your capital with fixed-return private equity and structured retirement solutions. Full-service insurance and risk management when you need it.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-zinc-500">
             {trustBadges.map((badge) => (
@@ -141,7 +151,7 @@ export default function SolutionsPage() {
           <div className="mt-12 max-w-4xl mx-auto">
             <ImagePlaceholder
               src="/images/solutions-hero.jpg"
-              alt="Architectural solutions for retirement, insurance, estate and business"
+              alt="Engineered wealth and risk architecture: retirement, insurance, estate and business"
               aspectRatio="16/9"
               placeholderLabel="solutions-hero.jpg"
             />
@@ -151,57 +161,99 @@ export default function SolutionsPage() {
 
       <SolutionsSectionNav />
 
-      {/* Category sections */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pb-24">
-        {categories.map((cat) => {
-          const Style = accentStyles[cat.accent] ?? accentStyles.blue;
-          const Icon = cat.icon;
-          return (
-            <section
-              key={cat.id}
-              id={cat.id}
-              className="scroll-mt-32 py-16 md:py-20 border-b border-white/5 last:border-0"
-            >
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-                <div className="flex items-start gap-4">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${Style.iconBg}`}>
-                    <Icon className="w-7 h-7" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                      {cat.title}
-                    </h2>
-                    <p className="text-zinc-400 max-w-xl leading-relaxed">
-                      {cat.tagline}
-                    </p>
+        {/* Section 1: Private Wealth & Yield (focus) */}
+        <section
+          id={focusCategory.id}
+          className="scroll-mt-32 py-16 md:py-20 border-b border-white/5"
+        >
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div className="flex items-start gap-4">
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${accentStyles[focusCategory.accent].iconBg}`}>
+                <FocusIcon className="w-7 h-7" />
+              </div>
+              <div>
+                <h2 className="text-2xl md:text-4xl font-bold text-white mb-2">
+                  {focusCategory.title}
+                </h2>
+                <p className="text-zinc-400 max-w-xl leading-relaxed text-base md:text-lg">
+                  {focusCategory.tagline}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {focusCategory.items.map((item) => (
+              <ServiceCard
+                key={item.name}
+                name={item.name}
+                desc={item.desc}
+                href={item.href}
+                badge={item.badge}
+                accent={focusCategory.accent}
+                featured={"featured" in item ? !!item.featured : false}
+                muted={false}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Phase 2: Wealth Protection & Fiduciary Defense */}
+        <div className="pt-8">
+          <h2 className="text-xl md:text-2xl font-bold text-zinc-500 uppercase tracking-wider mb-10 md:mb-12">
+            Phase 2: Wealth Protection & Fiduciary Defense
+          </h2>
+          {defenseCategories.map((cat) => {
+            const Style = accentStyles[cat.accent] ?? accentStyles.blue;
+            const Icon = cat.icon;
+            return (
+              <section
+                key={cat.id}
+                id={cat.id}
+                className="scroll-mt-32 py-12 md:py-16 border-b border-white/5 last:border-0"
+              >
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+                  <div className="flex items-start gap-4">
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${Style.iconBg}`}>
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
+                        {cat.title}
+                      </h3>
+                      <p className="text-zinc-500 max-w-xl leading-relaxed text-sm">
+                        {cat.tagline}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {cat.items.map((item) => (
-                  <ServiceCard
-                    key={item.name}
-                    name={item.name}
-                    desc={item.desc}
-                    href={item.href}
-                    badge={item.badge}
-                    accent={cat.accent}
-                  />
-                ))}
-              </div>
-            </section>
-          );
-        })}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {cat.items.map((item) => (
+                    <ServiceCard
+                      key={item.name}
+                      name={item.name}
+                      desc={item.desc}
+                      href={item.href}
+                      badge={item.badge ?? null}
+                      accent={cat.accent}
+                      muted
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
 
         {/* CTA block */}
         <section className="mt-20 md:mt-28 rounded-[2rem] bg-gradient-to-br from-[#151518] to-[#1a1a24] border border-white/10 p-8 md:p-12 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-teal-600/10 pointer-events-none" />
           <div className="relative text-center max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-              Ready to build your plan?
+              Stop Guessing. Start Engineering.
             </h2>
             <p className="text-zinc-400 mb-8">
-              One relationship. Full-service advice. No call centres. We respond personally.
+              Book a private actuarial review of your capital lifespan, or run the numbers yourself.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -209,7 +261,7 @@ export default function SolutionsPage() {
                 prefetch={false}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-8 py-4 rounded-full hover:bg-zinc-200 transition-colors"
               >
-                Book a consultation
+                Book Private Consultation
               </Link>
               <Link
                 href="/calculators"

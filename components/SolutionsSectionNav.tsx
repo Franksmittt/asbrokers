@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const sections = [
-  { id: "retirement", label: "Retirement & Investment" },
-  { id: "insurance", label: "Insurance & Risk" },
-  { id: "medical", label: "Medical & Wellness" },
-  { id: "estate", label: "Estate & Structuring" },
+  { id: "retirement", label: "Private Wealth & Yield" },
+  { id: "insurance", label: "Risk Architecture" },
+  { id: "medical", label: "Health & Integration" },
+  { id: "estate", label: "Legacy Structuring" },
 ];
 
 export function SolutionsSectionNav() {

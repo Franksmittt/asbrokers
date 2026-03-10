@@ -22,9 +22,9 @@ export const metadata = {
 };
 
 const pillarLinks = [
-  { label: "Financial Calculators", href: "#retirement" },
-  { label: "Everest Wealth Products", href: "#product-quotations" },
-  { label: "Financial Education", href: "#financial-education" },
+  { label: "Assess Capital Lifespan", href: "#retirement" },
+  { label: "Calculate Everest Yields", href: "#product-quotations" },
+  { label: "Secondary Risk Tools", href: "#risk-architecture" },
 ];
 
 const retirementCalculators = [
@@ -146,6 +146,9 @@ function CalculatorCard({
   leadsTo,
   href,
   featured,
+  glow,
+  muted,
+  leadsToAccent,
 }: {
   tag: string;
   title: string;
@@ -154,14 +157,19 @@ function CalculatorCard({
   leadsTo: string;
   href: string;
   featured?: boolean;
+  glow?: boolean;
+  muted?: boolean;
+  leadsToAccent?: boolean;
 }) {
   return (
     <Link
       href={href}
       prefetch={false}
-      className={`group block rim-light rounded-[2rem] border-0 hover:bg-white/[0.07] transition-all duration-500 ${
-        featured ? "p-6 md:p-8 lg:p-10 max-w-3xl mx-auto" : "p-6 md:p-8"
-      }`}
+      className={`group block rounded-[2rem] border transition-all duration-500 ${
+        muted
+          ? "bg-[#101014] border-white/5 hover:bg-[#121218]"
+          : "rim-light border-0 hover:bg-white/[0.07]"
+      } ${glow ? "border-blue-500/40 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:border-blue-500/60" : ""} ${featured ? "p-6 md:p-8 lg:p-10 h-full" : "p-6 md:p-8"}`}
     >
       <span className="text-xs font-semibold text-cinematic-teal uppercase tracking-[0.15em]">{tag}</span>
       <h3 className={`font-bold text-white mt-2 mb-3 tracking-tight group-hover:text-cinematic-teal/90 transition-colors duration-300 ${featured ? "text-xl md:text-2xl" : "text-xl"}`}>
@@ -176,8 +184,9 @@ function CalculatorCard({
           </li>
         ))}
       </ul>
-      <p className="text-gray-500 text-xs mb-4">
-        <span className="text-gray-400">Leads to:</span> {leadsTo}
+      <p className="text-xs mb-4">
+        <span className="text-gray-400">Leads to:</span>{" "}
+        <span className={leadsToAccent ? "text-cinematic-teal font-medium" : "text-gray-500"}>{leadsTo}</span>
       </p>
       <span className="inline-flex items-center gap-1 text-cinematic-teal text-sm font-medium group-hover:gap-2 transition-all duration-300">
         Open calculator
@@ -196,6 +205,11 @@ function SectionHeading({ title, question }: { title: string; question: string }
 }
 
 export default function CalculatorsPage() {
+  const incomeInRetirement = retirementCalculators.find((c) => c.href === "/income-in-retirement");
+  const everestProduct = productCalculators[0];
+  const retirementOthers = retirementCalculators.filter((c) => c.href !== "/income-in-retirement");
+  const secondaryRiskItems = [...taxEstateCalculators, ...lifeInsuranceCalculators];
+
   return (
     <div className="bg-void min-h-screen">
       <FAQSchema faqs={calculatorFAQs} />
@@ -210,10 +224,10 @@ export default function CalculatorsPage() {
                 AS Brokers
               </p>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-white mb-4 leading-[1.15]">
-                Calculators. Products. Education.
+                The Actuarial Reality Check.
               </h1>
               <p className="text-lg text-gray-400 leading-relaxed max-w-xl tracking-[0.01em]">
-                Everything you need to understand your retirement, protect your wealth, and take control of your financial future.
+                Run the numbers. Expose your capital lifespan. Engineer a high-yield solution.
               </p>
             </div>
             <div className="lg:col-span-5">
@@ -251,67 +265,52 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      {/* Retirement Reality & Readiness */}
-      <section id="retirement" className="py-16 px-4 sm:px-6 md:px-8 scroll-mt-24">
+      {/* Phase 1: The Agitator & The Fix — Retirement + Everest */}
+      <section id="retirement" className="py-16 px-4 sm:px-6 md:px-8 scroll-mt-24 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeading
+            title="Capital Lifespan & High-Yield Solutions"
+            question="Am I on track for retirement? What does a real product solution look like?"
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {retirementOthers[0] && (
+              <div className="md:col-span-1">
+                <CalculatorCard {...retirementOthers[0]} leadsToAccent />
+              </div>
+            )}
+            {incomeInRetirement && (
+              <div className="md:col-span-2">
+                <CalculatorCard {...incomeInRetirement} featured leadsToAccent />
+              </div>
+            )}
+            {retirementOthers[1] && (
+              <div className="md:col-span-1">
+                <CalculatorCard {...retirementOthers[1]} leadsToAccent />
+              </div>
+            )}
+            <div id="product-quotations" className="md:col-span-2 scroll-mt-24">
+              <CalculatorCard {...everestProduct} featured glow leadsToAccent />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Phase 2: Secondary Risk Architecture */}
+      <section id="risk-architecture" className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 scroll-mt-24">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
-            title="Retirement Reality & Readiness"
-            question="Am I actually on track for retirement?"
+            title="Secondary Risk Architecture"
+            question="Tax, estate, and life insurance exposure."
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {retirementCalculators.map((calc) => (
-              <CalculatorCard key={calc.title} {...calc} />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {secondaryRiskItems.map((calc) => (
+              <CalculatorCard key={calc.title} {...calc} muted />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Tax & Estate Exposure */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            title="Tax & Estate Exposure"
-            question="How much of my wealth will be lost to tax and estate costs?"
-          />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {taxEstateCalculators.map((calc) => (
-              <CalculatorCard key={calc.title} {...calc} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Life Insurance & Risk Planning — single card, full-width layout */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            title="Life Insurance & Risk Planning"
-            question="What happens if something goes wrong?"
-          />
-          <div className="w-full">
-            {lifeInsuranceCalculators.map((calc) => (
-              <CalculatorCard key={calc.title} {...calc} featured />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Product Quotations — single card, full-width layout */}
-      <section id="product-quotations" className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 scroll-mt-24">
-        <div className="max-w-5xl mx-auto">
-          <SectionHeading
-            title="Product Quotations"
-            question="What does this look like in a real product?"
-          />
-          <div className="w-full">
-            {productCalculators.map((calc) => (
-              <CalculatorCard key={calc.title} {...calc} featured />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Financial Education — single full-width card */}
+      {/* Financial Education */}
       <section id="financial-education" className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 scroll-mt-24">
         <div className="max-w-5xl mx-auto">
           <SectionHeading
@@ -398,7 +397,7 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      {/* Next step: from numbers to a plan */}
+      {/* CTA: Stop Guessing */}
       <section className="py-16 md:py-20 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-[2rem] rim-light p-8 md:p-12 relative overflow-hidden">
@@ -408,10 +407,10 @@ export default function CalculatorsPage() {
                 From numbers to a plan
               </p>
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Clarity from the calculators. Confidence from a conversation.
+                Stop Guessing Your Capital Lifespan.
               </h2>
               <p className="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed tracking-[0.01em]">
-                These tools surface the gaps. We help you close them with advice that&apos;s logical, structured, and backed by the same numbers you just ran.
+                The math doesn&apos;t lie. If your trajectory shows depletion, we need to restructure your capital into high-yield, private equity solutions. Let&apos;s engineer your wealth.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link

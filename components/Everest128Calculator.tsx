@@ -70,7 +70,7 @@ export function Everest128Calculator() {
         <>
           <div className="mt-8 p-6 rounded-xl bg-blue-500/10 border border-blue-500/20">
             <p className="text-zinc-400 text-sm uppercase tracking-wider mb-1">Your monthly income (after tax)</p>
-            <p className="text-3xl font-bold text-white">{formatCurrency(result.netMonthlyIncome)}</p>
+            <p className="text-3xl font-bold text-cinematic-teal">{formatCurrency(result.netMonthlyIncome)}</p>
           </div>
           <div className="mt-6 grid sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">
@@ -79,7 +79,7 @@ export function Everest128Calculator() {
             </div>
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">
               <p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">5-year loyalty bonus</p>
-              <p className="text-xl font-bold text-white">{formatCurrency(result.loyaltyBonus)}</p>
+              <p className="text-xl font-bold text-cinematic-teal">{formatCurrency(result.loyaltyBonus)}</p>
             </div>
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">
               <p className="text-zinc-500 text-xs uppercase tracking-wider mb-1">Total 5-year return</p>

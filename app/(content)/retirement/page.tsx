@@ -31,115 +31,82 @@ export default function RetirementPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
       <FAQSchema faqs={retirementFAQs} />
-      {/* Hero */}
+      {/* Hero – cinematic void + risk orb */}
       <section className="relative pt-28 pb-16 px-4 sm:px-6 md:px-8 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[280px] h-[280px] bg-blue-600/10 blur-[80px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-red-600/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />
+        <div className="absolute bottom-1/4 left-0 w-[240px] h-[240px] bg-amber-700/10 blur-[80px] rounded-full pointer-events-none" aria-hidden />
         <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-xs font-medium uppercase tracking-[0.2em] mb-3">
-            AS Brokers · Retirement Planning
+            Actuarial Reality Check.
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 leading-[1.15]">
-            You&apos;re Not Saving Enough for Retirement
+            The Capital Deficit.
           </h1>
-          <p className="text-lg text-zinc-400 mb-6">Proof is in the calculator.</p>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium">
-            Step 1: Calculate required capital
-          </span>
+          <p className="text-lg text-zinc-400 leading-relaxed">
+            Traditional retirement modeling is fundamentally flawed. Calculate the exact, mathematical capital required to sustain your lifestyle, and expose your projected shortfall.
+          </p>
         </div>
       </section>
 
-      {/* Editorial: single intro + two idea cards + calculator lead-in */}
+      {/* 2-column Bento: The Mathematical Drag + The Income Delusion (directly beneath hero) */}
       <section className="py-12 md:py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          {/* Intro block with pull quote */}
-          <div className="mb-14">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-6">
-              You are not saving enough, and the numbers prove it
-            </h2>
-            <p className="text-zinc-400 leading-relaxed mb-4">
-              Most South Africans retire with far less capital than they need. Not because they didn&apos;t save. But because they underestimated what retirement actually costs.
-            </p>
-            <p className="text-zinc-400 leading-relaxed mb-6">
-              The monthly income you need in retirement doesn&apos;t care about market returns, tax benefits, or product brochures. It cares about one thing: whether you have enough capital to generate it.
-            </p>
-            <p className="text-zinc-300 font-semibold text-lg">
-              And most people don&apos;t.
-            </p>
-          </div>
-
-          {/* Two idea cards side by side on desktop */}
-          <div className="grid md:grid-cols-2 gap-6 mb-14">
-            <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">
-              <p className="text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">Why it happens</p>
-              <h3 className="text-lg font-bold text-white mb-4">Why traditional savings methods fall short</h3>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                For decades we&apos;ve been told to save 10%, 15%, maybe 20% of income. That advice assumes stable employment, consistent contributions, moderate inflation, and the same lifestyle in retirement.
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-white mb-4">The Mathematical Drag</h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                Standard inflation and traditional market volatility destroy required yields. Nominal returns are not real returns. If your portfolio cannot consistently deliver growth above inflation and tax, your capital is eroding in purchasing power.
               </p>
-              <p className="text-zinc-300 text-sm font-medium">Reality is rarely that cooperative.</p>
             </div>
-            <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">
-              <p className="text-teal-400 text-xs font-semibold uppercase tracking-wider mb-3">The real problem</p>
-              <h3 className="text-lg font-bold text-white mb-4">Income replacement, not a lump sum</h3>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                If you need R30,000 per month at 65, you don&apos;t need R360,000 for one year. You need enough capital to generate that income for 20, 25, or 30 years while withdrawals and inflation erode it.
+            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-white mb-4">The Income Delusion</h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                The goal is not a lump sum; it is indestructible cash flow. If your yield is below 10%, you are mathematically guaranteed to draw down your principal. The calculator below exposes the capital required to avoid that outcome.
               </p>
-              <p className="text-zinc-300 text-sm font-medium">The number is almost always higher than people expect.</p>
             </div>
           </div>
-
           {/* Lead-in to calculator */}
-          <div className="rounded-2xl bg-gradient-to-br from-blue-950/30 to-transparent border border-white/10 p-6 md:p-8 mb-12">
+          <div className="rounded-[2rem] bg-gradient-to-br from-blue-950/30 to-transparent border border-white/10 p-6 md:p-8">
             <h3 className="text-lg md:text-xl font-bold text-white mb-3">
               This calculator tests your assumptions with math
             </h3>
-            <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-              No generic multiples. No hopeful estimates. Just the actual capital required for the income you say you need. It accounts for inflation, tax, withdrawal rates, and time. When you see the result, you may feel surprised. That reaction is normal.
-            </p>
-            <p className="text-zinc-300 text-sm font-medium">
-              Use the calculator below to find out how much capital you need, and what it will cost you per month to get there.
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              No generic multiples. No hopeful estimates. Just the actual capital required for the income you say you need. It accounts for inflation, tax, withdrawal rates, and time.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Calculator */}
+      {/* Calculator – premium Bento with red risk glow */}
       <section id="calculator" className="py-12 md:py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-black/20 scroll-mt-24">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto rounded-[2rem] border border-red-500/20 shadow-[0_0_40px_rgba(239,68,68,0.12)] p-0 overflow-hidden">
           <RetirementRealityCalculator />
         </div>
       </section>
 
-      {/* Why this number matters + next step */}
+      {/* Fix CTA: Erase the Deficit with Structured Yield */}
       <section className="py-16 md:py-20 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-12 gap-8 md:gap-12">
-            <div className="md:col-span-7">
-              <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
-                Why this number matters more than you think
-              </h2>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                If the result surprised you, that reaction is normal. Most people underestimate retirement income cost because the pressures don&apos;t show up all at once. Inflation compounds over decades. Tax reduces what you can spend. Your capital must produce income for 20 to 30 years.
-              </p>
-              <p className="text-zinc-300 text-sm font-medium">
-                This calculator doesn&apos;t exaggerate the problem. It simply exposes it.
-              </p>
-            </div>
-            <div className="md:col-span-5">
-              <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 h-full flex flex-col justify-between">
-                <div>
-                  <p className="text-zinc-300 font-medium mb-2">You now know the income problem.</p>
-                  <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                    The next question: what <strong className="text-white">growth rate</strong> must your investment deliver to make this plan sustainable? That&apos;s the calculation most people never do, and it determines whether retirement income works or eventually fails.
-                  </p>
-                </div>
-                <Link
-                  href="/contact"
-                  prefetch={false}
-                  className="inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors w-full sm:w-auto"
-                >
-                  Calculate the growth rate required
-                </Link>
-              </div>
+          <div className="rounded-[2rem] bg-[#151518] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-8 md:p-10">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Erase the Deficit with Structured Yield.</h2>
+            <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+              You cannot save your way out of a capital deficit. You must engineer a higher, fixed yield.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/everest-amethyst-living-annuity"
+                prefetch={false}
+                className="inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
+              >
+                Calculate Amethyst Living Annuity (~10.2% Net) →
+              </Link>
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-6 py-4 rounded-[2rem] hover:bg-white/10 transition-colors"
+              >
+                Book Actuarial Consultation
+              </Link>
             </div>
           </div>
         </div>

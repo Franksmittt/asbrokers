@@ -15,17 +15,13 @@ export default function PremiumIncreaseCalculatorPage() {
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">
-            AS Brokers · Life Insurance
+            Phase 2: Risk Architecture · Uncapped Liability.
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
-            The Premium Increase Problem
+            The Premium Liability Test.
           </h1>
-          <p className="text-xl text-zinc-400 leading-relaxed mb-4">
-            Your life insurance premium looks affordable today. But what will it cost you in 10, 15, or 20 years?
-          </p>
-          <p className="text-zinc-500">
-            This calculator exposes the long-term cost of escalating premiums, and shows why the cheapest policy today
-            often becomes the most expensive one to keep.
+          <p className="text-xl text-zinc-400 leading-relaxed">
+            The cheapest policy today is often mathematically engineered to become entirely unaffordable at exactly the age you need it most. Project your actual long-term liability.
           </p>
         </div>
       </section>
@@ -38,72 +34,36 @@ export default function PremiumIncreaseCalculatorPage() {
         </div>
       </section>
 
-      {/* Calculator */}
+      {/* Calculator – massive Bento card */}
       <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto rounded-[2rem] border border-white/10 overflow-hidden">
           <PremiumComparisonCalculator />
         </div>
       </section>
 
-      {/* The Premium Increase Problem - Why cheapest can become most expensive */}
+      {/* 3-column Bento: The Illusion, The Trap, The Fiduciary Alternative */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-            The Premium Increase Problem
-          </h2>
-          <p className="text-zinc-300 font-medium mb-4">
-            Why the cheapest premium today can become the most expensive mistake later
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Most people buy life insurance based on one number: the starting premium. What is often not properly
-            understood, or clearly shown, is how that premium changes over time.
-          </p>
-          <p className="text-zinc-400 leading-relaxed">
-            This calculator is designed to expose a common and costly issue in the South African insurance market: premium
-            increases that accelerate faster than clients expect, eventually making policies unaffordable.
-          </p>
-        </div>
-      </section>
-
-      {/* What Usually Goes Wrong */}
-      <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">What Usually Goes Wrong</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            In many cases, clients are sold on a low starting premium with reassurance that:
-          </p>
-          <ul className="space-y-2 text-zinc-400 mb-4">
-            <li className="flex items-start gap-2">
-              <span className="text-blue-400">→</span>
-              <span>&quot;The increase is only 5% per year&quot;</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-400">→</span>
-              <span>&quot;Premiums are guaranteed for a period&quot;</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-400">→</span>
-              <span>&quot;This is standard industry practice&quot;</span>
-            </li>
-          </ul>
-          <p className="text-zinc-400 leading-relaxed mb-4">What is not always made clear:</p>
-          <ul className="space-y-2 text-zinc-400">
-            {[
-              "Premium increases may combine scheduled escalation and age-rating",
-              "The actual annual increase can be far higher than the quoted percentage",
-              "Guarantee periods typically expire after 10–15 years",
-              "Premiums can then jump sharply at review points",
-              "Clients only discover the problem years later, when cancelling is no longer easy",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-red-400">✗</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-zinc-400 leading-relaxed mt-4">
-            This is how many policies become unsustainable just when cover is needed most.
-          </p>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-white mb-4">The Illusion</h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                Age-rated premiums and exponential compounding are rarely shown in year one. A low starting premium masks the true cost. Over 10–20 years, scheduled escalation plus age-rating can double or triple your premium, making the &quot;cheapest&quot; policy the most expensive to hold.
+              </p>
+            </div>
+            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-white mb-4">The Trap</h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                Guarantee periods typically expire after 10–15 years. At that point premiums can jump sharply at review. By then you are older, may have developed conditions, and cancelling or replacing cover is costly or impossible. The liability compounds exactly when you are least able to restructure.
+              </p>
+            </div>
+            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-white mb-4">The Fiduciary Alternative</h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                Purpose-Built Risk Architecture: level premiums or behaviour-linked models designed for long-term sustainability. Not all policies are engineered to spike. Let our fiduciaries restructure your cover so it remains affordable when you need it most.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -256,23 +216,21 @@ export default function PremiumIncreaseCalculatorPage() {
         </div>
       </section>
 
-      {/* Take the Next Step */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-black/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">Take the Next Step</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            If you&apos;d like help interpreting the results, or understanding whether your current policy structure is
-            sustainable, we can review it with you.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-8">
-            Let us help you choose cover that still works when you need it most.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
-          >
-            Request a policy review below
-          </Link>
+      {/* CTA – Squircle with glowing border */}
+      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-[2rem] bg-[#151518] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-8 md:p-10 text-center">
+            <h2 className="text-2xl font-bold text-white mb-4">Stop Funding Structural Liabilities.</h2>
+            <p className="text-zinc-400 leading-relaxed mb-8">
+              If your projection shows an unsustainable premium spike, your risk architecture is fundamentally flawed. Let our fiduciaries restructure your cover before the liability compounds.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
+            >
+              Initiate Fiduciary Risk Audit →
+            </Link>
+          </div>
         </div>
       </section>
 

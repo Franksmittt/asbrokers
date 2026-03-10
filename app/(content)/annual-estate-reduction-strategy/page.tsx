@@ -15,13 +15,13 @@ export default function AnnualEstateReductionPage() {
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">
-            AS Brokers · Estate Planning
+            Phase 2: Risk Architecture · Fiduciary Liability.
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
-            Annual Estate Duty Reduction Plan
+            Strategic Capital Migration Plan.
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed mb-4">
-            Use the annual donations exemption to legally reduce your estate duty exposure, year by year, rand by rand.
+            Leverage the R100k/R200k exemption to systematically dismantle your estate tax liability and secure generational wealth.
           </p>
           <p className="text-zinc-500">
             Calculate how much estate duty you can eliminate over time through structured annual donations, and see the
@@ -80,18 +80,22 @@ export default function AnnualEstateReductionPage() {
         </div>
       </section>
 
-      {/* How This Strategy Works in Practice */}
+      {/* How This Strategy Works in Practice – Bento card + wealth engineering */}
       <section className="py-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">How This Strategy Works in Practice</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            In practice, these annual donations are often made to a family trust, allowing capital to leave the estate
-            while remaining protected, managed, and earmarked for long-term family objectives.
-          </p>
-          <p className="text-zinc-400 leading-relaxed">
-            The real power of the strategy is not the size of any single donation, but the discipline of repeating it
-            year after year.
-          </p>
+          <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8 lg:p-10">
+            <h2 className="text-2xl font-bold text-white mb-6">How This Strategy Works in Practice</h2>
+            <p className="text-zinc-400 leading-relaxed mb-4">
+              In practice, these annual donations are often made to a family trust, allowing capital to leave the estate
+              while remaining protected, managed, and earmarked for long-term family objectives. Moving capital to a
+              trust is only step one. Deploying that capital into high-yield, unlisted alternative assets ensures the
+              trust outpaces inflation and compounds wealth outside your estate.
+            </p>
+            <p className="text-zinc-400 leading-relaxed">
+              The real power of the strategy is not the size of any single donation, but the discipline of repeating it
+              year after year.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -141,46 +145,28 @@ export default function AnnualEstateReductionPage() {
             can&apos;t catch up next year by donating R200,000; you&apos;ll trigger donations tax on the excess.
           </p>
           <p className="text-zinc-400 leading-relaxed">
-            A couple who starts at age 50 and donates R200,000 per year for 15 years moves R3 million out of their
-            estate legally, tax-free, and without disrupting their lifestyle. Start at 60, and you only get R1 million
-            out. Same strategy, half the result. The earlier you start, the more your heirs keep. The math is simple,
-            but only if you act on it.
+            A couple starting at <span className="text-cinematic-teal font-semibold">50</span> migrating R200k/year
+            protects <span className="text-cinematic-teal font-semibold">R3m</span>. Starting at{" "}
+            <span className="text-cinematic-teal font-semibold">60</span> protects only{" "}
+            <span className="text-cinematic-teal font-semibold">R1m</span>. Same strategy, half the result. The earlier
+            you start, the more your heirs keep. The math is simple, but only if you act on it.
           </p>
         </div>
       </section>
 
-      {/* Ready to Take the Next Step */}
+      {/* Initiate Your Fiduciary Audit */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Ready to Take the Next Step?</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Understanding the numbers is the first step. Implementing the strategy correctly is what actually reduces
-            estate duty and protects wealth for the next generation.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">If you would like help to:</p>
-          <ul className="space-y-2 text-zinc-400 mb-8">
-            {[
-              "Create a compliant family trust",
-              "Structure annual donations correctly",
-              "Integrate this strategy with your will and estate plan",
-              "Reduce estate duty legally over time",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-blue-400 mt-0.5">→</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-zinc-400 leading-relaxed mb-6">We can guide you through the process.</p>
-          <h3 className="text-xl font-bold text-white mb-4">Let Us Help You Create a Trust and Reduce Your Estate</h3>
+          <h2 className="text-2xl font-bold text-white mb-6">Initiate Your Fiduciary Audit</h2>
           <p className="text-zinc-400 leading-relaxed mb-6">
-            Complete the form and we&apos;ll contact you to discuss your options.
+            You know the liability. You know the strategy. Now, let our wealth engineers structure your trust, route
+            your donations, and secure your high-yield allocations.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
+            className="inline-flex items-center justify-center gap-2 w-full bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
           >
-            Complete the form below
+            Book Fiduciary Consultation
           </Link>
         </div>
       </section>

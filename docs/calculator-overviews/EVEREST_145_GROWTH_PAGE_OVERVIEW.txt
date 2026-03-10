@@ -1,0 +1,86 @@
+================================================================================
+  AS BROKERS – EVEREST 14.5% STRATEGIC GROWTH CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/everest-strategic-growth-145
+================================================================================
+
+This document describes the 14.5% Strategic Growth calculator page: purpose,
+structure, components, and how it fits into the AS Brokers site. The page
+hosts the Everest145GrowthCalculator for 5-year compound growth with no
+monthly income.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /everest-strategic-growth-145 page is a focused product calculator:
+
+  • Headline: "Grow Your Capital at 14.5% Per Year" – for investors who
+    don't need income now; capital compounds at fixed rate for 5 years; no
+    market risk, no decisions to make.
+  • Everest145GrowthCalculator: User enters capital (and term); output is
+    projected value at maturity (compound growth 14.5% p.a., 20% tax on
+    growth/dividends at maturity). No monthly withdrawals.
+  • Footer strip: WhatsApp, "Investment options" (/everest-wealth), Contact.
+
+Linked from /everest-wealth as "Calculate 5-year growth" (Voluntary capital
+growth option). Part of the Everest product suite for growth-focused capital.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /everest-strategic-growth-145
+  • File:    app/(content)/everest-strategic-growth-145/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Everest Strategic Growth 14.5% Calculator | AS Brokers"
+      - description: "Grow your capital at 14.5% per year. Fixed compound
+        growth for 5 years, 20% tax on dividends at maturity."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Grow Your Capital at 14.5% Per Year)
+  2. Calculator – Everest145GrowthCalculator
+  3. Footer / trust strip (WhatsApp, Investment options, Contact)
+  4. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto,
+                text-center.
+  • Eyebrow:    "AS Brokers" (zinc-500, uppercase).
+  • Headline:   "Grow Your Capital at 14.5% Per Year" (text-4xl–5xl, white,
+                bold).
+  • Subhead:    "For investors who don't need income now. Your capital
+    compounds at a fixed rate for 5 years no market risk, no decisions to
+    make." (xl, zinc-400).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & FOOTER STRIP
+--------------------------------------------------------------------------------
+
+  • Calculator: Everest145GrowthCalculator in py-12 section, max-w-4xl.
+    Inputs: typically lump sum, 5-year term; output: projected capital at
+    maturity (compound 14.5%), tax at 20% on growth/dividends at maturity.
+  • Footer strip: "Contact us on WhatsApp 067 242 9946" (external),
+    "Investment options" → /everest-wealth, "Contact" → /contact. zinc-500,
+    hover white on WhatsApp.
+
+--------------------------------------------------------------------------------
+6. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: Everest145GrowthCalculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. Minimal editorial; calculator-first layout.
+  • No FAQ schema.
+
+--------------------------------------------------------------------------------
+7. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /everest-wealth (14.5% Strategic Growth card).
+  • Out:       /everest-wealth, /contact, WhatsApp.

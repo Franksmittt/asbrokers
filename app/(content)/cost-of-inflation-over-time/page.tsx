@@ -11,21 +11,19 @@ export const metadata = {
 export default function CostOfInflationPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      {/* Hero */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* Hero – cinematic void + risk orb */}
+      <section className="relative pt-28 pb-12 px-4 sm:px-6 md:px-8 overflow-hidden">
+        <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-red-600/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />
+        <div className="absolute bottom-1/3 left-0 w-[220px] h-[220px] bg-amber-700/10 blur-[80px] rounded-full pointer-events-none" aria-hidden />
+        <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">
-            AS Brokers · Inflation Planning
+            Actuarial Reality Check.
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
-            Future Value Calculator
+            The Capital Erosion Test.
           </h1>
-          <p className="text-xl text-zinc-400 leading-relaxed mb-4">
-            Understand the impact of inflation on your savings and purchasing power over time.
-          </p>
-          <p className="text-zinc-500">
-            See what today&apos;s money will actually be worth in the future, and how much more you&apos;ll need just to
-            maintain the same lifestyle.
+          <p className="text-xl text-zinc-400 leading-relaxed">
+            Inflation is the silent destruction of wealth. Calculate the exact rate at which your current capital is losing its purchasing power, and discover the required yield to outpace it.
           </p>
         </div>
       </section>
@@ -41,131 +39,55 @@ export default function CostOfInflationPage() {
         </div>
       </section>
 
-      {/* Calculator */}
+      {/* Calculator – premium Bento with red risk glow */}
       <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto rounded-[2rem] border border-red-500/20 shadow-[0_0_40px_rgba(239,68,68,0.12)] p-0 overflow-hidden">
           <FutureValueCalculator />
         </div>
       </section>
 
-      {/* Understanding the Impact of Inflation */}
+      {/* 2-column Bento: The Problem + The Solution */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-            Understanding the Impact of Inflation on Your Money
-          </h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            The calculator above shows what today&apos;s money will be worth in the future after inflation. It does not
-            measure how much your money grows on paper; it shows what your money can actually buy in real terms.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Inflation is one of the biggest and most underestimated risks in retirement planning. While prices
-            don&apos;t rise dramatically in a single year, inflation compounds quietly over time. Over a 10–20 year
-            period, this erosion can significantly reduce purchasing power if income and investment growth fail to keep
-            up.
-          </p>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-white mb-4">The Mathematical Deficit</h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                Traditional portfolios yielding 6–8% are essentially generating zero real return after inflation and tax. The nominal number on your statement masks the erosion. To preserve and grow wealth in real terms, your yield must consistently outpace both inflation and the tax drag.
+              </p>
+            </div>
+            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-white mb-4">Outpacing the Erosion</h2>
+              <p className="text-zinc-400 text-sm leading-relaxed">
+                To secure real generational wealth, capital must be deployed into high-yield alternative structures (12.8%–14.5%) that mathematically crush inflation. Unlisted preference shares and structured returns are engineered for this purpose.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* The Common Misconception */}
-      <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">The Common Misconception</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Many people assume that as long as their investments are growing, their retirement plan is on track. The
-            problem is that income can increase while buying power decreases.
-          </p>
-          <p className="text-zinc-400 leading-relaxed">
-            Groceries, medical costs, insurance, fuel, and everyday living expenses rise year after year, regardless of
-            what your account balance looks like.
-          </p>
-        </div>
-      </section>
-
-      {/* What This Calculator Helps You Do */}
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">What This Calculator Helps You Do</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            This calculator helps you test that reality by translating a current rand amount or income into its future
-            buying power. It allows you to:
-          </p>
-          <ul className="space-y-2 text-zinc-400">
-            {[
-              "See how inflation affects future income needs",
-              "Compare investment growth against inflation to assess real growth",
-              "Understand how sensitive long-term outcomes are to small changes in inflation",
-              "Replace assumptions and rules of thumb with realistic projections",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-blue-400 mt-0.5">→</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* The Critical Question */}
-      <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">The Critical Question</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            This tool highlights a critical planning question:
-          </p>
-          <p className="text-zinc-300 font-medium mb-4">
-            Will your future income still support your lifestyle in today&apos;s terms?
-          </p>
-          <p className="text-zinc-400 leading-relaxed">
-            If the future value shown is lower than you expected, it means your current income or capital will buy less
-            in the future, even if the nominal rand amount grows.
-          </p>
-        </div>
-      </section>
-
-      {/* The Real Question / Everest CTA */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-black/20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">
-            Are Your Investments Beating Inflation, or Just Keeping You Busy?
-          </h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Most investments give you one good year, then take it back the next. Up 12%, down 8%, sideways for two
-            years. The statement looks like progress, but your purchasing power hasn&apos;t moved.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            If your growth depends on market timing and luck, you don&apos;t have a plan. You have a gamble with a nice
-            logo on the statement.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            What if your investment delivered consistent, double-digit returns, in good years and bad? Not a promise. A
-            structure. Built to deliver fixed returns through unlisted share investments, regardless of what the market
-            does.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline"
-          >
-            See what consistent growth looks like
-          </Link>
-          <span className="text-zinc-500 text-sm ml-2">– View indicative Everest Wealth product projections</span>
-        </div>
-      </section>
-
-      {/* Purpose and Next Steps */}
+      {/* CTA – premium Squircle */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Purpose and Next Steps</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            The purpose of this calculator is not prediction or precision. It is awareness. It shows the gap inflation
-            creates over time.
-          </p>
-          <p className="text-zinc-400 leading-relaxed">
-            Closing that gap requires more than chasing returns. It requires proper structure, tax efficiency, and
-            income planning that focuses on real (after-inflation, after-tax) outcomes. Use this calculator as a
-            starting point to understand the problem. The solution lies in how income is structured to keep pace with
-            inflation over decades, not just years.
-          </p>
+          <div className="rounded-[2rem] bg-[#151518] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-8 md:p-10">
+            <h2 className="text-2xl font-bold text-white mb-4">Stop Losing Purchasing Power.</h2>
+            <div className="flex flex-col sm:flex-row gap-3 mt-6">
+              <Link
+                href="/everest-wealth"
+                prefetch={false}
+                className="inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
+              >
+                Engineer Inflation-Proof Yields →
+              </Link>
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-6 py-4 rounded-[2rem] hover:bg-white/10 transition-colors"
+              >
+                Book Actuarial Review
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

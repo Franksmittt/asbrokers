@@ -1,0 +1,114 @@
+================================================================================
+  AS BROKERS – INCOME TAX CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/income-tax-calculator
+================================================================================
+
+This document describes the Income Tax Calculator page: purpose, structure,
+components, and how it fits into the AS Brokers site. The page estimates South
+African PAYE using SARS 2026/27 tax tables (Budget 2026).
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /income-tax-calculator page has three jobs:
+
+  • Educate: Hero explains PAYE based on official SARS 2026/27 tables; user
+    enters gross monthly salary and age to see tax and take-home.
+  • Context: Editorial blocks cover retirement income tax position, what the
+    calculator shows, why tax is not static in retirement, who the tool is for.
+  • Convert: CTA "Want Help Improving Your After-Tax Retirement Income?" with
+    "Complete the form below" → /contact. Quick links to WhatsApp and solutions.
+
+Linked from the Calculators hub under "Tax & Estate Exposure" (Phase 2:
+Secondary Risk Architecture). Supports retirement and estate planning
+conversations.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /income-tax-calculator
+  • File:    app/(content)/income-tax-calculator/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "South African Income Tax Calculator (2026/27) | AS Brokers"
+      - description: "Calculate your South African PAYE based on official
+        SARS 2026/27 tax tables (Budget 2026). See annual tax, monthly PAYE,
+        effective tax rate and net pay."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Income Tax Calculator, SARS 2026/27)
+  2. Calculator – IncomeTaxCalculator
+  3. Understanding Your Retirement Income Tax Position
+  4. What This Calculator Shows
+  5. Tax Is Not Static in Retirement
+  6. The Real Question (structure income to keep more)
+  7. Who This Tool Is Designed For
+  8. CTA: Want Help Improving (→ /contact)
+  9. Quick links (WhatsApp, solutions)
+  10. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto,
+                text-center.
+  • Eyebrow:    "AS Brokers · Tax Planning" (zinc-500, uppercase).
+  • Headline:   "Income Tax Calculator" (text-4xl–6xl, white, bold).
+  • Subhead:    PAYE based on official SARS 2026/27 tax tables (Budget 2026)
+                (xl, zinc-400).
+  • Supporting: Enter gross monthly salary and age; see what goes to SARS and
+    take-home. Rates as of Budget 2026; consult tax practitioner for latest
+    (zinc-500, text-sm).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & EDITORIAL
+--------------------------------------------------------------------------------
+
+  • Calculator: IncomeTaxCalculator in py-12 section, max-w-4xl. Inputs:
+    typically gross monthly salary, age; outputs: annual tax, monthly PAYE,
+    effective rate, net pay (per SARS 2026/27 logic).
+  • Understanding Retirement Tax: Purpose is to show what you keep after
+    tax; in retirement, multiple sources (living annuities, dividends,
+    interest, rental) taxed differently; overlap can push into higher brackets.
+  • What This Calculator Shows: List (annual tax, effective rate, net income,
+    test income changes); note that plans often fail due to underestimated tax.
+  • Tax Is Not Static: Income sources, drawdown, investments, age rebates
+    change over time; structure that looks efficient today may need review.
+  • The Real Question: Not "How much tax?" but "How do I structure income to
+    keep more, legally and sustainably?" Calculator shows what is happening;
+    planning improves why and how.
+  • Who This Tool Is For: Multiple income sources or retirement income mix.
+
+--------------------------------------------------------------------------------
+6. CTA & QUICK LINKS
+--------------------------------------------------------------------------------
+
+  • CTA block: bg-black/20. "Want Help Improving Your After-Tax Retirement
+    Income?" Body: complete form for review and practical tax efficiency.
+    Button: "Complete the form below" → /contact (white, rounded-full).
+  • Quick links: WhatsApp 067 242 9946; Income in retirement, Insurance & risk
+    planning, Estate planning, Business insurance → /solutions. Flex wrap,
+    gap-6, text-sm.
+
+--------------------------------------------------------------------------------
+7. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: IncomeTaxCalculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. Sections border-t border-white/5; CTA bg-black/20.
+  • Lists: list-disc list-inside for some bullets; zinc-400 body copy.
+
+--------------------------------------------------------------------------------
+8. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Income Tax Calculator card, Phase 2).
+  • Out:       /contact (improve after-tax income), /solutions (quick links),
+               WhatsApp. RetirementRealityCalculator on /retirement can link
+               here for tax rate context.

@@ -163,7 +163,11 @@ export function LifeOfCapitalCalculator() {
             </p>
           ) : (
             <p className="text-white font-medium">
-              Your capital is projected to last for <strong>{result.yearsLasted.toFixed(1)} years</strong>.
+              Your capital is projected to last for{" "}
+              <span className="text-4xl md:text-5xl font-bold text-cinematic-teal tabular-nums">
+                {result.yearsLasted.toFixed(1)}
+              </span>{" "}
+              years.
             </p>
           )}
         </div>

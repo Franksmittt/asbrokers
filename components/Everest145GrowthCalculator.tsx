@@ -74,8 +74,8 @@ export function Everest145GrowthCalculator() {
       {hasCalculated && (
         <>
           <div className="mt-8 p-6 rounded-xl bg-blue-500/10 border border-blue-500/20">
-            <p className="text-zinc-400 text-sm uppercase tracking-wider mb-1">Your capital after 5 years (after tax)</p>
-            <p className="text-3xl font-bold text-white">{formatCurrency(result.totalCapitalAfter5Years)}</p>
+            <p className="text-zinc-400 text-sm uppercase tracking-wider mb-1">Projected value at maturity</p>
+            <p className="text-3xl font-bold text-cinematic-teal">{formatCurrency(result.totalCapitalAfter5Years)}</p>
           </div>
           <div className="mt-6 grid sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">

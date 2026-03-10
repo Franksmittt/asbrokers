@@ -15,26 +15,23 @@ export default function IncomeTaxCalculatorPage() {
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">
-            AS Brokers · Tax Planning
+            Phase 2: Risk Architecture · Tax Exposure.
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
-            Income Tax Calculator
+            The Income Tax Liability Engine.
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed">
-            Calculate your South African PAYE based on official SARS 2026/27 tax tables (Budget 2026).
+            Calculate your exact marginal tax exposure based on official SARS 2026/27 tables. Understand how traditional income structures are penalizing your wealth.
           </p>
-          <p className="text-zinc-500 mt-4">
-            Enter your gross monthly salary and age to see exactly how much goes to SARS, and how much you actually take home.
-          </p>
-          <p className="text-zinc-500 text-sm mt-2">
-            Rates as of Budget 2026. Consult a tax practitioner for the latest.
+          <p className="text-zinc-500 mt-4 text-sm">
+            Enter your gross monthly salary and age. Rates as of Budget 2026. Consult a tax practitioner for the latest.
           </p>
         </div>
       </section>
 
-      {/* Calculator */}
+      {/* Calculator – Bento card */}
       <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto rounded-[2rem] border border-white/10 overflow-hidden">
           <IncomeTaxCalculator />
         </div>
       </section>
@@ -76,23 +73,15 @@ export default function IncomeTaxCalculatorPage() {
         </div>
       </section>
 
-      {/* Tax Is Not Static in Retirement */}
+      {/* The Fiduciary Advantage: Tax Arbitrage – Bento card */}
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Tax Is Not Static in Retirement</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Your tax position in retirement is not static. It changes as:
-          </p>
-          <ul className="list-disc list-inside text-zinc-400 space-y-2 mb-4">
-            <li>Income sources shift</li>
-            <li>Drawdown rates change</li>
-            <li>Investments are added or sold</li>
-            <li>Age-based rebates apply differently over time</li>
-          </ul>
-          <p className="text-zinc-400 leading-relaxed">
-            An income structure that looks tax-efficient today may become less efficient if it isn&apos;t reviewed and
-            adjusted.
-          </p>
+          <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-white mb-6">The Fiduciary Advantage: Tax Arbitrage</h2>
+            <p className="text-zinc-400 leading-relaxed">
+              Standard interest-bearing investments are penalized by marginal tax rates (up to 45%). By restructuring capital into private equity preference shares (such as Everest Wealth), your yields are subjected to a flat 20% Dividend Withholding Tax (DWT). This single structural change can drastically increase your net take-home yield.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -123,22 +112,21 @@ export default function IncomeTaxCalculatorPage() {
         </div>
       </section>
 
-      {/* CTA: Want Help Improving */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-black/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">
-            Want Help Improving Your After-Tax Retirement Income?
-          </h2>
-          <p className="text-zinc-400 leading-relaxed mb-8">
-            Complete the form and we will contact you to review your results and discuss practical ways to improve tax
-            efficiency as part of your broader retirement plan.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
-          >
-            Complete the form below
-          </Link>
+      {/* CTA: Restructure Your Tax Liability */}
+      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-[2rem] bg-[#151518] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-8 md:p-10 text-center">
+            <h2 className="text-2xl font-bold text-white mb-4">Restructure Your Tax Liability.</h2>
+            <p className="text-zinc-400 leading-relaxed mb-8">
+              Stop paying marginal rates on your investment growth. Let our wealth engineers structure your capital for maximum tax efficiency.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
+            >
+              Initiate Tax-Efficient Structuring →
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -32,11 +32,10 @@ const everestWealthFAQs = [
   },
 ];
 
-const trustPoints = [
-  "Everest Wealth FSP 795",
-  "Fixed returns",
-  "Not market-linked",
-  "Zero broker fees",
+const trustTags = [
+  "FSP 17273",
+  "FSCA Category 1.8 (Shares)",
+  "Zero Advice Fees",
 ];
 
 const incomeOptions = [
@@ -112,21 +111,28 @@ export default function EverestWealthPage() {
       <FAQSchema faqs={everestWealthFAQs} />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">AS Brokers</p>
+          <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">Code 1.8 Wealth Engineering Suite.</p>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            Which Everest Product Fits Your Retirement?
+            The Alternative Yield Portfolio.
           </h1>
-          <p className="text-xl text-zinc-400 mb-6">
-            Four investment options. One question: what does your money need to do for you? Use this guide to find the right structure, then run the numbers with your own calculator.
+          <p className="text-xl text-zinc-400 leading-relaxed mb-6">
+            Bypass public market volatility. Deploy capital into unlisted preference shares engineered for fixed returns, tax efficiency, and absolute certainty.
           </p>
-          <ul className="flex flex-wrap justify-center gap-4 text-sm text-zinc-400">
-            {trustPoints.map((p) => (
-              <li key={p} className="flex items-center gap-2">
-                <span className="text-green-400">✓</span>
-                {p}
-              </li>
+          <div className="flex flex-wrap justify-center gap-2">
+            {trustTags.map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-2 rounded-[1rem] border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-zinc-300 shadow-[0_0_12px_rgba(34,197,94,0.08)]"
+              >
+                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-green-500/15 text-green-400 shadow-[0_0_8px_rgba(34,197,94,0.2)]">
+                  <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                {tag}
+              </span>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -152,15 +158,23 @@ export default function EverestWealthPage() {
         </div>
       </section>
 
-      <section className="py-12 px-4 sm:px-6 md:px-8">
+      {/* Phase 1: Immediate Cash Flow Architecture */}
+      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Voluntary capital income options</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Phase 1: Immediate Cash Flow Architecture</h2>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
             {incomeOptions.map((opt) => (
-              <div key={opt.href} className="bg-[#151518] rounded-[2rem] p-6 border border-white/5 hover:border-white/20 transition-colors">
-                {opt.tag && (
-                  <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">{opt.tag}</span>
-                )}
+              <div key={opt.href} className="bg-[#151518] rounded-[2rem] p-6 border border-white/5 hover:border-blue-500/40 transition-colors">
+                <div className="flex items-center gap-2 mb-2">
+                  {opt.tag && (
+                    <span className="text-xs font-medium text-blue-400 uppercase tracking-wider">{opt.tag}</span>
+                  )}
+                  {opt.href === "/immediate-higher-income-calculator" && (
+                    <span className="text-xs font-semibold text-cinematic-teal uppercase tracking-wider px-2 py-0.5 rounded-md bg-cinematic-teal/20">
+                      Max Day-1 Yield
+                    </span>
+                  )}
+                </div>
                 <h3 className="text-xl font-bold text-white mt-2 mb-1">{opt.title}</h3>
                 <p className="text-zinc-400 text-sm mb-4">{opt.subtitle}</p>
                 <p className="text-zinc-500 text-sm mb-4">{opt.desc}</p>
@@ -169,7 +183,7 @@ export default function EverestWealthPage() {
                     <li key={f}>· {f}</li>
                   ))}
                 </ul>
-                <Link href={opt.href} prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
+                <Link href={opt.href} prefetch={false} className="inline-flex items-center gap-2 text-cinematic-teal font-medium hover:underline">
                   {opt.cta} →
                 </Link>
               </div>
@@ -183,12 +197,12 @@ export default function EverestWealthPage() {
         </div>
       </section>
 
+      {/* Phase 2: Pure Capital Compounding */}
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-6">Phase 2: Pure Capital Compounding</h2>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Voluntary capital growth option */}
-            <div className="bg-[#151518] rounded-[2rem] p-6 border border-white/5 hover:border-white/20 transition-colors">
-              <h2 className="text-lg font-bold text-white mb-4">Voluntary capital growth option</h2>
+            <div className="md:col-span-2 bg-[#151518] rounded-[2rem] p-6 border border-white/5 hover:border-blue-500/40 transition-colors">
               <h3 className="text-xl font-bold text-white mb-2">{growthOption.title}</h3>
               <p className="text-zinc-400 text-sm mb-4">{growthOption.subtitle}</p>
               <p className="text-zinc-500 text-sm mb-4">{growthOption.desc}</p>
@@ -197,14 +211,24 @@ export default function EverestWealthPage() {
                   <li key={f}>· {f}</li>
                 ))}
               </ul>
-              <Link href={growthOption.href} prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
+              <Link href={growthOption.href} prefetch={false} className="inline-flex items-center gap-2 text-cinematic-teal font-medium hover:underline">
                 {growthOption.cta} →
               </Link>
             </div>
-            {/* Compulsory retirement money */}
-            <div className="bg-[#151518] rounded-[2rem] p-6 border border-white/5 hover:border-white/20 transition-colors">
-              <h2 className="text-lg font-bold text-white mb-4">Compulsory retirement money</h2>
-              <h3 className="text-xl font-bold text-white mb-2">{amethystOption.title}</h3>
+          </div>
+        </div>
+      </section>
+
+      {/* Phase 3: Retirement Liquidity Isolation */}
+      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-6">Phase 3: Retirement Liquidity Isolation</h2>
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-[#151518] rounded-[2rem] p-6 border border-white/5 hover:border-blue-500/40 transition-colors">
+              <span className="text-xs font-semibold text-cinematic-teal uppercase tracking-wider px-2 py-0.5 rounded-md bg-cinematic-teal/20 inline-block mb-2">
+                Section 14 Transfer Approved
+              </span>
+              <h3 className="text-xl font-bold text-white mt-2 mb-2">{amethystOption.title}</h3>
               <p className="text-zinc-400 text-sm mb-4">{amethystOption.subtitle}</p>
               <p className="text-zinc-500 text-sm mb-4">{amethystOption.desc}</p>
               <ul className="text-zinc-500 text-xs space-y-1 mb-6">
@@ -212,7 +236,7 @@ export default function EverestWealthPage() {
                   <li key={f}>· {f}</li>
                 ))}
               </ul>
-              <Link href={amethystOption.href} prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline">
+              <Link href={amethystOption.href} prefetch={false} className="inline-flex items-center gap-2 text-cinematic-teal font-medium hover:underline">
                 {amethystOption.cta} →
               </Link>
             </div>
@@ -234,13 +258,9 @@ export default function EverestWealthPage() {
 
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl font-bold text-white mb-4">Understanding Everest Wealth</h2>
           <p className="text-zinc-500 text-sm mb-4">
             Everest Wealth Management (Pty) Ltd is an authorised Financial Services Provider (FSP 795). AS Brokers (FSP 17273) acts as an independent intermediary. All returns shown are based on current product terms and are not guaranteed. Past performance is not indicative of future results. These investments involve unlisted shares with limited liquidity during the investment term. Please consult with a qualified financial adviser before making any investment decisions.
           </p>
-          <Link href="/everest-wealth/about" prefetch={false} className="inline-flex items-center gap-2 text-blue-400 font-medium hover:underline mb-6">
-            Read a detailed guide: how it works, structure, risks and tax →
-          </Link>
           <div className="flex flex-wrap gap-4 text-sm text-zinc-500">
             <span>AS Brokers FSP 17273</span>
             <span>FSCA 1.8 Shares Authority</span>
@@ -250,11 +270,25 @@ export default function EverestWealthPage() {
         </div>
       </section>
 
+      {/* Tertiary CTA: Fiduciary Briefing */}
+      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
+            <p className="text-zinc-400 text-sm leading-relaxed mb-4">
+              Understanding the Architecture. Review the underlying structures, tax routing, and risk mitigation protocols of Everest Wealth.
+            </p>
+            <Link href="/everest-wealth/about" prefetch={false} className="inline-flex items-center gap-2 text-cinematic-teal font-medium hover:underline">
+              Read Fiduciary Briefing →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-4 sm:gap-6 text-sm">
-          <Link href="/everest-wealth/about" prefetch={false} className="text-blue-400 hover:underline">Understanding Everest Wealth</Link>
+          <Link href="/everest-wealth/about" prefetch={false} className="text-cinematic-teal hover:underline">Understanding Everest Wealth</Link>
           <a href="https://wa.me/27672429946" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white">Contact us on WhatsApp 067 242 9946</a>
-          <Link href="/contact" prefetch={false} className="text-blue-400 hover:underline">Contact</Link>
+          <Link href="/contact" prefetch={false} className="text-cinematic-teal hover:underline">Contact</Link>
         </div>
       </section>
       <Footer />

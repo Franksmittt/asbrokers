@@ -12,10 +12,12 @@ export default function EstateDutyCalculatorPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
       {/* Hero */}
-      <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative pt-28 pb-12 px-4 sm:px-6 md:px-8 overflow-hidden">
+        <div className="absolute top-1/4 right-0 w-[320px] h-[320px] bg-red-500/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />
+        <div className="absolute bottom-1/4 left-0 w-[240px] h-[240px] bg-amber-600/10 blur-[80px] rounded-full pointer-events-none" aria-hidden />
+        <div className="relative max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">
-            AS Brokers · Estate Planning
+            Phase 2: Risk Architecture · Fiduciary Liability.
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
             Estate Duty Calculator
@@ -46,24 +48,28 @@ export default function EstateDutyCalculatorPage() {
         </div>
       </section>
 
-      {/* What This Estate Duty Estimate Tells You */}
+      {/* Liquidity Stress Test – Bento card */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-            What This Estate Duty Estimate Tells You
-          </h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            The figure shown above is a high-level estimate of how much estate duty SARS could potentially claim from
-            your estate based on the information you entered.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            Estate duty is calculated on the total value of your estate at death, including property, investments,
-            policies, cash, and other assets, after allowable deductions. It is currently charged at 20% on the first R30
-            million and 25% on amounts above that, and it is payable in cash before heirs receive their inheritances.
-          </p>
-          <p className="text-zinc-400 leading-relaxed font-medium text-zinc-300">
-            This calculator is not designed for precision. Its purpose is awareness.
-          </p>
+          <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8 lg:p-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+              Liquidity Stress Test
+            </h2>
+            <p className="text-zinc-400 leading-relaxed mb-4">
+              The figure above is a high-level estimate of the cash your estate must produce at death. SARS can claim{" "}
+              <strong className="text-zinc-300">20% on the first R30 million</strong> and{" "}
+              <strong className="text-zinc-300">25% on amounts above that</strong>, plus executor fees. All of it is
+              payable in cash before heirs receive their inheritances.
+            </p>
+            <p className="text-zinc-400 leading-relaxed mb-4">
+              Estate duty is calculated on the total value of your estate at death, including property, investments,
+              policies, cash, and other assets, after allowable deductions. This calculator is not designed for
+              precision. Its purpose is awareness: to expose the liquidity gap before it becomes a crisis.
+            </p>
+            <p className="text-zinc-400 leading-relaxed font-medium text-zinc-300">
+              You have just run a liquidity stress test. The next step is to reduce the number.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -73,7 +79,9 @@ export default function EstateDutyCalculatorPage() {
           <h2 className="text-2xl font-bold text-white mb-6">The Hidden Problem</h2>
           <p className="text-zinc-400 leading-relaxed mb-4">
             What often catches families off guard is not poor investment performance, but the fact that growth inside an
-            estate quietly increases the eventual tax bill over time.
+            estate quietly increases the eventual tax bill over time. Capital locked in low-yield, traditional
+            structures makes it worse: when the estate freezes, that capital cannot be turned into cash quickly
+            enough. The liquidity crisis is exacerbated precisely when families can least afford it.
           </p>
           <p className="text-zinc-400 leading-relaxed mb-4">
             When sufficient liquidity is not available, estates are often forced to sell assets under pressure, delay
@@ -86,16 +94,16 @@ export default function EstateDutyCalculatorPage() {
         </div>
       </section>
 
-      {/* A Practical Solution */}
+      {/* Strategic Capital Migration */}
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">A Practical Solution</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Strategic Capital Migration</h2>
           <p className="text-zinc-400 leading-relaxed mb-4">
-            One of the most effective tools available to South Africans is the annual donations allowance.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            South African tax residents may donate up to <strong className="text-zinc-300">R100,000 per individual</strong> or{" "}
-            <strong className="text-zinc-300">R200,000 per married couple</strong> each tax year free of donations tax. By using this exemption and redirecting growth outside your personal estate (for example into a family trust), future estate duty can be reduced without drastic once-off decisions.
+            The first step in mathematically reducing your exposure is the annual donations allowance. South African
+            tax residents may donate up to <strong className="text-zinc-300">R100,000 per individual</strong> or{" "}
+            <strong className="text-zinc-300">R200,000 per married couple</strong> each tax year free of donations tax.
+            By using this exemption and redirecting growth outside your personal estate (for example into a family
+            trust), future estate duty can be reduced without drastic once-off decisions.
           </p>
           <p className="text-zinc-400 leading-relaxed mb-2">
             This result is not a prediction.
@@ -107,21 +115,25 @@ export default function EstateDutyCalculatorPage() {
         </div>
       </section>
 
-      {/* Next Step */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-black/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">Next Step</h2>
-          <p className="text-zinc-400 leading-relaxed mb-8">
-            If you would like to see how annual donations, when invested correctly, can reduce estate duty and shift
-            long-term growth outside your estate, the next calculator will walk you through that strategy.
-          </p>
-          <Link
-            href="/annual-estate-reduction-strategy"
-            prefetch={false}
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
-          >
-            Calculate your annual estate reduction strategy (R100k / R200k)
-          </Link>
+      {/* Next Step – Squircle CTA with pulsing glow */}
+      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="rounded-[2rem] bg-[#151518] border-2 border-blue-500/40 p-8 md:p-10 shadow-[0_0_50px_rgba(59,130,246,0.2)]">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-white mb-6">Next Step</h2>
+              <p className="text-zinc-400 leading-relaxed mb-8">
+                If you would like to see how annual donations, when invested correctly, can reduce estate duty and shift
+                long-term growth outside your estate, the next calculator will walk you through that strategy.
+              </p>
+              <Link
+                href="/annual-estate-reduction-strategy"
+                prefetch={false}
+                className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors w-full sm:w-auto justify-center"
+              >
+                Engineer Your Estate Reduction Strategy →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

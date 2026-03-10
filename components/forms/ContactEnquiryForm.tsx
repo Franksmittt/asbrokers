@@ -53,7 +53,7 @@ export function ContactEnquiryForm() {
 
   if (state.success) {
     return (
-      <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5 text-center">
+      <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] text-center">
         <div className="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -76,7 +76,7 @@ export function ContactEnquiryForm() {
   }
 
   return (
-    <form action={formAction} className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5 space-y-6">
+    <form action={formAction} className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] space-y-6">
       <input type="hidden" name="topics" value={JSON.stringify(selectedTopics)} />
 
       <div>
@@ -208,7 +208,7 @@ export function ContactEnquiryForm() {
         disabled={isPending}
         className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-zinc-200 transition-colors mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {isPending ? "Sending…" : "Request a quote / review"}
+        {isPending ? "Sending…" : "Initiate Wealth Engineering Request"}
       </button>
     </form>
   );

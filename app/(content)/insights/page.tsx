@@ -66,7 +66,7 @@ export default async function InsightsPage() {
         ) : (
           <div className="rounded-2xl bg-[#151518] border border-white/10 p-8 md:p-12 text-center">
             <p className="text-zinc-400 mb-6">
-              Our insight articles and resource hub are coming soon. We&apos;ll share regular updates on SA budget impact, estate planning, retirement income, and Everest Wealth—so you stay ahead.
+              Our insight articles and resource hub are coming soon. We&apos;ll share regular updates on SA budget impact, estate planning, retirement income, and Everest Wealth so you stay ahead.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link

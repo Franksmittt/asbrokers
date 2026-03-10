@@ -49,7 +49,7 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.08, ease: APPLE_EASE }}
             className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed tracking-[0.01em]"
           >
-            Protecting Your Legacy. Engineering Your Wealth. Discover if your capital will outlive you—and how to fix it if it won&apos;t.
+            Protecting Your Legacy. Engineering Your Wealth. Discover if your capital will outlive you, and how to fix it if it won&apos;t.
           </motion.p>
         </div>
 

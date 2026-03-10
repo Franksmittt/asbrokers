@@ -8,7 +8,7 @@ const formatCurrency = (val: number) =>
 /**
  * SARS 2026/27 tax brackets (annual taxable income).
  * Source: Budget 2026 / SARS rates for individuals (year of assessment 2027).
- * Rates as of Budget 2026 — consult a tax practitioner for latest.
+ * Rates as of Budget 2026. Consult a tax practitioner for latest.
  */
 const TAX_BRACKETS: { limit: number; baseTax: number; rate: number }[] = [
   { limit: 245_100, baseTax: 0, rate: 0.18 },
@@ -143,7 +143,7 @@ export function IncomeTaxCalculator() {
       <p className="text-zinc-500 text-xs mt-6">
         About this estimate: This calculator provides an estimate based on SARS 2026/27 tax brackets and rebates (Budget 2026). It
         does not account for UIF, medical aid tax credits, retirement fund contributions, or other deductions that may
-        reduce your tax liability. Rates as of Budget 2026 — consult a qualified tax practitioner for the latest.
+        reduce your tax liability. Rates as of Budget 2026. Consult a qualified tax practitioner for the latest.
       </p>
     </div>
   );

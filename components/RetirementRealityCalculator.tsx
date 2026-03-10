@@ -210,7 +210,7 @@ export function RetirementRealityCalculator() {
                 <div className="mt-4 pt-4 border-t border-white/10">
                   <p className="text-zinc-400 text-sm font-medium mb-1">Scenario: what if growth is 2% lower?</p>
                   <p className="text-amber-300 text-sm">
-                    You would need {formatCurrency(scenarioResult)} — {formatCurrency(scenarioResult - result.capital)} more.
+                    You would need {formatCurrency(scenarioResult)} ({formatCurrency(scenarioResult - result.capital)} more).
                   </p>
                 </div>
               )}

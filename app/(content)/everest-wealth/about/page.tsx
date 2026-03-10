@@ -99,7 +99,7 @@ export default function EverestWealthAboutPage() {
               {
                 num: "2",
                 title: "AS Brokers (FSP 17273) and Category 1.8",
-                body: "AS Brokers is an independent FSP that advises and distributes Everest products. To do this legally, advisers must hold FSCA Category 1.8 (Securities and Instruments: Shares) authority. This requires specific experience in shares and equips advisers to explain unlisted investments, valuations, and liquidity risks. Your capital is only invested through compliant, audited channels—never via unsolicited social media or unverified offers. The FSCA has warned about individuals impersonating Everest; always use a verified, licensed intermediary like AS Brokers.",
+                body: "AS Brokers is an independent FSP that advises and distributes Everest products. To do this legally, advisers must hold FSCA Category 1.8 (Securities and Instruments: Shares) authority. This requires specific experience in shares and equips advisers to explain unlisted investments, valuations, and liquidity risks. Your capital is only invested through compliant, audited channels. Never via unsolicited social media or unverified offers. The FSCA has warned about individuals impersonating Everest; always use a verified, licensed intermediary like AS Brokers.",
                 accent: "teal",
               },
               {
@@ -142,7 +142,7 @@ export default function EverestWealthAboutPage() {
           <p className="text-zinc-500 text-xs font-semibold uppercase tracking-wider mb-3">Products</p>
           <h2 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">The product suite in plain terms</h2>
           <p className="text-zinc-400 text-sm leading-relaxed mb-8 max-w-2xl">
-            Everest offers two broad categories: voluntary capital (savings, sale proceeds, cash) and compulsory retirement capital (pension, provident, preservation, RA). All voluntary products are unlisted preference shares with a minimum of R100,000, a five-year term, and no upfront broker fee—100% of your capital is invested from day one.
+            Everest offers two broad categories: voluntary capital (savings, sale proceeds, cash) and compulsory retirement capital (pension, provident, preservation, RA). All voluntary products are unlisted preference shares with a minimum of R100,000, a five-year term, and no upfront broker fee. 100% of your capital is invested from day one.
           </p>
           <div className="grid sm:grid-cols-2 gap-5 md:gap-6 mb-6">
             {[
@@ -171,7 +171,7 @@ export default function EverestWealthAboutPage() {
               Traditional private equity usually makes money when businesses are sold after many years. Everest&apos;s products, by contrast, promise regular (e.g. monthly) dividends from early on. To bridge that gap, Laudian uses a private-debt model: it lends to the underlying operating companies at intercompany interest rates (historically in the region of 15%–18%). The businesses (hotels, farms, mines, franchises) must generate enough cash to service this debt; Laudian then uses that cash flow to pay the dividends to preference-share investors (at the advertised 12.8%–14.5% net rates), after internal costs and fees.
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-              So in effect, as a retail investor you are participating in a high-yield corporate debt and equity structure. The underlying portfolio is diversified across sectors—e.g. mining and industrial, retail and leisure (e.g. SleepOver Hotels), agriculture, food and franchising, and medical. Laudian has also executed successful exits (e.g. the Witvlei copper project sale), which can strengthen the group&apos;s liquidity and ability to meet obligations and bonuses.
+              So in effect, as a retail investor you are participating in a high-yield corporate debt and equity structure. The underlying portfolio is diversified across sectors (e.g. mining and industrial, retail and leisure (e.g. SleepOver Hotels), agriculture, food and franchising, and medical). Laudian has also executed successful exits (e.g. the Witvlei copper project sale), which can strengthen the group&apos;s liquidity and ability to meet obligations and bonuses.
             </p>
             <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-5 mt-6">
               <p className="text-amber-200 text-xs font-semibold uppercase tracking-wider mb-2">Concentration risk</p>
@@ -220,7 +220,7 @@ export default function EverestWealthAboutPage() {
             </p>
             <div className="rounded-xl bg-white/5 border border-white/10 p-5 my-6">
               <p className="text-zinc-400 text-xs font-medium mb-2">Example (39% marginal bracket, R1m at 12.8% gross over 5 years)</p>
-              <p className="text-zinc-300 text-sm">As interest (39% tax): ~R390,400 net. As dividends (20% DWT): ~R512,000 net—a material difference.</p>
+              <p className="text-zinc-300 text-sm">As interest (39% tax): ~R390,400 net. As dividends (20% DWT): ~R512,000 net. A material difference.</p>
             </div>
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
               This tax efficiency is a key reason the product is often positioned to higher earners who can benefit from the dividend treatment while accepting illiquidity and the risks of unlisted investments.

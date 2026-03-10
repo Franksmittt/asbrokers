@@ -18,7 +18,7 @@ export default function PortalMessagesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Messages</h1>
-        <p className="text-zinc-400 text-sm">Unified thread with your advisor — email, WhatsApp and portal in one place.</p>
+        <p className="text-zinc-400 text-sm">Unified thread with your advisor: email, WhatsApp and portal in one place.</p>
       </div>
 
       <div className="rounded-2xl rim-light bg-vault-card border border-white/10 overflow-hidden">

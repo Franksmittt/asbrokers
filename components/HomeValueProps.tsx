@@ -7,7 +7,7 @@ const props = [
   {
     icon: ShieldCheck,
     title: "100% Independent",
-    body: "Authorised Category 1.8 Advice. We're not tied to a single product house—our advice is built around your goals, not quotas.",
+    body: "Authorised Category 1.8 Advice. We're not tied to a single product house. Our advice is built around your goals, not quotas.",
     href: "/solutions",
     cta: "Our solutions",
   },
@@ -21,7 +21,7 @@ const props = [
   {
     icon: User,
     title: "Personal Concierge Service",
-    body: "No call centres. You deal with experienced advisers who know your file—a true concierge relationship.",
+    body: "No call centres. You deal with experienced advisers who know your file. A true concierge relationship.",
     href: "/contact",
     cta: "Start a conversation",
   },

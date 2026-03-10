@@ -41,7 +41,7 @@ export function Code18Advantage() {
           transition={{ duration: 0.45, delay: 0.06, ease: APPLE_EASE }}
           className="text-gray-400 text-base md:text-lg max-w-3xl leading-relaxed"
         >
-          Most brokers can only advise on unit trusts linked to the volatile JSE. AS Brokers holds an FSCA Category 1.8 license (Securities and Instruments: Shares), so we are authorised to advise on unlisted, high-yield private market capital—including Everest Wealth structured products and the Amethyst Living Annuity.
+          Most brokers can only advise on unit trusts linked to the volatile JSE. AS Brokers holds an FSCA Category 1.8 license (Securities and Instruments: Shares), so we are authorised to advise on unlisted, high-yield private market capital, including Everest Wealth structured products and the Amethyst Living Annuity.
         </motion.p>
       </div>
 

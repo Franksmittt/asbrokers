@@ -10,7 +10,7 @@ import { PortalMyAdvisor } from "@/components/portal/PortalMyAdvisor";
 
 export const metadata = {
   title: "Wealth Dashboard",
-  description: "AS Brokers Client Portal — your wealth at a glance.",
+  description: "AS Brokers Client Portal. Your wealth at a glance.",
 };
 
 const formatZar = (n: number) =>
@@ -28,7 +28,7 @@ export default function PortalDashboardPage() {
           FSP 17273
         </p>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Wealth dashboard</h1>
-        <p className="text-zinc-400 text-sm">Your wealth at a glance — holdings, income and projections</p>
+        <p className="text-zinc-400 text-sm">Your wealth at a glance: holdings, income and projections</p>
         <p className="text-zinc-500/80 text-xs mt-1 italic">Protecting Your Legacy. Engineering Your Wealth.</p>
       </div>
 

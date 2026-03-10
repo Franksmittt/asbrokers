@@ -54,7 +54,7 @@ export function RiskArchitectureCarousel() {
           Comprehensive Risk Architecture
         </h2>
         <p className="text-gray-400 text-base max-w-2xl">
-          Standard insurance and risk solutions—foundation protection so you can focus on wealth generation.
+          Standard insurance and risk solutions. Foundation protection so you can focus on wealth generation.
         </p>
       </div>
 

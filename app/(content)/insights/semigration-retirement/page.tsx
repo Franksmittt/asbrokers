@@ -21,7 +21,7 @@ export default function SemigrationRetirementPage() {
             Semigration & Retirement Villages Western Cape
           </h1>
           <p className="text-lg text-zinc-400 leading-relaxed">
-            A significant demographic shift is under way: high-net-worth individuals and families are relocating from Gauteng to the Western Cape — semigration — driven by lifestyle, governance, and energy resilience. That move often involves redeploying capital, downsizing or upgrading property, and rethinking retirement income and estate planning.
+            A significant demographic shift is under way: high-net-worth individuals and families are relocating from Gauteng to the Western Cape (semigration), driven by lifestyle, governance, and energy resilience. That move often involves redeploying capital, downsizing or upgrading property, and rethinking retirement income and estate planning.
           </p>
         </div>
       </section>
@@ -30,7 +30,7 @@ export default function SemigrationRetirementPage() {
           <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">
             <h2 className="text-xl font-bold text-white mb-4">Retirement villages Western Cape</h2>
             <p className="text-zinc-400 leading-relaxed mb-4">
-              Retirement villages and coastal nodes — from Hermanus and George to the Cape Winelands — attract buyers who want security, healthcare access, and community. Financing the move and sustaining income in retirement often requires a clear picture of existing retirement capital, drawdown strategies, and tax-efficient structures such as living annuities.
+              Retirement villages and coastal nodes, from Hermanus and George to the Cape Winelands, attract buyers who want security, healthcare access, and community. Financing the move and sustaining income in retirement often requires a clear picture of existing retirement capital, drawdown strategies, and tax-efficient structures such as living annuities.
             </p>
           </div>
           <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">

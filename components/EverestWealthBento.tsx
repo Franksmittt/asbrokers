@@ -21,7 +21,7 @@ const CARDS = [
     subtitle: "Cash flow",
     yieldLabel: "Targeted yield 12.8%",
     description:
-      "Predictable monthly cash flow with a 5-year maturation bonus. Unlisted preference shares insulated from daily market volatility. Structured alternative investment—not a guarantee of returns.",
+      "Predictable monthly cash flow with a 5-year maturation bonus. Unlisted preference shares insulated from daily market volatility. Structured alternative investment (not a guarantee of returns).",
     href: "/everest-wealth",
     accent: "cinematic-teal",
   },
@@ -31,7 +31,7 @@ const CARDS = [
     subtitle: "Growth",
     yieldLabel: "Targeted yield 14.5%",
     description:
-      "Pure capital compounding over 5 years. Unlisted preference shares insulated from JSE volatility. Structured alternative investment—suitable for investors seeking fixed-return private equity exposure.",
+      "Pure capital compounding over 5 years. Unlisted preference shares insulated from JSE volatility. Structured alternative investment, suitable for investors seeking fixed-return private equity exposure.",
     href: "/everest-wealth",
     accent: "gold-orange",
   },
@@ -41,7 +41,7 @@ const CARDS = [
     subtitle: "Retirement",
     yieldLabel: "Regulation 28 compliant",
     description:
-      "Tax-free internal growth. Isolates retirees from JSE crashes while staying within regulatory limits. Living annuity with access to unlisted, high-yield private market capital—engineered for capital longevity.",
+      "Tax-free internal growth. Isolates retirees from JSE crashes while staying within regulatory limits. Living annuity with access to unlisted, high-yield private market capital, engineered for capital longevity.",
     href: "/everest-wealth",
     accent: "teal-400",
   },
@@ -67,7 +67,7 @@ export function EverestWealthBento() {
           transition={{ duration: 0.45, delay: 0.06, ease: APPLE_EASE }}
           className="text-gray-400 text-base md:text-lg max-w-2xl"
         >
-          Everest Wealth structured products. Targeted yields—not guarantees. Available through AS Brokers (FSP 17273), Category 1.8.
+          Everest Wealth structured products. Targeted yields (not guarantees). Available through AS Brokers (FSP 17273), Category 1.8.
         </motion.p>
       </div>
 

@@ -21,7 +21,7 @@ export default function RegulatoryCompliancePage() {
             Code 1.8 FSP License Broker
           </h1>
           <p className="text-lg text-zinc-400 leading-relaxed">
-            AS Brokers CC operates under the Financial Sector Conduct Authority (FSCA) as an independent authorised financial services provider. Our specific license category — 1.8 (Securities and Instruments: Shares) — permits us to advise on and intermediate unlisted shares, a capability that standard Category I or II brokers often do not hold.
+            AS Brokers CC operates under the Financial Sector Conduct Authority (FSCA) as an independent authorised financial services provider. Our specific license category 1.8 (Securities and Instruments: Shares) permits us to advise on and intermediate unlisted shares, a capability that standard Category I or II brokers often do not hold.
           </p>
         </div>
       </section>
@@ -39,8 +39,8 @@ export default function RegulatoryCompliancePage() {
           <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">
             <h2 className="text-xl font-bold text-white mb-4">Regulatory identifiers</h2>
             <ul className="text-zinc-400 space-y-2 text-sm">
-              <li><strong className="text-zinc-300">AS Brokers CC</strong> — FSP 17273 · Category 1.8</li>
-              <li><strong className="text-zinc-300">Everest Wealth Management</strong> — FSP 795 · Category I, II & IIA</li>
+              <li><strong className="text-zinc-300">AS Brokers CC</strong>: FSP 17273 · Category 1.8</li>
+              <li><strong className="text-zinc-300">Everest Wealth Management</strong>: FSP 795 · Category I, II & IIA</li>
             </ul>
           </div>
           <div className="flex flex-wrap gap-4">

@@ -96,7 +96,7 @@ export async function HomeInsightsTeaser() {
           Insights & Education
         </h2>
         <p className="text-zinc-400 text-center max-w-xl mx-auto mb-12 tracking-[0.01em]">
-          Thought leadership on retirement, estate planning, and wealth—so you stay ahead.
+          Thought leadership on retirement, estate planning, and wealth so you stay ahead.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

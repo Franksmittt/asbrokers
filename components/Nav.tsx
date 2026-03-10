@@ -2,52 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
-import { User, ChevronDown, Menu, X } from "./icons";
-import { useLeadForm } from "./LeadFormContext";
-
-const solutionsItems = [
-  { label: "All solutions", href: "/solutions" },
-  { label: "Digital Wealth Assistant", href: "/chat" },
-  { label: "Wealth & Retirement", href: "/#wealth" },
-  { label: "Everest Wealth", href: "/everest-wealth" },
-  { label: "Understanding Everest Wealth", href: "/everest-wealth/about" },
-  { label: "Personal insurance", href: "/solutions/personal-insurance" },
-  { label: "Business insurance", href: "/solutions/business-insurance" },
-  { label: "Life insurance", href: "/solutions/life-insurance" },
-  { label: "Business life", href: "/solutions/business-life" },
-  { label: "Legacy & Estate", href: "/solutions#estate" },
-  { label: "Insights", href: "/insights" },
-  { label: "Financial Health Quiz", href: "/quiz" },
-  { label: "Team", href: "/team" },
-];
-
-const calculatorsItems = [
-  { label: "Calculator Hub", href: "/calculators" },
-  { label: "Everest Wealth Calculators", href: "/everest-wealth" },
-  { label: "Run-Out Calculator", href: "/lab#calculator" },
-  { label: "Retirement Reality Calculator", href: "/retirement" },
-  { label: "Income in Retirement (Life of Capital)", href: "/income-in-retirement" },
-  { label: "Income Tax Calculator", href: "/income-tax-calculator" },
-  { label: "Future Value / Inflation Calculator", href: "/cost-of-inflation-over-time" },
-  { label: "Estate Duty Calculator", href: "/estate-duty-calculator" },
-  { label: "Annual Estate Reduction Strategy", href: "/annual-estate-reduction-strategy" },
-  { label: "Premium Increase Problem Calculator", href: "/premium-increase-calculator" },
-  { label: "Estate & Property Tools", href: "/lab" },
-];
+import { useEffect, useState } from "react";
+import { User, Menu, X } from "./icons";
 
 const dashboardPaths = ["/crm", "/portal", "/login"];
 
 export function Nav() {
   const pathname = usePathname();
   const isDashboard = dashboardPaths.some((p) => pathname?.startsWith(p));
-  const { openLeadForm } = useLeadForm();
   const [scrolled, setScrolled] = useState(false);
-  const [calculatorsOpen, setCalculatorsOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const calculatorsRef = useRef<HTMLDivElement>(null);
-  const solutionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 0);
@@ -56,21 +20,8 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      const target = e.target as Node;
-      if (calculatorsRef.current && !calculatorsRef.current.contains(target)) setCalculatorsOpen(false);
-      if (solutionsRef.current && !solutionsRef.current.contains(target)) setSolutionsOpen(false);
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   const linkClass = `hover:text-white transition-colors duration-300 ease-apple whitespace-nowrap ${scrolled ? "text-zinc-200" : "text-zinc-400"}`;
   const closeMobile = () => setMobileOpen(false);
-
-  const dropdownPanelClass =
-    "absolute top-full left-0 mt-1 py-2 min-w-[200px] rim-light rounded-[2rem] shadow-2xl z-50";
 
   if (isDashboard) {
     return (
@@ -122,64 +73,9 @@ export function Nav() {
 
         <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
           <Link href="/" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Home</Link>
-
-          <div className="relative" ref={solutionsRef}>
-            <button
-              type="button"
-              onClick={() => { setSolutionsOpen(!solutionsOpen); setCalculatorsOpen(false); }}
-              onMouseEnter={() => { setSolutionsOpen(true); setCalculatorsOpen(false); }}
-              className={`flex items-center gap-1 px-3 py-2 rounded-2xl ${linkClass} ${solutionsOpen ? "text-white bg-white/5" : ""}`}
-            >
-              Solutions
-              <ChevronDown className={`w-4 h-4 transition-transform duration-300 ease-apple ${solutionsOpen ? "rotate-180" : ""}`} />
-            </button>
-            {solutionsOpen && (
-              <div className={dropdownPanelClass} onMouseLeave={() => setSolutionsOpen(false)}>
-                {solutionsItems.map((item) => (
-                  <Link
-                    key={item.href + item.label}
-                    href={item.href}
-                    prefetch={false}
-                    onClick={() => setSolutionsOpen(false)}
-                    className="block px-4 py-2.5 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-colors duration-300 first:rounded-t-[2rem] last:rounded-b-[2rem]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="relative" ref={calculatorsRef}>
-            <button
-              type="button"
-              onClick={() => { setCalculatorsOpen(!calculatorsOpen); setSolutionsOpen(false); }}
-              onMouseEnter={() => { setCalculatorsOpen(true); setSolutionsOpen(false); }}
-              className={`flex items-center gap-1 px-3 py-2 rounded-2xl ${linkClass} ${calculatorsOpen ? "text-white bg-white/5" : ""}`}
-            >
-              Calculators
-              <ChevronDown className={`w-4 h-4 transition-transform duration-300 ease-apple ${calculatorsOpen ? "rotate-180" : ""}`} />
-            </button>
-            {calculatorsOpen && (
-              <div className={dropdownPanelClass} onMouseLeave={() => setCalculatorsOpen(false)}>
-                {calculatorsItems.map((item) => (
-                  <Link
-                    key={item.href + item.label}
-                    href={item.href}
-                    prefetch={false}
-                    onClick={() => setCalculatorsOpen(false)}
-                    className="block px-4 py-2.5 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-colors duration-300 first:rounded-t-[2rem] last:rounded-b-[2rem]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <Link href="/team" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>
-            Team
-          </Link>
+          <Link href="/solutions" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Solutions</Link>
+          <Link href="/calculators" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Calculators</Link>
+          <Link href="/team" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Team</Link>
         </div>
 
         <div className="flex items-center gap-3">
@@ -210,22 +106,19 @@ export function Nav() {
       {mobileOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 bg-shark/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl max-h-[85vh] overflow-y-auto overscroll-contain">
           <div className="py-4 px-4 sm:px-6 flex flex-col gap-0">
-            <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest px-2 py-2">Solutions</span>
-            {solutionsItems.map((item) => (
-              <Link key={item.href} href={item.href} prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl active:bg-white/10 -mx-1">
-                {item.label}
-              </Link>
-            ))}
-            <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-widest px-2 py-3 mt-2 border-t border-white/10">Calculators</span>
-            {calculatorsItems.map((item) => (
-              <Link key={item.href + item.label} href={item.href} prefetch={false} onClick={closeMobile} className="py-2.5 pl-4 pr-2 text-zinc-200 hover:text-white hover:bg-white/5 text-sm rounded-2xl -mx-1 border-l-2 border-transparent hover:border-cinematic-teal ml-2">
-                {item.label}
-              </Link>
-            ))}
+            <Link href="/" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
+              Home
+            </Link>
+            <Link href="/solutions" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
+              Solutions
+            </Link>
+            <Link href="/calculators" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
+              Calculators
+            </Link>
+            <Link href="/team" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
+              Team
+            </Link>
             <div className="border-t border-white/10 mt-4 pt-4 flex flex-col gap-2">
-              <Link href="/team" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl text-center -mx-1">
-                Team
-              </Link>
               <Link
                 href="/login"
                 onClick={closeMobile}

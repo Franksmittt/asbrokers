@@ -17,7 +17,7 @@ const retirementFAQs = [
   {
     question: "What if my growth rate is lower than inflation?",
     answer:
-      "If assumed investment growth does not exceed inflation, the calculation is not valid—your capital would erode in real terms. You need growth above inflation to sustain income over a long retirement.",
+      "If assumed investment growth does not exceed inflation, the calculation is not valid. Your capital would erode in real terms. You need growth above inflation to sustain income over a long retirement.",
   },
 ];
 
@@ -54,7 +54,7 @@ export default function RetirementPage() {
           {/* Intro block with pull quote */}
           <div className="mb-14">
             <h2 className="text-xl md:text-2xl font-bold text-white mb-6">
-              You are not saving enough — and the numbers prove it
+              You are not saving enough, and the numbers prove it
             </h2>
             <p className="text-zinc-400 leading-relaxed mb-4">
               Most South Africans retire with far less capital than they need. Not because they didn&apos;t save. But because they underestimated what retirement actually costs.
@@ -90,7 +90,7 @@ export default function RetirementPage() {
           {/* Lead-in to calculator */}
           <div className="rounded-2xl bg-gradient-to-br from-blue-950/30 to-transparent border border-white/10 p-6 md:p-8 mb-12">
             <h3 className="text-lg md:text-xl font-bold text-white mb-3">
-              This calculator tests your assumptions — with math
+              This calculator tests your assumptions with math
             </h3>
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
               No generic multiples. No hopeful estimates. Just the actual capital required for the income you say you need. It accounts for inflation, tax, withdrawal rates, and time. When you see the result, you may feel surprised. That reaction is normal.
@@ -129,7 +129,7 @@ export default function RetirementPage() {
                 <div>
                   <p className="text-zinc-300 font-medium mb-2">You now know the income problem.</p>
                   <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                    The next question: what <strong className="text-white">growth rate</strong> must your investment deliver to make this plan sustainable? That&apos;s the calculation most people never do — and it determines whether retirement income works or eventually fails.
+                    The next question: what <strong className="text-white">growth rate</strong> must your investment deliver to make this plan sustainable? That&apos;s the calculation most people never do, and it determines whether retirement income works or eventually fails.
                   </p>
                 </div>
                 <Link

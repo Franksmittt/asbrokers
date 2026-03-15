@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, LogOut, Briefcase, CheckSquare } from "@/components/icons";
+import { LayoutDashboard, Users, LogOut, Briefcase, CheckSquare, Presentation } from "@/components/icons";
 import { logout } from "@/app/login/logout";
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
   { href: "/crm/leads", label: "Leads", icon: Users },
   { href: "/crm/clients", label: "Clients", icon: Users },
   { href: "/crm/tasks", label: "Tasks", icon: CheckSquare },
+  { href: "/crm/presentation", label: "Wealth Presentation", icon: Presentation },
 ];
 const navAdminOnly = [
   { href: "/crm/executive", label: "Executive", icon: LayoutDashboard },
@@ -80,6 +81,7 @@ export function CrmSidebar({ role, name }: { role: string; name: string }) {
           <Link href="/crm/leads" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">Leads</Link>
           <Link href="/crm/clients" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">Clients</Link>
           <Link href="/crm/tasks" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">Tasks</Link>
+          <Link href="/crm/presentation" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">Presentation</Link>
           {isAdmin && <Link href="/crm/executive" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">Executive</Link>}
           <Link href="/" className="text-zinc-500 text-xs shrink-0">Site</Link>
         </div>

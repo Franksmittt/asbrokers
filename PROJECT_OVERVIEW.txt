@@ -2,7 +2,7 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: March 2026 (Design overhaul, backend setup, CRM & Client Portal)
+Last updated: March 2026 (Wealth engineering refactor, institutional diagnostics, calculator overviews)
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -24,13 +24,18 @@ Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
 
 Purpose:
   Marketing and lead-generation website for AS Brokers CC, an independent
-  authorised financial services provider in South Africa. The site presents
-  retirement planning, insurance, estate planning, and Everest Wealth
-  fixed-return products, with interactive calculators and clear paths to
-  contact and book consultations.
+  authorised financial services provider in South Africa. The site is
+  positioned for high-net-worth individuals (HNWIs) and retirees: home
+  page funnels to Run-Out Calculator and Everest Wealth (Code 1.8);
+  solutions and calculators hubs prioritise "Private Wealth & Yield" and
+  "Retirement Reality"; retirement, tax, estate, and premium calculators
+  are framed as institutional fiduciary diagnostics with CTAs to Everest
+  and contact. Standard insurance and estate/medical remain as "Wealth
+  Protection & Fiduciary Defense." Interactive calculators and clear
+  paths to contact and book consultations.
 
 What this project can do:
-  - Full marketing site with hero, solutions bento, calculators hub, team, about, contact.
+  - Full marketing site: home (Reality Check hero, RunOutCalculator, EverestWealthBento, Code18Advantage, RiskArchitectureCarousel, FloatingChat), solutions hub (Phase 1/2 hierarchy), calculators hub (Phase 1/2), team, about, contact.
   - Contact form → HubSpot CRM (search-patch, cumulative lead score); optional PDF email via Trigger.dev + Resend.
   - Digital Wealth Assistant (chat) with deterministic tools (estate duty, 12.8% income, Amethyst) and optional RAG (pgvector).
   - Financial Health Quiz with shareable result URLs (nuqs) and routing to relevant calculators.
@@ -41,11 +46,15 @@ What this project can do:
   - CRM & Client Portal: mock-auth login (/login); role-based CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence, notes, reassign); Client Portal (wealth dashboard, My Advisor, documents with upload, messages with reply). See CRM_AND_PORTAL.txt.
 
 Recent work done:
-  - Design system overhaul: Apple Pro × Samsung Galaxy fused language (void/shark backgrounds, rim-light glass, squircle cards, Nightography teal/orange orbs, Samsung Blue/Gold CTA glows, trust hallmarks). See §1 Design below.
-  - Home hero UI upgrades: HeroCalculator replaced by HeroChatTerminal (frosted-glass AI chat terminal with pulsing input glow); primary CTA "Financial Health Check" has Galaxy AI–style particle/sparkle glow on hover; SolutionsBento cards use TiltCard (3D tilt + cursor-following glare). Apple easing and void theme preserved.
-  - Backend: Supabase PostgreSQL + pgvector for RAG; HubSpot Private App (contact sync); Trigger.dev v4 worker (PDF + Resend); RAG ingest script (scripts/ingest-rag.ts). See BACKEND.md for full checklist and "where you left off" (HubSpot custom properties for contact form).
-  - Trigger v4: maxDuration in config; jose/puppeteer external; puppeteer devDep; build passes.
-  - CRM & Client Portal: mock login (role + staff picker), CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence/notes/reassign), Client Portal (dashboard with My Advisor + Recharts, documents with mock upload, messages with mock reply). Role-based visibility (owner vs staff vs client). Full doc: CRM_AND_PORTAL.txt.
+  - Design system: Apple × Samsung hybrid (bg-[#0a0a0c] void, Bento grids, rounded-[2rem] squircle, 8px/10px spacing, cinematic-teal and blue/red accent glows, trust hallmarks FSP 17273 · Category 1.8 · 25+ Years). See §1 Design below.
+  - Home: "Reality Check" hero ("You think your retirement is safe. The math might disagree."); RunOutCalculator directly below hero (#lab) with name/email/POPIA gate for full actuarial PDF; EverestWealthBento (12.8%, 14.5%, Amethyst); Code18Advantage; RiskArchitectureCarousel; FloatingChat (HeroChatTerminal in bottom-right panel). No nav dropdowns: Solutions and Calculators are direct links to hub pages.
+  - Contact: "Book a Private Actuarial Consultation"; Code 1.8 subhead; Apple-style trust tags; "Client Qualification Criteria"; Squircle form card (border-blue-500/20 glow); "Initiate Wealth Engineering Request" submit; "The Actuarial Review Process" 3-step block. See docs/CONTACT_PAGE_OVERVIEW.txt.
+  - Solutions hub: "Engineered Wealth & Risk Architecture"; sticky nav (Private Wealth & Yield, Risk Architecture, Legacy Structuring, Health & Integration); Phase 1 featured cards (Retirement/Everest); Phase 2 "Wealth Protection & Fiduciary Defense" with muted cards; "Stop Guessing. Start Engineering." CTA. See docs/SOLUTIONS_PAGE_OVERVIEW.txt.
+  - Calculators hub: "The Actuarial Reality Check"; jump nav (Assess Capital Lifespan, Calculate Everest Yields, Secondary Risk Tools); Phase 1 Bento (retirement + Everest featured/glow); Phase 2 Secondary Risk Architecture (muted); "Stop Guessing Your Capital Lifespan." CTA. See docs/CALCULATORS_PAGE_OVERVIEW.txt.
+  - Wealth engineering refactor (institutional tone, Bento UI, CTAs): estate-duty-calculator and annual-estate-reduction-strategy (fiduciary, Strategic Capital Migration, Squircle CTAs); all Everest product pages (128, 142, 145, Amethyst, everest-wealth hub) with Code 1.8 eyebrows, premium cards, cinematic-teal outputs where applicable; income-in-retirement (Capital Depletion Test, red glow, Fix CTA to Everest); cost-of-inflation-over-time and income-tax-calculator (erosion/liability framing, 2-col Bento, Everest CTAs); retirement (Capital Deficit, 2-col Bento, Amethyst CTA); premium-increase-calculator (Premium Liability Test, 3-col Bento, fiduciary CTA). Calculator components: Everest128Calculator and Everest145GrowthCalculator key outputs in text-cinematic-teal; LifeOfCapitalCalculator lifespan value in large cinematic-teal.
+  - Documentation: docs/calculator-overviews/ with per-calculator page overviews (RETIREMENT, INCOME_IN_RETIREMENT, INFLATION, INCOME_TAX, ESTATE_DUTY, ESTATE_REDUCTION, PREMIUM_INCREASE, EVEREST_WEALTH, EVEREST_128, EVEREST_142, EVEREST_145, EVEREST_AMETHYST) + INDEX; docs/CONTACT_PAGE_OVERVIEW.txt, SOLUTIONS_PAGE_OVERVIEW.txt, CALCULATORS_PAGE_OVERVIEW.txt, CUSTOMER_OVERVIEW.txt kept current.
+  - Backend: Supabase PostgreSQL + pgvector for RAG; HubSpot (contact sync); Trigger.dev v4 (PDF + Resend); RAG ingest. See BACKEND.md.
+  - CRM & Client Portal: mock auth, role-based CRM and Client Portal. Full doc: CRM_AND_PORTAL.txt.
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -137,16 +146,16 @@ Quick index (all routes):
 ---
 
 / (Home)
-  Hero (tagline, location, CTAs with Galaxy AI particle glow on primary CTA, embedded AI chat terminal HeroChatTerminal), TrustBar (FSP 17273, partners), DualPathway ("Protect assets" / "Grow capital"), Run-Out Calculator hub (email-for-PDF), Architectural Solutions bento (3D tilt + cursor-following glare on cards), HomeStatsSection (25+, FSP 17273, 1.8), HomeValueProps (Independent, Full-service, Personal), HomeCtaStrip, Footer. Design: void background, Nightography orbs, rim-light cards, squircle.
+  "Reality Check" hero ("You think your retirement is safe. The math might disagree."); primary CTA "Run the Numbers" (scroll to #lab), secondary "Explore Code 1.8 Wealth Engineering"; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip (Everest, Santam, Old Mutual, Bryte). RunOutCalculator directly below hero (portfolio, drawdown, capital lifespan; name/email/POPIA gate for full actuarial PDF). EverestWealthBento (12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity). Code18Advantage (Category 1.8, founders). RiskArchitectureCarousel (Short-Term, Commercial, Life, Estate). HomeStatsSection, HomeValueProps, HomeInsightsTeaser, HomeCtaStrip, Footer. FloatingChat (HeroChatTerminal in bottom-right panel). Design: void bg-[#0a0a0c], orbs, Bento/squircle.
 
 /about
   About AS Brokers CC: independent financial advisor Krugersdorp, FSP 17273, Category 1.8, Krugersdorp. Links to Team and Contact. Metadata: independent financial advisor Krugersdorp.
 
 /calculators
-  Calculator hub: bento sections (Retirement Reality & Readiness, Tax & Estate, Life Insurance, Product Quotations, Financial Education, Business Risk). Cards link to each calculator; jump links; FAQ schema. Design: rim-light cards, squircle, cinematic-teal accents.
+  "The Actuarial Reality Check" hero; jump nav (Assess Capital Lifespan, Calculate Everest Yields, Secondary Risk Tools). Phase 1: Capital Lifespan & High-Yield Solutions (retirement, income-in-retirement, inflation, Everest Product Quote — featured/glow cards). Phase 2: Secondary Risk Architecture (tax, estate, premium-increase — muted cards). Financial Education, Business Risk, CTA "Stop Guessing Your Capital Lifespan." FAQ schema. See docs/CALCULATORS_PAGE_OVERVIEW.txt.
 
 /contact
-  Two-column: intro, trust badges, "We work best with" and CTAs left; contact form right. Form: name, phone, email, topics dropdown, consent, honeypot. Server action submitContactEnquiry → HubSpot (search-patch, lead score) and optional Trigger PDF job. Trust: FSP 17273, 25+ years, zero advice fees.
+  "Book a Private Actuarial Consultation"; Code 1.8 subhead; Apple-style trust tags (FSP 17273, 25+ Years, Zero Advice Fees); "Client Qualification Criteria" list; Squircle form card (border-blue-500/20 glow); submit "Initiate Wealth Engineering Request". "The Actuarial Review Process" 3 steps (Capital Assessment, Wealth Engineering Call, Implementation & Allocation). Form: fullName, phone, email, topics (Everest first), consent, honeypot. submitContactEnquiry → HubSpot + optional Trigger PDF. See docs/CONTACT_PAGE_OVERVIEW.txt.
 
 /team
   Albert Schuurman and Johnny Farinha: roles, bios, FSP 17273. Metadata: independent financial advisors Krugersdorp.
@@ -155,7 +164,7 @@ Quick index (all routes):
   Code 1.8 FSP; FSCA Category 1.8 (Securities and Instruments: Shares); AS Brokers FSP 17273, Everest FSP 795. Metadata: Code 1.8 FSP license broker.
 
 /solutions
-  Solutions hub: Retirement & Investment, Insurance & Risk, Medical & Wellness, Estate & Business. Links to sub-pages and calculators; CTAs.
+  "Engineered Wealth & Risk Architecture" hero; sticky section nav (Private Wealth & Yield, Risk Architecture, Legacy Structuring, Health & Integration). Phase 1: Private Wealth & Yield — featured cards (Retirement Reality, Everest Wealth). Phase 2: Wealth Protection & Fiduciary Defense (Insurance, Estate, Medical — muted bg-[#101014] cards). CTA "Stop Guessing. Start Engineering." See docs/SOLUTIONS_PAGE_OVERVIEW.txt.
 
 /solutions/personal-insurance
   Personal short-term insurance: home, car, valuables, asset protection.
@@ -170,46 +179,46 @@ Quick index (all routes):
   Business life: buy-and-sell, key person, loan account, employee benefits.
 
 /everest-wealth
-  Everest product hub: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity; trust points (FSP 795, fixed returns). Link to /everest-wealth/about. FAQPage JSON-LD; metadata: alternative private equity South Africa, Everest Wealth brokers.
+  "The Alternative Yield Portfolio" hero; Code 1.8 Wealth Engineering Suite eyebrow; trust tags (FSP 17273, FSCA Category 1.8 (Shares), Zero Advice Fees) Apple-style. Phase 1: Immediate Cash Flow Architecture (12.8%, 14.2% with "Max Day-1 Yield" tag). Phase 2: Pure Capital Compounding (14.5% card md:col-span-2). Phase 3: Retirement Liquidity Isolation (Amethyst "Section 14 Transfer Approved" tag). Cards hover:border-blue-500/40. Tertiary CTA "Read Fiduciary Briefing →" to /everest-wealth/about. FAQ schema. See docs/calculator-overviews/EVEREST_WEALTH_PAGE_OVERVIEW.txt.
 
 /everest-wealth/about
   "Everest Wealth Explained": regulatory architecture, product suite, returns, risks, fees, tax. Everest FSP 795, AS Brokers FSP 17273, Category 1.8.
 
 /everest-128-product
-  Everest 12.8% Strategic Income calculator: input amount → net monthly (20% DWT), annual, 5-year bonus, return %. "Why dividends beat income tax" comparison.
+  "Yield Engineering: 12.8% Strategic Income." Code 1.8 Wealth Engineering eyebrow. Calculator in Bento (border-blue-500/20); monthly income and 5-year bonus in text-cinematic-teal. Fiduciary Compliance & Structure Bento (Regulated Efficiency 20% DWT card, Authority card). See docs/calculator-overviews/EVEREST_128_PAGE_OVERVIEW.txt.
 
 /immediate-higher-income-calculator
-  Everest 14.2% Immediate Higher Income: input amount → gross annual, dividends tax, net annual/monthly.
+  "Maximum Liquidity: 14.2% Onyx Income+." Dual Bento below calculator: The Mathematical Advantage, Ideal Capital Deployment (checkmarks). Squircle CTA "Request Official Onyx Term Sheet →" to /contact.
 
 /everest-strategic-growth-145
-  Everest 14.5% Strategic Growth: input amount → capital after 5 years (after tax), year-by-year growth.
+  "Pure Compounding: 14.5% Strategic Growth." Calculator in Bento (border-blue-500/20); "Projected value at maturity" in text-cinematic-teal. The Tax Architecture card (20% DWT at maturity). CTA "Request 14.5% Term Sheet →" /contact.
 
 /everest-amethyst-living-annuity
-  Amethyst Living Annuity: retirement capital, drawdown 2.5–17.5% → gross/monthly tax (SARS 2026/27 65+), net income. FAQPage JSON-LD.
+  "Insulated Retirement: The Amethyst Living Annuity." Phase 3 Retirement Liquidity Architecture eyebrow. 2-col Bento: The Yield Architecture (~10.2%, 9% bonus, SARS note), Strategic Deployment. Squircle CTA "Initiate Section 14 Pension Transfer Review →" /contact. FAQ schema.
 
 /lab
   "The Lab": run-out calculator (portfolio, drawdown, lifespan; email for PDF) and links to Retirement Reality, Life cover, Estate liquidity.
 
 /retirement
-  Retirement Reality Calculator: age, retirement age, life expectancy, income needed, inflation, growth, tax → capital required; "What if growth 2% lower?" scenario; Recharts bar. CTA to Amethyst. FAQ schema. Metadata: semigration, retirement villages Western Cape.
+  "The Capital Deficit." Actuarial Reality Check eyebrow; red/amber risk orbs. 2-col Bento beneath hero: The Mathematical Drag, The Income Delusion (yield under 10% = principal drawdown). Calculator in Bento (border-red-500/20). Fix CTA "Erase the Deficit with Structured Yield" — primary "Calculate Amethyst Living Annuity (~10.2% Net) →" /everest-amethyst-living-annuity, secondary "Book Actuarial Consultation" /contact. Amethyst silo, quick links. FAQ schema.
 
 /income-in-retirement
-  Life of Capital calculator: capital, income needed, return %, tax %, inflation % → years capital lasts; year-by-year simulation.
+  "The Capital Depletion Test." Cinematic void + red/amber orbs. LifeOfCapitalCalculator in Bento (border-red-500/20); capital lifespan (years) in large text-cinematic-teal. Fix CTA card: "Does your trajectory show depletion?" — "Engineer a High-Yield Solution →" /everest-wealth, "Book Actuarial Review" /contact.
 
 /cost-of-inflation-over-time
-  Future Value / Inflation: present value, inflation %, years → future cost, buying power, power lost %.
+  "The Capital Erosion Test." Actuarial Reality Check eyebrow; red/amber orbs. FutureValueCalculator in Bento (border-red-500/20). 2-col Bento: The Mathematical Deficit (6–8% = zero real after inflation/tax), Outpacing the Erosion (12.8–14.5% structures). CTA "Stop Losing Purchasing Power" — "Engineer Inflation-Proof Yields →" /everest-wealth, "Book Actuarial Review" /contact.
 
 /income-tax-calculator
-  SA Income Tax (SARS 2026/27): gross monthly, age → annual tax, PAYE, effective rate, net pay. Editorial on tax in retirement.
+  "The Income Tax Liability Engine." Phase 2 Risk Architecture · Tax Exposure. Calculator in Bento (border-white/10). Bento card "The Fiduciary Advantage: Tax Arbitrage" (marginal 45% vs 20% DWT, Everest preference shares). CTA "Restructure Your Tax Liability" — "Initiate Tax-Efficient Structuring →" /contact.
 
 /estate-duty-calculator
-  Estate duty: gross estate, liabilities, spouse bequests → executor fees, duty (20%/25%), total costs. CTA to Annual Estate Reduction.
+  "Understand the cost of dying." Phase 2 Risk Architecture · Fiduciary Liability; red/amber orbs. Liquidity Stress Test Bento (20%/25% SARS, executor fees). The Hidden Problem (low-yield lock-up); Strategic Capital Migration (R100k/R200k). Squircle CTA "Engineer Your Estate Reduction Strategy →" /annual-estate-reduction-strategy.
 
 /annual-estate-reduction-strategy
-  Trust donation calculator: R100k/R200k per year, ages, growth → donation period, total donations, estate duty saved, trust value.
+  "Strategic Capital Migration Plan." R100k/R200k exemption copy. Bento "How This Strategy Works in Practice" (trust + high-yield unlisted assets). Don't Wait (50→R3m, 60→R1m in text-cinematic-teal). CTA "Initiate Your Fiduciary Audit" — "Book Fiduciary Consultation" /contact.
 
 /premium-increase-calculator
-  Premium comparison: two policies' monthly premiums by year → YoY %, totals, average increase, cumulative spend (5/10/15/20/25 years).
+  "The Premium Liability Test." Phase 2 Uncapped Liability. PremiumComparisonCalculator in Bento (max-w-6xl, border-white/10). 3-col Bento: The Illusion (age-rated, compounding), The Trap (expiring guarantees), The Fiduciary Alternative (level/behaviour-linked). Squircle CTA "Stop Funding Structural Liabilities" — "Initiate Fiduciary Risk Audit →" /contact.
 
 /insights
   Sanity-driven article list (GROQ insightsList). Links to /insights/[slug]. Empty state: coming soon + calculator/contact links.
@@ -281,22 +290,13 @@ Route structure (App Router):
 
 Header (global, components/Nav.tsx):
   - Logo (teal→gold-orange gradient) + "AS Brokers" + FSP 17273 (trust-hallmark)
-  - Home | Solutions (dropdown) | Calculators (dropdown) | Team
+  - Home | Solutions (direct link to /solutions) | Calculators (direct link to /calculators) | Team
   - CRM & Client Portal (link to /login) | Contact Us — rim-light buttons, Samsung Blue / Gold glow on hover
   - On /crm, /portal, /login: minimal bar (logo, Back to site, Switch account to /login)
   - When scrolled: frosted glass (bg-white/5 backdrop-blur-2xl border-white/10) so teal/orange orbs blur behind nav
   - Skip link: "Skip to main content" (focus-only)
-  - Mobile: hamburger; dropdowns and panels use rim-light, rounded-[2rem]
-
-Solutions dropdown:
-  All solutions, Digital Wealth Assistant (/chat), Wealth & Retirement, Everest Wealth,
-  Understanding Everest Wealth, Personal/Business/Life insurance, Legacy & Estate,
-  Insights, Financial Health Quiz, Team
-
-Calculators dropdown:
-  Calculator Hub, Everest Wealth Calculators, Run-Out, Retirement Reality,
-  Income in Retirement, Income Tax, Future Value/Inflation, Estate Duty,
-  Annual Estate Reduction, Premium Increase, Estate & Property Tools
+  - Mobile: hamburger; panels use rim-light, rounded-[2rem]
+  - No dropdown menus: Solutions and Calculators are single links to hub pages.
 
 Footer:
   - Compliance strip: FAIS compliant, FSCA regulated, POPIA compliant, FSP 17273
@@ -318,18 +318,20 @@ PWA (installability):
 --------------------------------------------------------------------------------
 
 AppShell          – Wraps app with Nav + LeadForm context
-Nav               – Fixed header; rim-light frosted glass on scroll (blurs Nightography orbs); squircle dropdowns; CTA glows
+Nav               – Fixed header; rim-light frosted glass on scroll (blurs Nightography orbs); Solutions and Calculators direct links (no dropdowns); CTA glows
 Footer            – Multi-column footer with links and WhatsApp
-Hero              – Home hero: headline (tight tracking), gradient "Engineering Your Wealth", rim-light badge, CTAs with Galaxy AI particle/sparkle glow on primary hover; Framer Motion enter (Apple easing)
-HeroChatTerminal  – Embedded AI chat terminal in hero: frosted glass (bg-white/5 backdrop-blur-2xl ring-white/10), fake welcome message, input bar with pulsing Samsung Blue glow; "Open full chat →" to /chat (UI shell only)
+HeroSection       – Home "Reality Check" hero: headline "You think your retirement is safe. The math might disagree.", subhead, primary CTA "Run the Numbers" (scroll to #lab), secondary "Explore Code 1.8 Wealth Engineering"; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip
+HeroChatTerminal  – AI chat terminal (used inside FloatingChat panel and /chat): frosted glass, tools (estate duty, 12.8%, Amethyst), RAG when DATABASE_URL set
 BackgroundOrbs    – Nightography: Cinematic Teal + Gold/Orange large blurred orbs; mouse-reactive; Apple easing
 TrustBar          – FSP 17273 (trust-hallmark) + partners; shark bg, border-white/10
-DualPathway       – "Protect assets" / "Grow capital" cards
-SolutionsBento    – Bento grid: Retirement (2col), Insurance, Business, Estate, Medical (2col); rim-light, squircle; TiltCard 3D tilt (useMotionValue/useTransform/useSpring) + cursor-following glare; staggered motion; teal accents
+EverestWealthBento – Home Bento: 12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity cards with targeted yields and "Learn more" links
+Code18Advantage   – Home: Category 1.8 explanation, unlisted vs JSE, founder profiles (Albert Schuurman, Johnny Farinha)
+RiskArchitectureCarousel – Home: horizontal swipeable squircle cards (Short-Term Personal, Commercial Risk, Life & Severe Illness, Estate Planning & Trusts)
+FloatingChat      – Fixed bottom-right FAB; toggles panel with HeroChatTerminal (Digital Wealth Assistant)
 HomeStatsSection  – 25+, FSP 17273, 1.8 (trust-hallmark); shark bg
 HomeValueProps    – Independent, Full-service, Personal; rim-light cards, cinematic-teal icons/links
 HomeCtaStrip      – "Ready for a conversation?" + Contact (gold glow) + WhatsApp; gradient from teal
-RunOutCalculator  – Full run-out with email capture for PDF; after reveal, Recharts area chart "Projection over time"
+RunOutCalculator  – Portfolio value + monthly drawdown → estimated capital lifespan; warning on depletion risk; gate "Unlock the Full Actuarial Breakdown" (full name, email, POPIA consent) for year-by-year PDF via Trigger.dev; Recharts area chart after reveal; mobile overflow fixed for gate visibility
 ContactEnquiryForm – components/forms/ContactEnquiryForm.tsx. Main contact form
                      (name, phone, email, topics dropdown, consent); useActionState +
                      submitContactEnquiry(prevState, formData); pending disables inputs;
@@ -439,6 +441,9 @@ Memory bank:
   - .cursor/rules/crm-rolls-royce.mdc – Cursor rule for CRM/portal work: design language, AI, compliance, service alignment, user-specific (client/staff/owner), phasing
   - agents.md          – Root: tech stack, business/regulatory context, architecture, Everest constraints, liquidity warning
   - app/(content)/calculators/CONTEXT.md – Formula and tax context for all calculators
+  - docs/CUSTOMER_OVERVIEW.txt – Customer-facing project and feature overview
+  - docs/SOLUTIONS_PAGE_OVERVIEW.txt, docs/CALCULATORS_PAGE_OVERVIEW.txt, docs/CONTACT_PAGE_OVERVIEW.txt – Page-level layout, components, styling
+  - docs/calculator-overviews/ – Per-calculator page overviews (RETIREMENT, INCOME_IN_RETIREMENT, INFLATION, INCOME_TAX, ESTATE_DUTY, ESTATE_REDUCTION, PREMIUM_INCREASE, EVEREST_WEALTH, EVEREST_128, EVEREST_142, EVEREST_145, EVEREST_AMETHYST); INDEX.txt for list
 
 Cursor rules:
   - .cursor/rules/asbrokers.mdc – RSC default, Server Actions for mutations,

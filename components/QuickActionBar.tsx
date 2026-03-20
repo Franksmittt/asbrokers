@@ -1,13 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { MessageCircle, Calendar } from "./icons";
-import { useLeadForm } from "./LeadFormContext";
 
 const WHATSAPP_LINK = "https://wa.me/27672429946";
 
 export function QuickActionBar() {
-  const { openLeadForm } = useLeadForm();
-
   return (
     <div className="md:hidden fixed bottom-0 left-0 w-full bg-[#0a0a0c]/90 backdrop-blur-xl border-t border-white/10 p-4 z-40 flex gap-3 pb-safe">
       <a
@@ -18,13 +16,13 @@ export function QuickActionBar() {
       >
         <MessageCircle className="w-5 h-5" /> WhatsApp
       </a>
-      <button
-        type="button"
-        onClick={openLeadForm}
+      <Link
+        href="/contact"
+        prefetch={false}
         className="flex-1 bg-white text-black flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold shadow-lg active:scale-95 transition-transform"
       >
         <Calendar className="w-5 h-5" /> Consult
-      </button>
+      </Link>
     </div>
   );
 }

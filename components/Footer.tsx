@@ -16,7 +16,7 @@ const quickLinks = [
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
   { label: "Regulatory Compliance", href: "/regulatory-compliance" },
-  { label: "Team CRM", href: "/login" },
+  { label: "Team office", href: "/login" },
 ];
 
 const complianceLinks = [

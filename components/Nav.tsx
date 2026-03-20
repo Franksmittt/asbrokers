@@ -83,7 +83,7 @@ export function Nav() {
             href="/login"
             className="hidden sm:flex items-center gap-2 rim-light hover:bg-white/10 border-0 text-white px-5 py-2.5 rounded-[2rem] text-sm font-semibold transition-all duration-500 hover:scale-[1.02] hover:shadow-cta-glow-blue"
           >
-            <User className="w-4 h-4" /> Team CRM
+            <User className="w-4 h-4" /> Team office
           </Link>
           <Link
             href="/contact"
@@ -124,7 +124,7 @@ export function Nav() {
                 onClick={closeMobile}
                 className="w-full flex items-center justify-center gap-2 bg-white text-black py-3.5 rounded-[2rem] text-sm font-semibold hover:bg-zinc-200 hover:scale-[1.02] hover:shadow-cta-glow-blue transition-all duration-300"
               >
-                <User className="w-4 h-4" /> Team CRM
+                <User className="w-4 h-4" /> Team office
               </Link>
               <Link href="/contact" prefetch={false} onClick={closeMobile} className="w-full py-3.5 text-center text-white font-medium rim-light rounded-[2rem] hover:bg-white/10 active:bg-white/15">
                 Contact Us

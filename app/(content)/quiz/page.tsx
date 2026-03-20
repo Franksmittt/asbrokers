@@ -6,7 +6,6 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useQueryState } from "nuqs";
 import { Footer } from "@/components/Footer";
 import { ArrowRight } from "@/components/icons";
-import { useLeadForm } from "@/components/LeadFormContext";
 import {
   useQuizStore,
   AGE_BRACKETS,
@@ -313,7 +312,6 @@ type QuizResultsProps = {
 };
 
 function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToAge }: QuizResultsProps) {
-  const { openLeadForm } = useLeadForm();
   const concern = concernSlug ? slugToConcern[concernSlug] : null;
   const age = ageSlug ? slugToAge[ageSlug] : null;
   const capitalOver100k = hasCapitalOver100k(capitalSlug as CapitalRangeId | null);
@@ -416,13 +414,13 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
       </ul>
 
       <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          onClick={openLeadForm}
+        <Link
+          href="/contact"
+          prefetch={false}
           className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full text-sm hover:bg-zinc-200"
         >
           Get a personalised plan
-        </button>
+        </Link>
         <Link
           href="/calculators"
           prefetch={false}

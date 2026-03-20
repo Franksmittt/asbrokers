@@ -1,99 +1,62 @@
 import Link from "next/link";
-import { getMockSession } from "@/lib/mock-auth";
-import { getCrmStats, getLeadsForAdvisor, getAllLeads } from "@/lib/crm-data";
-import { ArrowRight } from "@/components/icons";
+import { LayoutDashboard, Presentation, FileText, Scroll } from "@/components/icons";
 
 export const metadata = {
-  title: "CRM Dashboard",
-  description: "AS Brokers CRM dashboard.",
+  title: "Office",
+  description: "AS Brokers team office: presentation and content.",
 };
 
-export default async function CrmDashboardPage() {
-  const session = await getMockSession();
-  const isOwner = session?.role === "admin";
-  const advisorId = isOwner ? undefined : session?.staffId ?? undefined;
-  const [stats, leads] = await Promise.all([
-    getCrmStats(advisorId),
-    advisorId ? getLeadsForAdvisor(advisorId) : getAllLeads(),
-  ]);
-  const recentLeads = leads.slice(0, 5);
+const cards = [
+  {
+    href: "/crm/presentation",
+    title: "Wealth Presentation",
+    desc: "Screen-share timeline and talking points for client meetings.",
+    icon: Presentation,
+  },
+  {
+    href: "/studio",
+    title: "Blog & content (Sanity)",
+    desc: "Create and publish insights articles to the public site.",
+    icon: FileText,
+  },
+  {
+    href: "/insights",
+    title: "Public insights",
+    desc: "Preview how articles appear to visitors.",
+    icon: Scroll,
+  },
+];
 
+export default function OfficeHomePage() {
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-10">
       <div>
         <p className="trust-hallmark text-[10px] font-semibold uppercase tracking-wider text-zinc-500 tabular-nums mb-2">
           FSP 17273
         </p>
-        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Dashboard</h1>
-        <p className="text-zinc-400 text-sm">Lead pipeline and activity</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1 flex items-center gap-2">
+          <LayoutDashboard className="w-8 h-8 text-cinematic-teal" />
+          Team office
+        </h1>
+        <p className="text-zinc-400 text-sm">
+          Wealth Presentation for live sessions. Use Sanity Studio for blog posts and social-ready content. No lead pipeline here.
+        </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {[
-          { label: "New", value: stats.new, color: "bg-blue-500/20 text-blue-400" },
-          { label: "Contacted", value: stats.contacted, color: "bg-amber-500/20 text-amber-400" },
-          { label: "Qualified", value: stats.qualified, color: "bg-teal-500/20 text-teal-400" },
-          { label: "Proposal", value: stats.proposal, color: "bg-violet-500/20 text-violet-400" },
-          { label: "Won", value: stats.closedWon, color: "bg-green-500/20 text-green-400" },
-          { label: "Lost", value: stats.closedLost, color: "bg-zinc-500/20 text-zinc-400" },
-        ].map(({ label, value, color }) => (
-          <div key={label} className="rounded-2xl rim-light bg-vault-card border border-white/10 p-4">
-            <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">{label}</p>
-            <p className={`text-2xl font-bold mt-1 ${color}`}>{value}</p>
-          </div>
+      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+        {cards.map(({ href, title, desc, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            prefetch={false}
+            className="group rounded-[2rem] rim-light border border-white/10 p-6 hover:border-cinematic-teal/30 transition-colors"
+          >
+            <Icon className="w-8 h-8 text-cinematic-teal mb-4" />
+            <h2 className="text-lg font-semibold text-white group-hover:text-cinematic-teal transition-colors">{title}</h2>
+            <p className="text-sm text-zinc-400 mt-2 leading-relaxed">{desc}</p>
+          </Link>
         ))}
       </div>
-
-      <div className="rounded-2xl rim-light bg-vault-card border border-white/10 overflow-hidden">
-        <div className="px-4 sm:px-6 py-4 border-b border-white/10 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white">Recent leads</h2>
-          <div className="flex items-center gap-3">
-            <Link href="/crm/kanban" className="text-sm text-zinc-400 hover:text-white">Kanban</Link>
-            <Link
-            href="/crm/leads"
-            className="text-sm font-medium text-cinematic-teal hover:text-teal-300 flex items-center gap-1"
-          >
-            View all <ArrowRight className="w-4 h-4" />
-          </Link>
-          </div>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-zinc-500 border-b border-white/10">
-                <th className="px-4 sm:px-6 py-3 font-medium">Name</th>
-                <th className="px-4 sm:px-6 py-3 font-medium hidden sm:table-cell">Intent</th>
-                <th className="px-4 sm:px-6 py-3 font-medium">Status</th>
-                <th className="px-4 sm:px-6 py-3 font-medium">Assigned</th>
-                <th className="px-4 sm:px-6 py-3 font-medium hidden md:table-cell">Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentLeads.map((lead) => (
-                <tr key={lead.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                  <td className="px-4 sm:px-6 py-3">
-                    <Link href={`/crm/leads/${lead.id}`} className="font-medium text-white hover:text-cinematic-teal">
-                      {lead.name}
-                    </Link>
-                    <p className="text-zinc-500 text-xs sm:hidden">{lead.intent}</p>
-                  </td>
-                  <td className="px-4 sm:px-6 py-3 text-zinc-400 hidden sm:table-cell">{lead.intent}</td>
-                  <td className="px-4 sm:px-6 py-3">
-                    <span className="inline-flex px-2 py-0.5 rounded-lg text-xs font-medium bg-white/10 text-zinc-300 capitalize">
-                      {lead.status.replace("_", " ")}
-                    </span>
-                  </td>
-                  <td className="px-4 sm:px-6 py-3 text-zinc-400">{lead.assignedAdvisorName}</td>
-                  <td className="px-4 sm:px-6 py-3 text-zinc-500 hidden md:table-cell">
-                    F{lead.fitScore} E{lead.engagementScore}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
     </div>
   );
 }

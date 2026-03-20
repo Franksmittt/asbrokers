@@ -3,14 +3,11 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "./icons";
-import { useLeadForm } from "./LeadFormContext";
 import { HeroChatTerminal } from "./HeroChatTerminal";
 
 const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 
 export function Hero() {
-  const { openLeadForm } = useLeadForm();
-
   return (
     <section
       id="vault"
@@ -93,13 +90,13 @@ export function Hero() {
                   filter: "blur(10px)",
                 }}
               />
-              <button
-                type="button"
-                onClick={openLeadForm}
+              <Link
+                href="/contact"
+                prefetch={false}
                 className="relative bg-white text-black px-6 py-3 rounded-[2rem] text-sm font-semibold transition-all duration-500 ease-apple hover:scale-[1.02] hover:shadow-cta-glow-gold flex items-center gap-2"
               >
                 Financial Health Check <ArrowRight className="w-4 h-4" />
-              </button>
+              </Link>
             </motion.div>
             <Link
               href="#lab"

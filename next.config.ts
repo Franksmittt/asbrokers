@@ -3,6 +3,12 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      { source: "/portal", destination: "/login", permanent: false },
+      { source: "/portal/:path*", destination: "/login", permanent: false },
+    ];
+  },
   webpack: (config) => {
     const hoistPath = path.join(
       __dirname,

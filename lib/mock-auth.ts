@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-export type MockRole = "admin" | "staff" | "client";
+export type MockRole = "admin" | "staff";
 
 const COOKIE_ROLE = "mock-crm-role";
 const COOKIE_NAME = "mock-crm-user";
@@ -12,7 +12,7 @@ export async function getMockSession(): Promise<{ role: MockRole; name: string; 
   const role = c.get(COOKIE_ROLE)?.value as MockRole | undefined;
   const name = c.get(COOKIE_NAME)?.value ?? "";
   const staffId = c.get(COOKIE_STAFF_ID)?.value ?? null;
-  if (role !== "admin" && role !== "staff" && role !== "client") return null;
+  if (role !== "admin" && role !== "staff") return null;
   return { role, name: name || "User", staffId };
 }
 
@@ -35,6 +35,3 @@ export function canAccessCrm(role: MockRole): boolean {
   return role === "admin" || role === "staff";
 }
 
-export function canAccessPortal(role: MockRole): boolean {
-  return role === "client";
-}

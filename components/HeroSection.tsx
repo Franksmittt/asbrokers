@@ -41,7 +41,10 @@ export function HeroSection() {
             transition={{ duration: 0.5, ease: APPLE_EASE }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] text-white leading-[1.1]"
           >
-            You think your retirement is safe. The math might disagree.
+            You think your retirement is safe.{" "}
+            <span className="bg-gradient-to-br from-[#00C6FF] to-[#0072FF] bg-clip-text text-transparent">
+              The math might disagree.
+            </span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 8 }}

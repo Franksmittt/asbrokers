@@ -51,7 +51,7 @@ export interface MockLead {
   lastActivity: string;
 }
 
-/** Converted lead = client (has portal access, policies, documents) */
+/** Converted lead = client record in CRM (policies, documents) */
 export interface MockClient {
   id: string;
   leadId: string;
@@ -226,7 +226,7 @@ export const MOCK_LEADS: MockLead[] = [
   },
 ];
 
-/** Clients = converted leads (closed_won) with portal access */
+/** Clients = converted leads (closed_won) */
 export const MOCK_CLIENTS: MockClient[] = [
   {
     id: "c1",

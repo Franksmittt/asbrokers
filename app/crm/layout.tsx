@@ -5,7 +5,7 @@ import { CrmSidebar } from "@/components/crm/CrmSidebar";
 export default async function CrmLayout({ children }: { children: React.ReactNode }) {
   const session = await getMockSession();
   if (!session) redirect("/login?next=/crm");
-  if (!canAccessCrm(session.role)) redirect("/portal");
+  if (!canAccessCrm(session.role)) redirect("/login?next=/crm");
 
   return (
     <div className="min-h-screen bg-vault-dark flex">

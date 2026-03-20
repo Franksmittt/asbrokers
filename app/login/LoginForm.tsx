@@ -34,8 +34,8 @@ export function LoginForm({ next }: { next: string }) {
       </div>
       <div>
         <label className="block text-sm font-medium text-zinc-300 mb-2">Sign in as</label>
-        <div className="grid grid-cols-3 gap-2">
-          {(["admin", "staff", "client"] as const).map((r) => (
+        <div className="grid grid-cols-2 gap-2">
+          {(["admin", "staff"] as const).map((r) => (
             <button
               key={r}
               type="button"
@@ -53,7 +53,6 @@ export function LoginForm({ next }: { next: string }) {
         <p className="text-zinc-500 text-xs mt-2">
           {role === "admin" && "Full CRM access. All leads and settings."}
           {role === "staff" && "Assigned leads and tasks only."}
-          {role === "client" && "Client Portal: dashboard, documents, messages."}
         </p>
       </div>
       {role === "staff" && (

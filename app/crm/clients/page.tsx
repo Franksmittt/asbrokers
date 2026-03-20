@@ -17,7 +17,7 @@ export default async function ClientsPage() {
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1">Clients</h1>
         <p className="text-zinc-400 text-sm">
-          Converted clients with portal access. {isOwner ? "All clients." : "Your clients only."}
+          Converted leads (closed won). {isOwner ? "All clients." : "Your clients only."}
         </p>
       </div>
 

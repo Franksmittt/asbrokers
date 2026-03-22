@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { FAQSchema } from "@/components/FAQSchema";
 
@@ -250,6 +251,21 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
+      <section className="px-4 sm:px-6 md:px-8 py-8 border-t border-white/5" aria-hidden>
+        <div className="max-w-5xl mx-auto">
+          <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 rim-light">
+            <Image
+              src="/images/calculators-hub-16x9.jpg"
+              alt="Calculator planning sheets for retirement, tax, estate and premiums on a desk, no people"
+              width={1920}
+              height={1080}
+              className="h-auto w-full object-cover"
+              sizes="(max-width: 768px) 100vw, 1024px"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* How to Use These Tools */}
       <section className="py-8 md:py-10 px-4 sm:px-6 md:px-8 border-t border-white/5 bg-black/20">
         <div className="max-w-5xl mx-auto">
@@ -261,6 +277,21 @@ export default function CalculatorsPage() {
               <p>Each tool answers a specific question and leads to a practical solution. Use any order; start with what matters most to you.</p>
               <p className="text-zinc-500">In client discussions we use them to explain: what the problem is, why it exists, and which product or structure solves it.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 sm:px-6 md:px-8 py-10 border-t border-white/5 bg-black/10" aria-hidden>
+        <div className="max-w-4xl mx-auto">
+          <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 rim-light">
+            <Image
+              src="/images/calculators-capital-lifespan-4x3.jpg"
+              alt="Abstract marble composition suggesting capital lifespan and time, no people"
+              width={1600}
+              height={1200}
+              className="h-auto w-full object-cover"
+              sizes="(max-width: 768px) 100vw, 896px"
+            />
           </div>
         </div>
       </section>
@@ -317,6 +348,16 @@ export default function CalculatorsPage() {
             title="Financial Education"
             question="What is it costing you not to learn how money really works?"
           />
+          <div className="relative w-full max-w-3xl mx-auto mb-8 overflow-hidden rounded-[2rem] border border-white/10 rim-light">
+            <Image
+              src="/images/calculators-education-16x9.jpg"
+              alt="Books and notebook for personal finance learning before an adviser meeting, no people"
+              width={1920}
+              height={1080}
+              className="h-auto w-full object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
           <div className="w-full max-w-3xl mx-auto">
             <Link
               href="/contact"

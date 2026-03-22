@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
@@ -32,14 +33,25 @@ export default async function InsightsPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
       <section className="pt-28 pb-16 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-3">Resources</p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-            Insights & Education
-          </h1>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-            Articles, guides, and tools to help you make informed decisions about retirement, estate planning, and wealth.
-          </p>
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+          <div className="text-center md:text-left md:max-w-xl">
+            <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-3">Resources</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+              Insights & Education
+            </h1>
+            <p className="text-lg text-zinc-400">
+              Articles, guides, and tools to help you make informed decisions about retirement, estate planning, and wealth.
+            </p>
+          </div>
+          <div className="shrink-0 w-36 h-36 sm:w-40 sm:h-40 mx-auto md:mx-0 rounded-2xl overflow-hidden border border-white/10">
+            <Image
+              src="/images/insights-inset-1x1.jpg"
+              alt="Research and financial education resources"
+              width={160}
+              height={160}
+              className="object-cover w-full h-full"
+            />
+          </div>
         </div>
       </section>
 

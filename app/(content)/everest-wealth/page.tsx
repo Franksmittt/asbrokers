@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { FAQSchema } from "@/components/FAQSchema";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 
 export const metadata = {
   title: "Everest Wealth Products | Alternative Private Equity Investments South Africa",
@@ -138,12 +138,17 @@ export default function EverestWealthPage() {
 
       <section className="px-4 sm:px-6 md:px-8 py-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <ImagePlaceholder
-            src="/images/everest-visual.jpg"
-            alt="Everest Wealth fixed-return investment options"
-            aspectRatio="16/9"
-            placeholderLabel="everest-visual.jpg"
-          />
+          <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 rim-light">
+            <Image
+              src="/images/everest-suite-hero-16x9.jpg"
+              alt="Real-economy sector backing structured income: agriculture, hospitality or industry, no people"
+              width={1920}
+              height={1080}
+              className="h-auto w-full object-cover"
+              sizes="(max-width: 768px) 100vw, 896px"
+              priority
+            />
+          </div>
         </div>
       </section>
 
@@ -155,6 +160,16 @@ export default function EverestWealthPage() {
             <li><strong className="text-zinc-300">What type of money are you investing?</strong><br />Voluntary capital (savings, sale proceeds, cash) see the three income and growth options below. Compulsory retirement money (pension, provident, preservation, RA) scroll to the Amethyst Living Annuity.</li>
             <li><strong className="text-zinc-300">What do you need from this investment?</strong><br />Monthly income now 12.8% Strategic Income (recommended) or 14.2% Onyx Income+. Capital growth, no income 14.5% Strategic Growth. Not sure how much to allocate? use the Income Goal Calculator or contact us.</li>
           </ol>
+          <div className="mt-10 relative w-full overflow-hidden rounded-[2rem] border border-white/10 rim-light">
+            <Image
+              src="/images/everest-copper-industrial-4x3.jpg"
+              alt="Industrial and copper processing suggesting tangible assets behind unlisted income strategies, no people"
+              width={1600}
+              height={1200}
+              className="h-auto w-full object-cover"
+              sizes="(max-width: 768px) 100vw, 896px"
+            />
+          </div>
         </div>
       </section>
 

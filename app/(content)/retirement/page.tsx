@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RetirementRealityCalculator } from "@/components/RetirementRealityCalculator";
@@ -45,6 +46,17 @@ export default function RetirementPage() {
           <p className="text-lg text-zinc-400 leading-relaxed">
             Traditional retirement modeling is fundamentally flawed. Calculate the exact, mathematical capital required to sustain your lifestyle, and expose your projected shortfall.
           </p>
+          <div className="mt-10 flex justify-center md:justify-end max-w-2xl mx-auto md:max-w-none">
+            <div className="w-36 h-36 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border border-white/10 opacity-90">
+              <Image
+                src="/images/retirement-inset-1x1.jpg"
+                alt="Retirement planning and long-term income security"
+                width={160}
+                height={160}
+                className="object-cover w-full h-full"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

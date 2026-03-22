@@ -26,13 +26,17 @@ export default function TeamPage() {
           <p className="text-zinc-400 text-sm leading-relaxed">
             The people behind AS Brokers. Twenty-five years combined experience, working for you.
           </p>
+          <p className="text-zinc-600 text-xs mt-4 max-w-lg mx-auto">
+            Add official portraits as <code className="text-zinc-500">/images/team-albert.jpg</code> and{" "}
+            <code className="text-zinc-500">/images/team-johnny.jpg</code> when ready.
+          </p>
         </div>
       </section>
       <section className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pb-32">
         <div className="grid sm:grid-cols-2 gap-4">
           {team.map((person) => (
             <div key={person.name} className="bg-[#151518] rounded-[2rem] p-8 border border-white/5">
-              <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6">
+              <div className="w-24 h-24 rounded-2xl overflow-hidden mb-6 relative border border-white/10 rim-light">
                 <ImagePlaceholder
                   src={`/images/${person.slug}.jpg`}
                   alt={person.name}

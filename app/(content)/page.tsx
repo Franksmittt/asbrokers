@@ -38,16 +38,17 @@ export default function HomePage() {
             </Link>{" "}
             (retirement, tax, estate, life insurance, Everest Wealth).
           </p>
-          <div className="mt-8 relative w-full overflow-hidden rounded-[2rem] border border-white/10 rim-light">
-            <Image
-              src="/images/home-actuarial-engine-16x9.jpg"
-              alt="Retirement drawdown planning desk: worksheet, calculator, pen, no people"
-              width={1920}
-              height={1080}
-              className="h-auto w-full object-cover"
-              sizes="(max-width: 768px) 100vw, min(1280px, 100vw)"
-              priority
-            />
+          <div className="mt-6 md:mt-8 mx-auto w-full max-w-3xl">
+            <div className="relative h-[160px] sm:h-[180px] md:h-[200px] lg:h-[220px] overflow-hidden rounded-2xl border border-white/10 rim-light">
+              <Image
+                src="/images/home-actuarial-engine-16x9.jpg"
+                alt="Retirement drawdown planning desk: worksheet, calculator, pen, no people"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
           </div>
         </div>
         <RunOutCalculator />
@@ -58,16 +59,17 @@ export default function HomePage() {
         <EverestWealthBento />
       </section>
 
-      <section className="py-8 md:py-10 px-4 sm:px-6 md:px-8 max-w-5xl mx-auto relative z-10" aria-hidden>
-        <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 rim-light mx-auto max-w-4xl">
-          <Image
-            src="/images/home-yield-continuity-4x3.jpg"
-            alt="Client desk with investment statements and folders for structured yield and Code 1.8 products"
-            width={1600}
-            height={1200}
-            className="h-auto w-full object-cover"
-            sizes="(max-width: 768px) 100vw, 896px"
-          />
+      <section className="py-6 md:py-8 px-4 sm:px-6 md:px-8 max-w-5xl mx-auto relative z-10">
+        <div className="relative mx-auto w-full max-w-3xl">
+          <div className="relative h-[140px] sm:h-[160px] md:h-[180px] overflow-hidden rounded-2xl border border-white/10 rim-light">
+            <Image
+              src="/images/home-yield-continuity-4x3.jpg"
+              alt="Client desk with investment statements and folders for structured yield and Code 1.8 products"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
         </div>
       </section>
 

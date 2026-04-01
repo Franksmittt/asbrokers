@@ -43,7 +43,7 @@ export function FloatingChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.25, ease: APPLE_EASE }}
-            className="fixed bottom-20 right-4 md:bottom-6 md:right-6 w-[calc(100vw-2rem)] max-w-md max-h-[70vh] z-[95] flex flex-col rounded-[2rem] overflow-hidden rim-light border border-white/10 shadow-2xl"
+            className="fixed bottom-64 right-4 md:bottom-56 md:right-6 w-[calc(100vw-2rem)] max-w-md max-h-[70vh] z-[95] flex flex-col rounded-[2rem] overflow-hidden rim-light border border-white/10 shadow-2xl"
           >
             <div className="relative overflow-y-auto flex-1 min-h-0 p-4">
               <button
@@ -63,7 +63,7 @@ export function FloatingChat() {
       <motion.button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-[85] w-14 h-14 rounded-full rim-light border border-white/10 flex items-center justify-center text-white shadow-lg hover:bg-white/10 hover:scale-105 active:scale-95 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50"
+        className="fixed bottom-28 right-4 z-[85] w-14 h-14 rounded-full rim-light border border-white/10 flex items-center justify-center text-white shadow-lg hover:bg-white/10 hover:scale-105 active:scale-95 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50 md:bottom-[5.75rem] md:right-6"
         aria-label={open ? "Close Digital Wealth Assistant" : "Open Digital Wealth Assistant"}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.98 }}

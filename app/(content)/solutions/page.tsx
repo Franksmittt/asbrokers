@@ -44,7 +44,7 @@ const categories = [
     icon: HeartPulse,
     accent: "teal",
     items: [
-      { name: "Medical Aid & Gap Cover", desc: "Health insurance and gap cover structuring.", href: "/contact", badge: null },
+      { name: "Medical Aid & Gap Cover", desc: "Health insurance and gap cover structuring.", href: "/solutions/medical-aid", badge: null },
       { name: "Wellness & Integration", desc: "Holistic health and wellness planning for high-income earners.", href: "/contact", badge: null },
     ],
   },
@@ -55,7 +55,7 @@ const categories = [
     icon: Scroll,
     accent: "amber",
     items: [
-      { name: "Estate Planning & Wills", desc: "Wills, testaments and estate structuring.", href: "/contact", badge: null },
+      { name: "Estate Planning & Wills", desc: "Wills, testaments and estate structuring.", href: "/solutions/estate-planning", badge: null },
       { name: "Trust & Business Structure", desc: "Asset protection and tax-efficient structuring.", href: "/contact", badge: null },
       { name: "Estate Duty Calculator", desc: "Estimate estate duty and executor fees at death.", href: "/estate-duty-calculator", badge: "Calculator" },
       { name: "Annual Estate Reduction Strategy", desc: "Use annual donations to reduce estate duty over time.", href: "/annual-estate-reduction-strategy", badge: "Calculator" },

@@ -11,13 +11,13 @@ const FOUNDERS = [
     name: "Albert Schuurman",
     slug: "team-albert",
     role: "Co-founder",
-    bio: "Focus on retirement income planning and helping clients create certainty.",
+    bio: "Short Term Business and Investment Specialist.",
   },
   {
     name: "Johnny Farinha",
     slug: "team-johnny",
     role: "Co-founder",
-    bio: "Expertise in estate structuring, business continuity and risk planning.",
+    bio: "Short term business Insurance Specialist.",
   },
 ];
 

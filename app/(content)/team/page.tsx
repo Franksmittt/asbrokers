@@ -6,14 +6,14 @@ const team = [
     name: "Albert Schuurman",
     slug: "team-albert",
     role: "Independent Financial Advisor",
-    bio: "Co-founder of AS Brokers. Focus on retirement income planning and helping clients create certainty.",
+    bio: "Co-founder of AS Brokers. Short Term Business and Investment Specialist.",
     quote: "You can't buy insurance when you need it.",
   },
   {
     name: "Johnny Farinha",
     slug: "team-johnny",
     role: "Independent Financial Advisor",
-    bio: "Co-founder of AS Brokers. Expertise in estate structuring, business continuity and risk planning.",
+    bio: "Co-founder of AS Brokers. Short term business Insurance Specialist.",
   },
 ];
 
@@ -27,8 +27,7 @@ export default function TeamPage() {
             The people behind AS Brokers. Twenty-five years combined experience, working for you.
           </p>
           <p className="text-zinc-600 text-xs mt-4 max-w-lg mx-auto">
-            Add official portraits as <code className="text-zinc-500">/images/team-albert.jpg</code> and{" "}
-            <code className="text-zinc-500">/images/team-johnny.jpg</code> when ready.
+            Add Johnny&apos;s portrait as <code className="text-zinc-500">/images/team-johnny.jpg</code> when ready.
           </p>
         </div>
       </section>

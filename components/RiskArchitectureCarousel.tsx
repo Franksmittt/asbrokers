@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "./icons";
+import { ImagePlaceholder } from "./ImagePlaceholder";
 
 const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 
 const ITEMS = [
   {
     id: "short-term",
+    imageKey: "risk-arch-short-term",
     title: "Short-Term Personal",
     subtitle: "Home · Car",
     description: "Comprehensive personal short-term insurance. Protect your assets.",
@@ -17,6 +19,7 @@ const ITEMS = [
   },
   {
     id: "commercial",
+    imageKey: "risk-arch-commercial",
     title: "Commercial Risk",
     subtitle: "Business",
     description: "Commercial property, liability, and business interruption cover.",
@@ -24,6 +27,7 @@ const ITEMS = [
   },
   {
     id: "life",
+    imageKey: "risk-arch-life",
     title: "Life & Severe Illness",
     subtitle: "Protection",
     description: "Life cover, disability and severe illness benefits for you and your family.",
@@ -31,10 +35,43 @@ const ITEMS = [
   },
   {
     id: "estate",
+    imageKey: "risk-arch-estate",
     title: "Estate Planning & Trusts",
     subtitle: "Legacy",
     description: "Wills, trusts and estate duty reduction. Secure your legacy.",
-    href: "/solutions#estate",
+    href: "/solutions/estate-planning",
+  },
+  {
+    id: "business-life",
+    imageKey: "risk-arch-business-life",
+    title: "Business Life & Key Person",
+    subtitle: "Corporate",
+    description: "Buy-and-sell, key person, loan cover and business continuity structures.",
+    href: "/solutions/business-life",
+  },
+  {
+    id: "medical",
+    imageKey: "risk-arch-medical",
+    title: "Medical Aid & Gap Cover",
+    subtitle: "Health",
+    description: "Medical scheme choice, gap cover and wellness integration for your family.",
+    href: "/solutions/medical-aid",
+  },
+  {
+    id: "premium-tools",
+    imageKey: "risk-arch-premium",
+    title: "Premium Sustainability",
+    subtitle: "Tools",
+    description: "Model long-term premium paths and compare escalating vs level cover costs.",
+    href: "/premium-increase-calculator",
+  },
+  {
+    id: "estate-duty",
+    imageKey: "risk-arch-estate-duty",
+    title: "Estate Duty & Liquidity",
+    subtitle: "Fiduciary",
+    description: "Stress-test SARS duty, executor fees and liquidity at death—before it matters.",
+    href: "/estate-duty-calculator",
   },
 ];
 
@@ -96,20 +133,31 @@ export function RiskArchitectureCarousel() {
             >
               <Link
                 href={item.href}
-                className="block h-full squircle rim-light p-6 border-0 hover:bg-white/[0.07] transition-all duration-500 group"
+                prefetch={false}
+                className="block h-full squircle rim-light border-0 overflow-hidden hover:bg-white/[0.07] transition-all duration-500 group"
               >
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-                  {item.subtitle}
-                </span>
-                <h3 className="text-lg font-bold text-white mt-1 tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  {item.description}
-                </p>
-                <span className="inline-block text-cinematic-teal text-sm font-medium mt-4 group-hover:underline">
-                  Learn more →
-                </span>
+                <ImagePlaceholder
+                  src={`/images/${item.imageKey}.png`}
+                  alt={item.title}
+                  aspectRatio="16/9"
+                  placeholderLabel={`${item.imageKey}.png`}
+                  className="rounded-none rounded-t-[2rem] border-b border-white/5"
+                  sizes="(max-width: 640px) 280px, 300px"
+                />
+                <div className="p-6 pt-5">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                    {item.subtitle}
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-1 tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 mt-2 leading-relaxed">
+                    {item.description}
+                  </p>
+                  <span className="inline-block text-cinematic-teal text-sm font-medium mt-4 group-hover:underline">
+                    Learn more →
+                  </span>
+                </div>
               </Link>
             </motion.div>
           ))}

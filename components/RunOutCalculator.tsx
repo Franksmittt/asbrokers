@@ -84,14 +84,20 @@ export function RunOutCalculator() {
         </div>
       </div>
 
-      {/* Chart */}
-      <div className="lg:col-span-8 bg-[#151518] rounded-[2rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden flex flex-col justify-end min-h-[400px]">
+      {/* Chart — taller min-height while gate is open so the form fits without an inner scroll */}
+      <div
+        className={`lg:col-span-8 bg-[#151518] rounded-[2rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden flex flex-col justify-end ${
+          emailCaptured ? "min-h-[400px]" : "min-h-[580px] sm:min-h-[560px]"
+        }`}
+      >
         {!emailCaptured && (
-          <div className="absolute inset-0 z-20 bg-[#0a0a0c]/80 backdrop-blur-md overflow-y-auto overflow-x-hidden">
-            <div className="flex flex-col items-center p-4 sm:p-6 pb-8 min-h-full box-border">
-              <Lock className="w-10 h-10 text-blue-400 mb-4 shrink-0" />
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 px-1 text-center">Unlock the Full Actuarial Breakdown</h3>
-              <p className="text-zinc-400 mb-4 sm:mb-6 max-w-md text-sm px-1 text-center">
+          <div className="absolute inset-0 z-20 bg-[#0a0a0c]/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-5 overflow-hidden">
+            <div className="flex flex-col items-center w-full max-w-sm sm:max-w-md mx-auto shrink-0">
+              <Lock className="w-9 h-9 sm:w-10 sm:h-10 text-blue-400 mb-3 sm:mb-4 shrink-0" />
+              <h3 className="text-lg sm:text-2xl font-bold text-white mb-2 px-1 text-center leading-snug">
+                Unlock the Full Actuarial Breakdown
+              </h3>
+              <p className="text-zinc-400 mb-4 max-w-md text-sm px-1 text-center leading-relaxed">
                 See how to extend your capital lifespan: exact year-by-year trajectory, tax implications, and inflation adjustments. Enter your details to generate the PDF.
               </p>
               <form
@@ -99,14 +105,14 @@ export function RunOutCalculator() {
                   e.preventDefault();
                   setEmailCaptured(true);
                 }}
-                className="flex flex-col w-full max-w-sm gap-3 text-left"
+                className="flex flex-col w-full gap-2.5 sm:gap-3 text-left"
               >
                 <input
                   type="text"
                   name="name"
                   required
                   placeholder="Full name"
-                  className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
                   aria-label="Full name"
                 />
                 <input
@@ -114,7 +120,7 @@ export function RunOutCalculator() {
                   name="email"
                   required
                   placeholder="Email address"
-                  className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:border-blue-500 text-white placeholder-zinc-500"
                   aria-label="Email address"
                 />
                 <label className="flex items-start gap-2.5 cursor-pointer group">
@@ -122,16 +128,16 @@ export function RunOutCalculator() {
                     type="checkbox"
                     name="popia"
                     required
-                    className="mt-1 rounded border-white/20 bg-white/5 text-cinematic-teal focus:ring-cinematic-teal/50 shrink-0"
+                    className="mt-0.5 rounded border-white/20 bg-white/5 text-cinematic-teal focus:ring-cinematic-teal/50 shrink-0"
                     aria-describedby="popia-desc"
                   />
-                  <span id="popia-desc" className="text-xs text-zinc-400 group-hover:text-zinc-300">
+                  <span id="popia-desc" className="text-[11px] sm:text-xs text-zinc-400 group-hover:text-zinc-300 leading-snug">
                     I consent to AS Brokers (FSP 17273) processing my personal information in accordance with POPIA. I understand my data will be used to deliver the actuarial report and relevant financial services communication.
                   </span>
                 </label>
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3.5 rounded-full text-sm font-semibold transition-colors mt-1"
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors mt-0.5"
                 >
                   Reveal
                 </button>

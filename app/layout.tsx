@@ -15,13 +15,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "AS Brokers CC | Independent Financial Advisor Alberton",
+    default: "AS Brokers CC | Independent Financial Advisor Krugersdorp",
     template: "%s | AS Brokers CC",
   },
   description:
     "25+ years helping South Africans with retirement planning, insurance, estate structuring & business continuity. Albert Schuurman & Johnny Farinha. Independent Authorised Financial Service Provider.",
   keywords: [
-    "independent financial advisor Alberton",
+    "independent financial advisor Krugersdorp",
     "Code 1.8 FSP license broker",
     "financial advisor",
     "retirement planning",

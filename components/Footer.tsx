@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, LinkedIn, ChevronDown, ArrowUp } from "./icons";
@@ -161,7 +162,14 @@ function FooterNewsletterForm() {
 }
 
 export function Footer() {
+  const pathname = usePathname();
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  /** Stack above mobile quick bar; on home, above FloatingChat FAB (see FloatingChat.tsx). */
+  const scrollDockClass =
+    pathname === "/"
+      ? "right-4 max-md:bottom-48 md:bottom-[10rem] md:right-6"
+      : "right-4 max-md:bottom-28 md:bottom-[5.75rem] md:right-6";
 
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -332,7 +340,7 @@ export function Footer() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.25, ease: APPLE_EASE }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-2xl bg-cinematic-teal/90 hover:bg-cinematic-teal text-white flex items-center justify-center shadow-lg hover:shadow-[0_0_30px_rgba(0,128,128,0.5)] transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cinematic-teal focus:ring-offset-2 focus:ring-offset-void"
+            className={`fixed z-[55] w-12 h-12 rounded-2xl bg-cinematic-teal/90 hover:bg-cinematic-teal text-white flex items-center justify-center shadow-lg hover:shadow-[0_0_30px_rgba(0,128,128,0.5)] transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cinematic-teal focus:ring-offset-2 focus:ring-offset-void ${scrollDockClass}`}
             aria-label="Scroll to top"
           >
             <ArrowUp className="w-5 h-5" />

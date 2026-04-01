@@ -10,7 +10,7 @@ export function FloatingWhatsApp() {
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      className="hidden md:flex fixed bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full items-center justify-center shadow-2xl hover:scale-110 transition-transform z-40 group"
+      className="hidden md:flex fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] text-white rounded-full items-center justify-center shadow-2xl hover:scale-110 transition-transform z-[45] group"
       aria-label="Chat on WhatsApp"
     >
       <MessageCircle className="w-6 h-6" />

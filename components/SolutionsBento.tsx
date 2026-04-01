@@ -150,7 +150,7 @@ export function SolutionsBento() {
 
       <TiltCard {...cardMotion(3)}>
         <Link
-          href="/solutions#estate"
+          href="/solutions/estate-planning"
           className="rim-light rounded-[2rem] p-6 sm:p-8 border-0 flex flex-col justify-between group hover:bg-white/[0.07] transition-all duration-500 block min-h-[200px] md:min-h-0 h-full"
         >
           <div>
@@ -166,7 +166,7 @@ export function SolutionsBento() {
 
       <TiltCard {...cardMotion(4)} className="md:col-span-2">
         <Link
-          href="/solutions#medical"
+          href="/solutions/medical-aid"
           className="rim-light rounded-[2rem] p-6 sm:p-8 border-0 flex flex-col justify-between group hover:border-cinematic-teal/20 hover:bg-white/[0.03] transition-colors duration-500 block min-h-[200px] md:min-h-0 h-full relative overflow-hidden"
         >
           <span className="absolute inset-0 bg-gradient-to-r from-cinematic-teal/10 to-transparent pointer-events-none" aria-hidden />

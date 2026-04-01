@@ -11,11 +11,11 @@ const services = [
   { id: "short-business", title: "Short-Term Business", summary: "Commercial property and liability cover.", category: "Insurance", size: "medium", href: "/solutions#insurance" },
   { id: "life-personal", title: "Life Insurance (Personal)", summary: "Family protection and future financial security.", category: "Insurance", size: "medium", href: "/solutions#insurance" },
   { id: "life-business", title: "Life Insurance (Business)", summary: "Buy-and-sell and key person protection.", category: "Insurance", size: "medium", href: "/solutions#insurance" },
-  { id: "medical", title: "Medical Aid & Gap Cover", summary: "Health insurance and gap cover solutions.", category: "Medical", size: "small", href: "/solutions#medical" },
-  { id: "wellness", title: "Wellness & Integration", summary: "Holistic health and wellness planning.", category: "Medical", size: "small", href: "/solutions#medical" },
-  { id: "estate", title: "Estate Planning", summary: "Wills, testaments and estate structuring.", category: "Estate", size: "medium", href: "/solutions#estate" },
-  { id: "trust", title: "Trust & Business Structure", summary: "Asset protection and tax-efficient structuring.", category: "Estate", size: "medium", href: "/solutions#estate" },
-  { id: "digital", title: "Digital Asset Protection", summary: "Protection for business digital assets.", category: "Estate", size: "small", href: "/solutions#estate" },
+  { id: "medical", title: "Medical Aid & Gap Cover", summary: "Health insurance and gap cover solutions.", category: "Medical", size: "small", href: "/solutions/medical-aid" },
+  { id: "wellness", title: "Wellness & Integration", summary: "Holistic health and wellness planning.", category: "Medical", size: "small", href: "/solutions/medical-aid" },
+  { id: "estate", title: "Estate Planning", summary: "Wills, testaments and estate structuring.", category: "Estate", size: "medium", href: "/solutions/estate-planning" },
+  { id: "trust", title: "Trust & Business Structure", summary: "Asset protection and tax-efficient structuring.", category: "Estate", size: "medium", href: "/solutions/estate-planning" },
+  { id: "digital", title: "Digital Asset Protection", summary: "Protection for business digital assets.", category: "Estate", size: "small", href: "/solutions/estate-planning" },
   { id: "consultation", title: "Consultation & Risk Assessment", summary: "Identify your financial gaps. Start here.", category: "Advisory", size: "large", href: "/contact" },
 ];
 

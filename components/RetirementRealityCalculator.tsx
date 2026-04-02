@@ -92,9 +92,53 @@ export function RetirementRealityCalculator() {
   return (
     <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5">
       <h2 className="text-2xl font-bold text-white mb-2">Retirement Reality Calculator</h2>
-      <p className="text-zinc-400 text-sm mb-8">
+      <p className="text-zinc-400 text-sm mb-6">
         Discover how much capital you really need, and whether you are saving enough.
       </p>
+
+      <div
+        className="mb-8 rounded-xl bg-white/[0.04] border border-white/10 p-4 md:p-5"
+        aria-labelledby="rrc-assumptions-heading"
+      >
+        <h3 id="rrc-assumptions-heading" className="text-sm font-semibold text-zinc-200 mb-3">
+          Assumptions &amp; how this works
+        </h3>
+        <ul className="text-zinc-400 text-xs md:text-sm space-y-2.5 leading-relaxed list-disc pl-4 marker:text-zinc-600">
+          <li>
+            <strong className="text-zinc-300 font-medium">What you get:</strong> an estimate of the{" "}
+            <strong className="text-zinc-300">lump sum capital needed at your retirement date</strong>—not a monthly
+            insurance premium or debit-order savings amount. It answers: &ldquo;How big must my pot be when I retire?&rdquo;
+          </li>
+          <li>
+            Your <strong className="text-zinc-300">monthly income (after tax) today</strong> is increased each year by your
+            assumed <strong className="text-zinc-300">inflation rate</strong> until retirement, to reflect the income you
+            would need in the first year of retirement in future money.
+          </li>
+          <li>
+            That future income is <strong className="text-zinc-300">grossed up</strong> using your{" "}
+            <strong className="text-zinc-300">average tax rate in retirement</strong> so that after tax you still have the
+            target spending power (simplified flat rate—not full SARS brackets).
+          </li>
+          <li>
+            Required capital uses the <strong className="text-zinc-300">present value of a growing annuity</strong>:
+            withdrawals rise with inflation each year during retirement, while the balance is assumed to earn your{" "}
+            <strong className="text-zinc-300">investment growth rate</strong>. Growth must be{" "}
+            <strong className="text-zinc-300">above inflation</strong> or the maths does not converge.
+          </li>
+          <li>
+            <strong className="text-zinc-300">Life expectancy</strong> sets how many years that income must last. Longer
+            life = more capital required.
+          </li>
+          <li>
+            The <strong className="text-zinc-300">first-year gross withdrawal</strong> (shown after you calculate) is an
+            annual figure for transparency—not a product quote or advice fee.
+          </li>
+          <li>
+            Illustration only. Past performance is not indicative of future results. For personal advice, speak to a
+            qualified financial adviser (AS Brokers FSP 17273).
+          </li>
+        </ul>
+      </div>
 
       <div className="grid sm:grid-cols-2 gap-6">
         <div>
@@ -199,7 +243,8 @@ export function RetirementRealityCalculator() {
               <p className="text-zinc-400 text-sm mb-1">Estimated capital required at retirement</p>
               <p className="text-2xl md:text-3xl font-bold text-white">{formatCurrency(result.capital!)}</p>
               <p className="text-zinc-500 text-xs mt-2">
-                To fund your income for {result.yearsInRetirement} years in retirement, after inflation and tax.
+                Lump sum needed at age {retirementAge} to fund your income for {result.yearsInRetirement} years in
+                retirement (inflation + tax assumptions above)—not a monthly premium or contribution amount.
               </p>
               {result.firstYearAnnualWithdrawal != null && (
                 <p className="text-zinc-500 text-xs mt-1">

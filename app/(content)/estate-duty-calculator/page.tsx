@@ -3,9 +3,16 @@ import { Footer } from "@/components/Footer";
 import { EstateDutyCalculator } from "@/components/EstateDutyCalculator";
 
 export const metadata = {
-  title: "Estate Duty Calculator South Africa | AS Brokers",
+  title: "Estate Duty & Executor Cost Calculator South Africa | AS Brokers FSP 17273",
   description:
-    "Calculate estate duty, executor fees, and the total cash your estate will need at death. Understand the cost of dying.",
+    "Illustrative estate duty, abatement, and executor-cost awareness for South African residents. Not a SARS assessment—independent FSP 17273 educational tool with liquidity planning context.",
+  keywords: [
+    "estate duty calculator South Africa",
+    "executor fees estimate",
+    "estate liquidity planning",
+    "SARS estate duty awareness",
+    "FSP 17273",
+  ],
 };
 
 export default function EstateDutyCalculatorPage() {
@@ -38,6 +45,40 @@ export default function EstateDutyCalculatorPage() {
             <span>Executor fees</span>
             <span>Total estate costs</span>
           </div>
+        </div>
+      </section>
+
+      {/* Educational context */}
+      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
+        <div className="max-w-4xl mx-auto space-y-4 text-sm text-zinc-400 leading-relaxed">
+          <h2 className="text-xl font-bold text-white mb-2">Understanding estate duty (headline level only)</h2>
+          <p>
+            <strong className="text-zinc-300">Estate duty</strong> is a tax levied on the dutiable amount of a deceased
+            person’s South African estate. The net estate considers allowable deductions and abatements in terms of{" "}
+            <strong className="text-zinc-300">current statute and SARS guidance</strong>. Rates commonly discussed include
+            portions taxed at <strong className="text-zinc-300">20%</strong> and higher bands at{" "}
+            <strong className="text-zinc-300">25%</strong>, but your outcome depends on assets, debts, rollovers to surviving
+            spouses where applicable, and filing accuracy.
+          </p>
+          <p>
+            <strong className="text-zinc-300">Executor fees</strong> (often commission-based subject to regulation and agreed
+            terms) and <strong className="text-zinc-300">liquidity timing</strong> mean families sometimes must raise cash
+            before inheritances flow. Life policies and liquid investments may help—if ownership and beneficiary structures
+            were set up correctly and remain appropriate.
+          </p>
+          <p className="text-zinc-500">
+            This calculator uses simplified assumptions to surface magnitude, not to replace a conveyancer, accountant, or
+            SARS filing. Laws and abatements change; verify with professionals for your estate.
+          </p>
+          <p className="pt-2">
+            <Link href="/solutions/estate-planning" className="text-cinematic-teal hover:underline font-medium">
+              Estate planning services overview
+            </Link>
+            {" · "}
+            <Link href="/annual-estate-reduction-strategy" className="text-cinematic-teal hover:underline font-medium">
+              Donations modelling tool
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -149,16 +190,16 @@ export default function EstateDutyCalculatorPage() {
             >
               WhatsApp us · 067 242 9946
             </a>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
+            <Link href="/income-in-retirement" className="text-blue-400 hover:underline">
               Income in retirement
             </Link>
             <Link href="/solutions" className="text-blue-400 hover:underline">
-              Insurance & risk planning
+              Solutions hub
             </Link>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
+            <Link href="/solutions/estate-planning" className="text-blue-400 hover:underline">
               Estate planning
             </Link>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
+            <Link href="/solutions/business-insurance" className="text-blue-400 hover:underline">
               Business insurance
             </Link>
           </div>

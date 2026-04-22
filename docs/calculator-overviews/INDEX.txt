@@ -1,0 +1,75 @@
+================================================================================
+  AS BROKERS – CALCULATOR PAGE OVERVIEWS INDEX
+================================================================================
+
+This folder contains one overview per calculator (or calculator-hub) page,
+in the same style as SOLUTIONS_PAGE_OVERVIEW.txt, CALCULATORS_PAGE_OVERVIEW.txt,
+CONTACT_PAGE_OVERVIEW.txt, and CUSTOMER_OVERVIEW.txt in docs/.
+
+--------------------------------------------------------------------------------
+RETIREMENT & CAPITAL LIFESPAN
+--------------------------------------------------------------------------------
+
+  RETIREMENT_PAGE_OVERVIEW.txt              /retirement
+    Retirement Savings Calculator (required capital for target income).
+    Component: RetirementRealityCalculator.
+
+  INCOME_IN_RETIREMENT_PAGE_OVERVIEW.txt    /income-in-retirement
+    Income in Retirement / Run-out (life of capital).
+    Component: LifeOfCapitalCalculator.
+
+  INFLATION_CALCULATOR_PAGE_OVERVIEW.txt    /cost-of-inflation-over-time
+    Future Value / Inflation impact.
+    Component: FutureValueCalculator.
+
+--------------------------------------------------------------------------------
+TAX & ESTATE
+--------------------------------------------------------------------------------
+
+  INCOME_TAX_CALCULATOR_PAGE_OVERVIEW.txt   /income-tax-calculator
+    Income Tax (SARS 2026/27 PAYE).
+    Component: IncomeTaxCalculator.
+
+  ESTATE_DUTY_CALCULATOR_PAGE_OVERVIEW.txt  /estate-duty-calculator
+    Estate duty, executor fees, total estate costs.
+    Component: EstateDutyCalculator.
+
+  ESTATE_REDUCTION_PAGE_OVERVIEW.txt        /annual-estate-reduction-strategy
+    Annual estate duty reduction (R100k/R200k donations).
+    Component: EstateReductionCalculator.
+
+--------------------------------------------------------------------------------
+LIFE INSURANCE
+--------------------------------------------------------------------------------
+
+  PREMIUM_INCREASE_CALCULATOR_PAGE_OVERVIEW.txt  /premium-increase-calculator
+    Premium escalation / life assurance comparison.
+    Component: PremiumComparisonCalculator.
+
+--------------------------------------------------------------------------------
+EVEREST WEALTH (HUB + PRODUCT CALCULATORS)
+--------------------------------------------------------------------------------
+
+  EVEREST_WEALTH_PAGE_OVERVIEW.txt          /everest-wealth
+    Product hub: which Everest product fits (no embedded calculator).
+
+  EVEREST_128_PAGE_OVERVIEW.txt             /everest-128-product
+    12.8% Strategic Income. Component: Everest128Calculator.
+
+  EVEREST_142_INCOME_PAGE_OVERVIEW.txt      /immediate-higher-income-calculator
+    14.2% Onyx Income+. Component: Everest142Calculator.
+
+  EVEREST_145_GROWTH_PAGE_OVERVIEW.txt      /everest-strategic-growth-145
+    14.5% Strategic Growth. Component: Everest145GrowthCalculator.
+
+  EVEREST_AMETHYST_PAGE_OVERVIEW.txt        /everest-amethyst-living-annuity
+    Amethyst Living Annuity (pension/RA). Component: AmethystAnnuityCalculator.
+
+--------------------------------------------------------------------------------
+RELATED DOCS (in docs/)
+--------------------------------------------------------------------------------
+
+  CALCULATORS_PAGE_OVERVIEW.txt   Hub page: /calculators
+  SOLUTIONS_PAGE_OVERVIEW.txt     Hub: /solutions
+  CONTACT_PAGE_OVERVIEW.txt       /contact
+  CUSTOMER_OVERVIEW.txt           Project/customer summary

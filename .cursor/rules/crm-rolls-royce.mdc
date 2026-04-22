@@ -1,0 +1,52 @@
+---
+description: AS Brokers CRM & Portal – Rolls-Royce wealth concierge (v1.0 Mar 2026); AI-infused, compliance-first, service-aligned. Apply when editing /crm, /portal, /login or CRM/portal libs.
+alwaysApply: true
+---
+
+# AS Brokers CRM Rules: Rolls-Royce Wealth Concierge
+
+**Version 1.0 (March 7, 2026).** Full rules: docs/CRM_ROLLS_ROYCE.md. Vision narrative: ROLLS_ROYCE_CRM_VISION.txt. Success metrics: 90% client satisfaction, 30% faster onboarding, zero compliance breaches; cost band R500k–1M.
+
+Purpose: Guide building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 17273, Category 1.8). Luxurious, AI-infused, compliance-first system for seamless client experiences, staff efficiency, and owner oversight. Build on existing mock (lib/mock-*.ts) by replacing with real backend. Tech: Next.js App Router, TypeScript, Tailwind (rim-light glassmorphism, void/shark, Nightography), Framer Motion, Supabase (auth/DB/Storage/RLS), HubSpot bi-sync, Trigger.dev (automations/PDFs), OpenAI gpt-4o-mini for AI agents, Drizzle ORM + pgvector for RAG, Sanity CMS. Prioritize: Security (POPIA/FAIS), personalization (AI), scalability (1k+ clients), mobile-first (PWA).
+
+## Core Principles
+
+- **Design language**: Fuse Apple Pro (easing cubic-bezier(0.25,0.1,0.25,1), squircle rounded-3xl, void/shark #000/#1D1D1F) with Samsung Galaxy (teal/orange orbs, CTA glows samsung-blue/supernova-gold). Rim-light: .rim-light (bg-white/5 backdrop-blur-2xl ring-white/10). Trust hallmarks (FSP 17273, 25+ years) in .trust-hallmark.
+- **AI**: Use agentic AI (OpenAI) for autonomous tasks (compliance checks, workflows). Explainable/auditable. RAG (pgvector) for grounding in Everest/SARS docs.
+- **Compliance & security**: KYC/AML, audit trails, 4-eyes where needed, data sovereignty (Supabase). Auto-flag risks (e.g. drawdown >17.5%). RLS: admin (all), staff (assigned), client (own data only).
+- **Service alignment**: Tailor to AS Brokers services—Retirement/Investments (Everest 12.8%/14.2%/14.5%/Amethyst), Insurance/Risk (short-term/life personal & business), Medical/Wellness, Estate/Business Structuring, Claims. Use service tags from lib/mock-crm.ts (SERVICE_LABELS, serviceCategory).
+- **2026 CRM trends**: 360 views, AI agents for onboarding/routing, drag-drop pipelines, activity streams, AI prioritization, household mapping, no-code workflows, AUM tracking, privacy-first (POPIA). Prefer: agentic AI for compliance/automation, hyper-personalization (e.g. Retirement Readiness Score), real-time monitoring, unified data (CRM + portfolio).
+- **Implementation**: RSC default; Server Actions for mutations (Zod in lib/validations); Framer Motion for transitions; Recharts for visuals. Jest/Vitest for critical paths; prefers-reduced-motion; graceful error/fallback UIs.
+
+## Client Portal (/portal)
+
+- **Goal**: VIP experience—empowered, trusted, self-service with luxury. Build on existing /portal mock.
+- **Features**: Real-time Wealth Overview (Recharts: growth, drawdown). Pull Everest API when available. AI "Retirement Readiness Score" (reuse calc tools). Service modules: Retirement (drawdown 2.5–17.5%, Zod-validated; what-if); Insurance (policies, claims upload/status); Medical (wellness tracker); Estate (simulator, R100k/R200k donations); Claims (self-service, AI flags). Unified messaging (thread + AI drafts). Document vault (Supabase Storage, audit; OCR/categorize via AI). Appointments; educational hub (Sanity, RAG-personalized). Trust: transparency logs, mobile PWA.
+- **When editing /portal**: Suggest AI integrations (e.g. useChat for recs). Enforce RLS so client sees only own data. Use Zod for inputs (e.g. investmentLeadSchema R100k min).
+
+## Staff Interface (/crm)
+
+- **Goal**: Precision engine—eliminate drudgery, automate compliance, focus on advice. Build on existing /crm mock.
+- **Features**: Enhanced Kanban (persist via Supabase; AI prioritization by Fit/Eng + capital; auto-route by service). Client 360 with household mapping, AI summaries, full timeline. Service workflows: Everest quotes (Trigger.dev PDFs), claims templates, estate donation trackers. Task automation (AI-assigned, reminders); correspondence with sentiment AI; AI pre-meeting briefs (streamText + tools). Mobile: scan docs, notifications. HubSpot sync; Everest/Santam APIs when integrated. Role-based access; auto-audits.
+- **When editing /crm**: Use Drizzle + RLS. Add agentic AI where useful (e.g. Server Action for AI briefs using calculateEstateDuty etc.). Refactor mocks to Supabase (e.g. getLeadsForAdvisor → select with RLS).
+
+## Owner Dashboard
+
+- **Goal**: Command center—total control, predictive insights.
+- **Features**: Global visibility (no filters). AI dashboards (Recharts: AUM, conversion, service mix). Predictive AI (e.g. duty savings forecast). Staff performance; reassigns; role/permission management. Executive alerts (high-value leads); one-click audits. Referral and marketing (HubSpot) analytics.
+- **When adding executive views**: Create /crm/executive or similar; admin-only RLS; OpenAI for predictions where appropriate.
+
+## Roadmap
+
+- **Phase 1**: Backend swap—Supabase Auth (Magic Links), RLS, DB, Storage; HubSpot bi-sync; replace mocks.
+- **Phase 2**: AI agents (OpenAI autonomous tasks, RAG for compliance); service API integrations (Everest, etc.).
+- **Phase 3**: Mobile PWA enhancements; compliance audit; user testing; launch.
+- **Phase 4**: Performance, SEO, optimizations.
+
+## References
+
+- Full rules + principles: docs/CRM_ROLLS_ROYCE.md
+- Vision narrative: ROLLS_ROYCE_CRM_VISION.txt
+- Current CRM/portal behaviour and mock data: CRM_AND_PORTAL.txt (if present)
+- Services list: AS_BROKERS_SERVICES.txt (if present)
+- Backend checklist: BACKEND.md (if present)

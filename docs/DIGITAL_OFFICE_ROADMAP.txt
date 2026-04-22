@@ -1,0 +1,187 @@
+================================================================================
+  AS BROKERS — DIGITAL OFFICE & BACKEND REVAMP (ROADMAP)
+  Vision: principals-only workspace + content publishing + client screen-share
+================================================================================
+
+Last updated: March 2026
+
+--------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+
+The client wants to move away from a generic “CRM with staff + customer login”
+toward a focused “digital office” for two principals only (Albert Schuurman and
+Johnny Farinha), where they can:
+
+  • Publish blog posts and media to the public site
+  • Curate YouTube and other content to show clients during meetings
+  • Use the Wealth Presentation (and similar tools) as screen-share assets
+  • Brainstorm, draft, and organise ideas before publishing
+
+This is not a full replacement of compliance, FSP disclaimers, or POPIA: those
+stay on the public site and in content workflows.
+
+--------------------------------------------------------------------------------
+2. WHO USES THE BACKEND
+--------------------------------------------------------------------------------
+
+Principals only (no staff picker, no end-client portal in the first phase):
+
+  • Albert Schuurman
+  • Johnny Farinha
+
+Authentication should be real (not mock cookies long-term): e.g. Supabase Auth
+with Magic Link or email/password, allowlisted emails for those two accounts only,
+or a single shared “office” login with audit log (less ideal).
+
+Deprecate or remove for MVP:
+
+  • Mock “Staff” role and staff dropdown on login
+  • Client Portal (/portal) — unless the client later wants a read-only
+    “document vault” for HNWIs (phase 3+)
+
+Keep or simplify:
+
+  • CRM-style lead list (optional): still useful if contact form → HubSpot or DB
+  • Wealth Presentation at /crm/presentation (rename route to /office/... when
+    you rebrand the area)
+
+--------------------------------------------------------------------------------
+3. WHAT YOU ALREADY HAVE (LEVERAGE, DON’T REBUILD BLINDLY)
+--------------------------------------------------------------------------------
+
+  • Sanity CMS + /studio — Article schema, draft/publish, SEO, FSP blocks.
+    This is the natural engine for “blog posts published to the front end.”
+  • /insights and /insights/[slug] — Public blog already wired to Sanity.
+  • Next.js 15 App Router — Server Components, Server Actions, good for a
+    secure “office” area.
+  • HubSpot + contact form — Lead capture; can remain the pipeline input.
+  • Wealth Architecture Timeline — Screen-share ready; extend with “shelves”
+    of links and embeds per meeting.
+
+Gap today: mock login, mock CRM/portal data, no first-class “YouTube library” or
+“meeting briefing” layer in the product.
+
+--------------------------------------------------------------------------------
+4. TARGET EXPERIENCE — “DIGITAL OFFICE”
+--------------------------------------------------------------------------------
+
+Think modules inside one branded shell (dark UI consistent with the public site):
+
+A) CONTENT STUDIO (publish to web)
+   • List/draft/publish articles — mostly Sanity Studio (enhanced) OR a thin
+     custom UI that calls Sanity’s API
+   • Rich text, hero image, SEO, FSP disclaimer blocks (already in schema)
+   • Optional: “Video post” type — embed YouTube URL, title, excerpt, publish
+     to /insights or a new /media hub
+
+B) MEDIA & YOUTUBE SHELF (for client meetings)
+   • Curated list: title, URL, tags (e.g. Retirement, Everest, Risk)
+   • “Present mode” — full-width embed or link card for screen-share
+   • Not necessarily all public: flag “internal only” vs “show on website”
+
+C) CONSULTATION TOOLS (already started)
+   • Wealth Presentation timeline
+   • Quick links to calculators (/calculators, specific tools)
+   • Optional: saved “session playlists” — ordered list of slides + articles +
+     videos for a given client type (HNWI, pre-retirement, etc.)
+
+D) BRAINSTORM / NOTES (lightweight)
+   • Per-topic or per-client scratchpad (markdown), not a full Notion clone
+   • Store in Supabase (rows) or Sanity as private “draft” documents with a
+     custom document type not exposed on the public site
+   • Optional later: simple whiteboard (Excalidraw embed) or link-out to Miro
+
+E) LEADS & FOLLOW-UP (slim CRM)
+   • Table of recent enquiries (from HubSpot API or Supabase sync)
+   • No need for Kanban on day one if the client prefers content over pipeline
+
+--------------------------------------------------------------------------------
+5. RECOMMENDED ARCHITECTURE (HIGH LEVEL)
+--------------------------------------------------------------------------------
+
+Office area URL (rebrand from /crm when ready):
+
+  /office          Dashboard (tiles: Content, Media, Presentation, Leads, Notes)
+  /office/studio   Redirect to Sanity Studio OR embedded studio
+  /office/media    YouTube + link library + present mode
+  /office/presentation  Wealth timeline (move from /crm/presentation)
+  /office/notes    Brainstorm list
+  /office/leads    Optional slim list
+
+Auth:
+
+  • Supabase Auth: two users, RLS policies so only those users read/write
+    office-only tables
+  • Server-side session check on every /office/* layout (like current CRM guard)
+
+Content truth:
+
+  • Public blog: Sanity (existing)
+  • Office-only media shelf + notes: new Supabase tables OR Sanity private types
+    with GROQ that never ships to public routes
+
+--------------------------------------------------------------------------------
+6. PHASED DELIVERY (PRACTICAL)
+--------------------------------------------------------------------------------
+
+Phase 1 — Foundation (1–2 sprints)
+  • Replace mock login with real auth (2 principals)
+  • New /office layout + dashboard shell (design system match)
+  • Move Wealth Presentation under /office; remove staff/client from login UI
+  • Document: “Sunset” mock CRM routes or hide behind feature flag
+
+Phase 2 — Content & YouTube
+  • Extend Sanity: optional `youtubeUrl`, `videoId`, or block embed in articles
+  • OR new document type `mediaItem` with embed + tags + internal/public flag
+  • Public page: /insights continues; optional /watch or filter “video” posts
+  • Office: Media shelf CRUD + “Present” fullscreen page
+
+Phase 3 — Brainstorm & sessions
+  • Notes table (title, body markdown, created_by, tags)
+  • Optional “Session playlist” linking ordered resources
+
+Phase 4 — Polish & nice-to-haves
+  • HubSpot or DB sync for leads in /office/leads
+  • Export session as PDF/email to client (POPIA consent)
+  • Analytics: which articles/videos were opened in present mode (privacy-safe)
+
+--------------------------------------------------------------------------------
+7. NICE-TO-HAVES (OUTSIDE STRICT SCOPE BUT HIGH VALUE)
+--------------------------------------------------------------------------------
+
+  • PWA offline read for principals (draft articles in local storage — careful)
+  • AI assist: summarise long article into 3 bullets for client pitch (with
+    human approval, FAIS-safe wording)
+  • Template library: email/WhatsApp snippets after a meeting
+  • Calendar link (Cal.com / Calendly) embedded in office dashboard
+  • Version history on notes (Supabase + simple audit table)
+  • Two-factor auth for office login in production
+  • Separate staging Sanity dataset for “client’s guru” to experiment without
+    touching production
+
+--------------------------------------------------------------------------------
+8. RISKS & COMPLIANCE REMINDERS
+--------------------------------------------------------------------------------
+
+  • Blog and video titles must not promise returns; keep Everest disclaimers
+  • POPIA: notes that mention client names need encryption at rest and access
+    control (RLS)
+  • YouTube embeds: cookie/privacy policy update if not “privacy enhanced” mode
+  • FAIS: office tools are internal; anything client-facing stays reviewed
+
+--------------------------------------------------------------------------------
+9. NEXT STEP FOR DEVELOPMENT
+--------------------------------------------------------------------------------
+
+  1) Client confirms: drop client portal MVP? drop staff login? keep HubSpot?
+  2) Choose auth: Supabase Magic Link for two emails is usually fastest
+  3) Implement /office shell + auth guard + migrate presentation route
+  4) Sanity schema pass for video/embed + optional media document type
+  5) Build Media shelf + Present mode page
+
+This document is the blueprint; implementation should be ticketed per phase.
+
+================================================================================
+END OF ROADMAP
+================================================================================

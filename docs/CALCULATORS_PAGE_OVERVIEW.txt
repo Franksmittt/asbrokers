@@ -1,0 +1,326 @@
+================================================================================
+  AS BROKERS – CALCULATORS PAGE OVERVIEW
+  https://asbrokers.vercel.app/calculators
+================================================================================
+
+This document describes the Calculators hub page: purpose, structure, components,
+styling, content, and how it fits into the AS Brokers site. The page organises
+all financial calculators and education into themed sections with jump links
+and FAQ schema for SEO.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The Calculators page is the central hub for every financial tool AS Brokers
+offers. It has three jobs:
+
+  • Present calculators in logical groups (retirement, tax/estate, life
+    insurance, product quotations, education, business risk) so users can find
+    the right tool without hunting.
+  • Frame each tool as problem-led: "Key question" per section, tag + title +
+    description + bullets + "Leads to" so visitors understand what the
+    calculator does and what advice or product it leads to.
+  • Drive contact and consultation: multiple CTAs (Request a review, WhatsApp,
+    Get in touch, Assess your business risk) and quick links to solutions.
+
+There are no dropdowns in the main nav; "Calculators" in the header links
+directly to this page. The page is the single entry point for the calculator
+suite.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /calculators
+  • File:    app/(content)/calculators/page.tsx
+  • Layout:  Shared (content) layout. No nested layout under calculators.
+  • Metadata (exported in page):
+      - title: "Financial Calculators for South Africans | AS Brokers CC"
+      - description: "Retirement reality, income tax, estate duty, inflation,
+        premium comparison, and Everest Wealth calculators. Financial planning
+        tools for South Africans. FSP 17273."
+
+  Individual calculator routes (e.g. /retirement, /income-in-retirement,
+  /income-tax-calculator, /estate-duty-calculator, /everest-wealth, etc.) are
+  separate pages; this hub links to them. CONTEXT.md in the calculators tree
+  holds formula and tax context (SARS, DWT, estate duty, run-out logic, etc.)
+  for developers.
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1.  Hero (headline + jump nav)
+  2.  How to use these tools (short intro strip)
+  3.  Retirement Reality & Readiness (#retirement)
+  4.  Tax & Estate Exposure
+  5.  Life Insurance & Risk Planning
+  6.  Product Quotations (#product-quotations)
+  7.  Financial Education (#financial-education)
+  8.  Business Risk Management
+  9.  From numbers to a plan (CTA block)
+  10. Quick links strip (WhatsApp, solutions links)
+  11. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  Top of page, below global nav. pt-28 pb-16, responsive px
+                (px-4 sm:px-6 md:px-8). Overflow hidden for orbs.
+  • Background:  Void (bg-void). Two blurred orbs:
+                  - Top-right: cinematic-teal/20, 400×400, blur-[150px].
+                  - Bottom-left: gold-orange/10, 300×300, blur-[120px].
+  • Layout:     max-w-6xl; on lg a 12-column grid: 7 cols left (copy), 5 cols
+                right (jump nav).
+  • Left column:
+      - Eyebrow: "AS Brokers" (zinc-500, uppercase, tracking).
+      - Headline: "Calculators. Products. Education." (text-3xl → 5xl, white,
+                  bold, tight tracking).
+      - Subhead: One sentence on retirement, wealth protection, and
+                  financial future (gray-400, lg, max-w-xl).
+  • Right column:
+      - Card: rounded-[2rem], rim-light, p-5 md:p-6.
+      - Label: "Jump to section" (zinc-500, uppercase).
+      - Nav: Three anchor links (py-3 px-4, rounded-2xl, hover:bg-white/10):
+              "Financial Calculators" → #retirement,
+              "Everest Wealth Products" → #product-quotations,
+              "Financial Education" → #financial-education.
+
+  Styling: Dark void, teal/gold orbs, rim-light on the jump card. No
+  trust badges in hero (FSP etc. appear in footer and elsewhere).
+
+--------------------------------------------------------------------------------
+5. HOW TO USE THESE TOOLS
+--------------------------------------------------------------------------------
+
+  • Placement:  Directly below hero. py-8 md:py-10, border-t border-white/5,
+                bg-black/20. max-w-5xl.
+  • Layout:    Two-column on md: left "How to use these tools" (heading,
+                md:max-w-xs), right body text (zinc-400, sm).
+  • Copy:      Explains that each tool answers a specific question and leads
+                to a practical solution; use any order. In client discussions
+                the tools explain: what the problem is, why it exists, and
+                which product or structure solves it.
+
+--------------------------------------------------------------------------------
+6. CALCULATOR SECTIONS (BENTO-STYLE)
+--------------------------------------------------------------------------------
+
+  All sections use scroll-mt-24 where they have an id (for jump links).
+  Content max-width: max-w-5xl (max-w-4xl for Business Risk and final CTA).
+  Sections are separated by border-t border-white/5 unless noted.
+
+  SectionHeading component (used in sections 3–7):
+  • Renders a title (h2, text-xl md:text-2xl, white) and a line "Key question:
+    {question}" (zinc-500, sm). mb-6 md:mb-8.
+
+  CalculatorCard component (used for each calculator link):
+  • Props: tag, title, description, bullets[], leadsTo, href, featured?
+  • Tag:   Small teal label (text-xs, cinematic-teal, uppercase, tracking).
+  • Title: h3, white, bold; hover:text-cinematic-teal/90. Larger if featured.
+  • Description: gray-400, sm. Bullets: list with teal "→", gray-500.
+  • "Leads to:" line (gray-400 label + gray-500 text). CTA: "Open calculator"
+    (teal, hover gap increase). Card: rim-light, rounded-[2rem], border-0,
+    hover:bg-white/[0.07]. prefetch={false} on Link.
+  • featured: When true, card has p-6 md:p-8 lg:p-10 and max-w-3xl mx-auto;
+    title text-xl md:text-2xl. Used for single-card sections (Life Insurance,
+    Product Quotations).
+
+  Section 3 – Retirement Reality & Readiness (id="retirement")
+  -----------------------------------------------------------
+  • Key question: "Am I actually on track for retirement?"
+  • Grid: md:grid-cols-2 lg:grid-cols-3, gap-6.
+  • Cards (3): Retirement Savings Calculator (/retirement), Income in
+    Retirement Calculator (/income-in-retirement), Inflation Impact
+    Calculator (/cost-of-inflation-over-time). Each: tag "Problem Identifier",
+    title, description, bullets, leadsTo, href.
+
+  Section 4 – Tax & Estate Exposure
+  ----------------------------------
+  • Key question: "How much of my wealth will be lost to tax and estate costs?"
+  • Grid: md:grid-cols-2 lg:grid-cols-3, gap-6.
+  • Cards (3): Income Tax Calculator (/income-tax-calculator), Estate Duty &
+    Fees Calculator (/estate-duty-calculator), Estate Duty Reduction Strategy
+    Calculator (/annual-estate-reduction-strategy). Tags: "Problem Identifier"
+    for first two, "Strategy Modeller" for the third.
+
+  Section 5 – Life Insurance & Risk Planning
+  ------------------------------------------
+  • Key question: "What happens if something goes wrong?"
+  • Layout: Single full-width card (no grid). CalculatorCard with featured.
+  • Card (1): Premium Increase Problem Calculator (/premium-increase-calculator).
+    Tag "Problem Identifier".
+
+  Section 6 – Product Quotations (id="product-quotations")
+  --------------------------------------------------------
+  • Key question: "What does this look like in a real product?"
+  • Layout: Single full-width card, featured.
+  • Card (1): Everest Wealth Product Quote Calculators (/everest-wealth). Tag
+    "Product Quotation". Leads to Everest Wealth investment products and
+    implementation discussions.
+
+  Section 7 – Financial Education (id="financial-education")
+  ----------------------------------------------------------
+  • Key question: "What is it costing you not to learn how money really works?"
+  • Layout: Single card, max-w-3xl mx-auto. Not CalculatorCard; custom content
+    block (Link to /contact).
+  • Card: rim-light, rounded-[2rem], p-6 md:p-8 lg:p-10. Tag "Education &
+    Growth", title "The Cost of Not Learning". Two paragraphs + bullet list +
+    "Leads to:" + "Get in touch" (teal). href="/contact".
+
+--------------------------------------------------------------------------------
+7. BUSINESS RISK MANAGEMENT
+--------------------------------------------------------------------------------
+
+  • Placement:  py-16, border-t border-white/5, bg-black/20. max-w-4xl, centred.
+  • Content:   Centred text. Main heading "Business Risk Management"; subhead
+               "Your Business Stops the Moment You Do. That's Not a Business.
+               That's a Risk." Body copy on income dependency and structure.
+  • List:      Four rhetorical questions (e.g. three months off, best
+               employee leaving, website, missed lead) with blue "→" bullets.
+  • Closing:   Short line on missed calls, follow-ups, manual process.
+  • CTA:       "Assess your business risk" → /contact (white bg, black text,
+               rounded-[2rem], hover scale and shadow).
+
+--------------------------------------------------------------------------------
+8. FROM NUMBERS TO A PLAN (CTA BLOCK)
+--------------------------------------------------------------------------------
+
+  • Placement:  py-16 md:py-20, border-t border-white/5. max-w-4xl.
+  • Container: rounded-[2rem], rim-light, p-8 md:p-12. Overlay gradient
+               from-cinematic-teal/10 to-gold-orange/5.
+  • Content:    Centred. Eyebrow "From numbers to a plan" (teal, uppercase).
+               Heading "Clarity from the calculators. Confidence from a
+               conversation." Body: tools surface the gaps; we help close them.
+  • Buttons:    "Request a review" → /contact (primary, white bg). "WhatsApp
+                067 242 9946" → wa.me link (secondary, rim-light). Both
+                rounded-[2rem], flex stack on small, inline on sm+.
+
+--------------------------------------------------------------------------------
+9. QUICK LINKS STRIP
+--------------------------------------------------------------------------------
+
+  • Placement:  py-10, border-t border-white/5. max-w-5xl.
+  • Layout:    Flex wrap, centred, gap-x-6 gap-y-2, text-sm.
+  • Links:     WhatsApp 067 242 9946 (external), "Income in retirement" → /solutions,
+               "Insurance & risk planning" → /solutions, "Estate planning" →
+               /solutions, "Business insurance" → /solutions. Teal for
+               solutions links (hover underline), gray-400 for WhatsApp.
+
+--------------------------------------------------------------------------------
+10. FOOTER
+--------------------------------------------------------------------------------
+
+  Shared Footer (components/Footer.tsx): brand, quick links, contact,
+  regulatory (FSP 17273, Category 1.8), partners, cookie preferences, legal.
+
+--------------------------------------------------------------------------------
+11. FAQ SCHEMA (SEO)
+--------------------------------------------------------------------------------
+
+  • Component:  FAQSchema (components/FAQSchema.tsx). Accepts faqs array of
+                { question, answer }. Renders a <script type="application/ld+json">
+                with FAQPage schema (mainEntity: Question/Answer). Escapes
+                angle brackets and ampersands for JSON-LD safety.
+  • On this page: calculatorFAQs with two items:
+      1. "What calculators does AS Brokers offer?" – lists retirement, income
+         in retirement, inflation, tax, estate, premium comparison, Everest.
+      2. "Are calculator results financial advice?" – No; educational tools;
+         for personalised advice, book a consultation.
+
+  The schema is invisible to users but helps search engines show FAQ snippets.
+
+--------------------------------------------------------------------------------
+12. STYLING & DESIGN SYSTEM
+--------------------------------------------------------------------------------
+
+  • Background:  Page bg-void. Alternate strips use bg-black/20 (How to use,
+                 Business Risk). Void/shark consistency with rest of site.
+  • Cards:       rim-light (glassmorphism), rounded-[2rem] (squircle). No
+                 accent borders like solutions page; teal used for tags and
+                 link text (cinematic-teal).
+  • Typography:  Clear hierarchy: hero headline large and bold; section
+                 headings xl/2xl; card titles xl or 2xl if featured. Body
+                 gray-400/zinc-500, sm. "Key question" in zinc-500.
+  • Spacing:     Consistent section py-16 (or py-8/py-10 for compact strips).
+                 max-w-5xl or max-w-4xl for content. gap-6 in grids.
+  • Motion:      CSS only: hover:bg-white/10, hover:gap-2, transition-colors
+                 / transition-all. No Framer Motion on this page.
+  • Links:       All <Link> use prefetch={false}. External WhatsApp uses
+                 target="_blank" rel="noopener noreferrer".
+
+--------------------------------------------------------------------------------
+13. COMPONENTS USED (SUMMARY)
+--------------------------------------------------------------------------------
+
+  • FAQSchema     – JSON-LD FAQPage script (faqs prop).
+  • Footer        – Shared site footer.
+  • CalculatorCard – In-page: tag, title, description, bullets, leadsTo, href,
+                     optional featured. Rim-light card, teal accents.
+  • SectionHeading – In-page: title, question. Used above each calculator grid.
+
+  No ImagePlaceholder or icons on this page. Data: retirementCalculators,
+  taxEstateCalculators, lifeInsuranceCalculators, productCalculators arrays;
+  pillarLinks for jump nav; calculatorFAQs for schema.
+
+--------------------------------------------------------------------------------
+14. DATA & CONTENT
+--------------------------------------------------------------------------------
+
+  • pillarLinks:        Three jump links (Financial Calculators, Everest
+                        Wealth Products, Financial Education).
+  • retirementCalculators: 3 items. Each: tag, title, description, bullets[],
+                            leadsTo, href.
+  • taxEstateCalculators:   3 items. Same shape.
+  • lifeInsuranceCalculators: 1 item. Same shape; rendered with featured.
+  • productCalculators:     1 item. Same shape; rendered with featured.
+  • calculatorFAQs:     2 items for FAQSchema.
+  • Financial Education and Business Risk content is inline (paragraphs,
+    lists, CTAs). All calculator destinations are internal routes except
+    WhatsApp (external).
+
+--------------------------------------------------------------------------------
+15. RESPONSIVE BEHAVIOUR
+--------------------------------------------------------------------------------
+
+  • Hero:        Two-column grid on lg (7+5); stacks on smaller. Orbs scale
+                 with viewport. Jump nav full width below copy on small.
+  • How to use:  Two columns on md; stacks on small.
+  • Calculator grids: 1 col default, 2 cols from md, 3 cols from lg. Featured
+                      cards (Life, Product, Education) full width with
+                      max-w-3xl where applicable.
+  • CTA block:   Buttons stack on small, inline on sm+.
+  • Quick links: Wrap; centred.
+
+--------------------------------------------------------------------------------
+16. ACCESSIBILITY & SEO
+--------------------------------------------------------------------------------
+
+  • Section ids (retirement, product-quotations, financial-education) enable
+    in-page navigation and scroll-mt-24 for focus after jump.
+  • FAQSchema improves chance of FAQ rich results in search.
+  • Metadata (title, description) targets "financial calculators South Africa"
+    and FSP 17273. Semantic headings (h1, h2, h3) and link text describe
+    destinations. No aria issues specific to this page.
+
+--------------------------------------------------------------------------------
+17. RELATION TO REST OF SITE
+--------------------------------------------------------------------------------
+
+  • Entry:   Header "Calculators" → /calculators (no dropdown). Home page
+             "View all calculators" and solutions page "All calculators" also
+             link here. Run-out calculator lives on home (id="lab"); this page
+             links to /retirement and /income-in-retirement for related tools.
+  • Exit:    Every CalculatorCard and the Education/Business Risk blocks
+             link to a specific calculator route or /contact. Quick links go
+             to /solutions. CTA block goes to /contact and WhatsApp.
+  • Role:    Single hub for discovery and education; supports both self-serve
+             (run a calculator) and lead gen (contact, WhatsApp). Aligns with
+             "tools and structure, not just product sales" and the run-out gate
+             on the home page.
+
+================================================================================
+  END OF CALCULATORS PAGE OVERVIEW
+================================================================================

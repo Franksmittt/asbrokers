@@ -1,0 +1,194 @@
+================================================================================
+  WEALTH ARCHITECTURE TIMELINE (SALES PITCH CANVAS) - OVERVIEW
+================================================================================
+
+Last updated: March 2026
+
+--------------------------------------------------------------------------------
+1. WHAT IT IS
+--------------------------------------------------------------------------------
+
+The Wealth Architecture Timeline is an interactive "Sales Pitch Canvas" for AS
+Brokers advisors to use during live client consultations or screen-sharing
+sessions. It maps the client's financial journey onto a horizontal timeline
+structured around "The Three Phases of Financial Planning": Create Wealth,
+Protect Wealth, and Pass Wealth to the Next Generation.
+
+It lives inside the authenticated CRM at:
+
+  /crm/presentation
+
+Only users who can access the CRM (admin or staff roles) can open it. It is
+reached from the CRM sidebar via the link "Wealth Presentation" (presentation
+icon).
+
+--------------------------------------------------------------------------------
+2. WHAT IT LOOKS LIKE
+--------------------------------------------------------------------------------
+
+VISUAL DESIGN (Apple x Samsung hybrid)
+  - Dark void background (bg-void / #000000) inside a large rounded card
+    (rounded-[2rem] squircle).
+  - Slow-moving, blurred ambient orbs: cinematic teal (#008080) and gold-orange
+    (#FF7F50) for a low-key, high-contrast look.
+  - Rim-light style border (border-white/10) so the canvas feels like a
+    premium glass panel.
+
+TIMELINE LAYOUT
+  - Top: Three phase labels in small uppercase (Phase 1 / Phase 2 / Phase 3).
+  - Centre: A horizontal timeline made of three blocks of nodes with gradient
+    line segments between them. A full-width horizontal line runs behind the
+    nodes to suggest one continuous journey.
+
+NODES (left to right)
+  - Left block:  Calculations, Vitality, Last Will & Testament, Everest Wealth,
+                 Trust & Business Structure.
+  - Center block: Life Assurance (+3 sub-items), Short-term Insurance (+2),
+                  Medical Aid, Gap Cover.
+  - Right block:  Investments, Retirement Planning, Financial Freedom.
+
+  Each node is a squircle pill button (rounded-[2rem]) with light background
+  (bg-white/5) and border. On hover they brighten; when selected they get a
+  teal border and blue glow (shadow-cta-glow-blue). Nodes that have sub-topics
+  show a small "+2" or "+3" badge.
+
+CONTENT PANEL
+  - When the advisor clicks a node, a side panel slides in from the right
+    (Framer Motion, ~0.55s, Apple-style easing).
+  - Panel: dark card (bg-vault-card), rounded left corners, generous padding.
+  - Top: Headline (from the node's content) and a close (X) button.
+  - For nodes with children (e.g. Life Assurance): tabs for "Overview",
+    "Death", "Disability", "Severe Illness" so the advisor can switch talking
+    points without closing the panel.
+  - Body text with key phrases highlighted in cinematic teal (text-cinematic-teal).
+  - Bullet lists where the data includes them, with teal bullet markers.
+
+FULL-SCREEN (PRESENTATION) MODE
+  - A "Full screen" button sits above the timeline. Clicking it opens a
+    full-viewport overlay (fixed inset-0, z-100) that covers the entire
+    screen, including the CRM sidebar.
+  - The same timeline and panel are shown in this overlay, with a thin top
+    bar: "Wealth Architecture Timeline · Presentation mode" and an "Exit"
+    button to close and return to the normal CRM view.
+  - Intended for screen-sharing so the client only sees the canvas, not the
+    rest of the CRM.
+
+--------------------------------------------------------------------------------
+3. HOW IT WORKS
+--------------------------------------------------------------------------------
+
+ROUTE & ACCESS
+  - URL: /crm/presentation.
+  - Wrapped by the CRM layout (app/crm/layout.tsx), so the user must be logged
+    in and have CRM access (admin or staff). Clients are redirected to the
+    portal.
+  - Page component: app/crm/presentation/page.tsx (client component). It holds
+    the "Full screen" state and renders either the normal page or the
+    full-screen overlay.
+
+DATA (lib/presentation-data.ts)
+  - All copy and structure live in one file so advisors or content owners can
+    edit talking points without touching UI code.
+  - PHASES: array of { id, title, subtitle } for Create, Protect, Pass On.
+  - TIMELINE_NODES: array of nodes. Each node has:
+      id, label, phase, position (left | center | right), content (headline,
+      body, optional bullets, optional highlightPhrases).
+    Some nodes have children (e.g. Life Assurance has Death, Disability,
+    Severe Illness) with their own headline/body/highlights.
+  - Helpers: getNodeById(id), getNodesByPosition(position).
+
+INTERACTIVITY
+  - WealthArchitectureTimeline (components/crm/WealthArchitectureTimeline.tsx)
+    is a client component. It keeps the currently selected node id in state.
+  - Clicking a node sets that id (or clears it if the same node is clicked
+    again). The content panel shows the corresponding node's content;
+    for parent nodes with children, the panel also shows Overview vs
+    child tabs.
+  - Highlighting: body text is split on highlightPhrases; matching segments
+    are wrapped in <span className="text-cinematic-teal font-medium"> so
+    key phrases stand out during the pitch.
+
+ANIMATION
+  - Panel: slide in/out from the right (x: 100% -> 0), duration 0.55s,
+    cubic-bezier(0.25, 0.1, 0.25, 1) (ease-apple).
+  - Node buttons: scale 1.03 on hover, 0.98 on tap, 0.25s.
+  - Full-screen overlay: opacity 0 -> 1 on open, 0 on exit (AnimatePresence).
+
+NAVIGATION
+  - CrmSidebar (components/crm/CrmSidebar.tsx) includes a new link:
+    "Wealth Presentation" with the Presentation icon, href="/crm/presentation".
+  - Same link is available in the mobile CRM top bar as "Presentation".
+
+--------------------------------------------------------------------------------
+4. CONTENT SUMMARY (TALKING POINTS BY PHASE)
+--------------------------------------------------------------------------------
+
+Phase 1: Create Wealth (Financial Freedom Planning)
+  - Calculations: How much capital? Inflation impact? Capital lifespan? Tools
+    listed: capital required, inflation, run-out, tax/estate estimates.
+  - Everest Wealth: Code 1.8, fixed-return unlisted structures; 12.8%, 14.5%,
+    Amethyst Living Annuity.
+  - Investments: Before/after retirement; sustainable income; accumulation
+    and decumulation.
+  - Retirement Planning: Goal is financial freedom, not just retirement;
+    calculators + structures (RA, pension, living annuity, Amethyst).
+  - Financial Freedom: Income exceeding expenses; not dependent on a paycheck;
+    Create, Protect, Pass On.
+
+Phase 2: Protect Wealth (Risk Planning)
+  - Medical Aid: First line of defense; private healthcare without eroding
+    wealth; optimal coverage.
+  - Gap Cover: Shortfall between medical aid and specialist charges; avoids
+    large out-of-pocket impact on capital.
+  - Short-term: Asset protection so investments are not used to replace
+    stolen/damaged goods; Personal (home, car, valuables) and Business
+    (commercial, liability, fleet).
+  - Life Assurance: Death (dependants/debt), Disability (income replacement),
+    Severe Illness (capital for treatments). Sub-tabs for Death, Disability,
+    Severe Illness with focused copy.
+
+Phase 3: Pass Wealth to the Next Generation (Estate Planning)
+  - Last Will & Testament: Wishes carried out; taxes and executor costs
+    settled; guardians and beneficiaries named.
+  - Trust & Business Structure: Asset protection; intergenerational
+    continuity; tax-efficient transfer.
+  - Vitality: Extra value service; wellness and vitality benefits;
+    long-term health and reduced future claims on capital.
+
+--------------------------------------------------------------------------------
+5. FILES CREATED OR TOUCHED
+--------------------------------------------------------------------------------
+
+New files:
+  - lib/presentation-data.ts
+      Data for phases and timeline nodes (content only).
+  - components/crm/WealthArchitectureTimeline.tsx
+      Client component: canvas, nodes, content panel, highlight logic.
+  - app/crm/presentation/page.tsx
+      CRM page: title, description, Full screen button, overlay.
+  - app/crm/presentation/layout.tsx
+      Metadata (title "Wealth Presentation", description).
+
+Updated files:
+  - components/crm/CrmSidebar.tsx
+      Added "Wealth Presentation" link (desktop nav + mobile strip).
+  - components/icons.tsx
+      Added Presentation and Maximize2 icons.
+
+--------------------------------------------------------------------------------
+6. TECHNICAL NOTES
+--------------------------------------------------------------------------------
+
+  - Tailwind: Uses existing design tokens (void, cinematic-teal, vault-card,
+    rounded-[2rem], border-white/10, shadow-cta-glow-blue, etc.).
+  - No new environment variables or API calls; all content is static from
+    presentation-data.ts.
+  - The timeline container has overflow-x-auto so on narrow screens the
+    three blocks can scroll horizontally if needed.
+  - Full-screen mode is purely client-side (useState + fixed overlay); the
+    CRM layout still renders the sidebar, but the overlay covers it so the
+    client in a screen-share only sees the timeline and panel.
+
+--------------------------------------------------------------------------------
+END OF OVERVIEW
+================================================================================

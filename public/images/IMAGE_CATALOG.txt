@@ -1,0 +1,237 @@
+================================================================================
+  AS BROKERS — public/images/  VISUAL ASSET CATALOG
+================================================================================
+Generated for client handover. Each entry describes what appears in the file
+as of the catalog date. Aspect ratios inferred from filenames where noted.
+
+--------------------------------------------------------------------------------
+CORE HERO / WIDE ASSETS (site sections & prompts pack)
+--------------------------------------------------------------------------------
+
+home-actuarial-engine-16x9.jpg
+  • Actuarial / retirement desk: worksheet with a downward “capital cliff” style
+    curve, Casio calculator, fountain pen, reading glasses, warm natural light.
+  • Fits: home #lab “Interactive Actuarial Engine”, run-out / lifespan story.
+
+home-yield-continuity-4x3.jpg
+  • Premium desk with navy binder branded “EVEREST STRUCTURED YIELD SOLUTIONS”,
+    “RETIREMENT INCOME STRATEGY”, “Code 1.8 Distribution Portfolio”; dividend /
+    fixed-income printouts, pen, glass of water.
+  • Fits: Everest / Code 1.8 / structured yield between home sections.
+
+solutions-hero-16x9.jpg
+  • Four service props on wood: teal “SHORT-TERM INSURANCE (HOME & MOTOR)” folder,
+    blue “LIFE & BUSINESS RISK…” binder, leather “ESTATE PLANNING & TRUST SERVICES”,
+    brochures “RETIREMENT SUMMARY” / “EVEREST-TYPE YIELD” / “ANNUITY OPTIONS”.
+  • Fits: solutions hub hero — literal map of what the FSP offers.
+
+solutions-hero.jpg  (legacy / alternate)
+  • Abstract teal marble + glass architecture, city bokeh — decorative only.
+  • Note: not service-literal; prefer solutions-hero-16x9.jpg for authenticity.
+
+calculators-hub-16x9.jpg
+  • Desk covered in sheets headed Retirement / Tax / Estate / Premiums; yellow
+    highlighter, wooden ruler, mechanical pencil, small calculator, mug + glasses
+    soft in background.
+  • Fits: /calculators hero band.
+
+calculators-capital-lifespan-4x3.jpg
+  • SA Rand (e.g. R200 stack), coins, “RETIREMENT TIMELINE” grid, year planner
+    (2024–2029), vintage calculator; window light.
+  • Fits: retirement capital / drawdown calculators.
+
+calculators-education-16x9.jpg
+  • Stack of finance books (spines: planning, investing, market basics), open
+    spiral notebook “Financial Learning”, pen, tablet face-down, suburban view
+    through window.
+  • Fits: financial education / insights tone.
+
+everest-suite-hero-16x9.jpg
+  • Large SA fruit packhouse: conveyors, apples, sign “SOUTH AFRICAN PACKHOUSE
+    GROUP - CAPE FRUIT DIVISION”; golden industrial light.
+  • Fits: real-economy backing narrative for Everest suite.
+
+everest-copper-industrial-4x3.jpg
+  • Copper refinery: cathode sheets, molten pour, steel plant interior — heavy
+    industrial / commodity feel.
+  • Fits: tangible asset / unlisted portfolio story on everest-wealth.
+
+about-krugersdorp-trust-16x9.jpg
+  • Storefront “KRUGERSDORP FINANCIAL & INVESTMENT TRUST”, glass door
+    “INDEPENDENT FINANCIAL ADVICE”, window “EST. 1994”, “FSP 17273”; street, cars,
+    trees. (Verify real premises vs synthetic façade for compliance.)
+
+about-fiduciary-plaque-4x3.jpg
+  • Black lever arch “FSCA-oriented compliance binder”; clipped “FAIS disclosure
+    pack”; business cards “Financial Advisor” / FSP placeholder; lanyard; monitor
+    with charts; bookshelf.
+  • Fits: about / regulatory honesty — real compliance paperwork aesthetic.
+
+about-visual.jpg  (legacy)
+  • Monitor with financial dashboard (teal UI); blurred office with two advisers.
+  • Generic “analytics” — usable where you want software + people blur, not locale.
+
+everest-visual.jpg  (legacy)
+  • Abstract stacked teal blocks, gold rim light — brand mood only, not literal.
+
+contact-trust.jpg
+  • Adviser meeting older couple in bright room; leather seating, coffee table,
+    mugs, notebook — human trust / consultation. **Contains identifiable people**
+    (not “no-faces” safe for global marketing rule).
+
+logo.jpg
+  • Teal field, white “ASB” monogram + “A S BROKERS” + “Authorised Financial
+    Services Provider” tag line.
+
+--------------------------------------------------------------------------------
+SQUARE INSETS (1:1) — BY FILENAME
+--------------------------------------------------------------------------------
+
+personal-insurance-inset-1x1.jpg
+  • Hands hold premium metal security token; screen “ACTIVE ADVICE SECURED”;
+    blurred marble / wood lobby. More “secure advice” gadget than motor cover.
+
+solutions-fiduciary-defense-1x1.jpg
+  • **Highly metaphorical:** vault door, three suited hands on combination dial
+    engraved “FIDUCIARY DEFENSE” / “SECURITY DIAL” / “CODE INPUT”; keyhole, gears.
+  • Note: includes hands (no full faces). Different vibe from insurance-desk shots.
+
+solutions-fiduciary-defense-1x1 (2).jpg
+  • **Practical insurance desk:** open folder “Short-term Motor Insurance Policy
+    Jacket”, premium schedule, car key fob, green “Medical-aid” leaflet, pen.
+  • Strong match for short-term / personal lines; consider renaming to avoid
+    duplicate base name, and pick one canonical “Phase 2” asset.
+
+retirement-inset-1x1.jpg
+  • Leather portfolio with Everest Amethyst-style “A”; document “LIVING ANNUITY
+    PROTOCOL”; hands, fountain pen, marble desk, executive office blur.
+
+living-annuity-inset-1x1.jpg
+  • Skeleton mechanical watch being wound; gold band; suit blur — **time /
+    precision metaphor**, not a literal annuity document.
+
+income-retirement-inset-1x1.jpg
+  • Futuristic glass calculator; screen shows **US IRS-style tax form** and figures;
+    visible internal gears. Powerful visual but **jurisdiction mismatch** for SA —
+    consider regen with SARS-style blur or use only as generic “tax engine”.
+
+inflation-cost-inset-1x1.jpg
+  • Tablet “Client Discovery” UI, risk slider, stylus; marble + wood desk.
+  • Reads as onboarding — **not specifically inflation**; rename usage or replace
+    if you need CPI / purchasing-power imagery.
+
+income-tax-calculator-inset-1x1.jpg
+  • Stylus on tablet spreadsheet: “Tax Planning”, years, rand-like numbers;
+    marble desk.
+
+estate-duty-calculator-inset-1x1.jpg
+  • Financial calculator display 2,540,000 on “ESTATE VALUATION REPORT” /
+    “PROJECTED CASH FLOWS”; rolled blueprint “BUSINESS EXPANSION PROJECT”; pen.
+
+annual-estate-reduction-inset-1x1.jpg
+  • Hand moves glass block among desk totems: “Real Estate Deeds”, “Business
+    Interests”, “Investment Folios”; signs “DUTY LIABILITY”, “LEGACY PRESERVED”;
+    engraved world-map desk.
+
+premium-calculator-inset-1x1.jpg
+  • Hand writes on “ACTUARIAL TABLE” (annual premium, increase %, risk rows);
+    Braun calculator display matches handwritten total; green marble + leather books.
+
+calculators-inset-1x1.jpg
+  • Leather books “RETIREMENT PLANNING” + “ESTATE DUTY”; HP-style financial
+    calculators; phones; pen; credentialed office blur.
+
+business-insurance-inset-1x1.jpg
+  • Two advisers’ hands over technical drawing; manila folder “M&A Business
+    Insurance”; dark veined marble.
+
+business-life-inset-1x1.jpg
+  • Blueprint “NEW BUSINESS HEADQUARTERS” + folder “SUCCESSION PLANNING DOCUMENT”;
+    fountain pen; two hands — buy-and-sell / continuity theme.
+
+life-insurance-inset-1x1.jpg
+  • Brown leather folder; pages “POLICY OVERVIEW”, “LEGACY PROTECTION PLAN”,
+    “Life Insurance”, “BENEFICIARY DESIGNATIONS”; handwritten ticks.
+
+everest-128-inset-1x1.jpg
+  • Dark monitor dashboard “Alternative asset… pool”, upward chart, tooltip
+    “Ticker EW12.8%”; hands point at screen — **on-brand rate cue**; some AI
+    gibberish in UI subtitles.
+
+everest-growth-145-inset-1x1.jpg
+  • Conceptual still-life: prism splitting light into teal/gold growth arrows;
+    wooden console with etched charts; hand writes in notebook labeled “Ledger”.
+
+everest-wealth-inset-1x1.jpg
+  • Hand presents small device; screen “ACTIVE / ADVICE / SECURED”; USB-C edge,
+    marble inlay — digital trust / advice security.
+
+semigration-retirement-inset-1x1.jpg
+  • Luxury **decorative abacus** (silver vs gold frames, marble base) on dark desk
+    — metaphorical “counting the years”, not literal semigration/Western Cape.
+
+quiz-inset-1x1.jpg
+  • Tablet “CLIENT DISCOVERY • GOAL ALIGNMENT”: Wealth Transfer, Charitable Giving,
+    risk graph, “Moderate” selected; stylus; marble office.
+
+chat-inset-1x1.jpg
+  • Tablet chat UI “Secure real-time connection”, “Wealth management advisor”;
+    typos in bubbles (“Hhat's…”, “Typp wn message…”). **Consider editing or regen**
+    if used client-facing.
+
+insights-inset-1x1.jpg
+  • Prism + spotlight → teal/gold upward arrows; hand writes “Notes” in notebook;
+    marble / wood / metal desk — analysis / editorial metaphor.
+
+lab-inset-1x1.jpg
+  • Overhead “war room”: suits around table with large glowing analytics surface
+    (maps, charts); marble/wood table — team + data (faces not hero but people present).
+
+regulatory-compliance-inset-1x1.jpg
+  • Interlocking steel/gold gears etched FAIS, FICA, Tax, Fiduciary; balance-scale
+    seal; dark marble — **regulatory machine** metaphor.
+
+privacy-inset-1x1.jpg
+  • Laptop “Encryption status” dashboard, keys, logs; hands typing — POPIA /
+    data security tone. Some UI labels slightly garbled (AI).
+
+terms-inset-1x1.jpg
+  • Signing “FIDUCIARY AGREEMENT”; **body text visibly embeds old image-prompt
+    instructions** (meta leak). **Not suitable as final legal/terms art** unless
+    cropped or regenerated with real clause blur.
+
+complaints-inset-1x1.jpg
+  • Drawer embossed “ADVISOR REVIEW”; hand pulls letter from envelope opening
+    “Dear Leone,” — personal complaints / ombudsman correspondence vibe.
+
+conflict-interest-inset-1x1.jpg
+  • Glass scale “EW Fees” vs “Client First”; hand adds weight; teal/orange light —
+    conflicts / fair balance narrative.
+
+manage-cookies-inset-1x1.jpg
+  • Phone “SECURE ACCESS” → “Verify Login Attempt?” APPROVE / DENY; finger on
+    APPROVE; marble + desk — consent / MFA / session trust.
+
+about-selective-inset-1x1.jpg
+  • Embosser on cardstock; seal reads “EW Legacy Defense” — branded legacy /
+    protection stamp.
+
+--------------------------------------------------------------------------------
+NOTES FOR PRODUCTION
+--------------------------------------------------------------------------------
+1. Duplicate naming: keep either solutions-fiduciary-defense-1x1.jpg OR the (2)
+   variant as the canonical insurance desk; delete or archive the other to avoid
+   build/content confusion.
+2. Replace or crop terms-inset-1x1.jpg (prompt text in document body).
+3. chat-inset-1x1.jpg: fix UI copy if shown large.
+4. income-retirement-inset-1x1.jpg: US tax form — align to SA if compliance-sensitive.
+5. inflation-cost-inset-1x1.jpg: content ≠ inflation — adjust page pairing or asset.
+6. Several images show **hands only** (acceptable for many layouts); contact-trust
+   shows **full faces** — use only where you explicitly want people.
+7. Paths on the live site: newer wides are referenced as /assets/optimized/… in
+   TSX; your files live under /images/ — **update src paths** or copy files so
+   routes match deployment.
+
+--------------------------------------------------------------------------------
+END OF CATALOG
+================================================================================

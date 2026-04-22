@@ -1,0 +1,14 @@
+---
+description: AS Brokers Next.js 15 - RSC default, Server Actions, Tailwind, Zod
+alwaysApply: true
+---
+
+# AS Brokers Cursor Rules
+
+- Default to React Server Components. Use use client only for forms, calculators, Framer Motion, or browser APIs.
+- Data mutations: use Next.js Server Actions. No REST API routes for form or CRM submissions.
+- Validation: Zod at all form and calculator boundaries.
+- Styling: Tailwind only, mobile-first. Glassmorphism: bg-white/5, backdrop-blur-xl, ring-1 ring-white/10 for primary cards.
+- Motion: respect prefers-reduced-motion everywhere.
+- Everest: R100k minimum on voluntary products. Amethyst drawdown 2.5 to 17.5 percent. Show liquidity warning on voluntary product pages.
+- Read agents.md and app/calculators/CONTEXT.md when changing business logic or formulas.

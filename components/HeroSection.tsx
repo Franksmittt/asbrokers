@@ -23,7 +23,7 @@ export function HeroSection() {
       aria-label="Hero"
     >
       <div className="container mx-auto px-4 max-w-4xl text-center space-y-10">
-        {/* Trust bar — above fold: FSP 17273, Category 1.8, 25+ Years */}
+        {/* Trust bar  -  above fold: FSP 17273, Category 1.8, 25+ Years */}
         <motion.div
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ export function HeroSection() {
           FSP 17273 · Category 1.8 · 25+ Years Experience
         </motion.div>
 
-        {/* Headline — the agitator */}
+        {/* Headline  -  the agitator */}
         <div className="space-y-5">
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
@@ -81,7 +81,7 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Trust bar — partner logos (text placeholders; add images in public if needed) */}
+        {/* Trust bar  -  partner logos (text placeholders; add images in public if needed) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

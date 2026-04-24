@@ -5,7 +5,7 @@ import { PremiumComparisonCalculator } from "@/components/PremiumComparisonCalcu
 export const metadata = {
   title: "Life Insurance Premium Sustainability & Escalation Tool | AS Brokers FSP 17273",
   description:
-    "Compare year-by-year life policy premiums you enter yourself. Model long-term affordability, escalation, and level vs increasing structures—education only, not a quote or product recommendation.",
+    "Compare year-by-year life policy premiums you enter yourself. Model long-term affordability, escalation, and level vs increasing structures - education only, not a quote or product recommendation.",
   keywords: [
     "life insurance premium increase",
     "escalating vs level premiums South Africa",
@@ -36,18 +36,18 @@ export default function PremiumIncreaseCalculatorPage() {
       {/* Intro context */}
       <section className="py-10 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl font-bold text-white mb-4 text-center md:text-left">Premium sustainability—not only today’s debit order</h2>
+          <h2 className="text-xl font-bold text-white mb-4 text-center md:text-left">Premium sustainability - not only today’s debit order</h2>
           <p className="text-zinc-400 text-sm leading-relaxed mb-4">
             Long-term <strong className="text-zinc-300">risk insurance</strong> premiums can rise because of scheduled
             escalation, age-based rating, benefit reviews, or changes in insurer pricing assumptions. The starting premium is
             a poor proxy for total lifetime cost. This tool lets you <strong className="text-zinc-300">type in the actual
-            premiums</strong> shown on schedules or quotes year by year—so you see the rand trajectory, not marketing
+            premiums</strong> shown on schedules or quotes year by year - so you see the rand trajectory, not marketing
             percentages alone.
           </p>
           <ul className="text-zinc-500 text-sm space-y-2 list-disc pl-5 marker:text-zinc-600">
             <li>Educational; does not calculate premiums for you or recommend switching products.</li>
             <li>Assumes the figures you enter are accurate; verify against your insurer documentation.</li>
-            <li>Outcomes depend on future insurer behaviour—illustrations are not guarantees.</li>
+            <li>Outcomes depend on future insurer behaviour - illustrations are not guarantees.</li>
           </ul>
         </div>
       </section>
@@ -260,7 +260,7 @@ export default function PremiumIncreaseCalculatorPage() {
             AS Brokers CC is an authorised financial services provider (FSP 17273). This calculator is a transparency aid; it
             is not a personalised quote, suitability analysis, or replacement advice. Replacing or cancelling cover can have
             underwriting consequences; discuss changes with a qualified adviser. References to product philosophies or insurers on
-            this page describe market mechanics generally—not an endorsement or criticism of any brand.
+            this page describe market mechanics generally - not an endorsement or criticism of any brand.
           </p>
           <p className="text-zinc-500 text-xs leading-relaxed">
             <Link href="/regulatory-compliance" className="text-cinematic-teal hover:underline">FAIS disclosure &amp; complaints</Link>

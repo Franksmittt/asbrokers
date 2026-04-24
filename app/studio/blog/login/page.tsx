@@ -45,13 +45,13 @@ export default async function StudioBlogLoginPage({
           <li className="flex gap-2">
             <span className="shrink-0 text-teal-600">•</span>
             <span>
-              Forgot the password? Contact AS Brokers — it is not stored in this app for security.
+              Forgot the password? Contact AS Brokers  -  it is not stored in this app for security.
             </span>
           </li>
           <li className="flex gap-2">
             <span className="shrink-0 text-teal-600">•</span>
             <span>
-              After login you&apos;ll see the editor, preview, and clear steps — nothing here changes bank or client
+              After login you&apos;ll see the editor, preview, and clear steps  -  nothing here changes bank or client
               records.
             </span>
           </li>

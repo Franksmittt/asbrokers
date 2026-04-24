@@ -24,7 +24,7 @@ export function TrustBar() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
       <div className="max-w-5xl mx-auto">
-        {/* Regulatory badges — engraved pill style */}
+        {/* Regulatory badges  -  engraved pill style */}
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-10">
           {badges.map((b) => (
             <div
@@ -51,7 +51,7 @@ export function TrustBar() {
           ))}
         </div>
 
-        {/* Partners — clean label + names */}
+        {/* Partners  -  clean label + names */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
           <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-[0.2em]">
             Recognised partners

@@ -48,7 +48,7 @@ export default function EverestWealthAboutPage() {
         </div>
       </section>
 
-      {/* Sticky section nav — desktop only */}
+      {/* Sticky section nav  -  desktop only */}
       <nav
         className="sticky top-[72px] z-40 hidden md:block py-3 -mx-4 sm:-mx-6 md:-mx-8 px-4 sm:px-6 md:px-8 bg-[#0a0a0c]/95 backdrop-blur-xl border-b border-white/5"
         aria-label="Page sections"

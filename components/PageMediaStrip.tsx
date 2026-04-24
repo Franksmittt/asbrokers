@@ -4,9 +4,9 @@ import Image from "next/image";
 export const PAGE_CONTENT_MAX = "max-w-7xl mx-auto px-4 sm:px-6 md:px-8";
 
 const heights = {
-  /** Primary band — same as home “Actuarial Engine” strip. */
+  /** Primary band  -  same as home “Actuarial Engine” strip. */
   primary: "h-[160px] sm:h-[180px] md:h-[200px] lg:h-[220px]",
-  /** Secondary band — same as home yield strip under Everest. */
+  /** Secondary band  -  same as home yield strip under Everest. */
   secondary: "h-[140px] sm:h-[160px] md:h-[180px]",
   /** Three-up row: shorter so the row stays editorial, not billboard. */
   tile: "h-[92px] sm:h-[104px] md:h-[116px] lg:h-[124px]",
@@ -53,7 +53,7 @@ type TripleProps = {
   className?: string;
 };
 
-/** Three equal tiles — same total width as {@link PageMediaStrip}. */
+/** Three equal tiles  -  same total width as {@link PageMediaStrip}. */
 export function PageMediaStripTriple({ items, className }: TripleProps) {
   return (
     <div className={`grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 ${className ?? ""}`}>

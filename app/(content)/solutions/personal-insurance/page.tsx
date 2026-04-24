@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 export const metadata = {
   title: "Personal Short-Term Insurance South Africa | Home, Car & All Risk | AS Brokers FSP 17273",
   description:
-    "Independent short-term insurance advice in Krugersdorp and Gauteng: home, motor, all risk, liability and travel. How cover works, what to watch for, and FAIS-aligned guidance—no empty promises.",
+    "Independent short-term insurance advice in Krugersdorp and Gauteng: home, motor, all risk, liability and travel. How cover works, what to watch for, and FAIS-aligned guidance - no empty promises.",
   keywords: [
     "short-term insurance South Africa",
     "home insurance Gauteng",
@@ -25,10 +25,10 @@ export default function PersonalInsurancePage() {
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">Personal Short-Term Insurance</h1>
             <p className="text-xl text-zinc-400">When You Need Protection That Actually Protects</p>
             <p className="text-zinc-500 mt-4 max-w-3xl mx-auto leading-relaxed">
-              Short-term insurance (non-life) protects things you own and liabilities you might incur—your home, vehicles,
+              Short-term insurance (non-life) protects things you own and liabilities you might incur - your home, vehicles,
               portable valuables, and legal liability. As an{" "}
               <strong className="text-zinc-400 font-medium">independent authorised financial services provider (FSP 17273)</strong>, AS
-              Brokers helps you structure cover against real risks, with claims and wording in mind—not only the lowest
+              Brokers helps you structure cover against real risks, with claims and wording in mind - not only the lowest
               headline premium.
             </p>
             <p className="trust-hallmark text-xs text-zinc-600 mt-6">FSP 17273 · Krugersdorp, Gauteng</p>
@@ -43,13 +43,13 @@ export default function PersonalInsurancePage() {
               <strong className="text-zinc-300">Short-Term Insurance Act</strong> and overseen by the{" "}
               <strong className="text-zinc-300">FSCA</strong>. Policies transfer specified financial risks to an insurer in
               exchange for premium. Pay-outs depend on the <strong className="text-zinc-300">policy wording</strong>, events
-              that occur, and compliance with conditions—there is no investment return “guarantee” in the way you might see
+              that occur, and compliance with conditions - there is no investment return “guarantee” in the way you might see
               with certain long-term products.
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed">
               A good broker helps you align <strong className="text-zinc-300">sums insured</strong>,{" "}
               <strong className="text-zinc-300">excesses</strong>, and <strong className="text-zinc-300">extensions</strong>{" "}
-              (e.g. car hire, watercraft, all-risk specified items) with how you actually live—so that at claim time the
+              (e.g. car hire, watercraft, all-risk specified items) with how you actually live - so that at claim time the
               contract does what you expected.
             </p>
           </div>
@@ -59,12 +59,12 @@ export default function PersonalInsurancePage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-xl font-bold text-white mb-4">Cover types we typically structure</h2>
             <ul className="text-zinc-400 space-y-3 text-sm leading-relaxed">
-              <li>· <strong className="text-zinc-200">Home:</strong> buildings, contents, geysers, accidental damage—reviewed against rebuilding and replacement values.</li>
+              <li>· <strong className="text-zinc-200">Home:</strong> buildings, contents, geysers, accidental damage - reviewed against rebuilding and replacement values.</li>
               <li>· <strong className="text-zinc-200">Motor:</strong> private or business use; comprehensive vs limited cover; tracking and security conditions where relevant.</li>
-              <li>· <strong className="text-zinc-200">Portable valuables:</strong> all-risk for jewellery, electronics, tools—often where underinsurance shows up first.</li>
+              <li>· <strong className="text-zinc-200">Portable valuables:</strong> all-risk for jewellery, electronics, tools - often where underinsurance shows up first.</li>
               <li>· <strong className="text-zinc-200">Watercraft & leisure:</strong> tailored extensions where standard policies stop.</li>
-              <li>· <strong className="text-zinc-200">Personal liability:</strong> legal liability to third parties—limits and exclusions differ by insurer.</li>
-              <li>· <strong className="text-zinc-200">Travel:</strong> medical emergencies, cancellation, baggage—wording and territorial limits matter.</li>
+              <li>· <strong className="text-zinc-200">Personal liability:</strong> legal liability to third parties - limits and exclusions differ by insurer.</li>
+              <li>· <strong className="text-zinc-200">Travel:</strong> medical emergencies, cancellation, baggage - wording and territorial limits matter.</li>
             </ul>
             <p className="text-zinc-500 text-sm mt-6">
               Exact benefits depend on the insurer’s policy schedule. We do not promise specific claim outcomes; we work
@@ -79,8 +79,8 @@ export default function PersonalInsurancePage() {
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
               Many disputes arise from <strong className="text-zinc-300">underinsurance</strong> and average (co-insurance)
               clauses: if you insure a building or contents for less than the cost to reinstate, the insurer may reduce a
-              claim proportionally. Regular reviews—especially after renovations, new purchases, or load-shedding-related
-              losses—help keep values credible.
+              claim proportionally. Regular reviews - especially after renovations, new purchases, or load-shedding-related
+              losses - help keep values credible.
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed">
               Motor vehicles need attention too: agreed value vs market value, finance/lease requirements, and use of the
@@ -94,7 +94,7 @@ export default function PersonalInsurancePage() {
             <h2 className="text-xl font-bold text-white mb-4">Claims and ongoing service</h2>
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
               Short-term insurance is judged at <strong className="text-zinc-300">claim time</strong>. AS Brokers focuses on
-              structured cover upfront and support when you need to claim—documentation, timelines, and liaison with
+              structured cover upfront and support when you need to claim - documentation, timelines, and liaison with
               insurers. Every claim is assessed by the insurer against policy terms; we do not control their final decision.
             </p>
             <p className="text-zinc-500 text-sm">

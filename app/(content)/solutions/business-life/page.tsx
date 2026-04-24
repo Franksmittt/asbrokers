@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 export const metadata = {
   title: "Business Life Insurance | Buy-and-Sell, Key Person & Surety | AS Brokers FSP 17273",
   description:
-    "Buy-and-sell agreements, key-person cover, loan account insurance, and contingent liability for South African companies—technical structuring with independent FSP 17273.",
+    "Buy-and-sell agreements, key-person cover, loan account insurance, and contingent liability for South African companies - technical structuring with independent FSP 17273.",
   keywords: [
     "buy and sell agreement insurance",
     "key person insurance South Africa",
@@ -27,7 +27,7 @@ export default function BusinessLifePage() {
               When a shareholder or director dies, the company, family, and creditors can all pull in different directions.
               <strong className="text-zinc-400 font-medium"> Business risk insurance</strong> (buy-and-sell, key person,
               contingent liability, credit loan / loan account cover) provides liquidity to execute a prior agreement or stabilise
-              cash flow—<em>if</em> policies, beneficiaries, and valuations match the legal structure. AS Brokers specialises in
+              cash flow - <em>if</em> policies, beneficiaries, and valuations match the legal structure. AS Brokers specialises in
               this sequence: <strong className="text-zinc-400 font-medium">contract first, insurance funds the agreement</strong>.
             </p>
             <p className="trust-hallmark text-xs text-zinc-600 mt-6">FSP 17273 · Legal and valuation partners where required</p>
@@ -41,16 +41,16 @@ export default function BusinessLifePage() {
               <li>
                 <strong className="text-white">Buy-and-sell (or similar shareholder protection).</strong> A binding agreement
                 sets how shares are priced and transferred; policies fund the purchase so survivors keep control and estates
-                receive cash. Poor valuation clauses and outdated ownership details cause failures—we stress-test these with your attorney.
+                receive cash. Poor valuation clauses and outdated ownership details cause failures - we stress-test these with your attorney.
               </li>
               <li>
                 <strong className="text-white">Key person insurance.</strong> Pays the company if a person critical to revenue
                 or operations dies or becomes disabled (per definitions). Sum insured should reflect recruitment cost, lost margin,
-                and contractual exposures—not an arbitrary round number.
+                and contractual exposures - not an arbitrary round number.
               </li>
               <li>
                 <strong className="text-white">Contingent liability / surety-related cover.</strong> Where directors signed
-                personal sureties, death can trigger lender calls. Specific contingent products may apply—underwriting and
+                personal sureties, death can trigger lender calls. Specific contingent products may apply - underwriting and
                 bank coordination matter.
               </li>
               <li>
@@ -84,7 +84,7 @@ export default function BusinessLifePage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-xl font-bold text-white mb-4">Compliance and realism</h2>
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-              We do not promise that cover will pay in every scenario—claims depend on event definitions, disclosure, and policy
+              We do not promise that cover will pay in every scenario - claims depend on event definitions, disclosure, and policy
               maintenance. Premiums follow underwriting and may be revised. Where valuations are material, we expect independent
               professionals to sign off figures used in agreements.
             </p>

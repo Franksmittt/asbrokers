@@ -5,7 +5,7 @@ import { EstateDutyCalculator } from "@/components/EstateDutyCalculator";
 export const metadata = {
   title: "Estate Duty & Executor Cost Calculator South Africa | AS Brokers FSP 17273",
   description:
-    "Illustrative estate duty, abatement, and executor-cost awareness for South African residents. Not a SARS assessment—independent FSP 17273 educational tool with liquidity planning context.",
+    "Illustrative estate duty, abatement, and executor-cost awareness for South African residents. Not a SARS assessment - independent FSP 17273 educational tool with liquidity planning context.",
   keywords: [
     "estate duty calculator South Africa",
     "executor fees estimate",
@@ -63,7 +63,7 @@ export default function EstateDutyCalculatorPage() {
           <p>
             <strong className="text-zinc-300">Executor fees</strong> (often commission-based subject to regulation and agreed
             terms) and <strong className="text-zinc-300">liquidity timing</strong> mean families sometimes must raise cash
-            before inheritances flow. Life policies and liquid investments may help—if ownership and beneficiary structures
+            before inheritances flow. Life policies and liquid investments may help - if ownership and beneficiary structures
             were set up correctly and remain appropriate.
           </p>
           <p className="text-zinc-500">

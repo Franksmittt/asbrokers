@@ -83,7 +83,7 @@ export function ExpertiseHighlights() {
         Expertise highlights
       </h2>
 
-      {/* md and up: card grid (2 cols at md, 3 at lg) — option 1 width + option 2 cards */}
+      {/* md and up: card grid (2 cols at md, 3 at lg)  -  option 1 width + option 2 cards */}
       <div
         className="max-w-7xl mx-auto hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         role="list"

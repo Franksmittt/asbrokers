@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 export const metadata = {
   title: "Estate Planning, Wills & Trusts South Africa | AS Brokers FSP 17273 Krugersdorp",
   description:
-    "Educational guide to wills, trusts, estate duty awareness, and liquidity planning. Coordinate with attorneys; independent FSP 17273 in Gauteng—no unrealistic promises.",
+    "Educational guide to wills, trusts, estate duty awareness, and liquidity planning. Coordinate with attorneys; independent FSP 17273 in Gauteng - no unrealistic promises.",
   keywords: [
     "estate planning South Africa",
     "wills and trusts Gauteng",
@@ -28,7 +28,7 @@ export default function EstatePlanningPage() {
               beneficiaries, ownership of assets, and liquidity (cash at death) with your family&apos;s needs. In South
               Africa, <strong className="text-zinc-400 font-medium">SARS estate duty</strong>, executor fees, and outstanding
               debt must often be settled before heirs inherit. AS Brokers (FSP 17273) focuses on the{" "}
-              <strong className="text-zinc-400 font-medium">financial and risk</strong> side—coordinating with your{" "}
+              <strong className="text-zinc-400 font-medium">financial and risk</strong> side - coordinating with your{" "}
               <strong className="text-zinc-400 font-medium">attorney</strong> who drafts binding legal instruments.
             </p>
             <p className="trust-hallmark text-xs text-zinc-600 mt-6">FSP 17273 · Krugersdorp, Gauteng</p>
@@ -42,7 +42,7 @@ export default function EstatePlanningPage() {
               A valid will states <em>who</em> receives what, but your estate is a separate legal entity until wound up. If
               there is insufficient cash, the executor may need to sell assets (sometimes under pressure), postpone
               distributions, or negotiate with SARS. <strong className="text-zinc-300">Life policy structuring</strong>,{" "}
-              liquid investments, and loan account planning can improve cash availability—subject to policy terms and tax rules.
+              liquid investments, and loan account planning can improve cash availability - subject to policy terms and tax rules.
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed">
               Rough duty and fee estimates help families grasp scale; they are not filing positions. Use our tools as{" "}
@@ -57,8 +57,8 @@ export default function EstatePlanningPage() {
             <ul className="text-zinc-400 space-y-3 text-sm leading-relaxed">
               <li>· Mapping assets and liabilities so the will matches actual ownership (especially companies and trusts).</li>
               <li>· Checking whether <strong className="text-zinc-300">beneficiary nominations</strong> on policies align with the will and trust deeds.</li>
-              <li>· Discussing <strong className="text-zinc-300">trusts</strong> where minors, protection, or business continuity require them—implementation remains with legal counsel.</li>
-              <li>· Introducing <strong className="text-zinc-300">donations strategy</strong> (annual exemptions) as part of long-term duty management—not once-off “schemes”.</li>
+              <li>· Discussing <strong className="text-zinc-300">trusts</strong> where minors, protection, or business continuity require them - implementation remains with legal counsel.</li>
+              <li>· Introducing <strong className="text-zinc-300">donations strategy</strong> (annual exemptions) as part of long-term duty management - not once-off “schemes”.</li>
               <li>· Coordinating with <Link href="/solutions/business-life" className="text-cinematic-teal hover:underline">buy-and-sell and key-person</Link> funding so the estate is not the only source of cash.</li>
             </ul>
           </div>
@@ -75,19 +75,19 @@ export default function EstatePlanningPage() {
                 <Link href="/estate-duty-calculator" prefetch={false} className="text-cinematic-teal hover:underline font-medium">
                   Estate duty calculator
                 </Link>
-                <span className="text-zinc-500"> — high-level duty and cost awareness.</span>
+                <span className="text-zinc-500">  -  high-level duty and cost awareness.</span>
               </li>
               <li>
                 <Link href="/annual-estate-reduction-strategy" prefetch={false} className="text-cinematic-teal hover:underline font-medium">
                   Annual estate reduction strategy
                 </Link>
-                <span className="text-zinc-500"> — model recurring donations within exemption limits.</span>
+                <span className="text-zinc-500">  -  model recurring donations within exemption limits.</span>
               </li>
               <li>
                 <Link href="/retirement" prefetch={false} className="text-cinematic-teal hover:underline font-medium">
                   Retirement capital calculator
                 </Link>
-                <span className="text-zinc-500"> — income sustainability angle.</span>
+                <span className="text-zinc-500">  -  income sustainability angle.</span>
               </li>
             </ul>
           </div>

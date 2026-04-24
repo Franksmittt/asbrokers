@@ -1,10 +1,10 @@
-# AS Brokers Website — Premium Upgrade Roadmap
+# AS Brokers Website  -  Premium Upgrade Roadmap
 
-Vision: Elevate the site into a top-tier financial services experience for South Africa—sleek, authoritative, and lead-generating for high-net-worth clients in Gauteng and beyond.
+Vision: Elevate the site into a top-tier financial services experience for South Africa - sleek, authoritative, and lead-generating for high-net-worth clients in Gauteng and beyond.
 
 ---
 
-## Phase 1 — Foundation & Quick Wins (Current)
+## Phase 1  -  Foundation & Quick Wins (Current)
 
 **Focus:** Design polish, trust signals, and structure for future features. No external API keys required.
 
@@ -19,7 +19,7 @@ Vision: Elevate the site into a top-tier financial services experience for South
 
 ---
 
-## Phase 2 — Advanced Interactivity & Data
+## Phase 2  -  Advanced Interactivity & Data
 
 **Requires:** Design assets or API keys where noted.
 
@@ -41,7 +41,7 @@ Vision: Elevate the site into a top-tier financial services experience for South
 
 ---
 
-## Phase 3 — Rich Content & Multimedia
+## Phase 3  -  Rich Content & Multimedia
 
 - **Blog / resource hub**
   - `/insights` with articles (e.g. “2026 SA Budget & Estates”)
@@ -58,7 +58,7 @@ Vision: Elevate the site into a top-tier financial services experience for South
 
 ---
 
-## Phase 4 — Client Experience & Integrations
+## Phase 4  -  Client Experience & Integrations
 
 - **Client portal**
   - NextAuth.js: secure login, saved calculator results, document upload
@@ -78,7 +78,7 @@ Vision: Elevate the site into a top-tier financial services experience for South
 
 ---
 
-## Phase 5 — Premium Polish (Optional)
+## Phase 5  -  Premium Polish (Optional)
 
 - **Custom illustrations**
   - SA illustrator: vault motifs, calculator infographics (e.g. “money growing”)
@@ -101,9 +101,9 @@ Vision: Elevate the site into a top-tier financial services experience for South
 | Styling        | Tailwind CSS         | Same + more glassmorphism   |
 | Animation      | Framer Motion        | Same + parallax/orbs        |
 | Charts         | Custom bars          | Recharts (Phase 1)          |
-| Auth           | —                    | NextAuth.js (Phase 4)       |
-| AI             | —                    | Vercel AI SDK / Grok (Phase 2) |
-| Analytics      | —                    | GA4, Hotjar (Phase 4)       |
+| Auth           |  -                     | NextAuth.js (Phase 4)       |
+| AI             |  -                     | Vercel AI SDK / Grok (Phase 2) |
+| Analytics      |  -                     | GA4, Hotjar (Phase 4)       |
 | Forms          | React Hook Form + Zod| + CRM webhooks, CAPTCHA     |
 
 ---

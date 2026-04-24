@@ -74,7 +74,7 @@ export async function saveStudioPost(
   try {
     await requireStudioSession();
   } catch {
-    return { ok: false, error: "Session expired — sign in again." };
+    return { ok: false, error: "Session expired  -  sign in again." };
   }
 
   const db = getDb();
@@ -146,7 +146,7 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
   try {
     await requireStudioSession();
   } catch {
-    return { ok: false, error: "Session expired — sign in again." };
+    return { ok: false, error: "Session expired  -  sign in again." };
   }
 
   const db = getDb();
@@ -197,7 +197,7 @@ export async function unpublishStudioPost(id: string): Promise<{ ok: true } | { 
   try {
     await requireStudioSession();
   } catch {
-    return { ok: false, error: "Session expired — sign in again." };
+    return { ok: false, error: "Session expired  -  sign in again." };
   }
 
   const db = getDb();
@@ -227,7 +227,7 @@ export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok
   try {
     await requireStudioSession();
   } catch {
-    return { ok: false, error: "Session expired — sign in again." };
+    return { ok: false, error: "Session expired  -  sign in again." };
   }
 
   const db = getDb();
@@ -237,7 +237,7 @@ export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok
   const row = rows[0];
   if (!row) return { ok: false, error: "Post not found." };
   if (row.status === "published") {
-    return { ok: false, error: "Unpublish first — only drafts can be deleted." };
+    return { ok: false, error: "Unpublish first  -  only drafts can be deleted." };
   }
 
   await db.delete(clientInsightPosts).where(eq(clientInsightPosts.id, id));

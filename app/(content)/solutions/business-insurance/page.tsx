@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 export const metadata = {
   title: "Business Short-Term Insurance | Commercial, Liability & BI | AS Brokers FSP 17273",
   description:
-    "Commercial property, business interruption, liability, fleet and industry risks for South African businesses. Independent broker in Krugersdorp and Gauteng—education-led, FAIS-aligned.",
+    "Commercial property, business interruption, liability, fleet and industry risks for South African businesses. Independent broker in Krugersdorp and Gauteng - education-led, FAIS-aligned.",
   keywords: [
     "business insurance South Africa",
     "commercial short-term insurance",
@@ -28,7 +28,7 @@ export default function BusinessInsurancePage() {
               <strong className="text-zinc-400 font-medium">employers&apos; liability</strong>, and{" "}
               <strong className="text-zinc-400 font-medium">business interruption</strong>, commercial short-term cover is
               how operating companies survive fires, thefts, liability claims, and supply shocks. AS Brokers (FSP 17273)
-              structures programmes around how your <em>actual</em> business earns and loses money—not generic templates.
+              structures programmes around how your <em>actual</em> business earns and loses money - not generic templates.
             </p>
             <p className="trust-hallmark text-xs text-zinc-600 mt-6">FSP 17273 · Independent advice</p>
           </div>
@@ -63,7 +63,7 @@ export default function BusinessInsurancePage() {
               <li>· Money, fidelity, and crime-type extensions where relevant</li>
               <li>· Goods in transit, own damage, and fleet programmes</li>
               <li>· Contract works, plant hire, and industry-specific extensions</li>
-              <li>· Cyber and electronic risks (scope and exclusions vary widely—we match you to wording you can explain to your board)</li>
+              <li>· Cyber and electronic risks (scope and exclusions vary widely - we match you to wording you can explain to your board)</li>
             </ul>
             <p className="text-zinc-500 text-sm mt-6">
               Availability depends on insurer and occupation class. We do not guarantee acceptance or premium.
@@ -77,7 +77,7 @@ export default function BusinessInsurancePage() {
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
               We start with a simple question set: What stops revenue? What capex would you need to replace in 90 days?
               Which contracts or regulators impose insurance obligations? That frames priorities before comparing quotes. A
-              large share of our practice sits in <strong className="text-zinc-300">business short-term</strong>—we treat it as core engineering, not a side product.
+              large share of our practice sits in <strong className="text-zinc-300">business short-term</strong> - we treat it as core engineering, not a side product.
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed">
               For owner-managed businesses, we often coordinate with{" "}

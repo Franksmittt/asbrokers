@@ -1,10 +1,10 @@
-# RAG Pipeline Implementation Plan — AS Brokers Digital Wealth Assistant
+# RAG Pipeline Implementation Plan  -  AS Brokers Digital Wealth Assistant
 
 ## 1. Database schema (Drizzle ORM + pgvector)
 
 ### 1.1 Tables
 
-**`resources`** — Raw text chunks from Everest Wealth brochures, FAIS compliance, SARS guidelines.
+**`resources`**  -  Raw text chunks from Everest Wealth brochures, FAIS compliance, SARS guidelines.
 
 | Column       | Type         | Constraints | Description |
 |-------------|--------------|-------------|-------------|
@@ -14,7 +14,7 @@
 | `metadata`  | `jsonb`      |             | Optional: page, section, doc_id |
 | `created_at`| `timestamp`  | DEFAULT now() | Insert time |
 
-**`embeddings`** — Vector storage with FK to `resources`. One row per chunk embedding.
+**`embeddings`**  -  Vector storage with FK to `resources`. One row per chunk embedding.
 
 | Column       | Type           | Constraints | Description |
 |-------------|----------------|-------------|-------------|
@@ -31,9 +31,9 @@
 
 ### 1.2 File layout
 
-- `lib/db/schema.ts` — Drizzle table definitions (resources, embeddings), relations, HNSW index.
-- `drizzle.config.ts` — Drizzle Kit config: driver `pg`, `schema: './lib/db/schema.ts'`, `out: './drizzle'`.
-- `.env` — `DATABASE_URL` (PostgreSQL connection string). Build/runtime must work when `DATABASE_URL` is unset (RAG disabled, baseline prompt only).
+- `lib/db/schema.ts`  -  Drizzle table definitions (resources, embeddings), relations, HNSW index.
+- `drizzle.config.ts`  -  Drizzle Kit config: driver `pg`, `schema: './lib/db/schema.ts'`, `out: './drizzle'`.
+- `.env`  -  `DATABASE_URL` (PostgreSQL connection string). Build/runtime must work when `DATABASE_URL` is unset (RAG disabled, baseline prompt only).
 
 ---
 

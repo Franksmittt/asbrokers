@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
 import { Lock } from "./icons";
 
-/** Deterministic ZAR whole amounts — Node SSR and browsers disagree on `en-ZA` grouping (comma vs space). */
+/** Deterministic ZAR whole amounts  -  Node SSR and browsers disagree on `en-ZA` grouping (comma vs space). */
 function formatCurrency(val: number): string {
   const n = Math.round(Math.abs(val));
   const grouped = n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -88,7 +88,7 @@ export function RunOutCalculator() {
         </div>
       </div>
 
-      {/* Chart — taller min-height while gate is open so the form fits without an inner scroll */}
+      {/* Chart  -  taller min-height while gate is open so the form fits without an inner scroll */}
       <div
         className={`lg:col-span-8 bg-[#151518] rounded-[2rem] p-8 border border-white/5 shadow-2xl relative overflow-hidden flex flex-col justify-end ${
           emailCaptured ? "min-h-[400px]" : "min-h-[580px] sm:min-h-[560px]"

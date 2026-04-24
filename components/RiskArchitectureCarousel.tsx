@@ -70,7 +70,7 @@ const ITEMS = [
     imageKey: "risk-arch-estate-duty",
     title: "Estate Duty & Liquidity",
     subtitle: "Fiduciary",
-    description: "Stress-test SARS duty, executor fees and liquidity at death—before it matters.",
+    description: "Stress-test SARS duty, executor fees and liquidity at death - before it matters.",
     href: "/estate-duty-calculator",
   },
 ];

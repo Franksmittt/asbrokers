@@ -133,7 +133,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   function runSave() {
     if (!databaseConfigured) {
       setBanner(
-        "Database not connected — your host must set DATABASE_URL and run npm run db:push (see yellow notice above)."
+        "Database not connected  -  your host must set DATABASE_URL and run npm run db:push (see yellow notice above)."
       );
       return;
     }
@@ -160,7 +160,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         setSelectedId(res.id);
         setSlugTouched(true);
       }
-      setBanner("Saved. Draft is stored — still not public until you tap Publish.");
+      setBanner("Saved. Draft is stored  -  still not public until you tap Publish.");
       router.refresh();
     });
   }
@@ -208,7 +208,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         setBanner(r.error);
         return;
       }
-      setBanner("Unpublished — visitors no longer see it. You can edit and publish again.");
+      setBanner("Unpublished  -  visitors no longer see it. You can edit and publish again.");
       router.refresh();
     });
   }
@@ -232,9 +232,9 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   async function copyBrandGuide() {
     try {
       await navigator.clipboard.writeText(BLOG_BRAND_GUIDE_TEXT);
-      setBanner("Brand guide copied — open your AI, paste it, then say what the article should be about.");
+      setBanner("Brand guide copied  -  open your AI, paste it, then say what the article should be about.");
     } catch {
-      setBanner("Clipboard blocked — open “View brand guide” and copy the text by hand.");
+      setBanner("Clipboard blocked  -  open “View brand guide” and copy the text by hand.");
     }
   }
 
@@ -284,7 +284,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                 </li>
                 <li>
                   Fill <strong className="text-zinc-200">title</strong> and <strong className="text-zinc-200">URL slug</strong>{" "}
-                  (lowercase, hyphens). Tap <strong className="text-zinc-200">Save draft</strong> — still not public.
+                  (lowercase, hyphens). Tap <strong className="text-zinc-200">Save draft</strong>  -  still not public.
                 </li>
                 <li>
                   When it looks right, tap <strong className="text-zinc-200">Publish</strong>. It then appears on{" "}
@@ -397,7 +397,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           </div>
           <ul className="min-h-0 flex-1 list-none space-y-1 overflow-y-auto overscroll-y-contain p-2 sm:p-2">
             {posts.length === 0 && (
-              <li className="px-2 py-4 text-center text-xs text-zinc-500">No articles yet — tap + New article.</li>
+              <li className="px-2 py-4 text-center text-xs text-zinc-500">No articles yet  -  tap + New article.</li>
             )}
             {posts.map((p) => (
               <li key={p.id}>
@@ -495,7 +495,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                 <label className="block min-w-0 text-xs text-zinc-500 sm:col-span-2">
                   <span className="mb-1 block font-medium text-zinc-400">Short excerpt</span>
                   <span className="mb-1 block text-[11px] font-normal text-zinc-600">
-                    Shown on cards under Insights — one or two sentences.
+                    Shown on cards under Insights  -  one or two sentences.
                   </span>
                   <input
                     value={excerpt}
@@ -530,7 +530,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               <label className="block min-w-0 text-xs text-zinc-500">
                 <span className="mb-1 block font-medium text-zinc-400">Article HTML</span>
                 <span className="mb-1 block text-[11px] font-normal leading-snug text-zinc-600">
-                  Only the middle of the page — not &lt;html&gt; or &lt;body&gt;. Scripts are removed when you publish
+                  Only the middle of the page  -  not &lt;html&gt; or &lt;body&gt;. Scripts are removed when you publish
                   (for safety).
                 </span>
                 <textarea
@@ -590,7 +590,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
             </div>
             <p className="mx-auto mt-2 max-w-3xl text-[11px] leading-snug text-zinc-600">
               <strong className="text-zinc-500">Save draft</strong> = safe, private. <strong className="text-zinc-500">Publish</strong>{" "}
-              = visible on the site. Questions? Contact AS Brokers — you don&apos;t need to edit code.
+              = visible on the site. Questions? Contact AS Brokers  -  you don&apos;t need to edit code.
             </p>
           </div>
         </section>
@@ -636,7 +636,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </div>
               <p className="shrink-0 border-b border-white/5 px-4 py-2 text-xs leading-relaxed text-zinc-500">
                 Copy this into your AI first, then describe your article. Ask for{" "}
-                <strong className="text-zinc-300">HTML only</strong> — a fragment, not a full page with{" "}
+                <strong className="text-zinc-300">HTML only</strong>  -  a fragment, not a full page with{" "}
                 <code className="text-zinc-400">&lt;html&gt;</code>.
               </p>
               <pre className="max-h-[min(52dvh,520px)] min-h-0 overflow-y-auto overscroll-y-contain border-t border-white/5 px-4 py-3 font-mono text-xs leading-relaxed text-zinc-300 whitespace-pre-wrap">

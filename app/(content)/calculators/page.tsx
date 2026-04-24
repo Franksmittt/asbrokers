@@ -283,7 +283,7 @@ export default function CalculatorsPage() {
             items={[
               {
                 src: "/images/calculators-capital-lifespan-4x3.jpg",
-                alt: "Retirement capital, timeline planner and calculator — capital lifespan theme, no people",
+                alt: "Retirement capital, timeline planner and calculator  -  capital lifespan theme, no people",
               },
               {
                 src: "/images/calculators-education-16x9.jpg",
@@ -298,7 +298,7 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      {/* Phase 1: The Agitator & The Fix — Retirement + Everest */}
+      {/* Phase 1: The Agitator & The Fix  -  Retirement + Everest */}
       <section id="retirement" className="py-16 scroll-mt-24 border-t border-white/5">
         <div className={PAGE_CONTENT_MAX}>
           <SectionHeading

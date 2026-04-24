@@ -8,6 +8,7 @@ import { Code18Advantage } from "@/components/Code18Advantage";
 import { RiskArchitectureCarousel } from "@/components/RiskArchitectureCarousel";
 import { HomeStatsSection } from "@/components/HomeStatsSection";
 import { HomeValueProps } from "@/components/HomeValueProps";
+import { HomeClientReviews } from "@/components/HomeClientReviews";
 import { HomeInsightsTeaser } from "@/components/HomeInsightsTeaser";
 import { HomeCtaStrip } from "@/components/HomeCtaStrip";
 import { Footer } from "@/components/Footer";
@@ -75,6 +76,7 @@ export default function HomePage() {
 
       <HomeStatsSection />
       <HomeValueProps />
+      <HomeClientReviews />
       <HomeInsightsTeaser />
       <HomeCtaStrip />
 

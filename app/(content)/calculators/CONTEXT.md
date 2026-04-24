@@ -1,4 +1,4 @@
-# Calculators — Formula & Tax Context
+# Calculators  -  Formula & Tax Context
 
 Local context for the `/calculators` tree and all calculator components. Use when modifying or adding financial logic.
 
@@ -8,7 +8,7 @@ Local context for the `/calculators` tree and all calculator components. Use whe
 
 - **SARS 2026/27 (Budget 2026):** Brackets 245,100 (18%), 383,100 (44,118+26%), 530,200 (79,998+31%), 695,800 (125,599+36%), 887,000 (185,215+39%), 1,878,600 (259,783+41%), above (666,339+45%). Rebates: Primary 17,820; 65+ add 9,765; 75+ add 3,249.
 - **Dividends Withholding Tax (DWT):** 20% flat at source on dividend income (Everest voluntary products). No marginal income tax on that portion.
-- **Interest exemption:** SARS annual interest exemption (e.g. R23,800 under 65) — relevant for interest-based products, not for dividend yields.
+- **Interest exemption:** SARS annual interest exemption (e.g. R23,800 under 65)  -  relevant for interest-based products, not for dividend yields.
 - **Estate duty:** Primary abatement R3.5m. 20% on first R30m dutiable, 25% above. Section 4q spouse exempt. Executor 3.5% + 15% VAT on gross estate.
 - **Donations:** R100,000 per person / R200,000 per couple per year (no donations tax if within limit).
 

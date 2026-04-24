@@ -58,7 +58,7 @@ export function BackgroundOrbs() {
 
   return (
     <>
-      {/* Nightography: Cinematic Teal — massive, heavily blurred */}
+      {/* Nightography: Cinematic Teal  -  massive, heavily blurred */}
       <motion.div
         className="absolute top-[-20%] left-[-15%] w-[70%] h-[70%] bg-[#008080]/25 blur-[180px] rounded-full pointer-events-none"
         style={{ x: reduceMotion ? 0 : x1, y: reduceMotion ? 0 : y1 }}
@@ -66,7 +66,7 @@ export function BackgroundOrbs() {
         transition={{ duration: 8, repeat: Infinity, ease: APPLE_EASE }}
         aria-hidden
       />
-      {/* Nightography: Gold/Orange — blockbuster OLED contrast */}
+      {/* Nightography: Gold/Orange  -  blockbuster OLED contrast */}
       <motion.div
         className="absolute top-[10%] right-[-20%] w-[60%] h-[80%] bg-[#FF7F50]/20 blur-[180px] rounded-full pointer-events-none"
         style={{ x: reduceMotion ? 0 : x2, y: reduceMotion ? 0 : y2 }}

@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 export const metadata = {
   title: "Medical Aid & Gap Cover South Africa | AS Brokers FSP 17273 Krugersdorp",
   description:
-    "Medical scheme options, gap cover as short-term insurance, and health planning for families and professionals. Independent FSP 17273—clear on CMS schemes vs insurance products.",
+    "Medical scheme options, gap cover as short-term insurance, and health planning for families and professionals. Independent FSP 17273 - clear on CMS schemes vs insurance products.",
   keywords: [
     "medical aid South Africa",
     "gap cover insurance",
@@ -28,7 +28,7 @@ export default function MedicalAidPage() {
               the <strong className="text-zinc-400 font-medium">Medical Schemes Act</strong> and oversight distinct from typical
               FAIS long-term products. <strong className="text-zinc-400 font-medium">Gap cover</strong> is usually a{" "}
               <strong className="text-zinc-400 font-medium">short-term insurance</strong> policy that pays toward in-hospital
-              shortfalls when specialists charge above scheme tariff—subject to policy caps, waiting periods, and insurer rules.
+              shortfalls when specialists charge above scheme tariff - subject to policy caps, waiting periods, and insurer rules.
               We help you compare options in plain language; we do not promise scheme benefit outcomes or claim approvals.
             </p>
             <p className="trust-hallmark text-xs text-zinc-600 mt-6">FSP 17273 · Scheme rules and PMBs apply per scheme</p>
@@ -42,7 +42,7 @@ export default function MedicalAidPage() {
               Scheme options differ by <strong className="text-zinc-300">network</strong>,{" "}
               <strong className="text-zinc-300">savings accounts</strong>, <strong className="text-zinc-300">day-to-day</strong>
               {" "}rules, and <strong className="text-zinc-300">chronic medicine</strong> programmes. Prescribed Minimum Benefits
-              (PMBs) exist for certain conditions within scheme frameworks—but practical access still depends on scheme
+              (PMBs) exist for certain conditions within scheme frameworks - but practical access still depends on scheme
               formularies, designated service providers, and pre-authorisation. Always read the scheme’s rules each year;
               benefits and contributions change.
             </p>
@@ -58,7 +58,7 @@ export default function MedicalAidPage() {
             <p className="text-zinc-400 text-sm leading-relaxed mb-4">
               Gap policies are not substitutes for scheme membership for in-hospital care; they work alongside your scheme,
               within annual caps introduced under regulations that limit gap exposure relative to scheme benefits. Waiting
-              periods for pre-existing conditions, oncology sub-limits, and co-payment riders vary—disclosure at application is
+              periods for pre-existing conditions, oncology sub-limits, and co-payment riders vary - disclosure at application is
               critical to avoid later repudiation.
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed">
@@ -84,7 +84,7 @@ export default function MedicalAidPage() {
             <h2 className="text-xl font-bold text-white mb-4">Wellness and day-to-day costs</h2>
             <p className="text-zinc-400 text-sm leading-relaxed">
               Day-to-day spend, dental, and optical are often self-funded or scheme-specific. We can discuss budgeting and
-              alternative structures that fit your tax and cash-flow picture—without presenting unlicensed “health insurance” as
+              alternative structures that fit your tax and cash-flow picture - without presenting unlicensed “health insurance” as
               a magic substitute for a medical scheme where the law expects scheme membership.
             </p>
           </div>

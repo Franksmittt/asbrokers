@@ -106,7 +106,7 @@ export function RetirementRealityCalculator() {
         <ul className="text-zinc-400 text-xs md:text-sm space-y-2.5 leading-relaxed list-disc pl-4 marker:text-zinc-600">
           <li>
             <strong className="text-zinc-300 font-medium">What you get:</strong> an estimate of the{" "}
-            <strong className="text-zinc-300">lump sum capital needed at your retirement date</strong>—not a monthly
+            <strong className="text-zinc-300">lump sum capital needed at your retirement date</strong> - not a monthly
             insurance premium or debit-order savings amount. It answers: &ldquo;How big must my pot be when I retire?&rdquo;
           </li>
           <li>
@@ -117,7 +117,7 @@ export function RetirementRealityCalculator() {
           <li>
             That future income is <strong className="text-zinc-300">grossed up</strong> using your{" "}
             <strong className="text-zinc-300">average tax rate in retirement</strong> so that after tax you still have the
-            target spending power (simplified flat rate—not full SARS brackets).
+            target spending power (simplified flat rate - not full SARS brackets).
           </li>
           <li>
             Required capital uses the <strong className="text-zinc-300">present value of a growing annuity</strong>:
@@ -131,7 +131,7 @@ export function RetirementRealityCalculator() {
           </li>
           <li>
             The <strong className="text-zinc-300">first-year gross withdrawal</strong> (shown after you calculate) is an
-            annual figure for transparency—not a product quote or advice fee.
+            annual figure for transparency - not a product quote or advice fee.
           </li>
           <li>
             Illustration only. Past performance is not indicative of future results. For personal advice, speak to a
@@ -244,7 +244,7 @@ export function RetirementRealityCalculator() {
               <p className="text-2xl md:text-3xl font-bold text-white">{formatCurrency(result.capital!)}</p>
               <p className="text-zinc-500 text-xs mt-2">
                 Lump sum needed at age {retirementAge} to fund your income for {result.yearsInRetirement} years in
-                retirement (inflation + tax assumptions above)—not a monthly premium or contribution amount.
+                retirement (inflation + tax assumptions above) - not a monthly premium or contribution amount.
               </p>
               {result.firstYearAnnualWithdrawal != null && (
                 <p className="text-zinc-500 text-xs mt-1">

@@ -79,8 +79,41 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [showBrandGuide, setShowBrandGuide] = useState(false);
   const [showHelp, setShowHelp] = useState(true);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
+  const [listQuery, setListQuery] = useState("");
+  const [listFilter, setListFilter] = useState<"all" | "draft" | "published">("all");
+  const [listSort, setListSort] = useState<"updated_desc" | "updated_asc" | "title_asc">("updated_desc");
 
   const selected = posts.find((p) => p.id === selectedId) ?? null;
+
+  const listCounts = useMemo(() => {
+    const live = posts.filter((p) => p.status === "published").length;
+    return { total: posts.length, drafts: posts.length - live, live };
+  }, [posts]);
+
+  const filteredPosts = useMemo(() => {
+    const q = listQuery.trim().toLowerCase();
+    let rows = posts.filter((p) => {
+      if (listFilter === "draft" && p.status === "published") return false;
+      if (listFilter === "published" && p.status !== "published") return false;
+      if (!q) return true;
+      const t = (p.title || "").toLowerCase();
+      const s = p.slug.toLowerCase();
+      return t.includes(q) || s.includes(q);
+    });
+    rows = [...rows].sort((a, b) => {
+      if (listSort === "title_asc") {
+        return (a.title || "").localeCompare(b.title || "", undefined, { sensitivity: "base" });
+      }
+      const ta = new Date(a.updatedAt).getTime();
+      const tb = new Date(b.updatedAt).getTime();
+      return listSort === "updated_asc" ? ta - tb : tb - ta;
+    });
+    return rows;
+  }, [posts, listQuery, listFilter, listSort]);
+
+  const selectedHiddenByFilter = Boolean(
+    selectedId && selected && !filteredPosts.some((p) => p.id === selectedId)
+  );
 
   const slugValid = SLUG_OK.test(slug.trim());
   const basicsOk = title.trim().length > 0 && slug.trim().length > 0 && slugValid;
@@ -238,6 +271,16 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     }
   }
 
+  async function copyLiveArticleUrl(path: string) {
+    const full = `${typeof window !== "undefined" ? window.location.origin : ""}${path}`;
+    try {
+      await navigator.clipboard.writeText(full);
+      setBanner("Live article URL copied to clipboard.");
+    } catch {
+      setBanner(`Copy blocked. Link: ${full}`);
+    }
+  }
+
   const previewSrcDoc = useMemo(() => buildPreviewDoc(bodyHtml), [bodyHtml]);
 
   const statusLabel = !selectedId
@@ -382,10 +425,13 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         </div>
       )}
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] overflow-hidden lg:grid-cols-[minmax(12rem,16rem)_minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1">
-        {/* Article list */}
-        <aside className="flex min-h-0 max-h-[min(40vh,280px)] flex-col border-b border-white/10 lg:max-h-none lg:border-b-0 lg:border-r">
-          <div className="shrink-0 border-b border-white/5 p-2 sm:p-3">
+      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] overflow-hidden lg:grid-cols-[minmax(14rem,19rem)_minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1">
+        {/* Article list + tools */}
+        <aside
+          className="flex min-h-0 max-h-[min(48vh,320px)] flex-col border-b border-white/10 lg:max-h-none lg:border-b-0 lg:border-r"
+          aria-label="Articles and library"
+        >
+          <div className="shrink-0 space-y-2 border-b border-white/5 p-2 sm:p-3">
             <button
               type="button"
               onClick={handleNewArticle}
@@ -393,13 +439,115 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
             >
               + New article
             </button>
-            <p className="mt-2 text-[11px] leading-snug text-zinc-500">Tap an article to edit it.</p>
+            <div className="flex gap-1.5">
+              <input
+                type="search"
+                value={listQuery}
+                onChange={(e) => setListQuery(e.target.value)}
+                placeholder="Search title or slug…"
+                aria-label="Search articles"
+                className="min-w-0 flex-1 rounded-lg border border-white/10 bg-black/40 px-2.5 py-2 text-xs text-white placeholder:text-zinc-600 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/25"
+              />
+              {listQuery.trim() ? (
+                <button
+                  type="button"
+                  onClick={() => setListQuery("")}
+                  className="shrink-0 rounded-lg border border-white/10 px-2 py-2 text-[11px] text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+                  title="Clear search"
+                >
+                  Clear
+                </button>
+              ) : null}
+            </div>
+            <div className="flex flex-wrap gap-1" role="group" aria-label="Filter by status">
+              {(
+                [
+                  ["all", "All"] as const,
+                  ["draft", `Drafts (${listCounts.drafts})`] as const,
+                  ["published", `Live (${listCounts.live})`] as const,
+                ] as const
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setListFilter(key)}
+                  className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
+                    listFilter === key
+                      ? "bg-white/15 text-white"
+                      : "text-zinc-500 hover:bg-white/5 hover:text-zinc-300"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <label className="block text-[10px] font-medium uppercase tracking-wider text-zinc-600">
+              Sort
+              <select
+                value={listSort}
+                onChange={(e) => setListSort(e.target.value as typeof listSort)}
+                className="mt-1 w-full rounded-lg border border-white/10 bg-black/40 px-2 py-1.5 text-xs text-zinc-200 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/25"
+              >
+                <option value="updated_desc">Recently updated</option>
+                <option value="updated_asc">Oldest update first</option>
+                <option value="title_asc">Title A–Z</option>
+              </select>
+            </label>
+            <div className="flex flex-wrap gap-1.5 border-t border-white/[0.06] pt-2">
+              <button
+                type="button"
+                onClick={() => void copyBrandGuide()}
+                className="rounded-lg border border-teal-500/30 bg-teal-950/20 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-teal-300 hover:bg-teal-900/30"
+              >
+                Copy AI guide
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowBrandGuide(true)}
+                className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+              >
+                Read guide
+              </button>
+            </div>
           </div>
+
+          {selectedHiddenByFilter && (
+            <div className="shrink-0 border-b border-amber-500/20 bg-amber-950/25 px-2.5 py-2 text-[11px] leading-snug text-amber-100/90 sm:px-3">
+              Current article is hidden by search or filter.{" "}
+              <button
+                type="button"
+                className="font-semibold text-amber-200 underline decoration-amber-500/50 hover:text-white"
+                onClick={() => {
+                  setListQuery("");
+                  setListFilter("all");
+                }}
+              >
+                Reset list
+              </button>
+            </div>
+          )}
+
           <ul className="min-h-0 flex-1 list-none space-y-1 overflow-y-auto overscroll-y-contain p-2 sm:p-2">
             {posts.length === 0 && (
               <li className="px-2 py-4 text-center text-xs text-zinc-500">No articles yet  -  tap + New article.</li>
             )}
-            {posts.map((p) => (
+            {posts.length > 0 && filteredPosts.length === 0 && (
+              <li className="px-2 py-4 text-center text-xs leading-relaxed text-zinc-500">
+                Nothing matches this search or filter. Try another term or tap{" "}
+                <button
+                  type="button"
+                  className="text-teal-400 underline hover:text-teal-300"
+                  onClick={() => {
+                    setListQuery("");
+                    setListFilter("all");
+                  }}
+                >
+                  show all
+                </button>
+                .
+              </li>
+            )}
+            {filteredPosts.map((p) => (
               <li key={p.id}>
                 <button
                   type="button"
@@ -416,6 +564,58 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </li>
             ))}
           </ul>
+
+          <div className="shrink-0 space-y-2 border-t border-white/10 bg-zinc-950/50 p-2.5 sm:p-3">
+            <p className="text-[10px] leading-relaxed text-zinc-500">
+              <span className="text-zinc-400">{listCounts.total}</span> article{listCounts.total === 1 ? "" : "s"} ·{" "}
+              <span className="text-teal-500/90">{listCounts.live}</span> live ·{" "}
+              <span className="text-amber-600/90">{listCounts.drafts}</span> draft{listCounts.drafts === 1 ? "" : "s"}
+            </p>
+            {selectedId && selected && (
+              <div className="space-y-1.5 rounded-lg border border-white/[0.07] bg-black/30 p-2">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Selected</p>
+                <p className="truncate text-xs font-medium text-zinc-200">{selected.title || "(untitled)"}</p>
+                <p className="text-[10px] text-zinc-500">
+                  {selected.status === "published" ? "On the public site" : "Not published yet"}
+                </p>
+                {selected.status === "published" && SLUG_OK.test(selected.slug) && (
+                  <div className="flex flex-col gap-1.5 pt-0.5">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        void copyLiveArticleUrl(`/insights/${selected.slug.trim()}?locale=${selected.locale}`)
+                      }
+                      className="w-full rounded-lg bg-teal-600/80 py-2 text-[11px] font-semibold text-white hover:bg-teal-500"
+                    >
+                      Copy live URL
+                    </button>
+                    <a
+                      href={`/insights/${selected.slug.trim()}?locale=${selected.locale}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block w-full rounded-lg border border-white/15 py-2 text-center text-[11px] text-teal-300 hover:bg-white/5"
+                    >
+                      Open in new tab ↗
+                    </a>
+                  </div>
+                )}
+                {selected.status !== "published" && (
+                  <p className="text-[10px] leading-snug text-zinc-600">
+                    Save draft, then Publish to put it on{" "}
+                    <a href="/insights" target="_blank" rel="noreferrer" className="text-teal-500 hover:underline">
+                      Insights
+                    </a>
+                    .
+                  </p>
+                )}
+              </div>
+            )}
+            {!selectedId && (
+              <p className="text-[10px] leading-snug text-zinc-600">
+                New article: fill title and slug, then Save draft.
+              </p>
+            )}
+          </div>
         </aside>
 
         {/* Editor column */}

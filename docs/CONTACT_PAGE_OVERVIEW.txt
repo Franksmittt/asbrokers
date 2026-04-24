@@ -1,0 +1,315 @@
+================================================================================
+  AS BROKERS – CONTACT PAGE OVERVIEW
+  https://asbrokers.vercel.app/contact
+================================================================================
+
+This document describes the Contact page: purpose, structure, components,
+form fields, server action, styling, and how it fits into the AS Brokers site.
+The page is the primary lead-capture and consultation request entry point.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The Contact page has three jobs:
+
+  • Capture qualified leads via a structured enquiry form (full name, phone,
+    email, topics of interest, consent). Submissions are validated and synced
+    to HubSpot with cumulative lead scoring.
+  • Set expectations: trust badges (FSP 17273, 25+ years, zero advice fees)
+    styled as Apple-esque secure validation tags; "Client Qualification
+    Criteria" copy; and "The Actuarial Review Process" three-step section so
+    visitors see a structured, institutional path from assessment to allocation.
+  • Offer an alternative path: prominent WhatsApp CTA (067 242 9946) and a
+    link to "Explore solutions" for users who prefer to browse first.
+
+There is no dropdown in the nav; "Contact Us" in the header links directly to
+this page. The page is the main destination for "Book a consultation", "Get
+in touch", and "Request a quote" CTAs from Solutions, Calculators, and the
+home page.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /contact
+  • File:    app/(content)/contact/page.tsx
+  • Layout:  app/(content)/contact/layout.tsx (metadata only; passes through
+             children). Shared (content) layout wraps the app.
+  • Metadata (exported in layout):
+      - title: "Independent Financial Advisor Krugersdorp | Contact AS Brokers CC"
+      - description: "Contact AS Brokers CC, your independent financial advisor
+        in Krugersdorp, East Rand. FSP 17273. Retirement planning, Everest
+        Wealth, estate planning. Personal response, no call centre."
+      - openGraph: title and description for social preview.
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Main section: two-column layout (copy left, form right)
+     - Left: "Book a Private Actuarial Consultation" headline, Code 1.8
+             subhead, Apple-esque trust badges, supporting copy, image,
+             "Client Qualification Criteria" list, WhatsApp + Explore solutions CTAs
+     - Right: ContactEnquiryForm (Squircle card, blue glow, "Initiate Wealth
+             Engineering Request" submit)
+  2. "The Actuarial Review Process" section – three steps (Capital Assessment,
+     Wealth Engineering Call, Implementation & Allocation) with Apple-style
+     numeric badges
+  3. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. MAIN SECTION (TWO-COLUMN)
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-16 md:pb-24, px-4 sm:px-6 md:px-8. max-w-6xl mx-auto.
+  • Background:  Page bg-[#0a0a0c] (void).
+  • Grid:        lg:grid-cols-2, gap-12 lg:gap-16, items-stretch so the form
+                 column drives row height; left column uses flex and a spacer
+                 so "We work best with" + CTAs sit at the bottom.
+
+  Left column (copy – HNWI / Engineered Wealth pitch):
+  • Headline:    "Book a Private Actuarial Consultation." (h1, text-4xl
+                 sm:text-5xl, font-bold, text-white, tracking-tight).
+  • Subhead:     "Connect directly with our Code 1.8 wealth engineers. No call
+                 centres. Just mathematics, strategy, and high-yield execution."
+                 (text-lg, zinc-400).
+  • Trust badges: Apple-esque secure validation tags: small squircles
+                 (rounded-[1rem], border border-white/10, bg-white/[0.04],
+                 px-3 py-1.5). Each has a muted green glowing checkmark
+                 (rounded-md bg-green-500/15, shadow glow) and text-zinc-300.
+                 Three items: FSP 17273, 25+ Years Experience, Zero Advice Fees
+                 on Investments. Wrapped in flex flex-wrap gap-2.
+  • Supporting:  Short line on submitting the form and personal response
+                 (zinc-500, text-sm). No call centre; select topics for a
+                 relevant conversation.
+  • Image:       ImagePlaceholder, src /images/contact-trust.jpg, aspect 3/2,
+                 alt "Personal financial consultation", placeholder label
+                 contact-trust.jpg. max-w-md.
+  • Spacer:      flex-1 min-h-[2rem] (aria-hidden) so the next block aligns
+                 to bottom of column.
+  • "Client Qualification Criteria": border-t border-white/5, pt-8 lg:pt-10.
+    Heading "Client Qualification Criteria" (text-xl, font-bold, white). List
+    of four bullets (green ✓, zinc-400, text-sm) implying meaningful capital
+    into alternative structures: deploy meaningful capital into alternative
+    structures; value actuarial rigour and long-term allocation; seek
+    long-term wealth-engineering relationship; ready for structured review
+    before implementation.
+  • CTAs:        WhatsApp button (green #25D366, wa.me/27672429946,
+                 target _blank, noopener noreferrer); "Explore solutions" link
+                 to /#solutions with ShieldCheck icon (zinc-400, hover white).
+  • Footer line: "Existing clients: get in touch with your adviser…" (zinc-500,
+                 text-xs).
+
+  Right column:
+  • ContactEnquiryForm only (see §6). Card drives the row height. Form card
+    uses Samsung Squircle (rounded-[2rem]), bg-[#151518], border
+    border-blue-500/20, subtle high-end glow (shadow-[0_0_40px_rgba(59,130,
+    246,0.12)]). Submit button text: "Initiate Wealth Engineering Request".
+    Topics dropdown: "Investment Review / Everest Wealth Quote" pinned first
+    in serviceOptions.
+
+--------------------------------------------------------------------------------
+5. THE ACTUARIAL REVIEW PROCESS SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  py-16, px-4 sm:px-6 md:px-8, border-y border-white/5, bg-black/20.
+  • Container:  max-w-4xl mx-auto.
+  • Heading:    "The Actuarial Review Process" (h2, text-2xl sm:text-3xl,
+                font-bold, white, text-center, mb-4).
+  • Subhead:    "Structured execution from assessment to allocation."
+                (zinc-400, centre, mb-12, max-w-xl mx-auto).
+  • Grid:       sm:grid-cols-3, gap-8. Three steps:
+
+    Step 1 – "Capital Assessment."
+      Body: Your data is reviewed by an authorized FSP 17273 advisor to
+            calculate preliminary capital lifespans.
+    Step 2 – "Wealth Engineering Call."
+      Body: A direct consultation to audit your current trajectory and
+            introduce unlisted yield structures.
+    Step 3 – "Implementation & Allocation."
+      Body: Formal Everest Wealth quotations, tax-clearance routing, and
+            final capital allocation.
+
+  Each step: sleek Apple-style numeric badge (w-12 h-12, rounded-[1.25rem]
+  squircle, border border-white/25, bg-white/10, text-white font-bold text-xl
+  tabular-nums, subtle inner shadow); title (h3, text-lg, white, mb-2); body
+  (text-sm, zinc-500). On sm+ steps are side by side; on small screens
+  stacked, text centred.
+
+--------------------------------------------------------------------------------
+6. CONTACT ENQUIRY FORM (COMPONENT)
+--------------------------------------------------------------------------------
+
+  • Component:  components/forms/ContactEnquiryForm.tsx (client).
+  • Server Action: app/(content)/actions/contact.ts — submitContactEnquiry.
+  • State:      useActionState(submitContactEnquiry, initialState). Form
+                submits via action; state holds success, message, fieldErrors.
+
+  Form container:
+  • Card:       bg-[#151518], rounded-[2rem] (Squircle), p-8 md:p-10,
+                border border-blue-500/20, shadow-[0_0_40px_rgba(59,130,246,0.12)].
+  • Layout:     space-y-6. Hidden input for topics (JSON array). Honeypot
+                field "website" (absolute -left-[9999px]) for bot protection.
+
+  Fields (all required unless noted):
+  • fullName:   Text input. Label "Full name *". placeholder "Full name".
+                Validation: min 2 chars (Zod).
+  • phone:      Tel input. Label "Phone *". placeholder "Phone number".
+                Validation: min 9 chars.
+  • email:      Email input. Label "Email *". placeholder "Email address".
+                Validation: valid email.
+  • topics:     Multi-select (custom dropdown with checkboxes). Label "What
+                would you like to discuss? *". Helper: "Select all that apply.
+                We'll prepare for a relevant conversation." Stored as
+                JSON.stringify(selectedTopics) in hidden input. Validation:
+                at least one topic (array min 1).
+  • consent:    Checkbox. name="consent" value="true". Label text: consent to
+                transactional messages (appointment reminders, confirmations,
+                account notifications); message & data rates; HELP/STOP. Zod:
+                literal true required.
+  • website:    Honeypot; must be empty (max 0 in schema). If non-empty, action
+                returns success without saving (anti-spam).
+
+  Topic options (serviceOptions): Investment Review / Everest Wealth Quote,
+  Company Medical & Gap Review, Medical Aid, Gap Cover, Short-term Business
+  Insurance, Short-term Personal Insurance, Life Insurance (Business), Life
+  Insurance (Personal), Last Will & Testament, Trust & Business Structure,
+  Wellness & Integration, Estate Reduction Plan, General enquiry.
+
+  Validation (lib/validations/schema.ts – contactFormSchema):
+  • fullName:   z.string().min(2)
+  • phone:      z.string().min(9)
+  • email:      z.string().email()
+  • topics:     z.array(z.string()).min(1)
+  • consent:    z.literal(true)
+  • website:    z.string().max(0).optional()
+
+  Error display: fieldErrors from action state; amber-400 text below each
+  field; aria-invalid and aria-describedby for accessibility. Generic message
+  (e.g. "Please fix the errors below.") and action-level message shown when
+  !state.success.
+
+  Submit button: "Initiate Wealth Engineering Request". Full width, white bg, black text,
+  font-bold, py-4, rounded-xl, hover:bg-zinc-200. Disabled when isPending;
+  label changes to "Sending…".
+
+  Success state: When state.success is true, form is replaced by a success
+  card (same rim/card style). Green check icon, "Request received" heading,
+  short message (personal response, phone or WhatsApp, not a call centre).
+  CTA: "WhatsApp us in the meantime" (wa.me link, green button).
+
+--------------------------------------------------------------------------------
+7. SERVER ACTION & INTEGRATIONS
+--------------------------------------------------------------------------------
+
+  • Action:     submitContactEnquiry(prevState, formData). useActionState
+                passes previous state and form data.
+  • Steps:      (1) Parse formData (fullName, phone, email, topics JSON,
+                consent, website). (2) contactFormSchema.safeParse. (3) If
+                validation fails, return flatten() fieldErrors and message.
+                (4) If website non-empty (honeypot), return success without
+                persisting. (5) syncContactToHubSpot(payload) – creates/updates
+                contact in HubSpot, cumulative lead scoring. (6) If HubSpot
+                fails, return error message. (7) Optionally trigger Trigger.dev
+                task "generate-financial-pdf" with email and fullName (if
+                TRIGGER_SECRET_KEY set). (8) Return success and "Thank you.
+                We'll be in touch."
+  • HubSpot:    lib/hubspot.service – syncContactToHubSpot. Used for CRM and
+                lead scoring.
+  • Trigger.dev: Optional one-off trigger for PDF generation; failure only
+                 logged in development.
+
+--------------------------------------------------------------------------------
+8. STYLING & DESIGN SYSTEM
+--------------------------------------------------------------------------------
+
+  • Background:  Page bg-[#0a0a0c]. "What happens next" strip bg-black/20.
+                Form card #151518. Void/shark consistency with rest of site.
+  • Typography:  Headline 4xl/5xl; section heading 2xl/3xl; body zinc-400/500,
+                sm or lg. Trust and list items use green check (text-green-400).
+  • Form inputs: inputClass – bg-white/5, border white/10, rounded-xl, px-4
+                py-3, focus:border-blue-500. Labels: text-sm font-medium
+                text-zinc-300. Errors: text-amber-400, text-sm.
+  • Buttons:     Primary (submit) white bg, black text. WhatsApp #25D366.
+                Links: zinc-400, hover white; teal not used on this page for
+                links except as accent in form focus.
+  • Spacing:     max-w-6xl main section; max-w-4xl "What happens next".
+                gap-12 lg:gap-16 between columns. Consistent section padding.
+
+--------------------------------------------------------------------------------
+9. COMPONENTS USED
+--------------------------------------------------------------------------------
+
+  • ContactEnquiryForm  – Form with validation, topics dropdown, success state.
+  • Footer              – Shared site footer (brand, links, FSP, partners).
+  • ImagePlaceholder    – Contact image (contact-trust.jpg).
+  • Icons: ShieldCheck  – Next to "Explore solutions" link.
+
+  In-page content: trustBadges, steps, idealClient arrays (see §10).
+
+--------------------------------------------------------------------------------
+10. DATA & CONTENT
+--------------------------------------------------------------------------------
+
+  trustBadges (array of 3 strings): FSP 17273, 25+ Years Experience, Zero
+  Advice Fees on Investments.
+
+  steps (array of 3 objects): number, title, body. Step 1–3 as in §5.
+
+  idealClient (array of 4 strings): investable assets; value advice; long-term
+  relationship; willing to follow process.
+
+  serviceOptions (in ContactEnquiryForm): 13 topic options with id and label;
+  see §6 for full list.
+
+  All content is static in the page or form component; no CMS or API for copy.
+
+--------------------------------------------------------------------------------
+11. RESPONSIVE BEHAVIOUR
+--------------------------------------------------------------------------------
+
+  • Main section:  Single column on small; two columns from lg (grid-cols-2).
+                   Left column stacks headline, copy, image, spacer, then "We
+                   work best with" at bottom. Right column form full width
+                   below on small.
+  • CTAs:          "We work best with" CTAs: flex-col on small, flex-row sm+
+                   (items-stretch sm:items-center gap-3).
+  • What happens next: One column on small; three columns from sm (grid-cols-3).
+                   Step text centred on small, sm:text-left on larger.
+  • Form:          Full width within column; no horizontal scroll. Topics
+                   dropdown max-h-56 overflow-y-auto on small screens.
+
+--------------------------------------------------------------------------------
+12. ACCESSIBILITY & COMPLIANCE
+--------------------------------------------------------------------------------
+
+  • Labels:       All inputs have associated <label> with htmlFor/id. Consent
+                  uses wrapping label.
+  • Errors:       aria-invalid and aria-describedby when fieldErrors present;
+                  id on error paragraph (e.g. fullName-error). Generic
+                  message has role="alert".
+  • Honeypot:     website field aria-hidden, tabIndex=-1, off-screen so
+                  screen readers and users don't interact.
+  • Consent:      Copy mentions HELP/STOP for opt-out (common for SMS/marketing
+                  compliance). Form is for enquiry and transactional follow-up.
+  • Links:        External WhatsApp: target="_blank" rel="noopener noreferrer".
+
+--------------------------------------------------------------------------------
+13. RELATION TO REST OF SITE
+--------------------------------------------------------------------------------
+
+  • Entry:   Header "Contact Us" → /contact. CTAs from Solutions ("Book Private
+             Consultation", Phase 2 cards), Calculators ("Request a review",
+             "Assess your business risk", "Get in touch"), home page, and
+             footer link to /contact.
+  • Exit:    WhatsApp 067 242 9946 (external). "Explore solutions" → /#solutions.
+             After submit, success card offers "WhatsApp us in the meantime".
+  • Role:    Primary lead capture and consultation request. Complements
+             WhatsApp for users who prefer form; supports HubSpot pipeline and
+             optional Trigger.dev PDF. Aligns with "personal response, no call
+             centre" and FSP 17273 positioning.
+
+================================================================================
+  END OF CONTACT PAGE OVERVIEW
+================================================================================

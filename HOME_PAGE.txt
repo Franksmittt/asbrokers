@@ -1,0 +1,360 @@
+================================================================================
+  AS BROKERS — HOME PAGE ONLY (SUMMARY)
+================================================================================
+
+Source: app/(content)/page.tsx
+
+This file describes everything on the home page: structure, components, layout,
+and styling. The global Nav and AppShell wrap the whole app (including the home
+page) but are not listed here as home-specific.
+
+--------------------------------------------------------------------------------
+1. PAGE PURPOSE
+--------------------------------------------------------------------------------
+
+The home page is the main landing: hero with tagline and an embedded AI chat
+terminal (Digital Wealth Assistant), trust strip, dual pathway (protect vs grow),
+full run-out calculator hub with email-for-PDF, solutions bento grid (with 3D
+tilt and glare), stats, value props, CTA strip, and footer. It uses the Apple Pro × Samsung Galaxy design system (void/shark
+backgrounds, rim-light glass, squircle cards, Nightography orbs, teal/gold
+accents).
+
+--------------------------------------------------------------------------------
+2. PAGE LAYOUT (ROOT WRAPPER)
+--------------------------------------------------------------------------------
+
+- Wrapper: <div className="relative bg-void min-h-screen pb-24 md:pb-0">
+  - Background: void (#000000). Extra bottom padding on mobile.
+
+- First block (above the fold):
+  - <div className="h-screen min-h-[600px] relative overflow-hidden">
+  - Contains: BackgroundOrbs (full-bleed) + Hero (absolute inset-0, z-10).
+  - One viewport height; content scrolls inside Hero.
+
+- Rest of page: sections stacked vertically. Each major block is a component
+  or a <section> with heading + component. Anchors: #lab (calculator hub),
+  #solutions / #wealth (solutions bento).
+
+--------------------------------------------------------------------------------
+3. COMPONENTS (IN ORDER OF APPEARANCE)
+--------------------------------------------------------------------------------
+
+--- 3.1 BackgroundOrbs ---
+Path: components/BackgroundOrbs.tsx
+
+What it does:
+  Ambient “Nightography” lighting behind the hero: large, heavily blurred
+  absolute-positioned divs in Cinematic Teal (#008080) and Gold/Orange
+  (#FF7F50) to create OLED-style contrast. Mouse-reactive (Framer Motion
+  springs); subtle scale/opacity animation with Apple easing. Respects
+  prefers-reduced-motion.
+
+Layout:
+  - Position: absolute, full viewport; no layout impact (pointer-events-none).
+  - Three orbs: top-left (teal), top-right (gold-orange), bottom-left (teal,
+    lighter).
+
+Styling:
+  - Blur: blur-[180px] / blur-[120px]. Large radii (e.g. w-[70%] h-[70%]).
+  - Colours: bg-[#008080]/25, bg-[#FF7F50]/20, bg-[#008080]/10.
+  - Motion: ease [0.25, 0.1, 0.25, 1]; duration 4–6s repeat.
+
+--- 3.2 Hero ---
+Path: components/Hero.tsx
+
+What it does:
+  Above-the-fold hero: location badge (Krugersdorp · Est. 1998 · FSP 17273),
+  main headline “Protecting Your Legacy. Engineering Your Wealth.” (gradient
+  on second line), supporting copy, two CTAs (Financial Health Check → lead
+  form; Run The Numbers → #lab), and optional scroll hint. On desktop, a
+  compact run-out calculator (HeroCalculator) in the third column; on mobile,
+  scroll hint then calculator below.
+
+Layout:
+  - Section: absolute inset-0 z-10, flex flex-col, pt-24 pb-8, overflow-auto.
+  - Grid: max-w-6xl, 1 col mobile / 3 col md (2 cols copy, 1 col terminal).
+  - Copy: md:col-span-2. Terminal: md:col-span-1, justify-end on desktop.
+  - Scroll hint: mobile inline between copy and terminal; desktop absolute
+    bottom-6 center.
+
+Styling:
+  - Badge: rim-light, rounded-full, text-cinematic-teal/90, small ping dot.
+  - H1: text-4xl→7xl, tracking-[-0.03em], white + gradient (from-cinematic-teal
+    via-teal-300 to-gold-orange) on “Engineering Your Wealth.”
+  - Body: text-gray-400, tracking-[0.01em], max-w-lg.
+  - Primary CTA: bg-white text-black, rounded-[2rem], hover:scale-[1.03]
+    hover:shadow-cta-glow-gold; wrapped in motion.div with Galaxy AI particle/
+    sparkle glow on hover (radial gradient blur behind button, Apple easing).
+  - Secondary CTA: rim-light, rounded-[2rem], hover teal glow.
+  - Motion: Framer Motion on badge, h1, p, CTAs, terminal column; initial
+    opacity 0 + y; animate in with ease [0.25, 0.1, 0.25, 1], duration 0.6–0.7s,
+    staggered delays.
+
+--- 3.3 HeroChatTerminal (nested in Hero) ---
+Path: components/HeroChatTerminal.tsx
+
+What it does:
+  Elite “open terminal” UI: frosted-glass Bloomberg-style panel with a fake
+  chat history (AI welcome: “Welcome to AS Brokers. I am your Digital Wealth
+  Assistant. How can I protect your legacy today?”), input bar with pulsing
+  Samsung Blue glow, and “Open full chat →” link to /chat. UI shell only (no
+  backend/API in hero).
+
+Layout:
+  - Single column; inside Hero’s third grid column on desktop.
+  - Container: h-[320px]→380px (responsive), full width min-w-0, rounded-[2rem].
+
+Styling:
+  - Frosted glass: bg-white/5 backdrop-blur-2xl ring-1 ring-white/10
+    rounded-[2rem].
+  - Header: traffic-light dots + “Digital Wealth Assistant” label; border-b
+    border-white/10.
+  - Chat bubble: AI message in rounded-2xl with samsung-blue/20 background.
+  - Input bar: rounded-xl, bg-white/5 border-white/10; pulsing glow via
+    keyframes hero-terminal-glow and hero-terminal-shine in globals.css
+    (Samsung Blue; respects prefers-reduced-motion).
+
+--- 3.4 TrustBar ---
+Path: components/TrustBar.tsx
+
+What it does:
+  Horizontal strip: “Licensed & Authorised” + FSP 17273, then “Recognised
+  partners” + Santam, Old Mutual, Everest, Bryte. Reinforces trust and
+  compliance.
+
+Layout:
+  - Section: py-8 px-6, border-y border-white/10.
+  - max-w-5xl mx-auto; flex col on small screens, row on sm; center-aligned;
+  - FSP and partners in one row with optional divider (hidden sm).
+
+Styling:
+  - Background: bg-shark/80 backdrop-blur-xl.
+  - FSP 17273: .trust-hallmark (tabular-nums, letter-spacing, light shadow).
+  - Labels: text-gray-500 text-[10px] uppercase tracking-[0.2em].
+  - Partners: text-gray-500 hover:text-gray-400.
+
+--- 3.5 DualPathway ---
+Path: components/DualPathway.tsx
+
+What it does:
+  Two large cards: “I want to protect my assets” (→ /#solutions) and “I want
+  to grow my capital” (→ /#wealth). Icons ShieldCheck (teal) and LineChart
+  (blue). Copy for insurance/risk vs retirement/Everest.
+
+Layout:
+  - Section: py-16 md:py-24 px-6, max-w-5xl mx-auto.
+  - Heading + subtext centered; grid md:grid-cols-2 gap-6 for the two cards.
+  - Each card: flex flex-col md:flex-row, items-center, gap-6, p-8,
+    rounded-[2rem].
+
+Styling:
+  - Cards: bg-[#151518] border border-white/5 hover:border-white/15,
+    transition duration-300.
+  - Icon container: bg-white/10 w-16 h-16 rounded-2xl; hover teal/blue tint.
+  - Headings: text-xl font-bold text-white. Body: text-zinc-500 text-sm.
+  - CTA line: text-teal-400 or text-blue-400, font-semibold, arrow icon.
+
+--- 3.6 Section “The Interactive Calculator Hub” (id=lab) ---
+Inline on page (not a separate component)
+
+What it does:
+  Introduces the full run-out calculator: heading, short copy, link to
+  /calculators, then RunOutCalculator component.
+
+Layout:
+  - <section id="lab" className="py-24 px-4 sm:px-6 md:px-8 relative z-10
+    bg-shark/60 border-y border-white/5 backdrop-blur-3xl">
+  - max-w-6xl mx-auto. Heading block mb-12 md:mb-16, then RunOutCalculator.
+
+Styling:
+  - H2: text-3xl md:text-5xl font-bold tracking-[-0.03em] text-white.
+  - P: text-gray-400 text-lg max-w-3xl tracking-[0.01em].
+  - Link: text-cinematic-teal hover:underline font-medium.
+
+--- 3.7 RunOutCalculator ---
+Path: components/RunOutCalculator.tsx
+
+What it does:
+  Full run-out calculator: sliders for Total Portfolio Value and Monthly
+  Drawdown; optional email capture to receive PDF; Recharts AreaChart
+  “Projection over time” (year vs balance). Triggers Trigger.dev PDF job
+  when user submits email (contact action + task).
+
+Layout:
+  - Grid: grid-cols-1 lg:grid-cols-12 gap-8. Controls in lg:col-span-4,
+    chart in lg:col-span-8.
+  - Controls card: rounded-[2rem] p-8 border border-white/5. Chart in
+    responsive container.
+
+Styling:
+  - Controls panel: bg-[#151518], shadow-2xl. Labels text-zinc-400;
+    values text-blue-400 font-bold (currency). Range inputs use global
+    slider styles.
+  - Chart: Recharts AreaChart; isAnimationActive false for print/PDF.
+  - Email form (after reveal): standard form styling; Lock icon. Primary
+    button for submit.
+
+--- 3.8 Section “Architectural Solutions” (id=solutions) ---
+Inline on page
+
+What it does:
+  Section heading + subtext, then SolutionsBento grid. Anchor #wealth for
+  “grow my capital” link.
+
+Layout:
+  - <section id="solutions" className="py-24 px-4… max-w-7xl mx-auto
+    scroll-mt-24">
+  - Hidden span id=wealth for anchor. Centered heading and paragraph,
+    mb-12, then SolutionsBento.
+
+Styling:
+  - H2: text-3xl md:text-5xl font-bold tracking-[-0.03em] text-white
+    text-center.
+  - P: text-gray-400 text-center max-w-3xl mx-auto tracking-[0.01em].
+
+--- 3.9 SolutionsBento ---
+Path: components/SolutionsBento.tsx
+
+What it does:
+  Bento grid of solution cards: Retirement & Investment (large 2×2),
+  Insurance & Risk, Business Structuring, Fiduciary & Estate, Medical &
+  Wellness (wide 2-col). Links to /solutions#… and /everest-wealth. Icons:
+  LineChart, HeartPulse, Briefcase, Scroll. Each card is wrapped in TiltCard
+  for 3D tilt and cursor-following glare.
+
+Layout:
+  - Grid: grid-cols-1 md:grid-cols-3 gap-4 md:gap-6.
+  - Retirement: md:col-span-2 md:row-span-2. Medical: md:col-span-2.
+  - Cards: rim-light, rounded-[2rem], padding p-6→p-12 depending on size.
+
+Styling:
+  - All cards: .rim-light, rounded-[2rem], hover:border-cinematic-teal/20
+    or hover:bg-white/[0.07]. Staggered Framer Motion (initial opacity 0, y 20;
+    whileInView; ease Apple, delay by index).
+  - 3D tilt: TiltCard uses useMotionValue (mouse), useTransform (→ rotateX/
+    rotateY), useSpring (stiffness 300, damping 30); max ±8°, transformPerspective
+    800. Mouse move over card drives subtle X/Y rotation (Apple-style spring).
+  - Glare: pointer-events-none absolute div inside each card; radial gradient
+    (white/transparent) follows cursor for a physical glass sheen in a dark room;
+    opacity transition with Apple easing.
+  - Retirement card: internal teal orb blur on hover. Icon bg-white/10
+    rounded-2xl; text-cinematic-teal. Links text-cinematic-teal.
+  - Other cards: HeartPulse red-400, Briefcase gold-orange, Scroll teal-400.
+  - Medical: gradient wash from-cinematic-teal/10.
+
+--- 3.10 HomeStatsSection ---
+Path: components/HomeStatsSection.tsx
+
+What it does:
+  Three stats in a row: “25+” (Years experience), “FSP 17273” (Authorised
+  provider), “1.8” (Shares authority). Trust/signal strip.
+
+Layout:
+  - Section: py-16 md:py-20 px-4 sm:px-6 md:px-8 border-y border-white/10,
+    bg-shark/60 backdrop-blur-xl.
+  - max-w-5xl mx-auto. Grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12,
+    text-center.
+
+Styling:
+  - Values: .trust-hallmark, text-3xl→5xl font-bold text-white.
+  - Labels: text-gray-500 text-sm font-semibold uppercase
+    tracking-[0.15em].
+
+--- 3.11 HomeValueProps ---
+Path: components/HomeValueProps.tsx
+
+What it does:
+  “Why AS Brokers”: three cards (Independent, Full-service, Personal) with
+  short copy and CTAs to /solutions, /calculators, /contact. Icons:
+  ShieldCheck, LineChart, User.
+
+Layout:
+  - Section: py-20 md:py-24 px-4 sm:px-6 md:px-8. max-w-6xl mx-auto.
+  - Heading + subtext centered; grid md:grid-cols-3 gap-6 md:gap-8.
+
+Styling:
+  - Cards: rim-light rounded-[2rem] border-0 hover:bg-white/[0.07],
+    transition duration-500.
+  - Icon box: bg-white/10 rounded-2xl, group-hover:bg-cinematic-teal/20.
+  - Headings: text-lg font-bold text-white. Body: text-gray-400
+    tracking-[0.01em].
+  - CTA: text-cinematic-teal font-semibold group-hover:underline.
+
+--- 3.12 HomeCtaStrip ---
+Path: components/HomeCtaStrip.tsx
+
+What it does:
+  “Ready for a conversation?” with two buttons: Book a consultation
+  (/contact) and WhatsApp 067 242 9946. Final push before footer.
+
+Layout:
+  - Section: py-16 md:py-20 px-4 sm:px-6 md:px-8 border-y border-white/10,
+    bg-gradient-to-b from-cinematic-teal/10 to-transparent.
+  - max-w-3xl mx-auto text-center. Flex flex-col sm:flex-row gap-4
+    for buttons.
+
+Styling:
+  - H2: text-2xl md:text-3xl font-bold tracking-tight text-white.
+  - P: text-gray-400 tracking-[0.01em].
+  - Primary: bg-white text-black rounded-[2rem], hover:scale-[1.03]
+    hover:shadow-cta-glow-gold.
+  - WhatsApp: bg-green-600 hover:bg-green-500 rounded-[2rem]
+    hover:scale-[1.03].
+
+--- 3.13 Footer ---
+Path: components/Footer.tsx
+
+What it does:
+  Site footer: compliance strip (FAIS, FSCA, POPIA, FSP 17273), brand column
+  (logo, tagline, FSP, blurb, WhatsApp button), Quick links, Services links,
+  Legal links, trust line, copyright.
+
+Layout:
+  - <footer> bg-[#0a0a0c] border-t border-white/10.
+  - Compliance: border-b border-white/5, centered small text.
+  - Top accent: 1px gradient line (blue/teal).
+  - Main: max-w-7xl mx-auto, grid 1 col sm:2 lg:12 (brand lg:col-span-4,
+    quick links lg:col-span-2, services lg:col-span-2, etc.), gap-10 lg:gap-8.
+
+Styling:
+  - Logo: gradient from-blue-500 to-teal-400 (could align to cinematic-teal
+    / gold-orange for design system).
+  - Links: text-zinc-500, hover. Headings: text-xs font-semibold uppercase
+    tracking-widest text-zinc-400.
+  - WhatsApp: bg-green-600 hover:bg-green-500 rounded-full.
+
+--------------------------------------------------------------------------------
+4. DESIGN TOKENS & GLOBAL STYLES USED ON HOME
+--------------------------------------------------------------------------------
+
+- Backgrounds: bg-void (#000), bg-shark (#1D1D1F), bg-shark/60, bg-shark/80.
+- Glass: .rim-light (bg-white/5 backdrop-blur-2xl border ring, inset highlight).
+- Colours: cinematic-teal, gold-orange, gray-400/500 for body, white for
+  headings.
+- Typography: tracking-[-0.03em] headlines, tracking-[0.01em] body,
+  .trust-hallmark for FSP/numbers.
+- Buttons: rounded-[2rem], hover:scale-[1.03], shadow-cta-glow-gold or
+  shadow-cta-glow-blue.
+- Motion: Framer Motion ease [0.25, 0.1, 0.25, 1], duration 0.5–0.7s.
+- Cards: rounded-[2rem] (squircle), border border-white/5 or rim-light.
+
+--------------------------------------------------------------------------------
+5. ANCHORS & ROUTES REFERENCED FROM HOME
+--------------------------------------------------------------------------------
+
+- #lab          – Full run-out calculator section.
+- #solutions   – Architectural Solutions bento.
+- #wealth      – Same section as #solutions (for “grow my capital”).
+- /calculators – “View all calculators” link.
+- /contact     – Book consultation, Contact Us.
+- /solutions   – Solutions hub and #insurance, #estate, #medical, #retirement.
+- /everest-wealth – Product hub and calculators.
+- /chat         – Digital Wealth Assistant (full chat); HeroChatTerminal
+  links “Open full chat →” here.
+- WhatsApp     – https://wa.me/27672429946 (067 242 9946).
+- Lead form    – Opened by “Financial Health Check” (Client Login) via
+  LeadFormContext.
+
+--------------------------------------------------------------------------------
+END OF HOME PAGE SUMMARY
+================================================================================

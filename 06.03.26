@@ -1,0 +1,145 @@
+Phase 3: Sanity v3 Headless CMS – Implementation Plan
+1. Scope and constraints
+Replace the current /insights placeholder with a Sanity-powered insights hub.
+Keep the existing /insights/semigration-retirement static page as-is (or later migrate it to a Sanity article); the plan focuses on the new dynamic insights index and article route.
+FAIS: Centralise FSP 17273 disclaimers in an fspEntity document and inject them via a custom Portable Text block fspDisclosure.
+SEO: Target “semigration” and related terms; all article-level SEO via seoMetadata (title/description length checks, canonical, OG image, noIndex).
+Studio: Embedded at /studio; Draft Mode + Visual Editing must not run under /studio (use pathname check or route group).
+2. File and folder structure
+sanity/  schemaTypes/    index.ts              # Export all types + structure    objects/      seoMetadata.ts      # Reusable SEO object    documents/      article.ts          # Article document (body: PT, references seoMetadata, locale-aware slug)      fspEntity.ts        # FSP 17273 license / disclaimer document    blocks/      fspDisclosure.ts    # Custom PT block: reference to fspEntity, render as disclaimer box  lib/    client.ts             # createClient (next-sanity) – projectId, dataset, apiVersion, stega    fetch.ts              # sanityFetch wrapper using React cache() for request deduplication    live.ts               # defineLive(client, serverToken, browserToken) → sanityFetch, SanityLive  env.ts                  # Validation for NEXT_PUBLIC_SANITY_* and SANITY_VIEWER_TOKEN (optional)sanity.config.ts          # defineConfig: project, dataset, schema, plugins (presentationTool, etc.)app/  studio/    [[...tool]]/      page.tsx            # Embedded Sanity Studio (dynamic route)  api/    draft-mode/      enable/        route.ts          # defineEnableDraftMode({ client with token })  (main)/                 # Or use pathname in root layout to exclude /studio    layout.tsx            # Existing root layout; add conditional SanityLive + VisualEditing (see 5)  insights/    page.tsx              # Insights index: list articles (sanityFetch + GROQ), link to [slug]    [slug]/      page.tsx            # Dynamic article page: sanityFetch by slug, generateMetadata, PT + custom fspDisclosurecomponents/  DisableDraftMode.tsx    # Optional: button to disable draft mode when not in Presentation tool  portable-text/    ArticlePortableText.tsx  # PortableText with custom types.fspDisclosure → FspDisclosureBlock    FspDisclosureBlock.tsx   # Renders referenced fspEntity as styled disclaimer box
+Sanity Studio: Served at /studio via app/studio/[[...tool]]/page.tsx (or [[...index]] per next-sanity embedding docs).
+Draft Mode: Enabled by GET /api/draft-mode/enable (and optionally disabled via server action + DisableDraftMode).
+Visual Editing: VisualEditing and SanityLive only when draft mode is on and pathname is not /studio (or under a studio route). Use a small client wrapper that uses usePathname() and only then renders SanityLive + (when draft) VisualEditing, so the studio layout never gets them.
+3. Sanity Studio and schema architecture
+3.1 Paths and entrypoint
+Config: sanity.config.ts at project root (or under sanity/ and imported from root). Plugins: structureTool, presentationTool (with previewUrl.previewMode.enable: "/api/draft-mode/enable"), and any locale plugin if used.
+Schema entry: sanity/schemaTypes/index.ts exports the schema and optionally structure for the desk.
+3.2 Reusable seoMetadata object (sanity/schemaTypes/objects/seoMetadata.ts)
+Fields:
+metaTitle (string) – Rule: Rule.max(65).warning('Keep under 65 characters for SEO')
+metaDescription (string) – Rule: Rule.max(160).warning('Keep under 160 characters')
+canonicalUrl (string, optional) – URL
+openGraphImage (image, optional) – Sanity image type
+noIndex (boolean, default false) – noindex when true
+Used as an embedded object in article (and optionally other documents later).
+3.3 Document: article (sanity/schemaTypes/documents/article.ts)
+Fields:
+title (string, required)
+slug (slug, required) – Document-level localization: same document can have EN vs AF slug via plugin or a locale field that affects slug uniqueness (e.g. slug unique per locale). Implementation option A: use @sanity/document-internationalization and language-specific documents with their own slugs. Option B: single document with locale (e.g. en | af) and slug validated unique per locale.
+locale (string, optional) – e.g. en, af for separate EN/AF SEO slugs and generateMetadata/canonical.
+publishedAt (datetime, optional)
+excerpt (text, optional) – for cards and meta description fallback
+body (array, block content) – Portable Text; may include the custom block fspDisclosure.
+seo (object) – embedded seoMetadata.
+Document-level localization: Plan is to support separate English and Afrikaans SEO slugs (e.g. one document per language or one doc with locale + slug). Schema will expose slug.current and locale so GROQ can resolve by slug and optionally locale.
+3.4 Document: fspEntity (sanity/schemaTypes/documents/fspEntity.ts)
+Purpose: Single source of truth for FSP 17273 (and any other FSP) license and legal disclaimer text.
+Fields (example):
+name (string) – e.g. "AS Brokers CC"
+fspNumber (string) – e.g. "17273"
+disclaimerText (text or block content) – the legal disclaimer to show in articles.
+Usage: Referenced by the custom block fspDisclosure so editors pick an FSP entity and the front end renders it in a compliant disclaimer box.
+3.5 Custom Portable Text block: fspDisclosure (sanity/schemaTypes/blocks/fspDisclosure.ts)
+Type: Block (custom block type in the PT schema).
+Fields:
+fspEntity (reference) – to document type fspEntity.
+Optional: variant (string) – e.g. "default" | "compact" for styling.
+Rendering: In @portabletext/react, a custom component for type fspDisclosure will resolve the reference, read fspEntity.disclaimerText (and name/number), and render a styled disclaimer box at the bottom of the article (or wherever the block is placed).
+4. Data fetching and memoization
+4.1 Sanity client (sanity/lib/client.ts)
+createClient from next-sanity with:
+projectId, dataset, apiVersion (e.g. "2024-12-01"),
+useCdn: true for production,
+stega: { studioUrl } for Visual Editing,
+no token on the base client (token passed where needed for draft content).
+Export client.
+4.2 Request deduplication (sanity/lib/fetch.ts)
+React cache(): Next.js 15 does not cache fetch by default. To ensure one network request when both generateMetadata and the default Page component request the same article:
+Either use the sanityFetch returned by defineLive (if it is already memoized per request), or
+Wrap the GROQ fetch in cache() and call that from both generateMetadata and the page.
+Plan: Implement a sanityFetch wrapper that:
+Takes a GROQ query and params.
+Uses cache() from React so that the same (query, params) in the same request only hits Sanity once.
+Calls client.fetch(query, params, options) (or the sanityFetch from defineLive if it accepts a similar signature). If we use defineLive, we will use its sanityFetch everywhere and, if the docs do not guarantee deduplication with generateMetadata, wrap the call in cache() in sanity/lib/fetch.ts and re-export (e.g. cachedSanityFetch).
+4.3 Live content (sanity/lib/live.ts)
+defineLive from next-sanity/live:
+client from sanity/lib/client.ts,
+serverToken: process.env.SANITY_VIEWER_TOKEN,
+browserToken: same (only used when draft mode is on).
+Export sanityFetch and SanityLive from this file.
+All article (and insights index) data will be fetched with this sanityFetch so that Draft Mode + Live Content work correctly.
+5. Next.js 15 Draft Mode and Visual Editing
+5.1 Route: app/api/draft-mode/enable/route.ts
+defineEnableDraftMode from next-sanity/draft-mode:
+client: client.withConfig({ token: process.env.SANITY_VIEWER_TOKEN }).
+Export GET handler so that the Presentation tool can open the app with draft mode enabled.
+5.2 Root layout (app/layout.tsx)
+Conditional injection (embedded studio safe):
+SanityLive – must be present for live updates and draft/published switching, but must not run on the /studio route (to avoid reloads/conflicts).
+VisualEditing – only when draft mode is enabled and not on /studio.
+Implementation: Add a client component (e.g. SanityVisualEditing.tsx) that:
+Uses usePathname() and skips rendering when pathname.startsWith('/studio').
+Renders <SanityLive /> always when not on /studio (so that sanityFetch is live).
+Renders <VisualEditing /> only when draft mode is enabled (e.g. via a small server-boundary wrapper that passes isDraftMode as prop, or by using a hook/context from next-sanity if available). If next-sanity does not expose draft mode to the client, alternative is to render VisualEditing in the server layout only when draftMode().isEnabled and pathname !== '/studio'; then we need a way to get pathname on the server (e.g. headers or a separate layout for (content) route group that wraps everything except /studio).
+Recommended: Use a route group (content) so that:
+app/(content)/layout.tsx wraps all non-studio routes and renders SanityLive + conditional VisualEditing (when draft mode is on). Root app/layout.tsx stays minimal (font, globals, AppShell).
+app/studio/[[...tool]]/page.tsx is outside (content), so it never gets SanityLive or VisualEditing.
+Summary: Either (A) client wrapper that checks pathname and only mounts SanityLive + VisualEditing when pathname is not under /studio, and VisualEditing only when draft mode is true (passed from server), or (B) route group (content) with a server layout that adds SanityLive and VisualEditing (when draft) for all non-studio routes. Plan assumes (B) for clarity: app/(content)/layout.tsx contains the Draft Mode check and renders SanityLive and conditional VisualEditing.
+6. GROQ queries
+6.1 Insights index (list articles)
+Query name (e.g.): insightsList.
+GROQ (concept):
+*[_type == "article" && defined(slug.current)] | order(publishedAt desc) { _id, title, slug, excerpt, publishedAt, "seo": seo }.
+If using locale: add && locale == $locale and pass locale (default "en").
+Usage: app/insights/page.tsx uses sanityFetch({ query: insightsList, params: { locale: "en" } }) and renders a list of links to /insights/[slug].
+6.2 Single article by slug (for page + metadata)
+Query name (e.g.): articleBySlug.
+GROQ (concept):
+*[_type == "article" && slug.current == $slug][0] { _id, title, slug, excerpt, publishedAt, body, seo }.
+If using locale: && slug.current == $slug && locale == $locale.
+Usage: Same query used in generateMetadata and in the default export of app/insights/[slug]/page.tsx, with both calls going through the cached sanityFetch so only one request is made per request.
+6.3 FSP entity for disclaimer (resolved inside PT or in a separate query)
+Option A: In the article query, expand the reference in body so that any fspDisclosure block includes the resolved fspEntity (e.g. body[] { ..., _type == "fspDisclosure" => { ..., "fsp": fspEntity-> } }).
+Option B: Resolve fspEntity in the serializer by doing a separate fetch by id when rendering fspDisclosure. Prefer Option A in the main article query so that one GROQ request still suffices and the serializer only renders.
+7. The insights route and article page
+7.1 app/insights/page.tsx
+Data: sanityFetch(insightsList) (with locale if used).
+UI: Replace placeholder with a list of articles (title, excerpt, publishedAt, link to /insights/[slug]). Reuse existing layout (e.g. section + Footer). Optional: use generateMetadata for insights index SEO (e.g. from a static or single “Insights” document in Sanity).
+7.2 app/insights/[slug]/page.tsx
+Params: params: Promise<{ slug: string }> (Next 15).
+Data: sanityFetch(articleBySlug, { slug }) with body expanded to resolve fspDisclosure.fspEntity->.
+generateMetadata: Same sanityFetch(articleBySlug, { slug }) (via cached wrapper) to derive title, description, openGraph, canonical, robots (if seo.noIndex).
+Rendering:
+Article title, publishedAt, excerpt.
+Portable Text: @portabletext/react with a custom components.types.fspDisclosure that renders FspDisclosureBlock (styled disclaimer box using resolved fspEntity name, FSP number, and disclaimer text). All other block types use default or minimal customisation.
+404: If query returns null, notFound().
+7.3 Custom serializer: fspDisclosure → disclaimer box
+Component: e.g. FspDisclosureBlock.tsx. Receives value (block with fspEntity reference; resolved in GROQ to fsp or similar).
+Rendering: A bordered/background box (e.g. bottom of article or inline) with:
+FSP name and number (e.g. “AS Brokers CC · FSP 17273”),
+Disclaimer text from fspEntity.disclaimerText,
+Optional “FAIS compliant” or similar short line.
+Styling: Match site (e.g. border-white/10, bg-white/5, small type) so it is clearly a legal disclaimer.
+8. Dependencies and env
+Packages: next-sanity, @sanity/client (if not bundled by next-sanity), @portabletext/react, sanity (for Studio config and schema). Optional: @sanity/document-internationalization if using document-level localization with the plugin.
+Env (app):
+NEXT_PUBLIC_SANITY_PROJECT_ID
+NEXT_PUBLIC_SANITY_DATASET
+NEXT_PUBLIC_SANITY_STUDIO_URL (e.g. http://localhost:3000/studio for embed)
+SANITY_VIEWER_TOKEN (Viewer role, for draft content and Presentation tool)
+Env (Studio): Same project/dataset; optional SANITY_STUDIO_PREVIEW_ORIGIN for Presentation tool.
+9. Summary checklist (for your approval)
+Item	Detail
+Studio	Embedded at /studio; config in sanity.config.ts; schemas under sanity/schemaTypes/.
+seoMetadata	Object: metaTitle (max 65 warning), metaDescription (max 160), canonicalUrl, openGraphImage, noIndex.
+article	Document with title, slug, locale (optional), publishedAt, excerpt, body (PT), seo (embedded). Document-level localization for EN/AF slugs.
+fspEntity	Document: name, fspNumber, disclaimerText.
+fspDisclosure	Custom PT block: reference to fspEntity; serializer renders disclaimer box.
+Client	sanity/lib/client.ts with stega; token only where needed.
+Fetch	sanity/lib/fetch.ts: cached wrapper so generateMetadata + page share one request.
+Live	sanity/lib/live.ts: defineLive → sanityFetch, SanityLive.
+Draft	app/api/draft-mode/enable/route.ts: defineEnableDraftMode.
+Layout	SanityLive + VisualEditing (when draft) only for non-studio routes (e.g. via (content) layout).
+Insights index	app/insights/page.tsx: sanityFetch(insightsList), list articles → /insights/[slug].
+Article page	app/insights/[slug]/page.tsx: sanityFetch(articleBySlug), generateMetadata, PT + fspDisclosure serializer.
+If you confirm this plan (and any choices like route group vs pathname check, and EN/AF via plugin vs single locale field), the next step is to implement it in code as specified.

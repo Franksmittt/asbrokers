@@ -1,0 +1,11 @@
+{
+  "name": "AS Brokers | Financial Planning & Wealth",
+  "short_name": "AS Brokers",
+  "description": "Independent financial advice, retirement planning, insurance, and Everest Wealth. Krugersdorp, Gauteng. FSP 17273.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0c",
+  "theme_color": "#0a0a0c",
+  "orientation": "portrait-primary",
+  "icons": []
+}

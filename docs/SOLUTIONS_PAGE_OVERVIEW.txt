@@ -1,0 +1,227 @@
+================================================================================
+  AS BROKERS – SOLUTIONS PAGE OVERVIEW
+  https://asbrokers.vercel.app/solutions
+================================================================================
+
+This document describes the Solutions page: purpose, structure, components,
+styling, layout, and how it fits into the AS Brokers site. The page is
+structured to prioritise HNWIs and retirement/wealth (Private Wealth & Yield)
+over insurance, medical, and estate (Phase 2: Wealth Protection & Fiduciary
+Defense).
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The Solutions page is the main hub where visitors who clicked "Solutions" in
+the header land. It has two jobs:
+
+  • Drive high-net-worth users toward "Private Wealth & Yield" (Everest Wealth
+    products, retirement calculators, fixed-return private equity) via a
+    dominant first section and featured cards.
+  • Present insurance, medical, and estate as "Phase 2: Wealth Protection &
+    Fiduciary Defense" in a visually subordinated block so they don't compete
+    with the wealth focus.
+
+There are no dropdowns in the nav; "Solutions" links straight to this page.
+Section nav uses premium labels (Private Wealth & Yield, Risk Architecture,
+Health & Integration, Legacy Structuring).
+
+--------------------------------------------------------------------------------
+2. URL & ROUTING
+--------------------------------------------------------------------------------
+
+  • Route:  /solutions
+  • File:   app/(content)/solutions/page.tsx
+  • Layout: Uses the shared (content) layout. No page-specific metadata export.
+
+Sub-routes under /solutions:
+
+  • /solutions/personal-insurance   – Short-term personal (home, car, etc.)
+  • /solutions/business-insurance   – Commercial short-term
+  • /solutions/life-insurance      – Personal life cover
+  • /solutions/business-life       – Buy-and-sell, key person
+
+These are linked from the Phase 2 cards; the main solutions page is a single
+Server Component.
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero section ("Engineered Wealth & Risk Architecture.")
+  2. Sticky section navigation (SolutionsSectionNav) – premium labels
+  3. Section 1: Private Wealth & Yield (focus) – large section, featured cards
+  4. Phase 2: Wealth Protection & Fiduciary Defense – wrapper heading + three
+     sub-sections (Risk Architecture, Health & Integration, Legacy Structuring)
+  5. Bottom CTA block ("Stop Guessing. Start Engineering.")
+  6. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  Top of page, below global nav. pt-28 pb-16, responsive px.
+  • Background:  Dark void (bg-[#0a0a0c]). Gradient (from-blue-950/15) and
+                blurred blue orb (top-right) unchanged.
+  • Content (centred, max-w-4xl):
+      - Eyebrow:  "For individuals and business owners".
+      - Headline: "Engineered Wealth" on one line; "& Risk Architecture." on
+                  the next with gradient (from-blue-400 to-teal-400).
+      - Subhead:  Focus on bypassing traditional markets and securing capital
+                  first: "Bypass traditional markets and secure your capital
+                  with fixed-return private equity and structured retirement
+                  solutions. Full-service insurance and risk management when
+                  you need it."
+      - Trust badges: FSP 17273, 25+ years experience, Independent advice
+                  (compliance non-negotiable).
+      - Hero image: ImagePlaceholder, 16/9, /images/solutions-hero.jpg.
+
+--------------------------------------------------------------------------------
+5. STICKY SECTION NAV (SolutionsSectionNav)
+--------------------------------------------------------------------------------
+
+  • Component:  components/SolutionsSectionNav.tsx (client).
+  • Behaviour:  Sticky under main nav (top-[72px]); IntersectionObserver
+                highlights active section.
+  • Labels (premium):
+      - #retirement  → "Private Wealth & Yield"
+      - #insurance   → "Risk Architecture"
+      - #medical     → "Health & Integration"
+      - #estate      → "Legacy Structuring"
+  • Layout:  Horizontal scroll on small screens; flex-wrap on larger. Pills:
+             rounded-full; active = white bg + black text.
+  • Styling:  bg-[#0a0a0c]/95, backdrop-blur-xl, border-b border-white/5.
+
+--------------------------------------------------------------------------------
+6. SECTION 1: PRIVATE WEALTH & YIELD (FOCUS)
+--------------------------------------------------------------------------------
+
+  • Id:         #retirement (for nav anchor).
+  • Title:      "Private Wealth & Yield".
+  • Tagline:    Bypass traditional markets; secure fixed-return private
+                equity, living annuities, capital longevity planning.
+  • Icon:       LineChart. Accent: blue. Larger section header (text-2xl
+                md:text-4xl) and icon box (w-14 h-14).
+  • Grid:       sm:grid-cols-2 lg:grid-cols-3, gap-4. Bento spacing.
+
+  Featured cards (featured={true}):
+  • "Retirement Reality Calculator" and "Everest Wealth Products" span two
+    columns (md:col-span-2), larger typography (text-xl md:text-2xl title,
+    text-base md:text-lg desc), blue border (border-blue-500/40) and glow
+    (shadow-lg shadow-blue-500/10, stronger on hover).
+  • Other cards in this section: standard size, no muted background.
+
+  Items: Retirement Income Planning, Retirement Reality Calculator (featured),
+  Income in Retirement (Life of Capital), Everest Wealth Products (featured),
+  Financial Education & Calculators. Links to /everest-wealth, /retirement,
+  /income-in-retirement, /calculators.
+
+--------------------------------------------------------------------------------
+7. PHASE 2: WEALTH PROTECTION & FIDUCIARY DEFENSE
+--------------------------------------------------------------------------------
+
+  • Wrapper:    Single heading "Phase 2: Wealth Protection & Fiduciary
+                Defense" (text-xl md:text-2xl, uppercase, zinc-500) above the
+                three sub-sections.
+  • Sub-sections:  Three <section>s with ids #insurance, #medical, #estate so
+                    sticky nav scroll-to still works. Slightly smaller headers
+                    (text-xl md:text-2xl) and icon boxes (w-12 h-12).
+  • Cards:      ServiceCard with muted={true}: bg-[#101014], hover:bg-[#121218]
+                so they don't compete with the blue focus cards. Same
+                rounded-2xl, accent borders (rose, teal, amber).
+  • Grid:       Same sm:grid-cols-2 lg:grid-cols-3; no featured cards here.
+
+  Risk Architecture (#insurance):  Short-Term Personal/Business, Life
+  (Personal/Business), Premium Increase Calculator. Links to
+  /solutions/personal-insurance, etc., /premium-increase-calculator.
+
+  Health & Integration (#medical):  Medical Aid & Gap Cover, Wellness &
+  Integration. Links to /contact.
+
+  Legacy Structuring (#estate):  Estate Planning & Wills, Trust & Business
+  Structure, Estate Duty Calculator, Annual Estate Reduction Strategy. Links
+  to /contact, /estate-duty-calculator, /annual-estate-reduction-strategy.
+
+--------------------------------------------------------------------------------
+8. SERVICE CARD (IN-PAGE COMPONENT)
+--------------------------------------------------------------------------------
+
+  • Props:      name, desc, href, badge, accent, featured (optional),
+                muted (optional).
+  • Default:    rounded-2xl, p-6, bg-[#151518], accent border, hover darker
+                bg and stronger border. prefetch={false} on Link.
+  • featured:   md:col-span-2; larger title/desc; when accent is blue,
+                border-blue-500/40 and shadow-lg shadow-blue-500/10 (glow).
+  • muted:      bg-[#101014], hover:bg-[#121218] for Phase 2 cards.
+  • Badge:      Optional "Calculator" or "Popular" pill (uppercase, small).
+
+--------------------------------------------------------------------------------
+9. BOTTOM CTA BLOCK
+--------------------------------------------------------------------------------
+
+  • Heading:    "Stop Guessing. Start Engineering."
+  • Subtext:    "Book a private actuarial review of your capital lifespan, or
+                run the numbers yourself."
+  • Primary:    "Book Private Consultation" → /contact.
+  • Secondary:  "All calculators" → /calculators.
+  • Footer:     "WhatsApp 067 242 9946 for a quick response."
+  • Container:  rounded-[2rem], gradient from-[#151518] to-[#1a1a24], overlay
+                blue/teal tint; same as before.
+
+--------------------------------------------------------------------------------
+10. FOOTER
+--------------------------------------------------------------------------------
+
+  Shared Footer (components/Footer.tsx): brand, quick links, contact,
+  regulatory (FSP 17273, Category 1.8), partners, cookie preferences.
+
+--------------------------------------------------------------------------------
+11. STYLING & DESIGN SYSTEM
+--------------------------------------------------------------------------------
+
+  • Void/shark:  Page bg-[#0a0a0c]; focus cards #151518; Phase 2 cards
+                 #101014. Bento spacing (gap-4, p-6), squircle rounded-2xl.
+  • Accents:     Blue (wealth), rose (insurance), teal (medical), amber
+                 (estate). Featured wealth cards use blue border + glow.
+  • Typography:  Hero gradient on "& Risk Architecture."; section titles
+                 larger in Section 1, smaller in Phase 2. All Links
+                 prefetch={false}.
+
+--------------------------------------------------------------------------------
+12. COMPONENTS USED
+--------------------------------------------------------------------------------
+
+  Footer, SolutionsSectionNav, ImagePlaceholder. Icons: LineChart, HeartPulse,
+  Lock, Scroll, ArrowRight. ServiceCard is inline in solutions/page.tsx.
+
+--------------------------------------------------------------------------------
+13. DATA & CONTENT
+--------------------------------------------------------------------------------
+
+  categories[]:  First object is focus (retirement); items can have
+                 featured: true. Other three are defense categories. Each
+                 category: id, title, tagline, icon, accent, items[] (name,
+                 desc, href, badge, and optionally featured for focus items).
+
+--------------------------------------------------------------------------------
+14. RESPONSIVE BEHAVIOUR
+--------------------------------------------------------------------------------
+
+  Hero and section nav:  Same as before (stack, wrap, horizontal scroll).
+  Section 1:  Featured cards span 2 cols on md+; stack on small.
+  Phase 2:  Same grid; muted cards at all breakpoints.
+  CTA:  Buttons stack on small, inline on sm+.
+
+--------------------------------------------------------------------------------
+15. RELATION TO REST OF SITE
+--------------------------------------------------------------------------------
+
+  Entry:  Header "Solutions" → /solutions (no dropdown).
+  Exit:  Cards to /everest-wealth, /retirement, /calculators, /solutions/*,
+         /contact. CTA to /contact and /calculators. Hierarchy pushes
+         wealth and calculators first; insurance/medical/estate second.
+
+================================================================================
+  END OF SOLUTIONS PAGE OVERVIEW
+================================================================================

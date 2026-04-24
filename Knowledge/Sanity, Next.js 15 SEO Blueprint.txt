@@ -1,0 +1,289 @@
+﻿Architectural Blueprint for Headless Financial Publishing: Integrating Sanity v3 and Next.js 15
+The convergence of headless content management systems and advanced server-side rendering frameworks has fundamentally altered the paradigm of high-performance digital publishing. For a financial publishing platform targeting High-Net-Worth Individuals (HNWIs) in South Africa, the architectural requirements extend far beyond standard content delivery. The system must support complex editorial workflows, rigorous regulatory compliance, granular search engine optimization (SEO), and instantaneous live previews. This report provides an exhaustive architectural blueprint for integrating Sanity.io (v3) with the Next.js 15 App Router, utilizing React Server Components (RSC). The strategy is specifically calibrated to capture the highly competitive search intent surrounding "semigration"—the domestic relocation of affluent South Africans to the Western Cape for retirement and lifestyle purposes.
+The Demographic and Macroeconomic Drivers of South African Semigration
+To architect an effective SEO and content strategy, the underlying macroeconomic and demographic drivers of the target audience must be rigorously analyzed. Semigration in South Africa has historically been defined by a steady outflow of skilled, middle-to-higher-income households from inland economic hubs, predominantly Gauteng, to coastal regions like the Western Cape and the KwaZulu-Natal north coast.1
+By the current period, this landscape has evolved into a highly nuanced market. While broader economic pressures and deteriorating housing affordability in the Western Cape have sparked a "reverse semigration" trend among middle-income earners returning to Gauteng for employment opportunities, the HNWI segment remains firmly focused on the coastal province.2 The Western Cape is officially recognized as South Africa's luxury property capital, drawing affluent retirees, returning expatriates, and international investors.3
+The financial dynamics driving this migration dictate the precise content architecture required for the platform. A deep understanding of these trends allows for the creation of a highly targeted editorial taxonomy.
+
+
+Demographic and Economic Trend
+	Market Indicator
+	SEO Content Strategy Implication
+	HNWI Coastal Migration Concentration
+	The Western Cape now hosts more US Dollar millionaires than Gauteng, driven by demand for superior infrastructure and lifestyle estates.3 Census data reveals approximately 150,000 people migrate to the province annually.3
+	Deployment of high-value keywords targeting "luxury retirement estates Stellenbosch," "Western Cape HNWI property tax," and "offshore wealth transfer mechanisms."
+	The Rise of the Grey Zone Economy
+	The traditional concept of absolute retirement is being replaced by the "Grey Zone," where affluent individuals transition into consulting or non-executive roles rather than ceasing work entirely.6
+	Editorial silos addressing "post-retirement business structuring," "remote work semigration taxation," and "multi-career financial planning."
+	Retirement Planning Disconnect
+	Banking sector surveys indicate a stark disconnect between South Africans' retirement expectations and actual financial preparedness, with many relying on unrealistic assumptions regarding longevity and capital preservation.7
+	Educational funnels addressing the "sandwich generation," compound growth models, and realistic capital requirements for a Western Cape lifestyle.8
+	Strategic Investment Migration
+	HNWIs are increasingly engaging in investment migration—not necessarily to emigrate permanently, but to secure global mobility while semigrating domestically.4
+	Articles combining domestic semigration logistics with international residency-by-investment tax implications and estate structuring.9
+	Property Valuation Disparities
+	Average Western Cape house prices rose by 179.6% between 2010 and late 2025, compared to 79.7% in Gauteng, drastically altering the rent-versus-buy calculus for semigrants.1
+	Content focusing on "gross rental yields in the Garden Route," "capital gains tax on property sales," and "rentvesting strategies".5
+	The SEO strategy must intersect these demographic realities directly. Content must be modeled to address the specific financial anxieties of HNWIs: capital gains tax on property sales, the preservation of offshore wealth structures, and the comparative yields of renting versus buying in hyper-inflated markets like the Garden Route and Cape Town's Atlantic Seaboard.3 The technical architecture must therefore support highly structured, easily discoverable, and legally compliant content delivery.
+Core Architecture: Next.js 15 App Router and React Server Components
+The selection of Next.js 15 and Sanity v3 represents the leading edge of modern headless architecture. Next.js 15 introduces significant shifts in caching semantics and request memoization, moving away from the default aggressive caching of previous versions toward a more explicit, developer-controlled model.14 In Next.js 15, fetch requests, GET Route Handlers, and client navigations are no longer cached by default.14 This necessitates a highly deliberate data-fetching strategy when integrating with the Sanity Content Lake.
+The integration relies on the official next-sanity toolkit, which provides the necessary utilities for querying content via GROQ (Graph-Relational Object Queries), generating TypeScript types, and embedding the Sanity Studio directly within the Next.js application framework.15
+Server-Side Data Fetching and Memoization Strategies
+To ensure peak performance and eliminate redundant network requests across layouts, pages, and metadata generation, the architecture utilizes React's cache function in conjunction with sanityFetch. When rendering a comprehensive financial article, the application often requires the identical document data in multiple places: initially to generate the <head> metadata (including localized OpenGraph tags), and subsequently to render the sophisticated page body.
+In Next.js 15, request memoization applies specifically to the React Component tree. This mechanism ensures that a fetch request wrapped in React's cache will only execute a network call once per render pass, even if invoked simultaneously by generateMetadata and the default Page component.16
+The data fetching utility is constructed through a precise sequence of operations:
+1. Client Configuration: A read-only Sanity client is instantiated using the createClient method from next-sanity. This client is configured with the project ID, dataset environment, and a strictly defined API version date (e.g., 2025-04-16) to ensure response stability.15
+2. Memoized Fetch Wrapper: A custom sanityFetch helper is developed and wrapped in React.cache. This function accepts a GROQ query string and an object of parameters (such as the specific article slug).
+3. Route Implementation: The dynamic route segment (located at app/articles/[slug]/page.tsx) exports both an asynchronous generateMetadata function and a default Page component. Both entities invoke the memoized sanityFetch function. The first invocation triggers an external network request to the Sanity Content Lake; the second retrieves the exact payload from server memory, ensuring zero additional latency overhead.18
+This precise handling of React Server Components ensures that the heavy computational lifting—such as parsing complex GROQ responses, resolving deep document references, and formatting Portable Text—is executed entirely on the server. The client browser receives only the fully compiled, highly optimized HTML payload. This server-centric rendering is critical for achieving flawless Core Web Vitals, which operate as a primary ranking factor for the highly competitive and saturated "semigration" and "wealth management" search spaces.21
+Sanity Content Modeling for Localized SEO Dominance
+Effective headless SEO requires liberating metadata management from the frontend codebase and placing it directly into the hands of the editorial and marketing teams. For a financial publishing platform targeting regional terms like "Western Cape retirement," the underlying content schema must be exceptionally structured, validated, and robust.
+The Reusable SEO Object Schema Blueprint
+The foundation of the Sanity SEO architecture is a reusable object schema that can be appended to any document type across the platform (e.g., article, category, authorProfile). This modular approach prevents the need to recreate SEO fields repeatedly and ensures strict compliance with search engine character limits across the entire digital estate.16
+The SEO schema structure dictates the following specific fields and validation rules:
+* Meta Title (metaTitle): A string field strictly validated using Sanity's validation API. The rule requires a minimum character count and issues a warning if the string exceeds 65 characters (Rule.max(65).warning(...)). This precise limitation prevents truncation on Google Search Engine Results Pages, ensuring the complete value proposition is visible to the user.22
+* Meta Description (metaDescription): A text field (configured with rows: 3 for editorial ergonomics) constrained to a maximum of 155 to 160 characters. This field acts as the primary organic click-through-rate driver.22
+* Canonical URL (canonicalUrl): A URL field utilized to explicitly define the master version of an article. This is critical for preventing duplicate content penalties if the financial piece is syndicated across multiple regional news networks or partner platforms.22
+* OpenGraph Image (openGraphImage): An image field specifically constrained to a 1200x630 pixel aspect ratio. Sanity's built-in hotspot and crop capabilities must be enabled here, allowing editors to specify the focal point of the image for optimal social media rendering. The Next.js frontend consumes this data using Sanity's asset CDN, which automatically converts the image to the highly efficient WebP format (?auto=format).22
+* Indexing Directives (noIndex, noFollow): Boolean toggles that control the meta robots tags. If left empty, the application defaults to "index, follow." If an editor toggles noIndex, the Next.js generateMetadata function will output <meta name="robots" content="noindex" />. This is essential for ensuring that deprecated financial advice, outdated tax brackets, or sensitive internal disclosures do not dilute the site's overall search authority or present compliance risks.22
+The exact structural blueprint for this schema in Sanity v3 is defined as follows:
+
+
+JavaScript
+
+
+
+
+import { defineType, defineField } from 'sanity';
+
+export const seoMetadata = defineType({
+ name: 'seoMetadata',
+ title: 'SEO & Metadata',
+ type: 'object',
+ fields:
+});
+
+Advanced Localization Strategy for Regional Targeting
+While the primary audience is South African, HNWIs researching semigration and offshore wealth management often originate from international jurisdictions (e.g., the United Kingdom, the United Arab Emirates, or the broader African continent).3 Furthermore, localizing content for regional dialects (such as Afrikaans variations) or specific expatriate terminology is a proven method for capturing lucrative long-tail search traffic.
+Sanity v3 supports two fundamentally distinct localization patterns: Field-level localization and Document-level localization.27
+
+
+Localization Methodology
+	Architectural Mechanics
+	Optimal Deployment Scenario
+	Field-Level Localization
+	Translates individual fields within a single, unified document (e.g., title.en, title.af). Requires the editorial team to publish all language variations simultaneously.27
+	Ideal for static interface elements, navigation menus, or documents where the vast majority of the content is identical across regions.
+	Document-Level Localization
+	Generates entirely separate, unique documents for each language, which are then linked together via hidden reference fields.27
+	Mandatory for deep editorial articles, comprehensive SEO localization, and complex Portable Text blocks.
+	For a financial blog heavily reliant on nuanced SEO, Document-level localization is the absolute required approach. Utilizing the official @sanity/document-internationalization plugin empowers the editorial team to create entirely separate documents for translated content.28 This is critical because SEO slugs must also be heavily localized (e.g., an English slug /en/western-cape-property-tax versus an Afrikaans slug /af/wes-kaap-eiendomsbelasting).
+Document-level localization provides several non-negotiable architectural benefits:
+1. Independent Publishing Workflows: An English article targeting returning expats can be published immediately, while the translated version undergoes extended compliance review.
+2. Unique URL Structures: Translated pages maintain unique, semantically accurate slugs, avoiding rigid mirroring requirements.31
+3. Accurate HTML Markup: The Next.js frontend can easily map the document language to the root <html> tag's lang attribute, a strict requirement for international SEO and screen reader accessibility.31
+Next.js 15 Draft Mode and Visual Editing Integration
+A significant historical drawback of headless CMS architecture was the profound disconnect between the backend authoring environment and the frontend presentation layer. Editors were forced to guess how complex financial tables or embedded charts would render. Next.js 15 resolves this via Draft Mode, which temporarily bypasses aggressive caching layers to render pages at request time using unpublished draft data.32
+Sanity elevates this capability through the Live Content API and Visual Editing overlays, creating an editorial experience indistinguishable from a traditional monolithic visual builder.15
+The architectural blueprint for this seamless integration requires the deployment of three distinct technical components:
+1. The Draft Mode Route Handler Execution
+To securely activate Draft Mode, a Next.js Route Handler is established at app/api/draft-mode/enable/route.ts. This endpoint utilizes the defineEnableDraftMode function provided by the next-sanity/draft-mode package. When an editor clicks "Preview" within the Sanity Studio, the Studio securely transmits a cryptographic token to this endpoint. The route validates the token against the environment variables, sets a secure HTTP-only cookie on the editor's browser, and redirects them to the live preview of the requested article.34
+
+
+TypeScript
+
+
+
+
+import { defineEnableDraftMode } from 'next-sanity/draft-mode';
+import { client } from '@/sanity/lib/client';
+import { token } from '@/sanity/lib/token';
+
+export const { GET } = defineEnableDraftMode({
+ client: client.withConfig({ token }),
+});
+
+2. The defineLive Configuration
+With the release of Next.js 15, the next-sanity toolkit introduced the sophisticated defineLive API. This API orchestrates automatic revalidation and real-time refreshing of fetched content without requiring manual browser reloads. A dedicated configuration file (e.g., sanity/lib/live.ts) is created to export the optimized sanityFetch and SanityLive components. This configuration requires a secure viewer token to authenticate requests for unpublished draft documents held in the Content Lake.15
+3. Root Layout Injection
+To enable Visual Editing overlays—which allow editors to click directly on a rendered Next.js element and instantly open the corresponding Sanity Studio field—the SanityLive and VisualEditing components are injected into the application's root layout (app/layout.tsx).
+The layout implements a server-side check using Next.js's draftMode().isEnabled function. If the user possesses the valid Draft Mode cookie, the application renders the VisualEditing component alongside a custom DisableDraftMode interface. Simultaneously, the SanityLive component ensures that as the editor types within the Sanity Studio, the Next.js preview updates in real time via Server-Sent Events (SSE).15
+This bidirectional synchronization ensures that financial analysts and editors can perfectly calibrate complex layouts—such as data tables depicting capital gains tax brackets for Western Cape property sales—before committing the changes to the live production environment.
+Editorial Schema Design: Portable Text and Financial Compliance
+Standard HTML strings or basic Markdown are fundamentally insufficient for complex financial publishing. Sanity utilizes Portable Text, a highly extensible, JSON-based specification that treats rich text as an array of structured, deeply customizable blocks.37 This structure allows the Next.js frontend to serialize specific components dynamically, ensuring absolute programmatic control over the rendered markup.
+SEO-Optimized Portable Text Annotations
+Internal link management is a critical pillar of technical SEO. In standard rich text editors, internal links are brittle; if a target page's slug changes, the link breaks, resulting in a 404 error that severely harms search engine crawl budgets and user experience.
+In Sanity's Portable Text schema, an internal link is modeled not as a static URL string, but as an annotation containing a hard cryptographic reference to the target document's unique ID.37
+The exact schema configuration for the internal link annotation requires wrapping the reference in an object to satisfy Sanity's strict schema validation rules 40:
+
+
+JavaScript
+
+
+
+
+import { defineType, defineField } from 'sanity';
+
+export const portableText = defineType({
+ name: 'portableText',
+ type: 'array',
+ title: 'Content',
+ of:
+             }
+           ]
+         }
+       ]
+     }
+   }
+ ]
+});
+
+When the Next.js frontend serializes this Portable Text block, a GROQ query dynamically resolves the target document's current slug at build time (or request time). Even if an editor renames a highly trafficked piece on "Stellenbosch retirement villages," all internal links pointing to it across the entire platform will automatically update their href attributes, ensuring zero link rot and preserving critical PageRank flow.39
+Financial Services Provider (FSP) Compliance Disclosures
+Publishing financial guidance in South Africa requires strict adherence to the Financial Advisory and Intermediary Services Act (FAIS), overseen by the Financial Sector Conduct Authority (FSCA).41 Financial Service Providers (FSPs) and associated publishers must disclose specific credentials, potential conflicts of interest, and the capacity in which financial advice is given to protect consumers.43
+To automate this rigorous compliance, the architectural blueprint utilizes Portable Text custom blocks. Instead of relying on authors to manually type out legal disclaimers—which introduces massive human error risk—a custom fspDisclosure block is defined within the schema.
+This custom block references an independent fspEntity document type, which contains verified, legally approved data fields curated by the compliance department:
+* Full registered business name and FSP license number.
+* Contact details for Complaints and Compliance Departments.
+* Details of Professional Indemnity Cover.
+* Mandatory conflict of interest disclosures (e.g., explicitly stating if the authoring entity owns the offshore trust fund being discussed in the article).43
+When a financial writer inserts an FSP Disclosure block into an article, they simply select the relevant corporate entity from a dropdown. The Next.js serialization layer renders this as a strictly formatted, legally compliant disclosure box. Crucially, if the FSCA mandates a change in disclosure wording, the compliance officer updates the central fspEntity document once, and the changes instantly cascade across every historical article where that block is referenced, completely eliminating systemic compliance risk.
+Content Tagging and Hierarchical Taxonomy
+To build topical authority around "semigration," the content must be rigidly categorized. Standard flat tag lists are insufficient and often lead to fragmented data silos (e.g., separate tags for "tax", "Tax", and "taxation").
+The blueprint leverages the official sanity-plugin-tags alongside a structured taxonomy model.46 Instead of allowing free-text tagging, the system utilizes a hierarchical Reference model. A category document type (e.g., "Real Estate Semigration") serves as the parent, while tag documents (e.g., "Capital Gains", "Sectional Title") contain a mandatory reference to their parent category.47
+This enables the Next.js frontend to automatically generate comprehensive, siloed hub pages (e.g., /real-estate-semigration/capital-gains), which are highly favored by search engine crawlers attempting to map domain expertise and topical relevance.
+Advanced SEO Execution and JSON-LD Structured Data
+Structured data is imperative for communicating the precise nature of the content to search engines, enabling rich snippets, and enhancing visibility in AI-driven search generative experiences.48 For a financial blog targeting HNWIs, relying on basic HTML meta tags is grossly inadequate; the architecture must inject dynamic JSON-LD (JavaScript Object Notation for Linked Data) directly into the page payload.
+Schema.org Implementations in Next.js 15
+The integration utilizes Next.js 15's capability to render structured data as a <script type="application/ld+json"> tag within the page.tsx or layout.tsx components.48 To maintain strict type safety and prevent validation errors in the Google Search Console, the implementation relies on community packages like schema-dts or @schemasentry/next to enforce compile-time validation of the JSON payload.48
+Two primary Schema.org definitions are deployed across the platform:
+1. Article Schema: Applied to all editorial content. The GROQ query extracts the headline, the localized canonical URL, the published and modified dates, and resolves the author reference into a nested Person object. The image property maps to the absolute URL of the Sanity OpenGraph image, ensuring that rich snippets display the optimized visual asset natively in the SERPs.48
+2. FinancialService Schema: Applied to the platform's overarching entity and author profiles. This schema explicitly signals to search engines that the publisher operates within the regulated financial sector, providing critical YMYL (Your Money or Your Life) trust signals. It includes properties for the physical address, FSP registration numbers, and aggregate rating data if applicable.50
+Mitigating Hydration Bloat and Security Vulnerabilities
+A critical performance consideration in the Next.js 15 App Router is preventing large JSON-LD payloads from bloating the client-side hydration process. Because structured data is strictly for machine consumption (search engine crawlers), it does not need to be reactive or hydrated by React on the client browser.51
+To execute this efficiently, the JSON-LD script is rendered as a raw HTML string using React's dangerouslySetInnerHTML. Furthermore, to prevent Cross-Site Scripting (XSS) vulnerabilities if editorial content inadvertently contains malicious input within text fields, the JSON string is sanitized by replacing < characters with their unicode equivalent (\u003c) prior to injection.48
+
+
+TypeScript
+
+
+
+
+<script 
+ type="application/ld+json" 
+ dangerouslySetInnerHTML={{ 
+   __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') 
+ }} 
+/>
+
+This ensures that the structured data is securely delivered in the initial server HTML response, maximizing SEO impact without degrading the First Input Delay (FID) or Interaction to Next Paint (INP) performance metrics.
+GROQ Query Optimization for React Server Components
+The efficiency of the data pipeline relies on highly optimized GROQ queries executed from the Next.js server. Fetching excessive data or failing to resolve references at the query level introduces unnecessary latency and memory consumption.
+A standard query designed to retrieve a highly SEO-optimized article alongside its localized metadata and fully resolved Portable Text blocks is structured as follows:
+
+
+Code snippet
+
+
+
+
+*[_type == "article" && slug.current == $slug] {
+ _id,
+ _type,
+ title,
+ "slug": slug.current,
+ publishedAt,
+ seoMetadata {
+   metaTitle,
+   metaDescription,
+   "openGraphImageUrl": openGraphImage.asset->url,
+   canonicalUrl,
+   noIndex
+ },
+ author-> {
+   name,
+   "avatarUrl": avatar.asset->url,
+   fspRegistrationNumber
+ },
+ category-> {
+   title,
+   "slug": slug.current
+ },
+ body {
+  ...,
+   _type == "fspDisclosure" => {
+     "disclosureData": fspEntity-> {
+       businessName,
+       licenseNumber,
+       conflictOfInterestStatement
+     }
+   },
+   markDefs {
+    ...,
+     _type == "internalLink" => {
+       "slug": reference->slug.current,
+       "type": reference->_type
+     }
+   }
+ }
+}
+
+This query demonstrates advanced projection techniques. Instead of fetching the entire author or category document, it surgically extracts only the required properties (e.g., name and fspRegistrationNumber). For the Portable Text body array, it utilizes conditional projections (_type == "fspDisclosure" => {...}) to resolve references dynamically only when the specific custom block is present. This minimizes the JSON payload size transmitted from the Sanity Content Lake to the Next.js edge server, directly contributing to faster server response times.52 Furthermore, when fetching metadata for Next.js 15's generateMetadata function, developers must ensure that Stega encoding (used for Visual Editing) is disabled (stega: false) to prevent invisible encoding characters from leaking into the <title> and <meta> tags, which would corrupt the SEO output.54
+Strategic Conclusions for Financial Content Platforms
+The deep integration of Sanity v3 and the Next.js 15 App Router provides a formidable architectural advantage for targeting highly specific, high-value search intents such as South African HNWI semigration. By decoupling the content repository from the presentation layer, the platform achieves the microsecond performance metrics demanded by modern search algorithms, while simultaneously providing an editorial experience that matches or exceeds monolithic alternatives.
+The meticulous structuring of the Sanity Content Lake—ranging from reusable SEO objects and document-level localization to custom Portable Text annotations for FAIS regulatory disclosures—ensures that the published content is not only optimized for algorithmic discovery but is legally compliant and structurally sound. Furthermore, leveraging Next.js 15's precise caching semantics and Draft Mode capabilities allows financial publishers to react to macroeconomic shifts instantly, maintaining absolute topical authority in the highly lucrative Western Cape property and wealth management sectors.
+Works cited
+1. Goodbye Gauteng – the Western Cape's semigration boom continues - Daily Investor, accessed March 6, 2026, https://dailyinvestor.com/business/122662/goodbye-gauteng-the-western-capes-semigration-boom-continues/
+2. Goodbye Cape Town – reverse semigration shift gaining momentum - BusinessTech, accessed March 6, 2026, https://businesstech.co.za/news/property/849951/goodbye-cape-town-reverse-semigration-shift-gaining-momentum/
+3. Western Cape Retirement Destination - JLIA - June Luna Immigration Attorneys, accessed March 6, 2026, https://jlia.co.za/blog/western-cape-retirement-destination/
+4. Millionaires On The Move - FIA, accessed March 6, 2026, https://fia.org.za/2024/03/27/millionaires-on-the-move/
+5. Semigration - GTC, accessed March 6, 2026, https://gtc.co.za/asset-management-semigration/
+6. Five trends transforming retirement planning in 2026 - BDO South Africa, accessed March 6, 2026, https://www.bdo.co.za/en-za/insights/2025/wealth/five-trends-transforming-retirement-planning-in-2026
+7. South Africans' 'retirement plans' driven by unrealistic assumptions, accessed March 6, 2026, https://www.moonstone.co.za/south-africans-retirement-plans-driven-by-unrealistic-assumptions/
+8. Why retirement planning matters more than ever in South Africa - EBnet, accessed March 6, 2026, https://www.ebnet.co.za/why-retirement-planning-matters-more-than-ever-in-south-africa/
+9. Challenges for South Africa's wealthiest - AB magazine, accessed March 6, 2026, https://abmagazine.accaglobal.com/content/abmagazine/global/articles/2025/dec/practice/challenges-for-south-africa-s-wealthiest.html
+10. Relocating from Africa? 5 Financial Essentials Every HNWI Should Consider, accessed March 6, 2026, https://www.crownrelo.com/south-africa/en-za/article/relocating-from-africa-5-financial-essentials-every-hnwi-should-consider-%F0%9F%92%BC%F0%9F%8C%8D
+11. Little evidence of reverse semigration between the Western Cape/Gauteng says economist, accessed March 6, 2026, https://propertywheel.co.za/2026/03/little-evidence-of-reverse-semigration-between-the-western-cape-gauteng-says-economist/
+12. Semigration to the Garden Route: The real cost of living your dream - Moneyweb, accessed March 6, 2026, https://www.moneyweb.co.za/financial-advisor-views/semigration-to-the-garden-route-the-real-cost-of-living-your-dream/
+13. South Africa's Top 5 residential investment trends for 2026 | REI, accessed March 6, 2026, https://www.rei.co.za/blog-posts/south-africas-top-5-residential-investment-trends-for-2026
+14. Next.js 15, accessed March 6, 2026, https://nextjs.org/blog/next-15
+15. The official Sanity toolkit for Next.js | Sanity.io plugin, accessed March 6, 2026, https://www.sanity.io/plugins/next-sanity
+16. SEO schema types and metadata - SEO optimized content with Next.js | Sanity Learn, accessed March 6, 2026, https://www.sanity.io/learn/course/seo-optimization/seo-schema-types-and-metadata
+17. Functions: generateMetadata - Next.js, accessed March 6, 2026, https://nextjs.org/docs/app/api-reference/functions/generate-metadata
+18. Guides: Caching - Next.js, accessed March 6, 2026, https://nextjs.org/docs/app/guides/caching
+19. Nextjs 15 + Sanity live - 9+ second load times on first load when visiting, accessed March 6, 2026, https://answers.netlify.com/t/nextjs-15-sanity-live-9-second-load-times-on-first-load-when-visiting/155953
+20. How to make a single request with next js and generate metadata? - Stack Overflow, accessed March 6, 2026, https://stackoverflow.com/questions/77842295/how-to-make-a-single-request-with-next-js-and-generate-metadata
+21. The Best Headless CMS for Next.JS Apps - Sanity, accessed March 6, 2026, https://www.sanity.io/nextjs-cms
+22. The Complete Guide to Sanity SEO - Webstacks, accessed March 6, 2026, https://www.webstacks.com/blog/sanity-seo
+23. The Ultimate Guide to SEO with Sanity | Sanity, accessed March 6, 2026, https://www.sanity.io/seo-with-sanity
+24. String | Sanity Docs, accessed March 6, 2026, https://www.sanity.io/docs/studio/string-type
+25. Tips and tricks for building Sanity schema efficiently - Roboto Studio, accessed March 6, 2026, https://robotostudio.com/blog/tips-and-tricks-for-building-sanity-schema-efficiently
+26. Sanity SEO Fields Plugin, accessed March 6, 2026, https://www.sanity.io/plugins/sanity-plugin-seofields
+27. Localization | Sanity Docs, accessed March 6, 2026, https://www.sanity.io/docs/studio/localization
+28. Adding Support for Additional Language in Sanity Website, accessed March 6, 2026, https://www.sanity.io/answers/steps-to-add-support-for-an-additional-language-to-a-website-and-recommendations-for-tools-and-plugins-
+29. Sanity (Documents) Connector Overview - Smartling Help Center, accessed March 6, 2026, https://help.smartling.com/hc/en-us/articles/36795269482907-Sanity-Documents-Connector-Overview
+30. Sanity CMS Translations (Field-level or Document-level) | by Erind Hoxha | Medium, accessed March 6, 2026, https://medium.com/@erindhoxha/sanity-cms-translations-field-level-or-document-level-2f1a8f84f56e
+31. i18n is here. - SanityPress, accessed March 6, 2026, https://sanitypress.dev/blog/i18n-is-here
+32. Guides: Draft Mode | Next.js, accessed March 6, 2026, https://nextjs.org/docs/pages/guides/draft-mode
+33. Visual Editing with Next.js App Router | Sanity Docs, accessed March 6, 2026, https://www.sanity.io/docs/visual-editing/visual-editing-with-next-js-app-router
+34. Guides: Draft Mode - Next.js, accessed March 6, 2026, https://nextjs.org/docs/app/guides/draft-mode
+35. Receiving live edits to drafts - Integrated Visual Editing with Next.js | Sanity Learn, accessed March 6, 2026, https://www.sanity.io/learn/course/visual-editing-with-next-js/fetching-preview-content-in-draft-mode
+36. Next.js App Router Tutorial: Draft Mode & Preview Explained - YouTube, accessed March 6, 2026, https://www.youtube.com/watch?v=MedyNgyYE-Q
+37. Configure the Portable Text Editor | Sanity Docs, accessed March 6, 2026, https://www.sanity.io/docs/studio/portable-text-editor-configuration
+38. How to use Sanity Portable Text with Astro | Netlify Developers, accessed March 6, 2026, https://developers.netlify.com/guides/how-to-use-sanity-portable-text-with-astro/
+39. Internal and external links with Portable Text | Sanity.io guide, accessed March 6, 2026, https://www.sanity.io/guides/portable-text-internal-and-external-links
+40. Sanity internalLink annotation error: "Could not resolve jsonType of undefine, accessed March 6, 2026, https://www.sanity.io/answers/error-when-using-internallink-annotation-in-sanity-studio
+41. Regulatory instruments for financial sector compliance in South Africa - Webber Wentzel, accessed March 6, 2026, https://www.webberwentzel.com/News/Pages/regulatory-instruments-for-financial-sector-compliance-in-south-africa.aspx
+42. Asset management in South Africa - Ten things to know | Global Regulation Tomorrow, accessed March 6, 2026, https://www.regulationtomorrow.com/2018/03/asset-management-in-south-africa-ten-things-to-know/
+43. Financial Services Provider Disclosure Documents – 5 key points to note, accessed March 6, 2026, https://www.centricwealth.co.za/financial-services-provider-disclosure-documents-5-key-points-to-note/
+44. The importance of disclosure - What advisors should know - Masthead, accessed March 6, 2026, https://www.masthead.co.za/newsletter/importance-disclosure-advisors-know/
+45. Financial Consumer Protection - Responsible Finance - World Bank, accessed March 6, 2026, https://responsiblefinance.worldbank.org/en/responsible-finance/financial-consumer-protection
+46. Tags | Sanity.io plugin, accessed March 6, 2026, https://www.sanity.io/plugins/tags
+47. Structuring Nested Categories and Tags in Sanity Desk, accessed March 6, 2026, https://www.sanity.io/answers/structuring-documents-and-categories-in-sanity-io
+48. Guides: JSON-LD - Next.js, accessed March 6, 2026, https://nextjs.org/docs/app/guides/json-ld
+49. Stop Wrestling with JSON-LD: Type-Safe Structured Data for Next.js - DEV Community, accessed March 6, 2026, https://dev.to/arindamdawn/stop-wrestling-with-json-ld-type-safe-structured-data-for-nextjs-38on
+50. Sanity plugin for Google structured data/Schema.org integration?, accessed March 6, 2026, https://www.sanity.io/answers/using-schema-org-models-for-content-modeling-in-sanity-io
+51. [Next.js 15 App Router] JSON-LD schema inside
+52. Query Cheat Sheet - GROQ | Sanity Docs, accessed March 6, 2026, https://www.sanity.io/docs/content-lake/query-cheat-sheet
+53. Is it possible to query document schema metadata in Sanity/GROQ? - Stack Overflow, accessed March 6, 2026, https://stackoverflow.com/questions/65901665/is-it-possible-to-query-document-schema-metadata-in-sanity-groq
+54. agent-toolkit/skills/sanity-best-practices/references/nextjs.md at main - GitHub, accessed March 6, 2026, https://github.com/sanity-io/agent-toolkit/blob/main/skills/sanity-best-practices/references/nextjs.md

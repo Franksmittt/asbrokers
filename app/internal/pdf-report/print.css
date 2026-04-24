@@ -1,0 +1,21 @@
+/* Print-only: hide everything except .pdf-content. For headless browser capture. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .pdf-content,
+  .pdf-content * {
+    visibility: visible;
+  }
+  .pdf-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}

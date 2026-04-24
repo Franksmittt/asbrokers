@@ -1,0 +1,130 @@
+================================================================================
+  AS BROKERS – INFLATION / FUTURE VALUE CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/cost-of-inflation-over-time
+================================================================================
+
+This document describes the Future Value (inflation impact) calculator page:
+purpose, structure, components, and how it fits into the AS Brokers site. The
+page shows what today's money will be worth in the future after inflation.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /cost-of-inflation-over-time page has three jobs:
+
+  • Educate: Hero and teaser set up "future cost of living", "purchasing power
+    lost", "real growth required". Calculator translates a current rand amount
+    or income into future buying power.
+  • Agitate: Editorial blocks ("Understanding the Impact", "The Common
+    Misconception", "The Critical Question") stress that nominal growth can
+    mask eroded purchasing power; "Are Your Investments Beating Inflation?"
+    block leads to Everest/contact.
+  • Convert: Multiple CTAs to /contact ("See what consistent growth looks
+    like") and WhatsApp; "Purpose and Next Steps" closes with structure, tax
+    efficiency, income planning.
+
+Linked from the Calculators hub as "Inflation Impact Calculator" (Phase 1).
+Supports the HNWI narrative that real returns and structure matter more than
+headline returns.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /cost-of-inflation-over-time
+  • File:    app/(content)/cost-of-inflation-over-time/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Future Value Calculator (Inflation) | Test Your Buying Power | AS Brokers"
+      - description: "Understand the impact of inflation on your savings and
+        purchasing power over time. See what today's money will be worth in
+        the future."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Future Value Calculator, inflation impact)
+  2. Teaser bullets (future cost, purchasing power, real growth)
+  3. Calculator – FutureValueCalculator
+  4. Understanding the Impact of Inflation
+  5. The Common Misconception
+  6. What This Calculator Helps You Do
+  7. The Critical Question
+  8. The Real Question / Everest CTA (Are your investments beating inflation?)
+  9. Purpose and Next Steps
+  10. Contact strip (WhatsApp, trust line)
+  11. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto,
+                text-center.
+  • Eyebrow:    "AS Brokers · Inflation Planning" (zinc-500, uppercase).
+  • Headline:   "Future Value Calculator" (text-4xl–6xl, white, bold).
+  • Subhead:    Impact of inflation on savings and purchasing power (xl,
+                zinc-400).
+  • Supporting: What today's money will be worth; how much more needed to
+    maintain same lifestyle (zinc-500).
+
+--------------------------------------------------------------------------------
+5. TEASER & CALCULATOR
+--------------------------------------------------------------------------------
+
+  • Teaser:    flex-wrap gap-6, centred: "Future cost of living", "Purchasing
+    power lost", "Real growth required" (text-sm, zinc-400). border-t
+    border-white/5, py-8.
+  • Calculator: FutureValueCalculator in py-12 section, max-w-4xl. Inputs
+    typically include current amount, inflation rate, years; output is future
+    value in today's terms or nominal.
+
+--------------------------------------------------------------------------------
+6. EDITORIAL SECTIONS
+--------------------------------------------------------------------------------
+
+  • Understanding the Impact: Inflation as hidden risk; compounds over 10–20
+    years; real terms vs nominal.
+  • The Common Misconception: Investments can grow while buying power
+    decreases; groceries, medical, fuel rise regardless of account balance.
+  • What This Calculator Helps You Do: Bullet list (inflation on income needs,
+    compare growth vs inflation, sensitivity to inflation, replace
+    assumptions with projections). Blue "→" bullets.
+  • The Critical Question: "Will your future income still support your
+    lifestyle in today's terms?"; lower future value = nominal growth with
+    less buying power.
+  • The Real Question / Everest CTA: "Are Your Investments Beating Inflation,
+    or Just Keeping You Busy?"; volatility vs consistent double-digit
+    structure; link to /contact "See what consistent growth looks like" +
+    "View indicative Everest Wealth product projections". bg-black/20.
+  • Purpose and Next Steps: Calculator is for awareness, not prediction;
+    closing the gap requires structure, tax efficiency, income planning.
+
+--------------------------------------------------------------------------------
+7. CONTACT STRIP & FOOTER
+--------------------------------------------------------------------------------
+
+  • Contact:   WhatsApp 067 242 9946 (zinc-400, hover white). Trust: Albert &
+    Johnny, AS Brokers FSP 17273, Independent Authorised Financial Service
+    Provider (zinc-500, text-sm).
+  • Footer:    Shared.
+
+--------------------------------------------------------------------------------
+8. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: FutureValueCalculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. Sections border-t border-white/5; CTA block
+    bg-black/20. No FAQ schema on this page.
+  • Lists: Blue "→" for positive points; consistent zinc-400 body, zinc-300
+    emphasis.
+
+--------------------------------------------------------------------------------
+9. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Inflation Impact Calculator card).
+  • Out:       /contact (Everest/consistent growth), WhatsApp. No direct link
+               to other calculators in body (hub provides those).

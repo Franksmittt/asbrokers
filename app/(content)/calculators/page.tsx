@@ -170,10 +170,10 @@ function CalculatorCard({
         muted
           ? "bg-[#101014] border-white/5 hover:bg-[#121218]"
           : "rim-light border-0 hover:bg-white/[0.07]"
-      } ${glow ? "border-blue-500/40 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:border-blue-500/60" : ""} ${featured ? "p-6 md:p-8 lg:p-10 h-full" : "p-6 md:p-8"}`}
+      } ${glow ? "border-blue-500/40 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:border-blue-500/60" : ""} h-full ${featured ? "p-6 md:p-8 lg:p-10" : "p-6 md:p-8"}`}
     >
       <span className="text-xs font-semibold text-cinematic-teal uppercase tracking-[0.15em]">{tag}</span>
-      <h3 className={`font-bold text-white mt-2 mb-3 tracking-tight group-hover:text-cinematic-teal/90 transition-colors duration-300 ${featured ? "text-xl md:text-2xl" : "text-xl"}`}>
+      <h3 className="mt-2 mb-3 text-xl font-bold tracking-tight text-white transition-colors duration-300 group-hover:text-cinematic-teal/90">
         {title}
       </h3>
       <p className="text-gray-400 text-sm leading-relaxed mb-4 tracking-[0.01em]">{description}</p>
@@ -335,7 +335,7 @@ export default function CalculatorsPage() {
             title="Secondary Risk Architecture"
             question="Tax, estate, and life insurance exposure."
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6">
             {secondaryRiskItems.map((calc) => (
               <CalculatorCard key={calc.title} {...calc} muted />
             ))}
@@ -393,41 +393,47 @@ export default function CalculatorsPage() {
       {/* Business Risk Management */}
       <section className="py-16 border-t border-white/5 bg-black/20">
         <div className={PAGE_CONTENT_MAX}>
-          <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Business Risk Management</h2>
-          <h3 className="text-xl md:text-2xl font-bold text-white mb-6">
-            Your Business Stops the Moment You Do.
-            <br />
-            That&apos;s Not a Business. That&apos;s a Risk.
-          </h3>
-          <p className="text-zinc-400 leading-relaxed mb-6">
-            If your income depends entirely on you being present, available, and doing everything yourself, you
-            don&apos;t own a business. You own a job with overhead. There&apos;s a better way to structure this.
-          </p>
-          <ul className="text-zinc-400 text-left space-y-2 mb-6 max-w-xl mx-auto">
-            {[
-              "If you took three months off, would your business still generate income?",
-              "If your best employee left tomorrow, would your client data go with them?",
-              "If someone Googled your business right now, does your website work for you, or just exist?",
-              "When a lead calls and nobody answers, what happens to that opportunity?",
-            ].map((q) => (
-              <li key={q} className="flex items-start gap-2">
-                <span className="text-blue-400 mt-0.5">→</span>
-                <span>{q}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-zinc-500 text-sm mb-8">
-            Every missed call is lost income. Every forgotten follow-up is a competitor&apos;s gain. Every manual
-            process is a point of failure.
-          </p>
-          <Link
-            href="/contact"
-            prefetch={false}
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-[2rem] hover:bg-zinc-200 hover:scale-[1.03] hover:shadow-cta-glow-gold transition-all duration-500"
-          >
-            Assess your business risk
-          </Link>
+          <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-5">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Business Risk Management</p>
+              <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+                Your Business Stops the Moment You Do.
+                <br />
+                That&apos;s Not a Business. That&apos;s a Risk.
+              </h2>
+              <p className="text-sm leading-relaxed text-zinc-400 md:text-base">
+                If your income depends entirely on you being present, available, and doing everything yourself, you
+                don&apos;t own a business. You own a job with overhead. There&apos;s a better way to structure this.
+              </p>
+            </div>
+            <div className="lg:col-span-7">
+              <div className="rounded-[2rem] border border-white/10 bg-[#101014] p-6 md:p-8">
+                <ul className="mb-6 space-y-2.5 text-left text-sm text-zinc-300 md:text-base">
+                  {[
+                    "If you took three months off, would your business still generate income?",
+                    "If your best employee left tomorrow, would your client data go with them?",
+                    "If someone Googled your business right now, does your website work for you, or just exist?",
+                    "When a lead calls and nobody answers, what happens to that opportunity?",
+                  ].map((q) => (
+                    <li key={q} className="flex items-start gap-2">
+                      <span className="mt-0.5 text-cinematic-teal">→</span>
+                      <span>{q}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mb-6 text-sm text-zinc-500">
+                  Every missed call is lost income. Every forgotten follow-up is a competitor&apos;s gain. Every manual
+                  process is a point of failure.
+                </p>
+                <Link
+                  href="/contact"
+                  prefetch={false}
+                  className="inline-flex items-center gap-2 rounded-[2rem] bg-white px-6 py-3 font-bold text-black transition-all duration-500 hover:scale-[1.03] hover:bg-zinc-200 hover:shadow-cta-glow-gold"
+                >
+                  Assess your business risk
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

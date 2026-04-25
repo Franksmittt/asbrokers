@@ -74,7 +74,7 @@ function ServiceCard({
   href,
   badge,
   accent,
-  featured = false,
+  wide = false,
   muted = false,
 }: {
   name: string;
@@ -82,21 +82,20 @@ function ServiceCard({
   href: string;
   badge: string | null;
   accent: string;
-  featured?: boolean;
+  wide?: boolean;
   muted?: boolean;
 }) {
   const style = accentStyles[accent] ?? accentStyles.blue;
-  const isFocus = featured && accent === "blue";
   return (
     <Link
       href={href}
       prefetch={false}
       className={`group block rounded-2xl p-6 border transition-all duration-300 ${
         muted ? "bg-[#101014] hover:bg-[#121218]" : "bg-[#151518] hover:bg-[#1a1a1e]"
-      } ${isFocus ? "border-blue-500/40 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:border-blue-500/60" : `${style.border} ${style.hoverBorder}`} hover:shadow-lg hover:shadow-black/20 ${featured ? "md:col-span-2" : ""}`}
+      } ${style.border} ${style.hoverBorder} hover:shadow-lg hover:shadow-black/20 ${wide ? "sm:col-span-2 lg:col-span-2" : ""}`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        <h3 className={`font-semibold text-white group-hover:text-white ${featured ? "text-xl md:text-2xl" : "text-base"}`}>
+        <h3 className="text-base font-semibold text-white group-hover:text-white">
           {name}
         </h3>
         {badge && (
@@ -105,7 +104,7 @@ function ServiceCard({
           </span>
         )}
       </div>
-      <p className={`text-zinc-500 leading-relaxed mb-4 ${featured ? "text-base md:text-lg" : "text-sm"}`}>{desc}</p>
+      <p className="mb-4 text-sm leading-relaxed text-zinc-500">{desc}</p>
       <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 group-hover:gap-2.5 transition-all">
         Explore
         <ArrowRight className="w-4 h-4" />
@@ -187,7 +186,7 @@ export default function SolutionsPage() {
                 href={item.href}
                 badge={item.badge}
                 accent={focusCategory.accent}
-                featured={"featured" in item ? !!item.featured : false}
+                wide={item.name === "Financial Education & Calculators"}
                 muted={false}
               />
             ))}
@@ -230,7 +229,11 @@ export default function SolutionsPage() {
                     </div>
                   </div>
                 </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div
+                  className={`grid gap-4 sm:grid-cols-2 ${
+                    cat.id === "estate" || cat.id === "medical" ? "lg:grid-cols-2" : "lg:grid-cols-3"
+                  }`}
+                >
                   {cat.items.map((item) => (
                     <ServiceCard
                       key={item.name}
@@ -239,6 +242,7 @@ export default function SolutionsPage() {
                       href={item.href}
                       badge={item.badge ?? null}
                       accent={cat.accent}
+                      wide={cat.id === "insurance" && item.badge === "Calculator"}
                       muted
                     />
                   ))}

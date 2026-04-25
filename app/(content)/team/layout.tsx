@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Team | Independent Financial Advisors Krugersdorp",
+  title: "How We Work | AS Brokers",
   description:
-    "Meet Albert Schuurman and Johnny Farinha, independent financial advisors at AS Brokers CC in Krugersdorp. FSP 17273. Retirement, estate, insurance, Everest Wealth.",
+    "How AS Brokers structures advice: diagnose, design, implement, and review across retirement, risk, and legacy planning.",
 };
 
 export default function TeamLayout({ children }: { children: React.ReactNode }) {

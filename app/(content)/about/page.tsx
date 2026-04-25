@@ -23,11 +23,11 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/team"
+                href="/how-we-work"
                 prefetch={false}
                 className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full text-sm hover:bg-zinc-200"
               >
-                Meet the team
+                See how we work
               </Link>
               <Link
                 href="/contact"

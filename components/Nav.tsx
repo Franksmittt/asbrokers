@@ -75,7 +75,8 @@ export function Nav() {
           <Link href="/" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Home</Link>
           <Link href="/solutions" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Solutions</Link>
           <Link href="/calculators" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Calculators</Link>
-          <Link href="/team" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Team</Link>
+          <Link href="/how-we-work" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>How we work</Link>
+          <Link href="/insights" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Insights</Link>
         </div>
 
         <div className="flex items-center gap-3">
@@ -115,8 +116,11 @@ export function Nav() {
             <Link href="/calculators" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
               Calculators
             </Link>
-            <Link href="/team" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
-              Team
+            <Link href="/how-we-work" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
+              How we work
+            </Link>
+            <Link href="/insights" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
+              Insights
             </Link>
             <div className="border-t border-white/10 mt-4 pt-4 flex flex-col gap-2">
               <Link

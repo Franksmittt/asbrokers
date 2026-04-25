@@ -80,10 +80,10 @@ export function Code18Advantage() {
 
       <p className="mt-8 text-center">
         <Link
-          href="/team"
+          href="/how-we-work"
           className="inline-flex items-center gap-2 text-cinematic-teal font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50 rounded-lg px-3 py-1"
         >
-          Meet the full team →
+          See our advice process →
         </Link>
       </p>
     </section>

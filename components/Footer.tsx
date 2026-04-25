@@ -13,7 +13,7 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "Solutions", href: "/solutions" },
   { label: "Calculators", href: "/calculators" },
-  { label: "Team", href: "/team" },
+  { label: "How we work", href: "/how-we-work" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
   { label: "Regulatory Compliance", href: "/regulatory-compliance" },

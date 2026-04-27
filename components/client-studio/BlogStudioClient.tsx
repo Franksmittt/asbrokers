@@ -7,6 +7,7 @@ import {
   deleteStudioDraft,
   publishStudioPost,
   saveStudioPost,
+  sanitizeStudioHtmlPreview,
   unpublishStudioPost,
   uploadStudioImage,
 } from "@/app/studio/blog/actions";
@@ -54,6 +55,42 @@ function buildPreviewDoc(html: string) {
   </style></head><body>${html}</body></html>`;
 }
 
+function extractYoutubeId(input: string): string | null {
+  const raw = input.trim();
+  if (!raw) return null;
+  if (/^[a-zA-Z0-9_-]{6,20}$/.test(raw)) return raw;
+  try {
+    const u = new URL(raw);
+    if (u.hostname.includes("youtu.be")) {
+      const id = u.pathname.replace("/", "");
+      return /^[a-zA-Z0-9_-]{6,20}$/.test(id) ? id : null;
+    }
+    const id = u.searchParams.get("v");
+    if (id && /^[a-zA-Z0-9_-]{6,20}$/.test(id)) return id;
+    const parts = u.pathname.split("/").filter(Boolean);
+    const embedIdx = parts.indexOf("embed");
+    if (embedIdx >= 0 && parts[embedIdx + 1] && /^[a-zA-Z0-9_-]{6,20}$/.test(parts[embedIdx + 1])) {
+      return parts[embedIdx + 1];
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function normalizeAiHtml(raw: string): string {
+  let next = raw.trim();
+  if (next.includes("```")) {
+    next = next.replace(/^```[a-zA-Z0-9-]*\s*/gm, "").replace(/```/g, "");
+  }
+  next = next
+    .replace(/^\s*Blog code\s*$/gim, "")
+    .replace(/^\s*Contact photo\s*$/gim, "")
+    .replace(/^\s*Details Headers Plain text\s*$/gim, "")
+    .replace(/^\s*From .* on \d{4}-\d{2}-\d{2}.*$/gim, "");
+  return next.trim();
+}
+
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const IMAGE_PLACEHOLDER = "YOUR_IMAGE_URL_HERE";
 
@@ -82,6 +119,9 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [showHelp, setShowHelp] = useState(false);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
+  const [youtubeInput, setYoutubeInput] = useState("");
+  const [previewMode, setPreviewMode] = useState<"raw" | "published">("raw");
+  const [publishedPreviewHtml, setPublishedPreviewHtml] = useState<string | null>(null);
   const [listQuery, setListQuery] = useState("");
   const [listFilter, setListFilter] = useState<"all" | "draft" | "published">("all");
   const [listSort, setListSort] = useState<"updated_desc" | "updated_asc" | "title_asc">("updated_desc");
@@ -91,6 +131,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     () => (bodyHtml.match(new RegExp(IMAGE_PLACEHOLDER, "g")) ?? []).length,
     [bodyHtml]
   );
+  const markdownFenceCount = useMemo(() => (bodyHtml.match(/```/g) ?? []).length, [bodyHtml]);
+  const unresolvedYoutubePlaceholder = bodyHtml.includes("YOUR_VIDEO_ID");
 
   const listCounts = useMemo(() => {
     const live = posts.filter((p) => p.status === "published").length;
@@ -161,6 +203,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     );
     setSlugTouched(false);
     setBanner(null);
+    setPublishedPreviewHtml(null);
   }
 
   function onTitleBlur() {
@@ -183,12 +226,16 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     }
     setBanner(null);
     startTransition(async () => {
+      const normalizedBody = normalizeAiHtml(bodyHtml);
+      if (normalizedBody !== bodyHtml) {
+        setBodyHtml(normalizedBody);
+      }
       const res = await saveStudioPost(selectedId, {
         title,
         slug,
         locale,
         excerpt: excerpt || null,
-        bodyHtml,
+        bodyHtml: normalizedBody,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
       });
@@ -216,12 +263,16 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     }
     setBanner(null);
     startTransition(async () => {
+      const normalizedBody = normalizeAiHtml(bodyHtml);
+      if (normalizedBody !== bodyHtml) {
+        setBodyHtml(normalizedBody);
+      }
       const saveRes = await saveStudioPost(selectedId, {
         title,
         slug,
         locale,
         excerpt: excerpt || null,
-        bodyHtml,
+        bodyHtml: normalizedBody,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
       });
@@ -336,7 +387,46 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     });
   }
 
-  const previewSrcDoc = useMemo(() => buildPreviewDoc(bodyHtml), [bodyHtml]);
+  function runCleanupAiPaste() {
+    const cleaned = normalizeAiHtml(bodyHtml);
+    if (cleaned === bodyHtml) {
+      setBanner("No wrapper text detected. Your HTML already looks clean.");
+      return;
+    }
+    setBodyHtml(cleaned);
+    setBanner("Cleaned pasted AI/copy wrappers and markdown fences.");
+  }
+
+  function applyYoutubeVideo() {
+    const id = extractYoutubeId(youtubeInput);
+    if (!id) {
+      setBanner("Add a valid YouTube URL or video ID first.");
+      return;
+    }
+    if (!bodyHtml.includes("YOUR_VIDEO_ID")) {
+      setBanner('No "YOUR_VIDEO_ID" placeholder found in HTML.');
+      return;
+    }
+    setBodyHtml((prev) => prev.replace("YOUR_VIDEO_ID", id));
+    setBanner("YouTube video ID inserted into your HTML.");
+  }
+
+  function refreshPublishedPreview() {
+    setBanner(null);
+    startTransition(async () => {
+      const res = await sanitizeStudioHtmlPreview(bodyHtml);
+      if (!res.ok) {
+        setBanner(res.error);
+        return;
+      }
+      setPublishedPreviewHtml(res.html);
+      setPreviewMode("published");
+      setBanner("Published preview refreshed using the same sanitizer as production.");
+    });
+  }
+
+  const previewHtml = previewMode === "published" ? publishedPreviewHtml ?? "" : bodyHtml;
+  const previewSrcDoc = useMemo(() => buildPreviewDoc(previewHtml), [previewHtml]);
 
   const statusLabel = !selectedId
     ? "New article (not saved yet)"
@@ -797,6 +887,27 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </label>
 
               <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                <p className="text-xs font-medium text-zinc-300">Paste helper (recommended)</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
+                  Use this when AI output includes wrappers like &quot;Blog code&quot; or markdown fences.
+                </p>
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={runCleanupAiPaste}
+                    className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/5"
+                  >
+                    Clean pasted HTML
+                  </button>
+                  {markdownFenceCount > 0 && (
+                    <span className="text-[11px] text-amber-300/90">
+                      Found markdown fences ({markdownFenceCount}) - clean before publish.
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
                 <p className="text-xs font-medium text-zinc-300">Image placeholders</p>
                 <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
                   Found <strong className="text-zinc-300">{imagePlaceholderCount}</strong> occurrence
@@ -823,6 +934,32 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                   <p className="mt-1 text-[11px] text-zinc-500">
                     Selected {uploadFiles.length} file{uploadFiles.length === 1 ? "" : "s"}.
                   </p>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                <p className="text-xs font-medium text-zinc-300">YouTube helper</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
+                  Paste a YouTube URL or ID to replace <code>YOUR_VIDEO_ID</code>.
+                </p>
+                <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
+                  <input
+                    value={youtubeInput}
+                    onChange={(e) => setYoutubeInput(e.target.value)}
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    className="min-w-0 flex-1 rounded-lg border border-white/10 bg-black/50 px-3 py-2 text-xs text-white placeholder:text-zinc-600 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
+                  />
+                  <button
+                    type="button"
+                    onClick={applyYoutubeVideo}
+                    disabled={!unresolvedYoutubePlaceholder}
+                    className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    Insert video
+                  </button>
+                </div>
+                {!unresolvedYoutubePlaceholder && (
+                  <p className="mt-1 text-[11px] text-zinc-500">No unresolved YouTube placeholder found.</p>
                 )}
               </div>
             </div>
@@ -883,8 +1020,30 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         {/* Preview */}
         <section className="flex min-h-[min(45vh,360px)] min-w-0 flex-col bg-[#070708] lg:min-h-0">
           <div className="shrink-0 border-b border-white/10 px-3 py-2 sm:px-4">
-            <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Preview</p>
-            <p className="text-[11px] leading-snug text-zinc-600">Updates as you type. Not identical to the live site, but close.</p>
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Preview</p>
+              <button
+                type="button"
+                onClick={() => setPreviewMode("raw")}
+                className={`rounded-full px-2 py-0.5 text-[10px] ${
+                  previewMode === "raw" ? "bg-white/15 text-white" : "text-zinc-500 hover:bg-white/5"
+                }`}
+              >
+                Raw
+              </button>
+              <button
+                type="button"
+                onClick={refreshPublishedPreview}
+                className={`rounded-full px-2 py-0.5 text-[10px] ${
+                  previewMode === "published" ? "bg-teal-600/30 text-teal-200" : "text-zinc-400 hover:bg-white/5"
+                }`}
+              >
+                Published (sanitized)
+              </button>
+            </div>
+            <p className="text-[11px] leading-snug text-zinc-600">
+              Raw = direct editor view. Published = server-sanitized view used on live site.
+            </p>
           </div>
           <div className="relative min-h-0 flex-1">
             <iframe

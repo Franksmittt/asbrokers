@@ -292,3 +292,15 @@ export async function uploadStudioImage(
 
   return { ok: true, url: publicUrl };
 }
+
+export async function sanitizeStudioHtmlPreview(
+  rawHtml: string
+): Promise<{ ok: true; html: string } | { ok: false; error: string }> {
+  try {
+    await requireStudioSession();
+  } catch {
+    return { ok: false, error: "Session expired  -  sign in again." };
+  }
+
+  return { ok: true, html: sanitizeInsightBody(rawHtml) };
+}

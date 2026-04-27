@@ -7,6 +7,7 @@ import sanitizeHtml from "sanitize-html";
 export function sanitizeInsightBody(html: string): string {
   return sanitizeHtml(html, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+      "section",
       "h1",
       "h2",
       "h3",
@@ -30,6 +31,7 @@ export function sanitizeInsightBody(html: string): string {
     ]),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
+      "*": ["class", "style", "id"],
       img: ["src", "srcset", "alt", "title", "width", "height", "loading", "class"],
       table: ["class"],
       th: ["colspan", "rowspan", "class"],

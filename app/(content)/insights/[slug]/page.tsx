@@ -28,6 +28,14 @@ type Props = {
   searchParams: Promise<{ locale?: string }>;
 };
 
+async function getSanityArticleOrNull(slug: string, locale: string): Promise<Article | null> {
+  try {
+    return await cachedSanityFetch<Article | null>(articleBySlugQuery, { slug, locale });
+  } catch {
+    return null;
+  }
+}
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-ZA", {
     year: "numeric",
@@ -40,7 +48,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const { slug } = await params;
   const { locale: localeParam } = await searchParams;
   const locale = localeParam ?? "en";
-  const article = await cachedSanityFetch<Article | null>(articleBySlugQuery, { slug, locale });
+  const article = await getSanityArticleOrNull(slug, locale);
   if (!article) {
     const studio = await getPublishedStudioPostBySlug(slug, locale);
     if (!studio) return { title: "Article | AS Brokers" };
@@ -65,7 +73,7 @@ export default async function ArticlePage({ params, searchParams }: Props) {
   const { slug } = await params;
   const { locale: localeParam } = await searchParams;
   const locale = localeParam ?? "en";
-  const article = await cachedSanityFetch<Article | null>(articleBySlugQuery, { slug, locale });
+  const article = await getSanityArticleOrNull(slug, locale);
   if (!article) {
     const studio = await getPublishedStudioPostBySlug(slug, locale);
     if (studio) {

@@ -100,6 +100,13 @@ type Props = {
   studioConfigured: boolean;
 };
 
+type HealthCheck = {
+  id: string;
+  label: string;
+  ok: boolean;
+  hint?: string;
+};
+
 export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfigured }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -120,8 +127,9 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [youtubeInput, setYoutubeInput] = useState("");
-  const [previewMode, setPreviewMode] = useState<"raw" | "published">("raw");
+  const [previewMode, setPreviewMode] = useState<"raw" | "published">("published");
   const [publishedPreviewHtml, setPublishedPreviewHtml] = useState<string | null>(null);
+  const [lastUploadedUrls, setLastUploadedUrls] = useState<string[]>([]);
   const [listQuery, setListQuery] = useState("");
   const [listFilter, setListFilter] = useState<"all" | "draft" | "published">("all");
   const [listSort, setListSort] = useState<"updated_desc" | "updated_asc" | "title_asc">("updated_desc");
@@ -133,6 +141,54 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   );
   const markdownFenceCount = useMemo(() => (bodyHtml.match(/```/g) ?? []).length, [bodyHtml]);
   const unresolvedYoutubePlaceholder = bodyHtml.includes("YOUR_VIDEO_ID");
+  const unresolvedImagePlaceholders = imagePlaceholderCount > 0;
+  const slugValid = SLUG_OK.test(slug.trim());
+  const basicsOk = title.trim().length > 0 && slug.trim().length > 0 && slugValid;
+  const hasSectionTag = /<section[\s>]/i.test(bodyHtml);
+  const hasTitleInHtml = /<h1[\s>]/i.test(bodyHtml);
+  const checklist = useMemo<HealthCheck[]>(
+    () => [
+      {
+        id: "title",
+        label: "Title and slug are filled correctly",
+        ok: basicsOk,
+        hint: "Slug must be lowercase, numbers and hyphens only.",
+      },
+      {
+        id: "clean",
+        label: "No markdown code fences in article HTML",
+        ok: markdownFenceCount === 0,
+        hint: "Use Clean pasted HTML if AI output includes ``` blocks.",
+      },
+      {
+        id: "images",
+        label: "No unresolved image placeholders",
+        ok: !unresolvedImagePlaceholders,
+        hint: `Replace every ${IMAGE_PLACEHOLDER} entry before publishing.`,
+      },
+      {
+        id: "video",
+        label: "No unresolved YouTube placeholder",
+        ok: !unresolvedYoutubePlaceholder,
+        hint: "Use the YouTube helper to insert a video ID or URL.",
+      },
+      {
+        id: "structure",
+        label: "Article includes basic structure tags",
+        ok: hasSectionTag && hasTitleInHtml,
+        hint: "Expected at least <section> and <h1>.",
+      },
+    ],
+    [
+      basicsOk,
+      markdownFenceCount,
+      unresolvedImagePlaceholders,
+      unresolvedYoutubePlaceholder,
+      hasSectionTag,
+      hasTitleInHtml,
+    ]
+  );
+  const failedChecks = checklist.filter((c) => !c.ok);
 
   const listCounts = useMemo(() => {
     const live = posts.filter((p) => p.status === "published").length;
@@ -164,8 +220,6 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     selectedId && selected && !filteredPosts.some((p) => p.id === selectedId)
   );
 
-  const slugValid = SLUG_OK.test(slug.trim());
-  const basicsOk = title.trim().length > 0 && slug.trim().length > 0 && slugValid;
   const saveDisabled = isPending || !databaseConfigured || !basicsOk;
   const publishDisabled = saveDisabled || !selectedId;
 
@@ -204,6 +258,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     setSlugTouched(false);
     setBanner(null);
     setPublishedPreviewHtml(null);
+    setLastUploadedUrls([]);
   }
 
   function onTitleBlur() {
@@ -379,6 +434,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
 
       setBodyHtml((prev) => replaceImagePlaceholders(prev, urls));
       setUploadFiles([]);
+      setLastUploadedUrls(urls);
       setBanner(
         `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and replaced ${urls.length} placeholder${
           urls.length === 1 ? "" : "s"
@@ -427,6 +483,20 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
 
   const previewHtml = previewMode === "published" ? publishedPreviewHtml ?? "" : bodyHtml;
   const previewSrcDoc = useMemo(() => buildPreviewDoc(previewHtml), [previewHtml]);
+
+  useEffect(() => {
+    if (previewMode !== "published") return;
+    const timer = setTimeout(() => {
+      startTransition(async () => {
+        const res = await sanitizeStudioHtmlPreview(bodyHtml);
+        if (res.ok) {
+          setPublishedPreviewHtml(res.html);
+        }
+      });
+    }, 500);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bodyHtml, previewMode]);
 
   const statusLabel = !selectedId
     ? "New article (not saved yet)"
@@ -935,6 +1005,24 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                     Selected {uploadFiles.length} file{uploadFiles.length === 1 ? "" : "s"}.
                   </p>
                 )}
+                {lastUploadedUrls.length > 0 && (
+                  <div className="mt-2 space-y-1">
+                    <p className="text-[11px] text-zinc-500">
+                      Latest uploaded image URL{lastUploadedUrls.length === 1 ? "" : "s"}:
+                    </p>
+                    {lastUploadedUrls.slice(0, 2).map((url) => (
+                      <a
+                        key={url}
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block truncate text-[11px] text-teal-400 hover:underline"
+                      >
+                        {url}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="rounded-xl border border-white/10 bg-black/40 p-3">
@@ -960,6 +1048,25 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                 </div>
                 {!unresolvedYoutubePlaceholder && (
                   <p className="mt-1 text-[11px] text-zinc-500">No unresolved YouTube placeholder found.</p>
+                )}
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                <p className="text-xs font-medium text-zinc-300">Pre-publish health check</p>
+                <ul className="mt-2 space-y-1 text-[11px]">
+                  {checklist.map((item) => (
+                    <li key={item.id} className={item.ok ? "text-emerald-300" : "text-amber-300/90"}>
+                      {item.ok ? "PASS" : "FIX"} - {item.label}
+                      {!item.ok && item.hint ? <span className="text-zinc-500"> ({item.hint})</span> : null}
+                    </li>
+                  ))}
+                </ul>
+                {failedChecks.length > 0 ? (
+                  <p className="mt-2 text-[11px] text-amber-300/90">
+                    Fix {failedChecks.length} item{failedChecks.length === 1 ? "" : "s"} before publishing.
+                  </p>
+                ) : (
+                  <p className="mt-2 text-[11px] text-emerald-300">Ready to publish.</p>
                 )}
               </div>
             </div>

@@ -26,6 +26,7 @@ export function sanitizeInsightBody(html: string): string {
       "td",
       "colgroup",
       "col",
+      "iframe",
     ]),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
@@ -34,9 +35,21 @@ export function sanitizeInsightBody(html: string): string {
       th: ["colspan", "rowspan", "class"],
       td: ["colspan", "rowspan", "class"],
       a: ["href", "name", "target", "rel", "class"],
+      iframe: [
+        "src",
+        "title",
+        "width",
+        "height",
+        "allow",
+        "allowfullscreen",
+        "loading",
+        "referrerpolicy",
+        "frameborder",
+      ],
     },
     allowedSchemes: ["http", "https", "mailto", "tel"],
     allowProtocolRelative: false,
     allowVulnerableTags: false,
+    allowedIframeHostnames: ["www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"],
   });
 }

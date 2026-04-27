@@ -8,6 +8,7 @@ import {
   publishStudioPost,
   saveStudioPost,
   unpublishStudioPost,
+  uploadStudioImage,
 } from "@/app/studio/blog/actions";
 import { BLOG_BRAND_GUIDE_TEXT } from "@/lib/client-studio/brand-guide-content";
 
@@ -54,6 +55,7 @@ function buildPreviewDoc(html: string) {
 }
 
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const IMAGE_PLACEHOLDER = "YOUR_IMAGE_URL_HERE";
 
 type Props = {
   initialPosts: SerializableStudioPost[];
@@ -77,13 +79,18 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [bodyHtml, setBodyHtml] = useState(initialPosts[0]?.bodyHtml ?? "");
   const [banner, setBanner] = useState<string | null>(null);
   const [showBrandGuide, setShowBrandGuide] = useState(false);
-  const [showHelp, setShowHelp] = useState(true);
+  const [showHelp, setShowHelp] = useState(false);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
+  const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [listQuery, setListQuery] = useState("");
   const [listFilter, setListFilter] = useState<"all" | "draft" | "published">("all");
   const [listSort, setListSort] = useState<"updated_desc" | "updated_asc" | "title_asc">("updated_desc");
 
   const selected = posts.find((p) => p.id === selectedId) ?? null;
+  const imagePlaceholderCount = useMemo(
+    () => (bodyHtml.match(new RegExp(IMAGE_PLACEHOLDER, "g")) ?? []).length,
+    [bodyHtml]
+  );
 
   const listCounts = useMemo(() => {
     const live = posts.filter((p) => p.status === "published").length;
@@ -279,6 +286,54 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     } catch {
       setBanner(`Copy blocked. Link: ${full}`);
     }
+  }
+
+  function replaceImagePlaceholders(html: string, urls: string[]): string {
+    let next = html;
+    for (const url of urls) {
+      next = next.replace(IMAGE_PLACEHOLDER, url);
+    }
+    return next;
+  }
+
+  function runUploadImages() {
+    if (!databaseConfigured) {
+      setBanner("Image upload is unavailable because the server database setup is incomplete.");
+      return;
+    }
+    if (uploadFiles.length === 0) {
+      setBanner("Select at least one image file first.");
+      return;
+    }
+    if (imagePlaceholderCount === 0) {
+      setBanner(`No "${IMAGE_PLACEHOLDER}" placeholders found in HTML to replace.`);
+      return;
+    }
+
+    setBanner(null);
+    startTransition(async () => {
+      const max = Math.min(uploadFiles.length, imagePlaceholderCount);
+      const urls: string[] = [];
+
+      for (let i = 0; i < max; i += 1) {
+        const fd = new FormData();
+        fd.set("file", uploadFiles[i]);
+        const uploaded = await uploadStudioImage(fd);
+        if (!uploaded.ok) {
+          setBanner(uploaded.error);
+          return;
+        }
+        urls.push(uploaded.url);
+      }
+
+      setBodyHtml((prev) => replaceImagePlaceholders(prev, urls));
+      setUploadFiles([]);
+      setBanner(
+        `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and replaced ${urls.length} placeholder${
+          urls.length === 1 ? "" : "s"
+        }. Save draft to persist.`
+      );
+    });
   }
 
   const previewSrcDoc = useMemo(() => buildPreviewDoc(bodyHtml), [bodyHtml]);
@@ -740,6 +795,36 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                   className="mt-0.5 min-h-[200px] w-full min-w-0 resize-y rounded-xl border border-white/10 bg-black/60 px-3 py-2.5 font-mono text-[13px] leading-relaxed text-teal-100/90 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30 sm:min-h-[240px] lg:min-h-[200px]"
                 />
               </label>
+
+              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                <p className="text-xs font-medium text-zinc-300">Image placeholders</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
+                  Found <strong className="text-zinc-300">{imagePlaceholderCount}</strong> occurrence
+                  {imagePlaceholderCount === 1 ? "" : "s"} of <code>{IMAGE_PLACEHOLDER}</code>.
+                </p>
+                <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) => setUploadFiles(Array.from(e.target.files ?? []))}
+                    className="block w-full text-xs text-zinc-400 file:mr-3 file:rounded-lg file:border-0 file:bg-teal-600/90 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white hover:file:bg-teal-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={runUploadImages}
+                    disabled={isPending || uploadFiles.length === 0 || imagePlaceholderCount === 0}
+                    className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    Upload & replace
+                  </button>
+                </div>
+                {uploadFiles.length > 0 && (
+                  <p className="mt-1 text-[11px] text-zinc-500">
+                    Selected {uploadFiles.length} file{uploadFiles.length === 1 ? "" : "s"}.
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 
@@ -804,7 +889,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           <div className="relative min-h-0 flex-1">
             <iframe
               title="Article preview"
-              sandbox=""
+              sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-presentation"
               className="absolute inset-0 h-full w-full border-0 bg-[#0a0a0c]"
               srcDoc={previewSrcDoc}
             />

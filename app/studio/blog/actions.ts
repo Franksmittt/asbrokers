@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
-import { createHash, timingSafeEqual } from "crypto";
+import { createHash, randomUUID, timingSafeEqual } from "crypto";
 
 import { sanitizeInsightBody } from "@/lib/client-studio/sanitize-body";
 import {
@@ -15,6 +15,7 @@ import {
   setClientStudioSessionToken,
 } from "@/lib/client-studio/session";
 import { clientInsightPosts, getDb } from "@/lib/db";
+import { getSupabaseService } from "@/lib/supabase/server";
 
 const postBaseSchema = z.object({
   title: z.string().trim().min(1, "Title is required").max(300),
@@ -243,4 +244,51 @@ export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok
   await db.delete(clientInsightPosts).where(eq(clientInsightPosts.id, id));
   revalidatePath("/insights");
   return { ok: true };
+}
+
+export async function uploadStudioImage(
+  formData: FormData
+): Promise<{ ok: true; url: string } | { ok: false; error: string }> {
+  try {
+    await requireStudioSession();
+  } catch {
+    return { ok: false, error: "Session expired  -  sign in again." };
+  }
+
+  const file = formData.get("file");
+  if (!(file instanceof File)) {
+    return { ok: false, error: "No file received." };
+  }
+  if (!file.type.startsWith("image/")) {
+    return { ok: false, error: "Only image files are supported." };
+  }
+  if (file.size > 8 * 1024 * 1024) {
+    return { ok: false, error: "Image is too large (max 8MB)." };
+  }
+
+  const supabase = getSupabaseService();
+  if (!supabase) {
+    return { ok: false, error: "Image upload is not configured on the server yet." };
+  }
+
+  const bucket = process.env.SUPABASE_BLOG_IMAGES_BUCKET || "blog-images";
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-");
+  const ext = safeName.includes(".") ? safeName.split(".").pop() : "jpg";
+  const key = `studio/${new Date().toISOString().slice(0, 10)}/${randomUUID()}.${ext}`;
+  const bytes = await file.arrayBuffer();
+
+  const uploaded = await supabase.storage.from(bucket).upload(key, bytes, {
+    contentType: file.type,
+    upsert: false,
+  });
+  if (uploaded.error) {
+    return { ok: false, error: `Upload failed: ${uploaded.error.message}` };
+  }
+
+  const publicUrl = supabase.storage.from(bucket).getPublicUrl(key).data.publicUrl;
+  if (!publicUrl) {
+    return { ok: false, error: "Upload succeeded, but no public URL was returned." };
+  }
+
+  return { ok: true, url: publicUrl };
 }

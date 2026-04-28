@@ -301,3 +301,24 @@ export async function sanitizeStudioHtmlPreview(
 
   return { ok: true, html: sanitizeInsightBody(rawHtml) };
 }
+
+export async function deleteAllStudioPosts(): Promise<{ ok: true; deleted: number } | { ok: false; error: string }> {
+  try {
+    await requireStudioSession();
+  } catch {
+    return { ok: false, error: "Session expired  -  sign in again." };
+  }
+
+  const db = getDb();
+  if (!db) return { ok: false, error: "Database is not connected." };
+
+  try {
+    const deleted = await db.delete(clientInsightPosts).returning({ id: clientInsightPosts.id });
+    revalidatePath("/");
+    revalidatePath("/insights");
+    revalidatePath("/studio/blog/workspace");
+    return { ok: true, deleted: deleted.length };
+  } catch {
+    return { ok: false, error: "Could not delete studio posts." };
+  }
+}

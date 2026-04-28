@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
 
 import {
+  deleteAllStudioPosts,
   deleteStudioDraft,
   publishStudioPost,
   saveStudioPost,
@@ -381,6 +382,21 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
       }
       handleNewArticle();
       setBanner("Draft deleted.");
+      router.refresh();
+    });
+  }
+
+  function runDeleteAllPosts() {
+    if (!window.confirm("Delete ALL studio posts (draft + published)? This cannot be undone.")) return;
+    setBanner(null);
+    startTransition(async () => {
+      const res = await deleteAllStudioPosts();
+      if (!res.ok) {
+        setBanner(res.error);
+        return;
+      }
+      handleNewArticle();
+      setBanner(`Deleted ${res.deleted} studio post${res.deleted === 1 ? "" : "s"}.`);
       router.refresh();
     });
   }
@@ -1150,6 +1166,13 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                     ) : (
                       selectedId && <button type="button" onClick={runDeleteDraft} className="rounded-full border border-red-500/35 px-4 py-2 text-sm text-red-300">Delete draft</button>
                     )}
+                    <button
+                      type="button"
+                      onClick={runDeleteAllPosts}
+                      className="rounded-full border border-red-500/35 bg-red-950/30 px-4 py-2 text-sm text-red-300 hover:bg-red-950/45"
+                    >
+                      Delete all studio posts
+                    </button>
                   </div>
                 </div>
               )}

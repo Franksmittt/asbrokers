@@ -97,6 +97,7 @@ function normalizeAiHtml(raw: string): string {
 
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const IMAGE_PLACEHOLDER = "YOUR_IMAGE_URL_HERE";
+const AUTHOR_OPTIONS = ["Albert Schuurman"];
 
 type Props = {
   initialPosts: SerializableStudioPost[];
@@ -131,12 +132,14 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [showHelp, setShowHelp] = useState(false);
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [sidebarPinned, setSidebarPinned] = useState(false);
+  const [activePanel, setActivePanel] = useState<null | "setup" | "html" | "assist" | "publish">(null);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [youtubeInput, setYoutubeInput] = useState("");
   const [previewMode, setPreviewMode] = useState<"raw" | "published">("published");
   const [publishedPreviewHtml, setPublishedPreviewHtml] = useState<string | null>(null);
   const [lastUploadedUrls, setLastUploadedUrls] = useState<string[]>([]);
+  const [authorName, setAuthorName] = useState(AUTHOR_OPTIONS[0]);
   const [listQuery, setListQuery] = useState("");
   const [listFilter, setListFilter] = useState<"all" | "draft" | "published">("all");
   const [listSort, setListSort] = useState<"updated_desc" | "updated_asc" | "title_asc">("updated_desc");
@@ -676,7 +679,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         </div>
       )}
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] overflow-hidden lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1">
+      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] overflow-hidden lg:grid-cols-[auto_minmax(0,1fr)] lg:grid-rows-1">
         {/* Article list + tools */}
         <aside
           className={`flex min-h-0 max-h-[min(48vh,320px)] flex-col border-b border-white/10 transition-all duration-200 lg:max-h-none lg:border-b-0 lg:border-r ${
@@ -708,6 +711,38 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </button>
             </div>
             <div className="mt-2 space-y-1">
+              <button
+                type="button"
+                onClick={() => setActivePanel("setup")}
+                className="w-full rounded-lg border border-white/10 px-2 py-1.5 text-left text-[11px] text-zinc-300 hover:bg-white/5"
+                title="Post setup"
+              >
+                Setup
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivePanel("html")}
+                className="w-full rounded-lg border border-white/10 px-2 py-1.5 text-left text-[11px] text-zinc-300 hover:bg-white/5"
+                title="Edit HTML"
+              >
+                HTML
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivePanel("assist")}
+                className="w-full rounded-lg border border-white/10 px-2 py-1.5 text-left text-[11px] text-zinc-300 hover:bg-white/5"
+                title="Media and helpers"
+              >
+                Assist
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivePanel("publish")}
+                className="w-full rounded-lg border border-white/10 px-2 py-1.5 text-left text-[11px] text-zinc-300 hover:bg-white/5"
+                title="Publish actions"
+              >
+                Publish
+              </button>
               <button
                 type="button"
                 onClick={() => setShowBrandGuide(true)}
@@ -790,6 +825,34 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </select>
             </label>
             <div className="flex flex-wrap gap-1.5 border-t border-white/[0.06] pt-2">
+              <button
+                type="button"
+                onClick={() => setActivePanel("setup")}
+                className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+              >
+                Setup
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivePanel("html")}
+                className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+              >
+                HTML
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivePanel("assist")}
+                className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+              >
+                Assist
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivePanel("publish")}
+                className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+              >
+                Publish
+              </button>
               <button
                 type="button"
                 onClick={() => void copyBrandGuide()}
@@ -926,296 +989,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           )}
         </aside>
 
-        {/* Editor column */}
-        <section className="flex min-h-0 min-w-0 flex-col border-b border-white/10 lg:border-b-0 lg:border-r">
-          <div className="shrink-0 border-b border-white/5 bg-zinc-950/80 px-3 py-2 sm:px-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <span
-                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${
-                  !selectedId
-                    ? "bg-zinc-800 text-zinc-400"
-                    : selected?.status === "published"
-                      ? "bg-teal-900/60 text-teal-200"
-                      : "bg-amber-950/80 text-amber-200/90"
-                }`}
-              >
-                {statusLabel}
-              </span>
-              {isPending && <span className="text-[11px] text-zinc-500">Working…</span>}
-            </div>
-            {publicPath && (
-              <p className="mt-1.5 break-all font-mono text-[11px] leading-snug text-zinc-500">
-                Public link (after publish):{" "}
-                <span className="text-zinc-400">{publicPath}</span>
-              </p>
-            )}
-            {slug.trim() && !slugValid && (
-              <p className="mt-1.5 text-[11px] text-amber-300/90">
-                Slug: use only lowercase letters, numbers, and single hyphens (no spaces).
-              </p>
-            )}
-          </div>
-
-          <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-3 py-3 sm:px-4 sm:py-4">
-            <div className="mx-auto max-w-3xl space-y-4">
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <label className="block min-w-0 text-xs text-zinc-500">
-                  <span className="mb-1 block font-medium text-zinc-400">Title</span>
-                  <span className="sr-only">Required.</span>
-                  <input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    onBlur={onTitleBlur}
-                    className="mt-0.5 w-full min-w-0 rounded-xl border border-white/10 bg-black/50 px-3 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
-                    placeholder="Headline on the website"
-                    autoComplete="off"
-                  />
-                </label>
-                <label className="block min-w-0 text-xs text-zinc-500">
-                  <span className="mb-1 block font-medium text-zinc-400">URL slug</span>
-                  <input
-                    value={slug}
-                    onChange={(e) => {
-                      setSlugTouched(true);
-                      setSlug(e.target.value);
-                    }}
-                    className="mt-0.5 w-full min-w-0 break-all rounded-xl border border-white/10 bg-black/50 px-3 py-2.5 font-mono text-sm text-white placeholder:text-zinc-600 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
-                    placeholder="e.g. retirement-income-tips"
-                    spellCheck={false}
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                  />
-                </label>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <label className="block text-xs text-zinc-500 sm:col-span-1">
-                  <span className="mb-1 block font-medium text-zinc-400">Language</span>
-                  <select
-                    value={locale}
-                    onChange={(e) => setLocale(e.target.value as "en" | "af")}
-                    className="mt-0.5 w-full rounded-xl border border-white/10 bg-black/50 px-3 py-2.5 text-sm text-white focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
-                  >
-                    <option value="en">English</option>
-                    <option value="af">Afrikaans</option>
-                  </select>
-                </label>
-                <label className="block min-w-0 text-xs text-zinc-500 sm:col-span-2">
-                  <span className="mb-1 block font-medium text-zinc-400">Short excerpt</span>
-                  <span className="mb-1 block text-[11px] font-normal text-zinc-600">
-                    Shown on cards under Insights  -  one or two sentences.
-                  </span>
-                  <input
-                    value={excerpt}
-                    onChange={(e) => setExcerpt(e.target.value)}
-                    className="mt-0.5 w-full min-w-0 rounded-xl border border-white/10 bg-black/50 px-3 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
-                    placeholder="Optional blurb for listing pages"
-                  />
-                </label>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <label className="block min-w-0 text-xs text-zinc-500">
-                  <span className="mb-1 block font-medium text-zinc-400">SEO title (optional)</span>
-                  <input
-                    value={metaTitle}
-                    onChange={(e) => setMetaTitle(e.target.value)}
-                    className="mt-0.5 w-full min-w-0 rounded-xl border border-white/10 bg-black/50 px-3 py-2.5 text-sm text-white focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
-                    placeholder="Browser tab title if different"
-                  />
-                </label>
-                <label className="block min-w-0 text-xs text-zinc-500">
-                  <span className="mb-1 block font-medium text-zinc-400">SEO description (optional)</span>
-                  <input
-                    value={metaDescription}
-                    onChange={(e) => setMetaDescription(e.target.value)}
-                    className="mt-0.5 w-full min-w-0 rounded-xl border border-white/10 bg-black/50 px-3 py-2.5 text-sm text-white focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
-                    placeholder="Search / social snippet"
-                  />
-                </label>
-              </div>
-
-              <label className="block min-w-0 text-xs text-zinc-500">
-                <span className="mb-1 block font-medium text-zinc-400">Article HTML</span>
-                <span className="mb-1 block text-[11px] font-normal leading-snug text-zinc-600">
-                  Only the middle of the page  -  not &lt;html&gt; or &lt;body&gt;. Scripts are removed when you publish
-                  (for safety).
-                </span>
-                <textarea
-                  value={bodyHtml}
-                  onChange={(e) => setBodyHtml(e.target.value)}
-                  spellCheck={false}
-                  className="mt-0.5 min-h-[200px] w-full min-w-0 resize-y rounded-xl border border-white/10 bg-black/60 px-3 py-2.5 font-mono text-[13px] leading-relaxed text-teal-100/90 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30 sm:min-h-[240px] lg:min-h-[200px]"
-                />
-              </label>
-
-              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
-                <p className="text-xs font-medium text-zinc-300">Paste helper (recommended)</p>
-                <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
-                  Use this when AI output includes wrappers like &quot;Blog code&quot; or markdown fences.
-                </p>
-                <div className="mt-2 flex flex-wrap items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={runCleanupAiPaste}
-                    className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/5"
-                  >
-                    Clean pasted HTML
-                  </button>
-                  {markdownFenceCount > 0 && (
-                    <span className="text-[11px] text-amber-300/90">
-                      Found markdown fences ({markdownFenceCount}) - clean before publish.
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
-                <p className="text-xs font-medium text-zinc-300">Image placeholders</p>
-                <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
-                  Found <strong className="text-zinc-300">{imagePlaceholderCount}</strong> occurrence
-                  {imagePlaceholderCount === 1 ? "" : "s"} of <code>{IMAGE_PLACEHOLDER}</code>.
-                </p>
-                <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) => setUploadFiles(Array.from(e.target.files ?? []))}
-                    className="block w-full text-xs text-zinc-400 file:mr-3 file:rounded-lg file:border-0 file:bg-teal-600/90 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white hover:file:bg-teal-500"
-                  />
-                  <button
-                    type="button"
-                    onClick={runUploadImages}
-                    disabled={isPending || uploadFiles.length === 0 || imagePlaceholderCount === 0}
-                    className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    Upload & replace
-                  </button>
-                </div>
-                {uploadFiles.length > 0 && (
-                  <p className="mt-1 text-[11px] text-zinc-500">
-                    Selected {uploadFiles.length} file{uploadFiles.length === 1 ? "" : "s"}.
-                  </p>
-                )}
-                {lastUploadedUrls.length > 0 && (
-                  <div className="mt-2 space-y-1">
-                    <p className="text-[11px] text-zinc-500">
-                      Latest uploaded image URL{lastUploadedUrls.length === 1 ? "" : "s"}:
-                    </p>
-                    {lastUploadedUrls.slice(0, 2).map((url) => (
-                      <a
-                        key={url}
-                        href={url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="block truncate text-[11px] text-teal-400 hover:underline"
-                      >
-                        {url}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
-                <p className="text-xs font-medium text-zinc-300">YouTube helper</p>
-                <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
-                  Paste a YouTube URL or ID to replace <code>YOUR_VIDEO_ID</code>.
-                </p>
-                <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
-                  <input
-                    value={youtubeInput}
-                    onChange={(e) => setYoutubeInput(e.target.value)}
-                    placeholder="https://www.youtube.com/watch?v=..."
-                    className="min-w-0 flex-1 rounded-lg border border-white/10 bg-black/50 px-3 py-2 text-xs text-white placeholder:text-zinc-600 focus:border-teal-500/40 focus:outline-none focus:ring-1 focus:ring-teal-500/30"
-                  />
-                  <button
-                    type="button"
-                    onClick={applyYoutubeVideo}
-                    disabled={!unresolvedYoutubePlaceholder}
-                    className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    Insert video
-                  </button>
-                </div>
-                {!unresolvedYoutubePlaceholder && (
-                  <p className="mt-1 text-[11px] text-zinc-500">No unresolved YouTube placeholder found.</p>
-                )}
-              </div>
-
-              <div className="rounded-xl border border-white/10 bg-black/40 p-3">
-                <p className="text-xs font-medium text-zinc-300">Pre-publish health check</p>
-                <ul className="mt-2 space-y-1 text-[11px]">
-                  {checklist.map((item) => (
-                    <li key={item.id} className={item.ok ? "text-emerald-300" : "text-amber-300/90"}>
-                      {item.ok ? "PASS" : "FIX"} - {item.label}
-                      {!item.ok && item.hint ? <span className="text-zinc-500"> ({item.hint})</span> : null}
-                    </li>
-                  ))}
-                </ul>
-                {failedChecks.length > 0 ? (
-                  <p className="mt-2 text-[11px] text-amber-300/90">
-                    Fix {failedChecks.length} item{failedChecks.length === 1 ? "" : "s"} before publishing.
-                  </p>
-                ) : (
-                  <p className="mt-2 text-[11px] text-emerald-300">Ready to publish.</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="shrink-0 border-t border-white/10 bg-[#060607]/95 px-3 py-3 backdrop-blur-sm sm:px-4">
-            <div className="mx-auto flex max-w-3xl flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  disabled={saveDisabled}
-                  title={!basicsOk ? "Enter title and a valid slug first" : undefined}
-                  onClick={runSave}
-                  className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-black hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Save draft
-                </button>
-                <button
-                  type="button"
-                  disabled={publishDisabled}
-                  title={!selectedId ? "Save draft once before publishing" : !basicsOk ? "Fix title and slug" : undefined}
-                  onClick={runPublish}
-                  className="rounded-full bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Publish
-                </button>
-              </div>
-              <div className="flex flex-wrap gap-2 sm:ml-auto">
-                {selected?.status === "published" && (
-                  <button
-                    type="button"
-                    disabled={isPending || !databaseConfigured}
-                    onClick={runUnpublish}
-                    className="rounded-full border border-white/20 px-4 py-2.5 text-sm text-zinc-200 hover:bg-white/5 disabled:opacity-40"
-                  >
-                    Unpublish
-                  </button>
-                )}
-                {selected?.status !== "published" && selectedId && (
-                  <button
-                    type="button"
-                    disabled={isPending || !databaseConfigured}
-                    onClick={runDeleteDraft}
-                    className="rounded-full border border-red-500/35 px-4 py-2.5 text-sm text-red-300 hover:bg-red-950/40 disabled:opacity-40"
-                  >
-                    Delete draft
-                  </button>
-                )}
-              </div>
-            </div>
-            <p className="mx-auto mt-2 max-w-3xl text-[11px] leading-snug text-zinc-600">
-              <strong className="text-zinc-500">Save draft</strong> = safe, private. <strong className="text-zinc-500">Publish</strong>{" "}
-              = visible on the site. Questions? Contact AS Brokers  -  you don&apos;t need to edit code.
-            </p>
-          </div>
-        </section>
+        <section className="hidden lg:block" />
 
         {/* Preview */}
         <section className="flex min-h-[min(45vh,360px)] min-w-0 flex-col bg-[#070708] lg:min-h-0">
@@ -1255,6 +1029,134 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           </div>
         </section>
       </div>
+
+      {activePanel && (
+        <div className="fixed inset-0 z-[58] bg-black/70 backdrop-blur-sm p-3 sm:p-6" role="dialog" aria-modal="true">
+          <div className="mx-auto flex h-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#121214]">
+            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+              <p className="text-sm font-semibold text-white">
+                {activePanel === "setup" && "Post Setup"}
+                {activePanel === "html" && "Article HTML"}
+                {activePanel === "assist" && "Media & Assist"}
+                {activePanel === "publish" && "Publish"}
+              </p>
+              <button
+                type="button"
+                onClick={() => setActivePanel(null)}
+                className="rounded-lg px-2 py-1 text-zinc-400 hover:bg-white/10 hover:text-white"
+              >
+                Close
+              </button>
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+              {activePanel === "setup" && (
+                <div className="space-y-3">
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">Author</span>
+                    <select
+                      value={authorName}
+                      onChange={(e) => setAuthorName(e.target.value)}
+                      className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                    >
+                      {AUTHOR_OPTIONS.map((name) => (
+                        <option key={name} value={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">Title</span>
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">URL slug</span>
+                    <input value={slug} onChange={(e) => setSlug(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">Language</span>
+                    <select value={locale} onChange={(e) => setLocale(e.target.value as "en" | "af")} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white">
+                      <option value="en">English</option>
+                      <option value="af">Afrikaans</option>
+                    </select>
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">Short excerpt</span>
+                    <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">SEO title</span>
+                    <input value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">SEO description</span>
+                    <input value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                  </label>
+                </div>
+              )}
+              {activePanel === "html" && (
+                <div className="space-y-2">
+                  <p className="text-xs text-zinc-500">Only paste the page middle content, not full HTML document.</p>
+                  <textarea
+                    value={bodyHtml}
+                    onChange={(e) => setBodyHtml(e.target.value)}
+                    spellCheck={false}
+                    className="min-h-[52vh] w-full resize-y rounded-xl border border-white/10 bg-black/60 px-3 py-2.5 font-mono text-[13px] text-teal-100/90"
+                  />
+                </div>
+              )}
+              {activePanel === "assist" && (
+                <div className="space-y-4">
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                    <p className="text-xs font-medium text-zinc-300">Paste helper</p>
+                    <button type="button" onClick={runCleanupAiPaste} className="mt-2 rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200 hover:bg-white/5">Clean pasted HTML</button>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                    <p className="text-xs font-medium text-zinc-300">Image placeholders</p>
+                    <p className="mt-1 text-[11px] text-zinc-500">Found {imagePlaceholderCount} occurrence(s) of {IMAGE_PLACEHOLDER}.</p>
+                    <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                      <input type="file" accept="image/*" multiple onChange={(e) => setUploadFiles(Array.from(e.target.files ?? []))} className="block w-full text-xs text-zinc-400" />
+                      <button type="button" onClick={runUploadImages} disabled={isPending || uploadFiles.length === 0 || imagePlaceholderCount === 0} className="rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200 disabled:opacity-40">Upload & replace</button>
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                    <p className="text-xs font-medium text-zinc-300">YouTube helper</p>
+                    <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                      <input value={youtubeInput} onChange={(e) => setYoutubeInput(e.target.value)} placeholder="https://www.youtube.com/watch?v=..." className="min-w-0 flex-1 rounded-lg border border-white/10 bg-black/50 px-3 py-2 text-xs text-white" />
+                      <button type="button" onClick={applyYoutubeVideo} className="rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200">Insert video</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {activePanel === "publish" && (
+                <div className="space-y-3">
+                  <p className="text-xs text-zinc-500">{statusLabel}</p>
+                  {publicPath && <p className="text-xs text-zinc-500">Public link: {publicPath}</p>}
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                    <p className="text-xs font-medium text-zinc-300 mb-2">Pre-publish health check</p>
+                    <ul className="space-y-1 text-[11px]">
+                      {checklist.map((item) => (
+                        <li key={item.id} className={item.ok ? "text-emerald-300" : "text-amber-300/90"}>
+                          {item.ok ? "PASS" : "FIX"} - {item.label}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button type="button" onClick={runSave} disabled={saveDisabled} className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black disabled:opacity-40">Save draft</button>
+                    <button type="button" onClick={runPublish} disabled={publishDisabled} className="rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40">Publish</button>
+                    {selected?.status === "published" ? (
+                      <button type="button" onClick={runUnpublish} className="rounded-full border border-white/20 px-4 py-2 text-sm text-zinc-200">Unpublish</button>
+                    ) : (
+                      selectedId && <button type="button" onClick={runDeleteDraft} className="rounded-full border border-red-500/35 px-4 py-2 text-sm text-red-300">Delete draft</button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {showBrandGuide && (
         <div

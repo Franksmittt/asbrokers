@@ -129,6 +129,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [showBrandGuide, setShowBrandGuide] = useState(false);
   const [showCalculatorLibrary, setShowCalculatorLibrary] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
+  const [sidebarPinned, setSidebarPinned] = useState(false);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [youtubeInput, setYoutubeInput] = useState("");
@@ -674,12 +676,57 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         </div>
       )}
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] overflow-hidden lg:grid-cols-[minmax(14rem,19rem)_minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1">
+      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] overflow-hidden lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1">
         {/* Article list + tools */}
         <aside
-          className="flex min-h-0 max-h-[min(48vh,320px)] flex-col border-b border-white/10 lg:max-h-none lg:border-b-0 lg:border-r"
+          className={`flex min-h-0 max-h-[min(48vh,320px)] flex-col border-b border-white/10 transition-all duration-200 lg:max-h-none lg:border-b-0 lg:border-r ${
+            sidebarExpanded || sidebarPinned ? "lg:w-72" : "lg:w-14"
+          }`}
+          onMouseEnter={() => setSidebarExpanded(true)}
+          onMouseLeave={() => setSidebarExpanded(false)}
           aria-label="Articles and library"
         >
+          <div className="shrink-0 border-b border-white/5 p-2">
+            <div className="flex items-center justify-between gap-1">
+              <button
+                type="button"
+                onClick={handleNewArticle}
+                className="rounded-lg bg-teal-600 px-2.5 py-1.5 text-[11px] font-semibold text-white hover:bg-teal-500"
+                title="New article"
+              >
+                +
+              </button>
+              <button
+                type="button"
+                onClick={() => setSidebarPinned((v) => !v)}
+                className={`rounded-lg px-2 py-1.5 text-[11px] ${
+                  sidebarPinned ? "bg-white/15 text-white" : "text-zinc-400 hover:bg-white/5"
+                }`}
+                title={sidebarPinned ? "Unpin menu" : "Pin menu open"}
+              >
+                {sidebarPinned ? "Unpin" : "Pin"}
+              </button>
+            </div>
+            <div className="mt-2 space-y-1">
+              <button
+                type="button"
+                onClick={() => setShowBrandGuide(true)}
+                className="w-full rounded-lg border border-white/10 px-2 py-1.5 text-left text-[11px] text-zinc-300 hover:bg-white/5"
+                title="Brand guide"
+              >
+                Guide
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowCalculatorLibrary(true)}
+                className="w-full rounded-lg border border-white/10 px-2 py-1.5 text-left text-[11px] text-zinc-300 hover:bg-white/5"
+                title="Calculator code"
+              >
+                Calc code
+              </button>
+            </div>
+          </div>
+          {(sidebarExpanded || sidebarPinned) && (
           <div className="shrink-0 space-y-2 border-b border-white/5 p-2 sm:p-3">
             <button
               type="button"
@@ -766,8 +813,9 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </button>
             </div>
           </div>
+          )}
 
-          {selectedHiddenByFilter && (
+          {(sidebarExpanded || sidebarPinned) && selectedHiddenByFilter && (
             <div className="shrink-0 border-b border-amber-500/20 bg-amber-950/25 px-2.5 py-2 text-[11px] leading-snug text-amber-100/90 sm:px-3">
               Current article is hidden by search or filter.{" "}
               <button
@@ -783,6 +831,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
             </div>
           )}
 
+          {(sidebarExpanded || sidebarPinned) && (
           <ul className="min-h-0 flex-1 list-none space-y-1 overflow-y-auto overscroll-y-contain p-2 sm:p-2">
             {posts.length === 0 && (
               <li className="px-2 py-4 text-center text-xs text-zinc-500">No articles yet  -  tap + New article.</li>
@@ -820,7 +869,9 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </li>
             ))}
           </ul>
+          )}
 
+          {(sidebarExpanded || sidebarPinned) && (
           <div className="shrink-0 space-y-2 border-t border-white/10 bg-zinc-950/50 p-2.5 sm:p-3">
             <p className="text-[10px] leading-relaxed text-zinc-500">
               <span className="text-zinc-400">{listCounts.total}</span> article{listCounts.total === 1 ? "" : "s"} ·{" "}
@@ -872,6 +923,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </p>
             )}
           </div>
+          )}
         </aside>
 
         {/* Editor column */}

@@ -285,12 +285,9 @@ export async function uploadStudioImage(
     return { ok: false, error: `Upload failed: ${uploaded.error.message}` };
   }
 
-  const publicUrl = supabase.storage.from(bucket).getPublicUrl(key).data.publicUrl;
-  if (!publicUrl) {
-    return { ok: false, error: "Upload succeeded, but no public URL was returned." };
-  }
-
-  return { ok: true, url: publicUrl };
+  const proxyUrl = `/api/studio/media?bucket=${encodeURIComponent(bucket)}&path=${encodeURIComponent(key)}`;
+  // Return app-hosted media URL so preview + published work even when bucket is private.
+  return { ok: true, url: proxyUrl };
 }
 
 export async function sanitizeStudioHtmlPreview(

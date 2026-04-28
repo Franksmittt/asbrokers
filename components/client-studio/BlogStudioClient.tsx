@@ -12,6 +12,10 @@ import {
   uploadStudioImage,
 } from "@/app/studio/blog/actions";
 import { BLOG_BRAND_GUIDE_TEXT } from "@/lib/client-studio/brand-guide-content";
+import {
+  CALCULATOR_CODE_SNIPPETS,
+  getCalculatorCodePackText,
+} from "@/lib/client-studio/calculator-code-pack";
 
 export type SerializableStudioPost = {
   id: string;
@@ -123,6 +127,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [bodyHtml, setBodyHtml] = useState(initialPosts[0]?.bodyHtml ?? "");
   const [banner, setBanner] = useState<string | null>(null);
   const [showBrandGuide, setShowBrandGuide] = useState(false);
+  const [showCalculatorLibrary, setShowCalculatorLibrary] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
@@ -384,6 +389,24 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     }
   }
 
+  async function copyCalculatorSnippet(code: string) {
+    try {
+      await navigator.clipboard.writeText(code);
+      setBanner("Calculator code copied to clipboard.");
+    } catch {
+      setBanner("Clipboard blocked - copy calculator code manually from the popup.");
+    }
+  }
+
+  async function copyAllCalculatorCode() {
+    try {
+      await navigator.clipboard.writeText(getCalculatorCodePackText());
+      setBanner("All calculator code snippets copied.");
+    } catch {
+      setBanner("Clipboard blocked - copy all code manually from the popup.");
+    }
+  }
+
   async function copyLiveArticleUrl(path: string) {
     const full = `${typeof window !== "undefined" ? window.location.origin : ""}${path}`;
     try {
@@ -429,7 +452,11 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           setBanner(uploaded.error);
           return;
         }
-        urls.push(uploaded.url);
+        const resolvedUrl =
+          uploaded.url.startsWith("/") && typeof window !== "undefined"
+            ? `${window.location.origin}${uploaded.url}`
+            : uploaded.url;
+        urls.push(resolvedUrl);
       }
 
       setBodyHtml((prev) => replaceImagePlaceholders(prev, urls));
@@ -598,6 +625,13 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           >
             Read brand guide
           </button>
+          <button
+            type="button"
+            onClick={() => setShowCalculatorLibrary(true)}
+            className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs text-zinc-200 hover:border-white/25 hover:bg-white/10 sm:px-4 sm:text-sm"
+          >
+            Calculator code library
+          </button>
           <a
             href="/insights"
             target="_blank"
@@ -722,6 +756,13 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                 className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
               >
                 Read guide
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowCalculatorLibrary(true)}
+                className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+              >
+                Calculator code
               </button>
             </div>
           </div>
@@ -1204,6 +1245,76 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                 <button
                   type="button"
                   onClick={() => setShowBrandGuide(false)}
+                  className="rounded-xl border border-white/15 px-4 py-3 text-sm text-zinc-300 hover:bg-white/5"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showCalculatorLibrary && (
+        <div
+          className="fixed inset-0 z-[60] overflow-y-auto overflow-x-hidden bg-black/75 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="calculator-code-title"
+        >
+          <div className="flex min-h-full items-start justify-center p-4 py-8 sm:items-center sm:py-10">
+            <div className="my-auto flex w-full max-w-3xl min-w-0 max-h-[min(88dvh,920px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#121214] shadow-2xl">
+              <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
+                <h2 id="calculator-code-title" className="min-w-0 truncate text-sm font-semibold text-white">
+                  Calculator code library
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setShowCalculatorLibrary(false)}
+                  className="shrink-0 rounded-lg px-2 py-1 text-lg leading-none text-zinc-400 hover:bg-white/10 hover:text-white"
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="shrink-0 border-b border-white/5 px-4 py-2">
+                <p className="text-xs leading-relaxed text-zinc-500">
+                  Share these snippets with AI so generated blog posts follow your calculator logic.
+                </p>
+              </div>
+              <div className="min-h-0 flex-1 overflow-y-auto space-y-3 px-4 py-3">
+                {CALCULATOR_CODE_SNIPPETS.map((snippet) => (
+                  <div key={snippet.id} className="rounded-xl border border-white/10 bg-black/30">
+                    <div className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-2">
+                      <div className="min-w-0">
+                        <p className="truncate text-xs font-semibold text-zinc-200">{snippet.title}</p>
+                        <p className="truncate text-[11px] text-zinc-500">{snippet.sourcePath}</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => void copyCalculatorSnippet(snippet.code)}
+                        className="shrink-0 rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/5"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <pre className="max-h-56 overflow-y-auto whitespace-pre-wrap px-3 py-2 font-mono text-[11px] leading-relaxed text-zinc-300">
+                      {snippet.code}
+                    </pre>
+                  </div>
+                ))}
+              </div>
+              <div className="flex shrink-0 flex-col gap-2 border-t border-white/10 p-4 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() => void copyAllCalculatorCode()}
+                  className="flex-1 rounded-xl bg-teal-600 py-3 text-sm font-semibold text-white hover:bg-teal-500"
+                >
+                  Copy all calculator code
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowCalculatorLibrary(false)}
                   className="rounded-xl border border-white/15 px-4 py-3 text-sm text-zinc-300 hover:bg-white/5"
                 >
                   Close

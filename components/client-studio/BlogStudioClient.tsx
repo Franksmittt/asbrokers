@@ -135,8 +135,6 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [showBrandGuide, setShowBrandGuide] = useState(false);
   const [showCalculatorLibrary, setShowCalculatorLibrary] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [sidebarExpanded, setSidebarExpanded] = useState(false);
-  const [sidebarPinned, setSidebarPinned] = useState(false);
   const [activePanel, setActivePanel] = useState<null | "setup" | "html" | "assist" | "publish">(null);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
@@ -268,6 +266,15 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     setBodyHtml(p.bodyHtml);
     setSlugTouched(true);
     setBanner(null);
+    setActivePanel(null);
+    setPublishedPreviewHtml(null);
+    setPreviewMode("published");
+    startTransition(async () => {
+      const res = await sanitizeStudioHtmlPreview(p.bodyHtml);
+      if (res.ok) {
+        setPublishedPreviewHtml(res.html);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -569,7 +576,12 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     });
   }
 
-  const previewHtml = previewMode === "published" ? publishedPreviewHtml ?? "" : bodyHtml;
+  const previewHtml =
+    previewMode === "published"
+      ? publishedPreviewHtml !== null
+        ? publishedPreviewHtml
+        : bodyHtml
+      : bodyHtml;
   const previewSrcDoc = useMemo(() => buildPreviewDoc(previewHtml), [previewHtml]);
 
   useEffect(() => {
@@ -581,7 +593,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           setPublishedPreviewHtml(res.html);
         }
       });
-    }, 500);
+    }, 200);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bodyHtml, previewMode]);
@@ -742,14 +754,10 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         </div>
       )}
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[auto_minmax(0,1fr)] overflow-hidden lg:grid-cols-[auto_minmax(0,1fr)] lg:grid-rows-1">
+      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[minmax(0,min(48vh,320px))_minmax(0,1fr)] overflow-hidden lg:grid-cols-[minmax(0,17.75rem)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-0">
         {/* Article list + tools */}
         <aside
-          className={`flex min-h-0 max-h-[min(48vh,320px)] flex-col border-b border-white/10 transition-all duration-200 lg:max-h-none lg:border-b-0 lg:border-r ${
-            sidebarExpanded || sidebarPinned ? "lg:w-72" : "lg:w-14"
-          }`}
-          onMouseEnter={() => setSidebarExpanded(true)}
-          onMouseLeave={() => setSidebarExpanded(false)}
+          className="flex min-h-0 w-full shrink-0 flex-col border-b border-white/10 lg:max-h-none lg:w-[17.75rem] lg:min-w-0 lg:border-b-0 lg:border-r lg:border-white/10"
           aria-label="Articles and library"
         >
           <div className="shrink-0 border-b border-white/5 p-2">
@@ -762,16 +770,9 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               >
                 +
               </button>
-              <button
-                type="button"
-                onClick={() => setSidebarPinned((v) => !v)}
-                className={`rounded-lg px-2 py-1.5 text-[11px] ${
-                  sidebarPinned ? "bg-white/15 text-white" : "text-zinc-400 hover:bg-white/5"
-                }`}
-                title={sidebarPinned ? "Unpin menu" : "Pin menu open"}
-              >
-                {sidebarPinned ? "Unpin" : "Pin"}
-              </button>
+              <span className="flex-1 truncate text-center text-[10px] font-medium uppercase tracking-wide text-zinc-500">
+                Articles
+              </span>
             </div>
             <div className="mt-2 space-y-1">
               <button
@@ -824,7 +825,6 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </button>
             </div>
           </div>
-          {(sidebarExpanded || sidebarPinned) && (
           <div className="shrink-0 space-y-2 border-b border-white/5 p-2 sm:p-3">
             <button
               type="button"
@@ -939,9 +939,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </button>
             </div>
           </div>
-          )}
 
-          {(sidebarExpanded || sidebarPinned) && selectedHiddenByFilter && (
+          {selectedHiddenByFilter && (
             <div className="shrink-0 border-b border-amber-500/20 bg-amber-950/25 px-2.5 py-2 text-[11px] leading-snug text-amber-100/90 sm:px-3">
               Current article is hidden by search or filter.{" "}
               <button
@@ -957,7 +956,6 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
             </div>
           )}
 
-          {(sidebarExpanded || sidebarPinned) && (
           <ul className="min-h-0 flex-1 list-none space-y-1 overflow-y-auto overscroll-y-contain p-2 sm:p-2">
             {posts.length === 0 && (
               <li className="px-2 py-4 text-center text-xs text-zinc-500">No articles yet  -  tap + New article.</li>
@@ -995,9 +993,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </li>
             ))}
           </ul>
-          )}
 
-          {(sidebarExpanded || sidebarPinned) && (
           <div className="shrink-0 space-y-2 border-t border-white/10 bg-zinc-950/50 p-2.5 sm:p-3">
             <p className="text-[10px] leading-relaxed text-zinc-500">
               <span className="text-zinc-400">{listCounts.total}</span> article{listCounts.total === 1 ? "" : "s"} ·{" "}
@@ -1049,10 +1045,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
               </p>
             )}
           </div>
-          )}
         </aside>
-
-        <section className="hidden lg:block" />
 
         {/* Preview */}
         <section className="flex min-h-[min(45vh,360px)] min-w-0 flex-col bg-[#070708] lg:min-h-0">

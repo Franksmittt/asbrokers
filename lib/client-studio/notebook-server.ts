@@ -9,12 +9,17 @@ import { getDb, studioNotebookNotes } from "@/lib/db";
 export async function fetchNotebookNotesInitial(): Promise<SerializableNotebookNote[]> {
   const db = getDb();
   if (!db) return [];
-  const rows = await db.select().from(studioNotebookNotes).orderBy(desc(studioNotebookNotes.updatedAt));
-  return rows.map((r) => ({
-    id: r.id,
-    title: r.title,
-    body: r.body,
-    createdAt: r.createdAt.toISOString(),
-    updatedAt: r.updatedAt.toISOString(),
-  }));
+  try {
+    const rows = await db.select().from(studioNotebookNotes).orderBy(desc(studioNotebookNotes.updatedAt));
+    return rows.map((r) => ({
+      id: r.id,
+      title: r.title,
+      body: r.body,
+      createdAt: r.createdAt.toISOString(),
+      updatedAt: r.updatedAt.toISOString(),
+    }));
+  } catch {
+    // `studio_notebook_notes` may not exist until `db push` / migration on this environment.
+    return [];
+  }
 }

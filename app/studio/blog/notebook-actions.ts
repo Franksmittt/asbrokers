@@ -33,21 +33,29 @@ export async function listStudioNotebookNotes(): Promise<
     return { ok: false, error: "Database is not connected." };
   }
 
-  const rows = await db
-    .select()
-    .from(studioNotebookNotes)
-    .orderBy(desc(studioNotebookNotes.updatedAt));
+  try {
+    const rows = await db
+      .select()
+      .from(studioNotebookNotes)
+      .orderBy(desc(studioNotebookNotes.updatedAt));
 
-  return {
-    ok: true,
-    notes: rows.map((r) => ({
-      id: r.id,
-      title: r.title,
-      body: r.body,
-      createdAt: r.createdAt.toISOString(),
-      updatedAt: r.updatedAt.toISOString(),
-    })),
-  };
+    return {
+      ok: true,
+      notes: rows.map((r) => ({
+        id: r.id,
+        title: r.title,
+        body: r.body,
+        createdAt: r.createdAt.toISOString(),
+        updatedAt: r.updatedAt.toISOString(),
+      })),
+    };
+  } catch {
+    return {
+      ok: false,
+      error:
+        "Notebook storage is not ready yet. Ask your developer to run the database update (notebook table), then try again.",
+    };
+  }
 }
 
 export async function saveStudioNotebookNote(

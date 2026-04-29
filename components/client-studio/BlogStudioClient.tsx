@@ -13,10 +13,12 @@ import {
   uploadStudioImage,
 } from "@/app/studio/blog/actions";
 import { BLOG_BRAND_GUIDE_TEXT } from "@/lib/client-studio/brand-guide-content";
+import { StudioNotebookModal } from "@/components/client-studio/StudioNotebookModal";
 import {
   CALCULATOR_CODE_SNIPPETS,
   getCalculatorCodePackText,
 } from "@/lib/client-studio/calculator-code-pack";
+import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
 
 export type SerializableStudioPost = {
   id: string;
@@ -104,6 +106,7 @@ const AUTHOR_OPTIONS = ["Albert Schuurman"];
 
 type Props = {
   initialPosts: SerializableStudioPost[];
+  initialNotebookNotes: SerializableNotebookNote[];
   databaseConfigured: boolean;
   studioConfigured: boolean;
 };
@@ -115,7 +118,12 @@ type HealthCheck = {
   hint?: string;
 };
 
-export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfigured }: Props) {
+export function BlogStudioClient({
+  initialPosts,
+  initialNotebookNotes,
+  databaseConfigured,
+  studioConfigured,
+}: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [posts, setPosts] = useState(initialPosts);
@@ -134,6 +142,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [banner, setBanner] = useState<string | null>(null);
   const [showBrandGuide, setShowBrandGuide] = useState(false);
   const [showCalculatorLibrary, setShowCalculatorLibrary] = useState(false);
+  const [showNotebook, setShowNotebook] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [activePanel, setActivePanel] = useState<null | "setup" | "html" | "assist" | "publish">(null);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
@@ -711,6 +720,13 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
             className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs text-zinc-200 hover:border-white/25 hover:bg-white/10 sm:px-4 sm:text-sm"
           >
             Calculator code library
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowNotebook(true)}
+            className="shrink-0 rounded-full border border-violet-400/30 bg-violet-950/35 px-3 py-2 text-xs font-medium text-violet-200 hover:border-violet-400/45 hover:bg-violet-950/50 sm:px-4 sm:text-sm"
+          >
+            Notebook
           </button>
           <a
             href="/insights"
@@ -1419,6 +1435,13 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
           </div>
         </div>
       )}
+
+      <StudioNotebookModal
+        open={showNotebook}
+        onClose={() => setShowNotebook(false)}
+        initialNotes={initialNotebookNotes}
+        databaseConfigured={databaseConfigured}
+      />
     </div>
   );
 }

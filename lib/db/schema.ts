@@ -86,3 +86,21 @@ export const clientInsightPosts = pgTable(
 
 export type ClientInsightPost = typeof clientInsightPosts.$inferSelect;
 export type NewClientInsightPost = typeof clientInsightPosts.$inferInsert;
+
+/**
+ * Owner notes in Insights studio (personal scratchpad). Not public; studio session only.
+ */
+export const studioNotebookNotes = pgTable(
+  "studio_notebook_notes",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    title: varchar("title", { length: 320 }).notNull().default(""),
+    body: text("body").notNull().default(""),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [index("studio_notebook_notes_updated_idx").on(table.updatedAt)]
+);
+
+export type StudioNotebookNote = typeof studioNotebookNotes.$inferSelect;
+export type NewStudioNotebookNote = typeof studioNotebookNotes.$inferInsert;

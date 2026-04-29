@@ -1,4 +1,5 @@
 import { BlogStudioClient, type SerializableStudioPost } from "@/components/client-studio/BlogStudioClient";
+import { fetchNotebookNotesInitial } from "@/lib/client-studio/notebook-server";
 import { listAllStudioPosts } from "@/lib/client-studio/posts";
 import { isClientStudioConfigured } from "@/lib/client-studio/session";
 import { getDb } from "@/lib/db";
@@ -28,10 +29,12 @@ export default async function StudioWorkspacePage() {
   const databaseConfigured = Boolean(getDb());
   const rows = databaseConfigured ? await listAllStudioPosts() : [];
   const initialPosts = serialize(rows);
+  const initialNotebookNotes = databaseConfigured ? await fetchNotebookNotesInitial() : [];
 
   return (
     <BlogStudioClient
       initialPosts={initialPosts}
+      initialNotebookNotes={initialNotebookNotes}
       databaseConfigured={databaseConfigured}
       studioConfigured={studioConfigured}
     />

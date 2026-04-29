@@ -14,9 +14,9 @@ const cards = [
     icon: Presentation,
   },
   {
-    href: "/studio",
-    title: "Blog & content (Sanity)",
-    desc: "Create and publish insights articles to the public site.",
+    href: "/studio/blog",
+    title: "Blog & content (Insights Studio)",
+    desc: "Create and publish insights articles in the new HTML studio.",
     icon: FileText,
   },
   {

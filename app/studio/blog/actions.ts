@@ -14,6 +14,11 @@ import {
   isClientStudioConfigured,
   setClientStudioSessionToken,
 } from "@/lib/client-studio/session";
+import {
+  getClientInsightPostById,
+  insertClientInsightPostCompat,
+  updateClientInsightPostCompat,
+} from "@/lib/client-studio/client-insight-db";
 import { clientInsightPosts, getDb } from "@/lib/db";
 import { getSupabaseService } from "@/lib/supabase/server";
 
@@ -94,11 +99,12 @@ export async function saveStudioPost(
 
   try {
     if (id) {
-      const existing = await db.select().from(clientInsightPosts).where(eq(clientInsightPosts.id, id)).limit(1);
-      if (!existing[0]) return { ok: false, error: "Post not found." };
-      await db
-        .update(clientInsightPosts)
-        .set({
+      const existing = await getClientInsightPostById(db, id);
+      if (!existing) return { ok: false, error: "Post not found." };
+      await updateClientInsightPostCompat(
+        db,
+        id,
+        {
           title: v.title,
           slug: v.slug,
           locale: v.locale,
@@ -108,17 +114,17 @@ export async function saveStudioPost(
           metaDescription: v.metaDescription ?? null,
           calculatorName: v.calculatorName ?? null,
           calculatorCode: v.calculatorCode ?? null,
-          updatedAt: now,
-        })
-        .where(eq(clientInsightPosts.id, id));
+        },
+        now
+      );
       revalidatePath("/insights");
       revalidatePath(`/insights/${v.slug}`);
       return { ok: true, id };
     }
 
-    const inserted = await db
-      .insert(clientInsightPosts)
-      .values({
+    const newId = await insertClientInsightPostCompat(
+      db,
+      {
         title: v.title,
         slug: v.slug,
         locale: v.locale,
@@ -128,13 +134,9 @@ export async function saveStudioPost(
         metaDescription: v.metaDescription ?? null,
         calculatorName: v.calculatorName ?? null,
         calculatorCode: v.calculatorCode ?? null,
-        status: "draft",
-        updatedAt: now,
-      })
-      .returning({ id: clientInsightPosts.id });
-
-    const newId = inserted[0]?.id;
-    if (!newId) return { ok: false, error: "Could not create post." };
+      },
+      now
+    );
     revalidatePath("/insights");
     return { ok: true, id: newId };
   } catch (e) {
@@ -161,8 +163,7 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
     return { ok: false, error: "Database is not connected." };
   }
 
-  const rows = await db.select().from(clientInsightPosts).where(eq(clientInsightPosts.id, id)).limit(1);
-  const row = rows[0];
+  const row = await getClientInsightPostById(db, id);
   if (!row) return { ok: false, error: "Post not found." };
 
   const parsed = postBaseSchema.safeParse({
@@ -212,8 +213,7 @@ export async function unpublishStudioPost(id: string): Promise<{ ok: true } | { 
   const db = getDb();
   if (!db) return { ok: false, error: "Database is not connected." };
 
-  const rows = await db.select().from(clientInsightPosts).where(eq(clientInsightPosts.id, id)).limit(1);
-  const row = rows[0];
+  const row = await getClientInsightPostById(db, id);
   if (!row) return { ok: false, error: "Post not found." };
 
   await db
@@ -242,8 +242,7 @@ export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok
   const db = getDb();
   if (!db) return { ok: false, error: "Database is not connected." };
 
-  const rows = await db.select().from(clientInsightPosts).where(eq(clientInsightPosts.id, id)).limit(1);
-  const row = rows[0];
+  const row = await getClientInsightPostById(db, id);
   if (!row) return { ok: false, error: "Post not found." };
   if (row.status === "published") {
     return { ok: false, error: "Unpublish first  -  only drafts can be deleted." };

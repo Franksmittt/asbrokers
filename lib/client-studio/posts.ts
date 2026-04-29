@@ -1,22 +1,25 @@
 import "server-only";
 
-import { and, desc, eq } from "drizzle-orm";
-
-import { clientInsightPosts, getDb } from "@/lib/db";
+import { getDb } from "@/lib/db";
+import {
+  getClientInsightPostById,
+  getPublishedClientInsightPostBySlug,
+  listAllClientInsightPosts,
+} from "@/lib/client-studio/client-insight-db";
+import { clientInsightPosts } from "@/lib/db";
 
 export type StudioPostRow = typeof clientInsightPosts.$inferSelect;
 
 export async function listAllStudioPosts(): Promise<StudioPostRow[]> {
   const db = getDb();
   if (!db) return [];
-  return db.select().from(clientInsightPosts).orderBy(desc(clientInsightPosts.updatedAt));
+  return listAllClientInsightPosts(db);
 }
 
 export async function getStudioPostById(id: string): Promise<StudioPostRow | null> {
   const db = getDb();
   if (!db) return null;
-  const rows = await db.select().from(clientInsightPosts).where(eq(clientInsightPosts.id, id)).limit(1);
-  return rows[0] ?? null;
+  return getClientInsightPostById(db, id);
 }
 
 export async function getPublishedStudioPostBySlug(
@@ -25,18 +28,5 @@ export async function getPublishedStudioPostBySlug(
 ): Promise<StudioPostRow | null> {
   const db = getDb();
   if (!db) return null;
-  const rows = await db
-    .select()
-    .from(clientInsightPosts)
-    .where(
-      and(
-        eq(clientInsightPosts.slug, slug),
-        eq(clientInsightPosts.locale, locale),
-        eq(clientInsightPosts.status, "published")
-      )
-    )
-    .limit(1);
-  const row = rows[0];
-  if (!row?.bodyHtmlPublished) return null;
-  return row;
+  return getPublishedClientInsightPostBySlug(db, slug, locale);
 }

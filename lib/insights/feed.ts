@@ -1,8 +1,7 @@
 import "server-only";
 
-import { desc, eq } from "drizzle-orm";
-
-import { clientInsightPosts, getDb } from "@/lib/db";
+import { getDb } from "@/lib/db";
+import { listPublishedClientInsightPosts } from "@/lib/client-studio/client-insight-db";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightsListQuery } from "@/sanity/lib/queries";
 
@@ -30,37 +29,6 @@ function toIso(d: string | Date): string {
   return d.toISOString();
 }
 
-/** Drizzle wraps PG errors on `cause`; top-level message is often only "Failed query: ...". */
-function collectErrorText(error: unknown): string {
-  const parts: string[] = [];
-  let e: unknown = error;
-  const seen = new Set<unknown>();
-  for (let i = 0; i < 8 && e != null && !seen.has(e); i += 1) {
-    seen.add(e);
-    if (e instanceof Error) {
-      parts.push(e.message);
-      e = e.cause;
-    } else if (typeof e === "object" && e !== null && "message" in e) {
-      parts.push(String((e as { message: unknown }).message));
-      e = "cause" in e ? (e as { cause: unknown }).cause : undefined;
-    } else {
-      parts.push(String(e));
-      break;
-    }
-  }
-  return parts.join(" | ");
-}
-
-function isMissingCalculatorColumnsError(error: unknown): boolean {
-  const text = collectErrorText(error);
-  if (!text.includes("calculator_name") && !text.includes("calculator_code")) return false;
-  return (
-    text.includes("does not exist") ||
-    text.includes("42703") ||
-    (text.includes("column") && text.includes("calculator"))
-  );
-}
-
 /**
  * Sanity articles plus published studio HTML posts, newest first.
  */
@@ -86,29 +54,7 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
     );
   }
 
-  let studioRows: Array<{
-    id: string;
-    title: string;
-    slug: string;
-    locale: string;
-    excerpt: string | null;
-    publishedAt: Date | null;
-  }> = [];
-  try {
-    studioRows = await db
-      .select()
-      .from(clientInsightPosts)
-      .where(eq(clientInsightPosts.status, "published"))
-      .orderBy(desc(clientInsightPosts.publishedAt));
-  } catch (error) {
-    // Backward compatibility: older DBs may not have newly added optional columns yet.
-    if (isMissingCalculatorColumnsError(error)) {
-      return sanityItems.sort(
-        (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-      );
-    }
-    throw error;
-  }
+  const studioRows = await listPublishedClientInsightPosts(db);
 
   const studioItems: InsightFeedItem[] = studioRows
     .filter((r) => r.publishedAt)

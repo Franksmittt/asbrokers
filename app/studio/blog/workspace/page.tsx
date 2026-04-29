@@ -15,6 +15,8 @@ function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>): Serial
     status: r.status,
     metaTitle: r.metaTitle,
     metaDescription: r.metaDescription,
+    calculatorName: r.calculatorName,
+    calculatorCode: r.calculatorCode,
     publishedAt: r.publishedAt?.toISOString() ?? null,
     createdAt: r.createdAt.toISOString(),
     updatedAt: r.updatedAt.toISOString(),

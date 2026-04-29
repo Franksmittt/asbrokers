@@ -29,6 +29,8 @@ const postBaseSchema = z.object({
   bodyHtml: z.string().max(500_000).default(""),
   metaTitle: z.string().trim().max(70).optional().nullable(),
   metaDescription: z.string().trim().max(200).optional().nullable(),
+  calculatorName: z.string().trim().max(140).optional().nullable(),
+  calculatorCode: z.string().max(250_000).optional().nullable(),
 });
 
 function verifyStudioPassword(plain: string): boolean {
@@ -104,6 +106,8 @@ export async function saveStudioPost(
           bodyHtml: v.bodyHtml,
           metaTitle: v.metaTitle ?? null,
           metaDescription: v.metaDescription ?? null,
+          calculatorName: v.calculatorName ?? null,
+          calculatorCode: v.calculatorCode ?? null,
           updatedAt: now,
         })
         .where(eq(clientInsightPosts.id, id));
@@ -122,6 +126,8 @@ export async function saveStudioPost(
         bodyHtml: v.bodyHtml,
         metaTitle: v.metaTitle ?? null,
         metaDescription: v.metaDescription ?? null,
+        calculatorName: v.calculatorName ?? null,
+        calculatorCode: v.calculatorCode ?? null,
         status: "draft",
         updatedAt: now,
       })
@@ -167,6 +173,8 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
     bodyHtml: row.bodyHtml,
     metaTitle: row.metaTitle,
     metaDescription: row.metaDescription,
+    calculatorName: row.calculatorName,
+    calculatorCode: row.calculatorCode,
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Fix fields before publishing." };

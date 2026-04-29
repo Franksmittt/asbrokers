@@ -48,6 +48,15 @@ export default function OfficeHomePage() {
           Wealth Presentation for live sessions. Use Sanity Studio for structured articles, or the Insights studio for
           HTML-only posts. No lead pipeline here.
         </p>
+        <div className="mt-4">
+          <Link
+            href="/studio/blog"
+            prefetch={false}
+            className="inline-flex items-center rounded-full bg-teal-600/90 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500"
+          >
+            Open Insights Studio
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">

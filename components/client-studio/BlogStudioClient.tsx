@@ -29,6 +29,8 @@ export type SerializableStudioPost = {
   status: string;
   metaTitle: string | null;
   metaDescription: string | null;
+  calculatorName: string | null;
+  calculatorCode: string | null;
   publishedAt: string | null;
   createdAt: string;
   updatedAt: string;
@@ -126,6 +128,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
   const [excerpt, setExcerpt] = useState(initialPosts[0]?.excerpt ?? "");
   const [metaTitle, setMetaTitle] = useState(initialPosts[0]?.metaTitle ?? "");
   const [metaDescription, setMetaDescription] = useState(initialPosts[0]?.metaDescription ?? "");
+  const [calculatorName, setCalculatorName] = useState(initialPosts[0]?.calculatorName ?? "");
+  const [calculatorCode, setCalculatorCode] = useState(initialPosts[0]?.calculatorCode ?? "");
   const [bodyHtml, setBodyHtml] = useState(initialPosts[0]?.bodyHtml ?? "");
   const [banner, setBanner] = useState<string | null>(null);
   const [showBrandGuide, setShowBrandGuide] = useState(false);
@@ -205,6 +209,23 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     const live = posts.filter((p) => p.status === "published").length;
     return { total: posts.length, drafts: posts.length - live, live };
   }, [posts]);
+  const customCalculatorSnippets = useMemo(() => {
+    const seen = new Set<string>();
+    return posts
+      .filter((p) => (p.calculatorName ?? "").trim() && (p.calculatorCode ?? "").trim())
+      .map((p) => ({
+        id: p.id,
+        title: (p.calculatorName ?? "").trim(),
+        code: p.calculatorCode ?? "",
+        source: p.title || p.slug,
+      }))
+      .filter((snippet) => {
+        const key = `${snippet.title}::${snippet.code}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+  }, [posts]);
 
   const filteredPosts = useMemo(() => {
     const q = listQuery.trim().toLowerCase();
@@ -242,6 +263,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     setExcerpt(p.excerpt ?? "");
     setMetaTitle(p.metaTitle ?? "");
     setMetaDescription(p.metaDescription ?? "");
+    setCalculatorName(p.calculatorName ?? "");
+    setCalculatorCode(p.calculatorCode ?? "");
     setBodyHtml(p.bodyHtml);
     setSlugTouched(true);
     setBanner(null);
@@ -263,6 +286,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     setExcerpt("");
     setMetaTitle("");
     setMetaDescription("");
+    setCalculatorName("");
+    setCalculatorCode("");
     setBodyHtml(
       '<section class="space-y-4">\n  <p class="text-zinc-300">Paste your HTML here. Tap “Copy brand guide for AI” first, then use your AI tool.</p>\n</section>\n'
     );
@@ -304,6 +329,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         bodyHtml: normalizedBody,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
+        calculatorName: calculatorName || null,
+        calculatorCode: calculatorCode || null,
       });
       if (!res.ok) {
         setBanner(res.error);
@@ -341,6 +368,8 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         bodyHtml: normalizedBody,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
+        calculatorName: calculatorName || null,
+        calculatorCode: calculatorCode || null,
       });
       if (!saveRes.ok) {
         setBanner(saveRes.error);
@@ -1108,6 +1137,25 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                     <span className="mb-1 block font-medium text-zinc-300">SEO description</span>
                     <input value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
                   </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">Calculator name (optional)</span>
+                    <input
+                      value={calculatorName}
+                      onChange={(e) => setCalculatorName(e.target.value)}
+                      placeholder="e.g. Retirement Projection v2"
+                      className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                    />
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">Calculator code (optional)</span>
+                    <textarea
+                      value={calculatorCode}
+                      onChange={(e) => setCalculatorCode(e.target.value)}
+                      spellCheck={false}
+                      placeholder="Paste calculator JS/TS logic here..."
+                      className="min-h-40 w-full rounded-lg border border-white/10 bg-black/60 px-3 py-2.5 font-mono text-[12px] text-teal-100/90"
+                    />
+                  </label>
                 </div>
               )}
               {activePanel === "html" && (
@@ -1260,6 +1308,36 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                 </p>
               </div>
               <div className="min-h-0 flex-1 overflow-y-auto space-y-3 px-4 py-3">
+                {customCalculatorSnippets.length > 0 && (
+                  <div className="rounded-xl border border-teal-500/30 bg-teal-950/20 p-3">
+                    <p className="text-xs font-semibold text-teal-200">Your saved calculator snippets</p>
+                    <p className="mt-1 text-[11px] text-teal-100/80">
+                      Saved from post setup fields. Edit a post, update calculator name/code, then Save draft.
+                    </p>
+                    <div className="mt-3 space-y-3">
+                      {customCalculatorSnippets.map((snippet) => (
+                        <div key={snippet.id} className="rounded-lg border border-white/10 bg-black/30">
+                          <div className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-2">
+                            <div className="min-w-0">
+                              <p className="truncate text-xs font-semibold text-zinc-100">{snippet.title}</p>
+                              <p className="truncate text-[11px] text-zinc-500">From: {snippet.source}</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => void copyCalculatorSnippet(snippet.code)}
+                              className="shrink-0 rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/5"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                          <pre className="max-h-44 overflow-y-auto whitespace-pre-wrap px-3 py-2 font-mono text-[11px] leading-relaxed text-zinc-300">
+                            {snippet.code}
+                          </pre>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {CALCULATOR_CODE_SNIPPETS.map((snippet) => (
                   <div key={snippet.id} className="rounded-xl border border-white/10 bg-black/30">
                     <div className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-2">

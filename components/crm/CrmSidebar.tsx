@@ -9,6 +9,7 @@ const navItems = [
   { href: "/crm", label: "Office", icon: LayoutDashboard },
   { href: "/crm/presentation", label: "Wealth Presentation", icon: Presentation },
   { href: "/studio", label: "Blog & content", icon: FileText },
+  { href: "/studio/blog", label: "Insights Studio (HTML)", icon: FileText },
   { href: "/insights", label: "View insights (site)", icon: Scroll },
 ];
 
@@ -77,6 +78,9 @@ export function CrmSidebar({ name }: { name: string }) {
           </Link>
           <Link href="/studio" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
             Studio
+          </Link>
+          <Link href="/studio/blog" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
+            Insights Studio
           </Link>
           <Link href="/insights" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
             Insights

@@ -72,6 +72,8 @@ export const clientInsightPosts = pgTable(
     status: varchar("status", { length: 20 }).notNull().default("draft"),
     metaTitle: text("meta_title"),
     metaDescription: text("meta_description"),
+    calculatorName: text("calculator_name"),
+    calculatorCode: text("calculator_code"),
     publishedAt: timestamp("published_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),

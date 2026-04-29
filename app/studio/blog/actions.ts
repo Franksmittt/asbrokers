@@ -101,6 +101,7 @@ export async function saveStudioPost(
     if (id) {
       const existing = await getClientInsightPostById(db, id);
       if (!existing) return { ok: false, error: "Post not found." };
+      const oldSlug = existing.slug;
       await updateClientInsightPostCompat(
         db,
         id,
@@ -117,8 +118,26 @@ export async function saveStudioPost(
         },
         now
       );
+      if (existing.status === "published") {
+        const sanitized = sanitizeInsightBody(v.bodyHtml);
+        if (!sanitized.trim()) {
+          return { ok: false, error: "Live articles need some HTML content before saving." };
+        }
+        await db
+          .update(clientInsightPosts)
+          .set({
+            bodyHtmlPublished: sanitized,
+            updatedAt: new Date(),
+          })
+          .where(eq(clientInsightPosts.id, id));
+      }
+      revalidatePath("/");
       revalidatePath("/insights");
       revalidatePath(`/insights/${v.slug}`);
+      if (existing.status === "published" && oldSlug !== v.slug) {
+        revalidatePath(`/insights/${oldSlug}`);
+      }
+      revalidatePath("/studio/blog/workspace");
       return { ok: true, id };
     }
 
@@ -137,7 +156,9 @@ export async function saveStudioPost(
       },
       now
     );
+    revalidatePath("/");
     revalidatePath("/insights");
+    revalidatePath("/studio/blog/workspace");
     return { ok: true, id: newId };
   } catch (e) {
     const code = e && typeof e === "object" && "code" in e ? String((e as { code?: unknown }).code) : "";
@@ -232,7 +253,8 @@ export async function unpublishStudioPost(id: string): Promise<{ ok: true } | { 
   return { ok: true };
 }
 
-export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok: false; error: string }> {
+/** Permanently removes a draft or published studio post (owner correction / takedown). */
+export async function deleteStudioPost(id: string): Promise<{ ok: true } | { ok: false; error: string }> {
   try {
     await requireStudioSession();
   } catch {
@@ -244,13 +266,20 @@ export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok
 
   const row = await getClientInsightPostById(db, id);
   if (!row) return { ok: false, error: "Post not found." };
-  if (row.status === "published") {
-    return { ok: false, error: "Unpublish first  -  only drafts can be deleted." };
-  }
 
+  const slug = row.slug;
   await db.delete(clientInsightPosts).where(eq(clientInsightPosts.id, id));
+
+  revalidatePath("/");
   revalidatePath("/insights");
+  revalidatePath(`/insights/${slug}`);
+  revalidatePath("/studio/blog/workspace");
   return { ok: true };
+}
+
+/** @deprecated Prefer deleteStudioPost — same behaviour (drafts and live posts). */
+export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok: false; error: string }> {
+  return deleteStudioPost(id);
 }
 
 export async function uploadStudioImage(

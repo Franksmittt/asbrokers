@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState, useTransition } from "react"
 
 import {
   deleteAllStudioPosts,
-  deleteStudioDraft,
+  deleteStudioPost,
   publishStudioPost,
   saveStudioPost,
   sanitizeStudioHtmlPreview,
@@ -317,6 +317,7 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     }
     setBanner(null);
     startTransition(async () => {
+      const wasLive = selected?.status === "published";
       const normalizedBody = normalizeAiHtml(bodyHtml);
       if (normalizedBody !== bodyHtml) {
         setBodyHtml(normalizedBody);
@@ -340,7 +341,11 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
         setSelectedId(res.id);
         setSlugTouched(true);
       }
-      setBanner("Saved. Draft is stored  -  still not public until you tap Publish.");
+      setBanner(
+        wasLive
+          ? "Saved. Your changes are now live on the website."
+          : "Saved. Draft is stored  -  still not public until you tap Publish."
+      );
       router.refresh();
     });
   }
@@ -399,18 +404,24 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
     });
   }
 
-  function runDeleteDraft() {
-    if (!selectedId || !selected || selected.status === "published") return;
-    if (!window.confirm("Delete this draft permanently? This cannot be undone.")) return;
+  function runDeleteArticle() {
+    if (!selectedId || !selected) return;
+    const isLive = selected.status === "published";
+    const ok = window.confirm(
+      isLive
+        ? "Delete this live article from the website? Visitors will no longer see it. This cannot be undone."
+        : "Delete this draft permanently? This cannot be undone."
+    );
+    if (!ok) return;
     setBanner(null);
     startTransition(async () => {
-      const r = await deleteStudioDraft(selectedId);
+      const r = await deleteStudioPost(selectedId);
       if (!r.ok) {
         setBanner(r.error);
         return;
       }
       handleNewArticle();
-      setBanner("Draft deleted.");
+      setBanner(isLive ? "Article removed from the website." : "Draft deleted.");
       router.refresh();
     });
   }
@@ -629,8 +640,15 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                   like any article.
                 </li>
                 <li>
-                  Wrong on the live site? Tap <strong className="text-zinc-200">Unpublish</strong>, fix HTML, Save, Publish
-                  again.
+                  Already live? Pick the article in the list, fix the text in <strong className="text-zinc-200">HTML</strong>, open{" "}
+                  <strong className="text-zinc-200">Publish</strong> in the menu, then tap{" "}
+                  <strong className="text-zinc-200">Save (updates live site)</strong>. Or <strong className="text-zinc-200">Unpublish</strong> to hide it, or{" "}
+                  <strong className="text-zinc-200">Delete article</strong> to remove it.
+                </li>
+                <li>
+                  Own calculator logic: in <strong className="text-zinc-200">Post Setup</strong>, fill{" "}
+                  <strong className="text-zinc-200">Calculator name</strong> and <strong className="text-zinc-200">Calculator code</strong>, then Save. Copy later from{" "}
+                  <strong className="text-zinc-200">Calculator code library</strong>.
                 </li>
               </ol>
             </div>
@@ -1137,6 +1155,16 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                     <span className="mb-1 block font-medium text-zinc-300">SEO description</span>
                     <input value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
                   </label>
+                  <div className="rounded-xl border border-white/10 bg-zinc-900/60 px-3 py-2.5 text-sm leading-relaxed text-zinc-300">
+                    <p className="font-medium text-zinc-200">Your own calculator code (optional)</p>
+                    <p className="mt-1 text-xs text-zinc-400">
+                      Type a short name below, paste the code in the big box, then tap{" "}
+                      <strong className="text-zinc-200">Save</strong> in the Publish panel. It is stored with this
+                      article. To copy it later for AI, open the top bar button{" "}
+                      <strong className="text-zinc-200">Calculator code library</strong> — your saved snippets appear at
+                      the top there.
+                    </p>
+                  </div>
                   <label className="block text-xs text-zinc-500">
                     <span className="mb-1 block font-medium text-zinc-300">Calculator name (optional)</span>
                     <input
@@ -1196,6 +1224,14 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                 <div className="space-y-3">
                   <p className="text-xs text-zinc-500">{statusLabel}</p>
                   {publicPath && <p className="text-xs text-zinc-500">Public link: {publicPath}</p>}
+                  {selected?.status === "published" && (
+                    <p className="rounded-xl border border-teal-500/25 bg-teal-950/20 px-3 py-2 text-sm leading-relaxed text-teal-100/90">
+                      <strong className="text-teal-200">Live article:</strong> change the HTML or title, then tap{" "}
+                      <strong className="text-white">Save (updates live site)</strong>. Use{" "}
+                      <strong className="text-white">Unpublish</strong> to hide it without deleting, or{" "}
+                      <strong className="text-white">Delete article</strong> to remove it from the website.
+                    </p>
+                  )}
                   <div className="rounded-xl border border-white/10 bg-black/40 p-3">
                     <p className="text-xs font-medium text-zinc-300 mb-2">Pre-publish health check</p>
                     <ul className="space-y-1 text-[11px]">
@@ -1207,13 +1243,24 @@ export function BlogStudioClient({ initialPosts, databaseConfigured, studioConfi
                     </ul>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <button type="button" onClick={runSave} disabled={saveDisabled} className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black disabled:opacity-40">Save draft</button>
-                    <button type="button" onClick={runPublish} disabled={publishDisabled} className="rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40">Publish</button>
-                    {selected?.status === "published" ? (
-                      <button type="button" onClick={runUnpublish} className="rounded-full border border-white/20 px-4 py-2 text-sm text-zinc-200">Unpublish</button>
-                    ) : (
-                      selectedId && <button type="button" onClick={runDeleteDraft} className="rounded-full border border-red-500/35 px-4 py-2 text-sm text-red-300">Delete draft</button>
+                    <button type="button" onClick={runSave} disabled={saveDisabled} className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black disabled:opacity-40">
+                      {selected?.status === "published" ? "Save (updates live site)" : "Save draft"}
+                    </button>
+                    {selected?.status !== "published" && (
+                      <button type="button" onClick={runPublish} disabled={publishDisabled} className="rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40">
+                        Publish
+                      </button>
                     )}
+                    {selectedId && selected?.status === "published" ? (
+                      <button type="button" onClick={runUnpublish} className="rounded-full border border-white/20 px-4 py-2 text-sm text-zinc-200">
+                        Unpublish
+                      </button>
+                    ) : null}
+                    {selectedId ? (
+                      <button type="button" onClick={runDeleteArticle} className="rounded-full border border-red-500/35 px-4 py-2 text-sm text-red-300">
+                        Delete article
+                      </button>
+                    ) : null}
                     <button
                       type="button"
                       onClick={runDeleteAllPosts}

@@ -3,6 +3,12 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    serverActions: {
+      /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */
+      bodySizeLimit: "4mb",
+    },
+  },
   async redirects() {
     return [
       { source: "/portal", destination: "/login", permanent: false },

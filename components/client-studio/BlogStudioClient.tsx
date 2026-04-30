@@ -19,6 +19,12 @@ import {
   getCalculatorCodePackText,
 } from "@/lib/client-studio/calculator-code-pack";
 import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
+import {
+  IMAGE_PLACEHOLDER_MARKERS_LABEL,
+  PRIMARY_IMAGE_PLACEHOLDER,
+  countImageUploadSlots,
+  replaceImagePlaceholdersSequentially,
+} from "@/lib/client-studio/image-slots";
 
 export type SerializableStudioPost = {
   id: string;
@@ -101,13 +107,14 @@ function normalizeAiHtml(raw: string): string {
 }
 
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const IMAGE_PLACEHOLDER = "YOUR_IMAGE_URL_HERE";
 const AUTHOR_OPTIONS = ["Albert Schuurman"];
 
 type Props = {
   initialPosts: SerializableStudioPost[];
   initialNotebookNotes: SerializableNotebookNote[];
   databaseConfigured: boolean;
+  /** Supabase service role + URL configured — required for image uploads. */
+  imageUploadConfigured: boolean;
   studioConfigured: boolean;
 };
 
@@ -122,6 +129,7 @@ export function BlogStudioClient({
   initialPosts,
   initialNotebookNotes,
   databaseConfigured,
+  imageUploadConfigured,
   studioConfigured,
 }: Props) {
   const router = useRouter();
@@ -157,13 +165,10 @@ export function BlogStudioClient({
   const [listSort, setListSort] = useState<"updated_desc" | "updated_asc" | "title_asc">("updated_desc");
 
   const selected = posts.find((p) => p.id === selectedId) ?? null;
-  const imagePlaceholderCount = useMemo(
-    () => (bodyHtml.match(new RegExp(IMAGE_PLACEHOLDER, "g")) ?? []).length,
-    [bodyHtml]
-  );
+  const imageUploadSlotCount = useMemo(() => countImageUploadSlots(bodyHtml), [bodyHtml]);
   const markdownFenceCount = useMemo(() => (bodyHtml.match(/```/g) ?? []).length, [bodyHtml]);
   const unresolvedYoutubePlaceholder = bodyHtml.includes("YOUR_VIDEO_ID");
-  const unresolvedImagePlaceholders = imagePlaceholderCount > 0;
+  const unresolvedImagePlaceholders = imageUploadSlotCount > 0;
   const slugValid = SLUG_OK.test(slug.trim());
   const basicsOk = title.trim().length > 0 && slug.trim().length > 0 && slugValid;
   const hasSectionTag = /<section[\s>]/i.test(bodyHtml);
@@ -186,7 +191,7 @@ export function BlogStudioClient({
         id: "images",
         label: "No unresolved image placeholders",
         ok: !unresolvedImagePlaceholders,
-        hint: `Replace every ${IMAGE_PLACEHOLDER} entry before publishing.`,
+        hint: `Replace every slot before publishing. Supported tokens: ${IMAGE_PLACEHOLDER_MARKERS_LABEL}; or fill empty <img src="">.`,
       },
       {
         id: "video",
@@ -494,31 +499,27 @@ export function BlogStudioClient({
     }
   }
 
-  function replaceImagePlaceholders(html: string, urls: string[]): string {
-    let next = html;
-    for (const url of urls) {
-      next = next.replace(IMAGE_PLACEHOLDER, url);
-    }
-    return next;
-  }
-
   function runUploadImages() {
-    if (!databaseConfigured) {
-      setBanner("Image upload is unavailable because the server database setup is incomplete.");
+    if (!imageUploadConfigured) {
+      setBanner(
+        "Image upload needs Supabase on the server: set NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, and create the storage bucket (default name blog-images). The database can still work without it."
+      );
       return;
     }
     if (uploadFiles.length === 0) {
       setBanner("Select at least one image file first.");
       return;
     }
-    if (imagePlaceholderCount === 0) {
-      setBanner(`No "${IMAGE_PLACEHOLDER}" placeholders found in HTML to replace.`);
+    if (imageUploadSlotCount === 0) {
+      setBanner(
+        `No image slots found. Ask your AI to use ${PRIMARY_IMAGE_PLACEHOLDER} (or ${IMAGE_PLACEHOLDER_MARKERS_LABEL}) in each <img src="…">, or tap “Add image slot” below, then upload again.`
+      );
       return;
     }
 
     setBanner(null);
     startTransition(async () => {
-      const max = Math.min(uploadFiles.length, imagePlaceholderCount);
+      const max = Math.min(uploadFiles.length, imageUploadSlotCount);
       const urls: string[] = [];
 
       for (let i = 0; i < max; i += 1) {
@@ -536,15 +537,23 @@ export function BlogStudioClient({
         urls.push(resolvedUrl);
       }
 
-      setBodyHtml((prev) => replaceImagePlaceholders(prev, urls));
+      setBodyHtml((prev) => replaceImagePlaceholdersSequentially(prev, urls));
       setUploadFiles([]);
       setLastUploadedUrls(urls);
       setBanner(
-        `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and replaced ${urls.length} placeholder${
+        `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and filled ${urls.length} image slot${
           urls.length === 1 ? "" : "s"
         }. Save draft to persist.`
       );
     });
+  }
+
+  function insertImagePlaceholderSlot() {
+    const snippet = `\n<figure class="my-6">\n  <img src="${PRIMARY_IMAGE_PLACEHOLDER}" alt="" class="w-full max-w-3xl rounded-xl border border-white/10" loading="lazy" />\n  <figcaption class="mt-2 text-xs text-zinc-500">Optional caption</figcaption>\n</figure>\n`;
+    setBodyHtml((prev) => `${prev.trimEnd()}${snippet}`);
+    setBanner(
+      `Added an image block using ${PRIMARY_IMAGE_PLACEHOLDER}. Move the HTML where you want it, then use Upload & replace in Assist.`
+    );
   }
 
   function runCleanupAiPaste() {
@@ -749,7 +758,7 @@ export function BlogStudioClient({
         </div>
       </div>
 
-      {(banner || !databaseConfigured) && (
+      {(banner || !databaseConfigured || (databaseConfigured && !imageUploadConfigured)) && (
         <div className="shrink-0 space-y-2 px-3 py-2 sm:px-4">
           {banner && (
             <div
@@ -765,6 +774,16 @@ export function BlogStudioClient({
               <code className="rounded bg-black/30 px-1 text-amber-200">DATABASE_URL</code>, then runs{" "}
               <code className="rounded bg-black/30 px-1 text-amber-200">npm run db:push</code>. Until then you can look
               around, but Save / Publish will not work.
+            </div>
+          )}
+          {databaseConfigured && !imageUploadConfigured && (
+            <div className="rounded-xl border border-amber-500/35 bg-amber-950/50 px-3 py-2.5 text-sm leading-snug text-amber-100 sm:px-4">
+              <strong className="text-amber-200">Image upload not configured.</strong> Saving and publishing still work.
+              To enable uploads, set{" "}
+              <code className="rounded bg-black/30 px-1 text-amber-200">NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
+              <code className="rounded bg-black/30 px-1 text-amber-200">SUPABASE_SERVICE_ROLE_KEY</code> and ensure the
+              Storage bucket exists (default <code className="rounded bg-black/30 px-1 text-amber-200">blog-images</code>
+              , or set <code className="rounded bg-black/30 px-1 text-amber-200">SUPABASE_BLOG_IMAGES_BUCKET</code>).
             </div>
           )}
         </div>
@@ -1213,11 +1232,40 @@ export function BlogStudioClient({
                     <button type="button" onClick={runCleanupAiPaste} className="mt-2 rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200 hover:bg-white/5">Clean pasted HTML</button>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-black/40 p-3">
-                    <p className="text-xs font-medium text-zinc-300">Image placeholders</p>
-                    <p className="mt-1 text-[11px] text-zinc-500">Found {imagePlaceholderCount} occurrence(s) of {IMAGE_PLACEHOLDER}.</p>
-                    <div className="mt-2 flex flex-col gap-2 sm:flex-row">
-                      <input type="file" accept="image/*" multiple onChange={(e) => setUploadFiles(Array.from(e.target.files ?? []))} className="block w-full text-xs text-zinc-400" />
-                      <button type="button" onClick={runUploadImages} disabled={isPending || uploadFiles.length === 0 || imagePlaceholderCount === 0} className="rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200 disabled:opacity-40">Upload & replace</button>
+                    <p className="text-xs font-medium text-zinc-300">Images</p>
+                    <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
+                      {imageUploadSlotCount} image slot{imageUploadSlotCount === 1 ? "" : "s"} detected (tokens:{" "}
+                      {IMAGE_PLACEHOLDER_MARKERS_LABEL}; or empty <code className="text-zinc-400">&lt;img src&gt;</code>
+                      ).
+                    </p>
+                    <button
+                      type="button"
+                      onClick={insertImagePlaceholderSlot}
+                      className="mt-2 rounded-lg border border-teal-500/40 bg-teal-950/30 px-3 py-2 text-xs text-teal-100 hover:bg-teal-900/40"
+                    >
+                      Add image slot to HTML
+                    </button>
+                    <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => setUploadFiles(Array.from(e.target.files ?? []))}
+                        className="block w-full text-xs text-zinc-400"
+                      />
+                      <button
+                        type="button"
+                        onClick={runUploadImages}
+                        disabled={
+                          isPending ||
+                          !imageUploadConfigured ||
+                          uploadFiles.length === 0 ||
+                          imageUploadSlotCount === 0
+                        }
+                        className="rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200 disabled:opacity-40"
+                      >
+                        Upload & replace
+                      </button>
                     </div>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-black/40 p-3">

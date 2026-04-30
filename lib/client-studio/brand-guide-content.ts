@@ -13,6 +13,12 @@ export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for
 - Prefer simple structure: short paragraphs, clear H2/H3 sections, optional bullet lists.
 - Use semantic HTML: <section>, <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a href="...">. No <script>, no onload/onclick attributes, no iframes unless linking to public embeds (prefer plain links).
 
+## Images (for the Insights studio upload flow)
+- For each illustration, set the image src to this exact placeholder until the owner uploads files in the studio: YOUR_IMAGE_URL_HERE
+- Example: <img src="YOUR_IMAGE_URL_HERE" alt="Short description of the image" class="w-full max-w-3xl rounded-xl border border-white/10" loading="lazy" />
+- Alternative tokens the studio also recognises: {{IMAGE_URL}}, REPLACE_WITH_IMAGE_URL, YOUR_IMAGE_URL (use the long form when possible to avoid ambiguity).
+- Do not invent fake URLs (example.com, picsum, etc.). The owner replaces placeholders with hosted URLs after upload.
+
 ## Compliance
 - Include a short disclaimer block at the end, e.g. in a <aside> or <p class="text-sm text-zinc-500">: information is general and not personal advice; consult a licensed financial adviser. Mention FSP 17273 where appropriate.
 - Do not fabricate regulations, tax rates, or product terms. If unsure, say to verify with a professional.

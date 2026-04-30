@@ -20,6 +20,7 @@ import {
   updateClientInsightPostCompat,
 } from "@/lib/client-studio/client-insight-db";
 import { clientInsightPosts, getDb } from "@/lib/db";
+import { collectErrorText } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
 
 const postBaseSchema = z.object({
@@ -168,7 +169,11 @@ export async function saveStudioPost(
         error: "That URL slug already exists for this language. Change the slug.",
       };
     }
-    return { ok: false, error: "Could not save. Check your connection or try again." };
+    const detail = collectErrorText(e).slice(0, 320);
+    return {
+      ok: false,
+      error: detail ? `Could not save: ${detail}` : "Could not save. Check your connection or try again.",
+    };
   }
 }
 
@@ -187,10 +192,13 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
   const row = await getClientInsightPostById(db, id);
   if (!row) return { ok: false, error: "Post not found." };
 
+  const localeRaw = String(row.locale ?? "en").toLowerCase();
+  const localeSafe: "en" | "af" = localeRaw === "af" ? "af" : "en";
+
   const parsed = postBaseSchema.safeParse({
     title: row.title,
     slug: row.slug,
-    locale: row.locale as "en" | "af",
+    locale: localeSafe,
     excerpt: row.excerpt,
     bodyHtml: row.bodyHtml,
     metaTitle: row.metaTitle,
@@ -208,15 +216,23 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
   }
 
   const now = new Date();
-  await db
-    .update(clientInsightPosts)
-    .set({
-      status: "published",
-      bodyHtmlPublished: sanitized,
-      publishedAt: now,
-      updatedAt: now,
-    })
-    .where(eq(clientInsightPosts.id, id));
+  try {
+    await db
+      .update(clientInsightPosts)
+      .set({
+        status: "published",
+        bodyHtmlPublished: sanitized,
+        publishedAt: now,
+        updatedAt: now,
+      })
+      .where(eq(clientInsightPosts.id, id));
+  } catch (e) {
+    const detail = collectErrorText(e).slice(0, 320);
+    return {
+      ok: false,
+      error: detail ? `Could not publish: ${detail}` : "Could not publish. Check your connection or try again.",
+    };
+  }
 
   revalidatePath("/");
   revalidatePath("/insights");

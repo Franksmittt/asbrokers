@@ -14,10 +14,11 @@ export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for
 - Use semantic HTML: <section>, <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a href="...">. No <script>, no onload/onclick attributes, no iframes unless linking to public embeds (prefer plain links).
 
 ## Images (for the Insights studio upload flow)
-- For each illustration, set the image src to this exact placeholder until the owner uploads files in the studio: YOUR_IMAGE_URL_HERE
-- Example: <img src="YOUR_IMAGE_URL_HERE" alt="Short description of the image" class="w-full max-w-3xl rounded-xl border border-white/10" loading="lazy" />
-- Alternative tokens the studio also recognises: {{IMAGE_URL}}, REPLACE_WITH_IMAGE_URL, YOUR_IMAGE_URL (use the long form when possible to avoid ambiguity).
-- Do not invent fake URLs (example.com, picsum, etc.). The owner replaces placeholders with hosted URLs after upload.
+- For each illustration, use this exact placeholder as the img src until uploads happen in the studio: YOUR_IMAGE_URL_HERE
+- Hero blocks may look like: <img src="YOUR_IMAGE_URL_HERE" alt="…" style="width:100%; height:auto; …" /> — keep that placeholder string unchanged so the studio can find it.
+- Multiple images: repeat the same placeholder for each image (hero + inline figures). The owner selects files in order; the studio fills placeholders from the top of the HTML downward (document order).
+- Alternative tokens the studio also recognises: {{IMAGE_URL}}, REPLACE_WITH_IMAGE_URL, YOUR_IMAGE_URL (prefer YOUR_IMAGE_URL_HERE when possible).
+- Do not invent fake URLs (example.com, picsum, etc.). Storage URLs are injected automatically after upload.
 
 ## Compliance
 - Include a short disclaimer block at the end, e.g. in a <aside> or <p class="text-sm text-zinc-500">: information is general and not personal advice; consult a licensed financial adviser. Mention FSP 17273 where appropriate.

@@ -23,6 +23,7 @@ import {
   IMAGE_PLACEHOLDER_MARKERS_LABEL,
   PRIMARY_IMAGE_PLACEHOLDER,
   countImageUploadSlots,
+  listImageSlotHints,
   replaceImagePlaceholdersSequentially,
 } from "@/lib/client-studio/image-slots";
 
@@ -98,6 +99,7 @@ function normalizeAiHtml(raw: string): string {
   if (next.includes("```")) {
     next = next.replace(/^```[a-zA-Z0-9-]*\s*/gm, "").replace(/```/g, "");
   }
+  next = next.replace(/<!--[\s\S]*?-->/g, "");
   next = next
     .replace(/^\s*Blog code\s*$/gim, "")
     .replace(/^\s*Contact photo\s*$/gim, "")
@@ -166,6 +168,7 @@ export function BlogStudioClient({
 
   const selected = posts.find((p) => p.id === selectedId) ?? null;
   const imageUploadSlotCount = useMemo(() => countImageUploadSlots(bodyHtml), [bodyHtml]);
+  const imageSlotHints = useMemo(() => listImageSlotHints(bodyHtml), [bodyHtml]);
   const markdownFenceCount = useMemo(() => (bodyHtml.match(/```/g) ?? []).length, [bodyHtml]);
   const unresolvedYoutubePlaceholder = bodyHtml.includes("YOUR_VIDEO_ID");
   const unresolvedImagePlaceholders = imageUploadSlotCount > 0;
@@ -563,7 +566,7 @@ export function BlogStudioClient({
       return;
     }
     setBodyHtml(cleaned);
-    setBanner("Cleaned pasted AI/copy wrappers and markdown fences.");
+    setBanner("Cleaned pasted AI/copy wrappers, markdown fences, and HTML comments.");
   }
 
   function applyYoutubeVideo() {
@@ -1220,6 +1223,21 @@ export function BlogStudioClient({
               {activePanel === "html" && (
                 <div className="space-y-2">
                   <p className="text-xs text-zinc-500">Only paste the page middle content, not full HTML document.</p>
+                  {imageUploadSlotCount > 0 && (
+                    <div className="rounded-xl border border-teal-500/35 bg-teal-950/25 px-3 py-2 text-[11px] leading-relaxed text-teal-100/95">
+                      <strong className="text-teal-200">{imageUploadSlotCount} image slot(s) detected</strong>
+                      {" — "}
+                      placeholders such as{" "}
+                      <code className="rounded bg-black/30 px-1">{PRIMARY_IMAGE_PLACEHOLDER}</code> in{" "}
+                      <code className="rounded bg-black/30 px-1">&lt;img src&gt;</code> are replaced after upload. Open{" "}
+                      <strong className="text-white">Assist</strong>
+                      {imageUploadConfigured
+                        ? ", pick files in top-to-bottom order, then "
+                        : ": uploads need Supabase on the server; until then "}
+                      <strong className="text-white">Upload &amp; replace</strong>
+                      {imageUploadConfigured ? "." : " stays disabled."}
+                    </div>
+                  )}
                   <textarea
                     value={bodyHtml}
                     onChange={(e) => setBodyHtml(e.target.value)}
@@ -1237,10 +1255,17 @@ export function BlogStudioClient({
                   <div className="rounded-xl border border-white/10 bg-black/40 p-3">
                     <p className="text-xs font-medium text-zinc-300">Images</p>
                     <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
-                      {imageUploadSlotCount} image slot{imageUploadSlotCount === 1 ? "" : "s"} detected (tokens:{" "}
+                      {imageUploadSlotCount} slot{imageUploadSlotCount === 1 ? "" : "s"} in document order (tokens:{" "}
                       {IMAGE_PLACEHOLDER_MARKERS_LABEL}; or empty <code className="text-zinc-400">&lt;img src&gt;</code>
-                      ).
+                      ). Choose multiple files: first file fills the first placeholder from the top of the HTML downward.
                     </p>
+                    {imageSlotHints.length > 0 && (
+                      <ul className="mt-2 max-h-36 list-disc space-y-1 overflow-y-auto pl-4 text-[10px] leading-snug text-zinc-400">
+                        {imageSlotHints.map((line, i) => (
+                          <li key={i}>{line}</li>
+                        ))}
+                      </ul>
+                    )}
                     <button
                       type="button"
                       onClick={insertImagePlaceholderSlot}

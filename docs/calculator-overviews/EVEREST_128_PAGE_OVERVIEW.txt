@@ -1,0 +1,87 @@
+================================================================================
+  AS BROKERS – EVEREST 12.8% STRATEGIC INCOME CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/everest-128-product
+================================================================================
+
+This document describes the 12.8% Strategic Income calculator page: purpose,
+structure, components, and how it fits into the AS Brokers site. The page
+hosts the Everest128Calculator for predictable monthly income from fixed
+12.8% p.a. with 10% loyalty bonus at year 5.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /everest-128-product page is a focused product calculator:
+
+  • Headline: "Turn Your Capital Into Predictable Monthly Income" – fixed
+    returns and tax efficiency built in.
+  • Everest128Calculator: User enters capital (and possibly term/tax
+    assumptions); output is estimated monthly income (and possibly year-5
+    bonus). Assumes 12.8% p.a., 20% dividend tax, 10% loyalty bonus at
+    maturity.
+  • Footer strip: Trust (Albert & Johnny, AS Brokers FSP 17273); links to
+    "Investment options" (/everest-wealth) and Contact.
+
+Linked from /everest-wealth as "Calculate my 12.8% income" and from the
+Calculators hub via the Everest Wealth card. Part of the HNWI product funnel.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /everest-128-product
+  • File:    app/(content)/everest-128-product/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Strategic Income Calculator | Fixed 12.8% Return + Bonus | AS Brokers"
+      - description: "Turn your capital into predictable monthly income.
+        Fixed 12.8% p.a., 20% dividend tax, 10% loyalty bonus at year 5."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Turn Your Capital Into Predictable Monthly Income)
+  2. Calculator – Everest128Calculator
+  3. Footer / trust strip (names, FSP, links)
+  4. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto,
+                text-center.
+  • Eyebrow:    "AS Brokers" (zinc-500, uppercase).
+  • Headline:   "Turn Your Capital Into Predictable Monthly Income"
+                (text-4xl–5xl, white, bold).
+  • Subhead:    "See exactly what your investment can pay you every month,
+    with fixed returns and tax efficiency built in." (xl, zinc-400).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & FOOTER STRIP
+--------------------------------------------------------------------------------
+
+  • Calculator: Everest128Calculator in py-12 section, max-w-4xl. Logic
+    reflects 12.8% p.a. (e.g. monthly dividend), 20% DWT, 10% capital bonus
+    at year 5; inputs typically lump sum and term.
+  • Footer strip: Flex wrap, gap-6, text-sm, zinc-500. "Albert Schuurman &
+    Johnny Farinha", "AS Brokers | FSP 17273". Links: "Investment options" →
+    /everest-wealth, "Contact" → /contact (blue, hover underline).
+
+--------------------------------------------------------------------------------
+6. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: Everest128Calculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. Minimal editorial; page is calculator-first.
+  • No FAQ schema on this page.
+
+--------------------------------------------------------------------------------
+7. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /everest-wealth (12.8% card and "Compare 12.8% vs
+               14.2%") and /calculators (Everest Product Quote → everest-wealth).
+  • Out:       /everest-wealth (Investment options), /contact.

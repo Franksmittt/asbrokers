@@ -1,0 +1,211 @@
+================================================================================
+  VISION: THE ROLLS-ROYCE OF CRMs
+  Bespoke Wealth Concierge for AS Brokers
+================================================================================
+
+Version: 1.0 (March 2026)
+
+Imagine a CRM that's not just software—it's a seamless, luxurious extension of
+AS Brokers' ethos: "Protecting Your Legacy. Engineering Your Wealth." Drawing
+from the pinnacle of 2026 financial CRMs (e.g., Salesforce Financial Services
+Cloud, Altitude CRM, Wealthbox, and InvestGlass), we design a state-of-the-art
+system hyper-tailored to AS Brokers' operations as an independent FSP 17273
+provider in Category 1.8 (Securities and Instruments: Shares). This isn't
+off-the-shelf; it's custom-built on the existing mock foundation (Supabase
+backend with RLS for security, HubSpot sync for leads, Trigger.dev for
+automations like PDF reports).
+
+--------------------------------------------------------------------------------
+GOAL
+--------------------------------------------------------------------------------
+
+Seamless experiences where:
+  - Clients feel like VIPs in a private bank
+  - Staff operate with AI-powered efficiency
+  - Owners have god-like oversight
+
+Build trust through ironclad security (POPIA/FAIS compliance, audit trails),
+personalization (AI-driven insights), and transparency (real-time updates).
+Integrate with partners: Everest Wealth (product data), Santam/Old Mutual
+(claims APIs), SARS (tax calcs via secure proxies).
+
+--------------------------------------------------------------------------------
+KEY PRINCIPLES
+--------------------------------------------------------------------------------
+
+  - AI-Infused Luxury: Use OpenAI (gpt-4o-mini or similar) for agents that
+    automate routines while maintaining human touch—e.g., prepping meeting
+    briefs or suggesting personalized wellness plans.
+
+  - Unified 360 View: Every interaction (WhatsApp, email, portal) in one
+    chronological thread, with household mapping for families (e.g., linking
+    spouse estates).
+
+  - Mobile-First Elegance: Apps with Apple-inspired design (rim-light
+    glassmorphism, Nightography orbs) for on-the-go access.
+
+  - Compliance-First: Automated KYC/AML, activity logging, and red flags for
+    regulatory risks.
+
+  - Scalability: Start with the mock (cookies → Supabase Auth/Magic Links),
+    evolve to handle 1,000+ clients.
+
+Services to weave in: Retirement/Investments (Everest), Insurance/Risk
+(short-term/life), Medical/Wellness, Estate/Business Structuring, Claims.
+For each, consider what users want to see, do, interact with, and feel—
+empowering clients with control, staff with efficiency, owners with confidence.
+
+================================================================================
+1. CLIENT PORTAL: THE PRIVATE WEALTH TERMINAL
+================================================================================
+
+Clients (high-net-worth retirees, business owners, families) want visibility
+into their financial world without friction. They crave reassurance ("Is my
+legacy protected?"), personalization ("Tailored to my life stage"), and ease
+("One app for everything"). The portal should feel like a Rolls-Royce Phantom:
+opulent, intuitive, whisper-quiet operations.
+
+Enhanced features (building on existing mock)
+  - Unified Dashboard: Real-time "Wealth Overview" with Recharts (portfolio
+    growth curves, annuity drawdown projections). Pull live data from Everest
+    APIs for holdings (e.g. 12.8% Strategic Income: monthly income, 10% bonus
+    countdown). "Retirement Readiness Score" using calculator logic.
+
+  - Service-specific modules:
+    · Retirement & Investments: Interactive planners—adjust drawdowns
+      (2.5–17.5% for Amethyst), simulate inflation. "What-If" scenarios; request
+      quotes via AI chat.
+    · Insurance & Risk: Policy hub—coverage details (home/car, key person).
+      Upload claims docs; track status with timelines. Renew or simulate
+      premium increases.
+    · Medical & Wellness: Wellness tracker—gap cover claims, plans by income.
+      "Your Health Score" with AI recommendations.
+    · Estate & Business: Estate simulator—assets, duty estimates (R100k/R200k
+      donation strategies). View wills/trusts; collaborate via shared notes.
+    · Claims: Self-service submission—upload photos/docs, track disputes. AI
+      flags potential issues.
+
+  - Interactions & actions:
+    · Unified messaging: Chronological thread (email/WhatsApp/portal) with
+      AI-assisted replies (e.g. "Draft response to advisor's query"). One-tap
+      WhatsApp/Call to "My Advisor" (bio, availability).
+    · Document vault: Secure uploads/downloads (Supabase Storage, audit logs).
+      AI OCR for FICA; auto-categorize (e.g. "This is a will—file under Estate").
+    · Appointments & reminders: Book consultations; alerts (e.g. "Annual
+      estate review due—simulate reductions?").
+    · Educational hub: Personalized content from Sanity (e.g. "Semigration
+      Retirement" tailored to profile).
+
+  - Trust-building: Biometric login, E2E encryption, transparency logs
+    ("Advisor viewed your file at 10:15 AM"). No call centres—personal service.
+
+  - Tech: Supabase data/RLS; Recharts; AI for personalization (RAG-grounded).
+
+Outcome: Clients see holistic wealth health, do self-simulations/uploads/
+bookings, interact via AI/human channels, and feel like owners of their
+legacy—boosting loyalty and referrals.
+
+================================================================================
+2. STAFF INTERFACE: THE PRECISION ENGINE
+================================================================================
+
+Staff (e.g. Johnny for estates, Petro for commercial insurance) want tools
+that eliminate drudgery, automate compliance, and let them focus on advice.
+They desire efficiency ("Quick handovers"), collaboration ("Team visibility"),
+and insights ("Client red flags"). This CRM feels like the Phantom's V12:
+powerful, responsive, effortless.
+
+Advanced features (expanding mock CRM)
+  - Pipeline & leads: Enhanced Kanban with AI prioritization (Fit/Engagement +
+    capital). Drag-drop stages; auto-route by service (e.g. commercial claims
+    to Petro).
+
+  - Client 360: Detailed profiles with household mapping. Timeline of all
+    interactions; AI-generated summaries (e.g. "Retirement capital: R5M; Risk:
+    High inflation exposure").
+
+  - Service-tailored workflows:
+    · Retirement/Investments: Automated Everest quotes (Trigger.dev PDFs);
+      track Amethyst drawdowns, loyalty bonuses.
+    · Insurance/Risk: Policy onboarding; premium calculators; claims with
+      underwriter negotiation templates.
+    · Medical/Wellness: Gap cover simulations; wellness plan builders with
+      AI suggestions.
+    · Estate/Business: Trust setup; annual donation trackers; duty
+      calculators with scenario sharing.
+    · Claims: Dispute resolution dashboards; AI-flagged negotiation points.
+
+  - Interactions & tools:
+    · Task management: AI-assigned tasks (e.g. "Follow up on FICA upload");
+      reminders linked to clients/leads; internal notes; one-click reassign.
+    · Correspondence hub: Unified threads with sentiment analysis (e.g.
+      "Client seems anxious—suggest reassurance script").
+    · AI assistants: Pre-meeting briefs (portfolio, interactions, market);
+      automated follow-ups (e.g. "Send premium increase comparison").
+    · Mobile: Scan docs on-site; real-time notifications (e.g. "Client
+      uploaded will").
+
+  - Efficiency: Workflow automation (onboarding: KYC → Quote → Sign); referral
+    tracking with rewards dashboards.
+
+  - Compliance: Role-based access (staff see only assigned); auto-log audits
+    for FAIS.
+
+Outcome: Staff see clear pipelines/client histories, do automate/collaborate,
+interact via AI/tools, and feel supercharged—reducing burnout, increasing
+billable time.
+
+================================================================================
+3. OWNER DASHBOARD: THE COMMAND CENTER
+================================================================================
+
+Owners want total control ("See everything"), insights ("Business health"), and
+scalability ("Grow without chaos"). This is the Phantom's cockpit: intuitive
+gauges, predictive analytics, effortless command.
+
+Executive features
+  - Global visibility: All leads/clients/tasks (no filters); AI dashboards
+    (e.g. "Pipeline Health: 80% conversion; Top Service: Everest at 40%").
+
+  - Analytics & reporting: Real-time metrics (AUM growth, claim resolution
+    time); predictive AI (e.g. "Forecast estate duty savings: R2M next year").
+
+  - Staff management: Performance tracking (e.g. "Johnny's estate
+    conversions: 95%"); reassign leads; role permissions.
+
+  - Service insights: Breakdowns by category (e.g. "Medical Wellness: High
+    churn—recommend AI retention campaigns").
+
+  - Interactions: Executive alerts (e.g. "High-value lead: R10M capital");
+    one-click audits.
+
+  - Growth: Referral analytics; marketing (HubSpot) lead scoring.
+
+Outcome: Owners see business at a glance, do intervene/forecast, interact with
+AI insights, and feel in command—driving 25%+ efficiency gains.
+
+================================================================================
+4. IMPLEMENTATION ROADMAP
+================================================================================
+
+  Phase 1 (1–2 months): Replace mocks with Supabase (Auth, DB, Storage); enable
+    HubSpot bi-sync; add basic AI (tools from existing chat).
+
+  Phase 2 (2–3 months): Integrate service APIs (Everest holdings, SARS proxies);
+    AI agents via OpenAI; mobile apps.
+
+  Phase 3 (1 month): Compliance audits; user testing; launch with training.
+
+  Cost estimate: R500k–1M (on top of existing site), focusing on custom
+    AI/workflows.
+
+  Metrics of success: 90% client satisfaction; 30% faster onboarding; zero
+    compliance breaches.
+
+This CRM transforms AS Brokers into a fintech powerhouse—clients trust it like
+family, staff love the flow, owners steer with precision. It's not just
+state-of-the-art; it's timeless luxury.
+
+================================================================================
+END OF VISION
+================================================================================

@@ -1,0 +1,140 @@
+================================================================================
+  AS BROKERS – RETIREMENT CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/retirement
+================================================================================
+
+This document describes the Retirement Reality Calculator page: purpose,
+structure, components, styling, and how it fits into the AS Brokers site. The
+page educates on retirement capital shortfalls and hosts the Retirement
+Savings Calculator (required capital for target income).
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /retirement page has three jobs:
+
+  • Agitate: Headline "You're Not Saving Enough for Retirement" and editorial
+    copy explain why traditional savings fall short and why income replacement
+    (not lump sum) is the real goal.
+  • Educate: Two idea cards ("Why it happens", "The real problem") and a
+    lead-in block set up the calculator with present-value-of-growing-annuity
+    logic; FAQ schema supports SEO.
+  • Convert: The calculator (RetirementRealityCalculator) shows required
+    capital; post-calculator CTAs drive "Calculate the growth rate required"
+    (contact) and Amethyst Living Annuity calculator.
+
+Linked from the Calculators hub under "Retirement Reality" and from Solutions
+(Private Wealth & Yield). Part of the HNWI funnel toward Everest/Amethyst.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /retirement
+  • File:    app/(content)/retirement/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Retirement Reality Calculator | Semigration & Retirement
+        Villages Western Cape"
+      - description: "Calculate how much capital you really need for
+        retirement. Semigration and retirement villages Western Cape
+        planning. Proof is in the calculator. Retirement income planning
+        for South Africans."
+  • FAQSchema: Three FAQs (how much capital, why high number, growth below
+    inflation) for rich results.
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero ("You're Not Saving Enough for Retirement")
+  2. Editorial: intro + two idea cards + calculator lead-in
+  3. Calculator section (id="calculator") – RetirementRealityCalculator
+  4. Why this number matters + next-step card (growth rate / contact)
+  5. Semantic silo: Amethyst Living Annuity (link to /everest-amethyst-living-annuity)
+  6. Quick links (WhatsApp, solutions)
+  7. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-16, px-4 sm:px-6 md:px-8, overflow-hidden. Blur orb
+                top-right (blue-600/10, 280×280, blur-80).
+  • Content:    max-w-4xl mx-auto, text-center.
+  • Eyebrow:    "AS Brokers · Retirement Planning" (zinc-500, uppercase).
+  • Headline:   "You're Not Saving Enough for Retirement" (text-3xl–5xl, white,
+                bold, leading-tight).
+  • Subhead:    "Proof is in the calculator." (zinc-400, lg).
+  • Badge:      "Step 1: Calculate required capital" (blue pill,
+                border-blue-500/20, text-blue-300).
+
+--------------------------------------------------------------------------------
+5. EDITORIAL SECTION
+--------------------------------------------------------------------------------
+
+  • Intro:      "You are not saving enough, and the numbers prove it"; most
+                people underestimate retirement cost; income need doesn't care
+                about product brochures; "And most people don't."
+  • Two cards (md:grid-cols-2): "Why traditional savings methods fall short"
+    (blue label) and "Income replacement, not a lump sum" (teal label).
+    Cards: rounded-2xl, bg-[#151518], border-white/10, p-6 md:p-8.
+  • Lead-in:    Gradient card (from-blue-950/30), "This calculator tests your
+                assumptions with math"; no generic multiples; accounts for
+                inflation, tax, withdrawal, time. CTA: use calculator below.
+
+--------------------------------------------------------------------------------
+6. CALCULATOR SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  id="calculator", py-12 md:py-16, border-t border-white/5,
+                bg-black/20, scroll-mt-24. max-w-4xl mx-auto.
+  • Component:  RetirementRealityCalculator (components/RetirementRealityCalculator.tsx).
+  • Behaviour:  User inputs (e.g. target income, inflation, growth, tax,
+                horizon); output is capital required. May link to income tax
+                calculator and contact.
+
+--------------------------------------------------------------------------------
+7. POST-CALCULATOR & AMETHYST SILO
+--------------------------------------------------------------------------------
+
+  • "Why this number matters": Copy on inflation, tax, 20–30 years; "This
+    calculator doesn't exaggerate the problem. It simply exposes it."
+  • Next-step card: "Calculate the growth rate required" → /contact (white
+    button, rounded-full).
+  • Amethyst block: rounded-2xl, bg-[#151518]; explains Amethyst Living
+    Annuity (structured return ~10.2%, drawdown 2.5%–17.5%, tax-free growth).
+    CTA: "Amethyst Living Annuity calculator" → /everest-amethyst-living-annuity.
+
+--------------------------------------------------------------------------------
+8. QUICK LINKS & FOOTER
+--------------------------------------------------------------------------------
+
+  • Quick links: WhatsApp 067 242 9946; Income in retirement, Insurance &
+    risk, Estate planning, Business insurance → /solutions. Flex wrap,
+    centred, text-sm.
+  • Footer: Shared site footer.
+
+--------------------------------------------------------------------------------
+9. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: RetirementRealityCalculator, FAQSchema, Footer,
+    ImagePlaceholder (none on this page), Link.
+  • Background: Page bg-[#0a0a0c]. Sections use border-t border-white/5,
+    bg-black/20 for calculator strip.
+  • Cards: rounded-2xl, bg-[#151518], border border-white/10. Blue accent
+    for badges and lead-in gradient.
+  • CTAs: White bg, black text, rounded-full, hover:bg-zinc-200.
+
+--------------------------------------------------------------------------------
+10. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Retirement Savings Calculator card),
+               /solutions (Private Wealth & Yield – Retirement Reality).
+  • Out:       /contact (growth rate / consultation), /everest-amethyst-living-
+               annuity (Amethyst calculator), /solutions (quick links).
+  • Home:      Run-out calculator (#lab) is a separate widget; this page is
+               the full "required capital" retirement tool.

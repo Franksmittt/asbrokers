@@ -1,0 +1,100 @@
+================================================================================
+  AS BROKERS – INCOME IN RETIREMENT (RUN-OUT) CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/income-in-retirement
+================================================================================
+
+This document describes the Income in Retirement (life of capital / run-out)
+calculator page: purpose, structure, components, and how it fits into the AS
+Brokers site. The page answers "Will your money last in retirement?" via the
+Life of Capital calculator.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /income-in-retirement page is a focused calculator experience:
+
+  • Headline frames the question: "Will Your Money Last in Retirement?"
+  • Subhead: most people overestimate how long capital will provide income;
+    "Find out in 30 seconds."
+  • LifeOfCapitalCalculator lets users enter portfolio value and monthly
+    drawdown to see estimated capital lifespan (run-out).
+  • Footer trust line (Albert & Johnny, FSP 17273) and links (Home,
+    Retirement income, Contact) keep the page simple and conversion-oriented.
+
+Linked from the Calculators hub as "Income in Retirement Calculator" (Phase 1:
+Capital Lifespan & High-Yield Solutions). Complements the home-page RunOutCalculator
+(which also models run-out and gates full actuarial PDF).
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /income-in-retirement
+  • File:    app/(content)/income-in-retirement/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Is Your Retirement Income Enough? | Retirement Calculator SA | AS Brokers"
+      - description: "Will your money last in retirement? Use the Life of
+        Capital calculator to see how long your savings will last with
+        inflation and tax."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (headline, subhead, down indicator)
+  2. Calculator section – LifeOfCapitalCalculator
+  3. Footer / trust strip (names, FSP, links)
+  4. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto,
+                text-center.
+  • Eyebrow:    "AS Brokers" (zinc-500, uppercase, tracking-widest).
+  • Headline:   "Will Your Money Last in Retirement?" (text-4xl–6xl, white,
+                bold, tracking-tight).
+  • Subhead:    "Most people overestimate how long their capital will provide
+    income. Find out in 30 seconds." (xl, zinc-400).
+  • Visual:     Down arrow (zinc-500, aria-hidden).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  py-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto.
+  • Component:  LifeOfCapitalCalculator (components/LifeOfCapitalCalculator.tsx).
+  • Behaviour:  Inputs typically include total portfolio value, monthly
+    drawdown, inflation, growth; output is estimated years until capital
+    depletes (and possibly year-by-year trajectory).
+
+--------------------------------------------------------------------------------
+6. FOOTER / TRUST STRIP
+--------------------------------------------------------------------------------
+
+  • Trust:      "Albert Schuurman & Johnny Farinha", "AS Brokers | FSP 17273",
+                "Independent Authorised Financial Service Provider"
+                (flex wrap, gap-6, text-sm, zinc-500).
+  • Links:      Home (/), Retirement income (/retirement), Contact (/contact)
+                (zinc-400, hover white).
+
+--------------------------------------------------------------------------------
+7. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: LifeOfCapitalCalculator, Footer, Link.
+  • Background: Page bg-[#0a0a0c]. No orbs or gradient on this page; minimal
+    layout for speed and focus.
+  • No FAQ schema on this page (unlike /retirement).
+
+--------------------------------------------------------------------------------
+8. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Income in Retirement Calculator card).
+  • Out:       / (Home), /retirement (Retirement income), /contact (Contact).
+  • Home page: RunOutCalculator is a similar run-out tool with PDF gate; this
+               page is the dedicated full-page experience for the same concept.

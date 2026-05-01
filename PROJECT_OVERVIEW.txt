@@ -1,0 +1,678 @@
+================================================================================
+  AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
+================================================================================
+
+Last updated: March 2026 (Wealth engineering refactor, institutional diagnostics, calculator overviews)
+
+--------------------------------------------------------------------------------
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+
+Project name:     as-brokers (AS Brokers website)
+Repository:        https://github.com/Franksmittt/asbrokers.git
+Framework:         Next.js 15 (App Router)
+Language:          TypeScript
+Styling:           Tailwind CSS
+Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
+                   Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/openai,
+                   @ai-sdk/react), Drizzle ORM, pg, pgvector, server-only (HubSpot),
+                   Resend (email); Trigger.dev v4 + Puppeteer (background PDF jobs).
+                   Quiz: Zustand (state), nuqs (URL query state for shareable results).
+                   Phase 3: next-sanity, sanity (v3), @portabletext/react; Studio deps:
+                   is-hotkey, styled-components, hoist-non-react-statics, uuid (v11).
+                   Phase 4: @next/third-parties (GA4); analytics only after cookie consent.
+
+Purpose:
+  Marketing and lead-generation website for AS Brokers CC, an independent
+  authorised financial services provider in South Africa. The site is
+  positioned for high-net-worth individuals (HNWIs) and retirees: home
+  page funnels to Run-Out Calculator and Everest Wealth (Code 1.8);
+  solutions and calculators hubs prioritise "Private Wealth & Yield" and
+  "Retirement Reality"; retirement, tax, estate, and premium calculators
+  are framed as institutional fiduciary diagnostics with CTAs to Everest
+  and contact. Standard insurance and estate/medical remain as "Wealth
+  Protection & Fiduciary Defense." Interactive calculators and clear
+  paths to contact and book consultations.
+
+What this project can do:
+  - Full marketing site: home (Reality Check hero, RunOutCalculator, EverestWealthBento, Code18Advantage, RiskArchitectureCarousel, FloatingChat), solutions hub (Phase 1/2 hierarchy), calculators hub (Phase 1/2), team, about, contact.
+  - Contact form → HubSpot CRM (search-patch, cumulative lead score); optional PDF email via Trigger.dev + Resend.
+  - Digital Wealth Assistant (chat) with deterministic tools (estate duty, 12.8% income, Amethyst) and optional RAG (pgvector).
+  - Financial Health Quiz with shareable result URLs (nuqs) and routing to relevant calculators.
+  - Sanity CMS for insights; draft mode and Visual Editing; FSP disclaimer blocks in articles.
+  - POPIA cookie consent; GA4 and Hotjar only after "Accept All".
+  - PWA manifest; SEO (Organization/FinancialService schema, FAQPage, metadata per page).
+  - Run-out and product calculators (retirement, tax, estate, inflation, Everest Wealth, Amethyst).
+  - CRM & Client Portal: mock-auth login (/login); role-based CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence, notes, reassign); Client Portal (wealth dashboard, My Advisor, documents with upload, messages with reply). See CRM_AND_PORTAL.txt.
+
+Recent work done:
+  - Design system: Apple × Samsung hybrid (bg-[#0a0a0c] void, Bento grids, rounded-[2rem] squircle, 8px/10px spacing, cinematic-teal and blue/red accent glows, trust hallmarks FSP 17273 · Category 1.8 · 25+ Years). See §1 Design below.
+  - Home: "Reality Check" hero ("You think your retirement is safe. The math might disagree."); RunOutCalculator directly below hero (#lab) with name/email/POPIA gate for full actuarial PDF; EverestWealthBento (12.8%, 14.5%, Amethyst); Code18Advantage; RiskArchitectureCarousel; FloatingChat (HeroChatTerminal in bottom-right panel). No nav dropdowns: Solutions and Calculators are direct links to hub pages.
+  - Contact: "Book a Private Actuarial Consultation"; Code 1.8 subhead; Apple-style trust tags; "Client Qualification Criteria"; Squircle form card (border-blue-500/20 glow); "Initiate Wealth Engineering Request" submit; "The Actuarial Review Process" 3-step block. See docs/CONTACT_PAGE_OVERVIEW.txt.
+  - Solutions hub: "Engineered Wealth & Risk Architecture"; sticky nav (Private Wealth & Yield, Risk Architecture, Legacy Structuring, Health & Integration); Phase 1 featured cards (Retirement/Everest); Phase 2 "Wealth Protection & Fiduciary Defense" with muted cards; "Stop Guessing. Start Engineering." CTA. See docs/SOLUTIONS_PAGE_OVERVIEW.txt.
+  - Calculators hub: "The Actuarial Reality Check"; jump nav (Assess Capital Lifespan, Calculate Everest Yields, Secondary Risk Tools); Phase 1 Bento (retirement + Everest featured/glow); Phase 2 Secondary Risk Architecture (muted); "Stop Guessing Your Capital Lifespan." CTA. See docs/CALCULATORS_PAGE_OVERVIEW.txt.
+  - Wealth engineering refactor (institutional tone, Bento UI, CTAs): estate-duty-calculator and annual-estate-reduction-strategy (fiduciary, Strategic Capital Migration, Squircle CTAs); all Everest product pages (128, 142, 145, Amethyst, everest-wealth hub) with Code 1.8 eyebrows, premium cards, cinematic-teal outputs where applicable; income-in-retirement (Capital Depletion Test, red glow, Fix CTA to Everest); cost-of-inflation-over-time and income-tax-calculator (erosion/liability framing, 2-col Bento, Everest CTAs); retirement (Capital Deficit, 2-col Bento, Amethyst CTA); premium-increase-calculator (Premium Liability Test, 3-col Bento, fiduciary CTA). Calculator components: Everest128Calculator and Everest145GrowthCalculator key outputs in text-cinematic-teal; LifeOfCapitalCalculator lifespan value in large cinematic-teal.
+  - Documentation: docs/calculator-overviews/ with per-calculator page overviews (RETIREMENT, INCOME_IN_RETIREMENT, INFLATION, INCOME_TAX, ESTATE_DUTY, ESTATE_REDUCTION, PREMIUM_INCREASE, EVEREST_WEALTH, EVEREST_128, EVEREST_142, EVEREST_145, EVEREST_AMETHYST) + INDEX; docs/CONTACT_PAGE_OVERVIEW.txt, SOLUTIONS_PAGE_OVERVIEW.txt, CALCULATORS_PAGE_OVERVIEW.txt, CUSTOMER_OVERVIEW.txt kept current.
+  - Backend: Supabase PostgreSQL + pgvector for RAG; HubSpot (contact sync); Trigger.dev v4 (PDF + Resend); RAG ingest. See BACKEND.md.
+  - CRM & Client Portal: mock auth, role-based CRM and Client Portal. Full doc: CRM_AND_PORTAL.txt.
+
+Data currency (2026):
+  Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
+  brackets and rebates (Budget 2026). Estate duty, donations (R100k/R200k),
+  and other calcs use current legislation; review periodically.
+
+Design (current layout & styling):
+  Fused "Apple Pro" and "Samsung Galaxy" design system for an ultra-luxury,
+  futuristic private wealth terminal look.
+
+  Colour & lighting:
+    - Backgrounds: absolute black (--bg-primary: #000000, Tailwind bg-void) or Shark Grey (#1D1D1F, bg-shark).
+    - Rim-light glassmorphism: .rim-light in globals.css (bg-white/5 backdrop-blur-2xl ring-1 ring-white/10 + inset edge highlight). Used for nav (when scrolled), cards, dropdowns, CTAs.
+    - Nightography ambient: BackgroundOrbs — large, heavily blurred absolute divs with Cinematic Teal (#008080) and Gold/Orange (#FF7F50) for OLED contrast; mouse-reactive with Apple easing.
+
+  Geometry & layout:
+    - Bento grid masonry for solutions and calculator hub cards.
+    - Squircle: rounded-[2rem] or rounded-3xl (Tailwind) for organic curvature; no sharp corners on cards.
+    - Generous padding and whitespace within cards (luxury signal).
+
+  Typography:
+    - Inter as primary font (--font-inter). Headlines: large, bold, tight tracking (tracking-[-0.03em]). Body: text-gray-400, slightly looser tracking (tracking-[0.01em]). Trust signals use .trust-hallmark (tabular-nums, letter-spacing, engraved look).
+
+  Motion (Framer Motion):
+    - Apple-style easing: cubic-bezier(0.25, 0.1, 0.25, 1) (ease-apple in Tailwind); duration 0.5–0.8s for page loads and layout changes.
+    - CTA hovers: Samsung Blue (#0057B8) or Supernova Gold glow (shadow-cta-glow-blue / shadow-cta-glow-gold) with subtle scale-up (hover:scale-[1.03]).
+
+  Trust signals:
+    - FSP 17273, 25+ years, Code 1.8 rendered with .trust-hallmark for architectural precision (TrustBar, HomeStatsSection, Nav).
+
+  Tokens (tailwind.config.ts & globals.css):
+    - void, shark, cinematic-teal, gold-orange, samsung-blue, supernova-gold; transitionTimingFunction.apple; boxShadow rim-glow, cta-glow-blue, cta-glow-gold. Legacy .glass-card retained for compatibility.
+
+--------------------------------------------------------------------------------
+2. BUSINESS INFORMATION
+--------------------------------------------------------------------------------
+
+Legal name:        AS Brokers CC
+Tagline:           "Protecting Your Legacy. Engineering Your Wealth."
+FSP number:        FSP 17273
+Regulation:        Independent Authorised Financial Services Provider
+Category:          Category 1.8 (Securities and Instruments: Shares) for
+                   advising on and distributing Everest Wealth products
+
+Location:           Krugersdorp, East Rand, Gauteng, South Africa
+Established:       Est. 1998 (25+ years experience)
+
+Founders / team:
+  - Albert Schuurman  – Co-founder; retirement income planning, certainty for clients
+  - Johnny Farinha    – Co-founder; estate structuring, business continuity, risk planning
+
+Services offered:
+  - Retirement & investment planning (fixed-income, living annuities, RA)
+  - Short-term insurance (personal: home, car, valuables; business: commercial, fleet)
+  - Life insurance (personal: death, disability, income protection; business: key person, buy-and-sell)
+  - Estate planning (wills, trusts, estate duty reduction)
+  - Business structuring (buy-and-sell, key person, tax-efficient corporate protection)
+  - Medical aid & gap cover structuring
+  - Wellness & integration (high-income earners)
+  - Everest Wealth products (Code 1.8 alternative / fixed-return investments)
+
+Contact:
+  - WhatsApp: 067 242 9946
+  - Contact form: /contact
+  - No advice fees on investments; personal response (no call centre)
+
+Key partners / product providers:
+  - Everest Wealth Management (FSP 795) – fixed-return product structurer
+  - Santam, Old Mutual, Bryte (recognised partners; referenced in trust bar)
+
+--------------------------------------------------------------------------------
+3. ALL PAGES (ROUTES & SUMMARIES)
+--------------------------------------------------------------------------------
+
+Quick index (all routes):
+  /  /about  /calculators  /contact  /team  /regulatory-compliance
+  /solutions  /solutions/personal-insurance  /solutions/business-insurance
+  /solutions/life-insurance  /solutions/business-life
+  /everest-wealth  /everest-wealth/about
+  /everest-128-product  /immediate-higher-income-calculator  /everest-strategic-growth-145
+  /everest-amethyst-living-annuity
+  /lab  /retirement  /income-in-retirement  /cost-of-inflation-over-time
+  /income-tax-calculator  /estate-duty-calculator  /annual-estate-reduction-strategy
+  /premium-increase-calculator
+  /insights  /insights/[slug]  /insights/semigration-retirement
+  /quiz  /chat  /studio/[[...tool]]
+  /internal/pdf-report  /api/chat  /api/draft-mode/enable
+
+---
+
+/ (Home)
+  "Reality Check" hero ("You think your retirement is safe. The math might disagree."); primary CTA "Run the Numbers" (scroll to #lab), secondary "Explore Code 1.8 Wealth Engineering"; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip (Everest, Santam, Old Mutual, Bryte). RunOutCalculator directly below hero (portfolio, drawdown, capital lifespan; name/email/POPIA gate for full actuarial PDF). EverestWealthBento (12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity). Code18Advantage (Category 1.8, founders). RiskArchitectureCarousel (Short-Term, Commercial, Life, Estate). HomeStatsSection, HomeValueProps, HomeInsightsTeaser, HomeCtaStrip, Footer. FloatingChat (HeroChatTerminal in bottom-right panel). Design: void bg-[#0a0a0c], orbs, Bento/squircle.
+
+/about
+  About AS Brokers CC: independent financial advisor Krugersdorp, FSP 17273, Category 1.8, Krugersdorp. Links to Team and Contact. Metadata: independent financial advisor Krugersdorp.
+
+/calculators
+  "The Actuarial Reality Check" hero; jump nav (Assess Capital Lifespan, Calculate Everest Yields, Secondary Risk Tools). Phase 1: Capital Lifespan & High-Yield Solutions (retirement, income-in-retirement, inflation, Everest Product Quote — featured/glow cards). Phase 2: Secondary Risk Architecture (tax, estate, premium-increase — muted cards). Financial Education, Business Risk, CTA "Stop Guessing Your Capital Lifespan." FAQ schema. See docs/CALCULATORS_PAGE_OVERVIEW.txt.
+
+/contact
+  "Book a Private Actuarial Consultation"; Code 1.8 subhead; Apple-style trust tags (FSP 17273, 25+ Years, Zero Advice Fees); "Client Qualification Criteria" list; Squircle form card (border-blue-500/20 glow); submit "Initiate Wealth Engineering Request". "The Actuarial Review Process" 3 steps (Capital Assessment, Wealth Engineering Call, Implementation & Allocation). Form: fullName, phone, email, topics (Everest first), consent, honeypot. submitContactEnquiry → HubSpot + optional Trigger PDF. See docs/CONTACT_PAGE_OVERVIEW.txt.
+
+/team
+  Albert Schuurman and Johnny Farinha: roles, bios, FSP 17273. Metadata: independent financial advisors Krugersdorp.
+
+/regulatory-compliance
+  Code 1.8 FSP; FSCA Category 1.8 (Securities and Instruments: Shares); AS Brokers FSP 17273, Everest FSP 795. Metadata: Code 1.8 FSP license broker.
+
+/solutions
+  "Engineered Wealth & Risk Architecture" hero; sticky section nav (Private Wealth & Yield, Risk Architecture, Legacy Structuring, Health & Integration). Phase 1: Private Wealth & Yield — featured cards (Retirement Reality, Everest Wealth). Phase 2: Wealth Protection & Fiduciary Defense (Insurance, Estate, Medical — muted bg-[#101014] cards). CTA "Stop Guessing. Start Engineering." See docs/SOLUTIONS_PAGE_OVERVIEW.txt.
+
+/solutions/personal-insurance
+  Personal short-term insurance: home, car, valuables, asset protection.
+
+/solutions/business-insurance
+  Business short-term: commercial property, liability, business interruption, fleet.
+
+/solutions/life-insurance
+  Personal life: death cover, disability, income protection, severe illness.
+
+/solutions/business-life
+  Business life: buy-and-sell, key person, loan account, employee benefits.
+
+/everest-wealth
+  "The Alternative Yield Portfolio" hero; Code 1.8 Wealth Engineering Suite eyebrow; trust tags (FSP 17273, FSCA Category 1.8 (Shares), Zero Advice Fees) Apple-style. Phase 1: Immediate Cash Flow Architecture (12.8%, 14.2% with "Max Day-1 Yield" tag). Phase 2: Pure Capital Compounding (14.5% card md:col-span-2). Phase 3: Retirement Liquidity Isolation (Amethyst "Section 14 Transfer Approved" tag). Cards hover:border-blue-500/40. Tertiary CTA "Read Fiduciary Briefing →" to /everest-wealth/about. FAQ schema. See docs/calculator-overviews/EVEREST_WEALTH_PAGE_OVERVIEW.txt.
+
+/everest-wealth/about
+  "Everest Wealth Explained": regulatory architecture, product suite, returns, risks, fees, tax. Everest FSP 795, AS Brokers FSP 17273, Category 1.8.
+
+/everest-128-product
+  "Yield Engineering: 12.8% Strategic Income." Code 1.8 Wealth Engineering eyebrow. Calculator in Bento (border-blue-500/20); monthly income and 5-year bonus in text-cinematic-teal. Fiduciary Compliance & Structure Bento (Regulated Efficiency 20% DWT card, Authority card). See docs/calculator-overviews/EVEREST_128_PAGE_OVERVIEW.txt.
+
+/immediate-higher-income-calculator
+  "Maximum Liquidity: 14.2% Onyx Income+." Dual Bento below calculator: The Mathematical Advantage, Ideal Capital Deployment (checkmarks). Squircle CTA "Request Official Onyx Term Sheet →" to /contact.
+
+/everest-strategic-growth-145
+  "Pure Compounding: 14.5% Strategic Growth." Calculator in Bento (border-blue-500/20); "Projected value at maturity" in text-cinematic-teal. The Tax Architecture card (20% DWT at maturity). CTA "Request 14.5% Term Sheet →" /contact.
+
+/everest-amethyst-living-annuity
+  "Insulated Retirement: The Amethyst Living Annuity." Phase 3 Retirement Liquidity Architecture eyebrow. 2-col Bento: The Yield Architecture (~10.2%, 9% bonus, SARS note), Strategic Deployment. Squircle CTA "Initiate Section 14 Pension Transfer Review →" /contact. FAQ schema.
+
+/lab
+  "The Lab": run-out calculator (portfolio, drawdown, lifespan; email for PDF) and links to Retirement Reality, Life cover, Estate liquidity.
+
+/retirement
+  "The Capital Deficit." Actuarial Reality Check eyebrow; red/amber risk orbs. 2-col Bento beneath hero: The Mathematical Drag, The Income Delusion (yield under 10% = principal drawdown). Calculator in Bento (border-red-500/20). Fix CTA "Erase the Deficit with Structured Yield" — primary "Calculate Amethyst Living Annuity (~10.2% Net) →" /everest-amethyst-living-annuity, secondary "Book Actuarial Consultation" /contact. Amethyst silo, quick links. FAQ schema.
+
+/income-in-retirement
+  "The Capital Depletion Test." Cinematic void + red/amber orbs. LifeOfCapitalCalculator in Bento (border-red-500/20); capital lifespan (years) in large text-cinematic-teal. Fix CTA card: "Does your trajectory show depletion?" — "Engineer a High-Yield Solution →" /everest-wealth, "Book Actuarial Review" /contact.
+
+/cost-of-inflation-over-time
+  "The Capital Erosion Test." Actuarial Reality Check eyebrow; red/amber orbs. FutureValueCalculator in Bento (border-red-500/20). 2-col Bento: The Mathematical Deficit (6–8% = zero real after inflation/tax), Outpacing the Erosion (12.8–14.5% structures). CTA "Stop Losing Purchasing Power" — "Engineer Inflation-Proof Yields →" /everest-wealth, "Book Actuarial Review" /contact.
+
+/income-tax-calculator
+  "The Income Tax Liability Engine." Phase 2 Risk Architecture · Tax Exposure. Calculator in Bento (border-white/10). Bento card "The Fiduciary Advantage: Tax Arbitrage" (marginal 45% vs 20% DWT, Everest preference shares). CTA "Restructure Your Tax Liability" — "Initiate Tax-Efficient Structuring →" /contact.
+
+/estate-duty-calculator
+  "Understand the cost of dying." Phase 2 Risk Architecture · Fiduciary Liability; red/amber orbs. Liquidity Stress Test Bento (20%/25% SARS, executor fees). The Hidden Problem (low-yield lock-up); Strategic Capital Migration (R100k/R200k). Squircle CTA "Engineer Your Estate Reduction Strategy →" /annual-estate-reduction-strategy.
+
+/annual-estate-reduction-strategy
+  "Strategic Capital Migration Plan." R100k/R200k exemption copy. Bento "How This Strategy Works in Practice" (trust + high-yield unlisted assets). Don't Wait (50→R3m, 60→R1m in text-cinematic-teal). CTA "Initiate Your Fiduciary Audit" — "Book Fiduciary Consultation" /contact.
+
+/premium-increase-calculator
+  "The Premium Liability Test." Phase 2 Uncapped Liability. PremiumComparisonCalculator in Bento (max-w-6xl, border-white/10). 3-col Bento: The Illusion (age-rated, compounding), The Trap (expiring guarantees), The Fiduciary Alternative (level/behaviour-linked). Squircle CTA "Stop Funding Structural Liabilities" — "Initiate Fiduciary Risk Audit →" /contact.
+
+/insights
+  Sanity-driven article list (GROQ insightsList). Links to /insights/[slug]. Empty state: coming soon + calculator/contact links.
+
+/insights/[slug]
+  Single article: cachedSanityFetch(articleBySlugQuery); title, date, excerpt, Portable Text with FSP disclaimer blocks. Locale from searchParams (default en).
+
+/insights/semigration-retirement
+  Static insight: semigration & retirement villages Western Cape; links to Retirement, Amethyst, Contact. Metadata: semigration, retirement villages western cape.
+
+/quiz
+  Financial Health Quiz: steps (concern → age → capital) → result. Zustand state; nuqs for shareable URL (?concern=, ?age=, ?capital=). Routing: Yields + capital > R100k → Everest 12.8%; Retirement 55+ → Amethyst; Estate Taxes → Annual Estate Reduction. CTA opens LeadFormContext.
+
+/chat
+  Digital Wealth Assistant: useChat; tools (estate duty, 12.8% income, Amethyst); RAG context when DATABASE_URL set. System prompt: R100k min, 120-day notice, 15% penalty, 20% DWT. Links to calculators, Contact.
+
+/studio/[[...tool]]
+  Embedded Sanity Studio v3; client-only (ssr: false). deskTool, presentationTool (draft mode /api/draft-mode/enable).
+
+/internal/pdf-report
+  Print-only page for Trigger.dev: searchParams portfolio, drawdown → Recharts AreaChart (no animation). Puppeteer captures to PDF; Resend emails attachment. No nav/footer in print.
+
+/api/chat (POST)
+  streamText, OpenAI gpt-4o-mini; tools calculateEstateDuty, calculateStrategicIncome128, calcAmethystAnnuity; RAG getRagContext(latestMessage, 5) injected into system prompt.
+
+/api/draft-mode/enable (GET)
+  next-sanity defineEnableDraftMode; enables draft for Visual Editing. SANITY_VIEWER_TOKEN.
+
+/login
+  CRM & Client Portal mock login. Choose role (Admin, Staff, Client); Staff pick advisor from dropdown. Sets cookies (mock-crm-role, mock-crm-user, mock-crm-staff-id); redirects to /crm (admin/staff) or /portal (client). See CRM_AND_PORTAL.txt.
+
+/crm
+  CRM dashboard: pipeline stats (New→Won/Lost) and recent leads; role-filtered (admin = all, staff = assigned). Links to Kanban and Leads.
+
+/crm/kanban
+  Pipeline Kanban: columns New, Contacted, Qualified, Proposal, Won, Lost; drag-drop cards (mock, resets on refresh). Role-filtered. Cards link to lead detail.
+
+/crm/leads
+  Leads table: Name, Contact, Service, Intent, Status, Assigned, Fit/Eng. Role-filtered. Name links to /crm/leads/[id].
+
+/crm/leads/[id]
+  Lead detail: contact, intent, status, service, reassign (admin only), correspondence thread, notes, tasks.
+
+/crm/clients
+  Clients table (converted leads); role-filtered. Name links to /crm/clients/[id].
+
+/crm/clients/[id]
+  Client detail: contact, services, advisor, WhatsApp; same correspondence, notes, tasks as CRM side.
+
+/crm/tasks
+  Tasks list: To do and Completed; linked to lead/client; role-filtered by assignee.
+
+/portal
+  Client Portal dashboard: My Advisor (name, WhatsApp, Call), portfolio value, monthly income, holdings list, Recharts (income + drawdown). Mock data.
+
+/portal/documents
+  Document vault: mock list + DocumentUpload (mock file upload). Backend will use Supabase Storage + audit.
+
+/portal/messages
+  Unified message thread (portal/email/WhatsApp) + MessageReply (mock send). Same thread as CRM client/lead correspondence.
+
+Route structure (App Router):
+  Root layout: app/layout.tsx (Inter, bg-void); NuqsAdapter → ConsentProvider → MotionConfigProvider → GlobalSchema, AppShell. Cookie banner + conditional GA4/Hotjar in ConsentProvider.
+  Route group (content): app/(content)/layout.tsx wraps public routes; conditional <VisualEditing /> when draft. Studio and API outside (content).
+
+--------------------------------------------------------------------------------
+4. SITE STRUCTURE & NAVIGATION
+--------------------------------------------------------------------------------
+
+Header (global, components/Nav.tsx):
+  - Logo (teal→gold-orange gradient) + "AS Brokers" + FSP 17273 (trust-hallmark)
+  - Home | Solutions (direct link to /solutions) | Calculators (direct link to /calculators) | Team
+  - CRM & Client Portal (link to /login) | Contact Us — rim-light buttons, Samsung Blue / Gold glow on hover
+  - On /crm, /portal, /login: minimal bar (logo, Back to site, Switch account to /login)
+  - When scrolled: frosted glass (bg-white/5 backdrop-blur-2xl border-white/10) so teal/orange orbs blur behind nav
+  - Skip link: "Skip to main content" (focus-only)
+  - Mobile: hamburger; panels use rim-light, rounded-[2rem]
+  - No dropdown menus: Solutions and Calculators are single links to hub pages.
+
+Footer:
+  - Compliance strip: FAIS compliant, FSCA regulated, POPIA compliant, FSP 17273
+  - Brand (logo, tagline, FSP, WhatsApp button)
+  - Quick links: Home, About, Solutions, Chat (Wealth Assistant), Calculators,
+    Insights, Financial Health Quiz, Contact, Team, Regulatory & Compliance
+  - Services: Retirement & Everest, Insurance & Risk, Estate, Understanding Everest
+  - Trust badge: Authorised Financial Services Provider | FSP 17273
+  - Legal: Privacy Policy, Terms of Use, Complaints Procedure, FAIS & POPIA
+  - Copyright AS Brokers CC
+
+PWA (installability):
+  - Manifest: /public/manifest.json
+  - Note: No service worker is implemented yet. Offline calculator support would
+    require adding a service worker (Phase 5).
+
+--------------------------------------------------------------------------------
+5. KEY COMPONENTS (NON-PAGE)
+--------------------------------------------------------------------------------
+
+AppShell          – Wraps app with Nav + LeadForm context
+Nav               – Fixed header; rim-light frosted glass on scroll (blurs Nightography orbs); Solutions and Calculators direct links (no dropdowns); CTA glows
+Footer            – Multi-column footer with links and WhatsApp
+HeroSection       – Home "Reality Check" hero: headline "You think your retirement is safe. The math might disagree.", subhead, primary CTA "Run the Numbers" (scroll to #lab), secondary "Explore Code 1.8 Wealth Engineering"; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip
+HeroChatTerminal  – AI chat terminal (used inside FloatingChat panel and /chat): frosted glass, tools (estate duty, 12.8%, Amethyst), RAG when DATABASE_URL set
+BackgroundOrbs    – Nightography: Cinematic Teal + Gold/Orange large blurred orbs; mouse-reactive; Apple easing
+TrustBar          – FSP 17273 (trust-hallmark) + partners; shark bg, border-white/10
+EverestWealthBento – Home Bento: 12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity cards with targeted yields and "Learn more" links
+Code18Advantage   – Home: Category 1.8 explanation, unlisted vs JSE, founder profiles (Albert Schuurman, Johnny Farinha)
+RiskArchitectureCarousel – Home: horizontal swipeable squircle cards (Short-Term Personal, Commercial Risk, Life & Severe Illness, Estate Planning & Trusts)
+FloatingChat      – Fixed bottom-right FAB; toggles panel with HeroChatTerminal (Digital Wealth Assistant)
+HomeStatsSection  – 25+, FSP 17273, 1.8 (trust-hallmark); shark bg
+HomeValueProps    – Independent, Full-service, Personal; rim-light cards, cinematic-teal icons/links
+HomeCtaStrip      – "Ready for a conversation?" + Contact (gold glow) + WhatsApp; gradient from teal
+RunOutCalculator  – Portfolio value + monthly drawdown → estimated capital lifespan; warning on depletion risk; gate "Unlock the Full Actuarial Breakdown" (full name, email, POPIA consent) for year-by-year PDF via Trigger.dev; Recharts area chart after reveal; mobile overflow fixed for gate visibility
+ContactEnquiryForm – components/forms/ContactEnquiryForm.tsx. Main contact form
+                     (name, phone, email, topics dropdown, consent); useActionState +
+                     submitContactEnquiry(prevState, formData); pending disables inputs;
+                     honeypot; field-level errors from ContactActionState; syncs to
+                     HubSpot (search-patch, cumulative lead score). No capitalAmount
+                     on main form (calculator lead forms only).
+LeadFormContext   – Global lead form modal (e.g. Client Login)
+GlobalSchema       – Organization + FinancialService JSON-LD (root layout); XSS-safe
+                      (escapeJsonLd); FSP 17273, founders, Krugersdorp, Category 1.8
+MotionConfigProvider – Framer Motion reducedMotion="user" for vestibular accessibility
+FAQSchema         – Reusable FAQPage JSON-LD (XSS-safe); used on /retirement, /calculators,
+                      /everest-wealth, /everest-amethyst-living-annuity
+EverestLiquidityWarning – 120-day notice, 15% early exit penalty (voluntary products)
+Skip link         – Global accessibility skip link to #main-content
+
+Analytics & consent (Phase 4):
+  ConsentProvider        – components/analytics/ConsentProvider.tsx; context (consent, setConsent);
+                            reads/writes localStorage (asbrokers-cookie-consent); renders CookieConsent + ConditionalAnalytics
+  CookieConsent           – components/ui/CookieConsent.tsx; fixed bottom banner (POPIA copy); Accept All / Essential Only
+  ConditionalAnalytics    – components/analytics/ConditionalAnalytics.tsx; mounts GA4 + Hotjar only when consent === "all"
+  HotjarAnalytics         – components/analytics/HotjarAnalytics.tsx; next/script lazyOnload Hotjar snippet
+
+Sanity / Portable Text (Phase 3):
+  sanity/lib/client.ts     – createClient (next-sanity); stega when studio URL set
+  sanity/lib/live.ts       – getClient() (draft-aware token), sanityFetch()
+  sanity/lib/fetch.ts      – cachedSanityFetch (React cache) for shared article request
+  sanity/lib/queries.ts    – insightsListQuery, articleBySlugQuery (body with fspDisclosure→fsp)
+  sanity/config.ts         – deskTool, presentationTool; schema from schemaTypes
+  sanity/schemaTypes/     – seoMetadata, article (slug unique per locale), fspEntity, fspDisclosure
+  components/portable-text/ArticlePortableText.tsx – PortableText; types.fspDisclosure → FspDisclosureBlock
+  components/portable-text/FspDisclosureBlock.tsx  – Styled disclaimer box (fsp.name, fspNumber, disclaimerText)
+
+Financial Health Quiz (Phase 2):
+  store/useQuizStore.ts   – Zustand: ageBracket, primaryConcern, availableCapital;
+                            hasCapitalOver100k() for Everest 12.8% rule
+  app/(content)/quiz/page.tsx – Multi-step client component; nuqs (concern, age, capital)
+                            for shareable result URL; AnimatePresence + useReducedMotion;
+                            QuizResults applies routing rules, CTA opens LeadFormContext.
+                            Wrapped in Suspense (fallback: loading state) for useQueryState/useSearchParams.
+  Root layout             – NuqsAdapter (nuqs/adapters/next/app) wraps app for useQueryState
+
+Digital Wealth Assistant (chat):
+  app/api/chat/route.ts   – POST handler; streamText, system prompt, three tools
+  app/api/chat/schemas.ts – Zod: calculateEstateDuty, calculateStrategicIncome128,
+                            calcAmethystAnnuity (R100k min, 2.5–17.5% drawdown)
+  app/api/chat/tools.ts   – Deterministic: estate duty, 12.8% income, Amethyst tax
+  app/(content)/chat/page.tsx – useChat, DefaultChatTransport, tool result cards
+
+Calculator components (one per calculator page):
+  RetirementRealityCalculator (incl. scenario + Recharts bar), LifeOfCapitalCalculator,
+  CostOfInflationCalculator, IncomeTaxCalculator, EstateDutyCalculator,
+  AnnualEstateReductionCalculator, PremiumIncreaseCalculator,
+  Everest128Calculator, ImmediateHigherIncomeCalculator,
+  EverestStrategicGrowth145Calculator, AmethystLivingAnnuityCalculator
+
+CRM & Client Portal (see CRM_AND_PORTAL.txt):
+  CrmSidebar         – Desktop: nav (Dashboard, Kanban, Leads, Clients, Tasks), role/name, Log out, Back to site. Mobile: top bar with same links.
+  LeadsKanban        – Client component: columns by lead status; drag-drop cards; role-filtered initialLeads.
+  PortalNav          – Fixed top nav: logo, Dashboard/Documents/Messages, user, Log out, Site.
+  PortalDashboardCharts – Recharts: cumulative income area chart, annuity drawdown area chart (mock data).
+  PortalMyAdvisor    – Card: advisor name, role, WhatsApp button, Call link.
+  DocumentUpload     – Mock file input; appends “uploaded” item to list (no real storage).
+  MessageReply       – Textarea + Send (mock); shows “Sent (mock)”.
+  Mock data: lib/mock-auth.ts (session cookies), lib/mock-crm.ts (leads, clients, staff, correspondence, tasks, notes), lib/mock-portal.ts (holdings, documents, messages, advisor, chart data).
+
+--------------------------------------------------------------------------------
+6. METADATA & TECHNICAL SEO
+--------------------------------------------------------------------------------
+
+Root layout:
+  Title template:  %s | AS Brokers CC
+  Default title:   AS Brokers CC | Independent Financial Advisor Krugersdorp
+  Description:     25+ years; retirement, insurance, estate, Code 1.8.
+  Keywords:        independent financial advisor Krugersdorp, Code 1.8 FSP license broker,
+                   Everest Wealth brokers, alternative private equity investments South Africa, ...
+  OpenGraph:       type website, locale en_ZA, siteName AS Brokers CC
+
+Page-level metadata (keyword targeting per SEO plan):
+  /about                    – independent financial advisor Krugersdorp
+  /contact (layout)         – independent financial advisor Krugersdorp
+  /regulatory-compliance    – Code 1.8 FSP license broker
+  /everest-wealth           – alternative private equity South Africa, Everest Wealth brokers
+  /retirement               – semigration, retirement villages Western Cape
+  /insights/semigration-retirement – semigration, retirement villages Western Cape
+  /team                     – independent financial advisors Krugersdorp
+
+Structured data:
+  GlobalSchema (root): Organization + FinancialService @graph; legalName AS Brokers CC;
+    FSP 17273, founders, Krugersdorp address; XSS-safe JSON-LD.
+  FAQSchema: FAQPage on /calculators, /retirement, /everest-wealth, /everest-amethyst-living-annuity;
+    escapeJsonLd for safe script injection.
+
+Semantic silos (internal linking):
+  Retirement page → Amethyst Living Annuity (Reg 28, 2.5–17.5% drawdown bridge copy).
+  Estate duty calculator → Annual Estate Reduction Strategy (R100k/R200k donations copy).
+
+PWA:  public/manifest.json (name, theme, start_url). Root layout references manifest.
+
+--------------------------------------------------------------------------------
+7. CURSOR AI & PROJECT MEMORY (Rolls-Royce Blueprint)
+--------------------------------------------------------------------------------
+
+Memory bank:
+  - BACKEND.md         – Backend setup checklist; env vars; Supabase, HubSpot, Trigger.dev, Resend, Sanity, OpenAI, RAG; "Where you left off" (e.g. HubSpot custom properties for contact form)
+  - CRM_AND_PORTAL.txt – CRM & Client Portal: what it does, features, benefits, how it works (mock vs planned backend), routes, key files
+  - ROLLS_ROYCE_CRM_VISION.txt – Vision for bespoke “Rolls-Royce” CRM: client portal (private wealth terminal), staff (precision engine), owner (command center); AI-infused, compliance-first, implementation roadmap
+  - .cursor/rules/crm-rolls-royce.mdc – Cursor rule for CRM/portal work: design language, AI, compliance, service alignment, user-specific (client/staff/owner), phasing
+  - agents.md          – Root: tech stack, business/regulatory context, architecture, Everest constraints, liquidity warning
+  - app/(content)/calculators/CONTEXT.md – Formula and tax context for all calculators
+  - docs/CUSTOMER_OVERVIEW.txt – Customer-facing project and feature overview
+  - docs/SOLUTIONS_PAGE_OVERVIEW.txt, docs/CALCULATORS_PAGE_OVERVIEW.txt, docs/CONTACT_PAGE_OVERVIEW.txt – Page-level layout, components, styling
+  - docs/calculator-overviews/ – Per-calculator page overviews (RETIREMENT, INCOME_IN_RETIREMENT, INFLATION, INCOME_TAX, ESTATE_DUTY, ESTATE_REDUCTION, PREMIUM_INCREASE, EVEREST_WEALTH, EVEREST_128, EVEREST_142, EVEREST_145, EVEREST_AMETHYST); INDEX.txt for list
+
+Cursor rules:
+  - .cursor/rules/asbrokers.mdc – RSC default, Server Actions for mutations,
+    Zod at boundaries, Tailwind glassmorphism, prefers-reduced-motion, Everest
+    R100k min and liquidity copy. alwaysApply: true.
+
+Server Actions:
+  - app/actions/contact.ts – submitContactEnquiry(prevState, formData) for useActionState.
+    contactFormSchema (Zod); flatten().fieldErrors for UI; honeypot; syncContactToHubSpot
+    (lib/hubspot.service). After HubSpot success, triggers PDF job via POST to Trigger.dev
+    API (generate-financial-pdf) so client gets immediate success; PDF generated async.
+    Returns ContactActionState (success, message, fieldErrors).
+
+Validations:
+  - lib/validations/schema.ts – contactFormSchema (main form), financialCalculatorSchema
+    (contact + optional capitalAmount for calculator lead capture), ContactActionState.
+  - lib/validations/investmentSchema.ts – investmentLeadSchema with R100,000 minimum
+    (EVEREST_MIN_INVESTMENT) for Everest voluntary products; for use on lead forms.
+
+HubSpot CRM (Phase 4):
+  - lib/hubspot.service.ts – "server-only"; getContactByEmail (GET by idProperty=email,
+    returns id + platform_lead_score); syncContactToHubSpot: search-patch (PATCH if
+    exists, POST if 404). Cumulative lead score: read existing + add (+20 if
+    capitalAmount > R1M, +15 if topic short_business or trust). Properties:
+    financial_inquiry_topic (string), financial_capital_input (when capital present),
+    platform_lead_score (string). Env: HUBSPOT_ACCESS_TOKEN or HUBSPOT_PRIVATE_APP_TOKEN.
+
+--------------------------------------------------------------------------------
+8. SEO IMPLEMENTATION SOURCE
+--------------------------------------------------------------------------------
+
+Implementation follows: Next.js SEO & Schema Implementation Plan.txt
+(Architectural blueprint: global Organization/FinancialService schemas, FAQPage
+per product/calculator, metadata keyword strategy, semantic siloing, RSC-first,
+prefers-reduced-motion, XSS-safe JSON-LD.)
+
+--------------------------------------------------------------------------------
+9. GENERATIVE UI CHATBOT (DIGITAL WEALTH ASSISTANT)
+--------------------------------------------------------------------------------
+
+Source: Generative UI Chatbot Implementation Plan.txt
+
+Architecture:
+  - LLM as router only; all financial math in deterministic TypeScript tools
+  - Zod validation on tool inputs (R100k min, 2.5–17.5% drawdown, non-negative)
+  - Baseline system prompt hardcodes FSCA constraints (R100k, 120-day notice, 15% penalty, 20% DWT)
+  - RAG pipeline: before each streamText call, the latest user message is embedded and
+    used for cosine-similarity search; retrieved chunks are injected into the
+    "Interceptor System Prompt" below the baseline (baseline unchanged)
+
+Tools:
+  - calculateEstateDuty: gross estate, liabilities, spousal inheritance, charity;
+    executor 4.025%, abatement R3.5m, duty 20%/25%
+  - calculateStrategicIncome128: capital ≥ R100k; 12.8% gross, 20% DWT, 10% bonus
+  - calcAmethystAnnuity: capital ≥ R100k, drawdown 2.5–17.5%; SARS 2026/27 65+ tax
+
+Requires: OPENAI_API_KEY in environment for /api/chat. DATABASE_URL optional (see RAG).
+
+--------------------------------------------------------------------------------
+10. RAG PIPELINE (RETRIEVAL-AUGMENTED GENERATION)
+--------------------------------------------------------------------------------
+
+Purpose: Ground the chat assistant in Everest Wealth and FAIS/SARS documentation
+via pgvector similarity search. Baseline constraints remain in code; RAG adds
+retrieved context only.
+
+Database (Drizzle ORM + PostgreSQL + pgvector):
+  - lib/db/schema.ts:
+    - resources: id, content (text), source (varchar 255), metadata (jsonb), created_at
+    - embeddings: id, resource_id (FK → resources.id ON DELETE CASCADE), embedding (vector(1536)), created_at
+    - HNSW index on embeddings.embedding with vector_cosine_ops for cosine similarity
+  - Extension: CREATE EXTENSION vector; (run manually or via custom migration)
+  - drizzle.config.ts: schema ./lib/db/schema.ts, out ./drizzle, dialect postgresql, dbCredentials.url from DATABASE_URL
+
+Retrieval:
+  - lib/db/rag.ts:
+    - getRagContext(query, limit?) → Promise<string>
+    - Embeds query via AI SDK embed + openai.embedding('text-embedding-3-small')
+    - If DATABASE_URL missing: returns "" (no DB connection)
+    - Otherwise: Drizzle select from embeddings join resources, orderBy sql`embedding <=> $vector::vector`, limit 5
+    - Returns concatenated "[Source: ...]\ncontent" blocks or "" on error
+  - lib/db/index.ts: getDb() returns Drizzle client or null; lazy pool from DATABASE_URL
+
+Chat route (app/api/chat/route.ts):
+  - getLatestUserMessageText(messages) → last user message text from parts/content
+  - systemPrompt = BASELINE_SYSTEM_PROMPT + "\n\n[Retrieved context]:\n" + (await getRagContext(latestText, 5)) or "[No relevant context retrieved.]"
+  - streamText({ system: systemPrompt, ... }) — baseline constraints untouched
+
+Environment:
+  - OPENAI_API_KEY: required for chat (and for RAG embedding)
+  - DATABASE_URL: optional; if set, RAG retrieval runs; if unset, chat still works with empty retrieved context
+
+Document ingestion:
+  - scripts/ingest-rag.ts: chunks .txt/.md from scripts/rag-documents (or custom dir), embeds with text-embedding-3-small, inserts into resources + embeddings. Run: npm run rag:ingest (needs OPENAI_API_KEY, DATABASE_URL). Plan: docs/RAG_IMPLEMENTATION_PLAN.md.
+
+--------------------------------------------------------------------------------
+11. PHASE 2: PDF GENERATION & EMAIL (TRIGGER.DEV + RESEND)
+--------------------------------------------------------------------------------
+
+Asynchronous print route + background job so serverless timeouts and Recharts DOM
+requirements are avoided; PDFs are generated in Trigger.dev workers and emailed via Resend.
+
+Print route (app/internal/pdf-report):
+  - page.tsx: Client component; useSearchParams() for portfolio, drawdown. Run-out
+    chart data; Recharts AreaChart with isAnimationActive={false} (required for
+    Puppeteer capture). Wrapper class pdf-content for print visibility.
+  - print.css: @media print { body * hidden; .pdf-content visible }; @page { size: A4; margin: 0 }.
+  - layout: robots noindex,nofollow. No navigation/footer in DOM; print CSS isolates content.
+
+Trigger.dev v4 (trigger/generatePdf.ts, trigger.config.ts):
+  - Task id: generate-financial-pdf. Payload: email, fullName?, portfolio?, drawdown?.
+  - trigger.config.ts: maxDuration 60; build.extensions [puppeteer()], build.external ["jose", "puppeteer"]; puppeteer as devDependency for bundle resolve.
+  - Puppeteer: launch headless, goto APP_URL/internal/pdf-report?portfolio=...&drawdown=..., page.pdf(A4, printBackground) → buffer.
+  - Resend: send to payload.email, subject "Your AS Brokers Wealth Projection", attachment PDF.
+  - App triggers via HTTP: POST api.trigger.dev/.../generate-financial-pdf/trigger with TRIGGER_SECRET_KEY.
+
+Env:
+  - Next: TRIGGER_SECRET_KEY (to enqueue job).
+  - Trigger worker: APP_URL or NEXT_PUBLIC_APP_URL, RESEND_API_KEY, RESEND_FROM (optional),
+    PUPPETEER_EXECUTABLE_PATH (optional per Trigger docs).
+
+--------------------------------------------------------------------------------
+12. PHASE 3: SANITY V3 HEADLESS CMS
+--------------------------------------------------------------------------------
+
+Purpose: Replace /insights placeholder with Sanity-driven articles, draft mode,
+and Visual Editing; FAIS-oriented FSP disclaimers as inline blocks in article body.
+
+Architecture:
+  - Route group (content): app/(content)/layout.tsx wraps front-facing routes with
+    conditional <VisualEditing /> when draftMode().isEnabled. Studio at /studio
+    is outside (content) to avoid reload/overlay conflicts.
+  - Document model: Single article document with locale field ('en'|'af'); slug
+    validated unique per locale (custom rule in article schema). No document-i18n plugin.
+  - FSP disclaimer: Resolved in GROQ (articleBySlug expands body so fspDisclosure
+    blocks include "fsp": fspEntity->). Frontend serializer only renders resolved data.
+
+Schemas (sanity/schemaTypes/):
+  - seoMetadata: metaTitle (max 65), metaDescription (max 160), canonicalUrl,
+    openGraphImage, noIndex.
+  - article: title, slug, locale, publishedAt, excerpt, body (block + fspDisclosure), seo.
+  - fspEntity: name, fspNumber, disclaimerText.
+  - fspDisclosure: block type; reference to fspEntity (resolved in GROQ).
+
+Data fetching:
+  - getClient() in live.ts: returns client with viewer token + previewDrafts when
+    draftMode().isEnabled; otherwise default client.
+  - cachedSanityFetch (fetch.ts): React cache(sanityFetch) so generateMetadata
+    and page share one request per article.
+  - Queries: insightsList (ordered by publishedAt); articleBySlug(slug, locale)
+    with body[] expanded for fspDisclosure → fsp.
+
+Studio:
+  - app/studio/[[...tool]]/page.tsx: dynamic import of NextStudio + config (ssr: false)
+    to avoid server-bundle issues. Config: deskTool(), presentationTool(previewUrl
+    with previewMode.enable: /api/draft-mode/enable).
+
+Build / env:
+  - next.config.ts: webpack alias/fallback for hoist-non-react-statics (path to
+    dist/hoist-non-react-statics.min.js) so @sentry/react (pulled in by sanity) resolves.
+  - Sanity client uses projectId || "placeholder" when NEXT_PUBLIC_SANITY_PROJECT_ID
+    unset so build (e.g. draft-mode route) does not throw.
+  - Env: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET,
+    NEXT_PUBLIC_SANITY_STUDIO_URL, SANITY_VIEWER_TOKEN. See .env.example.
+
+--------------------------------------------------------------------------------
+13. CRM & CLIENT PORTAL
+--------------------------------------------------------------------------------
+
+Purpose: Authenticated CRM for staff/owners and Client Portal for clients; currently
+mock data and mock auth (cookie-based role/staff). Built for backend swap (Supabase,
+RLS, Magic Links, HubSpot sync).
+
+Entry: Nav "CRM & Client Portal" → /login. Choose Admin / Staff / Client; Staff
+also choose team member. Redirect to /crm or /portal.
+
+CRM (admin/staff):
+  - Dashboard: pipeline counts + recent leads (role-filtered).
+  - Kanban: drag-drop pipeline (New→Won/Lost); role-filtered.
+  - Leads: table + detail (contact, correspondence, notes, tasks, reassign for admin).
+  - Clients: table + detail (same correspondence/notes/tasks; advisor + WhatsApp).
+  - Tasks: to do / completed; linked to lead or client; role-filtered.
+  - Visibility: admin sees all; staff see only assigned leads/clients/tasks.
+
+Client Portal (client role only):
+  - Dashboard: My Advisor (WhatsApp/Call), portfolio value, holdings, Recharts.
+  - Documents: list + mock upload (real storage planned via Supabase).
+  - Messages: unified thread + mock reply (same thread as CRM correspondence).
+
+Data: lib/mock-crm.ts (leads, clients, staff, correspondence, tasks, notes; service
+categories aligned with AS Brokers solutions). lib/mock-portal.ts (holdings,
+documents, messages, advisor). lib/mock-auth.ts (session cookies).
+
+Full documentation: CRM_AND_PORTAL.txt (features, benefits, how it works, routes, files).
+
+--------------------------------------------------------------------------------
+14. PHASE 4: ANALYTICS & POPIA COOKIE CONSENT
+--------------------------------------------------------------------------------
+
+Purpose: Enterprise analytics (GA4, Hotjar) with strict POPIA compliance: no
+non-essential tracking until the user explicitly accepts cookies.
+
+Cookie consent (components/ui/CookieConsent.tsx):
+  - Fixed bottom banner; glassmorphism (bg-[#0a0a0c]/90 backdrop-blur-xl ring-white/10).
+  - Copy: cookies for analytics and saving calculator progress; POPIA compliance.
+  - Buttons: "Accept All" (enables GA4 + Hotjar), "Essential Only" (no analytics).
+  - Choice persisted in localStorage (key: asbrokers-cookie-consent). Banner only
+    shown after client hydration to avoid flash for returning users.
+
+Consent state (components/analytics/ConsentProvider.tsx):
+  - React context: consent ("all" | "essential" | null), setConsent, hasChosen.
+  - On mount, reads localStorage; ConsentProvider wraps app and renders
+    CookieConsent + ConditionalAnalytics.
+
+Conditional script loading:
+  - GA4: @next/third-parties/google <GoogleAnalytics gaId="..." />. Mounted only
+    when consent === "all" (ConditionalAnalytics).
+  - Hotjar: components/analytics/HotjarAnalytics.tsx; next/script strategy="lazyOnload",
+    injected only when consent === "all". Snippet loads Hotjar async.
+  - If user has not consented or chooses "Essential Only", GA4 and Hotjar never mount.
+
+Root layout:
+  - ConsentProvider wraps MotionConfigProvider and app content; renders
+    CookieConsent (when hasHydrated) and ConditionalAnalytics.
+
+Env:
+  - NEXT_PUBLIC_GA_MEASUREMENT_ID (GA4 measurement ID, e.g. G-XXXXXXXX).
+  - NEXT_PUBLIC_HOTJAR_ID (Hotjar site ID). See .env.example.
+
+--------------------------------------------------------------------------------
+END OF PROJECT OVERVIEW
+================================================================================

@@ -1,0 +1,96 @@
+================================================================================
+  AS BROKERS – EVEREST 14.2% ONYX INCOME+ CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/immediate-higher-income-calculator
+================================================================================
+
+This document describes the 14.2% Onyx Income+ (immediate higher income)
+calculator page: purpose, structure, components, and how it fits into the AS
+Brokers site. The page hosts the Everest142Calculator for highest monthly
+income from day one.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /immediate-higher-income-calculator page has three jobs:
+
+  • Headline: "Everest 14.2% Investment Calculator" – highest monthly income
+    from day one; fixed 14.2% p.a., 20% dividend tax.
+  • Everest142Calculator: User enters capital (and term); output is
+    estimated monthly income (14.2% gross, 20% DWT applied). No loyalty
+    bonus; trade-off for higher rate.
+  • Editorial: "What This Result Means" (estimated monthly from fixed 14.2%,
+    income certainty not market speculation); "Who This Option Is Typically
+    Best For" (highest income now, no wait for bonuses, commit capital, prefer
+    certainty, better tax than interest). CTA "Contact me for an official
+    quote" → /contact. Footer strip: WhatsApp, Investment options, Contact.
+
+Linked from /everest-wealth as "Calculate my 14.2% income" (14.2% Onyx
+Income+). Complements 12.8% calculator for clients who prioritise maximum
+current income over year-5 bonus.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /immediate-higher-income-calculator
+  • File:    app/(content)/immediate-higher-income-calculator/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Immediate Higher Income Calculator | 14.2% Gross Assumption | AS Brokers"
+      - description: "Everest 14.2% investment calculator. Estimated monthly
+        income from a fixed 14.2% annual return, 20% dividend tax."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Everest 14.2% Investment Calculator)
+  2. Calculator – Everest142Calculator
+  3. What This Result Means + Who This Option Is Best For + CTA (→ /contact)
+  4. Footer strip (WhatsApp, Investment options, Contact)
+  5. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto,
+                text-center.
+  • Eyebrow:    "AS Brokers" (zinc-500, uppercase).
+  • Headline:   "Everest 14.2% Investment Calculator" (text-4xl–5xl, white,
+                bold).
+  • Subhead:    "Highest monthly income from day one. Fixed 14.2% p.a., 20%
+    dividend tax." (xl, zinc-400).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & EDITORIAL
+--------------------------------------------------------------------------------
+
+  • Calculator: Everest142Calculator, max-w-4xl. Inputs: typically lump sum,
+    5-year term; output: estimated monthly income (14.2% gross, 20% DWT).
+  • What This Result Means: Amount shown is estimated monthly from fixed
+    14.2% annual return over term; designed for income certainty, not market
+    speculation; income not affected by daily market movements.
+  • Who This Option Is Best For: Investors who want highest possible monthly
+    income now; don't want to wait for bonuses; can commit capital for full
+    term; prefer certainty over volatility; want better tax efficiency than
+    interest-based income. List-disc, zinc-400.
+  • CTA: "Contact me for an official quote" → /contact (white, rounded-full).
+
+--------------------------------------------------------------------------------
+6. FOOTER STRIP & COMPONENTS
+--------------------------------------------------------------------------------
+
+  • Footer strip: WhatsApp, "Investment options" → /everest-wealth,
+    "Contact" → /contact. Flex wrap, gap-6, text-sm, zinc-500.
+  • Key components: Everest142Calculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. No FAQ schema on this page.
+
+--------------------------------------------------------------------------------
+7. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /everest-wealth (14.2% Onyx Income+ card and
+               "Compare 12.8% vs 14.2%" context).
+  • Out:       /contact (official quote), /everest-wealth, WhatsApp.

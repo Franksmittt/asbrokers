@@ -1,0 +1,133 @@
+================================================================================
+AS BROKERS — IMAGE ASSET SPECIFICATION
+================================================================================
+Use this file to generate or source all site images. For each image you will find:
+- What it is for and where it appears on the site
+- Exact folder and filename to save as
+- Aspect ratio and recommended dimensions
+- A JSON object with a single "prompt" field: copy the prompt into your AI
+  image tool to generate the asset. Use the same aspect ratio in the tool.
+
+Save all images under: public/images/
+Formats: .webp for visuals (smaller, quality); .jpg for headshots is fine.
+
+================================================================================
+
+
+--------------------------------------------------------------------------------
+1. HERO VISUAL
+--------------------------------------------------------------------------------
+Purpose:   Main hero section, right column above the chat terminal. Conveys
+           wealth, legacy, and professional financial planning.
+Used in:   components/Hero.tsx (home page)
+Save as:   public/images/hero-visual.webp
+Ratio:     16:10 (e.g. 1920×1200 or 1280×800)
+Alt text:  "Wealth and legacy planning"
+
+{
+  "prompt": "Premium, cinematic photograph suggesting wealth preservation and legacy. Soft focus background of a modern South African office or study: leather chair, subtle wooden desk, one elegant document or folder. Warm golden hour light from the left, teal and gold accent tones. No people visible. Professional, trustworthy, understated. High-end financial advisory mood. 16:10 aspect ratio, shallow depth of field, 8k, photorealistic."
+}
+
+
+--------------------------------------------------------------------------------
+2. ABOUT VISUAL
+--------------------------------------------------------------------------------
+Purpose:   About page, below the intro and CTAs. Represents independent
+           advice and the Krugersdorp / East Rand professional setting.
+Used in:   app/(content)/about/page.tsx
+Save as:   public/images/about-visual.webp
+Ratio:     16:9 (e.g. 1920×1080 or 1280×720)
+Alt text:  "Independent financial advisor Krugersdorp"
+
+{
+  "prompt": "Professional photograph evoking independent financial advice. Two people in business casual attire in a bright, modern consultation room, one pointing at a document or screen (no readable text). South African office aesthetic: clean, neutral walls, good natural light. Sense of trust and one-on-one guidance. No logos. 16:9 aspect ratio, photorealistic, editorial style."
+}
+
+
+--------------------------------------------------------------------------------
+3. TEAM — ALBERT SCHUURMAN (headshot)
+--------------------------------------------------------------------------------
+Purpose:   Team page, first card. Headshot for co-founder Albert Schuurman.
+Used in:   app/(content)/team/page.tsx
+Save as:   public/images/team-albert.jpg
+Ratio:     1:1 (square) — e.g. 800×800 or 1024×1024
+Alt text:  "Albert Schuurman"
+
+{
+  "prompt": "Professional corporate headshot of a friendly South African man in his 50s, short grey or salt-and-pepper hair, wearing a navy or dark blue blazer over a light shirt, no tie. Neutral grey or soft blue background. Even lighting, confident and approachable expression. Square crop 1:1, chest up, sharp focus on face. High quality portrait photography, business headshot style."
+}
+
+
+--------------------------------------------------------------------------------
+4. TEAM — JOHNNY FARINHA (headshot)
+--------------------------------------------------------------------------------
+Purpose:   Team page, second card. Headshot for co-founder Johnny Farinha.
+Used in:   app/(content)/team/page.tsx
+Save as:   public/images/team-johnny.jpg
+Ratio:     1:1 (square) — e.g. 800×800 or 1024×1024
+Alt text:  "Johnny Farinha"
+
+{
+  "prompt": "Professional corporate headshot of a friendly South African man in his 40s or 50s, dark hair, wearing a navy or charcoal blazer over a light shirt, no tie. Neutral grey or soft blue background. Even lighting, confident and approachable expression. Square crop 1:1, chest up, sharp focus on face. High quality portrait photography, business headshot style, consistent with same tone as another advisor headshot."
+}
+
+
+--------------------------------------------------------------------------------
+5. CONTACT TRUST VISUAL
+--------------------------------------------------------------------------------
+Purpose:   Contact page, left column below the intro. Suggests personal
+           consultation and a real conversation (not a call centre).
+Used in:   app/(content)/contact/page.tsx
+Save as:   public/images/contact-trust.webp
+Ratio:     3:2 (e.g. 1200×800 or 900×600)
+Alt text:  "Personal financial consultation"
+
+{
+  "prompt": "Warm, approachable photograph of a financial consultation. Advisor and client sitting at a small table or desk, leaning slightly forward in conversation. Modern South African office, soft natural light, plants or simple decor. No screens or documents in focus. Emphasis on trust and personal attention. 3:2 aspect ratio, photorealistic, editorial style."
+}
+
+
+--------------------------------------------------------------------------------
+6. EVEREST WEALTH VISUAL
+--------------------------------------------------------------------------------
+Purpose:   Everest Wealth product hub, between the intro block and “Start here”.
+           Conveys fixed returns, certainty, and structured investment.
+Used in:   app/(content)/everest-wealth/page.tsx
+Save as:   public/images/everest-visual.webp
+Ratio:     16:9 (e.g. 1920×1080 or 1280×720)
+Alt text:  "Everest Wealth fixed-return investment options"
+
+{
+  "prompt": "Abstract, premium visual suggesting financial certainty and growth. Layered geometric shapes or soft gradients in teal, deep blue, and subtle gold. No text or numbers. Mood: stable, professional, forward-looking. Could suggest a path, a horizon, or structured growth. No people. 16:9 aspect ratio, high-end corporate or wealth management aesthetic, 8k."
+}
+
+
+--------------------------------------------------------------------------------
+7. SOLUTIONS HERO
+--------------------------------------------------------------------------------
+Purpose:   Solutions page, below the hero headline and trust badges. Represents
+           “architectural solutions”: retirement, insurance, estate, business.
+Used in:   app/(content)/solutions/page.tsx
+Save as:   public/images/solutions-hero.webp
+Ratio:     16:9 (e.g. 1920×1080 or 1280×720)
+Alt text:  "Architectural solutions for retirement, insurance, estate and business"
+
+{
+  "prompt": "Conceptual hero image for a financial solutions hub. Modern, clean composition: blue and teal tones, subtle geometric or architectural elements suggesting structure and planning. No people. Could include soft gradients, abstract pillars, or a minimalist horizon. Professional, aspirational, trustworthy. 16:9 aspect ratio, high quality, suitable for above-the-fold web hero."
+}
+
+
+================================================================================
+QUICK REFERENCE — FILE LIST
+================================================================================
+public/images/hero-visual.webp      (16:10)  Hero
+public/images/about-visual.webp     (16:9)   About
+public/images/team-albert.jpg      (1:1)    Team card 1
+public/images/team-johnny.jpg      (1:1)    Team card 2
+public/images/contact-trust.webp    (3:2)    Contact
+public/images/everest-visual.webp   (16:9)   Everest Wealth
+public/images/solutions-hero.webp   (16:9)   Solutions
+
+================================================================================
+END OF SPEC
+================================================================================

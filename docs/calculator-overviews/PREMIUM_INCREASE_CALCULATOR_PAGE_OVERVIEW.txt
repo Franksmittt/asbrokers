@@ -1,0 +1,142 @@
+================================================================================
+  AS BROKERS – PREMIUM INCREASE (LIFE INSURANCE) CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/premium-increase-calculator
+================================================================================
+
+This document describes the Premium Increase Problem calculator page: purpose,
+structure, components, and how it fits into the AS Brokers site. The page
+exposes long-term cost of escalating life insurance premiums and supports
+comparison of policies year by year.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /premium-increase-calculator page has four jobs:
+
+  • Agitate: Hero "The Premium Increase Problem" – affordable today, but cost
+    in 10, 15, 20 years? Cheapest policy today can become most expensive to
+    keep.
+  • Educate: Calculator requires manual entry of actual premiums from policy
+    or quote (deliberate); editorial explains what usually goes wrong (low
+    starting premium, 5% increase, guarantees that expire), why this
+    calculator is different, behaviour-linked products, BrightRock
+    comparison, how to use properly, who it's ideal for.
+  • Answer: "The Real Question This Calculator Answers" – "Can I still afford
+    this policy in 10, 15, or 20 years not just today?"
+  • Convert: "Take the Next Step" – help interpreting results or policy
+    sustainability; "Request a policy review below" → /contact. Quick links
+    (WhatsApp, Home, Retirement income, Insurance & risk, Business risk,
+    Estate planning).
+
+Linked from the Calculators hub under "Life Insurance & Risk Planning" (Phase 2:
+Secondary Risk Architecture) and from /solutions/life-insurance.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /premium-increase-calculator
+  • File:    app/(content)/premium-increase-calculator/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Premium Increase Problem Calculator | Life Insurance Premium
+        Escalation | AS Brokers"
+      - description: "Expose the long-term cost of escalating life insurance
+        premiums. Compare policies year by year and see why the cheapest
+        today can become the most expensive to keep."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (The Premium Increase Problem)
+  2. Teaser (Solving the Increase Problem – Compare increases)
+  3. Calculator – PremiumComparisonCalculator (max-w-6xl)
+  4. The Premium Increase Problem (why cheapest can become most expensive)
+  5. What Usually Goes Wrong
+  6. Why This Calculator Is Different
+  7. Behaviour-Linked and Structured Premium Products
+  8. Why BrightRock Is Often Used as a Comparison
+  9. How to Use This Calculator Properly
+  10. Who This Calculator Is Ideal For
+  11. The Real Question This Calculator Answers
+  12. Take the Next Step (→ /contact)
+  13. Quick links
+  14. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO & TEASER
+--------------------------------------------------------------------------------
+
+  • Hero:       pt-28 pb-12, text-center. Eyebrow "AS Brokers · Life
+                Insurance". Headline "The Premium Increase Problem". Subhead:
+                premium looks affordable today; what will it cost in 10, 15,
+                20 years? Body: exposes long-term cost of escalation; cheapest
+                today often most expensive to keep (zinc-500).
+  • Teaser:     py-8, border-t. Centred h2 "Solving the Increase Problem",
+                "Compare increases" (zinc-400).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & EDITORIAL
+--------------------------------------------------------------------------------
+
+  • Calculator: PremiumComparisonCalculator. max-w-6xl (wider than other
+    calculator pages). User enters actual premiums per year from policy/quote
+    (no estimation); compare year-by-year, see total cost and acceleration.
+  • The Premium Increase Problem: Most people buy on one number (starting
+    premium); how premium changes over time often not shown; calculator
+    exposes common costly issue – escalation faster than clients expect.
+  • What Usually Goes Wrong: Sold on low starting premium with "5% per year",
+    "guaranteed for period", "standard practice"; not always clear: scheduled
+    escalation + age-rating, actual increase higher than quoted, guarantees
+    expire after 10–15 years, premiums jump at review; red "✗" bullets for
+    these points. "Policies become unsustainable when cover needed most."
+  • Why This Calculator Is Different: Does not estimate; requires manual
+    entry of actual premiums. Allows: real rand cost over time, compare
+    insurers year by year, identify acceleration, total cost not just
+    starting price. "Turns abstract escalation into real numbers."
+  • Behaviour-Linked: Not all escalation bad; behaviour-linked structures
+    can work for right client (high earners, wellness participation, engaged
+    with benefits). Problem when wrong client or long-term behaviour not
+    understood. "Fit and sustainability, not criticism of insurers."
+  • BrightRock: Often referenced because it shows actual future premium
+    amounts, year by year; transparent. Traditional products describe
+    percentages while actual premiums diverge (age-rating, review events);
+    calculator makes differences visible.
+  • How to Use: Take schedule/quotation; enter actual monthly premium per
+    year; compare side-by-side. Review year-by-year increases, long-term
+    affordability, total premiums. "Goal is not lowest premium; avoid
+    unpleasant surprises later."
+  • Who It's Ideal For: Reviewing existing policies; replacing/upgrading
+    cover; high earners comparing structures; business owners long-term need;
+    advisers and clients wanting transparency.
+  • The Real Question: "Can I still afford this policy in 10, 15, or 20 years
+    not just today?" – matters more than starting premium.
+
+--------------------------------------------------------------------------------
+6. CTA & QUICK LINKS
+--------------------------------------------------------------------------------
+
+  • CTA:        "Take the Next Step" – help interpreting results or
+                sustainability; "Request a policy review below" → /contact
+                (white, rounded-full). bg-black/20.
+  • Quick links: WhatsApp; Home; Retirement income; Insurance & risk; Business
+                risk; Estate planning (mix of / and /solutions).
+
+--------------------------------------------------------------------------------
+7. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: PremiumComparisonCalculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. Sections border-t border-white/5. Red "✗" for
+    negative points; blue "→" for positive. Calculator container max-w-6xl.
+
+--------------------------------------------------------------------------------
+8. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Premium Increase Problem Calculator)
+               and /solutions/life-insurance (Premium increase calculator).
+  • Out:       /contact (policy review), /, /retirement, /solutions (quick
+               links), WhatsApp.

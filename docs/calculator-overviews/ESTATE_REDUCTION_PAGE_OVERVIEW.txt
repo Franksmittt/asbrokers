@@ -1,0 +1,126 @@
+================================================================================
+  AS BROKERS – ANNUAL ESTATE REDUCTION STRATEGY PAGE OVERVIEW
+  https://asbrokers.vercel.app/annual-estate-reduction-strategy
+================================================================================
+
+This document describes the Annual Estate Duty Reduction Plan calculator page:
+purpose, structure, components, and how it fits into the AS Brokers site. The
+page models how R100k/R200k annual donations can reduce estate duty over time.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /annual-estate-reduction-strategy page has three jobs:
+
+  • Educate: Hero and teaser set up annual donations exemption (R100k per
+    person / R200k per couple per year, no donations tax); calculator shows
+    cumulative duty saved and estate exposure reduction.
+  • Context: Editorial explains how the strategy fits (moving value out of
+    estate, reducing executor fees and cash-flow pressure); how it works in
+    practice (donations to family trust); what the calculator demonstrates;
+    important context (not a loophole, long-term strategy, trust + will +
+    R3.5m abatement). "Don't Wait" block: exemption doesn't roll over; earlier
+    start = more moved out.
+  • Convert: "Ready to Take the Next Step?" – help with trust, donations
+    structure, will integration; "Complete the form below" → /contact. Quick
+    links to WhatsApp and solutions.
+
+Linked from the Calculators hub as "Estate Duty Reduction Strategy
+Calculator" and from /estate-duty-calculator as the natural next step.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /annual-estate-reduction-strategy
+  • File:    app/(content)/annual-estate-reduction-strategy/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Trust Donation Calculator | Annual Donations & Estate Planning
+        SA | AS Brokers"
+      - description: "Use the annual donations exemption to legally reduce
+        estate duty. Calculate how much you can eliminate over time through
+        structured annual donations."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Annual Estate Duty Reduction Plan)
+  2. Teaser (annual donation strategy, cumulative duty saved, exposure reduction)
+  3. Calculator – EstateReductionCalculator
+  4. How This Calculator Fits In
+  5. How This Strategy Works in Practice
+  6. What This Calculator Demonstrates
+  7. Important Context
+  8. Don't Wait (exemption doesn't roll over)
+  9. Ready to Take the Next Step (→ /contact)
+  10. Quick links
+  11. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO & TEASER
+--------------------------------------------------------------------------------
+
+  • Hero:       pt-28 pb-12, text-center. Eyebrow "AS Brokers · Estate
+                Planning". Headline "Annual Estate Duty Reduction Plan".
+                Subhead: use annual donations exemption to reduce exposure
+                year by year. Body: calculate how much duty you can eliminate
+                over time through structured donations (zinc-500).
+  • Teaser:     py-8, border-t. Centred: "Annual donation strategy",
+                "Cumulative duty saved", "Estate exposure reduction"
+                (text-sm, zinc-400).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & EDITORIAL
+--------------------------------------------------------------------------------
+
+  • Calculator: EstateReductionCalculator. Inputs typically current age,
+    individual vs couple; models R100k/R200k per year moving out of estate;
+    shows cumulative reduction / duty saved over time (illustrative).
+  • How This Fits In: R100k/person/year (R200k couple) no donations tax;
+    consistent use = practical tool for reducing future estate duty.
+  • How It Works in Practice: Donations often to family trust; capital
+    leaves estate but stays protected and earmarked for family objectives;
+    power is discipline year after year.
+  • What This Demonstrates: Effect of small, consistent donations
+    compounding into meaningful estate reduction; figures illustrative, not
+    exact prediction; same framework used in client discussions.
+  • Important Context: Not a loophole or once-off; long-term strategy, best
+    started early, reviewed regularly; combined with trust structuring and
+    will (including R3.5m abatement) can materially reduce duty and executor
+    fees.
+  • Don't Wait: R100k doesn't roll over; couple from 50 donating R200k/year
+    for 15 years moves R3m out; start at 60 = only R1m; "The earlier you
+    start, the more your heirs keep."
+
+--------------------------------------------------------------------------------
+6. CTA & QUICK LINKS
+--------------------------------------------------------------------------------
+
+  • CTA:        "Ready to Take the Next Step?" – understanding numbers first
+                step, implementing correctly is what reduces duty. Bullet list:
+                create compliant trust, structure donations, integrate with
+                will, reduce duty legally. "Let Us Help You Create a Trust and
+                Reduce Your Estate" – complete form; button "Complete the form
+                below" → /contact.
+  • Quick links: WhatsApp; Income in retirement, Insurance & risk, Estate
+                planning, Business insurance → /solutions.
+
+--------------------------------------------------------------------------------
+7. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: EstateReductionCalculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. Sections border-t border-white/5. Lists use
+    blue "→" bullets. CTA block not explicitly bg-black/20 but same tone.
+
+--------------------------------------------------------------------------------
+8. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Estate Duty Reduction Strategy
+               card) and /estate-duty-calculator (Next Step button).
+  • Out:       /contact (primary CTA), /solutions, WhatsApp. Completes
+               estate sequence: estate-duty-calculator → this page → contact.

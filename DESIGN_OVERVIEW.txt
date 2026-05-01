@@ -1,0 +1,269 @@
+================================================================================
+  AS BROKERS WEBSITE - DESIGN SYSTEM OVERVIEW
+  Styling, layout, colors, fonts & UI patterns
+================================================================================
+
+Last updated: March 2026
+
+--------------------------------------------------------------------------------
+1. DESIGN LANGUAGE
+--------------------------------------------------------------------------------
+
+The site uses a fused "Apple Pro × Samsung Galaxy" aesthetic:
+
+  - Apple: Clean hierarchy, generous whitespace, rim-light glassmorphism,
+    squircle (superellipse) shapes, Apple-style easing, premium feel.
+  - Samsung: Nightography-style ambient orbs (teal + gold-orange), CTA glows
+    (Samsung Blue / Supernova Gold), high-contrast on dark void.
+
+Goal: Ultra-luxury, low-key private-wealth terminal: dark void backgrounds,
+metallic and glass elements, trust signals (FSP, Category 1.8) with
+architectural precision.
+
+--------------------------------------------------------------------------------
+2. COLORS
+--------------------------------------------------------------------------------
+
+PRIMARY PALETTE (Tailwind + CSS variables)
+
+  Backgrounds:
+    void              #000000   Main page background (absolute black)
+    vault-dark        #0a0a0c   CRM/dashboard dark
+    vault-card        #151518   Cards, sidebars, panels
+    vault-card-alt    #121214   Alternate card tint
+    shark             #1D1D1F   Secondary dark (stats, strips)
+
+  Accent / brand:
+    cinematic-teal    #008080   Primary accent: highlights, key numbers, links
+    gold-orange       #FF7F50   Secondary accent: orbs, warmth
+    samsung-blue      #0057B8   CTAs, focus rings, selection
+    supernova-gold    #E8B923   CTA hover glow (gold)
+    athens-gray       #F5F5F7   Light surfaces (e.g. button text on dark)
+
+  Text:
+    white             Primary headings and key copy
+    zinc-400          Body / secondary (e.g. text-gray-400, text-zinc-400)
+    zinc-500          Muted labels, footnotes
+    zinc-300           Slightly brighter secondary
+
+  Borders / overlays:
+    border-white/5     Very subtle
+    border-white/10    Default card/panel borders
+    border-white/20    Stronger dividers, branch lines
+    bg-white/5         Frosted overlay
+    bg-white/10        Hover states, active nav
+
+CSS variables (globals.css): --bg-primary, --bg-shark, --card, --card-alt,
+--cinematic-teal, --gold-orange, --samsung-blue, --supernova-gold, --athens-gray,
+--ease-apple, --duration-apple.
+
+--------------------------------------------------------------------------------
+3. TYPOGRAPHY
+--------------------------------------------------------------------------------
+
+FONT
+  - Primary: Inter (Google Font), loaded in root layout.
+  - CSS variable: --font-inter.
+  - Tailwind: font-sans maps to var(--font-inter), system-ui, sans-serif.
+  - Body: antialiased, default text-white on dark.
+
+HIERARCHY
+  - Hero headline:     text-4xl → text-7xl (sm/md/lg), font-bold,
+                       tracking-[-0.03em], leading-[1.1]
+  - Section headlines: text-2xl → text-3xl, font-bold, tracking-tight
+  - Subheads:          text-base → text-xl, text-gray-400, leading-relaxed,
+                       tracking-[0.01em]
+  - Body:              text-sm or text-base, text-gray-400 / text-zinc-400
+  - Small / labels:    text-xs, text-zinc-500, uppercase with tracking-wider
+  - Trust hallmarks:   .trust-hallmark (tabular-nums, letter-spacing 0.08em)
+
+NUMBERS & DATA
+  - Key figures (e.g. calculator outputs): text-cinematic-teal, font-bold,
+    often tabular-nums for alignment.
+  - Trust stats: .trust-hallmark for engraved, precise look.
+
+--------------------------------------------------------------------------------
+4. LAYOUT & SPACING
+--------------------------------------------------------------------------------
+
+CONTAINERS
+  - Main content: container mx-auto, px-4, max-w-4xl / max-w-5xl / max-w-6xl
+  - Nav: max-w-7xl mx-auto px-6
+  - Sections: py-16 md:py-20 or py-8 md:py-12
+
+SPACING CONVENTIONS
+  - Bento / cards: gap-3, gap-4, gap-6; padding inside cards p-5 md:p-6,
+    p-6 md:p-8, or p-8 md:p-10
+  - Vertical rhythm: space-y-4, space-y-6, space-y-8, space-y-10
+  - Strict 8px-friendly spacing in many areas (e.g. 8, 12, 16, 24, 32)
+
+GRID
+  - Bento grids: grid, grid-cols-1 sm:grid-cols-2 lg:grid-cols-3,
+    featured cards often md:col-span-2
+  - Two-column layouts: flex or grid with responsive stacking
+
+HERO
+  - min-h-screen, flex flex-col items-center justify-center, pt-28 md:pt-36
+    pb-20, overflow-hidden for orbs
+
+--------------------------------------------------------------------------------
+5. COMPONENTS & SURFACES
+--------------------------------------------------------------------------------
+
+RIM-LIGHT (glassmorphism)
+  - Class: .rim-light (globals.css)
+  - bg rgba(255,255,255,0.05), backdrop-filter blur(2rem), border 1px white/10,
+    box-shadow rim (1px outer + inset top highlight)
+  - Used for: nav when scrolled, cards, dropdowns, secondary CTAs
+
+SQUIRCLES (rounded corners)
+  - rounded-[2rem]   Standard squircle (32px) for cards, buttons, panels
+  - rounded-2xl      Slightly smaller (1rem) for nav pills, small cards
+  - rounded-xl       Buttons, inputs, badges
+  - .squircle        border-radius: 2rem (CSS class)
+  - .squircle-lg     border-radius: 2.5rem
+
+CARDS
+  - Typical: rounded-[2rem] or rounded-2xl, rim-light or bg-vault-card,
+    border border-white/10
+  - Featured / premium: border-blue-500/20 or border-cinematic-teal/40,
+    shadow-cta-glow-blue for active/selected
+
+BUTTONS
+  - Primary: bg-white text-black, rounded-[2rem], px-6/8 py-4, font-semibold,
+    hover:shadow-cta-glow-gold
+  - Secondary: rim-light, border-white/10, rounded-[2rem], hover:bg-white/10
+  - Active/selected: border-cinematic-teal/50, shadow-cta-glow-blue
+
+TRUST HALLMARK
+  - .trust-hallmark: tabular-nums, letter-spacing 0.08em, light text with
+    subtle text-shadow for “engraved” look. Used for FSP 17273, stats, dates.
+
+--------------------------------------------------------------------------------
+6. SHADOWS & GLOWS
+--------------------------------------------------------------------------------
+
+Tailwind (tailwind.config.ts):
+  - rim-glow:        0 0 0 1px rgba(255,255,255,0.1), inset 0 1px 0 0 rgba(255,255,255,0.05)
+  - cta-glow-blue:   0 0 40px rgba(0, 87, 184, 0.4)
+  - cta-glow-gold:   0 0 40px rgba(232, 185, 35, 0.35)
+
+Usage:
+  - Cards: shadow-rim-glow or no shadow; featured cards use shadow with
+    blue/teal for “glow”
+  - CTAs: hover:shadow-cta-glow-blue or hover:shadow-cta-glow-gold
+  - Focus: outline + box-shadow with samsung-blue (see Accessibility)
+
+Custom keyframes (globals.css):
+  - hero-terminal-glow: pulsing Samsung Blue box-shadow for chat/terminal
+  - hero-terminal-shine: opacity pulse
+
+--------------------------------------------------------------------------------
+7. MOTION & ANIMATION
+--------------------------------------------------------------------------------
+
+EASING
+  - Apple-style: cubic-bezier(0.25, 0.1, 0.25, 1)
+  - Tailwind: transitionTimingFunction.apple → ease-apple
+  - CSS: --ease-apple, --duration-apple (0.55s)
+
+DURATIONS
+  - Typical: 0.25s (hover/tap), 0.35–0.55s (panel open/close), 0.5–0.8s
+    (page/scroll animations)
+
+Framer Motion:
+  - Common: transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+  - Hover: whileHover={{ scale: 1.02–1.03 }}, whileTap={{ scale: 0.98 }}
+  - Spring: damping 35, stiffness 60 for orbs
+
+REDUCED MOTION
+  - globals.css: prefers-reduced-motion: reduce shortens animations to 0.01ms
+  - BackgroundOrbs and other motion components respect reduceMotion
+  - MotionConfigProvider sets reducedMotion="user" for Framer Motion
+
+--------------------------------------------------------------------------------
+8. AMBIENT BACKGROUNDS
+--------------------------------------------------------------------------------
+
+BackgroundOrbs (Nightography-style):
+  - Large, heavily blurred absolute divs (blur-[140px]–[180px])
+  - Cinematic Teal: #008080 at ~20–25% opacity, top-left area
+  - Gold/Orange: #FF7F50 at ~15–20% opacity, top-right
+  - Optional third orb: teal 10% opacity, bottom-left
+  - Mouse-reactive parallax (spring) when reduced motion not preferred
+
+Static orbs (e.g. CRM presentation):
+  - Same colours, animate-pulse with long duration (6s, 8s) for subtle drift
+
+--------------------------------------------------------------------------------
+9. BORDERS & DIVIDERS
+--------------------------------------------------------------------------------
+
+  - border-white/10   Default for cards, nav, panels
+  - border-white/20   Timeline branches, stronger separators
+  - border-blue-500/20, border-blue-500/40   Featured / active states
+  - border-cinematic-teal/40, border-cinematic-teal/50   Accent borders
+  - border-red-500/20   Risk/depletion contexts (e.g. calculator cards)
+
+--------------------------------------------------------------------------------
+10. FORMS & INPUTS
+--------------------------------------------------------------------------------
+
+  - Inputs: bg-white/5, border border-white/10, focus:border-blue-500 or
+    focus:ring-2 focus:ring-cinematic-teal/50
+  - Range sliders: custom styled in globals.css (teal glow on thumb,
+    white/10 track)
+  - Labels: text-sm text-zinc-400, proper htmlFor/aria
+
+--------------------------------------------------------------------------------
+11. ACCESSIBILITY
+--------------------------------------------------------------------------------
+
+  - Focus visible: outline 2px samsung-blue, outline-offset 2px,
+    box-shadow 0 0 20px rgba(0, 87, 184, 0.25)
+  - Skip link: .skip-link (positioned off-screen, moves into view on focus)
+  - Reduced motion: animations minimised when prefers-reduced-motion: reduce
+  - Selection: background samsung-blue, text white (::selection in globals)
+  - Semantic HTML and ARIA where needed (e.g. aria-label on icon buttons)
+
+--------------------------------------------------------------------------------
+12. BREAKPOINTS & RESPONSIVENESS
+--------------------------------------------------------------------------------
+
+Tailwind default breakpoints:
+  - sm: 640px
+  - md: 768px   (e.g. CRM sidebar visible, nav layout)
+  - lg: 1024px
+  - xl: 1280px
+  - 2xl: 1536px
+
+Notable:
+  - Nav: full sidebar hidden below md; mobile top bar with horizontal links
+  - Hero: text and padding scale up at sm, md, lg
+  - Bento: 1 col → 2 cols (sm) → 3 cols (lg)
+  - Presentation timeline: min-w-[1280px], overflow-x-auto for horizontal scroll
+
+--------------------------------------------------------------------------------
+13. CRM & PORTAL SPECIFIC
+--------------------------------------------------------------------------------
+
+  - CRM/Portal use vault-* colours (vault-dark, vault-card) for consistency
+    with “vault” brand.
+  - Sidebar: bg-vault-card, w-56, border-r border-white/10, rounded-2xl nav
+    items.
+  - Same rim-light, rounded-[2rem], and focus patterns as public site.
+
+--------------------------------------------------------------------------------
+14. FILE REFERENCES
+--------------------------------------------------------------------------------
+
+  - tailwind.config.ts    Theme extension (colors, shadows, ease, keyframes)
+  - app/globals.css       CSS variables, .rim-light, .trust-hallmark,
+                          .squircle, focus, skip-link, range, hero keyframes
+  - app/layout.tsx        Inter font, body classes (bg-void, font-sans, etc.)
+  - components/BackgroundOrbs.tsx   Ambient orb implementation
+  - components/HeroSection.tsx      Example of headline/CTA styling
+
+--------------------------------------------------------------------------------
+END OF DESIGN OVERVIEW
+================================================================================

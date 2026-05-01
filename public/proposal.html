@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Brokers | Digital Architecture Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Apple/Samsung Fused Aesthetics */
+        .bg-void { background-color: #000000; }
+        .bg-shark { background-color: #1D1D1F; }
+        
+        .rim-light {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+        }
+
+        .squircle { border-radius: 2rem; }
+
+        /* Nightography Orbs */
+        .orb-teal {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,128,128,0.4) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-gold {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,127,80,0.3) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            bottom: 20%;
+            right: -100px;
+        }
+
+        .ease-apple { transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1); }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #008080, #FFC600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Range Slider (Apple Style) */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            margin-top: -14px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            transition: transform 0.2s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #333;
+            border-radius: 4px;
+        }
+
+        /* Feature List Animations */
+        .feature-item {
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            opacity: 0.3;
+            filter: grayscale(100%);
+        }
+        .feature-item.active {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: translateX(10px);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-void antialiased selection:bg-teal-700 selection:text-white">
+
+    <div class="orb-teal"></div>
+    <div class="orb-gold"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 rim-light border-b-0 rounded-none">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tight">AS BROKERS <span class="text-gray-500 text-sm font-normal ml-2">FSP 17273</span></div>
+            <a href="#investment" class="rim-light px-5 py-2 rounded-full text-sm font-semibold hover:bg-white hover:text-black ease-apple">Configure Build</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20">
+        <h2 class="text-teal-500 font-semibold tracking-widest text-sm mb-4 uppercase">Project Overview</h2>
+        <h1 class="text-6xl md:text-8xl font-bold tracking-tighter mb-6">
+            Engineering Your <br> <span class="text-gradient">Digital Legacy.</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 tracking-wide">
+            Not just a website. A Private Wealth Terminal combining Apple-grade aesthetics with Samsung-level open innovation. Built to capture, convert, and manage high-net-worth capital.
+        </p>
+    </section>
+
+    <!-- Interactive Investment Scaler -->
+    <section id="investment" class="py-24 max-w-5xl mx-auto px-6 relative">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Configure Your Ecosystem.</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                Drag the slider to build your ideal platform. The entire architecture is built from day one, features unlock as your investment scales. Start small, scale limitlessly.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            
+            <!-- Left Column: The Scaler Interface -->
+            <div class="rim-light squircle p-10 sticky top-32">
+                <p class="text-teal-500 font-semibold tracking-widest text-xs mb-2 uppercase">Total Project Value</p>
+                <div class="text-6xl font-bold tracking-tighter mb-8" id="priceDisplay">R25,000</div>
+                
+                <div class="mb-12">
+                    <input type="range" id="investmentSlider" min="25000" max="100000" step="5000" value="25000">
+                    <div class="flex justify-between text-xs text-gray-500 mt-3 font-semibold tracking-wider">
+                        <span>FOUNDATION</span>
+                        <span>ROLLS-ROYCE</span>
+                    </div>
+                </div>
+
+                <div class="bg-shark rounded-2xl p-6 border border-white/5">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400 text-sm">Required to commence build (50%)</span>
+                        <span class="text-2xl font-bold text-white" id="depositDisplay">R12,500</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 text-sm">Status</span>
+                        <span class="text-sm font-semibold text-teal-400 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-teal-400 mr-2 animate-pulse"></span> Ready to Deploy
+                        </span>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-8 py-4 rounded-xl bg-white text-black font-bold hover:bg-gray-200 transition-colors ease-apple shadow-lg shadow-white/10">Lock in Configuration</button>
+            </div>
+
+            <!-- Right Column: Dynamic Feature List -->
+            <div class="pt-4">
+                <h3 class="text-2xl font-bold mb-8 border-b border-gray-800 pb-4">Unlocked Architecture</h3>
+                <ul class="space-y-6" id="featureList">
+                    
+                    <!-- Foundation (Always visible/active at R25k) -->
+                    <li class="feature-item active flex items-start" data-threshold="25000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center mr-4 text-white">1</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white">Foundation Ecosystem</h4>
+                            <p class="text-sm text-gray-400 mt-1">Apple/Samsung luxury design system, mobile-first liquid layout, and core corporate pages.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item active flex items-start" data-threshold="25000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center mr-4 text-white">2</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white">Headless Content Engine</h4>
+                            <p class="text-sm text-gray-400 mt-1">Sanity CMS integration for instant insight publishing, with built-in FAIS compliance disclaimers.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item active flex items-start" data-threshold="25000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center mr-4 text-white">3</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white">HubSpot Lead Capture</h4>
+                            <p class="text-sm text-gray-400 mt-1">Intelligent contact forms wired directly into your sales pipeline.</p>
+                        </div>
+                    </li>
+
+                    <!-- Engagement (Unlocks >= R40k) -->
+                    <li class="feature-item flex items-start" data-threshold="40000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-900/50 border border-blue-500 flex items-center justify-center mr-4 text-blue-400">✦</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-blue-400">Run-Out Calculators & Quizzes</h4>
+                            <p class="text-sm text-gray-400 mt-1">Interactive retirement and tax calculators designed to capture client data before revealing answers.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item flex items-start" data-threshold="45000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-900/50 border border-blue-500 flex items-center justify-center mr-4 text-blue-400">✦</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-blue-400">Automated PDF Generation</h4>
+                            <p class="text-sm text-gray-400 mt-1">Trigger.dev instantly generates and emails beautiful, customized wealth reports to users.</p>
+                        </div>
+                    </li>
+
+                    <!-- Advanced (Unlocks >= R60k) -->
+                    <li class="feature-item flex items-start" data-threshold="60000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-900/50 border border-purple-500 flex items-center justify-center mr-4 text-purple-400">✦</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-purple-400">Secure Client Portal</h4>
+                            <p class="text-sm text-gray-400 mt-1">Multi-role login system. Clients get a secure vault for their documents and portfolio overviews.</p>
+                        </div>
+                    </li>
+
+                    <!-- Rolls Royce (Unlocks >= R75k) -->
+                    <li class="feature-item flex items-start" data-threshold="75000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-yellow-900/50 border border-yellow-500 flex items-center justify-center mr-4 text-yellow-500">✦</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-yellow-500">Staff Kanban CRM Dashboard</h4>
+                            <p class="text-sm text-gray-400 mt-1">Internal dashboard for advisors to track leads, manage client files, and chat directly via the portal.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item flex items-start" data-threshold="80000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-yellow-900/50 border border-yellow-500 flex items-center justify-center mr-4 text-yellow-500">✦</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-yellow-500">Digital Wealth Assistant (AI)</h4>
+                            <p class="text-sm text-gray-400 mt-1">RAG-powered AI chatbot trained strictly on Everest Wealth products and SARS data. Qualifies leads 24/7.</p>
+                        </div>
+                    </li>
+                    
+                    <!-- Enterprise (Unlocks >= R95k) -->
+                    <li class="feature-item flex items-start" data-threshold="95000">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-900/50 border border-red-500 flex items-center justify-center mr-4 text-red-500">✦</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-red-500">Live API Feeds & Enterprise SLA</h4>
+                            <p class="text-sm text-gray-400 mt-1">Live data pulling from Everest Wealth databases, plus priority 1-hour support SLA and custom automations.</p>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 mt-20">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+            <p>&copy; 2026 Developed for AS Brokers. All rights reserved.</p>
+            <p class="mt-4 md:mt-0 flex items-center">
+                <span class="w-2 h-2 rounded-full bg-teal-500 mr-2 animate-pulse"></span> Systems Operational
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        const slider = document.getElementById('investmentSlider');
+        const priceDisplay = document.getElementById('priceDisplay');
+        const depositDisplay = document.getElementById('depositDisplay');
+        const featureItems = document.querySelectorAll('.feature-item');
+
+        function updateUI() {
+            const val = parseInt(slider.value);
+            
+            // Format numbers to Rand currency format
+            priceDisplay.innerText = 'R' + val.toLocaleString('en-ZA');
+            depositDisplay.innerText = 'R' + (val / 2).toLocaleString('en-ZA');
+
+            // Highlight features based on slider value
+            featureItems.forEach(item => {
+                const threshold = parseInt(item.getAttribute('data-threshold'));
+                if (val >= threshold) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        slider.addEventListener('input', updateUI);
+        
+        // Initialize state on load
+        updateUI();
+    </script>
+</body>
+</html>

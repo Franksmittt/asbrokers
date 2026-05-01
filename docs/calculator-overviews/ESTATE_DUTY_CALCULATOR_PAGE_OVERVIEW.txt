@@ -1,0 +1,114 @@
+================================================================================
+  AS BROKERS – ESTATE DUTY CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/estate-duty-calculator
+================================================================================
+
+This document describes the Estate Duty Calculator page: purpose, structure,
+components, and how it fits into the AS Brokers site. The page estimates
+estate duty, executor fees, and total cash the estate will need at death.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /estate-duty-calculator page has three jobs:
+
+  • Educate: Hero "Understand the cost of dying." Calculator estimates estate
+    duty, executor fees, and total estate costs so families don't find out
+    the hard way.
+  • Context: Editorial explains what the estimate tells you (SARS potential
+    claim, 20%/25% rates, cash payable before heirs); "The Hidden Problem"
+    (growth increases tax bill, liquidity pressure); "A Practical Solution"
+    (annual donations R100k/R200k, redirecting growth out of estate).
+  • Convert: Next-step CTA to /annual-estate-reduction-strategy ("Calculate
+    your annual estate reduction strategy"). Quick links to WhatsApp and
+    solutions.
+
+Linked from the Calculators hub under "Tax & Estate Exposure" (Phase 2). Part
+of the estate-planning funnel: duty estimate → reduction strategy → contact.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /estate-duty-calculator
+  • File:    app/(content)/estate-duty-calculator/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Estate Duty Calculator South Africa | AS Brokers"
+      - description: "Calculate estate duty, executor fees, and the total
+        cash your estate will need at death. Understand the cost of dying."
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Estate Duty Calculator, cost of dying)
+  2. Teaser bullets (estate duty payable, executor fees, total estate costs)
+  3. Calculator – EstateDutyCalculator
+  4. What This Estate Duty Estimate Tells You
+  5. The Hidden Problem (growth, liquidity)
+  6. A Practical Solution (annual donations R100k/R200k)
+  7. Next Step CTA (→ annual-estate-reduction-strategy)
+  8. Quick links
+  9. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO & TEASER
+--------------------------------------------------------------------------------
+
+  • Hero:       pt-28 pb-12, text-center. Eyebrow "AS Brokers · Estate
+                Planning". Headline "Estate Duty Calculator". Subhead
+                "Understand the cost of dying." Body: calculate duty, executor
+                fees, total cash needed at death (zinc-500).
+  • Teaser:     py-8, border-t border-white/5. Centred flex: "Estate duty
+                payable", "Executor fees", "Total estate costs" (text-sm,
+                zinc-400).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & EDITORIAL
+--------------------------------------------------------------------------------
+
+  • Calculator: EstateDutyCalculator, max-w-4xl. Inputs typically estate
+    value and structure; outputs estate duty, executor fees, total costs
+    (high-level estimate; purpose is awareness, not precision).
+  • What This Tells You: Figure is high-level estimate of potential SARS
+    claim; duty on total value at death (property, investments, policies,
+    etc.) after deductions; 20% first R30m, 25% above; payable in cash
+    before heirs. "This calculator is not designed for precision. Its purpose
+    is awareness."
+  • The Hidden Problem: Growth inside estate increases tax over time;
+    insufficient liquidity forces sales, delays, disruption; duty exposure can
+    be reduced legally and gradually with early, consistent planning.
+  • A Practical Solution: Annual donations allowance R100k per person / R200k
+    per couple per year tax-free; redirect growth outside estate (e.g. trust);
+    "planning signal" not prediction; solution requires structured action.
+
+--------------------------------------------------------------------------------
+6. NEXT STEP & QUICK LINKS
+--------------------------------------------------------------------------------
+
+  • Next Step:  bg-black/20, text-center. "Next Step" – see how annual
+                donations can reduce estate duty; button "Calculate your
+                annual estate reduction strategy (R100k / R200k)" →
+                /annual-estate-reduction-strategy (white, rounded-full).
+  • Quick links: WhatsApp; Income in retirement, Insurance & risk, Estate
+                planning, Business insurance → /solutions.
+
+--------------------------------------------------------------------------------
+7. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: EstateDutyCalculator, Footer, Link.
+  • Background: bg-[#0a0a0c]. Sections border-t border-white/5. CTA
+    bg-black/20. Styling consistent with other calculator pages (zinc
+    hierarchy, white headings).
+
+--------------------------------------------------------------------------------
+8. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Estate Duty & Fees Calculator card).
+  • Out:       /annual-estate-reduction-strategy (primary next step),
+               /solutions, WhatsApp. Forms a clear estate sequence:
+               duty → reduction strategy → contact.

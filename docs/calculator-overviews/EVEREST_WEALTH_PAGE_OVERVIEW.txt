@@ -1,0 +1,140 @@
+================================================================================
+  AS BROKERS – EVEREST WEALTH (PRODUCT HUB) PAGE OVERVIEW
+  https://asbrokers.vercel.app/everest-wealth
+================================================================================
+
+This document describes the Everest Wealth product hub page: purpose,
+structure, components, and how it fits into the AS Brokers site. The page is
+not a single calculator but the central selector for four Everest investment
+options, each with its own calculator or detail page.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /everest-wealth page has four jobs:
+
+  • Orient: Headline "Which Everest Product Fits Your Retirement?" – four
+    options, one question: what does your money need to do? Trust points
+    (Everest FSP 795, fixed returns, not market-linked, zero broker fees).
+  • Guide: "Start here" – two questions: (1) Type of money (voluntary vs
+    compulsory retirement) (2) What you need (monthly income now vs capital
+    growth vs drawdown flexibility). Maps to 12.8% Strategic Income, 14.2%
+    Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity.
+  • Present options: Voluntary capital income (12.8%, 14.2%) in 2-card grid;
+    voluntary growth (14.5%) and compulsory retirement (Amethyst) in second
+    grid. Each card: title, subtitle, description, features, CTA to
+    dedicated calculator/page.
+  • Convert: "Not sure which one fits?" – conversation for full picture;
+    "Let's have that conversation" → /contact. Understanding Everest Wealth
+    block (FSP 795, AS Brokers FSP 17273 intermediary, returns not
+    guaranteed) + link to /everest-wealth/about. Quick links (about, WhatsApp,
+    contact).
+
+Linked from the Calculators hub as "Everest Wealth Product Quote Calculators"
+(Phase 1, featured) and from home/solutions as the Everest product entry.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /everest-wealth
+  • File:    app/(content)/everest-wealth/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Everest Wealth Products | Alternative Private Equity
+        Investments South Africa"
+      - description: "Everest Wealth brokers: 12.8% Strategic Income, 14.2%
+        Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity.
+        Fixed-return alternative private equity investments South Africa.
+        FSP 17273."
+  • FAQSchema: Four FAQs (tax vs interest, minimum R100k, early withdrawal,
+    120-day notice and 15% penalty) for rich results.
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Which Everest Product Fits Your Retirement?)
+  2. Image block (everest-visual.jpg placeholder)
+  3. Start here (two questions: type of money, what you need)
+  4. Voluntary capital income options (12.8% Strategic Income, 14.2% Onyx Income+)
+  5. Compare link (12.8% vs 14.2% side by side)
+  6. Voluntary capital growth + Compulsory retirement (14.5% Growth, Amethyst)
+  7. Not sure / Contact CTA
+  8. Understanding Everest Wealth (disclaimer, about link, trust badges)
+  9. Quick links (about, WhatsApp, contact)
+  10. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO & IMAGE
+--------------------------------------------------------------------------------
+
+  • Hero:       pt-28 pb-12, text-center. Eyebrow "AS Brokers". Headline
+                "Which Everest Product Fits Your Retirement?" Subhead: four
+                options, find right structure then run calculator. Trust
+                points: Everest Wealth FSP 795, Fixed returns, Not market-linked,
+                Zero broker fees (green ✓, flex wrap, zinc-400).
+  • Image:      ImagePlaceholder 16/9, everest-visual.jpg, alt "Everest Wealth
+                fixed-return investment options". border-t, py-8.
+
+--------------------------------------------------------------------------------
+5. START HERE & OPTION CARDS
+--------------------------------------------------------------------------------
+
+  • Start here: "Answer two questions." (1) Type of money: voluntary capital →
+                three income/growth options below; compulsory retirement →
+                Amethyst. (2) What you need: monthly income now → 12.8% or
+                14.2%; growth no income → 14.5%; not sure → Income Goal
+                Calculator or contact. List decimal, zinc-400.
+  • Income options (grid md:grid-cols-2): 12.8% Strategic Income (tag "Most
+    popular") – fixed 12.8% p.a. + 10% loyalty at year 5; CTA "Calculate my
+    12.8% income" → /everest-128-product. 14.2% Onyx Income+ – fixed 14.2%
+    p.a. max income now; CTA "Calculate my 14.2% income" →
+    /immediate-higher-income-calculator. Cards: bg-[#151518], rounded-[2rem],
+    border-white/5, hover:border-white/20.
+  • Compare: Centred link "Compare 12.8% vs 14.2% side by side (use both
+    calculators)" → /everest-128-product (zinc-500, text-sm).
+  • Growth + Amethyst (grid md:grid-cols-2): 14.5% Strategic Growth –
+    compound growth, no monthly income; CTA "Calculate 5-year growth" →
+    /everest-strategic-growth-145. Amethyst Living Annuity – pension/RA
+    money, structured returns, tax-sheltered; CTA "Calculate my annuity
+    income" → /everest-amethyst-living-annuity. Same card styling.
+
+--------------------------------------------------------------------------------
+6. CTA, UNDERSTANDING & QUICK LINKS
+--------------------------------------------------------------------------------
+
+  • CTA:        "Not sure which one fits?" – conversation for full picture;
+                "Let's have that conversation" → /contact (white, rounded-full).
+                "or WhatsApp: 067 242 9946".
+  • Understanding: "Understanding Everest Wealth" – Everest FSP 795, AS
+    Brokers FSP 17273 intermediary, returns based on current terms not
+    guaranteed, unlisted shares limited liquidity; consult adviser. Link "Read
+    a detailed guide: how it works, structure, risks and tax" →
+    /everest-wealth/about. Trust: AS Brokers FSP 17273, FSCA 1.8 Shares,
+    25+ Years, Zero Broker Fees (flex wrap, zinc-500).
+  • Quick links: Understanding Everest Wealth (about), WhatsApp, Contact.
+                Flex wrap, gap-4/6, text-sm.
+
+--------------------------------------------------------------------------------
+7. COMPONENTS & STYLING
+--------------------------------------------------------------------------------
+
+  • Key components: FAQSchema, ImagePlaceholder, Footer, Link.
+  • Background: bg-[#0a0a0c]. Cards rounded-[2rem], bg-[#151518],
+    border-white/5, hover:border-white/20. Blue links for CTAs and about.
+  • No embedded calculator on this page; all calculation happens on child
+    routes.
+
+--------------------------------------------------------------------------------
+8. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /calculators (Everest Wealth Product Quote card),
+               home (Everest Bento, Code 1.8), /solutions (Everest products),
+               chat, regulatory-compliance, insights.
+  • Out:       /everest-128-product, /immediate-higher-income-calculator,
+               /everest-strategic-growth-145, /everest-amethyst-living-annuity
+               (calculators); /everest-wealth/about (detailed guide);
+               /contact, WhatsApp.

@@ -1,0 +1,240 @@
+================================================================================
+  AS BROKERS — CRM & CLIENT PORTAL
+  What it does, features, benefits, how it works
+================================================================================
+
+Last updated: March 2026
+
+--------------------------------------------------------------------------------
+1. WHAT IT IS
+--------------------------------------------------------------------------------
+
+The CRM (Customer Relationship Management) and Client Portal are an authenticated
+extension of the AS Brokers website. They give:
+
+  - **Staff and owners** a single place to manage leads, clients, tasks, and
+    correspondence, with role-based visibility (owner sees everything; staff
+    see only what’s assigned to them).
+
+  - **Clients** a secure place to see their wealth summary, documents, and
+    messages with their advisor, and to upload FICA/documentation.
+
+Currently the system runs on **mock data and mock authentication** (cookie-based
+role/staff selection). It is built so that a real backend (Supabase, RLS, Magic
+Links, HubSpot sync) can replace the mocks without changing the flows or UI.
+
+Entry point: from the main site, click **“CRM & Client Portal”** in the nav, or
+go to **/login**. Choose role (Admin / Staff / Client), then sign in.
+
+--------------------------------------------------------------------------------
+2. WHO USES IT
+--------------------------------------------------------------------------------
+
+  - **Albert (owner / admin)**  
+    Full visibility: all leads, all clients, all tasks, all correspondence.  
+    Can reassign any lead to any advisor (mock dropdown in lead detail).  
+    Uses the same CRM as staff but with no filtering.
+
+  - **Staff (advisors, underwriters, operations)**  
+    Each staff member signs in as themselves (e.g. Johnny Farinha, Petro
+    Vermeulen). They only see:
+    - Leads assigned to them  
+    - Clients assigned to them  
+    - Tasks assigned to them  
+    - Correspondence and notes for those leads/clients  
+
+  - **Clients**  
+    After signing in as “Client”, they see only the **Client Portal**: dashboard,
+    documents, and messages. No access to CRM or other clients’ data.
+
+--------------------------------------------------------------------------------
+3. CRM — FEATURES & BENEFITS
+--------------------------------------------------------------------------------
+
+Dashboard (/crm)
+  - Pipeline counts by stage: New, Contacted, Qualified, Proposal, Won, Lost.
+  - Counts are role-based: owner sees all; staff see only their leads.
+  - Recent leads table with links to lead detail and to Kanban / full Leads list.
+  - Quick link to Kanban view.
+
+Kanban (/crm/kanban)
+  - Pipeline view: columns for each stage (New → Contacted → Qualified →
+    Proposal → Won → Lost).
+  - Drag-and-drop cards between columns (mock only; state resets on refresh).
+  - Each card shows: name, intent, service category, Fit/Eng score, and (for
+    owner) assigned advisor.
+  - Clicking a name opens the lead detail page.
+  - Benefits: visual pipeline, prioritisation, and (when backend is connected)
+    status updates in one place.
+
+Leads list (/crm/leads)
+  - Table of leads with: Name (link to detail), Contact, Service, Intent,
+    Status, Assigned advisor, Fit / Engagement score.
+  - Role-filtered: owner sees all; staff see only assigned.
+  - Service tags align with AS Brokers offerings (Retirement & Everest,
+    Short-Term Personal/Business, Life Personal/Business, Medical & Wellness,
+    Estate & Business, Claims).
+
+Lead detail (/crm/leads/[id])
+  - Full contact info, intent, status, service, Fit/Eng.
+  - **Reassign advisor** (owner only): dropdown to assign another staff member
+    (mock; no persist yet).
+  - **Correspondence**: chronological thread (email, portal, WhatsApp) for that
+    lead. Same thread appears on the client side when the lead is converted.
+  - **Notes**: internal notes by author and date.
+  - **Tasks**: tasks linked to this lead (or to the client once converted).
+  - Benefits: one place for everything about a prospect; clear handover and
+    history for the team.
+
+Clients list (/crm/clients)
+  - Converted clients (signed/onboarded) with portal access.
+  - Columns: Name (link to detail), Contact, Services, Advisor, Converted date.
+  - Role-filtered like leads.
+
+Client detail (/crm/clients/[id])
+  - Contact info, services, assigned advisor, WhatsApp link to advisor.
+  - Same **correspondence**, **notes**, and **tasks** as on the lead side so
+    the relationship is continuous from lead to client.
+  - Benefits: full client view for the advisor; no silos between “lead” and
+    “client” history.
+
+Tasks (/crm/tasks)
+  - List of tasks in two blocks: **To do** and **Completed**.
+  - Each task: title, due date, assignee, and link to related lead or client.
+  - Role-filtered: owner sees all; staff see only tasks assigned to them.
+  - Benefits: follow-ups, FICA requests, and reviews in one place; no tasks
+    lost in email.
+
+Services (data model)
+  - Every lead and client is tagged with one or more **service categories**:
+    Retirement & Everest, Short-Term Personal, Short-Term Business, Life
+    (Personal), Life (Business), Medical & Wellness, Estate & Business, Claims.
+  - Used in lists and Kanban; ready for filtering and intent-based routing
+    when the backend is connected (e.g. commercial liability → Petro, life
+    onboarding → Sharine).
+
+--------------------------------------------------------------------------------
+4. CLIENT PORTAL — FEATURES & BENEFITS
+--------------------------------------------------------------------------------
+
+Wealth dashboard (/portal)
+  - **My Advisor** card: advisor name, role, and one-tap **WhatsApp** and Call.
+  - Portfolio summary: total value and monthly income (projected) from mock
+    holdings.
+  - **Holdings** list: e.g. 12.8% Strategic Income, short-term, life; values,
+    monthly income, maturity where relevant.
+  - **Charts** (Recharts): cumulative income over 60 months (mock); annuity
+    drawdown / capital over time (mock).
+  - Benefits: one screen for “where I stand” and who to contact; aligns with
+    the blueprint’s “unified wealth dashboard”.
+
+Documents (/portal/documents)
+  - List of documents (FICA, quotes) from mock data.
+  - **Upload**: client can choose a file (PDF/image). Upload is simulated:
+    the file is not stored; the UI shows it as “Uploaded (mock)” and notes
+    that real storage will use Supabase + audit trail.
+  - Benefits: single place for client to upload FICA and see what’s on file;
+    when backend is connected, advisor sees the same documents and audit log.
+
+Messages (/portal/messages)
+  - **Unified thread**: all messages (portal, email, WhatsApp) in one
+    chronological list, matching the thread visible in CRM for that client.
+  - **Reply** box: client can type and click “Send (mock)”. Button shows
+    “Sent (mock)”; real sending and persistence will come with the backend.
+  - Benefits: one conversation history for client and advisor; no need to
+    switch between email and WhatsApp to see context.
+
+--------------------------------------------------------------------------------
+5. HOW IT WORKS (CURRENT — MOCK)
+--------------------------------------------------------------------------------
+
+Authentication
+  - **Login** (/login): user chooses role (Admin, Staff, Client) and optionally
+    a name. For Staff, they also choose which team member they are (dropdown of
+    Albert’s team, excluding Albert).
+  - Cookies set: mock-crm-role, mock-crm-user, mock-crm-staff-id (for admin/staff).
+  - **Admin** is always treated as staff id “s1” (Albert). **Staff** use the
+    selected id (e.g. s5 = Johnny). **Client** has no staff id.
+  - **Log out**: Server Action clears cookies and redirects to /login.
+  - No passwords; no Supabase Auth yet. This is for development and demos only.
+
+Authorization (visibility)
+  - **CRM**: If role is admin, all leads/clients/tasks are shown. If role is
+    staff, only records where assigned_advisor_id (or assignedToId for tasks)
+    matches the current user’s staff id are shown.
+  - **Portal**: Only role === client can access /portal; otherwise redirect to
+    /crm.
+  - **Lead/Client detail**: If the user is staff, they can only open a lead or
+    client that is assigned to them; otherwise 404.
+
+Data (mock)
+  - **lib/mock-crm.ts**: MOCK_LEADS, MOCK_CLIENTS, MOCK_STAFF, MOCK_CORRESPONDENCE,
+    MOCK_TASKS, MOCK_NOTES. Service categories and labels. Helpers:
+    getLeadsForAdvisor, getClientsForAdvisor, getCorrespondenceForLead/ForClient,
+    getNotesForLead, getTasksForLead/ForClient/ForAdvisor, getCrmStats(advisorId?).
+  - **lib/mock-portal.ts**: MOCK_HOLDINGS, MOCK_DOCUMENTS, MOCK_MESSAGES;
+    getPortalAdvisor(), getPortfolioSummary(), chart data for Recharts.
+  - **lib/mock-auth.ts**: getMockSession(), setMockSession(), clearMockSession(),
+    canAccessCrm(), canAccessPortal(); cookie names and max age.
+
+Navigation
+  - **Main site**: On /crm, /portal, or /login the main Nav shows a reduced bar
+    (logo, “Back to site”, and “Switch account” to /login when not on /login).
+  - **CRM**: Sidebar (desktop) and top links (mobile): Dashboard, Kanban, Leads,
+    Clients, Tasks; user/role and Log out; “Back to site” to /.
+  - **Portal**: Top nav: Dashboard, Documents, Messages; user name; Log out;
+    “Site” to /.
+
+--------------------------------------------------------------------------------
+6. HOW IT WILL WORK (BACKEND PLANNED)
+--------------------------------------------------------------------------------
+
+  - **Auth**: Supabase Auth with Magic Links for clients; email/password or
+    SSO for staff/admin. profiles table with role (admin, staff, client) and
+    optional staff_id. RLS so clients only see their own rows.
+  - **Data**: Supabase (or existing PostgreSQL) tables: leads, clients,
+    correspondence, tasks, notes, documents (metadata + Supabase Storage for
+    files). RLS: admin sees all; staff see where assigned_advisor_id = auth;
+    client see where client_id = auth.
+  - **HubSpot**: Bi-directional sync so lead/contact updates in the CRM update
+    HubSpot and vice versa; lead scoring (Fit/Engagement) can drive routing.
+  - **Documents**: Supabase Storage bucket with RLS; audit log for upload/view
+    for FAIS/POPIA.
+  - **Quoting**: Server Actions (or Trigger.dev jobs) for Everest/Amethyst
+    quotes and PDF generation; link quotes to leads/clients.
+
+--------------------------------------------------------------------------------
+7. ROUTES SUMMARY
+--------------------------------------------------------------------------------
+
+  /login                 Mock login (role + staff picker); redirects to /crm or /portal
+  /crm                   CRM dashboard (role-filtered stats + recent leads)
+  /crm/kanban            Pipeline Kanban (drag-drop; role-filtered)
+  /crm/leads             Leads table (role-filtered)
+  /crm/leads/[id]        Lead detail (correspondence, notes, tasks, reassign)
+  /crm/clients           Clients table (role-filtered)
+  /crm/clients/[id]      Client detail (correspondence, notes, tasks)
+  /crm/tasks             Tasks list (to do + completed; role-filtered)
+
+  /portal                Client portal dashboard (holdings, charts, My Advisor)
+  /portal/documents       Document list + upload (mock)
+  /portal/messages       Unified thread + reply (mock)
+
+--------------------------------------------------------------------------------
+8. FILES (KEY)
+--------------------------------------------------------------------------------
+
+  app/login/             Login page, form, actions, logout
+  app/crm/               Layout (sidebar + role check), dashboard, kanban, leads, clients, tasks
+  app/crm/leads/[id]/    Lead detail page
+  app/crm/clients/[id]/  Client detail page
+  app/portal/            Layout (nav + role check), dashboard, documents, messages
+  components/crm/        CrmSidebar, LeadsKanban
+  components/portal/     PortalNav, PortalDashboardCharts, PortalMyAdvisor, DocumentUpload, MessageReply
+  lib/mock-auth.ts       Session (role, name, staffId); cookies
+  lib/mock-crm.ts        Leads, clients, staff, correspondence, tasks, notes; helpers
+  lib/mock-portal.ts     Holdings, documents, messages, advisor, chart data
+
+--------------------------------------------------------------------------------
+END OF CRM & PORTAL DOCUMENTATION
+================================================================================

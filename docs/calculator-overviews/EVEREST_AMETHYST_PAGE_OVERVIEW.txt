@@ -1,0 +1,101 @@
+================================================================================
+  AS BROKERS – AMETHYST LIVING ANNUITY CALCULATOR PAGE OVERVIEW
+  https://asbrokers.vercel.app/everest-amethyst-living-annuity
+================================================================================
+
+This document describes the Amethyst Living Annuity calculator page: purpose,
+structure, components, and how it fits into the AS Brokers site. The page
+hosts the AmethystAnnuityCalculator for pension, provident, preservation,
+and RA funds with structured returns and drawdown 2.5%–17.5%.
+
+--------------------------------------------------------------------------------
+1. PURPOSE & USER JOURNEY
+--------------------------------------------------------------------------------
+
+The /everest-amethyst-living-annuity page has three jobs:
+
+  • Headline: "Amethyst Living Annuity Calculator" – structured returns,
+    tax-sheltered growth; for pension, provident, preservation, or RA funds.
+  • AmethystAnnuityCalculator: User inputs (e.g. fund value, drawdown rate,
+    age); output illustrates income and capital trajectory (fixed net return
+    ~10.2% p.a., 9% capital bonus after 5 years; tax on drawdown per SARS
+    2026/27).
+  • Editorial: "Understanding the Results" (how Amethyst behaves, 10.2% net,
+    no market link, 9% bonus, tax on drawdown); "Who Typically Considers"
+    (retirees wanting predictable income, certainty over volatility, simplicity).
+    CTA "Request a formal quotation or discuss transfer" → /contact. Footer
+    strip: WhatsApp, Investment options, Contact. FAQSchema for SEO (Regulation
+    28, drawdown rates, tax).
+
+Linked from /everest-wealth (Compulsory retirement money) and /retirement
+(Amethyst Living Annuity calculator). Core retirement product in the HNWI funnel.
+
+--------------------------------------------------------------------------------
+2. URL, ROUTING & METADATA
+--------------------------------------------------------------------------------
+
+  • Route:   /everest-amethyst-living-annuity
+  • File:    app/(content)/everest-amethyst-living-annuity/page.tsx
+  • Layout:  Shared (content) layout.
+  • Metadata:
+      - title: "Amethyst Living Annuity | Fixed 10.2% Retirement Income | AS Brokers CC"
+      - description: "Amethyst Living Annuity for pension, provident,
+        preservation and RA funds. Drawdown 2.5%–17.5%. Non-Regulation 28.
+        Tax-sheltered growth. SARS 2026/27 estimate for 65+."
+  • FAQSchema: Three FAQs – Regulation 28, drawdown rates, how tax is applied.
+
+--------------------------------------------------------------------------------
+3. PAGE STRUCTURE (TOP TO BOTTOM)
+--------------------------------------------------------------------------------
+
+  1. Hero (Amethyst Living Annuity Calculator)
+  2. Calculator – AmethystAnnuityCalculator
+  3. Understanding the Results + Who Typically Considers + CTA (→ /contact)
+  4. Footer strip (WhatsApp, Investment options, Contact)
+  5. Footer (shared)
+
+--------------------------------------------------------------------------------
+4. HERO SECTION
+--------------------------------------------------------------------------------
+
+  • Placement:  pt-28 pb-12, px-4 sm:px-6 md:px-8. max-w-4xl mx-auto,
+                text-center.
+  • Eyebrow:    "AS Brokers" (zinc-500, uppercase).
+  • Headline:   "Amethyst Living Annuity Calculator" (text-4xl–5xl, white,
+                bold).
+  • Subhead:    "Structured returns, tax-sheltered growth. For pension,
+    provident, preservation, or RA funds." (xl, zinc-400).
+
+--------------------------------------------------------------------------------
+5. CALCULATOR & EDITORIAL
+--------------------------------------------------------------------------------
+
+  • Calculator: AmethystAnnuityCalculator, max-w-4xl. Inputs typically fund
+    value, drawdown rate (2.5%–17.5%), age; outputs income and capital
+    (10.2% net return, 9% bonus at 5 years; tax on drawdown per SARS 2026/27).
+  • Understanding the Results: Figures illustrate Amethyst behaviour; 10.2%
+    net per year, not market-linked; if drawdown below return, capital
+    preserved; 9% bonus after five years; income after estimated tax (Budget
+    2026).
+  • Who Typically Considers: Retirees/pre-retirees who want predictable
+    stable income, certainty over volatility, no ongoing fund switching,
+    simplicity and transparency. Bullet list (list-disc).
+  • CTA: "Request a formal quotation or discuss transfer" → /contact (white,
+    rounded-full).
+
+--------------------------------------------------------------------------------
+6. FOOTER STRIP & COMPONENTS
+--------------------------------------------------------------------------------
+
+  • Footer strip: WhatsApp 067 242 9946, "Investment options" →
+    /everest-wealth, "Contact" → /contact. Flex wrap, gap-6, text-sm.
+  • Key components: AmethystAnnuityCalculator, FAQSchema, Footer, Link.
+  • Background: bg-[#0a0a0c]. Sections border-t border-white/5.
+
+--------------------------------------------------------------------------------
+7. RELATION TO OTHER PAGES
+--------------------------------------------------------------------------------
+
+  • In:        Linked from /everest-wealth (Amethyst card), /retirement
+               (Amethyst Living Annuity calculator), /insights/semigration-retirement.
+  • Out:       /contact (quotation/transfer), /everest-wealth, WhatsApp.

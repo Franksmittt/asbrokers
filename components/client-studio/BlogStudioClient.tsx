@@ -12,7 +12,10 @@ import {
   unpublishStudioPost,
   uploadStudioImage,
 } from "@/app/studio/blog/actions";
-import { BLOG_BRAND_GUIDE_TEXT } from "@/lib/client-studio/brand-guide-content";
+import {
+  BLOG_BRAND_GUIDE_TEXT,
+  INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT,
+} from "@/lib/client-studio/brand-guide-content";
 import { StudioNotebookModal } from "@/components/client-studio/StudioNotebookModal";
 import {
   CALCULATOR_CODE_SNIPPETS,
@@ -151,6 +154,7 @@ export function BlogStudioClient({
   const [bodyHtml, setBodyHtml] = useState(initialPosts[0]?.bodyHtml ?? "");
   const [banner, setBanner] = useState<string | null>(null);
   const [showBrandGuide, setShowBrandGuide] = useState(false);
+  const [showOwnerChecklist, setShowOwnerChecklist] = useState(false);
   const [showCalculatorLibrary, setShowCalculatorLibrary] = useState(false);
   const [showNotebook, setShowNotebook] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
@@ -313,7 +317,7 @@ export function BlogStudioClient({
     setCalculatorName("");
     setCalculatorCode("");
     setBodyHtml(
-      '<section class="space-y-4">\n  <p class="text-zinc-300">Paste your HTML here. Tap “Copy brand guide for AI” first, then use your AI tool.</p>\n</section>\n'
+      '<section class="space-y-4">\n  <p class="text-zinc-300">Paste your HTML here. For ChatGPT or Claude: tap “Copy brand guide (AI)” first. For your own checklist: tap “Copy my steps”.</p>\n</section>\n'
     );
     setSlugTouched(false);
     setBanner(null);
@@ -470,7 +474,16 @@ export function BlogStudioClient({
       await navigator.clipboard.writeText(BLOG_BRAND_GUIDE_TEXT);
       setBanner("Brand guide copied  -  open your AI, paste it, then say what the article should be about.");
     } catch {
-      setBanner("Clipboard blocked  -  open “View brand guide” and copy the text by hand.");
+      setBanner("Clipboard blocked  -  open “Read brand guide” and copy the text by hand.");
+    }
+  }
+
+  async function copyOwnerChecklist() {
+    try {
+      await navigator.clipboard.writeText(INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT);
+      setBanner("Your simple steps copied  -  keep them handy or print them.");
+    } catch {
+      setBanner("Clipboard blocked  -  open “Read my steps” and copy by hand.");
     }
   }
 
@@ -654,8 +667,9 @@ export function BlogStudioClient({
               </p>
               <ol className="max-w-3xl list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-zinc-300">
                 <li>
-                  Tap <strong className="text-zinc-200">Copy brand guide for AI</strong>, paste into ChatGPT / Claude /
-                  Gemini, then ask for <strong className="text-zinc-200">HTML only</strong> (not a full web page).
+                  For the AI: tap <strong className="text-zinc-200">Copy brand guide</strong>, paste into ChatGPT /
+                  Claude / Gemini first, then describe your article. For yourself: tap{" "}
+                  <strong className="text-zinc-200">Copy my steps</strong> once and save or print the short checklist.
                 </li>
                 <li>
                   Paste the HTML into the <strong className="text-zinc-200">HTML</strong> box. The preview updates as
@@ -717,7 +731,17 @@ export function BlogStudioClient({
             }}
             className="shrink-0 rounded-full bg-teal-600/90 px-3 py-2 text-xs font-semibold text-white hover:bg-teal-500 sm:px-4 sm:text-sm"
           >
-            Copy brand guide
+            Copy brand guide (AI)
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              void copyOwnerChecklist();
+            }}
+            title="Short numbered steps for you — paste, clean, pictures, publish"
+            className="shrink-0 rounded-full bg-amber-600/90 px-3 py-2 text-xs font-semibold text-white hover:bg-amber-500 sm:px-4 sm:text-sm"
+          >
+            Copy my steps
           </button>
           <button
             type="button"
@@ -725,6 +749,13 @@ export function BlogStudioClient({
             className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs text-zinc-200 hover:border-white/25 hover:bg-white/10 sm:px-4 sm:text-sm"
           >
             Read brand guide
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowOwnerChecklist(true)}
+            className="shrink-0 rounded-full border border-amber-500/40 bg-amber-950/40 px-3 py-2 text-xs font-medium text-amber-100 hover:bg-amber-950/60 sm:px-4 sm:text-sm"
+          >
+            Read my steps
           </button>
           <button
             type="button"
@@ -966,10 +997,24 @@ export function BlogStudioClient({
               </button>
               <button
                 type="button"
+                onClick={() => void copyOwnerChecklist()}
+                className="rounded-lg border border-amber-500/35 bg-amber-950/35 px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-amber-200 hover:bg-amber-950/50"
+              >
+                Copy my steps
+              </button>
+              <button
+                type="button"
                 onClick={() => setShowBrandGuide(true)}
                 className="rounded-lg border border-white/10 px-2 py-1.5 text-[10px] font-medium text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
               >
                 Read guide
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowOwnerChecklist(true)}
+                className="rounded-lg border border-amber-500/25 px-2 py-1.5 text-[10px] font-medium text-amber-300/90 hover:bg-amber-950/30"
+              >
+                Read my steps
               </button>
               <button
                 type="button"
@@ -1369,10 +1414,10 @@ export function BlogStudioClient({
           aria-labelledby="brand-guide-title"
         >
           <div className="flex min-h-full items-start justify-center p-4 py-8 sm:items-center sm:py-10">
-            <div className="my-auto flex w-full max-w-2xl min-w-0 max-h-[min(88dvh,840px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#121214] shadow-2xl">
+            <div className="my-auto flex w-full max-w-3xl min-w-0 max-h-[min(88dvh,900px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#121214] shadow-2xl">
               <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
                 <h2 id="brand-guide-title" className="min-w-0 truncate text-sm font-semibold text-white">
-                  Brand guide for AI
+                  Brand guide for AI (ChatGPT / Claude / Gemini)
                 </h2>
                 <button
                   type="button"
@@ -1388,7 +1433,7 @@ export function BlogStudioClient({
                 <strong className="text-zinc-300">HTML only</strong>  -  a fragment, not a full page with{" "}
                 <code className="text-zinc-400">&lt;html&gt;</code>.
               </p>
-              <pre className="max-h-[min(52dvh,520px)] min-h-0 overflow-y-auto overscroll-y-contain border-t border-white/5 px-4 py-3 font-mono text-xs leading-relaxed text-zinc-300 whitespace-pre-wrap">
+              <pre className="max-h-[min(56dvh,560px)] min-h-0 overflow-y-auto overscroll-y-contain border-t border-white/5 px-4 py-3 font-mono text-[11px] sm:text-xs leading-relaxed text-zinc-300 whitespace-pre-wrap">
                 {BLOG_BRAND_GUIDE_TEXT}
               </pre>
               <div className="flex shrink-0 flex-col gap-2 border-t border-white/10 p-4 sm:flex-row">
@@ -1402,6 +1447,57 @@ export function BlogStudioClient({
                 <button
                   type="button"
                   onClick={() => setShowBrandGuide(false)}
+                  className="rounded-xl border border-white/15 px-4 py-3 text-sm text-zinc-300 hover:bg-white/5"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showOwnerChecklist && (
+        <div
+          className="fixed inset-0 z-[60] overflow-y-auto overflow-x-hidden bg-black/75 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="owner-checklist-title"
+        >
+          <div className="flex min-h-full items-start justify-center p-4 py-8 sm:items-center sm:py-10">
+            <div className="my-auto flex w-full max-w-lg min-w-0 max-h-[min(88dvh,820px)] min-h-0 flex-col overflow-hidden rounded-2xl border border-amber-500/25 bg-[#121214] shadow-2xl">
+              <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-4 py-3">
+                <h2 id="owner-checklist-title" className="min-w-0 text-base font-semibold text-white">
+                  Your simple steps
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setShowOwnerChecklist(false)}
+                  className="shrink-0 rounded-lg px-2 py-1 text-lg leading-none text-zinc-400 hover:bg-white/10 hover:text-white"
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+              </div>
+              <p className="shrink-0 border-b border-amber-500/15 bg-amber-950/20 px-4 py-3 text-sm leading-relaxed text-amber-100/95">
+                Large type below — follow these in order. You do not need to fix page width yourself; the site handles
+                it. Use <strong className="text-white">Copy brand guide (AI)</strong> only when talking to ChatGPT or
+                Claude.
+              </p>
+              <pre className="max-h-[min(52dvh,480px)] min-h-0 overflow-y-auto overscroll-y-contain px-4 py-4 font-sans text-sm leading-relaxed text-zinc-200 whitespace-pre-wrap">
+                {INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT}
+              </pre>
+              <div className="flex shrink-0 flex-col gap-2 border-t border-white/10 p-4 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() => void copyOwnerChecklist()}
+                  className="flex-1 rounded-xl bg-amber-600 py-3 text-sm font-semibold text-white hover:bg-amber-500"
+                >
+                  Copy to clipboard
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowOwnerChecklist(false)}
                   className="rounded-xl border border-white/15 px-4 py-3 text-sm text-zinc-300 hover:bg-white/5"
                 >
                   Close

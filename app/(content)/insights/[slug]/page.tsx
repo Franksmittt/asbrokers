@@ -84,8 +84,8 @@ export default async function ArticlePage({ params, searchParams }: Props) {
 
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <article className="pt-28 pb-16 px-4 sm:px-6 md:px-8">
-        <div className="max-w-3xl mx-auto">
+      <article className="pt-28 pb-16 px-4 sm:px-6 lg:px-10">
+        <div className="mx-auto w-full max-w-6xl xl:max-w-7xl">
           <time className="text-xs text-zinc-500 uppercase tracking-wider" dateTime={article.publishedAt}>
             {formatDate(article.publishedAt)}
           </time>
@@ -93,7 +93,7 @@ export default async function ArticlePage({ params, searchParams }: Props) {
             {article.title}
           </h1>
           {article.excerpt && (
-            <p className="mt-4 text-lg text-zinc-400 leading-relaxed">{article.excerpt}</p>
+            <p className="mt-4 text-lg text-zinc-400 leading-relaxed max-w-4xl">{article.excerpt}</p>
           )}
           <div className="mt-8 prose prose-invert max-w-none">
             <ArticlePortableText value={article.body as import("@portabletext/types").PortableTextBlock[]} />

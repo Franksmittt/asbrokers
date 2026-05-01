@@ -42,12 +42,17 @@ function verifyToken(token: string, secret: string): boolean {
 }
 
 export async function getClientStudioSession(): Promise<boolean> {
-  const secret = getSigningSecret();
-  if (!secret) return false;
-  const c = await cookies();
-  const raw = c.get(COOKIE_NAME)?.value;
-  if (!raw) return false;
-  return verifyToken(raw, secret);
+  try {
+    const secret = getSigningSecret();
+    if (!secret) return false;
+    const c = await cookies();
+    const raw = c.get(COOKIE_NAME)?.value;
+    if (!raw) return false;
+    return verifyToken(raw, secret);
+  } catch (e) {
+    console.error("[client-studio] getClientStudioSession failed:", e);
+    return false;
+  }
 }
 
 export async function setClientStudioSessionToken(): Promise<void> {

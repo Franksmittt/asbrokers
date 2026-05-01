@@ -5,6 +5,9 @@ import { isClientStudioConfigured } from "@/lib/client-studio/session";
 import { getDb } from "@/lib/db";
 import { getSupabaseService } from "@/lib/supabase/server";
 
+/** Session + DB reads; never cache a logged-in HTML workspace as static. */
+export const dynamic = "force-dynamic";
+
 function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>): SerializableStudioPost[] {
   return rows.map((r) => ({
     id: r.id,
@@ -28,7 +31,12 @@ function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>): Serial
 export default async function StudioWorkspacePage() {
   const studioConfigured = isClientStudioConfigured();
   const databaseConfigured = Boolean(getDb());
-  const imageUploadConfigured = Boolean(getSupabaseService());
+  let imageUploadConfigured = false;
+  try {
+    imageUploadConfigured = Boolean(getSupabaseService());
+  } catch (e) {
+    console.error("[studio workspace] Supabase service client init failed:", e);
+  }
   const rows = databaseConfigured ? await listAllStudioPosts() : [];
   const initialPosts = serialize(rows);
   const initialNotebookNotes = databaseConfigured ? await fetchNotebookNotesInitial() : [];

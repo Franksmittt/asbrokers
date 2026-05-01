@@ -13,13 +13,23 @@ export type StudioPostRow = typeof clientInsightPosts.$inferSelect;
 export async function listAllStudioPosts(): Promise<StudioPostRow[]> {
   const db = getDb();
   if (!db) return [];
-  return listAllClientInsightPosts(db);
+  try {
+    return await listAllClientInsightPosts(db);
+  } catch (e) {
+    console.error("[studio posts] listAllStudioPosts failed:", e);
+    return [];
+  }
 }
 
 export async function getStudioPostById(id: string): Promise<StudioPostRow | null> {
   const db = getDb();
   if (!db) return null;
-  return getClientInsightPostById(db, id);
+  try {
+    return await getClientInsightPostById(db, id);
+  } catch (e) {
+    console.error("[studio posts] getStudioPostById failed:", e);
+    return null;
+  }
 }
 
 export async function getPublishedStudioPostBySlug(
@@ -28,5 +38,10 @@ export async function getPublishedStudioPostBySlug(
 ): Promise<StudioPostRow | null> {
   const db = getDb();
   if (!db) return null;
-  return getPublishedClientInsightPostBySlug(db, slug, locale);
+  try {
+    return await getPublishedClientInsightPostBySlug(db, slug, locale);
+  } catch (e) {
+    console.error("[studio posts] getPublishedStudioPostBySlug failed:", e);
+    return null;
+  }
 }

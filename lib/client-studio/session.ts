@@ -50,7 +50,10 @@ export async function getClientStudioSession(): Promise<boolean> {
     if (!raw) return false;
     return verifyToken(raw, secret);
   } catch (e) {
-    console.error("[client-studio] getClientStudioSession failed:", e);
+    const msg = e instanceof Error ? e.message : String(e);
+    if (!msg.includes("Dynamic server usage")) {
+      console.error("[client-studio] getClientStudioSession failed:", e);
+    }
     return false;
   }
 }

@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 
 import { getClientStudioSession } from "@/lib/client-studio/session";
 
+export const dynamic = "force-dynamic";
+
 export default async function StudioBlogRootPage() {
   if (await getClientStudioSession()) {
     redirect("/studio/blog/workspace");

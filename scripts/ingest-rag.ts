@@ -1,6 +1,6 @@
 /**
  * One-off script to chunk documents and populate resources + embeddings for RAG.
- * Run from project root. Loads .env.local for DATABASE_URL and OPENAI_API_KEY.
+ * Run from project root. Loads .env.local for DATABASE_URL and GOOGLE_GENERATIVE_AI_API_KEY.
  *
  * Usage:
  *   npx tsx scripts/ingest-rag.ts [directory]
@@ -15,11 +15,12 @@ config({ path: ".env.local" });
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { embed } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { getDb } from "../lib/db";
 import { embeddings, resources } from "../lib/db/schema";
 
-const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_MODEL = "gemini-embedding-001";
+const EMBEDDING_DIMENSIONS = 1536;
 const CHUNK_SIZE = 600;
 const CHUNK_OVERLAP = 80;
 
@@ -48,7 +49,12 @@ function chunkText(text: string): string[] {
 async function embedText(text: string): Promise<number[] | null> {
   try {
     const { embedding } = await embed({
-      model: openai.embedding(EMBEDDING_MODEL),
+      model: google.textEmbeddingModel(EMBEDDING_MODEL),
+      providerOptions: {
+        google: {
+          outputDimensionality: EMBEDDING_DIMENSIONS,
+        },
+      },
       value: text,
     });
     return Array.isArray(embedding) ? embedding : null;
@@ -67,8 +73,8 @@ async function main() {
     process.exit(1);
   }
 
-  if (!process.env.OPENAI_API_KEY) {
-    console.error("OPENAI_API_KEY is not set. Add it to .env.local and try again.");
+  if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+    console.error("GOOGLE_GENERATIVE_AI_API_KEY is not set. Add it to .env.local and try again.");
     process.exit(1);
   }
 

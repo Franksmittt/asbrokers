@@ -1,20 +1,26 @@
 import { embed } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { eq, sql } from "drizzle-orm";
 import { getDb } from "./index";
 import { embeddings, resources } from "./schema";
 
-const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_MODEL = "gemini-embedding-001";
+const EMBEDDING_DIMENSIONS = 1536;
 const DEFAULT_LIMIT = 5;
 
 /**
- * Embed a query string using OpenAI text-embedding-3-small.
- * Returns null on failure (e.g. missing OPENAI_API_KEY).
+ * Embed a query string using Gemini embeddings.
+ * Returns null on failure (e.g. missing GOOGLE_GENERATIVE_AI_API_KEY).
  */
 async function embedQuery(query: string): Promise<number[] | null> {
   try {
     const { embedding } = await embed({
-      model: openai.embedding(EMBEDDING_MODEL),
+      model: google.textEmbeddingModel(EMBEDDING_MODEL),
+      providerOptions: {
+        google: {
+          outputDimensionality: EMBEDDING_DIMENSIONS,
+        },
+      },
       value: query.replaceAll(/\s+/g, " ").trim(),
     });
     return Array.isArray(embedding) ? embedding : null;

@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
-import { ConsentProvider } from "@/components/analytics/ConsentProvider";
 import { AppShell } from "@/components/AppShell";
 import { GlobalSchema } from "@/components/seo/GlobalSchema";
-import { MotionConfigProvider } from "@/components/MotionConfigProvider";
+import { Providers } from "@/components/Providers";
 import { getSiteOrigin } from "@/lib/site-url";
 
 const inter = Inter({
@@ -51,14 +49,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} font-sans antialiased bg-void text-white selection:bg-samsung-blue selection:text-white min-h-screen`}>
-        <NuqsAdapter>
-          <ConsentProvider>
-            <MotionConfigProvider>
-              <GlobalSchema />
-              <AppShell>{children}</AppShell>
-            </MotionConfigProvider>
-          </ConsentProvider>
-        </NuqsAdapter>
+        <Providers>
+          <GlobalSchema />
+          <AppShell>{children}</AppShell>
+        </Providers>
       </body>
     </html>
   );

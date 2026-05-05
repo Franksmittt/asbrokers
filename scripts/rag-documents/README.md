@@ -17,4 +17,4 @@ Or with a custom folder:
 npx tsx scripts/ingest-rag.ts path/to/your/documents
 ```
 
-Requires `DATABASE_URL` and `OPENAI_API_KEY` in `.env.local`.
+Requires `DATABASE_URL` and `GOOGLE_GENERATIVE_AI_API_KEY` in `.env.local`.

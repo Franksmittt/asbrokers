@@ -1,5 +1,5 @@
 import { convertToModelMessages, streamText, tool } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { getRagContext } from "@/lib/db/rag";
 import {
   calculateEstateDuty,
@@ -47,6 +47,13 @@ function getLatestUserMessageText(messages: unknown[]): string | null {
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+      return new Response(
+        JSON.stringify({ error: "GOOGLE_GENERATIVE_AI_API_KEY is not configured." }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     const body = await req.json();
     const messages = body.messages ?? [];
 
@@ -58,7 +65,7 @@ export async function POST(req: Request) {
     const systemPrompt = BASELINE_SYSTEM_PROMPT + retrievedBlock;
 
     const result = streamText({
-      model: openai("gpt-4o-mini"),
+      model: google("gemini-2.0-flash"),
       system: systemPrompt,
       messages: await convertToModelMessages(messages),
       tools: {
@@ -95,7 +102,15 @@ export async function POST(req: Request) {
       },
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse({
+      onError: (error) => {
+        const message = error instanceof Error ? error.message : String(error);
+        if (message.includes("quota") || message.includes("RESOURCE_EXHAUSTED") || message.includes("429")) {
+          return "Gemini API quota exceeded for this key. Please enable billing or use a key with available quota.";
+        }
+        return "Chat is temporarily unavailable. Please try again.";
+      },
+    });
   } catch (err) {
     console.error("[chat]", err);
     return new Response(

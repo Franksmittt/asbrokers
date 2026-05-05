@@ -28,6 +28,7 @@ export function sanitizeInsightBody(html: string): string {
       "colgroup",
       "col",
       "iframe",
+      "script",
     ]),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
@@ -48,10 +49,11 @@ export function sanitizeInsightBody(html: string): string {
         "referrerpolicy",
         "frameborder",
       ],
+      script: ["src", "type", "async", "defer", "crossorigin", "integrity", "referrerpolicy", "id", "class"],
     },
     allowedSchemes: ["http", "https", "mailto", "tel"],
     allowProtocolRelative: false,
-    allowVulnerableTags: false,
+    allowVulnerableTags: true,
     allowedIframeHostnames: ["www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"],
   });
 }

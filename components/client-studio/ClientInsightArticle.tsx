@@ -1,4 +1,5 @@
 import { Footer } from "@/components/Footer";
+import { ExecutableArticleHtml } from "@/components/client-studio/ExecutableArticleHtml";
 import type { StudioPostRow } from "@/lib/client-studio/posts";
 
 function formatDate(iso: string) {
@@ -29,9 +30,9 @@ export function ClientInsightArticle({ post }: Props) {
           {post.excerpt && <p className="mt-4 text-lg text-zinc-400 leading-relaxed max-w-4xl">{post.excerpt}</p>}
           {/* CMS fragments often ship max-w-3xl on <section>; widen so desktop is not “triple column” skinny */}
           <div className="mt-8 max-w-full overflow-x-auto [&_a]:break-words [&_img]:max-h-none [&_img]:max-w-full [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_.max-w-3xl]:!max-w-none [&_section]:!max-w-none">
-            <div
+            <ExecutableArticleHtml
               className="prose prose-invert max-w-none prose-headings:text-white prose-p:text-zinc-300 prose-a:text-teal-400"
-              dangerouslySetInnerHTML={{ __html: html }}
+              html={html}
             />
           </div>
         </div>

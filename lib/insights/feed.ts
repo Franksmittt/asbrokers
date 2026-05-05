@@ -12,6 +12,8 @@ export type InsightFeedItem = {
   locale: string;
   publishedAt: string;
   excerpt: string | null;
+  author: string;
+  thumbnailUrl: string | null;
   source: "sanity" | "studio";
 };
 
@@ -27,6 +29,15 @@ type SanityStub = {
 function toIso(d: string | Date): string {
   if (typeof d === "string") return d;
   return d.toISOString();
+}
+
+function firstImageSrcFromHtml(html: string | null | undefined): string | null {
+  if (!html) return null;
+  const match = html.match(/<img[\s\S]*?\ssrc=["']([^"']+)["'][\s\S]*?>/i);
+  const src = match?.[1]?.trim();
+  if (!src) return null;
+  if (src.startsWith("javascript:")) return null;
+  return src;
 }
 
 /**
@@ -45,6 +56,8 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
     locale: a.locale,
     publishedAt: toIso(a.publishedAt),
     excerpt: a.excerpt,
+    author: "AS Brokers",
+    thumbnailUrl: null,
     source: "sanity",
   }));
 
@@ -66,6 +79,8 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
         locale: r.locale,
         publishedAt: r.publishedAt!.toISOString(),
         excerpt: r.excerpt,
+        author: "AS Brokers",
+        thumbnailUrl: firstImageSrcFromHtml(r.bodyHtmlPublished),
         source: "studio" as const,
       }));
   } catch (err) {

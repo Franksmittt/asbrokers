@@ -1594,7 +1594,7 @@ export function BlogStudioClient({
               </div>
               <div className="shrink-0 border-b border-white/5 px-4 py-2">
                 <p className="text-xs leading-relaxed text-zinc-500">
-                  Share these snippets with AI so generated blog posts follow your calculator logic.
+                  Share these snippets with AI and tell it to paste them exactly as-is (including script) so calculators stay interactive on the live article.
                 </p>
               </div>
               <div className="min-h-0 flex-1 overflow-y-auto space-y-3 px-4 py-3">

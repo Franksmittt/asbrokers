@@ -29,7 +29,9 @@ export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for
 - Accent / links: teal (#14b8a6). You may use Tailwind-style classes (e.g. text-teal-400) or inline styles where needed.
 - Prefer clear structure: short paragraphs, H2/H3 sections, lists where helpful.
 - Use semantic HTML: <section>, <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a href="...">.
-- Never use <script>, never use onclick/onload or other inline JS. For video, use a normal YouTube iframe embed only if needed (public embed URL).
+- For normal article sections, do not use onclick/onload or random inline JS.
+- Calculator exception: if the user asks to include a calculator, include ONE full calculator embed snippet exactly as provided by the “Calculator code library”, including its <script>. Do not rewrite or "improve" that script.
+- Do not mix or merge calculator scripts. Keep IDs and structure exactly as supplied by the snippet.
 
 ## Images — Insights studio upload
 - For every image position, set img src to exactly: YOUR_IMAGE_URL_HERE until the owner uploads files in the studio.
@@ -37,6 +39,11 @@ export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for
 - Multiple images: repeat YOUR_IMAGE_URL_HERE for each image. The owner uploads photos in order from the top of the article downward (first file replaces the first placeholder).
 - Other tokens the studio accepts (prefer the long form): {{IMAGE_URL}}, REPLACE_WITH_IMAGE_URL, YOUR_IMAGE_URL.
 - Do not invent fake image URLs (example.com, picsum, stock URLs). Real URLs are inserted automatically after upload.
+
+## Calculator handling (critical)
+- If a calculator is requested, insert the full embed snippet in the article body exactly once.
+- Keep the calculator HTML and script unchanged so input fields stay interactive on the live site.
+- Do not convert calculator code into pseudo-code or logic-only functions. It must be ready-to-render HTML + script.
 
 ## Compliance
 - End with a short disclaimer (aside or small paragraph): general information only, not personal advice; consult a licensed financial adviser. Mention FSP 17273 where appropriate.
@@ -68,6 +75,7 @@ WHEN THE AI GIVES YOU HTML
 4) Copy all of the HTML the AI produced.
 5) Open this studio → HTML panel → paste into the big box.
 6) If you see strange lines with three backticks (\`\`\`) or leftover “paste this” notes, click “Clean pasted HTML” once.
+6b) If your article includes a calculator, confirm the pasted HTML still contains both calculator <div ...> and <script>...</script>.
 
 PICTURES
 7) Your HTML should contain YOUR_IMAGE_URL_HERE wherever a photo belongs.

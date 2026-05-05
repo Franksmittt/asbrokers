@@ -45,29 +45,36 @@ export default async function InsightsPage() {
       </section>
 
       <section className={`${PAGE_CONTENT_MAX} pb-24`}>
-        <div className="max-w-4xl mx-auto">
+        <div className="mx-auto max-w-7xl">
         {articles.length > 0 ? (
-          <ul className="space-y-6">
+          <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {articles.map((a) => (
               <li key={a.id}>
                 <Link
                   href={`/insights/${a.slug}?locale=${a.locale}`}
-                  className="block rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8 hover:border-white/20 transition-colors"
+                  className="group block h-full overflow-hidden rounded-2xl bg-[#151518] border border-white/10 hover:border-white/20 transition-colors"
                 >
-                  <time className="text-xs text-zinc-500 uppercase tracking-wider" dateTime={a.publishedAt}>
-                    {formatDate(a.publishedAt)}
-                  </time>
-                  <div className="flex flex-wrap items-start gap-2 mt-2">
-                    <h2 className="text-xl font-semibold text-white">{a.title}</h2>
-                    {a.source === "studio" && (
-                      <span className="text-[10px] uppercase tracking-wider text-teal-500/90 shrink-0">
-                        Studio
-                      </span>
-                    )}
+                  <div className="aspect-[16/9] w-full overflow-hidden bg-zinc-900">
+                    <img
+                      src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
+                      alt={a.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    />
                   </div>
-                  {a.excerpt && (
-                    <p className="mt-2 text-zinc-400 line-clamp-2">{a.excerpt}</p>
-                  )}
+                  <div className="p-5 md:p-6">
+                    <div className="flex items-center justify-between gap-3">
+                      <time className="text-xs text-zinc-500 uppercase tracking-wider" dateTime={a.publishedAt}>
+                        {formatDate(a.publishedAt)}
+                      </time>
+                      {a.source === "studio" && (
+                        <span className="text-[10px] uppercase tracking-wider text-teal-500/90 shrink-0">Studio</span>
+                      )}
+                    </div>
+                    <h2 className="mt-2 text-lg font-semibold text-white leading-snug">{a.title}</h2>
+                    {a.excerpt && <p className="mt-2 text-zinc-400 line-clamp-3 text-sm">{a.excerpt}</p>}
+                    <p className="mt-3 text-xs uppercase tracking-wider text-zinc-500">By {a.author}</p>
+                  </div>
                 </Link>
               </li>
             ))}

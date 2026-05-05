@@ -113,6 +113,7 @@ function normalizeAiHtml(raw: string): string {
 
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const AUTHOR_OPTIONS = ["Albert Schuurman"];
+const MAX_STUDIO_UPLOAD_BYTES = 3.5 * 1024 * 1024;
 
 type Props = {
   initialPosts: SerializableStudioPost[];
@@ -526,6 +527,14 @@ export function BlogStudioClient({
       setBanner("Select at least one image file first.");
       return;
     }
+    const tooLarge = uploadFiles.find((file) => file.size > MAX_STUDIO_UPLOAD_BYTES);
+    if (tooLarge) {
+      const mb = (MAX_STUDIO_UPLOAD_BYTES / (1024 * 1024)).toFixed(1);
+      setBanner(
+        `Image "${tooLarge.name}" is too large for upload. Please resize it to under ${mb}MB, then try again.`
+      );
+      return;
+    }
     if (imageUploadSlotCount === 0) {
       setBanner(
         `No image slots found. Ask your AI to use ${PRIMARY_IMAGE_PLACEHOLDER} (or ${IMAGE_PLACEHOLDER_MARKERS_LABEL}) in each <img src="…">, or tap “Add image slot” below, then upload again.`
@@ -535,32 +544,36 @@ export function BlogStudioClient({
 
     setBanner(null);
     startTransition(async () => {
-      const max = Math.min(uploadFiles.length, imageUploadSlotCount);
-      const urls: string[] = [];
+      try {
+        const max = Math.min(uploadFiles.length, imageUploadSlotCount);
+        const urls: string[] = [];
 
-      for (let i = 0; i < max; i += 1) {
-        const fd = new FormData();
-        fd.set("file", uploadFiles[i]);
-        const uploaded = await uploadStudioImage(fd);
-        if (!uploaded.ok) {
-          setBanner(uploaded.error);
-          return;
+        for (let i = 0; i < max; i += 1) {
+          const fd = new FormData();
+          fd.set("file", uploadFiles[i]);
+          const uploaded = await uploadStudioImage(fd);
+          if (!uploaded.ok) {
+            setBanner(uploaded.error);
+            return;
+          }
+          const resolvedUrl =
+            uploaded.url.startsWith("/") && typeof window !== "undefined"
+              ? `${window.location.origin}${uploaded.url}`
+              : uploaded.url;
+          urls.push(resolvedUrl);
         }
-        const resolvedUrl =
-          uploaded.url.startsWith("/") && typeof window !== "undefined"
-            ? `${window.location.origin}${uploaded.url}`
-            : uploaded.url;
-        urls.push(resolvedUrl);
-      }
 
-      setBodyHtml((prev) => replaceImagePlaceholdersSequentially(prev, urls));
-      setUploadFiles([]);
-      setLastUploadedUrls(urls);
-      setBanner(
-        `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and filled ${urls.length} image slot${
-          urls.length === 1 ? "" : "s"
-        }. Save draft to persist.`
-      );
+        setBodyHtml((prev) => replaceImagePlaceholdersSequentially(prev, urls));
+        setUploadFiles([]);
+        setLastUploadedUrls(urls);
+        setBanner(
+          `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and filled ${urls.length} image slot${
+            urls.length === 1 ? "" : "s"
+          }. Save draft to persist.`
+        );
+      } catch {
+        setBanner("Upload failed before reaching the server. Please use smaller images (under 3.5MB each).");
+      }
     });
   }
 

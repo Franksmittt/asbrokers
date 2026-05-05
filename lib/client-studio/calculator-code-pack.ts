@@ -7,6 +7,93 @@ export type CalculatorCodeSnippet = {
 
 export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
   {
+    id: "everest-income-embed",
+    title: "Everest 12.8 Income Calculator (Blog Embed)",
+    sourcePath: "custom/embed/everest-income-calculator",
+    code: `<div id="everest-income-calculator" style="background:#111115; border:1px solid #27272a; border-radius:0.75rem; padding:1.5rem; margin:1.5rem 0; display:flex; flex-direction:column; gap:1.5rem;">
+  <div>
+    <label for="inv-amount" style="display:block; font-size:13px; color:#a1a1aa; margin-bottom:0.5rem; font-weight:600;">Investment Amount</label>
+    <div style="display:flex; align-items:center; background:#0a0a0c; border:1px solid #27272a; border-radius:0.5rem; overflow:hidden;">
+      <span style="padding:0.8rem 1.2rem; color:#71717a; font-weight:700; background:#111115; border-right:1px solid #27272a;">R</span>
+      <input type="number" id="inv-amount" value="100000" min="100000" step="10000" style="width:100%; padding:0.8rem; background:transparent; border:none; color:#ffffff; font-size:1.2rem; outline:none; font-family:inherit;">
+    </div>
+  </div>
+  <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem;">
+    <div style="background:#0a0a0c; border:1px solid #27272a; border-radius:0.5rem; padding:1rem;">
+      <div style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#71717a;">Est. Monthly Net Income</div>
+      <div id="calc-out-monthly" style="font-size:1.4rem; font-weight:700; color:#14b8a6; margin-top:4px;">R 0.00</div>
+    </div>
+    <div style="background:#0a0a0c; border:1px solid #27272a; border-radius:0.5rem; padding:1rem;">
+      <div style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#71717a;">Est. Annual Net Income</div>
+      <div id="calc-out-annual" style="font-size:1.4rem; font-weight:700; color:#14b8a6; margin-top:4px;">R 0.00</div>
+    </div>
+    <div style="background:#0a0a0c; border:1px solid #27272a; border-radius:0.5rem; padding:1rem;">
+      <div style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#71717a;">Total 5-Year Net Income</div>
+      <div id="calc-out-5year" style="font-size:1.2rem; font-weight:600; color:#ffffff; margin-top:4px;">R 0.00</div>
+    </div>
+    <div style="background:#0a0a0c; border:1px solid #27272a; border-radius:0.5rem; padding:1rem;">
+      <div style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#71717a;">Est. 5-Year Bonus (Net)</div>
+      <div id="calc-out-bonus" style="font-size:1.2rem; font-weight:600; color:#ffffff; margin-top:4px;">R 0.00</div>
+    </div>
+  </div>
+  <div style="background:#0d1f1d; border:1px solid #14b8a6; border-radius:0.5rem; padding:1.2rem; text-align:center;">
+    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#2dd4bf;">Total Est. Return (5 Yrs + Bonus)</div>
+    <div id="calc-out-total" style="font-size:1.8rem; font-weight:700; color:#14b8a6; margin-top:4px;">R 0.00</div>
+  </div>
+</div>
+<script>
+  (function initEverestIncomeCalculator() {
+    const root = document.getElementById("everest-income-calculator");
+    if (!root || root.dataset.bound === "1") return;
+    root.dataset.bound = "1";
+
+    const ANNUAL_RATE = 0.128;
+    const NET_FACTOR = 0.80;
+    const BONUS_RATE = 0.10;
+    const TERM_YEARS = 5;
+
+    function calculateIncome(investmentAmount) {
+      const grossAnnual = investmentAmount * ANNUAL_RATE;
+      const netAnnual = grossAnnual * NET_FACTOR;
+      const netMonthly = netAnnual / 12;
+      const net5Year = netAnnual * TERM_YEARS;
+      const bonusNet = investmentAmount * BONUS_RATE * NET_FACTOR;
+      const totalNet = net5Year + bonusNet;
+      return { netAnnual, netMonthly, net5Year, bonusNet, totalNet };
+    }
+
+    const inputEl = document.getElementById("inv-amount");
+    const outMonthly = document.getElementById("calc-out-monthly");
+    const outAnnual = document.getElementById("calc-out-annual");
+    const out5Year = document.getElementById("calc-out-5year");
+    const outBonus = document.getElementById("calc-out-bonus");
+    const outTotal = document.getElementById("calc-out-total");
+    if (!inputEl || !outMonthly || !outAnnual || !out5Year || !outBonus || !outTotal) return;
+
+    const zarFormatter = new Intl.NumberFormat("en-ZA", {
+      style: "currency",
+      currency: "ZAR",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+    function updateCalculator() {
+      let val = Number.parseFloat(inputEl.value);
+      if (!Number.isFinite(val) || val < 0) val = 0;
+      const results = calculateIncome(val);
+      outMonthly.textContent = zarFormatter.format(results.netMonthly);
+      outAnnual.textContent = zarFormatter.format(results.netAnnual);
+      out5Year.textContent = zarFormatter.format(results.net5Year);
+      outBonus.textContent = zarFormatter.format(results.bonusNet);
+      outTotal.textContent = zarFormatter.format(results.totalNet);
+    }
+
+    inputEl.addEventListener("input", updateCalculator);
+    updateCalculator();
+  })();
+</script>`,
+  },
+  {
     id: "estate-duty",
     title: "Estate Duty Calculator",
     sourcePath: "components/EstateDutyCalculator.tsx",

@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */
-      bodySizeLimit: "4mb",
+      bodySizeLimit: "12mb",
     },
   },
   async redirects() {

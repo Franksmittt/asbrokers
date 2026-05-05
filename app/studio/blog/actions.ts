@@ -23,6 +23,8 @@ import { clientInsightPosts, getDb } from "@/lib/db";
 import { collectErrorText } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
 
+const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
+
 const postBaseSchema = z.object({
   title: z.string().trim().min(1, "Title is required").max(300),
   slug: z
@@ -312,8 +314,8 @@ export async function uploadStudioImage(
   if (!(file instanceof File)) {
     return { ok: false, error: "No file received." };
   }
-  if (!file.type.startsWith("image/")) {
-    return { ok: false, error: "Only image files are supported." };
+  if (!STUDIO_ALLOWED_IMAGE_TYPES.has(file.type.toLowerCase())) {
+    return { ok: false, error: "Only PNG, JPG, and JPEG images are supported." };
   }
   if (file.size > 8 * 1024 * 1024) {
     return { ok: false, error: "Image is too large (max 8MB)." };

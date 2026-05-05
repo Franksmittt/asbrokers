@@ -563,13 +563,45 @@ export function BlogStudioClient({
           urls.push(resolvedUrl);
         }
 
-        setBodyHtml((prev) => replaceImagePlaceholdersSequentially(prev, urls));
+        const nextBodyHtml = replaceImagePlaceholdersSequentially(bodyHtml, urls);
+        setBodyHtml(nextBodyHtml);
         setUploadFiles([]);
         setLastUploadedUrls(urls);
+
+        // Keep this simple for non-technical users: persist immediately when possible.
+        if (databaseConfigured && basicsOk) {
+          const saveRes = await saveStudioPost(selectedId, {
+            title,
+            slug,
+            locale,
+            excerpt: excerpt || null,
+            bodyHtml: nextBodyHtml,
+            metaTitle: metaTitle || null,
+            metaDescription: metaDescription || null,
+            calculatorName: calculatorName || null,
+            calculatorCode: calculatorCode || null,
+          });
+          if (!saveRes.ok) {
+            setBanner(
+              `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"}, but could not auto-save: ${saveRes.error}`
+            );
+            return;
+          }
+          if (!selectedId) {
+            setSelectedId(saveRes.id);
+            setSlugTouched(true);
+          }
+          setBanner(
+            `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and saved automatically.`
+          );
+          router.refresh();
+          return;
+        }
+
         setBanner(
           `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and filled ${urls.length} image slot${
             urls.length === 1 ? "" : "s"
-          }. Save draft to persist.`
+          }. Add title + slug, then Save draft so it stays after refresh.`
         );
       } catch {
         setBanner("Upload failed before reaching the server. Please use smaller images (under 3.5MB each).");
@@ -1334,7 +1366,7 @@ export function BlogStudioClient({
                     <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                       <input
                         type="file"
-                        accept="image/*"
+                        accept=".png,.jpg,.jpeg,image/png,image/jpeg"
                         multiple
                         onChange={(e) => setUploadFiles(Array.from(e.target.files ?? []))}
                         className="block w-full text-xs text-zinc-400"

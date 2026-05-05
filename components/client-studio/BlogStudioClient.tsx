@@ -114,6 +114,8 @@ function normalizeAiHtml(raw: string): string {
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const AUTHOR_OPTIONS = ["Albert Schuurman"];
 const MAX_STUDIO_UPLOAD_BYTES = 3.5 * 1024 * 1024;
+const HIDDEN_STUDIO_CALCULATOR_TITLES = new Set(["everest strategic income quote calculator"]);
+const HIDDEN_STUDIO_CALCULATOR_SOURCES = new Set(["everest wealth strategic income product review"]);
 
 type Props = {
   initialPosts: SerializableStudioPost[];
@@ -240,6 +242,10 @@ export function BlogStudioClient({
         source: p.title || p.slug,
       }))
       .filter((snippet) => {
+        const titleKey = snippet.title.toLowerCase().trim();
+        const sourceKey = snippet.source.toLowerCase().trim();
+        if (HIDDEN_STUDIO_CALCULATOR_TITLES.has(titleKey)) return false;
+        if (HIDDEN_STUDIO_CALCULATOR_SOURCES.has(sourceKey)) return false;
         const key = `${snippet.title}::${snippet.code}`;
         if (seen.has(key)) return false;
         seen.add(key);
@@ -568,11 +574,15 @@ export function BlogStudioClient({
         setUploadFiles([]);
         setLastUploadedUrls(urls);
 
+        const resolvedTitle = title.trim() || selected?.title || "";
+        const resolvedSlug = slug.trim() || selected?.slug || "";
+        const resolvedSlugValid = SLUG_OK.test(resolvedSlug);
+
         // Keep this simple for non-technical users: persist immediately when possible.
-        if (databaseConfigured && basicsOk) {
+        if (databaseConfigured && resolvedTitle.length > 0 && resolvedSlug.length > 0 && resolvedSlugValid) {
           const saveRes = await saveStudioPost(selectedId, {
-            title,
-            slug,
+            title: resolvedTitle,
+            slug: resolvedSlug,
             locale,
             excerpt: excerpt || null,
             bodyHtml: nextBodyHtml,
@@ -591,6 +601,8 @@ export function BlogStudioClient({
             setSelectedId(saveRes.id);
             setSlugTouched(true);
           }
+          if (resolvedTitle !== title) setTitle(resolvedTitle);
+          if (resolvedSlug !== slug) setSlug(resolvedSlug);
           setBanner(
             `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and saved automatically.`
           );

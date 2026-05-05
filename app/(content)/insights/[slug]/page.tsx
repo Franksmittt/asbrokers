@@ -4,6 +4,7 @@ import { ClientInsightArticle } from "@/components/client-studio/ClientInsightAr
 import { Footer } from "@/components/Footer";
 import { ArticlePortableText } from "@/components/portable-text/ArticlePortableText";
 import { getPublishedStudioPostBySlug } from "@/lib/client-studio/posts";
+import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { articleBySlugQuery } from "@/sanity/lib/queries";
 
@@ -54,18 +55,23 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     if (!studio) return { title: "Article | AS Brokers" };
     const title = studio.metaTitle ?? studio.title;
     const description = studio.metaDescription ?? studio.excerpt ?? undefined;
+    const loc = locale || "en";
     return {
       title: `${title} | AS Brokers`,
       description,
+      alternates: { canonical: absoluteUrl(insightUrlPath(slug, loc)) },
     };
   }
   const title = article.seo?.metaTitle ?? article.title;
   const description = article.seo?.metaDescription ?? article.excerpt ?? undefined;
+  const loc = locale || "en";
   return {
     title: `${title} | AS Brokers`,
     description,
     robots: article.seo?.noIndex ? "noindex, nofollow" : undefined,
-    alternates: article.seo?.canonicalUrl ? { canonical: article.seo.canonicalUrl } : undefined,
+    alternates: article.seo?.canonicalUrl
+      ? { canonical: article.seo.canonicalUrl }
+      : { canonical: absoluteUrl(insightUrlPath(slug, loc)) },
   };
 }
 

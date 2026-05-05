@@ -9,6 +9,16 @@ export const insightsListQuery = `
   }
 `;
 
+/** Sitemap: exclude Sanity articles flagged noIndex in CMS. */
+export const insightArticlesSitemapQuery = `
+  *[_type == "article" && seo.noIndex != true] | order(publishedAt desc) {
+    "slug": slug.current,
+    locale,
+    publishedAt,
+    "sanityUpdatedAt": _updatedAt
+  }
+`;
+
 export const articleBySlugQuery = `
   *[_type == "article" && slug.current == $slug && locale == $locale][0] {
     _id,

@@ -11,6 +11,19 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      /** Consolidate alternate hosts onto GSC canonical origin (HTTPS + www). */
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "asbrokers.online" }],
+        destination: "https://www.asbrokers.co.za/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "asbrokers.co.za" }],
+        destination: "https://www.asbrokers.co.za/:path*",
+        permanent: true,
+      },
       { source: "/portal", destination: "/login", permanent: false },
       { source: "/portal/:path*", destination: "/login", permanent: false },
     ];

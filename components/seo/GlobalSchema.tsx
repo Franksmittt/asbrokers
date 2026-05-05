@@ -1,25 +1,30 @@
+import { getSiteOrigin } from "@/lib/site-url";
+
 /**
  * Global Organization + FinancialService JSON-LD for AS Brokers CC.
  * Injected at root layout. XSS-safe: no user input; structured data only.
  * FSCA FSP 17273, Category 1.8, Krugersdorp, founders.
  */
+
 function escapeJsonLd(obj: unknown): string {
   const str = JSON.stringify(obj);
   return str.replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
 }
 
 export function GlobalSchema() {
+  const origin = getSiteOrigin();
+  const logoUrl = `${origin}/opengraph-image.jpg`;
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://asbrokers.online/#organization",
+        "@id": `${origin}/#organization`,
         name: "AS Brokers CC",
         legalName: "AS Brokers CC",
-        url: "https://asbrokers.online",
-        logo: { "@type": "ImageObject", url: "https://asbrokers.online/images/logo.jpg" },
-        image: "https://asbrokers.online/og.png",
+        url: origin,
+        logo: { "@type": "ImageObject", url: logoUrl },
+        image: logoUrl,
         description:
           "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Retirement planning, insurance, estate structuring, Everest Wealth. Krugersdorp, East Rand, Gauteng.",
         address: {
@@ -39,12 +44,12 @@ export function GlobalSchema() {
       },
       {
         "@type": "FinancialService",
-        "@id": "https://asbrokers.online/#financialservice",
+        "@id": `${origin}/#financialservice`,
         name: "AS Brokers CC",
         description:
           "Independent financial advisor Krugersdorp. FSP 17273. Category 1.8 broker for unlisted shares and Everest Wealth. Retirement, insurance, estate planning.",
-        url: "https://asbrokers.online",
-        provider: { "@id": "https://asbrokers.online/#organization" },
+        url: origin,
+        provider: { "@id": `${origin}/#organization` },
         areaServed: { "@type": "Country", name: "South Africa" },
         regulatoryBody: "FSCA",
         identifier: { "@type": "PropertyValue", name: "FSP Number", value: "17273" },

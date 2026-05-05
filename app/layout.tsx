@@ -6,6 +6,7 @@ import { ConsentProvider } from "@/components/analytics/ConsentProvider";
 import { AppShell } from "@/components/AppShell";
 import { GlobalSchema } from "@/components/seo/GlobalSchema";
 import { MotionConfigProvider } from "@/components/MotionConfigProvider";
+import { getSiteOrigin } from "@/lib/site-url";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,6 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteOrigin()),
   title: {
     default: "AS Brokers CC | Independent Financial Advisor Krugersdorp",
     template: "%s | AS Brokers CC",

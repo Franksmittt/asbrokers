@@ -5,6 +5,10 @@ export type CalculatorCodeSnippet = {
   code: string;
 };
 
+export function isEmbedReadyCalculatorSnippet(snippet: CalculatorCodeSnippet): boolean {
+  return snippet.code.trim().startsWith("<");
+}
+
 export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
   {
     id: "everest-income-embed",
@@ -97,136 +101,215 @@ export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
     id: "estate-duty",
     title: "Estate Duty Calculator",
     sourcePath: "components/EstateDutyCalculator.tsx",
-    code: `const PRIMARY_ABATEMENT = 3_500_000;
-const DUTY_THRESHOLD = 30_000_000;
-const DUTY_RATE_FIRST = 0.2;
-const DUTY_RATE_ABOVE = 0.25;
-const DUTY_ON_FIRST_30M = 6_000_000;
-const EXECUTOR_FEE_RATE = 0.04025; // 3.5% + VAT
-
-function calculateEstateCosts(grossEstateValue, liabilities, bequestsToSpouse) {
-  const executorFees = grossEstateValue * EXECUTOR_FEE_RATE;
-  const totalDeductions = liabilities + bequestsToSpouse + executorFees;
-  const netEstate = Math.max(0, grossEstateValue - totalDeductions);
-  const dutiableEstate = Math.max(0, netEstate - PRIMARY_ABATEMENT);
-  const estateDutyPayable =
-    dutiableEstate <= DUTY_THRESHOLD
-      ? dutiableEstate * DUTY_RATE_FIRST
-      : DUTY_ON_FIRST_30M + (dutiableEstate - DUTY_THRESHOLD) * DUTY_RATE_ABOVE;
-  return { executorFees, estateDutyPayable, totalEstateCosts: executorFees + estateDutyPayable };
-}`,
+    code: `<div id="estate-duty-calculator" style="background:#111115;border:1px solid #27272a;border-radius:12px;padding:16px;margin:16px 0;display:grid;gap:12px;">
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Gross estate value (R)
+    <input type="number" data-field="gross" value="5000000" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Liabilities (R)
+    <input type="number" data-field="liabilities" value="0" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Bequests to spouse (R)
+    <input type="number" data-field="spouse" value="0" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <div style="color:#a1a1aa;font-size:12px;">Executor fees: <strong data-out="executor" style="color:#14b8a6;">R 0.00</strong></div>
+  <div style="color:#a1a1aa;font-size:12px;">Estate duty: <strong data-out="duty" style="color:#14b8a6;">R 0.00</strong></div>
+  <div style="color:#fff;font-size:14px;">Total estate costs: <strong data-out="total" style="color:#14b8a6;">R 0.00</strong></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById("estate-duty-calculator");
+  if (!root || root.dataset.bound === "1") return;
+  root.dataset.bound = "1";
+  const get = (name) => root.querySelector('[data-field="' + name + '"]');
+  const out = (name) => root.querySelector('[data-out="' + name + '"]');
+  const fmt = new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const PRIMARY_ABATEMENT = 3500000, DUTY_THRESHOLD = 30000000, DUTY_RATE_FIRST = 0.2, DUTY_RATE_ABOVE = 0.25, DUTY_ON_FIRST_30M = 6000000, EXECUTOR_FEE_RATE = 0.04025;
+  const recalc = () => {
+    const gross = Number.parseFloat(get("gross")?.value || "0") || 0;
+    const liabilities = Number.parseFloat(get("liabilities")?.value || "0") || 0;
+    const spouse = Number.parseFloat(get("spouse")?.value || "0") || 0;
+    const executorFees = gross * EXECUTOR_FEE_RATE;
+    const totalDeductions = liabilities + spouse + executorFees;
+    const netEstate = Math.max(0, gross - totalDeductions);
+    const dutiableEstate = Math.max(0, netEstate - PRIMARY_ABATEMENT);
+    const estateDutyPayable = dutiableEstate <= DUTY_THRESHOLD ? dutiableEstate * DUTY_RATE_FIRST : DUTY_ON_FIRST_30M + (dutiableEstate - DUTY_THRESHOLD) * DUTY_RATE_ABOVE;
+    out("executor").textContent = fmt.format(executorFees);
+    out("duty").textContent = fmt.format(estateDutyPayable);
+    out("total").textContent = fmt.format(executorFees + estateDutyPayable);
+  };
+  root.querySelectorAll("input").forEach((el) => el.addEventListener("input", recalc));
+  recalc();
+})();
+</script>`,
   },
   {
     id: "income-tax",
     title: "Income Tax Calculator",
     sourcePath: "components/IncomeTaxCalculator.tsx",
-    code: `const TAX_BRACKETS = [
-  { limit: 245100, baseTax: 0, rate: 0.18 },
-  { limit: 383100, baseTax: 44118, rate: 0.26 },
-  { limit: 530200, baseTax: 79998, rate: 0.31 },
-  { limit: 695800, baseTax: 125599, rate: 0.36 },
-  { limit: 887000, baseTax: 185215, rate: 0.39 },
-  { limit: 1878600, baseTax: 259783, rate: 0.41 },
-  { limit: Infinity, baseTax: 666339, rate: 0.45 },
-];
-const BRACKET_THRESHOLDS = [0, 245100, 383100, 530200, 695800, 887000, 1878600];
-
-function calculateAnnualTax(taxableAnnual, age) {
-  const rebate = age >= 75 ? 30834 : age >= 65 ? 27585 : 17820;
-  let taxBeforeRebate = 0;
-  for (let i = 0; i < TAX_BRACKETS.length; i++) {
-    const bracket = TAX_BRACKETS[i];
-    const prevLimit = BRACKET_THRESHOLDS[i] ?? 0;
-    if (taxableAnnual <= bracket.limit) {
-      taxBeforeRebate = bracket.baseTax + (taxableAnnual - prevLimit) * bracket.rate;
-      break;
+    code: `<div id="income-tax-calculator" style="background:#111115;border:1px solid #27272a;border-radius:12px;padding:16px;margin:16px 0;display:grid;gap:12px;">
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Taxable annual income (R)
+    <input type="number" data-field="income" value="500000" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Age
+    <input type="number" data-field="age" value="45" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <div style="color:#fff;font-size:14px;">Estimated annual tax: <strong data-out="tax" style="color:#14b8a6;">R 0.00</strong></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById("income-tax-calculator");
+  if (!root || root.dataset.bound === "1") return;
+  root.dataset.bound = "1";
+  const get = (name) => root.querySelector('[data-field="' + name + '"]');
+  const out = (name) => root.querySelector('[data-out="' + name + '"]');
+  const fmt = new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const TAX_BRACKETS = [{ limit: 245100, baseTax: 0, rate: 0.18 }, { limit: 383100, baseTax: 44118, rate: 0.26 }, { limit: 530200, baseTax: 79998, rate: 0.31 }, { limit: 695800, baseTax: 125599, rate: 0.36 }, { limit: 887000, baseTax: 185215, rate: 0.39 }, { limit: 1878600, baseTax: 259783, rate: 0.41 }, { limit: Infinity, baseTax: 666339, rate: 0.45 }];
+  const BRACKET_THRESHOLDS = [0, 245100, 383100, 530200, 695800, 887000, 1878600];
+  const calc = (taxableAnnual, age) => {
+    const rebate = age >= 75 ? 30834 : age >= 65 ? 27585 : 17820;
+    let taxBeforeRebate = 0;
+    for (let i = 0; i < TAX_BRACKETS.length; i++) {
+      const bracket = TAX_BRACKETS[i], prev = BRACKET_THRESHOLDS[i] ?? 0;
+      if (taxableAnnual <= bracket.limit) { taxBeforeRebate = bracket.baseTax + (taxableAnnual - prev) * bracket.rate; break; }
     }
-  }
-  return Math.max(0, taxBeforeRebate - rebate);
-}`,
+    return Math.max(0, taxBeforeRebate - rebate);
+  };
+  const recalc = () => {
+    const income = Number.parseFloat(get("income")?.value || "0") || 0;
+    const age = Number.parseFloat(get("age")?.value || "0") || 0;
+    out("tax").textContent = fmt.format(calc(income, age));
+  };
+  root.querySelectorAll("input").forEach((el) => el.addEventListener("input", recalc));
+  recalc();
+})();
+</script>`,
   },
   {
     id: "premium-comparison",
     title: "Premium Comparison Calculator",
     sourcePath: "components/PremiumComparisonCalculator.tsx",
-    code: `function rowAnnualTotal(row) {
-  return row.monthlyPremium * 12;
-}
-
-function rowChangePct(rows, index) {
-  if (index <= 0) return null;
-  const prev = rows[index - 1].monthlyPremium;
-  const curr = rows[index].monthlyPremium;
-  if (prev <= 0) return null;
-  return ((curr - prev) / prev) * 100;
-}
-
-function averageAnnualIncrease(rows) {
-  let sum = 0, count = 0;
-  for (let i = 1; i < rows.length; i++) {
-    const pct = rowChangePct(rows, i);
-    if (pct !== null) { sum += pct; count++; }
-  }
-  return count === 0 ? null : sum / count;
-}
-
-function cumulativeSpend(rows, upToYears) {
-  let total = 0;
-  for (let i = 0; i < Math.min(upToYears, rows.length); i++) {
-    total += rowAnnualTotal(rows[i]);
-  }
-  return total;
-}`,
+    code: `<div id="premium-comparison-calculator" style="background:#111115;border:1px solid #27272a;border-radius:12px;padding:16px;margin:16px 0;display:grid;gap:12px;">
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Current monthly premium (R)
+    <input type="number" data-field="current" value="2500" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Expected annual increase (%)
+    <input type="number" data-field="increase" value="8" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <div style="color:#a1a1aa;font-size:12px;">5-year cumulative premium: <strong data-out="five" style="color:#14b8a6;">R 0.00</strong></div>
+  <div style="color:#fff;font-size:14px;">10-year cumulative premium: <strong data-out="ten" style="color:#14b8a6;">R 0.00</strong></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById("premium-comparison-calculator");
+  if (!root || root.dataset.bound === "1") return;
+  root.dataset.bound = "1";
+  const fmt = new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const get = (name) => root.querySelector('[data-field="' + name + '"]');
+  const out = (name) => root.querySelector('[data-out="' + name + '"]');
+  const cumulative = (monthly, increasePct, years) => {
+    let total = 0;
+    let m = monthly;
+    for (let y = 0; y < years; y++) {
+      total += m * 12;
+      m *= 1 + increasePct / 100;
+    }
+    return total;
+  };
+  const recalc = () => {
+    const current = Number.parseFloat(get("current")?.value || "0") || 0;
+    const increase = Number.parseFloat(get("increase")?.value || "0") || 0;
+    out("five").textContent = fmt.format(cumulative(current, increase, 5));
+    out("ten").textContent = fmt.format(cumulative(current, increase, 10));
+  };
+  root.querySelectorAll("input").forEach((el) => el.addEventListener("input", recalc));
+  recalc();
+})();
+</script>`,
   },
   {
     id: "retirement-reality",
     title: "Retirement Reality Calculator",
     sourcePath: "components/RetirementRealityCalculator.tsx",
-    code: `// Lump sum required at retirement using growing-annuity PV
-function retirementCapitalRequired({
-  currentAge, retirementAge, lifeExpectancy, monthlyIncomeToday, inflationRate, growthRate, taxRate
-}) {
-  const yearsToRetirement = Math.max(0, retirementAge - currentAge);
-  const yearsInRetirement = Math.max(0, lifeExpectancy - retirementAge);
-  const inflation = inflationRate / 100;
-  const growth = growthRate / 100;
-  const tax = taxRate / 100;
-
-  const futureMonthlyNet = monthlyIncomeToday * Math.pow(1 + inflation, yearsToRetirement);
-  const futureMonthlyGross = futureMonthlyNet / (1 - tax);
-  const firstYearAnnualWithdrawal = futureMonthlyGross * 12;
-  if (growth <= inflation) throw new Error("Growth must exceed inflation");
-
-  const pvFactor =
-    (1 - Math.pow((1 + inflation) / (1 + growth), yearsInRetirement)) / (growth - inflation);
-  return firstYearAnnualWithdrawal * pvFactor;
-}`,
+    code: `<div id="retirement-reality-calculator" style="background:#111115;border:1px solid #27272a;border-radius:12px;padding:16px;margin:16px 0;display:grid;gap:12px;">
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Monthly income today (R)
+    <input type="number" data-field="monthly" value="30000" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Current age / Retirement age
+    <input type="number" data-field="currentAge" value="45" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+    <input type="number" data-field="retirementAge" value="65" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <div style="color:#fff;font-size:14px;">Capital required at retirement: <strong data-out="capital" style="color:#14b8a6;">R 0.00</strong></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById("retirement-reality-calculator");
+  if (!root || root.dataset.bound === "1") return;
+  root.dataset.bound = "1";
+  const fmt = new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const get = (name) => root.querySelector('[data-field="' + name + '"]');
+  const out = root.querySelector('[data-out="capital"]');
+  const recalc = () => {
+    const currentAge = Number.parseFloat(get("currentAge")?.value || "45") || 45;
+    const retirementAge = Number.parseFloat(get("retirementAge")?.value || "65") || 65;
+    const monthlyIncomeToday = Number.parseFloat(get("monthly")?.value || "0") || 0;
+    const yearsToRetirement = Math.max(0, retirementAge - currentAge);
+    const yearsInRetirement = 25;
+    const inflation = 0.06, growth = 0.10, tax = 0.30;
+    const futureMonthlyNet = monthlyIncomeToday * Math.pow(1 + inflation, yearsToRetirement);
+    const futureMonthlyGross = futureMonthlyNet / (1 - tax);
+    const firstYearAnnualWithdrawal = futureMonthlyGross * 12;
+    const pvFactor = (1 - Math.pow((1 + inflation) / (1 + growth), yearsInRetirement)) / (growth - inflation);
+    out.textContent = fmt.format(firstYearAnnualWithdrawal * pvFactor);
+  };
+  root.querySelectorAll("input").forEach((el) => el.addEventListener("input", recalc));
+  recalc();
+})();
+</script>`,
   },
   {
     id: "life-of-capital",
     title: "Life of Capital Calculator",
     sourcePath: "components/LifeOfCapitalCalculator.tsx",
-    code: `// Year-by-year simulation
-function runSimulation(capitalAmount, monthlyIncomeNeeded, expectedReturn, estimatedTax, inflationRate) {
-  const returnDec = expectedReturn / 100;
-  const taxDec = estimatedTax / 100;
-  const inflationDec = inflationRate / 100;
-  let annualWithdrawal = (monthlyIncomeNeeded / (1 - taxDec)) * 12;
-  let capital = capitalAmount;
-
-  for (let year = 1; year <= 100; year++) {
-    capital += capital * returnDec;
-    capital -= annualWithdrawal;
-    if (capital <= 0) return { yearsLasted: year, isSustainableForever: false };
-    annualWithdrawal += annualWithdrawal * inflationDec;
-  }
-  return { yearsLasted: 100, isSustainableForever: true };
-}`,
+    code: `<div id="life-of-capital-calculator" style="background:#111115;border:1px solid #27272a;border-radius:12px;padding:16px;margin:16px 0;display:grid;gap:12px;">
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Capital amount (R)
+    <input type="number" data-field="capital" value="5000000" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <label style="display:grid;gap:6px;color:#d4d4d8;font-size:13px;">Monthly income needed (R)
+    <input type="number" data-field="income" value="30000" style="padding:10px;background:#0a0a0c;border:1px solid #27272a;border-radius:8px;color:#fff;">
+  </label>
+  <div style="color:#fff;font-size:14px;">Estimated years capital lasts: <strong data-out="years" style="color:#14b8a6;">0</strong></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById("life-of-capital-calculator");
+  if (!root || root.dataset.bound === "1") return;
+  root.dataset.bound = "1";
+  const get = (name) => root.querySelector('[data-field="' + name + '"]');
+  const out = root.querySelector('[data-out="years"]');
+  const recalc = () => {
+    const capitalAmount = Number.parseFloat(get("capital")?.value || "0") || 0;
+    const monthlyIncomeNeeded = Number.parseFloat(get("income")?.value || "0") || 0;
+    const returnDec = 0.09, taxDec = 0.30, inflationDec = 0.06;
+    let annualWithdrawal = (monthlyIncomeNeeded / (1 - taxDec)) * 12;
+    let capital = capitalAmount, years = 0;
+    for (let year = 1; year <= 100; year++) {
+      capital += capital * returnDec;
+      capital -= annualWithdrawal;
+      if (capital <= 0) { years = year; break; }
+      annualWithdrawal += annualWithdrawal * inflationDec;
+      years = year;
+    }
+    out.textContent = String(years);
+  };
+  root.querySelectorAll("input").forEach((el) => el.addEventListener("input", recalc));
+  recalc();
+})();
+</script>`,
   },
 ];
 
 export function getCalculatorCodePackText(): string {
-  return CALCULATOR_CODE_SNIPPETS.map(
+  return CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet).map(
     (s) => `# ${s.title}\nSource: ${s.sourcePath}\n\n${s.code}`
   ).join("\n\n------------------------------\n\n");
 }

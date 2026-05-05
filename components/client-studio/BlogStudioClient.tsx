@@ -20,6 +20,7 @@ import { StudioNotebookModal } from "@/components/client-studio/StudioNotebookMo
 import {
   CALCULATOR_CODE_SNIPPETS,
   getCalculatorCodePackText,
+  isEmbedReadyCalculatorSnippet,
 } from "@/lib/client-studio/calculator-code-pack";
 import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
 import {
@@ -252,6 +253,10 @@ export function BlogStudioClient({
         return true;
       });
   }, [posts]);
+  const embedReadyLibrarySnippets = useMemo(
+    () => CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet),
+    []
+  );
 
   const filteredPosts = useMemo(() => {
     const q = listQuery.trim().toLowerCase();
@@ -1623,7 +1628,7 @@ export function BlogStudioClient({
                     </div>
                   </div>
                 )}
-                {CALCULATOR_CODE_SNIPPETS.map((snippet) => (
+                {embedReadyLibrarySnippets.map((snippet) => (
                   <div key={snippet.id} className="rounded-xl border border-white/10 bg-black/30">
                     <div className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-2">
                       <div className="min-w-0">
@@ -1643,6 +1648,9 @@ export function BlogStudioClient({
                     </pre>
                   </div>
                 ))}
+                <p className="rounded-lg border border-amber-500/25 bg-amber-950/20 px-3 py-2 text-[11px] leading-relaxed text-amber-100/90">
+                  Only embed-ready snippets are shown here. Logic-only snippets are hidden to avoid broken blog embeds.
+                </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 border-t border-white/10 p-4 sm:flex-row">
                 <button

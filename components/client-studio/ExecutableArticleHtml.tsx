@@ -27,9 +27,17 @@ export function ExecutableArticleHtml({ html, className }: Props) {
         const patchedAddEventListener = ((type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions) => {
           if (type === "DOMContentLoaded") {
             if (typeof listener === "function") {
-              listener.call(document, domReadyEvent);
+              try {
+                listener.call(document, domReadyEvent);
+              } catch (error) {
+                console.error("[insights] Inline calculator script failed during DOMContentLoaded handler.", error);
+              }
             } else if (listener && typeof listener === "object" && "handleEvent" in listener) {
-              listener.handleEvent(domReadyEvent);
+              try {
+                listener.handleEvent(domReadyEvent);
+              } catch (error) {
+                console.error("[insights] Inline calculator script failed during DOMContentLoaded handler.", error);
+              }
             }
             return;
           }
@@ -40,6 +48,8 @@ export function ExecutableArticleHtml({ html, className }: Props) {
         try {
           // eslint-disable-next-line no-new-func
           new Function(scriptText)();
+        } catch (error) {
+          console.error("[insights] Inline calculator script execution failed.", error);
         } finally {
           document.addEventListener = originalAddEventListener;
         }

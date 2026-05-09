@@ -230,6 +230,7 @@ export function BlogStudioClient({
   const [workflowStep, setWorkflowStep] = useState<WorkflowStep>("content");
   const [seniorMode, setSeniorMode] = useState(true);
   const [wizardLock, setWizardLock] = useState(true);
+  const [advancedToolsEnabled, setAdvancedToolsEnabled] = useState(false);
   const [showGuidedStart, setShowGuidedStart] = useState(true);
   const [showPublishConfirm, setShowPublishConfirm] = useState(false);
   const [publishReport, setPublishReport] = useState<{
@@ -374,6 +375,8 @@ export function BlogStudioClient({
     review: failedChecks.length === 0,
     publish: selected?.status === "published",
   };
+  const readinessScore = Math.round((checklist.filter((item) => item.ok).length / checklist.length) * 100);
+  const nextReadinessHint = failedChecks[0]?.hint ?? "Everything looks ready to publish.";
   const canProceedFromCurrentStep =
     workflowStep === "content"
       ? basicsOk
@@ -1202,13 +1205,15 @@ export function BlogStudioClient({
           >
             Calculator code library
           </button>
-          <button
-            type="button"
-            onClick={() => setShowNotebook(true)}
-            className="shrink-0 rounded-full border border-violet-400/30 bg-violet-950/35 px-3 py-2 text-xs font-medium text-violet-200 hover:border-violet-400/45 hover:bg-violet-950/50 sm:px-4 sm:text-sm"
-          >
-            Notebook
-          </button>
+          {advancedToolsEnabled && (
+            <button
+              type="button"
+              onClick={() => setShowNotebook(true)}
+              className="shrink-0 rounded-full border border-violet-400/30 bg-violet-950/35 px-3 py-2 text-xs font-medium text-violet-200 hover:border-violet-400/45 hover:bg-violet-950/50 sm:px-4 sm:text-sm"
+            >
+              Notebook
+            </button>
+          )}
           <a
             href="/insights"
             target="_blank"
@@ -1250,6 +1255,13 @@ export function BlogStudioClient({
                 className="rounded-full border border-teal-500/35 px-3 py-1.5 text-xs text-teal-200 hover:bg-teal-950/30"
               >
                 {wizardLock ? "Wizard lock: ON" : "Wizard lock: OFF"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setAdvancedToolsEnabled((prev) => !prev)}
+                className="rounded-full border border-violet-500/35 px-3 py-1.5 text-xs text-violet-200 hover:bg-violet-950/30"
+              >
+                {advancedToolsEnabled ? "Advanced tools: ON" : "Advanced tools: OFF"}
               </button>
             </div>
           </div>
@@ -1297,6 +1309,14 @@ export function BlogStudioClient({
                 Complete this step first before moving on.
               </p>
             )}
+          </div>
+          <div className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">
+            <p className={`${seniorMode ? "text-sm" : "text-xs"} text-zinc-200`}>
+              Publish readiness: <span className="font-semibold text-white">{readinessScore}%</span>
+            </p>
+            <p className={`${seniorMode ? "text-sm" : "text-xs"} text-zinc-400`}>
+              Next fix: {nextReadinessHint}
+            </p>
           </div>
           <div className="rounded-xl border border-teal-500/25 bg-teal-950/20 px-3 py-2.5">
             <p className={`${seniorMode ? "text-sm" : "text-xs"} text-teal-100`}>
@@ -1801,20 +1821,22 @@ export function BlogStudioClient({
             <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
               {activePanel === "setup" && (
                 <div className="space-y-3">
-                  <label className="block text-xs text-zinc-500">
-                    <span className="mb-1 block font-medium text-zinc-300">Author</span>
-                    <select
-                      value={authorName}
-                      onChange={(e) => setAuthorName(e.target.value)}
-                      className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
-                    >
-                      {AUTHOR_OPTIONS.map((name) => (
-                        <option key={name} value={name}>
-                          {name}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
+                  {advancedToolsEnabled && (
+                    <label className="block text-xs text-zinc-500">
+                      <span className="mb-1 block font-medium text-zinc-300">Author</span>
+                      <select
+                        value={authorName}
+                        onChange={(e) => setAuthorName(e.target.value)}
+                        className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                      >
+                        {AUTHOR_OPTIONS.map((name) => (
+                          <option key={name} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  )}
                   <label className="block text-xs text-zinc-500">
                     <span className="mb-1 block font-medium text-zinc-300">Title</span>
                     <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
@@ -1834,14 +1856,18 @@ export function BlogStudioClient({
                     <span className="mb-1 block font-medium text-zinc-300">Short excerpt</span>
                     <input value={excerpt} onChange={(e) => setExcerpt(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
                   </label>
-                  <label className="block text-xs text-zinc-500">
-                    <span className="mb-1 block font-medium text-zinc-300">SEO title</span>
-                    <input value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
-                  </label>
-                  <label className="block text-xs text-zinc-500">
-                    <span className="mb-1 block font-medium text-zinc-300">SEO description</span>
-                    <input value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
-                  </label>
+                  {advancedToolsEnabled && (
+                    <>
+                      <label className="block text-xs text-zinc-500">
+                        <span className="mb-1 block font-medium text-zinc-300">SEO title</span>
+                        <input value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                      </label>
+                      <label className="block text-xs text-zinc-500">
+                        <span className="mb-1 block font-medium text-zinc-300">SEO description</span>
+                        <input value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                      </label>
+                    </>
+                  )}
                   <label className="block text-xs text-zinc-500">
                     <span className="mb-1 block font-medium text-zinc-300">Hero image URL (required for publish)</span>
                     <input
@@ -1854,35 +1880,43 @@ export function BlogStudioClient({
                       Used for insights thumbnail and publish checks. First uploaded image auto-fills this if empty.
                     </p>
                   </label>
-                  <div className="rounded-xl border border-white/10 bg-zinc-900/60 px-3 py-2.5 text-sm leading-relaxed text-zinc-300">
-                    <p className="font-medium text-zinc-200">Your own calculator code (optional)</p>
-                    <p className="mt-1 text-xs text-zinc-400">
-                      Type a short name below, paste the code in the big box, then tap{" "}
-                      <strong className="text-zinc-200">Save</strong> in the Publish panel. It is stored with this
-                      article. To copy it later for AI, open the top bar button{" "}
-                      <strong className="text-zinc-200">Calculator code library</strong> — your saved snippets appear at
-                      the top there.
+                  {advancedToolsEnabled ? (
+                    <>
+                      <div className="rounded-xl border border-white/10 bg-zinc-900/60 px-3 py-2.5 text-sm leading-relaxed text-zinc-300">
+                        <p className="font-medium text-zinc-200">Your own calculator code (optional)</p>
+                        <p className="mt-1 text-xs text-zinc-400">
+                          Type a short name below, paste the code in the big box, then tap{" "}
+                          <strong className="text-zinc-200">Save</strong> in the Publish panel. It is stored with this
+                          article. To copy it later for AI, open the top bar button{" "}
+                          <strong className="text-zinc-200">Calculator code library</strong> — your saved snippets appear at
+                          the top there.
+                        </p>
+                      </div>
+                      <label className="block text-xs text-zinc-500">
+                        <span className="mb-1 block font-medium text-zinc-300">Calculator name (optional)</span>
+                        <input
+                          value={calculatorName}
+                          onChange={(e) => setCalculatorName(e.target.value)}
+                          placeholder="e.g. Retirement Projection v2"
+                          className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                        />
+                      </label>
+                      <label className="block text-xs text-zinc-500">
+                        <span className="mb-1 block font-medium text-zinc-300">Calculator code (optional)</span>
+                        <textarea
+                          value={calculatorCode}
+                          onChange={(e) => setCalculatorCode(e.target.value)}
+                          spellCheck={false}
+                          placeholder="Paste calculator JS/TS logic here..."
+                          className="min-h-40 w-full rounded-lg border border-white/10 bg-black/60 px-3 py-2.5 font-mono text-[12px] text-teal-100/90"
+                        />
+                      </label>
+                    </>
+                  ) : (
+                    <p className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-xs text-zinc-400">
+                      Advanced SEO and calculator settings are hidden. Use the toggle above if needed.
                     </p>
-                  </div>
-                  <label className="block text-xs text-zinc-500">
-                    <span className="mb-1 block font-medium text-zinc-300">Calculator name (optional)</span>
-                    <input
-                      value={calculatorName}
-                      onChange={(e) => setCalculatorName(e.target.value)}
-                      placeholder="e.g. Retirement Projection v2"
-                      className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
-                    />
-                  </label>
-                  <label className="block text-xs text-zinc-500">
-                    <span className="mb-1 block font-medium text-zinc-300">Calculator code (optional)</span>
-                    <textarea
-                      value={calculatorCode}
-                      onChange={(e) => setCalculatorCode(e.target.value)}
-                      spellCheck={false}
-                      placeholder="Paste calculator JS/TS logic here..."
-                      className="min-h-40 w-full rounded-lg border border-white/10 bg-black/60 px-3 py-2.5 font-mono text-[12px] text-teal-100/90"
-                    />
-                  </label>
+                  )}
                 </div>
               )}
               {activePanel === "html" && (

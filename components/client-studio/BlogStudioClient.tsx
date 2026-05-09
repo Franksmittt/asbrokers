@@ -148,6 +148,24 @@ function buildEditorSignature(input: {
   });
 }
 
+function extractFirstImageUrlFromHtml(html: string): string | null {
+  for (const match of html.matchAll(/<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi)) {
+    const raw = (match[1] ?? "").trim();
+    if (!raw) continue;
+    const decoded = raw
+      .replace(/&amp;/gi, "&")
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;/gi, "'")
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">");
+    if (decoded.startsWith("javascript:")) continue;
+    if (decoded.includes("YOUR_IMAGE_URL_HERE") || decoded.includes("{{IMAGE_URL}}")) continue;
+    if (decoded === "#") continue;
+    return decoded;
+  }
+  return null;
+}
+
 async function getImageDimensions(file: File): Promise<{ width: number; height: number }> {
   const url = URL.createObjectURL(file);
   try {
@@ -233,6 +251,8 @@ export function BlogStudioClient({
   const [advancedToolsEnabled, setAdvancedToolsEnabled] = useState(false);
   const [showGuidedStart, setShowGuidedStart] = useState(true);
   const [showPublishConfirm, setShowPublishConfirm] = useState(false);
+  const [showStudioMenu, setShowStudioMenu] = useState(false);
+  const [showWorkflowDetails, setShowWorkflowDetails] = useState(false);
   const [publishReport, setPublishReport] = useState<{
     checkedRoute: boolean;
     checkedImages: number;
@@ -257,8 +277,10 @@ export function BlogStudioClient({
   const markdownFenceCount = useMemo(() => (bodyHtml.match(/```/g) ?? []).length, [bodyHtml]);
   const unresolvedYoutubePlaceholder = bodyHtml.includes("YOUR_VIDEO_ID");
   const unresolvedImagePlaceholders = imageUploadSlotCount > 0;
+  const detectedHeroImageUrl = useMemo(() => extractFirstImageUrlFromHtml(bodyHtml), [bodyHtml]);
+  const effectiveHeroImageUrl = (heroImageUrl || "").trim() || detectedHeroImageUrl || "";
   const slugValid = SLUG_OK.test(slug.trim());
-  const heroImageValid = heroImageUrl.trim().length > 0;
+  const heroImageValid = effectiveHeroImageUrl.length > 0;
   const basicsOk = title.trim().length > 0 && slug.trim().length > 0 && slugValid;
   const hasSectionTag = /<section[\s>]/i.test(bodyHtml);
   const hasTitleInHtml = /<h1[\s>]/i.test(bodyHtml);
@@ -545,6 +567,12 @@ export function BlogStudioClient({
   ]);
 
   useEffect(() => {
+    if (!heroImageUrl.trim() && detectedHeroImageUrl) {
+      setHeroImageUrl(detectedHeroImageUrl);
+    }
+  }, [heroImageUrl, detectedHeroImageUrl]);
+
+  useEffect(() => {
     if (selectedId) {
       setShowGuidedStart(false);
     }
@@ -607,7 +635,7 @@ export function BlogStudioClient({
         locale,
         excerpt: excerpt || null,
         bodyHtml: normalizedBody,
-        heroImageUrl: heroImageUrl || null,
+          heroImageUrl: effectiveHeroImageUrl || null,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
         calculatorName: calculatorName || null,
@@ -636,7 +664,7 @@ export function BlogStudioClient({
           excerpt,
           metaTitle,
           metaDescription,
-          heroImageUrl,
+          heroImageUrl: effectiveHeroImageUrl,
           calculatorName,
           calculatorCode,
           bodyHtml: normalizedBody,
@@ -672,7 +700,7 @@ export function BlogStudioClient({
         locale,
         excerpt: excerpt || null,
         bodyHtml: normalizedBody,
-        heroImageUrl: heroImageUrl || null,
+        heroImageUrl: effectiveHeroImageUrl || null,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
         calculatorName: calculatorName || null,
@@ -699,7 +727,7 @@ export function BlogStudioClient({
           excerpt,
           metaTitle,
           metaDescription,
-          heroImageUrl,
+          heroImageUrl: effectiveHeroImageUrl,
           calculatorName,
           calculatorCode,
           bodyHtml: normalizedBody,
@@ -967,7 +995,7 @@ export function BlogStudioClient({
             locale,
             excerpt: excerpt || null,
             bodyHtml: nextBodyHtml,
-            heroImageUrl: heroImageUrl || null,
+            heroImageUrl: (heroImageUrl || "").trim() || urls[0] || null,
             metaTitle: metaTitle || null,
             metaDescription: metaDescription || null,
             calculatorName: calculatorName || null,
@@ -1167,43 +1195,10 @@ export function BlogStudioClient({
         <div className="mx-auto flex w-full max-w-[100vw] min-w-0 flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={() => {
-              void copyBrandGuide();
-            }}
+            onClick={() => setShowStudioMenu(true)}
             className="shrink-0 rounded-full bg-teal-600/90 px-3 py-2 text-xs font-semibold text-white hover:bg-teal-500 sm:px-4 sm:text-sm"
           >
-            Copy brand guide (AI)
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              void copyOwnerChecklist();
-            }}
-            title="Short numbered steps for you — paste, clean, pictures, publish"
-            className="shrink-0 rounded-full bg-amber-600/90 px-3 py-2 text-xs font-semibold text-white hover:bg-amber-500 sm:px-4 sm:text-sm"
-          >
-            Copy my steps
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowBrandGuide(true)}
-            className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs text-zinc-200 hover:border-white/25 hover:bg-white/10 sm:px-4 sm:text-sm"
-          >
-            Read brand guide
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowOwnerChecklist(true)}
-            className="shrink-0 rounded-full border border-amber-500/40 bg-amber-950/40 px-3 py-2 text-xs font-medium text-amber-100 hover:bg-amber-950/60 sm:px-4 sm:text-sm"
-          >
-            Read my steps
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowCalculatorLibrary(true)}
-            className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs text-zinc-200 hover:border-white/25 hover:bg-white/10 sm:px-4 sm:text-sm"
-          >
-            Calculator code library
+            Studio menu
           </button>
           {advancedToolsEnabled && (
             <button
@@ -1265,30 +1260,39 @@ export function BlogStudioClient({
               </button>
             </div>
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            {WORKFLOW_STEPS.map((step) => {
-              const active = workflowStep === step.id;
-              const completed = workflowCompletion[step.id];
-              return (
-                <button
-                  key={step.id}
-                  type="button"
-                  onClick={() => openWorkflowStep(step.id)}
-                  className={`rounded-full border px-3 py-1.5 ${
-                    seniorMode ? "text-sm" : "text-xs"
-                  } transition-colors ${
-                    active
-                      ? "border-teal-500/60 bg-teal-950/35 text-teal-200"
-                      : completed
-                        ? "border-emerald-500/40 bg-emerald-950/25 text-emerald-200"
-                        : "border-white/10 text-zinc-300 hover:bg-white/5"
-                  }`}
-                >
-                  {completed ? `DONE - ${step.label}` : step.label}
-                </button>
-              );
-            })}
-          </div>
+          <button
+            type="button"
+            onClick={() => setShowWorkflowDetails((prev) => !prev)}
+            className="self-start rounded-full border border-white/15 px-3 py-1 text-xs text-zinc-300 hover:bg-white/5"
+          >
+            {showWorkflowDetails ? "Hide workflow details" : "Show workflow details"}
+          </button>
+          {showWorkflowDetails && (
+            <div className="flex flex-wrap gap-1.5">
+              {WORKFLOW_STEPS.map((step) => {
+                const active = workflowStep === step.id;
+                const completed = workflowCompletion[step.id];
+                return (
+                  <button
+                    key={step.id}
+                    type="button"
+                    onClick={() => openWorkflowStep(step.id)}
+                    className={`rounded-full border px-3 py-1.5 ${
+                      seniorMode ? "text-sm" : "text-xs"
+                    } transition-colors ${
+                      active
+                        ? "border-teal-500/60 bg-teal-950/35 text-teal-200"
+                        : completed
+                          ? "border-emerald-500/40 bg-emerald-950/25 text-emerald-200"
+                          : "border-white/10 text-zinc-300 hover:bg-white/5"
+                    }`}
+                  >
+                    {completed ? `DONE - ${step.label}` : step.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
           <div className="flex flex-wrap items-center gap-2">
             {nextWorkflowStep && (
               <button
@@ -2380,6 +2384,32 @@ export function BlogStudioClient({
                   className="rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500 disabled:opacity-40"
                 >
                   Confirm publish
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showStudioMenu && (
+        <div className="fixed inset-0 z-[64] overflow-y-auto bg-black/75 backdrop-blur-sm" role="dialog" aria-modal="true">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="w-full max-w-lg rounded-2xl border border-white/15 bg-[#121214] p-5">
+              <h2 className="text-lg font-semibold text-white">Studio menu</h2>
+              <p className="mt-1 text-sm text-zinc-400">Helpful tools and references for writing and publishing.</p>
+              <div className="mt-4 grid grid-cols-1 gap-2">
+                <button type="button" onClick={() => { void copyBrandGuide(); setShowStudioMenu(false); }} className="rounded-lg border border-white/15 px-3 py-2 text-left text-sm text-zinc-200 hover:bg-white/5">Copy brand guide (AI)</button>
+                <button type="button" onClick={() => { void copyOwnerChecklist(); setShowStudioMenu(false); }} className="rounded-lg border border-white/15 px-3 py-2 text-left text-sm text-zinc-200 hover:bg-white/5">Copy my steps</button>
+                <button type="button" onClick={() => { setShowBrandGuide(true); setShowStudioMenu(false); }} className="rounded-lg border border-white/15 px-3 py-2 text-left text-sm text-zinc-200 hover:bg-white/5">Read brand guide</button>
+                <button type="button" onClick={() => { setShowOwnerChecklist(true); setShowStudioMenu(false); }} className="rounded-lg border border-white/15 px-3 py-2 text-left text-sm text-zinc-200 hover:bg-white/5">Read my steps</button>
+                <button type="button" onClick={() => { setShowCalculatorLibrary(true); setShowStudioMenu(false); }} className="rounded-lg border border-white/15 px-3 py-2 text-left text-sm text-zinc-200 hover:bg-white/5">Calculator code library</button>
+                {advancedToolsEnabled && (
+                  <button type="button" onClick={() => { setShowNotebook(true); setShowStudioMenu(false); }} className="rounded-lg border border-white/15 px-3 py-2 text-left text-sm text-zinc-200 hover:bg-white/5">Notebook</button>
+                )}
+              </div>
+              <div className="mt-4 flex justify-end">
+                <button type="button" onClick={() => setShowStudioMenu(false)} className="rounded-full border border-white/20 px-4 py-2 text-sm text-zinc-200 hover:bg-white/5">
+                  Close
                 </button>
               </div>
             </div>

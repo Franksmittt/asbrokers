@@ -40,6 +40,7 @@ export default async function StudioWorkspacePage() {
   const rows = databaseConfigured ? await listAllStudioPosts() : [];
   const initialPosts = serialize(rows);
   const initialNotebookNotes = databaseConfigured ? await fetchNotebookNotesInitial() : [];
+  const allowBulkDelete = (process.env.CLIENT_STUDIO_ENABLE_BULK_DELETE ?? "").trim().toLowerCase() === "true";
 
   return (
     <BlogStudioClient
@@ -48,6 +49,7 @@ export default async function StudioWorkspacePage() {
       databaseConfigured={databaseConfigured}
       imageUploadConfigured={imageUploadConfigured}
       studioConfigured={studioConfigured}
+      allowBulkDelete={allowBulkDelete}
     />
   );
 }

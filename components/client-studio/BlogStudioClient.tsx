@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 
 import {
   deleteAllStudioPosts,
@@ -112,6 +112,39 @@ function normalizeAiHtml(raw: string): string {
   return next.trim();
 }
 
+function escapeHtmlText(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function buildEditorSignature(input: {
+  title: string;
+  slug: string;
+  locale: "en" | "af";
+  excerpt: string;
+  metaTitle: string;
+  metaDescription: string;
+  calculatorName: string;
+  calculatorCode: string;
+  bodyHtml: string;
+}): string {
+  return JSON.stringify({
+    title: input.title.trim(),
+    slug: input.slug.trim(),
+    locale: input.locale,
+    excerpt: input.excerpt,
+    metaTitle: input.metaTitle,
+    metaDescription: input.metaDescription,
+    calculatorName: input.calculatorName,
+    calculatorCode: input.calculatorCode,
+    bodyHtml: input.bodyHtml,
+  });
+}
+
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const AUTHOR_OPTIONS = ["Albert Schuurman"];
 const MAX_STUDIO_UPLOAD_BYTES = 3.5 * 1024 * 1024;
@@ -125,6 +158,7 @@ type Props = {
   /** Supabase service role + URL configured — required for image uploads. */
   imageUploadConfigured: boolean;
   studioConfigured: boolean;
+  allowBulkDelete: boolean;
 };
 
 type HealthCheck = {
@@ -134,12 +168,23 @@ type HealthCheck = {
   hint?: string;
 };
 
+type WorkflowStep = "content" | "images" | "review" | "publish";
+type WorkflowStepDef = { id: WorkflowStep; label: string; panel: "html" | "assist" | "publish" };
+
+const WORKFLOW_STEPS: WorkflowStepDef[] = [
+  { id: "content", label: "1. Content", panel: "html" },
+  { id: "images", label: "2. Images", panel: "assist" },
+  { id: "review", label: "3. Review", panel: "publish" },
+  { id: "publish", label: "4. Publish", panel: "publish" },
+];
+
 export function BlogStudioClient({
   initialPosts,
   initialNotebookNotes,
   databaseConfigured,
   imageUploadConfigured,
   studioConfigured,
+  allowBulkDelete,
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -163,6 +208,11 @@ export function BlogStudioClient({
   const [showNotebook, setShowNotebook] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [activePanel, setActivePanel] = useState<null | "setup" | "html" | "assist" | "publish">(null);
+  const [workflowStep, setWorkflowStep] = useState<WorkflowStep>("content");
+  const [seniorMode, setSeniorMode] = useState(true);
+  const [wizardLock, setWizardLock] = useState(true);
+  const [showGuidedStart, setShowGuidedStart] = useState(true);
+  const [showPublishConfirm, setShowPublishConfirm] = useState(false);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [youtubeInput, setYoutubeInput] = useState("");
@@ -170,11 +220,13 @@ export function BlogStudioClient({
   const [publishedPreviewHtml, setPublishedPreviewHtml] = useState<string | null>(null);
   const [lastUploadedUrls, setLastUploadedUrls] = useState<string[]>([]);
   const [authorName, setAuthorName] = useState(AUTHOR_OPTIONS[0]);
+  const [autosaveStatus, setAutosaveStatus] = useState<string | null>(null);
   const [listQuery, setListQuery] = useState("");
   const [listFilter, setListFilter] = useState<"all" | "draft" | "published">("all");
   const [listSort, setListSort] = useState<"updated_desc" | "updated_asc" | "title_asc">("updated_desc");
 
   const selected = posts.find((p) => p.id === selectedId) ?? null;
+  const autosaveTimerRef = useRef<number | null>(null);
   const imageUploadSlotCount = useMemo(() => countImageUploadSlots(bodyHtml), [bodyHtml]);
   const imageSlotHints = useMemo(() => listImageSlotHints(bodyHtml), [bodyHtml]);
   const markdownFenceCount = useMemo(() => (bodyHtml.match(/```/g) ?? []).length, [bodyHtml]);
@@ -282,9 +334,50 @@ export function BlogStudioClient({
   const selectedHiddenByFilter = Boolean(
     selectedId && selected && !filteredPosts.some((p) => p.id === selectedId)
   );
+  const activeWorkflowIndex = WORKFLOW_STEPS.findIndex((s) => s.id === workflowStep);
+  const nextWorkflowStep = activeWorkflowIndex >= 0 ? WORKFLOW_STEPS[activeWorkflowIndex + 1] : null;
+  const workflowCompletion: Record<WorkflowStep, boolean> = {
+    content: basicsOk,
+    images: !unresolvedImagePlaceholders,
+    review: failedChecks.length === 0,
+    publish: selected?.status === "published",
+  };
+  const canProceedFromCurrentStep =
+    workflowStep === "content"
+      ? basicsOk
+      : workflowStep === "images"
+        ? !unresolvedImagePlaceholders
+        : workflowStep === "review"
+          ? failedChecks.length === 0
+          : true;
 
   const saveDisabled = isPending || !databaseConfigured || !basicsOk;
-  const publishDisabled = saveDisabled || !selectedId;
+  const publishDisabled = saveDisabled || !selectedId || failedChecks.length > 0;
+  const editorSignature = useMemo(
+    () =>
+      buildEditorSignature({
+        title,
+        slug,
+        locale,
+        excerpt,
+        metaTitle,
+        metaDescription,
+        calculatorName,
+        calculatorCode,
+        bodyHtml,
+      }),
+    [title, slug, locale, excerpt, metaTitle, metaDescription, calculatorName, calculatorCode, bodyHtml]
+  );
+  const [lastSavedSignature, setLastSavedSignature] = useState<string | null>(
+    selectedId ? editorSignature : null
+  );
+
+  function openWorkflowStep(step: WorkflowStep) {
+    const def = WORKFLOW_STEPS.find((s) => s.id === step);
+    if (!def) return;
+    setWorkflowStep(step);
+    setActivePanel(def.panel);
+  }
 
   const loadIntoForm = useCallback((p: SerializableStudioPost) => {
     setSelectedId(p.id);
@@ -299,6 +392,20 @@ export function BlogStudioClient({
     setBodyHtml(p.bodyHtml);
     setSlugTouched(true);
     setBanner(null);
+    setAutosaveStatus("All changes saved.");
+    setLastSavedSignature(
+      buildEditorSignature({
+        title: p.title,
+        slug: p.slug,
+        locale: p.locale as "en" | "af",
+        excerpt: p.excerpt ?? "",
+        metaTitle: p.metaTitle ?? "",
+        metaDescription: p.metaDescription ?? "",
+        calculatorName: p.calculatorName ?? "",
+        calculatorCode: p.calculatorCode ?? "",
+        bodyHtml: p.bodyHtml,
+      })
+    );
     setActivePanel(null);
     setPublishedPreviewHtml(null);
     setPreviewMode("published");
@@ -318,6 +425,98 @@ export function BlogStudioClient({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only re-pull editor state when feed revision changes
   }, [feedKey]);
 
+  useEffect(() => {
+    if (!selectedId || !databaseConfigured) return;
+    if (editorSignature === lastSavedSignature) {
+      setAutosaveStatus("All changes saved.");
+      return;
+    }
+    setAutosaveStatus("Unsaved changes.");
+  }, [selectedId, databaseConfigured, editorSignature, lastSavedSignature]);
+
+  useEffect(() => {
+    if (autosaveTimerRef.current !== null) {
+      window.clearTimeout(autosaveTimerRef.current);
+      autosaveTimerRef.current = null;
+    }
+    if (!selectedId || !databaseConfigured || !basicsOk) return;
+    if (editorSignature === lastSavedSignature) return;
+
+    autosaveTimerRef.current = window.setTimeout(() => {
+      startTransition(async () => {
+        const normalizedBody = normalizeAiHtml(bodyHtml);
+        const res = await saveStudioPost(selectedId, {
+          title,
+          slug,
+          locale,
+          excerpt: excerpt || null,
+          bodyHtml: normalizedBody,
+          metaTitle: metaTitle || null,
+          metaDescription: metaDescription || null,
+          calculatorName: calculatorName || null,
+          calculatorCode: calculatorCode || null,
+        });
+        if (!res.ok) {
+          setAutosaveStatus(`Auto-save paused: ${res.error}`);
+          return;
+        }
+        setAutosaveStatus("Auto-saved.");
+        setLastSavedSignature(
+          buildEditorSignature({
+            title,
+            slug,
+            locale,
+            excerpt,
+            metaTitle,
+            metaDescription,
+            calculatorName,
+            calculatorCode,
+            bodyHtml: normalizedBody,
+          })
+        );
+        if (normalizedBody !== bodyHtml) setBodyHtml(normalizedBody);
+      });
+    }, 20000);
+
+    return () => {
+      if (autosaveTimerRef.current !== null) {
+        window.clearTimeout(autosaveTimerRef.current);
+        autosaveTimerRef.current = null;
+      }
+    };
+  }, [
+    selectedId,
+    databaseConfigured,
+    basicsOk,
+    editorSignature,
+    lastSavedSignature,
+    title,
+    slug,
+    locale,
+    excerpt,
+    bodyHtml,
+    metaTitle,
+    metaDescription,
+    calculatorName,
+    calculatorCode,
+    startTransition,
+  ]);
+
+  useEffect(() => {
+    if (!wizardLock) return;
+    const target = WORKFLOW_STEPS.find((s) => s.id === workflowStep)?.panel;
+    if (!target) return;
+    if (activePanel !== target) {
+      setActivePanel(target);
+    }
+  }, [wizardLock, workflowStep, activePanel]);
+
+  useEffect(() => {
+    if (selectedId) {
+      setShowGuidedStart(false);
+    }
+  }, [selectedId]);
+
   function handleNewArticle() {
     setSelectedId(null);
     setTitle("");
@@ -333,8 +532,12 @@ export function BlogStudioClient({
     );
     setSlugTouched(false);
     setBanner(null);
+    setWorkflowStep("content");
     setPublishedPreviewHtml(null);
     setLastUploadedUrls([]);
+    setLastSavedSignature(null);
+    setAutosaveStatus("Create title + slug, then save once to enable auto-save.");
+    setShowGuidedStart(false);
   }
 
   function onTitleBlur() {
@@ -386,6 +589,21 @@ export function BlogStudioClient({
           ? "Saved. Your changes are now live on the website."
           : "Saved. Draft is stored  -  still not public until you tap Publish."
       );
+      setWorkflowStep(unresolvedImagePlaceholders ? "images" : "review");
+      setAutosaveStatus("All changes saved.");
+      setLastSavedSignature(
+        buildEditorSignature({
+          title,
+          slug,
+          locale,
+          excerpt,
+          metaTitle,
+          metaDescription,
+          calculatorName,
+          calculatorCode,
+          bodyHtml: normalizedBody,
+        })
+      );
       router.refresh();
     });
   }
@@ -397,6 +615,10 @@ export function BlogStudioClient({
     }
     if (!basicsOk) {
       setBanner("Fix the title and URL slug before publishing.");
+      return;
+    }
+    if (failedChecks.length > 0) {
+      setBanner(`Fix this first: ${failedChecks[0]?.label ?? "complete all checks"}.`);
       return;
     }
     setBanner(null);
@@ -426,8 +648,35 @@ export function BlogStudioClient({
         return;
       }
       setBanner("Published. Use “Open this post on the site” or View site insights to check it.");
+      setAutosaveStatus("Published and saved.");
+      setWorkflowStep("publish");
+      setLastSavedSignature(
+        buildEditorSignature({
+          title,
+          slug,
+          locale,
+          excerpt,
+          metaTitle,
+          metaDescription,
+          calculatorName,
+          calculatorCode,
+          bodyHtml: normalizedBody,
+        })
+      );
       router.refresh();
     });
+  }
+
+  function runPublishFromWizard() {
+    if (!selectedId) {
+      setBanner("Save your draft first before publishing.");
+      return;
+    }
+    if (failedChecks.length > 0) {
+      setBanner(`Fix this first: ${failedChecks[0]?.label ?? "complete all checks"}.`);
+      return;
+    }
+    setShowPublishConfirm(true);
   }
 
   function runUnpublish() {
@@ -444,15 +693,39 @@ export function BlogStudioClient({
     });
   }
 
+  function runRecoveryMode() {
+    if (!selectedId) return;
+    const typed = window.prompt('Type RECOVER to unpublish and move this post back to draft mode:', "");
+    if ((typed ?? "").trim().toUpperCase() !== "RECOVER") {
+      setBanner("Recovery mode cancelled. Type RECOVER exactly.");
+      return;
+    }
+    setBanner(null);
+    startTransition(async () => {
+      const r = await unpublishStudioPost(selectedId);
+      if (!r.ok) {
+        setBanner(r.error);
+        return;
+      }
+      setWorkflowStep("review");
+      setBanner("Recovery mode complete: article is now draft and hidden from the website.");
+      router.refresh();
+    });
+  }
+
   function runDeleteArticle() {
     if (!selectedId || !selected) return;
     const isLive = selected.status === "published";
-    const ok = window.confirm(
+    const typed = window.prompt(
       isLive
-        ? "Delete this live article from the website? Visitors will no longer see it. This cannot be undone."
-        : "Delete this draft permanently? This cannot be undone."
+        ? 'Type DELETE to remove this LIVE article permanently:'
+        : 'Type DELETE to remove this draft permanently:',
+      ""
     );
-    if (!ok) return;
+    if ((typed ?? "").trim().toUpperCase() !== "DELETE") {
+      setBanner("Delete cancelled. Type DELETE exactly to confirm.");
+      return;
+    }
     setBanner(null);
     startTransition(async () => {
       const r = await deleteStudioPost(selectedId);
@@ -467,10 +740,18 @@ export function BlogStudioClient({
   }
 
   function runDeleteAllPosts() {
-    if (!window.confirm("Delete ALL studio posts (draft + published)? This cannot be undone.")) return;
+    if (!allowBulkDelete) {
+      setBanner("Bulk delete is disabled for safety.");
+      return;
+    }
+    const typed = window.prompt('Type DELETE ALL to remove all studio posts:', "");
+    if ((typed ?? "").trim().toUpperCase() !== "DELETE ALL") {
+      setBanner('Bulk delete cancelled. Type "DELETE ALL" exactly to continue.');
+      return;
+    }
     setBanner(null);
     startTransition(async () => {
-      const res = await deleteAllStudioPosts();
+      const res = await deleteAllStudioPosts("DELETE ALL");
       if (!res.ok) {
         setBanner(res.error);
         return;
@@ -479,6 +760,41 @@ export function BlogStudioClient({
       setBanner(`Deleted ${res.deleted} studio post${res.deleted === 1 ? "" : "s"}.`);
       router.refresh();
     });
+  }
+
+  function runAutoFixCommonIssues() {
+    let nextBody = normalizeAiHtml(bodyHtml);
+    let nextSlug = slug.trim();
+    const fixes: string[] = [];
+
+    if ((!nextSlug || !SLUG_OK.test(nextSlug)) && title.trim()) {
+      const generated = slugifyTitle(title);
+      if (generated) {
+        nextSlug = generated;
+        fixes.push("Generated a clean URL slug from title.");
+      }
+    }
+    if (!/<section[\s>]/i.test(nextBody)) {
+      nextBody = `<section class="space-y-4">\n${nextBody}\n</section>`;
+      fixes.push("Wrapped content in a section block.");
+    }
+    if (!/<h1[\s>]/i.test(nextBody) && title.trim()) {
+      nextBody = `<h1>${escapeHtmlText(title.trim())}</h1>\n${nextBody}`;
+      fixes.push("Inserted missing H1 heading.");
+    }
+
+    if (nextBody !== bodyHtml) setBodyHtml(nextBody);
+    if (nextSlug !== slug) {
+      setSlug(nextSlug);
+      setSlugTouched(true);
+    }
+
+    if (fixes.length === 0) {
+      setBanner("No common issues found to auto-fix.");
+      return;
+    }
+    setBanner(`Auto-fix complete: ${fixes.join(" ")}`);
+    setWorkflowStep("images");
   }
 
   async function copyBrandGuide() {
@@ -611,6 +927,7 @@ export function BlogStudioClient({
           setBanner(
             `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and saved automatically.`
           );
+          setWorkflowStep("review");
           router.refresh();
           return;
         }
@@ -620,6 +937,7 @@ export function BlogStudioClient({
             urls.length === 1 ? "" : "s"
           }. Add title + slug, then Save draft so it stays after refresh.`
         );
+        setWorkflowStep("review");
       } catch {
         setBanner("Upload failed before reaching the server. Please use smaller images (under 3.5MB each).");
       }
@@ -854,8 +1172,164 @@ export function BlogStudioClient({
         </div>
       </div>
 
-      {(banner || !databaseConfigured || (databaseConfigured && !imageUploadConfigured)) && (
+      <div className="shrink-0 border-b border-white/10 bg-zinc-950/60 px-3 py-2.5 sm:px-4">
+        <div className="mx-auto flex w-full max-w-[100vw] min-w-0 flex-col gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className={`${seniorMode ? "text-sm" : "text-xs"} font-semibold uppercase tracking-wide text-zinc-300`}>
+              Guided workflow
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setSeniorMode((prev) => !prev)}
+                className="rounded-full border border-white/15 px-3 py-1.5 text-xs text-zinc-300 hover:bg-white/5"
+              >
+                {seniorMode ? "Senior mode: ON" : "Senior mode: OFF"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setWizardLock((prev) => !prev)}
+                className="rounded-full border border-teal-500/35 px-3 py-1.5 text-xs text-teal-200 hover:bg-teal-950/30"
+              >
+                {wizardLock ? "Wizard lock: ON" : "Wizard lock: OFF"}
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {WORKFLOW_STEPS.map((step) => {
+              const active = workflowStep === step.id;
+              const completed = workflowCompletion[step.id];
+              return (
+                <button
+                  key={step.id}
+                  type="button"
+                  onClick={() => openWorkflowStep(step.id)}
+                  className={`rounded-full border px-3 py-1.5 ${
+                    seniorMode ? "text-sm" : "text-xs"
+                  } transition-colors ${
+                    active
+                      ? "border-teal-500/60 bg-teal-950/35 text-teal-200"
+                      : completed
+                        ? "border-emerald-500/40 bg-emerald-950/25 text-emerald-200"
+                        : "border-white/10 text-zinc-300 hover:bg-white/5"
+                  }`}
+                >
+                  {completed ? `DONE - ${step.label}` : step.label}
+                </button>
+              );
+            })}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {nextWorkflowStep && (
+              <button
+                type="button"
+                onClick={() => openWorkflowStep(nextWorkflowStep.id)}
+                disabled={!canProceedFromCurrentStep}
+                className={`rounded-full px-4 py-2 ${
+                  seniorMode ? "text-base" : "text-sm"
+                } font-semibold text-white disabled:opacity-40 ${
+                  canProceedFromCurrentStep ? "bg-teal-600 hover:bg-teal-500" : "bg-zinc-700"
+                }`}
+              >
+                Next: {nextWorkflowStep.label}
+              </button>
+            )}
+            {!canProceedFromCurrentStep && (
+              <p className={`${seniorMode ? "text-sm" : "text-xs"} text-amber-300/90`}>
+                Complete this step first before moving on.
+              </p>
+            )}
+          </div>
+          <div className="rounded-xl border border-teal-500/25 bg-teal-950/20 px-3 py-2.5">
+            <p className={`${seniorMode ? "text-sm" : "text-xs"} text-teal-100`}>
+              {workflowStep === "content" &&
+                "Step 1: Paste and clean the article HTML, then save your draft."}
+              {workflowStep === "images" &&
+                "Step 2: Upload images and replace all placeholders before continuing."}
+              {workflowStep === "review" &&
+                "Step 3: Fix every health check until all are green."}
+              {workflowStep === "publish" &&
+                "Step 4: Publish only when everything passes, then open the live post."}
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => openWorkflowStep(workflowStep)}
+                className={`rounded-full border border-white/20 px-3 py-1.5 ${
+                  seniorMode ? "text-sm" : "text-xs"
+                } text-white hover:bg-white/10`}
+              >
+                Open current step
+              </button>
+              {workflowStep === "content" && (
+                <>
+                  <button
+                    type="button"
+                    onClick={runAutoFixCommonIssues}
+                    className={`rounded-full bg-teal-600 px-3 py-1.5 ${
+                      seniorMode ? "text-sm" : "text-xs"
+                    } font-semibold text-white hover:bg-teal-500`}
+                  >
+                    Auto-fix content
+                  </button>
+                  <button
+                    type="button"
+                    onClick={runSave}
+                    disabled={saveDisabled}
+                    className={`rounded-full bg-white px-3 py-1.5 ${
+                      seniorMode ? "text-sm" : "text-xs"
+                    } font-semibold text-black disabled:opacity-40`}
+                  >
+                    Save draft
+                  </button>
+                </>
+              )}
+              {workflowStep === "images" && (
+                <button
+                  type="button"
+                  onClick={() => setActivePanel("assist")}
+                  className={`rounded-full bg-teal-600 px-3 py-1.5 ${
+                    seniorMode ? "text-sm" : "text-xs"
+                  } font-semibold text-white hover:bg-teal-500`}
+                >
+                  Open image tools ({imageUploadSlotCount} slot{imageUploadSlotCount === 1 ? "" : "s"} left)
+                </button>
+              )}
+              {workflowStep === "review" && (
+                <button
+                  type="button"
+                  onClick={() => openWorkflowStep("publish")}
+                  className={`rounded-full bg-teal-600 px-3 py-1.5 ${
+                    seniorMode ? "text-sm" : "text-xs"
+                  } font-semibold text-white hover:bg-teal-500`}
+                >
+                  Review checks ({failedChecks.length} to fix)
+                </button>
+              )}
+              {workflowStep === "publish" && (
+                <button
+                  type="button"
+                  onClick={runPublishFromWizard}
+                  disabled={publishDisabled}
+                  className={`rounded-full bg-teal-600 px-3 py-1.5 ${
+                    seniorMode ? "text-sm" : "text-xs"
+                  } font-semibold text-white disabled:opacity-40 hover:bg-teal-500`}
+                >
+                  Publish now
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {(autosaveStatus || banner || !databaseConfigured || (databaseConfigured && !imageUploadConfigured)) && (
         <div className="shrink-0 space-y-2 px-3 py-2 sm:px-4">
+          {autosaveStatus && (
+            <div className="rounded-xl border border-teal-500/25 bg-teal-950/20 px-3 py-2 text-xs leading-snug text-teal-100/90 sm:px-4">
+              {autosaveStatus}
+            </div>
+          )}
           {banner && (
             <div
               role="status"
@@ -894,6 +1368,7 @@ export function BlogStudioClient({
           className="flex min-h-0 w-full shrink-0 flex-col border-b border-white/10 lg:max-h-none lg:w-[17.75rem] lg:min-w-0 lg:border-b-0 lg:border-r lg:border-white/10"
           aria-label="Articles and library"
         >
+          {!wizardLock && (
           <div className="shrink-0 border-b border-white/5 p-2">
             <div className="flex items-center justify-between gap-1">
               <button
@@ -959,6 +1434,7 @@ export function BlogStudioClient({
               </button>
             </div>
           </div>
+          )}
           <div className="shrink-0 space-y-2 border-b border-white/5 p-2 sm:p-3">
             <button
               type="button"
@@ -1021,6 +1497,7 @@ export function BlogStudioClient({
                 <option value="title_asc">Title A–Z</option>
               </select>
             </label>
+            {!wizardLock && (
             <div className="flex flex-wrap gap-1.5 border-t border-white/[0.06] pt-2">
               <button
                 type="button"
@@ -1086,6 +1563,7 @@ export function BlogStudioClient({
                 Calculator code
               </button>
             </div>
+            )}
           </div>
 
           {selectedHiddenByFilter && (
@@ -1430,11 +1908,19 @@ export function BlogStudioClient({
                       {checklist.map((item) => (
                         <li key={item.id} className={item.ok ? "text-emerald-300" : "text-amber-300/90"}>
                           {item.ok ? "PASS" : "FIX"} - {item.label}
+                          {!item.ok && item.hint && <span className="block text-[10px] text-amber-100/80">{item.hint}</span>}
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={runAutoFixCommonIssues}
+                      className="rounded-full border border-teal-500/35 bg-teal-950/30 px-4 py-2 text-sm text-teal-200 hover:bg-teal-900/40"
+                    >
+                      Auto-fix common issues
+                    </button>
                     <button type="button" onClick={runSave} disabled={saveDisabled} className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black disabled:opacity-40">
                       {selected?.status === "published" ? "Save (updates live site)" : "Save draft"}
                     </button>
@@ -1448,18 +1934,29 @@ export function BlogStudioClient({
                         Unpublish
                       </button>
                     ) : null}
+                    {selectedId && selected?.status === "published" ? (
+                      <button
+                        type="button"
+                        onClick={runRecoveryMode}
+                        className="rounded-full border border-amber-500/35 bg-amber-950/30 px-4 py-2 text-sm text-amber-200 hover:bg-amber-900/35"
+                      >
+                        Recovery mode
+                      </button>
+                    ) : null}
                     {selectedId ? (
                       <button type="button" onClick={runDeleteArticle} className="rounded-full border border-red-500/35 px-4 py-2 text-sm text-red-300">
                         Delete article
                       </button>
                     ) : null}
-                    <button
-                      type="button"
-                      onClick={runDeleteAllPosts}
-                      className="rounded-full border border-red-500/35 bg-red-950/30 px-4 py-2 text-sm text-red-300 hover:bg-red-950/45"
-                    >
-                      Delete all studio posts
-                    </button>
+                    {allowBulkDelete && (
+                      <button
+                        type="button"
+                        onClick={runDeleteAllPosts}
+                        className="rounded-full border border-red-500/35 bg-red-950/30 px-4 py-2 text-sm text-red-300 hover:bg-red-950/45"
+                      >
+                        Delete all studio posts
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
@@ -1679,6 +2176,99 @@ export function BlogStudioClient({
         initialNotes={initialNotebookNotes}
         databaseConfigured={databaseConfigured}
       />
+
+      {wizardLock && showGuidedStart && (
+        <div className="fixed inset-0 z-[62] overflow-y-auto bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="w-full max-w-2xl rounded-2xl border border-teal-500/30 bg-[#121214] p-5 sm:p-7">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">Guided studio</p>
+              <h2 className="mt-2 text-2xl font-bold text-white">Let’s create your next blog post</h2>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+                Follow these 4 steps and the system will keep you safe from broken posts:
+                <span className="text-zinc-100"> Content -&gt; Images -&gt; Review -&gt; Publish</span>.
+              </p>
+              <ol className="mt-4 space-y-2 text-sm text-zinc-300">
+                <li>1. Paste your AI blog HTML and save draft.</li>
+                <li>2. Upload images to fill all placeholders.</li>
+                <li>3. Fix any review checks.</li>
+                <li>4. Confirm and publish.</li>
+              </ol>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleNewArticle();
+                    openWorkflowStep("content");
+                    setShowGuidedStart(false);
+                  }}
+                  className="rounded-full bg-teal-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-teal-500"
+                >
+                  Start new guided post
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowGuidedStart(false);
+                    if (selectedId) openWorkflowStep(workflowStep);
+                  }}
+                  className="rounded-full border border-white/20 px-5 py-2.5 text-sm text-zinc-200 hover:bg-white/5"
+                >
+                  Continue where I left off
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showPublishConfirm && (
+        <div className="fixed inset-0 z-[63] overflow-y-auto bg-black/75 backdrop-blur-sm" role="dialog" aria-modal="true">
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="w-full max-w-xl rounded-2xl border border-teal-500/30 bg-[#121214] p-5 sm:p-6">
+              <h2 className="text-xl font-semibold text-white">Final publish confirmation</h2>
+              <p className="mt-2 text-sm text-zinc-300">
+                You are about to publish this article publicly on the website.
+              </p>
+              <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3">
+                <p className="text-sm text-zinc-200">
+                  <span className="text-zinc-500">Title:</span> {title || "(untitled)"}
+                </p>
+                <p className="mt-1 text-sm text-zinc-200">
+                  <span className="text-zinc-500">Slug:</span> {slug || "(missing)"}
+                </p>
+                <p className="mt-1 text-sm text-zinc-200">
+                  <span className="text-zinc-500">Locale:</span> {locale.toUpperCase()}
+                </p>
+                <p className="mt-2 text-xs text-zinc-400">
+                  {failedChecks.length === 0
+                    ? "All checks passed."
+                    : `${failedChecks.length} check(s) still need fixing.`}
+                </p>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowPublishConfirm(false)}
+                  className="rounded-full border border-white/20 px-4 py-2 text-sm text-zinc-200 hover:bg-white/5"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowPublishConfirm(false);
+                    runPublish();
+                  }}
+                  disabled={publishDisabled}
+                  className="rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500 disabled:opacity-40"
+                >
+                  Confirm publish
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

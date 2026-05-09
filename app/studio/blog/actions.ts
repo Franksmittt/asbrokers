@@ -8,6 +8,7 @@ import { z } from "zod";
 import { createHash, randomUUID, timingSafeEqual } from "crypto";
 
 import { sanitizeInsightBody } from "@/lib/client-studio/sanitize-body";
+import { countImageUploadSlots } from "@/lib/client-studio/image-slots";
 import {
   clearClientStudioSession,
   getClientStudioSession,
@@ -22,6 +23,8 @@ import {
 import { clientInsightPosts, getDb } from "@/lib/db";
 import { collectErrorText } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
+import { cachedSanityFetch } from "@/sanity/lib/fetch";
+import { insightSlugExistsQuery } from "@/sanity/lib/queries";
 
 const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
 
@@ -54,6 +57,50 @@ async function requireStudioSession() {
   if (!(await getClientStudioSession())) {
     throw new Error("Not signed in.");
   }
+}
+
+async function hasSanitySlugConflict(slug: string, locale: "en" | "af"): Promise<boolean> {
+  try {
+    const match = await cachedSanityFetch<{ _id: string } | null>(insightSlugExistsQuery, { slug, locale });
+    return Boolean(match?._id);
+  } catch {
+    return false;
+  }
+}
+
+function extractHttpImageUrls(html: string, maxUrls = 2): string[] {
+  const urls: string[] = [];
+  const re = /<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(html)) !== null) {
+    const src = (match[1] ?? "").trim();
+    if (!src) continue;
+    if (!/^https?:\/\//i.test(src)) continue;
+    urls.push(src);
+    if (urls.length >= maxUrls) break;
+  }
+  return urls;
+}
+
+async function verifyPublishedHtmlHealth(html: string): Promise<string | null> {
+  if (!html.trim()) return "Published HTML is empty.";
+  if (countImageUploadSlots(html) > 0) {
+    return "Unresolved image placeholders were detected after publish.";
+  }
+
+  // Lightweight smoke check on up to 2 remote images.
+  const remoteUrls = extractHttpImageUrls(html, 2);
+  for (const url of remoteUrls) {
+    try {
+      const res = await fetch(url, { method: "HEAD", redirect: "follow", cache: "no-store" });
+      if (!res.ok) {
+        return `Image check failed for ${url} (HTTP ${res.status}).`;
+      }
+    } catch {
+      return `Image check failed for ${url} (network error).`;
+    }
+  }
+  return null;
 }
 
 export async function studioLogin(
@@ -99,12 +146,35 @@ export async function saveStudioPost(
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input." };
   }
   const v = parsed.data;
+  if (await hasSanitySlugConflict(v.slug, v.locale)) {
+    return {
+      ok: false,
+      error:
+        "That URL slug already exists in the CMS for this language. Use a different slug to avoid article conflicts.",
+    };
+  }
   const now = new Date();
+  const sanitizedForLive = sanitizeInsightBody(v.bodyHtml);
+  const unresolvedImageSlots = countImageUploadSlots(v.bodyHtml);
 
   try {
     if (id) {
       const existing = await getClientInsightPostById(db, id);
       if (!existing) return { ok: false, error: "Post not found." };
+
+      if (existing.status === "published") {
+        if (!sanitizedForLive.trim()) {
+          return { ok: false, error: "Live articles need some HTML content before saving." };
+        }
+        if (unresolvedImageSlots > 0) {
+          return {
+            ok: false,
+            error:
+              "Live article still has unresolved image placeholders. Upload/replace all image slots before saving.",
+          };
+        }
+      }
+
       const oldSlug = existing.slug;
       await updateClientInsightPostCompat(
         db,
@@ -123,14 +193,10 @@ export async function saveStudioPost(
         now
       );
       if (existing.status === "published") {
-        const sanitized = sanitizeInsightBody(v.bodyHtml);
-        if (!sanitized.trim()) {
-          return { ok: false, error: "Live articles need some HTML content before saving." };
-        }
         await db
           .update(clientInsightPosts)
           .set({
-            bodyHtmlPublished: sanitized,
+            bodyHtmlPublished: sanitizedForLive,
             updatedAt: new Date(),
           })
           .where(eq(clientInsightPosts.id, id));
@@ -212,10 +278,25 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Fix fields before publishing." };
   }
+  if (await hasSanitySlugConflict(parsed.data.slug, parsed.data.locale)) {
+    return {
+      ok: false,
+      error:
+        "This URL slug already exists in the CMS for this language. Change the slug before publishing.",
+    };
+  }
 
   const sanitized = sanitizeInsightBody(row.bodyHtml);
   if (!sanitized.trim()) {
     return { ok: false, error: "Add some HTML content before publishing." };
+  }
+  const unresolvedImageSlots = countImageUploadSlots(row.bodyHtml);
+  if (unresolvedImageSlots > 0) {
+    return {
+      ok: false,
+      error:
+        "This article still has unresolved image placeholders. Replace all image slots before publishing.",
+    };
   }
 
   const now = new Date();
@@ -234,6 +315,32 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
     return {
       ok: false,
       error: detail ? `Could not publish: ${detail}` : "Could not publish. Check your connection or try again.",
+    };
+  }
+
+  const publishHealthError = await verifyPublishedHtmlHealth(sanitized);
+  if (publishHealthError) {
+    try {
+      await db
+        .update(clientInsightPosts)
+        .set({
+          status: "draft",
+          bodyHtmlPublished: null,
+          publishedAt: null,
+          updatedAt: new Date(),
+        })
+        .where(eq(clientInsightPosts.id, id));
+    } catch {
+      return {
+        ok: false,
+        error:
+          `Publish verification failed and automatic recovery also failed: ${publishHealthError}`,
+      };
+    }
+    return {
+      ok: false,
+      error:
+        `Publish verification failed: ${publishHealthError} Automatic recovery moved this post back to draft mode.`,
     };
   }
 
@@ -357,11 +464,19 @@ export async function sanitizeStudioHtmlPreview(
   return { ok: true, html: sanitizeInsightBody(rawHtml) };
 }
 
-export async function deleteAllStudioPosts(): Promise<{ ok: true; deleted: number } | { ok: false; error: string }> {
+export async function deleteAllStudioPosts(
+  confirmationText: string
+): Promise<{ ok: true; deleted: number } | { ok: false; error: string }> {
   try {
     await requireStudioSession();
   } catch {
     return { ok: false, error: "Session expired  -  sign in again." };
+  }
+  if ((process.env.CLIENT_STUDIO_ENABLE_BULK_DELETE ?? "").trim().toLowerCase() !== "true") {
+    return { ok: false, error: "Bulk delete is disabled for safety." };
+  }
+  if (confirmationText.trim() !== "DELETE ALL") {
+    return { ok: false, error: 'Bulk delete cancelled. Type "DELETE ALL" exactly.' };
   }
 
   const db = getDb();

@@ -70,7 +70,10 @@ export function ExecutableArticleHtml({ html, className }: Props) {
     const scripts = root.querySelectorAll("script");
     scripts.forEach((oldScript) => {
       const scriptText = oldScript.textContent ?? "";
-      if (!oldScript.src && scriptText.trim()) {
+      const scriptType = (oldScript.getAttribute("type") ?? "").trim().toLowerCase();
+      const isModuleScript = scriptType === "module";
+
+      if (!oldScript.src && scriptText.trim() && !isModuleScript) {
         const originalAddEventListener = document.addEventListener.bind(document) as (
           type: string,
           listener: EventListenerOrEventListenerObject,
@@ -113,6 +116,9 @@ export function ExecutableArticleHtml({ html, className }: Props) {
       const nextScript = document.createElement("script");
       for (const attr of oldScript.attributes) {
         nextScript.setAttribute(attr.name, attr.value);
+      }
+      if (!oldScript.src && scriptText.trim()) {
+        nextScript.textContent = scriptText;
       }
       oldScript.replaceWith(nextScript);
     });

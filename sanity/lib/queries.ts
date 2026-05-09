@@ -5,7 +5,8 @@ export const insightsListQuery = `
     "slug": slug.current,
     locale,
     publishedAt,
-    excerpt
+    excerpt,
+    "thumbnailUrl": seo.openGraphImage.asset->url
   }
 `;
 
@@ -40,5 +41,12 @@ export const articleBySlugQuery = `
       }
     },
     seo
+  }
+`;
+
+/** Studio safeguard: prevent duplicate slug+locale between Sanity and studio posts. */
+export const insightSlugExistsQuery = `
+  *[_type == "article" && slug.current == $slug && locale == $locale][0] {
+    _id
   }
 `;

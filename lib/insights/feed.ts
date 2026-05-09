@@ -24,6 +24,7 @@ type SanityStub = {
   locale: string;
   publishedAt: string;
   excerpt: string | null;
+  thumbnailUrl?: string | null;
 };
 
 function toIso(d: string | Date): string {
@@ -33,11 +34,21 @@ function toIso(d: string | Date): string {
 
 function firstImageSrcFromHtml(html: string | null | undefined): string | null {
   if (!html) return null;
-  const match = html.match(/<img[\s\S]*?\ssrc=["']([^"']+)["'][\s\S]*?>/i);
-  const src = match?.[1]?.trim();
-  if (!src) return null;
-  if (src.startsWith("javascript:")) return null;
-  return src;
+
+  const invalidSrcTokens = ["YOUR_IMAGE_URL_HERE", "{{IMAGE_URL}}", "REPLACE_WITH_IMAGE_URL", "YOUR_IMAGE_URL"];
+  const imgTagRegex = /<img\b[^>]*>/gi;
+
+  for (const m of html.matchAll(imgTagRegex)) {
+    const tag = m[0];
+    const srcMatch = tag.match(/\bsrc\s*=\s*["']([^"']*)["']/i) ?? tag.match(/\bsrc\s*=\s*([^\s>]+)/i);
+    const src = (srcMatch?.[1] ?? "").trim();
+    if (!src) continue;
+    if (src === "#") continue;
+    if (src.toLowerCase().startsWith("javascript:")) continue;
+    if (invalidSrcTokens.some((token) => src.includes(token))) continue;
+    return src;
+  }
+  return null;
 }
 
 /**
@@ -57,7 +68,7 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
     publishedAt: toIso(a.publishedAt),
     excerpt: a.excerpt,
     author: "AS Brokers",
-    thumbnailUrl: null,
+    thumbnailUrl: a.thumbnailUrl ?? null,
     source: "sanity",
   }));
 
@@ -87,7 +98,12 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
     console.error("[insights feed] studio posts query failed (listing may omit HTML articles):", err);
   }
 
-  return [...sanityItems, ...studioItems].sort(
+  const sanitySlugKeys = new Set(sanityItems.map((item) => `${item.slug}::${item.locale}`));
+  const studioItemsWithoutSanitySlugConflict = studioItems.filter(
+    (item) => !sanitySlugKeys.has(`${item.slug}::${item.locale}`)
+  );
+
+  return [...sanityItems, ...studioItemsWithoutSanitySlugConflict].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 }

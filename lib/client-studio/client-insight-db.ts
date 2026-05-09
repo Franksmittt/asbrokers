@@ -8,7 +8,7 @@ import { isMissingCalculatorColumnsError } from "@/lib/db/pg-error-chain";
 
 export type ClientInsightPostRow = typeof clientInsightPosts.$inferSelect;
 
-/** Columns that exist before optional calculator_name / calculator_code migration. */
+/** Columns that exist before optional calculator/hero migrations. */
 const LEGACY_COLUMNS = {
   id: clientInsightPosts.id,
   slug: clientInsightPosts.slug,
@@ -42,7 +42,7 @@ type LegacyRow = {
 };
 
 function withNullCalculators(row: LegacyRow): ClientInsightPostRow {
-  return { ...row, calculatorName: null, calculatorCode: null };
+  return { ...row, calculatorName: null, calculatorCode: null, heroImageUrl: null };
 }
 
 let hasCalculatorColumns: boolean | null = null;
@@ -189,6 +189,7 @@ type WritablePostFields = {
   bodyHtml: string;
   metaTitle: string | null;
   metaDescription: string | null;
+  heroImageUrl: string | null;
   calculatorName: string | null;
   calculatorCode: string | null;
 };
@@ -211,6 +212,7 @@ export async function updateClientInsightPostCompat(
   };
   const withCalc = {
     ...base,
+    heroImageUrl: v.heroImageUrl,
     calculatorName: v.calculatorName,
     calculatorCode: v.calculatorCode,
   };
@@ -250,6 +252,7 @@ export async function insertClientInsightPostCompat(
   };
   const withCalc = {
     ...base,
+    heroImageUrl: v.heroImageUrl,
     calculatorName: v.calculatorName,
     calculatorCode: v.calculatorCode,
   };

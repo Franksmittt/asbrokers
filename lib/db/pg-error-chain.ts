@@ -21,10 +21,10 @@ export function collectErrorText(error: unknown): string {
 
 export function isMissingCalculatorColumnsError(error: unknown): boolean {
   const text = collectErrorText(error);
-  if (!text.includes("calculator_name") && !text.includes("calculator_code")) return false;
+  if (!text.includes("calculator_name") && !text.includes("calculator_code") && !text.includes("hero_image_url")) return false;
   return (
     text.includes("does not exist") ||
     text.includes("42703") ||
-    (text.includes("column") && text.includes("calculator"))
+    (text.includes("column") && (text.includes("calculator") || text.includes("hero_image")))
   );
 }

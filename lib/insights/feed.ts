@@ -91,7 +91,7 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
         publishedAt: r.publishedAt!.toISOString(),
         excerpt: r.excerpt,
         author: "AS Brokers",
-        thumbnailUrl: firstImageSrcFromHtml(r.bodyHtmlPublished),
+        thumbnailUrl: r.heroImageUrl ?? firstImageSrcFromHtml(r.bodyHtmlPublished),
         source: "studio" as const,
       }));
   } catch (err) {

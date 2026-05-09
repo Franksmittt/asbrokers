@@ -42,6 +42,7 @@ export type SerializableStudioPost = {
   status: string;
   metaTitle: string | null;
   metaDescription: string | null;
+  heroImageUrl: string | null;
   calculatorName: string | null;
   calculatorCode: string | null;
   publishedAt: string | null;
@@ -128,6 +129,7 @@ function buildEditorSignature(input: {
   excerpt: string;
   metaTitle: string;
   metaDescription: string;
+  heroImageUrl: string;
   calculatorName: string;
   calculatorCode: string;
   bodyHtml: string;
@@ -139,10 +141,26 @@ function buildEditorSignature(input: {
     excerpt: input.excerpt,
     metaTitle: input.metaTitle,
     metaDescription: input.metaDescription,
+    heroImageUrl: input.heroImageUrl,
     calculatorName: input.calculatorName,
     calculatorCode: input.calculatorCode,
     bodyHtml: input.bodyHtml,
   });
+}
+
+async function getImageDimensions(file: File): Promise<{ width: number; height: number }> {
+  const url = URL.createObjectURL(file);
+  try {
+    const dims = await new Promise<{ width: number; height: number }>((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
+      img.onerror = () => reject(new Error("Could not read image dimensions."));
+      img.src = url;
+    });
+    return dims;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }
 
 const SLUG_OK = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -198,6 +216,7 @@ export function BlogStudioClient({
   const [excerpt, setExcerpt] = useState(initialPosts[0]?.excerpt ?? "");
   const [metaTitle, setMetaTitle] = useState(initialPosts[0]?.metaTitle ?? "");
   const [metaDescription, setMetaDescription] = useState(initialPosts[0]?.metaDescription ?? "");
+  const [heroImageUrl, setHeroImageUrl] = useState(initialPosts[0]?.heroImageUrl ?? "");
   const [calculatorName, setCalculatorName] = useState(initialPosts[0]?.calculatorName ?? "");
   const [calculatorCode, setCalculatorCode] = useState(initialPosts[0]?.calculatorCode ?? "");
   const [bodyHtml, setBodyHtml] = useState(initialPosts[0]?.bodyHtml ?? "");
@@ -213,6 +232,11 @@ export function BlogStudioClient({
   const [wizardLock, setWizardLock] = useState(true);
   const [showGuidedStart, setShowGuidedStart] = useState(true);
   const [showPublishConfirm, setShowPublishConfirm] = useState(false);
+  const [publishReport, setPublishReport] = useState<{
+    checkedRoute: boolean;
+    checkedImages: number;
+    notes: string[];
+  } | null>(null);
   const [slugTouched, setSlugTouched] = useState(Boolean(initialPosts[0]));
   const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [youtubeInput, setYoutubeInput] = useState("");
@@ -233,6 +257,7 @@ export function BlogStudioClient({
   const unresolvedYoutubePlaceholder = bodyHtml.includes("YOUR_VIDEO_ID");
   const unresolvedImagePlaceholders = imageUploadSlotCount > 0;
   const slugValid = SLUG_OK.test(slug.trim());
+  const heroImageValid = heroImageUrl.trim().length > 0;
   const basicsOk = title.trim().length > 0 && slug.trim().length > 0 && slugValid;
   const hasSectionTag = /<section[\s>]/i.test(bodyHtml);
   const hasTitleInHtml = /<h1[\s>]/i.test(bodyHtml);
@@ -257,6 +282,12 @@ export function BlogStudioClient({
         hint: `Replace every slot before publishing. Supported tokens: ${IMAGE_PLACEHOLDER_MARKERS_LABEL}; or fill empty <img src="">.`,
       },
       {
+        id: "hero",
+        label: "Hero image is set",
+        ok: heroImageValid,
+        hint: "Set Hero image URL in Post Setup (or upload images first to auto-fill).",
+      },
+      {
         id: "video",
         label: "No unresolved YouTube placeholder",
         ok: !unresolvedYoutubePlaceholder,
@@ -273,6 +304,7 @@ export function BlogStudioClient({
       basicsOk,
       markdownFenceCount,
       unresolvedImagePlaceholders,
+      heroImageValid,
       unresolvedYoutubePlaceholder,
       hasSectionTag,
       hasTitleInHtml,
@@ -362,11 +394,12 @@ export function BlogStudioClient({
         excerpt,
         metaTitle,
         metaDescription,
+        heroImageUrl,
         calculatorName,
         calculatorCode,
         bodyHtml,
       }),
-    [title, slug, locale, excerpt, metaTitle, metaDescription, calculatorName, calculatorCode, bodyHtml]
+    [title, slug, locale, excerpt, metaTitle, metaDescription, heroImageUrl, calculatorName, calculatorCode, bodyHtml]
   );
   const [lastSavedSignature, setLastSavedSignature] = useState<string | null>(
     selectedId ? editorSignature : null
@@ -387,12 +420,14 @@ export function BlogStudioClient({
     setExcerpt(p.excerpt ?? "");
     setMetaTitle(p.metaTitle ?? "");
     setMetaDescription(p.metaDescription ?? "");
+    setHeroImageUrl(p.heroImageUrl ?? "");
     setCalculatorName(p.calculatorName ?? "");
     setCalculatorCode(p.calculatorCode ?? "");
     setBodyHtml(p.bodyHtml);
     setSlugTouched(true);
     setBanner(null);
     setAutosaveStatus("All changes saved.");
+    setPublishReport(null);
     setLastSavedSignature(
       buildEditorSignature({
         title: p.title,
@@ -401,6 +436,7 @@ export function BlogStudioClient({
         excerpt: p.excerpt ?? "",
         metaTitle: p.metaTitle ?? "",
         metaDescription: p.metaDescription ?? "",
+        heroImageUrl: p.heroImageUrl ?? "",
         calculatorName: p.calculatorName ?? "",
         calculatorCode: p.calculatorCode ?? "",
         bodyHtml: p.bodyHtml,
@@ -451,6 +487,7 @@ export function BlogStudioClient({
           locale,
           excerpt: excerpt || null,
           bodyHtml: normalizedBody,
+          heroImageUrl: heroImageUrl || null,
           metaTitle: metaTitle || null,
           metaDescription: metaDescription || null,
           calculatorName: calculatorName || null,
@@ -469,6 +506,7 @@ export function BlogStudioClient({
             excerpt,
             metaTitle,
             metaDescription,
+            heroImageUrl,
             calculatorName,
             calculatorCode,
             bodyHtml: normalizedBody,
@@ -497,19 +535,11 @@ export function BlogStudioClient({
     bodyHtml,
     metaTitle,
     metaDescription,
+    heroImageUrl,
     calculatorName,
     calculatorCode,
     startTransition,
   ]);
-
-  useEffect(() => {
-    if (!wizardLock) return;
-    const target = WORKFLOW_STEPS.find((s) => s.id === workflowStep)?.panel;
-    if (!target) return;
-    if (activePanel !== target) {
-      setActivePanel(target);
-    }
-  }, [wizardLock, workflowStep, activePanel]);
 
   useEffect(() => {
     if (selectedId) {
@@ -525,6 +555,7 @@ export function BlogStudioClient({
     setExcerpt("");
     setMetaTitle("");
     setMetaDescription("");
+    setHeroImageUrl("");
     setCalculatorName("");
     setCalculatorCode("");
     setBodyHtml(
@@ -532,6 +563,7 @@ export function BlogStudioClient({
     );
     setSlugTouched(false);
     setBanner(null);
+    setPublishReport(null);
     setWorkflowStep("content");
     setPublishedPreviewHtml(null);
     setLastUploadedUrls([]);
@@ -559,6 +591,7 @@ export function BlogStudioClient({
       return;
     }
     setBanner(null);
+    setPublishReport(null);
     startTransition(async () => {
       const wasLive = selected?.status === "published";
       const normalizedBody = normalizeAiHtml(bodyHtml);
@@ -571,6 +604,7 @@ export function BlogStudioClient({
         locale,
         excerpt: excerpt || null,
         bodyHtml: normalizedBody,
+        heroImageUrl: heroImageUrl || null,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
         calculatorName: calculatorName || null,
@@ -599,6 +633,7 @@ export function BlogStudioClient({
           excerpt,
           metaTitle,
           metaDescription,
+          heroImageUrl,
           calculatorName,
           calculatorCode,
           bodyHtml: normalizedBody,
@@ -622,6 +657,7 @@ export function BlogStudioClient({
       return;
     }
     setBanner(null);
+    setPublishReport(null);
     startTransition(async () => {
       const normalizedBody = normalizeAiHtml(bodyHtml);
       if (normalizedBody !== bodyHtml) {
@@ -633,6 +669,7 @@ export function BlogStudioClient({
         locale,
         excerpt: excerpt || null,
         bodyHtml: normalizedBody,
+        heroImageUrl: heroImageUrl || null,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
         calculatorName: calculatorName || null,
@@ -647,6 +684,7 @@ export function BlogStudioClient({
         setBanner(pub.error);
         return;
       }
+      setPublishReport(pub.report);
       setBanner("Published. Use “Open this post on the site” or View site insights to check it.");
       setAutosaveStatus("Published and saved.");
       setWorkflowStep("publish");
@@ -658,6 +696,7 @@ export function BlogStudioClient({
           excerpt,
           metaTitle,
           metaDescription,
+          heroImageUrl,
           calculatorName,
           calculatorCode,
           bodyHtml: normalizedBody,
@@ -682,6 +721,7 @@ export function BlogStudioClient({
   function runUnpublish() {
     if (!selectedId) return;
     setBanner(null);
+    setPublishReport(null);
     startTransition(async () => {
       const r = await unpublishStudioPost(selectedId);
       if (!r.ok) {
@@ -872,6 +912,20 @@ export function BlogStudioClient({
     setBanner(null);
     startTransition(async () => {
       try {
+        for (let i = 0; i < uploadFiles.length; i += 1) {
+          const file = uploadFiles[i];
+          const dims = await getImageDimensions(file);
+          const isFirst = i === 0;
+          const minWidth = isFirst ? 1200 : 640;
+          const minHeight = isFirst ? 630 : 360;
+          if (dims.width < minWidth || dims.height < minHeight) {
+            setBanner(
+              `Image "${file.name}" is too small (${dims.width}x${dims.height}). Minimum required is ${minWidth}x${minHeight}.`
+            );
+            return;
+          }
+        }
+
         const max = Math.min(uploadFiles.length, imageUploadSlotCount);
         const urls: string[] = [];
 
@@ -894,6 +948,9 @@ export function BlogStudioClient({
         setBodyHtml(nextBodyHtml);
         setUploadFiles([]);
         setLastUploadedUrls(urls);
+        if (!heroImageUrl.trim() && urls[0]) {
+          setHeroImageUrl(urls[0]);
+        }
 
         const resolvedTitle = title.trim() || selected?.title || "";
         const resolvedSlug = slug.trim() || selected?.slug || "";
@@ -907,6 +964,7 @@ export function BlogStudioClient({
             locale,
             excerpt: excerpt || null,
             bodyHtml: nextBodyHtml,
+            heroImageUrl: heroImageUrl || null,
             metaTitle: metaTitle || null,
             metaDescription: metaDescription || null,
             calculatorName: calculatorName || null,
@@ -1323,7 +1381,7 @@ export function BlogStudioClient({
         </div>
       </div>
 
-      {(autosaveStatus || banner || !databaseConfigured || (databaseConfigured && !imageUploadConfigured)) && (
+      {(publishReport || autosaveStatus || banner || !databaseConfigured || (databaseConfigured && !imageUploadConfigured)) && (
         <div className="shrink-0 space-y-2 px-3 py-2 sm:px-4">
           {autosaveStatus && (
             <div className="rounded-xl border border-teal-500/25 bg-teal-950/20 px-3 py-2 text-xs leading-snug text-teal-100/90 sm:px-4">
@@ -1336,6 +1394,16 @@ export function BlogStudioClient({
               className="rounded-xl border border-white/10 bg-zinc-900/90 px-3 py-2.5 text-sm leading-snug text-zinc-200 sm:px-4"
             >
               {banner}
+            </div>
+          )}
+          {publishReport && (
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 px-3 py-2.5 text-xs leading-relaxed text-emerald-100 sm:px-4">
+              <p className="font-semibold text-emerald-200">Publish report</p>
+              <p>Route smoke check: {publishReport.checkedRoute ? "Passed" : "Skipped (site URL not configured)"}</p>
+              <p>Remote images checked: {publishReport.checkedImages}</p>
+              {publishReport.notes.map((note, idx) => (
+                <p key={idx}>Note: {note}</p>
+              ))}
             </div>
           )}
           {!databaseConfigured && (
@@ -1773,6 +1841,18 @@ export function BlogStudioClient({
                   <label className="block text-xs text-zinc-500">
                     <span className="mb-1 block font-medium text-zinc-300">SEO description</span>
                     <input value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white" />
+                  </label>
+                  <label className="block text-xs text-zinc-500">
+                    <span className="mb-1 block font-medium text-zinc-300">Hero image URL (required for publish)</span>
+                    <input
+                      value={heroImageUrl}
+                      onChange={(e) => setHeroImageUrl(e.target.value)}
+                      placeholder="/api/studio/media?... or https://..."
+                      className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                    />
+                    <p className="mt-1 text-[11px] text-zinc-500">
+                      Used for insights thumbnail and publish checks. First uploaded image auto-fills this if empty.
+                    </p>
                   </label>
                   <div className="rounded-xl border border-white/10 bg-zinc-900/60 px-3 py-2.5 text-sm leading-relaxed text-zinc-300">
                     <p className="font-medium text-zinc-200">Your own calculator code (optional)</p>
@@ -2238,6 +2318,9 @@ export function BlogStudioClient({
                 </p>
                 <p className="mt-1 text-sm text-zinc-200">
                   <span className="text-zinc-500">Locale:</span> {locale.toUpperCase()}
+                </p>
+                <p className="mt-1 text-sm text-zinc-200">
+                  <span className="text-zinc-500">Hero image:</span> {heroImageUrl || "(missing)"}
                 </p>
                 <p className="mt-2 text-xs text-zinc-400">
                   {failedChecks.length === 0

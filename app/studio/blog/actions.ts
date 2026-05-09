@@ -38,11 +38,18 @@ const postBaseSchema = z.object({
   locale: z.enum(["en", "af"]),
   excerpt: z.string().trim().max(2000).optional().nullable(),
   bodyHtml: z.string().max(500_000).default(""),
+  heroImageUrl: z.string().trim().max(2000).optional().nullable(),
   metaTitle: z.string().trim().max(70).optional().nullable(),
   metaDescription: z.string().trim().max(200).optional().nullable(),
   calculatorName: z.string().trim().max(140).optional().nullable(),
   calculatorCode: z.string().max(250_000).optional().nullable(),
 });
+
+type PublishReport = {
+  checkedRoute: boolean;
+  checkedImages: number;
+  notes: string[];
+};
 
 function verifyStudioPassword(plain: string): boolean {
   const expected = process.env.CLIENT_STUDIO_PASSWORD?.trim();
@@ -68,6 +75,11 @@ async function hasSanitySlugConflict(slug: string, locale: "en" | "af"): Promise
   }
 }
 
+function isAllowedHeroImageUrl(value: string): boolean {
+  if (value.startsWith("/api/studio/media?")) return true;
+  return /^https?:\/\//i.test(value);
+}
+
 function extractHttpImageUrls(html: string, maxUrls = 2): string[] {
   const urls: string[] = [];
   const re = /<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi;
@@ -82,25 +94,101 @@ function extractHttpImageUrls(html: string, maxUrls = 2): string[] {
   return urls;
 }
 
-async function verifyPublishedHtmlHealth(html: string): Promise<string | null> {
-  if (!html.trim()) return "Published HTML is empty.";
+function resolveSiteOrigin(): string | null {
+  const preferred =
+    process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+    process.env.SITE_URL?.trim() ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim() ||
+    process.env.VERCEL_URL?.trim() ||
+    "";
+  if (!preferred) return null;
+  const normalized = /^https?:\/\//i.test(preferred) ? preferred : `https://${preferred}`;
+  try {
+    return new URL(normalized).origin;
+  } catch {
+    return null;
+  }
+}
+
+async function verifyPublishedHtmlHealth(
+  html: string,
+  slug: string,
+  locale: "en" | "af"
+): Promise<{ error: string | null; checkedRoute: boolean; checkedImages: number; notes: string[] }> {
+  const notes: string[] = [];
+  if (!html.trim()) {
+    return { error: "Published HTML is empty.", checkedRoute: false, checkedImages: 0, notes };
+  }
   if (countImageUploadSlots(html) > 0) {
-    return "Unresolved image placeholders were detected after publish.";
+    return {
+      error: "Unresolved image placeholders were detected after publish.",
+      checkedRoute: false,
+      checkedImages: 0,
+      notes,
+    };
   }
 
   // Lightweight smoke check on up to 2 remote images.
   const remoteUrls = extractHttpImageUrls(html, 2);
+  let checkedImages = 0;
   for (const url of remoteUrls) {
     try {
       const res = await fetch(url, { method: "HEAD", redirect: "follow", cache: "no-store" });
       if (!res.ok) {
-        return `Image check failed for ${url} (HTTP ${res.status}).`;
+        return {
+          error: `Image check failed for ${url} (HTTP ${res.status}).`,
+          checkedRoute: false,
+          checkedImages,
+          notes,
+        };
       }
+      checkedImages += 1;
     } catch {
-      return `Image check failed for ${url} (network error).`;
+      return {
+        error: `Image check failed for ${url} (network error).`,
+        checkedRoute: false,
+        checkedImages,
+        notes,
+      };
     }
   }
-  return null;
+  const origin = resolveSiteOrigin();
+  if (!origin) {
+    notes.push("Route smoke test skipped because SITE URL env is not configured.");
+    return { error: null, checkedRoute: false, checkedImages, notes };
+  }
+  try {
+    const pageRes = await fetch(`${origin}/insights/${encodeURIComponent(slug)}?locale=${locale}`, {
+      method: "GET",
+      redirect: "follow",
+      cache: "no-store",
+    });
+    if (!pageRes.ok) {
+      return {
+        error: `Live route check failed for /insights/${slug}?locale=${locale} (HTTP ${pageRes.status}).`,
+        checkedRoute: true,
+        checkedImages,
+        notes,
+      };
+    }
+    const htmlText = await pageRes.text();
+    if (!htmlText.includes("<article")) {
+      return {
+        error: `Live route check failed: article markup missing on /insights/${slug}?locale=${locale}.`,
+        checkedRoute: true,
+        checkedImages,
+        notes,
+      };
+    }
+  } catch {
+    return {
+      error: `Live route check failed for /insights/${slug}?locale=${locale} (network error).`,
+      checkedRoute: true,
+      checkedImages,
+      notes,
+    };
+  }
+  return { error: null, checkedRoute: true, checkedImages, notes };
 }
 
 export async function studioLogin(
@@ -146,6 +234,13 @@ export async function saveStudioPost(
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input." };
   }
   const v = parsed.data;
+  const heroImageUrl = (v.heroImageUrl ?? "").trim();
+  if (heroImageUrl && !isAllowedHeroImageUrl(heroImageUrl)) {
+    return {
+      ok: false,
+      error: "Hero image must be an uploaded studio image or a valid http(s) URL.",
+    };
+  }
   if (await hasSanitySlugConflict(v.slug, v.locale)) {
     return {
       ok: false,
@@ -185,6 +280,7 @@ export async function saveStudioPost(
           locale: v.locale,
           excerpt: v.excerpt ?? null,
           bodyHtml: v.bodyHtml,
+          heroImageUrl: heroImageUrl || null,
           metaTitle: v.metaTitle ?? null,
           metaDescription: v.metaDescription ?? null,
           calculatorName: v.calculatorName ?? null,
@@ -219,6 +315,7 @@ export async function saveStudioPost(
         locale: v.locale,
         excerpt: v.excerpt ?? null,
         bodyHtml: v.bodyHtml,
+        heroImageUrl: heroImageUrl || null,
         metaTitle: v.metaTitle ?? null,
         metaDescription: v.metaDescription ?? null,
         calculatorName: v.calculatorName ?? null,
@@ -246,7 +343,9 @@ export async function saveStudioPost(
   }
 }
 
-export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok: false; error: string }> {
+export async function publishStudioPost(
+  id: string
+): Promise<{ ok: true; report: PublishReport } | { ok: false; error: string }> {
   try {
     await requireStudioSession();
   } catch {
@@ -270,6 +369,7 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
     locale: localeSafe,
     excerpt: row.excerpt,
     bodyHtml: row.bodyHtml,
+    heroImageUrl: row.heroImageUrl,
     metaTitle: row.metaTitle,
     metaDescription: row.metaDescription,
     calculatorName: row.calculatorName,
@@ -277,6 +377,20 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Fix fields before publishing." };
+  }
+  const heroImageUrl = (parsed.data.heroImageUrl ?? "").trim();
+  if (!heroImageUrl) {
+    return {
+      ok: false,
+      error:
+        "Add a hero image before publishing (used for insights thumbnail). If this field does not save, run npm run db:push to add the latest studio columns.",
+    };
+  }
+  if (!isAllowedHeroImageUrl(heroImageUrl)) {
+    return {
+      ok: false,
+      error: "Hero image must be an uploaded studio image or a valid http(s) URL.",
+    };
   }
   if (await hasSanitySlugConflict(parsed.data.slug, parsed.data.locale)) {
     return {
@@ -306,6 +420,7 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
       .set({
         status: "published",
         bodyHtmlPublished: sanitized,
+        heroImageUrl: heroImageUrl,
         publishedAt: now,
         updatedAt: now,
       })
@@ -318,8 +433,8 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
     };
   }
 
-  const publishHealthError = await verifyPublishedHtmlHealth(sanitized);
-  if (publishHealthError) {
+  const health = await verifyPublishedHtmlHealth(sanitized, row.slug, localeSafe);
+  if (health.error) {
     try {
       await db
         .update(clientInsightPosts)
@@ -334,20 +449,27 @@ export async function publishStudioPost(id: string): Promise<{ ok: true } | { ok
       return {
         ok: false,
         error:
-          `Publish verification failed and automatic recovery also failed: ${publishHealthError}`,
+          `Publish verification failed and automatic recovery also failed: ${health.error}`,
       };
     }
     return {
       ok: false,
       error:
-        `Publish verification failed: ${publishHealthError} Automatic recovery moved this post back to draft mode.`,
+        `Publish verification failed: ${health.error} Automatic recovery moved this post back to draft mode.`,
     };
   }
 
   revalidatePath("/");
   revalidatePath("/insights");
   revalidatePath(`/insights/${row.slug}`);
-  return { ok: true };
+  return {
+    ok: true,
+    report: {
+      checkedRoute: health.checkedRoute,
+      checkedImages: health.checkedImages,
+      notes: health.notes,
+    },
+  };
 }
 
 export async function unpublishStudioPost(id: string): Promise<{ ok: true } | { ok: false; error: string }> {

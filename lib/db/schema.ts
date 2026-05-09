@@ -72,6 +72,7 @@ export const clientInsightPosts = pgTable(
     status: varchar("status", { length: 20 }).notNull().default("draft"),
     metaTitle: text("meta_title"),
     metaDescription: text("meta_description"),
+    heroImageUrl: text("hero_image_url"),
     calculatorName: text("calculator_name"),
     calculatorCode: text("calculator_code"),
     publishedAt: timestamp("published_at", { withTimezone: true }),

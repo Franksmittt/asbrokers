@@ -17,6 +17,7 @@ function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>): Serial
     excerpt: r.excerpt,
     bodyHtml: r.bodyHtml,
     bodyHtmlPublished: r.bodyHtmlPublished,
+    heroImageUrl: r.heroImageUrl,
     status: r.status,
     metaTitle: r.metaTitle,
     metaDescription: r.metaDescription,

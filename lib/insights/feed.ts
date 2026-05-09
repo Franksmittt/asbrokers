@@ -37,11 +37,18 @@ function firstImageSrcFromHtml(html: string | null | undefined): string | null {
 
   const invalidSrcTokens = ["YOUR_IMAGE_URL_HERE", "{{IMAGE_URL}}", "REPLACE_WITH_IMAGE_URL", "YOUR_IMAGE_URL"];
   const imgTagRegex = /<img\b[^>]*>/gi;
+  const decodeHtmlEntities = (value: string): string =>
+    value
+      .replace(/&amp;/gi, "&")
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;/gi, "'")
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">");
 
   for (const m of html.matchAll(imgTagRegex)) {
     const tag = m[0];
     const srcMatch = tag.match(/\bsrc\s*=\s*["']([^"']*)["']/i) ?? tag.match(/\bsrc\s*=\s*([^\s>]+)/i);
-    const src = (srcMatch?.[1] ?? "").trim();
+    const src = decodeHtmlEntities((srcMatch?.[1] ?? "").trim());
     if (!src) continue;
     if (src === "#") continue;
     if (src.toLowerCase().startsWith("javascript:")) continue;

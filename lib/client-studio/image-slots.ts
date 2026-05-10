@@ -159,3 +159,37 @@ export function replaceImagePlaceholdersSequentially(html: string, urls: string[
   }
   return next;
 }
+
+export function replaceImageSlotAtIndex(html: string, slotIndex: number, url: string): string {
+  if (slotIndex < 0) return html;
+  let remaining = html;
+  let current = 0;
+  while (true) {
+    const marker = findFirstMarkerMatch(remaining);
+    const empty = findFirstEmptyImgBounds(remaining);
+    const pickMarker = marker && (!empty || marker.index < empty.start);
+    const pickEmpty = empty && (!marker || empty.start < marker.index);
+    if (pickMarker && marker) {
+      if (current === slotIndex) {
+        const esc = escapeAttr(url);
+        return html.slice(0, marker.index) + esc + html.slice(marker.index + marker.length);
+      }
+      remaining =
+        remaining.slice(0, marker.index) + "\0".repeat(marker.length) + remaining.slice(marker.index + marker.length);
+      current += 1;
+      continue;
+    }
+    if (pickEmpty && empty) {
+      if (current === slotIndex) {
+        const segment = html.slice(empty.start, empty.end);
+        const filled = replaceFirstEmptyImgSrc(segment, url);
+        return html.slice(0, empty.start) + filled + html.slice(empty.end);
+      }
+      remaining = remaining.slice(0, empty.start) + "\0".repeat(empty.end - empty.start) + remaining.slice(empty.end);
+      current += 1;
+      continue;
+    }
+    break;
+  }
+  return html;
+}

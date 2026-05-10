@@ -28,6 +28,7 @@ import {
   PRIMARY_IMAGE_PLACEHOLDER,
   countImageUploadSlots,
   listImageSlotHints,
+  replaceImageSlotAtIndex,
   replaceImagePlaceholdersSequentially,
 } from "@/lib/client-studio/image-slots";
 
@@ -292,6 +293,7 @@ export function BlogStudioClient({
   const [previewMode, setPreviewMode] = useState<"raw" | "published">("published");
   const [publishedPreviewHtml, setPublishedPreviewHtml] = useState<string | null>(null);
   const [lastUploadedUrls, setLastUploadedUrls] = useState<string[]>([]);
+  const [slotUploadFiles, setSlotUploadFiles] = useState<Record<number, File | null>>({});
   const [authorName, setAuthorName] = useState(AUTHOR_OPTIONS[0]);
   const [autosaveStatus, setAutosaveStatus] = useState<string | null>(null);
   const [listQuery, setListQuery] = useState("");
@@ -397,6 +399,7 @@ export function BlogStudioClient({
         title: (p.calculatorName ?? "").trim(),
         code: p.calculatorCode ?? "",
         source: p.title || p.slug,
+        embedReady: (p.calculatorCode ?? "").trim().startsWith("<"),
       }))
       .filter((snippet) => {
         const titleKey = snippet.title.toLowerCase().trim();
@@ -653,6 +656,7 @@ export function BlogStudioClient({
     setWorkflowStep("source");
     setPublishedPreviewHtml(null);
     setLastUploadedUrls([]);
+    setSlotUploadFiles({});
     setLastSavedSignature(null);
     setAutosaveStatus("Create title + slug, then save once to enable auto-save.");
     setShowGuidedStart(false);
@@ -968,6 +972,10 @@ export function BlogStudioClient({
   }
 
   function insertCalculatorSnippet(code: string, label: string) {
+    if (!code.trim().startsWith("<")) {
+      setBanner(`"${label}" is logic-only code. Use Copy, or choose an embed-ready snippet to Insert.`);
+      return;
+    }
     const nextBody = bodyHtml.trim()
       ? `${bodyHtml.trim()}\n\n${code.trim()}`
       : code.trim();
@@ -978,6 +986,10 @@ export function BlogStudioClient({
   }
 
   function replaceCalculatorSnippet(code: string, label: string) {
+    if (!code.trim().startsWith("<")) {
+      setBanner(`"${label}" is logic-only code. Use Copy, or choose an embed-ready snippet to Replace.`);
+      return;
+    }
     const existingCalculatorIds = extractCalculatorRootIdsFromHtml(bodyHtml);
     if (existingCalculatorIds.length === 0) {
       insertCalculatorSnippet(code, label);
@@ -1143,6 +1155,91 @@ export function BlogStudioClient({
         setWorkflowStep("calculator");
       } catch {
         setBanner("Upload failed before reaching the server. Please use smaller images (under 3.5MB each).");
+      }
+    });
+  }
+
+  function runUploadImageForSlot(slotIndex: number) {
+    const file = slotUploadFiles[slotIndex];
+    if (!file) {
+      setBanner(`Pick an image for slot ${slotIndex + 1} first.`);
+      return;
+    }
+    if (!imageUploadConfigured) {
+      setBanner(
+        "Image upload needs Supabase on the server: set NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, and create the storage bucket (default name blog-images)."
+      );
+      return;
+    }
+    if (file.size > MAX_STUDIO_UPLOAD_BYTES) {
+      const mb = (MAX_STUDIO_UPLOAD_BYTES / (1024 * 1024)).toFixed(1);
+      setBanner(`Image "${file.name}" is too large. Resize under ${mb}MB, then retry.`);
+      return;
+    }
+    if (slotIndex < 0 || slotIndex >= imageUploadSlotCount) {
+      setBanner("That slot no longer exists in the current HTML. Refresh slot list and try again.");
+      return;
+    }
+    setBanner(null);
+    startTransition(async () => {
+      try {
+        const dims = await getImageDimensions(file);
+        const minWidth = slotIndex === 0 ? 1200 : 640;
+        const minHeight = slotIndex === 0 ? 630 : 360;
+        if (dims.width < minWidth || dims.height < minHeight) {
+          setBanner(
+            `Image "${file.name}" is too small (${dims.width}x${dims.height}). Minimum is ${minWidth}x${minHeight}.`
+          );
+          return;
+        }
+        const fd = new FormData();
+        fd.set("file", file);
+        const uploaded = await uploadStudioImage(fd);
+        if (!uploaded.ok) {
+          setBanner(uploaded.error);
+          return;
+        }
+        const resolvedUrl =
+          uploaded.url.startsWith("/") && typeof window !== "undefined"
+            ? `${window.location.origin}${uploaded.url}`
+            : uploaded.url;
+        const nextBodyHtml = replaceImageSlotAtIndex(bodyHtml, slotIndex, resolvedUrl);
+        setBodyHtml(nextBodyHtml);
+        setLastUploadedUrls((prev) => [resolvedUrl, ...prev].slice(0, 8));
+        setSlotUploadFiles((prev) => ({ ...prev, [slotIndex]: null }));
+        if (!heroImageUrl.trim() && slotIndex === 0) {
+          setHeroImageUrl(resolvedUrl);
+        }
+        const resolvedTitle = title.trim() || selected?.title || "";
+        const resolvedSlug = slug.trim() || selected?.slug || "";
+        const resolvedSlugValid = SLUG_OK.test(resolvedSlug);
+        if (databaseConfigured && resolvedTitle.length > 0 && resolvedSlug.length > 0 && resolvedSlugValid) {
+          const saveRes = await saveStudioPost(selectedId, {
+            title: resolvedTitle,
+            slug: resolvedSlug,
+            locale,
+            excerpt: excerpt || null,
+            bodyHtml: nextBodyHtml,
+            heroImageUrl: ((slotIndex === 0 ? resolvedUrl : heroImageUrl) || "").trim() || null,
+            metaTitle: metaTitle || null,
+            metaDescription: metaDescription || null,
+            calculatorName: calculatorName || null,
+            calculatorCode: calculatorCode || null,
+          });
+          if (!saveRes.ok) {
+            setBanner(`Uploaded "${file.name}" to slot ${slotIndex + 1}, but auto-save failed: ${saveRes.error}`);
+            return;
+          }
+          if (!selectedId) {
+            setSelectedId(saveRes.id);
+            setSlugTouched(true);
+          }
+          setBanner(`Uploaded "${file.name}" to image slot ${slotIndex + 1} and saved draft.`);
+          return;
+        }
+        setBanner(`Uploaded "${file.name}" to image slot ${slotIndex + 1}. Save draft to persist.`);
+      } catch {
+        setBanner("Image upload failed before reaching the server. Try a smaller JPG/PNG.");
       }
     });
   }
@@ -1981,14 +2078,39 @@ export function BlogStudioClient({
                     <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
                       {imageUploadSlotCount} slot{imageUploadSlotCount === 1 ? "" : "s"} in document order (tokens:{" "}
                       {IMAGE_PLACEHOLDER_MARKERS_LABEL}; or empty <code className="text-zinc-400">&lt;img src&gt;</code>
-                      ). Choose multiple files: first file fills the first placeholder from the top of the HTML downward.
+                      ). Choose multiple files for bulk mode, or upload per slot below for precise placement.
                     </p>
                     {imageSlotHints.length > 0 && (
-                      <ul className="mt-2 max-h-36 list-disc space-y-1 overflow-y-auto pl-4 text-[10px] leading-snug text-zinc-400">
+                      <div className="mt-2 max-h-64 space-y-2 overflow-y-auto">
                         {imageSlotHints.map((line, i) => (
-                          <li key={i}>{line}</li>
+                          <div key={i} className="rounded-lg border border-white/10 bg-black/30 p-2">
+                            <p className="text-[10px] leading-snug text-zinc-400">
+                              <span className="font-semibold text-zinc-300">Slot {i + 1}:</span> {line}
+                            </p>
+                            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                              <input
+                                type="file"
+                                accept=".png,.jpg,.jpeg,image/png,image/jpeg"
+                                onChange={(e) =>
+                                  setSlotUploadFiles((prev) => ({
+                                    ...prev,
+                                    [i]: (e.target.files?.[0] as File | undefined) ?? null,
+                                  }))
+                                }
+                                className="block w-full text-xs text-zinc-400"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => runUploadImageForSlot(i)}
+                                disabled={isPending || !imageUploadConfigured || !slotUploadFiles[i]}
+                                className="rounded-lg border border-teal-500/35 px-3 py-2 text-xs text-teal-200 disabled:opacity-40"
+                              >
+                                Upload to slot {i + 1}
+                              </button>
+                            </div>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     )}
                     <button
                       type="button"
@@ -2249,22 +2371,29 @@ export function BlogStudioClient({
                             <div className="min-w-0">
                               <p className="truncate text-xs font-semibold text-zinc-100">{snippet.title}</p>
                               <p className="truncate text-[11px] text-zinc-500">From: {snippet.source}</p>
+                              {!snippet.embedReady && (
+                                <p className="mt-0.5 text-[10px] text-amber-200/90">Logic-only snippet (copy only)</p>
+                              )}
                             </div>
                             <div className="flex shrink-0 items-center gap-1">
-                              <button
-                                type="button"
-                                onClick={() => insertCalculatorSnippet(snippet.code, snippet.title)}
-                                className="rounded-lg border border-teal-400/30 bg-teal-500/10 px-2 py-1 text-[11px] text-teal-100 hover:bg-teal-500/20"
-                              >
-                                Insert
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => replaceCalculatorSnippet(snippet.code, snippet.title)}
-                                className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-2 py-1 text-[11px] text-emerald-100 hover:bg-emerald-500/20"
-                              >
-                                Replace
-                              </button>
+                              {snippet.embedReady && (
+                                <>
+                                  <button
+                                    type="button"
+                                    onClick={() => insertCalculatorSnippet(snippet.code, snippet.title)}
+                                    className="rounded-lg border border-teal-400/30 bg-teal-500/10 px-2 py-1 text-[11px] text-teal-100 hover:bg-teal-500/20"
+                                  >
+                                    Insert
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => replaceCalculatorSnippet(snippet.code, snippet.title)}
+                                    className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-2 py-1 text-[11px] text-emerald-100 hover:bg-emerald-500/20"
+                                  >
+                                    Replace
+                                  </button>
+                                </>
+                              )}
                               <button
                                 type="button"
                                 onClick={() => void copyCalculatorSnippet(snippet.code, `custom:${snippet.id}`)}

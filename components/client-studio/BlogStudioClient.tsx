@@ -7,7 +7,6 @@ import {
   getStudioUploadDiagnostics,
   publishStudioPost,
   saveStudioPost,
-  uploadStudioImage,
 } from "@/app/studio/blog/actions";
 import {
   CALCULATOR_CODE_SNIPPETS,
@@ -313,16 +312,28 @@ Do not output full <html> document, only article body HTML.`;
       }
       const fd = new FormData();
       fd.set("file", file);
-      const uploaded = await uploadStudioImage(fd);
-      if (!uploaded.ok) {
-        setBanner(uploaded.error);
-        setSlotMessages((prev) => ({ ...prev, [index]: uploaded.error }));
+      const res = await fetch("/api/studio/upload", {
+        method: "POST",
+        body: fd,
+      });
+      let payload: { ok?: boolean; url?: string; error?: string } = {};
+      try {
+        payload = (await res.json()) as { ok?: boolean; url?: string; error?: string };
+      } catch {
+        payload = {};
+      }
+      if (!res.ok || !payload.ok || !payload.url) {
+        const detail =
+          payload.error ||
+          `Upload request failed (HTTP ${res.status}). Check server logs and Supabase config.`;
+        setBanner(detail);
+        setSlotMessages((prev) => ({ ...prev, [index]: detail }));
         return;
       }
       const finalUrl =
-        uploaded.url.startsWith("/") && typeof window !== "undefined"
-          ? `${window.location.origin}${uploaded.url}`
-          : uploaded.url;
+        payload.url.startsWith("/") && typeof window !== "undefined"
+          ? `${window.location.origin}${payload.url}`
+          : payload.url;
       setImageUrls((prev) => ({ ...prev, [index]: finalUrl }));
       setSlotFiles((prev) => ({ ...prev, [index]: null }));
       setStatus("Images mapped");

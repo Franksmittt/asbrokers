@@ -1,7 +1,6 @@
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
-import { getClientStudioSession } from "@/lib/client-studio/session";
 import { getSupabaseService } from "@/lib/supabase/server";
 
 const ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]);
@@ -29,12 +28,6 @@ type UploadAuthBody = {
 
 export async function POST(req: NextRequest) {
   const correlationId = req.headers.get("x-correlation-id") ?? randomUUID();
-  if (!(await getClientStudioSession())) {
-    return NextResponse.json(
-      { ok: false, error: "Session expired - sign in again.", correlationId },
-      { status: 401 }
-    );
-  }
 
   let body: UploadAuthBody = {};
   try {

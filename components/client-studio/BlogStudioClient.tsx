@@ -13,6 +13,7 @@ import {
   isEmbedReadyCalculatorSnippet,
 } from "@/lib/client-studio/calculator-code-pack";
 import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export type SerializableStudioPost = {
   id: string;
@@ -162,6 +163,12 @@ async function optimizeImageForUpload(file: File): Promise<File> {
   } finally {
     URL.revokeObjectURL(objectUrl);
   }
+}
+
+function safeUploadFilename(name: string): string {
+  const normalized = name.normalize("NFKD").replace(/[^\x00-\x7F]/g, "");
+  const safe = normalized.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/-+/g, "-");
+  return safe || "studio-image.jpg";
 }
 
 function buildPreviewDoc(html: string): string {
@@ -367,32 +374,72 @@ Do not output full <html> document, only article body HTML.`;
         setSlotMessages((prev) => ({ ...prev, [index]: "Preview image mapped locally." }));
         return;
       }
-      const fd = new FormData();
-      fd.set("file", uploadFile, uploadFile.name);
-      const res = await fetch("/api/studio/upload", {
+      const correlationId =
+        typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const safeName = safeUploadFilename(uploadFile.name);
+      const authRes = await fetch("/api/studio/upload/auth", {
         method: "POST",
-        body: fd,
+        headers: {
+          "Content-Type": "application/json",
+          "x-correlation-id": correlationId,
+        },
+        body: JSON.stringify({
+          filename: safeName,
+          contentType: uploadFile.type || "image/jpeg",
+          fileSize: uploadFile.size,
+        }),
       });
-      let payload: { ok?: boolean; url?: string; error?: string } = {};
+      let authPayload: {
+        ok?: boolean;
+        path?: string;
+        bucket?: string;
+        token?: string;
+        error?: string;
+        correlationId?: string;
+      } = {};
       try {
-        payload = (await res.json()) as { ok?: boolean; url?: string; error?: string };
+        authPayload = (await authRes.json()) as {
+          ok?: boolean;
+          path?: string;
+          bucket?: string;
+          token?: string;
+          error?: string;
+          correlationId?: string;
+        };
       } catch {
-        payload = {};
+        authPayload = {};
       }
-      if (!res.ok || !payload.ok || !payload.url) {
+      if (!authRes.ok || !authPayload.ok || !authPayload.path || !authPayload.bucket || !authPayload.token) {
         const detail =
-          payload.error ||
-          (res.status === 413
+          authPayload.error ||
+          (authRes.status === 413
             ? "Image is still too large after optimization. Use a smaller file and retry."
-            : `Upload request failed (HTTP ${res.status}). Check server logs and Supabase config.`);
+            : `Upload session failed (HTTP ${authRes.status}). Please retry.`);
         setBanner(detail);
         setSlotMessages((prev) => ({ ...prev, [index]: detail }));
         return;
       }
-      const finalUrl =
-        payload.url.startsWith("/") && typeof window !== "undefined"
-          ? `${window.location.origin}${payload.url}`
-          : payload.url;
+
+      const browserSupabase = createSupabaseBrowserClient();
+      const uploadResult = await browserSupabase.storage
+        .from(authPayload.bucket)
+        .uploadToSignedUrl(authPayload.path, authPayload.token, uploadFile, {
+          upsert: false,
+          contentType: uploadFile.type || "image/jpeg",
+        });
+
+      if (uploadResult.error) {
+        const detail = `Direct upload failed: ${uploadResult.error.message}`;
+        setBanner(detail);
+        setSlotMessages((prev) => ({ ...prev, [index]: detail }));
+        return;
+      }
+
+      const finalUrl = `/api/studio/media?bucket=${encodeURIComponent(authPayload.bucket)}&path=${encodeURIComponent(
+        authPayload.path
+      )}`;
       setImageUrls((prev) => ({ ...prev, [index]: finalUrl }));
       setSlotFiles((prev) => ({ ...prev, [index]: null }));
       setStatus("Images mapped");

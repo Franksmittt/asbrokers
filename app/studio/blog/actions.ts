@@ -530,28 +530,36 @@ export async function uploadStudioImage(
     return { ok: false, error: "Image is too large (max 8MB)." };
   }
 
-  const supabase = getSupabaseService();
-  if (!supabase) {
-    return { ok: false, error: "Image upload is not configured on the server yet." };
+  try {
+    const supabase = getSupabaseService();
+    if (!supabase) {
+      return { ok: false, error: "Image upload is not configured on the server yet." };
+    }
+
+    const bucket = process.env.SUPABASE_BLOG_IMAGES_BUCKET || "blog-images";
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-");
+    const ext = safeName.includes(".") ? safeName.split(".").pop() : "jpg";
+    const key = `studio/${new Date().toISOString().slice(0, 10)}/${randomUUID()}.${ext}`;
+    const bytes = await file.arrayBuffer();
+
+    const uploaded = await supabase.storage.from(bucket).upload(key, bytes, {
+      contentType: file.type,
+      upsert: false,
+    });
+    if (uploaded.error) {
+      return { ok: false, error: `Upload failed: ${uploaded.error.message}` };
+    }
+
+    const proxyUrl = `/api/studio/media?bucket=${encodeURIComponent(bucket)}&path=${encodeURIComponent(key)}`;
+    // Return app-hosted media URL so preview + published work even when bucket is private.
+    return { ok: true, url: proxyUrl };
+  } catch (e) {
+    const detail = collectErrorText(e).slice(0, 320);
+    return {
+      ok: false,
+      error: detail ? `Upload failed: ${detail}` : "Upload failed on the server. Check Supabase configuration.",
+    };
   }
-
-  const bucket = process.env.SUPABASE_BLOG_IMAGES_BUCKET || "blog-images";
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-");
-  const ext = safeName.includes(".") ? safeName.split(".").pop() : "jpg";
-  const key = `studio/${new Date().toISOString().slice(0, 10)}/${randomUUID()}.${ext}`;
-  const bytes = await file.arrayBuffer();
-
-  const uploaded = await supabase.storage.from(bucket).upload(key, bytes, {
-    contentType: file.type,
-    upsert: false,
-  });
-  if (uploaded.error) {
-    return { ok: false, error: `Upload failed: ${uploaded.error.message}` };
-  }
-
-  const proxyUrl = `/api/studio/media?bucket=${encodeURIComponent(bucket)}&path=${encodeURIComponent(key)}`;
-  // Return app-hosted media URL so preview + published work even when bucket is private.
-  return { ok: true, url: proxyUrl };
 }
 
 export async function sanitizeStudioHtmlPreview(

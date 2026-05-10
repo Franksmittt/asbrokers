@@ -324,8 +324,8 @@ Do not output full <html> document, only article body HTML.`;
       setStatus("Images mapped");
       setSlotMessages((prev) => ({ ...prev, [index]: "Upload successful." }));
       setBanner(`Image slot ${index + 1} uploaded successfully.`);
-    } catch {
-      const message = "Upload failed unexpectedly. Please retry.";
+    } catch (e) {
+      const message = e instanceof Error && e.message ? `Upload failed: ${e.message}` : "Upload failed unexpectedly. Please retry.";
       setSlotMessages((prev) => ({ ...prev, [index]: message }));
       setBanner(message);
     } finally {

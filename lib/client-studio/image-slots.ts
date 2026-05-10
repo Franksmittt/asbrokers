@@ -9,6 +9,7 @@ export const PRIMARY_IMAGE_PLACEHOLDER = "YOUR_IMAGE_URL_HERE";
 /** Longest-first so shorter tokens do not double-count longer ones. */
 const IMAGE_PLACEHOLDER_MARKERS = [
   "YOUR_IMAGE_URL_HERE",
+  "[IMAGE_SLOT]",
   "{{IMAGE_URL}}",
   "REPLACE_WITH_IMAGE_URL",
   "YOUR_IMAGE_URL",

@@ -242,6 +242,7 @@ const WORKFLOW_STEPS: WorkflowStepDef[] = [
   { id: "calculator", label: "Phase 4 · Calculator", panel: "assist" },
   { id: "review", label: "Phase 5 · Review & publish", panel: "publish" },
 ];
+const CALCULATOR_SLOT_TOKEN = "[CALCULATOR_SLOT]";
 
 export function BlogStudioClient({
   initialPosts,
@@ -294,6 +295,7 @@ export function BlogStudioClient({
   const [publishedPreviewHtml, setPublishedPreviewHtml] = useState<string | null>(null);
   const [lastUploadedUrls, setLastUploadedUrls] = useState<string[]>([]);
   const [slotUploadFiles, setSlotUploadFiles] = useState<Record<number, File | null>>({});
+  const [calculatorSlotSelections, setCalculatorSlotSelections] = useState<Record<number, string>>({});
   const [authorName, setAuthorName] = useState(AUTHOR_OPTIONS[0]);
   const [autosaveStatus, setAutosaveStatus] = useState<string | null>(null);
   const [listQuery, setListQuery] = useState("");
@@ -304,6 +306,7 @@ export function BlogStudioClient({
   const autosaveTimerRef = useRef<number | null>(null);
   const imageUploadSlotCount = useMemo(() => countImageUploadSlots(bodyHtml), [bodyHtml]);
   const imageSlotHints = useMemo(() => listImageSlotHints(bodyHtml), [bodyHtml]);
+  const calculatorSlotCount = useMemo(() => (bodyHtml.match(/\[CALCULATOR_SLOT\]/g) ?? []).length, [bodyHtml]);
   const markdownFenceCount = useMemo(() => (bodyHtml.match(/```/g) ?? []).length, [bodyHtml]);
   const unresolvedYoutubePlaceholder = bodyHtml.includes("YOUR_VIDEO_ID");
   const unresolvedImagePlaceholders = imageUploadSlotCount > 0;
@@ -328,6 +331,12 @@ export function BlogStudioClient({
   const hasUnknownCalculatorEmbed = articleCalculatorRootIds.some((id) => !approvedCalculatorRootIds.has(id));
   const hasInlineScriptTag = /<script[\s>]/i.test(bodyHtml);
   const calculatorEmbedHealthy = !hasAnyCalculatorEmbed || (!hasUnknownCalculatorEmbed && hasInlineScriptTag);
+  const selectedCalculatorSlotCount = useMemo(
+    () =>
+      Object.values(calculatorSlotSelections).filter((id) => Boolean(id && id.trim())).length,
+    [calculatorSlotSelections]
+  );
+  const unresolvedCalculatorSlots = Math.max(0, calculatorSlotCount - selectedCalculatorSlotCount);
   const checklist = useMemo<HealthCheck[]>(
     () => [
       {
@@ -361,6 +370,12 @@ export function BlogStudioClient({
         hint: "Use the YouTube helper to insert a video ID or URL.",
       },
       {
+        id: "calculator-slots",
+        label: "All calculator placeholders are assigned",
+        ok: unresolvedCalculatorSlots === 0,
+        hint: "For each [CALCULATOR_SLOT], select a calculator in Phase 4.",
+      },
+      {
         id: "calculator-embed",
         label: "Calculator embeds use approved blocks and include script",
         ok: calculatorEmbedHealthy,
@@ -379,6 +394,7 @@ export function BlogStudioClient({
       unresolvedImagePlaceholders,
       heroImageValid,
       unresolvedYoutubePlaceholder,
+      unresolvedCalculatorSlots,
       calculatorEmbedHealthy,
       hasSectionTag,
       hasTitleInHtml,
@@ -416,6 +432,23 @@ export function BlogStudioClient({
     () => CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet),
     []
   );
+  const embedReadySnippetById = useMemo(
+    () => new Map(embedReadyLibrarySnippets.map((snippet) => [snippet.id, snippet])),
+    [embedReadyLibrarySnippets]
+  );
+  const applySelectedCalculatorsToHtml = useCallback(
+    (html: string) => {
+      let slotIndex = 0;
+      return html.replace(/\[CALCULATOR_SLOT\]/g, () => {
+        const selectedId = calculatorSlotSelections[slotIndex] ?? "";
+        slotIndex += 1;
+        if (!selectedId) return CALCULATOR_SLOT_TOKEN;
+        const snippet = embedReadySnippetById.get(selectedId);
+        return snippet?.code ?? CALCULATOR_SLOT_TOKEN;
+      });
+    },
+    [calculatorSlotSelections, embedReadySnippetById]
+  );
 
   const filteredPosts = useMemo(() => {
     const q = listQuery.trim().toLowerCase();
@@ -443,7 +476,8 @@ export function BlogStudioClient({
   );
   const sourceReady = bodyHtml.trim().length > 0;
   const setupReady = basicsOk && excerpt.trim().length > 0;
-  const calculatorReady = !hasAnyCalculatorEmbed || calculatorEmbedHealthy;
+  const calculatorReady =
+    unresolvedCalculatorSlots === 0 && (!hasAnyCalculatorEmbed || calculatorEmbedHealthy);
   const activeWorkflowIndex = WORKFLOW_STEPS.findIndex((s) => s.id === workflowStep);
   const nextWorkflowStep = activeWorkflowIndex >= 0 ? WORKFLOW_STEPS[activeWorkflowIndex + 1] : null;
   const workflowCompletion: Record<WorkflowStep, boolean> = {
@@ -507,6 +541,7 @@ export function BlogStudioClient({
     setCalculatorName(p.calculatorName ?? "");
     setCalculatorCode(p.calculatorCode ?? "");
     setBodyHtml(p.bodyHtml);
+    setCalculatorSlotSelections({});
     setSlugTouched(true);
     setBanner(null);
     setAutosaveStatus("All changes saved.");
@@ -563,7 +598,7 @@ export function BlogStudioClient({
 
     autosaveTimerRef.current = window.setTimeout(() => {
       startTransition(async () => {
-        const normalizedBody = normalizeAiHtml(bodyHtml);
+        const normalizedBody = normalizeAiHtml(applySelectedCalculatorsToHtml(bodyHtml));
         const res = await saveStudioPost(selectedId, {
           title,
           slug,
@@ -621,6 +656,7 @@ export function BlogStudioClient({
     heroImageUrl,
     calculatorName,
     calculatorCode,
+    applySelectedCalculatorsToHtml,
     startTransition,
   ]);
 
@@ -657,6 +693,7 @@ export function BlogStudioClient({
     setPublishedPreviewHtml(null);
     setLastUploadedUrls([]);
     setSlotUploadFiles({});
+    setCalculatorSlotSelections({});
     setLastSavedSignature(null);
     setAutosaveStatus("Create title + slug, then save once to enable auto-save.");
     setShowGuidedStart(false);
@@ -684,7 +721,7 @@ export function BlogStudioClient({
     setPublishReport(null);
     startTransition(async () => {
       const wasLive = selected?.status === "published";
-      const normalizedBody = normalizeAiHtml(bodyHtml);
+      const normalizedBody = normalizeAiHtml(applySelectedCalculatorsToHtml(bodyHtml));
       if (normalizedBody !== bodyHtml) {
         setBodyHtml(normalizedBody);
       }
@@ -749,7 +786,7 @@ export function BlogStudioClient({
     setBanner(null);
     setPublishReport(null);
     startTransition(async () => {
-      const normalizedBody = normalizeAiHtml(bodyHtml);
+      const normalizedBody = normalizeAiHtml(applySelectedCalculatorsToHtml(bodyHtml));
       if (normalizedBody !== bodyHtml) {
         setBodyHtml(normalizedBody);
       }
@@ -1276,10 +1313,31 @@ export function BlogStudioClient({
     setBanner("YouTube video ID inserted into your HTML.");
   }
 
+  function applySelectedCalculatorsIntoEditor() {
+    if (calculatorSlotCount === 0) {
+      setBanner(`No ${CALCULATOR_SLOT_TOKEN} placeholders were found in the HTML.`);
+      return;
+    }
+    if (unresolvedCalculatorSlots > 0) {
+      setBanner(
+        `Select calculators for all ${calculatorSlotCount} slot${calculatorSlotCount === 1 ? "" : "s"} before applying.`
+      );
+      return;
+    }
+    const nextBody = applySelectedCalculatorsToHtml(bodyHtml);
+    if (nextBody === bodyHtml) {
+      setBanner("Calculator placeholders already replaced in HTML.");
+      return;
+    }
+    setBodyHtml(nextBody);
+    setCalculatorSlotSelections({});
+    setBanner("Calculator placeholders were replaced with vetted calculator embeds.");
+  }
+
   function refreshPublishedPreview() {
     setBanner(null);
     startTransition(async () => {
-      const res = await sanitizeStudioHtmlPreview(bodyHtml);
+      const res = await sanitizeStudioHtmlPreview(applySelectedCalculatorsToHtml(bodyHtml));
       if (!res.ok) {
         setBanner(res.error);
         return;
@@ -1290,19 +1348,23 @@ export function BlogStudioClient({
     });
   }
 
+  const resolvedPreviewBodyHtml = useMemo(
+    () => applySelectedCalculatorsToHtml(bodyHtml),
+    [applySelectedCalculatorsToHtml, bodyHtml]
+  );
   const previewHtml =
     previewMode === "published"
       ? publishedPreviewHtml !== null
         ? publishedPreviewHtml
-        : bodyHtml
-      : bodyHtml;
+        : resolvedPreviewBodyHtml
+      : resolvedPreviewBodyHtml;
   const previewSrcDoc = useMemo(() => buildPreviewDoc(previewHtml), [previewHtml]);
 
   useEffect(() => {
     if (previewMode !== "published") return;
     const timer = setTimeout(() => {
       startTransition(async () => {
-        const res = await sanitizeStudioHtmlPreview(bodyHtml);
+        const res = await sanitizeStudioHtmlPreview(applySelectedCalculatorsToHtml(bodyHtml));
         if (res.ok) {
           setPublishedPreviewHtml(res.html);
         }
@@ -1310,7 +1372,7 @@ export function BlogStudioClient({
     }, 200);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bodyHtml, previewMode]);
+  }, [applySelectedCalculatorsToHtml, bodyHtml, previewMode]);
 
   const statusLabel = !selectedId
     ? "New article (not saved yet)"
@@ -2147,6 +2209,55 @@ export function BlogStudioClient({
                       <input value={youtubeInput} onChange={(e) => setYoutubeInput(e.target.value)} placeholder="https://www.youtube.com/watch?v=..." className="min-w-0 flex-1 rounded-lg border border-white/10 bg-black/50 px-3 py-2 text-xs text-white" />
                       <button type="button" onClick={applyYoutubeVideo} className="rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200">Insert video</button>
                     </div>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-3">
+                    <p className="text-xs font-medium text-zinc-300">Calculator placeholders</p>
+                    <p className="mt-1 text-[11px] leading-relaxed text-zinc-500">
+                      Detected {calculatorSlotCount} {calculatorSlotCount === 1 ? "placeholder" : "placeholders"} using{" "}
+                      <code className="text-zinc-300">{CALCULATOR_SLOT_TOKEN}</code>. Select a calculator for each slot
+                      below.
+                    </p>
+                    {calculatorSlotCount === 0 ? (
+                      <p className="mt-2 rounded-lg border border-amber-500/25 bg-amber-950/25 px-3 py-2 text-[11px] text-amber-200/90">
+                        No calculator placeholders detected. Ask AI to include {CALCULATOR_SLOT_TOKEN} where a calculator
+                        should appear.
+                      </p>
+                    ) : (
+                      <div className="mt-2 space-y-2">
+                        {Array.from({ length: calculatorSlotCount }).map((_, idx) => (
+                          <div key={`calc-slot-${idx}`} className="rounded-lg border border-white/10 bg-black/30 p-2">
+                            <p className="text-[11px] font-semibold text-zinc-200">Calculator slot {idx + 1}</p>
+                            <select
+                              value={calculatorSlotSelections[idx] ?? ""}
+                              onChange={(e) =>
+                                setCalculatorSlotSelections((prev) => ({
+                                  ...prev,
+                                  [idx]: e.target.value,
+                                }))
+                              }
+                              className="mt-1 w-full rounded-lg border border-white/10 bg-black/50 px-2.5 py-2 text-xs text-zinc-100"
+                            >
+                              <option value="">Select calculator...</option>
+                              {embedReadyLibrarySnippets.map((snippet) => (
+                                <option key={`slot-opt-${idx}-${snippet.id}`} value={snippet.id}>
+                                  {snippet.title}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        ))}
+                        <div className="pt-1">
+                          <button
+                            type="button"
+                            onClick={applySelectedCalculatorsIntoEditor}
+                            disabled={unresolvedCalculatorSlots > 0}
+                            className="rounded-lg border border-teal-500/35 bg-teal-950/25 px-3 py-2 text-xs text-teal-200 disabled:opacity-40"
+                          >
+                            Apply selected calculators into HTML
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

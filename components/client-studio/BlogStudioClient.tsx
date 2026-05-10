@@ -122,6 +122,22 @@ function escapeHtmlText(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
+function extractCalculatorRootIdsFromHtml(html: string): string[] {
+  const ids = new Set<string>();
+  const regex = /id="([a-z0-9-]*calculator[a-z0-9-]*)"/gi;
+  let match: RegExpExecArray | null = regex.exec(html);
+  while (match) {
+    ids.add(match[1].toLowerCase());
+    match = regex.exec(html);
+  }
+  return Array.from(ids);
+}
+
+function extractPrimaryCalculatorRootId(snippetCode: string): string | null {
+  const match = /id="([a-z0-9-]*calculator[a-z0-9-]*)"/i.exec(snippetCode);
+  return match?.[1]?.toLowerCase() ?? null;
+}
+
 function buildEditorSignature(input: {
   title: string;
   slug: string;
@@ -253,6 +269,8 @@ export function BlogStudioClient({
   const [showPublishConfirm, setShowPublishConfirm] = useState(false);
   const [showStudioMenu, setShowStudioMenu] = useState(false);
   const [showWorkflowDetails, setShowWorkflowDetails] = useState(false);
+  const [copiedSnippetKey, setCopiedSnippetKey] = useState<string | null>(null);
+  const [copiedAllCode, setCopiedAllCode] = useState(false);
   const [publishReport, setPublishReport] = useState<{
     checkedRoute: boolean;
     checkedImages: number;
@@ -284,6 +302,20 @@ export function BlogStudioClient({
   const basicsOk = title.trim().length > 0 && slug.trim().length > 0 && slugValid;
   const hasSectionTag = /<section[\s>]/i.test(bodyHtml);
   const hasTitleInHtml = /<h1[\s>]/i.test(bodyHtml);
+  const articleCalculatorRootIds = useMemo(() => extractCalculatorRootIdsFromHtml(bodyHtml), [bodyHtml]);
+  const hasAnyCalculatorEmbed = articleCalculatorRootIds.length > 0;
+  const approvedCalculatorRootIds = useMemo(
+    () =>
+      new Set(
+        CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet)
+          .map((snippet) => extractPrimaryCalculatorRootId(snippet.code))
+          .filter((id): id is string => Boolean(id))
+      ),
+    []
+  );
+  const hasUnknownCalculatorEmbed = articleCalculatorRootIds.some((id) => !approvedCalculatorRootIds.has(id));
+  const hasInlineScriptTag = /<script[\s>]/i.test(bodyHtml);
+  const calculatorEmbedHealthy = !hasAnyCalculatorEmbed || (!hasUnknownCalculatorEmbed && hasInlineScriptTag);
   const checklist = useMemo<HealthCheck[]>(
     () => [
       {
@@ -317,6 +349,12 @@ export function BlogStudioClient({
         hint: "Use the YouTube helper to insert a video ID or URL.",
       },
       {
+        id: "calculator-embed",
+        label: "Calculator embeds use approved blocks and include script",
+        ok: calculatorEmbedHealthy,
+        hint: "Open Calculator code library and use Insert on a vetted snippet. Avoid manual edits to calculator IDs or script blocks.",
+      },
+      {
         id: "structure",
         label: "Article includes basic structure tags",
         ok: hasSectionTag && hasTitleInHtml,
@@ -329,6 +367,7 @@ export function BlogStudioClient({
       unresolvedImagePlaceholders,
       heroImageValid,
       unresolvedYoutubePlaceholder,
+      calculatorEmbedHealthy,
       hasSectionTag,
       hasTitleInHtml,
     ]
@@ -886,9 +925,15 @@ export function BlogStudioClient({
     }
   }
 
-  async function copyCalculatorSnippet(code: string) {
+  async function copyCalculatorSnippet(code: string, snippetKey?: string) {
     try {
       await navigator.clipboard.writeText(code);
+      if (snippetKey) {
+        setCopiedSnippetKey(snippetKey);
+        window.setTimeout(() => {
+          setCopiedSnippetKey((current) => (current === snippetKey ? null : current));
+        }, 1800);
+      }
       setBanner("Calculator code copied to clipboard.");
     } catch {
       setBanner("Clipboard blocked - copy calculator code manually from the popup.");
@@ -898,10 +943,22 @@ export function BlogStudioClient({
   async function copyAllCalculatorCode() {
     try {
       await navigator.clipboard.writeText(getCalculatorCodePackText());
+      setCopiedAllCode(true);
+      window.setTimeout(() => setCopiedAllCode(false), 1800);
       setBanner("All calculator code snippets copied.");
     } catch {
       setBanner("Clipboard blocked - copy all code manually from the popup.");
     }
+  }
+
+  function insertCalculatorSnippet(code: string, label: string) {
+    const nextBody = bodyHtml.trim()
+      ? `${bodyHtml.trim()}\n\n${code.trim()}`
+      : code.trim();
+    setBodyHtml(nextBody);
+    setActivePanel("html");
+    setWorkflowStep("content");
+    setBanner(`Inserted "${label}" calculator block into Article HTML. Keep its IDs/script unchanged.`);
   }
 
   async function copyLiveArticleUrl(path: string) {
@@ -2209,7 +2266,7 @@ export function BlogStudioClient({
               </div>
               <div className="shrink-0 border-b border-white/5 px-4 py-2">
                 <p className="text-xs leading-relaxed text-zinc-500">
-                  Share these snippets with AI and tell it to paste them exactly as-is (including script) so calculators stay interactive on the live article.
+                  Best workflow: click Insert on a vetted snippet. It places the calculator block directly in Article HTML with script intact, which prevents non-working calculators.
                 </p>
               </div>
               <div className="min-h-0 flex-1 overflow-y-auto space-y-3 px-4 py-3">
@@ -2227,13 +2284,22 @@ export function BlogStudioClient({
                               <p className="truncate text-xs font-semibold text-zinc-100">{snippet.title}</p>
                               <p className="truncate text-[11px] text-zinc-500">From: {snippet.source}</p>
                             </div>
-                            <button
-                              type="button"
-                              onClick={() => void copyCalculatorSnippet(snippet.code)}
-                              className="shrink-0 rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/5"
-                            >
-                              Copy
-                            </button>
+                            <div className="flex shrink-0 items-center gap-1">
+                              <button
+                                type="button"
+                                onClick={() => insertCalculatorSnippet(snippet.code, snippet.title)}
+                                className="rounded-lg border border-teal-400/30 bg-teal-500/10 px-2 py-1 text-[11px] text-teal-100 hover:bg-teal-500/20"
+                              >
+                                Insert
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => void copyCalculatorSnippet(snippet.code, `custom:${snippet.id}`)}
+                                className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/5"
+                              >
+                                {copiedSnippetKey === `custom:${snippet.id}` ? "Copied!" : "Copy"}
+                              </button>
+                            </div>
                           </div>
                           <pre className="max-h-44 overflow-y-auto whitespace-pre-wrap px-3 py-2 font-mono text-[11px] leading-relaxed text-zinc-300">
                             {snippet.code}
@@ -2250,13 +2316,22 @@ export function BlogStudioClient({
                         <p className="truncate text-xs font-semibold text-zinc-200">{snippet.title}</p>
                         <p className="truncate text-[11px] text-zinc-500">{snippet.sourcePath}</p>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => void copyCalculatorSnippet(snippet.code)}
-                        className="shrink-0 rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/5"
-                      >
-                        Copy
-                      </button>
+                      <div className="flex shrink-0 items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => insertCalculatorSnippet(snippet.code, snippet.title)}
+                          className="rounded-lg border border-teal-400/30 bg-teal-500/10 px-2 py-1 text-[11px] text-teal-100 hover:bg-teal-500/20"
+                        >
+                          Insert
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => void copyCalculatorSnippet(snippet.code, `library:${snippet.id}`)}
+                          className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/5"
+                        >
+                          {copiedSnippetKey === `library:${snippet.id}` ? "Copied!" : "Copy"}
+                        </button>
+                      </div>
                     </div>
                     <pre className="max-h-56 overflow-y-auto whitespace-pre-wrap px-3 py-2 font-mono text-[11px] leading-relaxed text-zinc-300">
                       {snippet.code}
@@ -2273,7 +2348,7 @@ export function BlogStudioClient({
                   onClick={() => void copyAllCalculatorCode()}
                   className="flex-1 rounded-xl bg-teal-600 py-3 text-sm font-semibold text-white hover:bg-teal-500"
                 >
-                  Copy all calculator code
+                  {copiedAllCode ? "Code copied!" : "Copy all calculator code"}
                 </button>
                 <button
                   type="button"

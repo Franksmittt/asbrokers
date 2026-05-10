@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { createHmac, randomBytes, timingSafeEqual } from "crypto";
 
 const COOKIE_NAME = "client-studio-session";
-const COOKIE_PATH = "/studio/blog";
+const COOKIE_PATH = "/";
 /** Session lifetime in seconds (14 days). */
 const MAX_AGE_SEC = 60 * 60 * 24 * 14;
 

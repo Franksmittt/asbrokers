@@ -190,6 +190,14 @@ function firstH1(content: string): string {
   return m?.[1]?.replace(/<[^>]*>/g, "").trim() ?? "";
 }
 
+function escapeHtmlAttr(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
 function buildPersistHtml(
   rawHtml: string,
   imageUrls: Record<number, string>,
@@ -204,7 +212,12 @@ function buildPersistHtml(
   return parts
     .map((part) => {
       if (part === IMAGE_TOKEN) {
-        const replacement = imageUrls[imageIndex] ?? IMAGE_TOKEN;
+        const replacementUrl = imageUrls[imageIndex];
+        const replacement = replacementUrl
+          ? `<figure class="my-6"><img src="${escapeHtmlAttr(
+              replacementUrl
+            )}" alt="Article image ${imageIndex + 1}" loading="lazy" style="width:100%;height:auto;border-radius:12px;" /></figure>`
+          : IMAGE_TOKEN;
         imageIndex += 1;
         return replacement;
       }

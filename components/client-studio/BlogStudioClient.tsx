@@ -44,21 +44,29 @@ type Props = {
 
 const IMAGE_TOKEN = "[IMAGE_SLOT]";
 const CALC_TOKEN = "[CALCULATOR_SLOT]";
+const VIDEO_TOKEN = "[VIDEO_SLOT]";
 
-const SAMPLE_HTML = `<h1>Investment Strategy Update: Q2</h1>
-<p>As we move into the second quarter, preserving capital while maintaining strategic market exposure is critical for long-term portfolio sustainability.</p>
+const SAMPLE_HTML = `<section class="space-y-6">
+  <h1>Your retirement strategy in uncertain markets</h1>
+  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
 
-[IMAGE_SLOT]
+  [IMAGE_SLOT]
 
-<p>Notice the historical yields mapped above. To understand how your personal principal might accumulate under current bond rates, use our functional calculator below:</p>
+  <h2>How to structure your capital</h2>
+  <p>Use the interactive calculator below to estimate outcomes based on your own numbers.</p>
 
-[CALCULATOR_SLOT]
+  [CALCULATOR_SLOT]
 
-<p>If you adjust the parameters, you will notice compounding accelerates significantly after year 5. Let's look at asset allocations:</p>
+  <h2>Video explanation</h2>
+  <p>Watch the short video for a breakdown of this strategy:</p>
 
-[IMAGE_SLOT]
+  [VIDEO_SLOT]
 
-<p>Contact the office directly to adjust your managed fund allocations.</p>`;
+  <h2>Final checklist</h2>
+  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+
+  [IMAGE_SLOT]
+</section>`;
 
 function slugifyTitle(title: string): string {
   return title
@@ -77,11 +85,35 @@ function normalizeAiHtml(raw: string): string {
   return next.trim();
 }
 
+function extractYoutubeId(input: string): string | null {
+  const raw = input.trim();
+  if (!raw) return null;
+  if (/^[a-zA-Z0-9_-]{6,20}$/.test(raw)) return raw;
+  try {
+    const u = new URL(raw);
+    if (u.hostname.includes("youtu.be")) {
+      const id = u.pathname.replace("/", "");
+      return /^[a-zA-Z0-9_-]{6,20}$/.test(id) ? id : null;
+    }
+    const id = u.searchParams.get("v");
+    if (id && /^[a-zA-Z0-9_-]{6,20}$/.test(id)) return id;
+    const parts = u.pathname.split("/").filter(Boolean);
+    const embedIdx = parts.indexOf("embed");
+    if (embedIdx >= 0 && parts[embedIdx + 1] && /^[a-zA-Z0-9_-]{6,20}$/.test(parts[embedIdx + 1])) {
+      return parts[embedIdx + 1];
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 function buildPreviewDoc(html: string): string {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <style>
     *{box-sizing:border-box} body{margin:0;padding:1.5rem;background:#f8fafc;color:#0f172a;font-family:Inter,ui-sans-serif,system-ui,sans-serif;line-height:1.7}
-    h1,h2,h3{color:#1A1A1A} img{max-width:100%;height:auto} .slot{margin:1.5rem 0;padding:1rem;border:2px dashed #94a3b8;border-radius:0.75rem;background:#f1f5f9;color:#475569}
+    h1,h2,h3{color:#1A1A1A} img{max-width:100%;height:auto} iframe{max-width:100%;border:0}
+    .slot{margin:1.5rem 0;padding:1rem;border:2px dashed #94a3b8;border-radius:0.75rem;background:#f1f5f9;color:#475569}
   </style></head><body>${html}</body></html>`;
 }
 
@@ -99,11 +131,13 @@ function buildPersistHtml(
   rawHtml: string,
   imageUrls: Record<number, string>,
   calculatorSelection: Record<number, string>,
+  videoUrls: Record<number, string>,
   snippetById: Map<string, string>
 ): string {
   let imageIndex = 0;
   let calcIndex = 0;
-  const parts = rawHtml.split(/(\[IMAGE_SLOT\]|\[CALCULATOR_SLOT\])/g);
+  let videoIndex = 0;
+  const parts = rawHtml.split(/(\[IMAGE_SLOT\]|\[CALCULATOR_SLOT\]|\[VIDEO_SLOT\])/g);
   return parts
     .map((part) => {
       if (part === IMAGE_TOKEN) {
@@ -115,6 +149,16 @@ function buildPersistHtml(
         const selected = calculatorSelection[calcIndex] ?? "";
         calcIndex += 1;
         return selected ? snippetById.get(selected) ?? CALC_TOKEN : CALC_TOKEN;
+      }
+      if (part === VIDEO_TOKEN) {
+        const selected = (videoUrls[videoIndex] ?? "").trim();
+        videoIndex += 1;
+        if (!selected) return VIDEO_TOKEN;
+        const youtubeId = extractYoutubeId(selected);
+        if (youtubeId) {
+          return `<div class="my-6"><iframe src="https://www.youtube.com/embed/${youtubeId}" title="YouTube video" loading="lazy" allowfullscreen style="width:100%;min-height:360px;border:0;border-radius:12px;"></iframe></div>`;
+        }
+        return `<p><a href="${selected}" target="_blank" rel="noreferrer">Watch video</a></p>`;
       }
       return part;
     })
@@ -130,6 +174,10 @@ function buildPreviewHtml(persistHtml: string): string {
     .replaceAll(
       CALC_TOKEN,
       `<div class="slot">🧮 Placeholder: Awaiting calculator selection for this slot.</div>`
+    )
+    .replaceAll(
+      VIDEO_TOKEN,
+      `<div class="slot">🎥 Placeholder: Awaiting video link for this slot.</div>`
     );
 }
 
@@ -145,19 +193,22 @@ export function BlogStudioClient(props: Props) {
 
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const first = initialPosts[0] ?? null;
+  void initialPosts;
 
-  const [selectedId, setSelectedId] = useState<string | null>(first?.id ?? null);
-  const [title, setTitle] = useState(first?.title || "Client Blog Draft");
-  const [slug, setSlug] = useState(first?.slug || "client-blog-draft");
-  const [excerpt, setExcerpt] = useState(first?.excerpt || "");
-  const [rawHtml, setRawHtml] = useState(first?.bodyHtml || SAMPLE_HTML);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [title, setTitle] = useState("Client Blog Draft");
+  const [slug, setSlug] = useState("client-blog-draft");
+  const [excerpt, setExcerpt] = useState("");
+  const [rawHtml, setRawHtml] = useState(SAMPLE_HTML);
   const [slotFiles, setSlotFiles] = useState<Record<number, File | null>>({});
   const [imageUrls, setImageUrls] = useState<Record<number, string>>({});
   const [calcSelection, setCalcSelection] = useState<Record<number, string>>({});
+  const [videoUrls, setVideoUrls] = useState<Record<number, string>>({});
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [banner, setBanner] = useState<string | null>(null);
   const [status, setStatus] = useState("Ready to Edit");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
 
   const embedReadySnippets = useMemo(
     () => CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet),
@@ -170,10 +221,27 @@ export function BlogStudioClient(props: Props) {
 
   const imageCount = useMemo(() => countToken(rawHtml, IMAGE_TOKEN), [rawHtml]);
   const calcCount = useMemo(() => countToken(rawHtml, CALC_TOKEN), [rawHtml]);
+  const videoCount = useMemo(() => countToken(rawHtml, VIDEO_TOKEN), [rawHtml]);
+  const missingImages = useMemo(
+    () => Array.from({ length: imageCount }).filter((_, i) => !imageUrls[i]).length,
+    [imageCount, imageUrls]
+  );
+  const missingCalcs = useMemo(
+    () => Array.from({ length: calcCount }).filter((_, i) => !(calcSelection[i] ?? "").trim()).length,
+    [calcCount, calcSelection]
+  );
+  const missingVideos = useMemo(
+    () => Array.from({ length: videoCount }).filter((_, i) => !(videoUrls[i] ?? "").trim()).length,
+    [videoCount, videoUrls]
+  );
+  const postDetailsReady = title.trim().length > 0 && slug.trim().length > 0 && excerpt.trim().length > 0;
+  const step2Ready = missingImages === 0;
+  const step3Ready = missingCalcs === 0 && missingVideos === 0;
+  const canPublish = postDetailsReady && step2Ready && step3Ready;
 
   const resolvedForPersist = useMemo(
-    () => buildPersistHtml(rawHtml, imageUrls, calcSelection, snippetById),
-    [rawHtml, imageUrls, calcSelection, snippetById]
+    () => buildPersistHtml(rawHtml, imageUrls, calcSelection, videoUrls, snippetById),
+    [rawHtml, imageUrls, calcSelection, videoUrls, snippetById]
   );
   const previewHtml = useMemo(() => buildPreviewHtml(resolvedForPersist), [resolvedForPersist]);
   const previewSrcDoc = useMemo(() => buildPreviewDoc(previewHtml), [previewHtml]);
@@ -189,13 +257,26 @@ export function BlogStudioClient(props: Props) {
           metadata: {
             images: imageUrls,
             calculators: calcSelection,
+            videos: videoUrls,
           },
         },
         null,
         2
       ),
-    [title, slug, rawHtml, imageUrls, calcSelection]
+    [title, slug, rawHtml, imageUrls, calcSelection, videoUrls]
   );
+  const aiInstructionsText = useMemo(() => {
+    const images = imageCount || 2;
+    const calcs = calcCount || 1;
+    const videos = videoCount || 1;
+    return `Use the brand guide below. Write a blog post in clean semantic HTML only.
+Do NOT include custom JavaScript or calculator code.
+Use EXACT placeholders:
+- ${IMAGE_TOKEN} exactly ${images} time(s)
+- ${CALC_TOKEN} exactly ${calcs} time(s)
+- ${VIDEO_TOKEN} exactly ${videos} time(s)
+Do not output full <html> document, only article body HTML.`;
+  }, [imageCount, calcCount, videoCount]);
 
   if (!studioConfigured) {
     return (
@@ -234,10 +315,25 @@ export function BlogStudioClient(props: Props) {
     setStatus("Images mapped");
   }
 
+  async function copyAiInstructions() {
+    try {
+      await navigator.clipboard.writeText(aiInstructionsText);
+      setBanner("AI instructions copied. Paste them with your brand guide into AI.");
+    } catch {
+      setBanner("Clipboard blocked. Copy the AI instructions manually from the box.");
+    }
+  }
+
   function saveOrPublish(publish: boolean) {
     startTransition(async () => {
       if (!databaseConfigured) {
         setBanner("Database not connected. Save/Publish cannot run.");
+        return;
+      }
+      if (publish && !canPublish) {
+        setBanner(
+          "Complete all steps first: upload all images, choose calculator/video for each slot, and fill title/slug/excerpt."
+        );
         return;
       }
       const derivedTitle = title.trim() || firstH1(rawHtml) || "Untitled Post";
@@ -251,8 +347,8 @@ export function BlogStudioClient(props: Props) {
         excerpt: excerpt.trim() || null,
         bodyHtml: normalized,
         heroImageUrl: hero,
-        metaTitle: derivedTitle,
-        metaDescription: excerpt.trim() || null,
+        metaTitle: metaTitle.trim() || derivedTitle,
+        metaDescription: metaDescription.trim() || excerpt.trim() || null,
         calculatorName: null,
         calculatorCode: null,
       });
@@ -281,29 +377,29 @@ export function BlogStudioClient(props: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-16 text-slate-800">
-      <header className="flex items-center justify-between bg-[#1A1A1A] px-8 py-5 text-white shadow-md">
+    <div className="min-h-screen bg-[#0a0a0c] pb-16 text-zinc-100">
+      <header className="flex items-center justify-between border-b border-white/10 bg-[#111115] px-8 py-5 text-white shadow-md">
         <div>
-          <span className="block text-xs font-bold uppercase tracking-widest text-[#00B4D8]">Broker Workspace</span>
+          <span className="block text-xs font-bold uppercase tracking-widest text-teal-300">Broker Workspace</span>
           <h1 className="text-2xl font-semibold tracking-tight">Blog Studio Dashboard</h1>
         </div>
         <div className="flex items-center space-x-3">
-          <div className="rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm">
-            Status: <span className="font-medium text-[#80ED99]">{status}</span>
+          <div className="rounded-lg border border-white/10 bg-black/30 px-4 py-2 text-sm text-zinc-300">
+            Status: <span className="font-medium text-emerald-300">{status}</span>
           </div>
           <button
             type="button"
             onClick={() => saveOrPublish(false)}
             disabled={isPending}
-            className="rounded-lg bg-white px-5 py-3 text-sm font-bold text-[#1A1A1A] disabled:opacity-50"
+            className="rounded-lg border border-white/20 bg-white px-5 py-3 text-sm font-bold text-black disabled:opacity-50"
           >
             Save Draft
           </button>
           <button
             type="button"
             onClick={() => saveOrPublish(true)}
-            disabled={isPending}
-            className="rounded-lg bg-[#80ED99] px-6 py-3 text-lg font-bold text-[#1A1A1A] shadow transition-all hover:bg-[#6edc87] disabled:opacity-50"
+            disabled={isPending || !canPublish}
+            className="rounded-lg bg-teal-600 px-6 py-3 text-lg font-bold text-white shadow transition-all hover:bg-teal-500 disabled:opacity-50"
           >
             Publish Blog Post
           </button>
@@ -312,88 +408,70 @@ export function BlogStudioClient(props: Props) {
 
       <main className="mx-auto mt-8 grid max-w-[1600px] grid-cols-1 gap-8 px-8 lg:grid-cols-12">
         <div className="space-y-6 lg:col-span-5">
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
-              <label className="block text-lg font-bold text-[#1A1A1A]">Step 1: Paste AI Blog Code</label>
-              <span className="rounded bg-slate-100 px-2 py-1 font-mono text-xs text-slate-500">
-                Use tags: [IMAGE_SLOT] &amp; [CALCULATOR_SLOT]
+              <label className="block text-lg font-bold text-white">Step 1: Paste AI Blog Code</label>
+              <span className="rounded bg-black/40 px-2 py-1 font-mono text-xs text-zinc-400">
+                Use tags: [IMAGE_SLOT] [CALCULATOR_SLOT] [VIDEO_SLOT]
               </span>
             </div>
-            <p className="mb-4 text-sm text-slate-500">
-              Paste the raw HTML from AI. AI must not include custom calculator JavaScript.
+            <p className="mb-2 text-sm text-zinc-400">
+              Paste raw HTML from AI. Keep placeholders only. Do not paste calculator scripts manually.
             </p>
-            <div className="mb-3 grid grid-cols-1 gap-2 md:grid-cols-2">
-              <input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Post title"
-                className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm"
-              />
-              <input
-                value={slug}
-                onChange={(e) => setSlug(e.target.value)}
-                placeholder="post-url-slug"
-                className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 font-mono text-sm"
-              />
-            </div>
             <textarea
               value={rawHtml}
               onChange={(e) => setRawHtml(e.target.value)}
-              rows={12}
-              className="w-full rounded-lg border border-slate-300 bg-slate-50 p-4 font-mono text-sm transition-all focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#00B4D8]"
+              rows={11}
+              className="w-full rounded-lg border border-white/10 bg-black/40 p-4 font-mono text-sm text-teal-100 transition-all focus:bg-black/55 focus:outline-none focus:ring-2 focus:ring-teal-500/40"
               placeholder="Paste HTML here..."
             />
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="mb-4 border-b border-slate-100 pb-3">
-              <h2 className="text-lg font-bold text-[#1A1A1A]">Step 2: Assign Detected Media &amp; Calculators</h2>
-              <p className="text-sm text-slate-500">We scanned your text. Fill required assets below.</p>
+          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-white">Step 2: Upload Images</h2>
+              <span className="text-xs font-semibold text-zinc-400">{imageCount - missingImages}/{imageCount} mapped</span>
             </div>
-
-            <div className="space-y-4">
-              {imageCount === 0 && calcCount === 0 && (
-                <p className="py-4 text-center text-sm italic text-slate-400">
-                  No slots detected. Use tags [IMAGE_SLOT] and [CALCULATOR_SLOT].
-                </p>
-              )}
-              {Array.from({ length: imageCount }).map((_, i) => (
-                <div key={`img-slot-${i}`} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <div className="mb-2 flex items-center justify-between">
-                    <span className="text-sm font-bold text-[#1A1A1A]">
-                      Image Slot #{i + 1} {i === 0 ? "(Cover Thumbnail)" : ""}
-                    </span>
-                    <span className="text-xs font-semibold text-[#80ED99]">
-                      {imageUrls[i] ? "Image Assigned ✓" : ""}
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) =>
-                        setSlotFiles((prev) => ({
-                          ...prev,
-                          [i]: (e.target.files?.[0] as File | undefined) ?? null,
-                        }))
-                      }
-                      className="block w-full text-sm text-slate-500 file:mr-3 file:rounded-md file:border-0 file:bg-[#1A1A1A] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => void uploadSlot(i)}
-                      disabled={isPending || !slotFiles[i]}
-                      className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 disabled:opacity-40"
-                    >
-                      Upload
-                    </button>
-                  </div>
+            {Array.from({ length: imageCount }).map((_, i) => (
+              <div key={`img-slot-${i}`} className="mb-3 rounded-lg border border-white/10 bg-black/30 p-4">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-sm font-bold text-zinc-100">
+                    Image Slot #{i + 1} {i === 0 ? "(Cover Thumbnail)" : ""}
+                  </span>
+                  <span className="text-xs font-semibold text-emerald-300">{imageUrls[i] ? "Assigned ✓" : "Pending"}</span>
                 </div>
-              ))}
+                <div className="flex gap-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      setSlotFiles((prev) => ({
+                        ...prev,
+                        [i]: (e.target.files?.[0] as File | undefined) ?? null,
+                      }))
+                    }
+                    className="block w-full text-sm text-zinc-400 file:mr-3 file:rounded-md file:border-0 file:bg-zinc-900 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => void uploadSlot(i)}
+                    disabled={isPending || !slotFiles[i]}
+                    className="rounded-md border border-white/20 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-200 disabled:opacity-40"
+                  >
+                    Upload
+                  </button>
+                </div>
+              </div>
+            ))}
+            {imageCount === 0 && <p className="text-sm italic text-zinc-500">No [IMAGE_SLOT] placeholders detected.</p>}
+          </div>
 
+          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+            <h2 className="mb-3 text-lg font-bold text-white">Step 3: Select Calculators & Videos</h2>
+            <div className="space-y-3">
               {Array.from({ length: calcCount }).map((_, i) => (
-                <div key={`calc-slot-${i}`} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                  <p className="mb-2 text-sm font-bold text-[#1A1A1A]">Calculator Slot #{i + 1}</p>
+                <div key={`calc-slot-${i}`} className="rounded-lg border border-white/10 bg-black/30 p-4">
+                  <p className="mb-2 text-sm font-bold text-zinc-100">Calculator Slot #{i + 1}</p>
                   <select
                     value={calcSelection[i] ?? ""}
                     onChange={(e) =>
@@ -402,7 +480,7 @@ export function BlogStudioClient(props: Props) {
                         [i]: e.target.value,
                       }))
                     }
-                    className="w-full rounded-lg border border-slate-300 bg-white p-2.5 text-sm"
+                    className="w-full rounded-lg border border-white/10 bg-black/40 p-2.5 text-sm text-zinc-100"
                   >
                     <option value="">-- Choose Calculator Component --</option>
                     {embedReadySnippets.map((snippet) => (
@@ -413,35 +491,99 @@ export function BlogStudioClient(props: Props) {
                   </select>
                 </div>
               ))}
-            </div>
-
-            {imageUrls[0] && (
-              <div className="mt-6 border-t border-slate-100 pt-6">
-                <span className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">
-                  Main Grid Cover Image (Auto-extracted)
-                </span>
-                <div className="flex items-center space-x-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
-                  <img src={imageUrls[0]} alt="Thumbnail" className="h-16 w-16 rounded border border-slate-300 object-cover" />
-                  <div className="text-sm">
-                    <p className="font-semibold text-slate-700">Will display on blog homepage roll</p>
-                    <p className="max-w-[200px] truncate font-mono text-xs text-[#00B4D8]">Slot #1 image mapped</p>
-                  </div>
+              {Array.from({ length: videoCount }).map((_, i) => (
+                <div key={`video-slot-${i}`} className="rounded-lg border border-white/10 bg-black/30 p-4">
+                  <p className="mb-2 text-sm font-bold text-zinc-100">Video Slot #{i + 1}</p>
+                  <input
+                    value={videoUrls[i] ?? ""}
+                    onChange={(e) =>
+                      setVideoUrls((prev) => ({
+                        ...prev,
+                        [i]: e.target.value,
+                      }))
+                    }
+                    placeholder="Paste YouTube URL or video ID"
+                    className="w-full rounded-lg border border-white/10 bg-black/40 p-2.5 text-sm text-zinc-100"
+                  />
                 </div>
+              ))}
+              {calcCount === 0 && videoCount === 0 && (
+                <p className="text-sm italic text-zinc-500">
+                  No [CALCULATOR_SLOT] or [VIDEO_SLOT] placeholders detected.
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+            <h2 className="mb-3 text-lg font-bold text-white">Step 4: Post Details</h2>
+            <div className="grid grid-cols-1 gap-2">
+              <input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Title (required)"
+                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
+              />
+              <input
+                value={slug}
+                onChange={(e) => setSlug(e.target.value)}
+                placeholder="Slug (required)"
+                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 font-mono text-sm text-zinc-100"
+              />
+              <input
+                value={excerpt}
+                onChange={(e) => setExcerpt(e.target.value)}
+                placeholder="Excerpt (required)"
+                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
+              />
+              <input
+                value={metaTitle}
+                onChange={(e) => setMetaTitle(e.target.value)}
+                placeholder="SEO title (optional)"
+                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
+              />
+              <input
+                value={metaDescription}
+                onChange={(e) => setMetaDescription(e.target.value)}
+                placeholder="SEO description (optional)"
+                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
+              />
+            </div>
+            {imageUrls[0] && (
+              <div className="mt-3 flex items-center space-x-3 rounded-lg border border-white/10 bg-black/30 p-3">
+                <img src={imageUrls[0]} alt="Thumbnail" className="h-12 w-12 rounded border border-white/10 object-cover" />
+                <p className="text-xs text-zinc-400">Cover thumbnail auto-mapped from Image Slot #1.</p>
               </div>
             )}
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+            <div className="mb-2 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-white">AI Instructions</h2>
+              <button
+                type="button"
+                onClick={() => void copyAiInstructions()}
+                className="rounded-md border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-200"
+              >
+                Copy
+              </button>
+            </div>
+            <pre className="max-h-40 overflow-y-auto whitespace-pre-wrap rounded-lg bg-black/50 p-3 font-mono text-xs text-emerald-300">
+              {aiInstructionsText}
+            </pre>
           </div>
         </div>
 
         <div className="lg:col-span-7">
-          <div className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-            <div className="flex items-center justify-between border-b border-slate-200 bg-slate-100 px-6 py-4">
-              <span className="text-lg font-bold text-[#1A1A1A]">Step 3: Review Layout</span>
-              <div className="inline-flex rounded-lg bg-slate-200 p-1">
+          <div className="flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#121214] shadow-sm">
+            <div className="flex items-center justify-between border-b border-white/10 bg-black/30 px-6 py-4">
+              <span className="text-lg font-bold text-white">Step 5: Review &amp; Publish</span>
+              <div className="inline-flex rounded-lg bg-black/40 p-1">
                 <button
                   type="button"
                   onClick={() => setActiveTab("preview")}
                   className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
-                    activeTab === "preview" ? "bg-white text-[#00B4D8] shadow-sm" : "text-slate-600"
+                    activeTab === "preview" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
                   }`}
                 >
                   Live Reading Preview
@@ -450,12 +592,26 @@ export function BlogStudioClient(props: Props) {
                   type="button"
                   onClick={() => setActiveTab("code")}
                   className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
-                    activeTab === "code" ? "bg-white text-[#00B4D8] shadow-sm" : "text-slate-600"
+                    activeTab === "code" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
                   }`}
                 >
                   Backend Code Output
                 </button>
               </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 border-b border-white/10 bg-black/20 px-6 py-3 text-xs">
+              <p className={step2Ready ? "text-emerald-300" : "text-amber-300"}>
+                {step2Ready ? "PASS" : "FIX"} Images assigned ({imageCount - missingImages}/{imageCount})
+              </p>
+              <p className={step3Ready ? "text-emerald-300" : "text-amber-300"}>
+                {step3Ready ? "PASS" : "FIX"} Calculators/videos assigned
+              </p>
+              <p className={postDetailsReady ? "text-emerald-300" : "text-amber-300"}>
+                {postDetailsReady ? "PASS" : "FIX"} Title, slug, excerpt completed
+              </p>
+              <p className={canPublish ? "text-emerald-300" : "text-amber-300"}>
+                {canPublish ? "READY" : "NOT READY"} for publish
+              </p>
             </div>
 
             {activeTab === "preview" ? (
@@ -463,19 +619,19 @@ export function BlogStudioClient(props: Props) {
                 <iframe
                   title="Live reading preview"
                   sandbox="allow-same-origin allow-scripts"
-                  className="h-[70vh] w-full rounded-lg border border-slate-200 bg-white"
+                  className="h-[70vh] w-full rounded-lg border border-white/10 bg-white"
                   srcDoc={previewSrcDoc}
                 />
               </div>
             ) : (
-              <div className="flex-1 overflow-y-auto bg-slate-900 p-6 text-sm text-slate-100">
+              <div className="flex-1 overflow-y-auto bg-black/40 p-6 text-sm text-zinc-100">
                 <div className="mb-4">
-                  <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-[#80ED99]">
+                  <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-emerald-300">
                     Supabase DB Payload:
                   </span>
-                  <p className="text-xs text-slate-400">This structured data is what gets saved.</p>
+                  <p className="text-xs text-zinc-400">This structured data is what gets saved.</p>
                 </div>
-                <pre className="max-h-[70vh] overflow-x-auto rounded-lg bg-black p-4 text-xs text-[#00B4D8]">{payloadPreview}</pre>
+                <pre className="max-h-[70vh] overflow-x-auto rounded-lg bg-black/60 p-4 text-xs text-teal-300">{payloadPreview}</pre>
               </div>
             )}
           </div>
@@ -483,7 +639,7 @@ export function BlogStudioClient(props: Props) {
       </main>
 
       {banner && (
-        <div className="fixed bottom-4 right-4 max-w-xl rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 shadow-lg">
+        <div className="fixed bottom-4 right-4 max-w-xl rounded-lg border border-white/10 bg-[#121214] px-4 py-3 text-sm text-zinc-200 shadow-lg">
           {banner}
         </div>
       )}

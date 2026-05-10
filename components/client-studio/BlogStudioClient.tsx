@@ -202,6 +202,8 @@ export function BlogStudioClient(props: Props) {
   const [rawHtml, setRawHtml] = useState(SAMPLE_HTML);
   const [slotFiles, setSlotFiles] = useState<Record<number, File | null>>({});
   const [imageUrls, setImageUrls] = useState<Record<number, string>>({});
+  const [uploadingSlots, setUploadingSlots] = useState<Record<number, boolean>>({});
+  const [slotMessages, setSlotMessages] = useState<Record<number, string>>({});
   const [calcSelection, setCalcSelection] = useState<Record<number, string>>({});
   const [videoUrls, setVideoUrls] = useState<Record<number, string>>({});
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
@@ -291,28 +293,44 @@ Do not output full <html> document, only article body HTML.`;
     const file = slotFiles[index];
     if (!file) {
       setBanner(`Select an image for slot ${index + 1} first.`);
+      setSlotMessages((prev) => ({ ...prev, [index]: "Select a file first." }));
       return;
     }
     setBanner(null);
-    if (!imageUploadConfigured) {
-      const localUrl = URL.createObjectURL(file);
-      setImageUrls((prev) => ({ ...prev, [index]: localUrl }));
-      setStatus("Previewing local images (upload not configured)");
-      return;
+    setUploadingSlots((prev) => ({ ...prev, [index]: true }));
+    setSlotMessages((prev) => ({ ...prev, [index]: "Uploading..." }));
+    try {
+      if (!imageUploadConfigured) {
+        const localUrl = URL.createObjectURL(file);
+        setImageUrls((prev) => ({ ...prev, [index]: localUrl }));
+        setStatus("Previewing local images (upload not configured)");
+        setSlotMessages((prev) => ({ ...prev, [index]: "Preview image mapped locally." }));
+        return;
+      }
+      const fd = new FormData();
+      fd.set("file", file);
+      const uploaded = await uploadStudioImage(fd);
+      if (!uploaded.ok) {
+        setBanner(uploaded.error);
+        setSlotMessages((prev) => ({ ...prev, [index]: uploaded.error }));
+        return;
+      }
+      const finalUrl =
+        uploaded.url.startsWith("/") && typeof window !== "undefined"
+          ? `${window.location.origin}${uploaded.url}`
+          : uploaded.url;
+      setImageUrls((prev) => ({ ...prev, [index]: finalUrl }));
+      setSlotFiles((prev) => ({ ...prev, [index]: null }));
+      setStatus("Images mapped");
+      setSlotMessages((prev) => ({ ...prev, [index]: "Upload successful." }));
+      setBanner(`Image slot ${index + 1} uploaded successfully.`);
+    } catch {
+      const message = "Upload failed unexpectedly. Please retry.";
+      setSlotMessages((prev) => ({ ...prev, [index]: message }));
+      setBanner(message);
+    } finally {
+      setUploadingSlots((prev) => ({ ...prev, [index]: false }));
     }
-    const fd = new FormData();
-    fd.set("file", file);
-    const uploaded = await uploadStudioImage(fd);
-    if (!uploaded.ok) {
-      setBanner(uploaded.error);
-      return;
-    }
-    const finalUrl =
-      uploaded.url.startsWith("/") && typeof window !== "undefined"
-        ? `${window.location.origin}${uploaded.url}`
-        : uploaded.url;
-    setImageUrls((prev) => ({ ...prev, [index]: finalUrl }));
-    setStatus("Images mapped");
   }
 
   async function copyAiInstructions() {
@@ -455,12 +473,15 @@ Do not output full <html> document, only article body HTML.`;
                   <button
                     type="button"
                     onClick={() => void uploadSlot(i)}
-                    disabled={isPending || !slotFiles[i]}
+                    disabled={isPending || !slotFiles[i] || Boolean(uploadingSlots[i])}
                     className="rounded-md border border-white/20 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-200 disabled:opacity-40"
                   >
-                    Upload
+                    {uploadingSlots[i] ? "Uploading..." : "Upload"}
                   </button>
                 </div>
+                {slotMessages[i] && (
+                  <p className="mt-2 text-[11px] text-zinc-400">{slotMessages[i]}</p>
+                )}
               </div>
             ))}
             {imageCount === 0 && <p className="text-sm italic text-zinc-500">No [IMAGE_SLOT] placeholders detected.</p>}

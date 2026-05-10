@@ -45,6 +45,8 @@ type Props = {
 const IMAGE_TOKEN = "[IMAGE_SLOT]";
 const CALC_TOKEN = "[CALCULATOR_SLOT]";
 const VIDEO_TOKEN = "[VIDEO_SLOT]";
+const TARGET_UPLOAD_BYTES = 900 * 1024;
+const MAX_UPLOAD_IMAGE_SIDE = 1600;
 
 const SAMPLE_HTML = `<section class="space-y-6">
   <h1>Your retirement strategy in uncertain markets</h1>
@@ -106,6 +108,60 @@ function extractYoutubeId(input: string): string | null {
     return null;
   }
   return null;
+}
+
+function canvasToBlob(canvas: HTMLCanvasElement, quality: number): Promise<Blob | null> {
+  return new Promise((resolve) => {
+    canvas.toBlob((blob) => resolve(blob), "image/jpeg", quality);
+  });
+}
+
+async function optimizeImageForUpload(file: File): Promise<File> {
+  if (typeof window === "undefined") return file;
+  if (!file.type.toLowerCase().startsWith("image/")) return file;
+  if (file.size <= TARGET_UPLOAD_BYTES) return file;
+
+  const objectUrl = URL.createObjectURL(file);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const element = new Image();
+      element.onload = () => resolve(element);
+      element.onerror = () => reject(new Error("Image decode failed"));
+      element.src = objectUrl;
+    });
+
+    const scale = Math.min(1, MAX_UPLOAD_IMAGE_SIDE / Math.max(img.naturalWidth || 1, img.naturalHeight || 1));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.round((img.naturalWidth || 1) * scale));
+    canvas.height = Math.max(1, Math.round((img.naturalHeight || 1) * scale));
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    const qualityPasses = [0.86, 0.78, 0.7, 0.62, 0.54];
+    let bestBlob: Blob | null = null;
+    for (const quality of qualityPasses) {
+      const blob = await canvasToBlob(canvas, quality);
+      if (!blob) continue;
+      bestBlob = blob;
+      if (blob.size <= TARGET_UPLOAD_BYTES) break;
+    }
+    if (!bestBlob) return file;
+
+    const bareName = file.name.replace(/\.[^.]+$/, "");
+    const optimized = new File([bestBlob], `${bareName}.jpg`, {
+      type: "image/jpeg",
+      lastModified: Date.now(),
+    });
+
+    // Keep the original only when optimization is ineffective and source is already modest.
+    if (optimized.size >= file.size && file.size <= TARGET_UPLOAD_BYTES * 2) return file;
+    return optimized;
+  } catch {
+    return file;
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
 }
 
 function buildPreviewDoc(html: string): string {
@@ -303,15 +359,16 @@ Do not output full <html> document, only article body HTML.`;
     setUploadingSlots((prev) => ({ ...prev, [index]: true }));
     setSlotMessages((prev) => ({ ...prev, [index]: "Uploading..." }));
     try {
+      const uploadFile = await optimizeImageForUpload(file);
       if (!imageUploadConfigured) {
-        const localUrl = URL.createObjectURL(file);
+        const localUrl = URL.createObjectURL(uploadFile);
         setImageUrls((prev) => ({ ...prev, [index]: localUrl }));
         setStatus("Previewing local images (upload not configured)");
         setSlotMessages((prev) => ({ ...prev, [index]: "Preview image mapped locally." }));
         return;
       }
       const fd = new FormData();
-      fd.set("file", file);
+      fd.set("file", uploadFile, uploadFile.name);
       const res = await fetch("/api/studio/upload", {
         method: "POST",
         body: fd,
@@ -325,7 +382,9 @@ Do not output full <html> document, only article body HTML.`;
       if (!res.ok || !payload.ok || !payload.url) {
         const detail =
           payload.error ||
-          `Upload request failed (HTTP ${res.status}). Check server logs and Supabase config.`;
+          (res.status === 413
+            ? "Image is still too large after optimization. Use a smaller file and retry."
+            : `Upload request failed (HTTP ${res.status}). Check server logs and Supabase config.`);
         setBanner(detail);
         setSlotMessages((prev) => ({ ...prev, [index]: detail }));
         return;

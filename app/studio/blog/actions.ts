@@ -562,6 +562,84 @@ export async function uploadStudioImage(
   }
 }
 
+export async function getStudioUploadDiagnostics(): Promise<{
+  ok: boolean;
+  summary: string;
+  checks: string[];
+}> {
+  const checks: string[] = [];
+  try {
+    await requireStudioSession();
+    checks.push("Session check: OK");
+  } catch {
+    return {
+      ok: false,
+      summary: "Session expired - sign in again.",
+      checks: ["Session check: FAILED"],
+    };
+  }
+
+  const publicUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim();
+  const serviceKey = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
+  checks.push(publicUrl ? "NEXT_PUBLIC_SUPABASE_URL: set" : "NEXT_PUBLIC_SUPABASE_URL: missing");
+  checks.push(serviceKey ? "SUPABASE_SERVICE_ROLE_KEY: set" : "SUPABASE_SERVICE_ROLE_KEY: missing");
+
+  let supabase;
+  try {
+    supabase = getSupabaseService();
+  } catch (e) {
+    const detail = collectErrorText(e).slice(0, 220);
+    return {
+      ok: false,
+      summary: detail ? `Supabase service init failed: ${detail}` : "Supabase service init failed.",
+      checks,
+    };
+  }
+  if (!supabase) {
+    return {
+      ok: false,
+      summary: "Supabase service client is not available (env/config issue).",
+      checks,
+    };
+  }
+
+  const bucket = (process.env.SUPABASE_BLOG_IMAGES_BUCKET ?? "blog-images").trim();
+  checks.push(`Target bucket: ${bucket}`);
+
+  try {
+    const bucketRes = await supabase.storage.listBuckets();
+    if (bucketRes.error) {
+      return {
+        ok: false,
+        summary: `Storage bucket check failed: ${bucketRes.error.message}`,
+        checks,
+      };
+    }
+    const exists = (bucketRes.data ?? []).some((b) => b.name === bucket);
+    checks.push(exists ? "Bucket exists: yes" : "Bucket exists: no");
+    if (!exists) {
+      return {
+        ok: false,
+        summary: `Bucket "${bucket}" does not exist. Create it in Supabase Storage.`,
+        checks,
+      };
+    }
+  } catch (e) {
+    const detail = collectErrorText(e).slice(0, 220);
+    return {
+      ok: false,
+      summary: detail ? `Storage check crashed: ${detail}` : "Storage check crashed unexpectedly.",
+      checks,
+    };
+  }
+
+  return {
+    ok: true,
+    summary: "Upload diagnostics passed. Client-side file or network issues are more likely now.",
+    checks,
+  };
+}
+
 export async function sanitizeStudioHtmlPreview(
   rawHtml: string
 ): Promise<{ ok: true; html: string } | { ok: false; error: string }> {

@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import {
+  getStudioUploadDiagnostics,
   publishStudioPost,
   saveStudioPost,
   uploadStudioImage,
@@ -204,6 +205,9 @@ export function BlogStudioClient(props: Props) {
   const [imageUrls, setImageUrls] = useState<Record<number, string>>({});
   const [uploadingSlots, setUploadingSlots] = useState<Record<number, boolean>>({});
   const [slotMessages, setSlotMessages] = useState<Record<number, string>>({});
+  const [uploadDebugRunning, setUploadDebugRunning] = useState(false);
+  const [uploadDebugSummary, setUploadDebugSummary] = useState<string | null>(null);
+  const [uploadDebugChecks, setUploadDebugChecks] = useState<string[]>([]);
   const [calcSelection, setCalcSelection] = useState<Record<number, string>>({});
   const [videoUrls, setVideoUrls] = useState<Record<number, string>>({});
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
@@ -342,6 +346,19 @@ Do not output full <html> document, only article body HTML.`;
     }
   }
 
+  function runUploadDebug() {
+    setUploadDebugRunning(true);
+    setUploadDebugSummary(null);
+    setUploadDebugChecks([]);
+    startTransition(async () => {
+      const result = await getStudioUploadDiagnostics();
+      setUploadDebugSummary(result.summary);
+      setUploadDebugChecks(result.checks);
+      setBanner(result.summary);
+      setUploadDebugRunning(false);
+    });
+  }
+
   function saveOrPublish(publish: boolean) {
     startTransition(async () => {
       if (!databaseConfigured) {
@@ -449,6 +466,31 @@ Do not output full <html> document, only article body HTML.`;
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-lg font-bold text-white">Step 2: Upload Images</h2>
               <span className="text-xs font-semibold text-zinc-400">{imageCount - missingImages}/{imageCount} mapped</span>
+            </div>
+            <div className="mb-3 rounded-lg border border-white/10 bg-black/25 p-3">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs text-zinc-400">
+                  If uploads fail, run diagnostics to verify session, Supabase keys, and bucket access.
+                </p>
+                <button
+                  type="button"
+                  onClick={runUploadDebug}
+                  disabled={isPending || uploadDebugRunning}
+                  className="rounded-md border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-200 disabled:opacity-40"
+                >
+                  {uploadDebugRunning ? "Running..." : "Run upload debug"}
+                </button>
+              </div>
+              {uploadDebugSummary && (
+                <p className="mt-2 text-xs text-amber-200/90">{uploadDebugSummary}</p>
+              )}
+              {uploadDebugChecks.length > 0 && (
+                <ul className="mt-2 list-disc space-y-1 pl-4 text-[11px] text-zinc-400">
+                  {uploadDebugChecks.map((line, idx) => (
+                    <li key={`dbg-${idx}`}>{line}</li>
+                  ))}
+                </ul>
+              )}
             </div>
             {Array.from({ length: imageCount }).map((_, i) => (
               <div key={`img-slot-${i}`} className="mb-3 rounded-lg border border-white/10 bg-black/30 p-4">

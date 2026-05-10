@@ -138,6 +138,17 @@ function extractPrimaryCalculatorRootId(snippetCode: string): string | null {
   return match?.[1]?.toLowerCase() ?? null;
 }
 
+function appendImageSlotsToArticle(html: string, count: number): string {
+  const safeCount = Math.max(0, count);
+  if (safeCount === 0) return html;
+  const slot = `\n<figure class="my-6">\n  <img src="${PRIMARY_IMAGE_PLACEHOLDER}" alt="" class="w-full max-w-3xl rounded-xl border border-white/10" loading="lazy" />\n  <figcaption class="mt-2 text-xs text-zinc-500">Optional caption</figcaption>\n</figure>\n`;
+  return `${html.trimEnd()}${slot.repeat(safeCount)}`;
+}
+
+function escapeRegExp(input: string): string {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function buildEditorSignature(input: {
   title: string;
   slug: string;
@@ -220,14 +231,15 @@ type HealthCheck = {
   hint?: string;
 };
 
-type WorkflowStep = "content" | "images" | "review" | "publish";
-type WorkflowStepDef = { id: WorkflowStep; label: string; panel: "html" | "assist" | "publish" };
+type WorkflowStep = "source" | "setup" | "images" | "calculator" | "review";
+type WorkflowStepDef = { id: WorkflowStep; label: string; panel: "setup" | "html" | "assist" | "publish" };
 
 const WORKFLOW_STEPS: WorkflowStepDef[] = [
-  { id: "content", label: "1. Content", panel: "html" },
-  { id: "images", label: "2. Images", panel: "assist" },
-  { id: "review", label: "3. Review", panel: "publish" },
-  { id: "publish", label: "4. Publish", panel: "publish" },
+  { id: "source", label: "Phase 1 · Article source", panel: "html" },
+  { id: "setup", label: "Phase 2 · Post setup", panel: "setup" },
+  { id: "images", label: "Phase 3 · Images", panel: "assist" },
+  { id: "calculator", label: "Phase 4 · Calculator", panel: "assist" },
+  { id: "review", label: "Phase 5 · Review & publish", panel: "publish" },
 ];
 
 export function BlogStudioClient({
@@ -261,14 +273,12 @@ export function BlogStudioClient({
   const [showNotebook, setShowNotebook] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [activePanel, setActivePanel] = useState<null | "setup" | "html" | "assist" | "publish">(null);
-  const [workflowStep, setWorkflowStep] = useState<WorkflowStep>("content");
-  const [seniorMode, setSeniorMode] = useState(true);
+  const [workflowStep, setWorkflowStep] = useState<WorkflowStep>("source");
   const [wizardLock, setWizardLock] = useState(true);
   const [advancedToolsEnabled, setAdvancedToolsEnabled] = useState(false);
   const [showGuidedStart, setShowGuidedStart] = useState(true);
   const [showPublishConfirm, setShowPublishConfirm] = useState(false);
   const [showStudioMenu, setShowStudioMenu] = useState(false);
-  const [showWorkflowDetails, setShowWorkflowDetails] = useState(false);
   const [copiedSnippetKey, setCopiedSnippetKey] = useState<string | null>(null);
   const [copiedAllCode, setCopiedAllCode] = useState(false);
   const [publishReport, setPublishReport] = useState<{
@@ -428,24 +438,30 @@ export function BlogStudioClient({
   const selectedHiddenByFilter = Boolean(
     selectedId && selected && !filteredPosts.some((p) => p.id === selectedId)
   );
+  const sourceReady = bodyHtml.trim().length > 0;
+  const setupReady = basicsOk && excerpt.trim().length > 0;
+  const calculatorReady = !hasAnyCalculatorEmbed || calculatorEmbedHealthy;
   const activeWorkflowIndex = WORKFLOW_STEPS.findIndex((s) => s.id === workflowStep);
   const nextWorkflowStep = activeWorkflowIndex >= 0 ? WORKFLOW_STEPS[activeWorkflowIndex + 1] : null;
   const workflowCompletion: Record<WorkflowStep, boolean> = {
-    content: basicsOk,
+    source: sourceReady,
+    setup: setupReady,
     images: !unresolvedImagePlaceholders,
+    calculator: calculatorReady,
     review: failedChecks.length === 0,
-    publish: selected?.status === "published",
   };
   const readinessScore = Math.round((checklist.filter((item) => item.ok).length / checklist.length) * 100);
   const nextReadinessHint = failedChecks[0]?.hint ?? "Everything looks ready to publish.";
   const canProceedFromCurrentStep =
-    workflowStep === "content"
-      ? basicsOk
-      : workflowStep === "images"
-        ? !unresolvedImagePlaceholders
-        : workflowStep === "review"
-          ? failedChecks.length === 0
-          : true;
+    workflowStep === "source"
+      ? sourceReady
+      : workflowStep === "setup"
+        ? setupReady
+        : workflowStep === "images"
+          ? !unresolvedImagePlaceholders
+          : workflowStep === "calculator"
+            ? calculatorReady
+            : failedChecks.length === 0;
 
   const saveDisabled = isPending || !databaseConfigured || !basicsOk;
   const publishDisabled = saveDisabled || !selectedId || failedChecks.length > 0;
@@ -634,7 +650,7 @@ export function BlogStudioClient({
     setSlugTouched(false);
     setBanner(null);
     setPublishReport(null);
-    setWorkflowStep("content");
+    setWorkflowStep("source");
     setPublishedPreviewHtml(null);
     setLastUploadedUrls([]);
     setLastSavedSignature(null);
@@ -693,7 +709,7 @@ export function BlogStudioClient({
           ? "Saved. Your changes are now live on the website."
           : "Saved. Draft is stored  -  still not public until you tap Publish."
       );
-      setWorkflowStep(unresolvedImagePlaceholders ? "images" : "review");
+      setWorkflowStep(unresolvedImagePlaceholders ? "images" : "calculator");
       setAutosaveStatus("All changes saved.");
       setLastSavedSignature(
         buildEditorSignature({
@@ -757,7 +773,7 @@ export function BlogStudioClient({
       setPublishReport(pub.report);
       setBanner("Published. Use “Open this post on the site” or View site insights to check it.");
       setAutosaveStatus("Published and saved.");
-      setWorkflowStep("publish");
+      setWorkflowStep("review");
       setLastSavedSignature(
         buildEditorSignature({
           title,
@@ -956,9 +972,39 @@ export function BlogStudioClient({
       ? `${bodyHtml.trim()}\n\n${code.trim()}`
       : code.trim();
     setBodyHtml(nextBody);
-    setActivePanel("html");
-    setWorkflowStep("content");
+    setActivePanel("assist");
+    setWorkflowStep("calculator");
     setBanner(`Inserted "${label}" calculator block into Article HTML. Keep its IDs/script unchanged.`);
+  }
+
+  function replaceCalculatorSnippet(code: string, label: string) {
+    const existingCalculatorIds = extractCalculatorRootIdsFromHtml(bodyHtml);
+    if (existingCalculatorIds.length === 0) {
+      insertCalculatorSnippet(code, label);
+      return;
+    }
+    const targetId = existingCalculatorIds[0];
+    const blockWithScriptRegex = new RegExp(
+      `<div[^>]*id="${escapeRegExp(targetId)}"[^>]*>[\\s\\S]*?<\\/div>\\s*<script[\\s\\S]*?<\\/script>`,
+      "i"
+    );
+    const blockOnlyRegex = new RegExp(
+      `<div[^>]*id="${escapeRegExp(targetId)}"[^>]*>[\\s\\S]*?<\\/div>`,
+      "i"
+    );
+    const trimmedSnippet = code.trim();
+    let replaced = bodyHtml;
+    if (blockWithScriptRegex.test(bodyHtml)) {
+      replaced = bodyHtml.replace(blockWithScriptRegex, trimmedSnippet);
+    } else if (blockOnlyRegex.test(bodyHtml)) {
+      replaced = bodyHtml.replace(blockOnlyRegex, trimmedSnippet);
+    } else {
+      replaced = `${bodyHtml.trim()}\n\n${trimmedSnippet}`;
+    }
+    setBodyHtml(replaced);
+    setActivePanel("assist");
+    setWorkflowStep("calculator");
+    setBanner(`Replaced calculator "${targetId}" with "${label}".`);
   }
 
   async function copyLiveArticleUrl(path: string) {
@@ -990,16 +1036,27 @@ export function BlogStudioClient({
       );
       return;
     }
-    if (imageUploadSlotCount === 0) {
-      setBanner(
-        `No image slots found. Ask your AI to use ${PRIMARY_IMAGE_PLACEHOLDER} (or ${IMAGE_PLACEHOLDER_MARKERS_LABEL}) in each <img src="…">, or tap “Add image slot” below, then upload again.`
-      );
-      return;
-    }
-
     setBanner(null);
     startTransition(async () => {
       try {
+        let bodyForUpload = bodyHtml;
+        let slotCount = countImageUploadSlots(bodyForUpload);
+        if (slotCount === 0 && uploadFiles.length > 0) {
+          bodyForUpload = appendImageSlotsToArticle(bodyForUpload, uploadFiles.length);
+          setBodyHtml(bodyForUpload);
+          slotCount = countImageUploadSlots(bodyForUpload);
+          setBanner(
+            `No image slots were found, so ${uploadFiles.length} slot${
+              uploadFiles.length === 1 ? "" : "s"
+            } were added automatically and are being filled now.`
+          );
+        }
+        if (slotCount === 0) {
+          setBanner(
+            `No image slots found. Add at least one slot using ${PRIMARY_IMAGE_PLACEHOLDER}, or tap “Add image slot to HTML” in Phase 3.`
+          );
+          return;
+        }
         for (let i = 0; i < uploadFiles.length; i += 1) {
           const file = uploadFiles[i];
           const dims = await getImageDimensions(file);
@@ -1014,7 +1071,7 @@ export function BlogStudioClient({
           }
         }
 
-        const max = Math.min(uploadFiles.length, imageUploadSlotCount);
+        const max = Math.min(uploadFiles.length, slotCount);
         const urls: string[] = [];
 
         for (let i = 0; i < max; i += 1) {
@@ -1032,7 +1089,7 @@ export function BlogStudioClient({
           urls.push(resolvedUrl);
         }
 
-        const nextBodyHtml = replaceImagePlaceholdersSequentially(bodyHtml, urls);
+        const nextBodyHtml = replaceImagePlaceholdersSequentially(bodyForUpload, urls);
         setBodyHtml(nextBodyHtml);
         setUploadFiles([]);
         setLastUploadedUrls(urls);
@@ -1073,7 +1130,7 @@ export function BlogStudioClient({
           setBanner(
             `Uploaded ${urls.length} image${urls.length === 1 ? "" : "s"} and saved automatically.`
           );
-          setWorkflowStep("review");
+          setWorkflowStep("calculator");
           router.refresh();
           return;
         }
@@ -1083,7 +1140,7 @@ export function BlogStudioClient({
             urls.length === 1 ? "" : "s"
           }. Add title + slug, then Save draft so it stays after refresh.`
         );
-        setWorkflowStep("review");
+        setWorkflowStep("calculator");
       } catch {
         setBanner("Upload failed before reaching the server. Please use smaller images (under 3.5MB each).");
       }
@@ -1287,27 +1344,11 @@ export function BlogStudioClient({
         </div>
       </div>
 
-      <div className="shrink-0 border-b border-white/10 bg-zinc-950/60 px-3 py-2.5 sm:px-4">
-        <div className="mx-auto flex w-full max-w-[100vw] min-w-0 flex-col gap-2">
+      <div className="shrink-0 border-b border-white/10 bg-zinc-950/60 px-3 py-3 sm:px-4">
+        <div className="mx-auto w-full max-w-[100vw] min-w-0 space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className={`${seniorMode ? "text-sm" : "text-xs"} font-semibold uppercase tracking-wide text-zinc-300`}>
-              Guided workflow
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-300">Studio workflow cards</p>
             <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setSeniorMode((prev) => !prev)}
-                className="rounded-full border border-white/15 px-3 py-1.5 text-xs text-zinc-300 hover:bg-white/5"
-              >
-                {seniorMode ? "Senior mode: ON" : "Senior mode: OFF"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setWizardLock((prev) => !prev)}
-                className="rounded-full border border-teal-500/35 px-3 py-1.5 text-xs text-teal-200 hover:bg-teal-950/30"
-              >
-                {wizardLock ? "Wizard lock: ON" : "Wizard lock: OFF"}
-              </button>
               <button
                 type="button"
                 onClick={() => setAdvancedToolsEnabled((prev) => !prev)}
@@ -1317,148 +1358,71 @@ export function BlogStudioClient({
               </button>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => setShowWorkflowDetails((prev) => !prev)}
-            className="self-start rounded-full border border-white/15 px-3 py-1 text-xs text-zinc-300 hover:bg-white/5"
-          >
-            {showWorkflowDetails ? "Hide workflow details" : "Show workflow details"}
-          </button>
-          {showWorkflowDetails && (
-            <div className="flex flex-wrap gap-1.5">
-              {WORKFLOW_STEPS.map((step) => {
-                const active = workflowStep === step.id;
-                const completed = workflowCompletion[step.id];
-                return (
-                  <button
-                    key={step.id}
-                    type="button"
-                    onClick={() => openWorkflowStep(step.id)}
-                    className={`rounded-full border px-3 py-1.5 ${
-                      seniorMode ? "text-sm" : "text-xs"
-                    } transition-colors ${
-                      active
-                        ? "border-teal-500/60 bg-teal-950/35 text-teal-200"
-                        : completed
-                          ? "border-emerald-500/40 bg-emerald-950/25 text-emerald-200"
-                          : "border-white/10 text-zinc-300 hover:bg-white/5"
-                    }`}
-                  >
-                    {completed ? `DONE - ${step.label}` : step.label}
-                  </button>
-                );
-              })}
+          <div className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">
+            <p className="text-xs text-zinc-200">
+              Publish readiness: <span className="font-semibold text-white">{readinessScore}%</span>
+            </p>
+            <p className="text-xs text-zinc-400">Next fix: {nextReadinessHint}</p>
+          </div>
+          <div className="grid gap-2 lg:grid-cols-5">
+            <div className={`rounded-xl border p-3 ${workflowStep === "source" ? "border-teal-500/45 bg-teal-950/20" : "border-white/10 bg-black/30"}`}>
+              <p className="text-xs font-semibold text-white">Phase 1: Article source</p>
+              <p className="mt-1 text-[11px] text-zinc-400">Paste/import article HTML and clean wrappers.</p>
+              <div className="mt-2 flex flex-wrap gap-1">
+                <button type="button" onClick={() => openWorkflowStep("source")} className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-200 hover:bg-white/5">Open</button>
+                <button type="button" onClick={runCleanupAiPaste} className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-200 hover:bg-white/5">Clean</button>
+              </div>
             </div>
-          )}
-          <div className="flex flex-wrap items-center gap-2">
-            {nextWorkflowStep && (
+            <div className={`rounded-xl border p-3 ${workflowStep === "setup" ? "border-teal-500/45 bg-teal-950/20" : "border-white/10 bg-black/30"}`}>
+              <p className="text-xs font-semibold text-white">Phase 2: Post setup</p>
+              <p className="mt-1 text-[11px] text-zinc-400">Title, slug, description, locale, hero image.</p>
+              <div className="mt-2 flex flex-wrap gap-1">
+                <button type="button" onClick={() => { setWorkflowStep("setup"); setActivePanel("setup"); }} className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-200 hover:bg-white/5">Open</button>
+                <button type="button" onClick={runSave} disabled={saveDisabled} className="rounded-lg bg-white px-2 py-1 text-[11px] font-semibold text-black disabled:opacity-40">Save</button>
+              </div>
+            </div>
+            <div className={`rounded-xl border p-3 ${workflowStep === "images" ? "border-teal-500/45 bg-teal-950/20" : "border-white/10 bg-black/30"}`}>
+              <p className="text-xs font-semibold text-white">Phase 3: Images</p>
+              <p className="mt-1 text-[11px] text-zinc-400">{imageUploadSlotCount} slot(s) pending. Uploaded this round: {lastUploadedUrls.length}.</p>
+              <div className="mt-2 flex flex-wrap gap-1">
+                <button type="button" onClick={() => openWorkflowStep("images")} className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-200 hover:bg-white/5">Open</button>
+                <button type="button" onClick={insertImagePlaceholderSlot} className="rounded-lg border border-teal-500/35 px-2 py-1 text-[11px] text-teal-200 hover:bg-teal-900/35">Add slot</button>
+              </div>
+            </div>
+            <div className={`rounded-xl border p-3 ${workflowStep === "calculator" ? "border-teal-500/45 bg-teal-950/20" : "border-white/10 bg-black/30"}`}>
+              <p className="text-xs font-semibold text-white">Phase 4: Calculator</p>
+              <p className="mt-1 text-[11px] text-zinc-400">Insert or replace a vetted calculator snippet.</p>
+              <div className="mt-2 flex flex-wrap gap-1">
+                <button type="button" onClick={() => { setWorkflowStep("calculator"); setShowCalculatorLibrary(true); }} className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-200 hover:bg-white/5">Library</button>
+                <button type="button" onClick={() => { setWorkflowStep("calculator"); setActivePanel("html"); }} className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-200 hover:bg-white/5">Edit HTML</button>
+              </div>
+            </div>
+            <div className={`rounded-xl border p-3 ${workflowStep === "review" ? "border-teal-500/45 bg-teal-950/20" : "border-white/10 bg-black/30"}`}>
+              <p className="text-xs font-semibold text-white">Phase 5: Review & publish</p>
+              <p className="mt-1 text-[11px] text-zinc-400">{failedChecks.length === 0 ? "All critical checks pass." : `${failedChecks.length} critical check(s) to fix.`}</p>
+              <div className="mt-2 flex flex-wrap gap-1">
+                <button type="button" onClick={() => openWorkflowStep("review")} className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-200 hover:bg-white/5">Open</button>
+                <button type="button" onClick={runPublishFromWizard} disabled={publishDisabled} className="rounded-lg bg-teal-600 px-2 py-1 text-[11px] font-semibold text-white disabled:opacity-40 hover:bg-teal-500">Publish</button>
+              </div>
+            </div>
+          </div>
+          {nextWorkflowStep && (
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => openWorkflowStep(nextWorkflowStep.id)}
                 disabled={!canProceedFromCurrentStep}
-                className={`rounded-full px-4 py-2 ${
-                  seniorMode ? "text-base" : "text-sm"
-                } font-semibold text-white disabled:opacity-40 ${
+                className={`rounded-full px-4 py-2 text-sm font-semibold text-white disabled:opacity-40 ${
                   canProceedFromCurrentStep ? "bg-teal-600 hover:bg-teal-500" : "bg-zinc-700"
                 }`}
               >
-                Next: {nextWorkflowStep.label}
+                Next phase: {nextWorkflowStep.label}
               </button>
-            )}
-            {!canProceedFromCurrentStep && (
-              <p className={`${seniorMode ? "text-sm" : "text-xs"} text-amber-300/90`}>
-                Complete this step first before moving on.
-              </p>
-            )}
-          </div>
-          <div className="rounded-xl border border-white/10 bg-black/30 px-3 py-2">
-            <p className={`${seniorMode ? "text-sm" : "text-xs"} text-zinc-200`}>
-              Publish readiness: <span className="font-semibold text-white">{readinessScore}%</span>
-            </p>
-            <p className={`${seniorMode ? "text-sm" : "text-xs"} text-zinc-400`}>
-              Next fix: {nextReadinessHint}
-            </p>
-          </div>
-          <div className="rounded-xl border border-teal-500/25 bg-teal-950/20 px-3 py-2.5">
-            <p className={`${seniorMode ? "text-sm" : "text-xs"} text-teal-100`}>
-              {workflowStep === "content" &&
-                "Step 1: Paste and clean the article HTML, then save your draft."}
-              {workflowStep === "images" &&
-                "Step 2: Upload images and replace all placeholders before continuing."}
-              {workflowStep === "review" &&
-                "Step 3: Fix every health check until all are green."}
-              {workflowStep === "publish" &&
-                "Step 4: Publish only when everything passes, then open the live post."}
-            </p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => openWorkflowStep(workflowStep)}
-                className={`rounded-full border border-white/20 px-3 py-1.5 ${
-                  seniorMode ? "text-sm" : "text-xs"
-                } text-white hover:bg-white/10`}
-              >
-                Open current step
-              </button>
-              {workflowStep === "content" && (
-                <>
-                  <button
-                    type="button"
-                    onClick={runAutoFixCommonIssues}
-                    className={`rounded-full bg-teal-600 px-3 py-1.5 ${
-                      seniorMode ? "text-sm" : "text-xs"
-                    } font-semibold text-white hover:bg-teal-500`}
-                  >
-                    Auto-fix content
-                  </button>
-                  <button
-                    type="button"
-                    onClick={runSave}
-                    disabled={saveDisabled}
-                    className={`rounded-full bg-white px-3 py-1.5 ${
-                      seniorMode ? "text-sm" : "text-xs"
-                    } font-semibold text-black disabled:opacity-40`}
-                  >
-                    Save draft
-                  </button>
-                </>
-              )}
-              {workflowStep === "images" && (
-                <button
-                  type="button"
-                  onClick={() => setActivePanel("assist")}
-                  className={`rounded-full bg-teal-600 px-3 py-1.5 ${
-                    seniorMode ? "text-sm" : "text-xs"
-                  } font-semibold text-white hover:bg-teal-500`}
-                >
-                  Open image tools ({imageUploadSlotCount} slot{imageUploadSlotCount === 1 ? "" : "s"} left)
-                </button>
-              )}
-              {workflowStep === "review" && (
-                <button
-                  type="button"
-                  onClick={() => openWorkflowStep("publish")}
-                  className={`rounded-full bg-teal-600 px-3 py-1.5 ${
-                    seniorMode ? "text-sm" : "text-xs"
-                  } font-semibold text-white hover:bg-teal-500`}
-                >
-                  Review checks ({failedChecks.length} to fix)
-                </button>
-              )}
-              {workflowStep === "publish" && (
-                <button
-                  type="button"
-                  onClick={runPublishFromWizard}
-                  disabled={publishDisabled}
-                  className={`rounded-full bg-teal-600 px-3 py-1.5 ${
-                    seniorMode ? "text-sm" : "text-xs"
-                  } font-semibold text-white disabled:opacity-40 hover:bg-teal-500`}
-                >
-                  Publish now
-                </button>
+              {!canProceedFromCurrentStep && (
+                <p className="text-xs text-amber-300/90">Complete this phase first before moving on.</p>
               )}
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -2047,8 +2011,7 @@ export function BlogStudioClient({
                         disabled={
                           isPending ||
                           !imageUploadConfigured ||
-                          uploadFiles.length === 0 ||
-                          imageUploadSlotCount === 0
+                          uploadFiles.length === 0
                         }
                         className="rounded-lg border border-white/20 px-3 py-2 text-xs text-zinc-200 disabled:opacity-40"
                       >
@@ -2079,6 +2042,9 @@ export function BlogStudioClient({
                   )}
                   <div className="rounded-xl border border-white/10 bg-black/40 p-3">
                     <p className="text-xs font-medium text-zinc-300 mb-2">Pre-publish health check</p>
+                    <p className="mb-2 text-[11px] leading-relaxed text-zinc-500">
+                      Publish blocks only on critical issues. Route/image smoke checks are reported as warnings after publish.
+                    </p>
                     <ul className="space-y-1 text-[11px]">
                       {checklist.map((item) => (
                         <li key={item.id} className={item.ok ? "text-emerald-300" : "text-amber-300/90"}>
@@ -2294,6 +2260,13 @@ export function BlogStudioClient({
                               </button>
                               <button
                                 type="button"
+                                onClick={() => replaceCalculatorSnippet(snippet.code, snippet.title)}
+                                className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-2 py-1 text-[11px] text-emerald-100 hover:bg-emerald-500/20"
+                              >
+                                Replace
+                              </button>
+                              <button
+                                type="button"
                                 onClick={() => void copyCalculatorSnippet(snippet.code, `custom:${snippet.id}`)}
                                 className="rounded-lg border border-white/15 px-2 py-1 text-[11px] text-zinc-300 hover:bg-white/5"
                               >
@@ -2323,6 +2296,13 @@ export function BlogStudioClient({
                           className="rounded-lg border border-teal-400/30 bg-teal-500/10 px-2 py-1 text-[11px] text-teal-100 hover:bg-teal-500/20"
                         >
                           Insert
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => replaceCalculatorSnippet(snippet.code, snippet.title)}
+                          className="rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-2 py-1 text-[11px] text-emerald-100 hover:bg-emerald-500/20"
+                        >
+                          Replace
                         </button>
                         <button
                           type="button"
@@ -2377,21 +2357,22 @@ export function BlogStudioClient({
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">Guided studio</p>
               <h2 className="mt-2 text-2xl font-bold text-white">Let’s create your next blog post</h2>
               <p className="mt-2 text-sm leading-relaxed text-zinc-300">
-                Follow these 4 steps and the system will keep you safe from broken posts:
-                <span className="text-zinc-100"> Content -&gt; Images -&gt; Review -&gt; Publish</span>.
+                Follow these 5 phases and the system keeps the post flow simple and reliable:
+                <span className="text-zinc-100"> Source -&gt; Setup -&gt; Images -&gt; Calculator -&gt; Review</span>.
               </p>
               <ol className="mt-4 space-y-2 text-sm text-zinc-300">
-                <li>1. Paste your AI blog HTML and save draft.</li>
-                <li>2. Upload images to fill all placeholders.</li>
-                <li>3. Fix any review checks.</li>
-                <li>4. Confirm and publish.</li>
+                <li>1. Paste/import article HTML.</li>
+                <li>2. Fill title, slug, excerpt, and hero image.</li>
+                <li>3. Upload images in order (slots auto-add if missing).</li>
+                <li>4. Insert or replace calculator from the vetted library.</li>
+                <li>5. Review checks and publish.</li>
               </ol>
               <div className="mt-5 flex flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={() => {
                     handleNewArticle();
-                    openWorkflowStep("content");
+                    openWorkflowStep("source");
                     setShowGuidedStart(false);
                   }}
                   className="rounded-full bg-teal-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-teal-500"

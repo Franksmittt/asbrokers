@@ -29,16 +29,11 @@ export default async function StudioWorkspaceLayout({ children }: { children: Re
               Workspace
             </Link>
             <Link
-              href="/studio/blog/workspace/upgrades"
-              className="rounded-full px-3 py-1.5 text-xs sm:text-sm text-zinc-400 hover:bg-white/5 hover:text-white whitespace-nowrap"
+              href="/studio/blog/workspace#copy-me"
+              title="Copy the AS Brokers brand guide and blog-post slot rules for your AI."
+              className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs sm:text-sm font-semibold text-emerald-200 hover:bg-emerald-500/15 whitespace-nowrap"
             >
-              Upgrades
-            </Link>
-            <Link
-              href="/studio/blog/workspace/tutorial"
-              className="rounded-full px-3 py-1.5 text-xs sm:text-sm text-zinc-400 hover:bg-white/5 hover:text-white whitespace-nowrap"
-            >
-              Tutorial
+              Copy me
             </Link>
             <Link
               href="/insights"

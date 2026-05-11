@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -70,6 +70,143 @@ const SAMPLE_HTML = `<section class="space-y-6">
 
   [IMAGE_SLOT]
 </section>`;
+
+const BRAND_GUIDE_TEXT = `AS Brokers Blog Brand Guide
+- Brand: AS Brokers CC, FSP 17273. Premium South African financial guidance with a calm, expert, trustworthy voice.
+- Visual direction: luxury dark interface, rim-light glassmorphism, Apple Pro simplicity, Samsung Galaxy-style teal/gold energy.
+- Core colours: void black #050506, shark #1D1D1F, card #121214, white text, zinc supporting text, teal accent #2dd4bf, emerald success, restrained supernova gold.
+- Style: mobile-first, generous spacing, rounded sections, concise paragraphs, confident headings, no clutter.
+- Tone: explain clearly, avoid hype, be practical and reassuring. Speak to clients who want a professional review, not DIY speculation.
+- Trust hallmarks: include responsible language where relevant, such as "speak to an AS Brokers adviser" and avoid guaranteed-return claims.`;
+
+const BLOG_RULES_TEXT = `Universal blog-post rules
+- Return only clean article body HTML that can be pasted into the Blog Studio textarea.
+- Do not return markdown fences, a full <html> document, <script>, <style>, custom JavaScript, iframes, or calculator code.
+- Use one <h1>, then logical <h2>/<h3> sections, short paragraphs, and optional <ul>/<ol> checklists.
+- Use Tailwind-friendly classes only when useful, for example: <section class="space-y-6">.
+- Use the exact placeholders requested below. The studio detects every placeholder and creates the upload/select/link controls.
+- Never invent image URLs, calculator embeds, or video embeds. Leave the placeholder token exactly where that item must appear.
+- Keep the content educational and compliant: no guaranteed outcomes, no personalised advice without a review, and mention that market values can rise or fall.`;
+
+const COPY_PROMPT_PRESETS = [
+  {
+    id: "fullhouse",
+    title: "Fullhouse",
+    includes: "Images + calculator + video",
+    hover: "Copies the brand guide plus rules for image uploads, one calculator choice, and a video link.",
+    rules: [
+      `Use ${IMAGE_TOKEN} for every image position. Add as many image slots as the article genuinely needs.`,
+      `Include ${CALC_TOKEN} once where the Studio user must choose an interactive calculator.`,
+      `Include ${VIDEO_TOKEN} once where the Studio user must paste a video link.`,
+    ],
+    exampleHtml: SAMPLE_HTML,
+  },
+  {
+    id: "images-calculator",
+    title: "Images + Calculator",
+    includes: "Image upload slots + calculator only",
+    hover: "Copies the brand guide plus rules for image uploads and a calculator, with no video slot.",
+    rules: [
+      `Use ${IMAGE_TOKEN} for every image position. The studio will show one upload control per image slot.`,
+      `Include ${CALC_TOKEN} once where the calculator should appear.`,
+      `Do not include ${VIDEO_TOKEN}.`,
+    ],
+    exampleHtml: `<section class="space-y-6">
+  <h1>Your retirement strategy in uncertain markets</h1>
+  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
+
+  [IMAGE_SLOT]
+
+  <h2>How to structure your capital</h2>
+  <p>Use the interactive calculator below to estimate outcomes based on your own numbers.</p>
+
+  [CALCULATOR_SLOT]
+
+  <h2>Final checklist</h2>
+  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+
+  [IMAGE_SLOT]
+</section>`,
+  },
+  {
+    id: "images-video",
+    title: "Images + Video",
+    includes: "Image upload slots + video only",
+    hover: "Copies the brand guide plus rules for image uploads and a video link, with no calculator slot.",
+    rules: [
+      `Use ${IMAGE_TOKEN} for every image position. Add two or more if the article needs visual breaks.`,
+      `Include ${VIDEO_TOKEN} once where the Studio user must paste the video link.`,
+      `Do not include ${CALC_TOKEN}.`,
+    ],
+    exampleHtml: `<section class="space-y-6">
+  <h1>Your retirement strategy in uncertain markets</h1>
+  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
+
+  [IMAGE_SLOT]
+
+  <h2>Video explanation</h2>
+  <p>Watch the short video for a breakdown of this strategy:</p>
+
+  [VIDEO_SLOT]
+
+  <h2>Final checklist</h2>
+  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+
+  [IMAGE_SLOT]
+</section>`,
+  },
+  {
+    id: "calculator-video",
+    title: "Calculator + Video",
+    includes: "Calculator + video only",
+    hover: "Copies the brand guide plus rules for a calculator and video link, with no image upload slots.",
+    rules: [
+      `Include ${CALC_TOKEN} once where the Studio user must choose an interactive calculator.`,
+      `Include ${VIDEO_TOKEN} once where the Studio user must paste the video link.`,
+      `Do not include ${IMAGE_TOKEN}. Use this only when the article should not request image uploads.`,
+    ],
+    exampleHtml: `<section class="space-y-6">
+  <h1>Your retirement strategy in uncertain markets</h1>
+  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
+
+  <h2>How to structure your capital</h2>
+  <p>Use the interactive calculator below to estimate outcomes based on your own numbers.</p>
+
+  [CALCULATOR_SLOT]
+
+  <h2>Video explanation</h2>
+  <p>Watch the short video for a breakdown of this strategy:</p>
+
+  [VIDEO_SLOT]
+
+  <h2>Final checklist</h2>
+  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+</section>`,
+  },
+] as const;
+
+type CopyPromptPreset = (typeof COPY_PROMPT_PRESETS)[number];
+
+function buildCopyMePrompt(preset: CopyPromptPreset): string {
+  return `${BRAND_GUIDE_TEXT}
+
+${BLOG_RULES_TEXT}
+
+This copy preset is: ${preset.title}
+It includes: ${preset.includes}
+
+Placeholder rules for this post:
+${preset.rules.map((rule) => `- ${rule}`).join("\n")}
+
+Example structure the AI may follow:
+
+${preset.exampleHtml}
+
+Writing task:
+- Topic: [CLIENT WILL TYPE THE BLOG TOPIC HERE]
+- Audience: AS Brokers clients and prospects in South Africa.
+- Output: article body HTML only, ready to paste into Blog Studio.`;
+}
 
 function slugifyTitle(title: string): string {
   return title
@@ -269,6 +406,7 @@ export function BlogStudioClient(props: Props) {
 
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const copyResetTimer = useRef<number | null>(null);
   void initialPosts;
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -287,6 +425,8 @@ export function BlogStudioClient(props: Props) {
   const [videoUrls, setVideoUrls] = useState<Record<number, string>>({});
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [banner, setBanner] = useState<string | null>(null);
+  const [successBanner, setSuccessBanner] = useState<string | null>(null);
+  const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
   const [status, setStatus] = useState("Ready to Edit");
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
@@ -346,19 +486,6 @@ export function BlogStudioClient(props: Props) {
       ),
     [title, slug, rawHtml, imageUrls, calcSelection, videoUrls]
   );
-  const aiInstructionsText = useMemo(() => {
-    const images = imageCount || 2;
-    const calcs = calcCount || 1;
-    const videos = videoCount || 1;
-    return `Use the brand guide below. Write a blog post in clean semantic HTML only.
-Do NOT include custom JavaScript or calculator code.
-Use EXACT placeholders:
-- ${IMAGE_TOKEN} exactly ${images} time(s)
-- ${CALC_TOKEN} exactly ${calcs} time(s)
-- ${VIDEO_TOKEN} exactly ${videos} time(s)
-Do not output full <html> document, only article body HTML.`;
-  }, [imageCount, calcCount, videoCount]);
-
   if (!studioConfigured) {
     return (
       <div className="mx-auto max-w-lg px-4 py-16 text-center">
@@ -467,12 +594,22 @@ Do not output full <html> document, only article body HTML.`;
     }
   }
 
-  async function copyAiInstructions() {
+  async function copyPromptPreset(preset: CopyPromptPreset) {
     try {
-      await navigator.clipboard.writeText(aiInstructionsText);
-      setBanner("AI instructions copied. Paste them with your brand guide into AI.");
+      await navigator.clipboard.writeText(buildCopyMePrompt(preset));
+      setBanner(null);
+      setCopiedPromptId(preset.id);
+      setSuccessBanner(`Copied! ${preset.title} brand guide and blog rules are ready to paste into AI.`);
+      if (copyResetTimer.current) {
+        window.clearTimeout(copyResetTimer.current);
+      }
+      copyResetTimer.current = window.setTimeout(() => {
+        setCopiedPromptId(null);
+        setSuccessBanner(null);
+      }, 2800);
     } catch {
-      setBanner("Clipboard blocked. Copy the AI instructions manually from the box.");
+      setSuccessBanner(null);
+      setBanner("Clipboard blocked. Please allow clipboard access and click the preset again.");
     }
   }
 
@@ -573,6 +710,53 @@ Do not output full <html> document, only article body HTML.`;
 
       <main className="mx-auto mt-8 grid max-w-[1600px] grid-cols-1 gap-8 px-8 lg:grid-cols-12">
         <div className="space-y-6 lg:col-span-5">
+          <section id="copy-me" className="scroll-mt-24 rounded-xl border border-emerald-500/25 bg-emerald-950/10 p-6 shadow-sm">
+            <div className="mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-300">Copy me</p>
+              <h2 className="mt-1 text-xl font-bold text-white">Copy the brand guide and blog rules</h2>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                Choose what this article needs, copy the preset, then paste it into AI with the blog topic. The AI
+                should return HTML with the exact slot tokens for this studio.
+              </p>
+            </div>
+            {successBanner && (
+              <div className="mb-4 rounded-lg border border-emerald-400/40 bg-emerald-500/15 px-4 py-3 text-sm font-semibold text-emerald-100">
+                {successBanner}
+              </div>
+            )}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {COPY_PROMPT_PRESETS.map((preset) => (
+                <div key={preset.id} className="group relative">
+                  <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-64 -translate-x-1/2 rounded-lg border border-white/10 bg-black px-3 py-2 text-xs leading-relaxed text-zinc-200 opacity-0 shadow-xl transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                    {preset.hover}
+                  </div>
+                  <button
+                    type="button"
+                    title={preset.hover}
+                    onClick={() => void copyPromptPreset(preset)}
+                    className="h-full w-full rounded-xl border border-white/10 bg-black/30 p-4 text-left transition hover:border-emerald-400/50 hover:bg-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
+                  >
+                    <span className="block text-sm font-bold text-white">{preset.title}</span>
+                    <span className="mt-1 block text-xs text-zinc-400">{preset.includes}</span>
+                    <span
+                      className={`mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${
+                        copiedPromptId === preset.id
+                          ? "bg-emerald-400 text-emerald-950"
+                          : "bg-white/5 text-emerald-200"
+                      }`}
+                    >
+                      {copiedPromptId === preset.id ? "Copied!" : "Copy prompt"}
+                    </span>
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 rounded-lg border border-white/10 bg-black/25 p-3 text-xs leading-relaxed text-zinc-400">
+              Slot reminder: every {IMAGE_TOKEN} becomes an upload field below, every {CALC_TOKEN} becomes a
+              calculator selector, and every {VIDEO_TOKEN} becomes a video-link field.
+            </p>
+          </section>
+
           <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
               <label className="block text-lg font-bold text-white">Step 1: Paste AI Blog Code</label>
@@ -581,7 +765,8 @@ Do not output full <html> document, only article body HTML.`;
               </span>
             </div>
             <p className="mb-2 text-sm text-zinc-400">
-              Paste raw HTML from AI. Keep placeholders only. Do not paste calculator scripts manually.
+              Paste raw HTML from AI. The studio detects each placeholder and creates image, calculator, and video
+              controls below. Do not paste calculator scripts manually.
             </p>
             <textarea
               value={rawHtml}
@@ -597,6 +782,9 @@ Do not output full <html> document, only article body HTML.`;
               <h2 className="text-lg font-bold text-white">Step 2: Upload Images</h2>
               <span className="text-xs font-semibold text-zinc-400">{imageCount - missingImages}/{imageCount} mapped</span>
             </div>
+            <p className="mb-3 text-sm text-zinc-400">
+              The number of upload boxes comes directly from the {IMAGE_TOKEN} placeholders in the pasted HTML.
+            </p>
             <div className="mb-3 rounded-lg border border-white/10 bg-black/25 p-3">
               <div className="flex items-center justify-between gap-2">
                 <p className="text-xs text-zinc-400">
@@ -660,7 +848,15 @@ Do not output full <html> document, only article body HTML.`;
           </div>
 
           <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
-            <h2 className="mb-3 text-lg font-bold text-white">Step 3: Select Calculators & Videos</h2>
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h2 className="text-lg font-bold text-white">Step 3: Select Calculators & Videos</h2>
+              <span className="text-xs font-semibold text-zinc-400">
+                {calcCount} calculator / {videoCount} video
+              </span>
+            </div>
+            <p className="mb-3 text-sm text-zinc-400">
+              Choose one calculator for each {CALC_TOKEN} and paste one video link for each {VIDEO_TOKEN}.
+            </p>
             <div className="space-y-3">
               {Array.from({ length: calcCount }).map((_, i) => (
                 <div key={`calc-slot-${i}`} className="rounded-lg border border-white/10 bg-black/30 p-4">
@@ -751,19 +947,25 @@ Do not output full <html> document, only article body HTML.`;
           </div>
 
           <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">AI Instructions</h2>
-              <button
-                type="button"
-                onClick={() => void copyAiInstructions()}
-                className="rounded-md border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-200"
-              >
-                Copy
-              </button>
+            <h2 className="mb-3 text-lg font-bold text-white">Detected Slots</h2>
+            <div className="grid grid-cols-3 gap-2 text-center text-xs">
+              <div className="rounded-lg border border-white/10 bg-black/30 p-3">
+                <span className="block text-lg font-bold text-emerald-300">{imageCount}</span>
+                <span className="text-zinc-400">Images</span>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-black/30 p-3">
+                <span className="block text-lg font-bold text-emerald-300">{calcCount}</span>
+                <span className="text-zinc-400">Calculators</span>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-black/30 p-3">
+                <span className="block text-lg font-bold text-emerald-300">{videoCount}</span>
+                <span className="text-zinc-400">Videos</span>
+              </div>
             </div>
-            <pre className="max-h-40 overflow-y-auto whitespace-pre-wrap rounded-lg bg-black/50 p-3 font-mono text-xs text-emerald-300">
-              {aiInstructionsText}
-            </pre>
+            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+              If the AI adds more placeholders, these counts and the required upload/select fields update
+              automatically.
+            </p>
           </div>
         </div>
 
@@ -831,9 +1033,15 @@ Do not output full <html> document, only article body HTML.`;
         </div>
       </main>
 
-      {banner && (
-        <div className="fixed bottom-4 right-4 max-w-xl rounded-lg border border-white/10 bg-[#121214] px-4 py-3 text-sm text-zinc-200 shadow-lg">
-          {banner}
+      {(successBanner || banner) && (
+        <div
+          className={`fixed bottom-4 right-4 max-w-xl rounded-lg border px-4 py-3 text-sm shadow-lg ${
+            successBanner
+              ? "border-emerald-400/40 bg-emerald-500 text-emerald-950"
+              : "border-white/10 bg-[#121214] text-zinc-200"
+          }`}
+        >
+          {successBanner || banner}
         </div>
       )}
     </div>

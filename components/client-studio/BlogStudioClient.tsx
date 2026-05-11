@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -217,6 +217,10 @@ function slugifyTitle(title: string): string {
     .slice(0, 160);
 }
 
+function newDraftSlug(): string {
+  return `client-blog-draft-${Date.now().toString(36)}`;
+}
+
 function normalizeAiHtml(raw: string): string {
   let next = raw.trim();
   if (next.includes("```")) {
@@ -313,14 +317,16 @@ function buildPreviewDoc(html: string): string {
   <style>
     *{box-sizing:border-box}
     html{color-scheme:dark}
-    body{margin:0;padding:clamp(1rem,3vw,2rem);background:radial-gradient(circle at 18% 0%,rgba(20,184,166,.12),transparent 30%),radial-gradient(circle at 92% 10%,rgba(245,158,11,.08),transparent 26%),#0a0a0c;color:#e4e4e7;font-family:Inter,ui-sans-serif,system-ui,sans-serif;line-height:1.75}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 26%)}
+    body{margin:0;padding:clamp(1rem,3vw,2.5rem);background:radial-gradient(circle at 18% 0%,rgba(45,212,191,.20),transparent 28%),radial-gradient(circle at 92% 10%,rgba(245,158,11,.12),transparent 26%),#050506;color:#f4f4f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.78}
     section,article,div,header,footer,aside,blockquote,figure{max-width:100%}
-    h1,h2,h3{color:#fff;letter-spacing:-.035em}
-    h1{font-size:clamp(2.4rem,7vw,4.25rem);line-height:.98}
-    h2{font-size:clamp(1.75rem,4vw,2.4rem);line-height:1.08}
-    p,li{color:#d4d4d8}
+    body *{opacity:1;filter:none;mix-blend-mode:normal}
+    h1,h2,h3{color:#fff;letter-spacing:-.04em}
+    h1{font-size:clamp(2.55rem,7vw,4.6rem);line-height:.96}
+    h2{font-size:clamp(1.85rem,4vw,2.55rem);line-height:1.08}
+    h3{font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.16}
+    p,li{color:#e4e4e7}
     a{color:#2dd4bf}
+    blockquote{color:#fef3c7}
     img{max-width:100%;height:auto;border-radius:24px;border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 60px rgba(0,0,0,.32)}
     iframe{max-width:100%;border:0;border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,.32)}
     [class~="space-y-4"]>:not([hidden])~:not([hidden]){margin-top:1rem}
@@ -330,10 +336,12 @@ function buildPreviewDoc(html: string): string {
     [class~="grid"]{display:grid}
     [class~="gap-3"]{gap:.75rem}[class~="gap-4"]{gap:1rem}[class~="gap-6"]{gap:1.5rem}[class~="gap-8"]{gap:2rem}
     [class~="list-disc"]{list-style:disc}[class~="list-none"]{list-style:none}
-    [class~="pl-6"]{padding-left:1.5rem}[class~="p-6"]{padding:1.5rem}[class~="rounded-3xl"]{border-radius:1.5rem}
-    [class~="text-white"]{color:#fff}[class~="text-zinc-300"]{color:#d4d4d8}[class~="text-zinc-400"]{color:#a1a1aa}[class~="text-teal-400"]{color:#2dd4bf}
-    [class~="bg-white/5"]{background:rgba(255,255,255,.05)}[class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:rgba(255,255,255,.10)}
-    .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(45,212,191,.45);border-radius:1rem;background:rgba(45,212,191,.07);color:#ccfbf1}
+    [class~="pl-6"]{padding-left:1.5rem}[class~="p-6"]{padding:1.5rem}[class~="rounded-2xl"]{border-radius:1rem}[class~="rounded-3xl"]{border-radius:1.5rem}
+    [class~="text-white"]{color:#fff}[class~="text-zinc-100"]{color:#f4f4f5}[class~="text-zinc-200"]{color:#e4e4e7}[class~="text-zinc-300"]{color:#d4d4d8}[class~="text-zinc-400"]{color:#a1a1aa}
+    [class~="text-teal-200"]{color:#99f6e4}[class~="text-teal-300"]{color:#5eead4}[class~="text-teal-400"]{color:#2dd4bf}[class~="text-emerald-300"]{color:#6ee7b7}[class~="text-amber-200"]{color:#fde68a}[class~="text-amber-300"]{color:#fcd34d}[class~="text-orange-200"]{color:#fed7aa}
+    [class~="bg-white/5"]{background:rgba(255,255,255,.07)}[class~="bg-black/30"]{background:rgba(0,0,0,.30)}[class~="bg-teal-500/10"]{background:rgba(20,184,166,.12)}[class~="bg-amber-500/10"]{background:rgba(245,158,11,.12)}
+    [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:rgba(255,255,255,.13)}[class~="border-teal-500/30"]{border-color:rgba(20,184,166,.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11,.35)}
+    .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(45,212,191,.58);border-radius:1rem;background:rgba(45,212,191,.12);color:#ccfbf1}
   </style></head><body>${html}</body></html>`;
 }
 
@@ -353,6 +361,15 @@ function escapeHtmlAttr(value: string): string {
     .replaceAll('"', "&quot;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;");
+}
+
+function formatStudioDate(iso: string | null): string {
+  if (!iso) return "Not published";
+  return new Date(iso).toLocaleDateString("en-ZA", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 function buildPersistHtml(
@@ -430,11 +447,12 @@ export function BlogStudioClient(props: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const copyResetTimer = useRef<number | null>(null);
-  void initialPosts;
+  const [localPosts, setLocalPosts] = useState(initialPosts);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [currentPostStatus, setCurrentPostStatus] = useState<string>("draft");
   const [title, setTitle] = useState("Client Blog Draft");
-  const [slug, setSlug] = useState("client-blog-draft");
+  const [slug, setSlug] = useState(() => newDraftSlug());
   const [excerpt, setExcerpt] = useState("");
   const [rawHtml, setRawHtml] = useState(SAMPLE_HTML);
   const [slotFiles, setSlotFiles] = useState<Record<number, File | null>>({});
@@ -447,6 +465,7 @@ export function BlogStudioClient(props: Props) {
   const [calcSelection, setCalcSelection] = useState<Record<number, string>>({});
   const [videoUrls, setVideoUrls] = useState<Record<number, string>>({});
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
+  const [isPreviewFullscreen, setIsPreviewFullscreen] = useState(false);
   const [banner, setBanner] = useState<string | null>(null);
   const [successBanner, setSuccessBanner] = useState<string | null>(null);
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
@@ -462,6 +481,17 @@ export function BlogStudioClient(props: Props) {
     () => new Map(embedReadySnippets.map((s) => [s.id, s.code])),
     [embedReadySnippets]
   );
+  const sortedPosts = useMemo(
+    () =>
+      [...localPosts].sort(
+        (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      ),
+    [localPosts]
+  );
+
+  useEffect(() => {
+    setLocalPosts(initialPosts);
+  }, [initialPosts]);
 
   const imageCount = useMemo(() => countToken(rawHtml, IMAGE_TOKEN), [rawHtml]);
   const calcCount = useMemo(() => countToken(rawHtml, CALC_TOKEN), [rawHtml]);
@@ -516,6 +546,55 @@ export function BlogStudioClient(props: Props) {
         <p className="text-sm text-zinc-400">Set CLIENT_STUDIO_PASSWORD on the server and reload this page.</p>
       </div>
     );
+  }
+
+  function resetSlotState() {
+    setSlotFiles({});
+    setImageUrls({});
+    setUploadingSlots({});
+    setSlotMessages({});
+    setCalcSelection({});
+    setVideoUrls({});
+  }
+
+  function startNewDraft() {
+    setSelectedId(null);
+    setCurrentPostStatus("draft");
+    setTitle("Client Blog Draft");
+    setSlug(newDraftSlug());
+    setExcerpt("");
+    setRawHtml(SAMPLE_HTML);
+    setMetaTitle("");
+    setMetaDescription("");
+    resetSlotState();
+    setStatus("New draft");
+    setBanner("Started a new draft. Save it to keep editing later.");
+  }
+
+  function loadExistingPost(postId: string) {
+    if (!postId) {
+      startNewDraft();
+      return;
+    }
+    const post = localPosts.find((item) => item.id === postId);
+    if (!post) {
+      setBanner("Could not find that post in the current workspace list.");
+      return;
+    }
+    setSelectedId(post.id);
+    setCurrentPostStatus(post.status);
+    setTitle(post.title);
+    setSlug(post.slug);
+    setExcerpt(post.excerpt ?? "");
+    setRawHtml(post.bodyHtml || post.bodyHtmlPublished || SAMPLE_HTML);
+    setMetaTitle(post.metaTitle ?? "");
+    setMetaDescription(post.metaDescription ?? "");
+    resetSlotState();
+    if (post.heroImageUrl) {
+      setImageUrls({ 0: post.heroImageUrl });
+    }
+    setStatus(post.status === "published" ? "Editing published post" : "Editing draft");
+    setBanner(`Loaded "${post.title}" for editing.`);
   }
 
   async function uploadSlot(index: number) {
@@ -684,9 +763,41 @@ export function BlogStudioClient(props: Props) {
       setSelectedId(saveRes.id);
       setTitle(derivedTitle);
       setSlug(derivedSlug);
+      const savedPost: SerializableStudioPost = {
+        id: saveRes.id,
+        slug: derivedSlug,
+        locale: "en",
+        title: derivedTitle,
+        excerpt: excerpt.trim() || null,
+        bodyHtml: normalized,
+        bodyHtmlPublished: currentPostStatus === "published" ? normalized : null,
+        status: currentPostStatus === "published" ? "published" : "draft",
+        metaTitle: metaTitle.trim() || derivedTitle,
+        metaDescription: metaDescription.trim() || excerpt.trim() || null,
+        heroImageUrl: hero,
+        calculatorName: null,
+        calculatorCode: null,
+        publishedAt: currentPostStatus === "published" ? new Date().toISOString() : null,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      setLocalPosts((prev) => {
+        const exists = prev.some((post) => post.id === saveRes.id);
+        if (!exists) return [savedPost, ...prev];
+        return prev.map((post) =>
+          post.id === saveRes.id
+            ? {
+                ...post,
+                ...savedPost,
+                createdAt: post.createdAt,
+                publishedAt: post.status === "published" ? post.publishedAt ?? savedPost.publishedAt : savedPost.publishedAt,
+              }
+            : post
+        );
+      });
       if (!publish) {
-        setStatus("Draft saved");
-        setBanner("Draft saved successfully.");
+        setStatus(currentPostStatus === "published" ? "Published post saved" : "Draft saved");
+        setBanner(currentPostStatus === "published" ? "Published post updated successfully." : "Draft saved successfully.");
         router.refresh();
         return;
       }
@@ -695,6 +806,21 @@ export function BlogStudioClient(props: Props) {
         setBanner(pub.error);
         return;
       }
+      setCurrentPostStatus("published");
+      setLocalPosts((prev) =>
+        prev.map((post) =>
+          post.id === saveRes.id
+            ? {
+                ...post,
+                status: "published",
+                bodyHtmlPublished: normalized,
+                heroImageUrl: hero,
+                publishedAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+              }
+            : post
+        )
+      );
       setStatus("Published");
       setBanner("Post published successfully.");
       router.refresh();
@@ -718,7 +844,7 @@ export function BlogStudioClient(props: Props) {
             disabled={isPending}
             className="rounded-lg border border-white/20 bg-white px-5 py-3 text-sm font-bold text-black disabled:opacity-50"
           >
-            Save Draft
+            {currentPostStatus === "published" ? "Save Live Changes" : "Save Draft"}
           </button>
           <button
             type="button"
@@ -733,6 +859,46 @@ export function BlogStudioClient(props: Props) {
 
       <main className="mx-auto mt-8 grid max-w-[1600px] grid-cols-1 gap-8 px-8 lg:grid-cols-12">
         <div className="space-y-6 lg:col-span-5">
+          <section className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-teal-300">Blog library</p>
+                <h2 className="mt-1 text-xl font-bold text-white">Open an existing blog post</h2>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  Load any saved draft or published article, edit the HTML/details, then save or publish again.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={startNewDraft}
+                className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-100 hover:bg-white/10"
+              >
+                Start new draft
+              </button>
+            </div>
+            <select
+              value={selectedId ?? ""}
+              onChange={(e) => loadExistingPost(e.target.value)}
+              className="w-full rounded-lg border border-white/10 bg-black/40 p-3 text-sm text-zinc-100"
+            >
+              <option value="">New unsaved draft</option>
+              {sortedPosts.map((post) => (
+                <option key={post.id} value={post.id}>
+                  {post.status === "published" ? "Published" : "Draft"} - {post.title} ({formatStudioDate(post.updatedAt)})
+                </option>
+              ))}
+            </select>
+            {selectedId && (
+              <div className="mt-3 rounded-lg border border-white/10 bg-black/25 p-3 text-xs text-zinc-400">
+                <span className="font-semibold text-zinc-200">Currently editing:</span>{" "}
+                {currentPostStatus === "published" ? "Published post" : "Draft"}.
+                {currentPostStatus === "published"
+                  ? " Saving changes updates the live article; use Publish again after slot changes."
+                  : " Save Draft keeps this article available here for later editing."}
+              </div>
+            )}
+          </section>
+
           <section id="copy-me" className="scroll-mt-24 rounded-xl border border-emerald-500/25 bg-emerald-950/10 p-6 shadow-sm">
             <div className="mb-4">
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-300">Copy me</p>
@@ -996,24 +1162,36 @@ export function BlogStudioClient(props: Props) {
           <div className="flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#121214] shadow-sm">
             <div className="flex items-center justify-between border-b border-white/10 bg-black/30 px-6 py-4">
               <span className="text-lg font-bold text-white">Step 5: Review &amp; Publish</span>
-              <div className="inline-flex rounded-lg bg-black/40 p-1">
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                <div className="inline-flex rounded-lg bg-black/40 p-1">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("preview")}
+                    className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
+                      activeTab === "preview" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
+                    }`}
+                  >
+                    Live Reading Preview
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("code")}
+                    className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
+                      activeTab === "code" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
+                    }`}
+                  >
+                    Backend Code Output
+                  </button>
+                </div>
                 <button
                   type="button"
-                  onClick={() => setActiveTab("preview")}
-                  className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
-                    activeTab === "preview" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
-                  }`}
+                  onClick={() => {
+                    setActiveTab("preview");
+                    setIsPreviewFullscreen(true);
+                  }}
+                  className="rounded-lg border border-teal-500/35 bg-teal-500/10 px-3 py-2 text-xs font-semibold text-teal-100 hover:bg-teal-500/15"
                 >
-                  Live Reading Preview
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("code")}
-                  className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
-                    activeTab === "code" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
-                  }`}
-                >
-                  Backend Code Output
+                  Fullscreen preview
                 </button>
               </div>
             </div>
@@ -1037,7 +1215,7 @@ export function BlogStudioClient(props: Props) {
                 <iframe
                   title="Live reading preview"
                   sandbox="allow-same-origin allow-scripts"
-                  className="h-[70vh] w-full rounded-lg border border-white/10 bg-white"
+                  className="h-[70vh] w-full rounded-lg border border-white/10 bg-[#050506] opacity-100"
                   srcDoc={previewSrcDoc}
                 />
               </div>
@@ -1055,6 +1233,30 @@ export function BlogStudioClient(props: Props) {
           </div>
         </div>
       </main>
+
+      {isPreviewFullscreen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-[#050506] text-white">
+          <div className="flex shrink-0 items-center justify-between border-b border-white/10 bg-[#0a0a0c] px-4 py-3">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-300">Fullscreen preview</p>
+              <h2 className="text-sm font-semibold text-white">{title || "Untitled blog post"}</h2>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsPreviewFullscreen(false)}
+              className="rounded-lg border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-100 hover:bg-white/10"
+            >
+              Close
+            </button>
+          </div>
+          <iframe
+            title="Fullscreen live reading preview"
+            sandbox="allow-same-origin allow-scripts"
+            className="min-h-0 flex-1 border-0 bg-[#050506] opacity-100"
+            srcDoc={previewSrcDoc}
+          />
+        </div>
+      )}
 
       {(successBanner || banner) && (
         <div

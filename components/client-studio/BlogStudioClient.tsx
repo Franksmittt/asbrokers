@@ -49,24 +49,39 @@ const VIDEO_TOKEN = "[VIDEO_SLOT]";
 const TARGET_UPLOAD_BYTES = 900 * 1024;
 const MAX_UPLOAD_IMAGE_SIDE = 1600;
 
-const SAMPLE_HTML = `<section class="space-y-6">
-  <h1>Your retirement strategy in uncertain markets</h1>
-  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
+const SAMPLE_HTML = `<section class="space-y-8" style="color:#e5e7eb;">
+  <div style="border:1px solid rgba(255,255,255,0.12);background:linear-gradient(135deg,rgba(20,184,166,0.16),rgba(255,255,255,0.04) 42%,rgba(245,158,11,0.10));border-radius:28px;padding:clamp(24px,5vw,48px);box-shadow:0 24px 80px rgba(0,0,0,0.35);">
+    <p style="margin:0 0 12px;color:#5eead4;font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;">AS Brokers insight</p>
+    <h1 style="margin:0;color:#ffffff;font-size:clamp(34px,6vw,64px);line-height:0.98;letter-spacing:-0.05em;">Your retirement strategy in uncertain markets</h1>
+    <p style="margin:22px 0 0;max-width:760px;color:#d4d4d8;font-size:18px;line-height:1.75;">Start with a clear, resilient plan. This article explains practical actions for long-term investors while keeping risk, liquidity, and advice at the centre.</p>
+  </div>
 
   [IMAGE_SLOT]
 
-  <h2>How to structure your capital</h2>
-  <p>Use the interactive calculator below to estimate outcomes based on your own numbers.</p>
+  <div style="display:grid;gap:18px;">
+    <article style="border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.055);border-radius:24px;padding:28px;backdrop-filter:blur(18px);">
+      <h2 style="margin:0 0 12px;color:#ffffff;font-size:30px;letter-spacing:-0.03em;">How to structure your capital</h2>
+      <p style="margin:0;color:#d4d4d8;line-height:1.8;">Use the interactive calculator below to estimate outcomes based on your own numbers. Treat the result as an educational planning guide, not a guaranteed outcome.</p>
+    </article>
+  </div>
 
   [CALCULATOR_SLOT]
 
-  <h2>Video explanation</h2>
-  <p>Watch the short video for a breakdown of this strategy:</p>
+  <div style="border-left:3px solid #2dd4bf;background:rgba(45,212,191,0.08);border-radius:20px;padding:22px;">
+    <h2 style="margin:0 0 10px;color:#ccfbf1;font-size:26px;">Video explanation</h2>
+    <p style="margin:0;color:#d4d4d8;line-height:1.75;">Watch the short video for a clearer breakdown of the strategy and the questions to ask before you make changes.</p>
+  </div>
 
   [VIDEO_SLOT]
 
-  <h2>Final checklist</h2>
-  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+  <div style="border:1px solid rgba(245,158,11,0.28);background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(255,255,255,0.04));border-radius:24px;padding:28px;">
+    <h2 style="margin:0 0 14px;color:#fff7ed;font-size:28px;">Final checklist</h2>
+    <ul style="margin:0;padding-left:22px;color:#e5e7eb;line-height:1.85;">
+      <li>Confirm the plan still fits your retirement timeline.</li>
+      <li>Review risk, tax, liquidity, and beneficiary considerations.</li>
+      <li>Speak to an AS Brokers adviser before implementing major changes.</li>
+    </ul>
+  </div>
 
   [IMAGE_SLOT]
 </section>`;
@@ -82,8 +97,14 @@ const BRAND_GUIDE_TEXT = `AS Brokers Blog Brand Guide
 const BLOG_RULES_TEXT = `Universal blog-post rules
 - Return only clean article body HTML that can be pasted into the Blog Studio textarea.
 - Do not return markdown fences, a full <html> document, <script>, <style>, custom JavaScript, iframes, or calculator code.
-- Use one <h1>, then logical <h2>/<h3> sections, short paragraphs, and optional <ul>/<ol> checklists.
-- Use Tailwind-friendly classes only when useful, for example: <section class="space-y-6">.
+- The output must look like the AS Brokers website, not a plain black-and-white article.
+- Use one dramatic hero block, then logical <h2>/<h3> sections, short paragraphs, premium cards, callouts, and optional <ul>/<ol> checklists.
+- Use Tailwind-friendly classes when useful, but do not rely on classes alone. Add inline styles for the main visual look because pasted blog HTML is dynamic content.
+- Required visual style: dark background-compatible content, white headings, zinc body text, teal highlights, restrained gold accents, glass panels, rounded 24-32px corners, subtle gradients, soft borders, and generous spacing.
+- Wrap major sections in beautiful panels/cards. Avoid naked paragraphs stacked on a plain background.
+- Style lists so they feel designed: rounded card, subtle border/background, comfortable line-height, and teal/gold accents where relevant.
+- Image placeholders should sit between premium sections. Do not wrap placeholder tokens inside broken tags.
+- Calculator and video placeholders should have a short designed intro card immediately before them so the inserted component feels intentional.
 - Use the exact placeholders requested below. The studio detects every placeholder and creates the upload/select/link controls.
 - Never invent image URLs, calculator embeds, or video embeds. Leave the placeholder token exactly where that item must appear.
 - Keep the content educational and compliant: no guaranteed outcomes, no personalised advice without a review, and mention that market values can rise or fall.`;
@@ -111,19 +132,30 @@ const COPY_PROMPT_PRESETS = [
       `Include ${CALC_TOKEN} once where the calculator should appear.`,
       `Do not include ${VIDEO_TOKEN}.`,
     ],
-    exampleHtml: `<section class="space-y-6">
-  <h1>Your retirement strategy in uncertain markets</h1>
-  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
+    exampleHtml: `<section class="space-y-8" style="color:#e5e7eb;">
+  <div style="border:1px solid rgba(255,255,255,0.12);background:linear-gradient(135deg,rgba(20,184,166,0.16),rgba(255,255,255,0.04) 45%,rgba(245,158,11,0.10));border-radius:28px;padding:clamp(24px,5vw,48px);">
+    <p style="margin:0 0 12px;color:#5eead4;font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;">AS Brokers insight</p>
+    <h1 style="margin:0;color:#ffffff;font-size:clamp(34px,6vw,62px);line-height:1;letter-spacing:-0.05em;">Your retirement strategy in uncertain markets</h1>
+    <p style="margin:22px 0 0;max-width:760px;color:#d4d4d8;font-size:18px;line-height:1.75;">Start with a clear, resilient plan that balances growth, income, liquidity, and risk.</p>
+  </div>
 
   [IMAGE_SLOT]
 
-  <h2>How to structure your capital</h2>
-  <p>Use the interactive calculator below to estimate outcomes based on your own numbers.</p>
+  <div style="border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.055);border-radius:24px;padding:28px;backdrop-filter:blur(18px);">
+    <h2 style="margin:0 0 12px;color:#ffffff;font-size:30px;letter-spacing:-0.03em;">How to structure your capital</h2>
+    <p style="margin:0;color:#d4d4d8;line-height:1.8;">Use the calculator below to model planning scenarios. The numbers are educational and should be reviewed with an AS Brokers adviser.</p>
+  </div>
 
   [CALCULATOR_SLOT]
 
-  <h2>Final checklist</h2>
-  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+  <div style="border:1px solid rgba(245,158,11,0.28);background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(255,255,255,0.04));border-radius:24px;padding:28px;">
+    <h2 style="margin:0 0 14px;color:#fff7ed;font-size:28px;">Final checklist</h2>
+    <ul style="margin:0;padding-left:22px;color:#e5e7eb;line-height:1.85;">
+      <li>Check that the strategy fits your time horizon.</li>
+      <li>Review risk, tax, liquidity, and beneficiary needs.</li>
+      <li>Book a professional review before making major changes.</li>
+    </ul>
+  </div>
 
   [IMAGE_SLOT]
 </section>`,
@@ -138,19 +170,30 @@ const COPY_PROMPT_PRESETS = [
       `Include ${VIDEO_TOKEN} once where the Studio user must paste the video link.`,
       `Do not include ${CALC_TOKEN}.`,
     ],
-    exampleHtml: `<section class="space-y-6">
-  <h1>Your retirement strategy in uncertain markets</h1>
-  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
+    exampleHtml: `<section class="space-y-8" style="color:#e5e7eb;">
+  <div style="border:1px solid rgba(255,255,255,0.12);background:linear-gradient(135deg,rgba(20,184,166,0.16),rgba(255,255,255,0.04) 45%,rgba(245,158,11,0.10));border-radius:28px;padding:clamp(24px,5vw,48px);">
+    <p style="margin:0 0 12px;color:#5eead4;font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;">AS Brokers insight</p>
+    <h1 style="margin:0;color:#ffffff;font-size:clamp(34px,6vw,62px);line-height:1;letter-spacing:-0.05em;">Your retirement strategy in uncertain markets</h1>
+    <p style="margin:22px 0 0;max-width:760px;color:#d4d4d8;font-size:18px;line-height:1.75;">Start with a clear, resilient plan that balances opportunity with protection.</p>
+  </div>
 
   [IMAGE_SLOT]
 
-  <h2>Video explanation</h2>
-  <p>Watch the short video for a breakdown of this strategy:</p>
+  <div style="border-left:3px solid #2dd4bf;background:rgba(45,212,191,0.08);border-radius:20px;padding:22px;">
+    <h2 style="margin:0 0 10px;color:#ccfbf1;font-size:26px;">Video explanation</h2>
+    <p style="margin:0;color:#d4d4d8;line-height:1.75;">Watch the short video for a practical explanation of the strategy and what to discuss in your next review.</p>
+  </div>
 
   [VIDEO_SLOT]
 
-  <h2>Final checklist</h2>
-  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+  <div style="border:1px solid rgba(245,158,11,0.28);background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(255,255,255,0.04));border-radius:24px;padding:28px;">
+    <h2 style="margin:0 0 14px;color:#fff7ed;font-size:28px;">Final checklist</h2>
+    <ul style="margin:0;padding-left:22px;color:#e5e7eb;line-height:1.85;">
+      <li>Clarify the goal before changing products or allocations.</li>
+      <li>Document questions for your AS Brokers adviser.</li>
+      <li>Review the plan when markets or life circumstances change.</li>
+    </ul>
+  </div>
 
   [IMAGE_SLOT]
 </section>`,
@@ -165,22 +208,31 @@ const COPY_PROMPT_PRESETS = [
       `Include ${VIDEO_TOKEN} once where the Studio user must paste the video link.`,
       `Do not include ${IMAGE_TOKEN}. Use this only when the article should not request image uploads.`,
     ],
-    exampleHtml: `<section class="space-y-6">
-  <h1>Your retirement strategy in uncertain markets</h1>
-  <p>Start with a clear plan. This article explains practical actions for long-term investors.</p>
+    exampleHtml: `<section class="space-y-8" style="color:#e5e7eb;">
+  <div style="border:1px solid rgba(255,255,255,0.12);background:linear-gradient(135deg,rgba(20,184,166,0.16),rgba(255,255,255,0.04) 45%,rgba(245,158,11,0.10));border-radius:28px;padding:clamp(24px,5vw,48px);">
+    <p style="margin:0 0 12px;color:#5eead4;font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;">AS Brokers insight</p>
+    <h1 style="margin:0;color:#ffffff;font-size:clamp(34px,6vw,62px);line-height:1;letter-spacing:-0.05em;">Your retirement strategy in uncertain markets</h1>
+    <p style="margin:22px 0 0;max-width:760px;color:#d4d4d8;font-size:18px;line-height:1.75;">Use professional guidance and simple modelling tools to make clearer decisions.</p>
+  </div>
 
-  <h2>How to structure your capital</h2>
-  <p>Use the interactive calculator below to estimate outcomes based on your own numbers.</p>
+  <div style="border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.055);border-radius:24px;padding:28px;backdrop-filter:blur(18px);">
+    <h2 style="margin:0 0 12px;color:#ffffff;font-size:30px;letter-spacing:-0.03em;">How to structure your capital</h2>
+    <p style="margin:0;color:#d4d4d8;line-height:1.8;">Use the calculator below to compare scenarios. The result is a planning aid and should be reviewed by an adviser.</p>
+  </div>
 
   [CALCULATOR_SLOT]
 
-  <h2>Video explanation</h2>
-  <p>Watch the short video for a breakdown of this strategy:</p>
+  <div style="border-left:3px solid #2dd4bf;background:rgba(45,212,191,0.08);border-radius:20px;padding:22px;">
+    <h2 style="margin:0 0 10px;color:#ccfbf1;font-size:26px;">Video explanation</h2>
+    <p style="margin:0;color:#d4d4d8;line-height:1.75;">Watch the short video for context before discussing the next step with AS Brokers.</p>
+  </div>
 
   [VIDEO_SLOT]
 
-  <h2>Final checklist</h2>
-  <p>Use this framework and book a review to adjust your plan each quarter.</p>
+  <div style="border:1px solid rgba(245,158,11,0.28);background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(255,255,255,0.04));border-radius:24px;padding:28px;">
+    <h2 style="margin:0 0 14px;color:#fff7ed;font-size:28px;">Final checklist</h2>
+    <p style="margin:0;color:#e5e7eb;line-height:1.8;">Use this framework, then book a review to align the recommendation with your exact circumstances.</p>
+  </div>
 </section>`,
   },
 ] as const;
@@ -311,9 +363,15 @@ function safeUploadFilename(name: string): string {
 function buildPreviewDoc(html: string): string {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <style>
-    *{box-sizing:border-box} body{margin:0;padding:1.5rem;background:#f8fafc;color:#0f172a;font-family:Inter,ui-sans-serif,system-ui,sans-serif;line-height:1.7}
-    h1,h2,h3{color:#1A1A1A} img{max-width:100%;height:auto} iframe{max-width:100%;border:0}
-    .slot{margin:1.5rem 0;padding:1rem;border:2px dashed #94a3b8;border-radius:0.75rem;background:#f1f5f9;color:#475569}
+    *{box-sizing:border-box}
+    body{margin:0;padding:clamp(1rem,3vw,2rem);background:radial-gradient(circle at 20% 0%,rgba(20,184,166,.18),transparent 34%),radial-gradient(circle at 92% 12%,rgba(245,158,11,.14),transparent 30%),#0a0a0c;color:#e4e4e7;font-family:Inter,ui-sans-serif,system-ui,sans-serif;line-height:1.7}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.035),transparent 28%)}
+    h1,h2,h3{color:#fff;letter-spacing:-.035em}
+    p,li{color:#d4d4d8}
+    a{color:#2dd4bf}
+    img{max-width:100%;height:auto;border-radius:24px;border:1px solid rgba(255,255,255,.12);box-shadow:0 24px 70px rgba(0,0,0,.35)}
+    iframe{max-width:100%;border:0;border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+    .slot{margin:1.5rem 0;padding:1rem;border:2px dashed rgba(45,212,191,.45);border-radius:1rem;background:rgba(45,212,191,.08);color:#ccfbf1}
   </style></head><body>${html}</body></html>`;
 }
 
@@ -351,9 +409,9 @@ function buildPersistHtml(
       if (part === IMAGE_TOKEN) {
         const replacementUrl = imageUrls[imageIndex];
         const replacement = replacementUrl
-          ? `<figure class="my-6"><img src="${escapeHtmlAttr(
+          ? `<figure style="margin:32px 0;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.045);border-radius:28px;padding:10px;box-shadow:0 24px 80px rgba(0,0,0,0.35);"><img src="${escapeHtmlAttr(
               replacementUrl
-            )}" alt="Article image ${imageIndex + 1}" loading="lazy" style="width:100%;height:auto;border-radius:12px;" /></figure>`
+            )}" alt="Article image ${imageIndex + 1}" loading="lazy" style="display:block;width:100%;height:auto;border-radius:22px;" /></figure>`
           : IMAGE_TOKEN;
         imageIndex += 1;
         return replacement;
@@ -361,7 +419,10 @@ function buildPersistHtml(
       if (part === CALC_TOKEN) {
         const selected = calculatorSelection[calcIndex] ?? "";
         calcIndex += 1;
-        return selected ? snippetById.get(selected) ?? CALC_TOKEN : CALC_TOKEN;
+        const snippet = selected ? snippetById.get(selected) : null;
+        return snippet
+          ? `<div style="margin:32px 0;border:1px solid rgba(45,212,191,0.28);background:linear-gradient(135deg,rgba(20,184,166,0.10),rgba(255,255,255,0.045));border-radius:28px;padding:clamp(16px,3vw,28px);box-shadow:0 24px 80px rgba(0,0,0,0.28);">${snippet}</div>`
+          : CALC_TOKEN;
       }
       if (part === VIDEO_TOKEN) {
         const selected = (videoUrls[videoIndex] ?? "").trim();
@@ -369,9 +430,9 @@ function buildPersistHtml(
         if (!selected) return VIDEO_TOKEN;
         const youtubeId = extractYoutubeId(selected);
         if (youtubeId) {
-          return `<div class="my-6"><iframe src="https://www.youtube.com/embed/${youtubeId}" title="YouTube video" loading="lazy" allowfullscreen style="width:100%;min-height:360px;border:0;border-radius:12px;"></iframe></div>`;
+          return `<div style="margin:32px 0;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.045);border-radius:28px;padding:10px;box-shadow:0 24px 80px rgba(0,0,0,0.35);"><iframe src="https://www.youtube.com/embed/${youtubeId}" title="YouTube video" loading="lazy" allowfullscreen style="display:block;width:100%;min-height:360px;border:0;border-radius:22px;"></iframe></div>`;
         }
-        return `<p><a href="${selected}" target="_blank" rel="noreferrer">Watch video</a></p>`;
+        return `<p style="margin:24px 0;"><a href="${escapeHtmlAttr(selected)}" target="_blank" rel="noreferrer" style="display:inline-flex;border:1px solid rgba(45,212,191,0.35);background:rgba(45,212,191,0.10);border-radius:999px;padding:12px 18px;color:#99f6e4;text-decoration:none;font-weight:700;">Watch video</a></p>`;
       }
       return part;
     })

@@ -439,6 +439,7 @@ export async function unpublishStudioPost(id: string): Promise<{ ok: true } | { 
   revalidatePath("/");
   revalidatePath("/insights");
   revalidatePath(`/insights/${row.slug}`);
+  revalidatePath("/studio/blog/workspace");
   return { ok: true };
 }
 

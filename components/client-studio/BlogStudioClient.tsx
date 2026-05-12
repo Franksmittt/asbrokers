@@ -4,9 +4,11 @@ import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import {
+  deleteStudioPost,
   getStudioUploadDiagnostics,
   publishStudioPost,
   saveStudioPost,
+  unpublishStudioPost,
 } from "@/app/studio/blog/actions";
 import {
   CALCULATOR_CODE_SNIPPETS,
@@ -479,6 +481,7 @@ export function BlogStudioClient(props: Props) {
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
   const [showAllPosts, setShowAllPosts] = useState(false);
+  const [lifecyclePostId, setLifecyclePostId] = useState<string | null>(null);
 
   const embedReadySnippets = useMemo(
     () => CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet),
@@ -622,34 +625,157 @@ export function BlogStudioClient(props: Props) {
     setShowAllPosts(false);
   }
 
+  function togglePostLive(post: SerializableStudioPost) {
+    startTransition(async () => {
+      if (!databaseConfigured) {
+        setBanner("Studio storage is not connected.");
+        return;
+      }
+      setLifecyclePostId(post.id);
+      try {
+        if (post.status === "published") {
+          const result = await unpublishStudioPost(post.id);
+          if (!result.ok) {
+            setBanner(result.error);
+            return;
+          }
+          setLocalPosts((prev) =>
+            prev.map((item) =>
+              item.id === post.id
+                ? { ...item, status: "draft", bodyHtmlPublished: null, publishedAt: null, updatedAt: new Date().toISOString() }
+                : item
+            )
+          );
+          if (selectedId === post.id) {
+            setCurrentPostStatus("draft");
+          }
+          setBanner(`"${post.title}" is hidden from Insights.`);
+        } else {
+          const result = await publishStudioPost(post.id);
+          if (!result.ok) {
+            setBanner(result.error);
+            return;
+          }
+          const publishedAt = new Date().toISOString();
+          setLocalPosts((prev) =>
+            prev.map((item) =>
+              item.id === post.id
+                ? {
+                    ...item,
+                    status: "published",
+                    bodyHtmlPublished: item.bodyHtml,
+                    publishedAt,
+                    updatedAt: publishedAt,
+                  }
+                : item
+            )
+          );
+          if (selectedId === post.id) {
+            setCurrentPostStatus("published");
+          }
+          setBanner(`"${post.title}" is live on Insights.`);
+        }
+        router.refresh();
+      } finally {
+        setLifecyclePostId(null);
+      }
+    });
+  }
+
+  function removePost(post: SerializableStudioPost) {
+    if (!window.confirm(`Delete "${post.title}" permanently? This cannot be undone.`)) {
+      return;
+    }
+    startTransition(async () => {
+      if (!databaseConfigured) {
+        setBanner("Studio storage is not connected.");
+        return;
+      }
+      setLifecyclePostId(post.id);
+      try {
+        const result = await deleteStudioPost(post.id);
+        if (!result.ok) {
+          setBanner(result.error);
+          return;
+        }
+        setLocalPosts((prev) => prev.filter((item) => item.id !== post.id));
+        if (selectedId === post.id) {
+          startNewDraft();
+        }
+        setBanner(`"${post.title}" was deleted.`);
+        router.refresh();
+      } finally {
+        setLifecyclePostId(null);
+      }
+    });
+  }
+
   function renderPostPickerButton(post: SerializableStudioPost) {
     const isActive = selectedId === post.id;
+    const isLive = post.status === "published";
+    const isBusy = lifecyclePostId === post.id;
     return (
-      <button
+      <div
         key={post.id}
-        type="button"
-        onClick={() => openPostForEditing(post.id)}
-        className={`w-full rounded-lg border px-3 py-3 text-left transition ${
-          isActive
-            ? "border-teal-500/40 bg-teal-500/10"
-            : "border-white/10 bg-black/25 hover:border-white/20 hover:bg-black/35"
+        className={`rounded-lg border px-3 py-3 transition ${
+          isActive ? "border-teal-500/40 bg-teal-500/10" : "border-white/10 bg-black/25"
         }`}
       >
-        <div className="flex items-start justify-between gap-3">
-          <span className="text-sm font-semibold text-zinc-100">{post.title}</span>
-          <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-              post.status === "published" ? "bg-emerald-500/15 text-emerald-200" : "bg-white/10 text-zinc-300"
-            }`}
+        <div className="flex items-start gap-3">
+          <button
+            type="button"
+            onClick={() => openPostForEditing(post.id)}
+            className="min-w-0 flex-1 text-left"
           >
-            {post.status === "published" ? "Published" : "Draft"}
-          </span>
+            <div className="flex items-start justify-between gap-3">
+              <span className="text-sm font-semibold text-zinc-100">{post.title}</span>
+              <span
+                className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                  isLive ? "bg-emerald-500/15 text-emerald-200" : "bg-white/10 text-zinc-300"
+                }`}
+              >
+                {isLive ? "Live" : "Draft"}
+              </span>
+            </div>
+            <p className="mt-1 text-xs text-zinc-500">
+              Updated {formatStudioDate(post.updatedAt)}
+              {post.publishedAt ? ` · Published ${formatStudioDate(post.publishedAt)}` : ""}
+            </p>
+          </button>
+          <div className="flex shrink-0 flex-col items-end gap-2">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={isLive}
+              aria-label={isLive ? `Hide ${post.title} from Insights` : `Show ${post.title} on Insights`}
+              disabled={isBusy || isPending}
+              onClick={() => togglePostLive(post)}
+              className={`relative h-7 w-12 rounded-full border transition ${
+                isLive
+                  ? "border-emerald-400/50 bg-emerald-500/30"
+                  : "border-white/15 bg-white/10"
+              } disabled:cursor-not-allowed disabled:opacity-50`}
+            >
+              <span
+                className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition ${
+                  isLive ? "left-6" : "left-0.5"
+                }`}
+              />
+            </button>
+            <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+              {isBusy ? "Saving..." : isLive ? "On Insights" : "Hidden"}
+            </span>
+            <button
+              type="button"
+              onClick={() => removePost(post)}
+              disabled={isBusy || isPending}
+              className="rounded-md border border-red-500/30 bg-red-500/10 px-2 py-1 text-[11px] font-semibold text-red-200 hover:bg-red-500/15 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Delete
+            </button>
+          </div>
         </div>
-        <p className="mt-1 text-xs text-zinc-500">
-          Updated {formatStudioDate(post.updatedAt)}
-          {post.publishedAt ? ` · Published ${formatStudioDate(post.publishedAt)}` : ""}
-        </p>
-      </button>
+      </div>
     );
   }
 
@@ -1221,7 +1347,7 @@ export function BlogStudioClient(props: Props) {
                 <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-teal-300">Recent posts</p>
                 <h2 className="mt-1 text-lg font-bold text-white">Jump back into a saved article</h2>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                  Open a recent draft or published post to edit it. Use View all when you need an older article.
+                  Open a post to edit it. Use the switch to show or hide it on Insights, or delete it permanently.
                 </p>
               </div>
               {sortedPosts.length > RECENT_BLOG_POSTS_LIMIT && (

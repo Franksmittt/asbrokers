@@ -38,10 +38,15 @@ type Props = {
   initialPosts: SerializableStudioPost[];
   initialNotebookNotes: SerializableNotebookNote[];
   databaseConfigured: boolean;
+  databaseLoadError: string | null;
   imageUploadConfigured: boolean;
   studioConfigured: boolean;
   allowBulkDelete: boolean;
 };
+
+const STUDIO_SELECT_CLASS =
+  "w-full rounded-lg border border-white/15 bg-zinc-950 p-2.5 text-sm text-zinc-50 shadow-inner outline-none focus:border-teal-500/40 [&>option]:bg-zinc-950 [&>option]:text-zinc-50";
+const RECENT_BLOG_POSTS_LIMIT = 5;
 
 const IMAGE_TOKEN = "[IMAGE_SLOT]";
 const CALC_TOKEN = "[CALCULATOR_SLOT]";
@@ -438,6 +443,7 @@ export function BlogStudioClient(props: Props) {
   const {
     initialPosts,
     databaseConfigured,
+    databaseLoadError,
     imageUploadConfigured,
     studioConfigured,
   } = props;
@@ -472,6 +478,7 @@ export function BlogStudioClient(props: Props) {
   const [status, setStatus] = useState("Ready to Edit");
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
+  const [showAllPosts, setShowAllPosts] = useState(false);
 
   const embedReadySnippets = useMemo(
     () => CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet),
@@ -488,10 +495,23 @@ export function BlogStudioClient(props: Props) {
       ),
     [localPosts]
   );
+  const recentPosts = useMemo(
+    () => sortedPosts.slice(0, RECENT_BLOG_POSTS_LIMIT),
+    [sortedPosts]
+  );
 
   useEffect(() => {
     setLocalPosts(initialPosts);
   }, [initialPosts]);
+
+  useEffect(() => {
+    if (!showAllPosts) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowAllPosts(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [showAllPosts]);
 
   const imageCount = useMemo(() => countToken(rawHtml, IMAGE_TOKEN), [rawHtml]);
   const calcCount = useMemo(() => countToken(rawHtml, CALC_TOKEN), [rawHtml]);
@@ -595,6 +615,42 @@ export function BlogStudioClient(props: Props) {
     }
     setStatus(post.status === "published" ? "Editing published post" : "Editing draft");
     setBanner(`Loaded "${post.title}" for editing.`);
+  }
+
+  function openPostForEditing(postId: string) {
+    loadExistingPost(postId);
+    setShowAllPosts(false);
+  }
+
+  function renderPostPickerButton(post: SerializableStudioPost) {
+    const isActive = selectedId === post.id;
+    return (
+      <button
+        key={post.id}
+        type="button"
+        onClick={() => openPostForEditing(post.id)}
+        className={`w-full rounded-lg border px-3 py-3 text-left transition ${
+          isActive
+            ? "border-teal-500/40 bg-teal-500/10"
+            : "border-white/10 bg-black/25 hover:border-white/20 hover:bg-black/35"
+        }`}
+      >
+        <div className="flex items-start justify-between gap-3">
+          <span className="text-sm font-semibold text-zinc-100">{post.title}</span>
+          <span
+            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+              post.status === "published" ? "bg-emerald-500/15 text-emerald-200" : "bg-white/10 text-zinc-300"
+            }`}
+          >
+            {post.status === "published" ? "Published" : "Draft"}
+          </span>
+        </div>
+        <p className="mt-1 text-xs text-zinc-500">
+          Updated {formatStudioDate(post.updatedAt)}
+          {post.publishedAt ? ` · Published ${formatStudioDate(post.publishedAt)}` : ""}
+        </p>
+      </button>
+    );
   }
 
   async function uploadSlot(index: number) {
@@ -731,7 +787,7 @@ export function BlogStudioClient(props: Props) {
   function saveOrPublish(publish: boolean) {
     startTransition(async () => {
       if (!databaseConfigured) {
-        setBanner("Database not connected. Save/Publish cannot run.");
+        setBanner("Studio storage is not connected. Save/Publish cannot run.");
         return;
       }
       if (publish && !canPublish) {
@@ -858,6 +914,11 @@ export function BlogStudioClient(props: Props) {
       </header>
 
       <main className="mx-auto mt-8 grid max-w-[1600px] grid-cols-1 gap-8 px-8 lg:grid-cols-12">
+        {databaseLoadError && (
+          <div className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-4 py-3 text-sm text-amber-100 lg:col-span-12">
+            {databaseLoadError}
+          </div>
+        )}
         <div className="space-y-6 lg:col-span-5">
           <section className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
             <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
@@ -879,7 +940,7 @@ export function BlogStudioClient(props: Props) {
             <select
               value={selectedId ?? ""}
               onChange={(e) => loadExistingPost(e.target.value)}
-              className="w-full rounded-lg border border-white/10 bg-black/40 p-3 text-sm text-zinc-100"
+              className={STUDIO_SELECT_CLASS}
             >
               <option value="">New unsaved draft</option>
               {sortedPosts.map((post) => (
@@ -947,11 +1008,8 @@ export function BlogStudioClient(props: Props) {
           </section>
 
           <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
-            <div className="mb-3 flex items-center justify-between">
+            <div className="mb-3">
               <label className="block text-lg font-bold text-white">Step 1: Paste AI Blog Code</label>
-              <span className="rounded bg-black/40 px-2 py-1 font-mono text-xs text-zinc-400">
-                Use tags: [IMAGE_SLOT] [CALCULATOR_SLOT] [VIDEO_SLOT]
-              </span>
             </div>
             <p className="mb-2 text-sm text-zinc-400">
               Paste raw HTML from AI. The studio detects each placeholder and creates image, calculator, and video
@@ -1058,7 +1116,7 @@ export function BlogStudioClient(props: Props) {
                         [i]: e.target.value,
                       }))
                     }
-                    className="w-full rounded-lg border border-white/10 bg-black/40 p-2.5 text-sm text-zinc-100"
+                    className={STUDIO_SELECT_CLASS}
                   >
                     <option value="">-- Choose Calculator Component --</option>
                     {embedReadySnippets.map((snippet) => (
@@ -1156,6 +1214,37 @@ export function BlogStudioClient(props: Props) {
               automatically.
             </p>
           </div>
+
+          <section className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-teal-300">Recent posts</p>
+                <h2 className="mt-1 text-lg font-bold text-white">Jump back into a saved article</h2>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  Open a recent draft or published post to edit it. Use View all when you need an older article.
+                </p>
+              </div>
+              {sortedPosts.length > RECENT_BLOG_POSTS_LIMIT && (
+                <button
+                  type="button"
+                  onClick={() => setShowAllPosts(true)}
+                  className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-100 hover:bg-white/10"
+                >
+                  View all ({sortedPosts.length})
+                </button>
+              )}
+            </div>
+
+            {!databaseConfigured ? (
+              <p className="text-sm text-zinc-500">Connect the database to load saved posts here.</p>
+            ) : databaseLoadError ? (
+              <p className="text-sm text-amber-200">{databaseLoadError}</p>
+            ) : sortedPosts.length === 0 ? (
+              <p className="text-sm text-zinc-500">No saved posts yet. Save a draft to see it here.</p>
+            ) : (
+              <div className="space-y-2">{recentPosts.map((post) => renderPostPickerButton(post))}</div>
+            )}
+          </section>
         </div>
 
         <div className="lg:col-span-7">
@@ -1214,7 +1303,7 @@ export function BlogStudioClient(props: Props) {
               <div className="flex-1 overflow-y-auto p-4">
                 <iframe
                   title="Live reading preview"
-                  sandbox="allow-same-origin allow-scripts"
+                  sandbox="allow-same-origin allow-scripts allow-forms"
                   className="h-[70vh] w-full rounded-lg border border-white/10 bg-[#050506] opacity-100"
                   srcDoc={previewSrcDoc}
                 />
@@ -1234,6 +1323,36 @@ export function BlogStudioClient(props: Props) {
         </div>
       </main>
 
+      {showAllPosts && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8"
+          onClick={() => setShowAllPosts(false)}
+        >
+          <div
+            className="flex max-h-[min(80vh,720px)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#121214] shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-teal-300">All saved posts</p>
+                <h2 className="mt-1 text-lg font-bold text-white">Choose an article to edit</h2>
+                <p className="mt-1 text-sm text-zinc-400">{sortedPosts.length} saved posts, newest first.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAllPosts(false)}
+                className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-100 hover:bg-white/10"
+              >
+                Close
+              </button>
+            </div>
+            <div className="space-y-2 overflow-y-auto px-5 py-4">
+              {sortedPosts.map((post) => renderPostPickerButton(post))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {isPreviewFullscreen && (
         <div className="fixed inset-0 z-50 flex flex-col bg-[#050506] text-white">
           <div className="flex shrink-0 items-center justify-between border-b border-white/10 bg-[#0a0a0c] px-4 py-3">
@@ -1251,7 +1370,7 @@ export function BlogStudioClient(props: Props) {
           </div>
           <iframe
             title="Fullscreen live reading preview"
-            sandbox="allow-same-origin allow-scripts"
+            sandbox="allow-same-origin allow-scripts allow-forms"
             className="min-h-0 flex-1 border-0 bg-[#050506] opacity-100"
             srcDoc={previewSrcDoc}
           />

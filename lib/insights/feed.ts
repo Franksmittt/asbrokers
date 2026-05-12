@@ -1,7 +1,6 @@
 import "server-only";
 
-import { getDb } from "@/lib/db";
-import { listPublishedClientInsightPosts } from "@/lib/client-studio/client-insight-db";
+import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightsListQuery } from "@/sanity/lib/queries";
 
@@ -62,9 +61,9 @@ function firstImageSrcFromHtml(html: string | null | undefined): string | null {
  * Sanity articles plus published studio HTML posts, newest first.
  */
 export async function getInsightFeed(): Promise<InsightFeedItem[]> {
-  const [sanityRows, db] = await Promise.all([
+  const [sanityRows, studioRows] = await Promise.all([
     cachedSanityFetch<SanityStub[]>(insightsListQuery).catch(() => [] as SanityStub[]),
-    Promise.resolve(getDb()),
+    listPublishedStudioPosts(),
   ]);
 
   const sanityItems: InsightFeedItem[] = sanityRows.map((a) => ({
@@ -79,31 +78,19 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
     source: "sanity",
   }));
 
-  if (!db) {
-    return sanityItems.sort(
-      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
-  }
-
-  let studioItems: InsightFeedItem[] = [];
-  try {
-    const studioRows = await listPublishedClientInsightPosts(db);
-    studioItems = studioRows
-      .filter((r) => r.publishedAt)
-      .map((r) => ({
-        id: r.id,
-        title: r.title,
-        slug: r.slug,
-        locale: r.locale,
-        publishedAt: r.publishedAt!.toISOString(),
-        excerpt: r.excerpt,
-        author: "AS Brokers",
-        thumbnailUrl: r.heroImageUrl ?? firstImageSrcFromHtml(r.bodyHtmlPublished),
-        source: "studio" as const,
-      }));
-  } catch (err) {
-    console.error("[insights feed] studio posts query failed (listing may omit HTML articles):", err);
-  }
+  const studioItems: InsightFeedItem[] = studioRows
+    .filter((r) => r.publishedAt)
+    .map((r) => ({
+      id: r.id,
+      title: r.title,
+      slug: r.slug,
+      locale: r.locale,
+      publishedAt: r.publishedAt!.toISOString(),
+      excerpt: r.excerpt,
+      author: "AS Brokers",
+      thumbnailUrl: r.heroImageUrl ?? firstImageSrcFromHtml(r.bodyHtmlPublished),
+      source: "studio" as const,
+    }));
 
   const sanitySlugKeys = new Set(sanityItems.map((item) => `${item.slug}::${item.locale}`));
   const studioItemsWithoutSanitySlugConflict = studioItems.filter(

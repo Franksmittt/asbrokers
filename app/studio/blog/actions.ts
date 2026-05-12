@@ -16,10 +16,16 @@ import {
   setClientStudioSessionToken,
 } from "@/lib/client-studio/session";
 import {
-  getClientInsightPostById,
-  insertClientInsightPostCompat,
-  updateClientInsightPostCompat,
-} from "@/lib/client-studio/client-insight-db";
+  insertStudioPostForActions,
+  loadStudioPostForActions,
+  publishStudioPostForActions,
+  revertStudioPostToDraftForActions,
+  deleteStudioPostForActions,
+  updatePublishedStudioPostBodyForActions,
+  updateStudioPostForActions,
+} from "@/lib/client-studio/studio-posts-write";
+import { unresolvedPublishSlotMessage } from "@/lib/client-studio/publish-slots";
+import { isStudioPostsStorageConfigured } from "@/lib/client-studio/studio-storage";
 import { clientInsightPosts, getDb } from "@/lib/db";
 import { collectErrorText } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
@@ -204,9 +210,8 @@ export async function saveStudioPost(
     return { ok: false, error: "Session expired  -  sign in again." };
   }
 
-  const db = getDb();
-  if (!db) {
-    return { ok: false, error: "Database is not connected. Set DATABASE_URL on the server, then run db push." };
+  if (!isStudioPostsStorageConfigured()) {
+    return { ok: false, error: "Studio storage is not connected yet." };
   }
 
   const parsed = postBaseSchema.safeParse(raw);
@@ -230,52 +235,39 @@ export async function saveStudioPost(
   }
   const now = new Date();
   const sanitizedForLive = sanitizeInsightBody(v.bodyHtml);
-  const unresolvedImageSlots = countImageUploadSlots(v.bodyHtml);
+  const unresolvedSlots = unresolvedPublishSlotMessage(v.bodyHtml);
 
   try {
     if (id) {
-      const existing = await getClientInsightPostById(db, id);
+      const existing = await loadStudioPostForActions(id);
       if (!existing) return { ok: false, error: "Post not found." };
 
       if (existing.status === "published") {
         if (!sanitizedForLive.trim()) {
           return { ok: false, error: "Live articles need some HTML content before saving." };
         }
-        if (unresolvedImageSlots > 0) {
-          return {
-            ok: false,
-            error:
-              "Live article still has unresolved image placeholders. Upload/replace all image slots before saving.",
-          };
+        if (unresolvedSlots) {
+          return { ok: false, error: unresolvedSlots };
         }
       }
 
       const oldSlug = existing.slug;
-      await updateClientInsightPostCompat(
-        db,
-        id,
-        {
-          title: v.title,
-          slug: v.slug,
-          locale: v.locale,
-          excerpt: v.excerpt ?? null,
-          bodyHtml: v.bodyHtml,
-          heroImageUrl: heroImageUrl || null,
-          metaTitle: v.metaTitle ?? null,
-          metaDescription: v.metaDescription ?? null,
-          calculatorName: v.calculatorName ?? null,
-          calculatorCode: v.calculatorCode ?? null,
-        },
-        now
-      );
+      const writable = {
+        title: v.title,
+        slug: v.slug,
+        locale: v.locale,
+        excerpt: v.excerpt ?? null,
+        bodyHtml: v.bodyHtml,
+        heroImageUrl: heroImageUrl || null,
+        metaTitle: v.metaTitle ?? null,
+        metaDescription: v.metaDescription ?? null,
+        calculatorName: v.calculatorName ?? null,
+        calculatorCode: v.calculatorCode ?? null,
+      };
+
+      await updateStudioPostForActions(id, writable, now);
       if (existing.status === "published") {
-        await db
-          .update(clientInsightPosts)
-          .set({
-            bodyHtmlPublished: sanitizedForLive,
-            updatedAt: new Date(),
-          })
-          .where(eq(clientInsightPosts.id, id));
+        await updatePublishedStudioPostBodyForActions(id, sanitizedForLive, now);
       }
       revalidatePath("/");
       revalidatePath("/insights");
@@ -287,22 +279,20 @@ export async function saveStudioPost(
       return { ok: true, id };
     }
 
-    const newId = await insertClientInsightPostCompat(
-      db,
-      {
-        title: v.title,
-        slug: v.slug,
-        locale: v.locale,
-        excerpt: v.excerpt ?? null,
-        bodyHtml: v.bodyHtml,
-        heroImageUrl: heroImageUrl || null,
-        metaTitle: v.metaTitle ?? null,
-        metaDescription: v.metaDescription ?? null,
-        calculatorName: v.calculatorName ?? null,
-        calculatorCode: v.calculatorCode ?? null,
-      },
-      now
-    );
+    const writable = {
+      title: v.title,
+      slug: v.slug,
+      locale: v.locale,
+      excerpt: v.excerpt ?? null,
+      bodyHtml: v.bodyHtml,
+      heroImageUrl: heroImageUrl || null,
+      metaTitle: v.metaTitle ?? null,
+      metaDescription: v.metaDescription ?? null,
+      calculatorName: v.calculatorName ?? null,
+      calculatorCode: v.calculatorCode ?? null,
+    };
+
+    const newId = await insertStudioPostForActions(writable, now);
     revalidatePath("/");
     revalidatePath("/insights");
     revalidatePath("/studio/blog/workspace");
@@ -332,12 +322,11 @@ export async function publishStudioPost(
     return { ok: false, error: "Session expired  -  sign in again." };
   }
 
-  const db = getDb();
-  if (!db) {
-    return { ok: false, error: "Database is not connected." };
+  if (!isStudioPostsStorageConfigured()) {
+    return { ok: false, error: "Studio storage is not connected." };
   }
 
-  const row = await getClientInsightPostById(db, id);
+  const row = await loadStudioPostForActions(id);
   if (!row) return { ok: false, error: "Post not found." };
 
   const localeRaw = String(row.locale ?? "en").toLowerCase();
@@ -384,27 +373,14 @@ export async function publishStudioPost(
   if (!sanitized.trim()) {
     return { ok: false, error: "Add some HTML content before publishing." };
   }
-  const unresolvedImageSlots = countImageUploadSlots(row.bodyHtml);
-  if (unresolvedImageSlots > 0) {
-    return {
-      ok: false,
-      error:
-        "This article still has unresolved image placeholders. Replace all image slots before publishing.",
-    };
+  const unresolvedSlots = unresolvedPublishSlotMessage(row.bodyHtml);
+  if (unresolvedSlots) {
+    return { ok: false, error: unresolvedSlots };
   }
 
   const now = new Date();
   try {
-    await db
-      .update(clientInsightPosts)
-      .set({
-        status: "published",
-        bodyHtmlPublished: sanitized,
-        heroImageUrl: heroImageUrl,
-        publishedAt: now,
-        updatedAt: now,
-      })
-      .where(eq(clientInsightPosts.id, id));
+    await publishStudioPostForActions(id, sanitized, heroImageUrl, now);
   } catch (e) {
     const detail = collectErrorText(e).slice(0, 320);
     return {
@@ -420,15 +396,7 @@ export async function publishStudioPost(
   const health = await verifyPublishedHtmlHealth(sanitized, row.slug, localeSafe);
   if (health.error) {
     try {
-      await db
-        .update(clientInsightPosts)
-        .set({
-          status: "draft",
-          bodyHtmlPublished: null,
-          publishedAt: null,
-          updatedAt: new Date(),
-        })
-        .where(eq(clientInsightPosts.id, id));
+      await revertStudioPostToDraftForActions(id, new Date());
     } catch {
       return {
         ok: false,
@@ -459,21 +427,14 @@ export async function unpublishStudioPost(id: string): Promise<{ ok: true } | { 
     return { ok: false, error: "Session expired  -  sign in again." };
   }
 
-  const db = getDb();
-  if (!db) return { ok: false, error: "Database is not connected." };
+  if (!isStudioPostsStorageConfigured()) {
+    return { ok: false, error: "Studio storage is not connected." };
+  }
 
-  const row = await getClientInsightPostById(db, id);
+  const row = await loadStudioPostForActions(id);
   if (!row) return { ok: false, error: "Post not found." };
 
-  await db
-    .update(clientInsightPosts)
-    .set({
-      status: "draft",
-      bodyHtmlPublished: null,
-      publishedAt: null,
-      updatedAt: new Date(),
-    })
-    .where(eq(clientInsightPosts.id, id));
+  await revertStudioPostToDraftForActions(id, new Date());
 
   revalidatePath("/");
   revalidatePath("/insights");
@@ -489,14 +450,15 @@ export async function deleteStudioPost(id: string): Promise<{ ok: true } | { ok:
     return { ok: false, error: "Session expired  -  sign in again." };
   }
 
-  const db = getDb();
-  if (!db) return { ok: false, error: "Database is not connected." };
+  if (!isStudioPostsStorageConfigured()) {
+    return { ok: false, error: "Studio storage is not connected." };
+  }
 
-  const row = await getClientInsightPostById(db, id);
+  const row = await loadStudioPostForActions(id);
   if (!row) return { ok: false, error: "Post not found." };
 
   const slug = row.slug;
-  await db.delete(clientInsightPosts).where(eq(clientInsightPosts.id, id));
+  await deleteStudioPostForActions(id);
 
   revalidatePath("/");
   revalidatePath("/insights");

@@ -1,14 +1,14 @@
 import { BlogStudioClient, type SerializableStudioPost } from "@/components/client-studio/BlogStudioClient";
 import { fetchNotebookNotesInitial } from "@/lib/client-studio/notebook-server";
 import { listAllStudioPosts } from "@/lib/client-studio/posts";
+import { isStudioPostsStorageConfigured } from "@/lib/client-studio/studio-storage";
 import { isClientStudioConfigured } from "@/lib/client-studio/session";
-import { getDb } from "@/lib/db";
 import { getSupabaseService } from "@/lib/supabase/server";
 
 /** Session + DB reads; never cache a logged-in HTML workspace as static. */
 export const dynamic = "force-dynamic";
 
-function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>): SerializableStudioPost[] {
+function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>["rows"]): SerializableStudioPost[] {
   return rows.map((r) => ({
     id: r.id,
     slug: r.slug,
@@ -31,15 +31,16 @@ function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>): Serial
 
 export default async function StudioWorkspacePage() {
   const studioConfigured = isClientStudioConfigured();
-  const databaseConfigured = Boolean(getDb());
+  const databaseConfigured = isStudioPostsStorageConfigured();
   let imageUploadConfigured = false;
   try {
     imageUploadConfigured = Boolean(getSupabaseService());
   } catch (e) {
     console.error("[studio workspace] Supabase service client init failed:", e);
   }
-  const rows = databaseConfigured ? await listAllStudioPosts() : [];
-  const initialPosts = serialize(rows);
+  const studioPosts = databaseConfigured ? await listAllStudioPosts() : { rows: [], loadError: null };
+  const initialPosts = serialize(studioPosts.rows);
+  const databaseLoadError = studioPosts.loadError;
   const initialNotebookNotes = databaseConfigured ? await fetchNotebookNotesInitial() : [];
   const allowBulkDelete = (process.env.CLIENT_STUDIO_ENABLE_BULK_DELETE ?? "").trim().toLowerCase() === "true";
 
@@ -48,6 +49,7 @@ export default async function StudioWorkspacePage() {
       initialPosts={initialPosts}
       initialNotebookNotes={initialNotebookNotes}
       databaseConfigured={databaseConfigured}
+      databaseLoadError={databaseLoadError}
       imageUploadConfigured={imageUploadConfigured}
       studioConfigured={studioConfigured}
       allowBulkDelete={allowBulkDelete}

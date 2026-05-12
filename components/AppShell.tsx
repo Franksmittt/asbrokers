@@ -9,8 +9,9 @@ import { FloatingWhatsApp } from "./FloatingWhatsApp";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "";
   const clientStudio = pathname.startsWith("/studio/blog");
+  const embed = pathname.startsWith("/embed");
 
-  if (clientStudio) {
+  if (clientStudio || embed) {
     return (
       <>
         <a href="#main-content" className="skip-link">

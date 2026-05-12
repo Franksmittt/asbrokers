@@ -28,3 +28,16 @@ export function isMissingCalculatorColumnsError(error: unknown): boolean {
     (text.includes("column") && (text.includes("calculator") || text.includes("hero_image")))
   );
 }
+
+export function isPostgresConnectionError(error: unknown): boolean {
+  const text = collectErrorText(error);
+  return (
+    text.includes("28P01") ||
+    text.includes("password authentication failed") ||
+    text.includes("ECIRCUITBREAKER") ||
+    text.includes("too many authentication failures") ||
+    text.includes("ECONNREFUSED") ||
+    text.includes("ENOTFOUND") ||
+    text.includes("ETIMEDOUT")
+  );
+}

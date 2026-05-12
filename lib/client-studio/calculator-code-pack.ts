@@ -10,10 +10,7 @@ export function isEmbedReadyCalculatorSnippet(snippet: CalculatorCodeSnippet): b
 }
 
 function buildCalculatorIframeEmbed(path: string, title: string): string {
-  return `<div style="margin:1.5rem 0;border:1px solid #27272a;border-radius:12px;overflow:hidden;background:#0a0a0c;">
-  <div style="padding:0.65rem 0.9rem;border-bottom:1px solid #27272a;color:#d4d4d8;font-weight:600;font-size:13px;">${title}</div>
-  <iframe src="${path}" title="${title}" loading="lazy" style="width:100%;min-height:640px;border:0;background:#0a0a0c;" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>`;
+  return `<iframe src="${path}" title="${title}" loading="lazy" style="display:block;width:100%;min-height:640px;border:0;border-radius:12px;background:#0a0a0c;"></iframe>`;
 }
 
 export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [

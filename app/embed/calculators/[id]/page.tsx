@@ -74,14 +74,8 @@ export default async function CalculatorEmbedPage({ params }: Props) {
   if (!item) notFound();
 
   return (
-    <main className="min-h-screen bg-[#0a0a0c] p-4">
-      <section className="mx-auto max-w-5xl">
-        <div className="mb-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300">
-          {item.title}
-        </div>
-        <div className="rounded-[1.5rem] border border-white/10 bg-[#111115] p-3 md:p-4">{item.node}</div>
-      </section>
+    <main className="min-h-screen bg-[#0a0a0c] p-2 sm:p-4">
+      <div className="mx-auto max-w-5xl">{item.node}</div>
     </main>
   );
 }
-

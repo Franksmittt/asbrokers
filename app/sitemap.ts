@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import "server-only";
-import { getDb } from "@/lib/db";
-import { listPublishedClientInsightPosts } from "@/lib/client-studio/client-insight-db";
+import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
 import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 import { sanityFetch } from "@/sanity/lib/live";
 import { insightArticlesSitemapQuery } from "@/sanity/lib/queries";
@@ -98,21 +97,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (entries.length >= 49500) break;
   }
 
-  const db = getDb();
-  if (db) {
-    try {
-      const studio = await listPublishedClientInsightPosts(db);
-      for (const row of studio) {
-        if (!row.publishedAt || !row.slug?.trim()) continue;
-        const lastMod = maxModified(row.publishedAt, row.updatedAt);
-        push(insightUrlPath(row.slug, row.locale || "en"), lastMod);
-        if (entries.length >= 49500) break;
-      }
-    } catch (err) {
-      console.error("[sitemap] Studio posts query failed:", err);
-    }
-  } else if (process.env.NODE_ENV === "development") {
-    console.warn("[sitemap] DATABASE_URL not configured; studio insights omitted from sitemap.");
+  const studio = await listPublishedStudioPosts();
+  for (const row of studio) {
+    if (!row.publishedAt || !row.slug?.trim()) continue;
+    const lastMod = maxModified(row.publishedAt, row.updatedAt);
+    push(insightUrlPath(row.slug, row.locale || "en"), lastMod);
+    if (entries.length >= 49500) break;
   }
 
   entries.sort((a, b) => a.url.localeCompare(b.url));

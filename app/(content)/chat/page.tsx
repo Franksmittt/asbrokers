@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import Link from "next/link";
+import { asbrokersChatFetch } from "@/lib/asbrokers-chat-fetch";
 import { Footer } from "@/components/Footer";
 
 const formatCurrency = (val: number) =>
@@ -56,13 +58,18 @@ function ToolResultCard({
 }
 
 export default function ChatPage() {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { messages, sendMessage, status, error } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
+    transport: new DefaultChatTransport({ api: "/api/chat", fetch: asbrokersChatFetch }),
   });
 
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, status]);
+
   return (
-    <div className="bg-[#0a0a0c] min-h-screen flex flex-col">
-      <section className="pt-28 pb-8 px-4 sm:px-6 md:px-8 flex-shrink-0">
+    <div className="bg-[#0a0a0c] min-h-[100dvh] flex flex-col">
+      <section className="pt-28 pb-6 px-4 sm:px-6 md:px-8 shrink-0">
         <div className="max-w-3xl mx-auto">
           <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-2">AS Brokers</p>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
@@ -77,9 +84,12 @@ export default function ChatPage() {
         </div>
       </section>
 
-      <section className="flex-1 px-4 sm:px-6 md:px-8 pb-8">
-        <div className="max-w-3xl mx-auto flex flex-col h-[50vh] min-h-[320px]">
-          <div className="flex-1 overflow-y-auto rounded-2xl bg-[#151518] border border-white/10 p-4 space-y-4">
+      <section className="flex-1 flex flex-col min-h-0 px-4 sm:px-6 md:px-8 pb-4">
+        <div className="max-w-3xl mx-auto w-full flex flex-col flex-1 min-h-0 min-h-[min(420px,70dvh)]">
+          <div
+            ref={scrollRef}
+            className="flex-1 min-h-0 overflow-y-auto overscroll-y-contain rounded-2xl bg-[#151518] border border-white/10 p-4 space-y-4"
+          >
             {messages.length === 0 && (
               <p className="text-zinc-500 text-sm">
                 e.g. &quot;What would my estate duty be on R8 million?&quot; or &quot;How much monthly income from R1.5m in the 12.8% Strategic Income?&quot;
@@ -97,8 +107,8 @@ export default function ChatPage() {
                 <div
                   className={
                     msg.role === "user"
-                      ? "rounded-2xl bg-blue-500/20 border border-blue-500/30 px-4 py-2 max-w-[85%]"
-                      : "rounded-2xl bg-white/5 border border-white/10 px-4 py-2 max-w-[85%] space-y-2"
+                      ? "rounded-2xl bg-blue-500/20 border border-blue-500/30 px-4 py-2 max-w-[min(100%,22rem)]"
+                      : "rounded-2xl bg-white/5 border border-white/10 px-4 py-2 max-w-[min(100%,22rem)] space-y-2"
                   }
                 >
                   <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">
@@ -107,7 +117,7 @@ export default function ChatPage() {
                   {msg.parts?.map((part, i) => {
                     if (part.type === "text") {
                       return (
-                        <p key={i} className="text-sm text-white whitespace-pre-wrap">
+                        <p key={i} className="text-sm text-white whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
                           {part.text}
                         </p>
                       );
@@ -153,11 +163,13 @@ export default function ChatPage() {
           </div>
 
           {error && (
-            <p className="text-amber-400 text-sm mt-2">Error: {error.message}</p>
+            <p className="text-amber-400 text-sm mt-2 shrink-0" role="alert">
+              {error.message}
+            </p>
           )}
 
           <form
-            className="mt-4 flex gap-2"
+            className="mt-3 shrink-0 flex gap-2 pt-3 border-t border-white/10 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
             onSubmit={(e) => {
               e.preventDefault();
               const form = e.currentTarget;
@@ -172,14 +184,16 @@ export default function ChatPage() {
             <input
               name="q"
               type="text"
+              enterKeyHint="send"
+              autoComplete="off"
               placeholder="Ask about estate duty, 12.8% income, or Amethyst annuity…"
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500"
+              className="flex-1 min-h-[48px] sm:min-h-0 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 touch-manipulation"
               disabled={status === "streaming"}
             />
             <button
               type="submit"
               disabled={status === "streaming"}
-              className="bg-white text-black font-bold px-6 py-3 rounded-xl hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="shrink-0 min-w-[48px] sm:min-w-0 bg-white text-black font-bold px-5 sm:px-6 py-3 rounded-xl hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
             >
               Send
             </button>
@@ -187,7 +201,7 @@ export default function ChatPage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-6 px-4 sm:px-6 md:px-8">
+      <section className="border-t border-white/10 py-6 px-4 sm:px-6 md:px-8 shrink-0">
         <div className="max-w-3xl mx-auto flex flex-wrap gap-4 text-sm">
           <Link href="/calculators" prefetch={false} className="text-blue-400 hover:underline">
             All calculators

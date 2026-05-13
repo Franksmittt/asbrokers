@@ -1,4 +1,4 @@
-import { convertToModelMessages, streamText, tool } from "ai";
+import { convertToModelMessages, streamText, tool, type UIMessage } from "ai";
 import { google } from "@ai-sdk/google";
 import { getRagContext } from "@/lib/db/rag";
 import {
@@ -13,6 +13,7 @@ import {
 } from "./schemas";
 
 export const maxDuration = 30;
+export const dynamic = "force-dynamic";
 
 /** Baseline system prompt: hardcoded FAIS/Everest constraints. Do not remove or relax. */
 const BASELINE_SYSTEM_PROMPT = `You are the AS Brokers CC (FSP 17273) digital wealth assistant. You help high-net-worth individuals understand Everest Wealth products, estate duty, and retirement income in South Africa.
@@ -54,8 +55,18 @@ export async function POST(req: Request) {
       );
     }
 
-    const body = await req.json();
-    const messages = body.messages ?? [];
+    const raw = await req.text();
+    let body: { messages?: unknown };
+    try {
+      body = raw ? (JSON.parse(raw) as { messages?: unknown }) : {};
+    } catch {
+      return new Response(JSON.stringify({ error: "Invalid JSON body." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    const rawMessages = body.messages;
+    const messages: unknown[] = Array.isArray(rawMessages) ? rawMessages : [];
 
     const latestText = getLatestUserMessageText(messages);
     const ragContext = latestText ? await getRagContext(latestText, 5) : "";
@@ -67,7 +78,7 @@ export async function POST(req: Request) {
     const result = streamText({
       model: google("gemini-2.5-flash"),
       system: systemPrompt,
-      messages: await convertToModelMessages(messages),
+      messages: await convertToModelMessages(messages as UIMessage[]),
       tools: {
         calculateEstateDuty: tool({
           description:

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import Link from "next/link";
+import { asbrokersChatFetch } from "@/lib/asbrokers-chat-fetch";
 
 /**
  * Simplified AI prompt teaser for hero. Compact input, minimal response.
@@ -11,7 +12,7 @@ import Link from "next/link";
  */
 export function HeroChatTeaser() {
   const { messages, sendMessage, status, error } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
+    transport: new DefaultChatTransport({ api: "/api/chat", fetch: asbrokersChatFetch }),
   });
   const [input, setInput] = useState("");
 

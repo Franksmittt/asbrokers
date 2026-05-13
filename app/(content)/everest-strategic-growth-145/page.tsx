@@ -51,7 +51,7 @@ export default function Everest145Page() {
             Request 14.5% Term Sheet →
           </Link>
           <div className="mt-6 flex flex-wrap justify-center gap-6 text-sm text-zinc-500">
-            <a href="https://wa.me/27672429946" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp 067 242 9946</a>
+            <a href="https://wa.me/27662276044" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp +27 66 227 6044</a>
             <Link href="/everest-wealth" className="text-cinematic-teal hover:underline">Investment options</Link>
             <Link href="/contact" className="text-cinematic-teal hover:underline">Contact</Link>
           </div>

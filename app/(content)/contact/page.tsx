@@ -100,12 +100,12 @@ export default function ContactPage() {
                 </ul>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <a
-                    href="https://wa.me/27672429946"
+                    href="https://wa.me/27662276044"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-6 py-3 rounded-full font-semibold transition-colors"
                   >
-                    WhatsApp us: 067 242 9946
+                    WhatsApp us: +27 66 227 6044
                   </a>
                   <Link
                     href="/#solutions"

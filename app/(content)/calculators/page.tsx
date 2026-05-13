@@ -463,12 +463,12 @@ export default function CalculatorsPage() {
                   Request a review
                 </Link>
                 <a
-                  href="https://wa.me/27672429946"
+                  href="https://wa.me/27662276044"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto inline-flex items-center justify-center rim-light hover:bg-white/15 text-white font-semibold px-8 py-4 rounded-[2rem] transition-all duration-500"
                 >
-                  WhatsApp 067 242 9946
+                  WhatsApp +27 66 227 6044
                 </a>
               </div>
             </div>
@@ -482,12 +482,12 @@ export default function CalculatorsPage() {
         <div className={PAGE_CONTENT_MAX}>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <a
-              href="https://wa.me/27672429946"
+              href="https://wa.me/27662276044"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              WhatsApp 067 242 9946
+              WhatsApp +27 66 227 6044
             </a>
             <Link href="/solutions" prefetch={false} className="text-cinematic-teal hover:underline">
               Income in retirement

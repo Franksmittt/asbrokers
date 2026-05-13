@@ -183,12 +183,12 @@ export default function EstateDutyCalculatorPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
             <a
-              href="https://wa.me/27672429946"
+              href="https://wa.me/27662276044"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white transition-colors"
             >
-              WhatsApp us · 067 242 9946
+              WhatsApp us · +27 66 227 6044
             </a>
             <Link href="/income-in-retirement" className="text-blue-400 hover:underline">
               Income in retirement

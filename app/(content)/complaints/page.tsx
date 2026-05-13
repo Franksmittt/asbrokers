@@ -33,7 +33,7 @@ export default function ComplaintsPage() {
               Please contact us in writing (email or post) or by phone. Include your name, contact details, a clear description of the complaint, and any reference numbers or documentation. We will acknowledge your complaint and provide a reference number.
             </p>
             <p className="text-zinc-400 leading-relaxed">
-              <strong className="text-zinc-300">Contact:</strong> Use our contact form at the link below, or WhatsApp 067 242 9946. Our compliance officer will respond in line with our internal complaints policy and regulatory timeframes.
+              <strong className="text-zinc-300">Contact:</strong> Use our contact form at the link below, or WhatsApp +27 66 227 6044. Our compliance officer will respond in line with our internal complaints policy and regulatory timeframes.
             </p>
           </div>
           <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">

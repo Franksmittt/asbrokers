@@ -278,7 +278,7 @@ export default function SolutionsPage() {
               </Link>
             </div>
             <p className="text-zinc-500 text-sm mt-6">
-              WhatsApp 067 242 9946 for a quick response
+              WhatsApp +27 66 227 6044 for a quick response
             </p>
           </div>
         </section>

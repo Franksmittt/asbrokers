@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { MessageCircle, Calendar } from "./icons";
 
-const WHATSAPP_LINK = "https://wa.me/27672429946";
+const WHATSAPP_LINK = "https://wa.me/27662276044";
 
 export function QuickActionBar() {
   return (

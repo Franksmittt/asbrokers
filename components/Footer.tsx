@@ -232,13 +232,13 @@ export function Footer() {
             <FooterAccordion title="Get in Touch" index={2}>
               <div className="space-y-4">
                 <a
-                  href="https://wa.me/27672429946"
+                  href="https://wa.me/27662276044"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-supernova-gold/90 hover:bg-supernova-gold text-black text-sm font-bold transition-all duration-300 hover:scale-[1.03] hover:shadow-cta-glow-gold"
-                  aria-label="WhatsApp Contact: 067 242 9946"
+                  aria-label="WhatsApp Contact: +27 66 227 6044"
                 >
-                  WhatsApp Us: 067 242 9946
+                  WhatsApp Us: +27 66 227 6044
                 </a>
                 <Link
                   href="/contact"

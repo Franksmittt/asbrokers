@@ -65,7 +65,7 @@ export async function POST(req: Request) {
     const systemPrompt = BASELINE_SYSTEM_PROMPT + retrievedBlock;
 
     const result = streamText({
-      model: google("gemini-2.0-flash"),
+      model: google("gemini-2.5-flash"),
       system: systemPrompt,
       messages: await convertToModelMessages(messages),
       tools: {

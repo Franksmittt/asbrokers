@@ -60,7 +60,7 @@ export function Header() {
             Book consult
           </Link>
           <a
-            href="https://wa.me/27672429946"
+            href="https://wa.me/27662276044"
             target="_blank"
             rel="noopener noreferrer"
             className="border border-white/20 px-3 py-1.5 text-vault-stone hover:border-vault-brass/50 hover:text-vault-brass transition-colors uppercase tracking-widest"

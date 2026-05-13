@@ -263,7 +263,7 @@ export default function EverestWealthAboutPage() {
       {/* Footer strip */}
       <section className="py-12 md:py-14 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
-          <a href="https://wa.me/27672429946" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white">WhatsApp 067 242 9946</a>
+          <a href="https://wa.me/27662276044" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white">WhatsApp +27 66 227 6044</a>
           <Link href="/everest-wealth" prefetch={false} className="text-blue-400 hover:underline">Everest Wealth hub</Link>
           <Link href="/contact" prefetch={false} className="text-blue-400 hover:underline">Contact</Link>
         </div>

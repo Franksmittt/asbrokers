@@ -374,7 +374,7 @@ export default function EverestWealthPage() {
             >
               Let&apos;s have that conversation
             </Link>
-            <p className="mt-4 text-sm text-zinc-600">WhatsApp: 067 242 9946</p>
+            <p className="mt-4 text-sm text-zinc-600">WhatsApp: +27 66 227 6044</p>
           </div>
         </div>
       </section>
@@ -425,12 +425,12 @@ export default function EverestWealthPage() {
             Understanding Everest Wealth
           </Link>
           <a
-            href="https://wa.me/27672429946"
+            href="https://wa.me/27662276044"
             target="_blank"
             rel="noopener noreferrer"
             className="text-zinc-500 transition-colors hover:text-white"
           >
-            WhatsApp 067 242 9946
+            WhatsApp +27 66 227 6044
           </a>
           <Link href="/contact" prefetch={false} className="text-cinematic-teal hover:underline">
             Contact

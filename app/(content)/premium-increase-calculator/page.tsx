@@ -275,12 +275,12 @@ export default function PremiumIncreaseCalculatorPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
             <a
-              href="https://wa.me/27672429946"
+              href="https://wa.me/27662276044"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white transition-colors"
             >
-              Contact us on WhatsApp · 067 242 9946
+              Contact us on WhatsApp · +27 66 227 6044
             </a>
             <Link href="/" className="text-zinc-400 hover:text-white transition-colors">
               Home

@@ -25,7 +25,7 @@ const SLIDES = [
   {
     id: "service",
     title: "Personalized Guidance – No Call Centers, Zero Advice Fees.",
-    tease: "WhatsApp: 067 242 9946.",
+    tease: "WhatsApp: +27 66 227 6044.",
     gradient: "from-supernova-gold/10 via-void to-void",
     accent: "bg-white/5",
   },

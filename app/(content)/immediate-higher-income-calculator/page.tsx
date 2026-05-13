@@ -71,7 +71,7 @@ export default function ImmediateHigherIncomePage() {
       </section>
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 text-sm text-zinc-500">
-          <a href="https://wa.me/27672429946" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp 067 242 9946</a>
+          <a href="https://wa.me/27662276044" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp +27 66 227 6044</a>
           <Link href="/everest-wealth" className="text-cinematic-teal hover:underline">Investment options</Link>
           <Link href="/contact" className="text-cinematic-teal hover:underline">Contact</Link>
         </div>

@@ -150,8 +150,8 @@ export default function RetirementPage() {
       <section className="py-10 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
-            <a href="https://wa.me/27672429946" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white transition-colors">
-              WhatsApp 067 242 9946
+            <a href="https://wa.me/27662276044" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white transition-colors">
+              WhatsApp +27 66 227 6044
             </a>
             <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">Income in retirement</Link>
             <Link href="/solutions" prefetch={false} className="text-blue-400 hover:underline">Insurance & risk</Link>

@@ -64,7 +64,7 @@ export function ContactEnquiryForm() {
           We&apos;ll review your enquiry personally and get back to you by phone or WhatsApp. Not a call centre. You&apos;ll hear from us.
         </p>
         <a
-          href="https://wa.me/27672429946"
+          href="https://wa.me/27662276044"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors"

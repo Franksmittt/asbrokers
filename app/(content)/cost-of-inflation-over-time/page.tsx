@@ -95,12 +95,12 @@ export default function CostOfInflationPage() {
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto text-center">
           <a
-            href="https://wa.me/27672429946"
+            href="https://wa.me/27662276044"
             target="_blank"
             rel="noopener noreferrer"
             className="text-zinc-400 hover:text-white transition-colors"
           >
-            Contact us on WhatsApp · 067 242 9946
+            Contact us on WhatsApp · +27 66 227 6044
           </a>
           <div className="mt-4 text-zinc-500 text-sm">
             Albert Schuurman & Johnny Farinha · AS Brokers | FSP 17273 · Independent Authorised Financial Service Provider

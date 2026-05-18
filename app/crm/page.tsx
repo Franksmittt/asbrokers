@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, Presentation, FileText, Scroll } from "@/components/icons";
+import { LayoutDashboard, Presentation, FileText, Scroll, LineChart } from "@/components/icons";
 
 export const metadata = {
   title: "Office",
@@ -14,9 +14,15 @@ const cards = [
     icon: Presentation,
   },
   {
+    href: "/crm/calculators",
+    title: "Calculators",
+    desc: "Pick a calculator and walk clients through the numbers in full screen — no blog needed.",
+    icon: LineChart,
+  },
+  {
     href: "/studio/blog",
-    title: "Insights studio (HTML)",
-    desc: "Password-protected workspace: paste AI-generated HTML, add images, preview, and publish to Insights.",
+    title: "Blog & content",
+    desc: "Create and publish insight articles — paste HTML, add images and calculators, preview, and go live.",
     icon: FileText,
   },
   {
@@ -39,8 +45,8 @@ export default function OfficeHomePage() {
           Team office
         </h1>
         <p className="text-zinc-400 text-sm">
-          Wealth Presentation for live sessions. Use Sanity Studio for structured articles, or the Insights studio for
-          HTML-only posts. No lead pipeline here.
+          Wealth Presentation and Calculators for live client sessions. Use the Insights studio for HTML articles. No
+          lead pipeline here.
         </p>
         <div className="mt-4">
           <Link
@@ -48,7 +54,7 @@ export default function OfficeHomePage() {
             prefetch={false}
             className="inline-flex items-center rounded-full bg-teal-600/90 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-500"
           >
-            Open Insights Studio
+            Open blog studio
           </Link>
         </div>
       </div>

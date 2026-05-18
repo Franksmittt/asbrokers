@@ -1,4 +1,40 @@
 import sanitizeHtml from "sanitize-html";
+import { getSiteOrigin } from "@/lib/site-url";
+
+const EXTERNAL_IFRAME_HOSTNAMES = [
+  "www.youtube.com",
+  "youtube.com",
+  "www.youtube-nocookie.com",
+  "player.vimeo.com",
+] as const;
+
+const CALCULATOR_EMBED_PREFIX = "/embed/calculators/";
+
+function siteIframeHostnames(): string[] {
+  const hosts: string[] = [...EXTERNAL_IFRAME_HOSTNAMES];
+  try {
+    const hostname = new URL(getSiteOrigin()).hostname;
+    if (hostname && !hosts.includes(hostname)) hosts.push(hostname);
+  } catch {
+    /* keep external hosts only */
+  }
+  if (process.env.NODE_ENV !== "production") {
+    for (const host of ["localhost", "127.0.0.1"]) {
+      if (!hosts.includes(host)) hosts.push(host);
+    }
+  }
+  return hosts;
+}
+
+function isAllowedCalculatorIframeSrc(src: string): boolean {
+  if (src.startsWith(CALCULATOR_EMBED_PREFIX)) return true;
+  try {
+    const { hostname, pathname } = new URL(src, getSiteOrigin());
+    return siteIframeHostnames().includes(hostname) && pathname.startsWith(CALCULATOR_EMBED_PREFIX);
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Strips scripts/event handlers while keeping typical article HTML.
@@ -85,6 +121,17 @@ export function sanitizeInsightBody(html: string): string {
     allowedSchemes: ["http", "https", "mailto", "tel"],
     allowProtocolRelative: false,
     allowVulnerableTags: true,
-    allowedIframeHostnames: ["www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"],
+    allowedIframeHostnames: siteIframeHostnames(),
+    // Calculator embeds use same-origin paths like /embed/calculators/future-value.
+    allowIframeRelativeUrls: true,
+    transformTags: {
+      iframe: (tagName, attribs) => {
+        const src = attribs.src;
+        if (typeof src === "string" && src.startsWith("/") && !isAllowedCalculatorIframeSrc(src)) {
+          delete attribs.src;
+        }
+        return { tagName, attribs };
+      },
+    },
   });
 }

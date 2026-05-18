@@ -48,7 +48,28 @@ type Props = {
 
 const STUDIO_SELECT_CLASS =
   "w-full rounded-lg border border-white/15 bg-zinc-950 p-2.5 text-sm text-zinc-50 shadow-inner outline-none focus:border-teal-500/40 [&>option]:bg-zinc-950 [&>option]:text-zinc-50";
+const STUDIO_FIELD_CLASS =
+  "w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-teal-500/40";
+const STUDIO_FIELD_LABEL_CLASS =
+  "mb-1 block text-xs font-bold uppercase tracking-[0.14em] text-zinc-300";
+const STUDIO_FIELD_HINT_CLASS = "mt-1 text-[11px] leading-relaxed text-zinc-500";
 const RECENT_BLOG_POSTS_LIMIT = 5;
+const STUDIO_WIP_STORAGE_KEY = "asbrokers-blog-studio-wip";
+const WIP_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+
+type StudioWipSnapshot = {
+  savedAt: string;
+  selectedId: string | null;
+  title: string;
+  slug: string;
+  excerpt: string;
+  metaTitle: string;
+  metaDescription: string;
+  rawHtml: string;
+  imageUrls: Record<number, string>;
+  calcSelection: Record<number, string>;
+  videoUrls: Record<number, string>;
+};
 
 const IMAGE_TOKEN = "[IMAGE_SLOT]";
 const CALC_TOKEN = "[CALCULATOR_SLOT]";
@@ -482,6 +503,8 @@ export function BlogStudioClient(props: Props) {
   const [metaDescription, setMetaDescription] = useState("");
   const [showAllPosts, setShowAllPosts] = useState(false);
   const [lifecyclePostId, setLifecyclePostId] = useState<string | null>(null);
+  const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
+  const [wipRestoreOffer, setWipRestoreOffer] = useState<StudioWipSnapshot | null>(null);
 
   const embedReadySnippets = useMemo(
     () => CALCULATOR_CODE_SNIPPETS.filter(isEmbedReadyCalculatorSnippet),
@@ -506,6 +529,56 @@ export function BlogStudioClient(props: Props) {
   useEffect(() => {
     setLocalPosts(initialPosts);
   }, [initialPosts]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STUDIO_WIP_STORAGE_KEY);
+      if (!raw) return;
+      const wip = JSON.parse(raw) as StudioWipSnapshot;
+      if (Date.now() - new Date(wip.savedAt).getTime() > WIP_MAX_AGE_MS) {
+        localStorage.removeItem(STUDIO_WIP_STORAGE_KEY);
+        return;
+      }
+      setWipRestoreOffer(wip);
+    } catch {
+      localStorage.removeItem(STUDIO_WIP_STORAGE_KEY);
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      try {
+        const snapshot: StudioWipSnapshot = {
+          savedAt: new Date().toISOString(),
+          selectedId,
+          title,
+          slug,
+          excerpt,
+          metaTitle,
+          metaDescription,
+          rawHtml,
+          imageUrls,
+          calcSelection,
+          videoUrls,
+        };
+        localStorage.setItem(STUDIO_WIP_STORAGE_KEY, JSON.stringify(snapshot));
+      } catch {
+        /* quota or private mode */
+      }
+    }, 1500);
+    return () => window.clearTimeout(timer);
+  }, [
+    selectedId,
+    title,
+    slug,
+    excerpt,
+    metaTitle,
+    metaDescription,
+    rawHtml,
+    imageUrls,
+    calcSelection,
+    videoUrls,
+  ]);
 
   useEffect(() => {
     if (!showAllPosts) return;
@@ -580,6 +653,40 @@ export function BlogStudioClient(props: Props) {
     setVideoUrls({});
   }
 
+  function clearStudioWip() {
+    try {
+      localStorage.removeItem(STUDIO_WIP_STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+    setWipRestoreOffer(null);
+  }
+
+  function restoreStudioWip(wip: StudioWipSnapshot) {
+    setSelectedId(wip.selectedId);
+    setTitle(wip.title);
+    setSlug(wip.slug);
+    setExcerpt(wip.excerpt);
+    setMetaTitle(wip.metaTitle);
+    setMetaDescription(wip.metaDescription);
+    setRawHtml(wip.rawHtml || SAMPLE_HTML);
+    setImageUrls(wip.imageUrls);
+    setCalcSelection(wip.calcSelection);
+    setVideoUrls(wip.videoUrls);
+    setSlotFiles({});
+    setUploadingSlots({});
+    setSlotMessages({});
+    if (wip.selectedId) {
+      const post = localPosts.find((item) => item.id === wip.selectedId);
+      setCurrentPostStatus(post?.status ?? "draft");
+    } else {
+      setCurrentPostStatus("draft");
+    }
+    clearStudioWip();
+    setStatus("Restored unsaved work");
+    setBanner("Restored your last session from this browser. Click Save draft to store it in the database.");
+  }
+
   function startNewDraft() {
     setSelectedId(null);
     setCurrentPostStatus("draft");
@@ -590,6 +697,8 @@ export function BlogStudioClient(props: Props) {
     setMetaTitle("");
     setMetaDescription("");
     resetSlotState();
+    clearStudioWip();
+    setLastSavedAt(null);
     setStatus("New draft");
     setBanner("Started a new draft. Save it to keep editing later.");
   }
@@ -616,6 +725,7 @@ export function BlogStudioClient(props: Props) {
     if (post.heroImageUrl) {
       setImageUrls({ 0: post.heroImageUrl });
     }
+    setLastSavedAt(post.updatedAt);
     setStatus(post.status === "published" ? "Editing published post" : "Editing draft");
     setBanner(`Loaded "${post.title}" for editing.`);
   }
@@ -978,6 +1088,8 @@ export function BlogStudioClient(props: Props) {
         );
       });
       if (!publish) {
+        clearStudioWip();
+        setLastSavedAt(new Date().toISOString());
         setStatus(currentPostStatus === "published" ? "Published post saved" : "Draft saved");
         setBanner(currentPostStatus === "published" ? "Published post updated successfully." : "Draft saved successfully.");
         router.refresh();
@@ -1003,6 +1115,8 @@ export function BlogStudioClient(props: Props) {
             : post
         )
       );
+      clearStudioWip();
+      setLastSavedAt(new Date().toISOString());
       setStatus("Published");
       setBanner("Post published successfully.");
       router.refresh();
@@ -1278,45 +1392,134 @@ export function BlogStudioClient(props: Props) {
           </div>
 
           <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
-            <h2 className="mb-3 text-lg font-bold text-white">Step 4: Post Details</h2>
-            <div className="grid grid-cols-1 gap-2">
-              <input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Title (required)"
-                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
-              />
-              <input
-                value={slug}
-                onChange={(e) => setSlug(e.target.value)}
-                placeholder="Slug (required)"
-                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 font-mono text-sm text-zinc-100"
-              />
-              <input
-                value={excerpt}
-                onChange={(e) => setExcerpt(e.target.value)}
-                placeholder="Excerpt (required)"
-                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
-              />
-              <input
-                value={metaTitle}
-                onChange={(e) => setMetaTitle(e.target.value)}
-                placeholder="SEO title (optional)"
-                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
-              />
-              <input
-                value={metaDescription}
-                onChange={(e) => setMetaDescription(e.target.value)}
-                placeholder="SEO description (optional)"
-                className="rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100"
-              />
+            <h2 className="mb-1 text-lg font-bold text-white">Step 4: Post Details</h2>
+            <p className="mb-4 text-sm text-zinc-400">
+              Each field keeps its label while you type. Save stores title, slug, article HTML, images, and
+              calculator choices so a refresh will not lose your work.
+            </p>
+            {wipRestoreOffer && (
+              <div className="mb-4 rounded-lg border border-amber-500/35 bg-amber-500/10 p-3">
+                <p className="text-sm text-amber-100">
+                  Unsaved work found from{" "}
+                  {new Date(wipRestoreOffer.savedAt).toLocaleString("en-ZA", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })}
+                  .
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => restoreStudioWip(wipRestoreOffer)}
+                    className="rounded-md bg-amber-400 px-3 py-1.5 text-xs font-bold text-amber-950"
+                  >
+                    Restore session
+                  </button>
+                  <button
+                    type="button"
+                    onClick={clearStudioWip}
+                    className="rounded-md border border-white/15 px-3 py-1.5 text-xs font-semibold text-zinc-200"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <label htmlFor="studio-post-title" className={STUDIO_FIELD_LABEL_CLASS}>
+                  Article title <span className="text-teal-400">*</span>
+                </label>
+                <input
+                  id="studio-post-title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="e.g. Inflation Risk in Retirement"
+                  className={STUDIO_FIELD_CLASS}
+                  autoComplete="off"
+                />
+                <p className={STUDIO_FIELD_HINT_CLASS}>Main headline on the published insights page.</p>
+              </div>
+              <div>
+                <label htmlFor="studio-post-slug" className={STUDIO_FIELD_LABEL_CLASS}>
+                  URL slug <span className="text-teal-400">*</span>
+                </label>
+                <input
+                  id="studio-post-slug"
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  placeholder="e.g. inflation-risk-retirement"
+                  className={`${STUDIO_FIELD_CLASS} font-mono`}
+                  autoComplete="off"
+                />
+                <p className={STUDIO_FIELD_HINT_CLASS}>Lowercase words separated by hyphens. Used in /insights/your-slug.</p>
+              </div>
+              <div>
+                <label htmlFor="studio-post-excerpt" className={STUDIO_FIELD_LABEL_CLASS}>
+                  Short summary <span className="text-teal-400">*</span>
+                </label>
+                <textarea
+                  id="studio-post-excerpt"
+                  value={excerpt}
+                  onChange={(e) => setExcerpt(e.target.value)}
+                  placeholder="One or two sentences for the insights listing card"
+                  rows={3}
+                  className={STUDIO_FIELD_CLASS}
+                />
+                <p className={STUDIO_FIELD_HINT_CLASS}>Shown under the title on the insights feed.</p>
+              </div>
+              <div>
+                <label htmlFor="studio-post-meta-title" className={STUDIO_FIELD_LABEL_CLASS}>
+                  SEO title <span className="font-normal normal-case tracking-normal text-zinc-500">(optional)</span>
+                </label>
+                <input
+                  id="studio-post-meta-title"
+                  value={metaTitle}
+                  onChange={(e) => setMetaTitle(e.target.value)}
+                  placeholder="Search result title — defaults to article title"
+                  className={STUDIO_FIELD_CLASS}
+                  autoComplete="off"
+                />
+              </div>
+              <div>
+                <label htmlFor="studio-post-meta-description" className={STUDIO_FIELD_LABEL_CLASS}>
+                  SEO description <span className="font-normal normal-case tracking-normal text-zinc-500">(optional)</span>
+                </label>
+                <textarea
+                  id="studio-post-meta-description"
+                  value={metaDescription}
+                  onChange={(e) => setMetaDescription(e.target.value)}
+                  placeholder="Search snippet — defaults to short summary"
+                  rows={2}
+                  className={STUDIO_FIELD_CLASS}
+                />
+              </div>
             </div>
             {imageUrls[0] && (
-              <div className="mt-3 flex items-center space-x-3 rounded-lg border border-white/10 bg-black/30 p-3">
+              <div className="mt-4 flex items-center space-x-3 rounded-lg border border-white/10 bg-black/30 p-3">
                 <img src={imageUrls[0]} alt="Thumbnail" className="h-12 w-12 rounded border border-white/10 object-cover" />
                 <p className="text-xs text-zinc-400">Cover thumbnail auto-mapped from Image Slot #1.</p>
               </div>
             )}
+            <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-white/10 pt-4">
+              <button
+                type="button"
+                onClick={() => saveOrPublish(false)}
+                disabled={isPending || !databaseConfigured}
+                className="rounded-lg border border-teal-500/40 bg-teal-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-teal-500 disabled:opacity-50"
+              >
+                {isPending ? "Saving…" : currentPostStatus === "published" ? "Save live changes" : "Save draft"}
+              </button>
+              {lastSavedAt && (
+                <p className="text-xs text-zinc-500">
+                  Last saved {formatStudioDate(lastSavedAt)} at{" "}
+                  {new Date(lastSavedAt).toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit" })}
+                </p>
+              )}
+              {!databaseConfigured && (
+                <p className="text-xs text-amber-300">Connect the database before saving.</p>
+              )}
+            </div>
           </div>
 
           <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">

@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, LogOut, Presentation, FileText, Scroll } from "@/components/icons";
+import { LayoutDashboard, LogOut, Presentation, FileText, Scroll, LineChart } from "@/components/icons";
 import { logout } from "@/app/login/logout";
 
 const navItems = [
   { href: "/crm", label: "Office", icon: LayoutDashboard },
   { href: "/crm/presentation", label: "Wealth Presentation", icon: Presentation },
-  { href: "/studio", label: "Blog & content", icon: FileText },
-  { href: "/studio/blog", label: "Insights Studio (HTML)", icon: FileText },
+  { href: "/crm/calculators", label: "Calculators", icon: LineChart },
+  { href: "/studio/blog", label: "Blog & content", icon: FileText },
   { href: "/insights", label: "View insights (site)", icon: Scroll },
 ];
 
@@ -28,7 +28,10 @@ export function CrmSidebar({ name }: { name: string }) {
         </div>
         <nav className="flex-1 p-3 space-y-1">
           {navItems.map(({ href, label, icon: Icon }) => {
-            const active = pathname === href || (href !== "/crm" && pathname.startsWith(href));
+            const active =
+              href === "/crm"
+                ? pathname === "/crm"
+                : pathname === href || pathname.startsWith(`${href}/`);
             return (
               <Link
                 key={href}
@@ -76,11 +79,11 @@ export function CrmSidebar({ name }: { name: string }) {
           <Link href="/crm/presentation" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
             Presentation
           </Link>
-          <Link href="/studio" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
-            Studio
+          <Link href="/crm/calculators" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
+            Calculators
           </Link>
           <Link href="/studio/blog" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
-            Insights Studio
+            Blog
           </Link>
           <Link href="/insights" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
             Insights

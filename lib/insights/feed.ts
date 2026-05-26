@@ -3,6 +3,7 @@ import "server-only";
 import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightsListQuery } from "@/sanity/lib/queries";
+import { normalizeInsightCategories } from "@/lib/insights/insightCategories";
 
 export type InsightFeedItem = {
   id: string;
@@ -26,11 +27,6 @@ type SanityStub = {
   excerpt: string | null;
   thumbnailUrl?: string | null;
 };
-
-function normalizeCategories(value: unknown): string[] {
-  if (Array.isArray(value)) return value.filter((v): v is string => typeof v === "string");
-  return [];
-}
 
 function toIso(d: string | Date): string {
   if (typeof d === "string") return d;
@@ -97,7 +93,7 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
       author: "AS Brokers",
       thumbnailUrl: r.heroImageUrl ?? firstImageSrcFromHtml(r.bodyHtmlPublished),
       source: "studio" as const,
-      categories: normalizeCategories((r as unknown as { categories?: unknown }).categories),
+      categories: normalizeInsightCategories(r.categories),
     }));
 
   const sanitySlugKeys = new Set(sanityItems.map((item) => `${item.slug}::${item.locale}`));

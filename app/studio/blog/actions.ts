@@ -31,7 +31,7 @@ import { collectErrorText } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightSlugExistsQuery } from "@/sanity/lib/queries";
-import { INSIGHT_CATEGORIES } from "@/lib/insights/insightCategories";
+import { INSIGHT_CATEGORIES, normalizeInsightCategories } from "@/lib/insights/insightCategories";
 
 const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
 
@@ -343,7 +343,7 @@ export async function publishStudioPost(
     slug: row.slug,
     locale: localeSafe,
     excerpt: row.excerpt,
-    categories: (row.categories as unknown as string[]) ?? [],
+    categories: normalizeInsightCategories(row.categories),
     bodyHtml: row.bodyHtml,
     heroImageUrl: row.heroImageUrl,
     metaTitle: row.metaTitle,
@@ -353,6 +353,13 @@ export async function publishStudioPost(
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Fix fields before publishing." };
+  }
+  if (parsed.data.categories.length === 0) {
+    return {
+      ok: false,
+      error:
+        "Select at least one category in Step 4 (tick boxes), save the post, then publish.",
+    };
   }
   const heroImageUrl = (parsed.data.heroImageUrl ?? "").trim();
   if (!heroImageUrl) {

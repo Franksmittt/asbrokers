@@ -1,4 +1,5 @@
 import { BlogStudioClient, type SerializableStudioPost } from "@/components/client-studio/BlogStudioClient";
+import { normalizeInsightCategories } from "@/lib/insights/insightCategories";
 import { fetchNotebookNotesInitial } from "@/lib/client-studio/notebook-server";
 import { listAllStudioPosts } from "@/lib/client-studio/posts";
 import { isStudioPostsStorageConfigured } from "@/lib/client-studio/studio-storage";
@@ -23,9 +24,7 @@ function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>["rows"])
     metaDescription: r.metaDescription,
     calculatorName: r.calculatorName,
     calculatorCode: r.calculatorCode,
-    categories: Array.isArray(r.categories)
-      ? r.categories.filter((v): v is string => typeof v === "string")
-      : [],
+    categories: normalizeInsightCategories(r.categories),
     publishedAt: r.publishedAt?.toISOString() ?? null,
     createdAt: r.createdAt.toISOString(),
     updatedAt: r.updatedAt.toISOString(),

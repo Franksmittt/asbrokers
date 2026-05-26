@@ -23,3 +23,27 @@ export const INSIGHT_CATEGORY_LABEL_BY_VALUE: Record<InsightCategoryValue, strin
 
 export const UNCATEGORIZED_VALUE = "__uncategorized__" as const;
 
+const CATEGORY_VALUE_SET = new Set<string>(INSIGHT_CATEGORY_VALUES);
+
+/** Normalize DB/json shapes into validated category values. */
+export function normalizeInsightCategories(value: unknown): InsightCategoryValue[] {
+  let raw: unknown[] = [];
+  if (Array.isArray(value)) {
+    raw = value;
+  } else if (typeof value === "string" && value.trim()) {
+    try {
+      const parsed = JSON.parse(value) as unknown;
+      if (Array.isArray(parsed)) raw = parsed;
+    } catch {
+      raw = [];
+    }
+  }
+  const seen = new Set<InsightCategoryValue>();
+  for (const entry of raw) {
+    if (typeof entry !== "string") continue;
+    if (!CATEGORY_VALUE_SET.has(entry)) continue;
+    seen.add(entry as InsightCategoryValue);
+  }
+  return [...seen];
+}
+

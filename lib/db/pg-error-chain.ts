@@ -29,6 +29,16 @@ export function isMissingCalculatorColumnsError(error: unknown): boolean {
   );
 }
 
+export function isMissingCategoriesColumnError(error: unknown): boolean {
+  const text = collectErrorText(error);
+  if (!text.includes("categories")) return false;
+  return (
+    text.includes("does not exist") ||
+    text.includes("42703") ||
+    (text.includes("column") && text.includes("categories"))
+  );
+}
+
 export function isPostgresConnectionError(error: unknown): boolean {
   const text = collectErrorText(error);
   return (

@@ -1,6 +1,7 @@
 import "server-only";
 
 import type { ClientInsightPostRow } from "@/lib/client-studio/client-insight-db";
+import { normalizeInsightCategories } from "@/lib/insights/insightCategories";
 import { getSupabaseService } from "@/lib/supabase/server";
 
 type SupabasePostRow = {
@@ -38,10 +39,7 @@ export type WritableStudioPostFields = {
 };
 
 function mapRow(row: SupabasePostRow): ClientInsightPostRow {
-  const categoriesRaw = row.categories as unknown;
-  const categories = Array.isArray(categoriesRaw)
-    ? categoriesRaw.filter((v): v is string => typeof v === "string")
-    : [];
+  const categories = normalizeInsightCategories(row.categories);
   return {
     id: row.id,
     slug: row.slug,

@@ -14,7 +14,12 @@ import {
   CALCULATOR_CODE_SNIPPETS,
   isEmbedReadyCalculatorSnippet,
 } from "@/lib/client-studio/calculator-code-pack";
-import { INSIGHT_CATEGORIES } from "@/lib/insights/insightCategories";
+import {
+  INSIGHT_CATEGORIES,
+  INSIGHT_CATEGORY_LABEL_BY_VALUE,
+  normalizeInsightCategories,
+  type InsightCategoryValue,
+} from "@/lib/insights/insightCategories";
 import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -558,7 +563,7 @@ export function BlogStudioClient(props: Props) {
           title,
           slug,
           excerpt,
-          categories: selectedCategories,
+          categories: normalizeInsightCategories(selectedCategories),
           metaTitle,
           metaDescription,
           rawHtml,
@@ -722,12 +727,13 @@ export function BlogStudioClient(props: Props) {
       setBanner("Could not find that post in the current workspace list.");
       return;
     }
+    const categories = normalizeInsightCategories(post.categories);
     setSelectedId(post.id);
     setCurrentPostStatus(post.status);
     setTitle(post.title);
     setSlug(post.slug);
     setExcerpt(post.excerpt ?? "");
-    setSelectedCategories(post.categories ?? []);
+    setSelectedCategories(categories);
     setRawHtml(post.bodyHtml || post.bodyHtmlPublished || SAMPLE_HTML);
     setMetaTitle(post.metaTitle ?? "");
     setMetaDescription(post.metaDescription ?? "");
@@ -737,7 +743,14 @@ export function BlogStudioClient(props: Props) {
     }
     setLastSavedAt(post.updatedAt);
     setStatus(post.status === "published" ? "Editing published post" : "Editing draft");
-    setBanner(`Loaded "${post.title}" for editing.`);
+    setBanner(
+      categories.length === 0
+        ? `Loaded "${post.title}". This older post has no categories yet — tick one or more in Step 4, then Save.`
+        : `Loaded "${post.title}" for editing.`
+    );
+    requestAnimationFrame(() => {
+      document.getElementById("studio-categories")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
   }
 
   function openPostForEditing(postId: string) {
@@ -771,6 +784,56 @@ export function BlogStudioClient(props: Props) {
           }
           setBanner(`"${post.title}" is hidden from Insights.`);
         } else {
+          const savedCategories = normalizeInsightCategories(post.categories);
+          const editingThisPost = selectedId === post.id;
+          const effectiveCategories = editingThisPost ? selectedCategories : savedCategories;
+
+          if (effectiveCategories.length === 0) {
+            openPostForEditing(post.id);
+            setBanner(
+              "Add at least one category in Step 4 (tick boxes), click Save draft, then publish or switch Live on."
+            );
+            return;
+          }
+
+          if (editingThisPost) {
+            const derivedTitle = title.trim() || firstH1(rawHtml) || post.title;
+            const derivedSlug = slug.trim() || slugifyTitle(derivedTitle);
+            const normalized = normalizeAiHtml(resolvedForPersist);
+            const saveRes = await saveStudioPost(post.id, {
+              title: derivedTitle,
+              slug: derivedSlug,
+              locale: "en",
+              excerpt: excerpt.trim() || null,
+              categories: normalizeInsightCategories(selectedCategories),
+              bodyHtml: normalized,
+              heroImageUrl: imageUrls[0] ?? post.heroImageUrl,
+              metaTitle: metaTitle.trim() || derivedTitle,
+              metaDescription: metaDescription.trim() || excerpt.trim() || null,
+              calculatorName: null,
+              calculatorCode: null,
+            });
+            if (!saveRes.ok) {
+              setBanner(saveRes.error);
+              return;
+            }
+            setLocalPosts((prev) =>
+              prev.map((item) =>
+                item.id === post.id
+                  ? {
+                      ...item,
+                      title: derivedTitle,
+                      slug: derivedSlug,
+                      excerpt: excerpt.trim() || null,
+                      categories: normalizeInsightCategories(selectedCategories),
+                      bodyHtml: normalized,
+                      updatedAt: new Date().toISOString(),
+                    }
+                  : item
+              )
+            );
+          }
+
           const result = await publishStudioPost(post.id);
           if (!result.ok) {
             setBanner(result.error);
@@ -784,6 +847,7 @@ export function BlogStudioClient(props: Props) {
                     ...item,
                     status: "published",
                     bodyHtmlPublished: item.bodyHtml,
+                    categories: editingThisPost ? selectedCategories : item.categories,
                     publishedAt,
                     updatedAt: publishedAt,
                   }
@@ -861,6 +925,22 @@ export function BlogStudioClient(props: Props) {
               Updated {formatStudioDate(post.updatedAt)}
               {post.publishedAt ? ` · Published ${formatStudioDate(post.publishedAt)}` : ""}
             </p>
+            {normalizeInsightCategories(post.categories).length > 0 ? (
+              <p className="mt-2 flex flex-wrap gap-1.5">
+                {normalizeInsightCategories(post.categories).map((value) => (
+                  <span
+                    key={`${post.id}-${value}`}
+                    className="rounded-full border border-teal-500/25 bg-teal-500/10 px-2 py-0.5 text-[10px] font-semibold text-teal-100"
+                  >
+                    {INSIGHT_CATEGORY_LABEL_BY_VALUE[value as InsightCategoryValue]}
+                  </span>
+                ))}
+              </p>
+            ) : (
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-amber-300/90">
+                No categories yet
+              </p>
+            )}
           </button>
           <div className="flex shrink-0 flex-col items-end gap-2">
             <button
@@ -1051,7 +1131,7 @@ export function BlogStudioClient(props: Props) {
         slug: derivedSlug,
         locale: "en",
         excerpt: excerpt.trim() || null,
-        categories: selectedCategories,
+        categories: normalizeInsightCategories(selectedCategories),
         bodyHtml: normalized,
         heroImageUrl: hero,
         metaTitle: metaTitle.trim() || derivedTitle,
@@ -1060,7 +1140,11 @@ export function BlogStudioClient(props: Props) {
         calculatorCode: null,
       });
       if (!saveRes.ok) {
-        setBanner(saveRes.error);
+        setBanner(
+          saveRes.error.includes("categories")
+            ? `${saveRes.error} Run npm run db:push if the categories column is missing.`
+            : saveRes.error
+        );
         return;
       }
       setSelectedId(saveRes.id);
@@ -1072,7 +1156,7 @@ export function BlogStudioClient(props: Props) {
         locale: "en",
         title: derivedTitle,
         excerpt: excerpt.trim() || null,
-        categories: selectedCategories,
+        categories: normalizeInsightCategories(selectedCategories),
         bodyHtml: normalized,
         bodyHtmlPublished: currentPostStatus === "published" ? normalized : null,
         status: currentPostStatus === "published" ? "published" : "draft",
@@ -1480,7 +1564,7 @@ export function BlogStudioClient(props: Props) {
                 />
                 <p className={STUDIO_FIELD_HINT_CLASS}>Shown under the title on the insights feed.</p>
               </div>
-              <div>
+              <div id="studio-categories">
                 <label className={STUDIO_FIELD_LABEL_CLASS}>
                   Categories <span className="text-teal-400">*</span>
                 </label>
@@ -1503,7 +1587,10 @@ export function BlogStudioClient(props: Props) {
                     );
                   })}
                 </div>
-                <p className={STUDIO_FIELD_HINT_CLASS}>Pick one or more so clients can filter on the Insights page.</p>
+                <p className={STUDIO_FIELD_HINT_CLASS}>
+                  Pick one or more so clients can filter on the Insights page. Older posts can be updated here any
+                  time — tick categories, then Save draft (or Save live changes).
+                </p>
               </div>
               <div>
                 <label htmlFor="studio-post-meta-title" className={STUDIO_FIELD_LABEL_CLASS}>

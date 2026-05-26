@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     "alternative private equity investments South Africa",
   ],
   manifest: "/manifest.json",
+  verification: {
+    google: "zgoH05kyB4lknFvZmobzDyb9Hl9au5byOwC9fNZgyp4",
+  },
   openGraph: {
     type: "website",
     locale: "en_ZA",

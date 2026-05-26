@@ -6,13 +6,25 @@ import { useMemo, useState } from "react";
 import type { InsightFeedItem } from "@/lib/insights/feed";
 import {
   INSIGHT_CATEGORIES,
+  INSIGHT_CATEGORY_LABEL_BY_VALUE,
   UNCATEGORIZED_VALUE,
+  type InsightCategoryValue,
 } from "@/lib/insights/insightCategories";
+
+type DatePreset = "all" | "6m" | "1y" | "custom";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-ZA", {
     year: "numeric",
     month: "long",
+    day: "numeric",
+  });
+}
+
+function formatDateShort(iso: string) {
+  return new Date(iso).toLocaleDateString("en-ZA", {
+    year: "numeric",
+    month: "short",
     day: "numeric",
   });
 }
@@ -23,13 +35,66 @@ type Props = {
 
 export function InsightsFeedFilter({ articles }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [fromDate, setFromDate] = useState<string>("");
-  const [toDate, setToDate] = useState<string>("");
+  const [datePreset, setDatePreset] = useState<DatePreset>("all");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [filtersOpen, setFiltersOpen] = useState(true);
+
+  const categoryCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const article of articles) {
+      const cats = article.categories ?? [];
+      if (cats.length === 0) {
+        counts.set(UNCATEGORIZED_VALUE, (counts.get(UNCATEGORIZED_VALUE) ?? 0) + 1);
+      } else {
+        for (const c of cats) {
+          counts.set(c, (counts.get(c) ?? 0) + 1);
+        }
+      }
+    }
+    return counts;
+  }, [articles]);
+
+  const visibleCategories = useMemo(() => {
+    type FilterCategory = { value: string; label: string; count: number };
+    const list: FilterCategory[] = INSIGHT_CATEGORIES.filter(
+      (c) => (categoryCounts.get(c.value) ?? 0) > 0
+    ).map((c) => ({
+      value: c.value,
+      label: c.label,
+      count: categoryCounts.get(c.value) ?? 0,
+    }));
+    if ((categoryCounts.get(UNCATEGORIZED_VALUE) ?? 0) > 0) {
+      list.push({
+        value: UNCATEGORIZED_VALUE,
+        label: "General",
+        count: categoryCounts.get(UNCATEGORIZED_VALUE) ?? 0,
+      });
+    }
+    return list;
+  }, [categoryCounts]);
+
+  const dateRange = useMemo(() => {
+    if (datePreset === "all") return { fromMs: null as number | null, toMs: null as number | null };
+    const now = new Date();
+    const nowMs = now.getTime();
+    if (datePreset === "6m") {
+      const from = new Date(now);
+      from.setMonth(from.getMonth() - 6);
+      return { fromMs: from.getTime(), toMs: nowMs };
+    }
+    if (datePreset === "1y") {
+      const from = new Date(now);
+      from.setFullYear(from.getFullYear() - 1);
+      return { fromMs: from.getTime(), toMs: nowMs };
+    }
+    const fromMs = fromDate ? new Date(`${fromDate}T00:00:00`).getTime() : null;
+    const customToMs = toDate ? new Date(`${toDate}T23:59:59.999`).getTime() : null;
+    return { fromMs, toMs: customToMs };
+  }, [datePreset, fromDate, toDate]);
 
   const filtered = useMemo(() => {
-    const fromMs = fromDate ? new Date(`${fromDate}T00:00:00`).getTime() : null;
-    const toMs = toDate ? new Date(`${toDate}T23:59:59.999`).getTime() : null;
-
+    const { fromMs, toMs } = dateRange;
     const selected = new Set(selectedCategories);
     const selectedCategoryValues = selectedCategories.filter((c) => c !== UNCATEGORIZED_VALUE);
 
@@ -43,173 +108,318 @@ export function InsightsFeedFilter({ articles }: Props) {
         const hasUncategorized = itemCategories.length === 0;
         const wantsUncategorized = selected.has(UNCATEGORIZED_VALUE);
         if (wantsUncategorized && hasUncategorized) return true;
-
         if (selectedCategoryValues.length === 0) return false;
         return selectedCategoryValues.some((c) => itemCategories.includes(c));
       }
 
-      // No category filter selected.
       return true;
     });
-  }, [articles, fromDate, selectedCategories, toDate]);
+  }, [articles, dateRange, selectedCategories]);
 
-  const categoryOptions = useMemo(() => {
-    const uncategorizedLabel = "Uncategorized";
-    return [
-      ...INSIGHT_CATEGORIES.map((c) => ({ value: c.value, label: c.label })),
-      { value: UNCATEGORIZED_VALUE, label: uncategorizedLabel },
-    ];
-  }, []);
+  const hasActiveFilters =
+    selectedCategories.length > 0 || datePreset !== "all" || Boolean(fromDate) || Boolean(toDate);
 
   function toggleCategory(value: string) {
-    setSelectedCategories((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
+    setSelectedCategories((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
   }
 
+  function clearAllFilters() {
+    setSelectedCategories([]);
+    setDatePreset("all");
+    setFromDate("");
+    setToDate("");
+  }
+
+  function selectDatePreset(preset: DatePreset) {
+    setDatePreset(preset);
+    if (preset !== "custom") {
+      setFromDate("");
+      setToDate("");
+    }
+  }
+
+  const activeFilterChips = useMemo(() => {
+    const chips: { key: string; label: string; onRemove: () => void }[] = [];
+    for (const value of selectedCategories) {
+      const label =
+        value === UNCATEGORIZED_VALUE
+          ? "General"
+          : INSIGHT_CATEGORY_LABEL_BY_VALUE[value as InsightCategoryValue] ?? value;
+      chips.push({
+        key: `cat-${value}`,
+        label,
+        onRemove: () => setSelectedCategories((prev) => prev.filter((v) => v !== value)),
+      });
+    }
+    if (datePreset === "6m") {
+      chips.push({ key: "date-6m", label: "Last 6 months", onRemove: () => selectDatePreset("all") });
+    } else if (datePreset === "1y") {
+      chips.push({ key: "date-1y", label: "Last 12 months", onRemove: () => selectDatePreset("all") });
+    } else if (datePreset === "custom" && (fromDate || toDate)) {
+      const label =
+        fromDate && toDate
+          ? `${formatDateShort(fromDate)} – ${formatDateShort(toDate)}`
+          : fromDate
+            ? `From ${formatDateShort(fromDate)}`
+            : `Until ${formatDateShort(toDate)}`;
+      chips.push({
+        key: "date-custom",
+        label,
+        onRemove: () => selectDatePreset("all"),
+      });
+    }
+    return chips;
+  }, [selectedCategories, datePreset, fromDate, toDate]);
+
   return (
-    <div className="mt-8">
-      <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-12">
-        <div className="lg:col-span-6 rounded-2xl bg-[#151518] border border-white/10 p-4 md:p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400/90">Filter by category</p>
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-3">
-            {categoryOptions.map((opt) => {
-              const checked = selectedCategories.includes(opt.value);
-              return (
-                <label key={opt.value} className="inline-flex items-center gap-2 text-sm text-zinc-300">
-                  <input type="checkbox" checked={checked} onChange={() => toggleCategory(opt.value)} />
-                  <span className="select-none">{opt.label}</span>
-                </label>
-              );
-            })}
+    <div className="mt-10">
+      {/* Filter toolbar */}
+      <div className="rim-light rounded-[2rem] border-0 overflow-hidden">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 px-5 py-4 sm:px-6">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cinematic-teal">Refine</p>
+            <p className="mt-0.5 text-sm text-zinc-400">
+              {filtered.length} of {articles.length} article{articles.length === 1 ? "" : "s"}
+            </p>
           </div>
-          <button
-            type="button"
-            onClick={() => setSelectedCategories([])}
-            className="mt-4 text-xs font-semibold text-teal-400 hover:text-teal-300"
-          >
-            Clear categories
-          </button>
+          <div className="flex items-center gap-2">
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={clearAllFilters}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-300 transition hover:bg-white/10 hover:text-white"
+              >
+                Clear all
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setFiltersOpen((o) => !o)}
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/10"
+              aria-expanded={filtersOpen}
+            >
+              {filtersOpen ? "Hide filters" : "Show filters"}
+            </button>
+          </div>
         </div>
 
-        <div className="lg:col-span-6 rounded-2xl bg-[#151518] border border-white/10 p-4 md:p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400/90">Filter by date</p>
-          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        {filtersOpen && (
+          <div className="space-y-6 px-5 py-5 sm:px-6 sm:py-6">
+            {/* Topics */}
+            {visibleCategories.length > 0 && (
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">Topics</p>
+                <div className="relative -mx-1">
+                  <div className="flex gap-2 overflow-x-auto pb-1 px-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10">
+                    {visibleCategories.map((cat) => {
+                      const active = selectedCategories.includes(cat.value);
+                      return (
+                        <button
+                          key={cat.value}
+                          type="button"
+                          onClick={() => toggleCategory(cat.value)}
+                          className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                            active
+                              ? "bg-cinematic-teal/20 text-cinematic-teal ring-1 ring-cinematic-teal/40 shadow-[0_0_20px_rgba(45,212,191,0.12)]"
+                              : "bg-white/5 text-zinc-300 ring-1 ring-white/10 hover:bg-white/10 hover:text-white"
+                          }`}
+                        >
+                          {cat.label}
+                          <span className={`ml-1.5 text-xs ${active ? "text-cinematic-teal/80" : "text-zinc-500"}`}>
+                            {cat.count}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Published */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-[0.14em] text-zinc-500">From</label>
-              <input
-                type="date"
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-                className="w-full mt-1 rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-teal-500/40"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-[0.14em] text-zinc-500">To</label>
-              <input
-                type="date"
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-                className="w-full mt-1 rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:ring-2 focus:ring-teal-500/40"
-              />
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">Published</p>
+              <div className="flex flex-wrap gap-2">
+                {(
+                  [
+                    { id: "all" as const, label: "All time" },
+                    { id: "6m" as const, label: "Last 6 months" },
+                    { id: "1y" as const, label: "Last 12 months" },
+                    { id: "custom" as const, label: "Custom range" },
+                  ] as const
+                ).map((preset) => {
+                  const active = datePreset === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      onClick={() => selectDatePreset(preset.id)}
+                      className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                        active
+                          ? "bg-white text-black shadow-sm"
+                          : "bg-white/5 text-zinc-300 ring-1 ring-white/10 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {preset.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {datePreset === "custom" && (
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 max-w-xl">
+                  <label className="block">
+                    <span className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                      From
+                    </span>
+                    <input
+                      type="date"
+                      value={fromDate}
+                      onChange={(e) => setFromDate(e.target.value)}
+                      className="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white [color-scheme:dark] focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                      To
+                    </span>
+                    <input
+                      type="date"
+                      value={toDate}
+                      onChange={(e) => setToDate(e.target.value)}
+                      className="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white [color-scheme:dark] focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25"
+                    />
+                  </label>
+                </div>
+              )}
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              setFromDate("");
-              setToDate("");
-            }}
-            className="mt-4 text-xs font-semibold text-teal-400 hover:text-teal-300"
-          >
-            Clear dates
-          </button>
-        </div>
+        )}
+
+        {/* Active filter chips */}
+        {activeFilterChips.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 border-t border-white/5 px-5 py-3 sm:px-6">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Active</span>
+            {activeFilterChips.map((chip) => (
+              <button
+                key={chip.key}
+                type="button"
+                onClick={chip.onRemove}
+                className="inline-flex items-center gap-1.5 rounded-full bg-cinematic-teal/15 pl-3 pr-2 py-1 text-xs font-medium text-cinematic-teal ring-1 ring-cinematic-teal/25 transition hover:bg-cinematic-teal/25"
+              >
+                {chip.label}
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cinematic-teal/20 text-[10px] leading-none">
+                  ×
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
+      {/* Results */}
       {articles.length === 0 ? (
-        <div className="rounded-2xl bg-[#151518] border border-white/10 p-8 md:p-12 text-center">
-          <p className="text-zinc-400 mb-6">
-            Our insight articles and resource hub are coming soon. We&apos;ll share regular updates on SA budget impact, estate planning,
-            retirement income, and Everest Wealth so you stay ahead.
+        <div className="mt-10 rim-light rounded-[2rem] border-0 p-10 md:p-14 text-center">
+          <p className="text-zinc-400 mb-8 max-w-md mx-auto leading-relaxed">
+            Our insight articles and resource hub are coming soon. We&apos;ll share regular updates on estate
+            planning, retirement income, and Everest Wealth so you stay ahead.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/calculators"
               prefetch={false}
-              className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:bg-zinc-200"
             >
               Use our calculators
             </Link>
             <Link
               href="/contact"
               prefetch={false}
-              className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3 rounded-full hover:bg-white/10 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               Get in touch
             </Link>
           </div>
         </div>
       ) : filtered.length > 0 ? (
-        <div className="rounded-2xl bg-[#151518] border border-white/10 p-5 md:p-6">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs text-zinc-500">
-              Showing <span className="text-zinc-200 font-semibold">{filtered.length}</span> article{filtered.length === 1 ? "" : "s"}
-            </p>
-            {(selectedCategories.length > 0 || fromDate || toDate) && (
-              <p className="text-xs text-zinc-500">
-                Filtered
-              </p>
-            )}
-          </div>
-          <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filtered.map((a) => (
-              <li key={`${a.id}::${a.slug}::${a.locale}`}>
-                <Link
-                  href={`/insights/${a.slug}?locale=${a.locale}`}
-                  className="group block h-full overflow-hidden rounded-2xl bg-[#151518] border border-white/10 hover:border-white/20 transition-colors"
-                >
-                  <div className="aspect-[16/9] w-full overflow-hidden bg-zinc-900">
-                    <img
-                      src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
-                      alt={a.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                    />
+        <ul className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {filtered.map((a) => (
+            <li key={`${a.id}::${a.slug}::${a.locale}`}>
+              <Link
+                href={`/insights/${a.slug}?locale=${a.locale}`}
+                className="group flex h-full flex-col overflow-hidden rounded-[2rem] rim-light border-0 transition-all duration-500 hover:bg-white/[0.07]"
+              >
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-zinc-900/80">
+                  <img
+                    src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/80 via-transparent to-transparent opacity-60" />
+                </div>
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <time
+                      className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500"
+                      dateTime={a.publishedAt}
+                    >
+                      {formatDateShort(a.publishedAt)}
+                    </time>
+                    {a.source === "studio" && (
+                      <span className="rounded-full bg-cinematic-teal/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-cinematic-teal">
+                        New
+                      </span>
+                    )}
                   </div>
-                  <div className="p-5 md:p-6">
-                    <div className="flex items-center justify-between gap-3">
-                      <time className="text-xs text-zinc-500 uppercase tracking-wider" dateTime={a.publishedAt}>
-                        {formatDate(a.publishedAt)}
-                      </time>
-                      {a.source === "studio" && (
-                        <span className="text-[10px] uppercase tracking-wider text-teal-500/90 shrink-0">Studio</span>
+                  <h2 className="mt-3 text-lg font-bold leading-snug text-white transition-colors group-hover:text-cinematic-teal">
+                    {a.title}
+                  </h2>
+                  {a.excerpt && (
+                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-400">{a.excerpt}</p>
+                  )}
+                  {(a.categories?.length ?? 0) > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {a.categories.slice(0, 2).map((value) => (
+                        <span
+                          key={value}
+                          className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-medium text-zinc-400 ring-1 ring-white/10"
+                        >
+                          {INSIGHT_CATEGORY_LABEL_BY_VALUE[value as InsightCategoryValue] ?? value}
+                        </span>
+                      ))}
+                      {a.categories.length > 2 && (
+                        <span className="rounded-full px-2 py-0.5 text-[10px] font-medium text-zinc-500">
+                          +{a.categories.length - 2}
+                        </span>
                       )}
                     </div>
-                    <h2 className="mt-2 text-lg font-semibold text-white leading-snug">{a.title}</h2>
-                    {a.excerpt && <p className="mt-2 text-zinc-400 line-clamp-3 text-sm">{a.excerpt}</p>}
-                    <p className="mt-3 text-xs uppercase tracking-wider text-zinc-500">By {a.author}</p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+                  )}
+                  <span className="mt-4 inline-flex items-center text-sm font-semibold text-cinematic-teal group-hover:underline">
+                    Read article →
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <div className="rounded-2xl bg-[#151518] border border-white/10 p-8 md:p-12 text-center">
-          <p className="text-zinc-400 mb-6">No articles match your current filters.</p>
+        <div className="mt-10 rim-light rounded-[2rem] border-0 p-10 md:p-12 text-center">
+          <p className="text-lg font-semibold text-white">No articles match</p>
+          <p className="mt-2 text-sm text-zinc-400 max-w-sm mx-auto">
+            Try clearing a topic or widening the date range to see more insights.
+          </p>
           <button
             type="button"
-            onClick={() => {
-              setSelectedCategories([]);
-              setFromDate("");
-              setToDate("");
-            }}
-            className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
+            onClick={clearAllFilters}
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:bg-zinc-200"
           >
-            Clear all filters
+            Reset filters
           </button>
         </div>
       )}
     </div>
   );
 }
-

@@ -9,8 +9,12 @@ import { pgTlsForSupabaseUrl } from "./lib/db/pg-supabase-tls";
 loadEnv({ path: resolve(process.cwd(), ".env") });
 loadEnv({ path: resolve(process.cwd(), ".env.local"), override: true });
 
-const databaseUrl =
-  process.env.DATABASE_URL?.trim() ?? "postgresql://localhost:5432/asbrokers";
+const databaseUrl = process.env.DATABASE_URL?.trim();
+if (!databaseUrl) {
+  throw new Error(
+    "DATABASE_URL is not set. Add your Postgres connection string to .env.local, then run npm run db:push again."
+  );
+}
 
 const parsed = parse(databaseUrl);
 /** drizzle-kit ignores `ssl` when `dbCredentials.url` is set — use discrete fields instead. */

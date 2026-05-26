@@ -23,6 +23,9 @@ function serialize(rows: Awaited<ReturnType<typeof listAllStudioPosts>>["rows"])
     metaDescription: r.metaDescription,
     calculatorName: r.calculatorName,
     calculatorCode: r.calculatorCode,
+    categories: Array.isArray(r.categories)
+      ? r.categories.filter((v): v is string => typeof v === "string")
+      : [],
     publishedAt: r.publishedAt?.toISOString() ?? null,
     createdAt: r.createdAt.toISOString(),
     updatedAt: r.updatedAt.toISOString(),

@@ -15,6 +15,7 @@ const LEGACY_COLUMNS = {
   locale: clientInsightPosts.locale,
   title: clientInsightPosts.title,
   excerpt: clientInsightPosts.excerpt,
+  categories: clientInsightPosts.categories,
   bodyHtml: clientInsightPosts.bodyHtml,
   bodyHtmlPublished: clientInsightPosts.bodyHtmlPublished,
   status: clientInsightPosts.status,
@@ -31,6 +32,7 @@ type LegacyRow = {
   locale: string;
   title: string;
   excerpt: string | null;
+  categories: unknown;
   bodyHtml: string;
   bodyHtmlPublished: string | null;
   status: string;
@@ -42,7 +44,7 @@ type LegacyRow = {
 };
 
 function withNullCalculators(row: LegacyRow): ClientInsightPostRow {
-  return { ...row, calculatorName: null, calculatorCode: null, heroImageUrl: null };
+  return { ...row, calculatorName: null, calculatorCode: null, heroImageUrl: null } as ClientInsightPostRow;
 }
 
 let hasCalculatorColumns: boolean | null = null;
@@ -186,6 +188,7 @@ type WritablePostFields = {
   slug: string;
   locale: "en" | "af";
   excerpt: string | null;
+  categories: string[];
   bodyHtml: string;
   metaTitle: string | null;
   metaDescription: string | null;
@@ -205,6 +208,7 @@ export async function updateClientInsightPostCompat(
     slug: v.slug,
     locale: v.locale,
     excerpt: v.excerpt,
+    categories: v.categories as unknown,
     bodyHtml: v.bodyHtml,
     metaTitle: v.metaTitle,
     metaDescription: v.metaDescription,
@@ -244,6 +248,7 @@ export async function insertClientInsightPostCompat(
     slug: v.slug,
     locale: v.locale,
     excerpt: v.excerpt,
+    categories: v.categories as unknown,
     bodyHtml: v.bodyHtml,
     metaTitle: v.metaTitle,
     metaDescription: v.metaDescription,

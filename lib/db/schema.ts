@@ -70,6 +70,8 @@ export const clientInsightPosts = pgTable(
     /** Sanitized HTML served on /insights/[slug] when published. */
     bodyHtmlPublished: text("body_html_published"),
     status: varchar("status", { length: 20 }).notNull().default("draft"),
+    /** Multi-select categories (stored as JSON array of category values). */
+    categories: jsonb("categories"),
     metaTitle: text("meta_title"),
     metaDescription: text("meta_description"),
     heroImageUrl: text("hero_image_url"),

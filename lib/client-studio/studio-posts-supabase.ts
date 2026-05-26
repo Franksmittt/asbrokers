@@ -9,6 +9,7 @@ type SupabasePostRow = {
   locale: string;
   title: string;
   excerpt: string | null;
+  categories: unknown;
   body_html: string;
   body_html_published: string | null;
   status: string;
@@ -27,6 +28,7 @@ export type WritableStudioPostFields = {
   slug: string;
   locale: "en" | "af";
   excerpt: string | null;
+  categories: string[];
   bodyHtml: string;
   metaTitle: string | null;
   metaDescription: string | null;
@@ -36,12 +38,17 @@ export type WritableStudioPostFields = {
 };
 
 function mapRow(row: SupabasePostRow): ClientInsightPostRow {
+  const categoriesRaw = row.categories as unknown;
+  const categories = Array.isArray(categoriesRaw)
+    ? categoriesRaw.filter((v): v is string => typeof v === "string")
+    : [];
   return {
     id: row.id,
     slug: row.slug,
     locale: row.locale,
     title: row.title,
     excerpt: row.excerpt,
+    categories: categories as unknown as ClientInsightPostRow["categories"],
     bodyHtml: row.body_html,
     bodyHtmlPublished: row.body_html_published,
     status: row.status,
@@ -62,6 +69,7 @@ function toInsertPayload(v: WritableStudioPostFields, updatedAt: Date) {
     slug: v.slug,
     locale: v.locale,
     excerpt: v.excerpt,
+    categories: v.categories,
     body_html: v.bodyHtml,
     meta_title: v.metaTitle,
     meta_description: v.metaDescription,
@@ -79,6 +87,7 @@ function toUpdatePayload(v: WritableStudioPostFields, updatedAt: Date) {
     slug: v.slug,
     locale: v.locale,
     excerpt: v.excerpt,
+    categories: v.categories,
     body_html: v.bodyHtml,
     meta_title: v.metaTitle,
     meta_description: v.metaDescription,

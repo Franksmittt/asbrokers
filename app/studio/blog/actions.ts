@@ -31,8 +31,11 @@ import { collectErrorText } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightSlugExistsQuery } from "@/sanity/lib/queries";
+import { INSIGHT_CATEGORIES } from "@/lib/insights/insightCategories";
 
 const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
+
+const INSIGHT_CATEGORY_VALUES = INSIGHT_CATEGORIES.map((c) => c.value) as [string, ...string[]];
 
 const postBaseSchema = z.object({
   title: z.string().trim().min(1, "Title is required").max(300),
@@ -43,6 +46,7 @@ const postBaseSchema = z.object({
     .max(160),
   locale: z.enum(["en", "af"]),
   excerpt: z.string().trim().max(2000).optional().nullable(),
+  categories: z.array(z.enum(INSIGHT_CATEGORY_VALUES)).default([]),
   bodyHtml: z.string().max(500_000).default(""),
   heroImageUrl: z.string().trim().max(2000).optional().nullable(),
   metaTitle: z.string().trim().max(70).optional().nullable(),
@@ -257,6 +261,7 @@ export async function saveStudioPost(
         slug: v.slug,
         locale: v.locale,
         excerpt: v.excerpt ?? null,
+        categories: v.categories ?? [],
         bodyHtml: v.bodyHtml,
         heroImageUrl: heroImageUrl || null,
         metaTitle: v.metaTitle ?? null,
@@ -284,6 +289,7 @@ export async function saveStudioPost(
       slug: v.slug,
       locale: v.locale,
       excerpt: v.excerpt ?? null,
+      categories: v.categories ?? [],
       bodyHtml: v.bodyHtml,
       heroImageUrl: heroImageUrl || null,
       metaTitle: v.metaTitle ?? null,
@@ -337,6 +343,7 @@ export async function publishStudioPost(
     slug: row.slug,
     locale: localeSafe,
     excerpt: row.excerpt,
+    categories: (row.categories as unknown as string[]) ?? [],
     bodyHtml: row.bodyHtml,
     heroImageUrl: row.heroImageUrl,
     metaTitle: row.metaTitle,

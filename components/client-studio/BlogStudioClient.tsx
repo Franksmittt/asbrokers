@@ -14,6 +14,7 @@ import {
   CALCULATOR_CODE_SNIPPETS,
   isEmbedReadyCalculatorSnippet,
 } from "@/lib/client-studio/calculator-code-pack";
+import { INSIGHT_CATEGORIES } from "@/lib/insights/insightCategories";
 import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -23,6 +24,7 @@ export type SerializableStudioPost = {
   locale: "en" | "af";
   title: string;
   excerpt: string | null;
+  categories: string[];
   bodyHtml: string;
   bodyHtmlPublished: string | null;
   status: string;
@@ -63,6 +65,7 @@ type StudioWipSnapshot = {
   title: string;
   slug: string;
   excerpt: string;
+  categories: string[];
   metaTitle: string;
   metaDescription: string;
   rawHtml: string;
@@ -483,6 +486,7 @@ export function BlogStudioClient(props: Props) {
   const [title, setTitle] = useState("Client Blog Draft");
   const [slug, setSlug] = useState(() => newDraftSlug());
   const [excerpt, setExcerpt] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [rawHtml, setRawHtml] = useState(SAMPLE_HTML);
   const [slotFiles, setSlotFiles] = useState<Record<number, File | null>>({});
   const [imageUrls, setImageUrls] = useState<Record<number, string>>({});
@@ -554,6 +558,7 @@ export function BlogStudioClient(props: Props) {
           title,
           slug,
           excerpt,
+          categories: selectedCategories,
           metaTitle,
           metaDescription,
           rawHtml,
@@ -572,6 +577,7 @@ export function BlogStudioClient(props: Props) {
     title,
     slug,
     excerpt,
+    selectedCategories,
     metaTitle,
     metaDescription,
     rawHtml,
@@ -605,9 +611,10 @@ export function BlogStudioClient(props: Props) {
     [videoCount, videoUrls]
   );
   const postDetailsReady = title.trim().length > 0 && slug.trim().length > 0 && excerpt.trim().length > 0;
+  const postCategoriesReady = selectedCategories.length > 0;
   const step2Ready = missingImages === 0;
   const step3Ready = missingCalcs === 0 && missingVideos === 0;
-  const canPublish = postDetailsReady && step2Ready && step3Ready;
+  const canPublish = postDetailsReady && step2Ready && step3Ready && postCategoriesReady;
 
   const resolvedForPersist = useMemo(
     () => buildPersistHtml(rawHtml, imageUrls, calcSelection, videoUrls, snippetById),
@@ -667,6 +674,7 @@ export function BlogStudioClient(props: Props) {
     setTitle(wip.title);
     setSlug(wip.slug);
     setExcerpt(wip.excerpt);
+    setSelectedCategories(wip.categories ?? []);
     setMetaTitle(wip.metaTitle);
     setMetaDescription(wip.metaDescription);
     setRawHtml(wip.rawHtml || SAMPLE_HTML);
@@ -693,6 +701,7 @@ export function BlogStudioClient(props: Props) {
     setTitle("Client Blog Draft");
     setSlug(newDraftSlug());
     setExcerpt("");
+    setSelectedCategories([]);
     setRawHtml(SAMPLE_HTML);
     setMetaTitle("");
     setMetaDescription("");
@@ -718,6 +727,7 @@ export function BlogStudioClient(props: Props) {
     setTitle(post.title);
     setSlug(post.slug);
     setExcerpt(post.excerpt ?? "");
+    setSelectedCategories(post.categories ?? []);
     setRawHtml(post.bodyHtml || post.bodyHtmlPublished || SAMPLE_HTML);
     setMetaTitle(post.metaTitle ?? "");
     setMetaDescription(post.metaDescription ?? "");
@@ -1028,7 +1038,7 @@ export function BlogStudioClient(props: Props) {
       }
       if (publish && !canPublish) {
         setBanner(
-          "Complete all steps first: upload all images, choose calculator/video for each slot, and fill title/slug/excerpt."
+          "Complete all steps first: upload images, choose calculator/video for each slot, fill title/slug/excerpt, and select categories."
         );
         return;
       }
@@ -1041,6 +1051,7 @@ export function BlogStudioClient(props: Props) {
         slug: derivedSlug,
         locale: "en",
         excerpt: excerpt.trim() || null,
+        categories: selectedCategories,
         bodyHtml: normalized,
         heroImageUrl: hero,
         metaTitle: metaTitle.trim() || derivedTitle,
@@ -1061,6 +1072,7 @@ export function BlogStudioClient(props: Props) {
         locale: "en",
         title: derivedTitle,
         excerpt: excerpt.trim() || null,
+        categories: selectedCategories,
         bodyHtml: normalized,
         bodyHtmlPublished: currentPostStatus === "published" ? normalized : null,
         status: currentPostStatus === "published" ? "published" : "draft",
@@ -1469,6 +1481,31 @@ export function BlogStudioClient(props: Props) {
                 <p className={STUDIO_FIELD_HINT_CLASS}>Shown under the title on the insights feed.</p>
               </div>
               <div>
+                <label className={STUDIO_FIELD_LABEL_CLASS}>
+                  Categories <span className="text-teal-400">*</span>
+                </label>
+                <div className="mt-2 flex flex-wrap gap-x-4 gap-y-3">
+                  {INSIGHT_CATEGORIES.map((cat) => {
+                    const checked = selectedCategories.includes(cat.value);
+                    return (
+                      <label key={cat.value} className="inline-flex items-center gap-2 text-sm text-zinc-300">
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() =>
+                            setSelectedCategories((prev) =>
+                              prev.includes(cat.value) ? prev.filter((v) => v !== cat.value) : [...prev, cat.value]
+                            )
+                          }
+                        />
+                        <span className="select-none">{cat.label}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+                <p className={STUDIO_FIELD_HINT_CLASS}>Pick one or more so clients can filter on the Insights page.</p>
+              </div>
+              <div>
                 <label htmlFor="studio-post-meta-title" className={STUDIO_FIELD_LABEL_CLASS}>
                   SEO title <span className="font-normal normal-case tracking-normal text-zinc-500">(optional)</span>
                 </label>
@@ -1622,6 +1659,9 @@ export function BlogStudioClient(props: Props) {
               </p>
               <p className={postDetailsReady ? "text-emerald-300" : "text-amber-300"}>
                 {postDetailsReady ? "PASS" : "FIX"} Title, slug, excerpt completed
+              </p>
+              <p className={postCategoriesReady ? "text-emerald-300" : "text-amber-300"}>
+                {postCategoriesReady ? "PASS" : "FIX"} Categories selected
               </p>
               <p className={canPublish ? "text-emerald-300" : "text-amber-300"}>
                 {canPublish ? "READY" : "NOT READY"} for publish

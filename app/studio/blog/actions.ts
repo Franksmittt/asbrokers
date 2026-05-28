@@ -37,6 +37,10 @@ import {
   resolveInsightCategories,
   withEmbeddedCategoryMarker,
 } from "@/lib/insights/insightCategories";
+import {
+  extractStudioBodyMetadata,
+  firstImageSrcFromHtml,
+} from "@/lib/client-studio/studio-body-metadata";
 
 const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
 
@@ -373,7 +377,9 @@ export async function publishStudioPost(
         "Select at least one category in Step 4 (tick boxes), save the post, then publish.",
     };
   }
-  const heroImageUrl = (parsed.data.heroImageUrl ?? "").trim();
+  const bodyMeta = extractStudioBodyMetadata(row.bodyHtml);
+  const metaHeroImageUrl = bodyMeta.metadata?.imageUrls?.["0"]?.trim() ?? "";
+  const heroImageUrl = (parsed.data.heroImageUrl ?? "").trim() || metaHeroImageUrl || firstImageSrcFromHtml(row.bodyHtml) || "";
   if (!heroImageUrl) {
     return {
       ok: false,

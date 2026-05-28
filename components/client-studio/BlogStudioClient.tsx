@@ -20,6 +20,10 @@ import {
   normalizeInsightCategories,
   type InsightCategoryValue,
 } from "@/lib/insights/insightCategories";
+import {
+  extractStudioBodyMetadata,
+  withEmbeddedStudioBodyMetadata,
+} from "@/lib/client-studio/studio-body-metadata";
 import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -734,12 +738,37 @@ export function BlogStudioClient(props: Props) {
     setSlug(post.slug);
     setExcerpt(post.excerpt ?? "");
     setSelectedCategories(categories);
-    setRawHtml(post.bodyHtml || post.bodyHtmlPublished || SAMPLE_HTML);
+    const sourceHtml = post.bodyHtml || post.bodyHtmlPublished || SAMPLE_HTML;
+    const parsedMeta = extractStudioBodyMetadata(sourceHtml);
+    setRawHtml(parsedMeta.metadata?.rawHtml || parsedMeta.cleanHtml || SAMPLE_HTML);
     setMetaTitle(post.metaTitle ?? "");
     setMetaDescription(post.metaDescription ?? "");
     resetSlotState();
-    if (post.heroImageUrl) {
+    const restoredImages: Record<number, string> = {};
+    for (const [key, value] of Object.entries(parsedMeta.metadata?.imageUrls ?? {})) {
+      const idx = Number(key);
+      if (Number.isInteger(idx) && idx >= 0 && value.trim()) restoredImages[idx] = value;
+    }
+    if (Object.keys(restoredImages).length > 0) {
+      setImageUrls(restoredImages);
+    } else if (post.heroImageUrl) {
       setImageUrls({ 0: post.heroImageUrl });
+    }
+    const restoredCalcs: Record<number, string> = {};
+    for (const [key, value] of Object.entries(parsedMeta.metadata?.calcSelection ?? {})) {
+      const idx = Number(key);
+      if (Number.isInteger(idx) && idx >= 0 && value.trim()) restoredCalcs[idx] = value;
+    }
+    if (Object.keys(restoredCalcs).length > 0) {
+      setCalcSelection(restoredCalcs);
+    }
+    const restoredVideos: Record<number, string> = {};
+    for (const [key, value] of Object.entries(parsedMeta.metadata?.videoUrls ?? {})) {
+      const idx = Number(key);
+      if (Number.isInteger(idx) && idx >= 0 && value.trim()) restoredVideos[idx] = value;
+    }
+    if (Object.keys(restoredVideos).length > 0) {
+      setVideoUrls(restoredVideos);
     }
     setLastSavedAt(post.updatedAt);
     setStatus(post.status === "published" ? "Editing published post" : "Editing draft");
@@ -1125,6 +1154,24 @@ export function BlogStudioClient(props: Props) {
       const derivedTitle = title.trim() || firstH1(rawHtml) || "Untitled Post";
       const derivedSlug = slug.trim() || slugifyTitle(derivedTitle);
       const normalized = normalizeAiHtml(resolvedForPersist);
+      const normalizedWithMeta = withEmbeddedStudioBodyMetadata(normalized, {
+        rawHtml,
+        imageUrls: Object.fromEntries(
+          Object.entries(imageUrls)
+            .filter(([, value]) => Boolean(value?.trim()))
+            .map(([key, value]) => [String(key), value])
+        ),
+        calcSelection: Object.fromEntries(
+          Object.entries(calcSelection)
+            .filter(([, value]) => Boolean(value?.trim()))
+            .map(([key, value]) => [String(key), value])
+        ),
+        videoUrls: Object.fromEntries(
+          Object.entries(videoUrls)
+            .filter(([, value]) => Boolean(value?.trim()))
+            .map(([key, value]) => [String(key), value])
+        ),
+      });
       const hero = imageUrls[0] ?? null;
       const saveRes = await saveStudioPost(selectedId, {
         title: derivedTitle,
@@ -1132,7 +1179,7 @@ export function BlogStudioClient(props: Props) {
         locale: "en",
         excerpt: excerpt.trim() || null,
         categories: normalizeInsightCategories(selectedCategories),
-        bodyHtml: normalized,
+        bodyHtml: normalizedWithMeta,
         heroImageUrl: hero,
         metaTitle: metaTitle.trim() || derivedTitle,
         metaDescription: metaDescription.trim() || excerpt.trim() || null,
@@ -1157,7 +1204,7 @@ export function BlogStudioClient(props: Props) {
         title: derivedTitle,
         excerpt: excerpt.trim() || null,
         categories: normalizeInsightCategories(selectedCategories),
-        bodyHtml: normalized,
+        bodyHtml: normalizedWithMeta,
         bodyHtmlPublished: currentPostStatus === "published" ? normalized : null,
         status: currentPostStatus === "published" ? "published" : "draft",
         metaTitle: metaTitle.trim() || derivedTitle,

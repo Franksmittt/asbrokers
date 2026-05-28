@@ -5,7 +5,7 @@ import { and, desc, eq } from "drizzle-orm";
 import type { Db } from "@/lib/db";
 import { clientInsightPosts } from "@/lib/db";
 import { isMissingCalculatorColumnsError, isMissingCategoriesColumnError } from "@/lib/db/pg-error-chain";
-import { normalizeInsightCategories } from "@/lib/insights/insightCategories";
+import { resolveInsightCategories } from "@/lib/insights/insightCategories";
 
 export type ClientInsightPostRow = typeof clientInsightPosts.$inferSelect;
 
@@ -54,7 +54,11 @@ type LegacyRow = CoreLegacyRow & {
 function withNullCalculators(row: LegacyRow): ClientInsightPostRow {
   return {
     ...row,
-    categories: normalizeInsightCategories(row.categories) as ClientInsightPostRow["categories"],
+    categories: resolveInsightCategories(
+      row.categories,
+      row.bodyHtml,
+      row.bodyHtmlPublished
+    ) as ClientInsightPostRow["categories"],
     calculatorName: null,
     calculatorCode: null,
     heroImageUrl: null,
@@ -67,7 +71,11 @@ let hasCategoriesColumn: boolean | null = null;
 function mapFullRow(row: ClientInsightPostRow): ClientInsightPostRow {
   return {
     ...row,
-    categories: normalizeInsightCategories(row.categories) as ClientInsightPostRow["categories"],
+    categories: resolveInsightCategories(
+      row.categories,
+      row.bodyHtml,
+      row.bodyHtmlPublished
+    ) as ClientInsightPostRow["categories"],
   };
 }
 

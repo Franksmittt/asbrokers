@@ -24,6 +24,7 @@ export const INSIGHT_CATEGORY_LABEL_BY_VALUE: Record<InsightCategoryValue, strin
 export const UNCATEGORIZED_VALUE = "__uncategorized__" as const;
 
 const CATEGORY_VALUE_SET = new Set<string>(INSIGHT_CATEGORY_VALUES);
+const BODY_CATEGORY_MARKER_RE = /<!--\s*studio_categories:(\[[\s\S]*?\])\s*-->/i;
 
 /** Normalize DB/json shapes into validated category values. */
 export function normalizeInsightCategories(value: unknown): InsightCategoryValue[] {
@@ -64,5 +65,43 @@ export function normalizeInsightCategories(value: unknown): InsightCategoryValue
     seen.add(candidate as InsightCategoryValue);
   }
   return [...seen];
+}
+
+function parseCategoryMarkerJson(raw: string): InsightCategoryValue[] {
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    return normalizeInsightCategories(parsed);
+  } catch {
+    return [];
+  }
+}
+
+export function categoriesFromBodyHtmlMarker(html: string | null | undefined): InsightCategoryValue[] {
+  if (!html) return [];
+  const match = html.match(BODY_CATEGORY_MARKER_RE);
+  if (!match?.[1]) return [];
+  return parseCategoryMarkerJson(match[1]);
+}
+
+export function resolveInsightCategories(
+  categoriesValue: unknown,
+  bodyHtml?: string | null,
+  bodyHtmlPublished?: string | null
+): InsightCategoryValue[] {
+  const normalized = normalizeInsightCategories(categoriesValue);
+  if (normalized.length > 0) return normalized;
+  const fromDraft = categoriesFromBodyHtmlMarker(bodyHtml);
+  if (fromDraft.length > 0) return fromDraft;
+  return categoriesFromBodyHtmlMarker(bodyHtmlPublished);
+}
+
+export function withEmbeddedCategoryMarker(
+  html: string,
+  categories: InsightCategoryValue[]
+): string {
+  const clean = html.replace(BODY_CATEGORY_MARKER_RE, "").trimEnd();
+  if (categories.length === 0) return clean;
+  const marker = `<!--studio_categories:${JSON.stringify(categories)}-->`;
+  return `${clean}\n${marker}`;
 }
 

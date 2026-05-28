@@ -31,7 +31,12 @@ import { collectErrorText } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightSlugExistsQuery } from "@/sanity/lib/queries";
-import { INSIGHT_CATEGORIES, normalizeInsightCategories } from "@/lib/insights/insightCategories";
+import {
+  INSIGHT_CATEGORIES,
+  normalizeInsightCategories,
+  resolveInsightCategories,
+  withEmbeddedCategoryMarker,
+} from "@/lib/insights/insightCategories";
 
 const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
 
@@ -223,6 +228,8 @@ export async function saveStudioPost(
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input." };
   }
   const v = parsed.data;
+  const resolvedCategories = normalizeInsightCategories(v.categories);
+  const bodyHtmlWithCategoryMarker = withEmbeddedCategoryMarker(v.bodyHtml, resolvedCategories);
   const heroImageUrl = (v.heroImageUrl ?? "").trim();
   if (heroImageUrl && !isAllowedHeroImageUrl(heroImageUrl)) {
     return {
@@ -238,8 +245,8 @@ export async function saveStudioPost(
     };
   }
   const now = new Date();
-  const sanitizedForLive = sanitizeInsightBody(v.bodyHtml);
-  const unresolvedSlots = unresolvedPublishSlotMessage(v.bodyHtml);
+  const sanitizedForLive = sanitizeInsightBody(bodyHtmlWithCategoryMarker);
+  const unresolvedSlots = unresolvedPublishSlotMessage(bodyHtmlWithCategoryMarker);
 
   try {
     if (id) {
@@ -261,8 +268,8 @@ export async function saveStudioPost(
         slug: v.slug,
         locale: v.locale,
         excerpt: v.excerpt ?? null,
-        categories: v.categories ?? [],
-        bodyHtml: v.bodyHtml,
+        categories: resolvedCategories,
+        bodyHtml: bodyHtmlWithCategoryMarker,
         heroImageUrl: heroImageUrl || null,
         metaTitle: v.metaTitle ?? null,
         metaDescription: v.metaDescription ?? null,
@@ -289,8 +296,8 @@ export async function saveStudioPost(
       slug: v.slug,
       locale: v.locale,
       excerpt: v.excerpt ?? null,
-      categories: v.categories ?? [],
-      bodyHtml: v.bodyHtml,
+      categories: resolvedCategories,
+      bodyHtml: bodyHtmlWithCategoryMarker,
       heroImageUrl: heroImageUrl || null,
       metaTitle: v.metaTitle ?? null,
       metaDescription: v.metaDescription ?? null,
@@ -354,7 +361,12 @@ export async function publishStudioPost(
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Fix fields before publishing." };
   }
-  if (parsed.data.categories.length === 0) {
+  const resolvedCategories = resolveInsightCategories(
+    parsed.data.categories,
+    row.bodyHtml,
+    row.bodyHtmlPublished
+  );
+  if (resolvedCategories.length === 0) {
     return {
       ok: false,
       error:

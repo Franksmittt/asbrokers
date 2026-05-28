@@ -33,16 +33,35 @@ export function normalizeInsightCategories(value: unknown): InsightCategoryValue
   } else if (typeof value === "string" && value.trim()) {
     try {
       const parsed = JSON.parse(value) as unknown;
-      if (Array.isArray(parsed)) raw = parsed;
+      if (Array.isArray(parsed)) {
+        raw = parsed;
+      } else if (typeof parsed === "object" && parsed) {
+        raw = Object.values(parsed);
+      } else {
+        raw = value
+          .split(",")
+          .map((part) => part.trim())
+          .filter(Boolean);
+      }
     } catch {
-      raw = [];
+      raw = value
+        .split(",")
+        .map((part) => part.trim())
+        .filter(Boolean);
     }
+  } else if (value && typeof value === "object") {
+    raw = Object.values(value as Record<string, unknown>);
   }
   const seen = new Set<InsightCategoryValue>();
   for (const entry of raw) {
-    if (typeof entry !== "string") continue;
-    if (!CATEGORY_VALUE_SET.has(entry)) continue;
-    seen.add(entry as InsightCategoryValue);
+    const candidate =
+      typeof entry === "string"
+        ? entry
+        : entry && typeof entry === "object" && "value" in entry && typeof entry.value === "string"
+          ? entry.value
+          : "";
+    if (!candidate || !CATEGORY_VALUE_SET.has(candidate)) continue;
+    seen.add(candidate as InsightCategoryValue);
   }
   return [...seen];
 }

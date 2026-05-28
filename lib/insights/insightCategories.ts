@@ -11,6 +11,7 @@ export const INSIGHT_CATEGORIES = [
   { value: "medical_aid", label: "Medical Aid" },
   { value: "last_will_testament", label: "Last Will & Testament" },
   { value: "trust_structure", label: "Trust Structure" },
+  { value: "weekly_news_letter", label: "Weekly News Letter" },
 ] as const;
 
 export type InsightCategoryValue = (typeof INSIGHT_CATEGORIES)[number]["value"];

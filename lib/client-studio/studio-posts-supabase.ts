@@ -121,7 +121,7 @@ function filterKnownSupabaseColumns(payload: SupabaseWritePayload): SupabaseWrit
 
 async function runSupabaseWriteWithColumnRetry<T>(
   payload: SupabaseWritePayload,
-  write: (nextPayload: SupabaseWritePayload) => Promise<{ data: T | null; error: unknown }>
+  write: (nextPayload: SupabaseWritePayload) => PromiseLike<{ data: T | null; error: unknown }>
 ): Promise<T | null> {
   let lastError: unknown = null;
   for (let attempt = 0; attempt < 3; attempt += 1) {

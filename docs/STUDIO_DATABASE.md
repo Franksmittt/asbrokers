@@ -23,6 +23,7 @@ Migrations in repo:
 
 ```bash
 npm run db:push
+npm run db:repair-studio
 npm run db:verify-studio
 ```
 
@@ -39,6 +40,8 @@ npm run db:verify-studio
 ```
 
 You should see: connection OK, table exists, all columns present (including `categories`).
+
+`db:repair-studio` is idempotent and can be run when production has newer studio code than database schema. The app also attempts this same repair at runtime when `DATABASE_URL` is configured.
 
 ## Env on Vercel
 

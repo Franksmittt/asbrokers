@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import {
   getClientInsightPostById,
   insertClientInsightPostCompat,
+  publishClientInsightPostCompat,
   updateClientInsightPostCompat,
   type ClientInsightPostRow,
 } from "@/lib/client-studio/client-insight-db";
@@ -97,16 +98,7 @@ export async function publishStudioPostForActions(
   const db = getDb();
   if (db) {
     try {
-      await db
-        .update(clientInsightPosts)
-        .set({
-          status: "published",
-          bodyHtmlPublished,
-          heroImageUrl,
-          publishedAt,
-          updatedAt: publishedAt,
-        })
-        .where(eq(clientInsightPosts.id, id));
+      await publishClientInsightPostCompat(db, id, bodyHtmlPublished, heroImageUrl, publishedAt);
       return;
     } catch (e) {
       if (!isPostgresConnectionError(e)) throw e;

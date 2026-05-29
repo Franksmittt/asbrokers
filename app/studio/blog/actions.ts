@@ -25,9 +25,14 @@ import {
   updateStudioPostForActions,
 } from "@/lib/client-studio/studio-posts-write";
 import { unresolvedPublishSlotMessage } from "@/lib/client-studio/publish-slots";
-import { isStudioPostsStorageConfigured } from "@/lib/client-studio/studio-storage";
+import {
+  ensureStudioBlogImagesBucket,
+  isStudioPostsStorageConfigured,
+  STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT,
+  STUDIO_BLOG_IMAGE_MIME_TYPES,
+} from "@/lib/client-studio/studio-storage";
 import { clientInsightPosts, getDb } from "@/lib/db";
-import { collectErrorText } from "@/lib/db/pg-error-chain";
+import { collectErrorText, missingClientInsightOptionalColumns } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightSlugExistsQuery } from "@/sanity/lib/queries";
@@ -42,7 +47,7 @@ import {
   firstImageSrcFromHtml,
 } from "@/lib/client-studio/studio-body-metadata";
 
-const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
+const STUDIO_ALLOWED_IMAGE_TYPES = new Set<string>(STUDIO_BLOG_IMAGE_MIME_TYPES);
 
 const INSIGHT_CATEGORY_VALUES = INSIGHT_CATEGORIES.map((c) => c.value) as [string, ...string[]];
 
@@ -69,6 +74,18 @@ type PublishReport = {
   checkedImages: number;
   notes: string[];
 };
+
+function studioSchemaDriftMessage(action: "save" | "publish", error: unknown): string | null {
+  const missing = missingClientInsightOptionalColumns(error);
+  if (!missing.categories && !missing.calculators) return null;
+  const columns = [
+    missing.categories ? "categories" : null,
+    missing.calculators ? "hero/calculator" : null,
+  ].filter(Boolean);
+  return `Could not ${action} because the Blog Studio database is missing the latest ${columns.join(
+    " and "
+  )} columns. The app tried to repair this automatically; if it still fails, run npm run db:repair-studio and retry.`;
+}
 
 function verifyStudioPassword(plain: string): boolean {
   const expected = process.env.CLIENT_STUDIO_PASSWORD?.trim();
@@ -322,6 +339,8 @@ export async function saveStudioPost(
         error: "That URL slug already exists for this language. Change the slug.",
       };
     }
+    const schemaMessage = studioSchemaDriftMessage("save", e);
+    if (schemaMessage) return { ok: false, error: schemaMessage };
     const detail = collectErrorText(e).slice(0, 320);
     return {
       ok: false,
@@ -414,6 +433,8 @@ export async function publishStudioPost(
   try {
     await publishStudioPostForActions(id, sanitized, heroImageUrl, now);
   } catch (e) {
+    const schemaMessage = studioSchemaDriftMessage("publish", e);
+    if (schemaMessage) return { ok: false, error: schemaMessage };
     const detail = collectErrorText(e).slice(0, 320);
     return {
       ok: false,
@@ -519,10 +540,10 @@ export async function uploadStudioImage(
     return { ok: false, error: "No file received." };
   }
   if (!STUDIO_ALLOWED_IMAGE_TYPES.has(file.type.toLowerCase())) {
-    return { ok: false, error: "Only PNG, JPG, and JPEG images are supported." };
+    return { ok: false, error: "Only PNG, JPG, and WEBP images are supported." };
   }
-  if (file.size > 8 * 1024 * 1024) {
-    return { ok: false, error: "Image is too large (max 8MB)." };
+  if (file.size > STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT) {
+    return { ok: false, error: "Image is too large (max 20MB)." };
   }
 
   try {
@@ -531,7 +552,7 @@ export async function uploadStudioImage(
       return { ok: false, error: "Image upload is not configured on the server yet." };
     }
 
-    const bucket = process.env.SUPABASE_BLOG_IMAGES_BUCKET || "blog-images";
+    const { bucket } = await ensureStudioBlogImagesBucket();
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-");
     const ext = safeName.includes(".") ? safeName.split(".").pop() : "jpg";
     const key = `studio/${new Date().toISOString().slice(0, 10)}/${randomUUID()}.${ext}`;
@@ -602,23 +623,8 @@ export async function getStudioUploadDiagnostics(): Promise<{
   checks.push(`Target bucket: ${bucket}`);
 
   try {
-    const bucketRes = await supabase.storage.listBuckets();
-    if (bucketRes.error) {
-      return {
-        ok: false,
-        summary: `Storage bucket check failed: ${bucketRes.error.message}`,
-        checks,
-      };
-    }
-    const exists = (bucketRes.data ?? []).some((b) => b.name === bucket);
-    checks.push(exists ? "Bucket exists: yes" : "Bucket exists: no");
-    if (!exists) {
-      return {
-        ok: false,
-        summary: `Bucket "${bucket}" does not exist. Create it in Supabase Storage.`,
-        checks,
-      };
-    }
+    const ensured = await ensureStudioBlogImagesBucket();
+    checks.push(ensured.created ? "Bucket existed: no, created now" : "Bucket exists: yes");
   } catch (e) {
     const detail = collectErrorText(e).slice(0, 220);
     return {

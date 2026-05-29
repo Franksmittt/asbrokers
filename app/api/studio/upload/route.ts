@@ -1,10 +1,15 @@
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
+import {
+  ensureStudioBlogImagesBucket,
+  STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT,
+  STUDIO_BLOG_IMAGE_MIME_TYPES,
+} from "@/lib/client-studio/studio-storage";
 import { getClientStudioSession } from "@/lib/client-studio/session";
 import { getSupabaseService } from "@/lib/supabase/server";
 
-const STUDIO_ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg"]);
+const STUDIO_ALLOWED_IMAGE_TYPES = new Set<string>(STUDIO_BLOG_IMAGE_MIME_TYPES);
 
 function safeExt(name: string): string {
   const safeName = name.replace(/[^a-zA-Z0-9._-]+/g, "-");
@@ -29,11 +34,11 @@ export async function POST(req: NextRequest) {
   }
 
   if (!STUDIO_ALLOWED_IMAGE_TYPES.has(file.type.toLowerCase())) {
-    return NextResponse.json({ ok: false, error: "Only PNG, JPG, and JPEG images are supported." }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "Only PNG, JPG, and WEBP images are supported." }, { status: 400 });
   }
 
-  if (file.size > 8 * 1024 * 1024) {
-    return NextResponse.json({ ok: false, error: "Image is too large (max 8MB)." }, { status: 400 });
+  if (file.size > STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT) {
+    return NextResponse.json({ ok: false, error: "Image is too large (max 20MB)." }, { status: 400 });
   }
 
   const supabase = getSupabaseService();
@@ -41,7 +46,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Supabase upload service is not configured." }, { status: 500 });
   }
 
-  const bucket = process.env.SUPABASE_BLOG_IMAGES_BUCKET || "blog-images";
+  let bucket: string;
+  try {
+    bucket = (await ensureStudioBlogImagesBucket()).bucket;
+  } catch (error) {
+    const message = error instanceof Error && error.message ? error.message : "Storage bucket setup failed.";
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
+  }
   const key = `studio/${new Date().toISOString().slice(0, 10)}/${randomUUID()}.${safeExt(file.name)}`;
   const bytes = await file.arrayBuffer();
 

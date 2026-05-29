@@ -1,10 +1,15 @@
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
+import {
+  ensureStudioBlogImagesBucket,
+  STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT,
+  STUDIO_BLOG_IMAGE_MIME_TYPES,
+} from "@/lib/client-studio/studio-storage";
+import { getClientStudioSession } from "@/lib/client-studio/session";
 import { getSupabaseService } from "@/lib/supabase/server";
 
-const ALLOWED_IMAGE_TYPES = new Set(["image/png", "image/jpeg", "image/jpg", "image/webp"]);
-const MAX_FILE_BYTES = 20 * 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = new Set<string>(STUDIO_BLOG_IMAGE_MIME_TYPES);
 
 function safeExt(filename: string, contentType: string): string {
   const byType =
@@ -28,6 +33,13 @@ type UploadAuthBody = {
 
 export async function POST(req: NextRequest) {
   const correlationId = req.headers.get("x-correlation-id") ?? randomUUID();
+
+  if (!(await getClientStudioSession())) {
+    return NextResponse.json(
+      { ok: false, error: "Session expired - sign in again.", correlationId },
+      { status: 401 }
+    );
+  }
 
   let body: UploadAuthBody = {};
   try {
@@ -54,7 +66,7 @@ export async function POST(req: NextRequest) {
       { status: 415 }
     );
   }
-  if (fileSize > MAX_FILE_BYTES) {
+  if (fileSize > STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT) {
     return NextResponse.json(
       { ok: false, error: "Image is too large (max 20MB).", correlationId },
       { status: 413 }
@@ -69,7 +81,17 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const bucket = process.env.SUPABASE_BLOG_IMAGES_BUCKET || "blog-images";
+  let bucket: string;
+  try {
+    bucket = (await ensureStudioBlogImagesBucket()).bucket;
+  } catch (error) {
+    const message = error instanceof Error && error.message ? error.message : "Storage bucket setup failed.";
+    return NextResponse.json(
+      { ok: false, error: message, correlationId },
+      { status: 500 }
+    );
+  }
+
   const objectPath = `studio/${new Date().toISOString().slice(0, 10)}/${randomUUID()}.${safeExt(
     filename,
     contentType

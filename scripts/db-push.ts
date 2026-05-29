@@ -14,6 +14,7 @@ if (!url) {
   console.error(
     "DATABASE_URL is missing in .env.local.\n" +
       "Copy the Postgres connection string from Supabase (Settings → Database) or Vercel env vars.\n" +
+      "If the studio table exists but optional columns are missing, run: npm run db:repair-studio\n" +
       "Alternatively run this SQL in Supabase SQL Editor:\n" +
       "  supabase/migrations/20260526120000_client_insight_categories.sql"
   );

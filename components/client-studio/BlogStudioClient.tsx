@@ -1187,11 +1187,7 @@ export function BlogStudioClient(props: Props) {
         calculatorCode: null,
       });
       if (!saveRes.ok) {
-        setBanner(
-          saveRes.error.includes("categories")
-            ? `${saveRes.error} Run npm run db:push if the categories column is missing.`
-            : saveRes.error
-        );
+        setBanner(saveRes.error);
         return;
       }
       setSelectedId(saveRes.id);

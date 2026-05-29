@@ -2,6 +2,7 @@ import "server-only";
 
 import { and, desc, eq } from "drizzle-orm";
 
+import { ensureClientInsightPostSchema } from "@/lib/client-studio/client-insight-schema";
 import type { Db } from "@/lib/db";
 import { clientInsightPosts } from "@/lib/db";
 import { isMissingCalculatorColumnsError, isMissingCategoriesColumnError } from "@/lib/db/pg-error-chain";
@@ -68,6 +69,16 @@ function withNullCalculators(row: LegacyRow): ClientInsightPostRow {
 let hasCalculatorColumns: boolean | null = null;
 let hasCategoriesColumn: boolean | null = null;
 
+async function prepareSchemaBestEffort(db: Db): Promise<void> {
+  try {
+    await ensureClientInsightPostSchema(db);
+    hasCalculatorColumns = true;
+    hasCategoriesColumn = true;
+  } catch {
+    // Legacy fallbacks below keep the studio usable when the DB role cannot run DDL.
+  }
+}
+
 function mapFullRow(row: ClientInsightPostRow): ClientInsightPostRow {
   return {
     ...row,
@@ -91,6 +102,7 @@ async function selectLegacyRows(
 }
 
 export async function listAllClientInsightPosts(db: Db): Promise<ClientInsightPostRow[]> {
+  await prepareSchemaBestEffort(db);
   if (hasCalculatorColumns === false) {
     const rows = await selectLegacyRows(db, { orderBy: desc(clientInsightPosts.updatedAt) });
     return rows.map(withNullCalculators);
@@ -114,6 +126,7 @@ export async function listAllClientInsightPosts(db: Db): Promise<ClientInsightPo
 }
 
 export async function listPublishedClientInsightPosts(db: Db): Promise<ClientInsightPostRow[]> {
+  await prepareSchemaBestEffort(db);
   const publishedWhere = eq(clientInsightPosts.status, "published");
   if (hasCalculatorColumns === false) {
     const rows = await selectLegacyRows(db, {
@@ -151,6 +164,7 @@ export async function listPublishedClientInsightPosts(db: Db): Promise<ClientIns
 }
 
 export async function getClientInsightPostById(db: Db, id: string): Promise<ClientInsightPostRow | null> {
+  await prepareSchemaBestEffort(db);
   const idWhere = eq(clientInsightPosts.id, id);
   if (hasCalculatorColumns === false) {
     const rows = await selectLegacyRows(db, { where: idWhere });
@@ -179,6 +193,7 @@ export async function getPublishedClientInsightPostBySlug(
   slug: string,
   locale: string
 ): Promise<ClientInsightPostRow | null> {
+  await prepareSchemaBestEffort(db);
   const slugWhere = and(
     eq(clientInsightPosts.slug, slug),
     eq(clientInsightPosts.locale, locale),
@@ -234,6 +249,7 @@ export async function updateClientInsightPostCompat(
   v: WritablePostFields,
   updatedAt: Date
 ): Promise<void> {
+  await prepareSchemaBestEffort(db);
   const core = {
     title: v.title,
     slug: v.slug,
@@ -286,6 +302,7 @@ export async function insertClientInsightPostCompat(
   v: WritablePostFields,
   updatedAt: Date
 ): Promise<string> {
+  await prepareSchemaBestEffort(db);
   const core = {
     title: v.title,
     slug: v.slug,
@@ -340,5 +357,42 @@ export async function insertClientInsightPostCompat(
     const newId = inserted[0]?.id;
     if (!newId) throw new Error("Insert returned no id");
     return newId;
+  }
+}
+
+export async function publishClientInsightPostCompat(
+  db: Db,
+  id: string,
+  bodyHtmlPublished: string,
+  heroImageUrl: string,
+  publishedAt: Date
+): Promise<void> {
+  await prepareSchemaBestEffort(db);
+  const core = {
+    status: "published" as const,
+    bodyHtmlPublished,
+    publishedAt,
+    updatedAt: publishedAt,
+  };
+  const withHero = {
+    ...core,
+    heroImageUrl,
+  };
+
+  if (hasCalculatorColumns === false) {
+    await db.update(clientInsightPosts).set(core).where(eq(clientInsightPosts.id, id));
+    return;
+  }
+  if (hasCalculatorColumns === true) {
+    await db.update(clientInsightPosts).set(withHero).where(eq(clientInsightPosts.id, id));
+    return;
+  }
+  try {
+    await db.update(clientInsightPosts).set(withHero).where(eq(clientInsightPosts.id, id));
+    hasCalculatorColumns = true;
+  } catch (e) {
+    if (!isMissingCalculatorColumnsError(e)) throw e;
+    hasCalculatorColumns = false;
+    await db.update(clientInsightPosts).set(core).where(eq(clientInsightPosts.id, id));
   }
 }

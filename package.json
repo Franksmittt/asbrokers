@@ -9,6 +9,7 @@
     "lint": "next lint",
     "rag:ingest": "tsx scripts/ingest-rag.ts",
     "db:push": "tsx scripts/db-push.ts",
+    "db:repair-studio": "tsx scripts/repair-client-insight-db.ts",
     "db:verify-studio": "tsx scripts/verify-client-insight-db.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"

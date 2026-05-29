@@ -6,7 +6,7 @@ values (
   'blog-images',
   'blog-images',
   false,
-  8388608,
+  20971520,
   array['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif', 'image/svg+xml']::text[]
 )
 on conflict (id) do update

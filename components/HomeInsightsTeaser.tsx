@@ -9,8 +9,8 @@ const MOCK_INSIGHTS: { title: string; excerpt: string; publishedAt: string; slug
     slug: "semigration-retirement-villages",
   },
   {
-    title: "Everest Fixed Returns: Beating Volatility",
-    excerpt: "Why fixed 12.8–14.5% returns are gaining traction among investors seeking certainty in uncertain markets.",
+    title: "Everest Targeted Returns: Navigating Volatility",
+    excerpt: "Why targeted 12.8–14.5% return profiles are gaining attention among investors who want clearer terms in uncertain markets.",
     publishedAt: "2025-02-08",
     slug: "everest-fixed-returns-volatility",
   },

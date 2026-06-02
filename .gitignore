@@ -37,4 +37,7 @@ Thumbs.db
 *.tsbuildinfo
 next-env.d.ts
 
+# Generated audit reports
+asbrokers_*_findings.txt
+
 .vercel

@@ -73,7 +73,7 @@ export default function RetirementPage() {
             <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
               <h2 className="text-xl font-bold text-white mb-4">The Income Delusion</h2>
               <p className="text-zinc-400 text-sm leading-relaxed">
-                The goal is not a lump sum; it is indestructible cash flow. If your yield is below 10%, you are mathematically guaranteed to draw down your principal. The calculator below exposes the capital required to avoid that outcome.
+                The goal is not a lump sum; it is resilient cash flow. If your yield is too low for your drawdown, your capital can be forced into decline. The calculator below exposes the capital required to reduce that risk.
               </p>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function RetirementPage() {
           <div className="rounded-[2rem] bg-[#151518] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-8 md:p-10">
             <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Erase the Deficit with Structured Yield.</h2>
             <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-              You cannot save your way out of a capital deficit. You must engineer a higher, fixed yield.
+              You cannot save your way out of a capital deficit without a realistic income strategy. You must test whether higher targeted yields, lower drawdowns, or more capital are required.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link

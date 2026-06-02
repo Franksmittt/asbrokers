@@ -117,7 +117,7 @@ export function Everest145GrowthCalculator() {
 
       <EverestLiquidityWarning />
       <ul className="text-zinc-500 text-xs mt-6 space-y-1">
-        <li>· Fixed 14.5% compound growth per annum</li>
+        <li>· Targeted 14.5% compound growth per annum</li>
         <li>· No monthly income returns accumulate</li>
         <li>· Paid at maturity or redemption after 5 years</li>
         <li>· Dividends taxed at flat 20%</li>

@@ -36,7 +36,7 @@ export default function SemigrationRetirementPage() {
           <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">
             <h2 className="text-xl font-bold text-white mb-4">Planning for the transition</h2>
             <p className="text-zinc-400 leading-relaxed mb-4">
-              Whether you are considering semigration or already relocating, aligning your retirement capital, estate plan, and income needs with your new lifestyle is essential. We help clients structure drawdown rates, assess fixed-return and living annuity options, and ensure liquidity and tax efficiency through the transition.
+              Whether you are considering semigration or already relocating, aligning your retirement capital, estate plan, and income needs with your new lifestyle is essential. We help clients structure drawdown rates, assess targeted-return and living annuity options, and ensure liquidity and tax efficiency through the transition.
             </p>
           </div>
           <div className="flex flex-wrap gap-4">

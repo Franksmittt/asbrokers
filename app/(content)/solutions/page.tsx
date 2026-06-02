@@ -12,14 +12,14 @@ const categories = [
   {
     id: "retirement",
     title: "Private Wealth & Yield",
-    tagline: "Bypass traditional markets. Secure fixed-return private equity, living annuities, and capital longevity planning.",
+    tagline: "Explore structured private equity return profiles, living annuities, and capital longevity planning.",
     icon: LineChart,
     accent: "blue",
     items: [
-      { name: "Retirement Income Planning", desc: "Fixed-income solutions for retirees who want certainty.", href: "/everest-wealth", badge: null, featured: false },
+      { name: "Retirement Income Planning", desc: "Structured income planning for retirees who want clearer cash-flow expectations.", href: "/everest-wealth", badge: null, featured: false },
       { name: "Retirement Reality Calculator", desc: "How much capital you really need for retirement.", href: "/retirement", badge: "Calculator", featured: true },
       { name: "Income in Retirement (Life of Capital)", desc: "How long your savings will last with withdrawals and inflation.", href: "/income-in-retirement", badge: "Calculator", featured: false },
-      { name: "Everest Wealth Products", desc: "Fixed-return investments: 12.8%, 14.2%, 14.5%, Amethyst living annuity.", href: "/everest-wealth", badge: "Popular", featured: true },
+      { name: "Everest Wealth Products", desc: "Targeted return profiles: 12.8%, 14.2%, 14.5%, Amethyst living annuity.", href: "/everest-wealth", badge: "Popular", featured: true },
       { name: "Financial Education & Calculators", desc: "Tools and structure, not just product sales.", href: "/calculators", badge: null, featured: false },
     ],
   },
@@ -133,7 +133,7 @@ export default function SolutionsPage() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">& Risk Architecture.</span>
             </h1>
             <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Bypass traditional markets and secure your capital with fixed-return private equity and structured retirement solutions. Full-service insurance and risk management when you need it.
+              Explore alternatives to traditional markets with structured private equity return profiles and retirement solutions. Full-service insurance and risk management when you need it.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-zinc-500">
               {trustBadges.map((badge) => (

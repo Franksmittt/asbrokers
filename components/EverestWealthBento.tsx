@@ -31,7 +31,7 @@ const CARDS = [
     subtitle: "Growth",
     yieldLabel: "Targeted yield 14.5%",
     description:
-      "Pure capital compounding over 5 years. Unlisted preference shares insulated from JSE volatility. Structured alternative investment, suitable for investors seeking fixed-return private equity exposure.",
+      "Pure capital compounding over 5 years. Unlisted preference shares outside daily JSE pricing. Structured alternative investment for clients seeking targeted private equity return exposure.",
     href: "/everest-wealth",
     accent: "gold-orange",
   },
@@ -58,7 +58,7 @@ export function EverestWealthBento() {
           transition={{ duration: 0.45, ease: APPLE_EASE }}
           className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] text-white mb-2"
         >
-          Bypass the Public Markets. Secure Fixed-Return Private Equity.
+          Explore Private-Market Return Profiles.
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 6 }}

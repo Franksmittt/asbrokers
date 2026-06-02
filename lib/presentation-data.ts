@@ -103,13 +103,13 @@ export const TIMELINE_NODES: TimelineNode[] = [
     position: "left",
     content: {
       headline: "Everest Wealth",
-      body: "Code 1.8 wealth engineering: fixed-return, unlisted preference share structures. Targeted yields (e.g. 12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity) for clients seeking income and growth outside traditional markets.",
+      body: "Code 1.8 wealth engineering: structured, unlisted preference share return profiles. Targeted yields (e.g. 12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity) for clients seeking income and growth outside traditional markets.",
       bullets: [
         "12.8% Strategic Income (cash flow)",
         "14.5% Strategic Growth (compounding)",
         "Amethyst Living Annuity (retirement liquidity)",
       ],
-      highlightPhrases: ["Code 1.8", "fixed-return", "unlisted preference share structures"],
+      highlightPhrases: ["Code 1.8", "structured", "unlisted preference share structures"],
     },
   },
   {

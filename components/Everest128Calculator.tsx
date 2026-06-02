@@ -101,7 +101,7 @@ export function Everest128Calculator() {
 
       <EverestLiquidityWarning />
       <ul className="text-zinc-500 text-xs mt-6 space-y-1">
-        <li>· Fixed 12.8% per annum for 5 years</li>
+        <li>· Targeted 12.8% per annum for 5 years</li>
         <li>· Dividends taxed at flat 20% (not income tax)</li>
         <li>· 10% loyalty bonus on capital after 5 years</li>
         <li>· Zero broker fees 100% of capital invested</li>

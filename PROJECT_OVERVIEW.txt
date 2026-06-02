@@ -2,7 +2,7 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: March 2026 (Wealth engineering refactor, institutional diagnostics, calculator overviews)
+Last updated: June 2026 (Blog Studio image editing, SEO/AEO audit suite, llms.txt/llms-full.txt, sitemap/GSC readiness, compliance wording)
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -39,9 +39,11 @@ What this project can do:
   - Contact form → HubSpot CRM (search-patch, cumulative lead score); optional PDF email via Trigger.dev + Resend.
   - Digital Wealth Assistant (chat) with deterministic tools (estate duty, 12.8% income, Amethyst) and optional RAG (pgvector).
   - Financial Health Quiz with shareable result URLs (nuqs) and routing to relevant calculators.
-  - Sanity CMS for insights; draft mode and Visual Editing; FSP disclaimer blocks in articles.
+  - Insights publishing via Sanity CMS plus Client Blog Studio backed by Supabase/Postgres; draft mode, Visual Editing, FSP disclaimer blocks, and private uploaded blog images served through the existing media proxy.
+  - Blog Studio supports loading existing posts, editing drafts/published posts, previewing current image slots, replacing/swapping images, and removing image assignments without deleting Supabase Storage objects.
   - POPIA cookie consent; GA4 and Hotjar only after "Accept All".
-  - PWA manifest; SEO (Organization/FinancialService schema, FAQPage, metadata per page).
+  - PWA manifest; SEO/AEO (Organization/FinancialService schema, FAQPage, metadata per page, self-referencing canonicals, robots, sitemap, llms.txt, llms-full.txt).
+  - SEO audit suite: npm run seo:audit runs static App Router checks, runtime indexability/AEO checks, and internal link graph checks in order.
   - Run-out and product calculators (retirement, tax, estate, inflation, Everest Wealth, Amethyst).
   - CRM & Client Portal: mock-auth login (/login); role-based CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence, notes, reassign); Client Portal (wealth dashboard, My Advisor, documents with upload, messages with reply). See CRM_AND_PORTAL.txt.
 
@@ -55,6 +57,9 @@ Recent work done:
   - Documentation: docs/calculator-overviews/ with per-calculator page overviews (RETIREMENT, INCOME_IN_RETIREMENT, INFLATION, INCOME_TAX, ESTATE_DUTY, ESTATE_REDUCTION, PREMIUM_INCREASE, EVEREST_WEALTH, EVEREST_128, EVEREST_142, EVEREST_145, EVEREST_AMETHYST) + INDEX; docs/CONTACT_PAGE_OVERVIEW.txt, SOLUTIONS_PAGE_OVERVIEW.txt, CALCULATORS_PAGE_OVERVIEW.txt, CUSTOMER_OVERVIEW.txt kept current.
   - Backend: Supabase PostgreSQL + pgvector for RAG; HubSpot (contact sync); Trigger.dev v4 (PDF + Resend); RAG ingest. See BACKEND.md.
   - CRM & Client Portal: mock auth, role-based CRM and Client Portal. Full doc: CRM_AND_PORTAL.txt.
+  - Blog Studio image editing: editor now restores existing image URLs from embedded metadata or saved <img> tags, shows per-slot thumbnails, supports upload replacement, supports clear/remove as a pending state, and keeps Supabase bucket/schema/policies untouched.
+  - SEO/GSC/AEO hardening: added global route-relative canonicals, public /llms.txt and /llms-full.txt, footer discoverability links for public sitemap pages, AS Brokers-specific audit scripts, and generated sitemap verification. Local production audit suite currently reports 0 static SEO/AEO findings, 0 runtime SEO/AEO findings, and 0 internal link graph findings.
+  - Compliance wording pass: West Rand entity consistency; Everest language softened from guarantee-like/fixed-return phrasing to targeted/structured return profiles; medical aid page includes CMS broker-remuneration transparency; GlobalSchema enriched for West Rand/Krugersdorp and AS Brokers service topics.
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -99,7 +104,7 @@ Regulation:        Independent Authorised Financial Services Provider
 Category:          Category 1.8 (Securities and Instruments: Shares) for
                    advising on and distributing Everest Wealth products
 
-Location:           Krugersdorp, East Rand, Gauteng, South Africa
+Location:           Krugersdorp, West Rand, Gauteng, South Africa
 Established:       Est. 1998 (25+ years experience)
 
 Founders / team:
@@ -107,14 +112,14 @@ Founders / team:
   - Johnny Farinha    – Co-founder; estate structuring, business continuity, risk planning
 
 Services offered:
-  - Retirement & investment planning (fixed-income, living annuities, RA)
+  - Retirement & investment planning (targeted income profiles, living annuities, RA)
   - Short-term insurance (personal: home, car, valuables; business: commercial, fleet)
   - Life insurance (personal: death, disability, income protection; business: key person, buy-and-sell)
   - Estate planning (wills, trusts, estate duty reduction)
   - Business structuring (buy-and-sell, key person, tax-efficient corporate protection)
   - Medical aid & gap cover structuring
   - Wellness & integration (high-income earners)
-  - Everest Wealth products (Code 1.8 alternative / fixed-return investments)
+  - Everest Wealth products (Code 1.8 alternative / structured return-profile investments)
 
 Contact:
   - WhatsApp: 067 242 9946
@@ -122,7 +127,7 @@ Contact:
   - No advice fees on investments; personal response (no call centre)
 
 Key partners / product providers:
-  - Everest Wealth Management (FSP 795) – fixed-return product structurer
+  - Everest Wealth Management (FSP 795) – structured product provider
   - Santam, Old Mutual, Bryte (recognised partners; referenced in trust bar)
 
 --------------------------------------------------------------------------------
@@ -140,7 +145,7 @@ Quick index (all routes):
   /income-tax-calculator  /estate-duty-calculator  /annual-estate-reduction-strategy
   /premium-increase-calculator
   /insights  /insights/[slug]  /insights/semigration-retirement
-  /quiz  /chat  /studio/[[...tool]]
+  /quiz  /chat  /llms.txt  /llms-full.txt  /studio/[[...tool]]
   /internal/pdf-report  /api/chat  /api/draft-mode/enable
 
 ---
@@ -149,7 +154,7 @@ Quick index (all routes):
   "Reality Check" hero ("You think your retirement is safe. The math might disagree."); primary CTA "Run the Numbers" (scroll to #lab), secondary "Explore Code 1.8 Wealth Engineering"; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip (Everest, Santam, Old Mutual, Bryte). RunOutCalculator directly below hero (portfolio, drawdown, capital lifespan; name/email/POPIA gate for full actuarial PDF). EverestWealthBento (12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity). Code18Advantage (Category 1.8, founders). RiskArchitectureCarousel (Short-Term, Commercial, Life, Estate). HomeStatsSection, HomeValueProps, HomeInsightsTeaser, HomeCtaStrip, Footer. FloatingChat (HeroChatTerminal in bottom-right panel). Design: void bg-[#0a0a0c], orbs, Bento/squircle.
 
 /about
-  About AS Brokers CC: independent financial advisor Krugersdorp, FSP 17273, Category 1.8, Krugersdorp. Links to Team and Contact. Metadata: independent financial advisor Krugersdorp.
+  About AS Brokers CC: independent financial advisor Krugersdorp, West Rand, FSP 17273, Category 1.8. Links to Team and Contact. Metadata: independent financial advisor Krugersdorp.
 
 /calculators
   "The Actuarial Reality Check" hero; jump nav (Assess Capital Lifespan, Calculate Everest Yields, Secondary Risk Tools). Phase 1: Capital Lifespan & High-Yield Solutions (retirement, income-in-retirement, inflation, Everest Product Quote — featured/glow cards). Phase 2: Secondary Risk Architecture (tax, estate, premium-increase — muted cards). Financial Education, Business Risk, CTA "Stop Guessing Your Capital Lifespan." FAQ schema. See docs/CALCULATORS_PAGE_OVERVIEW.txt.
@@ -179,7 +184,7 @@ Quick index (all routes):
   Business life: buy-and-sell, key person, loan account, employee benefits.
 
 /everest-wealth
-  "The Alternative Yield Portfolio" hero; Code 1.8 Wealth Engineering Suite eyebrow; trust tags (FSP 17273, FSCA Category 1.8 (Shares), Zero Advice Fees) Apple-style. Phase 1: Immediate Cash Flow Architecture (12.8%, 14.2% with "Max Day-1 Yield" tag). Phase 2: Pure Capital Compounding (14.5% card md:col-span-2). Phase 3: Retirement Liquidity Isolation (Amethyst "Section 14 Transfer Approved" tag). Cards hover:border-blue-500/40. Tertiary CTA "Read Fiduciary Briefing →" to /everest-wealth/about. FAQ schema. See docs/calculator-overviews/EVEREST_WEALTH_PAGE_OVERVIEW.txt.
+  "The Alternative Yield Portfolio" hero; Code 1.8 Wealth Engineering Suite eyebrow; trust tags (FSP 17273, FSCA Category 1.8 (Shares), Zero Advice Fees) Apple-style. Phase 1: Immediate Cash Flow Architecture (targeted 12.8%, targeted 14.2% with "Max Day-1 Yield" tag). Phase 2: Pure Capital Compounding (targeted 14.5% card md:col-span-2). Phase 3: Retirement Liquidity Isolation (Amethyst "Section 14 Transfer Approved" tag). Copy uses targeted/structured return-profile language and explicit non-guarantee/risk disclosures. Cards hover:border-blue-500/40. Tertiary CTA "Read Fiduciary Briefing →" to /everest-wealth/about. FAQ schema. See docs/calculator-overviews/EVEREST_WEALTH_PAGE_OVERVIEW.txt.
 
 /everest-wealth/about
   "Everest Wealth Explained": regulatory architecture, product suite, returns, risks, fees, tax. Everest FSP 795, AS Brokers FSP 17273, Category 1.8.
@@ -235,8 +240,17 @@ Quick index (all routes):
 /chat
   Digital Wealth Assistant: useChat; tools (estate duty, 12.8% income, Amethyst); RAG context when DATABASE_URL set. System prompt: R100k min, 120-day notice, 15% penalty, 20% DWT. Links to calculators, Contact.
 
+/llms.txt
+  Public AI discovery file. Summarises AS Brokers CC, FSP 17273, Category 1.8, core services, sitemap/robots/llms-full URLs, and crawler guidance. Runtime audit checks reachability and required sections.
+
+/llms-full.txt
+  Public full AI briefing for answer engines. Plain-text AS Brokers entity, compliance identity, services, Everest risk-language guidance, medical aid/gap cover distinctions, estate/calculator disclaimers, key public URLs, and AI citation guidance.
+
 /studio/[[...tool]]
   Embedded Sanity Studio v3; client-only (ssr: false). deskTool, presentationTool (draft mode /api/draft-mode/enable).
+
+/studio/blog/workspace
+  Client Blog Studio for AS Brokers-created posts. Private password-gated workspace; supports HTML paste, image slots, calculator/video slots, previews, draft save, publish, and existing-post editing. Image handling uses signed Supabase Storage uploads to the existing blog-images bucket and the /api/studio/media proxy. Current image slots are previewed and can be replaced/swapped or cleared without storage deletion, schema changes, or bucket/policy changes.
 
 /internal/pdf-report
   Print-only page for Trigger.dev: searchParams portfolio, drawdown → Recharts AreaChart (no animation). Puppeteer captures to PDF; Resend emails attachment. No nav/footer in print.
@@ -405,6 +419,7 @@ Root layout:
   Title template:  %s | AS Brokers CC
   Default title:   AS Brokers CC | Independent Financial Advisor Krugersdorp
   Description:     25+ years; retirement, insurance, estate, Code 1.8.
+  Canonical:       alternates.canonical "./" with metadataBase so public routes emit self-referencing canonical URLs.
   Keywords:        independent financial advisor Krugersdorp, Code 1.8 FSP license broker,
                    Everest Wealth brokers, alternative private equity investments South Africa, ...
   OpenGraph:       type website, locale en_ZA, siteName AS Brokers CC
@@ -420,13 +435,26 @@ Page-level metadata (keyword targeting per SEO plan):
 
 Structured data:
   GlobalSchema (root): Organization + FinancialService @graph; legalName AS Brokers CC;
-    FSP 17273, founders, Krugersdorp address; XSS-safe JSON-LD.
+    FSP 17273, founders, Krugersdorp/West Rand/South Africa areaServed; XSS-safe JSON-LD.
   FAQSchema: FAQPage on /calculators, /retirement, /everest-wealth, /everest-amethyst-living-annuity;
     escapeJsonLd for safe script injection.
 
 Semantic silos (internal linking):
   Retirement page → Amethyst Living Annuity (Reg 28, 2.5–17.5% drawdown bridge copy).
   Estate duty calculator → Annual Estate Reduction Strategy (R100k/R200k donations copy).
+  Footer now includes discoverability links for public sitemap pages so internal link graph audit reports no orphan/unreachable public URLs.
+
+Sitemap / GSC:
+  app/sitemap.ts generates public sitemap entries from static public paths, Sanity articles, and published Client Blog Studio posts.
+  Submit in Google Search Console after deployment: https://www.asbrokers.co.za/sitemap.xml
+  Latest local production verification: sitemap generated 37 public https://www.asbrokers.co.za URLs; audit suite reported 0 findings.
+
+SEO/AEO audit scripts:
+  npm run seo:audit          – runs full suite in order
+  npm run seo:audit:static   – static App Router/code SEO/AEO checks
+  npm run seo:audit:runtime  – runtime robots/sitemap/llms/canonical/noindex/JSON-LD/bot checks
+  npm run seo:audit:links    – runtime sitemap-driven internal link graph audit
+  Generated reports are ignored by git: asbrokers_*_findings.txt
 
 PWA:  public/manifest.json (name, theme, start_url). Root layout references manifest.
 

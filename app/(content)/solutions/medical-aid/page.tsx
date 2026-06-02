@@ -93,11 +93,16 @@ export default function MedicalAidPage() {
         <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
           <div className="max-w-4xl mx-auto rounded-2xl bg-white/[0.04] border border-white/10 p-6 md:p-8">
             <h2 className="text-lg font-bold text-white mb-3">Regulatory note</h2>
-            <p className="text-zinc-500 text-xs leading-relaxed">
+            <p className="text-zinc-500 text-xs leading-relaxed mb-3">
               Medical schemes are regulated by the Council for Medical Schemes (CMS). This page summarises general distinctions
               only; it is not a substitute for scheme brochures or insurer policy books. FSP 17273 for intermediary services
               within our licence categories.{" "}
               <Link href="/regulatory-compliance" className="text-cinematic-teal hover:underline">Disclosures</Link>.
+            </p>
+            <p className="text-zinc-500 text-xs leading-relaxed">
+              Medical scheme broker remuneration is regulated and capped by CMS rules, and is usually paid by the scheme rather
+              than as a separate fee added by AS Brokers for scheme placement. We will disclose how we are remunerated before
+              you make a decision.
             </p>
           </div>
         </section>

@@ -26,14 +26,18 @@ export function GlobalSchema() {
         logo: { "@type": "ImageObject", url: logoUrl },
         image: logoUrl,
         description:
-          "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Retirement planning, insurance, estate structuring, Everest Wealth. Krugersdorp, East Rand, Gauteng.",
+          "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Retirement planning, insurance, estate structuring, and Everest Wealth education. Krugersdorp, West Rand, Gauteng.",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Krugersdorp",
           addressRegion: "Gauteng",
           addressCountry: "ZA",
         },
-        areaServed: { "@type": "Country", name: "South Africa" },
+        areaServed: [
+          { "@type": "AdministrativeArea", name: "West Rand" },
+          { "@type": "City", name: "Krugersdorp" },
+          { "@type": "Country", name: "South Africa" },
+        ],
         foundingDate: "1998",
         founders: [
           { "@type": "Person", name: "Albert Schuurman" },
@@ -61,6 +65,8 @@ export function GlobalSchema() {
           "Everest Wealth",
           "Alternative Investments",
           "Code 1.8 FSP",
+          "Medical Aid and Gap Cover",
+          "Business Continuity Planning",
         ],
       },
     ],

@@ -17,7 +17,7 @@ const SLIDES = [
   },
   {
     id: "wealth",
-    title: "Build Lasting Wealth with Fixed-Return Investments.",
+    title: "Build Lasting Wealth with Structured Return Planning.",
     tease: "12.8–14.5% Returns via Everest Wealth.",
     gradient: "from-cinematic-teal/30 via-void to-void",
     accent: "bg-gold-orange/10",

@@ -20,7 +20,7 @@ export default function Everest128Page() {
               Yield Engineering: 12.8% Strategic Income.
             </h1>
             <p className="text-xl text-zinc-400 leading-relaxed">
-              Calculate your predictable monthly cash flow. Unlisted, insulated from market volatility, and engineered with a 10% capital maturity bonus at year 5.
+              Calculate the targeted monthly cash flow profile. This unlisted structure includes a 10% capital maturity bonus at year 5 and must be reviewed with its liquidity and risk disclosures.
             </p>
           </div>
           <div className="mt-8">

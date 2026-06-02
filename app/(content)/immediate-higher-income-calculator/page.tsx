@@ -4,7 +4,7 @@ import { Everest142Calculator } from "@/components/Everest142Calculator";
 
 export const metadata = {
   title: "Immediate Higher Income Calculator | 14.2% Gross Assumption | AS Brokers",
-  description: "Everest 14.2% investment calculator. Estimated monthly income from a fixed 14.2% annual return, 20% dividend tax.",
+  description: "Everest 14.2% investment calculator. Estimated monthly income from a targeted 14.2% annual return profile, 20% dividend tax.",
 };
 
 export default function ImmediateHigherIncomePage() {
@@ -17,7 +17,7 @@ export default function ImmediateHigherIncomePage() {
             Maximum Liquidity: 14.2% Onyx Income+.
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed">
-            Engineered for maximum day-one cash flow. Secure a fixed 14.2% annual return, bypassing public market volatility.
+            Engineered for maximum day-one cash flow. Model a targeted 14.2% annual return profile while reviewing product risk, liquidity, and suitability.
           </p>
         </div>
       </section>

@@ -28,7 +28,7 @@ export function Everest142Calculator() {
   return (
     <div className="bg-[#151518] rounded-[2rem] p-8 md:p-10 border border-white/5">
       <h2 className="text-2xl font-bold text-white mb-2">Everest 14.2% Investment Calculator</h2>
-      <p className="text-zinc-400 text-sm mb-2">Fixed 14.2% p.a. maximum income from day one.</p>
+      <p className="text-zinc-400 text-sm mb-2">Targeted 14.2% p.a. maximum income from day one.</p>
       <p className="text-zinc-500 text-xs mb-6">No loyalty bonus; higher immediate yield instead.</p>
 
       <div className="mb-6">
@@ -75,7 +75,7 @@ export function Everest142Calculator() {
 
       <EverestLiquidityWarning />
       <p className="text-zinc-500 text-xs mt-6">
-        This is an illustration based on a fixed 14.2% annual return with 20% dividend tax. Not an official quote. Please consult a qualified financial adviser.
+        This is an illustration based on a targeted 14.2% annual return profile with 20% dividend tax. Not an official quote. Please consult a qualified financial adviser.
       </p>
     </div>
   );

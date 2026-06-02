@@ -6,7 +6,7 @@ import { FAQSchema } from "@/components/FAQSchema";
 export const metadata = {
   title: "Everest Wealth Products | Alternative Private Equity Investments South Africa",
   description:
-    "Everest Wealth brokers: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity. Fixed-return alternative private equity investments South Africa. FSP 17273.",
+    "Everest Wealth brokers: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity. Targeted alternative private equity return profiles. FSP 17273.",
 };
 
 /** One readable column inside the full-bleed strip (matches phases + cards). */
@@ -41,10 +41,10 @@ const incomeOptions = [
   {
     title: "12.8% Strategic Income",
     tag: "Most popular",
-    subtitle: "Fixed 12.8% p.a. + 10% loyalty bonus at year 5",
+    subtitle: "Targeted 12.8% p.a. + 10% loyalty bonus at year 5",
     desc: "Predictable monthly income with long-term value. Best if you can accept slightly lower cash flow now in exchange for a capital bonus at maturity.",
     features: [
-      "Fixed 12.8% per year for 5 years",
+      "Targeted 12.8% per year for 5 years",
       "Monthly dividend income",
       "Dividends taxed at flat 20% (not income tax)",
       "10% loyalty bonus on capital after 5 years",
@@ -57,10 +57,10 @@ const incomeOptions = [
   {
     title: "14.2% Onyx Income+",
     tag: null,
-    subtitle: "Fixed 14.2% p.a., maximum income from day one",
+    subtitle: "Targeted 14.2% p.a., maximum income from day one",
     desc: "Highest monthly income from day one. Best for retirees who need every rand of cash flow now and do not want to wait for a bonus.",
     features: [
-      "Fixed 14.2% per year for 5 years",
+      "Targeted 14.2% per year for 5 years",
       "Monthly dividend income from day one",
       "Dividends taxed at flat 20%",
       "No loyalty bonus (trade-off for higher rate)",
@@ -77,7 +77,7 @@ const growthOption = {
   subtitle: "Compound growth. No monthly income.",
   desc: "For capital you do not need to draw on during the term. Returns compound at 14.5% for five years and are paid at maturity.",
   features: [
-    "Fixed 14.5% compound growth per year",
+    "Targeted 14.5% compound growth per year",
     "No monthly withdrawals; returns accumulate",
     "Dividends taxed at 20% on growth at maturity",
     "Capital committed for the full 5-year term",
@@ -159,7 +159,7 @@ export default function EverestWealthPage() {
               The alternative yield portfolio
             </h1>
             <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-              Bypass listed-market noise. Deploy capital into unlisted preference shares built for fixed returns, tax
+              Bypass listed-market noise. Deploy capital into unlisted preference shares built for targeted returns, tax
               efficiency, and a clear five-year arc.
             </p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -291,7 +291,7 @@ export default function EverestWealthPage() {
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">Targeted compound</p>
                   <p className="mt-2 text-5xl font-black tabular-nums tracking-tight text-white md:text-6xl">14.5%</p>
-                  <p className="mt-1 text-sm text-zinc-500">Per annum, fixed for the term. Not a guarantee of future results.</p>
+                  <p className="mt-1 text-sm text-zinc-500">Targeted per annum for the term. Not a guarantee of future results.</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="rounded-2xl border border-white/10 bg-black/30 p-4">

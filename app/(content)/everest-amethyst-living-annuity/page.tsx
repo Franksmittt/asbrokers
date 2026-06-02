@@ -4,7 +4,7 @@ import { AmethystAnnuityCalculator } from "@/components/AmethystAnnuityCalculato
 import { FAQSchema } from "@/components/FAQSchema";
 
 export const metadata = {
-  title: "Amethyst Living Annuity | Fixed 10.2% Retirement Income | AS Brokers CC",
+  title: "Amethyst Living Annuity | Targeted 10.2% Retirement Income | AS Brokers CC",
   description:
     "Amethyst Living Annuity for pension, provident, preservation and RA funds. Drawdown 2.5%–17.5%. Non-Regulation 28. Tax-sheltered growth. SARS 2026/27 estimate for 65+.",
 };
@@ -38,7 +38,7 @@ export default function AmethystAnnuityPage() {
             Insulated Retirement: The Amethyst Living Annuity.
           </h1>
           <p className="text-xl text-zinc-400 leading-relaxed">
-            Transfer your Pension, Provident, or Retirement Annuity into a fixed-yield structure. Secure predictable income (~10.2% net) and a 9% capital maturity bonus, completely insulated from JSE crashes.
+            Transfer your Pension, Provident, or Retirement Annuity into a structured return profile. Model targeted income (~10.2% net) and a 9% capital maturity bonus while understanding liquidity, tax, and product risks.
           </p>
         </div>
       </section>
@@ -54,9 +54,9 @@ export default function AmethystAnnuityPage() {
             <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
               <h2 className="text-xl font-bold text-white mb-4">The Yield Architecture</h2>
               <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                The Amethyst delivers a fixed net return of{" "}
+                The Amethyst targets a structured net return of{" "}
                 <span className="text-cinematic-teal font-bold text-lg">~10.2%</span> per year, with a{" "}
-                <span className="text-cinematic-teal font-bold text-lg">9%</span> capital maturity bonus after five years. Returns are not linked to market movements; capital and income are insulated from JSE volatility.
+                <span className="text-cinematic-teal font-bold text-lg">9%</span> capital maturity bonus after five years. Returns are not guaranteed and should be assessed with the full product disclosure pack.
               </p>
               <p className="text-zinc-500 text-xs leading-relaxed">
                 Income tax is calculated based on standard SARS drawdown tables.
@@ -65,7 +65,7 @@ export default function AmethystAnnuityPage() {
             <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
               <h2 className="text-xl font-bold text-white mb-4">Strategic Deployment</h2>
               <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                For retirees demanding absolute certainty: zero ongoing fund-switching fees, no performance monitoring, and complete isolation from market sequencing risk. Your income and capital growth are structured, predictable, and tax-sheltered inside the annuity.
+                For retirees seeking a structured alternative to daily market volatility: zero ongoing fund-switching fees, no performance monitoring, and a defined product framework. Your income and capital growth must still be reviewed against your drawdown, liquidity, and tax needs.
               </p>
             </div>
           </div>

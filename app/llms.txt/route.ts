@@ -21,6 +21,7 @@ const lines = [
   `- Home: ${absoluteUrl("/")}`,
   `- Sitemap: ${absoluteUrl("/sitemap.xml")}`,
   `- Robots: ${absoluteUrl("/robots.txt")}`,
+  `- Full AI briefing: ${absoluteUrl("/llms-full.txt")}`,
   `- Insights: ${absoluteUrl("/insights")}`,
   `- Solutions: ${absoluteUrl("/solutions")}`,
   `- Calculators: ${absoluteUrl("/calculators")}`,

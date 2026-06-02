@@ -50,7 +50,7 @@ export function ChooseYourPath() {
             <div className="text-center md:text-left">
               <h3 className="text-xl font-bold text-white mb-2">Grow capital</h3>
               <p className="text-zinc-500 text-sm mb-4">
-                Retirement planning, living annuities, Everest fixed-returns.
+                Retirement planning, living annuities, Everest targeted-return profiles.
               </p>
               <span className="inline-flex items-center gap-2 text-gold-orange font-semibold text-sm group-hover:gap-3 transition-all">
                 Explore wealth <ArrowRight className="w-4 h-4" />

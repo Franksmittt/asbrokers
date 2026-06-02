@@ -321,7 +321,7 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
       return {
         title: "Everest Wealth 12.8% Strategic Income",
         href: "/everest-128-product",
-        description: "Fixed-return income option for capital from R100,000. Ideal when your main concern is low investment yields.",
+        description: "Targeted income option for capital from R100,000. Ideal when your main concern is low investment yields.",
       };
     if (concern === "Retirement Shortfall" && age === "55+")
       return {

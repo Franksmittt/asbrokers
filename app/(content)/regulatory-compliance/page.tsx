@@ -43,7 +43,7 @@ export default function RegulatoryCompliancePage() {
               The FSCA designates Category 1.8 for &quot;Securities and Instruments: Shares&quot;. This classification requires meeting experience and qualification standards and allows the holder to distribute unlisted preference shares and related alternative investment products. Everest Wealth Management (FSP 795) structures such products; AS Brokers CC (FSP 17273) is authorised to advise on and distribute them to qualifying clients.
             </p>
             <p className="text-zinc-500 text-sm">
-              This capacity is central to our offering: fixed-return and living annuity solutions that fall outside traditional unit trust or life assurance wrappers.
+              This capacity is central to our offering: structured return and living annuity solutions that fall outside traditional unit trust or life assurance wrappers.
             </p>
           </div>
           <div className="rounded-2xl bg-[#151518] border border-white/10 p-6 md:p-8">

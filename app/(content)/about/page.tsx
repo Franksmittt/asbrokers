@@ -19,7 +19,7 @@ export default function AboutPage() {
               Independent Financial Advisor Krugersdorp
             </h1>
             <p className="text-lg text-zinc-400 leading-relaxed mb-8">
-              AS Brokers CC is an independent, authorised financial services provider based in Krugersdorp, East Rand, Gauteng. We hold FSP 17273 and a Category 1.8 (Securities and Instruments: Shares) license, enabling us to advise on and distribute unlisted alternative investments, including Everest Wealth products, alongside retirement planning, insurance, and estate structuring.
+              AS Brokers CC is an independent, authorised financial services provider based in Krugersdorp, West Rand, Gauteng. We hold FSP 17273 and a Category 1.8 (Securities and Instruments: Shares) license, enabling us to advise on and distribute unlisted alternative investments, including Everest Wealth products, alongside retirement planning, insurance, and estate structuring.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -54,7 +54,7 @@ export default function AboutPage() {
           <div className="max-w-4xl">
           <h2 className="text-2xl font-bold text-white mb-6">Why an independent advisor in Krugersdorp</h2>
           <p className="text-zinc-400 leading-relaxed mb-6">
-            We are not tied to a single product house. Our advice is built around your goals: retirement income, estate duty mitigation, business continuity, and tax-efficient structures. As a Code 1.8 FSP broker, we can offer Everest Wealth fixed-return and living annuity solutions that many advisers cannot distribute.
+            We are not tied to a single product house. Our advice is built around your goals: retirement income, estate duty mitigation, business continuity, and tax-efficient structures. As a Code 1.8 FSP broker, we can offer Everest Wealth structured return and living annuity solutions that many advisers cannot distribute.
           </p>
           <div className="my-10">
             <PageMediaStrip
@@ -65,7 +65,7 @@ export default function AboutPage() {
             />
           </div>
           <p className="text-zinc-500 text-sm">
-            FSP 17273 · Krugersdorp, East Rand, Gauteng · Est. 1998 · 25+ years experience
+            FSP 17273 · Krugersdorp, West Rand, Gauteng · Est. 1998 · 25+ years experience
           </p>
           </div>
         </div>

@@ -218,6 +218,22 @@ class RuntimeAuditor:
                 self.add("LOW", llms_url, "llms.txt missing 'Core Services' section.")
             if "/sitemap.xml" not in lower:
                 self.add("LOW", llms_url, "llms.txt does not mention sitemap.xml.")
+            if "/llms-full.txt" not in lower:
+                self.add("LOW", llms_url, "llms.txt does not mention llms-full.txt.")
+
+        # llms-full.txt
+        llms_full_url = f"{self.base_url}/llms-full.txt"
+        status, _, _, llms_full_body = self._request(llms_full_url)
+        if status != 200:
+            self.add("MEDIUM", llms_full_url, f"llms-full.txt not reachable (status {status}).")
+        else:
+            lower = llms_full_body.lower()
+            if "fsp 17273" not in lower:
+                self.add("LOW", llms_full_url, "llms-full.txt missing FSP 17273 disclosure.")
+            if "targeted" not in lower or "guaranteed" not in lower:
+                self.add("LOW", llms_full_url, "llms-full.txt should clarify targeted returns vs guaranteed outcomes.")
+            if "/sitemap.xml" not in lower:
+                self.add("LOW", llms_full_url, "llms-full.txt does not mention sitemap.xml.")
 
         return sitemap_urls[:MAX_SITEMAP_URLS]
 

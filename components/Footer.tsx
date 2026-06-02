@@ -11,10 +11,16 @@ const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 
 const quickLinks = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Solutions", href: "/solutions" },
   { label: "Calculators", href: "/calculators" },
   { label: "How we work", href: "/how-we-work" },
+  { label: "Team", href: "/team" },
   { label: "Insights", href: "/insights" },
+  { label: "Semigration guide", href: "/insights/semigration-retirement" },
+  { label: "Financial health quiz", href: "/quiz" },
+  { label: "AI wealth assistant", href: "/chat" },
+  { label: "Research lab", href: "/lab" },
   { label: "Contact", href: "/contact" },
   { label: "Regulatory Compliance", href: "/regulatory-compliance" },
   { label: "Team office", href: "/login" },
@@ -23,6 +29,8 @@ const quickLinks = [
 const complianceLinks = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Use", href: "/terms" },
+  { label: "Complaints Procedure", href: "/complaints" },
+  { label: "Conflict of Interest", href: "/conflict-of-interest" },
   { label: "FAIS Disclosure", href: "/regulatory-compliance#fais" },
   { label: "Code of Conduct", href: "/regulatory-compliance#code" },
 ];

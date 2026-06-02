@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   },
   description:
     "25+ years helping South Africans with retirement planning, insurance, estate structuring & business continuity. Albert Schuurman & Johnny Farinha. Independent Authorised Financial Service Provider.",
+  alternates: {
+    canonical: "./",
+  },
   keywords: [
     "independent financial advisor Krugersdorp",
     "Code 1.8 FSP license broker",

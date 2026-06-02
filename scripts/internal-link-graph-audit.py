@@ -232,6 +232,12 @@ class InternalLinkGraphAudit:
             out_edges=out_edges,
             in_degree=dict(in_degree),
             depth=depth,
+            details={
+                "Orphan pages": sorted(orphans),
+                "Unreachable pages": sorted(unreachable),
+                "Pages with no outgoing internal links": sorted(no_outgoing),
+                "Pages deeper than 3 clicks from homepage": sorted(deep_pages),
+            },
         )
 
     def write_report(
@@ -239,6 +245,7 @@ class InternalLinkGraphAudit:
         out_edges: Dict[str, Set[str]],
         in_degree: Dict[str, int],
         depth: Dict[str, int],
+        details: Dict[str, List[str]] | None = None,
     ) -> None:
         severity_order = {"HIGH": 0, "MEDIUM": 1, "LOW": 2}
         sorted_findings = sorted(self.findings, key=lambda f: severity_order[f.severity])
@@ -263,6 +270,17 @@ class InternalLinkGraphAudit:
             for finding in sorted_findings:
                 lines.append(f"- {finding.severity}: {finding.message}")
             lines.append("")
+
+        if details:
+            for heading, urls in details.items():
+                if not urls:
+                    continue
+                lines.append(f"{heading}:")
+                for url in urls[:25]:
+                    lines.append(f"- {url}")
+                if len(urls) > 25:
+                    lines.append(f"- ...and {len(urls) - 25} more")
+                lines.append("")
 
         if out_edges:
             out_rank = sorted(((url, len(targets)) for url, targets in out_edges.items()), key=lambda x: x[1], reverse=True)[:10]

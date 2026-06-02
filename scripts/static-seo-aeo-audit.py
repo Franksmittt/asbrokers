@@ -35,6 +35,23 @@ INTENTIONAL_NOINDEX_PREFIXES: tuple[str, ...] = (
     "app/portal/",
 )
 
+NON_PUBLIC_ROUTE_PREFIXES: tuple[str, ...] = (
+    "app/studio/",
+    "app/internal/",
+    "app/crm/",
+    "app/portal/",
+    "app/login/",
+    "app/embed/",
+)
+
+DYNAMIC_ROUTE_IGNORED_MARKERS: tuple[str, ...] = (
+    "/api/",
+    "/embed/",
+    "/report/[",
+    "/studio/",
+    "/insights/[slug]/",
+)
+
 
 @dataclass
 class Finding:
@@ -64,6 +81,10 @@ class NextSeoAeoAuditor:
 
     def _rel(self, path: Path) -> str:
         return str(path.relative_to(self.root)).replace("\\", "/")
+
+    def _is_non_public_route(self, rel: str) -> bool:
+        normalized = rel.replace("\\", "/")
+        return any(normalized.startswith(prefix) for prefix in NON_PUBLIC_ROUTE_PREFIXES)
 
     def run(self) -> None:
         if not self.app_path.exists():
@@ -139,8 +160,12 @@ class NextSeoAeoAuditor:
 
         content = self.read_text(middleware_path)
         rel = self._rel(middleware_path)
-        if re.search(r"X-Robots-Tag[\"']?\s*,\s*[\"']noindex", content) and "PUBLIC_SEO_PATH_PREFIXES" not in content:
-            self.add(rel, "MEDIUM", "Middleware sets noindex; verify public content is excluded from that header.")
+        if re.search(r"X-Robots-Tag[\"']?\s*,\s*[\"']noindex", content):
+            has_limited_matcher = "matcher" in content and all(
+                marker in content for marker in ('"/login', '"/crm', '"/internal', '"/studio')
+            )
+            if not has_limited_matcher:
+                self.add(rel, "MEDIUM", "Middleware sets noindex; verify public content is excluded from that header.")
 
     def _audit_root_layout(self) -> None:
         candidates = [self.app_path / "layout.tsx", self.app_path / "layout.ts", self.app_path / "layout.js"]
@@ -159,12 +184,22 @@ class NextSeoAeoAuditor:
             if CANONICAL_HOST not in content and "getSiteOrigin" not in content:
                 self.add(rel, "LOW", f"metadataBase does not visibly enforce canonical host {CANONICAL_HOST}.")
 
-        has_third_parties_lib = "@next/third-parties/google" in content
-        has_gtm_component = "GoogleTagManager" in content
-        has_ga_component = "GoogleAnalytics" in content
+        project_text = content
+        for rel_path in (
+            "components/Providers.tsx",
+            "components/analytics/ConditionalAnalytics.tsx",
+            "components/analytics/ConsentProvider.tsx",
+        ):
+            path = self.root / rel_path
+            if path.exists():
+                project_text += "\n" + self.read_text(path)
+
+        has_third_parties_lib = "@next/third-parties/google" in project_text
+        has_gtm_component = "GoogleTagManager" in project_text
+        has_ga_component = "GoogleAnalytics" in project_text
 
         # Project can use next/script safely, but flag if there is no GA/GTM integration path.
-        if not (has_third_parties_lib and (has_gtm_component or has_ga_component)) and "next/script" not in content:
+        if not (has_third_parties_lib and (has_gtm_component or has_ga_component)) and "next/script" not in project_text:
             self.add(rel, "MEDIUM", "No clear GA/GTM integration detected (next/script or @next/third-parties/google).")
 
     def _audit_file(self, file_path: Path) -> None:
@@ -182,21 +217,21 @@ class NextSeoAeoAuditor:
                 "Client component fetch in useEffect may hide content from crawlers. Prefer server-side data fetching.",
             )
 
-        dynamic_route_ignored = "/report/[" in rel or "/api/" in rel
+        dynamic_route_ignored = any(marker in rel for marker in DYNAMIC_ROUTE_IGNORED_MARKERS)
         if is_page and "[" in rel and "]" in rel and "generateStaticParams" not in content and not dynamic_route_ignored:
             self.add(rel, "MEDIUM", "Dynamic route missing generateStaticParams; may hurt crawl efficiency/TTFB.")
 
         if is_page and re.search(r"<head\b", content):
             self.add(rel, "HIGH", "Hardcoded <head> tag detected; use Metadata API in App Router.")
 
-        if is_page:
+        if is_page and not self._is_non_public_route(rel):
             self._check_page_metadata_presence(file_path, rel, content)
             self._check_noindex_directives(rel, content)
             self._check_internal_link_hygiene(rel, content)
 
         self._check_image_alt(rel, content)
         self._check_jsonld(rel, is_page, is_client, content)
-        self._check_h1(rel, is_page, content)
+        self._check_h1(rel, is_page and not self._is_non_public_route(rel), content)
 
     def _has_layout_metadata_in_scope(self, page_path: Path) -> bool:
         for parent in [page_path.parent, *page_path.parents]:

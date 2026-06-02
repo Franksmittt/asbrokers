@@ -6,7 +6,7 @@ import { FAQSchema } from "@/components/FAQSchema";
 export const metadata = {
   title: "Everest Wealth Products | Alternative Private Equity Investments South Africa",
   description:
-    "Everest Wealth brokers: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity. Fixed-return alternative private equity investments South Africa. FSP 17273.",
+    "Everest Wealth products available through AS Brokers: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity. Fixed-return alternative private equity investments South Africa. FSP 17273.",
 };
 
 /** One readable column inside the full-bleed strip (matches phases + cards). */

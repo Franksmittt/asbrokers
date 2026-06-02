@@ -30,7 +30,6 @@ export const metadata: Metadata = {
     "estate planning",
     "AS Brokers",
     "FSP 17273",
-    "Everest Wealth brokers",
     "alternative private equity investments South Africa",
   ],
   manifest: "/manifest.json",

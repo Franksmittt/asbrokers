@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "seo:audit:links": "python3 scripts/internal-link-graph-audit.py",
     "seo:audit:static": "python3 scripts/static-seo-aeo-audit.py",
     "seo:audit:runtime": "python3 scripts/runtime-seo-aeo-audit.py",
     "rag:ingest": "tsx scripts/ingest-rag.ts",

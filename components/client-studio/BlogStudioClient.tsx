@@ -88,6 +88,7 @@ const CALC_TOKEN = "[CALCULATOR_SLOT]";
 const VIDEO_TOKEN = "[VIDEO_SLOT]";
 const TARGET_UPLOAD_BYTES = 900 * 1024;
 const MAX_UPLOAD_IMAGE_SIDE = 1600;
+const EDITABLE_IMAGE_SLOT_PATTERN = String.raw`<img\b[^>]*>|\[IMAGE_SLOT\]`;
 
 const SAMPLE_HTML = `<section class="space-y-10" style="color:#e5e7eb;max-width:1040px;margin:0 auto;">
   <header style="padding:clamp(32px,6vw,64px) 0 24px;border-bottom:1px solid rgba(255,255,255,0.12);">
@@ -403,6 +404,66 @@ function escapeHtmlAttr(value: string): string {
     .replaceAll(">", "&gt;");
 }
 
+function imageSlotPattern(): RegExp {
+  return new RegExp(EDITABLE_IMAGE_SLOT_PATTERN, "gi");
+}
+
+function extractImgSrc(tag: string): string | null {
+  const quoted = tag.match(/\bsrc\s*=\s*(["'])(.*?)\1/i);
+  const unquoted = tag.match(/\bsrc\s*=\s*([^\s>]+)/i);
+  const src = (quoted?.[2] ?? unquoted?.[1] ?? "").trim();
+  return src || null;
+}
+
+function isPlaceholderImageSrc(src: string): boolean {
+  const normalized = src.trim();
+  if (!normalized || normalized === "#") return true;
+  return (
+    normalized.includes(IMAGE_TOKEN) ||
+    normalized.includes("YOUR_IMAGE_URL") ||
+    normalized.includes("{{IMAGE_URL}}") ||
+    normalized.includes("REPLACE_WITH_IMAGE_URL")
+  );
+}
+
+function replaceImgSrc(tag: string, url: string): string {
+  const escapedUrl = escapeHtmlAttr(url);
+  if (/\bsrc\s*=/.test(tag)) {
+    return tag
+      .replace(/\bsrc\s*=\s*(["'])(.*?)\1/i, `src="${escapedUrl}"`)
+      .replace(/\bsrc\s*=\s*([^\s>]+)/i, `src="${escapedUrl}"`);
+  }
+  return tag.replace(/<img\b/i, `<img src="${escapedUrl}"`);
+}
+
+function countEditableImageSlots(html: string): number {
+  return Array.from(html.matchAll(imageSlotPattern())).length;
+}
+
+function extractEditableImageUrls(html: string): Record<number, string> {
+  const urls: Record<number, string> = {};
+  let imageIndex = 0;
+
+  for (const match of html.matchAll(imageSlotPattern())) {
+    const slot = match[0];
+    if (slot.toLowerCase().startsWith("<img")) {
+      const src = extractImgSrc(slot);
+      if (src && !isPlaceholderImageSrc(src)) {
+        urls[imageIndex] = src;
+      }
+    }
+    imageIndex += 1;
+  }
+
+  return urls;
+}
+
+function renderImageFigure(url: string, imageIndex: number): string {
+  return `<figure style="margin:34px 0;"><img src="${escapeHtmlAttr(
+    url
+  )}" alt="Article image ${imageIndex + 1}" loading="lazy" style="display:block;width:100%;height:auto;border:1px solid rgba(255,255,255,0.12);border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,0.32);" /></figure>`;
+}
+
 function formatStudioDate(iso: string | null): string {
   if (!iso) return "Not published";
   return new Date(iso).toLocaleDateString("en-ZA", {
@@ -422,40 +483,56 @@ function buildPersistHtml(
   let imageIndex = 0;
   let calcIndex = 0;
   let videoIndex = 0;
-  const parts = rawHtml.split(/(\[IMAGE_SLOT\]|\[CALCULATOR_SLOT\]|\[VIDEO_SLOT\])/g);
-  return parts
-    .map((part) => {
-      if (part === IMAGE_TOKEN) {
-        const replacementUrl = imageUrls[imageIndex];
-        const replacement = replacementUrl
-          ? `<figure style="margin:34px 0;"><img src="${escapeHtmlAttr(
-              replacementUrl
-            )}" alt="Article image ${imageIndex + 1}" loading="lazy" style="display:block;width:100%;height:auto;border:1px solid rgba(255,255,255,0.12);border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,0.32);" /></figure>`
-          : IMAGE_TOKEN;
-        imageIndex += 1;
-        return replacement;
-      }
-      if (part === CALC_TOKEN) {
-        const selected = calculatorSelection[calcIndex] ?? "";
-        calcIndex += 1;
-        const snippet = selected ? snippetById.get(selected) : null;
-        return snippet
-          ? `<div style="margin:34px 0;border-top:1px solid rgba(45,212,191,0.30);border-bottom:1px solid rgba(255,255,255,0.10);padding:clamp(18px,3vw,28px) 0;">${snippet}</div>`
-          : CALC_TOKEN;
-      }
-      if (part === VIDEO_TOKEN) {
-        const selected = (videoUrls[videoIndex] ?? "").trim();
-        videoIndex += 1;
-        if (!selected) return VIDEO_TOKEN;
-        const youtubeId = extractYoutubeId(selected);
-        if (youtubeId) {
-          return `<div style="margin:34px 0;"><iframe src="https://www.youtube.com/embed/${youtubeId}" title="YouTube video" loading="lazy" allowfullscreen style="display:block;width:100%;min-height:360px;border:1px solid rgba(255,255,255,0.12);border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,0.32);"></iframe></div>`;
+
+  function renderNonImageTokens(part: string): string {
+    return part
+      .split(/(\[CALCULATOR_SLOT\]|\[VIDEO_SLOT\])/g)
+      .map((segment) => {
+        if (segment === CALC_TOKEN) {
+          const selected = calculatorSelection[calcIndex] ?? "";
+          calcIndex += 1;
+          const snippet = selected ? snippetById.get(selected) : null;
+          return snippet
+            ? `<div style="margin:34px 0;border-top:1px solid rgba(45,212,191,0.30);border-bottom:1px solid rgba(255,255,255,0.10);padding:clamp(18px,3vw,28px) 0;">${snippet}</div>`
+            : CALC_TOKEN;
         }
-        return `<p style="margin:24px 0;"><a href="${escapeHtmlAttr(selected)}" target="_blank" rel="noreferrer" style="display:inline-flex;border:1px solid rgba(45,212,191,0.35);background:rgba(45,212,191,0.10);border-radius:999px;padding:12px 18px;color:#99f6e4;text-decoration:none;font-weight:700;">Watch video</a></p>`;
-      }
-      return part;
-    })
-    .join("");
+        if (segment === VIDEO_TOKEN) {
+          const selected = (videoUrls[videoIndex] ?? "").trim();
+          videoIndex += 1;
+          if (!selected) return VIDEO_TOKEN;
+          const youtubeId = extractYoutubeId(selected);
+          if (youtubeId) {
+            return `<div style="margin:34px 0;"><iframe src="https://www.youtube.com/embed/${youtubeId}" title="YouTube video" loading="lazy" allowfullscreen style="display:block;width:100%;min-height:360px;border:1px solid rgba(255,255,255,0.12);border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,0.32);"></iframe></div>`;
+          }
+          return `<p style="margin:24px 0;"><a href="${escapeHtmlAttr(selected)}" target="_blank" rel="noreferrer" style="display:inline-flex;border:1px solid rgba(45,212,191,0.35);background:rgba(45,212,191,0.10);border-radius:999px;padding:12px 18px;color:#99f6e4;text-decoration:none;font-weight:700;">Watch video</a></p>`;
+        }
+        return segment;
+      })
+      .join("");
+  }
+
+  let rendered = "";
+  let lastIndex = 0;
+  for (const match of rawHtml.matchAll(imageSlotPattern())) {
+    const slot = match[0];
+    const slotStart = match.index ?? 0;
+    const replacementUrl = imageUrls[imageIndex];
+
+    rendered += renderNonImageTokens(rawHtml.slice(lastIndex, slotStart));
+    if (replacementUrl) {
+      rendered += slot.toLowerCase().startsWith("<img")
+        ? replaceImgSrc(slot, replacementUrl)
+        : renderImageFigure(replacementUrl, imageIndex);
+    } else {
+      rendered += IMAGE_TOKEN;
+    }
+
+    imageIndex += 1;
+    lastIndex = slotStart + slot.length;
+  }
+
+  rendered += renderNonImageTokens(rawHtml.slice(lastIndex));
+  return rendered;
 }
 
 function buildPreviewHtml(persistHtml: string): string {
@@ -604,7 +681,7 @@ export function BlogStudioClient(props: Props) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [showAllPosts]);
 
-  const imageCount = useMemo(() => countToken(rawHtml, IMAGE_TOKEN), [rawHtml]);
+  const imageCount = useMemo(() => countEditableImageSlots(rawHtml), [rawHtml]);
   const calcCount = useMemo(() => countToken(rawHtml, CALC_TOKEN), [rawHtml]);
   const videoCount = useMemo(() => countToken(rawHtml, VIDEO_TOKEN), [rawHtml]);
   const missingImages = useMemo(
@@ -740,19 +817,21 @@ export function BlogStudioClient(props: Props) {
     setSelectedCategories(categories);
     const sourceHtml = post.bodyHtml || post.bodyHtmlPublished || SAMPLE_HTML;
     const parsedMeta = extractStudioBodyMetadata(sourceHtml);
-    setRawHtml(parsedMeta.metadata?.rawHtml || parsedMeta.cleanHtml || SAMPLE_HTML);
+    const restoredRawHtml = parsedMeta.metadata?.rawHtml || parsedMeta.cleanHtml || SAMPLE_HTML;
+    setRawHtml(restoredRawHtml);
     setMetaTitle(post.metaTitle ?? "");
     setMetaDescription(post.metaDescription ?? "");
     resetSlotState();
-    const restoredImages: Record<number, string> = {};
+    const restoredImages: Record<number, string> = extractEditableImageUrls(parsedMeta.cleanHtml || restoredRawHtml);
     for (const [key, value] of Object.entries(parsedMeta.metadata?.imageUrls ?? {})) {
       const idx = Number(key);
       if (Number.isInteger(idx) && idx >= 0 && value.trim()) restoredImages[idx] = value;
     }
+    if (post.heroImageUrl && !restoredImages[0]) {
+      restoredImages[0] = post.heroImageUrl;
+    }
     if (Object.keys(restoredImages).length > 0) {
       setImageUrls(restoredImages);
-    } else if (post.heroImageUrl) {
-      setImageUrls({ 0: post.heroImageUrl });
     }
     const restoredCalcs: Record<number, string> = {};
     for (const [key, value] of Object.entries(parsedMeta.metadata?.calcSelection ?? {})) {
@@ -1107,6 +1186,21 @@ export function BlogStudioClient(props: Props) {
     }
   }
 
+  function clearImageSlot(index: number) {
+    setImageUrls((prev) => {
+      const next = { ...prev };
+      delete next[index];
+      return next;
+    });
+    setSlotFiles((prev) => ({ ...prev, [index]: null }));
+    setSlotMessages((prev) => ({
+      ...prev,
+      [index]: "Image removed from this slot. Upload a replacement before publishing.",
+    }));
+    setStatus("Image slot needs replacement");
+    setBanner(`Image slot ${index + 1} removed. Upload a replacement before publishing.`);
+  }
+
   async function copyPromptPreset(preset: CopyPromptPreset) {
     try {
       await navigator.clipboard.writeText(buildCopyMePrompt(preset));
@@ -1409,7 +1503,8 @@ export function BlogStudioClient(props: Props) {
               <span className="text-xs font-semibold text-zinc-400">{imageCount - missingImages}/{imageCount} mapped</span>
             </div>
             <p className="mb-3 text-sm text-zinc-400">
-              The number of upload boxes comes directly from the {IMAGE_TOKEN} placeholders in the pasted HTML.
+              The upload boxes come from {IMAGE_TOKEN} placeholders and existing images in the post. Open a saved post here to
+              replace or remove the images without changing any Supabase storage settings.
             </p>
             <div className="mb-3 rounded-lg border border-white/10 bg-black/25 p-3">
               <div className="flex items-center justify-between gap-2">
@@ -1436,41 +1531,89 @@ export function BlogStudioClient(props: Props) {
                 </ul>
               )}
             </div>
-            {Array.from({ length: imageCount }).map((_, i) => (
-              <div key={`img-slot-${i}`} className="mb-3 rounded-lg border border-white/10 bg-black/30 p-4">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm font-bold text-zinc-100">
-                    Image Slot #{i + 1} {i === 0 ? "(Cover Thumbnail)" : ""}
-                  </span>
-                  <span className="text-xs font-semibold text-emerald-300">{imageUrls[i] ? "Assigned ✓" : "Pending"}</span>
+            {Array.from({ length: imageCount }).map((_, i) => {
+              const assignedUrl = imageUrls[i];
+              const selectedFile = slotFiles[i];
+              return (
+                <div key={`img-slot-${i}`} className="mb-3 rounded-lg border border-white/10 bg-black/30 p-4">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <span className="text-sm font-bold text-zinc-100">
+                      Image Slot #{i + 1} {i === 0 ? "(Cover Thumbnail)" : ""}
+                    </span>
+                    <span className={assignedUrl ? "text-xs font-semibold text-emerald-300" : "text-xs font-semibold text-amber-300"}>
+                      {assignedUrl ? "Assigned" : "Needs image"}
+                    </span>
+                  </div>
+
+                  {assignedUrl ? (
+                    <div className="mb-3 grid gap-3 rounded-lg border border-white/10 bg-white/5 p-3 sm:grid-cols-[112px_1fr]">
+                      <img
+                        src={assignedUrl}
+                        alt={`Current image for slot ${i + 1}`}
+                        className="h-28 w-full rounded-lg border border-white/10 object-cover sm:w-28"
+                      />
+                      <div className="flex flex-col justify-center gap-2">
+                        <p className="text-xs font-semibold text-zinc-200">Current image</p>
+                        <p className="break-all text-[11px] leading-relaxed text-zinc-500">{assignedUrl}</p>
+                        <p className="text-[11px] leading-relaxed text-zinc-400">
+                          Choose a new file below and upload it to replace this image. Remove only marks the slot as pending; it
+                          does not delete anything from Supabase storage.
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mb-3 rounded-lg border border-dashed border-amber-400/30 bg-amber-500/10 p-3 text-xs text-amber-100">
+                      No image assigned to this slot. Upload one before publishing.
+                    </div>
+                  )}
+
+                  <div className="flex flex-col gap-2 sm:flex-row">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        setSlotFiles((prev) => ({
+                          ...prev,
+                          [i]: (e.target.files?.[0] as File | undefined) ?? null,
+                        }))
+                      }
+                      className="block w-full text-sm text-zinc-400 file:mr-3 file:rounded-md file:border-0 file:bg-zinc-900 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white"
+                    />
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => void uploadSlot(i)}
+                        disabled={isPending || !selectedFile || Boolean(uploadingSlots[i])}
+                        className="rounded-md border border-white/20 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-200 disabled:opacity-40"
+                      >
+                        {uploadingSlots[i] ? "Uploading..." : assignedUrl ? "Upload replacement" : "Upload"}
+                      </button>
+                      {assignedUrl && (
+                        <button
+                          type="button"
+                          onClick={() => clearImageSlot(i)}
+                          disabled={isPending || Boolean(uploadingSlots[i])}
+                          className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-200 hover:bg-red-500/15 disabled:opacity-40"
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  {selectedFile && (
+                    <p className="mt-2 text-[11px] text-teal-200">
+                      Selected: {selectedFile.name}. Click {assignedUrl ? "Upload replacement" : "Upload"} to map it to this slot.
+                    </p>
+                  )}
+                  {slotMessages[i] && (
+                    <p className="mt-2 text-[11px] text-zinc-400">{slotMessages[i]}</p>
+                  )}
                 </div>
-                <div className="flex gap-2">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) =>
-                      setSlotFiles((prev) => ({
-                        ...prev,
-                        [i]: (e.target.files?.[0] as File | undefined) ?? null,
-                      }))
-                    }
-                    className="block w-full text-sm text-zinc-400 file:mr-3 file:rounded-md file:border-0 file:bg-zinc-900 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => void uploadSlot(i)}
-                    disabled={isPending || !slotFiles[i] || Boolean(uploadingSlots[i])}
-                    className="rounded-md border border-white/20 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-200 disabled:opacity-40"
-                  >
-                    {uploadingSlots[i] ? "Uploading..." : "Upload"}
-                  </button>
-                </div>
-                {slotMessages[i] && (
-                  <p className="mt-2 text-[11px] text-zinc-400">{slotMessages[i]}</p>
-                )}
-              </div>
-            ))}
-            {imageCount === 0 && <p className="text-sm italic text-zinc-500">No [IMAGE_SLOT] placeholders detected.</p>}
+              );
+            })}
+            {imageCount === 0 && (
+              <p className="text-sm italic text-zinc-500">No image placeholders or editable image tags detected.</p>
+            )}
           </div>
 
           <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">

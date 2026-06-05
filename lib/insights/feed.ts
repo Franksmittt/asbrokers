@@ -4,6 +4,7 @@ import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { insightsListQuery } from "@/sanity/lib/queries";
 import { normalizeInsightCategories } from "@/lib/insights/insightCategories";
+import { MOCK_INSIGHT_POSTS } from "@/lib/insights/mockPosts";
 
 export type InsightFeedItem = {
   id: string;
@@ -14,7 +15,7 @@ export type InsightFeedItem = {
   excerpt: string | null;
   author: string;
   thumbnailUrl: string | null;
-  source: "sanity" | "studio";
+  source: "sanity" | "studio" | "mock";
   categories: string[];
 };
 
@@ -101,7 +102,26 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
     (item) => !sanitySlugKeys.has(`${item.slug}::${item.locale}`)
   );
 
-  return [...sanityItems, ...studioItemsWithoutSanitySlugConflict].sort(
+  const realSlugKeys = new Set(
+    [...sanityItems, ...studioItemsWithoutSanitySlugConflict].map((item) => `${item.slug}::${item.locale}`)
+  );
+
+  const mockItems: InsightFeedItem[] = MOCK_INSIGHT_POSTS.filter(
+    (post) => !realSlugKeys.has(`${post.slug}::${post.locale}`)
+  ).map((post) => ({
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    locale: post.locale,
+    publishedAt: post.publishedAt,
+    excerpt: post.excerpt,
+    author: post.author,
+    thumbnailUrl: post.thumbnailUrl,
+    source: "mock" as const,
+    categories: post.categories,
+  }));
+
+  return [...sanityItems, ...studioItemsWithoutSanitySlugConflict, ...mockItems].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 }

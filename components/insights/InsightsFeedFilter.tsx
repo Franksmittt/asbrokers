@@ -373,6 +373,11 @@ export function InsightsFeedFilter({ articles }: Props) {
                         New
                       </span>
                     )}
+                    {a.source === "mock" && (
+                      <span className="rounded-full bg-amber-300/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-200 ring-1 ring-amber-300/20">
+                        Mockup
+                      </span>
+                    )}
                   </div>
                   <h2 className="mt-3 text-lg font-bold leading-snug text-white transition-colors group-hover:text-cinematic-teal">
                     {a.title}

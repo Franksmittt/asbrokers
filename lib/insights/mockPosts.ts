@@ -9,6 +9,7 @@ export type MockInsightPost = {
   excerpt: string;
   author: string;
   thumbnailUrl: string;
+  galleryImages: Array<{ src: string; alt: string }>;
   categories: InsightCategoryValue[];
   metaTitle: string;
   metaDescription: string;
@@ -27,17 +28,38 @@ export const MOCK_INSIGHT_POSTS: MockInsightPost[] = [
     author: "AS Brokers",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=80",
+    galleryImages: [
+      {
+        src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
+        alt: "Business owner reviewing insurance documents in a boardroom",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80",
+        alt: "Business team discussing risk management",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=900&q=80",
+        alt: "Insurance paperwork and financial notes",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=900&q=80",
+        alt: "Commercial vehicle and logistics planning",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80",
+        alt: "Operations team reviewing business continuity",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=900&q=80",
+        alt: "Business analytics dashboard for risk review",
+      },
+    ],
     categories: ["short_term_business", "life_insurance_business"],
     metaTitle: "Business Insurance Risk Review | AS Brokers Mockup Insight",
     metaDescription:
       "A mockup AS Brokers blog post for business owners reviewing commercial insurance, interruption cover, liability, fleet, cyber, and key-person risk.",
     bodyHtml: `
 <p class="lead">Business insurance is often treated as a grudge purchase until a claim turns it into one of the most important decisions a company has ever made. This mockup article shows how AS Brokers could educate owners, finance teams, and operations managers with clear guidance that feels practical rather than generic.</p>
-
-<figure>
-  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1800&q=80" alt="Business owner reviewing insurance documents in a boardroom" />
-  <figcaption>Mockup blog format: strong hero imagery, helpful sections, service links, and a clear advisory next step.</figcaption>
-</figure>
 
 <h2>1. Has your insured value kept pace with the business?</h2>
 <p>Stock levels, machinery, laptops, solar installations, specialist tools, office improvements, and imported equipment can all change faster than the policy schedule. A business may start with sensible sums insured and become underinsured after one busy year of growth. When values are too low, average can apply at claim stage, which means the insurer may settle only a portion of the loss.</p>
@@ -108,17 +130,38 @@ export const MOCK_INSIGHT_POSTS: MockInsightPost[] = [
     author: "AS Brokers",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1400&q=80",
+    galleryImages: [
+      {
+        src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+        alt: "Family healthcare planning with a medical professional",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=80",
+        alt: "Doctor checking a child's health",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=900&q=80",
+        alt: "Healthcare provider discussing treatment options",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=900&q=80",
+        alt: "Medical aid forms and healthcare notes",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=900&q=80",
+        alt: "Healthcare specialist preparing for a consultation",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=900&q=80",
+        alt: "Hospital corridor representing medical care access",
+      },
+    ],
     categories: ["medical_aid", "health_wellness"],
     metaTitle: "Medical Aid and Gap Cover Family Guide | AS Brokers Mockup Insight",
     metaDescription:
       "A mockup AS Brokers article showing how families can understand medical aid benefits, gap cover, network rules, and annual plan reviews.",
     bodyHtml: `
 <p class="lead">Medical aid decisions are emotional because they sit between the household budget and the family&apos;s health. This mockup post shows how AS Brokers can use blog content to simplify renewal decisions and make clients feel guided before they need to claim.</p>
-
-<figure>
-  <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1800&q=80" alt="Family healthcare planning with a medical professional" />
-  <figcaption>Healthcare content can combine education, reassurance, and practical renewal prompts.</figcaption>
-</figure>
 
 <h2>Start with how your family actually uses healthcare</h2>
 <p>A plan that worked three years ago may no longer fit. Children grow, chronic medication changes, elective procedures become more likely, and day-to-day usage can increase. Before comparing premiums, families should list their actual healthcare pattern: GP visits, specialists, chronic medication, dentistry, optometry, mental health support, scans, hospital events, and preferred providers.</p>
@@ -191,17 +234,38 @@ export const MOCK_INSIGHT_POSTS: MockInsightPost[] = [
     author: "AS Brokers",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80",
+    galleryImages: [
+      {
+        src: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80",
+        alt: "Client and adviser reviewing investment income options",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=80",
+        alt: "Investment planning dashboard with charts",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=900&q=80",
+        alt: "Financial documents and calculator for income planning",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
+        alt: "Portfolio performance chart on a laptop",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1554224155-1696413565d3?auto=format&fit=crop&w=900&q=80",
+        alt: "Advisor writing notes during an investment consultation",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&w=900&q=80",
+        alt: "Client signing investment planning documents",
+      },
+    ],
     categories: ["investments", "financial_freedom"],
     metaTitle: "Everest Wealth 12.8% Income Walkthrough | AS Brokers Mockup Insight",
     metaDescription:
       "A mockup AS Brokers product explainer for Everest Wealth 12.8% targeted income, including R100k minimum and liquidity considerations.",
     bodyHtml: `
 <p class="lead">Some clients want growth. Others want a clearer income profile. This mockup article demonstrates how AS Brokers can explain a voluntary investment product in a way that is transparent, compliant, and easy for a client to discuss with an adviser.</p>
-
-<figure>
-  <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1800&q=80" alt="Client and adviser reviewing investment income options" />
-  <figcaption>Product education works best when it explains both the opportunity and the trade-offs.</figcaption>
-</figure>
 
 <div class="not-prose my-8 rounded-[2rem] border border-amber-300/30 bg-amber-300/10 p-5 text-sm leading-relaxed text-amber-100">
   <strong>Important mockup disclosure:</strong> Everest Wealth products are voluntary investments with a R100k minimum. Targeted returns are not guarantees. Liquidity may be limited, notice periods and penalties can apply, and clients should review suitability, risk, tax, and cash-flow needs with an adviser before investing.
@@ -271,17 +335,38 @@ export const MOCK_INSIGHT_POSTS: MockInsightPost[] = [
     author: "AS Brokers",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=80",
+    galleryImages: [
+      {
+        src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80",
+        alt: "Estate planning documents and financial notes on a desk",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80",
+        alt: "Family home representing estate assets",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=80",
+        alt: "Will and estate checklist documents",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=900&q=80",
+        alt: "Family meeting with an adviser",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=900&q=80",
+        alt: "Financial records used for liquidity planning",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80",
+        alt: "Advisers discussing family wealth structures",
+      },
+    ],
     categories: ["estate_planning", "trust_structure", "last_will_testament"],
     metaTitle: "Estate Planning Family Wealth Checklist | AS Brokers Mockup Insight",
     metaDescription:
       "A mockup AS Brokers article covering wills, liquidity, trusts, beneficiary nominations, business interests, and family estate planning conversations.",
     bodyHtml: `
 <p class="lead">Estate planning is not only about having a signed will. It is about making sure the right assets reach the right people, at the right time, with enough liquidity and clarity to avoid unnecessary stress. This mockup article shows how AS Brokers can turn a complex topic into a client-friendly checklist.</p>
-
-<figure>
-  <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1800&q=80" alt="Estate planning documents and financial notes on a desk" />
-  <figcaption>Educational estate content can help families prepare before decisions become urgent.</figcaption>
-</figure>
 
 <h2>1. Check the will before checking the products</h2>
 <p>A will should reflect current family circumstances, asset ownership, guardianship preferences, executor choices, and any special bequests. It should also align with beneficiary nominations and structures outside the estate. A will that is technically valid but outdated can still create conflict.</p>

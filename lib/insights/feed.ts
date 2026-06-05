@@ -15,6 +15,7 @@ export type InsightFeedItem = {
   excerpt: string | null;
   author: string;
   thumbnailUrl: string | null;
+  imageGridUrls?: string[];
   source: "sanity" | "studio" | "mock";
   categories: string[];
 };
@@ -117,6 +118,7 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
     excerpt: post.excerpt,
     author: post.author,
     thumbnailUrl: post.thumbnailUrl,
+    imageGridUrls: post.galleryImages.slice(0, 6).map((image) => image.src),
     source: "mock" as const,
     categories: post.categories,
   }));

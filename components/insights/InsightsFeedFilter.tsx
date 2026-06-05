@@ -344,23 +344,38 @@ export function InsightsFeedFilter({ articles }: Props) {
           </div>
         </div>
       ) : filtered.length > 0 ? (
-        <ul className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <ul className="mt-12 grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((a) => (
             <li key={`${a.id}::${a.slug}::${a.locale}`}>
               <Link
                 href={`/insights/${a.slug}?locale=${a.locale}`}
-                className="group flex h-full flex-col overflow-hidden rounded-[2rem] rim-light border-0 transition-all duration-500 hover:bg-white/[0.07]"
+                className="group flex h-full flex-col overflow-hidden rounded-[2.25rem] rim-light border-0 transition-all duration-500 hover:-translate-y-1 hover:bg-white/[0.07]"
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-zinc-900/80">
-                  <img
-                    src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
-                    alt=""
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-900/80">
+                  {a.imageGridUrls && a.imageGridUrls.length >= 6 ? (
+                    <div className="grid h-full grid-cols-3 grid-rows-2 gap-1 p-1">
+                      {a.imageGridUrls.slice(0, 6).map((src, index) => (
+                        <div key={`${src}-${index}`} className="overflow-hidden rounded-[1.15rem] bg-zinc-950">
+                          <img
+                            src={src}
+                            alt=""
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.08]"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <img
+                      src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/80 via-transparent to-transparent opacity-60" />
                 </div>
-                <div className="flex flex-1 flex-col p-5 md:p-6">
+                <div className="flex flex-1 flex-col p-6 md:p-7">
                   <div className="flex flex-wrap items-center gap-2">
                     <time
                       className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500"

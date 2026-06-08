@@ -2,10 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ClientInsightArticle } from "@/components/client-studio/ClientInsightArticle";
 import { Footer } from "@/components/Footer";
-import { MockInsightArticle } from "@/components/insights/MockInsightArticle";
 import { ArticlePortableText } from "@/components/portable-text/ArticlePortableText";
 import { getPublishedStudioPostBySlug } from "@/lib/client-studio/posts";
-import { getMockInsightPostBySlug } from "@/lib/insights/mockPosts";
 import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { articleBySlugQuery } from "@/sanity/lib/queries";
@@ -54,10 +52,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const article = await getSanityArticleOrNull(slug, locale);
   if (!article) {
     const studio = await getPublishedStudioPostBySlug(slug, locale);
-    const mock = studio ? null : getMockInsightPostBySlug(slug, locale);
-    if (!studio && !mock) return { title: "Article | AS Brokers" };
-    const title = studio ? (studio.metaTitle ?? studio.title) : mock!.metaTitle;
-    const description = studio ? (studio.metaDescription ?? studio.excerpt ?? undefined) : mock!.metaDescription;
+    if (!studio) return { title: "Article | AS Brokers" };
+    const title = studio.metaTitle ?? studio.title;
+    const description = studio.metaDescription ?? studio.excerpt ?? undefined;
     const loc = locale || "en";
     return {
       title: `${title} | AS Brokers`,
@@ -87,10 +84,6 @@ export default async function ArticlePage({ params, searchParams }: Props) {
     const studio = await getPublishedStudioPostBySlug(slug, locale);
     if (studio) {
       return <ClientInsightArticle post={studio} />;
-    }
-    const mock = getMockInsightPostBySlug(slug, locale);
-    if (mock) {
-      return <MockInsightArticle post={mock} />;
     }
     notFound();
   }

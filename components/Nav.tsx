@@ -73,7 +73,6 @@ export function Nav() {
 
         <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
           <Link href="/" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Home</Link>
-          <Link href="/master-plan" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Master Plan</Link>
           <Link href="/solutions" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Solutions</Link>
           <Link href="/calculators" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Calculators</Link>
           <Link href="/insights" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Insights</Link>
@@ -109,9 +108,6 @@ export function Nav() {
           <div className="py-4 px-4 sm:px-6 flex flex-col gap-0">
             <Link href="/" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
               Home
-            </Link>
-            <Link href="/master-plan" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
-              Master Plan
             </Link>
             <Link href="/solutions" prefetch={false} onClick={closeMobile} className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl -mx-1">
               Solutions

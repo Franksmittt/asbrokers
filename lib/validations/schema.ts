@@ -34,10 +34,22 @@ export const retirementBlueprintLeadSchema = z.object({
   website: z.string().max(0).optional(),
 });
 
+export const legacyBlueprintLeadSchema = z.object({
+  fullName: z.string().min(2, "Please enter your full name"),
+  phone: z.string().min(9, "Please enter a valid phone number"),
+  email: z.string().email("Please enter a valid email"),
+  familySituation: z.string().min(1, "Please select a family situation"),
+  estateConcern: z.string().min(1, "Please select your main legacy concern"),
+  estateReadiness: z.string().min(1, "Please select where your estate plan stands"),
+  consent: z.literal(true, { errorMap: () => ({ message: "Please accept to continue" }) }),
+  website: z.string().max(0).optional(),
+});
+
 export type ContactFormPayload = z.infer<typeof contactFormSchema>;
 export type FinancialCalculatorPayload = z.infer<typeof financialCalculatorSchema>;
 export type NewsletterPayload = z.infer<typeof newsletterSchema>;
 export type RetirementBlueprintLeadPayload = z.infer<typeof retirementBlueprintLeadSchema>;
+export type LegacyBlueprintLeadPayload = z.infer<typeof legacyBlueprintLeadSchema>;
 
 /** Action state returned to client for useActionState; supports field-level errors. */
 export interface ContactActionState {
@@ -64,6 +76,21 @@ export interface RetirementBlueprintActionState {
     retirementTimeline?: string[];
     currentConcern?: string[];
     capitalRange?: string[];
+    consent?: string[];
+    website?: string[];
+  };
+}
+
+export interface LegacyBlueprintActionState {
+  success: boolean;
+  message?: string;
+  fieldErrors?: {
+    fullName?: string[];
+    phone?: string[];
+    email?: string[];
+    familySituation?: string[];
+    estateConcern?: string[];
+    estateReadiness?: string[];
     consent?: string[];
     website?: string[];
   };

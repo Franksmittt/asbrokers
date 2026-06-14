@@ -144,7 +144,7 @@ export const masterPlanPillars: MasterPlanPillar[] = [
   },
   {
     slug: "business-survival-blueprint",
-    href: "/blueprints/business-survival-blueprint",
+    href: "/business-survival-blueprint",
     pillar: "Business",
     asset: "Business Survival Blueprint",
     shortAsset: "Business Blueprint",

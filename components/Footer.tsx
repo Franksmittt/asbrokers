@@ -14,7 +14,7 @@ const quickLinks = [
   { label: "Master Plan", href: "/master-plan" },
   { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
   { label: "Legacy Blueprint", href: "/legacy-blueprint" },
-  { label: "Business Survival Blueprint", href: "/blueprints/business-survival-blueprint" },
+  { label: "Business Survival Blueprint", href: "/business-survival-blueprint" },
   { label: "About", href: "/about" },
   { label: "Solutions", href: "/solutions" },
   { label: "Calculators", href: "/calculators" },

@@ -452,15 +452,16 @@ export default function CalculatorsPage() {
                 Stop Guessing Your Capital Lifespan.
               </h2>
               <p className="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed tracking-[0.01em]">
-                The math doesn&apos;t lie. If your trajectory shows depletion, we need to restructure your capital into high-yield, private equity solutions. Let&apos;s engineer your wealth.
+                The math doesn&apos;t lie. If your trajectory shows depletion, move into the Retirement Survival Blueprint
+                before the advice conversation so income, inflation, drawdown, and capital preservation are all on the table.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
-                  href="/contact"
+                  href="/retirement-survival-blueprint"
                   prefetch={false}
                   className="w-full sm:w-auto inline-flex items-center justify-center bg-white text-black font-bold px-8 py-4 rounded-[2rem] hover:bg-zinc-200 hover:scale-[1.03] hover:shadow-cta-glow-gold transition-all duration-500"
                 >
-                  Request a review
+                  Get the Retirement Survival Blueprint
                 </Link>
                 <a
                   href="https://wa.me/27662276044"

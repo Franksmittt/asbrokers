@@ -35,6 +35,8 @@ export default async function BlueprintPage({ params }: { params: Promise<{ slug
   }
 
   const relatedPillars = masterPlanPillars.filter((item) => item.slug !== pillar.slug);
+  const primaryCtaHref =
+    pillar.slug === "retirement-survival-blueprint" ? "/retirement-survival-blueprint#download" : "/contact";
 
   return (
     <div className="min-h-screen overflow-hidden bg-void">
@@ -52,7 +54,7 @@ export default async function BlueprintPage({ params }: { params: Promise<{ slug
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400 md:text-xl">{pillar.theme}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/contact"
+                  href={primaryCtaHref}
                   prefetch={false}
                   className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:scale-[1.02] hover:shadow-cta-glow-gold"
                 >
@@ -172,11 +174,11 @@ export default async function BlueprintPage({ params }: { params: Promise<{ slug
                   form, Resend email delivery, CRM pillar tagging, and a timed invitation to book a review.
                 </p>
                 <Link
-                  href="/contact"
+                  href={primaryCtaHref}
                   prefetch={false}
                   className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:scale-[1.02] hover:shadow-cta-glow-gold"
                 >
-                  Book a review
+                  {pillar.slug === "retirement-survival-blueprint" ? "Download the blueprint" : "Book a review"}
                 </Link>
               </div>
               <div className="space-y-3">

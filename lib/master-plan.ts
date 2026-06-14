@@ -62,7 +62,7 @@ export const masterPlanPillars: MasterPlanPillar[] = [
   },
   {
     slug: "retirement-survival-blueprint",
-    href: "/blueprints/retirement-survival-blueprint",
+    href: "/retirement-survival-blueprint",
     pillar: "Wealth",
     asset: "Retirement Survival Blueprint",
     shortAsset: "Retirement Blueprint",

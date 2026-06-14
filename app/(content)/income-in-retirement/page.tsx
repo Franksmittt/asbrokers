@@ -36,28 +36,29 @@ export default function IncomeInRetirementPage() {
         </div>
       </section>
 
-      {/* The Fix CTA – bridge problem → solution */}
+      {/* The Fix CTA – bridge problem → blueprint → review */}
       <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8 lg:p-10">
             <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Does your trajectory show depletion?</h2>
             <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-              You cannot out-save mathematical drag. To extend your capital lifespan, you must migrate to high-yield, unlisted alternative assets.
+              Before you move to a product conversation, download the Retirement Survival Blueprint and pressure-test your
+              income, inflation, drawdown, and capital preservation assumptions.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
-                href="/everest-wealth"
+                href="/retirement-survival-blueprint"
                 prefetch={false}
                 className="inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
               >
-                Engineer a High-Yield Solution →
+                Get the Retirement Survival Blueprint →
               </Link>
               <Link
-                href="/contact"
+                href="/everest-wealth"
                 prefetch={false}
                 className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-6 py-4 rounded-[2rem] hover:bg-white/10 transition-colors"
               >
-                Book Actuarial Review
+                Explore retirement income options
               </Link>
             </div>
           </div>
@@ -78,8 +79,8 @@ export default function IncomeInRetirementPage() {
           <Link href="/retirement" className="text-zinc-400 hover:text-white transition-colors">
             Retirement income
           </Link>
-          <Link href="/contact" className="text-zinc-400 hover:text-white transition-colors">
-            Contact
+          <Link href="/retirement-survival-blueprint" className="text-zinc-400 hover:text-white transition-colors">
+            Retirement blueprint
           </Link>
         </div>
       </section>

@@ -157,16 +157,16 @@ export default function AnnualEstateReductionPage() {
       {/* Initiate Your Fiduciary Audit */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Move from calculator to family conversation</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Initiate Your Fiduciary Audit</h2>
           <p className="text-zinc-400 leading-relaxed mb-6">
-            You know the liability and the annual donations strategy. The next step is the Legacy Conversations Guide:
-            a practical way to prepare wills, trusts, beneficiaries, executor issues, and estate liquidity for review.
+            You know the liability. You know the strategy. Now, let our wealth engineers structure your trust, route
+            your donations, and secure your high-yield allocations.
           </p>
           <Link
-            href="/legacy-blueprint"
+            href="/contact"
             className="inline-flex items-center justify-center gap-2 w-full bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
           >
-            Get the Legacy Conversations Guide
+            Book Fiduciary Consultation
           </Link>
         </div>
       </section>
@@ -189,8 +189,8 @@ export default function AnnualEstateReductionPage() {
             <Link href="/solutions" className="text-blue-400 hover:underline">
               Insurance & risk planning
             </Link>
-            <Link href="/legacy-blueprint" className="text-blue-400 hover:underline">
-              Legacy guide
+            <Link href="/solutions" className="text-blue-400 hover:underline">
+              Estate planning
             </Link>
             <Link href="/solutions" className="text-blue-400 hover:underline">
               Business insurance

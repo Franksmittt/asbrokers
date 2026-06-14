@@ -75,6 +75,7 @@ export function Nav() {
           <Link href="/" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Home</Link>
           <Link href="/solutions" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Solutions</Link>
           <Link href="/calculators" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Calculators</Link>
+          <Link href="/how-we-work" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>How we work</Link>
           <Link href="/insights" prefetch={false} className={`px-3 py-2 rounded-2xl ${linkClass}`}>Insights</Link>
         </div>
 

@@ -5,10 +5,6 @@ import { ChevronDown } from "@/components/icons";
 import { submitContactEnquiry, type ContactActionState } from "@/app/actions/contact";
 
 const serviceOptions = [
-  { id: "blueprint_health", label: "104 Week Watch Challenge / Health" },
-  { id: "blueprint_retirement", label: "Retirement Survival Blueprint" },
-  { id: "blueprint_legacy", label: "Legacy Blueprint / Estate Planning" },
-  { id: "blueprint_business", label: "Business Survival Blueprint" },
   { id: "everest", label: "Investment Review / Everest Wealth Quote" },
   { id: "medical_gap", label: "Company Medical & Gap Review" },
   { id: "medical", label: "Medical Aid" },
@@ -212,7 +208,7 @@ export function ContactEnquiryForm() {
         disabled={isPending}
         className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-zinc-200 transition-colors mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {isPending ? "Sending…" : "Send Private Review Request"}
+        {isPending ? "Sending…" : "Initiate Wealth Engineering Request"}
       </button>
     </form>
   );

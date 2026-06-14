@@ -11,7 +11,6 @@ import { HomeValueProps } from "@/components/HomeValueProps";
 import { HomeClientReviews } from "@/components/HomeClientReviews";
 import { HomeInsightsTeaser } from "@/components/HomeInsightsTeaser";
 import { HomeCtaStrip } from "@/components/HomeCtaStrip";
-import { MasterPlanGateway } from "@/components/MasterPlanGateway";
 import { Footer } from "@/components/Footer";
 import { FloatingChat } from "@/components/FloatingChat";
 
@@ -23,12 +22,6 @@ export default function HomePage() {
         <BackgroundOrbs />
         <HeroSection />
       </div>
-
-      <section className="relative z-10 bg-[#f7f2ea] px-4 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-7xl">
-          <MasterPlanGateway compact variant="light" />
-        </div>
-      </section>
 
       {/* 1. The Interactive Actuarial Engine (primary acquisition) */}
       <section

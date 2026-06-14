@@ -118,8 +118,8 @@ export default function EstatePlanningPage() {
 
         <section className="py-12 px-4 sm:px-6 md:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <Link href="/legacy-blueprint" prefetch={false} className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors">
-              Get the Legacy Conversations Guide
+            <Link href="/contact" prefetch={false} className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors">
+              Discuss estate planning with an adviser
             </Link>
           </div>
         </section>

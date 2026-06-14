@@ -30,7 +30,6 @@ const categories = [
     icon: Lock,
     accent: "rose",
     items: [
-      { name: "Business Survival Blueprint", desc: "Owner risk workbook for commercial, assurance, continuity, and succession exposure.", href: "/business-survival-blueprint", badge: "Workbook" },
       { name: "Short-Term Personal", desc: "Home, car, valuables and personal asset protection.", href: "/solutions/personal-insurance", badge: null },
       { name: "Short-Term Business", desc: "Commercial property, liability, business interruption and fleet.", href: "/solutions/business-insurance", badge: null },
       { name: "Life Insurance (Personal)", desc: "Death cover, disability, income protection and severe illness.", href: "/solutions/life-insurance", badge: null },

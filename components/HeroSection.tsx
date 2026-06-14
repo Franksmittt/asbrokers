@@ -65,7 +65,7 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
         >
           <motion.a
-            href="#master-plan"
+            href="#blueprints"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             className="bg-white text-black text-lg px-8 py-4 rounded-[2rem] font-semibold hover:shadow-cta-glow-gold transition-shadow duration-300 w-full sm:w-auto text-center"

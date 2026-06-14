@@ -67,11 +67,11 @@ export default async function BlueprintPage({ params }: { params: Promise<{ slug
                   {pillar.ctaLabel}
                 </Link>
                 <Link
-                  href="/master-plan"
+                  href="/#blueprints"
                   prefetch={false}
                   className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/[0.06] px-6 py-3 text-sm font-bold text-white transition hover:border-cinematic-teal/50 hover:bg-cinematic-teal/10"
                 >
-                  View full master plan
+                  Explore all blueprints
                 </Link>
               </div>
             </div>

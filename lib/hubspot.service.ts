@@ -6,8 +6,14 @@ import type { ContactFormPayload, NewsletterPayload } from "@/lib/validations/sc
 const HUBSPOT_TOKEN = process.env.HUBSPOT_ACCESS_TOKEN ?? process.env.HUBSPOT_PRIVATE_APP_TOKEN;
 const BASE = "https://api.hubapi.com";
 
-/** Topic IDs that receive +15 lead score (Business Risk Management, Trust Structuring). */
-const HIGH_VALUE_TOPIC_IDS = ["short_business", "trust"] as const;
+/** Topic IDs that receive +15 lead score because they indicate a high-intent advice conversation. */
+const HIGH_VALUE_TOPIC_IDS = [
+  "short_business",
+  "trust",
+  "blueprint_retirement",
+  "blueprint_legacy",
+  "blueprint_business",
+] as const;
 
 /** Payload may include optional capitalAmount for calculator lead forms. */
 type SyncPayload = ContactFormPayload & { capitalAmount?: number };

@@ -99,28 +99,29 @@ export default function RetirementPage() {
         </div>
       </section>
 
-      {/* Fix CTA: Erase the Deficit with Structured Yield */}
+      {/* Fix CTA: move from calculator result into the retirement funnel */}
       <section className="py-16 md:py-20 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-[2rem] bg-[#151518] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-8 md:p-10">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Erase the Deficit with Structured Yield.</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Turn the deficit into a retirement survival plan.</h2>
             <p className="text-zinc-400 text-sm leading-relaxed mb-6">
-              You cannot save your way out of a capital deficit without a realistic income strategy. You must test whether higher targeted yields, lower drawdowns, or more capital are required.
+              The calculator exposes the shortfall. The Retirement Survival Blueprint explains the income, inflation,
+              drawdown, and capital preservation questions to bring into a private review.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
-                href="/everest-amethyst-living-annuity"
+                href="/retirement-survival-blueprint"
                 prefetch={false}
                 className="inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
               >
-                Calculate Amethyst Living Annuity (~10.2% Net) →
+                Get the Retirement Survival Blueprint →
               </Link>
               <Link
-                href="/contact"
+                href="/everest-amethyst-living-annuity"
                 prefetch={false}
                 className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-6 py-4 rounded-[2rem] hover:bg-white/10 transition-colors"
               >
-                Book Actuarial Consultation
+                Calculate Amethyst living annuity
               </Link>
             </div>
           </div>

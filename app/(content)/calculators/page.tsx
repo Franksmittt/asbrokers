@@ -426,11 +426,11 @@ export default function CalculatorsPage() {
                   process is a point of failure.
                 </p>
                 <Link
-                  href="/contact"
+                  href="/business-survival-blueprint"
                   prefetch={false}
                   className="inline-flex items-center gap-2 rounded-[2rem] bg-white px-6 py-3 font-bold text-black transition-all duration-500 hover:scale-[1.03] hover:bg-zinc-200 hover:shadow-cta-glow-gold"
                 >
-                  Assess your business risk
+                  Get the Business Survival Blueprint
                 </Link>
               </div>
             </div>

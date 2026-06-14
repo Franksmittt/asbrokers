@@ -426,11 +426,11 @@ export default function CalculatorsPage() {
                   process is a point of failure.
                 </p>
                 <Link
-                  href="/business-survival-blueprint"
+                  href="/contact"
                   prefetch={false}
                   className="inline-flex items-center gap-2 rounded-[2rem] bg-white px-6 py-3 font-bold text-black transition-all duration-500 hover:scale-[1.03] hover:bg-zinc-200 hover:shadow-cta-glow-gold"
                 >
-                  Get the Business Survival Blueprint
+                  Assess your business risk
                 </Link>
               </div>
             </div>
@@ -452,16 +452,15 @@ export default function CalculatorsPage() {
                 Stop Guessing Your Capital Lifespan.
               </h2>
               <p className="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed tracking-[0.01em]">
-                The math doesn&apos;t lie. If your trajectory shows depletion, move into the Retirement Survival Blueprint
-                before the advice conversation so income, inflation, drawdown, and capital preservation are all on the table.
+                The math doesn&apos;t lie. If your trajectory shows depletion, we need to restructure your capital into high-yield, private equity solutions. Let&apos;s engineer your wealth.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
-                  href="/retirement-survival-blueprint"
+                  href="/contact"
                   prefetch={false}
                   className="w-full sm:w-auto inline-flex items-center justify-center bg-white text-black font-bold px-8 py-4 rounded-[2rem] hover:bg-zinc-200 hover:scale-[1.03] hover:shadow-cta-glow-gold transition-all duration-500"
                 >
-                  Get the Retirement Survival Blueprint
+                  Request a review
                 </Link>
                 <a
                   href="https://wa.me/27662276044"

@@ -71,8 +71,8 @@ export default function EstateDutyCalculatorPage() {
             SARS filing. Laws and abatements change; verify with professionals for your estate.
           </p>
           <p className="pt-2">
-            <Link href="/legacy-blueprint" className="text-cinematic-teal hover:underline font-medium">
-              Legacy Conversations Guide
+            <Link href="/solutions/estate-planning" className="text-cinematic-teal hover:underline font-medium">
+              Estate planning services overview
             </Link>
             {" · "}
             <Link href="/annual-estate-reduction-strategy" className="text-cinematic-teal hover:underline font-medium">
@@ -159,19 +159,19 @@ export default function EstateDutyCalculatorPage() {
       {/* Next Step – Squircle CTA with pulsing glow */}
       <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <div className="rounded-[2rem] bg-[#151518] border-2 border-amber-400/40 p-8 md:p-10 shadow-[0_0_50px_rgba(251,191,36,0.16)]">
+          <div className="rounded-[2rem] bg-[#151518] border-2 border-blue-500/40 p-8 md:p-10 shadow-[0_0_50px_rgba(59,130,246,0.2)]">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-white mb-6">Next Step</h2>
               <p className="text-zinc-400 leading-relaxed mb-8">
-                You have seen the possible estate cost. Now download the Legacy Conversations Guide so your family can
-                start reviewing wills, trusts, beneficiaries, executors, and estate liquidity before there is a crisis.
+                If you would like to see how annual donations, when invested correctly, can reduce estate duty and shift
+                long-term growth outside your estate, the next calculator will walk you through that strategy.
               </p>
               <Link
-                href="/legacy-blueprint"
+                href="/annual-estate-reduction-strategy"
                 prefetch={false}
                 className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors w-full sm:w-auto justify-center"
               >
-                Get the Legacy Conversations Guide →
+                Engineer Your Estate Reduction Strategy →
               </Link>
             </div>
           </div>
@@ -196,8 +196,8 @@ export default function EstateDutyCalculatorPage() {
             <Link href="/solutions" className="text-blue-400 hover:underline">
               Solutions hub
             </Link>
-            <Link href="/legacy-blueprint" className="text-blue-400 hover:underline">
-              Legacy guide
+            <Link href="/solutions/estate-planning" className="text-blue-400 hover:underline">
+              Estate planning
             </Link>
             <Link href="/solutions/business-insurance" className="text-blue-400 hover:underline">
               Business insurance

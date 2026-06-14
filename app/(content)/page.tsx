@@ -24,8 +24,10 @@ export default function HomePage() {
         <HeroSection />
       </div>
 
-      <section className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto relative z-10">
-        <MasterPlanGateway compact />
+      <section className="relative z-10 bg-[#f7f2ea] px-4 sm:px-6 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <MasterPlanGateway compact variant="light" />
+        </div>
       </section>
 
       {/* 1. The Interactive Actuarial Engine (primary acquisition) */}

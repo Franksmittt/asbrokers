@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import "server-only";
 import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
+import { masterPlanPillars } from "@/lib/master-plan";
 import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 import { sanityFetch } from "@/sanity/lib/live";
 import { insightArticlesSitemapQuery } from "@/sanity/lib/queries";
@@ -31,6 +32,7 @@ const STATIC_PATHS = [
   "/insights",
   "/insights/semigration-retirement",
   "/lab",
+  "/master-plan",
   "/manage-cookies",
   "/premium-increase-calculator",
   "/privacy",
@@ -77,6 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   };
 
   for (const path of STATIC_PATHS) push(path);
+  for (const pillar of masterPlanPillars) push(pillar.href);
 
   let sanityRows: SanitySitemapRow[] = [];
   const sanityProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim();

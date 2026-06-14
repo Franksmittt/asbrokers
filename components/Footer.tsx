@@ -11,6 +11,10 @@ const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 
 const quickLinks = [
   { label: "Home", href: "/" },
+  { label: "Master Plan", href: "/master-plan" },
+  { label: "Retirement Survival Blueprint", href: "/blueprints/retirement-survival-blueprint" },
+  { label: "Legacy Blueprint", href: "/blueprints/legacy-blueprint" },
+  { label: "Business Survival Blueprint", href: "/blueprints/business-survival-blueprint" },
   { label: "About", href: "/about" },
   { label: "Solutions", href: "/solutions" },
   { label: "Calculators", href: "/calculators" },

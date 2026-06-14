@@ -13,8 +13,8 @@ const TRUST_PARTNERS = [
 ];
 
 /**
- * "Reality Check" hero: HNWI/retiree funnel for Everest Wealth.
- * Primary CTA scrolls to Run-Out Calculator; secondary to Code 1.8 section.
+ * Problem-led hero for the AS Brokers master plan.
+ * Primary CTA introduces the four assets; secondary keeps the retirement calculator prominent.
  */
 export function HeroSection() {
   return (
@@ -33,7 +33,7 @@ export function HeroSection() {
           FSP 17273 · Category 1.8 · 25+ Years Experience
         </motion.div>
 
-        {/* Headline  -  the agitator */}
+        {/* Headline  -  the problem-led positioning */}
         <div className="space-y-5">
           <motion.h1
             initial={{ opacity: 0, y: 12 }}
@@ -41,9 +41,9 @@ export function HeroSection() {
             transition={{ duration: 0.5, ease: APPLE_EASE }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] text-white leading-[1.1]"
           >
-            You think your retirement is safe.{" "}
+            Create what matters. Protect what you built.{" "}
             <span className="bg-gradient-to-br from-[#00C6FF] to-[#0072FF] bg-clip-text text-transparent">
-              The math might disagree.
+              Preserve it for the people you love.
             </span>
           </motion.h1>
           <motion.p
@@ -52,7 +52,8 @@ export function HeroSection() {
             transition={{ duration: 0.5, delay: 0.08, ease: APPLE_EASE }}
             className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed tracking-[0.01em]"
           >
-            Protecting Your Legacy. Engineering Your Wealth. Discover if your capital will outlive you, and how to fix it if it won&apos;t.
+            AS Brokers helps people solve the problems behind health, wealth, legacy, and business survival through
+            education, planning, protection, and long-term thinking.
           </motion.p>
         </div>
 
@@ -64,19 +65,19 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
         >
           <motion.a
-            href="#lab"
+            href="#master-plan"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             className="bg-white text-black text-lg px-8 py-4 rounded-[2rem] font-semibold hover:shadow-cta-glow-gold transition-shadow duration-300 w-full sm:w-auto text-center"
           >
-            Run the Numbers
+            Find Your Blueprint
           </motion.a>
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
-              href="#code18"
+              href="#lab"
               className="inline-block rim-light hover:bg-white/10 text-white text-lg px-8 py-4 rounded-[2rem] font-semibold border border-white/10 transition-all duration-300 w-full sm:w-auto text-center"
             >
-              Explore Code 1.8 Wealth Engineering
+              Run Retirement Numbers
             </Link>
           </motion.div>
         </motion.div>

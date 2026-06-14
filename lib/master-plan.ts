@@ -106,7 +106,7 @@ export const masterPlanPillars: MasterPlanPillar[] = [
   },
   {
     slug: "legacy-blueprint",
-    href: "/blueprints/legacy-blueprint",
+    href: "/legacy-blueprint",
     pillar: "Legacy",
     asset: "Legacy Blueprint",
     shortAsset: "Legacy Blueprint",

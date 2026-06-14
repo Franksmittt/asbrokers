@@ -32,6 +32,7 @@ const STATIC_PATHS = [
   "/insights",
   "/insights/semigration-retirement",
   "/lab",
+  "/legacy-blueprint",
   "/master-plan",
   "/manage-cookies",
   "/premium-increase-calculator",

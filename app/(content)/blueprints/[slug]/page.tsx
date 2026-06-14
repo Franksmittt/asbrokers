@@ -36,7 +36,11 @@ export default async function BlueprintPage({ params }: { params: Promise<{ slug
 
   const relatedPillars = masterPlanPillars.filter((item) => item.slug !== pillar.slug);
   const primaryCtaHref =
-    pillar.slug === "retirement-survival-blueprint" ? "/retirement-survival-blueprint#download" : "/contact";
+    pillar.slug === "retirement-survival-blueprint"
+      ? "/retirement-survival-blueprint#download"
+      : pillar.slug === "legacy-blueprint"
+        ? "/legacy-blueprint#download"
+        : "/contact";
 
   return (
     <div className="min-h-screen overflow-hidden bg-void">
@@ -178,7 +182,9 @@ export default async function BlueprintPage({ params }: { params: Promise<{ slug
                   prefetch={false}
                   className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:scale-[1.02] hover:shadow-cta-glow-gold"
                 >
-                  {pillar.slug === "retirement-survival-blueprint" ? "Download the blueprint" : "Book a review"}
+                  {pillar.slug === "retirement-survival-blueprint" || pillar.slug === "legacy-blueprint"
+                    ? "Download the guide"
+                    : "Book a review"}
                 </Link>
               </div>
               <div className="space-y-3">

@@ -21,6 +21,12 @@ export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
     code: buildCalculatorIframeEmbed("/embed/calculators/retirement-reality", "Retirement Reality Calculator"),
   },
   {
+    id: "retirement-shortfall",
+    title: "Retirement Shortfall Calculator",
+    sourcePath: "app/embed/calculators/retirement-shortfall/page.tsx",
+    code: buildCalculatorIframeEmbed("/embed/calculators/retirement-shortfall", "Retirement Shortfall Calculator"),
+  },
+  {
     id: "life-of-capital",
     title: "Life of Capital Calculator",
     sourcePath: "app/embed/calculators/life-of-capital/page.tsx",
@@ -67,6 +73,15 @@ export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
     title: "Everest 12.8 Product Calculator",
     sourcePath: "app/embed/calculators/everest-128/page.tsx",
     code: buildCalculatorIframeEmbed("/embed/calculators/everest-128", "Everest 12.8 Product Calculator"),
+  },
+  {
+    id: "everest-128-vs-142",
+    title: "12.8% vs 14.2% Investment Income Comparison Calculator",
+    sourcePath: "app/embed/calculators/everest-128-vs-142/page.tsx",
+    code: buildCalculatorIframeEmbed(
+      "/embed/calculators/everest-128-vs-142",
+      "12.8% vs 14.2% Investment Income Comparison Calculator"
+    ),
   },
   {
     id: "everest-145-growth",

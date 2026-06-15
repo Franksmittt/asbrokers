@@ -4,6 +4,7 @@ import { AmethystAnnuityCalculator } from "@/components/AmethystAnnuityCalculato
 import { EstateDutyCalculator } from "@/components/EstateDutyCalculator";
 import { EstateReductionCalculator } from "@/components/EstateReductionCalculator";
 import { Everest128Calculator } from "@/components/Everest128Calculator";
+import { Everest128Vs142ComparisonCalculator } from "@/components/Everest128Vs142ComparisonCalculator";
 import { Everest142Calculator } from "@/components/Everest142Calculator";
 import { Everest145GrowthCalculator } from "@/components/Everest145GrowthCalculator";
 import { FutureValueCalculator } from "@/components/FutureValueCalculator";
@@ -11,6 +12,7 @@ import { IncomeTaxCalculator } from "@/components/IncomeTaxCalculator";
 import { LifeOfCapitalCalculator } from "@/components/LifeOfCapitalCalculator";
 import { PremiumComparisonCalculator } from "@/components/PremiumComparisonCalculator";
 import { RetirementRealityCalculator } from "@/components/RetirementRealityCalculator";
+import { RetirementShortfallCalculator } from "@/components/RetirementShortfallCalculator";
 import { RunOutCalculator } from "@/components/RunOutCalculator";
 
 type Props = {
@@ -21,6 +23,10 @@ const EMBED_MAP = {
   "retirement-reality": {
     title: "Retirement Reality Calculator",
     node: <RetirementRealityCalculator />,
+  },
+  "retirement-shortfall": {
+    title: "Retirement Shortfall Calculator",
+    node: <RetirementShortfallCalculator />,
   },
   "life-of-capital": {
     title: "Life of Capital Calculator",
@@ -49,6 +55,10 @@ const EMBED_MAP = {
   "everest-128": {
     title: "Everest 12.8 Product Calculator",
     node: <Everest128Calculator />,
+  },
+  "everest-128-vs-142": {
+    title: "12.8% vs 14.2% Investment Income Comparison Calculator",
+    node: <Everest128Vs142ComparisonCalculator />,
   },
   "everest-142": {
     title: "Everest 12.8 Income Calculator",

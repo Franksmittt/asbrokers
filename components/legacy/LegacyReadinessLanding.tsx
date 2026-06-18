@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { funnel, FunnelCheckItem, FunnelSectionHeader } from "@/components/funnel/FunnelLayout";
+import {
+  funnel,
+  FunnelAscensionHint,
+  FunnelCheckItem,
+  FunnelObjectionStrip,
+  FunnelSectionHeader,
+} from "@/components/funnel/FunnelLayout";
 import { ArrowRight, ShieldCheck } from "@/components/icons";
 import { LegacyChecklistLeadForm } from "@/components/legacy/LegacyChecklistLeadForm";
 
@@ -33,14 +39,11 @@ const CHECKLIST_COVERS = [
 ];
 
 const WHO_SHOULD = [
-  "Retirees",
-  "People approaching retirement",
-  "Business owners",
-  "Property owners",
-  "Parents",
-  "Blended families",
-  "Individuals with trusts",
-  "Anyone who has not reviewed their will in the last 3 years",
+  "Retirees & pre-retirees",
+  "Business & property owners",
+  "Parents & blended families",
+  "Anyone with a trust",
+  "Will not reviewed in 3+ years",
 ];
 
 const ALBERT_SERVICES = [
@@ -55,134 +58,160 @@ function scrollToForm() {
   document.getElementById("checklist-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function LeadCaptureCard() {
+  return (
+    <section id="checklist-form" className={`scroll-mt-24 ${funnel.cardAccent} ${funnel.cardSticky}`}>
+      <p className={funnel.eyebrow}>Free lead magnet</p>
+      <h2 className={`mt-2 ${funnel.h2}`}>Get your Legacy Readiness Checklist™</h2>
+      <p className={`mt-2 ${funnel.body}`}>
+        Answer-first: this checklist shows where your estate plan may have gaps — before your family
+        discovers them too late.
+      </p>
+      <div className="mt-4">
+        <FunnelObjectionStrip />
+      </div>
+      <div className="mt-4">
+        <LegacyChecklistLeadForm embedded />
+      </div>
+      <FunnelAscensionHint />
+    </section>
+  );
+}
+
 export function LegacyReadinessLanding() {
   return (
     <div className={funnel.page}>
       <div className={funnel.glow} aria-hidden />
 
-      <div className={`${funnel.inner} ${funnel.stack}`}>
-        {/* Hero */}
-        <header className="text-center">
-          <p className={funnel.eyebrow}>Legacy Conversations™</p>
-          <h1 className={`mt-4 ${funnel.h1}`}>Don&apos;t die without a plan</h1>
-          <p className={`mx-auto mt-5 max-w-2xl ${funnel.lead}`}>
-            Most families discover estate planning mistakes only after someone dies.
+      <div className={`${funnel.shell} ${funnel.stack}`}>
+        {/* Hero — full shell width, answer-first, single primary CTA */}
+        <header>
+          <p className={funnel.eyebrow}>Legacy Conversations™ · Stage 1</p>
+          <h1 className={`mt-2 ${funnel.h1}`}>Don&apos;t die without a plan</h1>
+          <p className={`mt-3 max-w-4xl ${funnel.lead}`}>
+            Most families believe their affairs are in order. Many are not — and problems found after
+            death cannot be fixed.
           </p>
-          <p className={`mx-auto mt-3 max-w-2xl ${funnel.body}`}>
-            Download the free Legacy Readiness Checklist™ and discover potential gaps in your will, trust,
-            beneficiaries, estate liquidity, and succession planning.
+          <p className={`mt-2 max-w-4xl ${funnel.body}`}>
+            The Legacy Readiness Checklist™ reviews wills, trusts, beneficiaries, liquidity, and succession
+            in plain language. Free. Immediate. Built for South African families.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-4">
-            <button type="button" onClick={scrollToForm} className={funnel.cta}>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button type="button" onClick={scrollToForm} className={funnel.ctaLg}>
               Download free checklist
               <ArrowRight className="h-4 w-4" />
             </button>
-            <p className={`trust-hallmark ${funnel.meta}`}>
-              AS Brokers · FSP 17273 · Educational only — not legal advice
-            </p>
+            <p className={`trust-hallmark ${funnel.meta}`}>AS Brokers · FSP 17273</p>
           </div>
         </header>
 
-        {/* The problem */}
-        <section className={funnel.card}>
-          <FunnelSectionHeader
-            title="The problem"
-            subtitle="Most people assume their affairs are in order. Often they are not."
-          />
-          <ul className="mt-8 space-y-3">
-            {ASSUMPTIONS.map((item) => (
-              <FunnelCheckItem key={item}>{item}</FunnelCheckItem>
-            ))}
-          </ul>
-          <p className={`mt-8 ${funnel.body}`}>Recent examples we see in practice:</p>
-          <ul className={`mt-4 ${funnel.grid2}`}>
-            {PROBLEM_EXAMPLES.map((item) => (
-              <li key={item} className={funnel.tile}>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-8 text-base font-medium leading-relaxed text-white">
-            A problem discovered after death is usually impossible to fix.
-          </p>
-        </section>
+        {/* Mobile: form early (value ladder — capture before long scroll) */}
+        <div className="lg:hidden">
+          <LeadCaptureCard />
+        </div>
 
-        {/* What the checklist covers */}
-        <section className={funnel.card}>
-          <FunnelSectionHeader
-            title="What the checklist covers"
-            subtitle="Eight areas where gaps commonly appear — before it is too late."
-          />
-          <ul className={`mt-8 ${funnel.grid2}`}>
-            {CHECKLIST_COVERS.map((item) => (
-              <li key={item} className={funnel.tile}>
-                <ShieldCheck className="h-4 w-4 shrink-0 text-[#00549F]" aria-hidden />
-                <span className="font-medium">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* Main band: content + sticky form (desktop) */}
+        <div className="grid gap-4 lg:grid-cols-12 lg:gap-5">
+          <div className="flex flex-col gap-4 lg:col-span-8 lg:gap-5">
+            {/* Problem + pre-handled objection */}
+            <section className={funnel.card}>
+              <FunnelSectionHeader
+                compact
+                title="The problem"
+                subtitle="If you assume the four statements below are true, you are in good company — and that is exactly why estates fail."
+              />
+              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                {ASSUMPTIONS.map((item) => (
+                  <FunnelCheckItem key={item}>{item}</FunnelCheckItem>
+                ))}
+              </ul>
+              <p className={`mt-4 ${funnel.h3}`}>What we see when plans are reviewed</p>
+              <ul className={`mt-2.5 ${funnel.grid2}`}>
+                {PROBLEM_EXAMPLES.map((item) => (
+                  <li key={item} className={funnel.tile}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm font-medium text-white">
+                A gap discovered after death is usually impossible to fix.
+              </p>
+            </section>
 
-        {/* Who should download */}
-        <section className={funnel.cardAccent}>
-          <FunnelSectionHeader title="Who should download this" subtitle="This checklist is for:" />
-          <ul className={`mt-8 ${funnel.grid2}`}>
-            {WHO_SHOULD.map((item) => (
-              <FunnelCheckItem key={item}>{item}</FunnelCheckItem>
-            ))}
-          </ul>
-        </section>
+            {/* Checklist covers — proof of work / substance */}
+            <section className={funnel.card}>
+              <FunnelSectionHeader
+                compact
+                title="What the checklist covers"
+                subtitle="Eight areas. One structured review. No legal jargon."
+              />
+              <ul className={`mt-4 ${funnel.grid4}`}>
+                {CHECKLIST_COVERS.map((item) => (
+                  <li key={item} className={funnel.tileRow}>
+                    <ShieldCheck className="h-4 w-4 shrink-0 text-[#00549F]" aria-hidden />
+                    <span className="font-medium leading-tight">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-        {/* Lead capture */}
-        <section id="checklist-form" className={`scroll-mt-28 ${funnel.card}`}>
-          <FunnelSectionHeader
-            title="Get your free Legacy Readiness Checklist™"
-            subtitle="Enter your details below. Your checklist opens immediately — no waiting."
-          />
-          <div className="mt-8">
-            <LegacyChecklistLeadForm embedded />
+            {/* Who + social proof framing */}
+            <section className={funnel.card}>
+              <FunnelSectionHeader compact title="Who this is for" />
+              <ul className={`mt-3 ${funnel.grid2}`}>
+                {WHO_SHOULD.map((item) => (
+                  <FunnelCheckItem key={item}>{item}</FunnelCheckItem>
+                ))}
+              </ul>
+              <div className={`mt-4 ${funnel.divider} pt-4`}>
+                <p className={funnel.eyebrow}>Your adviser</p>
+                <h3 className="mt-2 text-lg font-bold text-white">Albert Schuurman</h3>
+                <p className={`mt-2 ${funnel.body}`}>
+                  Helping South African families protect wealth since 1999 — estate planning, trusts,
+                  succession, and risk.
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {ALBERT_SERVICES.map((service) => (
+                    <li
+                      key={service}
+                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-zinc-400"
+                    >
+                      {service}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
           </div>
-        </section>
 
-        {/* Albert / trust */}
-        <section className={funnel.card}>
-          <p className={funnel.eyebrow}>Your adviser</p>
-          <h2 className={`mt-3 ${funnel.h2}`}>Albert Schuurman</h2>
-          <p className={`mt-4 max-w-2xl ${funnel.body}`}>
-            Albert has been helping South African families protect and preserve wealth since 1999. Through AS
-            Brokers he assists clients with estate planning, trusts, retirement structuring, business succession,
-            and risk management.
-          </p>
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {ALBERT_SERVICES.map((service) => (
-              <li
-                key={service}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-zinc-300"
-              >
-                {service}
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/contact"
-            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#00549F] transition hover:text-[#3d8fd4]"
-          >
-            Speak to AS Brokers
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </section>
+          {/* Desktop sticky form */}
+          <div className="hidden lg:col-span-4 lg:block">
+            <LeadCaptureCard />
+          </div>
+        </div>
 
-        {/* Final CTA */}
-        <section className={`${funnel.card} text-center`}>
-          <h2 className={funnel.h2}>What happens to your family if you don&apos;t wake up tomorrow?</h2>
-          <p className={`mx-auto mt-4 max-w-lg ${funnel.body}`}>
-            Download the checklist and find out whether your legacy plan is ready.
-          </p>
-          <button type="button" onClick={scrollToForm} className={`mt-8 ${funnel.cta}`}>
-            Get my free checklist
+        {/* Final CTA — compact bar, not another tall card */}
+        <section
+          className={`${funnel.card} flex flex-col items-start justify-between gap-4 md:flex-row md:items-center`}
+        >
+          <div className="max-w-2xl">
+            <h2 className={funnel.h2}>What happens if you don&apos;t wake up tomorrow?</h2>
+            <p className={`mt-1.5 ${funnel.body}`}>
+              Find out whether your legacy plan is ready — takes two minutes.
+            </p>
+          </div>
+          <button type="button" onClick={scrollToForm} className={`shrink-0 ${funnel.ctaLg}`}>
+            Get my checklist
             <ArrowRight className="h-4 w-4" />
           </button>
         </section>
+
+        <p className={`text-center ${funnel.meta}`}>
+          Educational only — not legal advice ·{" "}
+          <Link href="/contact" className="text-[#00549F] hover:underline">
+            Speak to AS Brokers
+          </Link>
+        </p>
       </div>
 
       <Footer />

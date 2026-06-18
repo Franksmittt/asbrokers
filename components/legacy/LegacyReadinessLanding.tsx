@@ -4,13 +4,19 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import {
   funnel,
-  FunnelAscensionHint,
   FunnelCheckItem,
-  FunnelObjectionStrip,
   FunnelSectionHeader,
 } from "@/components/funnel/FunnelLayout";
+import {
+  FunnelAscensionHintCustom,
+  FunnelObjectionStripCustom,
+  FunnelPriceBadge,
+} from "@/components/funnel/FunnelMarketingSections";
 import { ArrowRight, ShieldCheck } from "@/components/icons";
 import { LegacyChecklistLeadForm } from "@/components/legacy/LegacyChecklistLeadForm";
+import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
+
+const OFFER = PLANNING_TOOL_OFFERS["legacy-checklist"];
 
 const ASSUMPTIONS = [
   "I have a will",
@@ -61,19 +67,23 @@ function scrollToForm() {
 function LeadCaptureCard() {
   return (
     <section id="checklist-form" className={`scroll-mt-24 ${funnel.cardAccent} ${funnel.cardSticky}`}>
-      <p className={funnel.eyebrow}>Free lead magnet</p>
-      <h2 className={`mt-2 ${funnel.h2}`}>Get your Legacy Readiness Checklist™</h2>
-      <p className={`mt-2 ${funnel.body}`}>
-        Answer-first: this checklist shows where your estate plan may have gaps — before your family
-        discovers them too late.
-      </p>
+      <p className={funnel.eyebrow}>{OFFER.freeLabel}</p>
+      <h2 className={`mt-2 ${funnel.h2}`}>Get your {OFFER.title}</h2>
+      <p className={`mt-2 ${funnel.body}`}>{OFFER.freeSummary}</p>
+      <div className="mt-3">
+        <FunnelPriceBadge offer={OFFER} />
+      </div>
       <div className="mt-4">
-        <FunnelObjectionStrip />
+        <FunnelObjectionStripCustom items={OFFER.objections} />
       </div>
       <div className="mt-4">
         <LegacyChecklistLeadForm embedded />
       </div>
-      <FunnelAscensionHint />
+      <FunnelAscensionHintCustom
+        before="After your checklist: "
+        label={OFFER.ascension.label}
+        href={OFFER.ascension.href}
+      />
     </section>
   );
 }

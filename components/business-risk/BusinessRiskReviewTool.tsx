@@ -6,6 +6,14 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Footer } from "@/components/Footer";
 import { ArrowRight } from "@/components/icons";
 import {
+  FunnelAscensionHintCustom,
+  FunnelMarketingPage,
+  FunnelObjectionStripCustom,
+  FunnelToolShell,
+} from "@/components/funnel/FunnelMarketingSections";
+import { funnel } from "@/components/funnel/FunnelLayout";
+import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
+import {
   BUSINESS_RISK_SECTIONS,
   INDUSTRY_OPTIONS,
   TOTAL_RISK_COVER_COUNT,
@@ -18,7 +26,9 @@ import {
 } from "@/lib/business-risk/scoring";
 import { submitBusinessRiskReview } from "@/app/(content)/business-risk-review/actions";
 
-type Phase = "lead" | "covers" | "results";
+type Phase = "landing" | "lead" | "covers" | "results";
+
+const OFFER = PLANNING_TOOL_OFFERS["business-risk"];
 
 type LeadForm = {
   name: string;
@@ -34,7 +44,7 @@ const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
 
 export function BusinessRiskReviewTool() {
   const reducedMotion = useReducedMotion();
-  const [phase, setPhase] = useState<Phase>("lead");
+  const [phase, setPhase] = useState<Phase>("landing");
   const [lead, setLead] = useState<LeadForm>({
     name: "",
     email: "",
@@ -68,6 +78,11 @@ export function BusinessRiskReviewTool() {
     });
   }
 
+  function startReview() {
+    setPhase("lead");
+    document.getElementById("business-tool")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function handleLeadContinue() {
     if (!lead.name.trim() || !lead.email.trim() || !lead.phone.trim() || !lead.company.trim()) {
       setError("Please complete all contact fields.");
@@ -98,26 +113,57 @@ export function BusinessRiskReviewTool() {
     });
   }
 
-  return (
-    <div className="min-h-screen bg-[#0a0a0c]">
-      <section className="px-4 pb-8 pt-28 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cinematic-teal">
-            AS Brokers Business Risk Review™
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Business Insurance Gap Analysis™
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-zinc-400 sm:text-base">
-            Identify potential insurance and risk management gaps in your business. Educational only — not advice.
-            Request a professional review when you are ready.
-          </p>
-        </div>
-      </section>
+  const captureCard = (
+    <>
+      <p className={funnel.eyebrow}>{OFFER.freeLabel}</p>
+      <h2 className={`mt-2 ${funnel.h2}`}>Start your review</h2>
+      <p className={`mt-2 ${funnel.body}`}>{OFFER.freeSummary}</p>
+      <div className="mt-4">
+        <FunnelObjectionStripCustom items={OFFER.objections} />
+      </div>
+      <button type="button" onClick={startReview} className={`mt-5 ${funnel.ctaLg}`}>
+        Start free workbook
+        <ArrowRight className="h-4 w-4" />
+      </button>
+      <FunnelAscensionHintCustom
+        before="After your score: "
+        label={OFFER.ascension.label}
+        href={OFFER.ascension.href}
+      />
+    </>
+  );
 
-      <section className="px-4 pb-20 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-4xl">
-          <div className="glass-card rounded-3xl border border-white/10 p-6 md:p-10">
+  const toolProgress =
+    phase === "lead" ? 33 : phase === "covers" ? 66 : phase === "results" ? 100 : 0;
+
+  return (
+    <div className={funnel.page}>
+      <div className={funnel.glow} aria-hidden />
+
+      {phase === "landing" && (
+        <FunnelMarketingPage
+          offer={OFFER}
+          capture={captureCard}
+          onScrollToCapture={startReview}
+          primaryCtaLabel="Start free workbook"
+        />
+      )}
+
+      {phase !== "landing" && (
+        <FunnelToolShell
+          compactHeader={
+            <div className="mb-4">
+              <p className={funnel.eyebrow}>{OFFER.title}</p>
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-[#00549F] transition-all duration-500"
+                  style={{ width: `${toolProgress}%` }}
+                />
+              </div>
+            </div>
+          }
+        >
+          <div id="business-tool" className="scroll-mt-24">
             <AnimatePresence mode="wait">
               <motion.div key={phase} {...motionProps}>
                 {phase === "lead" && (
@@ -205,18 +251,23 @@ export function BusinessRiskReviewTool() {
 
             {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               {phase === "lead" && (
-                <button type="button" onClick={handleLeadContinue} className="rounded-2xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110">
-                  Continue to cover checklist
-                </button>
+                <>
+                  <button type="button" onClick={() => setPhase("landing")} className="rounded-xl border border-white/15 px-5 py-3 text-sm text-zinc-300 hover:bg-white/5">
+                    Back
+                  </button>
+                  <button type="button" onClick={handleLeadContinue} className="rounded-xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110">
+                    Continue to cover checklist
+                  </button>
+                </>
               )}
               {phase === "covers" && (
                 <>
-                  <button type="button" onClick={() => setPhase("lead")} className="rounded-2xl border border-white/15 px-5 py-3 text-sm text-zinc-300 hover:bg-white/5">
+                  <button type="button" onClick={() => setPhase("lead")} className="rounded-xl border border-white/15 px-5 py-3 text-sm text-zinc-300 hover:bg-white/5">
                     Back
                   </button>
-                  <button type="button" onClick={handleSeeResults} disabled={isPending} className="rounded-2xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60">
+                  <button type="button" onClick={handleSeeResults} disabled={isPending} className="rounded-xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60">
                     {isPending ? "Saving…" : "See my Business Risk Score"}
                   </button>
                 </>
@@ -226,7 +277,7 @@ export function BusinessRiskReviewTool() {
                   href={`/business-risk-review/report/${reportId}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-bold text-black hover:bg-zinc-200"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-black hover:bg-zinc-200"
                 >
                   Download PDF report
                   <ArrowRight className="h-4 w-4" />
@@ -234,13 +285,12 @@ export function BusinessRiskReviewTool() {
               )}
             </div>
           </div>
+        </FunnelToolShell>
+      )}
 
-          <p className="mt-6 text-center text-xs leading-relaxed text-zinc-600">
-            This tool is educational and does not constitute financial or insurance advice. A professional review is
-            recommended. AS Brokers CC · FSP 17273.
-          </p>
-        </div>
-      </section>
+      <p className={`${funnel.shell} pb-6 text-center ${funnel.meta}`}>
+        Educational only — not insurance advice · AS Brokers CC · FSP 17273
+      </p>
 
       {activeInfo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true">

@@ -9,8 +9,9 @@ export function PlanningToolsStrip({ className = "" }: { className?: string }) {
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[#00549F]">Free planning tools</p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-[#00549F]">Planning tools</p>
           <p className="text-sm text-zinc-400">
+            Free assessments & blueprints — paid guides from R299 when available.{" "}
             Assessments and blueprints for{" "}
             <Link href={PILLAR_HUB.href} className="text-white hover:underline">
               Health · Wealth · Legacy · Business

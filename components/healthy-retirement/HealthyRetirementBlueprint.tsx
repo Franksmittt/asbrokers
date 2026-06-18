@@ -6,14 +6,24 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Footer } from "@/components/Footer";
 import { ArrowRight } from "@/components/icons";
 import {
+  FunnelAscensionHintCustom,
+  FunnelMarketingPage,
+  FunnelObjectionStripCustom,
+  FunnelToolShell,
+} from "@/components/funnel/FunnelMarketingSections";
+import { funnel } from "@/components/funnel/FunnelLayout";
+import {
   submitHealthyRetirementAssessment,
   type HealthyRetirementSubmitState,
 } from "@/app/(content)/healthy-retirement-blueprint/actions";
 import { GAP_EXPLANATION } from "@/lib/healthy-retirement/content";
 import { HEALTH_QUESTIONS, type HealthyRetirementAnswers } from "@/lib/healthy-retirement/questions";
 import { calculateHealthyRetirementScore, getBandColor, getScoreBand } from "@/lib/healthy-retirement/scoring";
+import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
 
-type Phase = "intro" | "assessment" | "lead" | "results";
+type Phase = "landing" | "assessment" | "lead" | "results";
+
+const OFFER = PLANNING_TOOL_OFFERS["healthy-retirement"];
 
 const INITIAL_ANSWERS: HealthyRetirementAnswers = {
   age: "",
@@ -34,9 +44,13 @@ const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
 
 const initialSubmitState: HealthyRetirementSubmitState = { success: false };
 
+function scrollToTool() {
+  document.getElementById("health-tool")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export function HealthyRetirementBlueprint() {
   const reducedMotion = useReducedMotion();
-  const [phase, setPhase] = useState<Phase>("intro");
+  const [phase, setPhase] = useState<Phase>("landing");
   const [questionStep, setQuestionStep] = useState(0);
   const [answers, setAnswers] = useState<HealthyRetirementAnswers>(INITIAL_ANSWERS);
   const [error, setError] = useState<string | null>(null);
@@ -60,18 +74,23 @@ export function HealthyRetirementBlueprint() {
         transition: { duration: 0.3 },
       };
 
-  const totalSteps = HEALTH_QUESTIONS.length + 2;
+  const totalSteps = HEALTH_QUESTIONS.length + 1;
   const currentStep =
-    phase === "intro"
+    phase === "landing"
       ? 0
       : phase === "assessment"
         ? questionStep + 1
         : phase === "lead"
-          ? HEALTH_QUESTIONS.length + 1
+          ? HEALTH_QUESTIONS.length
           : totalSteps;
-  const progress = (currentStep / totalSteps) * 100;
+  const progress = phase === "landing" ? 0 : (currentStep / totalSteps) * 100;
 
   const currentQuestion = HEALTH_QUESTIONS[questionStep];
+
+  function startAssessment() {
+    setPhase("assessment");
+    setTimeout(scrollToTool, 100);
+  }
 
   function selectAnswer(value: string) {
     if (!currentQuestion) return;
@@ -97,7 +116,7 @@ export function HealthyRetirementBlueprint() {
       return;
     }
     if (phase === "assessment" && questionStep === 0) {
-      setPhase("intro");
+      setPhase("landing");
     }
   }
 
@@ -113,60 +132,54 @@ export function HealthyRetirementBlueprint() {
     }
   }, [submitState.success, submitState.score]);
 
-  return (
-    <div className="min-h-screen bg-[#0a0a0c]">
-      <section className="relative overflow-hidden px-4 pb-8 pt-28 sm:px-6 md:px-8">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-35"
-          aria-hidden
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 50% at 50% -10%, rgba(0,84,159,0.4), transparent)",
-          }}
-        />
-        <div className="relative mx-auto max-w-3xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#00549F]">
-            Healthy Retirement Blueprint™
-          </p>
-          {phase === "intro" ? (
-            <>
-              <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                How healthy is your retirement?
-              </h1>
-              <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
-                Most people spend years planning their money and almost no time planning their health.
-              </p>
-              <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-zinc-500">
-                Complete this 2-minute assessment to discover your Retirement Health Gap™ and receive your free
-                Healthy Retirement Blueprint™.
-              </p>
-              <button
-                type="button"
-                onClick={() => setPhase("assessment")}
-                className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-[#00549F] px-8 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#0066b8]"
-              >
-                Start my assessment
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </>
-          ) : (
-            <h1 className="text-xl font-bold text-white sm:text-2xl">Retirement Health Gap™ Assessment</h1>
-          )}
-        </div>
-      </section>
+  const captureCard = (
+    <>
+      <p className={funnel.eyebrow}>{OFFER.freeLabel}</p>
+      <h2 className={`mt-2 ${funnel.h2}`}>Start your assessment</h2>
+      <p className={`mt-2 ${funnel.body}`}>{OFFER.freeSummary}</p>
+      <div className="mt-4">
+        <FunnelObjectionStripCustom items={OFFER.objections} />
+      </div>
+      <button type="button" onClick={startAssessment} className={`mt-5 ${funnel.ctaLg}`}>
+        Start free assessment
+        <ArrowRight className="h-4 w-4" />
+      </button>
+      <FunnelAscensionHintCustom
+        before="After your score: "
+        label={OFFER.ascension.label}
+        href={OFFER.ascension.href}
+      />
+    </>
+  );
 
-      {phase !== "intro" && (
-        <div className="mx-auto mb-6 h-1 max-w-3xl overflow-hidden rounded-full bg-white/10 px-4 sm:px-0">
-          <div
-            className="h-full rounded-full bg-[#00549F] transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+  return (
+    <div className={funnel.page}>
+      <div className={funnel.glow} aria-hidden />
+
+      {phase === "landing" && (
+        <FunnelMarketingPage
+          offer={OFFER}
+          capture={captureCard}
+          onScrollToCapture={startAssessment}
+          primaryCtaLabel="Start free assessment"
+        />
       )}
 
-      <section className="px-4 pb-24 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-2xl">
-          <div className="glass-card rounded-3xl border border-white/10 p-6 md:p-10">
+      {phase !== "landing" && (
+        <FunnelToolShell
+          compactHeader={
+            <div className="mb-4">
+              <p className={funnel.eyebrow}>{OFFER.title}</p>
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-[#00549F] transition-all duration-500"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+          }
+        >
+          <div id="health-tool" className="scroll-mt-24">
             <AnimatePresence mode="wait">
               <motion.div key={`${phase}-${questionStep}`} {...motionProps}>
                 {phase === "assessment" && currentQuestion && (
@@ -175,7 +188,7 @@ export function HealthyRetirementBlueprint() {
                       Question {questionStep + 1} of {HEALTH_QUESTIONS.length}
                     </p>
                     <h2 className="mt-3 text-xl font-bold text-white sm:text-2xl">{currentQuestion.question}</h2>
-                    <div className="mt-8 grid gap-3">
+                    <div className="mt-6 grid gap-2.5">
                       {currentQuestion.options.map((opt) => {
                         const selected = answers[currentQuestion.id] === opt.value;
                         return (
@@ -183,10 +196,10 @@ export function HealthyRetirementBlueprint() {
                             key={opt.value}
                             type="button"
                             onClick={() => selectAnswer(opt.value)}
-                            className={`rounded-2xl border px-5 py-4 text-left text-sm font-medium transition sm:text-base ${
+                            className={`rounded-xl border px-4 py-3.5 text-left text-sm font-medium transition sm:text-base ${
                               selected
                                 ? "border-[#00549F] bg-[#00549F]/15 text-white"
-                                : "border-white/10 bg-white/5 text-zinc-300 hover:border-white/20 hover:bg-white/[0.07]"
+                                : "border-white/10 bg-white/5 text-zinc-300 hover:border-white/20"
                             }`}
                           >
                             {opt.label}
@@ -200,13 +213,12 @@ export function HealthyRetirementBlueprint() {
 
                 {phase === "lead" && (
                   <div>
-                    <h2 className="text-xl font-bold text-white sm:text-2xl">Almost done — where should we send your blueprint?</h2>
-                    <p className="mt-3 text-sm text-zinc-400">
-                      Enter your details to see your Retirement Health Score™ and receive your full Healthy Retirement
-                      Blueprint™.
+                    <h2 className="text-xl font-bold text-white sm:text-2xl">Where should we send your results?</h2>
+                    <p className={`mt-2 ${funnel.body}`}>
+                      Enter your details to unlock your Retirement Health Score™ and blueprint snapshot.
                     </p>
 
-                    <form action={formAction} className="mt-8 space-y-4">
+                    <form action={formAction} className="mt-6 space-y-4">
                       {HEALTH_QUESTIONS.map((q) => (
                         <input key={q.id} type="hidden" name={q.id} value={answers[q.id]} />
                       ))}
@@ -267,70 +279,60 @@ export function HealthyRetirementBlueprint() {
                       <button
                         type="submit"
                         disabled={isPending}
-                        className="w-full rounded-2xl bg-[#00549F] px-6 py-4 text-sm font-bold uppercase tracking-wide text-white disabled:opacity-60 sm:w-auto"
+                        className={`${funnel.ctaLg} disabled:opacity-60`}
                       >
                         {isPending ? "Calculating…" : "See my results"}
                       </button>
                     </form>
-
-                    <p className="mt-4 text-xs text-zinc-500">
-                      Educational only — not medical diagnosis. FSP 17273.
-                    </p>
                   </div>
                 )}
 
                 {phase === "results" && displayScore != null && (
                   <div className="text-center">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#00549F]">Your results</p>
-                    <h2 className="mt-3 text-2xl font-bold text-white">Retirement Health Score™</h2>
-                    <p className="mt-6 text-5xl font-extrabold sm:text-6xl" style={{ color: bandColor }}>
+                    <p className={funnel.eyebrow}>Your results</p>
+                    <h2 className={`mt-2 ${funnel.h2}`}>Retirement Health Score™</h2>
+                    <p className="mt-5 text-5xl font-extrabold sm:text-6xl" style={{ color: bandColor }}>
                       {displayScore} <span className="text-2xl text-zinc-500">/ 100</span>
                     </p>
-                    {displayBand && (
-                      <p className="mt-2 text-lg font-semibold text-zinc-300">{displayBand}</p>
-                    )}
+                    {displayBand && <p className="mt-2 text-lg font-semibold text-zinc-300">{displayBand}</p>}
 
-                    <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-6 text-left">
-                      <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                        Your Retirement Health Gap™
-                      </p>
+                    <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-5 text-left">
+                      <p className={funnel.h3}>Your Retirement Health Gap™</p>
                       <p className="mt-2 text-3xl font-bold text-[#00549F]">
                         {displayGap} <span className="text-base font-medium text-zinc-500">points</span>
                       </p>
-                      <p className="mt-4 text-sm leading-relaxed text-zinc-400">{GAP_EXPLANATION}</p>
+                      <p className={`mt-3 ${funnel.body}`}>{GAP_EXPLANATION}</p>
                     </div>
 
                     {submitState.reportId && (
                       <Link
                         href={`/healthy-retirement-blueprint/report/${submitState.reportId}${submitState.reportId !== "preview" ? "?print=1" : ""}`}
-                        className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#00549F] px-8 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#0066b8]"
+                        className={`mt-6 inline-flex ${funnel.ctaLg}`}
                       >
                         Open my blueprint
                         <ArrowRight className="h-4 w-4" />
                       </Link>
                     )}
 
-                    <p className="mt-6 text-xs text-zinc-500">
-                      Your full Healthy Retirement Blueprint™ includes the framework, risks, VO₂ max guide, 104 Week
-                      Watch Challenge intro, and 90-day action plan.
-                    </p>
+                    <FunnelAscensionHintCustom
+                      before="Want the full guide (R299 coming soon)? "
+                      label={OFFER.ascension.label}
+                      href={OFFER.ascension.href}
+                      after=""
+                    />
                   </div>
                 )}
               </motion.div>
             </AnimatePresence>
 
-            {phase !== "intro" && phase !== "results" && (
-              <button
-                type="button"
-                onClick={goBack}
-                className="mt-8 text-sm text-zinc-500 hover:text-white"
-              >
+            {phase !== "results" && (
+              <button type="button" onClick={goBack} className="mt-6 text-sm text-zinc-500 hover:text-white">
                 ← Back
               </button>
             )}
           </div>
-        </div>
-      </section>
+        </FunnelToolShell>
+      )}
 
       <Footer />
     </div>

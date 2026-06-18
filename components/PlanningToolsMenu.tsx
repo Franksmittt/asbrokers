@@ -81,6 +81,11 @@ export function PlanningToolsMenu({ scrolled, linkClass, onNavigate }: Props) {
               <p className="text-[10px] font-bold uppercase tracking-wider text-[#00549F]">{item.pillar}</p>
               <p className="text-sm font-medium text-white">{item.label}</p>
               {item.description && <p className="text-xs text-zinc-500">{item.description}</p>}
+              {item.priceLabel && (
+                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-400/90">
+                  {item.priceLabel}
+                </p>
+              )}
             </Link>
           ))}
         </div>

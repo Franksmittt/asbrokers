@@ -3,41 +3,52 @@
  * Maps AS Brokers pillars (Health · Wealth · Legacy · Business) to live funnels.
  */
 
+import {
+  PLANNING_TOOL_OFFERS,
+  getOfferPriceLabel,
+  type Pillar,
+} from "@/lib/planning-tools-offers";
+
 export type NavLink = {
   label: string;
   href: string;
   description?: string;
+  priceLabel?: string;
 };
 
 export type PillarFunnel = NavLink & {
-  pillar: "Health" | "Wealth" | "Legacy" | "Business";
+  pillar: Pillar;
 };
 
 /** Core lead magnets / assessments — Albert's four-pillar funnel entry points. */
 export const PILLAR_FUNNELS: PillarFunnel[] = [
   {
-    pillar: "Health",
-    label: "Healthy Retirement Blueprint™",
-    description: "Retirement Health Gap™ assessment",
-    href: "/healthy-retirement-blueprint",
+    pillar: PLANNING_TOOL_OFFERS["healthy-retirement"].pillar,
+    label: PLANNING_TOOL_OFFERS["healthy-retirement"].title,
+    description: PLANNING_TOOL_OFFERS["healthy-retirement"].navDescription,
+    href: PLANNING_TOOL_OFFERS["healthy-retirement"].href,
+    priceLabel: getOfferPriceLabel(PLANNING_TOOL_OFFERS["healthy-retirement"]),
   },
   {
-    pillar: "Wealth",
-    label: "Retirement Survival Blueprint™",
-    description: "Financial Freedom Score™ & Freedom Gap™",
-    href: "/retirement-survival-blueprint",
+    pillar: PLANNING_TOOL_OFFERS["retirement-survival"].pillar,
+    label: PLANNING_TOOL_OFFERS["retirement-survival"].title,
+    description: PLANNING_TOOL_OFFERS["retirement-survival"].navDescription,
+    href: PLANNING_TOOL_OFFERS["retirement-survival"].href,
+    priceLabel: getOfferPriceLabel(PLANNING_TOOL_OFFERS["retirement-survival"]),
   },
   {
-    pillar: "Legacy",
-    label: "Legacy Readiness Checklist™",
-    description: "Estate planning gap review",
-    href: "/legacy-readiness-checklist",
+    pillar: PLANNING_TOOL_OFFERS["legacy-checklist"].pillar,
+    label: PLANNING_TOOL_OFFERS["legacy-checklist"].title,
+    description: PLANNING_TOOL_OFFERS["legacy-checklist"].navDescription,
+    href: PLANNING_TOOL_OFFERS["legacy-checklist"].href,
+    priceLabel: getOfferPriceLabel(PLANNING_TOOL_OFFERS["legacy-checklist"]),
   },
   {
-    pillar: "Business",
-    label: "Business Risk Review™",
-    description: "Business insurance gap analysis",
-    href: "/business-risk-review",
+    pillar: PLANNING_TOOL_OFFERS["business-risk"].pillar,
+    label: PLANNING_TOOL_OFFERS["business-risk"].title,
+    description: PLANNING_TOOL_OFFERS["business-risk"].navDescription,
+    href: PLANNING_TOOL_OFFERS["business-risk"].href,
+    priceLabel: getOfferPriceLabel(PLANNING_TOOL_OFFERS["business-risk"]),
   },
 ];
 

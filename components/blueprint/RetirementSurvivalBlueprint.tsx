@@ -6,12 +6,22 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Footer } from "@/components/Footer";
 import { ArrowRight } from "@/components/icons";
 import {
+  FunnelAscensionHintCustom,
+  FunnelMarketingPage,
+  FunnelObjectionStripCustom,
+  FunnelToolShell,
+} from "@/components/funnel/FunnelMarketingSections";
+import { funnel } from "@/components/funnel/FunnelLayout";
+import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
+import {
   calculateBlueprintResults,
   formatBlueprintRand,
 } from "@/lib/blueprint/calculations";
 import { getBlueprintOptions } from "@/lib/blueprint/options";
 
-type Phase = "intro" | "step1" | "step2" | "step3" | "step4" | "step5" | "results";
+type Phase = "landing" | "intro" | "step1" | "step2" | "step3" | "step4" | "step5" | "results";
+
+const OFFER = PLANNING_TOOL_OFFERS["retirement-survival"];
 
 type Answers = {
   currentAge: number;
@@ -33,7 +43,7 @@ const INITIAL_ANSWERS: Answers = {
   investmentsOwned: "",
 };
 
-const PHASES: Phase[] = ["intro", "step1", "step2", "step3", "step4", "step5", "results"];
+const PHASES: Phase[] = ["landing", "intro", "step1", "step2", "step3", "step4", "step5", "results"];
 
 const inputClass =
   "w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white placeholder:text-zinc-600 focus:border-cinematic-teal/40 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25";
@@ -62,7 +72,7 @@ function MetricCard({ label, value, highlight }: { label: string; value: string;
 
 export function RetirementSurvivalBlueprint() {
   const reducedMotion = useReducedMotion();
-  const [phase, setPhase] = useState<Phase>("intro");
+  const [phase, setPhase] = useState<Phase>("landing");
   const [answers, setAnswers] = useState<Answers>(INITIAL_ANSWERS);
   const [error, setError] = useState<string | null>(null);
 
@@ -83,7 +93,12 @@ export function RetirementSurvivalBlueprint() {
   }, [results]);
 
   const phaseIndex = PHASES.indexOf(phase);
-  const progress = ((phaseIndex + 1) / PHASES.length) * 100;
+  const progress = phase === "landing" ? 0 : ((phaseIndex) / (PHASES.length - 1)) * 100;
+
+  function startBlueprint() {
+    setPhase("intro");
+    document.getElementById("blueprint-tool")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   function patchAnswers(patch: Partial<Answers>) {
     setAnswers((prev) => ({ ...prev, ...patch }));
@@ -124,7 +139,8 @@ export function RetirementSurvivalBlueprint() {
   }
 
   function goBack() {
-    if (phaseIndex > 0) setPhase(PHASES[phaseIndex - 1]);
+    if (phaseIndex > 1) setPhase(PHASES[phaseIndex - 1]);
+    else if (phase === "intro") setPhase("landing");
   }
 
   const motionProps = reducedMotion
@@ -138,39 +154,58 @@ export function RetirementSurvivalBlueprint() {
 
   const readyResults = !("error" in results) ? results : null;
 
+  const captureCard = (
+    <>
+      <p className={funnel.eyebrow}>{OFFER.freeLabel}</p>
+      <h2 className={`mt-2 ${funnel.h2}`}>Start your Blueprint</h2>
+      <p className={`mt-2 ${funnel.body}`}>{OFFER.freeSummary}</p>
+      <div className="mt-4">
+        <FunnelObjectionStripCustom items={OFFER.objections} />
+      </div>
+      <button type="button" onClick={startBlueprint} className={`mt-5 ${funnel.ctaLg}`}>
+        Start free diagnostic
+        <ArrowRight className="h-4 w-4" />
+      </button>
+      <FunnelAscensionHintCustom
+        before="After your scores: "
+        label={OFFER.ascension.label}
+        href={OFFER.ascension.href}
+      />
+    </>
+  );
+
   return (
-    <div className="min-h-screen bg-[#0a0a0c]">
-      <section className="relative overflow-hidden px-4 pb-8 pt-28 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-3xl">
-          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.24em] text-cinematic-teal">
-            Retirement Survival Blueprint™
-          </p>
-          <h1 className="text-center text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Am I going to be okay financially?
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-zinc-400 sm:text-base">
-            A guided diagnostic — not a calculator. We ask the right questions, work out the numbers quietly, and help
-            you understand your gap and your options.
-          </p>
+    <div className={funnel.page}>
+      <div className={funnel.glow} aria-hidden />
 
-          <div className="mt-8">
-            <div className="mb-2 flex justify-between text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-              <span>Your journey</span>
-              <span>{Math.round(progress)}%</span>
-            </div>
-            <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-[#00549F] transition-all duration-500"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      {phase === "landing" && (
+        <FunnelMarketingPage
+          offer={OFFER}
+          capture={captureCard}
+          onScrollToCapture={startBlueprint}
+          primaryCtaLabel="Start free diagnostic"
+        />
+      )}
 
-      <section className="px-4 pb-20 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-3xl">
-          <div className="glass-card min-h-[420px] rounded-3xl border border-white/10 p-6 md:p-10">
+      {phase !== "landing" && (
+        <FunnelToolShell
+          compactHeader={
+            <div className="mb-4">
+              <p className={funnel.eyebrow}>{OFFER.title}</p>
+              <div className="mt-2 flex justify-between text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                <span>Your journey</span>
+                <span>{Math.round(progress)}%</span>
+              </div>
+              <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-[#00549F] transition-all duration-500"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+          }
+        >
+          <div id="blueprint-tool" className="scroll-mt-24">
             <AnimatePresence mode="wait">
               <motion.div key={phase} {...motionProps}>
                 {phase === "intro" && (
@@ -463,12 +498,12 @@ export function RetirementSurvivalBlueprint() {
             </AnimatePresence>
 
             {phase !== "results" && (
-              <div className="mt-8 flex flex-wrap gap-3">
-                {phaseIndex > 0 && (
+              <div className="mt-6 flex flex-wrap gap-3">
+                {phaseIndex > 1 && (
                   <button
                     type="button"
                     onClick={goBack}
-                    className="rounded-2xl border border-white/15 px-5 py-3 text-sm font-medium text-zinc-300 hover:bg-white/5"
+                    className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-zinc-300 hover:bg-white/5"
                   >
                     Back
                   </button>
@@ -476,20 +511,19 @@ export function RetirementSurvivalBlueprint() {
                 <button
                   type="button"
                   onClick={goNext}
-                  className="rounded-2xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110"
+                  className="rounded-xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110"
                 >
                   {phase === "intro" ? "Start my Blueprint" : "Continue"}
                 </button>
               </div>
             )}
           </div>
+        </FunnelToolShell>
+      )}
 
-          <p className="mt-6 text-center text-xs leading-relaxed text-zinc-600">
-            Retirement Survival Blueprint™ is for educational purposes only. It does not constitute financial advice.
-            AS Brokers CC · FSP 17273.
-          </p>
-        </div>
-      </section>
+      <p className={`${funnel.shell} pb-6 text-center ${funnel.meta}`}>
+        Educational only — not financial advice · AS Brokers CC · FSP 17273
+      </p>
       <Footer />
     </div>
   );

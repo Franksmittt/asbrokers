@@ -2,13 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, LogOut, Presentation, FileText, Scroll, LineChart } from "@/components/icons";
+import { LayoutDashboard, LogOut, Presentation, FileText, Scroll, LineChart, Briefcase, HeartPulse } from "@/components/icons";
 import { logout } from "@/app/login/logout";
 
 const navItems = [
   { href: "/crm", label: "Office", icon: LayoutDashboard },
   { href: "/crm/presentation", label: "Wealth Presentation", icon: Presentation },
   { href: "/crm/calculators", label: "Calculators", icon: LineChart },
+  { href: "/crm/business-risk-reviews", label: "Risk reviews", icon: Briefcase },
+  { href: "/crm/legacy-checklist-leads", label: "Legacy leads", icon: Scroll },
+  { href: "/crm/healthy-retirement-assessments", label: "Health assessments", icon: HeartPulse },
   { href: "/studio/blog", label: "Blog & content", icon: FileText },
   { href: "/insights", label: "View insights (site)", icon: Scroll },
 ];

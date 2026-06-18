@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
 import { SolutionsSectionNav } from "@/components/SolutionsSectionNav";
+import { PlanningToolsStrip } from "@/components/PlanningToolsStrip";
 import { LineChart, HeartPulse, Lock, Scroll, ArrowRight } from "@/components/icons";
 const trustBadges = [
   "FSP 17273",
@@ -156,6 +157,9 @@ export default function SolutionsPage() {
         </div>
       </section>
       <SolutionsSectionNav />
+      <div className={`${PAGE_CONTENT_MAX} pt-8`}>
+        <PlanningToolsStrip className="mb-8" />
+      </div>
       <div className={`${PAGE_CONTENT_MAX} pb-24`}>
         {/* Section 1: Private Wealth & Yield (focus) */}
         <section

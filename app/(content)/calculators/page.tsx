@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip, PageMediaStripTriple } from "@/components/PageMediaStrip";
 import { FAQSchema } from "@/components/FAQSchema";
+import { PlanningToolsStrip } from "@/components/PlanningToolsStrip";
 
 const calculatorFAQs = [
   {
@@ -248,6 +249,12 @@ export default function CalculatorsPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="pb-8">
+        <div className={PAGE_CONTENT_MAX}>
+          <PlanningToolsStrip />
         </div>
       </section>
 

@@ -107,3 +107,86 @@ export const studioNotebookNotes = pgTable(
 
 export type StudioNotebookNote = typeof studioNotebookNotes.$inferSelect;
 export type NewStudioNotebookNote = typeof studioNotebookNotes.$inferInsert;
+
+/**
+ * Business Risk Review™ submissions (lead magnet).
+ */
+export const businessRiskReviews = pgTable(
+  "business_risk_reviews",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone").notNull(),
+    company: text("company").notNull(),
+    industry: text("industry").notNull(),
+    coverageScore: integer("coverage_score").notNull(),
+    totalItems: integer("total_items").notNull(),
+    protectionPercent: integer("protection_percent").notNull(),
+    gapCount: integer("gap_count").notNull(),
+    protectionBand: varchar("protection_band", { length: 20 }).notNull(),
+    selectedCoverIds: jsonb("selected_cover_ids").notNull(),
+    missingCoverIds: jsonb("missing_cover_ids").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("business_risk_reviews_created_idx").on(table.createdAt),
+    index("business_risk_reviews_industry_idx").on(table.industry),
+    index("business_risk_reviews_score_idx").on(table.coverageScore),
+  ]
+);
+
+export type BusinessRiskReview = typeof businessRiskReviews.$inferSelect;
+export type NewBusinessRiskReview = typeof businessRiskReviews.$inferInsert;
+
+/**
+ * Legacy Readiness Checklist™ lead magnet submissions.
+ */
+export const legacyChecklistLeads = pgTable(
+  "legacy_checklist_leads",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    firstName: text("first_name").notNull(),
+    surname: text("surname").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone").notNull(),
+    age: integer("age"),
+    businessOwner: varchar("business_owner", { length: 3 }),
+    source: varchar("source", { length: 80 }).notNull().default("legacy-readiness-checklist"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("legacy_checklist_leads_created_idx").on(table.createdAt),
+    index("legacy_checklist_leads_email_idx").on(table.email),
+  ]
+);
+
+export type LegacyChecklistLead = typeof legacyChecklistLeads.$inferSelect;
+export type NewLegacyChecklistLead = typeof legacyChecklistLeads.$inferInsert;
+
+/**
+ * Healthy Retirement Blueprint™ assessment submissions.
+ */
+export const healthyRetirementAssessments = pgTable(
+  "healthy_retirement_assessments",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    firstName: text("first_name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone"),
+    answers: jsonb("answers").notNull(),
+    healthScore: integer("health_score").notNull(),
+    healthGap: integer("health_gap").notNull(),
+    scoreBand: varchar("score_band", { length: 24 }).notNull(),
+    source: varchar("source", { length: 80 }).notNull().default("healthy-retirement-blueprint"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("healthy_retirement_created_idx").on(table.createdAt),
+    index("healthy_retirement_email_idx").on(table.email),
+    index("healthy_retirement_band_idx").on(table.scoreBand),
+  ]
+);
+
+export type HealthyRetirementAssessment = typeof healthyRetirementAssessments.$inferSelect;
+export type NewHealthyRetirementAssessment = typeof healthyRetirementAssessments.$inferInsert;

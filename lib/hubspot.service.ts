@@ -187,3 +187,127 @@ export async function syncNewsletterToHubSpot(
   }
   return { success: true };
 }
+
+/** Legacy Readiness Checklist™ lead magnet: contact + nurturing score. */
+const LEGACY_CHECKLIST_SCORE_INCREMENT = 25;
+
+export async function syncLegacyChecklistLeadToHubSpot(payload: {
+  firstName: string;
+  surname: string;
+  email: string;
+  phone: string;
+  businessOwner?: "yes" | "no";
+}): Promise<{ success: boolean; error?: string }> {
+  if (!HUBSPOT_TOKEN) {
+    return { success: false, error: "HubSpot is not configured." };
+  }
+
+  const existing = await getContactByEmail(payload.email);
+  const newScore =
+    (existing?.platform_lead_score ?? 0) + LEGACY_CHECKLIST_SCORE_INCREMENT + NEWSLETTER_SCORE_INCREMENT;
+
+  const properties: Record<string, string> = {
+    email: payload.email,
+    firstname: payload.firstName,
+    lastname: payload.surname,
+    phone: payload.phone,
+    financial_inquiry_topic: "estate_planning, legacy_checklist",
+    platform_lead_score: String(newScore),
+  };
+  if (payload.businessOwner) {
+    properties.financial_capital_input = payload.businessOwner === "yes" ? "business_owner" : "individual";
+  }
+
+  if (existing) {
+    const url = `${BASE}/crm/v3/objects/contacts/${existing.id}`;
+    const res = await fetch(url, {
+      method: "PATCH",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ properties }),
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("[HubSpot] PATCH legacy checklist failed:", res.status, await res.text());
+      }
+      return { success: false, error: "Could not update contact." };
+    }
+    return { success: true };
+  }
+
+  const url = `${BASE}/crm/v3/objects/contacts`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ properties }),
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[HubSpot] POST legacy checklist failed:", res.status, await res.text());
+    }
+    return { success: false, error: "Could not create contact." };
+  }
+  return { success: true };
+}
+
+/** Healthy Retirement Blueprint™ assessment lead: contact + nurturing score. */
+const HEALTHY_RETIREMENT_SCORE_INCREMENT = 20;
+
+export async function syncHealthyRetirementToHubSpot(payload: {
+  firstName: string;
+  email: string;
+  phone?: string;
+  healthScore: number;
+  healthGap: number;
+  scoreBand: string;
+}): Promise<{ success: boolean; error?: string }> {
+  if (!HUBSPOT_TOKEN) {
+    return { success: false, error: "HubSpot is not configured." };
+  }
+
+  const existing = await getContactByEmail(payload.email);
+  const newScore =
+    (existing?.platform_lead_score ?? 0) + HEALTHY_RETIREMENT_SCORE_INCREMENT + NEWSLETTER_SCORE_INCREMENT;
+
+  const properties: Record<string, string> = {
+    email: payload.email,
+    firstname: payload.firstName,
+    financial_inquiry_topic: "wellness, healthy_retirement, retirement_health_gap",
+    platform_lead_score: String(newScore),
+    financial_capital_input: `health_score_${payload.healthScore}_gap_${payload.healthGap}_${payload.scoreBand}`,
+  };
+  if (payload.phone) properties.phone = payload.phone;
+
+  if (existing) {
+    const url = `${BASE}/crm/v3/objects/contacts/${existing.id}`;
+    const res = await fetch(url, {
+      method: "PATCH",
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ properties }),
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      if (process.env.NODE_ENV === "development") {
+        console.error("[HubSpot] PATCH healthy retirement failed:", res.status, await res.text());
+      }
+      return { success: false, error: "Could not update contact." };
+    }
+    return { success: true };
+  }
+
+  const url = `${BASE}/crm/v3/objects/contacts`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ properties }),
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[HubSpot] POST healthy retirement failed:", res.status, await res.text());
+    }
+    return { success: false, error: "Could not create contact." };
+  }
+  return { success: true };
+}

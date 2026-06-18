@@ -1,6 +1,7 @@
 "use server";
 
 import { syncHealthyRetirementToHubSpot } from "@/lib/hubspot.service";
+import { notifyStaffLead } from "@/lib/email/notifications";
 import { insertHealthyRetirementAssessment } from "@/lib/healthy-retirement/repository";
 import { calculateHealthyRetirementScore } from "@/lib/healthy-retirement/scoring";
 import type { HealthyRetirementAnswers } from "@/lib/healthy-retirement/questions";
@@ -83,6 +84,18 @@ export async function submitHealthyRetirementAssessment(
     healthGap: result.gap,
     scoreBand: result.band,
   });
+
+  try {
+    await notifyStaffLead("Healthy Retirement Blueprint", {
+      Name: parsed.data.firstName,
+      Email: parsed.data.email,
+      Phone: parsed.data.phone ?? "",
+      "Health score": String(result.score),
+      "Health gap": String(result.gap),
+    });
+  } catch {
+    /* non-blocking */
+  }
 
   if (!reportId) {
     return {

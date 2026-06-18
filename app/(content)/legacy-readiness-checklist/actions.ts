@@ -1,6 +1,7 @@
 "use server";
 
 import { syncLegacyChecklistLeadToHubSpot } from "@/lib/hubspot.service";
+import { notifyStaffLead } from "@/lib/email/notifications";
 import { insertLegacyChecklistLead } from "@/lib/legacy-checklist/repository";
 import { legacyChecklistLeadSchema } from "@/lib/validations/legacy-checklist";
 
@@ -54,6 +55,17 @@ export async function submitLegacyChecklistLead(
     phone: parsed.data.phone,
     businessOwner: parsed.data.businessOwner,
   });
+
+  try {
+    await notifyStaffLead("Legacy Readiness Checklist", {
+      Name: `${parsed.data.firstName} ${parsed.data.surname}`,
+      Email: parsed.data.email,
+      Phone: parsed.data.phone ?? "",
+      "Business owner": parsed.data.businessOwner,
+    });
+  } catch {
+    /* non-blocking */
+  }
 
   if (!leadId) {
     return {

@@ -37,7 +37,7 @@ export const generateFinancialPdf = task({
       });
 
       const resend = new Resend(process.env.RESEND_API_KEY);
-      const from = process.env.RESEND_FROM ?? "AS Brokers <onboarding@resend.dev>";
+      const from = process.env.RESEND_FROM ?? "AS Brokers <hello@asbrokers.co.za>";
       const { error } = await resend.emails.send({
         from,
         to: [email],

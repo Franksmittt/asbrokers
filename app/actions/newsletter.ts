@@ -2,6 +2,7 @@
 
 import { newsletterSchema } from "@/lib/validations/schema";
 import { syncNewsletterToHubSpot } from "@/lib/hubspot.service";
+import { notifyStaffNewsletterSignup, sendNewsletterWelcome } from "@/lib/email/notifications";
 
 export type NewsletterActionState = { success: boolean; message?: string; fieldErrors?: { email?: string[] } };
 
@@ -33,6 +34,17 @@ export async function subscribeNewsletter(
       success: false,
       message: result.error ?? "Could not subscribe. Please try again.",
     };
+  }
+
+  try {
+    await Promise.all([
+      sendNewsletterWelcome(parsed.data.email),
+      notifyStaffNewsletterSignup(parsed.data.email),
+    ]);
+  } catch (e) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[Newsletter] Resend failed:", e);
+    }
   }
 
   return { success: true, message: "Subscribed!" };

@@ -2,6 +2,7 @@
 
 import { calculateBusinessRiskScore } from "@/lib/business-risk/scoring";
 import { insertBusinessRiskReview } from "@/lib/business-risk/repository";
+import { notifyStaffLead } from "@/lib/email/notifications";
 import { businessRiskLeadSchema } from "@/lib/validations/business-risk";
 
 export type BusinessRiskSubmitState = {
@@ -60,6 +61,19 @@ export async function submitBusinessRiskReview(
       message:
         "We could not save your review right now. Please contact AS Brokers directly and we will assist you.",
     };
+  }
+
+  try {
+    await notifyStaffLead("Business Risk Review", {
+      Name: parsed.data.name,
+      Email: parsed.data.email,
+      Phone: parsed.data.phone,
+      Company: parsed.data.company,
+      Industry: parsed.data.industry,
+      "Protection %": String(score.protectionPercent),
+    });
+  } catch {
+    /* non-blocking */
   }
 
   return {

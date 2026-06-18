@@ -3,6 +3,7 @@
 import { contactFormSchema } from "@/lib/validations/schema";
 import type { ContactActionState } from "@/lib/validations/schema";
 import { syncContactToHubSpot } from "@/lib/hubspot.service";
+import { notifyStaffContactEnquiry, sendContactAutoReply } from "@/lib/email/notifications";
 
 const INITIAL_STATE: ContactActionState = { success: false };
 
@@ -63,6 +64,22 @@ export async function submitContactEnquiry(
       success: false,
       message: result.error ?? "Could not save your enquiry. Please try again or contact us on WhatsApp.",
     };
+  }
+
+  try {
+    await Promise.all([
+      notifyStaffContactEnquiry({
+        fullName: payload.fullName,
+        email: payload.email,
+        phone: payload.phone,
+        topics: payload.topics,
+      }),
+      sendContactAutoReply({ fullName: payload.fullName, email: payload.email }),
+    ]);
+  } catch (e) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[Contact] Resend notification failed:", e);
+    }
   }
 
   const triggerSecret = process.env.TRIGGER_SECRET_KEY;

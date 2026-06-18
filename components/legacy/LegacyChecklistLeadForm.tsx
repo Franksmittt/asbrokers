@@ -2,23 +2,25 @@
 
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { funnel } from "@/components/funnel/FunnelLayout";
 import {
   submitLegacyChecklistLead,
   type LegacyChecklistSubmitState,
 } from "@/app/(content)/legacy-readiness-checklist/actions";
 
 const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white placeholder:text-zinc-600 focus:border-[#00549F]/50 focus:outline-none focus:ring-2 focus:ring-[#00549F]/25 disabled:opacity-60";
+  "w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-sm text-white placeholder:text-zinc-600 focus:border-[#00549F]/50 focus:outline-none focus:ring-2 focus:ring-[#00549F]/20 disabled:opacity-60";
 const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
 
 const initialState: LegacyChecklistSubmitState = { success: false };
 
 type Props = {
   id?: string;
-  compact?: boolean;
+  /** When true, form renders without outer card chrome (parent provides section card). */
+  embedded?: boolean;
 };
 
-export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Props) {
+export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = false }: Props) {
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(submitLegacyChecklistLead, initialState);
 
@@ -30,24 +32,14 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Prop
 
   if (state.success && state.checklistUrl) {
     return (
-      <div className="rounded-2xl border border-[#00549F]/30 bg-[#00549F]/10 p-6 text-center">
+      <div className="rounded-2xl border border-[#00549F]/30 bg-[#00549F]/10 px-6 py-8 text-center">
         <p className="text-sm text-zinc-300">{state.message ?? "Preparing your checklist…"}</p>
       </div>
     );
   }
 
   return (
-    <form
-      id={id}
-      action={formAction}
-      className={`space-y-4 ${compact ? "" : "rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8"}`}
-    >
-      {!compact && (
-        <h2 className="text-2xl font-bold text-white sm:text-3xl">
-          Get Your Free Legacy Readiness Checklist™
-        </h2>
-      )}
-
+    <form id={embedded ? undefined : id} action={formAction} className="space-y-5">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor={`${id}-firstName`}>
@@ -63,7 +55,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Prop
             aria-invalid={!!state.fieldErrors?.firstName}
           />
           {state.fieldErrors?.firstName?.[0] && (
-            <p className="mt-1 text-sm text-amber-400">{state.fieldErrors.firstName[0]}</p>
+            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.firstName[0]}</p>
           )}
         </div>
         <div>
@@ -80,7 +72,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Prop
             aria-invalid={!!state.fieldErrors?.surname}
           />
           {state.fieldErrors?.surname?.[0] && (
-            <p className="mt-1 text-sm text-amber-400">{state.fieldErrors.surname[0]}</p>
+            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.surname[0]}</p>
           )}
         </div>
         <div>
@@ -97,7 +89,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Prop
             aria-invalid={!!state.fieldErrors?.email}
           />
           {state.fieldErrors?.email?.[0] && (
-            <p className="mt-1 text-sm text-amber-400">{state.fieldErrors.email[0]}</p>
+            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.email[0]}</p>
           )}
         </div>
         <div>
@@ -114,12 +106,12 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Prop
             aria-invalid={!!state.fieldErrors?.phone}
           />
           {state.fieldErrors?.phone?.[0] && (
-            <p className="mt-1 text-sm text-amber-400">{state.fieldErrors.phone[0]}</p>
+            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.phone[0]}</p>
           )}
         </div>
         <div>
           <label className={labelClass} htmlFor={`${id}-age`}>
-            Age <span className="text-zinc-500">(optional)</span>
+            Age <span className="font-normal text-zinc-500">(optional)</span>
           </label>
           <input
             id={`${id}-age`}
@@ -133,7 +125,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Prop
         </div>
         <div>
           <label className={labelClass} htmlFor={`${id}-businessOwner`}>
-            Business owner <span className="text-zinc-500">(optional)</span>
+            Business owner <span className="font-normal text-zinc-500">(optional)</span>
           </label>
           <select
             id={`${id}-businessOwner`}
@@ -163,15 +155,11 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", compact }: Prop
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className="w-full rounded-2xl bg-[#00549F] px-6 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#0066b8] disabled:opacity-60 sm:w-auto"
-      >
+      <button type="submit" disabled={isPending} className={`w-full sm:w-auto ${funnel.cta}`}>
         {isPending ? "Sending…" : "Send my checklist"}
       </button>
 
-      <p className="text-xs leading-relaxed text-zinc-500">
+      <p className={`${funnel.meta} normal-case tracking-normal`}>
         Educational only — not legal advice. By submitting, you agree to receive your checklist and follow-up
         communications from AS Brokers. FSP 17273.
       </p>

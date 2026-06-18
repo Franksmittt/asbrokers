@@ -82,11 +82,6 @@ export function LegacyConversationsHub() {
                     Phase 1 live
                   </span>
                 )}
-                {pillar.status === "coming-soon" && (
-                  <span className="mt-4 inline-block rounded-full bg-white/5 px-3 py-1 text-xs text-zinc-500">
-                    Coming soon
-                  </span>
-                )}
                 {pillar.status === "partial" && (
                   <span className="mt-4 inline-block rounded-full bg-white/5 px-3 py-1 text-xs text-zinc-400">
                     Tools available

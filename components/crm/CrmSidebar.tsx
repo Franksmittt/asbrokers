@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, LogOut, Presentation, FileText, Scroll, LineChart } from "@/components/icons";
+import { LayoutDashboard, LogOut, Presentation, FileText, Scroll, LineChart, CheckSquare } from "@/components/icons";
 import { logout } from "@/app/login/logout";
 
 const navItems = [
   { href: "/crm", label: "Office", icon: LayoutDashboard },
   { href: "/crm/presentation", label: "Wealth Presentation", icon: Presentation },
   { href: "/crm/calculators", label: "Calculators", icon: LineChart },
+  { href: "/crm/calculator-review", label: "Calculator review", icon: CheckSquare },
   { href: "/studio/blog", label: "Blog & content", icon: FileText },
   { href: "/insights", label: "View insights (site)", icon: Scroll },
 ];
@@ -81,6 +82,9 @@ export function CrmSidebar({ name }: { name: string }) {
           </Link>
           <Link href="/crm/calculators" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
             Calculators
+          </Link>
+          <Link href="/crm/calculator-review" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
+            Review
           </Link>
           <Link href="/studio/blog" className="px-2 py-1.5 rounded-xl text-xs text-zinc-400 hover:text-white shrink-0">
             Blog

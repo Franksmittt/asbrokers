@@ -1,13 +1,17 @@
 import { notFound } from "next/navigation";
 
 import { AmethystAnnuityCalculator } from "@/components/AmethystAnnuityCalculator";
+import { AverageClauseCalculator } from "@/components/AverageClauseCalculator";
 import { EstateDutyCalculator } from "@/components/EstateDutyCalculator";
 import { EstateReductionCalculator } from "@/components/EstateReductionCalculator";
 import { Everest128Calculator } from "@/components/Everest128Calculator";
 import { Everest128Vs142ComparisonCalculator } from "@/components/Everest128Vs142ComparisonCalculator";
+import { Everest128Vs142FiveYearCalculator } from "@/components/Everest128Vs142FiveYearCalculator";
 import { Everest142Calculator } from "@/components/Everest142Calculator";
 import { Everest145GrowthCalculator } from "@/components/Everest145GrowthCalculator";
+import { FinancialFreedomCapitalCalculator } from "@/components/FinancialFreedomCapitalCalculator";
 import { FutureValueCalculator } from "@/components/FutureValueCalculator";
+import { GrowthRateCalculator } from "@/components/GrowthRateCalculator";
 import { IncomeTaxCalculator } from "@/components/IncomeTaxCalculator";
 import { LifeOfCapitalCalculator } from "@/components/LifeOfCapitalCalculator";
 import { PremiumComparisonCalculator } from "@/components/PremiumComparisonCalculator";
@@ -36,6 +40,14 @@ const EMBED_MAP = {
     title: "Cost of Inflation Over Time Calculator",
     node: <FutureValueCalculator />,
   },
+  "financial-freedom-capital": {
+    title: "AS Brokers Financial Freedom Calculator",
+    node: <FinancialFreedomCapitalCalculator />,
+  },
+  "growth-rate": {
+    title: "AS Brokers Growth Rate Calculator",
+    node: <GrowthRateCalculator />,
+  },
   "income-tax": {
     title: "Income Tax Calculator",
     node: <IncomeTaxCalculator />,
@@ -60,6 +72,10 @@ const EMBED_MAP = {
     title: "12.8% vs 14.2% Investment Income Comparison Calculator",
     node: <Everest128Vs142ComparisonCalculator />,
   },
+  "everest-128-vs-142-five-year": {
+    title: "12.8% vs 14.2% Five-Year Income Comparison",
+    node: <Everest128Vs142FiveYearCalculator />,
+  },
   "everest-142": {
     title: "Everest 12.8 Income Calculator",
     node: <Everest142Calculator />,
@@ -71,6 +87,10 @@ const EMBED_MAP = {
   "amethyst-annuity": {
     title: "Everest Amethyst Living Annuity Calculator",
     node: <AmethystAnnuityCalculator />,
+  },
+  "average-clause": {
+    title: "Average Clause Calculator",
+    node: <AverageClauseCalculator />,
   },
   "run-out-capital": {
     title: "Run Out of Capital Calculator",

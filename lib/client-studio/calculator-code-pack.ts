@@ -39,6 +39,21 @@ export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
     code: buildCalculatorIframeEmbed("/embed/calculators/future-value", "Cost of Inflation Over Time Calculator"),
   },
   {
+    id: "financial-freedom-capital",
+    title: "AS Brokers Financial Freedom Calculator",
+    sourcePath: "app/embed/calculators/financial-freedom-capital/page.tsx",
+    code: buildCalculatorIframeEmbed(
+      "/embed/calculators/financial-freedom-capital",
+      "AS Brokers Financial Freedom Calculator"
+    ),
+  },
+  {
+    id: "growth-rate",
+    title: "AS Brokers Growth Rate Calculator",
+    sourcePath: "app/embed/calculators/growth-rate/page.tsx",
+    code: buildCalculatorIframeEmbed("/embed/calculators/growth-rate", "AS Brokers Growth Rate Calculator"),
+  },
+  {
     id: "income-tax",
     title: "Income Tax Calculator",
     sourcePath: "app/embed/calculators/income-tax/page.tsx",
@@ -84,6 +99,15 @@ export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
     ),
   },
   {
+    id: "everest-128-vs-142-five-year",
+    title: "12.8% vs 14.2% Five-Year Income Comparison",
+    sourcePath: "app/embed/calculators/everest-128-vs-142-five-year/page.tsx",
+    code: buildCalculatorIframeEmbed(
+      "/embed/calculators/everest-128-vs-142-five-year",
+      "12.8% vs 14.2% Five-Year Income Comparison"
+    ),
+  },
+  {
     id: "everest-145-growth",
     title: "Everest Strategic Growth 14.5 Calculator",
     sourcePath: "app/embed/calculators/everest-145-growth/page.tsx",
@@ -100,6 +124,12 @@ export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
       "/embed/calculators/amethyst-annuity",
       "Everest Amethyst Living Annuity Calculator"
     ),
+  },
+  {
+    id: "average-clause",
+    title: "Average Clause Calculator",
+    sourcePath: "app/embed/calculators/average-clause/page.tsx",
+    code: buildCalculatorIframeEmbed("/embed/calculators/average-clause", "Average Clause Calculator"),
   },
   {
     id: "run-out-capital",

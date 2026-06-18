@@ -1,10 +1,11 @@
-import { OfficeCalculatorCanvas } from "@/components/crm/OfficeCalculatorCanvas";
+import { CalculatorReviewGrid } from "@/components/crm/CalculatorReviewGrid";
 
 export const metadata = {
-  title: "Calculators | Team office",
-  description: "Live financial calculators for client meetings — AS Brokers team office.",
+  title: "All calculators | Team office",
+  description: "Review and test every AS Brokers calculator in one grid.",
+  robots: { index: false, follow: false },
 };
 
 export default function CrmCalculatorsPage() {
-  return <OfficeCalculatorCanvas />;
+  return <CalculatorReviewGrid />;
 }

@@ -1,14 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowRight } from "@/components/icons";
+import Link from "next/link";
 import { getAllEmbedCalculators } from "@/lib/calculators/embed-registry";
 import { getCalculatorReviewMeta } from "@/lib/calculators/review-meta";
 
 const ALL_CALCULATORS = getAllEmbedCalculators();
 
 export function CalculatorReviewGrid() {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [groupFilter, setGroupFilter] = useState<string>("all");
 
   const groups = useMemo(() => {
@@ -17,8 +16,9 @@ export function CalculatorReviewGrid() {
   }, []);
 
   const calculators = useMemo(() => {
-    const rows = ALL_CALCULATORS.map((calc) => ({
+    const rows = ALL_CALCULATORS.map((calc, index) => ({
       ...calc,
+      index: index + 1,
       meta: getCalculatorReviewMeta(calc.id),
     }));
     if (groupFilter === "all") return rows;
@@ -35,20 +35,31 @@ export function CalculatorReviewGrid() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-6">
-      <div>
-        <p className="trust-hallmark mb-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-          Internal only · Not public
-        </p>
-        <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">Calculator review</h1>
-        <p className="mt-2 max-w-3xl text-sm text-zinc-400">
-          Test every calculator in one place. Use this grid with Albert to decide which tools to keep, remove, or
-          merge. Similar calculators are grouped — duplicates are flagged.
-        </p>
+    <div className="mx-auto max-w-[1600px] space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="trust-hallmark mb-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+            Internal only · Not public
+          </p>
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">All calculators</h1>
+          <p className="mt-2 max-w-3xl text-sm text-zinc-400">
+            Every calculator is open below in a two-column grid. Scroll through, test each one, and mark which to keep
+            or remove. No cycling through a dropdown.
+          </p>
+        </div>
+        <Link
+          href="/crm/calculator-session"
+          className="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white"
+        >
+          Client session mode (single calculator)
+        </Link>
       </div>
 
       <div className="rim-light rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-        <label htmlFor="review-group-filter" className="mb-2 block text-xs font-bold uppercase tracking-[0.14em] text-zinc-400">
+        <label
+          htmlFor="review-group-filter"
+          className="mb-2 block text-xs font-bold uppercase tracking-[0.14em] text-zinc-400"
+        >
           Filter by group
         </label>
         <select
@@ -68,18 +79,21 @@ export function CalculatorReviewGrid() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         {calculators.map((calc) => {
-          const isExpanded = expandedId === calc.id;
           const isDuplicateGroup = duplicateGroups.has(calc.meta.group);
 
           return (
             <article
               key={calc.id}
+              id={`calculator-${calc.id}`}
               className="rim-light flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#050506]"
             >
-              <div className="border-b border-white/10 p-4 sm:p-5">
+              <header className="border-b border-white/10 bg-white/[0.03] px-4 py-4 sm:px-5">
                 <div className="mb-2 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-[#00549F]/30 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-blue-200">
+                    #{calc.index}
+                  </span>
                   <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-zinc-400">
                     {calc.id}
                   </span>
@@ -92,38 +106,18 @@ export function CalculatorReviewGrid() {
                     </span>
                   )}
                 </div>
-                <h2 className="text-lg font-bold text-white">{calc.title}</h2>
-                {calc.meta.note && <p className="mt-1 text-sm text-zinc-500">{calc.meta.note}</p>}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setExpandedId(isExpanded ? null : calc.id)}
-                    className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black hover:bg-zinc-200"
-                  >
-                    {isExpanded ? "Hide preview" : "Test calculator"}
-                  </button>
-                  <a
-                    href={calc.embedPath}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white"
-                  >
-                    Open embed
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
-                </div>
-              </div>
+                <h2 className="text-xl font-bold leading-snug text-white sm:text-2xl">{calc.title}</h2>
+                {calc.meta.note && <p className="mt-1.5 text-sm text-zinc-500">{calc.meta.note}</p>}
+              </header>
 
-              {isExpanded && (
-                <div className="min-h-[520px] flex-1 p-2 sm:p-3">
-                  <iframe
-                    title={calc.title}
-                    src={calc.embedPath}
-                    className="h-[min(72vh,640px)] w-full rounded-xl border border-white/10 bg-[#0a0a0c]"
-                    loading="lazy"
-                  />
-                </div>
-              )}
+              <div className="p-2 sm:p-3">
+                <iframe
+                  title={calc.title}
+                  src={calc.embedPath}
+                  className="h-[min(80vh,720px)] w-full rounded-xl border border-white/10 bg-[#0a0a0c]"
+                  loading="eager"
+                />
+              </div>
             </article>
           );
         })}

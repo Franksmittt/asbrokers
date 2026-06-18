@@ -80,7 +80,6 @@ export function BusinessRiskReviewTool() {
 
   function startReview() {
     setPhase("lead");
-    document.getElementById("business-tool")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function handleLeadContinue() {
@@ -163,7 +162,7 @@ export function BusinessRiskReviewTool() {
             </div>
           }
         >
-          <div id="business-tool" className="scroll-mt-24">
+          <div id="business-tool" className={funnel.toolScrollMargin}>
             <AnimatePresence mode="wait">
               <motion.div key={phase} {...motionProps}>
                 {phase === "lead" && (

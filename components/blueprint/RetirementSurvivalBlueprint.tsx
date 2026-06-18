@@ -97,7 +97,6 @@ export function RetirementSurvivalBlueprint() {
 
   function startBlueprint() {
     setPhase("intro");
-    document.getElementById("blueprint-tool")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function patchAnswers(patch: Partial<Answers>) {
@@ -205,7 +204,7 @@ export function RetirementSurvivalBlueprint() {
             </div>
           }
         >
-          <div id="blueprint-tool" className="scroll-mt-24">
+          <div id="blueprint-tool" className={funnel.toolScrollMargin}>
             <AnimatePresence mode="wait">
               <motion.div key={phase} {...motionProps}>
                 {phase === "intro" && (

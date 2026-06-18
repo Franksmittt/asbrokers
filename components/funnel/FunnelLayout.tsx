@@ -15,6 +15,9 @@ export const funnel = {
   cardAccent:
     "rounded-2xl border border-[#00549F]/30 bg-[#00549F]/[0.07] p-4 sm:p-5 md:p-6",
   cardSticky: "lg:sticky lg:top-24",
+  /** Clears fixed site nav when wizard replaces landing */
+  toolShell: "pb-20 pt-24 md:pb-16 md:pt-28",
+  toolScrollMargin: "scroll-mt-28 md:scroll-mt-32",
   divider: "border-t border-white/10",
   eyebrow: "text-[11px] font-semibold uppercase tracking-[0.2em] text-[#00549F]",
   h1: "text-[2rem] font-bold tracking-tight text-white sm:text-4xl lg:text-[2.65rem] lg:leading-[1.1]",

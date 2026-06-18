@@ -44,10 +44,6 @@ const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
 
 const initialSubmitState: HealthyRetirementSubmitState = { success: false };
 
-function scrollToTool() {
-  document.getElementById("health-tool")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 export function HealthyRetirementBlueprint() {
   const reducedMotion = useReducedMotion();
   const [phase, setPhase] = useState<Phase>("landing");
@@ -89,7 +85,6 @@ export function HealthyRetirementBlueprint() {
 
   function startAssessment() {
     setPhase("assessment");
-    setTimeout(scrollToTool, 100);
   }
 
   function selectAnswer(value: string) {
@@ -179,7 +174,7 @@ export function HealthyRetirementBlueprint() {
             </div>
           }
         >
-          <div id="health-tool" className="scroll-mt-24">
+          <div id="health-tool" className={funnel.toolScrollMargin}>
             <AnimatePresence mode="wait">
               <motion.div key={`${phase}-${questionStep}`} {...motionProps}>
                 {phase === "assessment" && currentQuestion && (

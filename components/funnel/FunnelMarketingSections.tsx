@@ -219,7 +219,7 @@ export function FunnelToolShell({
   compactHeader?: ReactNode;
 }) {
   return (
-    <div className={`${funnel.shell} pb-20 pt-4 md:pb-16`}>
+    <div className={`${funnel.shell} ${funnel.toolShell}`}>
       {compactHeader}
       <div className="mx-auto w-full max-w-5xl">
         <div className={`${funnel.card} min-h-[380px]`}>{children}</div>

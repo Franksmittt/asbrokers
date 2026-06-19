@@ -23,6 +23,7 @@ export const EMBED_CALCULATOR_REGISTRY: EmbedCalculatorEntry[] = [
   { id: "amethyst-annuity", title: "Everest Amethyst Living Annuity Calculator" },
   { id: "average-clause", title: "Average Clause Calculator" },
   { id: "run-out-capital", title: "Run Out of Capital Calculator" },
+  { id: "wealth-building", title: "AS Brokers Wealth Building Calculator" },
 ];
 
 export function embedPathForCalculator(id: string): string {

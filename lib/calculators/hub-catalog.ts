@@ -90,6 +90,26 @@ export const HUB_CALCULATORS: HubCalculator[] = [
     gridClassName: "md:col-span-1",
   },
   {
+    id: "wealth-building",
+    sectionId: HUB_SECTIONS.retirement.id,
+    sectionTitle: HUB_SECTIONS.retirement.title,
+    sectionQuestion: HUB_SECTIONS.retirement.question,
+    tag: "Wealth Modeller",
+    title: "AS Brokers Wealth Building Calculator",
+    description:
+      "A general-purpose compound growth calculator for investments, retirement savings, business growth, and financial freedom planning.",
+    bullets: [
+      "Any annual growth rate — no artificial caps",
+      "Monthly contributions with annual increases",
+      "Multi-currency display",
+      "Total invested vs growth earned",
+    ],
+    leadsTo: "Structured wealth planning, retirement capital, and high-yield investment conversations.",
+    href: "/wealth-building-calculator",
+    leadsToAccent: true,
+    gridClassName: "md:col-span-1",
+  },
+  {
     id: "everest-wealth-products",
     sectionId: HUB_SECTIONS.retirement.id,
     sectionTitle: HUB_SECTIONS.retirement.title,

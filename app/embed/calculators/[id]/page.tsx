@@ -18,6 +18,7 @@ import { PremiumComparisonCalculator } from "@/components/PremiumComparisonCalcu
 import { RetirementRealityCalculator } from "@/components/RetirementRealityCalculator";
 import { RetirementShortfallCalculator } from "@/components/RetirementShortfallCalculator";
 import { RunOutCalculator } from "@/components/RunOutCalculator";
+import { WealthBuildingCalculator } from "@/components/WealthBuildingCalculator";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -95,6 +96,10 @@ const EMBED_MAP = {
   "run-out-capital": {
     title: "Run Out of Capital Calculator",
     node: <RunOutCalculator />,
+  },
+  "wealth-building": {
+    title: "AS Brokers Wealth Building Calculator",
+    node: <WealthBuildingCalculator />,
   },
 } as const;
 

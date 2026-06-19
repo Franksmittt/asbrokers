@@ -8,7 +8,7 @@ const calculatorFAQs = [
   {
     question: "What calculators does AS Brokers offer?",
     answer:
-      "We offer retirement reality, income in retirement (run-out), inflation impact, income tax, estate duty, annual estate reduction, premium increase comparison, and Everest Wealth product calculators.",
+      "We offer retirement reality, income in retirement, wealth building, inflation impact, income tax, estate duty, annual estate reduction, premium increase comparison, and Everest Wealth product calculators.",
   },
   {
     question: "Are calculator results financial advice?",
@@ -127,6 +127,20 @@ const lifeInsuranceCalculators = [
 
 const productCalculators = [
   {
+    tag: "Wealth Modeller",
+    title: "AS Brokers Wealth Building Calculator",
+    description:
+      "A general-purpose compound growth calculator for investments, retirement savings, business growth, and financial freedom planning.",
+    bullets: [
+      "Any annual growth rate — no artificial caps",
+      "Monthly contributions with annual increases",
+      "Multi-currency display",
+      "Total invested vs growth earned",
+    ],
+    leadsTo: "Structured wealth planning, retirement capital, and high-yield investment conversations.",
+    href: "/wealth-building-calculator",
+  },
+  {
     tag: "Product Quotation",
     title: "Everest Wealth Product Quote Calculators",
     description: "These calculators generate indicative product-based projections using real assumptions.",
@@ -208,8 +222,11 @@ function SectionHeading({ title, question }: { title: string; question: string }
 
 export default function CalculatorsPage() {
   const incomeInRetirement = retirementCalculators.find((c) => c.href === "/income-in-retirement");
+  const wealthBuilding = retirementCalculators.find((c) => c.href === "/wealth-building-calculator");
   const everestProduct = productCalculators[0];
-  const retirementOthers = retirementCalculators.filter((c) => c.href !== "/income-in-retirement");
+  const retirementOthers = retirementCalculators.filter(
+    (c) => c.href !== "/income-in-retirement" && c.href !== "/wealth-building-calculator"
+  );
   const secondaryRiskItems = [...taxEstateCalculators, ...lifeInsuranceCalculators];
 
   return (
@@ -327,6 +344,11 @@ export default function CalculatorsPage() {
             {retirementOthers[1] && (
               <div className="md:col-span-1">
                 <CalculatorCard {...retirementOthers[1]} leadsToAccent />
+              </div>
+            )}
+            {wealthBuilding && (
+              <div className="md:col-span-1">
+                <CalculatorCard {...wealthBuilding} leadsToAccent />
               </div>
             )}
             <div id="product-quotations" className="md:col-span-2 scroll-mt-24">

@@ -70,6 +70,10 @@ export const CALCULATOR_REVIEW_META: Record<string, CalculatorReviewMeta> = {
   "amethyst-annuity": {
     group: "Living annuity",
   },
+  "wealth-building": {
+    group: "Wealth building",
+    note: "General compound growth — investments, business, retirement, financial freedom",
+  },
 };
 
 export function getCalculatorReviewMeta(id: string): CalculatorReviewMeta {

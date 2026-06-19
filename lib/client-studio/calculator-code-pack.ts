@@ -137,6 +137,15 @@ export const CALCULATOR_CODE_SNIPPETS: CalculatorCodeSnippet[] = [
     sourcePath: "app/embed/calculators/run-out-capital/page.tsx",
     code: buildCalculatorIframeEmbed("/embed/calculators/run-out-capital", "Run Out of Capital Calculator"),
   },
+  {
+    id: "wealth-building",
+    title: "AS Brokers Wealth Building Calculator",
+    sourcePath: "app/(content)/wealth-building-calculator/page.tsx",
+    code: buildCalculatorIframeEmbed(
+      "/embed/calculators/wealth-building",
+      "AS Brokers Wealth Building Calculator"
+    ),
+  },
 ];
 
 export function getCalculatorCodePackText(): string {

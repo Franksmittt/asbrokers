@@ -6,7 +6,7 @@ export type EmbedCalculatorEntry = {
 
 export const EMBED_CALCULATOR_REGISTRY: EmbedCalculatorEntry[] = [
   { id: "retirement-reality", title: "Retirement Reality Calculator" },
-  { id: "retirement-shortfall", title: "Retirement Shortfall Calculator" },
+  { id: "retirement-shortfall", title: "Retirement Readiness Calculator" },
   { id: "life-of-capital", title: "Life of Capital Calculator" },
   { id: "future-value", title: "Cost of Inflation Over Time Calculator" },
   { id: "financial-freedom-capital", title: "AS Brokers Financial Freedom Calculator" },

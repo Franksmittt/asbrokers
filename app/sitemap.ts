@@ -37,6 +37,7 @@ const STATIC_PATHS = [
   "/quiz",
   "/regulatory-compliance",
   "/retirement",
+  "/retirement-readiness",
   "/retirement-survival-blueprint",
   "/business-risk-review",
   "/legacy-conversations",
@@ -51,6 +52,7 @@ const STATIC_PATHS = [
   "/solutions/personal-insurance",
   "/team",
   "/terms",
+  "/wealth-building-calculator",
 ] as const;
 
 type SanitySitemapRow = {

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from "recharts";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Cell, LabelList } from "recharts";
 
 const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", maximumFractionDigits: 0 }).format(val);
@@ -252,27 +252,47 @@ export function RetirementRealityCalculator() {
                 </p>
               )}
               {scenarioResult != null && result.capital != null && (
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <p className="text-zinc-400 text-sm font-medium mb-1">Scenario: what if growth is 2% lower?</p>
-                  <p className="text-amber-300 text-sm">
-                    You would need {formatCurrency(scenarioResult)} ({formatCurrency(scenarioResult - result.capital)} more).
-                  </p>
+                <div className="mt-6 space-y-4 border-t border-white/10 pt-6">
+                  <p className="text-sm font-medium text-zinc-300">Sensitivity: investment growth 2% lower</p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+                      <p className="text-xs uppercase tracking-wide text-zinc-400">Your assumption ({growthRate}% p.a.)</p>
+                      <p className="mt-1 text-xl font-bold text-white">{formatCurrency(result.capital)}</p>
+                    </div>
+                    <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+                      <p className="text-xs uppercase tracking-wide text-zinc-400">
+                        If growth is 2% lower ({(growthRate - 2).toFixed(1)}% p.a.)
+                      </p>
+                      <p className="mt-1 text-xl font-bold text-amber-200">{formatCurrency(scenarioResult)}</p>
+                      <p className="mt-1 text-xs text-amber-300/90">
+                        +{formatCurrency(scenarioResult - result.capital)} more capital required (
+                        {(((scenarioResult - result.capital) / result.capital) * 100).toFixed(1)}% increase)
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
               {chartData.length > 0 && (
-                <div className="mt-4 h-32">
+                <div className="mt-4 h-36" aria-hidden>
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData} layout="vertical" margin={{ top: 0, right: 8, left: 8, bottom: 0 }}>
-                      <XAxis type="number" tick={{ fill: "#71717a", fontSize: 11 }} tickFormatter={(v) => `${(v / 1e6).toFixed(0)}M`} />
-                      <YAxis type="category" dataKey="name" tick={{ fill: "#a1a1aa", fontSize: 11 }} width={100} />
-                      <Tooltip
-                        contentStyle={{ backgroundColor: "#151518", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px" }}
-                        formatter={(value) => [typeof value === "number" ? formatCurrency(value) : "", "Capital required"]}
+                    <BarChart data={chartData} layout="vertical" margin={{ top: 0, right: 72, left: 8, bottom: 0 }}>
+                      <XAxis
+                        type="number"
+                        tick={{ fill: "#71717a", fontSize: 11 }}
+                        tickFormatter={(v) => `${(v / 1e6).toFixed(0)}M`}
                       />
-                      <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                      <YAxis type="category" dataKey="name" tick={{ fill: "#a1a1aa", fontSize: 11 }} width={108} />
+                      <Bar dataKey="value" radius={[0, 4, 4, 0]} isAnimationActive={false}>
                         {chartData.map((entry, i) => (
                           <Cell key={i} fill={entry.fill} />
                         ))}
+                        <LabelList
+                          dataKey="value"
+                          position="right"
+                          formatter={(v) => (typeof v === "number" ? formatCurrency(v) : "")}
+                          fill="#e4e4e7"
+                          fontSize={11}
+                        />
                       </Bar>
                     </BarChart>
                   </ResponsiveContainer>

@@ -113,7 +113,7 @@ export function RetirementShortfallCalculator() {
     <div className="mx-auto max-w-[1100px] p-5 font-sans text-[#1F2933] leading-normal">
       <div className="overflow-hidden rounded-[18px] border border-[#E5E7EB] bg-white shadow-[0_12px_30px_rgba(0,43,92,0.12)]">
         <div className="bg-[#002B5C] px-7 py-7 text-white">
-          <h1 className="mb-2.5 text-2xl font-bold leading-tight sm:text-[28px]">Retirement Shortfall Calculator</h1>
+          <h1 className="mb-2.5 text-2xl font-bold leading-tight sm:text-[28px]">Retirement Readiness Calculator</h1>
           <p className="max-w-[820px] text-[#F3F4F6]">
             This calculator estimates how much capital you may need at retirement, and what monthly contribution may
             be required to reach that amount.

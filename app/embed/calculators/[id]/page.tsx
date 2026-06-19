@@ -30,7 +30,7 @@ const EMBED_MAP = {
     node: <RetirementRealityCalculator />,
   },
   "retirement-shortfall": {
-    title: "Retirement Shortfall Calculator",
+    title: "Retirement Readiness Calculator",
     node: <RetirementShortfallCalculator />,
   },
   "life-of-capital": {

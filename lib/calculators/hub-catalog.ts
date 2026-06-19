@@ -1,7 +1,13 @@
-/** Public /calculators hub — canonical list for cards and curation export. */
+/**
+ * Public /calculators hub — curated per Albert CRM export (2026-06-18).
+ *
+ * Policy: include calculators where keep=true OR Albert's notes explicitly say
+ * "keep public" / "should remain". Hide everything else until rebuilt per notes.
+ * Individual calculator routes remain live for SEO/bookmarks; hub is the curated front door.
+ */
 
 export type HubCalculator = {
-  id: string;
+  embedId: string;
   sectionId: string;
   sectionTitle: string;
   sectionQuestion?: string;
@@ -12,191 +18,107 @@ export type HubCalculator = {
   leadsTo: string;
   href: string;
   featured?: boolean;
-  glow?: boolean;
-  muted?: boolean;
   leadsToAccent?: boolean;
-  gridClassName?: string;
 };
+
+export const PUBLIC_HUB_EMBED_IDS = [
+  "retirement-reality",
+  "retirement-shortfall",
+  "future-value",
+  "wealth-building",
+] as const;
 
 export const HUB_SECTIONS = {
   retirement: {
-    id: "retirement",
-    title: "Capital Lifespan & High-Yield Solutions",
-    question: "Am I on track for retirement? What does a real product solution look like?",
+    id: "retirement-planning",
+    title: "Retirement & Wealth Planning",
+    question: "How much capital do I need — and am I on track to get there?",
   },
-  risk: {
-    id: "risk-architecture",
-    title: "Secondary Risk Architecture",
-    question: "Tax, estate, and life insurance exposure.",
+  inflation: {
+    id: "purchasing-power",
+    title: "Purchasing Power & Inflation",
+    question: "What is inflation doing to my money over time?",
   },
 } as const;
 
 export const HUB_CALCULATORS: HubCalculator[] = [
   {
-    id: "retirement-savings",
+    embedId: "retirement-reality",
     sectionId: HUB_SECTIONS.retirement.id,
     sectionTitle: HUB_SECTIONS.retirement.title,
     sectionQuestion: HUB_SECTIONS.retirement.question,
-    tag: "Problem Identifier",
-    title: "Retirement Savings Calculator",
+    tag: "Capital Required",
+    title: "Retirement Reality Calculator",
     description:
-      "This calculator highlights whether your current savings rate, time horizon, and assumptions are sufficient to fund retirement.",
+      "Estimate the lump sum capital required at retirement to fund your target monthly income (after tax) from retirement until life expectancy.",
     bullets: [
-      "Shortfalls in retirement funding",
-      "The limits of late-stage saving",
-      "The need for structured retirement vehicles",
+      "Income in today's money, inflated to retirement",
+      "Capital required at retirement date",
+      "Sensitivity to lower investment returns",
+      "Lump sum at retirement — not monthly contributions",
     ],
-    leadsTo: "Retirement annuities, preservation funds, and structured long-term investment planning.",
+    leadsTo: "Retirement income planning and structured capital conversations.",
     href: "/retirement",
-    leadsToAccent: true,
-    gridClassName: "md:col-span-1",
-  },
-  {
-    id: "income-in-retirement",
-    sectionId: HUB_SECTIONS.retirement.id,
-    sectionTitle: HUB_SECTIONS.retirement.title,
-    sectionQuestion: HUB_SECTIONS.retirement.question,
-    tag: "Problem Identifier",
-    title: "Income in Retirement Calculator",
-    description:
-      "This calculator models how long your capital can realistically sustain a chosen level of income in retirement.",
-    bullets: [
-      "Why income sustainability matters more than capital value",
-      "The impact of withdrawal rates and inflation",
-      "The risks of drawing income without a structured plan",
-    ],
-    leadsTo: "Living annuities, income-focused investments, and drawdown management strategies.",
-    href: "/income-in-retirement",
     featured: true,
     leadsToAccent: true,
-    gridClassName: "md:col-span-2",
   },
   {
-    id: "inflation-impact",
+    embedId: "retirement-shortfall",
     sectionId: HUB_SECTIONS.retirement.id,
     sectionTitle: HUB_SECTIONS.retirement.title,
     sectionQuestion: HUB_SECTIONS.retirement.question,
-    tag: "Problem Identifier",
-    title: "Inflation Impact Calculator",
-    description: "This calculator isolates inflation as a hidden risk to purchasing power.",
+    tag: "Readiness & Gap",
+    title: "Retirement Readiness Calculator",
+    description:
+      "Compare required retirement capital against projected savings, estimate your shortfall, and see the monthly contribution that may close the gap.",
     bullets: [
-      "Why nominal returns are misleading",
-      "How inflation erodes income over time",
-      "The need for inflation-beating strategies",
+      "Future income required at retirement",
+      "Projected value of current savings",
+      "Capital shortfall estimate",
+      "Starting contribution required",
     ],
-    leadsTo: "Growth-oriented investments, real-return strategies, and inflation-aware planning.",
-    href: "/cost-of-inflation-over-time",
+    leadsTo: "Retirement annuities, preservation funds, and contribution planning.",
+    href: "/retirement-readiness",
     leadsToAccent: true,
-    gridClassName: "md:col-span-1",
   },
   {
-    id: "wealth-building",
+    embedId: "wealth-building",
     sectionId: HUB_SECTIONS.retirement.id,
     sectionTitle: HUB_SECTIONS.retirement.title,
     sectionQuestion: HUB_SECTIONS.retirement.question,
     tag: "Wealth Modeller",
     title: "AS Brokers Wealth Building Calculator",
     description:
-      "A general-purpose compound growth calculator for investments, retirement savings, business growth, and financial freedom planning.",
+      "General-purpose compound growth for investments, retirement savings, business growth, or financial freedom — any growth rate, monthly contributions, annual increases.",
     bullets: [
-      "Any annual growth rate — no artificial caps",
-      "Monthly contributions with annual increases",
+      "No artificial growth caps",
       "Multi-currency display",
       "Total invested vs growth earned",
+      "Business, investment & retirement scenarios",
     ],
-    leadsTo: "Structured wealth planning, retirement capital, and high-yield investment conversations.",
+    leadsTo: "Wealth accumulation and financial freedom planning.",
     href: "/wealth-building-calculator",
     leadsToAccent: true,
-    gridClassName: "md:col-span-1",
   },
   {
-    id: "everest-wealth-products",
-    sectionId: HUB_SECTIONS.retirement.id,
-    sectionTitle: HUB_SECTIONS.retirement.title,
-    sectionQuestion: HUB_SECTIONS.retirement.question,
-    tag: "Product Quotation",
-    title: "Everest Wealth Product Quote Calculators",
-    description: "These calculators generate indicative product-based projections using real assumptions.",
+    embedId: "future-value",
+    sectionId: HUB_SECTIONS.inflation.id,
+    sectionTitle: HUB_SECTIONS.inflation.title,
+    sectionQuestion: HUB_SECTIONS.inflation.question,
+    tag: "Educational",
+    title: "Inflation Impact Calculator",
+    description:
+      "See how inflation erodes purchasing power over time — one of the strongest educational tools for understanding why growth must beat inflation.",
     bullets: [
-      "Translate strategy into product outcomes",
-      "Compare scenarios using actual investment structures",
-      "Support informed product selection",
+      "Purchasing power lost over time",
+      "Future cost vs remaining buying power",
+      "Why nominal returns mislead",
+      "Inflation-beating strategies",
     ],
-    leadsTo: "Everest Wealth investment products and implementation discussions.",
-    href: "/everest-wealth",
+    leadsTo: "Growth-oriented investments and inflation-aware planning.",
+    href: "/cost-of-inflation-over-time",
     featured: true,
-    glow: true,
     leadsToAccent: true,
-    gridClassName: "md:col-span-2",
-  },
-  {
-    id: "income-tax",
-    sectionId: HUB_SECTIONS.risk.id,
-    sectionTitle: HUB_SECTIONS.risk.title,
-    sectionQuestion: HUB_SECTIONS.risk.question,
-    tag: "Problem Identifier",
-    title: "Income Tax Calculator",
-    description: "This calculator models how income is taxed across different scenarios.",
-    bullets: [
-      "The real cost of marginal tax rates",
-      "The difference between taxable income and net income",
-      "Why tax-efficient structuring matters",
-    ],
-    leadsTo: "Tax-efficient investments, retirement products, and income structuring strategies.",
-    href: "/income-tax-calculator",
-    muted: true,
-  },
-  {
-    id: "estate-duty",
-    sectionId: HUB_SECTIONS.risk.id,
-    sectionTitle: HUB_SECTIONS.risk.title,
-    sectionQuestion: HUB_SECTIONS.risk.question,
-    tag: "Problem Identifier",
-    title: "Estate Duty & Fees Calculator",
-    description: "This calculator estimates how much of an estate may be lost to estate duty and administration fees.",
-    bullets: [
-      "The impact of estate costs at death",
-      "Why liquidity planning matters",
-      "The consequences of poor estate structuring",
-    ],
-    leadsTo: "Estate planning strategies, life insurance for liquidity, and trust-based planning.",
-    href: "/estate-duty-calculator",
-    muted: true,
-  },
-  {
-    id: "estate-reduction",
-    sectionId: HUB_SECTIONS.risk.id,
-    sectionTitle: HUB_SECTIONS.risk.title,
-    sectionQuestion: HUB_SECTIONS.risk.question,
-    tag: "Strategy Modeller",
-    title: "Estate Duty Reduction Strategy Calculator",
-    description: "This calculator models long-term estate reduction strategies using annual planning techniques.",
-    bullets: [
-      "How estates can be reduced legally over time",
-      "The role of gifting and structuring",
-      "Why early planning matters",
-    ],
-    leadsTo: "Trust structures, estate planning strategies, and long-term intergenerational planning.",
-    href: "/annual-estate-reduction-strategy",
-    muted: true,
-  },
-  {
-    id: "premium-increase-life",
-    sectionId: HUB_SECTIONS.risk.id,
-    sectionTitle: HUB_SECTIONS.risk.title,
-    sectionQuestion: HUB_SECTIONS.risk.question,
-    tag: "Problem Identifier",
-    title: "Premium Increase Problem Calculator (Life Assurance)",
-    description: "This calculator exposes the long-term risk of escalating life insurance premiums.",
-    bullets: [
-      "Why some policies become unaffordable over time",
-      "How premium structures impact long-term sustainability",
-      "The difference between short-term affordability and long-term certainty",
-    ],
-    leadsTo:
-      "Structured life insurance solutions designed for certainty and sustainability, including properly structured business and personal life cover.",
-    href: "/premium-increase-calculator",
-    muted: true,
   },
 ];
 

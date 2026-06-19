@@ -2,14 +2,14 @@
 
 import { newsletterSchema } from "@/lib/validations/schema";
 import { syncNewsletterToHubSpot } from "@/lib/hubspot.service";
-import { notifyStaffNewsletterSignup, sendNewsletterWelcome } from "@/lib/email/notifications";
+import { notifyStaffNewsletterSignup } from "@/lib/email/notifications";
 
 export type NewsletterActionState = { success: boolean; message?: string; fieldErrors?: { email?: string[] } };
 
-const INITIAL_STATE: NewsletterActionState = { success: false };
+const SUBMIT_ERROR = "Could not subscribe right now. Please try again later.";
 
 /**
- * Server Action for footer newsletter signup. Zod validation, HubSpot sync (+10 lead score).
+ * Footer newsletter signup. Notifies Albert via Resend; HubSpot sync deferred.
  */
 export async function subscribeNewsletter(
   _prevState: NewsletterActionState,
@@ -27,25 +27,19 @@ export async function subscribeNewsletter(
     };
   }
 
-  const result = await syncNewsletterToHubSpot(parsed.data);
-
-  if (!result.success) {
-    return {
-      success: false,
-      message: result.error ?? "Could not subscribe. Please try again.",
-    };
-  }
-
-  try {
-    await Promise.all([
-      sendNewsletterWelcome(parsed.data.email),
-      notifyStaffNewsletterSignup(parsed.data.email),
-    ]);
-  } catch (e) {
+  const emailResult = await notifyStaffNewsletterSignup(parsed.data.email);
+  if (!emailResult.ok) {
     if (process.env.NODE_ENV === "development") {
-      console.error("[Newsletter] Resend failed:", e);
+      console.error("[Newsletter] Resend failed:", emailResult.error);
     }
+    return { success: false, message: SUBMIT_ERROR };
   }
+
+  void syncNewsletterToHubSpot(parsed.data).catch((e) => {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[Newsletter] HubSpot sync failed (non-blocking):", e);
+    }
+  });
 
   return { success: true, message: "Subscribed!" };
 }

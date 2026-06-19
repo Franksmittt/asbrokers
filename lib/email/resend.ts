@@ -16,9 +16,13 @@ export function getResendFromAddress(): string {
   return process.env.RESEND_FROM?.trim() || "AS Brokers <hello@asbrokers.co.za>";
 }
 
-export function getStaffNotifyEmail(): string | null {
-  const to = process.env.RESEND_NOTIFY_EMAIL?.trim();
-  return to && to.includes("@") ? to : null;
+/** Staff inbox for form/lead alerts — override with RESEND_NOTIFY_EMAIL on Vercel. */
+export const DEFAULT_STAFF_NOTIFY_EMAIL = "albert@asbrokers.co.za";
+
+export function getStaffNotifyEmail(): string {
+  const configured = process.env.RESEND_NOTIFY_EMAIL?.trim();
+  if (configured && configured.includes("@")) return configured;
+  return DEFAULT_STAFF_NOTIFY_EMAIL;
 }
 
 export async function sendEmail(input: SendEmailInput): Promise<{ ok: true; id?: string } | { ok: false; error: string }> {

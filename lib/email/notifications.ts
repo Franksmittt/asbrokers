@@ -1,4 +1,6 @@
-import { sendEmail, getStaffNotifyEmail } from "@/lib/email/resend";
+import { sendEmail, getStaffNotifyEmail, isResendConfigured } from "@/lib/email/resend";
+
+export type StaffNotifyResult = { ok: true; id?: string } | { ok: false; error: string };
 
 const BRAND_FOOTER =
   "<p style='color:#888;font-size:12px;margin-top:24px'>AS Brokers CC · FSP 17273 · Krugersdorp</p>";
@@ -13,12 +15,13 @@ export async function notifyStaffContactEnquiry(payload: {
   email: string;
   phone: string;
   topics: string[];
-}) {
-  const staff = getStaffNotifyEmail();
-  if (!staff) return;
+}): Promise<StaffNotifyResult> {
+  if (!isResendConfigured()) {
+    return { ok: false, error: "RESEND_API_KEY not configured" };
+  }
 
-  await sendEmail({
-    to: staff,
+  return sendEmail({
+    to: getStaffNotifyEmail(),
     replyTo: payload.email,
     subject: `New website enquiry — ${payload.fullName}`,
     html: wrapHtml(`
@@ -56,30 +59,38 @@ export async function sendNewsletterWelcome(email: string) {
   });
 }
 
-export async function notifyStaffNewsletterSignup(email: string) {
-  const staff = getStaffNotifyEmail();
-  if (!staff) return;
+export async function notifyStaffNewsletterSignup(email: string): Promise<StaffNotifyResult> {
+  if (!isResendConfigured()) {
+    return { ok: false, error: "RESEND_API_KEY not configured" };
+  }
 
-  await sendEmail({
-    to: staff,
+  return sendEmail({
+    to: getStaffNotifyEmail(),
+    replyTo: email,
     subject: "New newsletter signup",
     html: wrapHtml(`<p><strong>Email:</strong> ${escapeHtml(email)}</p>`),
   });
 }
 
 /** Planning tools & lead magnets */
-export async function notifyStaffLead(source: string, fields: Record<string, string | undefined>) {
-  const staff = getStaffNotifyEmail();
-  if (!staff) return;
+export async function notifyStaffLead(
+  source: string,
+  fields: Record<string, string | undefined>
+): Promise<StaffNotifyResult> {
+  if (!isResendConfigured()) {
+    return { ok: false, error: "RESEND_API_KEY not configured" };
+  }
 
   const rows = Object.entries(fields)
     .filter(([, v]) => v)
     .map(([k, v]) => `<p><strong>${escapeHtml(k)}:</strong> ${escapeHtml(v!)}</p>`)
     .join("");
 
-  await sendEmail({
-    to: staff,
-    replyTo: fields.email,
+  const replyTo = fields.email ?? fields.Email;
+
+  return sendEmail({
+    to: getStaffNotifyEmail(),
+    replyTo,
     subject: `New lead — ${source}`,
     html: wrapHtml(`<h2 style="margin:0 0 12px">${escapeHtml(source)}</h2>${rows}`),
   });

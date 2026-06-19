@@ -86,13 +86,16 @@ export async function submitHealthyRetirementAssessment(
   });
 
   try {
-    await notifyStaffLead("Healthy Retirement Blueprint", {
+    const emailResult = await notifyStaffLead("Healthy Retirement Blueprint", {
       Name: parsed.data.firstName,
       Email: parsed.data.email,
       Phone: parsed.data.phone ?? "",
       "Health score": String(result.score),
       "Health gap": String(result.gap),
     });
+    if (!emailResult.ok && process.env.NODE_ENV === "development") {
+      console.error("[Healthy Retirement] Resend failed:", emailResult.error);
+    }
   } catch {
     /* non-blocking */
   }

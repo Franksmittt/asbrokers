@@ -3,9 +3,10 @@
 import { contactFormSchema } from "@/lib/validations/schema";
 import type { ContactActionState } from "@/lib/validations/schema";
 import { syncContactToHubSpot } from "@/lib/hubspot.service";
-import { notifyStaffContactEnquiry, sendContactAutoReply } from "@/lib/email/notifications";
+import { notifyStaffContactEnquiry } from "@/lib/email/notifications";
 
-const INITIAL_STATE: ContactActionState = { success: false };
+const SUBMIT_ERROR =
+  "We could not send your enquiry right now. Please try again or WhatsApp us on +27 66 227 6044.";
 
 function formDataToObject(formData: FormData): Record<string, unknown> {
   const topicsRaw = formData.get("topics");
@@ -32,8 +33,8 @@ function formDataToObject(formData: FormData): Record<string, unknown> {
 }
 
 /**
- * Server Action for main contact form. useActionState(submitContactEnquiry, initialState).
- * Validates with Zod, returns field-level errors via flatten(); syncs to HubSpot with cumulative lead scoring.
+ * Server Action for main contact form. Emails Albert immediately via Resend.
+ * HubSpot sync and visitor auto-replies are optional / deferred.
  */
 export async function submitContactEnquiry(
   _prevState: ContactActionState,
@@ -57,49 +58,42 @@ export async function submitContactEnquiry(
     return { success: true, message: "Thank you. We'll be in touch." };
   }
 
-  const result = await syncContactToHubSpot(payload);
+  const emailResult = await notifyStaffContactEnquiry({
+    fullName: payload.fullName,
+    email: payload.email,
+    phone: payload.phone,
+    topics: payload.topics,
+  });
 
-  if (!result.success) {
-    return {
-      success: false,
-      message: result.error ?? "Could not save your enquiry. Please try again or contact us on WhatsApp.",
-    };
-  }
-
-  try {
-    await Promise.all([
-      notifyStaffContactEnquiry({
-        fullName: payload.fullName,
-        email: payload.email,
-        phone: payload.phone,
-        topics: payload.topics,
-      }),
-      sendContactAutoReply({ fullName: payload.fullName, email: payload.email }),
-    ]);
-  } catch (e) {
+  if (!emailResult.ok) {
     if (process.env.NODE_ENV === "development") {
-      console.error("[Contact] Resend notification failed:", e);
+      console.error("[Contact] Resend failed:", emailResult.error);
     }
+    return { success: false, message: SUBMIT_ERROR };
   }
+
+  void syncContactToHubSpot(payload).catch((e) => {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[Contact] HubSpot sync failed (non-blocking):", e);
+    }
+  });
 
   const triggerSecret = process.env.TRIGGER_SECRET_KEY;
   if (triggerSecret) {
-    try {
-      await fetch("https://api.trigger.dev/api/v1/tasks/generate-financial-pdf/trigger", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${triggerSecret}`,
-        },
-        body: JSON.stringify({
-          payload: { email: payload.email, fullName: payload.fullName },
-        }),
-      });
-    } catch (e) {
+    void fetch("https://api.trigger.dev/api/v1/tasks/generate-financial-pdf/trigger", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${triggerSecret}`,
+      },
+      body: JSON.stringify({
+        payload: { email: payload.email, fullName: payload.fullName },
+      }),
+    }).catch((e) => {
       if (process.env.NODE_ENV === "development") {
         console.error("[Contact] PDF task trigger failed:", e);
       }
-    }
+    });
   }
 
   return { success: true, message: "Thank you. We'll be in touch." };

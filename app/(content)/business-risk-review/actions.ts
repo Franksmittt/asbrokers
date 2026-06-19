@@ -40,6 +40,27 @@ export async function submitBusinessRiskReview(
   }
 
   const score = calculateBusinessRiskScore(parsed.data.selectedCoverIds);
+
+  const emailResult = await notifyStaffLead("Business Risk Review", {
+    Name: parsed.data.name,
+    Email: parsed.data.email,
+    Phone: parsed.data.phone,
+    Company: parsed.data.company,
+    Industry: parsed.data.industry,
+    "Protection %": String(score.protectionPercent),
+  });
+
+  if (!emailResult.ok) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[Business Risk] Resend failed:", emailResult.error);
+    }
+    return {
+      success: false,
+      message:
+        "We could not submit your review right now. Please contact AS Brokers directly and we will assist you.",
+    };
+  }
+
   const reportId = await insertBusinessRiskReview({
     name: parsed.data.name,
     email: parsed.data.email,
@@ -57,23 +78,10 @@ export async function submitBusinessRiskReview(
 
   if (!reportId) {
     return {
-      success: false,
+      success: true,
       message:
-        "We could not save your review right now. Please contact AS Brokers directly and we will assist you.",
+        "Your review was received. We could not save a report link right now — AS Brokers will follow up by email.",
     };
-  }
-
-  try {
-    await notifyStaffLead("Business Risk Review", {
-      Name: parsed.data.name,
-      Email: parsed.data.email,
-      Phone: parsed.data.phone,
-      Company: parsed.data.company,
-      Industry: parsed.data.industry,
-      "Protection %": String(score.protectionPercent),
-    });
-  } catch {
-    /* non-blocking */
   }
 
   return {

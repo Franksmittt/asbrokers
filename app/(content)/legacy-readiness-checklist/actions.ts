@@ -57,12 +57,15 @@ export async function submitLegacyChecklistLead(
   });
 
   try {
-    await notifyStaffLead("Legacy Readiness Checklist", {
+    const emailResult = await notifyStaffLead("Legacy Readiness Checklist", {
       Name: `${parsed.data.firstName} ${parsed.data.surname}`,
       Email: parsed.data.email,
       Phone: parsed.data.phone ?? "",
       "Business owner": parsed.data.businessOwner,
     });
+    if (!emailResult.ok && process.env.NODE_ENV === "development") {
+      console.error("[Legacy Checklist] Resend failed:", emailResult.error);
+    }
   } catch {
     /* non-blocking */
   }

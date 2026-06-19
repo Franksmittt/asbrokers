@@ -1,5 +1,6 @@
 import { task } from "@trigger.dev/sdk";
 import { Resend } from "resend";
+import { getResendFromAddress } from "@/lib/email/resend";
 
 export type GenerateFinancialPdfPayload = {
   email: string;
@@ -37,7 +38,7 @@ export const generateFinancialPdf = task({
       });
 
       const resend = new Resend(process.env.RESEND_API_KEY);
-      const from = process.env.RESEND_FROM ?? "AS Brokers <hello@asbrokers.co.za>";
+      const from = getResendFromAddress();
       const { error } = await resend.emails.send({
         from,
         to: [email],

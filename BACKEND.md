@@ -46,7 +46,7 @@ Create `.env.local` (and add the same in your host: Vercel, Trigger.dev, etc.). 
 |----------|----------|--------|
 | `RESEND_API_KEY` | Yes | From [Resend](https://resend.com) (see §7). |
 | `APP_URL` or `NEXT_PUBLIC_APP_URL` | Yes | So the worker can open `/internal/pdf-report` to render PDF. |
-| `RESEND_FROM` | Optional | e.g. `AS Brokers <noreply@yourdomain.com>`. Defaults to Resend test domain. |
+| `RESEND_FROM` | Optional | e.g. `AS Brokers <albert@asbrokers.co.za>`. Defaults to albert@asbrokers.co.za. |
 | `PUPPETEER_EXECUTABLE_PATH` | Optional | Only if the worker environment needs a custom Chrome path. |
 | `TRIGGER_PROJECT_REF` | Optional | Override in trigger.config.ts; usually set in Trigger dashboard. |
 
@@ -207,7 +207,7 @@ Used only by the Trigger.dev task to send the PDF.
    Create an API key → set as `RESEND_API_KEY` in the **Trigger.dev worker** env (not only in Next.js).
 
 3. **Sender domain (production)**  
-   Verify your domain in Resend and set `RESEND_FROM` (e.g. `AS Brokers <noreply@yourdomain.com>`). Without this, you can use the default Resend test address.
+   Verify your domain in Resend and set `RESEND_FROM` (e.g. `AS Brokers <albert@asbrokers.co.za>`).
 
 ---
 

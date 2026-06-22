@@ -2,7 +2,7 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: June 2026 (Blog Studio image editing, SEO/AEO audit suite, llms.txt/llms-full.txt, sitemap/GSC readiness, compliance wording)
+Last updated: June 2026 (Phase 12 deployment readiness — SEO/AEO handbook, performance, CI/CD gates, unified JSON-LD, Playwright quality suite, homepage static optimisation)
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -21,6 +21,7 @@ Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
                    Phase 3: next-sanity, sanity (v3), @portabletext/react; Studio deps:
                    is-hotkey, styled-components, hoist-non-react-statics, uuid (v11).
                    Phase 4: @next/third-parties (GA4); analytics only after cookie consent.
+                   Quality / deploy: @playwright/test, @axe-core/playwright, @lhci/cli (Lighthouse CI).
 
 Purpose:
   Marketing and lead-generation website for AS Brokers CC, an independent
@@ -42,24 +43,57 @@ What this project can do:
   - Insights publishing via Sanity CMS plus Client Blog Studio backed by Supabase/Postgres; draft mode, Visual Editing, FSP disclaimer blocks, and private uploaded blog images served through the existing media proxy.
   - Blog Studio supports loading existing posts, editing drafts/published posts, previewing current image slots, replacing/swapping images, and removing image assignments without deleting Supabase Storage objects.
   - POPIA cookie consent; GA4 and Hotjar only after "Accept All".
-  - PWA manifest; SEO/AEO (Organization/FinancialService schema, FAQPage, metadata per page, self-referencing canonicals, robots, sitemap, llms.txt, llms-full.txt).
-  - SEO audit suite: npm run seo:audit runs static App Router checks, runtime indexability/AEO checks, and internal link graph checks in order.
+  - PWA manifest; full SEO/AEO stack (unified @graph JSON-LD per page, self-referencing canonicals, robots with training-bot blocks, sitemap, public/llms.txt, public/llms-full.txt, data-chunk-boundary sections, semantic comparison tables).
+  - SEO audit suite: npm run seo:audit (static + runtime + internal link graph). Phase verification scripts (verify-phase1-edge through verify-phase12-master).
+  - CI/CD: GitHub Actions — build, accessibility (axe-core), visual regression (Playwright Docker), Lighthouse CI (mobile ≥90), SEO/WRS tests, master-audit (npm run test:master).
+  - Performance: homepage statically generated (~163 kB First Load JS); deferred below-fold JS; lightweight MarketingNavServer on /; Lighthouse gate on Linux CI.
+  - Dynamic OG images (app/opengraph-image.tsx, app/api/og); image alt pipeline (data/image-metadata.json, lib/image-alt.ts, npm run alt:compile).
+  - Edge middleware: URL normalisation (301), crawl traps (410), training-bot firewall (403), X-Robots-Tag on private routes.
+  - Speculation rules (prerender /contact on moderate eagerness, client-injected after idle).
   - Run-out and product calculators (retirement, tax, estate, inflation, Everest Wealth, Amethyst).
+  - Lead funnels: Retirement Readiness, Healthy Retirement Blueprint, Retirement Survival Blueprint, Business Risk Review, Legacy Readiness Checklist, Wealth Building Calculator, and related report flows.
   - CRM & Client Portal: mock-auth login (/login); role-based CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence, notes, reassign); Client Portal (wealth dashboard, My Advisor, documents with upload, messages with reply). See CRM_AND_PORTAL.txt.
 
-Recent work done:
-  - Design system: Apple × Samsung hybrid (bg-[#0a0a0c] void, Bento grids, rounded-[2rem] squircle, 8px/10px spacing, cinematic-teal and blue/red accent glows, trust hallmarks FSP 17273 · Category 1.8 · 25+ Years). See §1 Design below.
-  - Home: "Reality Check" hero ("You think your retirement is safe. The math might disagree."); RunOutCalculator directly below hero (#lab) with name/email/POPIA gate for full actuarial PDF; EverestWealthBento (12.8%, 14.5%, Amethyst); Code18Advantage; RiskArchitectureCarousel; FloatingChat (HeroChatTerminal in bottom-right panel). No nav dropdowns: Solutions and Calculators are direct links to hub pages.
-  - Contact: "Book a Private Actuarial Consultation"; Code 1.8 subhead; Apple-style trust tags; "Client Qualification Criteria"; Squircle form card (border-blue-500/20 glow); "Initiate Wealth Engineering Request" submit; "The Actuarial Review Process" 3-step block. See docs/CONTACT_PAGE_OVERVIEW.txt.
-  - Solutions hub: "Engineered Wealth & Risk Architecture"; sticky nav (Private Wealth & Yield, Risk Architecture, Legacy Structuring, Health & Integration); Phase 1 featured cards (Retirement/Everest); Phase 2 "Wealth Protection & Fiduciary Defense" with muted cards; "Stop Guessing. Start Engineering." CTA. See docs/SOLUTIONS_PAGE_OVERVIEW.txt.
-  - Calculators hub: "The Actuarial Reality Check"; jump nav (Assess Capital Lifespan, Calculate Everest Yields, Secondary Risk Tools); Phase 1 Bento (retirement + Everest featured/glow); Phase 2 Secondary Risk Architecture (muted); "Stop Guessing Your Capital Lifespan." CTA. See docs/CALCULATORS_PAGE_OVERVIEW.txt.
-  - Wealth engineering refactor (institutional tone, Bento UI, CTAs): estate-duty-calculator and annual-estate-reduction-strategy (fiduciary, Strategic Capital Migration, Squircle CTAs); all Everest product pages (128, 142, 145, Amethyst, everest-wealth hub) with Code 1.8 eyebrows, premium cards, cinematic-teal outputs where applicable; income-in-retirement (Capital Depletion Test, red glow, Fix CTA to Everest); cost-of-inflation-over-time and income-tax-calculator (erosion/liability framing, 2-col Bento, Everest CTAs); retirement (Capital Deficit, 2-col Bento, Amethyst CTA); premium-increase-calculator (Premium Liability Test, 3-col Bento, fiduciary CTA). Calculator components: Everest128Calculator and Everest145GrowthCalculator key outputs in text-cinematic-teal; LifeOfCapitalCalculator lifespan value in large cinematic-teal.
-  - Documentation: docs/calculator-overviews/ with per-calculator page overviews (RETIREMENT, INCOME_IN_RETIREMENT, INFLATION, INCOME_TAX, ESTATE_DUTY, ESTATE_REDUCTION, PREMIUM_INCREASE, EVEREST_WEALTH, EVEREST_128, EVEREST_142, EVEREST_145, EVEREST_AMETHYST) + INDEX; docs/CONTACT_PAGE_OVERVIEW.txt, SOLUTIONS_PAGE_OVERVIEW.txt, CALCULATORS_PAGE_OVERVIEW.txt, CUSTOMER_OVERVIEW.txt kept current.
-  - Backend: Supabase PostgreSQL + pgvector for RAG; HubSpot (contact sync); Trigger.dev v4 (PDF + Resend); RAG ingest. See BACKEND.md.
-  - CRM & Client Portal: mock auth, role-based CRM and Client Portal. Full doc: CRM_AND_PORTAL.txt.
-  - Blog Studio image editing: editor now restores existing image URLs from embedded metadata or saved <img> tags, shows per-slot thumbnails, supports upload replacement, supports clear/remove as a pending state, and keeps Supabase bucket/schema/policies untouched.
-  - SEO/GSC/AEO hardening: added global route-relative canonicals, public /llms.txt and /llms-full.txt, footer discoverability links for public sitemap pages, AS Brokers-specific audit scripts, and generated sitemap verification. Local production audit suite currently reports 0 static SEO/AEO findings, 0 runtime SEO/AEO findings, and 0 internal link graph findings.
-  - Compliance wording pass: West Rand entity consistency; Everest language softened from guarantee-like/fixed-return phrasing to targeted/structured return profiles; medical aid page includes CMS broker-remuneration transparency; GlobalSchema enriched for West Rand/Krugersdorp and AS Brokers service topics.
+Recent work done (Phases 1–12, June 2026):
+
+  SEO / AEO / crawl infrastructure (Phases 1–5, 7, 10, 12):
+  - middleware.ts: strip utm/fbclid/gclid, trailing-slash normalisation (301), crawl traps (410), training-bot 403, X-Robots-Tag noindex on /crm, /portal, /login, /studio, /internal.
+  - app/robots.ts: disallow /api/; block GPTBot/ClaudeBot/CCBot; allow OAI-SearchBot, PerplexityBot, Claude-Web; sitemap + host from SITE_URL.
+  - app/sitemap.ts: 50+ static marketing paths + Sanity articles + Client Blog Studio posts; revalidate 1h.
+  - lib/seo.ts + lib/json-ld.ts: single @graph JSON-LD per page (Organization, FinancialService, LocalBusiness, WebPage, FAQ, Service, Product, Article, Breadcrumb, ImageObject); stable @id factory; XSS-safe escapeJsonLd (\u003c).
+  - components/seo/PageJsonLd.tsx on indexable pages; FallbackPageJsonLdClient for client-only routes.
+  - public/llms.txt + public/llms-full.txt (~1.3k BPE tokens, ceiling 128k); npm run b2a:compile.
+  - lib/seo-metadata.ts helpers; generateMetadata on all dynamic routes; Twitter summary_large_image; /opengraph-image + /api/og dynamic OG.
+  - data-chunk-boundary="true" on key content sections; semantic <table> comparison data (Everest products, premiums).
+  - tests/seo.spec.ts: Googlebot UA, SSR title/keywords, payload <2MB, zero hydration errors, networkidle <5s, hero h1 Levenshtein ≤0.5%.
+  - scripts/gsc-canonical-check.mjs; docs/DEPLOYMENT.md (GSC, pre-launch checklist).
+
+  Accessibility & media (Phase 7):
+  - data/image-metadata.json + scripts/generate-alt-text.mjs (npm run alt:compile); lib/image-alt.ts wired to BrandLogo, PageMediaStrip, ImagePlaceholder, Nav.
+  - tests/accessibility.spec.ts: axe-core WCAG 2.1 AA on /, /contact, insights template; keyboard mobile nav; labelled contact form.
+
+  Performance & Core Web Vitals (Phase 9):
+  - Homepage static (○); First Load JS ~163 kB (down from ~389 kB).
+  - HeroSection server-rendered (no Framer Motion on LCP path); BackgroundOrbs CSS gradients (no expensive blur filters).
+  - MarketingNavServer + AppShellChrome: lightweight homepage nav/footer; full AppShellChrome dynamically loaded on other routes.
+  - HomeDeferredBlocks / DeferUntilVisible: below-fold Recharts and Framer deferred until visible.
+  - HomeInsightsTeaserStatic on homepage (no Sanity fetch on critical path); NuqsAdapter scoped to quiz layouts only.
+  - System font stack (removed global next/font Inter); ContactEnquiryFormLazy on /contact.
+  - SpeculationRulesClient: prerender /contact after idle.
+  - lighthouserc.js + npm run test:lighthouse; scripts/verify-phase9-performance.ts.
+  - tests/visual.spec.ts + Linux Docker CI baselines.
+
+  CI/CD & master gate (Phase 12):
+  - .github/workflows/ci.yml: build, accessibility, visual-regression (Playwright v1.49 Docker), lighthouse, seo-wrs, master-audit.
+  - scripts/verify-phase12-master.ts + npm run test:master (lint, tsc, build, B2A, static SEO audit, a11y, SEO; Lighthouse on Linux CI).
+
+  Prior feature work (retained):
+  - Design system: Apple × Samsung hybrid (bg-[#0a0a0c] void, Bento grids, rounded-[2rem] squircle, cinematic-teal and blue/red accent glows, trust hallmarks FSP 17273 · Category 1.8 · 25+ Years).
+  - Home: "Reality Check" hero; RunOutCalculator (#lab); EverestWealthBento; Code18Advantage; RiskArchitectureCarousel; FloatingChat.
+  - Solutions hub, Calculators hub, Contact conversion page, Everest product pages, fiduciary calculator framing.
+  - Blog Studio image editing; Sanity CMS + Visual Editing; HubSpot contact sync; Trigger.dev PDF + Resend.
+  - CRM & Client Portal mocks; compliance wording pass (targeted/structured return profiles, not guaranteed returns).
+  - Documentation: docs/calculator-overviews/, docs/DEPLOYMENT.md, docs/CUSTOMER_OVERVIEW.txt, CRM_AND_PORTAL.txt.
 
 Data currency (2026):
   Income tax and Amethyst living-annuity tax estimates use SARS 2026/27
@@ -73,7 +107,7 @@ Design (current layout & styling):
   Colour & lighting:
     - Backgrounds: absolute black (--bg-primary: #000000, Tailwind bg-void) or Shark Grey (#1D1D1F, bg-shark).
     - Rim-light glassmorphism: .rim-light in globals.css (bg-white/5 backdrop-blur-2xl ring-1 ring-white/10 + inset edge highlight). Used for nav (when scrolled), cards, dropdowns, CTAs.
-    - Nightography ambient: BackgroundOrbs — large, heavily blurred absolute divs with Cinematic Teal (#008080) and Gold/Orange (#FF7F50) for OLED contrast; mouse-reactive with Apple easing.
+    - Nightography ambient: BackgroundOrbs — CSS gradient orbs (Cinematic Teal #008080, Gold/Orange #FF7F50); lightweight, no heavy blur filters on critical path.
 
   Geometry & layout:
     - Bento grid masonry for solutions and calculator hub cards.
@@ -81,7 +115,8 @@ Design (current layout & styling):
     - Generous padding and whitespace within cards (luxury signal).
 
   Typography:
-    - Inter as primary font (--font-inter). Headlines: large, bold, tight tracking (tracking-[-0.03em]). Body: text-gray-400, slightly looser tracking (tracking-[0.01em]). Trust signals use .trust-hallmark (tabular-nums, letter-spacing, engraved look).
+    - System font stack (font-sans antialiased) for faster LCP; Inter retained in lib/fonts for OG image generation only.
+    - Headlines: large, bold, tight tracking (tracking-[-0.03em]). Body: text-gray-400, slightly looser tracking. Trust signals use .trust-hallmark.
 
   Motion (Framer Motion):
     - Apple-style easing: cubic-bezier(0.25, 0.1, 0.25, 1) (ease-apple in Tailwind); duration 0.5–0.8s for page loads and layout changes.
@@ -135,23 +170,28 @@ Key partners / product providers:
 --------------------------------------------------------------------------------
 
 Quick index (all routes):
-  /  /about  /calculators  /contact  /team  /regulatory-compliance
+  /  /about  /calculators  /contact  /team  /regulatory-compliance  /how-we-work
   /solutions  /solutions/personal-insurance  /solutions/business-insurance
-  /solutions/life-insurance  /solutions/business-life
+  /solutions/life-insurance  /solutions/business-life  /solutions/medical-aid
+  /solutions/estate-planning
   /everest-wealth  /everest-wealth/about
   /everest-128-product  /immediate-higher-income-calculator  /everest-strategic-growth-145
   /everest-amethyst-living-annuity
-  /lab  /retirement  /income-in-retirement  /cost-of-inflation-over-time
-  /income-tax-calculator  /estate-duty-calculator  /annual-estate-reduction-strategy
-  /premium-increase-calculator
+  /lab  /retirement  /retirement-readiness  /income-in-retirement
+  /cost-of-inflation-over-time  /income-tax-calculator  /estate-duty-calculator
+  /annual-estate-reduction-strategy  /premium-increase-calculator  /wealth-building-calculator
+  /healthy-retirement-blueprint  /retirement-survival-blueprint  /business-risk-review
+  /legacy-conversations  /legacy-readiness-checklist
   /insights  /insights/[slug]  /insights/semigration-retirement
-  /quiz  /chat  /llms.txt  /llms-full.txt  /studio/[[...tool]]
-  /internal/pdf-report  /api/chat  /api/draft-mode/enable
+  /quiz  /chat  /privacy  /terms  /complaints  /conflict-of-interest  /manage-cookies
+  /llms.txt  /llms-full.txt  /opengraph-image  /sitemap.xml  /robots.txt
+  /studio/[[...tool]]  /studio/blog  /internal/pdf-report  /api/chat  /api/og  /api/draft-mode/enable
+  /login  /crm/*  /portal/*  /embed/calculators/[id]
 
 ---
 
 / (Home)
-  "Reality Check" hero ("You think your retirement is safe. The math might disagree."); primary CTA "Run the Numbers" (scroll to #lab), secondary "Explore Code 1.8 Wealth Engineering"; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip (Everest, Santam, Old Mutual, Bryte). RunOutCalculator directly below hero (portfolio, drawdown, capital lifespan; name/email/POPIA gate for full actuarial PDF). EverestWealthBento (12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity). Code18Advantage (Category 1.8, founders). RiskArchitectureCarousel (Short-Term, Commercial, Life, Estate). HomeStatsSection, HomeValueProps, HomeInsightsTeaser, HomeCtaStrip, Footer. FloatingChat (HeroChatTerminal in bottom-right panel). Design: void bg-[#0a0a0c], orbs, Bento/squircle.
+  Static page (○). "Reality Check" hero; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip. RunOutCalculator (#lab). EverestWealthBento, Code18Advantage, RiskArchitectureCarousel. Below-fold blocks deferred (HomeDeferredBlocks, DeferUntilVisible): HomeStatsSection, HomeClientReviews, HomeInsightsTeaserStatic (no Sanity on critical path), HomeCtaStrip. MarketingNavServer (lightweight SSR nav with mobile menu); footer via lazy AppShellChrome. FloatingChat. First Load JS ~163 kB.
 
 /about
   About AS Brokers CC: independent financial advisor Krugersdorp, West Rand, FSP 17273, Category 1.8. Links to Team and Contact. Metadata: independent financial advisor Krugersdorp.
@@ -241,10 +281,16 @@ Quick index (all routes):
   Digital Wealth Assistant: useChat; tools (estate duty, 12.8% income, Amethyst); RAG context when DATABASE_URL set. System prompt: R100k min, 120-day notice, 15% penalty, 20% DWT. Links to calculators, Contact.
 
 /llms.txt
-  Public AI discovery file. Summarises AS Brokers CC, FSP 17273, Category 1.8, core services, sitemap/robots/llms-full URLs, and crawler guidance. Runtime audit checks reachability and required sections.
+  Static file at public/llms.txt. AI discovery summary: AS Brokers CC, FSP 17273, Category 1.8, core services, sitemap/robots/llms-full URLs, crawler guidance. Verified by npm run seo:audit and verify-phase3-b2a.
 
 /llms-full.txt
-  Public full AI briefing for answer engines. Plain-text AS Brokers entity, compliance identity, services, Everest risk-language guidance, medical aid/gap cover distinctions, estate/calculator disclaimers, key public URLs, and AI citation guidance.
+  Static file at public/llms-full.txt. Full AI briefing (~1.3k BPE tokens, ceiling 128k): entity, compliance, services, Everest risk language, medical/estate disclaimers, key URLs, citation guidance.
+
+/opengraph-image
+  Dynamic OG image (app/opengraph-image.tsx); 1200×630; default social preview for all pages.
+
+/api/og
+  Edge OG image API for per-page dynamic previews (query params).
 
 /studio/[[...tool]]
   Embedded Sanity Studio v3; client-only (ssr: false). deskTool, presentationTool (draft mode /api/draft-mode/enable).
@@ -295,21 +341,21 @@ Quick index (all routes):
   Unified message thread (portal/email/WhatsApp) + MessageReply (mock send). Same thread as CRM client/lead correspondence.
 
 Route structure (App Router):
-  Root layout: app/layout.tsx (Inter, bg-void); NuqsAdapter → ConsentProvider → MotionConfigProvider → GlobalSchema, AppShell. Cookie banner + conditional GA4/Hotjar in ConsentProvider.
-  Route group (content): app/(content)/layout.tsx wraps public routes; conditional <VisualEditing /> when draft. Studio and API outside (content).
+  Root layout: app/layout.tsx (system font-sans, bg-void); FallbackPageJsonLdClient; Providers (ConsentProvider only — no global MotionConfig/NuqsAdapter); AppShell; SpeculationRulesClient.
+  Homepage (/): MarketingNavServer + main + lazy AppShellChrome (footer, FloatingWhatsApp, etc.). Other routes: full AppShellChrome (Nav + Footer + lead form context).
+  Route group (content): app/(content)/layout.tsx wraps public routes; Visual Editing in app/(content)/insights/layout.tsx when draft mode. Quiz/chat layouts scope NuqsAdapter locally.
+  middleware.ts: matcher excludes static assets (_next, images, fonts, favicon) so case-sensitive /images/* paths are never rewritten.
+  Studio, CRM, portal, API, embed routes outside lightweight homepage chrome.
 
 --------------------------------------------------------------------------------
 4. SITE STRUCTURE & NAVIGATION
 --------------------------------------------------------------------------------
 
-Header (global, components/Nav.tsx):
-  - Logo (teal→gold-orange gradient) + "AS Brokers" + FSP 17273 (trust-hallmark)
-  - Home | Solutions (direct link to /solutions) | Calculators (direct link to /calculators) | Team
-  - CRM & Client Portal (link to /login) | Contact Us — rim-light buttons, Samsung Blue / Gold glow on hover
-  - On /crm, /portal, /login: minimal bar (logo, Back to site, Switch account to /login)
-  - When scrolled: frosted glass (bg-white/5 backdrop-blur-2xl border-white/10) so teal/orange orbs blur behind nav
-  - Skip link: "Skip to main content" (focus-only)
-  - Mobile: hamburger; panels use rim-light, rounded-[2rem]
+Header (global):
+  - Homepage (/): MarketingNavServer — SSR lightweight nav, logo (BrandLogo /images/logo.jpg), direct links (Solutions, Calculators, Team, Contact), mobile hamburger with keyboard support.
+  - All other routes: components/Nav.tsx — full rim-light nav, CRM & Client Portal link, frosted glass on scroll.
+  - On /crm, /portal, /login: minimal bar (logo, Back to site, Switch account).
+  - Skip link: "Skip to main content" (focus-only).
   - No dropdown menus: Solutions and Calculators are single links to hub pages.
 
 Footer:
@@ -331,33 +377,29 @@ PWA (installability):
 5. KEY COMPONENTS (NON-PAGE)
 --------------------------------------------------------------------------------
 
-AppShell          – Wraps app with Nav + LeadForm context
-Nav               – Fixed header; rim-light frosted glass on scroll (blurs Nightography orbs); Solutions and Calculators direct links (no dropdowns); CTA glows
-Footer            – Multi-column footer with links and WhatsApp
-HeroSection       – Home "Reality Check" hero: headline "You think your retirement is safe. The math might disagree.", subhead, primary CTA "Run the Numbers" (scroll to #lab), secondary "Explore Code 1.8 Wealth Engineering"; trust bar (FSP 17273 · Category 1.8 · 25+ Years); partner strip
-HeroChatTerminal  – AI chat terminal (used inside FloatingChat panel and /chat): frosted glass, tools (estate duty, 12.8%, Amethyst), RAG when DATABASE_URL set
-BackgroundOrbs    – Nightography: Cinematic Teal + Gold/Orange large blurred orbs; mouse-reactive; Apple easing
-TrustBar          – FSP 17273 (trust-hallmark) + partners; shark bg, border-white/10
-EverestWealthBento – Home Bento: 12.8% Strategic Income, 14.5% Strategic Growth, Amethyst Living Annuity cards with targeted yields and "Learn more" links
-Code18Advantage   – Home: Category 1.8 explanation, unlisted vs JSE, founder profiles (Albert Schuurman, Johnny Farinha)
-RiskArchitectureCarousel – Home: horizontal swipeable squircle cards (Short-Term Personal, Commercial Risk, Life & Severe Illness, Estate Planning & Trusts)
-FloatingChat      – Fixed bottom-right FAB; toggles panel with HeroChatTerminal (Digital Wealth Assistant)
-HomeStatsSection  – 25+, FSP 17273, 1.8 (trust-hallmark); shark bg
-HomeValueProps    – Independent, Full-service, Personal; rim-light cards, cinematic-teal icons/links
-HomeCtaStrip      – "Ready for a conversation?" + Contact (gold glow) + WhatsApp; gradient from teal
-RunOutCalculator  – Portfolio value + monthly drawdown → estimated capital lifespan; warning on depletion risk; gate "Unlock the Full Actuarial Breakdown" (full name, email, POPIA consent) for year-by-year PDF via Trigger.dev; Recharts area chart after reveal; mobile overflow fixed for gate visibility
-ContactEnquiryForm – components/forms/ContactEnquiryForm.tsx. Main contact form
-                     (name, phone, email, topics dropdown, consent); useActionState +
-                     submitContactEnquiry(prevState, formData); pending disables inputs;
-                     honeypot; field-level errors from ContactActionState; syncs to
-                     HubSpot (search-patch, cumulative lead score). No capitalAmount
-                     on main form (calculator lead forms only).
-LeadFormContext   – Global lead form modal (e.g. Client Login)
-GlobalSchema       – Organization + FinancialService JSON-LD (root layout); XSS-safe
-                      (escapeJsonLd); FSP 17273, founders, Krugersdorp, Category 1.8
-MotionConfigProvider – Framer Motion reducedMotion="user" for vestibular accessibility
-FAQSchema         – Reusable FAQPage JSON-LD (XSS-safe); used on /retirement, /calculators,
-                      /everest-wealth, /everest-amethyst-living-annuity
+AppShell          – Routes / to MarketingNavServer + lazy AppShellChrome; other routes to full chrome
+AppShellChrome    – Footer, FloatingWhatsApp, QuickActionBar, LeadFormContext; dynamically imported
+MarketingNavServer – SSR homepage nav (desktop + mobile menu); a11y-tested keyboard toggle
+Nav               – Full fixed header for non-home routes; rim-light on scroll; BrandLogo
+BrandLogo         – next/image /images/logo.jpg with lib/image-alt getAlt()
+Footer            – Multi-column footer; FOOTER_EXPLORE / FOOTER_LEGAL from lib/site-navigation; newsletter Server Action
+HeroSection       – Server-rendered home hero (no Framer Motion on LCP path)
+HeroChatTerminal  – AI chat terminal (FloatingChat panel and /chat)
+BackgroundOrbs    – CSS gradient orbs (lightweight; no heavy blur on critical path)
+EverestWealthBento, Code18Advantage, RiskArchitectureCarousel – Home sections
+HomeDeferredBlocks / DeferUntilVisible – Below-fold lazy loading for charts and motion
+HomeInsightsTeaserStatic – Static insights teaser on homepage (no Sanity fetch on critical path)
+FloatingChat      – Fixed bottom-right FAB; HeroChatTerminal panel
+RunOutCalculator  – Portfolio + drawdown → capital lifespan; POPIA gate for PDF via Trigger.dev
+ContactEnquiryForm – Server Action submitContactEnquiry; HubSpot sync; honeypot; Zod validation
+ContactEnquiryFormLazy – dynamic import on /contact for smaller initial bundle
+ContactPageView   – Contact page layout wrapper
+PageJsonLd        – Server component: single @graph JSON-LD per page via lib/seo.ts buildPageGraph()
+FallbackPageJsonLdClient – Client fallback graph for routes without server PageJsonLd
+SpeculationRulesClient – Injects speculationrules JSON (prerender /contact, moderate eagerness)
+RelatedContent    – Internal linking component for SEO silos
+EverestProductComparisonTable – Semantic table for Everest product comparison (AEO)
+LeadFormContext   – Global lead form modal
 EverestLiquidityWarning – 120-day notice, 15% early exit penalty (voluntary products)
 Skip link         – Global accessibility skip link to #main-content
 
@@ -384,8 +426,8 @@ Financial Health Quiz (Phase 2):
   app/(content)/quiz/page.tsx – Multi-step client component; nuqs (concern, age, capital)
                             for shareable result URL; AnimatePresence + useReducedMotion;
                             QuizResults applies routing rules, CTA opens LeadFormContext.
-                            Wrapped in Suspense (fallback: loading state) for useQueryState/useSearchParams.
-  Root layout             – NuqsAdapter (nuqs/adapters/next/app) wraps app for useQueryState
+                            Wrapped in Suspense for useQueryState/useSearchParams.
+  app/(content)/quiz/layout.tsx – NuqsAdapter scoped to quiz routes only
 
 Digital Wealth Assistant (chat):
   app/api/chat/route.ts   – POST handler; streamText, system prompt, three tools
@@ -418,11 +460,11 @@ CRM & Client Portal (see CRM_AND_PORTAL.txt):
 Root layout:
   Title template:  %s | AS Brokers CC
   Default title:   AS Brokers CC | Independent Financial Advisor Krugersdorp
-  Description:     25+ years; retirement, insurance, estate, Code 1.8.
-  Canonical:       alternates.canonical "./" with metadataBase so public routes emit self-referencing canonical URLs.
-  Keywords:        independent financial advisor Krugersdorp, Code 1.8 FSP license broker,
-                   Everest Wealth brokers, alternative private equity investments South Africa, ...
-  OpenGraph:       type website, locale en_ZA, siteName AS Brokers CC
+  metadataBase:    getSiteOrigin() (NEXT_PUBLIC_SITE_URL)
+  Canonical:       self-referencing per route via lib/seo-metadata.ts / page metadata
+  OpenGraph:       type website, locale en_ZA, siteName AS Brokers CC, /opengraph-image 1200×630
+  Twitter:         summary_large_image, /opengraph-image
+  Google verification meta tag present.
 
 Page-level metadata (keyword targeting per SEO plan):
   /about                    – independent financial advisor Krugersdorp
@@ -433,28 +475,38 @@ Page-level metadata (keyword targeting per SEO plan):
   /insights/semigration-retirement – semigration, retirement villages Western Cape
   /team                     – independent financial advisors Krugersdorp
 
-Structured data:
-  GlobalSchema (root): Organization + FinancialService @graph; legalName AS Brokers CC;
-    FSP 17273, founders, Krugersdorp/West Rand/South Africa areaServed; XSS-safe JSON-LD.
-  FAQSchema: FAQPage on /calculators, /retirement, /everest-wealth, /everest-amethyst-living-annuity;
-    escapeJsonLd for safe script injection.
+Structured data (lib/seo.ts, lib/json-ld.ts):
+  - Single @graph per page template via PageJsonLd + buildPageGraph().
+  - Stable @id factory (createSeoIds): organization, website, financialService, localBusiness,
+    person nodes (Albert, Johnny), webPage, faqPage, article, service, product, breadcrumb, primaryImage.
+  - Organization + FinancialService + LocalBusiness on every indexable page; FAQ/Service/Product/Article
+    nodes when applicable. Zero orphan @id references (all cross-refs use @id).
+  - escapeJsonLd in lib/json-ld.ts: XSS-safe (\u003c, \u003e, \u0026).
+  - FallbackPageJsonLdClient for client-only routes.
 
-Semantic silos (internal linking):
-  Retirement page → Amethyst Living Annuity (Reg 28, 2.5–17.5% drawdown bridge copy).
-  Estate duty calculator → Annual Estate Reduction Strategy (R100k/R200k donations copy).
-  Footer now includes discoverability links for public sitemap pages so internal link graph audit reports no orphan/unreachable public URLs.
+Semantic silos & internal linking:
+  - RelatedContent component; footer discoverability links (FOOTER_EXPLORE, FOOTER_LEGAL).
+  - Retirement → Amethyst; estate duty → annual estate reduction; calculators hub silos.
+  - Internal link graph audit: npm run seo:audit:links (0 orphan indexable pages target).
 
 Sitemap / GSC:
-  app/sitemap.ts generates public sitemap entries from static public paths, Sanity articles, and published Client Blog Studio posts.
-  Submit in Google Search Console after deployment: https://www.asbrokers.co.za/sitemap.xml
-  Latest local production verification: sitemap generated 37 public https://www.asbrokers.co.za URLs; audit suite reported 0 findings.
+  - app/sitemap.ts: STATIC_PATHS (50+ routes) + Sanity articles + Client Blog Studio posts.
+  - Production URL: https://www.asbrokers.co.za/sitemap.xml
+  - Google Search Console verification meta in root layout.
+  - Post-deploy: npm run gsc:canonical (scripts/gsc-canonical-check.mjs).
+  - Full setup: docs/DEPLOYMENT.md
 
-SEO/AEO audit scripts:
-  npm run seo:audit          – runs full suite in order
-  npm run seo:audit:static   – static App Router/code SEO/AEO checks
-  npm run seo:audit:runtime  – runtime robots/sitemap/llms/canonical/noindex/JSON-LD/bot checks
-  npm run seo:audit:links    – runtime sitemap-driven internal link graph audit
-  Generated reports are ignored by git: asbrokers_*_findings.txt
+SEO/AEO audit & verification scripts:
+  npm run seo:audit          – full suite (static + runtime + links)
+  npm run seo:audit:static   – App Router structural SEO/AEO checks
+  npm run seo:audit:runtime  – robots, sitemap, llms, canonical, noindex, JSON-LD, bot policy
+  npm run seo:audit:links    – sitemap-driven internal link graph
+  npm run b2a:compile        – regenerate public/llms.txt + llms-full.txt
+  npm run alt:compile        – regenerate image alt metadata
+  npm run gsc:canonical      – GSC URL Inspection canonical parity (post-deploy)
+  npx tsx scripts/verify-phase3-b2a.ts  – B2A token ceiling + chunk boundaries
+  npx tsx scripts/verify-phase12-master.ts – master pre-deploy gate (npm run test:master)
+  Generated reports gitignored: asbrokers_*_findings.txt, test-results/, lhci-reports/
 
 PWA:  public/manifest.json (name, theme, start_url). Root layout references manifest.
 
@@ -463,15 +515,16 @@ PWA:  public/manifest.json (name, theme, start_url). Root layout references mani
 --------------------------------------------------------------------------------
 
 Memory bank:
-  - BACKEND.md         – Backend setup checklist; env vars; Supabase, HubSpot, Trigger.dev, Resend, Sanity, OpenAI, RAG; "Where you left off" (e.g. HubSpot custom properties for contact form)
-  - CRM_AND_PORTAL.txt – CRM & Client Portal: what it does, features, benefits, how it works (mock vs planned backend), routes, key files
-  - ROLLS_ROYCE_CRM_VISION.txt – Vision for bespoke “Rolls-Royce” CRM: client portal (private wealth terminal), staff (precision engine), owner (command center); AI-infused, compliance-first, implementation roadmap
-  - .cursor/rules/crm-rolls-royce.mdc – Cursor rule for CRM/portal work: design language, AI, compliance, service alignment, user-specific (client/staff/owner), phasing
-  - agents.md          – Root: tech stack, business/regulatory context, architecture, Everest constraints, liquidity warning
+  - BACKEND.md         – Backend setup checklist; env vars; Supabase, HubSpot, Trigger.dev, Resend, Sanity, OpenAI, RAG
+  - docs/DEPLOYMENT.md – CI gates, GSC setup, pre-launch checklist, master-audit, post-deploy monitoring
+  - CRM_AND_PORTAL.txt – CRM & Client Portal mock vs planned backend
+  - ROLLS_ROYCE_CRM_VISION.txt – Vision for bespoke CRM (client portal, staff, owner dashboards)
+  - .cursor/rules/crm-rolls-royce.mdc – Cursor rule for CRM/portal work
+  - agents.md          – Tech stack, business context, architecture, Everest constraints
   - app/(content)/calculators/CONTEXT.md – Formula and tax context for all calculators
   - docs/CUSTOMER_OVERVIEW.txt – Customer-facing project and feature overview
-  - docs/SOLUTIONS_PAGE_OVERVIEW.txt, docs/CALCULATORS_PAGE_OVERVIEW.txt, docs/CONTACT_PAGE_OVERVIEW.txt – Page-level layout, components, styling
-  - docs/calculator-overviews/ – Per-calculator page overviews (RETIREMENT, INCOME_IN_RETIREMENT, INFLATION, INCOME_TAX, ESTATE_DUTY, ESTATE_REDUCTION, PREMIUM_INCREASE, EVEREST_WEALTH, EVEREST_128, EVEREST_142, EVEREST_145, EVEREST_AMETHYST); INDEX.txt for list
+  - docs/SOLUTIONS_PAGE_OVERVIEW.txt, CALCULATORS_PAGE_OVERVIEW.txt, CONTACT_PAGE_OVERVIEW.txt
+  - docs/calculator-overviews/ – Per-calculator page overviews; INDEX.txt
 
 Cursor rules:
   - .cursor/rules/asbrokers.mdc – RSC default, Server Actions for mutations,
@@ -694,12 +747,94 @@ Conditional script loading:
   - If user has not consented or chooses "Essential Only", GA4 and Hotjar never mount.
 
 Root layout:
-  - ConsentProvider wraps MotionConfigProvider and app content; renders
-    CookieConsent (when hasHydrated) and ConditionalAnalytics.
+  - ConsentProvider wraps app content; renders CookieConsent (when hasHydrated) and ConditionalAnalytics.
+  - No global MotionConfigProvider (motion respects prefers-reduced-motion per component).
 
 Env:
   - NEXT_PUBLIC_GA_MEASUREMENT_ID (GA4 measurement ID, e.g. G-XXXXXXXX).
   - NEXT_PUBLIC_HOTJAR_ID (Hotjar site ID). See .env.example.
+
+--------------------------------------------------------------------------------
+15. CI/CD & QUALITY GATES (PHASES 9–12)
+--------------------------------------------------------------------------------
+
+GitHub Actions (.github/workflows/ci.yml) — runs on push/PR to main:
+
+  Job                  | Command / tool                    | Gate
+  ---------------------|-----------------------------------|----------------------------------
+  build                | npm run build                     | TypeScript + Next.js compile
+  accessibility        | npm run test:a11y                 | axe-core WCAG 2.1 AA (Playwright)
+  visual-regression    | tests/visual.spec.ts              | Playwright Docker baselines (2% max diff)
+  lighthouse           | npm run test:lighthouse           | Mobile perf ≥90, CLS ≤0.1 on / and /contact
+  seo-wrs              | npm run test:seo                  | SSR, hydration, payload, Googlebot UA
+  master-audit         | npm run test:master               | Aggregates lint, tsc, build, B2A, SEO static, a11y, SEO
+
+Key npm scripts:
+  npm run test:a11y         – Playwright + @axe-core/playwright
+  npm run test:seo          – WRS / crawler compatibility (15 tests)
+  npm run test:visual       – Screenshot regression (homepage + contact)
+  npm run test:visual:update – Regenerate baselines (Linux Docker recommended)
+  npm run test:lighthouse   – Lighthouse CI (lighthouserc.js)
+  npm run test:perf:verify  – Phase 9 manifest + baseline checks
+  npm run test:master       – Phase 12 master gate (scripts/verify-phase12-master.ts)
+
+Note: Lighthouse performance gate runs on Linux CI only; local Windows scores are not authoritative.
+
+Playwright config: playwright.config.ts (port 3120, production server via npm run start).
+
+--------------------------------------------------------------------------------
+16. PERFORMANCE ARCHITECTURE (PHASE 9)
+--------------------------------------------------------------------------------
+
+Homepage optimisations (current build output):
+  - Route / is statically generated (○).
+  - First Load JS ~163 kB (shared ~103 kB + page ~4 kB).
+  - MarketingNavServer: SSR nav without full client Nav bundle on /.
+  - HeroSection: server component (no Framer Motion on LCP).
+  - BackgroundOrbs: CSS gradients instead of filter: blur().
+  - Below-fold: HomeDeferredBlocks wraps Recharts/Framer sections; DeferUntilVisible (rootMargin 0).
+  - HomeInsightsTeaserStatic replaces live Sanity fetch on homepage critical path.
+  - AppShellChrome dynamically imported (footer, WhatsApp, lead form).
+  - ContactEnquiryFormLazy on /contact.
+  - SpeculationRulesClient prerenders /contact after idle.
+  - System font stack (no next/font on root layout).
+
+Lighthouse CI (lighthouserc.js):
+  - URLs: / and /contact; 3 runs each; mobile form factor.
+  - Assertions: performance ≥0.9 (error), CLS ≤0.1 (error), LCP ≤2500ms (warn).
+  - CPU slowdown: 4× on CI, 2× local.
+  - Reports: lhci-reports/ (gitignored).
+
+--------------------------------------------------------------------------------
+17. DEPLOYMENT READINESS
+--------------------------------------------------------------------------------
+
+Pre-deploy (automated):
+  - All CI jobs green on main (especially master-audit).
+  - npm run test:master passes on Linux.
+
+Pre-deploy (manual):
+  - Production env: NEXT_PUBLIC_SITE_URL=https://www.asbrokers.co.za
+  - Supabase RLS smoke test (client/staff/admin visibility)
+  - RESEND_API_KEY for contact form email
+  - HubSpot token when CRM sync enabled
+  - GSC domain verification + sitemap submit
+
+Post-deploy:
+  - Request indexing for /, /contact, /calculators, /about, /everest-wealth, /solutions
+  - npm run gsc:canonical (service account)
+  - Weekly: GSC Coverage, Core Web Vitals, npm run seo:audit --live
+
+Full checklist: docs/DEPLOYMENT.md
+
+Current automated status (local, June 2026):
+  - Build, lint, tsc: PASS
+  - test:a11y: 5/5 PASS
+  - test:seo: 15/15 PASS (zero hydration mismatches)
+  - test:visual: 2/2 PASS (local baselines)
+  - test:master: PASS (Lighthouse gated on Linux CI)
+  - Static SEO audit: 0 findings
+  - B2A: ~1,268 tokens (ceiling 128,000)
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

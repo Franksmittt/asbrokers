@@ -14,7 +14,7 @@ export function HomeStatsSection() {
               <div className="trust-hallmark text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-1">
                 {stat.value}
               </div>
-              <div className="text-gray-500 text-sm font-semibold uppercase tracking-[0.15em]">
+              <div className="text-zinc-400 text-sm font-semibold uppercase tracking-[0.15em]">
                 {stat.label}
               </div>
             </div>

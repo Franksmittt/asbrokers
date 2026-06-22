@@ -43,6 +43,7 @@ export function PlanningToolsMenu({ scrolled, linkClass, onNavigate }: Props) {
         className={`inline-flex items-center gap-1 px-3 py-2 rounded-2xl transition-colors duration-300 ease-apple whitespace-nowrap ${
           active ? "text-white" : linkClass
         }`}
+        aria-label="Planning tools menu"
         aria-expanded={open}
         aria-haspopup="true"
       >
@@ -78,9 +79,9 @@ export function PlanningToolsMenu({ scrolled, linkClass, onNavigate }: Props) {
                 isNavActive(pathname, item.href) ? "bg-[#00549F]/15" : ""
               }`}
             >
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#00549F]">{item.pillar}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">{item.pillar}</p>
               <p className="text-sm font-medium text-white">{item.label}</p>
-              {item.description && <p className="text-xs text-zinc-500">{item.description}</p>}
+              {item.description && <p className="text-xs text-zinc-400">{item.description}</p>}
               {item.priceLabel && (
                 <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-400/90">
                   {item.priceLabel}
@@ -99,7 +100,7 @@ export function PlanningToolsMobileSection({ onNavigate }: { onNavigate: () => v
 
   return (
     <div className="py-2">
-      <p className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#00549F]">Planning tools</p>
+      <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Planning tools</p>
       <Link
         href={PILLAR_HUB.href}
         prefetch={false}

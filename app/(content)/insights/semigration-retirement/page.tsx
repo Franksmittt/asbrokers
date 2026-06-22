@@ -1,19 +1,22 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { buildPageMetadata } from "@/lib/seo-metadata";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 
-export const metadata = {
-  title: "Semigration & Retirement Villages Western Cape | AS Brokers CC",
-  description:
-    "Semigration and retirement villages Western Cape: financial planning for HNWIs relocating from Gauteng to the coast. Retirement capital, estate planning, and lifestyle transition. AS Brokers CC.",
-  openGraph: {
-    title: "Semigration & Retirement Villages Western Cape | AS Brokers CC",
-    description: "Financial planning for semigration and Western Cape retirement. Capital deployment, estate, living annuities.",
-  },
-};
+const PAGE_TITLE = "Semigration & Retirement Villages Western Cape";
+const PAGE_DESCRIPTION =
+  "Semigration and retirement villages Western Cape: financial planning for HNWIs relocating from Gauteng to the coast. Retirement capital, estate planning, and lifestyle transition.";
+
+export const metadata = buildPageMetadata({
+  path: "/insights/semigration-retirement",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function SemigrationRetirementPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/insights/semigration-retirement" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto">
           <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-3">Insights</p>

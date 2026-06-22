@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+
+const PAGE_TITLE = "How We Work | Structured Financial Advice";
+const PAGE_DESCRIPTION =
+  "AS Brokers uses a four-step process — diagnose, design, implement, and review — for retirement, risk, and legacy planning. FSP 17273, Krugersdorp.";
 
 const pillars = [
   {
@@ -31,7 +36,11 @@ const reviewChecks = [
 export default function HowWeWorkPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0c]">
-      <section className="border-b border-white/5 pt-28 pb-14 md:pt-32 md:pb-16">
+      <PageJsonLd
+        path="/how-we-work"
+        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+      />
+      <section data-chunk-boundary className="border-b border-white/5 pt-28 pb-14 md:pt-32 md:pb-16">
         <div className={PAGE_CONTENT_MAX}>
           <div className="mx-auto max-w-4xl text-center">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">How we work</p>
@@ -47,7 +56,6 @@ export default function HowWeWorkPage() {
             <PageMediaStrip
               variant="primary"
               src="/images/about-fiduciary-plaque-4x3.jpg"
-              alt="Financial planning documents and compliance folders on adviser desk, no people"
               rounded="3xl"
               priority
             />
@@ -55,7 +63,7 @@ export default function HowWeWorkPage() {
         </div>
       </section>
 
-      <section className="border-b border-white/5 py-14 md:py-16">
+      <section data-chunk-boundary className="border-b border-white/5 py-14 md:py-16">
         <div className={PAGE_CONTENT_MAX}>
           <div className="mb-8 max-w-3xl">
             <h2 className="mb-2 text-2xl font-bold text-white md:text-3xl">Our four-step client process</h2>
@@ -75,7 +83,7 @@ export default function HowWeWorkPage() {
         </div>
       </section>
 
-      <section className="border-b border-white/5 py-14 md:py-16">
+      <section data-chunk-boundary className="border-b border-white/5 py-14 md:py-16">
         <div className={PAGE_CONTENT_MAX}>
           <div className="grid items-start gap-6 lg:grid-cols-12">
             <div className="lg:col-span-5">
@@ -100,7 +108,7 @@ export default function HowWeWorkPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
+      <section data-chunk-boundary className="py-16 md:py-20">
         <div className={PAGE_CONTENT_MAX}>
           <div className="mx-auto max-w-4xl rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#151518] to-[#1a1a24] p-8 text-center md:p-12">
             <h2 className="mb-3 text-2xl font-bold text-white md:text-3xl">Ready for a structured review?</h2>

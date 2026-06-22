@@ -104,8 +104,8 @@ function PolicyTable({
               const annual = rowAnnualTotal(row);
               return (
                 <tr key={row.year} className="border-b border-white/5">
-                  <td className="py-2 px-3 text-zinc-300">{row.year}</td>
-                  <td className="py-2 px-3">
+                  <td data-label="Year" className="py-2 px-3 text-zinc-300">{row.year}</td>
+                  <td data-label="Monthly premium (R)" className="py-2 px-3">
                     <input
                       type="number"
                       min={0}
@@ -115,10 +115,10 @@ function PolicyTable({
                       className={inputClass}
                     />
                   </td>
-                  <td className="py-2 px-3 text-zinc-400">
+                  <td data-label="Change %" className="py-2 px-3 text-zinc-400">
                     {changePct !== null ? `${changePct.toFixed(1)}%` : "–"}
                   </td>
-                  <td className="py-2 px-3 text-zinc-300">{formatCurrency(annual)}</td>
+                  <td data-label="Annual total" className="py-2 px-3 text-zinc-300">{formatCurrency(annual)}</td>
                 </tr>
               );
             })}

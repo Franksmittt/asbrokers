@@ -1,11 +1,17 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PremiumComparisonCalculator } from "@/components/PremiumComparisonCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Life Insurance Premium Sustainability & Escalation Tool | AS Brokers FSP 17273",
-  description:
-    "Compare year-by-year life policy premiums you enter yourself. Model long-term affordability, escalation, and level vs increasing structures - education only, not a quote or product recommendation.",
+const PAGE_TITLE = "Life Insurance Premium Sustainability & Escalation Tool";
+const PAGE_DESCRIPTION =
+  "Compare year-by-year life policy premiums you enter yourself. Model long-term affordability, escalation, and level vs increasing structures — education only, not a quote or product recommendation.";
+
+export const metadata = buildPageMetadata({
+  path: "/premium-increase-calculator",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   keywords: [
     "life insurance premium increase",
     "escalating vs level premiums South Africa",
@@ -13,11 +19,12 @@ export const metadata = {
     "long-term life cover cost",
     "FSP 17273",
   ],
-};
+});
 
 export default function PremiumIncreaseCalculatorPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/premium-increase-calculator" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       {/* Hero */}
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">

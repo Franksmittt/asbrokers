@@ -25,6 +25,7 @@ Primary long-term memory for Cursor AI and developers.
 - Blog Studio supports existing post editing plus image preview, replacement/swap, and clear/remove without Supabase bucket/schema/policy changes.
 - SEO/AEO stack includes self-referencing canonicals, robots, sitemap, llms.txt, llms-full.txt, Organization/FinancialService JSON-LD, FAQ schema, and public footer discoverability links.
 - Audit commands: npm run seo:audit (full suite), seo:audit:static, seo:audit:runtime, seo:audit:links. Latest local production run: 0 static, 0 runtime, 0 internal link findings.
+- Alt text dictionary: `data/image-metadata.json` compiled with `npm run alt:compile` (optional VLM when API keys set; manual entries for logo, hero, team, OG assets).
 - Google Search Console sitemap URL after deploy: https://www.asbrokers.co.za/sitemap.xml.
 
 See app/calculators/CONTEXT.md for formula details. ROADMAP.md for phases.

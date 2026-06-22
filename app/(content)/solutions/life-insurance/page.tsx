@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { getRelatedLinks } from "@/lib/related-content";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Life Insurance, Disability & Severe Illness South Africa | AS Brokers FSP 17273",
+export const metadata = buildPageMetadata({
+  path: "/solutions/life-insurance",
+  title: "Life Insurance, Disability & Severe Illness",
   description:
-    "Death cover, permanent disability, income protection, and severe illness. Independent long-term risk advice in Krugersdorp and Gauteng - structured around income first, not product hype.",
+    "Death cover, permanent disability, income protection, and severe illness. Independent long-term risk advice in Krugersdorp — structured around income first, not product hype.",
   keywords: [
     "life insurance South Africa",
     "income protection disability",
@@ -12,7 +16,7 @@ export const metadata = {
     "financial adviser life cover",
     "FSP 17273",
   ],
-};
+});
 
 export default function LifeInsurancePage() {
   return (
@@ -117,6 +121,7 @@ export default function LifeInsurancePage() {
           </div>
         </section>
       </article>
+      <RelatedContent links={getRelatedLinks("/solutions/life-insurance")} />
       <Footer />
     </div>
   );

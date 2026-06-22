@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { getRelatedLinks } from "@/lib/related-content";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Medical Aid & Gap Cover South Africa | AS Brokers FSP 17273 Krugersdorp",
+export const metadata = buildPageMetadata({
+  path: "/solutions/medical-aid",
+  title: "Medical Aid & Gap Cover South Africa",
   description:
-    "Medical scheme options, gap cover as short-term insurance, and health planning for families and professionals. Independent FSP 17273 - clear on CMS schemes vs insurance products.",
+    "Medical scheme options, gap cover as short-term insurance, and health planning for families and professionals. Independent FSP 17273 — CMS schemes vs insurance products explained.",
   keywords: [
     "medical aid South Africa",
     "gap cover insurance",
@@ -12,7 +16,7 @@ export const metadata = {
     "health insurance adviser Gauteng",
     "FSP 17273",
   ],
-};
+});
 
 export default function MedicalAidPage() {
   return (
@@ -115,6 +119,7 @@ export default function MedicalAidPage() {
           </div>
         </section>
       </article>
+      <RelatedContent links={getRelatedLinks("/solutions/medical-aid")} />
       <Footer />
     </div>
   );

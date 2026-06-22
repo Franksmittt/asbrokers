@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { getRelatedLinks } from "@/lib/related-content";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Estate Planning, Wills & Trusts South Africa | AS Brokers FSP 17273 Krugersdorp",
+export const metadata = buildPageMetadata({
+  path: "/solutions/estate-planning",
+  title: "Estate Planning, Wills & Trusts South Africa",
   description:
-    "Educational guide to wills, trusts, estate duty awareness, and liquidity planning. Coordinate with attorneys; independent FSP 17273 in Gauteng - no unrealistic promises.",
+    "Educational guide to wills, trusts, estate duty awareness, and liquidity planning. Coordinate with attorneys; independent FSP 17273 in Krugersdorp and Gauteng.",
   keywords: [
     "estate planning South Africa",
     "wills and trusts Gauteng",
@@ -12,7 +16,7 @@ export const metadata = {
     "financial adviser estate liquidity",
     "FSP 17273",
   ],
-};
+});
 
 export default function EstatePlanningPage() {
   return (
@@ -124,6 +128,7 @@ export default function EstatePlanningPage() {
           </div>
         </section>
       </article>
+      <RelatedContent links={getRelatedLinks("/solutions/estate-planning")} />
       <Footer />
     </div>
   );

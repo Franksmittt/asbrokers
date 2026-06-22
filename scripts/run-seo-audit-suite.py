@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -74,8 +75,30 @@ def main() -> int:
 
     failures = 0
     for label, command in steps:
-        if run_step(label, command, root) != 0:
+        code = run_step(label, command, root)
+        if code != 0:
             failures += 1
+
+    report_paths = [
+        root / "asbrokers_static_seo_aeo_findings.txt",
+        root / "asbrokers_runtime_seo_aeo_findings.txt",
+        root / "asbrokers_internal_link_graph_audit_findings.txt",
+    ]
+    finding_failures = 0
+    for report_path in report_paths:
+        if not report_path.exists():
+            print(f"[!] Missing audit report: {report_path.name}")
+            finding_failures += 1
+            continue
+        text = report_path.read_text(encoding="utf-8")
+        match = re.search(r"Total findings:\s*(\d+)", text)
+        count = int(match.group(1)) if match else -1
+        if count != 0:
+            print(f"[!] {report_path.name}: {count} finding(s)")
+            finding_failures += 1
+
+    if finding_failures:
+        failures += finding_failures
 
     if failures:
         print(f"\n[!] SEO/AEO audit suite completed with {failures} failed step(s).")

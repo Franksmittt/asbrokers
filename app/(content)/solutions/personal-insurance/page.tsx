@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { getRelatedLinks } from "@/lib/related-content";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Personal Short-Term Insurance South Africa | Home, Car & All Risk | AS Brokers FSP 17273",
+export const metadata = buildPageMetadata({
+  path: "/solutions/personal-insurance",
+  title: "Personal Short-Term Insurance | Home, Car & All Risk",
   description:
-    "Independent short-term insurance advice in Krugersdorp and Gauteng: home, motor, all risk, liability and travel. How cover works, what to watch for, and FAIS-aligned guidance - no empty promises.",
+    "Independent short-term insurance advice in Krugersdorp: home, motor, all risk, liability and travel. FAIS-aligned guidance on how cover works and what to watch for.",
   keywords: [
     "short-term insurance South Africa",
     "home insurance Gauteng",
@@ -13,7 +17,7 @@ export const metadata = {
     "FSP 17273",
     "personal lines insurance",
   ],
-};
+});
 
 export default function PersonalInsurancePage() {
   return (
@@ -146,6 +150,7 @@ export default function PersonalInsurancePage() {
           </div>
         </section>
       </article>
+      <RelatedContent links={getRelatedLinks("/solutions/personal-insurance")} />
       <Footer />
     </div>
   );

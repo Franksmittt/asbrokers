@@ -10,6 +10,7 @@ import {
   UNCATEGORIZED_VALUE,
   type InsightCategoryValue,
 } from "@/lib/insights/insightCategories";
+import { getAlt } from "@/lib/image-alt";
 
 type DatePreset = "all" | "6m" | "1y" | "custom";
 
@@ -354,7 +355,7 @@ export function InsightsFeedFilter({ articles }: Props) {
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-900/80">
                   <img
                     src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
-                    alt=""
+                    alt={getAlt(a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg", a.title)}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />

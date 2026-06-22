@@ -1,15 +1,23 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Everest142Calculator } from "@/components/Everest142Calculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Immediate Higher Income Calculator | 14.2% Gross Assumption | AS Brokers",
-  description: "Everest 14.2% investment calculator. Estimated monthly income from a targeted 14.2% annual return profile, 20% dividend tax.",
-};
+const PAGE_TITLE = "Immediate Higher Income Calculator | 14.2% Gross Assumption";
+const PAGE_DESCRIPTION =
+  "Everest 14.2% investment calculator. Estimated monthly income from a targeted 14.2% annual return profile, 20% dividend tax.";
+
+export const metadata = buildPageMetadata({
+  path: "/immediate-higher-income-calculator",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function ImmediateHigherIncomePage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/immediate-higher-income-calculator" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">Code 1.8 Wealth Engineering</p>

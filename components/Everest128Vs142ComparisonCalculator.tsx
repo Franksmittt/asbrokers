@@ -154,52 +154,47 @@ export function Everest128Vs142ComparisonCalculator() {
       </label>
 
       {results ? (
-        <div className="mt-6">
-          <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
-            <div className="rounded-xl border border-[#2c3558] bg-[#151b2f] p-4">
-              <h3 className="mt-0 text-lg font-bold text-[#d4af37]">12.8% Option</h3>
-              <p>
-                <strong>Net annual return:</strong> {(results.net128 * 100).toFixed(2)}%
-              </p>
-              <p>
-                <strong>Monthly income:</strong> {formatCurrency(results.monthlyIncome128)}
-              </p>
-              <p>
-                <strong>Annual income:</strong> {formatCurrency(results.annualIncome128)}
-              </p>
-              <p>
-                <strong>Total income:</strong> {formatCurrency(results.totalIncome128)}
-              </p>
-              <p>
-                <strong>Bonus added:</strong> {formatCurrency(results.bonus128)}
-              </p>
-              <p>
-                <strong>Projected value:</strong> {formatCurrency(results.final128)}
-              </p>
-            </div>
-
-            <div className="rounded-xl border border-[#2c3558] bg-[#151b2f] p-4">
-              <h3 className="mt-0 text-lg font-bold text-[#d4af37]">14.2% Option</h3>
-              <p>
-                <strong>Net annual return:</strong> {(results.net142 * 100).toFixed(2)}%
-              </p>
-              <p>
-                <strong>Monthly income:</strong> {formatCurrency(results.monthlyIncome142)}
-              </p>
-              <p>
-                <strong>Annual income:</strong> {formatCurrency(results.annualIncome142)}
-              </p>
-              <p>
-                <strong>Total income:</strong> {formatCurrency(results.totalIncome142)}
-              </p>
-              <p>
-                <strong>Bonus added:</strong> R0
-              </p>
-              <p>
-                <strong>Projected value:</strong> {formatCurrency(results.final142)}
-              </p>
-            </div>
-          </div>
+        <div className="mt-6 overflow-x-auto">
+          <table className="mt-4 w-full min-w-[520px] border-collapse text-sm">
+            <caption className="mb-3 text-left text-[#d6d6d6]">
+              Side-by-side income comparison for your inputs
+            </caption>
+            <thead>
+              <tr className="border-b border-[#2c3558] text-left">
+                <th scope="col" className="py-2 pr-4 font-semibold text-[#d6d6d6]">
+                  Metric
+                </th>
+                <th scope="col" className="py-2 px-4 font-semibold text-[#d4af37]">
+                  12.8% Option
+                </th>
+                <th scope="col" className="py-2 pl-4 font-semibold text-[#d4af37]">
+                  14.2% Option
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Net annual return", `${(results.net128 * 100).toFixed(2)}%`, `${(results.net142 * 100).toFixed(2)}%`],
+                ["Monthly income", formatCurrency(results.monthlyIncome128), formatCurrency(results.monthlyIncome142)],
+                ["Annual income", formatCurrency(results.annualIncome128), formatCurrency(results.annualIncome142)],
+                ["Total income", formatCurrency(results.totalIncome128), formatCurrency(results.totalIncome142)],
+                ["Bonus added", formatCurrency(results.bonus128), "R0"],
+                ["Projected value", formatCurrency(results.final128), formatCurrency(results.final142)],
+              ].map(([metric, a, b]) => (
+                <tr key={metric} className="border-b border-[#2c3558]/60">
+                  <th scope="row" className="py-2 pr-4 text-left font-medium text-[#d6d6d6]">
+                    {metric}
+                  </th>
+                  <td data-label={`${metric} (12.8%)`} className="py-2 px-4 text-white">
+                    {a}
+                  </td>
+                  <td data-label={`${metric} (14.2%)`} className="py-2 pl-4 text-white">
+                    {b}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           <div className="mt-5 rounded-lg border-l-[5px] border-[#d4af37] bg-[#1f2a44] p-4">
             <strong>Comparison Result:</strong>

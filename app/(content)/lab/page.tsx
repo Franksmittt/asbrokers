@@ -18,6 +18,12 @@ export default function LabPage() {
           <p className="text-zinc-400 text-lg mb-4">
             10+ free calculators for retirement, investment and risk. So you know where you stand.
           </p>
+          <p className="text-sm text-zinc-500 mb-8">
+            Prefer the curated hub?{" "}
+            <Link href="/calculators" prefetch={false} className="text-cinematic-teal hover:underline">
+              Browse all calculators
+            </Link>
+          </p>
           <Link
             href="/calculators"
             className="text-blue-400 hover:underline text-sm font-medium"

@@ -1,19 +1,22 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Complaints Procedure | AS Brokers CC",
-  description:
-    "How to lodge a complaint with AS Brokers CC. FSCA-compliant complaints procedure. FSP 17273.",
-  openGraph: {
-    title: "Complaints Procedure | AS Brokers CC",
-    description: "Complaints procedure for AS Brokers CC. FSCA compliant. FSP 17273.",
-  },
-};
+const PAGE_TITLE = "Complaints Procedure";
+const PAGE_DESCRIPTION =
+  "How to lodge a complaint with AS Brokers CC. FSCA-compliant complaints procedure. FSP 17273.";
+
+export const metadata = buildPageMetadata({
+  path: "/complaints",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function ComplaintsPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/complaints" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto">
           <p className="text-cinematic-teal text-xs font-semibold uppercase tracking-[0.2em] mb-3">Legal</p>

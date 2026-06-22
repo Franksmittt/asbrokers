@@ -1,16 +1,23 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { IncomeTaxCalculator } from "@/components/IncomeTaxCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "South African Income Tax Calculator (2026/27) | AS Brokers",
-  description:
-    "Calculate your South African PAYE based on official SARS 2026/27 tax tables (Budget 2026). See annual tax, monthly PAYE, effective tax rate and net pay.",
-};
+const PAGE_TITLE = "South African Income Tax Calculator (2026/27)";
+const PAGE_DESCRIPTION =
+  "Calculate your South African PAYE based on official SARS 2026/27 tax tables (Budget 2026). See annual tax, monthly PAYE, effective tax rate and net pay.";
+
+export const metadata = buildPageMetadata({
+  path: "/income-tax-calculator",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function IncomeTaxCalculatorPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/income-tax-calculator" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       {/* Hero */}
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">

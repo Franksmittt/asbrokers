@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Understanding Everest Wealth | How It Works, Structure & Risks | AS Brokers",
+export const metadata = buildPageMetadata({
+  path: "/everest-wealth/about",
+  title: "Understanding Everest Wealth | How It Works, Structure & Risks",
   description:
-    "A clear guide to Everest Wealth Management: regulation, product structure, how returns are generated, tax benefits, risks, and who these investments suit. Independent analysis for informed decisions.",
-};
+    "A clear guide to Everest Wealth Management: regulation, product structure, how returns are generated, tax benefits, risks, and who these investments suit.",
+});
 
 const navSections = [
   { id: "context", label: "Why alternatives" },
@@ -21,6 +24,14 @@ const navSections = [
 export default function EverestWealthAboutPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd
+        path="/everest-wealth/about"
+        webPage={{
+          name: "Understanding Everest Wealth | How It Works, Structure & Risks",
+          description:
+            "A clear guide to Everest Wealth Management: regulation, product structure, how returns are generated, tax benefits, risks, and who these investments suit.",
+        }}
+      />
       {/* Hero */}
       <section className="relative pt-28 pb-12 md:pb-16 px-4 sm:px-6 md:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 via-transparent to-transparent pointer-events-none" />

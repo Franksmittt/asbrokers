@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getAlt } from "@/lib/image-alt";
 
 /** Matches home / marketing content column width. */
 export const PAGE_CONTENT_MAX = "max-w-7xl mx-auto px-4 sm:px-6 md:px-8";
@@ -16,7 +17,8 @@ export type PageMediaVariant = keyof typeof heights;
 
 type StripProps = {
   src: string;
-  alt: string;
+  /** Optional override; defaults to build-time dictionary via getAlt(). */
+  alt?: string;
   variant?: PageMediaVariant;
   priority?: boolean;
   className?: string;
@@ -30,13 +32,14 @@ type StripProps = {
 export function PageMediaStrip({ src, alt, variant = "primary", priority, className, rounded = "2xl" }: StripProps) {
   const h = heights[variant];
   const round = rounded === "3xl" ? "rounded-[2rem]" : "rounded-2xl";
+  const resolvedAlt = alt ?? getAlt(src);
   return (
     <div
       className={`relative w-full overflow-hidden border border-white/10 rim-light ${round} ${h} ${className ?? ""}`}
     >
       <Image
         src={src}
-        alt={alt}
+        alt={resolvedAlt}
         fill
         className="object-cover object-center"
         sizes="(max-width: 1280px) 100vw, 1280px"
@@ -46,7 +49,7 @@ export function PageMediaStrip({ src, alt, variant = "primary", priority, classN
   );
 }
 
-type TripleItem = { src: string; alt: string };
+type TripleItem = { src: string; alt?: string };
 
 type TripleProps = {
   items: readonly [TripleItem, TripleItem, TripleItem];
@@ -64,7 +67,7 @@ export function PageMediaStripTriple({ items, className }: TripleProps) {
         >
           <Image
             src={item.src}
-            alt={item.alt}
+            alt={item.alt ?? getAlt(item.src)}
             fill
             className="object-cover object-center"
             sizes="(max-width: 640px) 100vw, 33vw"

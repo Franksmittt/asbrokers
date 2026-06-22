@@ -21,7 +21,7 @@ export function HomeCtaStrip() {
             href="https://wa.me/27662276044"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-4 rounded-[2rem] hover:scale-[1.03] transition-all duration-500"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-green-700 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-[2rem] hover:scale-[1.03] transition-all duration-500"
           >
             WhatsApp +27 66 227 6044
           </a>

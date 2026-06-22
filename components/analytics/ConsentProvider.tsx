@@ -42,7 +42,13 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setConsentState(readStoredConsent());
-    setHasHydrated(true);
+    const showBanner = () => setHasHydrated(true);
+    if (typeof requestIdleCallback === "function") {
+      const id = requestIdleCallback(showBanner, { timeout: 8000 });
+      return () => cancelIdleCallback(id);
+    }
+    const t = window.setTimeout(showBanner, 1500);
+    return () => window.clearTimeout(t);
   }, []);
 
   const setConsent = useCallback((level: "all" | "essential") => {

@@ -1,16 +1,23 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { FutureValueCalculator } from "@/components/FutureValueCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Future Value Calculator (Inflation) | Test Your Buying Power | AS Brokers",
-  description:
-    "Understand the impact of inflation on your savings and purchasing power over time. See what today's money will be worth in the future.",
-};
+const PAGE_TITLE = "Future Value Calculator (Inflation) | Test Your Buying Power";
+const PAGE_DESCRIPTION =
+  "Understand the impact of inflation on your savings and purchasing power over time. See what today's money will be worth in the future.";
+
+export const metadata = buildPageMetadata({
+  path: "/cost-of-inflation-over-time",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function CostOfInflationPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/cost-of-inflation-over-time" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       {/* Hero – cinematic void + risk orb */}
       <section className="relative pt-28 pb-12 px-4 sm:px-6 md:px-8 overflow-hidden">
         <div className="absolute top-1/4 right-0 w-[300px] h-[300px] bg-red-600/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />

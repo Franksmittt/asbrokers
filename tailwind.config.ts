@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
       },
       colors: {
         vault: {
@@ -19,11 +19,15 @@ const config: Config = {
         },
         void: "#000000",
         shark: "#1D1D1F",
-        "cinematic-teal": "#008080",
+        "cinematic-teal": "#14B8A6",
         "gold-orange": "#FF7F50",
         "samsung-blue": "#0057B8",
         "supernova-gold": "#E8B923",
         "athens-gray": "#F5F5F7",
+        "whatsapp": {
+          DEFAULT: "#25D366",
+          accessible: "#0F766E",
+        },
       },
       boxShadow: {
         "rim-glow": "0 0 0 1px rgba(255,255,255,0.1), inset 0 1px 0 0 rgba(255,255,255,0.05)",

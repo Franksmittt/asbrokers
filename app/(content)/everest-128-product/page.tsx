@@ -2,16 +2,33 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
 import { Everest128Calculator } from "@/components/Everest128Calculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
+  path: "/everest-128-product",
   title: "Everest Strategic Income 12.8% | AS Brokers Krugersdorp",
-  description: "Explore the Everest Strategic Income solution targeting 12.8% returns. AS Brokers, an Authorised FSP in Krugersdorp, offers structured income growth.",
-};
+  description:
+    "Explore the Everest Strategic Income solution targeting 12.8% returns. AS Brokers, an Authorised FSP in Krugersdorp, offers structured income growth.",
+});
 
 export default function Everest128Page() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@type\": \"Product\", \"name\": \"Everest Strategic Income 12.8%\", \"description\": \"The Everest Strategic Income solution, available through AS Brokers CC (FSP 17273), is a voluntary investment structure designed to offer a targeted 12.8% annual income yield. It provides a structured approach for wealth enhancement for clients in Krugersdorp, West Rand, and Gauteng, seeking stable income opportunities. Please note a 120-day notice period and 15% early exit penalty apply to withdrawals.\", \"brand\": {\"@type\": \"Organization\", \"name\": \"Everest Wealth\"}, \"offers\": {\"@type\": \"Offer\", \"priceCurrency\": \"ZAR\", \"description\": \"Targeted 12.8% annual income yield.\", \"name\": \"Everest Strategic Income Product\"}, \"provider\": {\"@type\": \"FinancialService\", \"name\": \"AS Brokers CC\", \"url\": \"https://www.asbrokers.co.za\", \"slogan\": \"Your trusted financial services partner in the West Rand.\", \"address\": {\"@type\": \"PostalAddress\", \"addressLocality\": \"Krugersdorp\", \"addressRegion\": \"Gauteng\", \"addressCountry\": \"ZA\"}, \"hasOfferCatalog\": {\"@type\": \"OfferCatalog\", \"name\": \"AS Brokers Financial Products and Services\", \"itemListElement\": [{\"@type\": \"OfferCatalog\", \"name\": \"Everest Wealth Solutions\", \"itemListElement\": [{\"@type\": \"Offer\", \"itemOffered\": {\"@type\": \"Service\", \"name\": \"Everest Strategic Income 12.8%\"}}]}]}}" }} />
+      <PageJsonLd
+        path="/everest-128-product"
+        webPage={{
+          name: "Everest Strategic Income 12.8% | AS Brokers Krugersdorp",
+          description:
+            "Explore the Everest Strategic Income solution targeting 12.8% returns through AS Brokers CC (FSP 17273).",
+        }}
+        product={{
+          name: "Everest Strategic Income 12.8%",
+          description:
+            "Voluntary investment structure targeting 12.8% annual income yield. R100,000 minimum. 120-day notice and 15% early exit penalty may apply.",
+          brandName: "Everest Wealth",
+        }}
+      />
       <section className="pt-28 pb-8">
         <div className={PAGE_CONTENT_MAX}>
           <div className="max-w-4xl mx-auto text-center">
@@ -27,7 +44,6 @@ export default function Everest128Page() {
             <PageMediaStrip
               variant="secondary"
               src="/images/everest-128-inset-1x1.jpg"
-              alt="Structured income and wealth engineering"
               rounded="3xl"
             />
           </div>

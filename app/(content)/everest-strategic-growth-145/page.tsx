@@ -1,18 +1,32 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Everest145GrowthCalculator } from "@/components/Everest145GrowthCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Everest Strategic Growth 145 | Structured Investment Solution | AS Brokers CC FSP 17273",
-  description: "Discover the Everest Strategic Growth 145, a structured investment solution designed for targeted capital growth. Learn more from AS Brokers CC, your Authorised Financial Services Provider (FSP 17273).",
-  openGraph: { title: 'Everest Strategic Growth 145 | Structured Investment Solution | AS Brokers CC FSP 17273', description: 'Discover the Everest Strategic Growth 145, a structured investment solution designed for targeted capital growth. Learn more from AS Brokers CC, your Authorised Financial Services Provider (FSP 17273).', url: 'https://www.asbrokers.co.za/everest-strategic-growth-145', images: ['https://www.asbrokers.co.za/opengraph-image.jpg'], locale: 'en_ZA' },
-  alternates: { canonical: 'https://www.asbrokers.co.za/everest-strategic-growth-145' },
-};
+const PAGE_TITLE = "Everest Strategic Growth 145 | Structured Investment Solution";
+const PAGE_DESCRIPTION =
+  "Discover the Everest Strategic Growth 145, a structured investment solution designed for targeted capital growth. Learn more from AS Brokers CC, your Authorised Financial Services Provider (FSP 17273).";
+
+export const metadata = buildPageMetadata({
+  path: "/everest-strategic-growth-145",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function Everest145Page() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"amount\": {\"@type\": \"MonetaryAmount\", \"currency\": \"ZAR\", \"value\": \"Minimum investment details available on product fact sheet.\", \"@context\": \"https://schema.org\"}, \"@type\": \"InvestmentOrDeposit\", \"provider\": {\"@context\": \"https://schema.org\", \"description\": \"AS Brokers CC is an Authorised Financial Services Provider (FSP 17273, Category 1.8) offering comprehensive financial planning, investment, and insurance solutions. Serving Krugersdorp and the West Rand, Gauteng.\", \"url\": \"https://www.asbrokers.co.za\", \"logo\": \"https://www.asbrokers.co.za/images/as-brokers-logo.png\", \"@type\": \"Organization\", \"address\": {\"addressCountry\": \"ZA\", \"@type\": \"PostalAddress\", \"addressLocality\": \"Krugersdorp\", \"@context\": \"https://schema.org\", \"postalCode\": \"1739\", \"streetAddress\": \"Unit 2, The Bridge, 47 Commissioner Street\", \"addressRegion\": \"Gauteng\"}, \"sameAs\": \"https://www.linkedin.com/company/as-brokers-cc\", \"name\": \"AS Brokers CC\", \"contactPoint\": {\"@context\": \"https://schema.org\", \"availableLanguage\": \"en\", \"telephone\": \"+27116601445\", \"areaServed\": \"ZA\", \"@type\": \"ContactPoint\", \"contactType\": \"customer service\"}}, \"@context\": \"https://schema.org\", \"name\": \"Everest Strategic Growth 145\", \"feesAndCommissionsSpecification\": \"Available upon request as per FSP regulations.\", \"description\": \"Discover the Everest Strategic Growth 145, a structured investment solution designed for targeted capital growth. Learn more from AS Brokers CC, your Authorised Financial Services Provider (FSP 17273).\"}" }} />
+      <PageJsonLd
+        path="/everest-strategic-growth-145"
+        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        product={{
+          name: "Everest Strategic Growth 14.5%",
+          description:
+            "Structured investment solution targeting 14.5% compound growth over a five-year term. R100,000 minimum voluntary capital.",
+          brandName: "Everest Wealth",
+        }}
+      />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">Code 1.8 Wealth Engineering: Capital Growth.</p>

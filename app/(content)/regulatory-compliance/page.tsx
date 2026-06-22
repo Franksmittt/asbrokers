@@ -1,18 +1,26 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  openGraph: { title: 'Regulatory Compliance | AS Brokers CC FSP 17273 | Authorised Financial Services Provider', description: 'AS Brokers CC operates as an Authorised Financial Services Provider (FSP 17273, Category 1.8) in strict adherence to South African financial regulations, ensuring transparent and ethical service delivery.', url: 'https://www.asbrokers.co.za/regulatory-compliance', images: ['https://www.asbrokers.co.za/opengraph-image.jpg'], locale: 'en_ZA' },
-  alternates: { canonical: 'https://www.asbrokers.co.za/regulatory-compliance' },
-  title: "Regulatory Compliance | AS Brokers CC FSP 17273 | Authorised Financial Services Provider",
-  description: "AS Brokers CC operates as an Authorised Financial Services Provider (FSP 17273, Category 1.8) in strict adherence to South African financial regulations, ensuring transparent and ethical service delivery.",
-};
+const PAGE_TITLE = "Regulatory Compliance | FSP 17273 | Authorised Financial Services Provider";
+const PAGE_DESCRIPTION =
+  "AS Brokers CC operates as an Authorised Financial Services Provider (FSP 17273, Category 1.8) in strict adherence to South African financial regulations, ensuring transparent and ethical service delivery.";
+
+export const metadata = buildPageMetadata({
+  path: "/regulatory-compliance",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function RegulatoryCompliancePage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"description\": \"AS Brokers CC operates as an Authorised Financial Services Provider (FSP 17273, Category 1.8) in strict adherence to South African financial regulations, ensuring transparent and ethical service delivery.\", \"@context\": \"https://schema.org\", \"name\": \"Regulatory Compliance | AS Brokers CC FSP 17273 | Authorised Financial Services Provider\", \"@type\": \"WebPage\", \"url\": \"https://www.asbrokers.co.za/regulatory-compliance\"}" }} />
+      <PageJsonLd
+        path="/regulatory-compliance"
+        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+      />
       <section className="pt-28 pb-8">
         <div className={PAGE_CONTENT_MAX}>
           <div className="max-w-4xl mx-auto">
@@ -28,7 +36,6 @@ export default function RegulatoryCompliancePage() {
             <PageMediaStrip
               variant="secondary"
               src="/images/regulatory-compliance-inset-1x1.jpg"
-              alt="Professional documentation and compliance context"
               rounded="3xl"
             />
           </div>

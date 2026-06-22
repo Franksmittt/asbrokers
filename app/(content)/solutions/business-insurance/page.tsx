@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { getRelatedLinks } from "@/lib/related-content";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Business Short-Term Insurance | Commercial, Liability & BI | AS Brokers FSP 17273",
+export const metadata = buildPageMetadata({
+  path: "/solutions/business-insurance",
+  title: "Business Short-Term Insurance | Commercial, Liability & BI",
   description:
-    "Commercial property, business interruption, liability, fleet and industry risks for South African businesses. Independent broker in Krugersdorp and Gauteng - education-led, FAIS-aligned.",
+    "Commercial property, business interruption, liability, fleet and industry risks for South African businesses. Independent broker in Krugersdorp — education-led, FAIS-aligned.",
   keywords: [
     "business insurance South Africa",
     "commercial short-term insurance",
@@ -12,7 +16,7 @@ export const metadata = {
     "business interruption insurance",
     "SME insurance broker Gauteng",
   ],
-};
+});
 
 export default function BusinessInsurancePage() {
   return (
@@ -107,6 +111,7 @@ export default function BusinessInsurancePage() {
           </div>
         </section>
       </article>
+      <RelatedContent links={getRelatedLinks("/solutions/business-insurance")} />
       <Footer />
     </div>
   );

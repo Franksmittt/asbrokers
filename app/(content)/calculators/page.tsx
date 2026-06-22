@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { PlanningToolsStrip } from "@/components/PlanningToolsStrip";
 import { HUB_CALCULATORS, HUB_SECTIONS } from "@/lib/calculators/hub-catalog";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
 const calculatorFAQs = [
   {
@@ -18,11 +19,45 @@ const calculatorFAQs = [
   },
 ];
 
-export const metadata = {
-  title: "Financial Calculators for South Africans | AS Brokers CC",
+const SECONDARY_RISK_TOOLS = [
+  {
+    href: "/income-tax-calculator",
+    title: "Income Tax Calculator",
+    description: "SARS 2026/27 PAYE and marginal tax exposure.",
+  },
+  {
+    href: "/estate-duty-calculator",
+    title: "Estate Duty Calculator",
+    description: "Illustrative duty, abatement, and executor costs.",
+  },
+  {
+    href: "/annual-estate-reduction-strategy",
+    title: "Annual Estate Reduction",
+    description: "Donation and reduction planning over time.",
+  },
+  {
+    href: "/premium-increase-calculator",
+    title: "Premium Sustainability",
+    description: "Escalating vs level life cover cost paths.",
+  },
+  {
+    href: "/income-in-retirement",
+    title: "Income in Retirement",
+    description: "Capital depletion and drawdown stress test.",
+  },
+  {
+    href: "/immediate-higher-income-calculator",
+    title: "Immediate Higher Income",
+    description: "Compare living annuity drawdown scenarios.",
+  },
+] as const;
+
+export const metadata = buildPageMetadata({
+  path: "/calculators",
+  title: "Financial Calculators for South Africans",
   description:
     "Retirement Reality, Retirement Readiness, Inflation Impact, and Wealth Building calculators for South Africans. Educational planning tools. FSP 17273.",
-};
+});
 
 function CalculatorCard({
   tag,
@@ -90,10 +125,18 @@ export default function CalculatorsPage() {
 
   return (
     <div className="min-h-screen bg-void">
-      <FAQSchema faqs={calculatorFAQs} />
+      <PageJsonLd
+        path="/calculators"
+        webPage={{
+          name: "Financial Calculators for South Africans | AS Brokers CC",
+          description:
+            "Retirement Reality, Retirement Readiness, Inflation Impact, and Wealth Building calculators for South Africans. Educational planning tools. FSP 17273.",
+        }}
+        faqs={calculatorFAQs}
+      />
 
-      <section className="relative overflow-hidden pb-16 pt-28">
-        <div className="pointer-events-none absolute right-0 top-0 h-[400px] w-[400px] rounded-full bg-cinematic-teal/20 blur-[150px]" />
+      <section data-chunk-boundary className="relative overflow-hidden pb-16 pt-28">
+        <div className="pointer-events-none absolute right-0 top-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(20,184,166,0.18)_0%,transparent_70%)]" />
         <div className={`relative ${PAGE_CONTENT_MAX}`}>
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">AS Brokers</p>
           <h1 className="mb-4 text-3xl font-bold leading-[1.15] tracking-[-0.03em] text-white sm:text-4xl md:text-5xl">
@@ -116,13 +159,12 @@ export default function CalculatorsPage() {
           <PageMediaStrip
             variant="primary"
             src="/images/calculators-hub-16x9.jpg"
-            alt="Calculator planning sheets on a desk, no people"
             rounded="3xl"
           />
         </div>
       </section>
 
-      <section id="retirement-planning" className="scroll-mt-24 border-t border-white/5 py-16">
+      <section data-chunk-boundary id="retirement-planning" className="scroll-mt-24 border-t border-white/5 py-16">
         <div className={PAGE_CONTENT_MAX}>
           <SectionHeading
             title={HUB_SECTIONS.retirement.title}
@@ -136,7 +178,7 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      <section id="purchasing-power" className="scroll-mt-24 border-t border-white/5 py-16">
+      <section data-chunk-boundary id="purchasing-power" className="scroll-mt-24 border-t border-white/5 py-16">
         <div className={PAGE_CONTENT_MAX}>
           <SectionHeading
             title={HUB_SECTIONS.inflation.title}
@@ -150,7 +192,32 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      <section className="border-t border-white/5 py-16 md:py-20">
+      <section data-chunk-boundary id="risk-tax-tools" className="scroll-mt-24 border-t border-white/5 py-16">
+        <div className={PAGE_CONTENT_MAX}>
+          <SectionHeading
+            title="Risk, tax & estate tools"
+            question="What secondary liabilities could erode my plan?"
+          />
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
+            {SECONDARY_RISK_TOOLS.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                prefetch={false}
+                className="group block h-full rounded-[2rem] border border-0 rim-light p-6 transition-all duration-500 hover:bg-white/[0.07]"
+              >
+                <h3 className="text-lg font-bold text-white transition-colors group-hover:text-cinematic-teal/90">
+                  {tool.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-400">{tool.description}</p>
+                <span className="mt-4 inline-flex text-sm font-medium text-cinematic-teal">Open calculator →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section data-chunk-boundary className="border-t border-white/5 py-16 md:py-20">
         <div className={PAGE_CONTENT_MAX}>
           <div className="mx-auto max-w-4xl">
             <div className="relative overflow-hidden rounded-[2rem] rim-light p-8 md:p-12">

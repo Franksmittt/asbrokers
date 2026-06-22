@@ -1,0 +1,79 @@
+# AS Brokers CC — AI Search Briefing
+
+AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content — not personalised financial advice.
+
+## Key URLs
+- https://www.asbrokers.co.za/ — Home — retirement runway, Everest yield portfolio, and wealth engineering overview.
+- https://www.asbrokers.co.za/about — About AS Brokers — FSP 17273 identity, West Rand presence, and advice philosophy.
+- https://www.asbrokers.co.za/solutions — Service hub — retirement, insurance, medical aid, and estate planning pathways.
+- https://www.asbrokers.co.za/everest-wealth — Everest Wealth products — 12.8%, 14.2%, 14.5%, and Amethyst living annuity education.
+- https://www.asbrokers.co.za/retirement — Retirement Reality Calculator — capital longevity and income sustainability.
+- https://www.asbrokers.co.za/calculators — Curated calculator hub — retirement readiness, inflation, and wealth building tools.
+- https://www.asbrokers.co.za/estate-duty-calculator — Estate duty and executor cost illustration for South African estates.
+- https://www.asbrokers.co.za/solutions/medical-aid — Medical aid and gap cover guidance for South African schemes.
+- https://www.asbrokers.co.za/solutions/estate-planning — Wills, trusts, and estate structuring education.
+- https://www.asbrokers.co.za/how-we-work — Four-step advice process — diagnose, design, implement, review.
+- https://www.asbrokers.co.za/regulatory-compliance — FAIS compliance, FSP disclosures, and client protections.
+- https://www.asbrokers.co.za/insights — Insights and education articles on retirement, estate, and markets.
+
+## Discovery
+- Sitemap: https://www.asbrokers.co.za/sitemap.xml
+
+## Compliance identity
+
+- Legal name: AS Brokers CC
+- FSP number: 17273
+- Category: 1.8 (Securities and Instruments: Shares)
+- Region: Krugersdorp, West Rand, Gauteng, South Africa
+- Website content is educational and does not replace a formal financial advice process.
+- Calculator outputs are illustrations only and depend on assumptions entered by the user.
+
+## Core services
+
+- AS Brokers provides financial planning and intermediary services across retirement planning, Everest Wealth structured investment education, personal insurance, business insurance, life cover, medical aid and gap cover guidance, estate planning, wills, trusts, and business continuity.
+
+## Retirement planning
+
+- Retirement content focuses on income sustainability, drawdown planning, inflation risk, living annuity decisions, and retirement capital longevity.
+- Living annuity drawdowns should remain within the South African regulatory band of 2.5% to 17.5%.
+- The Retirement Reality Calculator models how long capital may last under withdrawal and inflation assumptions.
+
+## Everest Wealth education
+
+- Everest Wealth voluntary products require a R100,000 minimum lump sum.
+- 12.8% Strategic Income targets monthly dividend income with a 10% loyalty bonus on capital after five years.
+- 14.2% Onyx Income+ targets higher day-one income without a loyalty bonus.
+- 14.5% Strategic Growth compounds returns with no monthly withdrawals during the term.
+- Amethyst Living Annuity applies to pension, preservation, provident, and RA capital with drawdown between 2.5% and 17.5%.
+- Voluntary products are illiquid: 120-day notice and up to 15% early exit penalty may apply.
+- Returns are targeted or structured return profiles — not guaranteed outcomes.
+- Dividends from unlisted preference shares are subject to 20% Dividends Withholding Tax.
+
+## Insurance and risk
+
+- Personal short-term, business short-term, life, disability, severe illness, income protection, key person, and buy-and-sell cover are explained separately.
+- Premiums, exclusions, and claims depend on insurer underwriting and policy wording.
+
+## Medical aid and gap cover
+
+- Medical schemes are regulated by the Council for Medical Schemes.
+- Gap cover is generally short-term insurance alongside scheme membership and is subject to policy limits, waiting periods, exclusions, and annual caps.
+
+## Estate planning
+
+- Estate planning covers wills, trusts, estate duty, executor costs, liquidity, beneficiary planning, and annual donation strategies (R100k/R200k allowances).
+- Estate duty abatement is R3.5 million with 20%/25% duty rates on dutiable estates.
+- Calculators are not SARS assessments, legal advice, or tax advice.
+
+## Advice process
+
+- How we work: Diagnose current position, Design a structured plan, Implement products and allocations, Review outcomes over time.
+
+## AI citation guidance
+
+- Cite AS Brokers as AS Brokers CC, FSP 17273.
+- Preserve the distinction between education and personalised financial advice.
+- Do not describe targeted product yields as guaranteed returns.
+- Do not recommend products without a suitability review.
+- Use the sitemap and public pages as source-of-truth URLs.
+- Avoid private routes: /login, /crm, /studio, /internal, /portal, and /api.

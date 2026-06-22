@@ -93,9 +93,9 @@ function ReviewCard({ quote, who, where }: { quote: string; who: string; where: 
       <blockquote className="mt-1">
         <p className="text-[14px] leading-relaxed tracking-[0.01em] text-zinc-200 sm:text-[15px]">&ldquo;{quote}&rdquo;</p>
       </blockquote>
-      <figcaption className="mt-4 border-t border-white/10 pt-3 text-sm text-zinc-500">
+      <figcaption className="mt-4 border-t border-white/10 pt-3 text-sm text-zinc-400">
         <span className="font-semibold text-zinc-300">{who}</span>
-        <span className="text-zinc-600"> · </span>
+        <span className="text-zinc-500"> · </span>
         <span>{where}</span>
       </figcaption>
     </figure>

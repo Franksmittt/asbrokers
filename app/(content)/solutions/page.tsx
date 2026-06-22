@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
 import { SolutionsSectionNav } from "@/components/SolutionsSectionNav";
 import { PlanningToolsStrip } from "@/components/PlanningToolsStrip";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { LineChart, HeartPulse, Lock, Scroll, ArrowRight } from "@/components/icons";
 const trustBadges = [
   "FSP 17273",
@@ -118,9 +119,22 @@ export default function SolutionsPage() {
   const FocusIcon = focusCategory.icon;
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"description\": \"Explore comprehensive financial solutions from AS Brokers CC, including investment planning, life insurance, business solutions, and retirement strategies for clients in Krugersdorp and the West Rand. FSP 17273.\", \"serviceType\": \"Financial Planning, Investment Advisory, Insurance Broking, Retirement Planning\", \"@context\": \"https://schema.org\", \"name\": \"Financial Solutions by AS Brokers CC\", \"provider\": {\"@context\": \"https://schema.org\", \"description\": \"AS Brokers CC is an Authorised Financial Services Provider (FSP 17273, Category 1.8) offering comprehensive financial planning, investment, and insurance solutions. Serving Krugersdorp and the West Rand, Gauteng.\", \"url\": \"https://www.asbrokers.co.za\", \"logo\": \"https://www.asbrokers.co.za/images/as-brokers-logo.png\", \"@type\": \"Organization\", \"address\": {\"addressCountry\": \"ZA\", \"@type\": \"PostalAddress\", \"addressLocality\": \"Krugersdorp\", \"@context\": \"https://schema.org\", \"postalCode\": \"1739\", \"streetAddress\": \"Unit 2, The Bridge, 47 Commissioner Street\", \"addressRegion\": \"Gauteng\"}, \"sameAs\": \"https://www.linkedin.com/company/as-brokers-cc\", \"name\": \"AS Brokers CC\", \"contactPoint\": {\"@context\": \"https://schema.org\", \"availableLanguage\": \"en\", \"telephone\": \"+27116601445\", \"areaServed\": \"ZA\", \"@type\": \"ContactPoint\", \"contactType\": \"customer service\"}}, \"areaServed\": \"Krugersdorp, West Rand, Gauteng, South Africa\", \"@type\": \"FinancialService\"}" }} />
+      <PageJsonLd
+        path="/solutions"
+        webPage={{
+          name: "Financial Solutions by AS Brokers CC",
+          description:
+            "Explore comprehensive financial solutions including investment planning, life insurance, business solutions, and retirement strategies. FSP 17273.",
+        }}
+        service={{
+          name: "Financial Solutions by AS Brokers CC",
+          description:
+            "Financial planning, investment advisory, insurance broking, and retirement planning for Krugersdorp and the West Rand.",
+          serviceType: "Financial Planning, Investment Advisory, Insurance Broking, Retirement Planning",
+        }}
+      />
       {/* Hero */}
-      <section className="relative pt-28 pb-16 overflow-hidden">
+      <section data-chunk-boundary className="relative pt-28 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/15 via-transparent to-transparent pointer-events-none" />
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 pointer-events-none" />
         <div className={`relative ${PAGE_CONTENT_MAX}`}>
@@ -149,7 +163,6 @@ export default function SolutionsPage() {
             <PageMediaStrip
               variant="primary"
               src="/images/solutions-hero-16x9.jpg"
-              alt="Full-service IFA desk: insurance, estate, retirement and structured yield folders, no people"
               priority
               rounded="3xl"
             />
@@ -163,6 +176,7 @@ export default function SolutionsPage() {
       <div className={`${PAGE_CONTENT_MAX} pb-24`}>
         {/* Section 1: Private Wealth & Yield (focus) */}
         <section
+          data-chunk-boundary
           id={focusCategory.id}
           className="scroll-mt-32 py-16 md:py-20 border-b border-white/5"
         >
@@ -200,7 +214,6 @@ export default function SolutionsPage() {
           <PageMediaStrip
             variant="secondary"
             src={`/images/${encodeURIComponent("solutions-fiduciary-defense-1x1 (2).jpg")}`}
-            alt="Short-term motor policy folder, keys, and medical-aid leaflet on adviser desk"
             rounded="3xl"
           />
         </div>
@@ -214,6 +227,7 @@ export default function SolutionsPage() {
             const Icon = cat.icon;
             return (
               <section
+                data-chunk-boundary
                 key={cat.id}
                 id={cat.id}
                 className="scroll-mt-32 py-12 md:py-16 border-b border-white/5 last:border-0"
@@ -256,7 +270,7 @@ export default function SolutionsPage() {
           })}
         </div>
         {/* CTA block */}
-        <section className="mt-20 md:mt-28 rounded-[2rem] bg-gradient-to-br from-[#151518] to-[#1a1a24] border border-white/10 p-8 md:p-12 relative overflow-hidden">
+        <section data-chunk-boundary className="mt-20 md:mt-28 rounded-[2rem] bg-gradient-to-br from-[#151518] to-[#1a1a24] border border-white/10 p-8 md:p-12 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-teal-600/10 pointer-events-none" />
           <div className="relative text-center max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">

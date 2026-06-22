@@ -40,9 +40,13 @@ DEFAULT_OUTPUT = "asbrokers_runtime_seo_aeo_findings.txt"
 USER_AGENTS = {
     "Googlebot": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
     "Bingbot": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+    "PerplexityBot": "Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/bot)",
+}
+
+# Phase 1 policy — training scrapers are intentionally blocked (403).
+BLOCKED_TRAINING_BOTS = {
     "GPTBot": "Mozilla/5.0 (compatible; GPTBot/1.0; +https://openai.com/gptbot)",
     "ClaudeBot": "Mozilla/5.0 (compatible; ClaudeBot/1.0; +https://anthropic.com/claudebot)",
-    "PerplexityBot": "Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/bot)",
 }
 
 HTML_EXT_BLOCKLIST = (".xml", ".txt", ".kml", ".json", ".pdf")
@@ -258,6 +262,20 @@ class RuntimeAuditor:
                     if urllib.parse.urlparse(final_url).netloc not in allowed_hosts:
                         self.add("MEDIUM", f"{bot_name} -> {url}", f"Redirected to unexpected host: {final_url}")
 
+    def audit_blocked_training_bots(self, sample_urls: List[str]) -> None:
+        checks = [self.base_url] + [u for u in sample_urls if self._is_html_url(u)][:2]
+        for url in checks:
+            for bot_name, ua in BLOCKED_TRAINING_BOTS.items():
+                status, _, _, _ = self._request(url, user_agent=ua, method="GET")
+                if status == 0:
+                    continue
+                if status != 403:
+                    self.add(
+                        "MEDIUM",
+                        f"{bot_name} -> {url}",
+                        f"Expected 403 training-bot block, got {status}.",
+                    )
+
     def audit_redirect_chain(self, urls: List[str]) -> None:
         for url in urls:
             if not self._is_html_url(url):
@@ -348,6 +366,7 @@ class RuntimeAuditor:
             and self._normalize_url(u) not in {self._normalize_url(f"{self.base_url}/insights"), self._normalize_url(f"{self.base_url}/blog")}
         ]
         self.audit_bot_access(sample_urls)
+        self.audit_blocked_training_bots(sample_urls)
         self.audit_redirect_chain(sample_urls[:20])
         semantic_urls = list(dict.fromkeys([*sample_urls[:20], *article_urls]))
         self.audit_page_indexability_and_semantics(semantic_urls)

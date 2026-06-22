@@ -1,16 +1,23 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { WealthBuildingCalculator } from "@/components/WealthBuildingCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "AS Brokers Wealth Building Calculator",
-  description:
-    "Calculate future wealth using compound growth, monthly contributions and annual increases. The AS Brokers Wealth Building Calculator helps illustrate investment growth, business growth and long-term financial freedom planning.",
-};
+const PAGE_TITLE = "AS Brokers Wealth Building Calculator";
+const PAGE_DESCRIPTION =
+  "Calculate future wealth using compound growth, monthly contributions and annual increases. Illustrate investment growth, business growth and long-term financial freedom planning.";
+
+export const metadata = buildPageMetadata({
+  path: "/wealth-building-calculator",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function WealthBuildingCalculatorPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0c]">
+      <PageJsonLd path="/wealth-building-calculator" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       <section className="relative overflow-hidden px-4 pb-12 pt-28 sm:px-6 md:px-8">
         <div
           className="pointer-events-none absolute inset-0 opacity-30"

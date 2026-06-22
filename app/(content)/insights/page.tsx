@@ -1,13 +1,17 @@
+import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
 import { getInsightFeed } from "@/lib/insights/feed";
 import { InsightsFeedFilter } from "@/components/insights/InsightsFeedFilter";
 
-export const metadata = {
-  title: "Insights & Resources | AS Brokers",
+export const metadata = buildPageMetadata({
+  path: "/insights",
+  title: "Insights & Resources",
   description:
-    "Articles, guides, and resources on retirement planning, estate duty, Everest Wealth, and financial planning in South Africa.",
-};
+    "Articles and guides on retirement planning, estate duty, Everest Wealth, semigration, and financial planning for South Africans. Educational content from FSP 17273.",
+});
 
 export default async function InsightsPage() {
   const articles = await getInsightFeed();
@@ -24,12 +28,17 @@ export default async function InsightsPage() {
             <p className="text-lg text-zinc-400 max-w-2xl mx-auto md:mx-0">
               Articles, guides, and tools to help you make informed decisions about retirement, estate planning, and wealth.
             </p>
+            <p className="mt-4 text-sm text-zinc-500">
+              Featured:{" "}
+              <Link href="/insights/semigration-retirement" prefetch={false} className="text-cinematic-teal hover:underline">
+                Semigration & retirement villages
+              </Link>
+            </p>
           </div>
           <div className="mt-8">
             <PageMediaStrip
               variant="secondary"
               src="/images/insights-inset-1x1.jpg"
-              alt="Research and financial education resources"
               rounded="3xl"
             />
           </div>

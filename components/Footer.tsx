@@ -6,6 +6,7 @@ import { useActionState, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "./icons";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
+import { SITE_COPYRIGHT_YEAR } from "@/lib/site-meta";
 import {
   FOOTER_EXPLORE,
   FOOTER_LEGAL,
@@ -13,6 +14,7 @@ import {
   PILLAR_FUNNELS,
   PILLAR_HUB,
 } from "@/lib/site-navigation";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 const WHATSAPP = "https://wa.me/27662276044";
@@ -30,7 +32,7 @@ function FooterNewsletter() {
           placeholder="Weekly insights — your email"
           required
           disabled={isPending}
-          className="flex-1 min-w-0 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:ring-1 focus:ring-[#00549F] disabled:opacity-60"
+          className="flex-1 min-w-0 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:opacity-60"
           aria-label="Email for newsletter"
         />
         <button
@@ -76,17 +78,17 @@ export function Footer() {
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div className="shrink-0">
               <Link href="/" prefetch={false} className="inline-flex items-center gap-2 text-white">
-                <img src="/images/logo.jpg" alt="" className="h-7 w-auto rounded-lg object-contain" />
+                <BrandLogo height={28} className="h-7 w-auto rounded-lg object-contain" />
                 <span className="font-bold">AS Brokers</span>
               </Link>
-              <p className="trust-hallmark mt-2 text-xs text-zinc-500">
+              <p className="trust-hallmark mt-2 text-xs text-zinc-400">
                 FSP 17273 · Create · Protect · Preserve
               </p>
               <a
                 href={WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm text-[#00549F] hover:underline"
+                className="mt-3 inline-block text-sm text-blue-400 hover:underline"
               >
                 WhatsApp +27 66 227 6044
               </a>
@@ -102,7 +104,7 @@ export function Footer() {
                     : "border-white/10"
                 }`}
               >
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#00549F]">Overview</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Overview</p>
                 <p className="mt-1 text-sm font-medium text-white">{PILLAR_HUB.label}</p>
               </Link>
               {PILLAR_FUNNELS.map((item) => (
@@ -116,7 +118,7 @@ export function Footer() {
                       : "border-white/10"
                   }`}
                 >
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#00549F]">{item.pillar}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">{item.pillar}</p>
                   <p className="mt-1 text-sm font-medium leading-snug text-white">{item.label}</p>
                 </Link>
               ))}
@@ -125,7 +127,7 @@ export function Footer() {
 
           {/* Explore + newsletter */}
           <div className="flex flex-col gap-6 border-t border-white/10 pt-6 md:flex-row md:items-end md:justify-between">
-            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-500">
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-400">
               {FOOTER_EXPLORE.map((link) => (
                 <Link
                   key={link.href}
@@ -141,11 +143,11 @@ export function Footer() {
           </div>
 
           {/* Legal strip */}
-          <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
-            <p>© {new Date().getFullYear()} AS Brokers CC. All rights reserved.</p>
+          <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
+            <p>© {SITE_COPYRIGHT_YEAR} AS Brokers CC. All rights reserved.</p>
             <div className="flex flex-wrap gap-x-4 gap-y-1">
               {FOOTER_LEGAL.map((link) => (
-                <Link key={link.href} href={link.href} prefetch={false} className="hover:text-zinc-400">
+                <Link key={link.href} href={link.href} prefetch={false} className="hover:text-white">
                   {link.label}
                 </Link>
               ))}
@@ -163,7 +165,7 @@ export function Footer() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.25, ease: APPLE_EASE }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`fixed z-[55] flex h-11 w-11 items-center justify-center rounded-xl bg-[#00549F] text-white shadow-lg transition hover:scale-105 ${scrollDockClass}`}
+            className={`fixed z-[55] flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white shadow-lg transition hover:scale-105 ${scrollDockClass}`}
             aria-label="Scroll to top"
           >
             <ArrowUp className="h-5 w-5" />

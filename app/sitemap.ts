@@ -13,7 +13,6 @@ const STATIC_PATHS = [
   "/about",
   "/annual-estate-reduction-strategy",
   "/calculators",
-  "/chat",
   "/complaints",
   "/conflict-of-interest",
   "/contact",
@@ -34,7 +33,6 @@ const STATIC_PATHS = [
   "/manage-cookies",
   "/premium-increase-calculator",
   "/privacy",
-  "/quiz",
   "/regulatory-compliance",
   "/retirement",
   "/retirement-readiness",
@@ -50,7 +48,6 @@ const STATIC_PATHS = [
   "/solutions/life-insurance",
   "/solutions/medical-aid",
   "/solutions/personal-insurance",
-  "/team",
   "/terms",
   "/wealth-building-calculator",
 ] as const;

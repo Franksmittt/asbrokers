@@ -1,16 +1,23 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { EstateReductionCalculator } from "@/components/EstateReductionCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Trust Donation Calculator | Annual Donations & Estate Planning SA | AS Brokers",
-  description:
-    "Use the annual donations exemption to legally reduce estate duty. Calculate how much you can eliminate over time through structured annual donations.",
-};
+const PAGE_TITLE = "Trust Donation Calculator | Annual Donations & Estate Planning SA";
+const PAGE_DESCRIPTION =
+  "Use the annual donations exemption to legally reduce estate duty. Calculate how much you can eliminate over time through structured annual donations.";
+
+export const metadata = buildPageMetadata({
+  path: "/annual-estate-reduction-strategy",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function AnnualEstateReductionPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/annual-estate-reduction-strategy" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       {/* Hero */}
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">

@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { getRelatedLinks } from "@/lib/related-content";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Business Life Insurance | Buy-and-Sell, Key Person & Surety | AS Brokers FSP 17273",
+export const metadata = buildPageMetadata({
+  path: "/solutions/business-life",
+  title: "Business Life Insurance | Buy-and-Sell, Key Person & Surety",
   description:
-    "Buy-and-sell agreements, key-person cover, loan account insurance, and contingent liability for South African companies - technical structuring with independent FSP 17273.",
+    "Buy-and-sell agreements, key-person cover, loan account insurance, and contingent liability for South African companies. Technical structuring with FSP 17273.",
   keywords: [
     "buy and sell agreement insurance",
     "key person insurance South Africa",
@@ -12,7 +16,7 @@ export const metadata = {
     "directors surety insurance",
     "FSP 17273",
   ],
-};
+});
 
 export default function BusinessLifePage() {
   return (
@@ -110,6 +114,7 @@ export default function BusinessLifePage() {
           </div>
         </section>
       </article>
+      <RelatedContent links={getRelatedLinks("/solutions/business-life")} />
       <Footer />
     </div>
   );

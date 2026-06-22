@@ -1,5 +1,5 @@
 import { LegacyReadinessLanding } from "@/components/legacy/LegacyReadinessLanding";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 
 const legacyChecklistFaqs = [
   {
@@ -28,7 +28,7 @@ export const metadata = {
 export default function LegacyReadinessChecklistPage() {
   return (
     <>
-      <FAQSchema faqs={legacyChecklistFaqs} />
+      <PageJsonLd path="/legacy-readiness-checklist" webPage={{ name: metadata.title, description: metadata.description }} faqs={legacyChecklistFaqs} />
       <LegacyReadinessLanding />
     </>
   );

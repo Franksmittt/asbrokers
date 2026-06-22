@@ -4,6 +4,7 @@ import path from "path";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
+    optimizePackageImports: ["recharts", "framer-motion"],
     serverActions: {
       /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */
       bodySizeLimit: "12mb",

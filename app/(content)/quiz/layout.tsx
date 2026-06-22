@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import { QuizProviders } from "@/components/Providers";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Financial Health Quiz | AS Brokers",
+export const metadata: Metadata = buildPageMetadata({
+  path: "/quiz",
+  title: "Financial Health Quiz",
   description:
-    "Answer a few questions and we'll point you to the right calculators and resources for retirement, estate, insurance, and tax.",
-};
+    "Quick financial health check — answer a few questions and get pointed to relevant calculators and resources. Educational tool from AS Brokers CC, FSP 17273.",
+  noIndex: true,
+});
 
 export default function QuizLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <QuizProviders>{children}</QuizProviders>;
 }

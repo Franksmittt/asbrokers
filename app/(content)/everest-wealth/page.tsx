@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { EverestProductComparisonTable } from "@/components/EverestProductComparisonTable";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
+  path: "/everest-wealth",
   title: "Everest Wealth Products | Alternative Private Equity Investments South Africa",
   description:
     "Everest Wealth brokers: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity. Targeted alternative private equity return profiles. FSP 17273.",
-};
+});
 
 /** One readable column inside the full-bleed strip (matches phases + cards). */
 const CONTENT = "mx-auto w-full max-w-6xl";
@@ -147,9 +150,17 @@ function ProductCta({ href, children }: { href: string; children: React.ReactNod
 export default function EverestWealthPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0c]">
-      <FAQSchema faqs={everestWealthFAQs} />
+      <PageJsonLd
+        path="/everest-wealth"
+        webPage={{
+          name: "Everest Wealth Products | Alternative Private Equity Investments South Africa",
+          description:
+            "Everest Wealth brokers: 12.8% Strategic Income, 14.2% Onyx Income+, 14.5% Strategic Growth, Amethyst Living Annuity. FSP 17273.",
+        }}
+        faqs={everestWealthFAQs}
+      />
 
-      <section className="border-b border-white/[0.06] pb-12 pt-28 md:pb-16 md:pt-32">
+      <section data-chunk-boundary className="border-b border-white/[0.06] pb-12 pt-28 md:pb-16 md:pt-32">
         <div className={PAGE_CONTENT_MAX}>
           <div className={`${CONTENT} text-center`}>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
@@ -186,14 +197,13 @@ export default function EverestWealthPage() {
           <PageMediaStrip
             variant="primary"
             src="/images/everest-suite-hero-16x9.jpg"
-            alt="Real-economy sector backing structured income: agriculture, hospitality or industry, no people"
             priority
             rounded="3xl"
           />
         </div>
       </section>
 
-      <section className="border-b border-white/[0.06] py-14 md:py-16">
+      <section data-chunk-boundary className="border-b border-white/[0.06] py-14 md:py-16">
         <div className={PAGE_CONTENT_MAX}>
           <div className={CONTENT}>
             <h2 className="mb-2 text-xl font-bold text-white md:text-2xl">Start here</h2>
@@ -218,7 +228,6 @@ export default function EverestWealthPage() {
               <PageMediaStrip
                 variant="secondary"
                 src="/images/everest-copper-industrial-4x3.jpg"
-                alt="Industrial and copper processing suggesting tangible assets behind unlisted income strategies, no people"
                 rounded="3xl"
               />
             </div>
@@ -226,8 +235,21 @@ export default function EverestWealthPage() {
         </div>
       </section>
 
+      <section data-chunk-boundary className="border-b border-white/[0.06] py-14 md:py-16">
+        <div className={PAGE_CONTENT_MAX}>
+          <div className={CONTENT}>
+            <h2 className="mb-2 text-xl font-bold text-white md:text-2xl">Product comparison at a glance</h2>
+            <p className="mb-2 max-w-3xl text-sm leading-relaxed text-zinc-500 md:text-base">
+              Use this table to match money type, income need, and tax routing before you run calculators or book advice.
+              Targeted returns are based on current product terms — not guarantees.
+            </p>
+            <EverestProductComparisonTable />
+          </div>
+        </div>
+      </section>
+
       {/* Phase 1 */}
-      <section className="border-b border-white/[0.06] py-14 md:py-20">
+      <section data-chunk-boundary className="border-b border-white/[0.06] py-14 md:py-20">
         <div className={PAGE_CONTENT_MAX}>
           <div className={CONTENT}>
             <PhaseHeader
@@ -270,7 +292,7 @@ export default function EverestWealthPage() {
       </section>
 
       {/* Phase 2: copy + stats panel */}
-      <section className="border-b border-white/[0.06] py-14 md:py-20">
+      <section data-chunk-boundary className="border-b border-white/[0.06] py-14 md:py-20">
         <div className={PAGE_CONTENT_MAX}>
           <div className={CONTENT}>
             <PhaseHeader
@@ -293,16 +315,27 @@ export default function EverestWealthPage() {
                   <p className="mt-2 text-5xl font-black tabular-nums tracking-tight text-white md:text-6xl">14.5%</p>
                   <p className="mt-1 text-sm text-zinc-500">Targeted per annum for the term. Not a guarantee of future results.</p>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-2xl font-bold tabular-nums text-white">5</p>
-                    <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-zinc-500">Year lock</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-2xl font-bold tabular-nums text-teal-300">20%</p>
-                    <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-zinc-500">DWT at maturity</p>
-                  </div>
-                </div>
+                <table className="w-full border-collapse text-sm">
+                  <caption className="sr-only">14.5% Strategic Growth headline economics</caption>
+                  <tbody>
+                    <tr className="border-b border-white/5">
+                      <th scope="row" className="py-2 pr-3 text-left text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                        Term lock
+                      </th>
+                      <td data-label="Term lock" className="py-2 font-bold tabular-nums text-white">
+                        5 years
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-2 pr-3 text-left text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                        Tax at maturity
+                      </th>
+                      <td data-label="Tax at maturity" className="py-2 font-bold tabular-nums text-teal-300">
+                        20% DWT
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <p className="text-xs leading-relaxed text-zinc-600">
                   Illustrative only. Read the disclosure pack before you commit capital.
                 </p>
@@ -313,7 +346,7 @@ export default function EverestWealthPage() {
       </section>
 
       {/* Phase 3: same pattern (fixes empty grid column) */}
-      <section className="border-b border-white/[0.06] py-14 md:py-20">
+      <section data-chunk-boundary className="border-b border-white/[0.06] py-14 md:py-20">
         <div className={PAGE_CONTENT_MAX}>
           <div className={CONTENT}>
             <PhaseHeader
@@ -339,18 +372,27 @@ export default function EverestWealthPage() {
                   <p className="mt-2 text-5xl font-black tabular-nums tracking-tight text-teal-300 md:text-6xl">10.2%</p>
                   <p className="mt-1 text-sm text-zinc-500">p.a. on current terms. Growth inside the annuity is tax-free until you draw.</p>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-lg font-bold leading-tight text-white">
-                      2.5<span className="text-zinc-600">–</span>17.5%
-                    </p>
-                    <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-zinc-500">Drawdown band</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-2xl font-bold tabular-nums text-white">9%</p>
-                    <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-zinc-500">Capital bonus (yr 5)</p>
-                  </div>
-                </div>
+                <table className="w-full border-collapse text-sm">
+                  <caption className="sr-only">Amethyst Living Annuity headline economics</caption>
+                  <tbody>
+                    <tr className="border-b border-white/5">
+                      <th scope="row" className="py-2 pr-3 text-left text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                        Drawdown band
+                      </th>
+                      <td data-label="Drawdown band" className="py-2 font-bold text-white">
+                        2.5%–17.5%
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-2 pr-3 text-left text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                        Capital bonus (year 5)
+                      </th>
+                      <td data-label="Capital bonus (year 5)" className="py-2 font-bold tabular-nums text-white">
+                        9%
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <p className="text-xs leading-relaxed text-zinc-600">
                   Regulation 28 and living-annuity rules apply. We map this to your existing funds in advice.
                 </p>
@@ -379,9 +421,10 @@ export default function EverestWealthPage() {
         </div>
       </section>
 
-      <section className="border-b border-white/[0.06] py-12 md:py-14">
+      <section data-chunk-boundary className="border-b border-white/[0.06] py-12 md:py-14">
         <div className={PAGE_CONTENT_MAX}>
           <div className={CONTENT}>
+            <h2 className="mb-3 text-lg font-bold text-white">Regulatory disclosure</h2>
             <p className="text-sm leading-relaxed text-zinc-600">
               Everest Wealth Management (Pty) Ltd is an authorised Financial Services Provider (FSP 795). AS Brokers
               (FSP 17273) acts as an independent intermediary. All returns shown are based on current product terms and

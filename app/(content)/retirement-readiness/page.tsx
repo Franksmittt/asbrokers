@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RetirementShortfallCalculator } from "@/components/RetirementShortfallCalculator";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
+
+const PAGE_TITLE = "Retirement Readiness Calculator | Gap & Contribution Planning";
+const PAGE_DESCRIPTION =
+  "Estimate your retirement capital shortfall, projected savings, and monthly contribution required. Educational retirement readiness tool for South Africans. FSP 17273.";
 
 const readinessFAQs = [
   {
@@ -16,16 +21,16 @@ const readinessFAQs = [
   },
 ];
 
-export const metadata = {
-  title: "Retirement Readiness Calculator | Gap & Contribution Planning | AS Brokers",
-  description:
-    "Estimate your retirement capital shortfall, projected savings, and monthly contribution required. Educational retirement readiness tool for South Africans. FSP 17273.",
-};
+export const metadata = buildPageMetadata({
+  path: "/retirement-readiness",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function RetirementReadinessPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0c]">
-      <FAQSchema faqs={readinessFAQs} />
+      <PageJsonLd path="/retirement-readiness" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} faqs={readinessFAQs} />
 
       <section className="relative overflow-hidden px-4 pb-12 pt-28 sm:px-6 md:px-8">
         <div

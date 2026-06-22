@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-21T17:50:25.785Z",
+  "entries": {
+    "/images/logo.jpg": {
+      "alt": "AS Brokers CC logo with ASB monogram and Authorised Financial Services Provider tagline",
+      "hash": "449ecffabd7921c5045d4c9da91d90a63561872aa175529e11366f70ee5e548e"
+    },
+    "/images/og-default.jpg": {
+      "alt": "AS Brokers CC — independent financial advisor Krugersdorp, FSP 17273",
+      "hash": "c399b1a3b79891eae46899e3096097148c8ffc15a22defbfdbe0f6003ed7bb2d"
+    },
+    "/images/home-actuarial-engine-16x9.jpg": {
+      "alt": "Retirement planning desk with capital drawdown worksheet, calculator, pen and reading glasses",
+      "hash": "53a94d242ecc5ec867a270fa11e7ec22eda20b902b187cd1e6c6b6bd456804c3"
+    },
+    "/images/home-yield-continuity-4x3.jpg": {
+      "alt": "Everest structured yield and Code 1.8 portfolio binders with retirement income documents on adviser desk",
+      "hash": "a77af670acc920d43fc8c45ad51248967de9063cdd2324b46a3e9fbc21d87a65"
+    },
+    "/images/solutions-hero-16x9.jpg": {
+      "alt": "Insurance, life, estate and retirement service folders arranged on an adviser desk",
+      "hash": "f1a84796ccd5473127c5c244761fbdae22f4046edd7cebc4b1fb220dbd56b449"
+    },
+    "/images/solutions-fiduciary-defense-1x1 (2).jpg": {
+      "alt": "Short-term motor insurance policy folder, car keys and medical-aid leaflet on adviser desk",
+      "hash": "0b842df1284abd1c31b780a2cecd1e64b40c4a9c57f41d1108e9f141bb8213db"
+    },
+    "/images/calculators-hub-16x9.jpg": {
+      "alt": "Calculator planning sheets for retirement, tax, estate and premiums on a desk",
+      "hash": "9a7e04d782b313f0d9b0e3f58cb93812e1f7887c851c1944508ad7bebb7b3b06"
+    },
+    "/images/about-krugersdorp-trust-16x9.jpg": {
+      "alt": "Krugersdorp independent financial advice storefront with FSP 17273 signage",
+      "hash": "96c297b51224707b2942fb15f42da199dd31e556547a94059a5138b40a0f3d9b"
+    },
+    "/images/about-fiduciary-plaque-4x3.jpg": {
+      "alt": "FAIS compliance binders and adviser business cards on desk with charts on monitor",
+      "hash": "b1a2db0ce514d97aa227d03171ac5ed28e37194e1c7c3ee1c2ded178281e0631"
+    },
+    "/images/everest-suite-hero-16x9.jpg": {
+      "alt": "South African fruit packhouse conveyors showing real-economy assets behind structured income",
+      "hash": "ea1860dd67ddf3dd3e2526ccffc5daf586aba0c9f2192578a2e4da9d66e38ed7"
+    },
+    "/images/everest-copper-industrial-4x3.jpg": {
+      "alt": "Copper refinery cathodes and molten pour illustrating tangible industrial backing",
+      "hash": "0a725ba2792cbb56b517ce1f08316f9269544ae47e28084954ff12b439dfd854"
+    },
+    "/images/contact-trust.jpg": {
+      "alt": "Financial adviser consultation with clients in a bright meeting room with notebooks",
+      "hash": "3900cbaf104dd358a94534a18076286faf2b6e4a466e8e863922ef5159ba8a1f"
+    },
+    "/images/retirement-inset-1x1.jpg": {
+      "alt": "Living annuity protocol document with leather portfolio and pen on marble desk",
+      "hash": "98abf1cd63b1d0d0fe4d771d167d28b5bf55936a672639ae926a9f520679f2be"
+    },
+    "/images/everest-128-inset-1x1.jpg": {
+      "alt": "Monitor showing Everest 12.8% alternative asset pool dashboard with upward chart",
+      "hash": "f94163145bdb5c83ddb0b7c128f4fd8fb25625c4cfd0860e25612ebe334b0909"
+    },
+    "/images/insights-inset-1x1.jpg": {
+      "alt": "Prism refracting light into growth arrows with analyst notes on marble desk",
+      "hash": "4fcb89253469b86484bba9f4dd87b5f894fc583e3efbb39e71f47d6cf3a6368d"
+    },
+    "/images/regulatory-compliance-inset-1x1.jpg": {
+      "alt": "Interlocking FAIS, FICA and fiduciary compliance gears on dark marble",
+      "hash": "28d6e31c0e4f8c8153dc16deaaf33a4de8391e6885af59817f664d3dc2e04eb8"
+    },
+    "/images/team-albert.jpg": {
+      "alt": "Albert Schuurman, AS Brokers co-founder and short-term business investment specialist",
+      "hash": "d4ec848afa73bf211788f2dff7e408a3bef78ba1994eb5c908c559323054da4e"
+    },
+    "/images/team-johnny.jpg": {
+      "alt": "Johnny Farinha, AS Brokers co-founder and short-term business insurance specialist",
+      "hash": "230adcb4e39d58e2f9bce2fca1416ad0ee79a4a158771e3a232df7af7726ae90"
+    },
+    "/images/risk-arch-short-term.png": {
+      "alt": "Home and motor short-term insurance protection for personal assets",
+      "hash": "6d29990682e0fc8c895a95cad94d6ee7ed19e34f3677168aa72d32a4174ae29f"
+    },
+    "/images/risk-arch-commercial.png": {
+      "alt": "Commercial property, liability and business interruption cover for companies",
+      "hash": "eba8b075d47dd022f47177c555b64be35c0622e072f7067f53c67f2c942b538d"
+    },
+    "/images/risk-arch-life.png": {
+      "alt": "Life cover, disability and severe illness benefits for families",
+      "hash": "09099bd0a432a6a238171a50daae9a185b15c51dfa3693c42793887346298756"
+    },
+    "/images/risk-arch-estate.png": {
+      "alt": "Wills, trusts and estate duty planning to secure family legacy",
+      "hash": "b5c6331d36f9acbfcf077184a145488a91ea1212dd87c19240e8f7d93fdeb291"
+    },
+    "/images/risk-arch-business-life.png": {
+      "alt": "Buy-and-sell, key person and business continuity life structures",
+      "hash": "457d4b4a380476e53b29b04ee7949e479b9342c6f875918d9b91ff1dd2a423d7"
+    },
+    "/images/risk-arch-medical.png": {
+      "alt": "Medical scheme choice, gap cover and wellness integration for families",
+      "hash": "28210e8631e265ab8395d30ea263a93bc0044f8bfbd070134f073b92d7f003b6"
+    },
+    "/images/risk-arch-premium.png": {
+      "alt": "Premium sustainability modelling for long-term insurance cover costs",
+      "hash": "fe6c07cb823cef2d85bd0f4dc7e8069a272a900c9691a5bf89125e9cba1386f9"
+    },
+    "/images/risk-arch-estate-duty.png": {
+      "alt": "Estate duty and liquidity stress testing before death",
+      "hash": "ec9ad40755f870eb9f9045d4c9b4991b52bc4f8ee76b7eb2e28468d3e21ddcce"
+    },
+    "/images/personal-insurance-inset-1x1.jpg": {
+      "alt": "Secure advice token held over marble desk suggesting protected personal insurance guidance",
+      "hash": "a0d25127a81485965ef5122c0644bb2cb169b206b032606a1adc6b9dfaf20f1d"
+    },
+    "/images/business-insurance-inset-1x1.jpg": {
+      "alt": "M&A business insurance folder with technical drawings on dark marble desk",
+      "hash": "adf46f253d117247ce9230578561127da529dff58684fc7d4b7f2de58cf13a45"
+    },
+    "/images/business-life-inset-1x1.jpg": {
+      "alt": "Succession planning document with headquarters blueprint on adviser desk",
+      "hash": "d83e5834e2635440e9b74a6f4b349736044bffb10752f337460178f56a401d2a"
+    },
+    "/images/life-insurance-inset-1x1.jpg": {
+      "alt": "Life insurance policy overview with legacy protection and beneficiary pages",
+      "hash": "6174eefd2f9c8f188800d70a1de153d28c767d9b27c3fce4c470dad605595cee"
+    },
+    "/images/estate-duty-calculator-inset-1x1.jpg": {
+      "alt": "Estate valuation report with projected cash flows and calculator on desk",
+      "hash": "f8c3d7dae5b80ba73d88ac691fb028fb1a79b0f231f72e2f8ec53a8ef0ac3249"
+    },
+    "/images/living-annuity-inset-1x1.jpg": {
+      "alt": "Precision mechanical watch being wound — time and income sustainability metaphor",
+      "hash": "921e7252c46b19fac930ae476f49d4ed1ad69f96429c6f6d2141af8d01cf9c67"
+    },
+    "/images/lab-inset-1x1.jpg": {
+      "alt": "Advisory team reviewing analytics maps and charts on a conference table",
+      "hash": "4e5e96e893b9bd96b4291a01f10e46b1e609c9d006c1068d624965fe1953cc81"
+    },
+    "/images/about-selective-inset-1x1.jpg": {
+      "alt": "about selective inset — AS Brokers CC",
+      "hash": "6aa34f95e60882d4db12c764db3620e3eccc163470ce94c67b91e4a2c8c3ac1b"
+    },
+    "/images/about-visual.jpg": {
+      "alt": "about visual — AS Brokers CC",
+      "hash": "8ce914255f26f2191ea7224627f3e562cef4b8cf0da6a93510a5aca8a55b548f"
+    },
+    "/images/annual-estate-reduction-inset-1x1.jpg": {
+      "alt": "annual estate reduction inset — AS Brokers CC",
+      "hash": "85fabd7e24b44cf83f98a5a7b67cfe1be769dd17b4c15fff47c60dc705aaf3f1"
+    },
+    "/images/calculators-capital-lifespan-4x3.jpg": {
+      "alt": "calculators capital lifespan — AS Brokers CC",
+      "hash": "625859d164a542026a11b9d9cc0c21c32656da98a4e1773fe50bf0716c989ba8"
+    },
+    "/images/calculators-education-16x9.jpg": {
+      "alt": "calculators education — AS Brokers CC",
+      "hash": "7c1b3c163fbbdaa73f3336ff1e390dda06ce00a4adb9f6021bfa74efe04edc89"
+    },
+    "/images/calculators-inset-1x1.jpg": {
+      "alt": "calculators inset — AS Brokers CC",
+      "hash": "16f7a2330c00aed49a84d64a29b79524634cf0bc594fa4d94617bb503c3695f3"
+    },
+    "/images/channels4_profile.jpg": {
+      "alt": "channels4 profile — AS Brokers CC",
+      "hash": "d4ec848afa73bf211788f2dff7e408a3bef78ba1994eb5c908c559323054da4e"
+    },
+    "/images/chat-inset-1x1.jpg": {
+      "alt": "chat inset — AS Brokers CC",
+      "hash": "039ac4520ecda167b0636442419af663f4297fdd967421e02a8271c41ca25336"
+    },
+    "/images/complaints-inset-1x1.jpg": {
+      "alt": "complaints inset — AS Brokers CC",
+      "hash": "e88ee89de0ff7c26a44c64ac04f7f0ea6d96af6c958e15506c504b714bc86476"
+    },
+    "/images/conflict-interest-inset-1x1.jpg": {
+      "alt": "conflict interest inset — AS Brokers CC",
+      "hash": "fb09c50065fe703215dd2fee1c4a14ac29863cee3d7dac1191272f580f9f1bc7"
+    },
+    "/images/everest-growth-145-inset-1x1.jpg": {
+      "alt": "everest growth 145 inset — AS Brokers CC",
+      "hash": "d15850ca3e756344d123c4c2a5a7e958682deba6aaea97d340f507c8bf766542"
+    },
+    "/images/everest-visual.jpg": {
+      "alt": "everest visual — AS Brokers CC",
+      "hash": "67d5e5d95f9f9f4dc6946772fecbb6714f3b775dfbd26cd5fe44e58472bcb26d"
+    },
+    "/images/everest-wealth-inset-1x1.jpg": {
+      "alt": "everest wealth inset — AS Brokers CC",
+      "hash": "d86bf6afe610012ae919d9c1b4b32b33e17205fa1078c4767297ab8a34d97009"
+    },
+    "/images/income-retirement-inset-1x1.jpg": {
+      "alt": "income retirement inset — AS Brokers CC",
+      "hash": "081976a2e7c1720bc3a977256c88bcc9b6e85fb82a2a6149f0156e18b5e5fbe0"
+    },
+    "/images/income-tax-calculator-inset-1x1.jpg": {
+      "alt": "income tax calculator inset — AS Brokers CC",
+      "hash": "62d16f2d2a80927cf629389d2c3c1605150306d4bdd74243cd195b873114995d"
+    },
+    "/images/inflation-cost-inset-1x1.jpg": {
+      "alt": "inflation cost inset — AS Brokers CC",
+      "hash": "203a6755cbac692dd2ac4dc37735f955c68711e1ef556c4c30364230172cf7c4"
+    },
+    "/images/manage-cookies-inset-1x1.jpg": {
+      "alt": "manage cookies inset — AS Brokers CC",
+      "hash": "1dd2faf35498e8af031baac696bcc8907d66dc472671193aa36f03b746822fe0"
+    },
+    "/images/premium-calculator-inset-1x1.jpg": {
+      "alt": "premium calculator inset — AS Brokers CC",
+      "hash": "b7bea72633cd3f890e9a0866c6f55bd05fb7e46a0125238b76acd989a23cab35"
+    },
+    "/images/privacy-inset-1x1.jpg": {
+      "alt": "privacy inset — AS Brokers CC",
+      "hash": "93dd85b9fbb3c047ac57cbd94a9cf2b919e42bad8fa2e7669f933010ec1262d7"
+    },
+    "/images/quiz-inset-1x1.jpg": {
+      "alt": "quiz inset — AS Brokers CC",
+      "hash": "0cdc907ca0aaf1448479eba56f623d5accb26bdfcd075a4521479e0b824dbe85"
+    },
+    "/images/semigration-retirement-inset-1x1.jpg": {
+      "alt": "semigration retirement inset — AS Brokers CC",
+      "hash": "131aa37b794f7b474bf5220f7df7b1f397f336af73a029afb6bfd8b4354f03f6"
+    },
+    "/images/solutions-fiduciary-defense-1x1.jpg": {
+      "alt": "solutions fiduciary defense — AS Brokers CC",
+      "hash": "ac9073eecad3a61c82092c8d78155356c49b133479250dd3f966b2148b4694c1"
+    },
+    "/images/solutions-hero.jpg": {
+      "alt": "solutions hero — AS Brokers CC",
+      "hash": "00257bf0b2812c7e15874eeb4cd28890a3481561edc1e1163f1bec628195129e"
+    },
+    "/images/terms-inset-1x1.jpg": {
+      "alt": "terms inset — AS Brokers CC",
+      "hash": "1af4120cd778e610036ed11c024cd7dbe5b2b2f3e401f84633dbc7530e206667"
+    }
+  }
+}

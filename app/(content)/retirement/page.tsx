@@ -2,7 +2,12 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
 import { RetirementRealityCalculator } from "@/components/RetirementRealityCalculator";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
+
+const PAGE_TITLE = "Retirement Reality Calculator | Semigration & Retirement Villages Western Cape";
+const PAGE_DESCRIPTION =
+  "Calculate how much capital you really need for retirement. Semigration and retirement villages Western Cape planning. Proof is in the calculator. Retirement income planning for South Africans.";
 
 const retirementFAQs = [
   {
@@ -22,16 +27,20 @@ const retirementFAQs = [
   },
 ];
 
-export const metadata = {
-  title: "Retirement Reality Calculator | Semigration & Retirement Villages Western Cape",
-  description:
-    "Calculate how much capital you really need for retirement. Semigration and retirement villages Western Cape planning. Proof is in the calculator. Retirement income planning for South Africans.",
-};
+export const metadata = buildPageMetadata({
+  path: "/retirement",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function RetirementPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <FAQSchema faqs={retirementFAQs} />
+      <PageJsonLd
+        path="/retirement"
+        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        faqs={retirementFAQs}
+      />
       {/* Hero – cinematic void + risk orb */}
       <section className="relative pt-28 pb-12 overflow-hidden">
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-red-600/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />
@@ -52,7 +61,6 @@ export default function RetirementPage() {
             <PageMediaStrip
               variant="secondary"
               src="/images/retirement-inset-1x1.jpg"
-              alt="Retirement planning and long-term income security"
               rounded="3xl"
             />
           </div>

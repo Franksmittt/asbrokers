@@ -1,5 +1,7 @@
 import { Footer } from "@/components/Footer";
 import { ExecutableArticleHtml } from "@/components/client-studio/ExecutableArticleHtml";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { insightUrlPath } from "@/lib/site-url";
 import type { StudioPostRow } from "@/lib/client-studio/posts";
 
 function formatDate(iso: string) {
@@ -20,6 +22,24 @@ export function ClientInsightArticle({ post }: Props) {
 
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd
+        path={insightUrlPath(post.slug, post.locale ?? "en")}
+        webPage={{
+          name: `${post.metaTitle ?? post.title} | AS Brokers`,
+          description: post.metaDescription ?? post.excerpt ?? "",
+        }}
+        article={{
+          headline: post.title,
+          description: post.excerpt ?? undefined,
+          datePublished: published,
+          dateModified: post.updatedAt.toISOString(),
+        }}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+          { name: post.title, path: insightUrlPath(post.slug, post.locale ?? "en") },
+        ]}
+      />
       <article className="pt-28 pb-16 px-4 sm:px-6 lg:px-10">
         <div className="mx-auto w-full max-w-6xl xl:max-w-7xl">
           <p className="text-[10px] uppercase tracking-wider text-teal-500/90 mb-1">Insights studio</p>

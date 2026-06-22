@@ -138,7 +138,6 @@ export function RiskArchitectureCarousel() {
               >
                 <ImagePlaceholder
                   src={`/images/${item.imageKey}.png`}
-                  alt={item.title}
                   aspectRatio="16/9"
                   placeholderLabel={`${item.imageKey}.png`}
                   className="rounded-none rounded-t-[2rem] border-b border-white/5"

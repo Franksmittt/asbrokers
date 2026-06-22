@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { getAlt } from "@/lib/image-alt";
 
 type AspectRatio = "16/9" | "4/3" | "3/2" | "1/1" | "16/10";
 
@@ -23,7 +24,7 @@ export function ImagePlaceholder({
   sizes,
 }: {
   src: string;
-  alt: string;
+  alt?: string;
   aspectRatio?: AspectRatio;
   className?: string;
   placeholderLabel?: string;
@@ -33,6 +34,7 @@ export function ImagePlaceholder({
   const [error, setError] = useState(false);
   const path = src.startsWith("/") ? src : `/images/${src}`;
   const label = placeholderLabel ?? src.replace(/^.*\//, "");
+  const resolvedAlt = getAlt(path, alt);
 
   if (error) {
     return (
@@ -51,7 +53,7 @@ export function ImagePlaceholder({
     <div className={`${ratioMap[aspectRatio]} w-full relative rounded-2xl overflow-hidden ${className}`}>
       <Image
         src={path}
-        alt={alt}
+        alt={resolvedAlt}
         fill
         className="object-cover"
         onError={() => setError(true)}

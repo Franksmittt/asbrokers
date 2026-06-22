@@ -67,7 +67,7 @@ export function ContactEnquiryForm() {
           href="https://wa.me/27662276044"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors"
+          className="inline-flex items-center gap-2 bg-whatsapp-accessible hover:bg-green-800 text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors"
         >
           WhatsApp us in the meantime
         </a>
@@ -136,13 +136,19 @@ export function ContactEnquiryForm() {
       </div>
 
       <div ref={topicsRef}>
-        <p className={labelClass}>What would you like to discuss? *</p>
-        <p className="text-zinc-500 text-xs mb-2">Select all that apply. We&apos;ll prepare for a relevant conversation.</p>
+        <p id="discussion-topics-label" className={labelClass}>
+          What would you like to discuss? *
+        </p>
+        <p className="text-zinc-400 text-xs mb-2">Select all that apply. We&apos;ll prepare for a relevant conversation.</p>
         <div className="relative">
           <button
             type="button"
+            id="discussion-topics"
             onClick={() => setTopicsOpen(!topicsOpen)}
             disabled={isPending}
+            aria-labelledby="discussion-topics-label"
+            aria-expanded={topicsOpen}
+            aria-haspopup="listbox"
             className={`w-full flex items-center justify-between gap-2 py-3 px-4 rounded-xl border text-left transition-colors disabled:opacity-60 ${
               state.fieldErrors?.topics ? "border-amber-500/50" : "border-white/10 hover:border-white/20"
             } ${topicsOpen ? "border-blue-500/50 bg-white/5" : "bg-white/5"}`}
@@ -155,7 +161,11 @@ export function ContactEnquiryForm() {
             <ChevronDown className={`w-4 h-4 shrink-0 text-zinc-500 transition-transform ${topicsOpen ? "rotate-180" : ""}`} />
           </button>
           {topicsOpen && (
-            <div className="absolute top-full left-0 right-0 mt-1 py-2 max-h-56 overflow-y-auto bg-[#0f1116] border border-white/10 rounded-xl shadow-xl z-10 space-y-0.5">
+            <div
+              role="listbox"
+              aria-labelledby="discussion-topics-label"
+              className="absolute top-full left-0 right-0 mt-1 py-2 max-h-56 overflow-y-auto bg-[#0f1116] border border-white/10 rounded-xl shadow-xl z-10 space-y-0.5"
+            >
               {serviceOptions.map((opt) => (
                 <label
                   key={opt.id}
@@ -182,15 +192,16 @@ export function ContactEnquiryForm() {
       </div>
 
       <div>
-        <label className="flex items-start gap-3 cursor-pointer group">
+        <label htmlFor="consent" className="flex items-start gap-3 cursor-pointer group">
           <input
+            id="consent"
             type="checkbox"
             name="consent"
             value="true"
             disabled={isPending}
             className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-blue-500 focus:ring-blue-500 disabled:opacity-60"
           />
-          <span className="text-xs text-zinc-500 group-hover:text-zinc-400">
+          <span className="text-xs text-zinc-400 group-hover:text-zinc-300">
             I consent to receive transactional messages related to my enquiry (appointment reminders, confirmations, account notifications). Message & data rates may apply. Reply HELP for help or STOP to opt out.
           </span>
         </label>

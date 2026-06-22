@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getInsightFeed } from "@/lib/insights/feed";
+import { formatDateEnZa } from "@/lib/format-date";
 
 const MOCK_INSIGHTS: { title: string; excerpt: string; publishedAt: string; slug: string }[] = [
   {
@@ -29,11 +30,7 @@ const MOCK_INSIGHTS: { title: string; excerpt: string; publishedAt: string; slug
 ];
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-ZA", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  return formatDateEnZa(iso);
 }
 
 function InsightCard({
@@ -52,7 +49,7 @@ function InsightCard({
       href={href}
       className="block rounded-[2rem] rim-light border-0 p-6 md:p-8 hover:bg-white/[0.07] transition-all duration-500 group"
     >
-      <time className="text-xs text-zinc-500 uppercase tracking-wider" dateTime={publishedAt}>
+      <time className="text-xs text-zinc-400 uppercase tracking-wider" dateTime={publishedAt}>
         {formatDate(publishedAt)}
       </time>
       <h3 className="mt-2 text-lg font-bold text-white group-hover:text-cinematic-teal transition-colors">

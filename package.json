@@ -11,12 +11,23 @@
     "seo:audit:links": "python3 scripts/internal-link-graph-audit.py",
     "seo:audit:static": "python3 scripts/static-seo-aeo-audit.py",
     "seo:audit:runtime": "python3 scripts/runtime-seo-aeo-audit.py",
+    "b2a:compile": "node scripts/generate-llms-txt.mjs",
+    "alt:compile": "node scripts/generate-alt-text.mjs",
     "rag:ingest": "tsx scripts/ingest-rag.ts",
     "db:push": "tsx scripts/db-push.ts",
     "db:repair-studio": "tsx scripts/repair-client-insight-db.ts",
     "db:verify-studio": "tsx scripts/verify-client-insight-db.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "test:a11y": "playwright test tests/accessibility.spec.ts",
+    "test:a11y:report": "playwright test tests/accessibility.spec.ts --reporter=html",
+    "test:seo": "playwright test tests/seo.spec.ts",
+    "test:visual": "playwright test tests/visual.spec.ts",
+    "test:visual:update": "playwright test tests/visual.spec.ts --update-snapshots",
+    "test:lighthouse": "lhci autorun",
+    "test:perf:verify": "tsx scripts/verify-phase9-performance.ts",
+    "test:master": "tsx scripts/verify-phase12-master.ts",
+    "gsc:canonical": "node scripts/gsc-canonical-check.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.67",
@@ -52,6 +63,9 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "@lhci/cli": "^0.14.0",
+    "@playwright/test": "^1.61.0",
     "@trigger.dev/build": "4.4.2",
     "@trigger.dev/sdk": "4.4.2",
     "@types/node": "^22.0.0",

@@ -1,8 +1,13 @@
 import { BusinessRiskReviewTool } from "@/components/business-risk/BusinessRiskReviewTool";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
 const offer = PLANNING_TOOL_OFFERS["business-risk"];
+
+const PAGE_TITLE = "Business Risk Review™";
+const PAGE_DESCRIPTION =
+  "Free business insurance gap analysis for South African business owners. Identify potential cover gaps and request a professional review.";
 
 const faqs = [
   { question: offer.coreQuestion, answer: offer.problem },
@@ -13,16 +18,16 @@ const faqs = [
   },
 ];
 
-export const metadata = {
-  title: "Business Risk Review™ | AS Brokers",
-  description:
-    "Free business insurance gap analysis for South African business owners. Identify potential cover gaps and request a professional review.",
-};
+export const metadata = buildPageMetadata({
+  path: "/business-risk-review",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function BusinessRiskReviewPage() {
   return (
     <>
-      <FAQSchema faqs={faqs} />
+      <PageJsonLd path="/business-risk-review" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} faqs={faqs} />
       <BusinessRiskReviewTool />
     </>
   );

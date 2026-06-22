@@ -46,11 +46,12 @@ export function RunOutCalculator() {
       {/* Controls */}
       <div className="lg:col-span-4 bg-[#151518] rounded-[2rem] p-8 border border-white/5 shadow-2xl">
         <div className="mb-8">
-          <label className="flex justify-between text-sm font-medium text-zinc-400 mb-4">
+          <label htmlFor="portfolio-range" className="flex justify-between text-sm font-medium text-zinc-400 mb-4">
             <span>Total Portfolio Value</span>
             <span className="text-blue-400 font-bold">{formatCurrency(portfolio)}</span>
           </label>
           <input
+            id="portfolio-range"
             type="range"
             min={1_000_000}
             max={50_000_000}
@@ -58,15 +59,19 @@ export function RunOutCalculator() {
             value={portfolio}
             onChange={(e) => setPortfolio(Number(e.target.value))}
             className="w-full"
+            aria-valuemin={1_000_000}
+            aria-valuemax={50_000_000}
+            aria-valuenow={portfolio}
           />
         </div>
 
         <div className="mb-8">
-          <label className="flex justify-between text-sm font-medium text-zinc-400 mb-4">
+          <label htmlFor="drawdown-range" className="flex justify-between text-sm font-medium text-zinc-400 mb-4">
             <span>Monthly Drawdown</span>
             <span className="text-teal-400 font-bold">{formatCurrency(drawdown)}/mo</span>
           </label>
           <input
+            id="drawdown-range"
             type="range"
             min={10_000}
             max={500_000}
@@ -74,6 +79,9 @@ export function RunOutCalculator() {
             value={drawdown}
             onChange={(e) => setDrawdown(Number(e.target.value))}
             className="w-full"
+            aria-valuemin={10_000}
+            aria-valuemax={500_000}
+            aria-valuenow={drawdown}
           />
         </div>
 

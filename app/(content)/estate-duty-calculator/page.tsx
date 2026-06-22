@@ -1,11 +1,19 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { RelatedContent } from "@/components/seo/RelatedContent";
 import { EstateDutyCalculator } from "@/components/EstateDutyCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { getRelatedLinks } from "@/lib/related-content";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Estate Duty & Executor Cost Calculator South Africa | AS Brokers FSP 17273",
-  description:
-    "Illustrative estate duty, abatement, and executor-cost awareness for South African residents. Not a SARS assessment - independent FSP 17273 educational tool with liquidity planning context.",
+const PAGE_TITLE = "Estate Duty & Executor Cost Calculator South Africa";
+const PAGE_DESCRIPTION =
+  "Illustrative estate duty, abatement, and executor-cost awareness for South African residents. Not a SARS assessment — FSP 17273 educational tool with liquidity planning context.";
+
+export const metadata = buildPageMetadata({
+  path: "/estate-duty-calculator",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   keywords: [
     "estate duty calculator South Africa",
     "executor fees estimate",
@@ -13,11 +21,12 @@ export const metadata = {
     "SARS estate duty awareness",
     "FSP 17273",
   ],
-};
+});
 
 export default function EstateDutyCalculatorPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/estate-duty-calculator" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       {/* Hero */}
       <section className="relative pt-28 pb-12 px-4 sm:px-6 md:px-8 overflow-hidden">
         <div className="absolute top-1/4 right-0 w-[320px] h-[320px] bg-red-500/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />
@@ -206,6 +215,7 @@ export default function EstateDutyCalculatorPage() {
         </div>
       </section>
 
+      <RelatedContent links={getRelatedLinks("/estate-duty-calculator")} />
       <Footer />
     </div>
   );

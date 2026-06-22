@@ -1,5 +1,5 @@
 import { RetirementSurvivalBlueprint } from "@/components/blueprint/RetirementSurvivalBlueprint";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
 
 const offer = PLANNING_TOOL_OFFERS["retirement-survival"];
@@ -23,7 +23,7 @@ export const metadata = {
 export default function RetirementSurvivalBlueprintPage() {
   return (
     <>
-      <FAQSchema faqs={faqs} />
+      <PageJsonLd path="/retirement-survival-blueprint" webPage={{ name: metadata.title, description: metadata.description }} faqs={faqs} />
       <RetirementSurvivalBlueprint />
     </>
   );

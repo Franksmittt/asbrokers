@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { AmethystAnnuityCalculator } from "@/components/AmethystAnnuityCalculator";
-import { FAQSchema } from "@/components/FAQSchema";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Amethyst Living Annuity | Targeted 10.2% Retirement Income | AS Brokers CC",
-  description:
-    "Amethyst Living Annuity for pension, provident, preservation and RA funds. Drawdown 2.5%–17.5%. Non-Regulation 28. Tax-sheltered growth. SARS 2026/27 estimate for 65+.",
-};
+const PAGE_TITLE = "Amethyst Living Annuity | Targeted 10.2% Retirement Income";
+const PAGE_DESCRIPTION =
+  "Amethyst Living Annuity for pension, provident, preservation and RA funds. Drawdown 2.5%–17.5%. Non-Regulation 28. Tax-sheltered growth. SARS 2026/27 estimate for 65+.";
+
+export const metadata = buildPageMetadata({
+  path: "/everest-amethyst-living-annuity",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 const amethystFAQs = [
   {
@@ -30,7 +35,11 @@ const amethystFAQs = [
 export default function AmethystAnnuityPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <FAQSchema faqs={amethystFAQs} />
+      <PageJsonLd
+        path="/everest-amethyst-living-annuity"
+        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        faqs={amethystFAQs}
+      />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">Phase 3: Retirement Liquidity Architecture.</p>

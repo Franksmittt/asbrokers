@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Digital Wealth Assistant | Chat",
+export const metadata: Metadata = buildPageMetadata({
+  path: "/chat",
+  title: "Digital Wealth Assistant",
   description:
-    "AS Brokers digital wealth assistant. Ask about estate duty, Everest 12.8% Strategic Income, or Amethyst Living Annuity. Deterministic SA tax and product calculations. FSP 17273.",
-};
+    "AS Brokers digital wealth assistant for estate duty, Everest 12.8% income, and Amethyst annuity illustrations. Educational only — not financial advice. FSP 17273.",
+  noIndex: true,
+});
 
 export default function ChatLayout({ children }: { children: React.ReactNode }) {
   return children;

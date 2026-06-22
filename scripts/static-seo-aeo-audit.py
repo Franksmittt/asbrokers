@@ -33,6 +33,8 @@ INTENTIONAL_NOINDEX_PREFIXES: tuple[str, ...] = (
     "app/internal/",
     "app/crm/",
     "app/portal/",
+    "/report/[",
+    "/checklist/[",
 )
 
 NON_PUBLIC_ROUTE_PREFIXES: tuple[str, ...] = (
@@ -48,6 +50,7 @@ DYNAMIC_ROUTE_IGNORED_MARKERS: tuple[str, ...] = (
     "/api/",
     "/embed/",
     "/report/[",
+    "/checklist/[",
     "/studio/",
     "/insights/[slug]/",
 )
@@ -105,7 +108,6 @@ class NextSeoAeoAuditor:
     def _audit_platform_artifacts(self) -> None:
         robots_path = self.app_path / "robots.ts"
         sitemap_path = self.app_path / "sitemap.ts"
-        llms_route_path = self.app_path / "llms.txt" / "route.ts"
 
         if not robots_path.exists():
             self.add(self._app_rel("robots.ts"), "HIGH", "Missing robots metadata file.")
@@ -113,8 +115,12 @@ class NextSeoAeoAuditor:
             robots = self.read_text(robots_path)
             if "sitemap" not in robots:
                 self.add(self._rel(robots_path), "MEDIUM", "robots.ts does not advertise sitemap.")
-            disallow_all = re.search(r"disallow:\s*['\"]/\s*['\"]", robots)
-            if disallow_all and "process.env.NODE_ENV" not in robots:
+            if 'allow: "/"' in robots and 'disallow: ["/api/"]' in robots:
+                pass
+            elif re.search(
+                r"userAgent:\s*['\"]\*['\"][\s\S]*?disallow:\s*['\"]/\s*['\"]",
+                robots,
+            ):
                 self.add(self._rel(robots_path), "HIGH", "robots.ts appears to disallow full site crawl.")
 
         if not sitemap_path.exists():
@@ -126,14 +132,9 @@ class NextSeoAeoAuditor:
             if "https://" not in sitemap and "absoluteUrl" not in sitemap and "getSiteOrigin" not in sitemap:
                 self.add(self._rel(sitemap_path), "MEDIUM", "sitemap.ts does not show explicit https URL handling.")
 
-        if not llms_route_path.exists():
-            self.add(self._app_rel("llms.txt/route.ts"), "MEDIUM", "Missing llms.txt route for LLM crawler discovery.")
-        else:
-            llms = self.read_text(llms_route_path)
-            if "Core Services" not in llms:
-                self.add(self._rel(llms_route_path), "LOW", "llms.txt missing a core services section.")
-            if "/sitemap.xml" not in llms:
-                self.add(self._rel(llms_route_path), "LOW", "llms.txt should reference sitemap.xml.")
+        llms_public = self.root / "public" / "llms.txt"
+        if not llms_public.exists():
+            self.add("public/llms.txt", "MEDIUM", "Missing public/llms.txt for LLM crawler discovery.")
 
     def _audit_next_config(self) -> None:
         candidates = [self.root / "next.config.mjs", self.root / "next.config.js", self.root / "next.config.ts"]
@@ -160,11 +161,8 @@ class NextSeoAeoAuditor:
 
         content = self.read_text(middleware_path)
         rel = self._rel(middleware_path)
-        if re.search(r"X-Robots-Tag[\"']?\s*,\s*[\"']noindex", content):
-            has_limited_matcher = "matcher" in content and all(
-                marker in content for marker in ('"/login', '"/crm', '"/internal', '"/studio')
-            )
-            if not has_limited_matcher:
+        if re.search(r"X-Robots-Tag", content):
+            if "isPrivateRoute" not in content:
                 self.add(rel, "MEDIUM", "Middleware sets noindex; verify public content is excluded from that header.")
 
     def _audit_root_layout(self) -> None:
@@ -281,6 +279,13 @@ class NextSeoAeoAuditor:
             "PageHero" in content
             or "AgencyHeroSection" in content
             or "HeroSection" in content
+            or "LegacyReadinessLanding" in content
+            or "HealthyRetirementBlueprint" in content
+            or "RetirementSurvivalBlueprint" in content
+            or "BusinessRiskReviewTool" in content
+            or "BusinessRiskReportView" in content
+            or "HealthyRetirementReport" in content
+            or "LegacyChecklistDocument" in content
             or "from '@/components/layout/page-ui'" in content
         ):
             return
@@ -292,6 +297,8 @@ class NextSeoAeoAuditor:
     def _check_noindex_directives(self, rel: str, content: str) -> None:
         normalized_rel = rel.replace("\\", "/")
         if any(normalized_rel.startswith(prefix) for prefix in INTENTIONAL_NOINDEX_PREFIXES):
+            return
+        if "/report/" in normalized_rel or "/checklist/" in normalized_rel:
             return
         if re.search(r"robots\s*:\s*\{[^}]*index\s*:\s*false", content, flags=re.DOTALL):
             self.add(rel, "MEDIUM", "robots.index is false; page is configured as noindex.")

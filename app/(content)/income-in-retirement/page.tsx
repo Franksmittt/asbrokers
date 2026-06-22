@@ -1,16 +1,23 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { LifeOfCapitalCalculator } from "@/components/LifeOfCapitalCalculator";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Is Your Retirement Income Enough? | Retirement Calculator SA | AS Brokers",
-  description:
-    "Will your money last in retirement? Use the Life of Capital calculator to see how long your savings will last with inflation and tax.",
-};
+const PAGE_TITLE = "Is Your Retirement Income Enough? | Retirement Calculator SA";
+const PAGE_DESCRIPTION =
+  "Will your money last in retirement? Use the Life of Capital calculator to see how long your savings will last with inflation and tax.";
+
+export const metadata = buildPageMetadata({
+  path: "/income-in-retirement",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function IncomeInRetirementPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/income-in-retirement" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       {/* Hero – cinematic void + depletion-risk orb */}
       <section className="relative pt-28 pb-12 px-4 sm:px-6 md:px-8 overflow-hidden">
         <div className="absolute top-1/4 right-0 w-[320px] h-[320px] bg-red-600/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />

@@ -3,9 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { User, Menu, X } from "./icons";
-import { PlanningToolsMenu, PlanningToolsMobileSection } from "./PlanningToolsMenu";
+import { BrandLogo } from "@/components/BrandLogo";
 import { isNavActive, PRIMARY_NAV } from "@/lib/site-navigation";
+
+const PlanningToolsMenu = dynamic(
+  () => import("./PlanningToolsMenu").then((m) => m.PlanningToolsMenu),
+  { loading: () => <span className="px-3 py-2 text-sm text-zinc-500">Planning tools</span> }
+);
+const PlanningToolsMobileSection = dynamic(
+  () => import("./PlanningToolsMenu").then((m) => m.PlanningToolsMobileSection),
+  { loading: () => null }
+);
 
 const dashboardPaths = ["/crm", "/login"];
 
@@ -22,6 +32,15 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
   const linkClass = `hover:text-white transition-colors duration-300 ease-apple whitespace-nowrap ${
     scrolled ? "text-zinc-200" : "text-zinc-400"
   }`;
@@ -32,7 +51,7 @@ export function Nav() {
       <nav className="fixed top-0 w-full z-50 border-b bg-vault-card/80 backdrop-blur border-white/10 py-3">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" prefetch={false} className="flex items-center gap-3">
-            <img src="/images/logo.jpg" alt="" className="h-9 w-auto rounded-2xl object-contain" />
+            <BrandLogo height={36} priority className="h-9 w-auto rounded-2xl object-contain" />
             <span className="text-xl font-bold tracking-tight text-white">AS Brokers</span>
           </Link>
           <div className="flex items-center gap-4">
@@ -70,7 +89,7 @@ export function Nav() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
         <Link href="/" prefetch={false} className="flex items-center gap-3 shrink-0">
-          <img src="/images/logo.jpg" alt="" className="h-9 w-auto rounded-2xl object-contain" />
+          <BrandLogo height={36} className="h-9 w-auto rounded-2xl object-contain" />
           <div className="hidden sm:block">
             <span className="text-lg font-bold tracking-tight block leading-none text-white">AS Brokers</span>
             <span
@@ -102,6 +121,7 @@ export function Nav() {
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <Link
             href="/login"
+            aria-label="Team office login"
             className="hidden md:flex items-center gap-2 rim-light hover:bg-white/10 border-0 text-white px-4 py-2 rounded-[2rem] text-sm font-semibold transition-all"
           >
             <User className="w-4 h-4" />
@@ -119,6 +139,8 @@ export function Nav() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 text-zinc-400 hover:text-white transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-panel"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -126,7 +148,10 @@ export function Nav() {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-shark/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl max-h-[85vh] overflow-y-auto">
+        <div
+          id="mobile-nav-panel"
+          className="lg:hidden absolute top-full left-0 right-0 bg-shark/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl max-h-[85vh] overflow-y-auto"
+        >
           <div className="py-3 px-4 flex flex-col">
             <PlanningToolsMobileSection onNavigate={closeMobile} />
             <div className="border-t border-white/10 my-2" />

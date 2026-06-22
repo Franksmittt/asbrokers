@@ -1,19 +1,22 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
-  title: "Conflict of Interest | AS Brokers CC",
-  description:
-    "AS Brokers CC conflict of interest policy. How we manage conflicts in the interest of our clients. FSP 17273.",
-  openGraph: {
-    title: "Conflict of Interest | AS Brokers CC",
-    description: "Conflict of interest policy. FSCA-compliant. FSP 17273.",
-  },
-};
+const PAGE_TITLE = "Conflict of Interest";
+const PAGE_DESCRIPTION =
+  "AS Brokers CC conflict of interest policy. How we manage conflicts in the interest of our clients. FSP 17273.";
+
+export const metadata = buildPageMetadata({
+  path: "/conflict-of-interest",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+});
 
 export default function ConflictOfInterestPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
+      <PageJsonLd path="/conflict-of-interest" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
       <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
         <div className="max-w-4xl mx-auto">
           <p className="text-cinematic-teal text-xs font-semibold uppercase tracking-[0.2em] mb-3">Legal</p>

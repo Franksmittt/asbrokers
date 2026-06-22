@@ -69,7 +69,9 @@ export const PRIMARY_NAV: NavLink[] = [
 /** Compact footer explore links. */
 export const FOOTER_EXPLORE: NavLink[] = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Calculators", href: "/calculators" },
+  { label: "The Lab", href: "/lab" },
   { label: "Solutions", href: "/solutions" },
   { label: "Insights", href: "/insights" },
   { label: "How we work", href: "/how-we-work" },
@@ -80,6 +82,7 @@ export const FOOTER_LEGAL: NavLink[] = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
   { label: "Complaints", href: "/complaints" },
+  { label: "Conflict of interest", href: "/conflict-of-interest" },
   { label: "Compliance", href: "/regulatory-compliance" },
   { label: "Cookies", href: "/manage-cookies" },
 ];

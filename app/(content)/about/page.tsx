@@ -1,16 +1,26 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
-export const metadata = {
-  title: "About AS Brokers CC | Your Trusted Financial Partner | FSP 17273",
-  description: "Learn more about AS Brokers CC, an Authorised Financial Services Provider (FSP 17273, Category 1.8) dedicated to delivering structured financial advice and services to clients in Krugersdorp and the West Rand.",
-  openGraph: { title: 'About AS Brokers CC | Your Trusted Financial Partner | FSP 17273', description: 'Learn more about AS Brokers CC, an Authorised Financial Services Provider (FSP 17273, Category 1.8) dedicated to delivering structured financial advice and services to clients in Krugersdorp and the West Rand.', url: 'https://www.asbrokers.co.za/about', images: ['https://www.asbrokers.co.za/opengraph-image.jpg'], locale: 'en_ZA' },
-  alternates: { canonical: 'https://www.asbrokers.co.za/about' },
-};
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
+
+export const metadata = buildPageMetadata({
+  path: "/about",
+  title: "About AS Brokers CC | Your Trusted Financial Partner",
+  description:
+    "Learn about AS Brokers CC, an Authorised Financial Services Provider (FSP 17273, Category 1.8) delivering structured financial advice in Krugersdorp and the West Rand.",
+});
 export default function AboutPage() {
   return (
     <div className="bg-[#0a0a0c] min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"description\": \"Learn more about AS Brokers CC, an Authorised Financial Services Provider (FSP 17273, Category 1.8) dedicated to delivering structured financial advice and services to clients in Krugersdorp and the West Rand.\", \"@context\": \"https://schema.org\", \"name\": \"About AS Brokers CC | Your Trusted Financial Partner | FSP 17273\", \"@type\": \"WebPage\", \"url\": \"https://www.asbrokers.co.za/about\"}" }} />
+      <PageJsonLd
+        path="/about"
+        webPage={{
+          name: "About AS Brokers CC | Your Trusted Financial Partner | FSP 17273",
+          description:
+            "Learn more about AS Brokers CC, an Authorised Financial Services Provider (FSP 17273, Category 1.8) dedicated to delivering structured financial advice in Krugersdorp and the West Rand.",
+        }}
+      />
       <section className="pt-28 pb-12">
         <div className={PAGE_CONTENT_MAX}>
           <div className="max-w-4xl">
@@ -42,7 +52,6 @@ export default function AboutPage() {
             <PageMediaStrip
               variant="primary"
               src="/images/about-krugersdorp-trust-16x9.jpg"
-              alt="Local West Rand IFA office exterior or empty client meeting room, no people"
               priority
               rounded="3xl"
             />
@@ -60,7 +69,6 @@ export default function AboutPage() {
             <PageMediaStrip
               variant="secondary"
               src="/images/about-fiduciary-plaque-4x3.jpg"
-              alt="FAIS compliance binders and blurred business cards on adviser desk, no readable licence text, no people"
               rounded="3xl"
             />
           </div>

@@ -59,7 +59,6 @@ export function Code18Advantage() {
               <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0">
                 <ImagePlaceholder
                   src={`/images/${person.slug}.jpg`}
-                  alt={person.name}
                   aspectRatio="1/1"
                   placeholderLabel={person.slug}
                 />

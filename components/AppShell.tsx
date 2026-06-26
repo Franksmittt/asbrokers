@@ -56,10 +56,7 @@ export function AppShell({ children }: Props) {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      <AppShellChrome />
-      <main id="main-content" className="min-h-screen" tabIndex={-1}>
-        {children}
-      </main>
+      <AppShellChrome>{children}</AppShellChrome>
     </>
   );
 }

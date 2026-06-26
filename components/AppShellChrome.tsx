@@ -13,10 +13,11 @@ const FloatingWhatsApp = dynamic(
 );
 
 type Props = {
+  children?: React.ReactNode;
   homeOnly?: boolean;
 };
 
-export function AppShellChrome({ homeOnly }: Props) {
+export function AppShellChrome({ children, homeOnly }: Props) {
   if (homeOnly) {
     return (
       <>
@@ -29,6 +30,9 @@ export function AppShellChrome({ homeOnly }: Props) {
   return (
     <>
       <Nav />
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
+        {children}
+      </main>
       <QuickActionBar />
       <FloatingWhatsApp />
     </>

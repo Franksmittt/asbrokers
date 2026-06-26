@@ -89,7 +89,7 @@ export function Nav() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
         <Link href="/" prefetch={false} className="flex items-center gap-3 shrink-0">
-          <BrandLogo height={36} className="h-9 w-auto rounded-2xl object-contain" />
+          <BrandLogo height={36} priority className="h-9 w-auto rounded-2xl object-contain" />
           <div className="hidden sm:block">
             <span className="text-lg font-bold tracking-tight block leading-none text-white">AS Brokers</span>
             <span

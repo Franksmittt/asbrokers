@@ -8,7 +8,7 @@ type BrandLogoProps = {
   priority?: boolean;
 };
 
-/** Optimized nav/footer logo — next/image with explicit dimensions (Phase 9.3). */
+/** Optimized nav/footer logo — serves static asset directly (bypasses Vercel /_next/image when quota exceeded). */
 export function BrandLogo({ className = "h-9 w-auto rounded-2xl object-contain", height = 36, priority }: BrandLogoProps) {
   const width = Math.round(height * (120 / 36));
   return (
@@ -20,6 +20,7 @@ export function BrandLogo({ className = "h-9 w-auto rounded-2xl object-contain",
       className={className}
       sizes={`${width}px`}
       priority={priority}
+      unoptimized
     />
   );
 }

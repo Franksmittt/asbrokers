@@ -3,11 +3,8 @@
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { AppShellChrome } from "@/components/AppShellChrome";
 import { MarketingNavServer } from "@/components/MarketingNavServer";
-
-const AppShellChrome = dynamic(() => import("./AppShellChrome").then((m) => m.AppShellChrome), {
-  loading: () => null,
-});
 
 type Props = {
   children: ReactNode;

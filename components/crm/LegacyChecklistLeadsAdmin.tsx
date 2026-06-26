@@ -6,7 +6,7 @@ import type { LegacyChecklistLead } from "@/lib/db";
 import {
   exportLegacyChecklistLeadsCsv,
   fetchLegacyChecklistLeads,
-} from "@/app/crm/legacy-checklist-leads/actions";
+} from "@/app/(crm)/crm/legacy-checklist-leads/actions";
 
 type SerializedLead = Omit<LegacyChecklistLead, "createdAt"> & { createdAt: string };
 

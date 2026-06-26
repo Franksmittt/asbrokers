@@ -1,0 +1,52 @@
+================================================================================
+  AS BROKERS CRM / PORTAL BUILD LOG — r4
+  Phase 3 Polish: Kanban fixes, state persistence, contrast, dashboard upgrade
+  Date: June 2026
+================================================================================
+
+FIXES & UPGRADES
+----------------
+
+TASK 1 — Kanban drag vs click (LeadsKanban.tsx)
+- Removed nested <Link> inside draggable card (root cause of navigation on drop)
+- Track drag distance via onDragStart / onDrag + ref (6px threshold)
+- onDragEnd: preventDefault/stopPropagation when moved; suppress clicks 400ms
+- Clean static click → router.push(/crm/leads/[id]) on motion.div onClick only
+
+TASK 2 — Kanban state in CrmDemoContext
+- leads[] state initialized from lib/mock-crm.ts initialLeads
+- visibleLeads filtered by role/staffId (filterLeadsForAdvisor)
+- updateLeadStatus(leadId, status) — persists across route navigation
+- LeadsKanban consumes visibleLeads + updateLeadStatus from useCrmDemo()
+- Lead detail reads getLeadById() from context (LeadDetailPageClient)
+- Dashboard stats use getCrmStatsFromLeads(visibleLeads, ...)
+
+TASK 3 — Typography / WCAG contrast
+- CRM main layout: text-gray-200 antialiased on content shell
+- Body copy: text-gray-200 / text-gray-300 on bg-shark
+- Metadata/timestamps/labels: text-gray-400 only
+- Financial figures & counts: tabular-nums throughout
+- Updated: CrmSidebar, LeadsKanban, CrmDashboardClient, LeadDetailView,
+  leads/clients/tasks/kanban pages
+
+TASK 4 — Dashboard Bento upgrade (CrmDashboardClient.tsx)
+- High-density 12-col Bento grid with rim-light + rounded-[2rem]
+- Pipeline by stage (6 status tiles)
+- Conversion rate ring (cinematic-teal SVG, computeConversionRate from mock)
+- Tasks due today (DEMO_TODAY = 2026-06-17)
+- Recent correspondence feed (latest 3, role-filtered by visible lead IDs)
+- Recent leads mini-list with Kanban link
+
+NEW HELPERS (lib/mock-crm.ts)
+- filterLeadsForAdvisor, getCrmStatsFromLeads, getTasksDueToday
+- getRecentCorrespondence, computeConversionRate, DEMO_TODAY
+
+NEW FILE
+- components/crm/LeadDetailPageClient.tsx (context lead + Back to Kanban)
+
+VERIFICATION
+- npx tsc --noEmit  PASS
+
+================================================================================
+END r4
+================================================================================

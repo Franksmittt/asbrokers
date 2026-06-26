@@ -1,0 +1,144 @@
+================================================================================
+  AS BROKERS CRM / PORTAL BUILD LOG — r11
+  Phase 6: Supabase Magic Link Auth + Drizzle CRM Data Wiring
+  Date: June 2026
+================================================================================
+
+CONTEXT
+-------
+Replace mock cookie auth and mock-crm lead state with Supabase SSR magic links,
+Drizzle getLeads / updateLeadStatus Server Actions, and CrmContext fed from
+the CRM layout Server Component.
+
+SAFETY RULES OBSERVED
+---------------------
+- Did NOT touch app/studio/ or app/(content)/
+- @supabase/ssr only (no auth-helpers-nextjs)
+- await cookies() in Supabase server client + auth callback route
+
+================================================================================
+TASK 1 — MAGIC LINK AUTHENTICATION (/login)
+================================================================================
+
+REMOVED:
+- mock-crm-role cookie login (mockLogin name field)
+- getMockSession redirect on login page
+
+CREATED / UPDATED:
+- app/login/page.tsx — Supabase getUser(); role-based redirect (client → /portal,
+  staff/admin → /crm); sleek rim-light card
+- app/login/LoginForm.tsx — email input, useActionState, cinematic-teal success:
+  "Secure link dispatched. Check your inbox."
+- app/login/actions.ts — signInWithMagicLink Server Action:
+  supabase.auth.signInWithOtp({ email, options: { emailRedirectTo } })
+- app/auth/callback/route.ts — exchangeCodeForSession + redirect to ?next=
+- app/login/logout.ts — supabase.auth.signOut() + clear legacy mock cookies
+
+================================================================================
+TASK 2 — CRM SERVER ACTIONS (app/actions/crm.ts)
+================================================================================
+
+getLeads():
+- requireCrmUser() via createServerSupabaseClient + getUser()
+- Admin: SELECT all crm_leads
+- Staff: WHERE assigned_advisor = user.id
+- mapDbLeadToCrmLead() for Kanban UI shape
+
+getLeadById(leadId):
+- UUID validation + staff access check
+
+updateLeadStatus(leadId, newStatus):
+- Zod status enum + auth gate
+- Staff: UPDATE only own assigned leads
+- Sets pipeline_status in PostgreSQL
+
+HELPERS:
+- lib/crm/map-lead.ts — Drizzle row → CrmLead (raw_payload fields)
+- lib/crm/session.ts — crmRoleFromUser, staffDisplayName, userAppRole
+
+================================================================================
+TASK 3 — KANBAN / CRM CONTEXT WIRING
+================================================================================
+
+RENAMED:
+- CrmDemoContext.tsx → CrmContext.tsx (deleted old file)
+- CrmDemoProvider → CrmProvider
+- useCrmDemo() → useCrm()
+
+CrmProvider props (from app/(crm)/crm/layout.tsx):
+- initialLeads — await getLeads() in Server Component
+- role, staffId (user.id), staffName — from Supabase session
+
+updateLeadStatus in context:
+- Optimistic setLeads() immediately
+- void persistLeadStatus() Server Action
+- Reverts status on { ok: false }
+
+UPDATED IMPORTS (useCrm):
+- LeadsKanban, CrmDashboardClient, LeadDetail*, CrmNotesClient,
+  clients/page, leads/page, tasks/page, ClientDetailView
+
+app/(crm)/crm/layout.tsx:
+- Supabase auth replaces getMockSession
+- CrmProvider wraps shell with real initialLeads
+
+CrmSidebar:
+- Removed demo role / acting-as dropdowns
+- Real user display name + Supabase logout
+
+Still mock (Phase 7):
+- lib/mock-crm.ts — clients, tasks, notes, reminders, correspondence UI types
+- globalNotes / reminders in CrmContext
+
+================================================================================
+DATA FLOW
+================================================================================
+
+Login:
+  Email → signInWithMagicLink → Supabase OTP email
+  → /auth/callback?code=… → session cookies
+  → middleware role redirect → /crm or /portal
+
+Kanban:
+  layout getLeads() → CrmProvider initialLeads
+  → LeadsKanban visibleLeads
+  → drag → updateLeadStatus (optimistic + Server Action)
+  → crm_leads.pipeline_status in Postgres
+
+================================================================================
+FILES TOUCHED (r11)
+================================================================================
+
+Created:
+- app/actions/crm.ts
+- app/auth/callback/route.ts
+- components/crm/CrmContext.tsx
+- lib/crm/map-lead.ts
+- lib/crm/session.ts
+
+Modified:
+- app/login/page.tsx, LoginForm.tsx, actions.ts, logout.ts
+- app/(crm)/crm/layout.tsx
+- app/(crm)/crm/leads/[id]/page.tsx
+- components/crm/CrmSidebar.tsx, LeadsKanban.tsx, LeadDetailGate.tsx
+- (+ all useCrm import updates)
+
+Deleted:
+- components/crm/CrmDemoContext.tsx
+
+================================================================================
+VERIFICATION
+================================================================================
+
+- npx tsc --noEmit — PASS
+
+SUPABASE SETUP REQUIRED
+-----------------------
+- Enable Email auth + Magic Link in Supabase dashboard
+- Add redirect URL: https://www.asbrokers.co.za/auth/callback
+- Set app_metadata.role on users: Admin | Staff | Client
+- Seed crm_leads with raw_payload: { name, phone, email, funnelData, … }
+
+================================================================================
+END r11
+================================================================================

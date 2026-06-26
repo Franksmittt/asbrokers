@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+cache-control: public, max-age=3600, stale-while-revalidate=86400
+content-type: image/png
+Date: Sun, 21 Jun 2026 17:42:35 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+

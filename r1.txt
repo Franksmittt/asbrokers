@@ -1,0 +1,129 @@
+================================================================================
+  AS BROKERS CRM / PORTAL BUILD LOG — r1
+  Phase 1: Scaffolding & Design System
+  Date: June 2026
+================================================================================
+
+CONTEXT
+-------
+High-fidelity frontend prototype for bespoke CRM and Client Portal inside the
+existing Next.js 15 app. Built in strict phases. Phase 1 only — no full UI yet.
+
+SAFETY RULES OBSERVED
+---------------------
+- Did NOT touch lib/db/, database schemas, or API routes
+- Did NOT touch app/studio/ or app/(content)/
+- Data rendering deferred to Phase 2+ (lib/mock-crm.ts / lib/mock-portal.ts not
+  in repo yet; documented in CRM_AND_PORTAL.txt)
+
+================================================================================
+TASK 1 — ROUTE GROUP SEGREGATION
+================================================================================
+
+CREATED
+-------
+- app/(crm)/layout.tsx     — dark void baseline, data-app-shell="crm"
+- app/(portal)/layout.tsx  — dark void baseline, data-app-shell="portal"
+
+MOVED
+-----
+- app/crm/  →  app/(crm)/crm/
+  URLs unchanged: still /crm/* (route group name is invisible in URL)
+
+LAYOUT NESTING (CRM)
+--------------------
+  Root layout (app/layout.tsx)
+    → AppShell (no marketing nav on /crm)
+      → (crm)/layout.tsx  — bg-void, antialiased
+        → crm/layout.tsx  — sidebar + mock-auth role check (existing)
+
+SUPPORTING CHANGE — AppShell.tsx
+--------------------------------
+Paths /crm, /portal, /login now skip marketing Nav and AppShellChrome (same
+pattern as /studio/blog and /embed). Prevents CRM layouts bleeding into the
+marketing site.
+
+SUPPORTING CHANGE — next.config.ts
+----------------------------------
+Removed temporary redirects:
+  /portal → /login
+  /portal/:path* → /login
+So portal routes can be built under app/(portal)/portal/ in Phase 2.
+
+IMPORT PATH FIXES (after CRM move)
+----------------------------------
+- components/crm/BusinessRiskReviewsAdmin.tsx
+- components/crm/HealthyRetirementAssessmentsAdmin.tsx
+- components/crm/LegacyChecklistLeadsAdmin.tsx
+  Updated: @/app/crm/... → @/app/(crm)/crm/...
+
+================================================================================
+TASK 2 — ULTRA-LUXURY DESIGN TOKENS
+================================================================================
+
+tailwind.config.ts
+------------------
+Colors (exact tokens):
+  void            #000000
+  shark           #1D1D1F
+  cinematic-teal  #008080  (was #14B8A6)
+  samsung-blue    #0057B8
+  supernova-gold  #FF7F50  (was #E8B923; aligns with gold-orange)
+  gold-orange     #FF7F50
+
+Geometry:
+  borderRadius.squircle     2rem
+  borderRadius.squircle-lg  2.5rem
+  Also available: rounded-[2rem] (arbitrary)
+
+Motion:
+  transitionTimingFunction.apple → cubic-bezier(0.25, 0.1, 0.25, 1)
+  Usage: ease-apple
+
+Shadows:
+  cta-glow-gold updated to rgba(255, 127, 80, 0.35) to match supernova-gold
+
+app/globals.css
+---------------
+CSS variables aligned to same palette (#008080 teal, #FF7F50 supernova-gold).
+
+.rim-light utility (@layer utilities):
+  - bg-white/5
+  - backdrop-blur-2xl
+  - backdrop-filter: blur(2rem) saturate(160%)
+  - box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3)  (milled-edge look)
+  - Fallback without backdrop-filter: rgba(29, 29, 31, 0.95)
+
+.squircle / .squircle-lg classes retained (2rem / 2.5rem).
+
+--ease-apple and --duration-apple already present in :root.
+
+================================================================================
+KEY FILES FOR REVIEW
+================================================================================
+
+app/(crm)/layout.tsx
+app/(portal)/layout.tsx
+tailwind.config.ts
+app/globals.css
+components/AppShell.tsx
+
+================================================================================
+VERIFICATION
+================================================================================
+
+- npx tsc --noEmit  PASS (after clearing stale .next cache post-move)
+
+================================================================================
+NOTES FOR PHASE 2+
+================================================================================
+
+- Create lib/mock-crm.ts and lib/mock-portal.ts if still missing
+- Add app/(portal)/portal/ pages wired to mock-portal data
+- Build CRM UI components (Kanban, 360 views, etc.) on mock-crm
+- Marketing pages using old cinematic-teal (#14B8A6) or gold (#E8B923) may
+  look slightly different — intentional per Phase 1 palette spec
+
+================================================================================
+END r1
+================================================================================

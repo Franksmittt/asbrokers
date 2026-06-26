@@ -2,7 +2,9 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: June 2026 (Phase 12 deployment readiness — SEO/AEO handbook, performance, CI/CD gates, unified JSON-LD, Playwright quality suite, homepage static optimisation)
+Last updated: June 2026 (Phases 4–7: production CRM/portal backend — Supabase SSR, Drizzle ORM, WhatsApp webhooks; Phase 12 deployment readiness)
+
+For a CRM-builder research brief (lead flows, webhooks, WhatsApp, DB tables), see also §18–§22 below and BACKEND.md, CRM_AND_PORTAL.txt, AS_BROKERS_SERVICES.txt.
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -15,8 +17,9 @@ Language:          TypeScript
 Styling:           Tailwind CSS
 Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
                    Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/openai,
-                   @ai-sdk/react), Drizzle ORM, pg, pgvector, server-only (HubSpot),
-                   Resend (email); Trigger.dev v4 + Puppeteer (background PDF jobs).
+                   @ai-sdk/react), Drizzle ORM, pg, pgvector, @supabase/ssr,
+                   @supabase/supabase-js, server-only (HubSpot), Resend (email);
+                   Trigger.dev v4 + Puppeteer (background PDF + WhatsApp inbound jobs).
                    Quiz: Zustand (state), nuqs (URL query state for shareable results).
                    Phase 3: next-sanity, sanity (v3), @portabletext/react; Studio deps:
                    is-hotkey, styled-components, hoist-non-react-statics, uuid (v11).
@@ -51,8 +54,16 @@ What this project can do:
   - Edge middleware: URL normalisation (301), crawl traps (410), training-bot firewall (403), X-Robots-Tag on private routes.
   - Speculation rules (prerender /contact on moderate eagerness, client-injected after idle).
   - Run-out and product calculators (retirement, tax, estate, inflation, Everest Wealth, Amethyst).
-  - Lead funnels: Retirement Readiness, Healthy Retirement Blueprint, Retirement Survival Blueprint, Business Risk Review, Legacy Readiness Checklist, Wealth Building Calculator, and related report flows.
-  - CRM & Client Portal: mock-auth login (/login); role-based CRM (dashboard, Kanban, leads, clients, tasks, lead/client detail with correspondence, notes, reassign); Client Portal (wealth dashboard, My Advisor, documents with upload, messages with reply). See CRM_AND_PORTAL.txt.
+  - Lead funnels: Retirement Readiness, Healthy Retirement Blueprint™, Retirement Survival Blueprint™, Business Risk Review™, Legacy Readiness Checklist™, Wealth Building Calculator, and related report flows.
+  - Planning Tools nav (four pillars): free assessments → R299 tripwire (coming soon) → /contact ascension. See §19.
+  - CRM & Client Portal: Supabase SSR magic-link auth (/login); Drizzle ORM + PostgreSQL
+    pipeline (crm_leads, correspondence, global_notes, lead_reminders, crm_tasks);
+    role-based CRM (admin/staff dashboard, Kanban with persisted drag-drop, leads,
+    clients, tasks, lead/client detail with live WhatsApp correspondence, notes, reminders);
+    Client Portal (wealth dashboard, documents, messages — portal UI still uses
+    lib/mock-portal.ts for illustrative charts until Everest API). WhatsApp Business
+    Cloud API: inbound Meta webhook + Trigger.dev worker + outbound Server Action.
+    See CRM_AND_PORTAL.txt, build logs r11–r14.
 
 Recent work done (Phases 1–12, June 2026):
 
@@ -67,6 +78,22 @@ Recent work done (Phases 1–12, June 2026):
   - data-chunk-boundary="true" on key content sections; semantic <table> comparison data (Everest products, premiums).
   - tests/seo.spec.ts: Googlebot UA, SSR title/keywords, payload <2MB, zero hydration errors, networkidle <5s, hero h1 Levenshtein ≤0.5%.
   - scripts/gsc-canonical-check.mjs; docs/DEPLOYMENT.md (GSC, pre-launch checklist).
+
+  CRM & Portal backend (Phases 4–7, June 2026):
+  - Phase 4–7 replaced mock CRM with production architecture: static email alerts
+    supplemented by real-time, database-driven staff workflows (Kanban, tasks, notes,
+    unified correspondence threads). lib/mock-crm.ts eradicated; CRM reads/writes via
+    Drizzle ORM against PostgreSQL (DATABASE_URL).
+  - Authentication: @supabase/ssr magic links (signInWithOtp → /auth/callback → session
+    cookies). app_metadata.role = admin | staff | client. Edge middleware.ts gates
+    /crm and /portal; CRM layout enforces admin/staff; clients routed to /portal.
+  - Server Actions: app/actions/crm.ts (getLeads, updateLeadStatus, getLeadDetails,
+    correspondence, notes, reminders, tasks); app/actions/whatsapp.ts (outbound send).
+  - WhatsApp Business Cloud API: POST /api/webhooks/whatsapp (HMAC SHA-256 verify) →
+    Trigger.dev process-whatsapp-inbound → idempotent correspondence insert; auto-creates
+    crm_leads with source_funnel whatsapp_inbound when phone unknown.
+  - Pre-flight verified (r13–r14): tsc, production build, axe a11y on marketing pages,
+    end-to-end flow trace (auth, Kanban mutation, WhatsApp bidirectional).
 
   Accessibility & media (Phase 7):
   - data/image-metadata.json + scripts/generate-alt-text.mjs (npm run alt:compile); lib/image-alt.ts wired to BrandLogo, PageMediaStrip, ImagePlaceholder, Nav.
@@ -92,7 +119,8 @@ Recent work done (Phases 1–12, June 2026):
   - Home: "Reality Check" hero; RunOutCalculator (#lab); EverestWealthBento; Code18Advantage; RiskArchitectureCarousel; FloatingChat.
   - Solutions hub, Calculators hub, Contact conversion page, Everest product pages, fiduciary calculator framing.
   - Blog Studio image editing; Sanity CMS + Visual Editing; HubSpot contact sync; Trigger.dev PDF + Resend.
-  - CRM & Client Portal mocks; compliance wording pass (targeted/structured return profiles, not guaranteed returns).
+  - CRM & Client Portal production backend (Supabase SSR + Drizzle); portal charts
+    remain illustrative (lib/mock-portal.ts) until portfolio API integration.
   - Documentation: docs/calculator-overviews/, docs/DEPLOYMENT.md, docs/CUSTOMER_OVERVIEW.txt, CRM_AND_PORTAL.txt.
 
 Data currency (2026):
@@ -157,8 +185,9 @@ Services offered:
   - Everest Wealth products (Code 1.8 alternative / structured return-profile investments)
 
 Contact:
-  - WhatsApp: 067 242 9946
+  - WhatsApp (primary, site-wide): +27 66 227 6044 — https://wa.me/27662276044
   - Contact form: /contact
+  - Staff email alerts: albert@asbrokers.co.za (Resend RESEND_NOTIFY_EMAIL)
   - No advice fees on investments; personal response (no call centre)
 
 Key partners / product providers:
@@ -308,37 +337,51 @@ Quick index (all routes):
   next-sanity defineEnableDraftMode; enables draft for Visual Editing. SANITY_VIEWER_TOKEN.
 
 /login
-  CRM & Client Portal mock login. Choose role (Admin, Staff, Client); Staff pick advisor from dropdown. Sets cookies (mock-crm-role, mock-crm-user, mock-crm-staff-id); redirects to /crm (admin/staff) or /portal (client). See CRM_AND_PORTAL.txt.
+  Supabase magic-link sign-in (email only). signInWithMagicLink Server Action →
+  signInWithOtp; redirect via /auth/callback?next=. Role routing: admin/staff → /crm,
+  client → /portal. Logout clears Supabase session (+ legacy mock cookie cleanup).
+  See app/login/actions.ts, app/auth/callback/route.ts.
+
+/auth/callback
+  GET: exchangeCodeForSession(code) via @supabase/ssr + await cookies(); redirect to ?next=.
 
 /crm
-  CRM dashboard: pipeline stats (New→Won/Lost) and recent leads; role-filtered (admin = all, staff = assigned). Links to Kanban and Leads.
+  CRM dashboard: pipeline stats (New→Won/Lost), recent tasks/clients/correspondence;
+  Drizzle-backed; role-filtered (admin = all, staff = assigned). Links to Kanban and Leads.
 
 /crm/kanban
-  Pipeline Kanban: columns New, Contacted, Qualified, Proposal, Won, Lost; drag-drop cards (mock, resets on refresh). Role-filtered. Cards link to lead detail.
+  Pipeline Kanban: columns New, Contacted, Qualified, Proposal, Won, Lost; drag-drop
+  persists via updateLeadStatus Server Action → crm_leads.pipeline_status. Role-filtered.
 
 /crm/leads
-  Leads table: Name, Contact, Service, Intent, Status, Assigned, Fit/Eng. Role-filtered. Name links to /crm/leads/[id].
+  Leads table: Name, Contact, Service, Intent, Status, Assigned, Fit/Eng. Drizzle-backed.
+  Role-filtered. Name links to /crm/leads/[id].
 
 /crm/leads/[id]
-  Lead detail: contact, intent, status, service, reassign (admin only), correspondence thread, notes, tasks.
+  Lead detail: contact, intent, status, service, correspondence thread (WhatsApp send via
+  sendWhatsAppMessage Server Action), reminders, tasks. getLeadDetails Server Action.
 
 /crm/clients
-  Clients table (converted leads); role-filtered. Name links to /crm/clients/[id].
+  Clients table (pipeline_status = won); Drizzle-backed; role-filtered.
 
 /crm/clients/[id]
-  Client detail: contact, services, advisor, WhatsApp; same correspondence, notes, tasks as CRM side.
+  Client detail: contact, services, advisor; correspondence, notes, tasks.
 
 /crm/tasks
-  Tasks list: To do and Completed; linked to lead/client; role-filtered by assignee.
+  Tasks list from crm_tasks table; assignee-filtered for staff.
+
+/crm/notes
+  Team scratchpad (global_notes table); addGlobalNote Server Action.
 
 /portal
-  Client Portal dashboard: My Advisor (name, WhatsApp, Call), portfolio value, monthly income, holdings list, Recharts (income + drawdown). Mock data.
+  Client Portal dashboard: portfolio summary, holdings, Recharts (lib/mock-portal.ts
+  illustrative data until Everest API). Auth-gated via middleware.
 
 /portal/documents
-  Document vault: mock list + DocumentUpload (mock file upload). Backend will use Supabase Storage + audit.
+  Document vault UI; upload component (Supabase Storage integration planned).
 
 /portal/messages
-  Unified message thread (portal/email/WhatsApp) + MessageReply (mock send). Same thread as CRM client/lead correspondence.
+  Unified message thread UI (correspondence integration planned for client role RLS).
 
 Route structure (App Router):
   Root layout: app/layout.tsx (system font-sans, bg-void); FallbackPageJsonLdClient; Providers (ConsentProvider only — no global MotionConfig/NuqsAdapter); AppShell; SpeculationRulesClient.
@@ -444,14 +487,15 @@ Calculator components (one per calculator page):
   EverestStrategicGrowth145Calculator, AmethystLivingAnnuityCalculator
 
 CRM & Client Portal (see CRM_AND_PORTAL.txt):
-  CrmSidebar         – Desktop: nav (Dashboard, Kanban, Leads, Clients, Tasks), role/name, Log out, Back to site. Mobile: top bar with same links.
-  LeadsKanban        – Client component: columns by lead status; drag-drop cards; role-filtered initialLeads.
-  PortalNav          – Fixed top nav: logo, Dashboard/Documents/Messages, user, Log out, Site.
-  PortalDashboardCharts – Recharts: cumulative income area chart, annuity drawdown area chart (mock data).
-  PortalMyAdvisor    – Card: advisor name, role, WhatsApp button, Call link.
-  DocumentUpload     – Mock file input; appends “uploaded” item to list (no real storage).
-  MessageReply       – Textarea + Send (mock); shows “Sent (mock)”.
-  Mock data: lib/mock-auth.ts (session cookies), lib/mock-crm.ts (leads, clients, staff, correspondence, tasks, notes), lib/mock-portal.ts (holdings, documents, messages, advisor, chart data).
+  CrmSidebar         – Desktop: nav (Dashboard, Kanban, Leads, Clients, Tasks, Notes), name, Log out.
+  LeadsKanban        – Drag-drop Kanban; CrmContext optimistic UI → updateLeadStatus Server Action.
+  CrmContext         – initialLeads from layout getLeads(); wraps all /crm/* pages.
+  LeadDetailView     – Live correspondence thread; sendWhatsAppMessage with optimistic UI.
+  PortalNav          – Fixed top nav: logo, Dashboard/Documents/Messages, Log out, Site.
+  PortalDashboardChartsLazy – Client-only Recharts (ssr: false) for portal dashboard.
+  Data: lib/crm/types.ts, map-crm.ts, map-lead.ts, utils.ts, session.ts (CRM domain);
+        lib/db/schema.ts + Drizzle (crm_leads, correspondence, global_notes, lead_reminders,
+        crm_tasks); lib/mock-portal.ts (portal wealth charts only — not CRM).
 
 --------------------------------------------------------------------------------
 6. METADATA & TECHNICAL SEO
@@ -694,31 +738,55 @@ Build / env:
 13. CRM & CLIENT PORTAL
 --------------------------------------------------------------------------------
 
-Purpose: Authenticated CRM for staff/owners and Client Portal for clients; currently
-mock data and mock auth (cookie-based role/staff). Built for backend swap (Supabase,
-RLS, Magic Links, HubSpot sync).
+Purpose: Production-grade authenticated CRM for staff/owners and Client Portal for
+clients. Phases 4–7 (June 2026) replaced all mock CRM data with Supabase SSR
+Authentication (magic links) and Drizzle ORM against PostgreSQL.
 
-Entry: Nav "CRM & Client Portal" → /login. Choose Admin / Staff / Client; Staff
-also choose team member. Redirect to /crm or /portal.
+Entry: Nav "Team office" / CRM link → /login. User enters email; Supabase dispatches
+magic link. On click: /auth/callback exchanges code for session cookies. Role from
+user.app_metadata.role routes admin/staff → /crm, client → /portal.
 
-CRM (admin/staff):
-  - Dashboard: pipeline counts + recent leads (role-filtered).
-  - Kanban: drag-drop pipeline (New→Won/Lost); role-filtered.
-  - Leads: table + detail (contact, correspondence, notes, tasks, reassign for admin).
-  - Clients: table + detail (same correspondence/notes/tasks; advisor + WhatsApp).
-  - Tasks: to do / completed; linked to lead or client; role-filtered.
-  - Visibility: admin sees all; staff see only assigned leads/clients/tasks.
+Authentication stack:
+  - @supabase/ssr createServerClient with await cookies() in Server Actions, Route
+    Handlers, and middleware session refresh.
+  - app/login/actions.ts — signInWithMagicLink (signInWithOtp).
+  - app/auth/callback/route.ts — exchangeCodeForSession.
+  - middleware.ts — Edge auth gate on /crm and /portal; unauthenticated → /login?next=;
+    authenticated /login → role default redirect; training-bot 403; X-Robots-Tag noindex.
+  - app/(crm)/crm/layout.tsx — force-dynamic; canAccessCrmRole (admin|staff only);
+    CrmProvider hydrated with getLeads() from database.
+  - Roles: admin (all leads), staff (assigned_advisor = user.id), client (/portal).
 
-Client Portal (client role only):
-  - Dashboard: My Advisor (WhatsApp/Call), portfolio value, holdings, Recharts.
-  - Documents: list + mock upload (real storage planned via Supabase).
-  - Messages: unified thread + mock reply (same thread as CRM correspondence).
+CRM (admin/staff) — Drizzle-backed:
+  - Dashboard: pipeline stats, recent tasks, clients, correspondence (getTasks,
+    getClients, getRecentCorrespondence Server Actions).
+  - Kanban: drag-drop pipeline (New→Won/Lost); optimistic CrmContext + updateLeadStatus
+    persists crm_leads.pipeline_status.
+  - Leads: table + detail (getLeadDetails: lead, correspondence, reminders, tasks).
+  - Clients: won leads (pipeline_status = 'won'); client detail view.
+  - Tasks: crm_tasks table; staff filtered by assignee_id.
+  - Notes: global_notes team scratchpad.
+  - WhatsApp: unified correspondence thread; outbound via sendWhatsAppMessage Server
+    Action (Meta Graph API + correspondence insert with staff_user_id).
+  - Funnel admin views (real DB): /crm/healthy-retirement-assessments,
+    /crm/legacy-checklist-leads, /crm/business-risk-reviews.
 
-Data: lib/mock-crm.ts (leads, clients, staff, correspondence, tasks, notes; service
-categories aligned with AS Brokers solutions). lib/mock-portal.ts (holdings,
-documents, messages, advisor). lib/mock-auth.ts (session cookies).
+Client Portal (client role):
+  - Dashboard: wealth overview, holdings, Recharts (lib/mock-portal.ts illustrative
+    until Everest/portfolio API).
+  - Documents / Messages: UI scaffold; Supabase Storage + client RLS planned.
 
-Full documentation: CRM_AND_PORTAL.txt (features, benefits, how it works, routes, files).
+Database tables (lib/db/schema.ts):
+  crm_leads, correspondence, global_notes, lead_reminders, crm_tasks
+  (+ healthy_retirement_assessments, legacy_checklist_leads, business_risk_reviews)
+
+Server Actions: app/actions/crm.ts, app/actions/whatsapp.ts
+Mappers: lib/crm/map-crm.ts, lib/crm/map-lead.ts, lib/crm/types.ts
+
+Env: DATABASE_URL, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,
+     WHATSAPP_* , META_APP_SECRET, TRIGGER_SECRET_KEY. See .env.example, r14.txt.
+
+Full documentation: CRM_AND_PORTAL.txt, ROLLS_ROYCE_CRM_VISION.txt, build logs r11–r14.
 
 --------------------------------------------------------------------------------
 14. PHASE 4: ANALYTICS & POPIA COOKIE CONSENT
@@ -835,6 +903,341 @@ Current automated status (local, June 2026):
   - test:master: PASS (Lighthouse gated on Linux CI)
   - Static SEO audit: 0 findings
   - B2A: ~1,268 tokens (ceiling 128,000)
+
+--------------------------------------------------------------------------------
+18. PRODUCTS & SERVICES CATALOG (WHAT AS BROKERS SELLS)
+--------------------------------------------------------------------------------
+
+Compliance note: Everest and investment copy uses targeted/structured return profiles,
+not guaranteed or fixed returns. Voluntary Everest products: R100k minimum; 120-day
+notice; 15% early exit penalty may apply (EverestLiquidityWarning in UI).
+
+EVEREST WEALTH (Code 1.8 — Category 1.8 Securities and Instruments: Shares)
+  Provider: Everest Wealth Management (FSP 795). Distributed by AS Brokers (FSP 17273).
+
+  Product                          | Route                              | Profile (marketing)
+  ---------------------------------|------------------------------------|------------------------------------------
+  12.8% Strategic Income           | /everest-128-product               | Targeted monthly income; 10% loyalty bonus at month 60; 20% DWT
+  14.2% Onyx Income+               | /immediate-higher-income-calculator| Higher immediate monthly income; no 5-year bonus
+  14.5% Strategic Growth           | /everest-strategic-growth-145      | Compound growth over 5 years; 20% DWT at maturity
+  Amethyst Living Annuity          | /everest-amethyst-living-annuity   | Pension/RA/preservation transfer; drawdown 2.5–17.5%; SARS 2026/27 tax on income
+  Hub / comparison                 | /everest-wealth                    | Phase 1 cash flow, Phase 2 compounding, Phase 3 retirement liquidity
+  Fiduciary briefing               | /everest-wealth/about              | Regulatory architecture, risks, fees, tax
+
+RETIREMENT & INVESTMENT PLANNING
+  - Retirement income planning, living annuities, RA structuring
+  - /retirement — Capital Deficit diagnostic + Amethyst CTA
+  - /retirement-readiness — Readiness hub page
+  - /income-in-retirement — Life of Capital / capital depletion test
+  - /lab — Run-out calculator sandbox
+  - /wealth-building-calculator — General compound growth (no lead gate yet)
+
+SHORT-TERM INSURANCE
+  - Personal: /solutions/personal-insurance (home, car, valuables)
+  - Business: /solutions/business-insurance (commercial, fleet, interruption)
+
+LIFE INSURANCE
+  - Personal: /solutions/life-insurance (death, disability, severe illness, income protection)
+  - Business: /solutions/business-life (buy-and-sell, key person, loan account, employee benefits)
+  - /premium-increase-calculator — Escalating vs level premium comparison
+
+MEDICAL & WELLNESS
+  - /solutions/medical-aid — Medical aid & gap cover structuring; CMS broker-remuneration transparency
+  - Wellness & integration for high-income earners (contact topic: wellness)
+
+ESTATE & BUSINESS STRUCTURING
+  - /solutions/estate-planning — Wills, trusts, estate duty reduction
+  - /estate-duty-calculator — SARS duty + executor fees stress test
+  - /annual-estate-reduction-strategy — R100k/R200k annual donation strategy
+  - Trust & business structure (contact topic: trust)
+
+CLAIMS (operational)
+  - Domestic and commercial claims processing
+  - High-level corporate claim disputes
+
+KEY PARTNERS
+  - Everest Wealth Management (FSP 795)
+  - Santam, Old Mutual, Bryte (trust bar / partner strip)
+
+--------------------------------------------------------------------------------
+19. PLANNING TOOLS & SALES FUNNELS (FOUR-PILLAR VALUE LADDER)
+--------------------------------------------------------------------------------
+
+Source of truth: lib/planning-tools-offers.ts, lib/site-navigation.ts (PILLAR_FUNNELS),
+components/PlanningToolsMenu.tsx (nav dropdown), components/PlanningToolsStrip.tsx
+(on /calculators and /solutions).
+
+Value ladder model (Albert's master plan):
+  Stage 1 — Free lead magnet (assessment / checklist / diagnostic)
+  Stage 2 — Tripwire digital product (R299 ZAR, status: coming_soon — UI shows price, checkout → contact)
+  Stage 3 — Ascension → /contact or advisor conversation
+
+Pillar hub: /legacy-conversations — overview of Health · Wealth · Legacy · Business funnels
+  (components/legacy/LegacyConversationsHub.tsx).
+
+Nav label: "Planning tools" dropdown lists:
+  1. Legacy Conversations hub
+  2. Healthy Retirement Blueprint™ (Health)
+  3. Retirement Survival Blueprint™ (Wealth)
+  4. Legacy Readiness Checklist™ (Legacy)
+  5. Business Risk Review™ (Business)
+
+--- FUNNEL 1: Healthy Retirement Blueprint™ (Health pillar) ---
+
+  Route:     /healthy-retirement-blueprint
+  Report:    /healthy-retirement-blueprint/report/[id]
+  Question:  "Will your body survive retirement?"
+  Free:      2-minute Retirement Health Gap™ — 10 lifestyle questions → score /100
+  Paid:      Full Blueprint PDF R299 (coming_soon)
+  Ascension: Vitality & wellness → /contact (medical aid, gap, wellness)
+
+  User flow:
+    1. Landing marketing (FunnelMarketingPage: problem, who-for, proof, objections)
+    2. Interactive assessment (HealthyRetirementBlueprint.tsx)
+    3. Lead form: firstName, email, phone (optional), 10 answer fields, honeypot website
+    4. Server Action: submitHealthyRetirementAssessment (app/(content)/healthy-retirement-blueprint/actions.ts)
+    5. Scoring: lib/healthy-retirement/scoring.ts → Retirement Health Score™, Gap™, band
+    6. Persist: healthy_retirement_assessments table (DATABASE_URL + Drizzle) → UUID reportId
+    7. HubSpot: syncHealthyRetirementToHubSpot (+20 score + +10 newsletter increment)
+    8. Email: notifyStaffLead("Healthy Retirement Blueprint", ...) → albert@asbrokers.co.za via Resend
+    9. Redirect to /healthy-retirement-blueprint/report/{id} (HealthyRetirementReport.tsx)
+
+  CRM admin (staff): /crm/healthy-retirement-assessments — list, filter, CSV export
+    (components/crm/HealthyRetirementAssessmentsAdmin.tsx)
+
+--- FUNNEL 2: Retirement Survival Blueprint™ (Wealth pillar) ---
+
+  Route:     /retirement-survival-blueprint
+  Question:  "Will your money survive your retirement?"
+  Free:      5-step guided diagnostic (NOT a single-number calculator)
+  Paid:      Full PDF R299 (coming_soon)
+  Ascension: Retirement clarity → /contact
+
+  User flow (client-only — NO server lead capture today):
+    1. Landing → intro coach messages
+    2. Steps 1–5: age, freedom age, desired income, life expectancy, savings, investments owned
+    3. Results: Financial Freedom Score™, Financial Freedom Gap™, AS Brokers Freedom Rate™
+    4. Option pathways from lib/blueprint/options.ts
+    5. CTA → /contact (Book clarity conversation)
+
+  Calculations: lib/blueprint/calculations.ts
+  Component: components/blueprint/RetirementSurvivalBlueprint.tsx
+
+  ⚠ CRM GAP: This funnel does not POST lead data. Custom CRM should add capture at
+    results step (name, email, phone, scores) or webhook on CTA click.
+
+--- FUNNEL 3: Legacy Readiness Checklist™ (Legacy pillar) ---
+
+  Route:       /legacy-readiness-checklist
+  Checklist:   /legacy-readiness-checklist/checklist/[id]
+  Question:    "What happens to your family and wealth if you die tomorrow?"
+  Free:        8-area estate review → instant printable PDF
+  Paid:        Legacy Conversations Guide™ R299 (coming_soon)
+  Ascension:   Estate Planning Review → /contact
+
+  User flow:
+    1. Landing + marketing sections (FunnelMarketingPage)
+    2. Lead form: firstName, surname, email, phone, age, businessOwner (yes/no), honeypot
+    3. Server Action: submitLegacyChecklistLead (legacy-readiness-checklist/actions.ts)
+    4. Persist: legacy_checklist_leads table → UUID leadId
+    5. HubSpot: syncLegacyChecklistLeadToHubSpot (+25 +10 score); topic estate_planning, legacy_checklist
+    6. Email: notifyStaffLead("Legacy Readiness Checklist", ...)
+    7. Redirect to /legacy-readiness-checklist/checklist/{id} (printable 8-area checklist)
+
+  CRM admin: /crm/legacy-checklist-leads
+
+--- FUNNEL 4: Business Risk Review™ (Business pillar) ---
+
+  Route:   /business-risk-review
+  Report:  /business-risk-review/report/[id]
+  Question: "Could your business survive a major disruption?"
+  Free:    Interactive gap analysis → Business Risk Score™ + PDF
+  Paid:    Business Survival Blueprint™ R299 (coming_soon)
+  Ascension: Professional business risk review → /contact
+
+  User flow:
+    1. Landing marketing
+    2. Workbook: select cover types from lib/business-risk/catalog.ts (commercial, liability, crime, key person, etc.)
+    3. Lead form: name, email, phone, company, industry, selectedCoverIds[], honeypot
+    4. Server Action: submitBusinessRiskReview (business-risk-review/actions.ts)
+    5. Scoring: lib/business-risk/scoring.ts → protection %, band (strong/moderate/high_risk)
+    6. Resend REQUIRED for success (returns error if email fails)
+    7. Persist: business_risk_reviews table → UUID reportId
+    8. HubSpot: not wired in actions.ts (email only today)
+    9. Report page: /business-risk-review/report/{id}
+
+  CRM admin: /crm/business-risk-reviews
+
+Tripwire pricing: TRIPWIRE_LAUNCH_ZAR = 299 (lib/planning-tools-offers.ts). Payment
+integration is Phase 3 — paid CTAs route to /contact until live.
+
+Funnel UI kit: components/funnel/FunnelLayout.tsx, FunnelMarketingSections.tsx
+  (FunnelValueLadder, FunnelObjectionStrip, FunnelAscensionHint, FunnelToolShell).
+
+--------------------------------------------------------------------------------
+20. CALCULATORS, QUIZ & OTHER LEAD TOUCHPOINTS
+--------------------------------------------------------------------------------
+
+Public calculators hub: /calculators — Phase 1 (retirement + Everest featured), Phase 2 (tax, estate, premium).
+
+Calculator / tool                    | Route                              | Lead capture today
+-------------------------------------|------------------------------------|----------------------------------
+Run-out (home + lab)                 | /, /lab                            | Client-only gate (name/email/POPIA unlocks chart — NO server submit) ⚠
+Retirement Reality                   | /retirement                        | CTA → contact; optional LeadFormContext modal
+Income in retirement                 | /income-in-retirement              | CTA → contact / Everest
+Cost of inflation                    | /cost-of-inflation-over-time       | CTA only
+Income tax                           | /income-tax-calculator             | CTA only
+Estate duty                          | /estate-duty-calculator            | CTA → annual estate reduction
+Annual estate reduction              | /annual-estate-reduction-strategy  | CTA → contact
+Premium increase                     | /premium-increase-calculator       | CTA → contact
+Everest 128 / 142 / 145 / Amethyst   | product pages                      | Calculators + contact CTAs; R100k min validation on leads
+Wealth building                      | /wealth-building-calculator        | No lead form
+Financial Health Quiz                | /quiz                              | Zustand + nuqs shareable URL; CTA opens LeadFormContext (modal) — routes by concern/age/capital
+Digital Wealth Assistant             | /chat                              | useChat; no automatic CRM sync; tools for estate/128/Amethyst
+
+Quiz routing rules (app/(content)/quiz/page.tsx):
+  - Yields + capital > R100k → Everest 12.8%
+  - Retirement age 55+ → Amethyst
+  - Estate taxes concern → Annual Estate Reduction
+  - CTA opens global lead form modal (LeadFormContext)
+
+Formulas & tax: app/(content)/calculators/CONTEXT.md, AGENTS.md (SARS 2026/27, estate R3.5m abatement).
+
+--------------------------------------------------------------------------------
+21. LEAD CAPTURE & CRM INTEGRATION MAP (FOR CUSTOM CRM BUILD)
+--------------------------------------------------------------------------------
+
+This section documents lead capture paths and the production CRM integration map.
+Marketing forms still use Resend + optional HubSpot; CRM pipeline is Drizzle/PostgreSQL.
+
+A. CONTACT FORM (/contact)
+  Component:  components/forms/ContactEnquiryForm.tsx (lazy on contact via ContactEnquiryFormLazy)
+  Action:     app/actions/contact.ts → submitContactEnquiry
+  Fields:     fullName, phone, email, topics[] (multi-select), consent (POPIA), honeypot website
+  Topics IDs: everest, medical_gap, medical, gap, short_business, short_personal, life_business,
+              life_personal, will, trust, wellness, estate, general
+  On submit:
+    1. Zod contactFormSchema validation
+    2. notifyStaffContactEnquiry → Resend → RESEND_NOTIFY_EMAIL (default albert@asbrokers.co.za)
+    3. syncContactToHubSpot (non-blocking) — search by email, PATCH or POST
+    4. Optional Trigger.dev generate-financial-pdf if TRIGGER_SECRET_KEY set
+  HubSpot properties: email, firstname, lastname, phone, financial_inquiry_topic,
+    platform_lead_score (cumulative), financial_capital_input (if capital on calculator leads)
+  Lead score increments: +20 if capitalAmount > R1M; +15 if topic short_business or trust
+
+B. NEWSLETTER (footer)
+  Action: app/actions/newsletter.ts → subscribeNewsletter
+  Fields: email
+  HubSpot: syncNewsletterToHubSpot (+10 platform_lead_score)
+  Email: notifyStaffNewsletterSignup + sendNewsletterWelcome (when configured)
+
+C. PLANNING TOOL FUNNELS (see §19)
+  Table / storage (PostgreSQL via Drizzle, requires DATABASE_URL):
+    healthy_retirement_assessments  — id, first_name, email, phone, answers jsonb, health_score, health_gap, score_band, source, created_at
+    legacy_checklist_leads          — id, first_name, surname, email, phone, age, business_owner, source, created_at
+    business_risk_reviews           — id, name, email, phone, company, industry, coverage_score, protection_percent, selected/missing cover jsonb, created_at
+
+  Staff CRM views (no mock — reads real DB when DATABASE_URL set):
+    /crm/healthy-retirement-assessments
+    /crm/legacy-checklist-leads
+    /crm/business-risk-reviews
+
+D. PRODUCTION CRM (/crm, /portal) — LIVE (Phases 4–7)
+  Auth: /login — Supabase magic links (@supabase/ssr); session in HTTP-only cookies.
+    app_metadata.role: admin | staff | client. middleware.ts + CRM layout role gates.
+  Data: Drizzle ORM via lib/db (DATABASE_URL). lib/mock-crm.ts REMOVED.
+  Server Actions: app/actions/crm.ts (pipeline, correspondence, notes, tasks, reminders);
+    app/actions/whatsapp.ts (outbound Meta Graph API).
+  Schema (lib/db/schema.ts): crm_leads, correspondence, global_notes, lead_reminders,
+    crm_tasks. Contact phone stored in crm_leads.raw_payload.phone.
+  Kanban: LeadsKanban → CrmContext.updateLeadStatus → crm_leads.pipeline_status.
+  WhatsApp inbound: see §22. Deploy: npm run db:push; set Supabase + Meta + Trigger env.
+  Build logs: r11 (auth), r12 (mock eradication), r13 (pre-flight), r14 (flow verification).
+
+E. HUBSPOT (optional CRM sync today)
+  Service: lib/hubspot.service.ts
+  Env: HUBSPOT_ACCESS_TOKEN or HUBSPOT_PRIVATE_APP_TOKEN
+  Required custom contact properties (create in HubSpot Settings):
+    platform_lead_score (Number)
+    financial_inquiry_topic (Single-line text)
+    financial_capital_input (Number or text)
+  Known issue: form fails HubSpot POST if properties missing (BACKEND.md)
+
+F. EMAIL (Resend)
+  lib/email/resend.ts, lib/email/notifications.ts
+  Env: RESEND_API_KEY, RESEND_FROM (default AS Brokers <albert@asbrokers.co.za>),
+       RESEND_NOTIFY_EMAIL (staff inbox)
+  Functions: notifyStaffContactEnquiry, notifyStaffLead, notifyStaffNewsletterSignup,
+              sendContactAutoReply (defined, not always called from contact action)
+
+G. PDF GENERATION (Run-out / contact)
+  Trigger.dev task: generate-financial-pdf (trigger/generatePdf.ts)
+  Print page: /internal/pdf-report?portfolio=&drawdown= (Puppeteer → Resend attachment)
+  Env: TRIGGER_SECRET_KEY (Next.js), RESEND_API_KEY + APP_URL (Trigger worker)
+
+H. REMAINING INTEGRATION GAPS (post Phase 7)
+  1. RunOutCalculator home gate — wire Server Action + store portfolio/drawdown/scores in CRM
+  2. Retirement Survival Blueprint — add lead capture at results → crm_leads
+  3. Business Risk Review — add HubSpot sync (other funnels have it)
+  4. Quiz / LeadFormContext modal — connect to crm_leads pipeline
+  5. /chat conversations — store messages; optional lead escalation
+  6. Contact form → auto-insert crm_leads row (today: Resend + HubSpot only)
+  7. Client Portal — replace lib/mock-portal.ts with Everest API + client RLS
+  8. Supabase RLS policies — enforce admin/staff/client at database layer (app-layer gates live)
+
+I. SERVICE CATEGORY TAGS (for CRM routing)
+  From lib/crm/types.ts / crm_leads.service_category:
+    retirement_everest, short_term_personal, short_term_business, life_personal, life_business,
+    medical_wellness, estate_business, claims
+  Map contact topics + funnel source → service_category for advisor assignment
+
+--------------------------------------------------------------------------------
+22. WHATSAPP, COMMUNICATIONS & CLIENT TOUCHPOINTS
+--------------------------------------------------------------------------------
+
+WhatsApp — production integration (Phases 6–7):
+
+  Outbound deep links (marketing):
+    Canonical link: https://wa.me/27662276044 (+27 66 227 6044)
+    Surfaces: FloatingWhatsApp, QuickActionBar, Footer, ContactPageView, calculator CTAs.
+
+  Inbound webhook architecture:
+    1. Meta Cloud API POST → /api/webhooks/whatsapp (app/api/webhooks/whatsapp/route.ts)
+    2. GET hub.verify_token challenge (WHATSAPP_VERIFY_TOKEN) for webhook subscription
+    3. POST: raw body verified with X-Hub-Signature-256 HMAC-SHA256 (META_APP_SECRET)
+       via lib/whatsapp/meta-webhook.ts verifyMetaWebhookSignature()
+    4. extractWhatsappInboundMessages() parses message.id, from, text
+    5. tasks.trigger("process-whatsapp-inbound", payload, {
+         idempotencyKey: message.messageId   // exact Meta wamid
+       })
+    6. trigger/whatsapp.ts worker:
+       - Lookup crm_leads by phone (lib/whatsapp/lead-phone.ts)
+       - If not found: INSERT crm_leads { source_funnel: 'whatsapp_inbound',
+         pipeline_status: 'new', raw_payload: { phone } }
+       - INSERT correspondence { channel: 'whatsapp', sender_type: 'client',
+         message_body, external_message_id } ON CONFLICT DO NOTHING (unique index)
+    Env: WHATSAPP_VERIFY_TOKEN, META_APP_SECRET, DATABASE_URL (Trigger worker),
+         TRIGGER_SECRET_KEY (Next.js dispatch).
+
+  Outbound staff replies (CRM):
+    1. components/crm/LeadDetailView.tsx — sendReply() optimistic UI
+    2. app/actions/whatsapp.ts — sendWhatsAppMessage(leadId, text)
+       - Auth: Supabase session + canAccessCrmRole (admin|staff)
+       - POST Meta Graph API v19.0 /{WHATSAPP_PHONE_NUMBER_ID}/messages
+         (WHATSAPP_ACCESS_TOKEN)
+       - INSERT correspondence { sender_type: 'staff', staff_user_id: user.id,
+         external_message_id: Graph response id }
+    3. Thread visible in /crm/leads/[id] via getLeadDetails → correspondence rows
+
+Phone / email:
+  - Contact form captures phone on all major funnels
+  - Resend delivers staff alerts with replyTo set to lead email
+  - Auto-reply to visitor: sendContactAutoReply available but not wired in main contact flow
+
+Other comms:
+  - /portal/messages — client thread UI (backend RLS integration planned)
+  - /crm/leads/[id] — live correspondence thread (WhatsApp + future channels)
+  - POPIA: consent checkbox on contact form and Run-out gate; cookie consent gates GA4/Hotjar
 
 --------------------------------------------------------------------------------
 END OF PROJECT OVERVIEW

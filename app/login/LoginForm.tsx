@@ -1,41 +1,61 @@
 "use client";
 
-import { useTransition, useState } from "react";
-import { mockLogin } from "@/app/login/actions";
+import { useActionState } from "react";
 
-export function LoginForm() {
-  const [name, setName] = useState("");
-  const [isPending, startTransition] = useTransition();
+import { signInWithMagicLink, type MagicLinkState } from "@/app/login/actions";
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    startTransition(() => mockLogin(name));
-  }
+type LoginFormProps = {
+  nextPath: string;
+};
+
+export function LoginForm({ nextPath }: LoginFormProps) {
+  const [state, formAction, isPending] = useActionState<MagicLinkState, FormData>(
+    signInWithMagicLink,
+    null
+  );
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form action={formAction} className="space-y-6">
+      <input type="hidden" name="next" value={nextPath} />
+
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-1">
-          Your name (optional)
+        <label htmlFor="email" className="mb-1 block text-sm font-medium text-zinc-300">
+          Work email
         </label>
         <input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="e.g. Albert"
-          className="w-full px-4 py-3 rounded-2xl bg-black/40 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50"
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          placeholder="you@asbrokers.co.za"
+          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50"
         />
       </div>
-      <p className="text-zinc-500 text-xs">
-        Sign in to the team office: Wealth Presentation and Sanity Studio for blog posts and content.
+
+      <p className="text-xs text-zinc-500">
+        We&apos;ll send a one-time secure link. No password required.
       </p>
+
+      {state?.message ? (
+        <p
+          role="status"
+          className={
+            state.success
+              ? "rounded-2xl border border-cinematic-teal/30 bg-cinematic-teal/10 px-4 py-3 text-sm text-cinematic-teal"
+              : "rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-300"
+          }
+        >
+          {state.message}
+        </p>
+      ) : null}
+
       <button
         type="submit"
-        disabled={isPending}
-        className="w-full py-3.5 rounded-2xl bg-white text-black font-semibold hover:bg-zinc-200 transition-colors disabled:opacity-50"
+        disabled={isPending || state?.success === true}
+        className="w-full rounded-2xl bg-white py-3.5 font-semibold text-black transition-colors hover:bg-zinc-200 disabled:opacity-50"
       >
-        {isPending ? "Signing in…" : "Sign in to office"}
+        {isPending ? "Dispatching…" : "Send secure link"}
       </button>
     </form>
   );

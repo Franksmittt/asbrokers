@@ -1,0 +1,508 @@
+{
+
+  "format": "asbrokers-crm-calculator-review",
+
+  "version": 1,
+
+  "exportedAt": "2026-06-18T20:21:09.590Z",
+
+  "source": "/crm/calculators",
+
+  "instructionsForDeveloper": "Internal review from /crm/calculators. Keep only calculators where keep=true on the public /calculators page; remove the rest. Apply notes for naming, grouping, or merges.",
+
+  "summary": {
+
+    "total": 18,
+
+    "keep": 1,
+
+    "remove": 17,
+
+    "withNotes": 10
+
+  },
+
+  "calculators": [
+
+    {
+
+      "id": "retirement-reality",
+
+      "title": "Retirement Reality Calculator",
+
+      "embedPath": "/embed/calculators/retirement-reality",
+
+      "group": "Retirement planning",
+
+      "keep": true,
+
+      "notes": "Please we need to check the calculations. Purpose of this calculator:\n\nThis calculator should estimate the lump sum capital required at retirement to provide a target monthly income (after tax) from retirement until life expectancy.\n\nThe calculation should:\n\n• Start with the user's required monthly income in today's money (after tax).\n• Increase that income by inflation until retirement age.\n• Convert the future after-tax income into a gross income requirement using the retirement tax assumption.\n• Calculate the capital required at retirement to fund that income from retirement age until life expectancy.\n• Assume withdrawals increase annually with inflation during retirement.\n• Assume the remaining capital continues to earn the selected investment growth rate during retirement.\n• Show how sensitive the result is to lower investment returns (for example 2% lower growth).\n\nThe result should represent the estimated retirement capital required at retirement date, not a monthly contribution amount.\n\nPlease verify that the current formulas produce this outcome accurately and that the assumptions shown to the user match the calculations being performed.\n\nThe "Growth 2% Lower" scenario is valuable and should remain. However, the current hover tooltip covers the graph and provides little additional information. Consider redesigning this section so that the comparison is immediately visible without requiring a hover action. The objective is to clearly demonstrate how sensitive retirement capital requirements are to lower long-term investment returns.",
+
+      "decision": "keep"
+
+    },
+
+    {
+
+      "id": "retirement-shortfall",
+
+      "title": "Retirement Shortfall Calculator",
+
+      "embedPath": "/embed/calculators/retirement-shortfall",
+
+      "group": "Retirement planning",
+
+      "keep": false,
+
+      "notes": "Retirement Shortfall Calculator – Review Notes\nOverall Assessment\nThe underlying calculations appear logical and the calculator successfully estimates:\n* Future income required at retirement\n* Capital required at retirement\n* Projected value of current savings\n* Retirement capital shortfall\n* Estimated monthly contribution required\nThe calculator is useful and should remain in the Retirement Planning category.\n
+\n⸻\n
+\nRecommended Improvements\n1. Rename Calculator\nCurrent:\nRetirement Shortfall Calculator\nSuggested:\nRetirement Readiness Calculator\nor\nRetirement Gap Calculator\nReason:\n"Shortfall" immediately creates a negative impression. "Readiness" is more neutral and user-friendly while still communicating the purpose.\n
+\n⸻\n
+\n2. Add Retirement Readiness Score\nAdd a visual readiness indicator.\nExample:\nRequired Capital: R20 600 979\nProjected Retirement Capital: R8 500 000\nReadiness Score: 41%\nStatus: Serious Shortfall\nSuggested bands:\n* 80%+ = On Track\n* 50%–79% = Needs Attention\n* Below 50% = Serious Shortfall\nThis gives users immediate context instead of forcing them to interpret large numbers.\n
+\n⸻\n
+\n3. Add Income Gap Output\nPeople think in monthly income rather than capital.\nAdd:\nRequired Retirement Income:
+R85 837 pm\nProjected Retirement Income:
+R35 000 pm\nIncome Gap:
+R50 837 pm\nThis is often easier to understand than a capital shortfall of several million rand.\n
+\n⸻\n
+\n4. Add Capital Progress Visual\nAdd a simple progress bar.\nExample:\nRequired Capital
+R20.6 million\nProjected Capital
+R8.5 million\nProgress:
+41%\nThis creates an immediate visual understanding of retirement readiness.\n
+\n⸻\n
+\n5. Add Inflation Sensitivity Section\nShow how inflation assumptions affect the outcome.\nExample:\nInflation Rate\tRequired Capital\n5%\tR17 million\n6%\tR20.6 million\n7%\tR25 million\nThis demonstrates the impact of inflation and improves educational value.\n
+\n⸻\n
+\n6. Add Retirement Capital Growth Graph\nRecommended graph:\nX-axis:
+Age\nY-axis:
+Capital\nDisplay:\n* Required Retirement Capital\n* Projected Retirement Capital\nThis is likely the most valuable visual improvement for understanding the retirement gap.\n
+\n⸻\n
+\n7. Improve Results Narrative\nReplace the current "What This Means" section with a more structured explanation.\nSuggested format:\nYour Retirement Projection\n* Years until retirement: 25\n* Future income required: R85 837 per month\n* Estimated retirement capital required: R20 600 979\n* Projected value of current savings: R0\n* Estimated capital shortfall: R20 600 979\n* Estimated starting contribution required: R6 388 per month increasing by 10% annually\nThis is easier to read than a single paragraph.\n
+\n⸻\n
+\n8. Consider Adding Scenario Testing\nOptional enhancement.\nAdd a button:\n"Compare Alternative Scenarios"\nAllow users to compare:\n* Retirement at 60\n* Retirement at 65\n* Retirement at 70\nThis helps demonstrate the impact of working longer or retiring earlier.\n
+\n⸻\n
+\nRecommendation\nKeep the calculator.\nPriority improvements should be:\n1. Retirement Readiness Score\n2. Income Gap Output\n3. Capital Progress Bar\n4. Capital Growth Graph\n5. Inflation Sensitivity Table\nThese changes would significantly improve usability without changing the underlying calculation methodology.\n
+\n⸻\n
+\nI would rate this calculator 8/10 currently and 9.5/10 after the above improvements. The mathematics are already solid. The biggest opportunity is helping users interpret the results more quickly.",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "life-of-capital",
+
+      "title": "Life of Capital Calculator",
+
+      "embedPath": "/embed/calculators/life-of-capital",
+
+      "group": "Retirement planning",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "future-value",
+
+      "title": "Cost of Inflation Over Time Calculator",
+
+      "embedPath": "/embed/calculators/future-value",
+
+      "group": "Inflation & tax",
+
+      "keep": false,
+
+      "notes": "Rename calculator consistently to "Inflation Impact Calculator" or "Inflation Cost Calculator". Move "Purchasing Power Lost" to the first result card because it is the most impactful figure. Add a plain-English explanation beneath results. Rename "Future Buying Power" to "Remaining Purchasing Power". Add "Inflation Doubling Time" output (Rule of 72). Add optional inflation scenario table (4%, 6%, 8%). Add retirement example showing how a monthly income requirement increases over time. Add a line showing the minimum investment growth required to maintain purchasing power. Keep calculator public and feature it prominently because it is one of the strongest educational tools in the library.",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "financial-freedom-capital",
+
+      "title": "AS Brokers Financial Freedom Calculator",
+
+      "embedPath": "/embed/calculators/financial-freedom-capital",
+
+      "group": "Retirement planning",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "growth-rate",
+
+      "title": "AS Brokers Growth Rate Calculator",
+
+      "embedPath": "/embed/calculators/growth-rate",
+
+      "group": "Retirement planning",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "income-tax",
+
+      "title": "Income Tax Calculator",
+
+      "embedPath": "/embed/calculators/income-tax",
+
+      "group": "Inflation & tax",
+
+      "keep": false,
+
+      "notes": "Income Tax Calculator Improvements\n\n1. Add Marginal Tax Rate alongside Effective Tax Rate.\n2. Add "Tax Freedom Day" showing approximately how many days per year are worked to pay SARS.\n3. Add optional retirement contribution input and calculate estimated tax saving from deductible retirement fund contributions.\n4. Add optional medical aid member/dependant inputs and estimate medical tax credits.\n5. Add salary breakdown section showing Gross Salary → PAYE → Net Salary.\n6. Consider renaming to "Salary, Tax & Retirement Calculator" to increase educational and advisory value.\n7. Remove "Similar Tools Exist" badge and replace with a more relevant category label.\n8. Add contextual explanation below results explaining the difference between marginal and effective tax rates.",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "estate-duty",
+
+      "title": "Estate Duty Calculator",
+
+      "embedPath": "/embed/calculators/estate-duty",
+
+      "group": "Estate",
+
+      "keep": false,
+
+      "notes": "Rename calculator from "Estate Duty Calculator" to "Estate Liquidity Calculator". The objective is not only to calculate estate duty, but to show the total cash requirement an estate may face at death. Add a detailed calculation breakdown showing Gross Estate, Less Liabilities, Less Section 4(q) Spouse Deduction, Less Section 4A Abatement, Dutiable Estate, and Estate Duty Payable. Add a new input called "Liquid Assets Available" and display Available Liquidity, Liquidity Shortfall, and Recommended Estate Liquidity Cover. Change executor fee wording to "Estimated executor remuneration based on the standard tariff of 3.5% plus VAT." Add an educational note explaining that estate duty is often not the largest estate cost and that CGT, conveyancing fees, and liquidity shortages may also apply. This will convert the calculator from a tax tool into a comprehensive estate planning tool.",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "estate-reduction",
+
+      "title": "Estate Reduction Strategy Calculator",
+
+      "embedPath": "/embed/calculators/estate-reduction",
+
+      "group": "Estate",
+
+      "keep": false,
+
+      "notes": "1. Rename to Trust Donation & Estate Duty Calculator.\n2. Replace "Estate Duty Saved" with "Potential Estate Duty Reduction".\n3. Add Growth Outside Estate.\n4. Add Future Wealth Shifted Outside Estate.\n5. Add a tax/legal disclaimer.\n6. Future version: allow actual estate value input and calculate estate duty before vs after strategy.",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "premium-comparison",
+
+      "title": "Premium Increase Problem Calculator",
+
+      "embedPath": "/embed/calculators/premium-comparison",
+
+      "group": "Insurance",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "everest-128",
+
+      "title": "Everest 12.8 Product Calculator",
+
+      "embedPath": "/embed/calculators/everest-128",
+
+      "group": "Everest single product",
+
+      "keep": false,
+
+      "notes": "verest 12.8 Calculator – Required Improvements\nObjective\nConvert the calculator from a product illustration into a retirement income decision tool suitable for Google Ads traffic.\nThe primary question the calculator must answer is:\n"How much monthly income can my investment generate?"\nThe secondary question is:\n"Why would I choose this solution instead of a bank deposit or taxable investment?"\n
+\n⸻\n
+\n1. Rename Calculator\nCurrent\nEverest 12.8 Product Calculator\nReplace With\nInvestment Income Calculator\nSubtitle\nEstimate the monthly income your capital may generate using the Everest Strategic Income Solution.\nRemove product-first naming from the public version.\nPeople search for income solutions, not product names.\n
+\n⸻\n
+\n2. Prioritise Monthly Income Result\nMove the Monthly Income result to the most prominent position immediately below the Calculate button.\nDisplay order should be:\nYour Estimated Monthly Income\nR X XXX\nAnnual Income\nR XX XXX\nEverything else must appear below these two figures.\nMonthly income is the primary outcome visitors want.\n
+\n⸻\n
+\n3. Add Capital Preservation Section\nAdd a new result card:\nCapital Summary\nInitial Capital\nR X XXX XXX\nIncome Received Over 5 Years\nR XXX XXX\nLoyalty Bonus\nR XXX XXX\nOriginal Capital\nR X XXX XXX\nThis helps investors understand that the illustration assumes capital remains invested while generating income.\n
+\n⸻\n
+\n4. Replace "Why Dividends Beat Income Tax"\nCurrent wording is difficult to understand.\nReplace with:\nTax Efficiency Illustration\nSame Gross Return Taxed As Income\nR X XXX per month\nStrategic Income Dividend Structure\nR X XXX per month\nDifference\n+R X XXX per month\nShow the actual calculation visually rather than explaining it in text.\n
+\n⸻\n
+\n5. Add Income Target Table\nAdd a new section:\nHow Much Capital May Be Required?\nBased on the current calculator assumptions.\nDisplay:\nDesired Monthly Income\tEstimated Capital Required\nR20 000\tR2.34 million\nR30 000\tR3.52 million\nR50 000\tR5.86 million\nR75 000\tR8.79 million\nR100 000\tR11.72 million\nFormula:\nRequired Capital =
+Desired Annual Income ÷ 10.24%\n(Using 12.8% less 20% dividend withholding tax)\nThis section is extremely important because most retirees think in income, not capital.\n
+\n⸻\n
+\n6. Add Comparison Against Cash Investment\nAdd a comparison section.\nIncome Comparison\nFor the same investment amount:\nStrategic Income Solution\nR X XXX per month\nMoney Market Investment (8%)\nR X XXX per month\nAdditional Monthly Income\n+R X XXX per month\nAssume:\nMoney Market Return = 8% per annum\nTax = User selectable or default 36% marginal rate\nThis helps justify the higher income outcome.\n
+\n⸻\n
+\n7. Improve Return Section\nCurrent:\nTotal 5-Year Return\nReplace with:\nIncome Received Over 5 Years\nR XXX XXX\nLoyalty Bonus\nR XXX XXX\nCombined Benefit\nR XXX XXX\nThis wording is easier for clients to understand.\n
+\n⸻\n
+\n8. Compliance Wording\nReplace:\n"12.8% fixed return"\nWith:\n"Targeted 12.8% annual return"\nOr:\n"Illustrated using a 12.8% annual return assumption"\nUnless the return is contractually guaranteed.\n
+\n⸻\n
+\n9. Add Educational Section\nAt the bottom add:\nHow This Calculator Works\nThis calculator estimates monthly income using a targeted annual return of 12.8% less 20% dividend withholding tax.\nResults are estimates only and should not be regarded as investment advice or a guaranteed outcome.\nActual returns, liquidity terms and taxation may vary.\n
+\n⸻\n
+\n10. Future Enhancement (Highest Priority)\nCreate a toggle allowing visitors to choose:\nOption A\n"I know my investment amount"\nCurrent calculator behaviour.\nOption B\n"I know the income I need"\nUser enters:\nR30 000 per month\nCalculator immediately displays:\nEstimated Capital Required\nR3.52 million\nThis would likely become the highest-converting version because retirement investors think in income requirements rather than investment amounts.\n
+\n⸻\n
+\nPriority Order\n1. Add Income Target Table\n2. Add Comparison Against Money Market\n3. Move Monthly Income To Top\n4. Add Capital Preservation Section\n5. Improve Tax Comparison\n6. Rename Calculator\n7. Compliance Wording\nThese changes will make the calculator substantially stronger as a Google Ads destination page and align it more closely with retirement-income planning rather than product promotion.",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "everest-128-vs-142",
+
+      "title": "12.8% vs 14.2% Investment Income Comparison Calculator",
+
+      "embedPath": "/embed/calculators/everest-128-vs-142",
+
+      "group": "Everest 12.8 vs 14.2",
+
+      "keep": false,
+
+      "notes": "Please improve the Everest 12.8% vs 14.2% Income Calculator.\n\nThis calculator must compare two Everest income options side-by-side:\n\n1. 12.8% option:\n- Gross return: 12.8% per year\n- Dividend withholding tax: 20%\n- Net return: 10.24% per year\n- Includes an 8% capital bonus at the end of every 5-year period if the bonus toggle is selected\n\n2. 14.2% option:\n- Gross return: 14.2% per year\n- Dividend withholding tax: 20%\n- Net return: 11.36% per year\n- No bonus\n\nMain purpose:\nThe calculator must help the user understand the trade-off between higher immediate monthly income and the 5-year bonus structure.\n\nInputs:\n- Investment amount\n- Comparison period\n- Income treatment: take income monthly OR reinvest income\n- Toggle: include 8% capital bonus on the 12.8% option at the end of each 5-year period\n\nResults must show clearly:\n- Monthly income for 12.8%\n- Monthly income for 14.2%\n- Monthly income difference\n- Annual income for both options\n- Total income over selected period for both options\n- Bonus added to 12.8% option\n- Illustrative capital value for both options\n- Which option gives higher monthly income\n- Which option gives higher 5-year total value\n\nAdd a decision summary box at the top of the results:\n- Best monthly income option\n- Best projected 5-year value option\n- Monthly income difference\n- Total income difference\n- Bonus value included or excluded\n\nAdd a break-even calculation:\n- Divide the 12.8% bonus amount by the additional annual income from the 14.2% option.\n- Display: "The 14.2% option needs approximately X years of extra income to match the 12.8% bonus."\n\nFor the R1,000,000 example:\n- 12.8% net monthly income = R8,533\n- 14.2% net monthly income = R9,467\n- Difference = R933 per month\n- Annual difference = R11,200\n- 8% bonus = R80,000\n- Break-even = approximately 7.1 years\n\nUse clean labels. Avoid saying "guaranteed" or implying certainty. Use "illustrative" where needed.\n\nAdd a compliance note:\n"This calculator is for educational and illustrative purposes only. It does not constitute financial advice. Product suitability depends on risk profile, liquidity needs, tax position, investment term, and personal circumstances. Please consult a licensed financial adviser before investing."",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "everest-128-vs-142-five-year",
+
+      "title": "12.8% vs 14.2% Five-Year Income Comparison",
+
+      "embedPath": "/embed/calculators/everest-128-vs-142-five-year",
+
+      "group": "Everest 12.8 vs 14.2",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "everest-142",
+
+      "title": "Everest 12.8 Income Calculator",
+
+      "embedPath": "/embed/calculators/everest-142",
+
+      "group": "Everest single product",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "everest-145-growth",
+
+      "title": "Everest Strategic Growth 14.5 Calculator",
+
+      "embedPath": "/embed/calculators/everest-145-growth",
+
+      "group": "Everest single product",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "amethyst-annuity",
+
+      "title": "Everest Amethyst Living Annuity Calculator",
+
+      "embedPath": "/embed/calculators/amethyst-annuity",
+
+      "group": "Living annuity",
+
+      "keep": false,
+
+      "notes": "Calculator Review – Everest Amethyst Living Annuity Calculator\n\nreposition it as an educational retirement income planning tool rather than a product calculator.\n\nRename\n\nChange calculator name to:\n\nLiving Annuity Income Calculator\n\nSubheading:\n\nEstimate your retirement income, tax, and drawdown sustainability.\n\nAdd a smaller note:\n\nIllustrative calculations based on the Everest Wealth Amethyst Living Annuity solution.\n\nImprovements Required\n\n1. Display both:\n    * Monthly income\n    * Annual income\n2. Add age selection:\n    * Under 65\n    * 65–74\n    * 75+\n    Use age to calculate more accurate estimated tax based on current SARS rebates.\n3. Add a Drawdown Sustainability Indicator:\n    * 2.5%–5% = Conservative\n    * 5%–7% = Moderate\n    * 7%–10% = Aggressive\n    * Above 10% = High Depletion Risk\n    Display a colour-coded warning or guidance message.\n4. Add a Capital Sustainability section explaining the likely impact of the selected drawdown on long-term capital preservation.\n5. Add a reverse calculation option:\n    Input:\n    * Required monthly income\n    Output:\n    * Estimated capital required\n    Example:\n    R30,000 per month at 5% drawdown = approximately R7.2 million capital required.\n6. Replace the wording:\n    Everest product targets ~10.2% return\n    with more neutral educational wording:\n    The Amethyst Living Annuity invests primarily in fixed-return Everest Wealth preference share portfolios. Returns are not guaranteed and may vary over time.\n7. Add an educational section below the results:\n    Understanding Drawdown\n    Your drawdown percentage determines how much income is withdrawn from your retirement capital each year. Higher income today may increase the risk of capital depletion later. A sustainable retirement strategy balances income needs, inflation protection, capital preservation, and legacy objectives.\n\nPurpose\n\nThe goal of this calculator is not only to show monthly income, but to help retirees understand:\n\n* How much income their capital can generate.\n* The tax impact.\n* Whether the drawdown is sustainable.\n* The relationship between income needs and required retirement capital.\n\nThis should become a retirement planning calculator first, with Everest Wealth Amethyst positioned as the underlying solution.\n\n⸻",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "average-clause",
+
+      "title": "Average Clause Calculator",
+
+      "embedPath": "/embed/calculators/average-clause",
+
+      "group": "Insurance",
+
+      "keep": false,
+
+      "notes": "Add formula section showing: (Sum Insured ÷ Actual Value at Risk) × Claim Amount. Rename "Average Percentage" to "Insurance Coverage %". Add "Underinsured By %" and "Claim Reduction" outputs. Add plain-language explanation beneath results explaining why average clause applies. Add risk indicator bands (90%+, 75%-89%, 50%-74%, below 50%). Add inflation/replacement cost warning because underinsurance is often caused by rising rebuilding costs. Consider making this part of a wider Commercial Insurance Calculator Suite.",
+
+      "decision": "remove"
+
+    },
+
+    {
+
+      "id": "run-out-capital",
+
+      "title": "Run Out of Capital Calculator",
+
+      "embedPath": "/embed/calculators/run-out-capital",
+
+      "group": "Retirement planning",
+
+      "keep": false,
+
+      "notes": "",
+
+      "decision": "remove"
+
+    }
+
+  ],
+
+  "markdownSummary": "# AS Brokers CRM Calculator Review\n\nExported: 2026-06-18T20:21:09.590Z\nSource: /crm/calculators (internal only)\n\n## Summary\n- **Keep:** 1\n- **Remove:** 17\n- **Total:** 18\n\n## Keep on public /calculators hub\n\n- **Retirement Reality Calculator** (`retirement-reality`)\n  - Notes: Please we need to check the calculations. Purpose of this calculator:\n\nThis calculator should estimate the lump sum capital required at retirement to provide a target monthly income (after tax) from retirement until life expectancy.\n\nThe calculation should:\n\n• Start with the user's required monthly income in today's money (after tax).\n• Increase that income by inflation until retirement age.\n• Convert the future after-tax income into a gross income requirement using the retirement tax assumption.\n• Calculate the capital required at retirement to fund that income from retirement age until life expectancy.\n• Assume withdrawals increase annually with inflation during retirement.\n• Assume the remaining capital continues to earn the selected investment growth rate during retirement.\n• Show how sensitive the result is to lower investment returns (for example 2% lower growth).\n\nThe result should represent the estimated retirement capital required at retirement date, not a monthly contribution amount.\n\nPlease verify that the current formulas produce this outcome accurately and that the assumptions shown to the user match the calculations being performed.\n\nThe "Growth 2% Lower" scenario is valuable and should remain. However, the current hover tooltip covers the graph and provides little additional information. Consider redesigning this section so that the comparison is immediately visible without requiring a hover action. The objective is to clearly demonstrate how sensitive retirement capital requirements are to lower long-term investment returns.\n  - Group: Retirement planning\n\n## Remove from public hub\n\n- **Retirement Shortfall Calculator** (`retirement-shortfall`)\n  - Notes: Retirement Shortfall Calculator – Review Notes\nOverall Assessment\nThe underlying calculations appear logical and the calculator successfully estimates:\n* Future income required at retirement\n* Capital required at retirement\n* Projected value of current savings\n* Retirement capital shortfall\n* Estimated monthly contribution required\nThe calculator is useful and should remain in the Retirement Planning category.\n
+\n⸻\n
+\nRecommended Improvements\n1. Rename Calculator\nCurrent:\nRetirement Shortfall Calculator\nSuggested:\nRetirement Readiness Calculator\nor\nRetirement Gap Calculator\nReason:\n"Shortfall" immediately creates a negative impression. "Readiness" is more neutral and user-friendly while still communicating the purpose.\n
+\n⸻\n
+\n2. Add Retirement Readiness Score\nAdd a visual readiness indicator.\nExample:\nRequired Capital: R20 600 979\nProjected Retirement Capital: R8 500 000\nReadiness Score: 41%\nStatus: Serious Shortfall\nSuggested bands:\n* 80%+ = On Track\n* 50%–79% = Needs Attention\n* Below 50% = Serious Shortfall\nThis gives users immediate context instead of forcing them to interpret large numbers.\n
+\n⸻\n
+\n3. Add Income Gap Output\nPeople think in monthly income rather than capital.\nAdd:\nRequired Retirement Income:
+R85 837 pm\nProjected Retirement Income:
+R35 000 pm\nIncome Gap:
+R50 837 pm\nThis is often easier to understand than a capital shortfall of several million rand.\n
+\n⸻\n
+\n4. Add Capital Progress Visual\nAdd a simple progress bar.\nExample:\nRequired Capital
+R20.6 million\nProjected Capital
+R8.5 million\nProgress:
+41%\nThis creates an immediate visual understanding of retirement readiness.\n
+\n⸻\n
+\n5. Add Inflation Sensitivity Section\nShow how inflation assumptions affect the outcome.\nExample:\nInflation Rate\tRequired Capital\n5%\tR17 million\n6%\tR20.6 million\n7%\tR25 million\nThis demonstrates the impact of inflation and improves educational value.\n
+\n⸻\n
+\n6. Add Retirement Capital Growth Graph\nRecommended graph:\nX-axis:
+Age\nY-axis:
+Capital\nDisplay:\n* Required Retirement Capital\n* Projected Retirement Capital\nThis is likely the most valuable visual improvement for understanding the retirement gap.\n
+\n⸻\n
+\n7. Improve Results Narrative\nReplace the current "What This Means" section with a more structured explanation.\nSuggested format:\nYour Retirement Projection\n* Years until retirement: 25\n* Future income required: R85 837 per month\n* Estimated retirement capital required: R20 600 979\n* Projected value of current savings: R0\n* Estimated capital shortfall: R20 600 979\n* Estimated starting contribution required: R6 388 per month increasing by 10% annually\nThis is easier to read than a single paragraph.\n
+\n⸻\n
+\n8. Consider Adding Scenario Testing\nOptional enhancement.\nAdd a button:\n"Compare Alternative Scenarios"\nAllow users to compare:\n* Retirement at 60\n* Retirement at 65\n* Retirement at 70\nThis helps demonstrate the impact of working longer or retiring earlier.\n
+\n⸻\n
+\nRecommendation\nKeep the calculator.\nPriority improvements should be:\n1. Retirement Readiness Score\n2. Income Gap Output\n3. Capital Progress Bar\n4. Capital Growth Graph\n5. Inflation Sensitivity Table\nThese changes would significantly improve usability without changing the underlying calculation methodology.\n
+\n⸻\n
+\nI would rate this calculator 8/10 currently and 9.5/10 after the above improvements. The mathematics are already solid. The biggest opportunity is helping users interpret the results more quickly.\n  - Group: Retirement planning\n- **Life of Capital Calculator** (`life-of-capital`)\n  - Group: Retirement planning\n- **Cost of Inflation Over Time Calculator** (`future-value`)\n  - Notes: Rename calculator consistently to "Inflation Impact Calculator" or "Inflation Cost Calculator". Move "Purchasing Power Lost" to the first result card because it is the most impactful figure. Add a plain-English explanation beneath results. Rename "Future Buying Power" to "Remaining Purchasing Power". Add "Inflation Doubling Time" output (Rule of 72). Add optional inflation scenario table (4%, 6%, 8%). Add retirement example showing how a monthly income requirement increases over time. Add a line showing the minimum investment growth required to maintain purchasing power. Keep calculator public and feature it prominently because it is one of the strongest educational tools in the library.\n  - Group: Inflation & tax\n- **AS Brokers Financial Freedom Calculator** (`financial-freedom-capital`)\n  - Group: Retirement planning\n- **AS Brokers Growth Rate Calculator** (`growth-rate`)\n  - Group: Retirement planning\n- **Income Tax Calculator** (`income-tax`)\n  - Notes: Income Tax Calculator Improvements\n\n1. Add Marginal Tax Rate alongside Effective Tax Rate.\n2. Add "Tax Freedom Day" showing approximately how many days per year are worked to pay SARS.\n3. Add optional retirement contribution input and calculate estimated tax saving from deductible retirement fund contributions.\n4. Add optional medical aid member/dependant inputs and estimate medical tax credits.\n5. Add salary breakdown section showing Gross Salary → PAYE → Net Salary.\n6. Consider renaming to "Salary, Tax & Retirement Calculator" to increase educational and advisory value.\n7. Remove "Similar Tools Exist" badge and replace with a more relevant category label.\n8. Add contextual explanation below results explaining the difference between marginal and effective tax rates.\n  - Group: Inflation & tax\n- **Estate Duty Calculator** (`estate-duty`)\n  - Notes: Rename calculator from "Estate Duty Calculator" to "Estate Liquidity Calculator". The objective is not only to calculate estate duty, but to show the total cash requirement an estate may face at death. Add a detailed calculation breakdown showing Gross Estate, Less Liabilities, Less Section 4(q) Spouse Deduction, Less Section 4A Abatement, Dutiable Estate, and Estate Duty Payable. Add a new input called "Liquid Assets Available" and display Available Liquidity, Liquidity Shortfall, and Recommended Estate Liquidity Cover. Change executor fee wording to "Estimated executor remuneration based on the standard tariff of 3.5% plus VAT." Add an educational note explaining that estate duty is often not the largest estate cost and that CGT, conveyancing fees, and liquidity shortages may also apply. This will convert the calculator from a tax tool into a comprehensive estate planning tool.\n  - Group: Estate\n- **Estate Reduction Strategy Calculator** (`estate-reduction`)\n  - Notes: 1. Rename to Trust Donation & Estate Duty Calculator.\n2. Replace "Estate Duty Saved" with "Potential Estate Duty Reduction".\n3. Add Growth Outside Estate.\n4. Add Future Wealth Shifted Outside Estate.\n5. Add a tax/legal disclaimer.\n6. Future version: allow actual estate value input and calculate estate duty before vs after strategy.\n  - Group: Estate\n- **Premium Increase Problem Calculator** (`premium-comparison`)\n  - Group: Insurance\n- **Everest 12.8 Product Calculator** (`everest-128`)\n  - Notes: verest 12.8 Calculator – Required Improvements\nObjective\nConvert the calculator from a product illustration into a retirement income decision tool suitable for Google Ads traffic.\nThe primary question the calculator must answer is:\n"How much monthly income can my investment generate?"\nThe secondary question is:\n"Why would I choose this solution instead of a bank deposit or taxable investment?"\n
+\n⸻\n
+\n1. Rename Calculator\nCurrent\nEverest 12.8 Product Calculator\nReplace With\nInvestment Income Calculator\nSubtitle\nEstimate the monthly income your capital may generate using the Everest Strategic Income Solution.\nRemove product-first naming from the public version.\nPeople search for income solutions, not product names.\n
+\n⸻\n
+\n2. Prioritise Monthly Income Result\nMove the Monthly Income result to the most prominent position immediately below the Calculate button.\nDisplay order should be:\nYour Estimated Monthly Income\nR X XXX\nAnnual Income\nR XX XXX\nEverything else must appear below these two figures.\nMonthly income is the primary outcome visitors want.\n
+\n⸻\n
+\n3. Add Capital Preservation Section\nAdd a new result card:\nCapital Summary\nInitial Capital\nR X XXX XXX\nIncome Received Over 5 Years\nR XXX XXX\nLoyalty Bonus\nR XXX XXX\nOriginal Capital\nR X XXX XXX\nThis helps investors understand that the illustration assumes capital remains invested while generating income.\n
+\n⸻\n
+\n4. Replace "Why Dividends Beat Income Tax"\nCurrent wording is difficult to understand.\nReplace with:\nTax Efficiency Illustration\nSame Gross Return Taxed As Income\nR X XXX per month\nStrategic Income Dividend Structure\nR X XXX per month\nDifference\n+R X XXX per month\nShow the actual calculation visually rather than explaining it in text.\n
+\n⸻\n
+\n5. Add Income Target Table\nAdd a new section:\nHow Much Capital May Be Required?\nBased on the current calculator assumptions.\nDisplay:\nDesired Monthly Income\tEstimated Capital Required\nR20 000\tR2.34 million\nR30 000\tR3.52 million\nR50 000\tR5.86 million\nR75 000\tR8.79 million\nR100 000\tR11.72 million\nFormula:\nRequired Capital =
+Desired Annual Income ÷ 10.24%\n(Using 12.8% less 20% dividend withholding tax)\nThis section is extremely important because most retirees think in income, not capital.\n
+\n⸻\n
+\n6. Add Comparison Against Cash Investment\nAdd a comparison section.\nIncome Comparison\nFor the same investment amount:\nStrategic Income Solution\nR X XXX per month\nMoney Market Investment (8%)\nR X XXX per month\nAdditional Monthly Income\n+R X XXX per month\nAssume:\nMoney Market Return = 8% per annum\nTax = User selectable or default 36% marginal rate\nThis helps justify the higher income outcome.\n
+\n⸻\n
+\n7. Improve Return Section\nCurrent:\nTotal 5-Year Return\nReplace with:\nIncome Received Over 5 Years\nR XXX XXX\nLoyalty Bonus\nR XXX XXX\nCombined Benefit\nR XXX XXX\nThis wording is easier for clients to understand.\n
+\n⸻\n
+\n8. Compliance Wording\nReplace:\n"12.8% fixed return"\nWith:\n"Targeted 12.8% annual return"\nOr:\n"Illustrated using a 12.8% annual return assumption"\nUnless the return is contractually guaranteed.\n
+\n⸻\n
+\n9. Add Educational Section\nAt the bottom add:\nHow This Calculator Works\nThis calculator estimates monthly income using a targeted annual return of 12.8% less 20% dividend withholding tax.\nResults are estimates only and should not be regarded as investment advice or a guaranteed outcome.\nActual returns, liquidity terms and taxation may vary.\n
+\n⸻\n
+\n10. Future Enhancement (Highest Priority)\nCreate a toggle allowing visitors to choose:\nOption A\n"I know my investment amount"\nCurrent calculator behaviour.\nOption B\n"I know the income I need"\nUser enters:\nR30 000 per month\nCalculator immediately displays:\nEstimated Capital Required\nR3.52 million\nThis would likely become the highest-converting version because retirement investors think in income requirements rather than investment amounts.\n
+\n⸻\n
+\nPriority Order\n1. Add Income Target Table\n2. Add Comparison Against Money Market\n3. Move Monthly Income To Top\n4. Add Capital Preservation Section\n5. Improve Tax Comparison\n6. Rename Calculator\n7. Compliance Wording\nThese changes will make the calculator substantially stronger as a Google Ads destination page and align it more closely with retirement-income planning rather than product promotion.\n  - Group: Everest single product\n- **12.8% vs 14.2% Investment Income Comparison Calculator** (`everest-128-vs-142`)\n  - Notes: Please improve the Everest 12.8% vs 14.2% Income Calculator.\n\nThis calculator must compare two Everest income options side-by-side:\n\n1. 12.8% option:\n- Gross return: 12.8% per year\n- Dividend withholding tax: 20%\n- Net return: 10.24% per year\n- Includes an 8% capital bonus at the end of every 5-year period if the bonus toggle is selected\n\n2. 14.2% option:\n- Gross return: 14.2% per year\n- Dividend withholding tax: 20%\n- Net return: 11.36% per year\n- No bonus\n\nMain purpose:\nThe calculator must help the user understand the trade-off between higher immediate monthly income and the 5-year bonus structure.\n\nInputs:\n- Investment amount\n- Comparison period\n- Income treatment: take income monthly OR reinvest income\n- Toggle: include 8% capital bonus on the 12.8% option at the end of each 5-year period\n\nResults must show clearly:\n- Monthly income for 12.8%\n- Monthly income for 14.2%\n- Monthly income difference\n- Annual income for both options\n- Total income over selected period for both options\n- Bonus added to 12.8% option\n- Illustrative capital value for both options\n- Which option gives higher monthly income\n- Which option gives higher 5-year total value\n\nAdd a decision summary box at the top of the results:\n- Best monthly income option\n- Best projected 5-year value option\n- Monthly income difference\n- Total income difference\n- Bonus value included or excluded\n\nAdd a break-even calculation:\n- Divide the 12.8% bonus amount by the additional annual income from the 14.2% option.\n- Display: "The 14.2% option needs approximately X years of extra income to match the 12.8% bonus."\n\nFor the R1,000,000 example:\n- 12.8% net monthly income = R8,533\n- 14.2% net monthly income = R9,467\n- Difference = R933 per month\n- Annual difference = R11,200\n- 8% bonus = R80,000\n- Break-even = approximately 7.1 years\n\nUse clean labels. Avoid saying "guaranteed" or implying certainty. Use "illustrative" where needed.\n\nAdd a compliance note:\n"This calculator is for educational and illustrative purposes only. It does not constitute financial advice. Product suitability depends on risk profile, liquidity needs, tax position, investment term, and personal circumstances. Please consult a licensed financial adviser before investing."\n  - Group: Everest 12.8 vs 14.2\n- **12.8% vs 14.2% Five-Year Income Comparison** (`everest-128-vs-142-five-year`)\n  - Group: Everest 12.8 vs 14.2\n- **Everest 12.8 Income Calculator** (`everest-142`)\n  - Group: Everest single product\n- **Everest Strategic Growth 14.5 Calculator** (`everest-145-growth`)\n  - Group: Everest single product\n- **Everest Amethyst Living Annuity Calculator** (`amethyst-annuity`)\n  - Notes: Calculator Review – Everest Amethyst Living Annuity Calculator\n\nreposition it as an educational retirement income planning tool rather than a product calculator.\n\nRename\n\nChange calculator name to:\n\nLiving Annuity Income Calculator\n\nSubheading:\n\nEstimate your retirement income, tax, and drawdown sustainability.\n\nAdd a smaller note:\n\nIllustrative calculations based on the Everest Wealth Amethyst Living Annuity solution.\n\nImprovements Required\n\n1. Display both:\n    * Monthly income\n    * Annual income\n2. Add age selection:\n    * Under 65\n    * 65–74\n    * 75+\n    Use age to calculate more accurate estimated tax based on current SARS rebates.\n3. Add a Drawdown Sustainability Indicator:\n    * 2.5%–5% = Conservative\n    * 5%–7% = Moderate\n    * 7%–10% = Aggressive\n    * Above 10% = High Depletion Risk\n    Display a colour-coded warning or guidance message.\n4. Add a Capital Sustainability section explaining the likely impact of the selected drawdown on long-term capital preservation.\n5. Add a reverse calculation option:\n    Input:\n    * Required monthly income\n    Output:\n    * Estimated capital required\n    Example:\n    R30,000 per month at 5% drawdown = approximately R7.2 million capital required.\n6. Replace the wording:\n    Everest product targets ~10.2% return\n    with more neutral educational wording:\n    The Amethyst Living Annuity invests primarily in fixed-return Everest Wealth preference share portfolios. Returns are not guaranteed and may vary over time.\n7. Add an educational section below the results:\n    Understanding Drawdown\n    Your drawdown percentage determines how much income is withdrawn from your retirement capital each year. Higher income today may increase the risk of capital depletion later. A sustainable retirement strategy balances income needs, inflation protection, capital preservation, and legacy objectives.\n\nPurpose\n\nThe goal of this calculator is not only to show monthly income, but to help retirees understand:\n\n* How much income their capital can generate.\n* The tax impact.\n* Whether the drawdown is sustainable.\n* The relationship between income needs and required retirement capital.\n\nThis should become a retirement planning calculator first, with Everest Wealth Amethyst positioned as the underlying solution.\n\n⸻\n  - Group: Living annuity\n- **Average Clause Calculator** (`average-clause`)\n  - Notes: Add formula section showing: (Sum Insured ÷ Actual Value at Risk) × Claim Amount. Rename "Average Percentage" to "Insurance Coverage %". Add "Underinsured By %" and "Claim Reduction" outputs. Add plain-language explanation beneath results explaining why average clause applies. Add risk indicator bands (90%+, 75%-89%, 50%-74%, below 50%). Add inflation/replacement cost warning because underinsurance is often caused by rising rebuilding costs. Consider making this part of a wider Commercial Insurance Calculator Suite.\n  - Group: Insurance\n- **Run Out of Capital Calculator** (`run-out-capital`)\n  - Group: Retirement planning\n\n## Full detail\n\n### Retirement Reality Calculator\n- ID: `retirement-reality`\n- Embed: /embed/calculators/retirement-reality\n- Group: Retirement planning\n- Decision: **keep**\n- Notes: Please we need to check the calculations. Purpose of this calculator:\n\nThis calculator should estimate the lump sum capital required at retirement to provide a target monthly income (after tax) from retirement until life expectancy.\n\nThe calculation should:\n\n• Start with the user's required monthly income in today's money (after tax).\n• Increase that income by inflation until retirement age.\n• Convert the future after-tax income into a gross income requirement using the retirement tax assumption.\n• Calculate the capital required at retirement to fund that income from retirement age until life expectancy.\n• Assume withdrawals increase annually with inflation during retirement.\n• Assume the remaining capital continues to earn the selected investment growth rate during retirement.\n• Show how sensitive the result is to lower investment returns (for example 2% lower growth).\n\nThe result should represent the estimated retirement capital required at retirement date, not a monthly contribution amount.\n\nPlease verify that the current formulas produce this outcome accurately and that the assumptions shown to the user match the calculations being performed.\n\nThe "Growth 2% Lower" scenario is valuable and should remain. However, the current hover tooltip covers the graph and provides little additional information. Consider redesigning this section so that the comparison is immediately visible without requiring a hover action. The objective is to clearly demonstrate how sensitive retirement capital requirements are to lower long-term investment returns.\n\n### Retirement Shortfall Calculator\n- ID: `retirement-shortfall`\n- Embed: /embed/calculators/retirement-shortfall\n- Group: Retirement planning\n- Decision: **remove**\n- Notes: Retirement Shortfall Calculator – Review Notes\nOverall Assessment\nThe underlying calculations appear logical and the calculator successfully estimates:\n* Future income required at retirement\n* Capital required at retirement\n* Projected value of current savings\n* Retirement capital shortfall\n* Estimated monthly contribution required\nThe calculator is useful and should remain in the Retirement Planning category.\n
+\n⸻\n
+\nRecommended Improvements\n1. Rename Calculator\nCurrent:\nRetirement Shortfall Calculator\nSuggested:\nRetirement Readiness Calculator\nor\nRetirement Gap Calculator\nReason:\n"Shortfall" immediately creates a negative impression. "Readiness" is more neutral and user-friendly while still communicating the purpose.\n
+\n⸻\n
+\n2. Add Retirement Readiness Score\nAdd a visual readiness indicator.\nExample:\nRequired Capital: R20 600 979\nProjected Retirement Capital: R8 500 000\nReadiness Score: 41%\nStatus: Serious Shortfall\nSuggested bands:\n* 80%+ = On Track\n* 50%–79% = Needs Attention\n* Below 50% = Serious Shortfall\nThis gives users immediate context instead of forcing them to interpret large numbers.\n
+\n⸻\n
+\n3. Add Income Gap Output\nPeople think in monthly income rather than capital.\nAdd:\nRequired Retirement Income:
+R85 837 pm\nProjected Retirement Income:
+R35 000 pm\nIncome Gap:
+R50 837 pm\nThis is often easier to understand than a capital shortfall of several million rand.\n
+\n⸻\n
+\n4. Add Capital Progress Visual\nAdd a simple progress bar.\nExample:\nRequired Capital
+R20.6 million\nProjected Capital
+R8.5 million\nProgress:
+41%\nThis creates an immediate visual understanding of retirement readiness.\n
+\n⸻\n
+\n5. Add Inflation Sensitivity Section\nShow how inflation assumptions affect the outcome.\nExample:\nInflation Rate\tRequired Capital\n5%\tR17 million\n6%\tR20.6 million\n7%\tR25 million\nThis demonstrates the impact of inflation and improves educational value.\n
+\n⸻\n
+\n6. Add Retirement Capital Growth Graph\nRecommended graph:\nX-axis:
+Age\nY-axis:
+Capital\nDisplay:\n* Required Retirement Capital\n* Projected Retirement Capital\nThis is likely the most valuable visual improvement for understanding the retirement gap.\n
+\n⸻\n
+\n7. Improve Results Narrative\nReplace the current "What This Means" section with a more structured explanation.\nSuggested format:\nYour Retirement Projection\n* Years until retirement: 25\n* Future income required: R85 837 per month\n* Estimated retirement capital required: R20 600 979\n* Projected value of current savings: R0\n* Estimated capital shortfall: R20 600 979\n* Estimated starting contribution required: R6 388 per month increasing by 10% annually\nThis is easier to read than a single paragraph.\n
+\n⸻\n
+\n8. Consider Adding Scenario Testing\nOptional enhancement.\nAdd a button:\n"Compare Alternative Scenarios"\nAllow users to compare:\n* Retirement at 60\n* Retirement at 65\n* Retirement at 70\nThis helps demonstrate the impact of working longer or retiring earlier.\n
+\n⸻\n
+\nRecommendation\nKeep the calculator.\nPriority improvements should be:\n1. Retirement Readiness Score\n2. Income Gap Output\n3. Capital Progress Bar\n4. Capital Growth Graph\n5. Inflation Sensitivity Table\nThese changes would significantly improve usability without changing the underlying calculation methodology.\n
+\n⸻\n
+\nI would rate this calculator 8/10 currently and 9.5/10 after the above improvements. The mathematics are already solid. The biggest opportunity is helping users interpret the results more quickly.\n\n### Life of Capital Calculator\n- ID: `life-of-capital`\n- Embed: /embed/calculators/life-of-capital\n- Group: Retirement planning\n- Decision: **remove**\n- Notes: (none)\n\n### Cost of Inflation Over Time Calculator\n- ID: `future-value`\n- Embed: /embed/calculators/future-value\n- Group: Inflation & tax\n- Decision: **remove**\n- Notes: Rename calculator consistently to "Inflation Impact Calculator" or "Inflation Cost Calculator". Move "Purchasing Power Lost" to the first result card because it is the most impactful figure. Add a plain-English explanation beneath results. Rename "Future Buying Power" to "Remaining Purchasing Power". Add "Inflation Doubling Time" output (Rule of 72). Add optional inflation scenario table (4%, 6%, 8%). Add retirement example showing how a monthly income requirement increases over time. Add a line showing the minimum investment growth required to maintain purchasing power. Keep calculator public and feature it prominently because it is one of the strongest educational tools in the library.\n\n### AS Brokers Financial Freedom Calculator\n- ID: `financial-freedom-capital`\n- Embed: /embed/calculators/financial-freedom-capital\n- Group: Retirement planning\n- Decision: **remove**\n- Notes: (none)\n\n### AS Brokers Growth Rate Calculator\n- ID: `growth-rate`\n- Embed: /embed/calculators/growth-rate\n- Group: Retirement planning\n- Decision: **remove**\n- Notes: (none)\n\n### Income Tax Calculator\n- ID: `income-tax`\n- Embed: /embed/calculators/income-tax\n- Group: Inflation & tax\n- Decision: **remove**\n- Notes: Income Tax Calculator Improvements\n\n1. Add Marginal Tax Rate alongside Effective Tax Rate.\n2. Add "Tax Freedom Day" showing approximately how many days per year are worked to pay SARS.\n3. Add optional retirement contribution input and calculate estimated tax saving from deductible retirement fund contributions.\n4. Add optional medical aid member/dependant inputs and estimate medical tax credits.\n5. Add salary breakdown section showing Gross Salary → PAYE → Net Salary.\n6. Consider renaming to "Salary, Tax & Retirement Calculator" to increase educational and advisory value.\n7. Remove "Similar Tools Exist" badge and replace with a more relevant category label.\n8. Add contextual explanation below results explaining the difference between marginal and effective tax rates.\n\n### Estate Duty Calculator\n- ID: `estate-duty`\n- Embed: /embed/calculators/estate-duty\n- Group: Estate\n- Decision: **remove**\n- Notes: Rename calculator from "Estate Duty Calculator" to "Estate Liquidity Calculator". The objective is not only to calculate estate duty, but to show the total cash requirement an estate may face at death. Add a detailed calculation breakdown showing Gross Estate, Less Liabilities, Less Section 4(q) Spouse Deduction, Less Section 4A Abatement, Dutiable Estate, and Estate Duty Payable. Add a new input called "Liquid Assets Available" and display Available Liquidity, Liquidity Shortfall, and Recommended Estate Liquidity Cover. Change executor fee wording to "Estimated executor remuneration based on the standard tariff of 3.5% plus VAT." Add an educational note explaining that estate duty is often not the largest estate cost and that CGT, conveyancing fees, and liquidity shortages may also apply. This will convert the calculator from a tax tool into a comprehensive estate planning tool.\n\n### Estate Reduction Strategy Calculator\n- ID: `estate-reduction`\n- Embed: /embed/calculators/estate-reduction\n- Group: Estate\n- Decision: **remove**\n- Notes: 1. Rename to Trust Donation & Estate Duty Calculator.\n2. Replace "Estate Duty Saved" with "Potential Estate Duty Reduction".\n3. Add Growth Outside Estate.\n4. Add Future Wealth Shifted Outside Estate.\n5. Add a tax/legal disclaimer.\n6. Future version: allow actual estate value input and calculate estate duty before vs after strategy.\n\n### Premium Increase Problem Calculator\n- ID: `premium-comparison`\n- Embed: /embed/calculators/premium-comparison\n- Group: Insurance\n- Decision: **remove**\n- Notes: (none)\n\n### Everest 12.8 Product Calculator\n- ID: `everest-128`\n- Embed: /embed/calculators/everest-128\n- Group: Everest single product\n- Decision: **remove**\n- Notes: verest 12.8 Calculator – Required Improvements\nObjective\nConvert the calculator from a product illustration into a retirement income decision tool suitable for Google Ads traffic.\nThe primary question the calculator must answer is:\n"How much monthly income can my investment generate?"\nThe secondary question is:\n"Why would I choose this solution instead of a bank deposit or taxable investment?"\n
+\n⸻\n
+\n1. Rename Calculator\nCurrent\nEverest 12.8 Product Calculator\nReplace With\nInvestment Income Calculator\nSubtitle\nEstimate the monthly income your capital may generate using the Everest Strategic Income Solution.\nRemove product-first naming from the public version.\nPeople search for income solutions, not product names.\n
+\n⸻\n
+\n2. Prioritise Monthly Income Result\nMove the Monthly Income result to the most prominent position immediately below the Calculate button.\nDisplay order should be:\nYour Estimated Monthly Income\nR X XXX\nAnnual Income\nR XX XXX\nEverything else must appear below these two figures.\nMonthly income is the primary outcome visitors want.\n
+\n⸻\n
+\n3. Add Capital Preservation Section\nAdd a new result card:\nCapital Summary\nInitial Capital\nR X XXX XXX\nIncome Received Over 5 Years\nR XXX XXX\nLoyalty Bonus\nR XXX XXX\nOriginal Capital\nR X XXX XXX\nThis helps investors understand that the illustration assumes capital remains invested while generating income.\n
+\n⸻\n
+\n4. Replace "Why Dividends Beat Income Tax"\nCurrent wording is difficult to understand.\nReplace with:\nTax Efficiency Illustration\nSame Gross Return Taxed As Income\nR X XXX per month\nStrategic Income Dividend Structure\nR X XXX per month\nDifference\n+R X XXX per month\nShow the actual calculation visually rather than explaining it in text.\n
+\n⸻\n
+\n5. Add Income Target Table\nAdd a new section:\nHow Much Capital May Be Required?\nBased on the current calculator assumptions.\nDisplay:\nDesired Monthly Income\tEstimated Capital Required\nR20 000\tR2.34 million\nR30 000\tR3.52 million\nR50 000\tR5.86 million\nR75 000\tR8.79 million\nR100 000\tR11.72 million\nFormula:\nRequired Capital =
+Desired Annual Income ÷ 10.24%\n(Using 12.8% less 20% dividend withholding tax)\nThis section is extremely important because most retirees think in income, not capital.\n
+\n⸻\n
+\n6. Add Comparison Against Cash Investment\nAdd a comparison section.\nIncome Comparison\nFor the same investment amount:\nStrategic Income Solution\nR X XXX per month\nMoney Market Investment (8%)\nR X XXX per month\nAdditional Monthly Income\n+R X XXX per month\nAssume:\nMoney Market Return = 8% per annum\nTax = User selectable or default 36% marginal rate\nThis helps justify the higher income outcome.\n
+\n⸻\n
+\n7. Improve Return Section\nCurrent:\nTotal 5-Year Return\nReplace with:\nIncome Received Over 5 Years\nR XXX XXX\nLoyalty Bonus\nR XXX XXX\nCombined Benefit\nR XXX XXX\nThis wording is easier for clients to understand.\n
+\n⸻\n
+\n8. Compliance Wording\nReplace:\n"12.8% fixed return"\nWith:\n"Targeted 12.8% annual return"\nOr:\n"Illustrated using a 12.8% annual return assumption"\nUnless the return is contractually guaranteed.\n
+\n⸻\n
+\n9. Add Educational Section\nAt the bottom add:\nHow This Calculator Works\nThis calculator estimates monthly income using a targeted annual return of 12.8% less 20% dividend withholding tax.\nResults are estimates only and should not be regarded as investment advice or a guaranteed outcome.\nActual returns, liquidity terms and taxation may vary.\n
+\n⸻\n
+\n10. Future Enhancement (Highest Priority)\nCreate a toggle allowing visitors to choose:\nOption A\n"I know my investment amount"\nCurrent calculator behaviour.\nOption B\n"I know the income I need"\nUser enters:\nR30 000 per month\nCalculator immediately displays:\nEstimated Capital Required\nR3.52 million\nThis would likely become the highest-converting version because retirement investors think in income requirements rather than investment amounts.\n
+\n⸻\n
+\nPriority Order\n1. Add Income Target Table\n2. Add Comparison Against Money Market\n3. Move Monthly Income To Top\n4. Add Capital Preservation Section\n5. Improve Tax Comparison\n6. Rename Calculator\n7. Compliance Wording\nThese changes will make the calculator substantially stronger as a Google Ads destination page and align it more closely with retirement-income planning rather than product promotion.\n\n### 12.8% vs 14.2% Investment Income Comparison Calculator\n- ID: `everest-128-vs-142`\n- Embed: /embed/calculators/everest-128-vs-142\n- Group: Everest 12.8 vs 14.2\n- Decision: **remove**\n- Notes: Please improve the Everest 12.8% vs 14.2% Income Calculator.\n\nThis calculator must compare two Everest income options side-by-side:\n\n1. 12.8% option:\n- Gross return: 12.8% per year\n- Dividend withholding tax: 20%\n- Net return: 10.24% per year\n- Includes an 8% capital bonus at the end of every 5-year period if the bonus toggle is selected\n\n2. 14.2% option:\n- Gross return: 14.2% per year\n- Dividend withholding tax: 20%\n- Net return: 11.36% per year\n- No bonus\n\nMain purpose:\nThe calculator must help the user understand the trade-off between higher immediate monthly income and the 5-year bonus structure.\n\nInputs:\n- Investment amount\n- Comparison period\n- Income treatment: take income monthly OR reinvest income\n- Toggle: include 8% capital bonus on the 12.8% option at the end of each 5-year period\n\nResults must show clearly:\n- Monthly income for 12.8%\n- Monthly income for 14.2%\n- Monthly income difference\n- Annual income for both options\n- Total income over selected period for both options\n- Bonus added to 12.8% option\n- Illustrative capital value for both options\n- Which option gives higher monthly income\n- Which option gives higher 5-year total value\n\nAdd a decision summary box at the top of the results:\n- Best monthly income option\n- Best projected 5-year value option\n- Monthly income difference\n- Total income difference\n- Bonus value included or excluded\n\nAdd a break-even calculation:\n- Divide the 12.8% bonus amount by the additional annual income from the 14.2% option.\n- Display: "The 14.2% option needs approximately X years of extra income to match the 12.8% bonus."\n\nFor the R1,000,000 example:\n- 12.8% net monthly income = R8,533\n- 14.2% net monthly income = R9,467\n- Difference = R933 per month\n- Annual difference = R11,200\n- 8% bonus = R80,000\n- Break-even = approximately 7.1 years\n\nUse clean labels. Avoid saying "guaranteed" or implying certainty. Use "illustrative" where needed.\n\nAdd a compliance note:\n"This calculator is for educational and illustrative purposes only. It does not constitute financial advice. Product suitability depends on risk profile, liquidity needs, tax position, investment term, and personal circumstances. Please consult a licensed financial adviser before investing."\n\n### 12.8% vs 14.2% Five-Year Income Comparison\n- ID: `everest-128-vs-142-five-year`\n- Embed: /embed/calculators/everest-128-vs-142-five-year\n- Group: Everest 12.8 vs 14.2\n- Decision: **remove**\n- Notes: (none)\n\n### Everest 12.8 Income Calculator\n- ID: `everest-142`\n- Embed: /embed/calculators/everest-142\n- Group: Everest single product\n- Decision: **remove**\n- Notes: (none)\n\n### Everest Strategic Growth 14.5 Calculator\n- ID: `everest-145-growth`\n- Embed: /embed/calculators/everest-145-growth\n- Group: Everest single product\n- Decision: **remove**\n- Notes: (none)\n\n### Everest Amethyst Living Annuity Calculator\n- ID: `amethyst-annuity`\n- Embed: /embed/calculators/amethyst-annuity\n- Group: Living annuity\n- Decision: **remove**\n- Notes: Calculator Review – Everest Amethyst Living Annuity Calculator\n\nreposition it as an educational retirement income planning tool rather than a product calculator.\n\nRename\n\nChange calculator name to:\n\nLiving Annuity Income Calculator\n\nSubheading:\n\nEstimate your retirement income, tax, and drawdown sustainability.\n\nAdd a smaller note:\n\nIllustrative calculations based on the Everest Wealth Amethyst Living Annuity solution.\n\nImprovements Required\n\n1. Display both:\n    * Monthly income\n    * Annual income\n2. Add age selection:\n    * Under 65\n    * 65–74\n    * 75+\n    Use age to calculate more accurate estimated tax based on current SARS rebates.\n3. Add a Drawdown Sustainability Indicator:\n    * 2.5%–5% = Conservative\n    * 5%–7% = Moderate\n    * 7%–10% = Aggressive\n    * Above 10% = High Depletion Risk\n    Display a colour-coded warning or guidance message.\n4. Add a Capital Sustainability section explaining the likely impact of the selected drawdown on long-term capital preservation.\n5. Add a reverse calculation option:\n    Input:\n    * Required monthly income\n    Output:\n    * Estimated capital required\n    Example:\n    R30,000 per month at 5% drawdown = approximately R7.2 million capital required.\n6. Replace the wording:\n    Everest product targets ~10.2% return\n    with more neutral educational wording:\n    The Amethyst Living Annuity invests primarily in fixed-return Everest Wealth preference share portfolios. Returns are not guaranteed and may vary over time.\n7. Add an educational section below the results:\n    Understanding Drawdown\n    Your drawdown percentage determines how much income is withdrawn from your retirement capital each year. Higher income today may increase the risk of capital depletion later. A sustainable retirement strategy balances income needs, inflation protection, capital preservation, and legacy objectives.\n\nPurpose\n\nThe goal of this calculator is not only to show monthly income, but to help retirees understand:\n\n* How much income their capital can generate.\n* The tax impact.\n* Whether the drawdown is sustainable.\n* The relationship between income needs and required retirement capital.\n\nThis should become a retirement planning calculator first, with Everest Wealth Amethyst positioned as the underlying solution.\n\n⸻\n\n### Average Clause Calculator\n- ID: `average-clause`\n- Embed: /embed/calculators/average-clause\n- Group: Insurance\n- Decision: **remove**\n- Notes: Add formula section showing: (Sum Insured ÷ Actual Value at Risk) × Claim Amount. Rename "Average Percentage" to "Insurance Coverage %". Add "Underinsured By %" and "Claim Reduction" outputs. Add plain-language explanation beneath results explaining why average clause applies. Add risk indicator bands (90%+, 75%-89%, 50%-74%, below 50%). Add inflation/replacement cost warning because underinsurance is often caused by rising rebuilding costs. Consider making this part of a wider Commercial Insurance Calculator Suite.\n\n### Run Out of Capital Calculator\n- ID: `run-out-capital`\n- Embed: /embed/calculators/run-out-capital\n- Group: Retirement planning\n- Decision: **remove**\n- Notes: (none)\n"
+
+}

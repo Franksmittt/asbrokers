@@ -10,7 +10,7 @@ import { isNavActive, PRIMARY_NAV } from "@/lib/site-navigation";
 
 const PlanningToolsMenu = dynamic(
   () => import("./PlanningToolsMenu").then((m) => m.PlanningToolsMenu),
-  { loading: () => <span className="px-3 py-2 text-sm text-zinc-500">Planning tools</span> }
+  { loading: () => <span className="px-3 py-2 text-sm text-zinc-400">Planning tools</span> }
 );
 const PlanningToolsMobileSection = dynamic(
   () => import("./PlanningToolsMenu").then((m) => m.PlanningToolsMobileSection),

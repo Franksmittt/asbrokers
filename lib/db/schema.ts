@@ -1,7 +1,9 @@
 import {
+  boolean,
   index,
   integer,
   jsonb,
+  pgSchema,
   pgTable,
   serial,
   text,
@@ -11,6 +13,12 @@ import {
   varchar,
   vector,
 } from "drizzle-orm/pg-core";
+
+/** Supabase Auth users — referenced by CRM client_id (auth schema managed by Supabase). */
+const authSchema = pgSchema("auth");
+export const authUsers = authSchema.table("users", {
+  id: uuid("id").primaryKey(),
+});
 
 const EMBEDDING_DIMENSIONS = 1536; // text-embedding-3-small
 
@@ -190,3 +198,131 @@ export const healthyRetirementAssessments = pgTable(
 
 export type HealthyRetirementAssessment = typeof healthyRetirementAssessments.$inferSelect;
 export type NewHealthyRetirementAssessment = typeof healthyRetirementAssessments.$inferInsert;
+
+/**
+ * CRM leads — funnel-sourced pipeline records; contact phone lives in raw_payload.phone.
+ */
+export const crmLeads = pgTable(
+  "crm_leads",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    clientId: uuid("client_id").references(() => authUsers.id),
+    sourceFunnel: varchar("source_funnel", { length: 255 }),
+    serviceCategory: varchar("service_category", { length: 64 }),
+    leadScore: integer("lead_score").notNull().default(0),
+    pipelineStatus: varchar("pipeline_status", { length: 64 }),
+    assignedAdvisor: uuid("assigned_advisor").references(() => authUsers.id),
+    rawPayload: jsonb("raw_payload"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("crm_leads_pipeline_status_idx").on(table.pipelineStatus),
+    index("crm_leads_assigned_advisor_idx").on(table.assignedAdvisor),
+    index("crm_leads_service_category_idx").on(table.serviceCategory),
+    index("crm_leads_source_funnel_idx").on(table.sourceFunnel),
+  ]
+);
+
+export type CrmLead = typeof crmLeads.$inferSelect;
+export type NewCrmLead = typeof crmLeads.$inferInsert;
+
+/**
+ * Unified correspondence thread (WhatsApp, email, portal).
+ */
+export const correspondence = pgTable(
+  "correspondence",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    leadId: uuid("lead_id")
+      .notNull()
+      .references(() => crmLeads.id, { onDelete: "cascade" }),
+    channel: varchar("channel", { length: 32 }).notNull(),
+    senderType: varchar("sender_type", { length: 32 }).notNull(),
+    messageBody: text("message_body").notNull(),
+    /** Meta wamid (or other provider id) — unique for inbound deduplication. */
+    externalMessageId: varchar("external_message_id", { length: 255 }),
+    /** auth.users id of staff member who sent an outbound message. */
+    staffUserId: uuid("staff_user_id").references(() => authUsers.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("correspondence_lead_id_idx").on(table.leadId),
+    index("correspondence_created_at_idx").on(table.createdAt),
+    uniqueIndex("correspondence_external_message_id_uid").on(table.externalMessageId),
+    index("correspondence_staff_user_id_idx").on(table.staffUserId),
+  ]
+);
+
+export type Correspondence = typeof correspondence.$inferSelect;
+export type NewCorrespondence = typeof correspondence.$inferInsert;
+
+/**
+ * Team-wide scratchpad notes (CRM Notes workspace).
+ */
+export const globalNotes = pgTable(
+  "global_notes",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    content: text("content").notNull(),
+    authorId: uuid("author_id")
+      .notNull()
+      .references(() => authUsers.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("global_notes_created_idx").on(table.createdAt),
+    index("global_notes_author_idx").on(table.authorId),
+  ]
+);
+
+export type GlobalNote = typeof globalNotes.$inferSelect;
+export type NewGlobalNote = typeof globalNotes.$inferInsert;
+
+/**
+ * Scheduled follow-ups attached to a lead.
+ */
+export const leadReminders = pgTable(
+  "lead_reminders",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    leadId: uuid("lead_id")
+      .notNull()
+      .references(() => crmLeads.id, { onDelete: "cascade" }),
+    title: varchar("title", { length: 255 }).notNull(),
+    dueDate: timestamp("due_date", { withTimezone: true }).notNull(),
+    isCompleted: boolean("is_completed").notNull().default(false),
+  },
+  (table) => [
+    index("lead_reminders_lead_idx").on(table.leadId),
+    index("lead_reminders_due_idx").on(table.dueDate),
+  ]
+);
+
+export type LeadReminder = typeof leadReminders.$inferSelect;
+export type NewLeadReminder = typeof leadReminders.$inferInsert;
+
+/**
+ * Advisor tasks linked to pipeline leads.
+ */
+export const crmTasks = pgTable(
+  "crm_tasks",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    leadId: uuid("lead_id").references(() => crmLeads.id, { onDelete: "cascade" }),
+    assigneeId: uuid("assignee_id")
+      .notNull()
+      .references(() => authUsers.id),
+    title: varchar("title", { length: 255 }).notNull(),
+    status: varchar("status", { length: 32 }).notNull().default("open"),
+    dueDate: timestamp("due_date", { withTimezone: true }),
+  },
+  (table) => [
+    index("crm_tasks_lead_idx").on(table.leadId),
+    index("crm_tasks_assignee_idx").on(table.assigneeId),
+    index("crm_tasks_status_idx").on(table.status),
+    index("crm_tasks_due_idx").on(table.dueDate),
+  ]
+);
+
+export type CrmTaskRow = typeof crmTasks.$inferSelect;
+export type NewCrmTaskRow = typeof crmTasks.$inferInsert;

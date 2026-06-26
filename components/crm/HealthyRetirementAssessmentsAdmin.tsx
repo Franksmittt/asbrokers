@@ -7,7 +7,7 @@ import type { HealthyRetirementAssessment } from "@/lib/db";
 import {
   exportHealthyRetirementCsv,
   fetchHealthyRetirementAssessments,
-} from "@/app/crm/healthy-retirement-assessments/actions";
+} from "@/app/(crm)/crm/healthy-retirement-assessments/actions";
 
 type SerializedRow = Omit<HealthyRetirementAssessment, "createdAt"> & { createdAt: string };
 

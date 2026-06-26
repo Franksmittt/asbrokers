@@ -4,6 +4,7 @@ import path from "path";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
+    authInterrupts: true,
     optimizePackageImports: ["recharts", "framer-motion"],
     serverActions: {
       /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */
@@ -25,8 +26,6 @@ const nextConfig: NextConfig = {
         destination: "https://www.asbrokers.co.za/:path*",
         permanent: true,
       },
-      { source: "/portal", destination: "/login", permanent: false },
-      { source: "/portal/:path*", destination: "/login", permanent: false },
     ];
   },
   webpack: (config) => {

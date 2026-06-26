@@ -1,0 +1,159 @@
+================================================================================
+  AS BROKERS CRM / PORTAL BUILD LOG — r8
+  Phase 8: Drizzle CRM Schema & WhatsApp Webhook Architecture
+  Date: June 2026
+================================================================================
+
+CONTEXT
+-------
+Transition from high-fidelity CRM frontend prototype to real backend: unified
+Drizzle ORM tables for pipeline leads + correspondence, plus bidirectional
+WhatsApp Business Cloud API (Meta webhook + Trigger.dev v4 worker + Server
+Action outbound).
+
+SAFETY RULES OBSERVED
+---------------------
+- Did NOT touch app/studio/ or app/(content)/ (Sanity CMS isolated)
+- lib/db/schema.ts: APPENDED only — resources + embeddings pgvector tables
+  preserved unchanged
+- No changes to mock CRM UI (lib/mock-crm.ts, CrmDemoContext, etc.)
+
+================================================================================
+TASK 1 — UNIFIED DRIZZLE SCHEMA (lib/db/schema.ts)
+================================================================================
+
+ADDED auth schema reference (Supabase):
+- pgSchema("auth") + authUsers table for FK targets
+
+TABLE: crm_leads
+----------------
+- id                  uuid PK defaultRandom()
+- client_id           uuid → auth.users (nullable)
+- source_funnel       varchar(255)
+- service_category    varchar(64)
+- lead_score          integer default 0
+- pipeline_status     varchar(64)
+- assigned_advisor    uuid → auth.users
+- raw_payload         jsonb
+- created_at          timestamptz default now()
+
+Indexes: pipeline_status, assigned_advisor, service_category, source_funnel
+
+Phone convention: no dedicated phone column — store contact phone in
+raw_payload.phone (e.g. { "phone": "+27662276044", "name": "..." }).
+
+TABLE: correspondence
+---------------------
+- id            uuid PK defaultRandom()
+- lead_id       uuid → crm_leads.id ON DELETE CASCADE
+- channel       varchar — whatsapp | email | portal
+- sender_type   varchar — client | staff | system
+- message_body  text
+- created_at    timestamptz default now()
+
+Indexes: lead_id, created_at
+
+Exported types: CrmLead, NewCrmLead, Correspondence, NewCorrespondence
+
+================================================================================
+TASK 2 — SECURE INBOUND WEBHOOK
+================================================================================
+
+CREATED: app/api/webhooks/whatsapp/route.ts
+CREATED: lib/whatsapp/meta-webhook.ts
+CREATED: lib/whatsapp/phone.ts
+
+GET (Meta verification):
+- Parses hub.mode, hub.verify_token, hub.challenge
+- Validates token against WHATSAPP_VERIFY_TOKEN
+- Returns hub.challenge as plain text (200) or 403
+
+POST (security + dispatch):
+- await request.text() BEFORE JSON parse (signature-safe raw body)
+- HMAC-SHA256 with META_APP_SECRET vs X-Hub-Signature-256
+- timingSafeEqual on hex digests — 403 on mismatch
+- Parses JSON; extracts inbound text messages only
+- tasks.trigger("process-whatsapp-inbound", payload, {
+    idempotencyKey: message.messageId
+  }) — fire-and-forget per message
+- Returns 200 OK immediately (Meta timeout-safe)
+
+Webhook URL (production): https://www.asbrokers.co.za/api/webhooks/whatsapp
+
+================================================================================
+TASK 3 — TRIGGER.DEV BACKGROUND WORKER
+================================================================================
+
+CREATED: trigger/whatsapp.ts
+CREATED: lib/whatsapp/lead-phone.ts
+
+Task id: process-whatsapp-inbound (Trigger.dev v4 @trigger.dev/sdk)
+- Retry: max 5 attempts, exponential backoff
+- Sanitizes sender phone (digits only)
+- Finds lead: regexp_replace on raw_payload->>'phone' vs sanitized wa_id
+- Inserts correspondence: channel whatsapp, sender_type client
+- Returns lead_not_found if no matching crm_leads row
+
+Idempotency: webhook passes WhatsApp wamid as idempotencyKey on trigger —
+Meta webhook retries cannot duplicate task runs or DB inserts.
+
+Worker env required: DATABASE_URL (same Supabase Postgres as Next.js)
+
+================================================================================
+TASK 4 — OUTBOUND WHATSAPP SERVER ACTION
+================================================================================
+
+CREATED: app/actions/whatsapp.ts
+
+sendWhatsAppMessage(leadId: string, text: string):
+- Zod validation (uuid leadId, text 1–4096 chars)
+- Loads lead raw_payload; extracts phone via phoneFromRawPayload()
+- POST https://graph.facebook.com/v19.0/{WHATSAPP_PHONE_NUMBER_ID}/messages
+  Bearer WHATSAPP_ACCESS_TOKEN
+- On success: insert correspondence sender_type staff, channel whatsapp
+
+================================================================================
+ENV VARS (.env.example updated)
+================================================================================
+
+WHATSAPP_VERIFY_TOKEN      Meta webhook subscription verify token
+META_APP_SECRET            HMAC signature verification
+WHATSAPP_ACCESS_TOKEN      Graph API Bearer token (outbound)
+WHATSAPP_PHONE_NUMBER_ID   Meta phone number ID for /messages endpoint
+TRIGGER_SECRET_KEY         tasks.trigger() from Next.js webhook route
+DATABASE_URL               Drizzle / Supabase Postgres (app + Trigger worker)
+
+================================================================================
+FILES TOUCHED (r8)
+================================================================================
+
+Modified:
+- lib/db/schema.ts          (appended crm_leads, correspondence, authUsers)
+- .env.example              (WhatsApp + existing Trigger vars documented)
+
+Created:
+- app/api/webhooks/whatsapp/route.ts
+- app/actions/whatsapp.ts
+- trigger/whatsapp.ts
+- lib/whatsapp/phone.ts
+- lib/whatsapp/meta-webhook.ts
+- lib/whatsapp/lead-phone.ts
+
+================================================================================
+VERIFICATION
+================================================================================
+
+- npx tsc --noEmit — PASS
+
+NOT YET DONE (follow-up phases)
+-------------------------------
+- npm run db:push or drizzle-kit migrate (create tables in Supabase)
+- npx trigger.dev deploy (register process-whatsapp-inbound worker)
+- Register webhook in Meta Developer Console
+- Wire CRM UI from mock-crm → Drizzle (replace CrmDemoContext reads)
+- RLS policies on crm_leads / correspondence (staff vs client)
+- Staff auth gate on sendWhatsAppMessage Server Action
+
+================================================================================
+END r8
+================================================================================

@@ -18,8 +18,12 @@ export function AppShell({ children }: Props) {
   const clientStudio = pathname.startsWith("/studio/blog");
   const embed = pathname.startsWith("/embed");
   const isHome = pathname === "/";
+  const isCrmOrPortal =
+    pathname.startsWith("/crm") ||
+    pathname.startsWith("/portal") ||
+    pathname.startsWith("/login");
 
-  if (clientStudio || embed) {
+  if (clientStudio || embed || isCrmOrPortal) {
     return (
       <>
         <a href="#main-content" className="skip-link">
@@ -52,7 +56,10 @@ export function AppShell({ children }: Props) {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      <AppShellChrome>{children}</AppShellChrome>
+      <AppShellChrome />
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
+        {children}
+      </main>
     </>
   );
 }

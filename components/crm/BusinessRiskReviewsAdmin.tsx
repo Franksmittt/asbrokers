@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { INDUSTRY_OPTIONS } from "@/lib/business-risk/catalog";
 import type { BusinessRiskReview } from "@/lib/db";
-import { exportBusinessRiskReviewsCsv, fetchBusinessRiskReviews } from "@/app/crm/business-risk-reviews/actions";
+import { exportBusinessRiskReviewsCsv, fetchBusinessRiskReviews } from "@/app/(crm)/crm/business-risk-reviews/actions";
 
 type SerializedReview = Omit<BusinessRiskReview, "createdAt"> & { createdAt: string };
 

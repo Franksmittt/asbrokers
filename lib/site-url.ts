@@ -2,10 +2,12 @@ const DEFAULT_ORIGIN = "https://www.asbrokers.co.za";
 
 /** Canonical site origin — must match Search Console URL prefix (prefer www.asbrokers.co.za). */
 export function getSiteOrigin(): string {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_APP_URL;
-  if (typeof raw !== "string" || !raw.trim()) return DEFAULT_ORIGIN;
+  const raw = (process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_APP_URL)
+    ?.replace(/\r?\n/g, "")
+    .trim();
+  if (typeof raw !== "string" || !raw) return DEFAULT_ORIGIN;
   try {
-    const u = new URL(raw.includes("://") ? raw.trim() : `https://${raw.trim()}`);
+    const u = new URL(raw.includes("://") ? raw : `https://${raw}`);
     if (!u.hostname) return DEFAULT_ORIGIN;
     return `${u.protocol}//${u.hostname}${u.port ? `:${u.port}` : ""}`;
   } catch {

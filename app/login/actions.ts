@@ -1,7 +1,7 @@
 "use server";
 
+import { dispatchMagicLinkEmail } from "@/lib/auth/magic-link-email";
 import { getAuthRedirectOrigin } from "@/lib/auth-redirect-origin";
-import { getSupabaseService } from "@/lib/supabase/server";
 
 export type MagicLinkState = {
   success: boolean;
@@ -20,28 +20,19 @@ export async function signInWithMagicLink(
     return { success: false, message: "Enter a valid email address." };
   }
 
-  const supabase = getSupabaseService();
-  if (!supabase) {
-    return {
-      success: false,
-      message: "Authentication is not configured. Contact your administrator.",
-    };
-  }
-
   const next = String(formData.get("next") ?? "/crm").trim() || "/crm";
   const origin = await getAuthRedirectOrigin();
   const redirectTo = `${origin}/auth/callback?next=${encodeURIComponent(next)}`;
 
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: redirectTo,
-    },
-  });
+  const result = await dispatchMagicLinkEmail(email, redirectTo);
 
-  if (error) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("[Login] signInWithOtp failed:", error.message);
+  if (!result.ok) {
+    console.error("[Login] magic link failed:", result.code, result.error);
+    if (result.code === "over_email_send_rate_limit") {
+      return {
+        success: false,
+        message: "Too many sign-in attempts. Wait a few minutes and try again.",
+      };
     }
     return {
       success: false,

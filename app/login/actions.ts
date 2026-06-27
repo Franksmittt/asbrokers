@@ -1,16 +1,12 @@
 "use server";
 
-import { getSiteOrigin } from "@/lib/site-url";
+import { getAuthRedirectOrigin } from "@/lib/auth-redirect-origin";
 import { getSupabaseService } from "@/lib/supabase/server";
 
 export type MagicLinkState = {
   success: boolean;
   message: string;
 } | null;
-
-function appOrigin(): string {
-  return getSiteOrigin();
-}
 
 export async function signInWithMagicLink(
   _prevState: MagicLinkState,
@@ -33,7 +29,8 @@ export async function signInWithMagicLink(
   }
 
   const next = String(formData.get("next") ?? "/crm").trim() || "/crm";
-  const redirectTo = `${appOrigin()}/auth/callback?next=${encodeURIComponent(next)}`;
+  const origin = await getAuthRedirectOrigin();
+  const redirectTo = `${origin}/auth/callback?next=${encodeURIComponent(next)}`;
 
   const { error } = await supabase.auth.signInWithOtp({
     email,

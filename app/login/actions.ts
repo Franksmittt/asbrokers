@@ -22,7 +22,7 @@ export async function signInWithMagicLink(
 
   const next = String(formData.get("next") ?? "/crm").trim() || "/crm";
   const origin = await getAuthRedirectOrigin();
-  const redirectTo = `${origin}/auth/callback?next=${encodeURIComponent(next)}`;
+  const redirectTo = `${origin}/auth/callback/implicit?next=${encodeURIComponent(next)}`;
 
   const result = await dispatchMagicLinkEmail(email, redirectTo);
 

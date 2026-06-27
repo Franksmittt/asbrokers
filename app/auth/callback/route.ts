@@ -10,7 +10,7 @@ function supabaseEnv() {
   return url && key ? { url, key } : null;
 }
 
-/** Exchange Supabase magic-link code or token_hash for session cookies. */
+/** Exchange Supabase magic-link ?code= or ?token_hash= for session cookies (PKCE / query flow). */
 export async function GET(request: Request) {
   const env = supabaseEnv();
   const { searchParams, origin } = new URL(request.url);
@@ -25,19 +25,18 @@ export async function GET(request: Request) {
   }
 
   const cookieStore = await cookies();
+  let response = NextResponse.redirect(`${origin}${safeNext}`);
+
   const supabase = createServerClient(env.url, env.key, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
       },
       setAll(cookiesToSet) {
-        try {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          );
-        } catch {
-          // Server Component context — middleware refresh handles session
-        }
+        cookiesToSet.forEach(({ name, value, options }) => {
+          cookieStore.set(name, value, options);
+          response.cookies.set(name, value, options);
+        });
       },
     },
   });
@@ -50,8 +49,9 @@ export async function GET(request: Request) {
       });
 
   if (error) {
+    console.error("[Auth callback]", error.message);
     return NextResponse.redirect(`${origin}/login?error=auth`);
   }
 
-  return NextResponse.redirect(`${origin}${safeNext}`);
+  return response;
 }

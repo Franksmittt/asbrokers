@@ -99,12 +99,17 @@ export async function getLeads(): Promise<CrmLead[]> {
     return [];
   }
 
-  const scope = leadScopeFilter(user.id, role);
-  const rows = scope
-    ? await db.select().from(crmLeads).where(scope)
-    : await db.select().from(crmLeads);
+  try {
+    const scope = leadScopeFilter(user.id, role);
+    const rows = scope
+      ? await db.select().from(crmLeads).where(scope)
+      : await db.select().from(crmLeads);
 
-  return rows.map(mapDbLeadToCrmLead);
+    return rows.map(mapDbLeadToCrmLead);
+  } catch (error) {
+    console.error("[CRM] getLeads failed:", error);
+    return [];
+  }
 }
 
 export async function getLeadById(leadId: string): Promise<CrmLead | null> {

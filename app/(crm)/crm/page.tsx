@@ -13,11 +13,19 @@ function tasksDueToday(tasks: CrmTask[]): CrmTask[] {
 }
 
 export default async function CrmDashboardPage() {
-  const [tasks, clients, recentCorrespondence] = await Promise.all([
-    getTasks(),
-    getClients(),
-    getRecentCorrespondence(3),
-  ]);
+  let tasks: CrmTask[] = [];
+  let clients: Awaited<ReturnType<typeof getClients>> = [];
+  let recentCorrespondence: Awaited<ReturnType<typeof getRecentCorrespondence>> = [];
+
+  try {
+    [tasks, clients, recentCorrespondence] = await Promise.all([
+      getTasks(),
+      getClients(),
+      getRecentCorrespondence(3),
+    ]);
+  } catch (error) {
+    console.error("[CRM] dashboard load failed:", error);
+  }
 
   const openTasks = tasks.filter((task) => !task.completed).length;
 

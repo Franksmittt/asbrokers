@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 
 import { signInWithMagicLink, type MagicLinkState } from "@/app/login/actions";
 
@@ -13,6 +13,10 @@ export function LoginForm({ nextPath }: LoginFormProps) {
     signInWithMagicLink,
     null
   );
+
+  useEffect(() => {
+    sessionStorage.setItem("asbrokers-auth-next", nextPath);
+  }, [nextPath]);
 
   return (
     <form action={formAction} className="space-y-6">

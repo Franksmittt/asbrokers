@@ -1,6 +1,7 @@
 "use server";
 
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { getSiteOrigin } from "@/lib/site-url";
+import { getSupabaseService } from "@/lib/supabase/server";
 
 export type MagicLinkState = {
   success: boolean;
@@ -8,11 +9,7 @@ export type MagicLinkState = {
 } | null;
 
 function appOrigin(): string {
-  return (
-    process.env.NEXT_PUBLIC_APP_URL?.trim() ||
-    process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-    "http://localhost:3000"
-  );
+  return getSiteOrigin();
 }
 
 export async function signInWithMagicLink(
@@ -27,7 +24,7 @@ export async function signInWithMagicLink(
     return { success: false, message: "Enter a valid email address." };
   }
 
-  const supabase = await createServerSupabaseClient();
+  const supabase = getSupabaseService();
   if (!supabase) {
     return {
       success: false,

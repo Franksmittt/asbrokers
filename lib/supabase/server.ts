@@ -14,11 +14,16 @@ const url =
 const anonKey = normalizeEnv(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 const serviceKey = normalizeEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-/** Use in Server Components / Route Handlers when Supabase Auth is enabled (Phase 2). Respects RLS. */
+/**
+ * Server-side Supabase Auth client (session cookies).
+ * Prefers SUPABASE_SERVICE_ROLE_KEY when set — some publishable anon keys reject OTP dispatch
+ * and getUser while the secret key still works for server-side auth flows.
+ */
 export async function createServerSupabaseClient() {
-  if (!url || !anonKey) return null;
+  const key = serviceKey ?? anonKey;
+  if (!url || !key) return null;
   const cookieStore = await cookies();
-  return createServerClient(url, anonKey, {
+  return createServerClient(url, key, {
     cookies: {
       getAll() {
         return cookieStore.getAll();

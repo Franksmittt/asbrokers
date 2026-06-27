@@ -70,25 +70,39 @@ async function assertLeadAccess(leadId: string) {
     return null;
   }
 
-  const [row] = await db
-    .select()
-    .from(crmLeads)
-    .where(eq(crmLeads.id, leadId))
-    .limit(1);
+  try {
+    const [row] = await db
+      .select()
+      .from(crmLeads)
+      .where(eq(crmLeads.id, leadId))
+      .limit(1);
 
-  if (!row) {
+    if (!row) {
+      return null;
+    }
+
+    if (role === "staff" && row.assignedAdvisor !== user.id) {
+      return null;
+    }
+
+    return { user, role, row };
+  } catch (error) {
+    console.error("[CRM] assertLeadAccess failed:", error);
     return null;
   }
-
-  if (role === "staff" && row.assignedAdvisor !== user.id) {
-    return null;
-  }
-
-  return { user, role, row };
 }
 
 function leadScopeFilter(userId: string, role: "admin" | "staff") {
   return role === "staff" ? eq(crmLeads.assignedAdvisor, userId) : undefined;
+}
+
+async function withCrmDb<T>(label: string, fallback: T, run: () => Promise<T>): Promise<T> {
+  try {
+    return await run();
+  } catch (error) {
+    console.error(`[CRM] ${label} failed:`, error);
+    return fallback;
+  }
 }
 
 /** Fetch pipeline leads — staff see assigned only; admin sees all. */
@@ -142,35 +156,37 @@ export async function getLeadDetails(leadId: string): Promise<LeadDetails | null
     return null;
   }
 
-  const lead = mapDbLeadToCrmLead(access.row);
-  const staffLabel = staffDisplayName(access.user);
+  return withCrmDb("getLeadDetails", null, async () => {
+    const lead = mapDbLeadToCrmLead(access.row);
+    const staffLabel = staffDisplayName(access.user);
 
-  const [correspondenceRows, reminderRows, taskRows] = await Promise.all([
-    db
-      .select()
-      .from(correspondence)
-      .where(eq(correspondence.leadId, leadId))
-      .orderBy(asc(correspondence.createdAt)),
-    db
-      .select()
-      .from(leadReminders)
-      .where(and(eq(leadReminders.leadId, leadId), eq(leadReminders.isCompleted, false)))
-      .orderBy(asc(leadReminders.dueDate)),
-    db
-      .select()
-      .from(crmTasks)
-      .where(eq(crmTasks.leadId, leadId))
-      .orderBy(asc(crmTasks.dueDate)),
-  ]);
+    const [correspondenceRows, reminderRows, taskRows] = await Promise.all([
+      db
+        .select()
+        .from(correspondence)
+        .where(eq(correspondence.leadId, leadId))
+        .orderBy(asc(correspondence.createdAt)),
+      db
+        .select()
+        .from(leadReminders)
+        .where(and(eq(leadReminders.leadId, leadId), eq(leadReminders.isCompleted, false)))
+        .orderBy(asc(leadReminders.dueDate)),
+      db
+        .select()
+        .from(crmTasks)
+        .where(eq(crmTasks.leadId, leadId))
+        .orderBy(asc(crmTasks.dueDate)),
+    ]);
 
-  return {
-    lead,
-    correspondence: correspondenceRows.map((row) =>
-      mapDbCorrespondence(row, lead.name, staffLabel)
-    ),
-    reminders: reminderRows.map(mapDbReminder),
-    tasks: taskRows.map(mapDbTask),
-  };
+    return {
+      lead,
+      correspondence: correspondenceRows.map((row) =>
+        mapDbCorrespondence(row, lead.name, staffLabel)
+      ),
+      reminders: reminderRows.map(mapDbReminder),
+      tasks: taskRows.map(mapDbTask),
+    };
+  });
 }
 
 export async function getGlobalNotes(): Promise<CrmGlobalNote[]> {
@@ -180,12 +196,13 @@ export async function getGlobalNotes(): Promise<CrmGlobalNote[]> {
     return [];
   }
 
-  const rows = await db
-    .select()
-    .from(globalNotes)
-    .orderBy(desc(globalNotes.createdAt));
-
-  return rows.map(mapDbGlobalNote);
+  return withCrmDb("getGlobalNotes", [], async () => {
+    const rows = await db
+      .select()
+      .from(globalNotes)
+      .orderBy(desc(globalNotes.createdAt));
+    return rows.map(mapDbGlobalNote);
+  });
 }
 
 export async function getTasks(): Promise<CrmTask[]> {
@@ -195,12 +212,13 @@ export async function getTasks(): Promise<CrmTask[]> {
     return [];
   }
 
-  const rows =
-    role === "staff"
-      ? await db.select().from(crmTasks).where(eq(crmTasks.assigneeId, user.id))
-      : await db.select().from(crmTasks);
-
-  return rows.map(mapDbTask);
+  return withCrmDb("getTasks", [], async () => {
+    const rows =
+      role === "staff"
+        ? await db.select().from(crmTasks).where(eq(crmTasks.assigneeId, user.id))
+        : await db.select().from(crmTasks);
+    return rows.map(mapDbTask);
+  });
 }
 
 export async function getClients(): Promise<CrmClient[]> {
@@ -210,15 +228,16 @@ export async function getClients(): Promise<CrmClient[]> {
     return [];
   }
 
-  const rows =
-    role === "staff"
-      ? await db
-          .select()
-          .from(crmLeads)
-          .where(and(eq(crmLeads.assignedAdvisor, user.id), eq(crmLeads.pipelineStatus, "won")))
-      : await db.select().from(crmLeads).where(eq(crmLeads.pipelineStatus, "won"));
-
-  return rows.map(mapDbLeadToClient);
+  return withCrmDb("getClients", [], async () => {
+    const rows =
+      role === "staff"
+        ? await db
+            .select()
+            .from(crmLeads)
+            .where(and(eq(crmLeads.assignedAdvisor, user.id), eq(crmLeads.pipelineStatus, "won")))
+        : await db.select().from(crmLeads).where(eq(crmLeads.pipelineStatus, "won"));
+    return rows.map(mapDbLeadToClient);
+  });
 }
 
 export async function getClientById(clientId: string): Promise<CrmClient | null> {
@@ -245,39 +264,41 @@ export async function getRecentCorrespondence(
     return [];
   }
 
-  let scopedLeadIds = leadIds;
-  if (!scopedLeadIds?.length) {
-    const scope = leadScopeFilter(user.id, role);
-    const leadRows = scope
-      ? await db.select({ id: crmLeads.id }).from(crmLeads).where(scope)
-      : await db.select({ id: crmLeads.id }).from(crmLeads);
-    scopedLeadIds = leadRows.map((row) => row.id);
-  }
+  return withCrmDb("getRecentCorrespondence", [], async () => {
+    let scopedLeadIds = leadIds;
+    if (!scopedLeadIds?.length) {
+      const scope = leadScopeFilter(user.id, role);
+      const leadRows = scope
+        ? await db.select({ id: crmLeads.id }).from(crmLeads).where(scope)
+        : await db.select({ id: crmLeads.id }).from(crmLeads);
+      scopedLeadIds = leadRows.map((row) => row.id);
+    }
 
-  if (scopedLeadIds.length === 0) {
-    return [];
-  }
+    if (scopedLeadIds.length === 0) {
+      return [];
+    }
 
-  const rows = await db
-    .select()
-    .from(correspondence)
-    .where(inArray(correspondence.leadId, scopedLeadIds))
-    .orderBy(desc(correspondence.createdAt))
-    .limit(limit);
+    const rows = await db
+      .select()
+      .from(correspondence)
+      .where(inArray(correspondence.leadId, scopedLeadIds))
+      .orderBy(desc(correspondence.createdAt))
+      .limit(limit);
 
-  const leadNameById = new Map<string, string>();
-  const leadRows = await db
-    .select()
-    .from(crmLeads)
-    .where(inArray(crmLeads.id, scopedLeadIds));
-  for (const lead of leadRows) {
-    leadNameById.set(lead.id, mapDbLeadToCrmLead(lead).name);
-  }
+    const leadNameById = new Map<string, string>();
+    const leadRows = await db
+      .select()
+      .from(crmLeads)
+      .where(inArray(crmLeads.id, scopedLeadIds));
+    for (const lead of leadRows) {
+      leadNameById.set(lead.id, mapDbLeadToCrmLead(lead).name);
+    }
 
-  const staffLabel = staffDisplayName(user);
-  return rows.map((row) =>
-    mapDbCorrespondence(row, leadNameById.get(row.leadId) ?? "Client", staffLabel)
-  );
+    const staffLabel = staffDisplayName(user);
+    return rows.map((row) =>
+      mapDbCorrespondence(row, leadNameById.get(row.leadId) ?? "Client", staffLabel)
+    );
+  });
 }
 
 export type MutationResult = { ok: true } | { ok: false; error: string };

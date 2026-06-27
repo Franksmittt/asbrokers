@@ -17,6 +17,7 @@
     "db:push": "tsx scripts/db-push.ts",
     "db:repair-studio": "tsx scripts/repair-client-insight-db.ts",
     "db:verify-studio": "tsx scripts/verify-client-insight-db.ts",
+    "auth:configure": "tsx scripts/configure-supabase-auth.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "test:a11y": "playwright test tests/accessibility.spec.ts",

@@ -1,0 +1,12 @@
+# Managed by Cursor Supabase Hub — use: npm run auth:configure (from Hub) or npx supabase config push
+project_id = "qfpvrwcdomiyryllvdqt"
+
+[auth]
+enabled = true
+site_url = "https://www.asbrokers.co.za"
+additional_redirect_urls = [
+  "https://www.asbrokers.co.za/auth/callback**",
+  "https://www.asbrokers.co.za/**",
+  "http://localhost:3000/auth/callback**",
+  "http://localhost:3000/**",
+]

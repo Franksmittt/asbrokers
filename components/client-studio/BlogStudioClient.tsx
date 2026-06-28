@@ -58,9 +58,9 @@ type Props = {
 };
 
 const STUDIO_SELECT_CLASS =
-  "w-full rounded-lg border border-white/15 bg-zinc-950 p-2.5 text-sm text-zinc-50 shadow-inner outline-none focus:border-teal-500/40 [&>option]:bg-zinc-950 [&>option]:text-zinc-50";
+  "w-full rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-2.5 text-sm text-zinc-50 outline-none focus:border-[#3ecf8e]/40 [&>option]:bg-[#0a0a0a] [&>option]:text-zinc-50";
 const STUDIO_FIELD_CLASS =
-  "w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-teal-500/40";
+  "w-full rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#3ecf8e]/30";
 const STUDIO_FIELD_LABEL_CLASS =
   "mb-1 block text-xs font-bold uppercase tracking-[0.14em] text-zinc-300";
 const STUDIO_FIELD_HINT_CLASS = "mt-1 text-[11px] leading-relaxed text-zinc-500";
@@ -379,7 +379,7 @@ function buildPreviewDoc(html: string): string {
     [class~="list-disc"]{list-style:disc}[class~="list-none"]{list-style:none}
     [class~="pl-6"]{padding-left:1.5rem}[class~="p-6"]{padding:1.5rem}[class~="rounded-2xl"]{border-radius:1rem}[class~="rounded-3xl"]{border-radius:1.5rem}
     [class~="text-white"]{color:#fff}[class~="text-zinc-100"]{color:#f4f4f5}[class~="text-zinc-200"]{color:#e4e4e7}[class~="text-zinc-300"]{color:#d4d4d8}[class~="text-zinc-400"]{color:#a1a1aa}
-    [class~="text-teal-200"]{color:#99f6e4}[class~="text-teal-300"]{color:#5eead4}[class~="text-teal-400"]{color:#2dd4bf}[class~="text-emerald-300"]{color:#6ee7b7}[class~="text-amber-200"]{color:#fde68a}[class~="text-amber-300"]{color:#fcd34d}[class~="text-orange-200"]{color:#fed7aa}
+    [class~="text-teal-200"]{color:#99f6e4}[class~="text-[#3ecf8e]"]{color:#5eead4}[class~="text-[#3ecf8e]/90"]{color:#2dd4bf}[class~="text-emerald-300"]{color:#6ee7b7}[class~="text-amber-200"]{color:#fde68a}[class~="text-amber-300"]{color:#fcd34d}[class~="text-orange-200"]{color:#fed7aa}
     [class~="bg-white/5"]{background:rgba(255,255,255,.07)}[class~="bg-black/30"]{background:rgba(0,0,0,.30)}[class~="bg-teal-500/10"]{background:rgba(20,184,166,.12)}[class~="bg-amber-500/10"]{background:rgba(245,158,11,.12)}
     [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:rgba(255,255,255,.13)}[class~="border-teal-500/30"]{border-color:rgba(20,184,166,.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11,.35)}
     .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(45,212,191,.58);border-radius:1rem;background:rgba(45,212,191,.12);color:#ccfbf1}
@@ -1357,46 +1357,46 @@ export function BlogStudioClient(props: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] pb-16 text-zinc-100">
-      <header className="flex items-center justify-between border-b border-white/10 bg-[#111115] px-8 py-5 text-white shadow-md">
+    <div className="flex min-h-0 flex-1 flex-col pb-8 text-zinc-200">
+      <div className="sticky top-0 z-30 -mx-4 mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-[#2a2a2a] bg-black/90 px-4 py-4 backdrop-blur-sm md:-mx-8 md:px-8">
         <div>
-          <span className="block text-xs font-bold uppercase tracking-widest text-teal-300">Broker Workspace</span>
-          <h1 className="text-2xl font-semibold tracking-tight">Blog Studio Dashboard</h1>
+          <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-600">FSP 17273</p>
+          <h1 className="text-lg font-semibold tracking-tight text-white sm:text-xl">Blog workspace</h1>
         </div>
-        <div className="flex items-center space-x-3">
-          <div className="rounded-lg border border-white/10 bg-black/30 px-4 py-2 text-sm text-zinc-300">
-            Status: <span className="font-medium text-emerald-300">{status}</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1.5 text-xs text-zinc-400">
+            Status: <span className="font-medium text-[#3ecf8e]">{status}</span>
           </div>
           <button
             type="button"
             onClick={() => saveOrPublish(false)}
             disabled={isPending}
-            className="rounded-lg border border-white/20 bg-white px-5 py-3 text-sm font-bold text-black disabled:opacity-50"
+            className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white disabled:opacity-50"
           >
-            {currentPostStatus === "published" ? "Save Live Changes" : "Save Draft"}
+            {currentPostStatus === "published" ? "Save live changes" : "Save draft"}
           </button>
           <button
             type="button"
             onClick={() => saveOrPublish(true)}
             disabled={isPending || !canPublish}
-            className="rounded-lg bg-teal-600 px-6 py-3 text-lg font-bold text-white shadow transition-all hover:bg-teal-500 disabled:opacity-50"
+            className="rounded-md bg-[#3ecf8e] px-4 py-2 text-xs font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            Publish Blog Post
+            Publish
           </button>
         </div>
-      </header>
+      </div>
 
-      <main className="mx-auto mt-8 grid max-w-[1600px] grid-cols-1 gap-8 px-8 lg:grid-cols-12">
+      <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 gap-6 lg:grid-cols-12">
         {databaseLoadError && (
           <div className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-4 py-3 text-sm text-amber-100 lg:col-span-12">
             {databaseLoadError}
           </div>
         )}
         <div className="space-y-6 lg:col-span-5">
-          <section className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+          <section className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-teal-300">Blog library</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Blog library</p>
                 <h2 className="mt-1 text-xl font-bold text-white">Open an existing blog post</h2>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">
                   Load any saved draft or published article, edit the HTML/details, then save or publish again.
@@ -1480,7 +1480,7 @@ export function BlogStudioClient(props: Props) {
             </p>
           </section>
 
-          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <div className="mb-3">
               <label className="block text-lg font-bold text-white">Step 1: Paste AI Blog Code</label>
             </div>
@@ -1497,7 +1497,7 @@ export function BlogStudioClient(props: Props) {
             />
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-lg font-bold text-white">Step 2: Upload Images</h2>
               <span className="text-xs font-semibold text-zinc-400">{imageCount - missingImages}/{imageCount} mapped</span>
@@ -1616,7 +1616,7 @@ export function BlogStudioClient(props: Props) {
             )}
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <div className="mb-3 flex items-center justify-between gap-3">
               <h2 className="text-lg font-bold text-white">Step 3: Select Calculators & Videos</h2>
               <span className="text-xs font-semibold text-zinc-400">
@@ -1673,7 +1673,7 @@ export function BlogStudioClient(props: Props) {
             </div>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <h2 className="mb-1 text-lg font-bold text-white">Step 4: Post Details</h2>
             <p className="mb-4 text-sm text-zinc-400">
               Each field keeps its label while you type. Save stores title, slug, article HTML, images, and
@@ -1710,7 +1710,7 @@ export function BlogStudioClient(props: Props) {
             <div className="grid grid-cols-1 gap-4">
               <div>
                 <label htmlFor="studio-post-title" className={STUDIO_FIELD_LABEL_CLASS}>
-                  Article title <span className="text-teal-400">*</span>
+                  Article title <span className="text-[#3ecf8e]/90">*</span>
                 </label>
                 <input
                   id="studio-post-title"
@@ -1724,7 +1724,7 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div>
                 <label htmlFor="studio-post-slug" className={STUDIO_FIELD_LABEL_CLASS}>
-                  URL slug <span className="text-teal-400">*</span>
+                  URL slug <span className="text-[#3ecf8e]/90">*</span>
                 </label>
                 <input
                   id="studio-post-slug"
@@ -1738,7 +1738,7 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div>
                 <label htmlFor="studio-post-excerpt" className={STUDIO_FIELD_LABEL_CLASS}>
-                  Short summary <span className="text-teal-400">*</span>
+                  Short summary <span className="text-[#3ecf8e]/90">*</span>
                 </label>
                 <textarea
                   id="studio-post-excerpt"
@@ -1752,7 +1752,7 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div id="studio-categories">
                 <label className={STUDIO_FIELD_LABEL_CLASS}>
-                  Categories <span className="text-teal-400">*</span>
+                  Categories <span className="text-[#3ecf8e]/90">*</span>
                 </label>
                 <div className="mt-2 flex flex-wrap gap-x-4 gap-y-3">
                   {INSIGHT_CATEGORIES.map((cat) => {
@@ -1816,7 +1816,7 @@ export function BlogStudioClient(props: Props) {
                 type="button"
                 onClick={() => saveOrPublish(false)}
                 disabled={isPending || !databaseConfigured}
-                className="rounded-lg border border-teal-500/40 bg-teal-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-teal-500 disabled:opacity-50"
+                className="rounded-lg border border-teal-500/40 bg-[#3ecf8e] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90 disabled:opacity-50"
               >
                 {isPending ? "Saving…" : currentPostStatus === "published" ? "Save live changes" : "Save draft"}
               </button>
@@ -1832,7 +1832,7 @@ export function BlogStudioClient(props: Props) {
             </div>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <h2 className="mb-3 text-lg font-bold text-white">Detected Slots</h2>
             <div className="grid grid-cols-3 gap-2 text-center text-xs">
               <div className="rounded-lg border border-white/10 bg-black/30 p-3">
@@ -1854,10 +1854,10 @@ export function BlogStudioClient(props: Props) {
             </p>
           </div>
 
-          <section className="rounded-xl border border-white/10 bg-[#121214] p-6 shadow-sm">
+          <section className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-teal-300">Recent posts</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Recent posts</p>
                 <h2 className="mt-1 text-lg font-bold text-white">Jump back into a saved article</h2>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">
                   Open a post to edit it. Use the switch to show or hide it on Insights, or delete it permanently.
@@ -1887,7 +1887,7 @@ export function BlogStudioClient(props: Props) {
         </div>
 
         <div className="lg:col-span-7">
-          <div className="flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-[#121214] shadow-sm">
+          <div className="flex h-full flex-col overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-sm">
             <div className="flex items-center justify-between border-b border-white/10 bg-black/30 px-6 py-4">
               <span className="text-lg font-bold text-white">Step 5: Review &amp; Publish</span>
               <div className="flex flex-wrap items-center justify-end gap-2">
@@ -1917,7 +1917,7 @@ export function BlogStudioClient(props: Props) {
                     setActiveTab("preview");
                     setIsPreviewFullscreen(true);
                   }}
-                  className="rounded-lg border border-teal-500/35 bg-teal-500/10 px-3 py-2 text-xs font-semibold text-teal-100 hover:bg-teal-500/15"
+                  className="rounded-lg border border-teal-500/35 bg-teal-500/10 px-3 py-2 text-xs font-semibold text-teal-100 hover:opacity-90/15"
                 >
                   Fullscreen preview
                 </button>
@@ -1958,12 +1958,12 @@ export function BlogStudioClient(props: Props) {
                   </span>
                   <p className="text-xs text-zinc-400">This structured data is what gets saved.</p>
                 </div>
-                <pre className="max-h-[70vh] overflow-x-auto rounded-lg bg-black/60 p-4 text-xs text-teal-300">{payloadPreview}</pre>
+                <pre className="max-h-[70vh] overflow-x-auto rounded-lg bg-black/60 p-4 text-xs text-[#3ecf8e]">{payloadPreview}</pre>
               </div>
             )}
           </div>
         </div>
-      </main>
+      </div>
 
       {showAllPosts && (
         <div
@@ -1976,7 +1976,7 @@ export function BlogStudioClient(props: Props) {
           >
             <div className="flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-teal-300">All saved posts</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">All saved posts</p>
                 <h2 className="mt-1 text-lg font-bold text-white">Choose an article to edit</h2>
                 <p className="mt-1 text-sm text-zinc-400">{sortedPosts.length} saved posts, newest first.</p>
               </div>
@@ -1999,7 +1999,7 @@ export function BlogStudioClient(props: Props) {
         <div className="fixed inset-0 z-50 flex flex-col bg-[#050506] text-white">
           <div className="flex shrink-0 items-center justify-between border-b border-white/10 bg-[#0a0a0c] px-4 py-3">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-300">Fullscreen preview</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Fullscreen preview</p>
               <h2 className="text-sm font-semibold text-white">{title || "Untitled blog post"}</h2>
             </div>
             <button

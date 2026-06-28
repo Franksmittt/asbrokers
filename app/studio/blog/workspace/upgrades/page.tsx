@@ -47,19 +47,18 @@ const upgrades = [
 
 export default function StudioUpgradesPage() {
   return (
-    <main className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
-      <p className="text-[11px] uppercase tracking-[0.18em] text-teal-400">Studio updates</p>
-      <h1 className="mt-2 text-3xl font-semibold text-white">What has been upgraded</h1>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-400">
-        This page summarizes the production improvements made to keep blog publishing reliable and easy for a
-        single owner workflow.
+    <div className="mx-auto w-full max-w-5xl">
+      <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-600">Changelog</p>
+      <h1 className="mt-1 text-2xl font-semibold text-white">Studio upgrades</h1>
+      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-zinc-500">
+        Production improvements for reliable, owner-friendly publishing.
       </p>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 space-y-3">
         {upgrades.map((item) => (
-          <section key={item.title} className="rounded-2xl border border-white/10 bg-zinc-950/40 p-4 sm:p-5">
-            <h2 className="text-base font-semibold text-white">{item.title}</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-300">
+          <section key={item.title} className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+            <h2 className="text-sm font-medium text-white">{item.title}</h2>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-zinc-400">
               {item.points.map((point) => (
                 <li key={point}>{point}</li>
               ))}
@@ -71,17 +70,17 @@ export default function StudioUpgradesPage() {
       <div className="mt-8 flex flex-wrap gap-2">
         <Link
           href="/studio/blog/workspace/tutorial"
-          className="rounded-full border border-teal-500/40 bg-teal-950/30 px-4 py-2 text-sm text-teal-200 hover:bg-teal-900/35"
+          className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:text-white"
         >
-          Open Tutorial
+          Open tutorial
         </Link>
         <Link
           href="/studio/blog/workspace"
-          className="rounded-full border border-white/15 px-4 py-2 text-sm text-zinc-200 hover:bg-white/5"
+          className="rounded-md bg-[#3ecf8e] px-4 py-2 text-xs font-medium text-black transition-opacity hover:opacity-90"
         >
-          Back to Workspace
+          Back to workspace
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

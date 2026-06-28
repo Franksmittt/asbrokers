@@ -36,7 +36,7 @@ export function StudioLoginForm({ nextPath }: { nextPath: string }) {
           type="password"
           required
           autoComplete="current-password"
-          className="w-full px-4 py-3 rounded-2xl bg-black/50 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500/40"
+          className="w-full rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#3ecf8e]/30"
           placeholder="Provided by AS Brokers"
         />
       </div>
@@ -49,7 +49,7 @@ export function StudioLoginForm({ nextPath }: { nextPath: string }) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full py-3.5 rounded-2xl bg-teal-600 text-white font-semibold hover:bg-teal-500 transition-colors disabled:opacity-50"
+        className="w-full rounded-md bg-[#3ecf8e] py-3 text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {isPending ? "Signing in…" : "Enter studio"}
       </button>

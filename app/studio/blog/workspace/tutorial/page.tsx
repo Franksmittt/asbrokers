@@ -71,19 +71,18 @@ const troubleshooting = [
 
 export default function StudioTutorialPage() {
   return (
-    <main className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
-      <p className="text-[11px] uppercase tracking-[0.18em] text-teal-400">Client tutorial</p>
-      <h1 className="mt-2 text-3xl font-semibold text-white">How to use the blog studio</h1>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-zinc-400">
-        Follow these steps in order for reliable publishing every time. This tutorial is written for daily use by
-        one owner user.
+    <div className="mx-auto w-full max-w-5xl">
+      <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-600">Tutorial</p>
+      <h1 className="mt-1 text-2xl font-semibold text-white">How to use Blog Studio</h1>
+      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-zinc-500">
+        Follow these steps in order for reliable publishing every time.
       </p>
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 space-y-3">
         {steps.map((step) => (
-          <section key={step.title} className="rounded-2xl border border-white/10 bg-zinc-950/40 p-4 sm:p-5">
-            <h2 className="text-base font-semibold text-white">{step.title}</h2>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-zinc-300">
+          <section key={step.title} className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+            <h2 className="text-sm font-medium text-white">{step.title}</h2>
+            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-zinc-400">
               {step.actions.map((action) => (
                 <li key={action}>{action}</li>
               ))}
@@ -92,8 +91,8 @@ export default function StudioTutorialPage() {
         ))}
       </div>
 
-      <section className="mt-6 rounded-2xl border border-amber-500/30 bg-amber-950/15 p-4 sm:p-5">
-        <h2 className="text-base font-semibold text-amber-200">Quick troubleshooting</h2>
+      <section className="mt-6 rounded-lg border border-amber-500/30 bg-amber-950/20 p-5">
+        <h2 className="text-sm font-medium text-amber-200">Quick troubleshooting</h2>
         <div className="mt-3 space-y-3 text-sm text-amber-100/90">
           {troubleshooting.map((item) => (
             <p key={item.issue}>
@@ -106,17 +105,17 @@ export default function StudioTutorialPage() {
       <div className="mt-8 flex flex-wrap gap-2">
         <Link
           href="/studio/blog/workspace"
-          className="rounded-full border border-teal-500/40 bg-teal-950/30 px-4 py-2 text-sm text-teal-200 hover:bg-teal-900/35"
+          className="rounded-md bg-[#3ecf8e] px-4 py-2 text-xs font-medium text-black transition-opacity hover:opacity-90"
         >
-          Back to Workspace
+          Back to workspace
         </Link>
         <Link
           href="/studio/blog/workspace/upgrades"
-          className="rounded-full border border-white/15 px-4 py-2 text-sm text-zinc-200 hover:bg-white/5"
+          className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:text-white"
         >
-          View Upgrades
+          View upgrades
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

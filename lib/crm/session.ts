@@ -24,3 +24,7 @@ export function staffDisplayName(user: User): string {
 export function canAccessCrmRole(role: CrmRole | null): role is CrmRole {
   return role === "admin" || role === "staff";
 }
+
+export function isAdminRole(role: CrmRole | null | undefined): role is "admin" {
+  return role === "admin";
+}

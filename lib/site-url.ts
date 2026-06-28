@@ -21,7 +21,8 @@ export function absoluteUrl(pathnameOrUrl: string): string {
     return pathnameOrUrl;
   }
   const path = pathnameOrUrl.startsWith("/") ? pathnameOrUrl : `/${pathnameOrUrl}`;
-  return `${origin}${path}`;
+  const normalizedPath = path.replace(/\/index\/?$/, "/") || "/";
+  return `${origin}${normalizedPath === "/" ? "/" : normalizedPath}`;
 }
 
 /** Canonical path for an insight article; matches `/insights` feed links (`?locale` only when not `en`). */

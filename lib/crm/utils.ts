@@ -53,3 +53,25 @@ export function formatAdvisorLabel(advisorId: string | null | undefined): string
   if (!advisorId) return "Unassigned";
   return `Advisor · ${advisorId.slice(0, 8)}`;
 }
+
+/** Resolve kanban column status at screen coordinates using column bounds. */
+export function resolveKanbanStatusAtPoint(point: {
+  x: number;
+  y: number;
+}): LeadStatus | undefined {
+  if (typeof document === "undefined") return undefined;
+
+  const columns = document.querySelectorAll<HTMLElement>("[data-kanban-column]");
+  for (const column of columns) {
+    const rect = column.getBoundingClientRect();
+    if (
+      point.x >= rect.left &&
+      point.x <= rect.right &&
+      point.y >= rect.top &&
+      point.y <= rect.bottom
+    ) {
+      return column.dataset.status as LeadStatus;
+    }
+  }
+  return undefined;
+}

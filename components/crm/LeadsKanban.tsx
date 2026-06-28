@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { motion, useReducedMotion } from "framer-motion";
-import { useCallback, useMemo, useRef } from "react";
+import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { Bell, MessageCircle } from "@/components/icons";
 import { useCrm } from "@/components/crm/CrmContext";
 import {
@@ -13,6 +13,7 @@ import {
 } from "@/lib/crm/types";
 import {
   formatPipelineCurrency,
+  resolveKanbanStatusAtPoint,
   sanitizeLeadPhoneForWhatsApp,
   sumColumnCapital,
 } from "@/lib/crm/utils";
@@ -28,12 +29,14 @@ function formatCapitalDisplay(lead: CrmLead): string {
 
 function LeadCard({
   lead,
-  onStatusChange,
+  onDrop,
   onQuickReminder,
+  isDropTarget,
 }: {
   lead: CrmLead;
-  onStatusChange: (leadId: string, point: { x: number; y: number }) => void;
+  onDrop: (leadId: string, point: { x: number; y: number }) => void;
   onQuickReminder: (lead: CrmLead) => void;
+  isDropTarget: boolean;
 }) {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
@@ -63,13 +66,13 @@ function LeadCard({
         event.preventDefault();
         event.stopPropagation();
         suppressTapUntilRef.current = Date.now() + 500;
+        onDrop(lead.id, info.point);
       }
-      onStatusChange(lead.id, info.point);
       window.setTimeout(() => {
         draggedRef.current = false;
       }, 520);
     },
-    [lead.id, onStatusChange]
+    [lead.id, onDrop]
   );
 
   const handleTap = useCallback(() => {
@@ -85,10 +88,13 @@ function LeadCard({
 
   return (
     <motion.div
+      layout
+      layoutId={`kanban-lead-${lead.id}`}
       drag={!reduceMotion}
-      dragElastic={0.08}
+      dragElastic={0.05}
+      dragMomentum={false}
       dragSnapToOrigin
-      whileDrag={{ scale: 0.97, zIndex: 50 }}
+      whileDrag={{ scale: 1.02, zIndex: 50, boxShadow: "0 12px 40px rgba(0,0,0,0.45)" }}
       transition={DRAG_SPRING}
       onDragStart={handleDragStart}
       onDrag={handleDrag}
@@ -100,12 +106,14 @@ function LeadCard({
           handleTap();
         }
       }}
+      data-kanban-card
       role="button"
       tabIndex={0}
       className={cn(
-        "group relative cursor-grab rounded-[2rem] rim-light p-4 pt-8 text-left",
+        "group relative cursor-grab rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-4 pt-8 text-left",
         "active:cursor-grabbing focus-visible:outline focus-visible:outline-2",
-        "focus-visible:outline-offset-2 focus-visible:outline-samsung-blue/60"
+        "focus-visible:outline-offset-2 focus-visible:outline-[#3ecf8e]/60",
+        isDropTarget && "ring-1 ring-[#3ecf8e]/30"
       )}
     >
       <div
@@ -119,7 +127,7 @@ function LeadCard({
             stopCardNav(e);
             onQuickReminder(lead);
           }}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-void/80 text-gray-100 ring-1 ring-white/10 transition-colors hover:bg-shark hover:text-white"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-black/80 text-zinc-300 ring-1 ring-[#2a2a2a] transition-colors hover:bg-[#141414] hover:text-white"
         >
           <Bell className="h-3.5 w-3.5" />
         </button>
@@ -129,7 +137,7 @@ function LeadCard({
           rel="noopener noreferrer"
           aria-label={`WhatsApp ${lead.name}`}
           onClick={stopCardNav}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-void/80 text-whatsapp ring-1 ring-white/10 transition-colors hover:bg-whatsapp/20"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-black/80 text-whatsapp ring-1 ring-[#2a2a2a] transition-colors hover:bg-whatsapp/20"
         >
           <MessageCircle className="h-3.5 w-3.5" />
         </a>
@@ -137,25 +145,25 @@ function LeadCard({
 
       <p className="pr-16 text-sm font-semibold tracking-tight text-white">{lead.name}</p>
       {lead.company ? (
-        <p className="mt-1 text-[10px] uppercase tracking-wider text-gray-400">{lead.company}</p>
+        <p className="mt-1 text-[10px] uppercase tracking-wider text-zinc-500">{lead.company}</p>
       ) : null}
 
-      <div className="mt-4 rounded-xl bg-[#008080]/10 px-3 py-2 ring-1 ring-[#008080]/20">
-        <p className="text-[10px] font-medium uppercase tracking-wider text-[#008080]">
+      <div className="mt-4 rounded-md bg-[#3ecf8e]/10 px-3 py-2 ring-1 ring-[#3ecf8e]/20">
+        <p className="text-[10px] font-medium uppercase tracking-wider text-[#3ecf8e]">
           Est. capital
         </p>
-        <p className="mt-1 text-lg font-bold tabular-nums tracking-tight text-[#008080]">
+        <p className="mt-1 text-lg font-bold tabular-nums tracking-tight text-[#3ecf8e]">
           {formatCapitalDisplay(lead)}
         </p>
       </div>
 
-      <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-gray-100">{lead.intent}</p>
+      <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-zinc-300">{lead.intent}</p>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-white/5 pt-4">
-        <span className="text-[10px] font-medium text-gray-100">
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[#2a2a2a] pt-4">
+        <span className="text-[10px] font-medium text-zinc-400">
           {SERVICE_LABELS[lead.service_category]}
         </span>
-        <span className="ml-auto rounded-full bg-supernova-gold/15 px-2 py-0.5 text-[10px] font-bold tabular-nums text-supernova-gold">
+        <span className="ml-auto rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold tabular-nums text-amber-400">
           {lead.lead_score}
         </span>
       </div>
@@ -165,16 +173,20 @@ function LeadCard({
 
 export function LeadsKanban() {
   const { visibleLeads, updateLeadStatus, addReminder } = useCrm();
+  const [hoverColumn, setHoverColumn] = useState<LeadStatus | null>(null);
+  const draggingRef = useRef(false);
 
-  const handleStatusChange = useCallback(
+  const handleDrop = useCallback(
     (leadId: string, point: { x: number; y: number }) => {
-      const el = document.elementFromPoint(point.x, point.y);
-      const column = el?.closest("[data-kanban-column]") as HTMLElement | null;
-      const nextStatus = column?.dataset.status as LeadStatus | undefined;
+      const nextStatus = resolveKanbanStatusAtPoint(point);
       if (!nextStatus) return;
+
+      const lead = visibleLeads.find((item) => item.id === leadId);
+      if (!lead || lead.status === nextStatus) return;
+
       updateLeadStatus(leadId, nextStatus);
     },
-    [updateLeadStatus]
+    [updateLeadStatus, visibleLeads]
   );
 
   const handleQuickReminder = useCallback(
@@ -187,6 +199,20 @@ export function LeadsKanban() {
     },
     [addReminder]
   );
+
+  const handlePointerMove = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (!draggingRef.current) return;
+      const status = resolveKanbanStatusAtPoint({ x: event.clientX, y: event.clientY });
+      setHoverColumn(status ?? null);
+    },
+    []
+  );
+
+  const handlePointerUp = useCallback(() => {
+    draggingRef.current = false;
+    setHoverColumn(null);
+  }, []);
 
   const columns = useMemo(
     () =>
@@ -202,42 +228,68 @@ export function LeadsKanban() {
   );
 
   return (
-    <div className="flex gap-8 overflow-x-auto pb-8">
-      {columns.map((col) => (
-        <div
-          key={col.status}
-          data-kanban-column
-          data-status={col.status}
-          className="flex w-80 shrink-0 flex-col"
-        >
-          <header className="mb-4 border-b border-white/10 pb-4">
-            <h2 className="text-sm font-semibold tracking-[-0.03em] text-white">
-              {col.label}
-              <span className="ml-2 font-normal text-gray-400">·</span>
-              <span className="ml-2 font-bold tabular-nums text-gray-100">
-                {formatPipelineCurrency(col.totalCapital)}
-              </span>
-            </h2>
-            <p className="mt-1 text-[10px] tabular-nums text-gray-400">
-              {col.items.length} {col.items.length === 1 ? "dossier" : "dossiers"}
-            </p>
-          </header>
+    <LayoutGroup>
+      <div
+        className="flex gap-6 overflow-x-auto pb-8"
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerUp}
+        onPointerDownCapture={(event) => {
+          const target = event.target;
+          if (target instanceof Element && target.closest("[data-kanban-card]")) {
+            draggingRef.current = true;
+          }
+        }}
+      >
+        {columns.map((col) => {
+          const isHovered = hoverColumn === col.status;
 
-          <div className="flex min-h-[16rem] flex-col gap-4">
-            {col.items.map((lead) => (
-              <LeadCard
-                key={lead.id}
-                lead={lead}
-                onStatusChange={handleStatusChange}
-                onQuickReminder={handleQuickReminder}
-              />
-            ))}
-            {col.items.length === 0 ? (
-              <p className="py-12 text-center text-xs text-gray-400">No opportunities</p>
-            ) : null}
-          </div>
-        </div>
-      ))}
-    </div>
+          return (
+            <div
+              key={col.status}
+              data-kanban-column
+              data-status={col.status}
+              className="flex w-72 shrink-0 flex-col"
+            >
+              <header className="mb-3 border-b border-[#2a2a2a] pb-3">
+                <h2 className="text-sm font-semibold tracking-[-0.03em] text-white">
+                  {col.label}
+                  <span className="ml-2 font-normal text-zinc-600">·</span>
+                  <span className="ml-2 font-bold tabular-nums text-zinc-400">
+                    {formatPipelineCurrency(col.totalCapital)}
+                  </span>
+                </h2>
+                <p className="mt-1 text-[10px] tabular-nums text-zinc-600">
+                  {col.items.length} {col.items.length === 1 ? "dossier" : "dossiers"}
+                </p>
+              </header>
+
+              <div
+                data-kanban-drop
+                className={cn(
+                  "flex min-h-[16rem] flex-col gap-3 rounded-lg border border-dashed p-2 transition-colors",
+                  isHovered
+                    ? "border-[#3ecf8e]/50 bg-[#3ecf8e]/5"
+                    : "border-transparent bg-transparent"
+                )}
+              >
+                {col.items.map((lead) => (
+                  <LeadCard
+                    key={lead.id}
+                    lead={lead}
+                    onDrop={handleDrop}
+                    onQuickReminder={handleQuickReminder}
+                    isDropTarget={isHovered}
+                  />
+                ))}
+                {col.items.length === 0 ? (
+                  <p className="py-12 text-center text-xs text-zinc-600">Drop leads here</p>
+                ) : null}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </LayoutGroup>
   );
 }

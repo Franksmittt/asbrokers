@@ -1,0 +1,424 @@
+================================================================================
+AS BROKERS — BLOG STUDIO (CLIENT INSIGHTS) — COMPLETE SYSTEM GUIDE
+================================================================================
+Version: June 2026
+Audience: Owner, developers, and anyone operating or deploying the Insights blog
+FSP 17273 · AS Brokers CC · Krugersdorp
+
+================================================================================
+1. WHAT IT IS AND WHY IT EXISTS
+================================================================================
+
+Blog Studio is AS Brokers' bespoke content management system for publishing
+financial education articles on the public website. It lives at:
+
+  /studio/blog
+
+It is NOT Sanity CMS. Sanity code still exists in the repository as legacy
+(/studio/[[...tool]]), but the active, owner-operated workflow for Insights
+articles is Blog Studio only.
+
+THE IDEA BEHIND IT
+------------------
+AS Brokers publishes long-form, compliance-aware articles on retirement,
+insurance, estate planning, Everest Wealth, and related topics. The owner
+(Albert) works with AI tools (ChatGPT, Claude, Gemini) to draft HTML article
+content, then uses Blog Studio to:
+
+  1. Paste and refine HTML in a guided 5-step workflow
+  2. Upload images in visual order (replacing placeholders)
+  3. Optionally embed calculators and videos
+  4. Set categories, SEO metadata, and hero image
+  5. Publish to the live site at /insights and /insights/[slug]
+
+The studio is designed for a non-developer owner:
+  - Password-gated (not Supabase Auth)
+  - Visual publish-readiness checks (percentage + "Next fix")
+  - Built-in brand guide and AI prompt templates
+  - Auto-fix for common HTML issues
+  - Work-in-progress saved in browser localStorage (7-day TTL)
+  - Private notebook scratchpad for drafts and notes
+
+PUBLIC OUTPUT
+-------------
+Published posts appear on:
+  - /insights          — feed with category and date filters
+  - /insights/[slug]   — full article page
+  - /sitemap.xml       — published studio slugs included
+  - Homepage teaser    — static marketing teasers (not live-fetched on /)
+
+Articles render stored sanitized HTML (body_html_published) with support for
+embedded calculators (iframe to /embed/calculators/*), YouTube/Vimeo iframes,
+and inline scripts where allowed by the sanitizer.
+
+================================================================================
+2. ROUTES AND ACCESS
+================================================================================
+
+STUDIO ROUTES (all noindex — not for search engines)
+----------------------------------------------------
+/studio/blog
+  Entry point. Redirects to /workspace if logged in, else /login.
+
+/studio/blog/login
+  Password login form. Shows "not configured" if CLIENT_STUDIO_PASSWORD unset.
+
+/studio/blog/workspace
+  Main editor — BlogStudioClient component. Loads all posts + notebook notes.
+
+/studio/blog/workspace/tutorial
+  In-app owner tutorial (5-step workflow).
+
+/studio/blog/workspace/upgrades
+  Changelog of studio UX and safety improvements.
+
+AUTH MODEL
+----------
+  - Separate from CRM/portal Supabase Auth
+  - Shared password: CLIENT_STUDIO_PASSWORD (e.g. demo-studio-meeting locally)
+  - Session cookie: client-studio-session (httpOnly, 14 days, sameSite=lax)
+  - Session signed with CLIENT_STUDIO_SESSION_SECRET (16+ chars) or HMAC derived
+    from password if secret not set
+  - Password verified via SHA-256 hash + timing-safe compare (not plain text)
+  - Workspace layout redirects to /login if no valid session
+
+KEY FILES
+---------
+  app/studio/blog/page.tsx
+  app/studio/blog/login/page.tsx
+  app/studio/blog/login/StudioLoginForm.tsx
+  app/studio/blog/workspace/page.tsx
+  app/studio/blog/workspace/layout.tsx          — auth gate
+  app/studio/blog/actions.ts                    — all server actions
+  app/studio/blog/notebook-actions.ts           — scratchpad CRUD
+  lib/client-studio/session.ts                  — cookie + HMAC session
+
+================================================================================
+3. THE 5-STEP OWNER WORKFLOW
+================================================================================
+
+Step 1 — Start a post
+  Create title + URL slug (lowercase, hyphens). Save draft.
+
+Step 2 — Add article content
+  Paste AI-generated HTML. Use Auto-fix when offered. Save draft.
+  Placeholders supported:
+    [IMAGE_SLOT]           — primary image placeholder
+    [CALCULATOR_SLOT]      — calculator embed slot
+    [VIDEO_SLOT]           — video embed slot
+  Legacy tokens also accepted: YOUR_IMAGE_URL_HERE, {{IMAGE_URL}}, etc.
+
+Step 3 — Add images
+  Upload images in visual order (top to bottom in article).
+  Client-side optimization before upload (~900KB max, 1600px max side).
+  Hero image URL required before publish (auto or manual).
+
+Step 4 — Post details + categories
+  Select one or more insight categories (required for publish).
+  Set excerpt, meta title, meta description.
+  Review publish-readiness percentage and "Next fix" hints.
+
+Step 5 — Review & publish
+  Publish now → server validates → sanitizes HTML → sets status=published.
+  Publish report shows route and image health checks.
+  On hard failure (empty HTML, unresolved slots): auto-reverts to draft.
+
+UNPUBLISH / DELETE
+------------------
+  Unpublish  — reverts to draft, clears body_html_published and published_at
+  Delete     — permanent row removal
+  Delete all — requires CLIENT_STUDIO_ENABLE_BULK_DELETE=true + typing DELETE ALL
+
+================================================================================
+4. DATABASE — client_insight_posts
+================================================================================
+
+PRIMARY TABLE: client_insight_posts (PostgreSQL on Supabase)
+
+COLUMN                  TYPE        PURPOSE
+--------------------------------------------------------------------------------
+id                      uuid PK     Unique post ID
+slug                    varchar     URL segment (/insights/[slug])
+locale                  varchar     en | af (unique with slug)
+title                   text        Article title
+excerpt                 text        Feed card summary
+body_html               text        Last saved editor HTML (may have placeholders)
+body_html_published     text        Sanitized HTML served publicly when published
+status                  varchar     draft (default) | published
+categories              jsonb       Array of category value strings
+meta_title              text        SEO title override
+meta_description        text        SEO description override
+hero_image_url          text        Required for publish; insights thumbnail
+calculator_name         text        Optional embedded calculator label
+calculator_code         text        Optional calculator metadata
+published_at            timestamptz When first/last published
+created_at              timestamptz Row created
+updated_at              timestamptz Last save
+
+UNIQUE INDEX: (slug, locale) — one post per slug per language.
+
+SECONDARY TABLE: studio_notebook_notes
+  Private owner scratchpad (not public). Same Drizzle schema file.
+
+MIGRATIONS IN REPO
+------------------
+  drizzle/0001_client_insight_posts.sql           — base table
+  drizzle/0002_client_insight_optional_columns.sql — hero + calculator columns
+  drizzle/0003_client_insight_categories.sql        — categories jsonb
+  supabase/migrations/20260526120000_client_insight_categories.sql
+  supabase/migrations/20260308200000_storage_blog_images_bucket.sql — images bucket
+
+SCHEMA REPAIR (runtime + scripts)
+---------------------------------
+  lib/client-studio/client-insight-schema.ts
+    Lazy idempotent DDL on read/write (CREATE TABLE IF NOT EXISTS, ADD COLUMN).
+    Keeps production working when Vercel code is ahead of DB schema.
+
+  npm run db:repair-studio   — scripts/repair-client-insight-db.ts
+  npm run db:verify-studio   — scripts/verify-client-insight-db.ts
+  npm run db:push            — drizzle-kit push (full schema from lib/db/schema.ts)
+
+RECOMMENDED PRODUCTION SETUP (when DATABASE_URL is correct)
+-----------------------------------------------------------
+  npm run db:push
+  npm run db:repair-studio
+  npm run db:verify-studio
+
+DATA ACCESS LAYERS (Postgres first, Supabase REST fallback)
+------------------------------------------------------------
+  lib/client-studio/client-insight-db.ts   — Drizzle reads/writes
+  lib/client-studio/posts.ts               — unified read API + fallback
+  lib/client-studio/studio-posts-write.ts  — unified write API + fallback
+  lib/client-studio/studio-posts-supabase.ts — Supabase REST when Postgres fails
+  lib/db/index.ts                          — getDb() lazy pg Pool
+
+If DATABASE_URL auth fails, the app logs a warning and falls back to Supabase
+REST (service role) for reads and writes. Image uploads always use Supabase.
+
+CURRENT STATUS (June 2026 diagnostic)
+-------------------------------------
+  Supabase REST: working — 22+ published posts confirmed via service role API
+  DATABASE_URL:  may fail password auth if connection string/password is wrong;
+                 reads still work via REST fallback; direct Postgres saves need
+                 a corrected Session pooler URL from Supabase dashboard.
+
+================================================================================
+5. IMAGE UPLOADS (SUPABASE STORAGE)
+================================================================================
+
+BUCKET: blog-images (private)
+  Override: SUPABASE_BLOG_IMAGES_BUCKET env var
+  Auto-created by ensureStudioBlogImagesBucket() via service role
+  Limits: 20MB, jpeg/jpg/png/webp
+
+UPLOAD PATHS
+------------
+  1. Primary (browser): POST /api/studio/upload/auth → signed URL → browser
+     uploads directly to Supabase → returns proxy URL
+  2. Alternate: uploadStudioImage server action or POST /api/studio/upload
+
+SERVING (public proxy — bucket stays private)
+---------------------------------------------
+  GET /api/studio/media?bucket=blog-images&path=studio/YYYY-MM-DD/uuid.ext
+  No session required. 1-year cache headers.
+  Published HTML references /api/studio/media?... not raw Supabase URLs.
+
+IMPORTANT: Removing an image slot in the editor clears the assignment in HTML
+only — it does NOT delete the storage object.
+
+KEY FILES
+---------
+  app/api/studio/upload/route.ts
+  app/api/studio/upload/auth/route.ts
+  app/api/studio/media/route.ts
+  lib/client-studio/studio-storage.ts
+  lib/client-studio/image-slots.ts
+
+================================================================================
+6. CATEGORIES
+================================================================================
+
+Defined in lib/insights/insightCategories.ts (13 values):
+
+  short_term_business, short_term_personal
+  life_insurance_business, life_insurance_personal
+  estate_planning, investments, retirement_planning
+  health_wellness, financial_freedom, medical_aid
+  last_will_testament, trust_structure, weekly_news_letter
+
+Stored in:
+  - DB categories jsonb column
+  - HTML comment <!--studio_categories:["investments",...]--> for backward compat
+
+Publish requires at least one category (server + client readiness checks).
+
+/insights page uses InsightsFeedFilter for category + date filtering.
+
+================================================================================
+7. HTML SANITIZATION AND METADATA
+================================================================================
+
+SANITIZER: lib/client-studio/sanitize-body.ts (sanitize-html library)
+
+Applied on:
+  - publishStudioPost
+  - saveStudioPost when post is already published (live body updated)
+
+Public pages serve stored body_html_published — NOT re-sanitized on read.
+
+Allows: sections, headings, tables, iframes (YouTube/Vimeo + /embed/calculators/),
+forms/inputs, script (with attribute allowlist). Strips dangerous protocols.
+
+EMBEDDED METADATA IN SAVED HTML
+-------------------------------
+  <!--studio_meta:{rawHtml, imageUrls, calcSelection, videoUrls}-->
+    — slot state for editor reload
+  <!--studio_categories:[...]-->
+    — category fallback when DB column missing
+
+PUBLIC RENDERING
+----------------
+  components/client-studio/ClientInsightArticle.tsx   — article shell + JSON-LD
+  components/client-studio/ExecutableArticleHtml.tsx  — renders published HTML;
+    re-executes inline <script>; binds #everest-income-calculator
+
+================================================================================
+8. FLOW FROM STUDIO TO PUBLIC SITE
+================================================================================
+
+  Owner edits in BlogStudioClient
+       ↓
+  saveStudioPost / publishStudioPost (Server Actions in actions.ts)
+       ↓
+  Zod validation (postBaseSchema)
+       ↓
+  studio-posts-write → Postgres (or Supabase REST fallback)
+       ↓
+  publish: sanitizeInsightBody → body_html_published, status=published
+       ↓
+  revalidatePath /, /insights, /insights/[slug]
+       ↓
+  verifyPublishedHtmlHealth (HEAD images, fetch live /insights/slug)
+       ↓
+  Public:
+    getInsightFeed() → listPublishedStudioPosts()
+    /insights/[slug] → getPublishedStudioPostBySlug() → ClientInsightArticle
+
+URL pattern: insightUrlPath(slug, locale) → /insights/{slug} or ?locale=af
+
+NOTE: lib/insights/feed.ts still attempts to merge legacy Sanity articles if
+NEXT_PUBLIC_SANITY_PROJECT_ID is set. In production AS Brokers uses studio
+posts only; Sanity merge is inactive when no project ID is configured.
+
+================================================================================
+9. ENVIRONMENT VARIABLES
+================================================================================
+
+REQUIRED FOR STUDIO OPERATION
+-----------------------------
+  CLIENT_STUDIO_PASSWORD          Login password (e.g. demo-studio-meeting)
+  CLIENT_STUDIO_SESSION_SECRET    16+ chars for stronger session signing (recommended)
+  NEXT_PUBLIC_SUPABASE_URL        Supabase project URL
+  SUPABASE_SERVICE_ROLE_KEY       Image uploads, media proxy, REST fallback writes
+  NEXT_PUBLIC_SUPABASE_ANON_KEY   Browser signed upload path
+
+PRIMARY DATA (recommended)
+------------------------
+  DATABASE_URL                    Postgres connection string (Session pooler,
+                                  port 5432). Primary path for saves.
+                                  Get fresh string from Supabase → Database.
+
+OPTIONAL
+--------
+  SUPABASE_URL                    Server-only alias for project URL
+  SUPABASE_BLOG_IMAGES_BUCKET     Default: blog-images
+  CLIENT_STUDIO_ENABLE_BULK_DELETE  Must be "true" for delete-all
+  NEXT_PUBLIC_SITE_URL / SITE_URL / VERCEL_*  Publish health check origin
+
+NOT USED FOR BLOG STUDIO (legacy in repo only)
+----------------------------------------------
+  NEXT_PUBLIC_SANITY_PROJECT_ID
+  NEXT_PUBLIC_SANITY_DATASET
+  SANITY_VIEWER_TOKEN
+
+================================================================================
+10. NPM SCRIPTS
+================================================================================
+
+  npm run db:push           Apply Drizzle schema to DATABASE_URL
+  npm run db:repair-studio  Idempotent CREATE TABLE + columns + indexes
+  npm run db:verify-studio  Connection test + column checklist + row count
+
+================================================================================
+11. KEY COMPONENTS AND FILES
+================================================================================
+
+UI
+  components/client-studio/BlogStudioClient.tsx      — main ~2000-line workspace
+  components/client-studio/ClientInsightArticle.tsx    — public article page
+  components/client-studio/ExecutableArticleHtml.tsx   — HTML + script execution
+  components/client-studio/StudioNotebookModal.tsx     — owner scratchpad
+  components/insights/InsightsFeedFilter.tsx           — /insights filters
+
+LIB
+  lib/client-studio/session.ts
+  lib/client-studio/sanitize-body.ts
+  lib/client-studio/image-slots.ts
+  lib/client-studio/publish-slots.ts
+  lib/client-studio/studio-body-metadata.ts
+  lib/client-studio/calculator-code-pack.ts
+  lib/client-studio/brand-guide-content.ts
+  lib/insights/feed.ts
+  lib/insights/insightCategories.ts
+
+SCHEMA
+  lib/db/schema.ts — client_insight_posts + studio_notebook_notes definitions
+
+DOCS IN REPO
+  docs/STUDIO_DATABASE.md
+  app/studio/blog/workspace/tutorial/page.tsx
+  app/studio/blog/workspace/upgrades/page.tsx
+
+================================================================================
+12. SECURITY AND CRAWL POLICY
+================================================================================
+
+  /studio/* is noindex, nofollow (middleware + layout metadata)
+  Studio session is password-only — not tied to CRM roles
+  Media proxy validates path segments before streaming from bucket
+  Published HTML is sanitized before storage
+  Service role key is server-only — never exposed to browser
+
+================================================================================
+13. BRAND GUIDE AND AI WORKFLOW
+================================================================================
+
+Built into BlogStudioClient:
+  - BLOG_BRAND_GUIDE_TEXT — paste into AI before generating HTML
+  - BLOG_RULES_TEXT — short rules summary
+  - COPY_PROMPT_PRESETS — ready-made prompts for article types
+  - Calculator code library — iframe embeds to /embed/calculators/*
+
+AI output rules (summary):
+  - HTML fragment only (no <html>/<head>/<body>)
+  - Wide layout — no max-w-3xl on outer wrapper
+  - Image placeholders: YOUR_IMAGE_URL_HERE until owner uploads
+  - FSP 17273 compliance disclaimer at end
+  - South African English, no guaranteed returns
+
+================================================================================
+14. KNOWN LIMITATIONS AND GAPS
+================================================================================
+
+  - DATABASE_URL must be correct for reliable direct Postgres saves; REST
+    fallback works but is secondary
+  - Legacy Sanity code in repo is not the active CMS — do not configure Sanity
+    env vars unless deliberately re-enabling it
+  - Homepage insights teaser uses static mock cards, not live studio fetch
+  - Image slot removal does not delete storage objects
+  - Bulk delete requires explicit env flag + confirmation phrase
+  - Afrikaans locale supported in schema but primary workflow is English
+
+================================================================================
+END OF BLOG STUDIO GUIDE
+================================================================================

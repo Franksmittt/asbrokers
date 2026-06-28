@@ -1,7 +1,6 @@
 "use server";
 
 import { and, asc, desc, eq, inArray } from "drizzle-orm";
-import { forbidden } from "next/navigation";
 import { z } from "zod";
 
 import {
@@ -12,7 +11,8 @@ import {
   mapDbTask,
 } from "@/lib/crm/map-crm";
 import { mapDbLeadToCrmLead } from "@/lib/crm/map-lead";
-import { staffDisplayName, canAccessCrmRole, crmRoleFromUser } from "@/lib/crm/session";
+import { staffDisplayName } from "@/lib/crm/session";
+import { requireCrmAccess } from "@/lib/crm/staff-access";
 import type {
   CrmClient,
   CrmCorrespondence,
@@ -21,6 +21,7 @@ import type {
   CrmTask,
   LeadDetails,
   LeadStatus,
+  WhatsAppInboxRow,
 } from "@/lib/crm/types";
 import {
   correspondence,
@@ -30,7 +31,6 @@ import {
   globalNotes,
   leadReminders,
 } from "@/lib/db";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 const leadStatusSchema = z.enum([
   "new",
@@ -42,29 +42,18 @@ const leadStatusSchema = z.enum([
 ]);
 
 async function requireCrmUser() {
-  const supabase = await createServerSupabaseClient();
-  if (!supabase) {
-    forbidden();
-  }
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    forbidden();
-  }
-
-  const role = crmRoleFromUser(user);
-  if (!canAccessCrmRole(role)) {
-    forbidden();
-  }
-
-  return { user, role };
+  const access = await requireCrmAccess();
+  return {
+    user: access.user,
+    role: access.role,
+    canViewAllLeads: access.canViewAllLeads,
+    canViewAllClients: access.canViewAllClients,
+    permissions: access.permissions,
+  };
 }
 
 async function assertLeadAccess(leadId: string) {
-  const { user, role } = await requireCrmUser();
+  const { user, role, canViewAllLeads } = await requireCrmUser();
   const db = getDb();
   if (!db) {
     return null;
@@ -81,7 +70,7 @@ async function assertLeadAccess(leadId: string) {
       return null;
     }
 
-    if (role === "staff" && row.assignedAdvisor !== user.id) {
+    if (!canViewAllLeads && row.assignedAdvisor !== user.id) {
       return null;
     }
 
@@ -92,8 +81,8 @@ async function assertLeadAccess(leadId: string) {
   }
 }
 
-function leadScopeFilter(userId: string, role: "admin" | "staff") {
-  return role === "staff" ? eq(crmLeads.assignedAdvisor, userId) : undefined;
+function leadScopeFilter(userId: string, canViewAllLeads: boolean) {
+  return canViewAllLeads ? undefined : eq(crmLeads.assignedAdvisor, userId);
 }
 
 async function withCrmDb<T>(label: string, fallback: T, run: () => Promise<T>): Promise<T> {
@@ -107,14 +96,14 @@ async function withCrmDb<T>(label: string, fallback: T, run: () => Promise<T>): 
 
 /** Fetch pipeline leads — staff see assigned only; admin sees all. */
 export async function getLeads(): Promise<CrmLead[]> {
-  const { user, role } = await requireCrmUser();
+  const { user, canViewAllLeads } = await requireCrmUser();
   const db = getDb();
   if (!db) {
     return [];
   }
 
   try {
-    const scope = leadScopeFilter(user.id, role);
+    const scope = leadScopeFilter(user.id, canViewAllLeads);
     const rows = scope
       ? await db.select().from(crmLeads).where(scope)
       : await db.select().from(crmLeads);
@@ -190,7 +179,10 @@ export async function getLeadDetails(leadId: string): Promise<LeadDetails | null
 }
 
 export async function getGlobalNotes(): Promise<CrmGlobalNote[]> {
-  await requireCrmUser();
+  const { permissions } = await requireCrmUser();
+  if (!permissions.manageNotes) {
+    return [];
+  }
   const db = getDb();
   if (!db) {
     return [];
@@ -206,36 +198,34 @@ export async function getGlobalNotes(): Promise<CrmGlobalNote[]> {
 }
 
 export async function getTasks(): Promise<CrmTask[]> {
-  const { user, role } = await requireCrmUser();
+  const { user, canViewAllLeads } = await requireCrmUser();
   const db = getDb();
   if (!db) {
     return [];
   }
 
   return withCrmDb("getTasks", [], async () => {
-    const rows =
-      role === "staff"
-        ? await db.select().from(crmTasks).where(eq(crmTasks.assigneeId, user.id))
-        : await db.select().from(crmTasks);
+    const rows = canViewAllLeads
+      ? await db.select().from(crmTasks)
+      : await db.select().from(crmTasks).where(eq(crmTasks.assigneeId, user.id));
     return rows.map(mapDbTask);
   });
 }
 
 export async function getClients(): Promise<CrmClient[]> {
-  const { user, role } = await requireCrmUser();
+  const { user, canViewAllClients } = await requireCrmUser();
   const db = getDb();
   if (!db) {
     return [];
   }
 
   return withCrmDb("getClients", [], async () => {
-    const rows =
-      role === "staff"
-        ? await db
-            .select()
-            .from(crmLeads)
-            .where(and(eq(crmLeads.assignedAdvisor, user.id), eq(crmLeads.pipelineStatus, "won")))
-        : await db.select().from(crmLeads).where(eq(crmLeads.pipelineStatus, "won"));
+    const rows = canViewAllClients
+      ? await db.select().from(crmLeads).where(eq(crmLeads.pipelineStatus, "won"))
+      : await db
+          .select()
+          .from(crmLeads)
+          .where(and(eq(crmLeads.assignedAdvisor, user.id), eq(crmLeads.pipelineStatus, "won")));
     return rows.map(mapDbLeadToClient);
   });
 }
@@ -258,7 +248,7 @@ export async function getRecentCorrespondence(
   limit = 3,
   leadIds?: string[]
 ): Promise<CrmCorrespondence[]> {
-  const { user, role } = await requireCrmUser();
+  const { user, canViewAllLeads } = await requireCrmUser();
   const db = getDb();
   if (!db) {
     return [];
@@ -267,7 +257,7 @@ export async function getRecentCorrespondence(
   return withCrmDb("getRecentCorrespondence", [], async () => {
     let scopedLeadIds = leadIds;
     if (!scopedLeadIds?.length) {
-      const scope = leadScopeFilter(user.id, role);
+      const scope = leadScopeFilter(user.id, canViewAllLeads);
       const leadRows = scope
         ? await db.select({ id: crmLeads.id }).from(crmLeads).where(scope)
         : await db.select({ id: crmLeads.id }).from(crmLeads);
@@ -301,6 +291,80 @@ export async function getRecentCorrespondence(
   });
 }
 
+/** Leads with phone numbers + latest WhatsApp thread preview for inbox UI. */
+export async function getWhatsAppInbox(): Promise<WhatsAppInboxRow[]> {
+  const { user, canViewAllLeads, permissions } = await requireCrmUser();
+  if (!permissions.manageWhatsApp) {
+    return [];
+  }
+  const db = getDb();
+  if (!db) {
+    return [];
+  }
+
+  return withCrmDb("getWhatsAppInbox", [], async () => {
+    const scope = leadScopeFilter(user.id, canViewAllLeads);
+    const leadRows = scope
+      ? await db.select().from(crmLeads).where(scope)
+      : await db.select().from(crmLeads);
+
+    const leads = leadRows
+      .map(mapDbLeadToCrmLead)
+      .filter((lead) => lead.phone.replace(/\D/g, "").length >= 9);
+
+    if (leads.length === 0) {
+      return [];
+    }
+
+    const leadIds = leads.map((l) => l.id);
+    const staffLabel = staffDisplayName(user);
+
+    const messageRows = await db
+      .select()
+      .from(correspondence)
+      .where(
+        and(inArray(correspondence.leadId, leadIds), eq(correspondence.channel, "whatsapp"))
+      )
+      .orderBy(desc(correspondence.createdAt));
+
+    const lastByLead = new Map<string, (typeof messageRows)[number]>();
+    const countByLead = new Map<string, number>();
+
+    for (const row of messageRows) {
+      countByLead.set(row.leadId, (countByLead.get(row.leadId) ?? 0) + 1);
+      if (!lastByLead.has(row.leadId)) {
+        lastByLead.set(row.leadId, row);
+      }
+    }
+
+    const withMessages = leads
+      .filter((lead) => lastByLead.has(lead.id))
+      .map((lead) => {
+        const lastRow = lastByLead.get(lead.id)!;
+        return {
+          lead,
+          lastMessage: mapDbCorrespondence(lastRow, lead.name, staffLabel),
+          messageCount: countByLead.get(lead.id) ?? 0,
+        };
+      })
+      .sort((a, b) => {
+        const aTime = a.lastMessage?.sentAt ?? "";
+        const bTime = b.lastMessage?.sentAt ?? "";
+        return bTime.localeCompare(aTime);
+      });
+
+    const withoutMessages = leads
+      .filter((lead) => !lastByLead.has(lead.id))
+      .map((lead) => ({
+        lead,
+        lastMessage: null as CrmCorrespondence | null,
+        messageCount: 0,
+      }));
+
+    return [...withMessages, ...withoutMessages];
+  });
+}
+
 export type MutationResult = { ok: true } | { ok: false; error: string };
 
 export async function addGlobalNote(content: string): Promise<MutationResult> {
@@ -309,7 +373,10 @@ export async function addGlobalNote(content: string): Promise<MutationResult> {
     return { ok: false, error: "Note cannot be empty." };
   }
 
-  const { user } = await requireCrmUser();
+  const { user, permissions } = await requireCrmUser();
+  if (!permissions.manageNotes) {
+    return { ok: false, error: "You do not have permission to add notes." };
+  }
   const db = getDb();
   if (!db) {
     return { ok: false, error: "Database is not configured." };
@@ -422,16 +489,15 @@ export async function updateLeadStatus(
     return { ok: false, error: "Invalid lead." };
   }
 
-  const { user, role } = await requireCrmUser();
+  const { user, canViewAllLeads } = await requireCrmUser();
   const db = getDb();
   if (!db) {
     return { ok: false, error: "Database is not configured." };
   }
 
-  const where =
-    role === "staff"
-      ? and(eq(crmLeads.id, leadId), eq(crmLeads.assignedAdvisor, user.id))
-      : eq(crmLeads.id, leadId);
+  const where = !canViewAllLeads
+    ? and(eq(crmLeads.id, leadId), eq(crmLeads.assignedAdvisor, user.id))
+    : eq(crmLeads.id, leadId);
 
   const updated = await db
     .update(crmLeads)
@@ -452,16 +518,15 @@ export async function completeTask(taskId: string): Promise<MutationResult> {
     return { ok: false, error: "Invalid task." };
   }
 
-  const { user, role } = await requireCrmUser();
+  const { user, canViewAllLeads } = await requireCrmUser();
   const db = getDb();
   if (!db) {
     return { ok: false, error: "Database is not configured." };
   }
 
-  const where =
-    role === "staff"
-      ? and(eq(crmTasks.id, taskId), eq(crmTasks.assigneeId, user.id))
-      : eq(crmTasks.id, taskId);
+  const where = !canViewAllLeads
+    ? and(eq(crmTasks.id, taskId), eq(crmTasks.assigneeId, user.id))
+    : eq(crmTasks.id, taskId);
 
   const updated = await db
     .update(crmTasks)

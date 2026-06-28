@@ -16,7 +16,7 @@ export function isBlockedTrainingBot(userAgent: string): boolean {
 }
 
 /** Routes that receive X-Robots-Tag: noindex via middleware (not robots Disallow). */
-export const PRIVATE_ROUTE_PREFIXES = ["/login", "/crm", "/internal", "/studio"] as const;
+export const PRIVATE_ROUTE_PREFIXES = ["/login", "/crm", "/portal", "/internal", "/studio"] as const;
 
 export function isPrivateRoute(pathname: string): boolean {
   return PRIVATE_ROUTE_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));

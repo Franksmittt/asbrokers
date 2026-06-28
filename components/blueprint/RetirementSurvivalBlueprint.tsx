@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { submitRetirementSurvivalBlueprint } from "@/app/(content)/retirement-survival-blueprint/actions";
 import { Footer } from "@/components/Footer";
 import { ArrowRight } from "@/components/icons";
 import {
@@ -43,6 +44,18 @@ const INITIAL_ANSWERS: Answers = {
   investmentsOwned: "",
 };
 
+type ContactDetails = {
+  firstName: string;
+  email: string;
+  phone: string;
+};
+
+const INITIAL_CONTACT: ContactDetails = {
+  firstName: "",
+  email: "",
+  phone: "",
+};
+
 const PHASES: Phase[] = ["landing", "intro", "step1", "step2", "step3", "step4", "step5", "results"];
 
 const inputClass =
@@ -74,7 +87,10 @@ export function RetirementSurvivalBlueprint() {
   const reducedMotion = useReducedMotion();
   const [phase, setPhase] = useState<Phase>("landing");
   const [answers, setAnswers] = useState<Answers>(INITIAL_ANSWERS);
+  const [contact, setContact] = useState<ContactDetails>(INITIAL_CONTACT);
   const [error, setError] = useState<string | null>(null);
+  const [savedToCrm, setSavedToCrm] = useState(false);
+  const [pending, startTransition] = useTransition();
 
   const results = useMemo(() => {
     return calculateBlueprintResults({
@@ -104,7 +120,67 @@ export function RetirementSurvivalBlueprint() {
     setError(null);
   }
 
+  function patchContact(patch: Partial<ContactDetails>) {
+    setContact((prev) => ({ ...prev, ...patch }));
+    setError(null);
+  }
+
+  function submitBlueprintToCrm(onSuccess: () => void) {
+    if ("error" in results) {
+      setError(results.error);
+      return;
+    }
+
+    if (!contact.firstName.trim() || !contact.email.trim()) {
+      setError("Please enter your name and email before viewing your results.");
+      setPhase("intro");
+      return;
+    }
+
+    const fd = new FormData();
+    fd.set("firstName", contact.firstName.trim());
+    fd.set("email", contact.email.trim());
+    fd.set("phone", contact.phone.trim());
+    fd.set("currentAge", String(answers.currentAge));
+    fd.set("freedomAge", String(answers.freedomAge));
+    fd.set("desiredMonthlyIncomeToday", String(answers.desiredMonthlyIncomeToday));
+    fd.set("lifeExpectancy", String(answers.lifeExpectancy));
+    fd.set("currentSavings", String(answers.currentSavings));
+    fd.set("monthlySavings", String(answers.monthlySavings));
+    fd.set("investmentsOwned", answers.investmentsOwned);
+    fd.set("financialFreedomScore", String(results.financialFreedomScore));
+    fd.set("financialFreedomGap", String(results.financialFreedomGap));
+    fd.set("freedomRatePercent", String(results.freedomRatePercent));
+    fd.set("capitalRequired", String(results.capitalRequired));
+    fd.set("projectedCapital", String(results.projectedCapital));
+    fd.set("yearsToFreedom", String(results.yearsToFreedom));
+    fd.set("onTrack", results.onTrack ? "true" : "false");
+
+    startTransition(async () => {
+      const state = await submitRetirementSurvivalBlueprint({ success: false }, fd);
+      if (!state.success) {
+        setError(state.message ?? "Could not save your blueprint. Please try again.");
+        return;
+      }
+      setSavedToCrm(true);
+      onSuccess();
+    });
+  }
+
   function goNext() {
+    if (phase === "intro") {
+      if (!contact.firstName.trim()) {
+        setError("Please enter your first name.");
+        return;
+      }
+      if (!contact.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim())) {
+        setError("Please enter a valid email address.");
+        return;
+      }
+      setPhase("step1");
+      return;
+    }
+
     if (phase === "step1") {
       const partial = calculateBlueprintResults({
         currentAge: answers.currentAge,
@@ -128,6 +204,11 @@ export function RetirementSurvivalBlueprint() {
         return;
       }
       setPhase("step4");
+      return;
+    }
+
+    if (phase === "step5") {
+      submitBlueprintToCrm(() => setPhase("results"));
       return;
     }
 
@@ -220,6 +301,53 @@ export function RetirementSurvivalBlueprint() {
                       This is educational only. It does not constitute financial advice. You will see your Financial
                       Freedom Score™, Gap™, and AS Brokers Freedom Rate™ at the end.
                     </p>
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 space-y-4">
+                      <p className="text-sm font-medium text-white">Your details</p>
+                      <p className="text-xs text-zinc-500">
+                        So we can save your blueprint and follow up if you would like a clarity conversation.
+                      </p>
+                      <div>
+                        <label className={labelClass} htmlFor="bp-first-name">
+                          First name
+                        </label>
+                        <input
+                          id="bp-first-name"
+                          type="text"
+                          autoComplete="given-name"
+                          value={contact.firstName}
+                          onChange={(e) => patchContact({ firstName: e.target.value })}
+                          className={inputClass}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass} htmlFor="bp-email">
+                          Email address
+                        </label>
+                        <input
+                          id="bp-email"
+                          type="email"
+                          autoComplete="email"
+                          value={contact.email}
+                          onChange={(e) => patchContact({ email: e.target.value })}
+                          className={inputClass}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass} htmlFor="bp-phone">
+                          Mobile number (optional)
+                        </label>
+                        <input
+                          id="bp-phone"
+                          type="tel"
+                          autoComplete="tel"
+                          value={contact.phone}
+                          onChange={(e) => patchContact({ phone: e.target.value })}
+                          className={inputClass}
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -489,6 +617,11 @@ export function RetirementSurvivalBlueprint() {
                         Explore calculators
                       </Link>
                     </div>
+                    {savedToCrm ? (
+                      <p className="text-xs text-zinc-400">
+                        Your blueprint is saved. We can reference these numbers in a clarity conversation.
+                      </p>
+                    ) : null}
                   </div>
                 )}
 
@@ -510,9 +643,16 @@ export function RetirementSurvivalBlueprint() {
                 <button
                   type="button"
                   onClick={goNext}
-                  className="rounded-xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110"
+                  disabled={pending}
+                  className="rounded-xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60"
                 >
-                  {phase === "intro" ? "Start my Blueprint" : "Continue"}
+                  {pending
+                    ? "Saving…"
+                    : phase === "intro"
+                      ? "Start my Blueprint"
+                      : phase === "step5"
+                        ? "View my results"
+                        : "Continue"}
                 </button>
               </div>
             )}

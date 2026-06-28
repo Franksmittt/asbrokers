@@ -18,6 +18,8 @@
     "db:repair-studio": "tsx scripts/repair-client-insight-db.ts",
     "db:verify-studio": "tsx scripts/verify-client-insight-db.ts",
     "auth:configure": "tsx scripts/configure-supabase-auth.ts",
+    "supabase:sync-env": "tsx scripts/sync-supabase-env.ts",
+    "vercel:env-push": "tsx scripts/push-vercel-env.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "test:a11y": "playwright test tests/accessibility.spec.ts",

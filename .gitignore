@@ -19,6 +19,7 @@ yarn-error.log*
 # Local env
 .env
 .env*.local
+.env.vercel*
 
 # Vercel
 .vercel
@@ -43,6 +44,8 @@ test-results/
 playwright-report/
 .lighthouseci/
 lhci-reports/
+
+.vercel
 
 .vercel
 

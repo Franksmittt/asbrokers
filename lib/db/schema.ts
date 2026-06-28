@@ -326,3 +326,33 @@ export const crmTasks = pgTable(
 
 export type CrmTaskRow = typeof crmTasks.$inferSelect;
 export type NewCrmTaskRow = typeof crmTasks.$inferInsert;
+
+/**
+ * CRM staff profiles — extended team directory linked to Supabase auth.users.
+ * Role is mirrored in auth app_metadata; permissions gate feature access for staff.
+ */
+export const crmStaffProfiles = pgTable(
+  "crm_staff_profiles",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .references(() => authUsers.id, { onDelete: "cascade" }),
+    fullName: text("full_name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone"),
+    role: varchar("role", { length: 16 }).notNull().default("staff"),
+    isActive: boolean("is_active").notNull().default(true),
+    permissions: jsonb("permissions").notNull().default({}),
+    createdBy: uuid("created_by").references(() => authUsers.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("crm_staff_profiles_email_uid").on(table.email),
+    index("crm_staff_profiles_role_idx").on(table.role),
+    index("crm_staff_profiles_active_idx").on(table.isActive),
+  ]
+);
+
+export type CrmStaffProfile = typeof crmStaffProfiles.$inferSelect;
+export type NewCrmStaffProfile = typeof crmStaffProfiles.$inferInsert;

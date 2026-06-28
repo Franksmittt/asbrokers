@@ -3,6 +3,7 @@
 import { calculateBusinessRiskScore } from "@/lib/business-risk/scoring";
 import { insertBusinessRiskReview } from "@/lib/business-risk/repository";
 import { notifyStaffLead } from "@/lib/email/notifications";
+import { insertCrmLead } from "@/lib/crm/insert-lead";
 import { businessRiskLeadSchema } from "@/lib/validations/business-risk";
 
 export type BusinessRiskSubmitState = {
@@ -41,26 +42,6 @@ export async function submitBusinessRiskReview(
 
   const score = calculateBusinessRiskScore(parsed.data.selectedCoverIds);
 
-  const emailResult = await notifyStaffLead("Business Risk Review", {
-    Name: parsed.data.name,
-    Email: parsed.data.email,
-    Phone: parsed.data.phone,
-    Company: parsed.data.company,
-    Industry: parsed.data.industry,
-    "Protection %": String(score.protectionPercent),
-  });
-
-  if (!emailResult.ok) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("[Business Risk] Resend failed:", emailResult.error);
-    }
-    return {
-      success: false,
-      message:
-        "We could not submit your review right now. Please contact AS Brokers directly and we will assist you.",
-    };
-  }
-
   const reportId = await insertBusinessRiskReview({
     name: parsed.data.name,
     email: parsed.data.email,
@@ -75,6 +56,47 @@ export async function submitBusinessRiskReview(
     selectedCoverIds: score.selectedIds,
     missingCoverIds: score.missingIds,
   });
+
+  const crmLeadId = await insertCrmLead({
+    sourceFunnel: "business_risk_review",
+    serviceCategory: "short_term_business",
+    leadScore: Math.min(100, Math.max(10, score.protectionPercent)),
+    rawPayload: {
+      name: parsed.data.name,
+      email: parsed.data.email,
+      phone: parsed.data.phone,
+      company: parsed.data.company,
+      intent: "Business Risk Review",
+      funnelData: {
+        assessment: "Business Risk Review",
+        score: `${score.protectionPercent}% protected`,
+        keyRisk: score.band,
+        capital: "—",
+      },
+      businessRiskReportId: reportId,
+    },
+  });
+
+  void notifyStaffLead("Business Risk Review", {
+    Name: parsed.data.name,
+    Email: parsed.data.email,
+    Phone: parsed.data.phone,
+    Company: parsed.data.company,
+    Industry: parsed.data.industry,
+    "Protection %": String(score.protectionPercent),
+  }).catch((e) => {
+    if (process.env.NODE_ENV === "development") {
+      console.error("[Business Risk] Resend failed:", e);
+    }
+  });
+
+  if (!reportId && !crmLeadId) {
+    return {
+      success: false,
+      message:
+        "We could not submit your review right now. Please contact AS Brokers directly and we will assist you.",
+    };
+  }
 
   if (!reportId) {
     return {

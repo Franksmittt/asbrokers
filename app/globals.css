@@ -5,6 +5,10 @@
 :root {
   --bg-primary: #000000;
   --bg-shark: #1D1D1F;
+  --crm-sidebar: #0a0a0a;
+  --crm-border: #2a2a2a;
+  --crm-surface: #141414;
+  --crm-accent: #3ecf8e;
   --card: #151518;
   --card-alt: #121214;
   --cinematic-teal: #14B8A6;

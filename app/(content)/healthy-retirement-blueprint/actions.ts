@@ -2,6 +2,7 @@
 
 import { syncHealthyRetirementToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffLead } from "@/lib/email/notifications";
+import { insertCrmLead } from "@/lib/crm/insert-lead";
 import { insertHealthyRetirementAssessment } from "@/lib/healthy-retirement/repository";
 import { calculateHealthyRetirementScore } from "@/lib/healthy-retirement/scoring";
 import type { HealthyRetirementAnswers } from "@/lib/healthy-retirement/questions";
@@ -74,6 +75,25 @@ export async function submitHealthyRetirementAssessment(
     healthScore: result.score,
     healthGap: result.gap,
     scoreBand: result.band,
+  });
+
+  void insertCrmLead({
+    sourceFunnel: "healthy_retirement_blueprint",
+    serviceCategory: "medical_wellness",
+    leadScore: Math.min(100, Math.max(10, result.score)),
+    rawPayload: {
+      name: parsed.data.firstName,
+      email: parsed.data.email,
+      phone: parsed.data.phone ?? "",
+      intent: "Healthy Retirement Blueprint",
+      funnelData: {
+        assessment: "Healthy Retirement Blueprint",
+        score: String(result.score),
+        keyRisk: result.bandLabel,
+        capital: "—",
+      },
+      healthyRetirementReportId: reportId,
+    },
   });
 
   await syncHealthyRetirementToHubSpot({

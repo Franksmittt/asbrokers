@@ -4,6 +4,8 @@ import { contactFormSchema } from "@/lib/validations/schema";
 import type { ContactActionState } from "@/lib/validations/schema";
 import { syncContactToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffContactEnquiry } from "@/lib/email/notifications";
+import { contactLeadScore, serviceCategoryFromContactTopics } from "@/lib/crm/contact-lead";
+import { insertCrmLead } from "@/lib/crm/insert-lead";
 
 const SUBMIT_ERROR =
   "We could not send your enquiry right now. Please try again or WhatsApp us on +27 66 227 6044.";
@@ -58,6 +60,19 @@ export async function submitContactEnquiry(
     return { success: true, message: "Thank you. We'll be in touch." };
   }
 
+  const crmLeadId = await insertCrmLead({
+    sourceFunnel: "contact_form",
+    serviceCategory: serviceCategoryFromContactTopics(payload.topics),
+    leadScore: contactLeadScore(payload.topics),
+    rawPayload: {
+      name: payload.fullName,
+      email: payload.email,
+      phone: payload.phone,
+      intent: payload.topics.length ? payload.topics.join(", ") : "General enquiry",
+      topics: payload.topics,
+    },
+  });
+
   const emailResult = await notifyStaffContactEnquiry({
     fullName: payload.fullName,
     email: payload.email,
@@ -69,7 +84,9 @@ export async function submitContactEnquiry(
     if (process.env.NODE_ENV === "development") {
       console.error("[Contact] Resend failed:", emailResult.error);
     }
-    return { success: false, message: SUBMIT_ERROR };
+    if (!crmLeadId) {
+      return { success: false, message: SUBMIT_ERROR };
+    }
   }
 
   void syncContactToHubSpot(payload).catch((e) => {

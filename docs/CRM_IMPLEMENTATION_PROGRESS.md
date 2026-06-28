@@ -1,20 +1,22 @@
 # AS Brokers CRM – Implementation Progress (Rolls-Royce)
 
-**Last updated:** Presentation leg done. Backend deferred; use this doc to resume when ready.
+**Last updated:** June 2026 — Supabase auth + Drizzle CRM live; portal still mock.
 
 ## Current state (where we are)
 
 | Area | Status | Notes |
 |------|--------|--------|
-| **Auth** | Mock only | Cookies: `mock-crm-role`, `mock-crm-user`, `mock-crm-staff-id`. No Supabase Auth yet. |
-| **CRM data** | Hybrid | `lib/crm-data.ts` uses Supabase when `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` set; else mock. All CRM pages already use crm-data (not mock-crm directly). |
-| **Supabase schema** | Migration exists | `supabase/migrations/20260308000000_crm_schema.sql` – staff, households, leads, clients, correspondence, tasks, notes. Must be run in Supabase. |
-| **Portal data** | Mock only | `lib/mock-portal.ts` only. No portal Supabase layer yet. |
-| **Kanban** | Wired | Uses crm-data; `updateLeadStatus` persists to Supabase when configured. |
+| **Auth** | **Supabase (live)** | Magic links via Resend; roles in `app_metadata.role` (`admin` / `staff`). Legacy mock cookies cleared on logout only (`lib/mock-auth.ts`). |
+| **CRM data** | **Drizzle + Postgres (live)** | `app/actions/crm.ts`, `lib/crm/*`, tables `crm_leads`, `crm_tasks`, etc. `lib/mock-crm.ts` removed. |
+| **Team admin** | **Live** | `/crm/settings` — invite/edit users, permissions, revoke access (`crm_staff_profiles`). |
+| **Portal data** | Mock only | `lib/mock-portal.ts` — wealth charts until Everest API. |
+| **Kanban / leads** | Wired | Real DB; drag-and-drop persists `pipeline_status`. |
+| **Blog Studio** | Live | `client_insight_posts` — drafts safe in DB; sitemap = published only. |
 
-**Where it can “bomb out”:**
-- Supabase env set but migration not run → missing table errors.
-- Supabase embed syntax in `getLeadsForAdvisor` (e.g. `staff:assigned_advisor_id(name)`) can fail depending on PostgREST version → Section 1 hardens to `select("*")` + lookups.
+**Where it can still “bomb out”:**
+- `DATABASE_URL` or Supabase keys missing on Vercel → CRM empty / auth fails.
+- WhatsApp outbound needs Meta env vars on production.
+- Portal has no real client RLS yet (Phase 2).
 
 ---
 
@@ -22,36 +24,27 @@
 
 ### Phase 1 – Backend swap & stability
 
-- [x] **Section 1.1** – Harden CRM data layer (Supabase queries robust; no fragile embeds).
-- [x] **Section 1.2** – Add Supabase seed SQL (staff, households, sample leads) and document `.env` + migration/seed in BACKEND.md (§3.1).
-- [ ] **Section 1.3** – (Optional) Add `lib/portal-data.ts` with Supabase when configured, else mock-portal; portal pages keep using mock until this exists.
-- [ ] **Section 1.4** – Keep auth as mock; document “Phase 2: Supabase Auth + RLS” steps.
+- [x] **Section 1.1** – Harden CRM data layer (Drizzle; staff scoping in server actions).
+- [x] **Section 1.2** – Supabase schema + CRM tables via Drizzle push.
+- [x] **Section 1.4** – Supabase Auth magic links (replaces mock login).
+- [ ] **Section 1.3** – (Optional) `lib/portal-data.ts` when Everest API available.
 
 ### Phase 2 – Auth & RLS (later)
 
-- [ ] **Section 2.1** – Supabase Auth (Magic Link / email); profiles table linking auth.users to staff_id / client_id.
-- [ ] **Section 2.2** – RLS policies: admin (all), staff (assigned), client (own only).
-- [ ] **Section 2.3** – Replace mock session with Supabase session in CRM/portal layouts.
+- [x] **Section 2.1** – Supabase Auth magic links + admin invite flow.
+- [ ] **Section 2.2** – RLS policies in Postgres (optional if staying on Drizzle service role).
+- [ ] **Section 2.3** – Portal client identity + own-data only.
 
 ### Presentation leg (done – client demo)
 
-- [x] **Presentation** – Remove mock/backend footnotes from CRM and Portal dashboards. Fix executive Clients count (`allClients.length`). Login: AS Brokers + FSP 17273, “Demo: choose your view”. Portal/CRM/Executive: trust hallmark (FSP 17273), tagline on Portal. Rim-light on key cards (dashboard stats, recent leads, portal holdings, executive KPIs, My Advisor).
-- [x] **Presentation sweep** – Remove remaining user-visible “mock” text: lead detail reassign tooltip (“Reassign lead”), portal Messages subtitle (unified thread copy), portal Documents (“View”, “Upload and view securely”; remove backend footnote). Empty state for Leads table; rim-light on Leads/Clients list cards, Portal Messages and Documents cards.
-
-### Phase 3 – AI, integrations, polish (later)
-
-- [ ] **Section 3.1** – AI agents (e.g. meeting briefs, RAG-grounded tools).
-- [ ] **Section 3.2** – HubSpot bi-sync, Trigger.dev PDFs.
-- [ ] **Section 3.3** – Portal: real holdings/documents/messages from DB.
+- [x] **Presentation** – CRM presentation mode, rim-light cards, trust hallmarks.
+- [x] **CRM redesign** – Minimal sidebar, kanban fix, WhatsApp inbox, settings/team admin.
 
 ---
 
-## Section 1.1 – Harden CRM data layer
+## Resume checklist
 
-**Goal:** Supabase queries work with plain `select("*")` and in-memory lookups so we don’t depend on PostgREST embed syntax.
-
-**Done:**
-1. `getLeadsForAdvisor`: use `.select("*")` and resolve advisor/household names via existing `getStaffNameMap` / `getHouseholdNameMap` (no `staff:assigned_advisor_id(...)` embed).
-2. (If any other function uses embeds, simplify similarly.)
-
-**Resume from:** `lib/crm-data.ts` – ensure all `supabase.from(...).select(...)` use `*` or explicit column lists only; resolve FKs in code.
+1. Set `app_metadata.role: "admin"` for Albert (or demo account) in Supabase Auth.
+2. Confirm `DATABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY` on Vercel.
+3. Portal: replace `lib/mock-portal.ts` when portfolio API is ready.
+4. Optional: wire `/retirement-survival-blueprint` to CRM lead capture.

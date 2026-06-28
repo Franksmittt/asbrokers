@@ -2,6 +2,7 @@
 
 import { syncLegacyChecklistLeadToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffLead } from "@/lib/email/notifications";
+import { insertCrmLead } from "@/lib/crm/insert-lead";
 import { insertLegacyChecklistLead } from "@/lib/legacy-checklist/repository";
 import { legacyChecklistLeadSchema } from "@/lib/validations/legacy-checklist";
 
@@ -46,6 +47,25 @@ export async function submitLegacyChecklistLead(
     phone: parsed.data.phone,
     age: parsed.data.age,
     businessOwner: parsed.data.businessOwner,
+  });
+
+  void insertCrmLead({
+    sourceFunnel: "legacy_readiness_checklist",
+    serviceCategory: "estate_business",
+    leadScore: parsed.data.businessOwner === "yes" ? 25 : 15,
+    rawPayload: {
+      name: `${parsed.data.firstName} ${parsed.data.surname}`.trim(),
+      email: parsed.data.email,
+      phone: parsed.data.phone ?? "",
+      intent: "Legacy Readiness Checklist",
+      funnelData: {
+        assessment: "Legacy Readiness Checklist",
+        score: String(parsed.data.age ?? "—"),
+        keyRisk: parsed.data.businessOwner === "yes" ? "Business owner" : "Personal estate",
+        capital: "—",
+      },
+      legacyChecklistLeadId: leadId,
+    },
   });
 
   await syncLegacyChecklistLeadToHubSpot({

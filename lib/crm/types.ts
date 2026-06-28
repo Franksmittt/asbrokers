@@ -1,3 +1,5 @@
+import type { CrmStaffPermissions } from "@/lib/crm/permissions";
+
 export type LeadStatus =
   | "new"
   | "contacted"
@@ -102,6 +104,25 @@ export const KANBAN_COLUMNS: { status: LeadStatus; label: string }[] = [
   { status: "won", label: "Won" },
   { status: "lost", label: "Lost" },
 ];
+
+export type WhatsAppInboxRow = {
+  lead: CrmLead;
+  lastMessage: CrmCorrespondence | null;
+  messageCount: number;
+};
+
+export type CrmStaffUser = {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string | null;
+  role: CrmRole;
+  isActive: boolean;
+  permissions: CrmStaffPermissions;
+  createdAt: string;
+  lastSignInAt: string | null;
+  invitePending: boolean;
+};
 
 export const SERVICE_LABELS: Record<ServiceCategory, string> = {
   retirement_everest: "Retirement & Everest",

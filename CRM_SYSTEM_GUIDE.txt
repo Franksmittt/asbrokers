@@ -1,0 +1,578 @@
+================================================================================
+AS BROKERS — CRM SYSTEM — COMPLETE SYSTEM GUIDE
+================================================================================
+Version: June 2026
+Audience: Owner, staff, developers, and anyone deploying or extending the CRM
+FSP 17273 · AS Brokers CC · Category 1.8 · Krugersdorp
+
+================================================================================
+1. WHAT IT IS AND WHY IT EXISTS
+================================================================================
+
+The AS Brokers CRM is a bespoke staff-facing pipeline and client-management
+system — the "precision engine" for advisors to run leads, correspondence,
+tasks, and funnel submissions without spreadsheet drudgery.
+
+It lives at:
+
+  /crm
+
+It pairs with a client-facing portal at:
+
+  /portal
+
+VISION (Rolls-Royce Wealth Concierge)
+--------------------------------------
+  - Eliminate manual pipeline tracking (Kanban with persisted status)
+  - Unified correspondence thread per lead (WhatsApp, email, portal — WhatsApp live)
+  - Staff-scoped access (admin sees all; staff sees assigned leads only)
+  - Compliance-first: audit trail via correspondence table, no mock CRM at runtime
+  - Future: AI briefs, HubSpot bi-sync, Everest API, executive dashboard
+
+WHAT IT IS NOT (yet)
+--------------------
+  - Not a fully RLS-enforced Supabase-native app — access control is in server actions
+  - Not connected to contact form → auto lead creation (Resend/HubSpot only today)
+  - Portal still uses mock wealth data (lib/mock-portal.ts)
+  - No separate clients table — "clients" = won leads in crm_leads
+  - lib/mock-crm.ts was deleted; all CRM UI reads real DB when DATABASE_URL is set
+
+================================================================================
+2. ROUTES AND LAYOUT
+================================================================================
+
+CRM ROUTES (all /crm/*, noindex, auth-gated)
+--------------------------------------------
+/crm                              Dashboard — stats, tasks due, recent messages
+/crm/kanban                       Drag-and-drop pipeline board
+/crm/leads                        Table of all visible leads
+/crm/leads/[id]                   Lead 360 — contact, thread, WhatsApp reply
+/crm/clients                      Won leads (pipeline_status = "won")
+/crm/clients/[id]                 Client 360 (holdings/charts still mock)
+/crm/tasks                        Task list (read-only UI today)
+/crm/notes                        Team scratchpad (global notes)
+/crm/presentation                 Wealth Architecture sales canvas
+/crm/calculators                  All calculators in one grid (office mode)
+/crm/calculator-session           Single calculator for live meetings
+/crm/calculator-review            Redirects to /crm/calculators
+/crm/business-risk-reviews         Admin for Business Risk Review™ funnel
+/crm/legacy-checklist-leads        Admin for Legacy Readiness Checklist™ funnel
+/crm/healthy-retirement-assessments Admin for Healthy Retirement Blueprint™ funnel
+
+SIDEBAR NAV (visible links)
+---------------------------
+  Dashboard, Kanban, Leads, Clients, Tasks, Notes
+
+  Presentation, calculators, and funnel admin pages exist but are not in sidebar —
+  reach by direct URL.
+
+LAYOUT STRUCTURE
+----------------
+  app/(crm)/layout.tsx           — dark void shell, data-app-shell="crm"
+  app/(crm)/crm/layout.tsx       — force-dynamic; Supabase session + role gate;
+                                   loads getLeads() into CrmProvider + CrmSidebar
+
+PORTAL ROUTES (authenticated, mock data)
+----------------------------------------
+/portal                           Wealth overview dashboard
+/portal/documents                 Document vault (mock)
+/portal/messages                  Unified thread (mock)
+
+  app/(portal)/portal/layout.tsx — PortalNav only; no role gate in layout
+
+LOGIN
+-----
+/login                            Magic link email form
+/auth/callback                    OAuth/code exchange → session cookies
+
+KEY FILES
+---------
+  components/crm/CrmSidebar.tsx
+  components/crm/CrmContext.tsx
+  components/crm/CrmDashboardClient.tsx
+  components/crm/LeadsKanban.tsx
+  components/crm/LeadDetailView.tsx
+  components/crm/LeadDetailGate.tsx
+  components/crm/CrmClientsClient.tsx
+  components/crm/CrmTasksClient.tsx
+  components/crm/CrmNotesClient.tsx
+  middleware.ts
+
+================================================================================
+3. AUTHENTICATION AND ROLES
+================================================================================
+
+METHOD: Supabase Auth magic links (email OTP)
+---------------------------------------------
+  1. User enters email on /login
+  2. signInWithOtp sends magic link
+  3. User clicks link → /auth/callback?code=...&next=...
+  4. Session cookies set via @supabase/ssr
+  5. Redirect by role
+
+ROLES (stored in user.app_metadata.role, lowercased)
+----------------------------------------------------
+  admin   — Full CRM access (all leads, all tasks)
+  staff   — Assigned leads only (assigned_advisor = user.id)
+  client  — Blocked from /crm layout; redirected to /portal
+  (other) — Blocked from CRM; portal allowed if logged in
+
+REDIRECT LOGIC
+--------------
+  Logged-in admin/staff on /login  → /crm (or ?next= if /crm path)
+  Logged-in client on /login       → /portal
+  Unauthenticated on /crm or /portal → /login?next={pathname}
+
+SESSION HELPERS: lib/crm/session.ts
+  crmRoleFromUser()      → admin | staff | null
+  canAccessCrmRole()     → admin or staff only
+  staffDisplayName()     → user_metadata.full_name or email prefix
+
+LEGACY (not used for CRM login)
+-------------------------------
+  lib/mock-auth.ts — mock-crm-role cookies; only cleared on logout
+
+SUPABASE CLIENTS: lib/supabase/server.ts
+  createServerSupabaseClient()  — anon key + cookies (for auth)
+  getSupabaseService()          — service role (bypasses RLS; not primary CRM path)
+
+================================================================================
+4. DATABASE SCHEMA (Drizzle — source of truth)
+================================================================================
+
+All CRM runtime data uses Drizzle ORM via getDb() → direct Postgres (DATABASE_URL).
+This bypasses Supabase RLS. Schema defined in lib/db/schema.ts.
+
+⚠️ WARNING: Old Supabase migrations (supabase/migrations/20260308000000_crm_schema.sql)
+use different table names (leads, clients, staff with TEXT ids). Runtime code uses
+the Drizzle schema below ONLY. Apply via npm run db:push, not old SQL migrations.
+
+TABLE: crm_leads
+----------------
+  id                  uuid PK
+  client_id           uuid → auth.users (optional portal client link)
+  source_funnel       varchar (e.g. whatsapp_inbound)
+  service_category    varchar (maps to ServiceCategory in lib/crm/types.ts)
+  lead_score          int default 0
+  pipeline_status     varchar — new | contacted | qualified | proposal | won | lost
+  assigned_advisor    uuid → auth.users (staff scope filter)
+  raw_payload         jsonb — contact fields live here:
+                        name, email, phone, intent, company, capitalHint,
+                        estimatedCapital, funnelData
+  created_at          timestamptz
+
+  "Clients" in UI = rows where pipeline_status = "won" (no separate clients table).
+
+TABLE: correspondence
+---------------------
+  Unified message thread per lead:
+  id, lead_id → crm_leads (cascade delete)
+  channel       — whatsapp | email | portal
+  sender_type   — client | staff | system
+  message_body  text
+  external_message_id — unique (Meta wamid for dedup)
+  staff_user_id → auth.users (outbound staff messages)
+  created_at
+
+TABLE: global_notes
+-------------------
+  Team scratchpad (/crm/notes):
+  id, content, author_id → auth.users, created_at
+
+TABLE: lead_reminders
+---------------------
+  Scheduled follow-ups:
+  id, lead_id, title, due_date, is_completed, created_at
+
+TABLE: crm_tasks
+----------------
+  Advisor tasks:
+  id, lead_id (optional), assignee_id → auth.users
+  title, status (open | completed), due_date, created_at
+
+FUNNEL / LEAD MAGNET TABLES (separate from pipeline)
+----------------------------------------------------
+  business_risk_reviews
+  legacy_checklist_leads
+  healthy_retirement_assessments
+
+  Each has admin page under /crm/* with CSV export actions.
+
+OTHER TABLES IN SAME SCHEMA FILE (not CRM core)
+-----------------------------------------------
+  resources + embeddings     — RAG/pgvector for chat
+  client_insight_posts       — Blog Studio (see BLOG_STUDIO_GUIDE.txt)
+  studio_notebook_notes      — Blog Studio scratchpad
+
+MAPPING LAYER
+-------------
+  lib/crm/map-lead.ts  — crm_leads row → CrmLead UI type (reads raw_payload)
+  lib/crm/map-crm.ts   — correspondence, reminders, tasks, notes, clients
+  lib/crm/types.ts     — KANBAN_COLUMNS, SERVICE_LABELS, TypeScript interfaces
+  lib/crm/utils.ts     — currency, phone, conversion rate, advisor label
+
+APPLY SCHEMA
+------------
+  npm run db:push    — scripts/db-push.ts → drizzle-kit push
+
+  Requires DATABASE_URL in .env.local / Vercel.
+
+  Without DATABASE_URL: all CRM reads return []; mutations return error
+  "Database is not configured."
+
+================================================================================
+5. SERVER ACTIONS
+================================================================================
+
+FILE: app/actions/crm.ts
+All exports require requireCrmUser() (Supabase session + admin/staff).
+
+READ
+----
+  getLeads()                    All leads (admin) or assigned only (staff)
+  getLeadById(id)               Single lead with access check
+  getLeadDetails(id)            Lead + correspondence + reminders + tasks
+  getGlobalNotes()              All team notes, newest first
+  getTasks()                    All tasks (admin) or assignee = user (staff)
+  getClients()                  Won leads, scoped
+  getClientById(id)             Won lead only
+  getRecentCorrespondence()     Scoped recent messages
+
+WRITE
+-----
+  addGlobalNote(content)
+  addReminder(leadId, title, dueDate)
+  addTask(leadId, title, dueDate, assigneeId)
+  updateLeadStatus(leadId, newStatus)   — Kanban persist
+  completeTask(taskId)                  — exists but tasks UI is read-only today
+
+ACCESS CONTROL
+--------------
+  assertLeadAccess() — staff denied if assigned_advisor !== user.id
+  Returns null / forbidden() rather than leaking lead existence
+
+FILE: app/actions/whatsapp.ts
+  sendWhatsAppMessage(leadId, text)
+    - Auth + lead access check
+    - Read phone from raw_payload
+    - Meta Graph API v19.0 outbound
+    - Insert correspondence (sender_type: staff, staff_user_id)
+
+================================================================================
+6. KANBAN PIPELINE
+================================================================================
+
+Component: components/crm/LeadsKanban.tsx
+
+Columns (lib/crm/types.ts KANBAN_COLUMNS):
+  new → contacted → qualified → proposal → won | lost
+
+Behavior:
+  - Framer Motion drag-and-drop
+  - Drop detects [data-kanban-column] targets
+  - Optimistic UI via CrmContext.updateLeadStatus
+  - Persists via updateLeadStatus server action → crm_leads.pipeline_status
+  - Quick reminder button (+1 day at 10:00)
+  - wa.me deep links from lead cards
+
+Context: components/crm/CrmContext.tsx
+  - CrmProvider wraps CRM layout with initial leads from server
+  - Client state for kanban; calls server actions on status change
+
+================================================================================
+7. LEAD 360 AND WHATSAPP
+================================================================================
+
+LEAD DETAIL: components/crm/LeadDetailView.tsx
+  - Contact info from raw_payload
+  - Correspondence thread (real DB)
+  - WhatsApp reply with optimistic UI
+  - Quick-reply templates
+  - Schedule reminder
+
+GATE: components/crm/LeadDetailGate.tsx
+  - Staff blocked if lead not assigned to them
+
+INBOUND WHATSAPP
+----------------
+Webhook: app/api/webhooks/whatsapp/route.ts
+
+  GET  — Meta subscription challenge (WHATSAPP_VERIFY_TOKEN)
+  POST — HMAC verify (META_APP_SECRET) → parse → Trigger.dev task
+
+Worker: trigger/whatsapp.ts — task process-whatsapp-inbound
+  1. Match phone via leadPhoneMatches() SQL on raw_payload.phone
+  2. No lead → INSERT crm_leads (source_funnel: whatsapp_inbound, status: new)
+  3. INSERT correspondence with onConflictDoNothing on external_message_id
+  4. Retries: 5 attempts, exponential backoff
+
+Phone helpers:
+  lib/whatsapp/meta-webhook.ts  — signature verify, message extraction
+  lib/whatsapp/phone.ts           — E.164 ZA normalization
+  lib/whatsapp/lead-phone.ts      — SQL regexp match (0 → 27 prefix)
+
+OUTBOUND WHATSAPP
+-----------------
+  LeadDetailView → sendWhatsAppMessage (app/actions/whatsapp.ts)
+  Requires: WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_ACCESS_TOKEN
+
+TRIGGER.DEV
+-----------
+  trigger.config.ts — project TRIGGER_PROJECT_REF (default in repo)
+  trigger/generatePdf.ts — contact form PDF (separate from CRM)
+  Worker env needs DATABASE_URL for inbound WhatsApp task
+
+================================================================================
+8. CRM VS PORTAL
+================================================================================
+
+                    CRM (/crm)              PORTAL (/portal)
+--------------------------------------------------------------------------------
+Purpose             Staff pipeline          Client self-service VIP view
+Auth required       admin or staff          any logged-in user
+Layout gate         role check in layout    middleware only
+Data source         Drizzle crm_* tables    lib/mock-portal.ts ONLY
+WhatsApp            Live (in + out)         N/A
+Holdings/charts     Mock in ClientDetailView Mock on dashboard
+Documents           N/A                     Mock vault
+Messages            Real correspondence       Mock thread
+
+Cross-over: ClientDetailView in CRM imports mock portal holdings for demo 360.
+
+================================================================================
+9. FUNNEL ADMIN PAGES
+================================================================================
+
+Public funnel forms submit to dedicated Drizzle tables (not crm_leads auto-insert).
+
+/crm/business-risk-reviews
+  Table: business_risk_reviews
+  Actions: app/(crm)/crm/business-risk-reviews/actions.ts (CSV export)
+
+/crm/legacy-checklist-leads
+  Table: legacy_checklist_leads
+  Actions: app/(crm)/crm/legacy-checklist-leads/actions.ts
+
+/crm/healthy-retirement-assessments
+  Table: healthy_retirement_assessments
+  Actions: app/(crm)/crm/healthy-retirement-assessments/actions.ts
+
+These are NOT in the main Kanban unless manually linked in future.
+
+================================================================================
+10. OFFICE TOOLS (IN CRM, NOT SIDEBAR)
+================================================================================
+
+/crm/calculators          CalculatorReviewGrid — all AS Brokers calculators
+/crm/calculator-session   OfficeCalculatorCanvas — single calc for meetings
+/crm/presentation         Wealth Architecture sales canvas (Framer Motion)
+
+Useful for adviser meetings; separate from public /calculators pages.
+
+================================================================================
+11. ENVIRONMENT VARIABLES
+================================================================================
+
+CRM CORE (required for real data)
+---------------------------------
+  DATABASE_URL                    Postgres (Supabase Session pooler recommended)
+  NEXT_PUBLIC_SUPABASE_URL        Supabase project URL
+  NEXT_PUBLIC_SUPABASE_ANON_KEY   Magic link auth + middleware
+  SUPABASE_SERVICE_ROLE_KEY       Optional; not primary CRM data path
+
+WHATSAPP (for live correspondence)
+----------------------------------
+  WHATSAPP_VERIFY_TOKEN           Webhook GET subscription
+  META_APP_SECRET                 Webhook POST signature
+  WHATSAPP_ACCESS_TOKEN           Outbound staff messages
+  WHATSAPP_PHONE_NUMBER_ID        Meta Graph API sender
+  TRIGGER_SECRET_KEY              Dispatch webhook to Trigger.dev worker
+  TRIGGER_PROJECT_REF             Trigger project ID
+
+APP URLS
+--------
+  NEXT_PUBLIC_APP_URL or NEXT_PUBLIC_SITE_URL
+    Magic link redirect origin, PDF worker
+
+OPTIONAL INTEGRATIONS (not CRM-critical)
+----------------------------------------
+  HUBSPOT_ACCESS_TOKEN / HUBSPOT_PRIVATE_APP_TOKEN  — contact form sync only
+  RESEND_API_KEY, RESEND_FROM, RESEND_NOTIFY_EMAIL  — email alerts
+  GOOGLE_GENERATIVE_AI_API_KEY                      — chat/RAG
+
+SETTING UP SUPABASE AUTH ROLES
+------------------------------
+  In Supabase Dashboard → Authentication → Users → user → app_metadata:
+    { "role": "admin" }   — full CRM
+    { "role": "staff" }   — assigned leads only
+    { "role": "client" }  — portal only
+
+================================================================================
+12. SECURITY MODEL
+================================================================================
+
+CURRENT (app-layer)
+-------------------
+  middleware.ts       — login required for /crm and /portal
+  crm/layout.tsx      — hard gate: admin/staff only
+  server actions      — requireCrmUser(), assertLeadAccess(), staff scoping in SQL
+  WhatsApp webhook    — HMAC signature verification
+  CRM routes          — X-Robots-Tag: noindex
+
+NOT YET IMPLEMENTED (planned Phase 2)
+-------------------------------------
+  Supabase RLS policies:
+    admin → all rows
+    staff → assigned leads only
+    client  → own data only
+
+  CRM uses direct Postgres (Drizzle) which bypasses RLS regardless.
+  Portal has no role gate in layout — any logged-in user can access mock portal.
+
+IMPLICATIONS
+------------
+  1. DATABASE_URL on server = full DB access (expected for Drizzle)
+  2. Staff scoping enforced in TypeScript, not DB — bugs could over-fetch
+  3. Client users see mock portal data, not real holdings (safe but not live)
+  4. getSupabaseService() bypasses RLS but CRM path does not use it for CRUD
+
+================================================================================
+13. MOCK VS REAL DATA STATUS (June 2026)
+================================================================================
+
+REAL (when DATABASE_URL + Supabase Auth configured)
+---------------------------------------------------
+  CRM leads / pipeline (crm_leads)
+  Correspondence (including WhatsApp)
+  Tasks, reminders, global notes
+  Clients list (won leads)
+  Funnel submission tables + admin pages
+  WhatsApp inbound auto-lead creation
+
+MOCK / NOT WIRED
+----------------
+  Portal all pages (lib/mock-portal.ts)
+  Client detail holdings/charts in CRM (imports mock-portal)
+  Contact form → crm_leads insert (Resend + HubSpot only)
+  Manual lead create UI (WhatsApp inbound only today)
+  HubSpot bi-sync to pipeline
+  Executive /crm/executive dashboard
+
+DELETED / OBSOLETE
+------------------
+  lib/mock-crm.ts — removed from runtime
+  lib/crm-data.ts — never existed in current branch; replaced by app/actions/crm.ts
+  docs/CRM_IMPLEMENTATION_PROGRESS.md — outdated (describes mock cookie auth)
+
+================================================================================
+14. LEAD CREATION PATHS TODAY
+================================================================================
+
+AUTOMATIC
+---------
+  WhatsApp inbound (Meta webhook → Trigger.dev → crm_leads + correspondence)
+
+NOT AUTOMATIC
+-------------
+  Website contact form
+  Calculator submissions
+  Quiz / funnel forms (go to funnel tables, not crm_leads)
+  Manual "new lead" button in CRM UI
+
+================================================================================
+15. SERVICE CATEGORIES AND LABELS
+================================================================================
+
+Defined in lib/crm/types.ts (SERVICE_LABELS, serviceCategory):
+
+Aligns with AS Brokers services:
+  Retirement / Investments (Everest)
+  Insurance / Risk (personal & business)
+  Medical / Wellness
+  Estate / Business structuring
+  Claims
+
+Used in lead cards, Kanban, and detail views for routing context.
+
+================================================================================
+16. DEPLOYMENT CHECKLIST
+================================================================================
+
+  [ ] Set DATABASE_URL (fresh Session pooler string from Supabase)
+  [ ] Set NEXT_PUBLIC_SUPABASE_URL + ANON_KEY + SERVICE_ROLE_KEY
+  [ ] Run npm run db:push (applies lib/db/schema.ts — includes CRM + RAG + studio)
+  [ ] Create admin/staff users in Supabase Auth with app_metadata.role
+  [ ] Set WHATSAPP_* + TRIGGER_SECRET_KEY for live messaging
+  [ ] Set NEXT_PUBLIC_APP_URL to production origin (https://www.asbrokers.co.za)
+  [ ] Configure Meta WhatsApp webhook → /api/webhooks/whatsapp
+  [ ] Deploy Trigger.dev worker with DATABASE_URL
+  [ ] Verify /login magic link → /crm for staff
+  [ ] Verify Kanban drag persists pipeline_status
+  [ ] Test inbound WhatsApp creates lead + correspondence row
+
+DO NOT run old supabase/migrations/20260308000000_crm_schema.sql — incompatible
+with current Drizzle schema.
+
+================================================================================
+17. KEY FILE INDEX
+================================================================================
+
+ROUTES
+  app/(crm)/crm/**                  All CRM pages
+  app/(portal)/portal/**            Client portal (mock)
+  app/login/**                      Magic link login
+  app/auth/callback/route.ts        Session exchange
+
+ACTIONS
+  app/actions/crm.ts
+  app/actions/whatsapp.ts
+
+API
+  app/api/webhooks/whatsapp/route.ts
+
+COMPONENTS
+  components/crm/**                 Full CRM UI
+  components/portal/**              Portal UI (mock-backed)
+
+LIB
+  lib/crm/types.ts, session.ts, map-lead.ts, map-crm.ts, utils.ts
+  lib/db/schema.ts, index.ts
+  lib/mock-portal.ts                Portal mock (still active)
+  lib/supabase/server.ts
+
+TRIGGER
+  trigger/whatsapp.ts
+  trigger/generatePdf.ts
+  trigger.config.ts
+
+CONFIG
+  middleware.ts
+  next.config.ts                    experimental.authInterrupts: true
+  drizzle.config.ts
+  .env.example
+
+DOCS (reference)
+  PROJECT_OVERVIEW.txt §21–22       Most accurate high-level CRM map
+  docs/CRM_ROLLS_ROYCE.md           Vision and principles
+  BACKEND.md                        Partially outdated for CRM auth section
+
+================================================================================
+18. KNOWN GAPS AND ROADMAP
+================================================================================
+
+  Phase 1 (current): Drizzle + Supabase Auth + WhatsApp + Kanban — DONE
+  Phase 2: RLS policies, portal real data, contact form → crm_leads
+  Phase 3: HubSpot bi-sync, Everest API, AI meeting briefs
+  Phase 4: Executive dashboard, mobile PWA, compliance audit
+
+Immediate gaps:
+  - completeTask exists but /crm/tasks UI is read-only
+  - No manual lead creation in UI
+  - Portal entirely mock
+  - Funnel submissions not auto-routed to Kanban
+  - CRM presentation/calculators not in sidebar nav
+  - Schema drift risk if old Supabase CRM migrations applied by mistake
+
+================================================================================
+END OF CRM SYSTEM GUIDE
+================================================================================

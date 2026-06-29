@@ -4,9 +4,9 @@ import { buildPageMetadata } from "@/lib/seo-metadata";
 
 export const metadata = buildPageMetadata({
   path: "/home2",
-  title: "Homepage preview (Albert master plan)",
+  title: "Homepage preview — customer journeys",
   description:
-    "Preview homepage structured around Health, Wealth, Legacy, and Business — create, protect, preserve. Not indexed.",
+    "Problem-first homepage preview: retirement, investments, insurance, and estate planning routes for South Africans. Not indexed.",
   noIndex: true,
 });
 
@@ -16,8 +16,8 @@ export default function Home2Page() {
       <PageJsonLd
         path="/home2"
         webPage={{
-          name: "AS Brokers homepage preview",
-          description: "Problem-first homepage preview for stakeholder review.",
+          name: "AS Brokers homepage preview — customer journeys",
+          description: "Self-identify first: retirement, investments, insurance, or estate planning.",
         }}
       />
       <Home2Preview />

@@ -58,6 +58,17 @@ export const PILLAR_HUB: NavLink = {
   description: "Overview of all three pillars",
 };
 
+/** Simplified nav for /home2 customer-journey preview. */
+export const HOME2_PRIMARY_NAV: NavLink[] = [
+  { label: "Retirement", href: "/retirement" },
+  { label: "Investments", href: "/everest-wealth" },
+  { label: "Insurance", href: "/solutions/personal-insurance" },
+  { label: "Estate Planning", href: "/solutions/estate-planning" },
+  { label: "Learn", href: "/insights" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
 /** Primary header links (excluding dropdown). */
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Calculators", href: "/calculators" },

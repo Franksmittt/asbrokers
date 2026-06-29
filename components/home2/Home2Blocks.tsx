@@ -1,380 +1,222 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { getAlt } from "@/lib/image-alt";
-import { CORE_PRODUCT_PARTNERS, PARTNER_GROUPS } from "@/lib/home2-partners";
+import type { JourneyCard, JourneyLink, SolutionGroup } from "@/lib/home2-journey";
 import { formatDateEnZa } from "@/lib/format-date";
+import { ArrowRight } from "@/components/icons";
 
-/** 12-column editorial grid — Swiss-style asymmetric layouts for /home2 only. */
-export const HOME2_GRID = "grid grid-cols-12 gap-x-4 md:gap-x-6 lg:gap-x-8";
 export const HOME2_WRAP = "mx-auto max-w-7xl px-4 sm:px-6 md:px-8";
 
-type Tone = "paper" | "ink";
+const ACCENT_RING: Record<JourneyCard["accent"], string> = {
+  teal: "hover:ring-cinematic-teal/40 group-hover:shadow-[0_0_40px_rgba(20,184,166,0.12)]",
+  gold: "hover:ring-supernova-gold/40 group-hover:shadow-[0_0_40px_rgba(255,184,0,0.1)]",
+  blue: "hover:ring-samsung-blue/40 group-hover:shadow-[0_0_40px_rgba(0,84,159,0.12)]",
+  orange: "hover:ring-orange-400/40 group-hover:shadow-[0_0_40px_rgba(251,146,60,0.1)]",
+};
+
+const ACCENT_CTA: Record<JourneyCard["accent"], string> = {
+  teal: "text-cinematic-teal",
+  gold: "text-supernova-gold",
+  blue: "text-blue-400",
+  orange: "text-orange-400",
+};
 
 export function Home2Section({
-  tone = "ink",
+  id,
   className = "",
   children,
-  id,
+  bordered = true,
 }: {
-  tone?: Tone;
+  id?: string;
   className?: string;
   children: React.ReactNode;
-  id?: string;
+  bordered?: boolean;
 }) {
-  const bg = tone === "paper" ? "bg-[#f2f0ea] text-[#141414]" : "bg-[#0e0e10] text-[#e8e6e1]";
   return (
-    <section id={id} className={`border-y border-black ${bg} ${className}`}>
-      <div className={`${HOME2_WRAP} py-14 md:py-20`}>{children}</div>
+    <section
+      id={id}
+      className={`relative z-10 py-16 md:py-24 ${bordered ? "border-t border-white/10" : ""} ${className}`}
+    >
+      <div className={HOME2_WRAP}>{children}</div>
     </section>
   );
 }
 
-export function Home2Kicker({ children, tone = "ink" }: { children: React.ReactNode; tone?: Tone }) {
-  return (
-    <p
-      className={`text-[13px] font-medium leading-snug ${tone === "paper" ? "text-[#5c5a55]" : "text-[#9a9893]"}`}
-    >
-      {children}
-    </p>
-  );
-}
-
-export function Home2Heading({
-  children,
-  as: Tag = "h2",
-  tone = "ink",
-  className = "",
-}: {
-  children: React.ReactNode;
-  as?: "h1" | "h2" | "h3";
-  tone?: Tone;
-  className?: string;
-}) {
-  return (
-    <Tag
-      className={`font-semibold tracking-[-0.03em] ${tone === "paper" ? "text-[#141414]" : "text-white"} ${
-        Tag === "h1"
-          ? "text-[clamp(2.25rem,1.6rem+2.8vw,3.75rem)] leading-[1.08]"
-          : Tag === "h2"
-            ? "text-[clamp(1.75rem,1.35rem+1.6vw,2.5rem)] leading-[1.12]"
-            : "text-[clamp(1.125rem,1rem+0.5vw,1.375rem)] leading-snug"
-      } ${className}`}
-    >
-      {children}
-    </Tag>
-  );
-}
-
-export function Home2Rule({ tone = "ink" }: { tone?: Tone }) {
-  return <hr className={`my-8 border-0 border-t-2 ${tone === "paper" ? "border-black" : "border-white"}`} />;
-}
-
-export function Home2Button({
+export function Home2SectionHeader({
+  kicker,
+  title,
+  description,
   href,
-  children,
-  variant = "solid",
-  tone = "ink",
-  external,
+  linkLabel,
 }: {
-  href: string;
-  children: React.ReactNode;
-  variant?: "solid" | "outline";
-  tone?: Tone;
-  external?: boolean;
+  kicker?: string;
+  title: string;
+  description?: string;
+  href?: string;
+  linkLabel?: string;
 }) {
-  const solid =
-    tone === "paper"
-      ? "bg-[#141414] text-[#f2f0ea] hover:bg-black"
-      : "bg-white text-black hover:bg-[#e8e6e1]";
-  const outline =
-    tone === "paper"
-      ? "border-2 border-black text-[#141414] hover:bg-black hover:text-[#f2f0ea]"
-      : "border-2 border-white text-white hover:bg-white hover:text-black";
-  const className = `inline-flex items-center justify-center px-5 py-3 text-sm font-semibold transition-colors duration-150 ${variant === "solid" ? solid : outline}`;
-
-  if (external) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        {children}
-      </a>
-    );
-  }
   return (
-    <Link href={href} className={className}>
-      {children}
-    </Link>
-  );
-}
-
-export function Home2Figure({
-  src,
-  alt,
-  aspect = "16/9",
-  priority,
-  caption,
-  tone = "ink",
-}: {
-  src: string;
-  alt?: string;
-  aspect?: "16/9" | "4/3" | "3/2";
-  priority?: boolean;
-  caption?: string;
-  tone?: Tone;
-}) {
-  const ratio = aspect === "4/3" ? "aspect-[4/3]" : aspect === "3/2" ? "aspect-[3/2]" : "aspect-video";
-  const resolvedAlt = alt ?? getAlt(src);
-  return (
-    <figure>
-      <div className={`relative w-full overflow-hidden border-2 border-black ${ratio}`}>
-        <Image
-          src={src}
-          alt={resolvedAlt}
-          fill
-          className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 720px"
-          priority={priority}
-        />
+    <div className="mb-10 md:mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div className="max-w-2xl">
+        {kicker ? (
+          <p className="trust-hallmark text-xs uppercase tracking-[0.12em] text-zinc-400 mb-2">{kicker}</p>
+        ) : null}
+        <h2 className="text-2xl md:text-4xl font-bold tracking-[-0.03em] text-white">{title}</h2>
+        {description ? (
+          <p className="mt-3 text-zinc-400 text-base md:text-lg leading-relaxed tracking-[0.01em]">{description}</p>
+        ) : null}
       </div>
-      {caption ? (
-        <figcaption
-          className={`mt-2 max-w-prose text-[13px] leading-relaxed ${tone === "paper" ? "text-[#5c5a55]" : "text-[#9a9893]"}`}
-        >
-          {caption}
-        </figcaption>
-      ) : null}
-    </figure>
-  );
-}
-
-export function Home2MediaBand({ src, alt }: { src: string; alt?: string }) {
-  const resolvedAlt = alt ?? getAlt(src);
-  return (
-    <div className="border-y-2 border-black">
-      <div className="relative aspect-[21/9] w-full md:aspect-[3/1]">
-        <Image src={src} alt={resolvedAlt} fill className="object-cover" sizes="100vw" />
-      </div>
-    </div>
-  );
-}
-
-export function Home2Credentials() {
-  return (
-    <div className={`${HOME2_WRAP} border-b-2 border-black bg-[#141414] py-6 text-[#e8e6e1]`}>
-      <div className={`${HOME2_GRID} items-baseline gap-y-4 text-sm`}>
-        <p className="col-span-12 font-semibold text-white md:col-span-3">AS Brokers CC</p>
-        <dl className="col-span-12 grid gap-x-6 gap-y-2 sm:grid-cols-2 md:col-span-9 md:grid-cols-4">
-          <div>
-            <dt className="text-[#9a9893]">Licence</dt>
-            <dd className="font-medium text-white">FSP 17273 · Category 1.8</dd>
-          </div>
-          <div>
-            <dt className="text-[#9a9893]">Established</dt>
-            <dd className="font-medium text-white">1998 · Krugersdorp</dd>
-          </div>
-          <div>
-            <dt className="text-[#9a9893]">Experience</dt>
-            <dd className="font-medium text-white">25+ years</dd>
-          </div>
-          <div>
-            <dt className="text-[#9a9893]">Key partners</dt>
-            <dd className="font-medium text-white">Everest · Santam · Old Mutual · Bryte</dd>
-          </div>
-        </dl>
-      </div>
-    </div>
-  );
-}
-
-export function Home2Partners() {
-  return (
-    <>
-      <Home2Kicker tone="paper">Independent advice (FSP 17273)</Home2Kicker>
-      <Home2Heading as="h2" tone="paper" className="mt-2">
-        Who we work with
-      </Home2Heading>
-      <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#5c5a55]">
-        We compare schemes and products for your situation. Membership stays with the insurer or medical scheme you
-        choose — we advise, structure, and place business with recognised providers.
-      </p>
-
-      <div className="mt-10 border-2 border-black">
-        <div className="grid border-b-2 border-black md:grid-cols-4">
-          {CORE_PRODUCT_PARTNERS.map((p) => (
-            <div key={p.name} className="border-b-2 border-black p-4 last:border-b-0 md:border-b-0 md:border-r-2 md:last:border-r-0">
-              <p className="font-semibold text-[#141414]">{p.name}</p>
-              <p className="mt-1 text-[13px] leading-snug text-[#5c5a55]">{p.note}</p>
-            </div>
-          ))}
-        </div>
-        <div className="divide-y-2 divide-black">
-          {PARTNER_GROUPS.map((group) => (
-            <div key={group.id} className={`${HOME2_GRID} gap-y-2 py-4 md:items-baseline`}>
-              <div className="col-span-12 md:col-span-4">
-                <h3 className="font-semibold text-[#141414]">{group.label}</h3>
-              </div>
-              <p className="col-span-12 text-[14px] leading-relaxed text-[#5c5a55] md:col-span-5">{group.description}</p>
-              <p className="col-span-12 text-[14px] text-[#141414] md:col-span-3 md:text-right">
-                {group.names.join(" · ")}
-                {group.href ? (
-                  <>
-                    {" "}
-                    <Link href={group.href} className="font-medium underline underline-offset-2">
-                      More
-                    </Link>
-                  </>
-                ) : null}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-  );
-}
-
-const FEATURED_REVIEWS = [
-  {
-    quote:
-      "Albert helped us untangle the living annuity properly. First time someone explained the numbers without making me feel stupid.",
-    who: "Susan M.",
-    where: "Randpark Ridge",
-  },
-  {
-    quote:
-      "Business insurance was a headache. Johnny sat with us, fixed the key-man cover, and we actually understand what we're paying for now.",
-    who: "Craig V.",
-    where: "Northcliff",
-  },
-  {
-    quote: "Local, independent, no call centre nonsense. Exactly what we wanted from an FSP.",
-    who: "Johan & Karen T.",
-    where: "Muldersdrift",
-  },
-] as const;
-
-export function Home2Reviews() {
-  return (
-    <>
-      <Home2Kicker>Client feedback</Home2Kicker>
-      <Home2Heading as="h2" className="mt-2">
-        What clients say
-      </Home2Heading>
-      <div className="mt-10 divide-y-2 divide-white border-2 border-white">
-        {FEATURED_REVIEWS.map((r) => (
-          <blockquote key={r.who} className="p-5 md:p-6">
-            <p className="text-[15px] leading-relaxed text-[#e8e6e1] md:text-base">&ldquo;{r.quote}&rdquo;</p>
-            <footer className="mt-3 text-[13px] text-[#9a9893]">
-              — {r.who}, {r.where}
-            </footer>
-          </blockquote>
-        ))}
-      </div>
-    </>
-  );
-}
-
-const INSIGHTS = [
-  {
-    title: "Semigration & Retirement Villages",
-    excerpt: "Coastal and estate living is reshaping retirement planning.",
-    publishedAt: "2025-02-15",
-    slug: "semigration-retirement-villages",
-  },
-  {
-    title: "Estate Duty Reduction Strategies",
-    excerpt: "Structure your estate so more wealth passes to the next generation.",
-    publishedAt: "2025-01-28",
-    slug: "estate-duty-reduction-strategies",
-  },
-  {
-    title: "Retirement Income in a High-Inflation World",
-    excerpt: "Design drawdowns when inflation and rates are volatile.",
-    publishedAt: "2025-01-12",
-    slug: "retirement-income-inflation",
-  },
-] as const;
-
-export function Home2Insights() {
-  return (
-    <>
-      <Home2Kicker tone="paper">Insights</Home2Kicker>
-      <div className={`${HOME2_GRID} mt-2 items-end gap-y-4`}>
-        <Home2Heading as="h2" tone="paper" className="col-span-12 md:col-span-8">
-          Articles &amp; guides
-        </Home2Heading>
-        <Link
-          href="/insights"
-          className="col-span-12 text-sm font-medium text-[#141414] underline underline-offset-2 md:col-span-4 md:text-right"
-        >
-          All insights
+      {href && linkLabel ? (
+        <Link href={href} className="shrink-0 text-sm font-semibold text-cinematic-teal hover:underline">
+          {linkLabel} →
         </Link>
-      </div>
-      <ol className="mt-8 divide-y-2 divide-black border-2 border-black">
-        {INSIGHTS.map((post, i) => (
-          <li key={post.slug}>
+      ) : null}
+    </div>
+  );
+}
+
+export function Home2JourneyCard({ card }: { card: JourneyCard }) {
+  return (
+    <article
+      className={`group flex flex-col rounded-3xl rim-light bg-white/[0.04] p-6 md:p-8 transition-all duration-500 ring-1 ring-white/10 hover:bg-white/[0.07] ${ACCENT_RING[card.accent]}`}
+    >
+      <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">{card.title}</h3>
+      <ul className="mt-5 flex-1 space-y-2.5">
+        {card.bullets.map((item) => (
+          <li key={item.label}>
             <Link
-              href={`/insights/${post.slug}`}
-              className={`${HOME2_GRID} gap-y-2 py-4 transition-colors hover:bg-[#e8e4dc] md:items-baseline`}
+              href={item.href}
+              className="text-sm text-zinc-400 hover:text-white transition-colors duration-300"
             >
-              <span className="col-span-2 font-mono text-sm text-[#5c5a55] md:col-span-1">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="col-span-10 md:col-span-7">
-                <h3 className="font-semibold text-[#141414]">{post.title}</h3>
-                <p className="mt-1 text-[14px] text-[#5c5a55]">{post.excerpt}</p>
-              </div>
-              <time
-                className="col-span-12 text-[13px] text-[#5c5a55] md:col-span-4 md:text-right"
-                dateTime={post.publishedAt}
-              >
-                {formatDateEnZa(post.publishedAt)}
-              </time>
+              {item.label}
             </Link>
           </li>
         ))}
-      </ol>
-    </>
+      </ul>
+      <Link
+        href={card.href}
+        className={`mt-6 inline-flex items-center gap-2 text-sm font-semibold ${ACCENT_CTA[card.accent]} group-hover:gap-3 transition-all duration-300`}
+      >
+        {card.cta}
+        <ArrowRight className="w-4 h-4" aria-hidden />
+      </Link>
+    </article>
   );
 }
 
-export function Home2Stats() {
-  const stats = [
-    { value: "25+", label: "Years advising West Rand families and business owners" },
-    { value: "FSP 17273", label: "Authorised Financial Services Provider · Category 1.8" },
-    { value: "4", label: "Planning pillars — Health, Wealth, Legacy, Business" },
-  ] as const;
-
+export function Home2CalcStrip({ items }: { items: JourneyLink[] }) {
   return (
-    <div className={`${HOME2_GRID} gap-y-8`}>
-      {stats.map((stat, i) => (
-        <div
-          key={stat.label}
-          className={`${i === 0 ? "col-span-12 md:col-span-7" : i === 1 ? "col-span-12 md:col-span-5" : "col-span-12 border-t-2 border-white pt-8 md:col-span-12"}`}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      {items.map((calc) => (
+        <Link
+          key={calc.label}
+          href={calc.href}
+          className="rounded-2xl rim-light bg-white/[0.04] px-5 py-4 text-center hover:bg-white/[0.08] transition-all duration-300 group"
         >
-          <p className="text-[clamp(2rem,1.5rem+2vw,3rem)] font-semibold tracking-tight text-white">{stat.value}</p>
-          <p className="mt-2 max-w-md text-[14px] leading-relaxed text-[#9a9893]">{stat.label}</p>
+          <span className="text-sm font-semibold text-white group-hover:text-cinematic-teal transition-colors">
+            {calc.label}
+          </span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+export function Home2ArticleList({
+  articles,
+}: {
+  articles: readonly { title: string; excerpt: string; publishedAt: string; slug: string }[];
+}) {
+  return (
+    <div className="grid md:grid-cols-3 gap-6">
+      {articles.map((post) => (
+        <Link
+          key={post.slug}
+          href={`/insights/${post.slug}`}
+          className="group rounded-3xl rim-light bg-white/[0.04] p-6 md:p-7 hover:bg-white/[0.07] transition-all duration-500"
+        >
+          <time className="text-xs text-zinc-500 uppercase tracking-wider" dateTime={post.publishedAt}>
+            {formatDateEnZa(post.publishedAt)}
+          </time>
+          <h3 className="mt-2 text-lg font-bold text-white group-hover:text-cinematic-teal transition-colors">
+            {post.title}
+          </h3>
+          <p className="mt-2 text-sm text-zinc-400 line-clamp-2">{post.excerpt}</p>
+          <span className="mt-4 inline-block text-sm font-semibold text-cinematic-teal">Read article →</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+export function Home2SolutionGrid({ groups }: { groups: SolutionGroup[] }) {
+  return (
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {groups.map((group) => (
+        <div key={group.title} className="rounded-3xl rim-light bg-white/[0.04] p-6 md:p-7">
+          {group.href ? (
+            <Link href={group.href} className="text-lg font-bold text-white hover:text-cinematic-teal transition-colors">
+              {group.title}
+            </Link>
+          ) : (
+            <h3 className="text-lg font-bold text-white">{group.title}</h3>
+          )}
+          <ul className="mt-4 space-y-2">
+            {group.items.map((item) => (
+              <li key={item.label}>
+                <Link href={item.href} className="text-sm text-zinc-400 hover:text-white transition-colors">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>
   );
 }
 
-export function Home2Cta() {
+export function Home2EstateQuick({ items }: { items: readonly JourneyLink[] }) {
   return (
-    <div className={`${HOME2_GRID} items-center gap-y-8`}>
-      <div className="col-span-12 md:col-span-7">
-        <Home2Heading as="h2">Ready for a conversation?</Home2Heading>
-        <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-[#9a9893]">
-          Book a consultation or message us on WhatsApp. A named adviser responds — no call-centre queue.
-        </p>
-      </div>
-      <div className="col-span-12 flex flex-col gap-3 sm:flex-row md:col-span-5 md:justify-end">
-        <Home2Button href="/contact">Book a consultation</Home2Button>
-        <Home2Button href="https://wa.me/27662276044" variant="outline" external>
-          WhatsApp
-        </Home2Button>
-      </div>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {items.map((item) => (
+        <Link
+          key={item.label}
+          href={item.href}
+          className="rounded-2xl rim-light bg-white/[0.04] px-4 py-6 text-center hover:bg-white/[0.08] transition-all duration-300"
+        >
+          <span className="text-base font-semibold text-white">{item.label}</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+export function Home2WhyAccess() {
+  return (
+    <div className="mt-10 rounded-3xl rim-light bg-gradient-to-br from-white/[0.06] to-cinematic-teal/5 p-6 md:p-8 border border-cinematic-teal/20">
+      <h3 className="text-lg md:text-xl font-bold text-white">
+        Access investments many advisers cannot offer
+      </h3>
+      <p className="mt-3 text-sm md:text-base text-zinc-400 leading-relaxed max-w-3xl">
+        AS Brokers is authorised to advise on both traditional investments and selected private-market investment
+        opportunities, giving suitable clients access to a broader range of solutions where appropriate.
+      </p>
+      <p className="mt-3 text-xs text-zinc-500 leading-relaxed max-w-3xl">
+        Our Category 1.8 FSP licence (FSP 17273) is what enables this broader advisory scope — explained in full on our{" "}
+        <Link href="/regulatory-compliance" className="text-cinematic-teal hover:underline">
+          compliance page
+        </Link>
+        .
+      </p>
+    </div>
+  );
+}
+
+export function Home2PreviewBanner() {
+  return (
+    <div className="border-b border-amber-500/30 bg-amber-950/40 px-4 py-2.5 text-center text-xs text-amber-100/90">
+      Preview at <span className="font-mono font-medium text-amber-50">/home2</span> — customer-journey homepage.
+      Live site remains at <span className="font-mono font-medium text-amber-50">/</span>
     </div>
   );
 }

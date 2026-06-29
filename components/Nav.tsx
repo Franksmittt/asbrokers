@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { User, Menu, X } from "./icons";
 import { BrandLogo } from "@/components/BrandLogo";
-import { isNavActive, PRIMARY_NAV } from "@/lib/site-navigation";
+import { isNavActive, HOME2_PRIMARY_NAV, PRIMARY_NAV } from "@/lib/site-navigation";
 
 const PlanningToolsMenu = dynamic(
   () => import("./PlanningToolsMenu").then((m) => m.PlanningToolsMenu),
@@ -45,6 +45,9 @@ export function Nav() {
     scrolled ? "text-zinc-200" : "text-zinc-400"
   }`;
   const closeMobile = () => setMobileOpen(false);
+  const isHome2 = pathname === "/home2";
+  const navLinks = isHome2 ? HOME2_PRIMARY_NAV : PRIMARY_NAV;
+  const homeHref = isHome2 ? "/home2" : "/";
 
   if (isDashboard) {
     return (
@@ -88,7 +91,7 @@ export function Nav() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
-        <Link href="/" prefetch={false} className="flex items-center gap-3 shrink-0">
+        <Link href={homeHref} prefetch={false} className="flex items-center gap-3 shrink-0">
           <BrandLogo height={36} priority className="h-9 w-auto rounded-2xl object-contain" />
           <div className="hidden sm:block">
             <span className="text-lg font-bold tracking-tight block leading-none text-white">AS Brokers</span>
@@ -103,8 +106,8 @@ export function Nav() {
         </Link>
 
         <div className="hidden lg:flex items-center gap-0.5 text-sm font-medium">
-          <PlanningToolsMenu scrolled={scrolled} linkClass={linkClass} />
-          {PRIMARY_NAV.map((item) => (
+          {!isHome2 ? <PlanningToolsMenu scrolled={scrolled} linkClass={linkClass} /> : null}
+          {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -153,9 +156,9 @@ export function Nav() {
           className="lg:hidden absolute top-full left-0 right-0 bg-shark/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl max-h-[85vh] overflow-y-auto"
         >
           <div className="py-3 px-4 flex flex-col">
-            <PlanningToolsMobileSection onNavigate={closeMobile} />
-            <div className="border-t border-white/10 my-2" />
-            {PRIMARY_NAV.map((item) => (
+            {!isHome2 ? <PlanningToolsMobileSection onNavigate={closeMobile} /> : null}
+            {!isHome2 ? <div className="border-t border-white/10 my-2" /> : null}
+            {navLinks.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

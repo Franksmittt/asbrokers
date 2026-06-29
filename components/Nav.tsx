@@ -52,7 +52,9 @@ export function Nav() {
       }`;
   const closeMobile = () => setMobileOpen(false);
   const isJourneyHome = pathname === "/home2" || pathname === "/home3" || isHome4;
-  const navLinks = isJourneyHome ? HOME2_PRIMARY_NAV : PRIMARY_NAV;
+  const navLinks = (isJourneyHome ? HOME2_PRIMARY_NAV : PRIMARY_NAV).filter(
+    (item) => !(isHome4 && item.href === "/contact")
+  );
   const homeHref =
     pathname === "/home2"
       ? "/home2"

@@ -13,8 +13,8 @@ export function Home4UtilityBar() {
       role="navigation"
       aria-label="Audience"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-xs sm:px-6 sm:text-sm">
-        <div className="flex items-center gap-1 sm:gap-2">
+      <div className="mx-auto flex max-w-7xl items-center justify-center px-4 py-2 sm:px-6">
+        <div className="flex items-center gap-1 sm:gap-2" role="tablist" aria-label="Who are you planning for?">
           {HOME4_UTILITY_AUDIENCES.map((item) => {
             const active = pathname === item.href || (item.href === "/home4" && pathname === "/home4");
             return (
@@ -22,7 +22,9 @@ export function Home4UtilityBar() {
                 key={item.label}
                 href={item.href}
                 prefetch={false}
-                className={`rounded-full px-2.5 py-1 font-medium transition-colors duration-300 ease-apple sm:px-3 ${
+                role="tab"
+                aria-selected={active}
+                className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors duration-300 ease-apple sm:px-3 sm:text-sm ${
                   active
                     ? "bg-white text-shark shadow-sm ring-1 ring-stone-200/80"
                     : "text-stone-500 hover:bg-white/60 hover:text-shark"
@@ -32,22 +34,6 @@ export function Home4UtilityBar() {
               </Link>
             );
           })}
-        </div>
-        <div className="flex items-center gap-2 sm:gap-4">
-          <Link
-            href="/login"
-            prefetch={false}
-            className="hidden font-medium text-stone-500 transition-colors hover:text-samsung-blue sm:inline"
-          >
-            Client Portal
-          </Link>
-          <Link
-            href="/contact"
-            prefetch={false}
-            className="font-semibold text-samsung-blue transition-colors hover:text-cinematic-teal"
-          >
-            Find an Adviser
-          </Link>
         </div>
       </div>
     </div>

@@ -402,6 +402,12 @@ OPTIONAL INTEGRATIONS (not CRM-critical)
 
 SETTING UP SUPABASE AUTH ROLES
 ------------------------------
+  Preferred CRM superuser:
+    npm run crm:ensure-superuser
+
+  This promotes/creates albert@asbrokers.co.za as admin and revokes the old
+  admin@asbrokers.co.za placeholder when Supabase service credentials are set.
+
   In Supabase Dashboard → Authentication → Users → user → app_metadata:
     { "role": "admin" }   — full CRM
     { "role": "staff" }   — assigned leads only
@@ -501,7 +507,8 @@ Used in lead cards, Kanban, and detail views for routing context.
   [ ] Set DATABASE_URL (fresh Session pooler string from Supabase)
   [ ] Set NEXT_PUBLIC_SUPABASE_URL + ANON_KEY + SERVICE_ROLE_KEY
   [ ] Run npm run db:push (applies lib/db/schema.ts — includes CRM + RAG + studio)
-  [ ] Create admin/staff users in Supabase Auth with app_metadata.role
+  [ ] Run npm run crm:ensure-superuser, then create any additional staff users
+      in Supabase Auth with app_metadata.role
   [ ] Set WHATSAPP_* + TRIGGER_SECRET_KEY for live messaging
   [ ] Set NEXT_PUBLIC_APP_URL to production origin (https://www.asbrokers.co.za)
   [ ] Configure Meta WhatsApp webhook → /api/webhooks/whatsapp

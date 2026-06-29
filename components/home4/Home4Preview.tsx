@@ -36,6 +36,7 @@ export function Home4Preview() {
             alt={getAlt("/images/contact-trust.jpg", "Relaxed consultation with an independent adviser")}
             fill
             priority
+            unoptimized
             className="object-cover"
             sizes="100vw"
           />
@@ -178,6 +179,7 @@ export function Home4Preview() {
                     src="/images/about-fiduciary-plaque-4x3.jpg"
                     alt={getAlt("/images/about-fiduciary-plaque-4x3.jpg", "Compliance and fiduciary standards")}
                     fill
+                    unoptimized
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 40vw"
                   />

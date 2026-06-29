@@ -94,6 +94,7 @@ export function Home4GoalCard({ card }: { card: GoalCard }) {
           src={card.image}
           alt={getAlt(card.image, card.title)}
           fill
+          unoptimized
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 25vw"
         />
@@ -144,6 +145,7 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
           src={tile.image}
           alt={getAlt(tile.image, tile.label)}
           fill
+          unoptimized
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 25vw"
         />
@@ -203,6 +205,7 @@ export function Home4TestimonialCard({ item }: { item: Testimonial }) {
           src={item.photo}
           alt={getAlt(item.photo, `${item.who} — client story`)}
           fill
+          unoptimized
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
         />

@@ -57,7 +57,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Retirement articles", href: "/insights" },
     ],
     accent: "teal",
-    image: "/images/retirement-inset-1x1.jpg",
+    image: "/images/home4-goal-retire-16x9.png",
   },
   {
     id: "investments",
@@ -87,7 +87,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Business insurance", href: "/solutions/business-insurance" },
     ],
     accent: "orange",
-    image: "/images/solutions-hero-16x9.jpg",
+    image: "/images/home4-goal-insure-16x9.png",
   },
   {
     id: "estate",
@@ -102,7 +102,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Legacy guides", href: "/insights" },
     ],
     accent: "gold",
-    image: "/images/estate-duty-calculator-inset-1x1.jpg",
+    image: "/images/home4-goal-estate-16x9.png",
   },
 ];
 

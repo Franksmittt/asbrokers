@@ -22,7 +22,6 @@
     "vercel:env-push": "tsx scripts/push-vercel-env.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "crm:ensure-superuser": "tsx scripts/ensure-crm-superuser.ts",
     "test:a11y": "playwright test tests/accessibility.spec.ts",
     "test:a11y:report": "playwright test tests/accessibility.spec.ts --reporter=html",
     "test:seo": "playwright test tests/seo.spec.ts",

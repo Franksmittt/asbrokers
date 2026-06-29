@@ -44,7 +44,7 @@
 
 ## Resume checklist
 
-1. Run `npm run crm:ensure-superuser` with Supabase service credentials so `albert@asbrokers.co.za` is the CRM admin superuser and any legacy `admin@asbrokers.co.za` account is revoked.
+1. Set `app_metadata.role: "admin"` for Albert (or demo account) in Supabase Auth.
 2. Confirm `DATABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY` on Vercel.
 3. Portal: replace `lib/mock-portal.ts` when portfolio API is ready.
 4. Optional: wire `/retirement-survival-blueprint` to CRM lead capture.

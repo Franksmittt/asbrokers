@@ -45,9 +45,9 @@ export function Nav() {
     scrolled ? "text-zinc-200" : "text-zinc-400"
   }`;
   const closeMobile = () => setMobileOpen(false);
-  const isHome2 = pathname === "/home2";
-  const navLinks = isHome2 ? HOME2_PRIMARY_NAV : PRIMARY_NAV;
-  const homeHref = isHome2 ? "/home2" : "/";
+  const isJourneyHome = pathname === "/home2" || pathname === "/home3";
+  const navLinks = isJourneyHome ? HOME2_PRIMARY_NAV : PRIMARY_NAV;
+  const homeHref = pathname === "/home2" ? "/home2" : pathname === "/home3" ? "/home3" : "/";
 
   if (isDashboard) {
     return (
@@ -106,7 +106,7 @@ export function Nav() {
         </Link>
 
         <div className="hidden lg:flex items-center gap-0.5 text-sm font-medium">
-          {!isHome2 ? <PlanningToolsMenu scrolled={scrolled} linkClass={linkClass} /> : null}
+          {!isJourneyHome ? <PlanningToolsMenu scrolled={scrolled} linkClass={linkClass} /> : null}
           {navLinks.map((item) => (
             <Link
               key={item.href}
@@ -156,8 +156,8 @@ export function Nav() {
           className="lg:hidden absolute top-full left-0 right-0 bg-shark/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl max-h-[85vh] overflow-y-auto"
         >
           <div className="py-3 px-4 flex flex-col">
-            {!isHome2 ? <PlanningToolsMobileSection onNavigate={closeMobile} /> : null}
-            {!isHome2 ? <div className="border-t border-white/10 my-2" /> : null}
+            {!isJourneyHome ? <PlanningToolsMobileSection onNavigate={closeMobile} /> : null}
+            {!isJourneyHome ? <div className="border-t border-white/10 my-2" /> : null}
             {navLinks.map((item) => (
               <Link
                 key={item.href}

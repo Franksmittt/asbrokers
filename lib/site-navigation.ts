@@ -58,7 +58,7 @@ export const PILLAR_HUB: NavLink = {
   description: "Overview of all three pillars",
 };
 
-/** Simplified nav for /home2 customer-journey preview. */
+/** Simplified nav for /home2 and /home3 journey homepage previews. */
 export const HOME2_PRIMARY_NAV: NavLink[] = [
   { label: "Retirement", href: "/retirement" },
   { label: "Investments", href: "/everest-wealth" },

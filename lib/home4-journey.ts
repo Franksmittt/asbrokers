@@ -7,6 +7,7 @@ export type JourneyLink = { label: string; href: string };
 export type GoalCard = {
   id: string;
   title: string;
+  badge: string;
   description: string;
   href: string;
   links: JourneyLink[];
@@ -46,6 +47,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
   {
     id: "retirement",
     title: "I'm planning for retirement",
+    badge: "Retire",
     description: "Clarity on capital, income, and whether your money will last.",
     href: "/retirement",
     links: [
@@ -60,6 +62,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
   {
     id: "investments",
     title: "I need investments",
+    badge: "Invest",
     description: "Wealth building, tax-free savings, and Everest solutions.",
     href: "/everest-wealth",
     links: [
@@ -74,6 +77,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
   {
     id: "insurance",
     title: "I need insurance",
+    badge: "Insure",
     description: "Personal protection, health cover, assets, and business risk.",
     href: "/solutions/personal-insurance",
     links: [
@@ -88,6 +92,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
   {
     id: "estate",
     title: "I need estate planning",
+    badge: "Estate",
     description: "Wills, trusts, duty, and legacy outcomes for your family.",
     href: "/solutions/estate-planning",
     links: [

@@ -100,7 +100,7 @@ export function Home4GoalCard({ card }: { card: GoalCard }) {
         <div className="absolute inset-0 bg-gradient-to-t from-shark/70 via-shark/20 to-transparent" />
         <div className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}>
           <Icon className="h-3.5 w-3.5" aria-hidden />
-          Goal
+          {card.badge}
         </div>
       </div>
       <div className="p-5 sm:p-6">

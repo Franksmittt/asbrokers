@@ -5,7 +5,7 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 
 const PAGE_TITLE = "How We Work | Structured Financial Advice";
 const PAGE_DESCRIPTION =
-  "AS Brokers uses a four-step process — diagnose, design, implement, and review — for retirement, risk, and legacy planning. FSP 17273, Krugersdorp.";
+  "AS Brokers uses a four-step process, diagnose, design, implement, and review, for retirement, risk, and legacy planning. FSP 17273, Krugersdorp.";
 
 const pillars = [
   {

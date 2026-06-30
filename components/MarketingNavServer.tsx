@@ -6,7 +6,7 @@ import { Menu, X } from "@/components/icons";
 import { BrandLogo } from "@/components/BrandLogo";
 import { PRIMARY_NAV } from "@/lib/site-navigation";
 
-/** Lightweight homepage nav — minimal JS, full mobile a11y (Phase 9 + 12). */
+/** Lightweight homepage nav, minimal JS, full mobile a11y (Phase 9 + 12). */
 export function MarketingNavServer() {
   const [mobileOpen, setMobileOpen] = useState(false);
 

@@ -35,7 +35,7 @@ export default function WealthBuildingCalculatorPage() {
             AS Brokers Wealth Building Calculator
           </h1>
           <p className="text-lg leading-relaxed text-zinc-400 sm:text-xl">
-            Model how capital can grow over time — for investments, retirement savings, business growth, or financial
+            Model how capital can grow over time, for investments, retirement savings, business growth, or financial
             freedom planning. No artificial limits on growth assumptions.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function WealthBuildingCalculatorPage() {
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-2xl font-bold text-white">What this tool is for</h2>
           <p className="mb-4 text-sm leading-relaxed text-zinc-400">
-            This is a general-purpose compound growth calculator — not only an investment tool. Use it to illustrate how
+            This is a general-purpose compound growth calculator, not only an investment tool. Use it to illustrate how
             starting capital, monthly contributions, annual contribution increases, and your chosen growth rate combine
             over time.
           </p>

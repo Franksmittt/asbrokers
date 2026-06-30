@@ -160,7 +160,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = fals
       </button>
 
       <p className={`${funnel.meta} normal-case tracking-normal`}>
-        Educational only — not legal advice. By submitting, you agree to receive your checklist and follow-up
+        Educational only, not legal advice. By submitting, you agree to receive your checklist and follow-up
         communications from AS Brokers. FSP 17273.
       </p>
     </form>

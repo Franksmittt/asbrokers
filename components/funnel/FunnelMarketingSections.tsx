@@ -153,7 +153,7 @@ export function FunnelMarketingPage({
       <div className="grid gap-4 lg:grid-cols-12 lg:gap-5">
         <div className="flex flex-col gap-4 lg:col-span-8 lg:gap-5">
           <section className={funnel.card}>
-            <FunnelSectionHeader compact title="What you get" subtitle="Proof of work — structured, not generic promises." />
+            <FunnelSectionHeader compact title="What you get" subtitle="Proof of work, structured, not generic promises." />
             <ul className={`mt-4 ${funnel.grid2}`}>
               {offer.proofPoints.map((item) => (
                 <li key={item} className={funnel.tile}>

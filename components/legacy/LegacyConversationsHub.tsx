@@ -54,7 +54,7 @@ export function LegacyConversationsHub() {
           <p className={funnel.eyebrow}>{PILLAR_HUB.label}</p>
           <h1 className={`mt-2 ${funnel.h1}`}>Create · Protect · Preserve</h1>
           <p className={`mt-3 max-w-4xl ${funnel.lead}`}>
-            People do not wake up wanting products — they worry about their health, money, family, and business. AS
+            People do not wake up wanting products, they worry about their health, money, family, and business. AS
             Brokers solves those problems through structured planning tools.
           </p>
           <p className={`mt-2 max-w-4xl ${funnel.body}`}>
@@ -67,7 +67,7 @@ export function LegacyConversationsHub() {
           <FunnelSectionHeader
             compact
             title="The four core assets"
-            subtitle="Every tool connects to one problem — and one next step in the journey."
+            subtitle="Every tool connects to one problem, and one next step in the journey."
           />
           <ul className="mt-4 grid gap-3 sm:grid-cols-2">
             {FRAMEWORK.map((item) => (
@@ -89,7 +89,7 @@ export function LegacyConversationsHub() {
         </section>
 
         <section className={funnel.card}>
-          <FunnelSectionHeader compact title="Planning tools" subtitle="Free to start — full guides from R299 when released." />
+          <FunnelSectionHeader compact title="Planning tools" subtitle="Free to start, full guides from R299 when released." />
           <ul className="mt-4 space-y-3">
             {PILLAR_FUNNELS.map((tool) => {
               const offer = Object.values(PLANNING_TOOL_OFFERS).find((o) => o.href === tool.href);
@@ -133,10 +133,10 @@ export function LegacyConversationsHub() {
           </ol>
           <ul className={`mt-5 ${funnel.grid2}`}>
             {[
-              "Health — vitality, fitness, longevity",
-              "Wealth — retirement income & capital",
-              "Legacy — wills, trusts, succession",
-              "Business — commercial & assurance gaps",
+              "Health, vitality, fitness, longevity",
+              "Wealth, retirement income & capital",
+              "Legacy, wills, trusts, succession",
+              "Business, commercial & assurance gaps",
             ].map((item) => (
               <FunnelCheckItem key={item}>{item}</FunnelCheckItem>
             ))}
@@ -149,7 +149,7 @@ export function LegacyConversationsHub() {
           <div className="max-w-2xl">
             <h2 className={funnel.h2}>Not sure where to start?</h2>
             <p className={`mt-1.5 ${funnel.body}`}>
-              Pick the question that keeps you awake at night — we will meet you there.
+              Pick the question that keeps you awake at night, we will meet you there.
             </p>
           </div>
           <Link href="/contact" className={`shrink-0 ${funnel.ctaLg}`}>

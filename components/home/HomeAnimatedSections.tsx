@@ -16,7 +16,7 @@ const RiskArchitectureCarousel = dynamic(
   { loading: () => <div className="min-h-[320px] animate-pulse rounded-[2rem] bg-white/[0.03]" /> }
 );
 
-/** Framer-heavy home sections — code-split for mobile Lighthouse (Phase 9). */
+/** Framer-heavy home sections, code-split for mobile Lighthouse (Phase 9). */
 export function HomeAnimatedSections() {
   return (
     <>

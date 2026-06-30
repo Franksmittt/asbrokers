@@ -285,7 +285,7 @@ export function GrowthRateCalculator() {
                 </p>
                 <p className="mt-2 text-xs leading-relaxed text-[#6B7280]">
                   The annual rate of growth required to reach your target lifestyle goal based on your current capital,
-                  monthly savings, and available time. This measures the gap — it is not a recommended investment return.
+                  monthly savings, and available time. This measures the gap, it is not a recommended investment return.
                 </p>
               </div>
 

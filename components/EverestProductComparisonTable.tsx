@@ -1,4 +1,4 @@
-/** Everest voluntary + Amethyst product comparison — semantic table for AEO/RAG (Phase 3.3). */
+/** Everest voluntary + Amethyst product comparison, semantic table for AEO/RAG (Phase 3.3). */
 export function EverestProductComparisonTable() {
   const rows = [
     {
@@ -47,7 +47,7 @@ export function EverestProductComparisonTable() {
     <div className="mt-8 overflow-x-auto">
       <table className="w-full min-w-[720px] border-collapse text-left text-sm">
         <caption className="mb-3 text-left text-xs text-zinc-500">
-          Everest Wealth product comparison — targeted terms, not guaranteed returns
+          Everest Wealth product comparison, targeted terms, not guaranteed returns
         </caption>
         <thead>
           <tr className="border-b border-white/10 text-zinc-400">

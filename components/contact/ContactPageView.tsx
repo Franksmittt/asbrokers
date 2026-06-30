@@ -26,7 +26,7 @@ const steps = [
   {
     number: "2",
     title: "Wealth Engineering Call",
-    body: "A direct consultation to review your current trajectory, discuss suitable structures, and answer your questions — no call centre.",
+    body: "A direct consultation to review your current trajectory, discuss suitable structures, and answer your questions. No call centre.",
     icon: MessageCircle,
   },
   {
@@ -81,7 +81,7 @@ export function ContactPageView() {
       <section className="py-12 md:py-20" data-chunk-boundary>
         <div className={HOME4_WRAP}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
-            {/* Left — value & process */}
+            {/* Left, value & process */}
             <div className="space-y-10">
               <Home4Reveal>
                 <div>
@@ -111,7 +111,7 @@ export function ContactPageView() {
                     What to expect
                   </h2>
                   <p className="mt-3 max-w-xl text-stone-600 leading-relaxed">
-                    A clear, structured path from first conversation to implementation — at your pace.
+                    A clear, structured path from first conversation to implementation, at your pace.
                   </p>
                   <div className="mt-6 space-y-4">
                     {steps.map((step) => {
@@ -177,14 +177,14 @@ export function ContactPageView() {
               </Home4Reveal>
             </div>
 
-            {/* Right — form */}
+            {/* Right, form */}
             <Home4Reveal delay={0.08} className="lg:sticky lg:top-28">
               <div className="rounded-3xl bg-white/95 p-6 shadow-2xl ring-1 ring-stone-200/80 backdrop-blur-sm sm:p-8 md:p-10">
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold tracking-tight text-shark">Request a consultation</h2>
                   <p className="mt-2 text-sm leading-relaxed text-stone-600">
                     Tell us a little about yourself and what you&apos;d like to discuss. We&apos;ll respond
-                    personally — not via a call centre.
+                    personally. Not via a call centre.
                   </p>
                 </div>
                 <ContactEnquiryFormLazy />

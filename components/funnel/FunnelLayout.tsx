@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 
 /**
- * AS Brokers funnel layout — wide, tight rhythm, conversion-focused.
+ * AS Brokers funnel layout, wide, tight rhythm, conversion-focused.
  * Aligned with value-ladder lead magnets: one primary action, pre-handled objections, minimal friction.
  */
 export const funnel = {
   page: "min-h-screen bg-void",
   glow:
     "pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_90%_55%_at_50%_-8%,rgba(0,84,159,0.22),transparent)]",
-  /** Wide marketing column — aligned with site nav/footer (max-w-7xl) */
+  /** Wide marketing column, aligned with site nav/footer (max-w-7xl) */
   shell: "relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8",
   stack: "flex flex-col gap-4 pb-20 pt-20 md:gap-5 md:pb-16 md:pt-24",
   card: "rounded-2xl rim-light border border-white/10 bg-white/[0.04] backdrop-blur-xl p-4 sm:p-5 md:p-6",
@@ -75,15 +75,15 @@ export function FunnelCheckItem({ children }: { children: ReactNode }) {
 export function FunnelObjectionStrip() {
   return (
     <ul className={`${funnel.trustStrip} !justify-start text-left`}>
-      <li>Free checklist — no payment</li>
+      <li>Free checklist, no payment</li>
       <li className="hidden sm:list-item">Educational only, not legal advice</li>
       <li>FSP 17273 · Independent adviser</li>
-      <li className="hidden md:list-item">Instant PDF — no waiting</li>
+      <li className="hidden md:list-item">Instant PDF, no waiting</li>
     </ul>
   );
 }
 
-/** Value ladder hint — lead magnet → next step */
+/** Value ladder hint, lead magnet → next step */
 export function FunnelAscensionHint() {
   return (
     <p className={`${funnel.body} border-t border-white/10 pt-4`}>

@@ -102,7 +102,7 @@ export async function submitBusinessRiskReview(
     return {
       success: true,
       message:
-        "Your review was received. We could not save a report link right now — AS Brokers will follow up by email.",
+        "Your review was received. We could not save a report link right now, AS Brokers will follow up by email.",
     };
   }
 

@@ -117,7 +117,7 @@ export function Footer() {
                 Stay ahead of your financial future.
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-stone-400">
-                Weekly insights on retirement, investments, and estate planning — from our independent
+                Weekly insights on retirement, investments, and estate planning, from our independent
                 advisers.
               </p>
             </div>

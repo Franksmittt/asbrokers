@@ -293,7 +293,7 @@ export function RetirementSurvivalBlueprint() {
                     <CoachMessage>
                       <p className="mb-3 font-semibold text-white">There is something most retirement tools skip.</p>
                       <p>
-                        They spit out a number — &quot;You need R15 million&quot; — and leave you with anxiety, not
+                        They spit out a number, &quot;You need R15 million&quot;, and leave you with anxiety, not
                         understanding. This Blueprint is different. It is a conversation that creates clarity.
                       </p>
                     </CoachMessage>
@@ -359,7 +359,7 @@ export function RetirementSurvivalBlueprint() {
                       <p className="mt-2 text-sm text-zinc-400">Let&apos;s define your destination first.</p>
                     </div>
                     <CoachMessage>
-                      Before we talk numbers, tell me about the life you are planning toward — in today&apos;s money.
+                      Before we talk numbers, tell me about the life you are planning toward, in today&apos;s money.
                     </CoachMessage>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
@@ -429,7 +429,7 @@ export function RetirementSurvivalBlueprint() {
                       <p className="mt-3">
                         {formatBlueprintRand(answers.desiredMonthlyIncomeToday)} per month in today&apos;s buying power
                         could mean about <strong>{formatBlueprintRand(readyResults.futureMonthlyIncome)}</strong> per
-                        month by then — after inflation (assumed 6% p.a.).
+                        month by then, after inflation (assumed 6% p.a.).
                       </p>
                       <p className="mt-3">
                         Using a 5% income yield, that lifestyle requires approximately:
@@ -450,7 +450,7 @@ export function RetirementSurvivalBlueprint() {
                       <h2 className="mt-1 text-2xl font-bold text-white">What is my gap?</h2>
                     </div>
                     <CoachMessage>
-                      Now let&apos;s look at where you are today — what you have built and what you are putting aside
+                      Now let&apos;s look at where you are today, what you have built and what you are putting aside
                       each month.
                     </CoachMessage>
                     <div>
@@ -503,7 +503,7 @@ export function RetirementSurvivalBlueprint() {
                     </div>
                     <CoachMessage>
                       <p>
-                        On your current path — assuming 10% annual growth on existing and future savings — you are
+                        On your current path, assuming 10% annual growth on existing and future savings, you are
                         projected to reach about{" "}
                         <strong>{formatBlueprintRand(readyResults.projectedCapital)}</strong> by age {answers.freedomAge}.
                       </p>
@@ -511,14 +511,14 @@ export function RetirementSurvivalBlueprint() {
                         Your Financial Freedom Gap™ is{" "}
                         <strong>
                           {readyResults.onTrack
-                            ? "closed — you are on track for your stated target"
+                            ? "closed, you are on track for your stated target"
                             : formatBlueprintRand(readyResults.financialFreedomGap)}
                         </strong>
                         .
                       </p>
                       <p className="mt-3">
                         To close the gap from here, the annual rate of progress required is your AS Brokers Freedom
-                        Rate™. This measures the gap — it is not a recommended investment return.
+                        Rate™. This measures the gap, it is not a recommended investment return.
                       </p>
                     </CoachMessage>
                     <MetricCard
@@ -536,7 +536,7 @@ export function RetirementSurvivalBlueprint() {
                       <h2 className="mt-1 text-2xl font-bold text-white">What are my options?</h2>
                     </div>
                     <CoachMessage>
-                      Awareness is only the first step. Most people close a gap through several levers — not one magic
+                      Awareness is only the first step. Most people close a gap through several levers, not one magic
                       fix. Here are practical directions to explore.
                     </CoachMessage>
                     <ul className="space-y-3">
@@ -565,7 +565,7 @@ export function RetirementSurvivalBlueprint() {
                     </div>
                     <CoachMessage>
                       <p>
-                        You asked: <em>Am I going to be okay financially?</em> Here is your personalised diagnostic —
+                        You asked: <em>Am I going to be okay financially?</em> Here is your personalised diagnostic,
                         three numbers that tell the story of where you are and what progress would require.
                       </p>
                     </CoachMessage>
@@ -661,7 +661,7 @@ export function RetirementSurvivalBlueprint() {
       )}
 
       <p className={`${funnel.shell} pb-6 text-center ${funnel.meta}`}>
-        Educational only — not financial advice · AS Brokers CC · FSP 17273
+        Educational only, not financial advice · AS Brokers CC · FSP 17273
       </p>
       <Footer />
     </div>

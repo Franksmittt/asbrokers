@@ -194,7 +194,7 @@ export function Home4TestimonialCard({ item }: { item: Testimonial }) {
       <div className="relative h-44 w-full">
         <Image
           src={item.photo}
-          alt={getAlt(item.photo, `${item.who} — client story`)}
+          alt={getAlt(item.photo, `${item.who}, client story`)}
           fill
           unoptimized
           className="object-cover"

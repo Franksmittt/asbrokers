@@ -10,7 +10,7 @@ const calculatorFAQs = [
   {
     question: "What calculators does AS Brokers offer?",
     answer:
-      "Our curated public library features the Retirement Reality Calculator, Retirement Readiness Calculator, Inflation Impact Calculator, and AS Brokers Wealth Building Calculator — focused retirement and wealth education tools.",
+      "Our curated public library features the Retirement Reality Calculator, Retirement Readiness Calculator, Inflation Impact Calculator, and AS Brokers Wealth Building Calculator, focused retirement and wealth education tools.",
   },
   {
     question: "Are calculator results financial advice?",
@@ -143,7 +143,7 @@ export default function CalculatorsPage() {
             The Actuarial Reality Check.
           </h1>
           <p className="max-w-2xl text-lg leading-relaxed tracking-[0.01em] text-gray-400">
-            Curated planning calculators — each answers a specific retirement or wealth question. Educational only.
+            Curated planning calculators, each answers a specific retirement or wealth question. Educational only.
           </p>
         </div>
       </section>
@@ -225,7 +225,7 @@ export default function CalculatorsPage() {
               <div className="relative text-center">
                 <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">Need help interpreting the numbers?</h2>
                 <p className="mb-8 text-sm text-zinc-400">
-                  Book a clarity conversation with AS Brokers — we will walk through your results in context.
+                  Book a clarity conversation with AS Brokers, we will walk through your results in context.
                 </p>
                 <Link
                   href="/contact"

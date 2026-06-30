@@ -47,7 +47,7 @@ export function BusinessRiskReportView({ business, score, selectedLabels, missin
 
       <div className="no-print border-b border-[#e5e7eb] bg-[#f5f9fc] px-6 py-4">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3">
-          <p className="text-sm text-[#00549F] font-semibold">AS Brokers Business Risk Review™ — Report</p>
+          <p className="text-sm text-[#00549F] font-semibold">AS Brokers Business Risk Review™, Report</p>
           <button
             type="button"
             onClick={() => window.print()}

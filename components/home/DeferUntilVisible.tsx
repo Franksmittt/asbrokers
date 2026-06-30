@@ -9,7 +9,7 @@ type Props = {
   minHeightClass?: string;
 };
 
-/** Mount children only when near viewport — keeps Recharts/Framer off the critical path. */
+/** Mount children only when near viewport, keeps Recharts/Framer off the critical path. */
 export function DeferUntilVisible({
   children,
   fallback = null,

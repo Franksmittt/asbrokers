@@ -123,7 +123,7 @@ export async function submitHealthyRetirementAssessment(
   if (!reportId) {
     return {
       success: true,
-      message: "Your results are ready. We could not save your details — contact AS Brokers for your full blueprint.",
+      message: "Your results are ready. We could not save your details, contact AS Brokers for your full blueprint.",
       score: result.score,
       gap: result.gap,
       bandLabel: result.bandLabel,

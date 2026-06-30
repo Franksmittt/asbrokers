@@ -8,7 +8,7 @@ export const metadata = buildPageMetadata({
   path: "/solutions/life-insurance",
   title: "Life Insurance, Disability & Severe Illness",
   description:
-    "Death cover, permanent disability, income protection, and severe illness. Independent long-term risk advice in Krugersdorp — structured around income first, not product hype.",
+    "Death cover, permanent disability, income protection, and severe illness. Independent long-term risk advice in Krugersdorp, structured around income first, not product hype.",
   keywords: [
     "life insurance South Africa",
     "income protection disability",

@@ -94,12 +94,12 @@ export function LegacyReadinessLanding() {
       <div className={funnel.glow} aria-hidden />
 
       <div className={`${funnel.shell} ${funnel.stack}`}>
-        {/* Hero — full shell width, answer-first, single primary CTA */}
+        {/* Hero, full shell width, answer-first, single primary CTA */}
         <header>
           <p className={funnel.eyebrow}>Legacy Conversations™ · Stage 1</p>
           <h1 className={`mt-2 ${funnel.h1}`}>Don&apos;t die without a plan</h1>
           <p className={`mt-3 max-w-4xl ${funnel.lead}`}>
-            Most families believe their affairs are in order. Many are not — and problems found after
+            Most families believe their affairs are in order. Many are not, and problems found after
             death cannot be fixed.
           </p>
           <p className={`mt-2 max-w-4xl ${funnel.body}`}>
@@ -115,7 +115,7 @@ export function LegacyReadinessLanding() {
           </div>
         </header>
 
-        {/* Mobile: form early (value ladder — capture before long scroll) */}
+        {/* Mobile: form early (value ladder, capture before long scroll) */}
         <div className="lg:hidden">
           <LeadCaptureCard />
         </div>
@@ -128,7 +128,7 @@ export function LegacyReadinessLanding() {
               <FunnelSectionHeader
                 compact
                 title="The problem"
-                subtitle="If you assume the four statements below are true, you are in good company — and that is exactly why estates fail."
+                subtitle="If you assume the four statements below are true, you are in good company, and that is exactly why estates fail."
               />
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {ASSUMPTIONS.map((item) => (
@@ -148,7 +148,7 @@ export function LegacyReadinessLanding() {
               </p>
             </section>
 
-            {/* Checklist covers — proof of work / substance */}
+            {/* Checklist covers, proof of work / substance */}
             <section className={funnel.card}>
               <FunnelSectionHeader
                 compact
@@ -177,7 +177,7 @@ export function LegacyReadinessLanding() {
                 <p className={funnel.eyebrow}>Your adviser</p>
                 <h3 className="mt-2 text-lg font-bold text-white">Albert Schuurman</h3>
                 <p className={`mt-2 ${funnel.body}`}>
-                  Helping South African families protect wealth since 1999 — estate planning, trusts,
+                  Helping South African families protect wealth since 1999, estate planning, trusts,
                   succession, and risk.
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-2">
@@ -200,14 +200,14 @@ export function LegacyReadinessLanding() {
           </div>
         </div>
 
-        {/* Final CTA — compact bar, not another tall card */}
+        {/* Final CTA, compact bar, not another tall card */}
         <section
           className={`${funnel.card} flex flex-col items-start justify-between gap-4 md:flex-row md:items-center`}
         >
           <div className="max-w-2xl">
             <h2 className={funnel.h2}>What happens if you don&apos;t wake up tomorrow?</h2>
             <p className={`mt-1.5 ${funnel.body}`}>
-              Find out whether your legacy plan is ready — takes two minutes.
+              Find out whether your legacy plan is ready, takes two minutes.
             </p>
           </div>
           <button type="button" onClick={scrollToForm} className={`shrink-0 ${funnel.ctaLg}`}>
@@ -217,7 +217,7 @@ export function LegacyReadinessLanding() {
         </section>
 
         <p className={`text-center ${funnel.meta}`}>
-          Educational only — not legal advice ·{" "}
+          Educational only, not legal advice ·{" "}
           <Link href="/contact" className="text-[#00549F] hover:underline">
             Speak to AS Brokers
           </Link>

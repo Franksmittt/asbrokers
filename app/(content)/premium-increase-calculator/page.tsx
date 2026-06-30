@@ -6,7 +6,7 @@ import { buildPageMetadata } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Life Insurance Premium Sustainability & Escalation Tool";
 const PAGE_DESCRIPTION =
-  "Compare year-by-year life policy premiums you enter yourself. Model long-term affordability, escalation, and level vs increasing structures — education only, not a quote or product recommendation.";
+  "Compare year-by-year life policy premiums you enter yourself. Model long-term affordability, escalation, and level vs increasing structures, education only, not a quote or product recommendation.";
 
 export const metadata = buildPageMetadata({
   path: "/premium-increase-calculator",

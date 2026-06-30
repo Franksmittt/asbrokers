@@ -92,7 +92,7 @@ export function Home4Preview() {
             <Home4SectionHeader
               kicker="Your journey"
               title="Start your journey"
-              description="Move from curiosity to clarity — education first, advice when you're ready."
+              description="Move from curiosity to clarity: education first, advice when you're ready."
             />
             <Home4JourneyFunnel stages={HOME4_JOURNEY_STAGES} />
           </Home4Reveal>
@@ -108,7 +108,7 @@ export function Home4Preview() {
                 Prefer to explore on your own?
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
-                Access calculators, articles, and guides at your own pace — no forms, no pressure.
+                Access calculators, articles, and guides at your own pace, no forms, no pressure.
               </p>
               <Link
                 href="/insights"
@@ -149,7 +149,7 @@ export function Home4Preview() {
                 <Home4SectionHeader
                   kicker="Why AS Brokers"
                   title="Access investments many advisers cannot offer"
-                  description="As a Category 1.8 authorised financial services provider, we can guide suitable clients toward traditional and selected alternative investments — including Everest Wealth solutions — while remaining fully independent. For more than 25 years we have served families and business owners across the West Rand without tying advice to a single product house."
+                  description="As a Category 1.8 authorised financial services provider, we can guide suitable clients toward traditional and selected alternative investments, including Everest Wealth solutions, while remaining fully independent. For more than 25 years we have served families and business owners across the West Rand without tying advice to a single product house."
                 />
                 <div className="mt-6 flex flex-wrap gap-2">
                   {HOME4_TRUST_BADGES.map((badge) => (
@@ -194,7 +194,7 @@ export function Home4Preview() {
                 Stories from clients we serve
               </h3>
               <p className="mt-2 max-w-2xl text-stone-600">
-                Real feedback from families and business owners — retirement clarity, insurance that makes sense,
+                Real feedback from families and business owners: retirement clarity, insurance that makes sense,
                 and advice without the hard sell.
               </p>
             </Home4Reveal>

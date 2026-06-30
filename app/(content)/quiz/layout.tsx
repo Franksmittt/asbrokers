@@ -6,7 +6,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/quiz",
   title: "Financial Health Quiz",
   description:
-    "Quick financial health check — answer a few questions and get pointed to relevant calculators and resources. Educational tool from AS Brokers CC, FSP 17273.",
+    "Quick financial health check, answer a few questions and get pointed to relevant calculators and resources. Educational tool from AS Brokers CC, FSP 17273.",
   noIndex: true,
 });
 

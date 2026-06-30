@@ -7,7 +7,7 @@ const TRUST_PARTNERS = [
   { name: "Bryte", abbr: "Bryte" },
 ];
 
-/** Server-rendered hero — no Framer Motion on critical path (Phase 9 LCP). */
+/** Server-rendered hero, no Framer Motion on critical path (Phase 9 LCP). */
 export function HeroSection() {
   return (
     <section

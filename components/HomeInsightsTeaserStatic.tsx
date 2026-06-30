@@ -58,7 +58,7 @@ function InsightCard({
   );
 }
 
-/** Static insights band for homepage — no Sanity/DB fetch on critical path (Phase 9). */
+/** Static insights band for homepage, no Sanity/DB fetch on critical path (Phase 9). */
 export function HomeInsightsTeaserStatic() {
   return (
     <section

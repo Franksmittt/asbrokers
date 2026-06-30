@@ -1,6 +1,6 @@
 /**
  * Build-time alt text dictionary lookup (Phase 7.3).
- * Reads data/image-metadata.json — zero runtime API calls.
+ * Reads data/image-metadata.json, zero runtime API calls.
  */
 import dictionary from "@/data/image-metadata.json";
 
@@ -67,7 +67,7 @@ function defaultAltFromPath(path: string): string {
     .replace(/\b\d+x\d+\b/gi, " ")
     .replace(/\s+/g, " ")
     .trim();
-  return clampAlt(`${words || "AS Brokers financial planning visual"} — AS Brokers CC`);
+  return clampAlt(`${words || "AS Brokers financial planning visual"}, AS Brokers CC`);
 }
 
 /** Descriptive alt for screen readers and answer engines. Dictionary first, then context, then path fallback. */

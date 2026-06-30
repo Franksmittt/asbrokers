@@ -8,7 +8,7 @@ import { buildPageMetadata } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Estate Duty & Executor Cost Calculator South Africa";
 const PAGE_DESCRIPTION =
-  "Illustrative estate duty, abatement, and executor-cost awareness for South African residents. Not a SARS assessment — FSP 17273 educational tool with liquidity planning context.";
+  "Illustrative estate duty, abatement, and executor-cost awareness for South African residents. Not a SARS assessment, FSP 17273 educational tool with liquidity planning context.";
 
 export const metadata = buildPageMetadata({
   path: "/estate-duty-calculator",

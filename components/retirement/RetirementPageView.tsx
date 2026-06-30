@@ -8,6 +8,9 @@ import { Home4Reveal, HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, Calendar, LineChart, Scroll, ShieldCheck } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 
+/** Consistent vertical rhythm between page sections */
+const SECTION_PY = "py-16 md:py-20";
+
 const PATHWAY_PLANNING = {
   title: "I'm planning for retirement",
   description: "I want to know if I'm saving enough and when I can afford to stop working.",
@@ -44,9 +47,21 @@ const FUNNEL_ASSESS = [
 ];
 
 const FUNNEL_UNDERSTAND = [
-  { label: "Semigration & retirement planning", href: "/insights/semigration-retirement" },
-  { label: "Healthy Retirement Blueprint", href: "/healthy-retirement-blueprint" },
-  { label: "Browse all retirement insights", href: "/insights" },
+  {
+    label: "Semigration & retirement planning",
+    description: "Planning a move to the coast or a retirement village.",
+    href: "/insights/semigration-retirement",
+  },
+  {
+    label: "Healthy Retirement Blueprint",
+    description: "A guided assessment of your retirement health gap.",
+    href: "/healthy-retirement-blueprint",
+  },
+  {
+    label: "Browse all retirement insights",
+    description: "Articles and guides from our independent advisers.",
+    href: "/insights",
+  },
 ];
 
 const FUNNEL_STEPS = [
@@ -66,15 +81,23 @@ function PathwayCard({
   links: { label: string; href: string }[];
   accent: "teal" | "blue";
 }) {
-  const ring = accent === "teal" ? "ring-cinematic-teal/20 hover:ring-cinematic-teal/40" : "ring-samsung-blue/20 hover:ring-samsung-blue/40";
-  const dot = accent === "teal" ? "bg-cinematic-teal/10 text-cinematic-teal" : "bg-samsung-blue/10 text-samsung-blue";
+  const ring =
+    accent === "teal"
+      ? "ring-cinematic-teal/20 hover:ring-cinematic-teal/40"
+      : "ring-samsung-blue/20 hover:ring-samsung-blue/40";
+  const dot =
+    accent === "teal" ? "bg-cinematic-teal/10 text-cinematic-teal" : "bg-samsung-blue/10 text-samsung-blue";
 
   return (
     <article
       className={`rounded-3xl bg-white/95 p-6 shadow-xl ring-1 ${ring} transition-all duration-300 ease-in-out hover:shadow-2xl sm:p-8`}
     >
       <div className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl ${dot}`}>
-        {accent === "teal" ? <Calendar className="h-5 w-5" aria-hidden /> : <LineChart className="h-5 w-5" aria-hidden />}
+        {accent === "teal" ? (
+          <Calendar className="h-5 w-5" aria-hidden />
+        ) : (
+          <LineChart className="h-5 w-5" aria-hidden />
+        )}
       </div>
       <h2 className="text-xl font-bold tracking-tight text-shark sm:text-2xl">{title}</h2>
       <p className="mt-3 text-sm leading-relaxed text-stone-600 sm:text-base">{description}</p>
@@ -87,7 +110,10 @@ function PathwayCard({
               className="group inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue transition-colors duration-300 ease-in-out hover:text-cinematic-teal"
             >
               {link.label}
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" aria-hidden />
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5"
+                aria-hidden
+              />
             </Link>
           </li>
         ))}
@@ -132,6 +158,34 @@ function CalculatorCard({
   );
 }
 
+function UnderstandCard({
+  label,
+  description,
+  href,
+}: {
+  label: string;
+  description: string;
+  href: string;
+}) {
+  return (
+    <Link
+      href={href}
+      prefetch={false}
+      className="group flex h-full flex-col rounded-2xl bg-white/90 p-5 shadow-sm ring-1 ring-stone-200/80 transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-md"
+    >
+      <h4 className="font-semibold leading-snug text-shark">{label}</h4>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-stone-600">{description}</p>
+      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue group-hover:text-cinematic-teal">
+        Read more
+        <ArrowRight
+          className="h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5"
+          aria-hidden
+        />
+      </span>
+    </Link>
+  );
+}
+
 export function RetirementPageView() {
   return (
     <div className="min-h-screen bg-[#F7F6F3] pb-24 text-shark md:pb-0">
@@ -151,7 +205,7 @@ export function RetirementPageView() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#F7F6F3] via-transparent to-shark/20" />
         </div>
 
-        <div className="relative pt-32 pb-24 sm:pt-36 sm:pb-28 md:pt-40 md:pb-32">
+        <div className="relative pt-32 pb-20 sm:pt-36 sm:pb-24 md:pt-40 md:pb-28">
           <div className={`${HOME4_WRAP} max-w-3xl`}>
             <Home4Reveal>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm">
@@ -170,7 +224,7 @@ export function RetirementPageView() {
       </section>
 
       {/* Two pathways */}
-      <section className="py-14 md:py-20" aria-labelledby="retirement-pathways">
+      <section className={SECTION_PY} aria-labelledby="retirement-pathways">
         <div className={HOME4_WRAP}>
           <Home4Reveal>
             <h2 id="retirement-pathways" className="sr-only">
@@ -185,22 +239,28 @@ export function RetirementPageView() {
       </section>
 
       {/* Education-first funnel */}
-      <section className="border-y border-stone-200/80 bg-white/60 py-16 md:py-24" aria-labelledby="retirement-funnel">
+      <section
+        className={`border-y border-stone-200/80 bg-white/60 ${SECTION_PY}`}
+        aria-labelledby="retirement-funnel"
+      >
         <div className={HOME4_WRAP}>
           <Home4Reveal>
-            <h2 id="retirement-funnel" className="text-2xl font-bold tracking-tight text-shark sm:text-3xl md:text-4xl">
+            <h2
+              id="retirement-funnel"
+              className="text-2xl font-bold tracking-tight text-shark sm:text-3xl md:text-4xl"
+            >
               I&apos;m worried I won&apos;t have enough money.
             </h2>
             <p className="mt-3 max-w-2xl text-stone-600 leading-relaxed">
-              You are not alone — and you do not have to guess. Follow a simple path from clarity to
+              You are not alone, and you do not have to guess. Follow a simple path from clarity to
               conversation.
             </p>
           </Home4Reveal>
 
-          <div className="mt-10 grid gap-8 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {FUNNEL_STEPS.map((item, index) => (
-              <Home4Reveal key={item.step} delay={index * 0.06}>
-                <div className="rounded-2xl bg-white/90 p-5 ring-1 ring-stone-200/80 shadow-md">
+              <Home4Reveal key={item.step} delay={index * 0.05}>
+                <div className="h-full rounded-2xl bg-white/90 p-5 ring-1 ring-stone-200/80 shadow-md">
                   <span className="text-xs font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
                     Step {item.step}
                   </span>
@@ -211,7 +271,7 @@ export function RetirementPageView() {
             ))}
           </div>
 
-          <div className="mt-10 space-y-12">
+          <div className="mt-8 space-y-8">
             <Home4Reveal delay={0.05}>
               <div>
                 <h3 className="text-lg font-bold text-shark">Step 1 · Assess</h3>
@@ -226,20 +286,11 @@ export function RetirementPageView() {
             <Home4Reveal delay={0.08}>
               <div>
                 <h3 className="text-lg font-bold text-shark">Step 2 · Understand</h3>
-                <ul className="mt-4 space-y-3">
+                <div className="mt-4 grid gap-4 sm:grid-cols-3">
                   {FUNNEL_UNDERSTAND.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        prefetch={false}
-                        className="group flex items-center justify-between gap-4 rounded-2xl bg-white/90 px-5 py-4 shadow-sm ring-1 ring-stone-200/80 transition-all duration-300 ease-in-out hover:shadow-md"
-                      >
-                        <span className="font-medium text-shark">{item.label}</span>
-                        <ArrowRight className="h-4 w-4 shrink-0 text-stone-400 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:text-samsung-blue" aria-hidden />
-                      </Link>
-                    </li>
+                    <UnderstandCard key={item.href} {...item} />
                   ))}
-                </ul>
+                </div>
               </div>
             </Home4Reveal>
 
@@ -248,7 +299,7 @@ export function RetirementPageView() {
                 <h3 className="text-lg font-bold text-shark">Step 3 · Engineer</h3>
                 <p className="mt-2 max-w-xl text-sm leading-relaxed text-stone-600 sm:text-base">
                   When the numbers raise questions, an independent adviser can help you interpret them
-                  and explore suitable next steps — without pressure or jargon.
+                  and explore suitable next steps, without pressure or jargon.
                 </p>
                 <Link
                   href="/contact"
@@ -264,8 +315,8 @@ export function RetirementPageView() {
         </div>
       </section>
 
-      {/* Retirement Reality calculator (anchor target) */}
-      <section id="reality-calculator" className="scroll-mt-28 py-14 md:py-20" data-chunk-boundary>
+      {/* Retirement Reality calculator */}
+      <section id="reality-calculator" className={`scroll-mt-28 ${SECTION_PY}`} data-chunk-boundary>
         <div className={HOME4_WRAP}>
           <Home4Reveal>
             <div className="mx-auto max-w-4xl">
@@ -273,7 +324,7 @@ export function RetirementPageView() {
                 Retirement Reality Calculator
               </h2>
               <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-stone-600 sm:text-base">
-                Estimate the capital that may be required to fund your target retirement income — based
+                Estimate the capital that may be required to fund your target retirement income, based
                 on your own assumptions about growth, inflation, and tax.
               </p>
               <div className="mt-8 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/80">
@@ -285,7 +336,7 @@ export function RetirementPageView() {
       </section>
 
       {/* Amethyst highlight */}
-      <section className="py-16 md:py-24" aria-labelledby="retirement-amethyst">
+      <section className={SECTION_PY} aria-labelledby="retirement-amethyst">
         <div className={HOME4_WRAP}>
           <Home4Reveal>
             <div className="overflow-hidden rounded-3xl bg-white/80 p-8 shadow-2xl ring-1 ring-stone-200/80 backdrop-blur-sm sm:p-10 md:p-12 lg:flex lg:items-center lg:gap-12">
@@ -293,13 +344,16 @@ export function RetirementPageView() {
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
                   Structured retirement income
                 </p>
-                <h2 id="retirement-amethyst" className="mt-3 text-2xl font-bold tracking-tight text-shark sm:text-3xl">
+                <h2
+                  id="retirement-amethyst"
+                  className="mt-3 text-2xl font-bold tracking-tight text-shark sm:text-3xl"
+                >
                   Insulate your retirement with structured yield.
                 </h2>
                 <p className="mt-4 max-w-xl text-sm leading-relaxed text-stone-600 sm:text-base">
                   For pension, provident, preservation, and RA capital, the Everest Amethyst Living
                   Annuity offers a regulated living-annuity wrapper with flexible drawdown between{" "}
-                  <strong className="font-semibold text-shark">2.5% and 17.5%</strong> — designed for
+                  <strong className="font-semibold text-shark">2.5% and 17.5%</strong>, designed for
                   retirees who want clarity on income without daily market volatility.
                 </p>
                 <Link
@@ -329,7 +383,7 @@ export function RetirementPageView() {
       </section>
 
       {/* Conversion footer */}
-      <section className="border-t border-stone-200/80 bg-gradient-to-br from-shark via-[#1a2626] to-[#152020] py-16 md:py-20">
+      <section className={`border-t border-stone-200/80 bg-gradient-to-br from-shark via-[#1a2626] to-[#152020] ${SECTION_PY}`}>
         <div className={`${HOME4_WRAP} text-center`}>
           <Home4Reveal>
             <Scroll className="mx-auto h-8 w-8 text-cinematic-teal/80" aria-hidden />
@@ -337,7 +391,7 @@ export function RetirementPageView() {
               Stop guessing. Let&apos;s look at the math together.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-stone-400 sm:text-base">
-              Book a retirement clarity call with an independent FSP 17273 adviser — personal, structured,
+              Book a retirement clarity call with an independent FSP 17273 adviser. Personal, structured,
               and focused on your goals.
             </p>
             <Link

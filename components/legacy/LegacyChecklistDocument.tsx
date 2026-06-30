@@ -34,7 +34,7 @@ export function LegacyChecklistDocument({ recipientName, deliveredAt }: Props) {
 
       <div className="no-print border-b border-[#e5e7eb] bg-[#f5f9fc] px-6 py-4">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3">
-          <p className="text-sm font-semibold text-[#00549F]">Legacy Readiness Checklist™ — AS Brokers</p>
+          <p className="text-sm font-semibold text-[#00549F]">Legacy Readiness Checklist™, AS Brokers</p>
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
@@ -91,7 +91,7 @@ export function LegacyChecklistDocument({ recipientName, deliveredAt }: Props) {
         <footer className="mt-12 border-t border-[#e5e7eb] pt-6 text-xs leading-relaxed text-[#6b7280]">
           <p>
             <strong>Disclaimer:</strong> This checklist is for educational purposes only. It does not constitute legal,
-            tax, or financial advice. Estate planning is complex — consult a qualified adviser for guidance tailored to
+            tax, or financial advice. Estate planning is complex, consult a qualified adviser for guidance tailored to
             your circumstances.
           </p>
           <p className="mt-3">

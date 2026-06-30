@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PILLAR_FUNNELS, PILLAR_HUB } from "@/lib/site-navigation";
 
-/** Compact cross-links to pillar funnels — use on calculators, solutions, etc. */
+/** Compact cross-links to pillar funnels, use on calculators, solutions, etc. */
 export function PlanningToolsStrip({ className = "" }: { className?: string }) {
   return (
     <div
@@ -11,7 +11,7 @@ export function PlanningToolsStrip({ className = "" }: { className?: string }) {
         <div>
           <p className="text-[10px] font-bold uppercase tracking-wider text-[#00549F]">Planning tools</p>
           <p className="text-sm text-zinc-400">
-            Free assessments & blueprints — paid guides from R299 when available.{" "}
+            Free assessments & blueprints, paid guides from R299 when available.{" "}
             Assessments and blueprints for{" "}
             <Link href={PILLAR_HUB.href} className="text-white hover:underline">
               Health · Wealth · Legacy · Business

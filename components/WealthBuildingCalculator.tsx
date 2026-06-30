@@ -97,7 +97,7 @@ export function WealthBuildingCalculator() {
               onChange={(e) => setAnnualGrowthRate(Number(e.target.value) || 0)}
               className={inputClass}
             />
-            <p className={hintClass}>Expected annual growth — any rate (e.g. 10%, 50%, 200%).</p>
+            <p className={hintClass}>Expected annual growth, any rate (e.g. 10%, 50%, 200%).</p>
           </div>
 
           <div>

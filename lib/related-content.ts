@@ -83,7 +83,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/contact",
       title: "Scheme comparison",
-      description: "Medical aid and gap cover guidance — FSP 17273.",
+      description: "Medical aid and gap cover guidance, FSP 17273.",
     },
   ],
   "/solutions/estate-planning": [

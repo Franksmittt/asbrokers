@@ -60,7 +60,7 @@ export function HealthyRetirementReport({
 
       <div className="no-print border-b border-[#e5e7eb] bg-[#f5f9fc] px-6 py-4">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3">
-          <p className="text-sm font-semibold text-[#00549F]">Healthy Retirement Blueprint™ — AS Brokers</p>
+          <p className="text-sm font-semibold text-[#00549F]">Healthy Retirement Blueprint™, AS Brokers</p>
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
@@ -90,14 +90,14 @@ export function HealthyRetirementReport({
             {deliveredAt ? ` · ${new Date(deliveredAt).toLocaleDateString("en-ZA")}` : ""}
           </p>
           <p className="mt-4 text-xs leading-relaxed text-[#9ca3af]">
-            Educational wellness guide only — not medical diagnosis or advice. Consult your doctor for personal
+            Educational wellness guide only, not medical diagnosis or advice. Consult your doctor for personal
             health decisions.
           </p>
         </header>
 
         {/* Section 1 */}
         <section className="report-section mt-10">
-          <h2 className="text-xl font-bold text-[#00549F]">Section 1 — Your Retirement Health Score™</h2>
+          <h2 className="text-xl font-bold text-[#00549F]">Section 1, Your Retirement Health Score™</h2>
           <div
             className="mt-6 rounded-2xl border-2 p-8 text-center"
             style={{ borderColor: bandColor, backgroundColor: `${bandColor}12` }}
@@ -111,7 +111,7 @@ export function HealthyRetirementReport({
 
         {/* Section 2 */}
         <section className="report-section mt-12">
-          <h2 className="text-xl font-bold text-[#00549F]">Section 2 — Understanding Your Retirement Health Gap™</h2>
+          <h2 className="text-xl font-bold text-[#00549F]">Section 2, Understanding Your Retirement Health Gap™</h2>
           <div className="mt-6 rounded-xl border border-[#e5e7eb] bg-[#f9fafb] p-6">
             <p className="text-4xl font-bold text-[#00549F]">
               {healthGap} <span className="text-lg font-medium text-[#6b7280]">points</span>
@@ -128,7 +128,7 @@ export function HealthyRetirementReport({
         {/* Section 3 */}
         <section className="report-section mt-12">
           <h2 className="text-xl font-bold text-[#00549F]">
-            Section 3 — The 5 Biggest Health Risks Facing South African Retirees
+            Section 3, The 5 Biggest Health Risks Facing South African Retirees
           </h2>
           <div className="mt-6 space-y-5">
             {RETIREE_HEALTH_RISKS.map((risk, i) => (
@@ -143,7 +143,7 @@ export function HealthyRetirementReport({
 
         {/* Section 4 */}
         <section className="report-section mt-12">
-          <h2 className="text-xl font-bold text-[#00549F]">Section 4 — The Healthy Retirement Framework™</h2>
+          <h2 className="text-xl font-bold text-[#00549F]">Section 4, The Healthy Retirement Framework™</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {HEALTHY_RETIREMENT_FRAMEWORK.map((item) => (
               <div key={item.title} className="rounded-xl border border-[#00549F]/15 bg-[#f5f9fc] p-5">
@@ -156,7 +156,7 @@ export function HealthyRetirementReport({
 
         {/* Section 5 */}
         <section className="report-section mt-12">
-          <h2 className="text-xl font-bold text-[#00549F]">Section 5 — {VO2_MAX_SECTION.title}</h2>
+          <h2 className="text-xl font-bold text-[#00549F]">Section 5, {VO2_MAX_SECTION.title}</h2>
           <div className="mt-4 space-y-4">
             {VO2_MAX_SECTION.paragraphs.map((p) => (
               <p key={p.slice(0, 40)} className="text-sm leading-relaxed text-[#4b5563]">
@@ -168,7 +168,7 @@ export function HealthyRetirementReport({
 
         {/* Section 6 */}
         <section className="report-section mt-12">
-          <h2 className="text-xl font-bold text-[#00549F]">Section 6 — {WEEK_WATCH_SECTION.title}</h2>
+          <h2 className="text-xl font-bold text-[#00549F]">Section 6, {WEEK_WATCH_SECTION.title}</h2>
           <div className="mt-4 space-y-4">
             {WEEK_WATCH_SECTION.paragraphs.map((p) => (
               <p key={p.slice(0, 40)} className="text-sm leading-relaxed text-[#4b5563]">
@@ -183,7 +183,7 @@ export function HealthyRetirementReport({
 
         {/* Section 7 */}
         <section className="report-section mt-12">
-          <h2 className="text-xl font-bold text-[#00549F]">Section 7 — Your Next Steps</h2>
+          <h2 className="text-xl font-bold text-[#00549F]">Section 7, Your Next Steps</h2>
           <p className="mt-3 text-sm text-[#6b7280]">Three actions to improve your score over the next 90 days:</p>
           <ol className="mt-4 list-decimal space-y-3 pl-5">
             {nextSteps.map((step) => (
@@ -202,7 +202,7 @@ export function HealthyRetirementReport({
             </a>
           </p>
           <p className="mt-2">
-            AS Brokers guides South Africans toward financial freedom <em>and</em> healthy retirement — because both
+            AS Brokers guides South Africans toward financial freedom <em>and</em> healthy retirement, because both
             matter.
           </p>
         </footer>

@@ -5,7 +5,7 @@ const legacyChecklistFaqs = [
   {
     question: "What is the Legacy Readiness Checklist™?",
     answer:
-      "A free structured review of eight estate planning areas — wills, trusts, liquidity, beneficiaries, and succession — so you can spot gaps before they become family problems.",
+      "A free structured review of eight estate planning areas, wills, trusts, liquidity, beneficiaries, and succession, so you can spot gaps before they become family problems.",
   },
   {
     question: "Is this legal advice?",
@@ -15,7 +15,7 @@ const legacyChecklistFaqs = [
   {
     question: "How do I receive the checklist?",
     answer:
-      "Enter your name and email. Your checklist opens immediately as a printable PDF — no waiting for an email attachment.",
+      "Enter your name and email. Your checklist opens immediately as a printable PDF, no waiting for an email attachment.",
   },
 ];
 

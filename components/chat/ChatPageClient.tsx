@@ -55,7 +55,7 @@ function ToolResultCard({
   );
 }
 
-/** Client island — chat UI only; hero and links are server-rendered (Phase 2.4). */
+/** Client island, chat UI only; hero and links are server-rendered (Phase 2.4). */
 export function ChatPageClient() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { messages, sendMessage, status, error } = useChat({

@@ -94,7 +94,7 @@ export async function submitLegacyChecklistLead(
     return {
       success: true,
       message:
-        "Your checklist is ready. We could not save your details right now — please contact AS Brokers if you would like a follow-up.",
+        "Your checklist is ready. We could not save your details right now, please contact AS Brokers if you would like a follow-up.",
       checklistUrl: "/legacy-readiness-checklist/checklist/preview",
     };
   }

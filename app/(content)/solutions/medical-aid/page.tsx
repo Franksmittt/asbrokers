@@ -8,7 +8,7 @@ export const metadata = buildPageMetadata({
   path: "/solutions/medical-aid",
   title: "Medical Aid & Gap Cover South Africa",
   description:
-    "Medical scheme options, gap cover as short-term insurance, and health planning for families and professionals. Independent FSP 17273 — CMS schemes vs insurance products explained.",
+    "Medical scheme options, gap cover as short-term insurance, and health planning for families and professionals. Independent FSP 17273, CMS schemes vs insurance products explained.",
   keywords: [
     "medical aid South Africa",
     "gap cover insurance",

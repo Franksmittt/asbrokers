@@ -1,4 +1,4 @@
-/** Static hero backdrop — CSS gradients only (no expensive blur filters). */
+/** Static hero backdrop, CSS gradients only (no expensive blur filters). */
 export function BackgroundOrbs() {
   return (
     <div

@@ -4,7 +4,7 @@ import { buildPageMetadata } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Retirement Planning | Peace of Mind for South Africans";
 const PAGE_DESCRIPTION =
-  "Retirement planning for South Africans — whether you are years away or already retired. Calculators, living annuities, and independent advice. FSP 17273.";
+  "Retirement planning for South Africans, whether you are years away or already retired. Calculators, living annuities, and independent advice. FSP 17273.";
 
 const retirementFAQs = [
   {

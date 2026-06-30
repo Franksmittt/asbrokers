@@ -3,12 +3,12 @@ import { getAlt } from "@/lib/image-alt";
 
 type BrandLogoProps = {
   className?: string;
-  /** Render height in px — width scales from intrinsic 3:1 logo ratio. */
+  /** Render height in px, width scales from intrinsic 3:1 logo ratio. */
   height?: number;
   priority?: boolean;
 };
 
-/** Optimized nav/footer logo — serves static asset directly (bypasses Vercel /_next/image when quota exceeded). */
+/** Optimized nav/footer logo, serves static asset directly (bypasses Vercel /_next/image when quota exceeded). */
 export function BrandLogo({ className = "h-9 w-auto rounded-2xl object-contain", height = 36, priority }: BrandLogoProps) {
   const width = Math.round(height * (120 / 36));
   return (

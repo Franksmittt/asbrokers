@@ -241,7 +241,7 @@ export default function EverestWealthPage() {
             <h2 className="mb-2 text-xl font-bold text-white md:text-2xl">Product comparison at a glance</h2>
             <p className="mb-2 max-w-3xl text-sm leading-relaxed text-zinc-500 md:text-base">
               Use this table to match money type, income need, and tax routing before you run calculators or book advice.
-              Targeted returns are based on current product terms — not guarantees.
+              Targeted returns are based on current product terms, not guarantees.
             </p>
             <EverestProductComparisonTable />
           </div>

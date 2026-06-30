@@ -167,7 +167,7 @@ export function BusinessRiskReviewTool() {
               <motion.div key={phase} {...motionProps}>
                 {phase === "lead" && (
                   <div className="space-y-4">
-                    <h2 className="text-xl font-bold text-white">Step 1 — Your details</h2>
+                    <h2 className="text-xl font-bold text-white">Step 1, Your details</h2>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="sm:col-span-2">
                         <label className={labelClass} htmlFor="brr-name">Name</label>
@@ -200,7 +200,7 @@ export function BusinessRiskReviewTool() {
                 {phase === "covers" && (
                   <div className="space-y-8">
                     <div>
-                      <h2 className="text-xl font-bold text-white">Step 2 — What cover do you have?</h2>
+                      <h2 className="text-xl font-bold text-white">Step 2, What cover do you have?</h2>
                       <p className="mt-2 text-sm text-zinc-400">
                         Tick every category you believe is already in place. Unticked items are flagged as potential gaps.
                       </p>
@@ -288,7 +288,7 @@ export function BusinessRiskReviewTool() {
       )}
 
       <p className={`${funnel.shell} pb-6 text-center ${funnel.meta}`}>
-        Educational only — not insurance advice · AS Brokers CC · FSP 17273
+        Educational only, not insurance advice · AS Brokers CC · FSP 17273
       </p>
 
       {activeInfo && (
@@ -298,7 +298,7 @@ export function BusinessRiskReviewTool() {
             <p className="mt-3 text-sm leading-relaxed text-zinc-300">{activeInfo.description}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               <Link href="/contact" className="rounded-xl bg-[#00549F] px-4 py-2 text-sm font-semibold text-white">
-                Learn more — request review
+                Learn more, request review
               </Link>
               <button type="button" onClick={() => setActiveInfo(null)} className="rounded-xl border border-white/15 px-4 py-2 text-sm text-zinc-300">
                 Close

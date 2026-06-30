@@ -87,7 +87,7 @@ export function FinancialFreedomCapitalCalculator() {
           <p className="mb-1 text-xs font-bold uppercase tracking-[0.2em] text-white/80">AS Brokers</p>
           <h2 className="text-2xl font-bold leading-tight sm:text-3xl">Financial Freedom Calculator</h2>
           <p className="mt-2 text-sm text-white/90">
-            How much capital you need — and how much to save monthly to get there.
+            How much capital you need, and how much to save monthly to get there.
           </p>
         </div>
 

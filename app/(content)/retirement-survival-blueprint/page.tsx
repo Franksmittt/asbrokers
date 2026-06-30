@@ -10,7 +10,7 @@ const faqs = [
   {
     question: "How much does the Retirement Survival Blueprint cost?",
     answer:
-      "The guided diagnostic is free. The full printable blueprint PDF is planned at R299 (~$19 launch band) — payment integration coming soon.",
+      "The guided diagnostic is free. The full printable blueprint PDF is planned at R299 (~$19 launch band), payment integration coming soon.",
   },
 ];
 

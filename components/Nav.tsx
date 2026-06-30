@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { User, Menu, X } from "./icons";
 import { BrandLogo } from "@/components/BrandLogo";
-import { Home4UtilityBar } from "@/components/home4/Home4UtilityBar";
 import { isNavActive, HOME2_PRIMARY_NAV, PRIMARY_NAV } from "@/lib/site-navigation";
 
 const PlanningToolsMenu = dynamic(
@@ -44,9 +43,7 @@ export function Nav() {
 
   const isHome4 = pathname === "/home4";
   const linkClass = isHome4
-    ? `hover:text-shark transition-colors duration-300 ease-apple whitespace-nowrap ${
-        scrolled ? "text-stone-600" : "text-stone-500"
-      }`
+    ? "text-stone-800 hover:text-shark transition-colors duration-300 ease-apple whitespace-nowrap"
     : `hover:text-white transition-colors duration-300 ease-apple whitespace-nowrap ${
         scrolled ? "text-zinc-200" : "text-zinc-400"
       }`;
@@ -99,15 +96,12 @@ export function Nav() {
 
   return (
     <>
-      {isHome4 ? <Home4UtilityBar /> : null}
       <nav
-        className={`fixed w-full z-50 border-b transition-all duration-500 ease-apple ${
-          isHome4 ? "top-9" : "top-0"
-        } ${
+        className={`fixed top-0 w-full z-50 border-b transition-all duration-500 ease-apple ${
           isHome4
             ? scrolled
-              ? "border-stone-200/80 bg-white/95 py-3 shadow-lg shadow-stone-900/5 backdrop-blur-xl"
-              : "border-transparent bg-white/75 py-4 backdrop-blur-md"
+              ? "border-stone-300/90 bg-white py-3 shadow-lg shadow-stone-900/8 backdrop-blur-xl"
+              : "border-stone-200/70 bg-white/95 py-4 backdrop-blur-xl"
             : scrolled
               ? "bg-white/5 backdrop-blur-2xl border-white/10 py-3 shadow-rim-glow shadow-black/20"
               : "bg-transparent border-transparent py-5"
@@ -127,7 +121,7 @@ export function Nav() {
             <span
               className={`trust-hallmark text-[10px] font-semibold uppercase mt-0.5 block transition-colors duration-300 ${
                 isHome4
-                  ? "text-stone-500"
+                  ? "text-stone-700"
                   : scrolled
                     ? "text-zinc-300"
                     : "text-zinc-400"
@@ -164,7 +158,7 @@ export function Nav() {
             aria-label={isHome4 ? "Client portal login" : "Team office login"}
             className={`hidden md:flex items-center gap-2 border-0 px-4 py-2 rounded-[2rem] text-sm font-semibold transition-all ${
               isHome4
-                ? "text-stone-600 hover:bg-stone-100"
+                ? "text-stone-800 hover:bg-stone-100 hover:text-shark"
                 : "rim-light hover:bg-white/10 text-white"
             }`}
           >
@@ -186,7 +180,7 @@ export function Nav() {
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
             className={`lg:hidden p-2 transition-colors ${
-              isHome4 ? "text-stone-500 hover:text-shark" : "text-zinc-400 hover:text-white"
+              isHome4 ? "text-stone-800 hover:text-shark" : "text-zinc-400 hover:text-white"
             }`}
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
@@ -234,8 +228,8 @@ export function Nav() {
               <Link
                 href="/login"
                 onClick={closeMobile}
-                className={`w-full py-3 text-center text-sm ${
-                  isHome4 ? "text-stone-500 hover:text-shark" : "text-zinc-400 hover:text-white"
+                className={`w-full py-3 text-center text-sm font-medium ${
+                  isHome4 ? "text-stone-800 hover:text-shark" : "text-zinc-400 hover:text-white"
                 }`}
               >
                 {isHome4 ? "Client Portal" : "Team office login"}

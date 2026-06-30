@@ -176,8 +176,11 @@ export function Home4Preview() {
               <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/70">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/images/about-fiduciary-plaque-4x3.jpg"
-                    alt={getAlt("/images/about-fiduciary-plaque-4x3.jpg", "Compliance and fiduciary standards")}
+                    src="/images/home4-why-independence-4x3.jpg"
+                    alt={getAlt(
+                      "/images/home4-why-independence-4x3.jpg",
+                      "Independent financial adviser discussing investment options with clients in a Krugersdorp office"
+                    )}
                     fill
                     unoptimized
                     className="object-cover"

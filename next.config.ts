@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/home2", destination: "/", permanent: true },
+      { source: "/home3", destination: "/", permanent: true },
+      { source: "/home4", destination: "/", permanent: true },
       /** Consolidate alternate hosts onto GSC canonical origin (HTTPS + www). */
       {
         source: "/:path*",

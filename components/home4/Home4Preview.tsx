@@ -7,7 +7,6 @@ import {
   Home4CalculatorTile,
   Home4GoalCard,
   Home4JourneyFunnel,
-  Home4PreviewBanner,
   Home4Reveal,
   Home4SectionHeader,
   Home4TestimonialCard,
@@ -26,8 +25,6 @@ import { getAlt } from "@/lib/image-alt";
 export function Home4Preview() {
   return (
     <div className="min-h-screen bg-[#F7F6F3] pb-24 text-shark md:pb-0">
-      <Home4PreviewBanner />
-
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">

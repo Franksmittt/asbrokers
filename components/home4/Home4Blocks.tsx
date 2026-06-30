@@ -65,15 +65,6 @@ export function Home4Reveal({
   );
 }
 
-export function Home4PreviewBanner() {
-  return (
-    <div className="border-b border-violet-200/80 bg-violet-50/90 px-4 py-2 text-center text-xs text-violet-900 sm:text-sm">
-      Preview at <span className="font-mono font-semibold">/home4</span> — warm, public-facing homepage
-      (not indexed)
-    </div>
-  );
-}
-
 export function Home4GoalCard({ card }: { card: GoalCard }) {
   const Icon = GOAL_ICONS[card.accent];
   const reduce = useReducedMotion();

@@ -58,8 +58,8 @@ export const PILLAR_HUB: NavLink = {
   description: "Overview of all three pillars",
 };
 
-/** Simplified nav for /home2 and /home3 journey homepage previews. */
-export const HOME2_PRIMARY_NAV: NavLink[] = [
+/** Primary header links (Contact is a separate CTA — Find an Adviser). */
+export const PRIMARY_NAV: NavLink[] = [
   { label: "Retirement", href: "/retirement" },
   { label: "Investments", href: "/everest-wealth" },
   { label: "Insurance", href: "/solutions/personal-insurance" },
@@ -67,14 +67,6 @@ export const HOME2_PRIMARY_NAV: NavLink[] = [
   { label: "Learn", href: "/insights" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-];
-
-/** Primary header links (excluding dropdown). */
-export const PRIMARY_NAV: NavLink[] = [
-  { label: "Calculators", href: "/calculators" },
-  { label: "Solutions", href: "/solutions" },
-  { label: "Insights", href: "/insights" },
-  { label: "How we work", href: "/how-we-work" },
 ];
 
 /** Compact footer explore links. */

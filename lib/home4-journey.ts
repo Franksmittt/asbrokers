@@ -1,5 +1,5 @@
 /**
- * Warm, public-facing homepage data for /home4 (Version 4 strategy).
+ * Warm, public-facing homepage data.
  */
 
 export type JourneyLink = { label: string; href: string };
@@ -36,12 +36,6 @@ export type Testimonial = {
   where: string;
   photo: string;
 };
-
-export const HOME4_UTILITY_AUDIENCES: JourneyLink[] = [
-  { label: "Personal", href: "/home4" },
-  { label: "Business", href: "/solutions/business-insurance" },
-  { label: "Corporate", href: "/contact" },
-];
 
 export const HOME4_GOAL_CARDS: GoalCard[] = [
   {

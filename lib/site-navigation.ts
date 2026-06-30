@@ -69,7 +69,35 @@ export const PRIMARY_NAV: NavLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-/** Compact footer explore links. */
+/** Mega-footer: goal-led service links. */
+export const FOOTER_HOW_WE_HELP: NavLink[] = [
+  { label: "Retirement & Everest", href: "/retirement" },
+  { label: "Investments", href: "/everest-wealth" },
+  { label: "Insurance & Risk", href: "/solutions/personal-insurance" },
+  { label: "Estate Planning", href: "/solutions/estate-planning" },
+];
+
+/** Mega-footer: education and tools. */
+export const FOOTER_RESOURCES: NavLink[] = [
+  { label: "Insights", href: "/insights" },
+  { label: "Calculators", href: "/calculators" },
+  { label: "Financial Health Quiz", href: "/quiz" },
+  { label: "Understanding Everest", href: "/everest-wealth/about" },
+  { label: "Digital Wealth Assistant", href: "/chat" },
+];
+
+/** Mega-footer: company and legal. */
+export const FOOTER_COMPANY: NavLink[] = [
+  { label: "About Us", href: "/about" },
+  { label: "Meet the Team", href: "/team" },
+  { label: "Contact", href: "/contact" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Use", href: "/terms" },
+  { label: "Complaints Procedure", href: "/complaints" },
+  { label: "Regulatory & Compliance", href: "/regulatory-compliance" },
+];
+
+/** @deprecated Use FOOTER_HOW_WE_HELP / FOOTER_RESOURCES / FOOTER_COMPANY */
 export const FOOTER_EXPLORE: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
@@ -81,6 +109,7 @@ export const FOOTER_EXPLORE: NavLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
+/** @deprecated Legal links live in FOOTER_COMPANY */
 export const FOOTER_LEGAL: NavLink[] = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },

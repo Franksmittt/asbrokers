@@ -8,11 +8,10 @@ import { ArrowUp } from "./icons";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
 import { SITE_COPYRIGHT_YEAR } from "@/lib/site-meta";
 import {
-  FOOTER_EXPLORE,
-  FOOTER_LEGAL,
+  FOOTER_COMPANY,
+  FOOTER_HOW_WE_HELP,
+  FOOTER_RESOURCES,
   isNavActive,
-  PILLAR_FUNNELS,
-  PILLAR_HUB,
 } from "@/lib/site-navigation";
 import { BrandLogo } from "@/components/BrandLogo";
 
@@ -20,31 +19,68 @@ const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 const WHATSAPP = "https://wa.me/27662276044";
 const initialNewsletterState: NewsletterActionState = { success: false };
 
+const TRUST_BADGES = ["FSP 17273", "Category 1.8"];
+
+function FooterLink({ href, label }: { href: string; label: string }) {
+  const pathname = usePathname();
+  const active = isNavActive(pathname ?? "", href);
+
+  return (
+    <Link
+      href={href}
+      prefetch={false}
+      className={`block text-sm transition-colors duration-300 ease-in-out ${
+        active ? "font-medium text-white" : "text-stone-400 hover:text-cinematic-teal"
+      }`}
+    >
+      {label}
+    </Link>
+  );
+}
+
+function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+  return (
+    <nav aria-label={title}>
+      <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">{title}</h3>
+      <ul className="mt-4 space-y-2.5">
+        {links.map((link) => (
+          <li key={link.href}>
+            <FooterLink href={link.href} label={link.label} />
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 function FooterNewsletter() {
   const [state, formAction, isPending] = useActionState(subscribeNewsletter, initialNewsletterState);
 
   return (
-    <div className="w-full max-w-md md:w-auto">
-      <form action={formAction} className="flex flex-col sm:flex-row gap-2">
+    <div className="w-full max-w-xl lg:max-w-none lg:flex-1">
+      <form action={formAction} className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <input
           type="email"
           name="email"
-          placeholder="Weekly insights — your email"
+          placeholder="your@email.com"
           required
           disabled={isPending}
-          className="flex-1 min-w-0 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:opacity-60"
+          className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-stone-500 transition-colors duration-300 ease-in-out focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25 disabled:opacity-60"
           aria-label="Email for newsletter"
         />
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-xl bg-[#00549F] px-4 py-2 text-sm font-semibold text-white disabled:opacity-60 shrink-0"
+          className="shrink-0 rounded-xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-md shadow-samsung-blue/20 transition-all duration-300 ease-in-out hover:bg-[#004a9e] hover:shadow-cta-glow-blue disabled:opacity-60"
         >
-          {isPending ? "…" : "Subscribe"}
+          {isPending ? "Subscribing…" : "Subscribe"}
         </button>
       </form>
       {state.message && (
-        <p className={`mt-2 text-xs ${state.success ? "text-teal-400" : "text-amber-400"}`} role="status">
+        <p
+          className={`mt-3 text-xs ${state.success ? "text-cinematic-teal" : "text-amber-300/90"}`}
+          role="status"
+        >
           {state.message}
         </p>
       )}
@@ -70,88 +106,71 @@ export function Footer() {
   return (
     <>
       <footer
-        className="relative z-10 border-t border-white/10 bg-[#0a0a0c] px-4 py-8 sm:px-6 md:px-8"
+        className="relative z-10 bg-gradient-to-b from-[#1a2626] to-[#152020] text-stone-300"
         role="contentinfo"
       >
-        <div className="mx-auto max-w-7xl space-y-8">
-          {/* Brand + pillars */}
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-            <div className="shrink-0">
-              <Link href="/" prefetch={false} className="inline-flex items-center gap-2 text-white">
-                <BrandLogo height={28} className="h-7 w-auto rounded-lg object-contain" />
-                <span className="font-bold">AS Brokers</span>
+        {/* Newsletter strip */}
+        <div className="border-b border-white/10 bg-white/[0.03]">
+          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-10 md:py-12 lg:px-8">
+            <div className="max-w-md shrink-0">
+              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-[1.65rem]">
+                Stay ahead of your financial future.
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-stone-400">
+                Weekly insights on retirement, investments, and estate planning — from our independent
+                advisers.
+              </p>
+            </div>
+            <FooterNewsletter />
+          </div>
+        </div>
+
+        {/* Main mega-footer grid */}
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+            {/* Brand */}
+            <div className="md:col-span-2 lg:col-span-1">
+              <Link href="/" prefetch={false} className="inline-flex items-center gap-3">
+                <BrandLogo height={36} className="h-9 w-auto rounded-xl object-contain" />
+                <span className="text-lg font-bold tracking-tight text-white">AS Brokers</span>
               </Link>
-              <p className="trust-hallmark mt-2 text-xs text-zinc-400">
-                FSP 17273 · Create · Protect · Preserve
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-stone-400">
+                Protecting Your Legacy. Engineering Your Wealth.
               </p>
               <a
                 href={WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm text-blue-400 hover:underline"
+                className="mt-5 inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 ease-in-out hover:bg-[#1da851] hover:shadow-lg"
               >
-                WhatsApp +27 66 227 6044
+                WhatsApp · +27 66 227 6044
               </a>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {TRUST_BADGES.map((badge) => (
+                  <span
+                    key={badge}
+                    className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-stone-300 ring-1 ring-white/10"
+                  >
+                    {badge}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div className="grid flex-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:max-w-3xl">
-              <Link
-                href={PILLAR_HUB.href}
-                prefetch={false}
-                className={`rounded-xl border p-3 transition hover:border-[#00549F]/40 hover:bg-white/[0.03] ${
-                  isNavActive(pathname ?? "", PILLAR_HUB.href)
-                    ? "border-[#00549F]/40 bg-[#00549F]/10"
-                    : "border-white/10"
-                }`}
-              >
-                <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Overview</p>
-                <p className="mt-1 text-sm font-medium text-white">{PILLAR_HUB.label}</p>
-              </Link>
-              {PILLAR_FUNNELS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  prefetch={false}
-                  className={`rounded-xl border p-3 transition hover:border-[#00549F]/40 hover:bg-white/[0.03] ${
-                    isNavActive(pathname ?? "", item.href)
-                      ? "border-[#00549F]/40 bg-[#00549F]/10"
-                      : "border-white/10"
-                  }`}
-                >
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">{item.pillar}</p>
-                  <p className="mt-1 text-sm font-medium leading-snug text-white">{item.label}</p>
-                </Link>
-              ))}
-            </div>
+            <FooterColumn title="How we help" links={FOOTER_HOW_WE_HELP} />
+            <FooterColumn title="Resources" links={FOOTER_RESOURCES} />
+            <FooterColumn title="Company & legal" links={FOOTER_COMPANY} />
           </div>
+        </div>
 
-          {/* Explore + newsletter */}
-          <div className="flex flex-col gap-6 border-t border-white/10 pt-6 md:flex-row md:items-end md:justify-between">
-            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-zinc-400">
-              {FOOTER_EXPLORE.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  prefetch={false}
-                  className="hover:text-white transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-            <FooterNewsletter />
-          </div>
-
-          {/* Legal strip */}
-          <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
+        {/* Compliance strip */}
+        <div className="border-t border-white/10">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-xs leading-relaxed text-stone-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <p>© {SITE_COPYRIGHT_YEAR} AS Brokers CC. All rights reserved.</p>
-            <div className="flex flex-wrap gap-x-4 gap-y-1">
-              {FOOTER_LEGAL.map((link) => (
-                <Link key={link.href} href={link.href} prefetch={false} className="hover:text-white">
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+            <p className="max-w-2xl text-stone-500 lg:text-right">
+              Authorised Financial Services Provider · FSP 17273 · FAIS & POPIA Compliant · FSCA
+              Regulated
+            </p>
           </div>
         </div>
       </footer>
@@ -165,7 +184,7 @@ export function Footer() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.25, ease: APPLE_EASE }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`fixed z-[55] flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white shadow-lg transition hover:scale-105 ${scrollDockClass}`}
+            className={`fixed z-[55] flex h-11 w-11 items-center justify-center rounded-full bg-samsung-blue text-white shadow-lg shadow-samsung-blue/30 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-cta-glow-blue ${scrollDockClass}`}
             aria-label="Scroll to top"
           >
             <ArrowUp className="h-5 w-5" />

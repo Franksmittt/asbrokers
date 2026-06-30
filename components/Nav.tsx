@@ -120,7 +120,7 @@ export function Nav() {
             prefetch={false}
             className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold bg-samsung-blue text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e] transition-all"
           >
-            Find an Adviser
+            Contact us
           </Link>
           <button
             type="button"
@@ -159,7 +159,7 @@ export function Nav() {
                 onClick={closeMobile}
                 className="w-full py-3.5 text-center font-semibold rounded-[2rem] bg-samsung-blue text-white"
               >
-                Find an Adviser
+                Contact us
               </Link>
               <Link
                 href="/login"

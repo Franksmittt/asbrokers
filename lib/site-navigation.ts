@@ -58,7 +58,7 @@ export const PILLAR_HUB: NavLink = {
   description: "Overview of all three pillars",
 };
 
-/** Primary header links (Contact is a separate CTA — Find an Adviser). */
+/** Primary header links (Contact is a separate CTA button). */
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Retirement", href: "/retirement" },
   { label: "Investments", href: "/everest-wealth" },

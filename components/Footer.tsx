@@ -4,86 +4,62 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUp } from "./icons";
+import { ArrowRight, ArrowUp } from "./icons";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
 import { SITE_COPYRIGHT_YEAR } from "@/lib/site-meta";
-import {
-  FOOTER_COMPANY,
-  FOOTER_HOW_WE_HELP,
-  FOOTER_RESOURCES,
-  isNavActive,
-} from "@/lib/site-navigation";
+import { isNavActive } from "@/lib/site-navigation";
 import { BrandLogo } from "@/components/BrandLogo";
 
 const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 const WHATSAPP = "https://wa.me/27662276044";
 const initialNewsletterState: NewsletterActionState = { success: false };
 
-const TRUST_BADGES = ["FSP 17273", "Category 1.8"];
+const FOOTER_NAV = [
+  { label: "Home", href: "/" },
+  { label: "Solutions", href: "/solutions" },
+  { label: "Calculators", href: "/calculators" },
+  { label: "Insights", href: "/insights" },
+  { label: "Contact", href: "/contact" },
+] as const;
 
-function FooterLink({ href, label }: { href: string; label: string }) {
-  const pathname = usePathname();
-  const active = isNavActive(pathname ?? "", href);
-
-  return (
-    <Link
-      href={href}
-      prefetch={false}
-      className={`block text-sm transition-colors duration-300 ease-in-out ${
-        active ? "font-medium text-white" : "text-stone-400 hover:text-cinematic-teal"
-      }`}
-    >
-      {label}
-    </Link>
-  );
-}
-
-function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
-  return (
-    <nav aria-label={title}>
-      <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">{title}</h3>
-      <ul className="mt-4 space-y-2.5">
-        {links.map((link) => (
-          <li key={link.href}>
-            <FooterLink href={link.href} label={link.label} />
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
+const LEGAL_LINKS = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Complaints", href: "/complaints" },
+] as const;
 
 function FooterNewsletter() {
   const [state, formAction, isPending] = useActionState(subscribeNewsletter, initialNewsletterState);
 
   return (
-    <div className="w-full max-w-xl lg:max-w-none lg:flex-1">
-      <form action={formAction} className="flex flex-col gap-3 sm:flex-row sm:items-center">
+    <div className="w-full max-w-sm lg:max-w-[17.5rem] lg:shrink-0">
+      <form action={formAction} className="relative">
         <input
           type="email"
           name="email"
           placeholder="your@email.com"
           required
           disabled={isPending}
-          className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-stone-500 transition-colors duration-300 ease-in-out focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25 disabled:opacity-60"
+          className="w-full rounded-xl border border-white/10 bg-white/[0.06] py-2 pl-3.5 pr-10 text-sm text-white placeholder:text-stone-500 transition-colors duration-300 ease-in-out focus:border-cinematic-teal/40 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/20 disabled:opacity-60"
           aria-label="Email for newsletter"
         />
         <button
           type="submit"
           disabled={isPending}
-          className="shrink-0 rounded-xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-md shadow-samsung-blue/20 transition-all duration-300 ease-in-out hover:bg-[#004a9e] hover:shadow-cta-glow-blue disabled:opacity-60"
+          className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-lg bg-samsung-blue text-white transition-all duration-300 ease-in-out hover:bg-[#004a9e] hover:shadow-cta-glow-blue disabled:opacity-60"
+          aria-label={isPending ? "Subscribing" : "Subscribe to newsletter"}
         >
-          {isPending ? "Subscribing…" : "Subscribe"}
+          <ArrowRight className="h-3.5 w-3.5" />
         </button>
       </form>
-      {state.message && (
+      {state.message ? (
         <p
-          className={`mt-3 text-xs ${state.success ? "text-cinematic-teal" : "text-amber-300/90"}`}
+          className={`mt-1.5 text-[11px] leading-tight ${state.success ? "text-cinematic-teal" : "text-amber-300/90"}`}
           role="status"
         >
           {state.message}
         </p>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -94,8 +70,8 @@ export function Footer() {
 
   const scrollDockClass =
     pathname === "/"
-      ? "right-4 max-md:bottom-48 md:bottom-[10rem] md:right-6"
-      : "right-4 max-md:bottom-28 md:bottom-[5.75rem] md:right-6";
+      ? "right-4 max-md:bottom-40 md:bottom-36 md:right-6"
+      : "right-4 max-md:bottom-24 md:bottom-20 md:right-6";
 
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400);
@@ -106,77 +82,91 @@ export function Footer() {
   return (
     <>
       <footer
-        className="relative z-10 bg-gradient-to-b from-[#1a2626] to-[#152020] text-stone-300"
+        className="relative z-10 bg-gradient-to-b from-[#1e2a2e] to-[#182022] text-stone-300"
         role="contentinfo"
       >
-        {/* Newsletter strip */}
-        <div className="border-b border-white/10 bg-white/[0.03]">
-          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-10 md:py-12 lg:px-8">
-            <div className="max-w-md shrink-0">
-              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-[1.65rem]">
-                Stay ahead of your financial future.
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-stone-400">
-                Weekly insights on retirement, investments, and estate planning, from our independent
-                advisers.
-              </p>
-            </div>
-            <FooterNewsletter />
-          </div>
-        </div>
-
-        {/* Main mega-footer grid */}
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
-            {/* Brand */}
-            <div className="md:col-span-2 lg:col-span-1">
-              <Link href="/" prefetch={false} className="inline-flex items-center gap-3">
-                <BrandLogo height={36} className="h-9 w-auto rounded-xl object-contain" />
-                <span className="text-lg font-bold tracking-tight text-white">AS Brokers</span>
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-7">
+          <div className="flex flex-col items-center gap-7 text-center lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:text-left">
+            {/* Brand + WhatsApp */}
+            <div className="flex shrink-0 flex-col items-center gap-3 lg:items-start">
+              <Link href="/" prefetch={false} className="inline-flex items-center gap-2.5">
+                <BrandLogo height={32} className="h-8 w-auto rounded-lg object-contain" />
+                <span className="text-base font-semibold tracking-tight text-white">AS Brokers</span>
               </Link>
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-stone-400">
-                Protecting Your Legacy. Engineering Your Wealth.
-              </p>
               <a
                 href={WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-300 ease-in-out hover:bg-[#1da851] hover:shadow-lg"
+                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-4 py-1.5 text-xs font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#1da851]"
               >
                 WhatsApp · +27 66 227 6044
               </a>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {TRUST_BADGES.map((badge) => (
-                  <span
-                    key={badge}
-                    className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-stone-300 ring-1 ring-white/10"
-                  >
-                    {badge}
-                  </span>
-                ))}
-              </div>
             </div>
 
-            <FooterColumn title="How we help" links={FOOTER_HOW_WE_HELP} />
-            <FooterColumn title="Resources" links={FOOTER_RESOURCES} />
-            <FooterColumn title="Company & legal" links={FOOTER_COMPANY} />
+            {/* Minimal nav */}
+            <nav
+              aria-label="Footer navigation"
+              className="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-sm lg:flex-1 lg:justify-center"
+            >
+              {FOOTER_NAV.map((link, index) => {
+                const active = isNavActive(pathname ?? "", link.href);
+                return (
+                  <span key={link.href} className="inline-flex items-center">
+                    {index > 0 ? (
+                      <span aria-hidden className="mx-2 text-stone-600 select-none">
+                        ·
+                      </span>
+                    ) : null}
+                    <Link
+                      href={link.href}
+                      prefetch={false}
+                      className={`transition-colors duration-300 ease-in-out ${
+                        active ? "font-medium text-white" : "text-stone-400 hover:text-cinematic-teal"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </span>
+                );
+              })}
+            </nav>
+
+            {/* Inline newsletter */}
+            <FooterNewsletter />
           </div>
         </div>
 
         {/* Compliance strip */}
         <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-xs leading-relaxed text-stone-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-            <p>© {SITE_COPYRIGHT_YEAR} AS Brokers CC. All rights reserved.</p>
-            <p className="max-w-2xl text-stone-500 lg:text-right">
-              Authorised Financial Services Provider · FSP 17273 · FAIS & POPIA Compliant · FSCA
-              Regulated
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs leading-relaxed text-stone-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-8">
+            <p className="text-center lg:text-left">
+              Copyright © {SITE_COPYRIGHT_YEAR} AS Brokers CC. All rights reserved.
+              <span aria-hidden className="mx-2 hidden text-stone-600 sm:inline">
+                |
+              </span>
+              <span className="mt-1 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:mt-0 sm:inline-flex">
+                {LEGAL_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    prefetch={false}
+                    className="transition-colors duration-300 ease-in-out hover:text-stone-300"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </span>
+            </p>
+            <p className="text-center text-[11px] leading-snug text-stone-500 lg:max-w-xl lg:text-right">
+              Authorised Financial Services Provider | FSP 17273 | FSCA Regulated | FAIS & POPIA
+              Compliant.
             </p>
           </div>
         </div>
       </footer>
 
       <AnimatePresence>
-        {showScrollTop && (
+        {showScrollTop ? (
           <motion.button
             type="button"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -184,12 +174,12 @@ export function Footer() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.25, ease: APPLE_EASE }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`fixed z-[55] flex h-11 w-11 items-center justify-center rounded-full bg-samsung-blue text-white shadow-lg shadow-samsung-blue/30 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-cta-glow-blue ${scrollDockClass}`}
+            className={`fixed z-[55] flex h-10 w-10 items-center justify-center rounded-full bg-samsung-blue text-white shadow-lg shadow-samsung-blue/25 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-cta-glow-blue ${scrollDockClass}`}
             aria-label="Scroll to top"
           >
-            <ArrowUp className="h-5 w-5" />
+            <ArrowUp className="h-4 w-4" />
           </motion.button>
-        )}
+        ) : null}
       </AnimatePresence>
     </>
   );

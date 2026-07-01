@@ -8,9 +8,9 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Death, disability, and income protection for families and professionals.",
     },
     {
-      href: "/premium-increase-calculator",
-      title: "Premium increase calculator",
-      description: "Compare long-term cost of escalating life premiums.",
+      href: "/calculators",
+      title: "Planning calculators",
+      description: "Illustrative tools for premiums, retirement, and estate planning.",
     },
     {
       href: "/contact",
@@ -42,12 +42,12 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Home, motor, and personal asset protection.",
     },
     {
-      href: "/premium-increase-calculator",
-      title: "Premium increase calculator",
+      href: "/calculators",
+      title: "Planning calculators",
       description: "Model escalating life premiums over time.",
     },
     {
-      href: "/income-in-retirement",
+      href: "/calculators",
       title: "Income in retirement",
       description: "How long retirement capital may last with drawdowns.",
     },
@@ -88,12 +88,12 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/solutions/estate-planning": [
     {
-      href: "/estate-duty-calculator",
+      href: "/calculators",
       title: "Estate duty calculator",
       description: "Estimate duty and executor fees on your estate.",
     },
     {
-      href: "/annual-estate-reduction-strategy",
+      href: "/calculators",
       title: "Annual estate reduction",
       description: "Use R100k/R200k donation allowances over time.",
     },

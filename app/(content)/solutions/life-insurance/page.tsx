@@ -73,7 +73,7 @@ export default function LifeInsurancePage() {
               Premiums may be <strong className="text-zinc-300">level</strong> or <strong className="text-zinc-300">escalating</strong>, and may include age-rated elements depending on product design.
               After guarantee or review windows, premiums can change - sometimes sharply. That affects whether you can keep
               cover when you are older or have new health history. We use tools such as our{" "}
-              <Link href="/premium-increase-calculator" className="text-cinematic-teal hover:underline">premium comparison calculator</Link>{" "}
+              <Link href="/calculators" className="text-cinematic-teal hover:underline">premium comparison calculator</Link>{" "}
               so year-by-year costs are visible before you commit - not only the first debit order.
             </p>
             <p className="text-zinc-500 text-sm">
@@ -92,7 +92,7 @@ export default function LifeInsurancePage() {
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed">
               For <strong className="text-zinc-300">liquidity at death</strong>, see also{" "}
-              <Link href="/estate-duty-calculator" className="text-cinematic-teal hover:underline">estate duty calculator</Link> and{" "}
+              <Link href="/calculators" className="text-cinematic-teal hover:underline">estate duty calculator</Link> and{" "}
               <Link href="/solutions/estate-planning" className="text-cinematic-teal hover:underline">estate planning</Link>.
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function LifeInsurancePage() {
 
         <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
           <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/premium-increase-calculator" prefetch={false} className="text-cinematic-teal hover:underline text-sm font-medium">
+            <Link href="/calculators" prefetch={false} className="text-cinematic-teal hover:underline text-sm font-medium">
               Premium sustainability tool
             </Link>
             <Link href="/contact" prefetch={false} className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors">

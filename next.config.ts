@@ -12,10 +12,32 @@ const nextConfig: NextConfig = {
     },
   },
   async redirects() {
+    const legacyCalculatorPaths = [
+      "/income-tax-calculator",
+      "/estate-duty-calculator",
+      "/wealth-building-calculator",
+      "/premium-increase-calculator",
+      "/immediate-higher-income-calculator",
+      "/cost-of-inflation-over-time",
+      "/retirement-readiness",
+      "/income-in-retirement",
+      "/annual-estate-reduction-strategy",
+      "/everest-strategic-growth-145",
+      "/everest-amethyst-living-annuity",
+      "/everest-128-product",
+      "/lab",
+    ] as const;
+
     return [
       { source: "/home2", destination: "/", permanent: true },
       { source: "/home3", destination: "/", permanent: true },
       { source: "/home4", destination: "/", permanent: true },
+      { source: "/embed/calculators/:path*", destination: "/calculators", permanent: false },
+      ...legacyCalculatorPaths.map((source) => ({
+        source,
+        destination: "/calculators",
+        permanent: false,
+      })),
       /** Consolidate alternate hosts onto GSC canonical origin (HTTPS + www). */
       {
         source: "/:path*",

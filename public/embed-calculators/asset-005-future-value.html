@@ -1,0 +1,355 @@
+<div id="asb-future-value-calculator">
+<style>
+#asb-future-value-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-future-value-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-future-value-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-button:hover {
+background: #374151;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Future Value Calculator</h2>
+
+
+<p class="intro">
+See how inflation may affect your money over time and what today's amount may need to become in future to keep the same buying power.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Today's amount</label>
+<input id="futurePresentValue" type="number" value="50000">
+</div>
+
+
+<div class="asb-field">
+<label>Inflation rate (% per year)</label>
+<input id="futureInflationRate" type="number" step="0.1" value="6">
+</div>
+
+
+<div class="asb-field">
+<label>Time period (years)</label>
+<input id="futureYears" type="number" value="20">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateFutureValue()">Calculate future value</button>
+
+
+<div id="futureError" class="asb-error"></div>
+
+
+<div id="futureResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Future cost</div>
+<div id="futureCost" class="asb-value"></div>
+<div class="asb-small">Estimated future amount needed to maintain the same buying power.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Additional amount required because of inflation</div>
+<div id="futureAdditionalAmount" class="asb-value"></div>
+<div class="asb-small">Extra amount needed in future purely because prices may rise.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Purchasing power lost</div>
+<div id="futurePowerLost" class="asb-value"></div>
+<div class="asb-small">Estimated percentage of buying power lost if the money does not grow.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Today's amount</div>
+<div id="futureTodayValue" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Future buying power if your money does not grow</div>
+<div id="futureBuyingPower" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="futureSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand how inflation may reduce the buying power of money over time.
+It is an educational planning tool and does not constitute financial, tax or investment advice.
+Actual inflation varies over time and may differ from your personal inflation rate.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how inflation,
+investment growth and long-term planning work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function futureFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function futureGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateFutureValue() {
+const presentValue = futureGetNumber("futurePresentValue");
+const inflationRate = futureGetNumber("futureInflationRate") / 100;
+const years = futureGetNumber("futureYears");
+
+
+const errorBox = document.getElementById("futureError");
+const resultsBox = document.getElementById("futureResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(presentValue) ||
+isNaN(inflationRate) ||
+isNaN(years)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (presentValue <= 0) {
+errorBox.innerText = "Today's amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (years <= 0) {
+errorBox.innerText = "Time period must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const futureCost = presentValue * Math.pow(1 + inflationRate, years);
+const additionalAmount = futureCost - presentValue;
+const futureBuyingPower = presentValue / Math.pow(1 + inflationRate, years);
+const purchasingPowerLost = (1 - (futureBuyingPower / presentValue)) * 100;
+
+
+document.getElementById("futureCost").innerText = futureFormatRand(futureCost);
+document.getElementById("futureAdditionalAmount").innerText = futureFormatRand(additionalAmount);
+document.getElementById("futurePowerLost").innerText = purchasingPowerLost.toFixed(1) + "%"
+document.getElementById("futureTodayValue").innerText = futureFormatRand(presentValue);
+document.getElementById("futureBuyingPower").innerText = futureFormatRand(futureBuyingPower);
+
+
+document.getElementById("futureSummaryText").innerText =
+"At an inflation rate of " + (inflationRate * 100).toFixed(1) +
+"% per year, an amount of " + futureFormatRand(presentValue) +
+" today may need to grow to approximately " + futureFormatRand(futureCost) +
+" in " + years +
+" years to maintain the same buying power. That means you may need an additional " +
+futureFormatRand(additionalAmount) +
+" simply to keep pace with inflation. If the money does not grow, its future buying power may fall to about " +
+futureFormatRand(futureBuyingPower) +
+" in today's terms. This represents an estimated purchasing power loss of " +
+purchasingPowerLost.toFixed(1) + "%."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

@@ -1,0 +1,388 @@
+<div id="asb-income-tax-calculator">
+<style>
+#asb-income-tax-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-income-tax-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-income-tax-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Income Tax Calculator</h2>
+
+
+<p class="intro">
+Estimate your South African income tax, monthly PAYE and net monthly pay using the 2026/27 individual tax tables.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Gross monthly income</label>
+<input id="taxMonthlyIncome" type="number" value="50000">
+</div>
+
+
+<div class="asb-field">
+<label>Your age</label>
+<input id="taxAge" type="number" value="45">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateIncomeTax()">Calculate my tax</button>
+
+
+<div id="taxError" class="asb-error"></div>
+
+
+<div id="taxResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Annual tax payable</div>
+<div id="taxAnnualPayable" class="asb-value"></div>
+<div class="asb-small">Estimated annual income tax after age-based rebates.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Monthly PAYE</div>
+<div id="taxMonthlyPAYE" class="asb-value"></div>
+<div class="asb-small">Estimated monthly tax deduction before other payroll deductions.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net monthly pay</div>
+<div id="taxNetMonthlyPay" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Effective tax rate</div>
+<div id="taxEffectiveRate" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Annual gross income</div>
+<div id="taxAnnualIncome" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Age rebate applied</div>
+<div id="taxRebateApplied" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="taxSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator provides a simplified estimate based on the South African 2026/27 individual income tax tables and age rebates.
+It does not include UIF, medical tax credits, retirement fund deductions, travel allowances, bonuses or other deductions that may affect your final tax position.
+It is an educational planning tool and does not constitute tax or financial advice.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how income tax,
+retirement contributions and after-tax income planning work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function taxFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function taxGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateAnnualTaxBeforeRebate(taxableIncome) {
+if (taxableIncome <= 245100) {
+return taxableIncome * 0.18;
+} else if (taxableIncome <= 383100) {
+return 44118 + (taxableIncome - 245100) * 0.26;
+} else if (taxableIncome <= 530200) {
+return 79998 + (taxableIncome - 383100) * 0.31;
+} else if (taxableIncome <= 695800) {
+return 125599 + (taxableIncome - 530200) * 0.36;
+} else if (taxableIncome <= 887000) {
+return 185215 + (taxableIncome - 695800) * 0.39;
+} else if (taxableIncome <= 1878600) {
+return 259783 + (taxableIncome - 887000) * 0.41;
+} else {
+return 666339 + (taxableIncome - 1878600) * 0.45;
+}
+}
+
+
+function calculateRebate(age) {
+const primaryRebate = 17820;
+const secondaryRebate = 9765;
+const tertiaryRebate = 3249;
+
+
+let rebate = primaryRebate;
+
+
+if (age >= 65) {
+rebate += secondaryRebate;
+}
+
+
+if (age >= 75) {
+rebate += tertiaryRebate;
+}
+
+
+return rebate;
+}
+
+
+function calculateIncomeTax() {
+const monthlyIncome = taxGetNumber("taxMonthlyIncome");
+const age = taxGetNumber("taxAge");
+
+
+const errorBox = document.getElementById("taxError");
+const resultsBox = document.getElementById("taxResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (isNaN(monthlyIncome) || isNaN(age)) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (monthlyIncome < 0) {
+errorBox.innerText = "Monthly income cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (age <= 0) {
+errorBox.innerText = "Age must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const annualIncome = monthlyIncome * 12;
+const taxBeforeRebate = calculateAnnualTaxBeforeRebate(annualIncome);
+const rebateApplied = calculateRebate(age);
+const annualTaxPayable = Math.max(0, taxBeforeRebate - rebateApplied);
+const monthlyPAYE = annualTaxPayable / 12;
+const netMonthlyPay = monthlyIncome - monthlyPAYE;
+const effectiveTaxRate = annualIncome > 0 ? (annualTaxPayable / annualIncome) * 100 : 0;
+
+
+document.getElementById("taxAnnualPayable").innerText = taxFormatRand(annualTaxPayable);
+document.getElementById("taxMonthlyPAYE").innerText = taxFormatRand(monthlyPAYE);
+document.getElementById("taxNetMonthlyPay").innerText = taxFormatRand(netMonthlyPay);
+document.getElementById("taxEffectiveRate").innerText = effectiveTaxRate.toFixed(1) + "%"
+document.getElementById("taxAnnualIncome").innerText = taxFormatRand(annualIncome);
+document.getElementById("taxRebateApplied").innerText = taxFormatRand(rebateApplied);
+
+
+document.getElementById("taxSummaryText").innerText =
+"Based on a gross monthly income of " + taxFormatRand(monthlyIncome) +
+", your annual gross income is approximately " + taxFormatRand(annualIncome) +
+". After applying the 2026/27 individual income tax tables and an age-based rebate of " +
+taxFormatRand(rebateApplied) +
+", your estimated annual tax payable is " + taxFormatRand(annualTaxPayable) +
+". This equals estimated monthly PAYE of " + taxFormatRand(monthlyPAYE) +
+", leaving an estimated net monthly pay of " + taxFormatRand(netMonthlyPay) +
+". Your estimated effective tax rate is " + effectiveTaxRate.toFixed(1) + "%."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

@@ -1,0 +1,487 @@
+<div id="asb-growth-rate-calculator">
+<style>
+#asb-growth-rate-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-growth-rate-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-growth-rate-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-cta a {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+text-decoration: none;
+font-weight: 700;
+font-size: 14px;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Retirement Growth Rate Calculator</h2>
+
+
+<p class="intro">
+Work out what annual investment growth rate may be required before retirement to reach your retirement income target.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="growthCurrentAge" type="number" value="50">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement age</label>
+<input id="growthRetirementAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Planning age</label>
+<input id="growthPlanningAge" type="number" value="90">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly income needed today</label>
+<input id="growthMonthlyIncome" type="number" value="40000">
+</div>
+
+
+<div class="asb-field">
+<label>Inflation before retirement (%)</label>
+<input id="growthInflationRate" type="number" step="0.1" value="6">
+</div>
+
+
+<div class="asb-field">
+<label>Current retirement capital</label>
+<input id="growthCurrentCapital" type="number" value="500000">
+</div>
+
+
+<div class="asb-field">
+<label>Current monthly savings</label>
+<input id="growthMonthlySavings" type="number" value="5000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly savings increase (%)</label>
+<input id="growthSavingsIncrease" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth during retirement (%)</label>
+<input id="growthDuringRetirement" type="number" step="0.1" value="8">
+</div>
+
+
+<div class="asb-field">
+<label>Income increase during retirement (%)</label>
+<input id="growthIncomeIncreaseRetirement" type="number" step="0.1" value="6">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateRequiredGrowthRate()">Calculate required growth rate</button>
+
+
+<div id="growthError" class="asb-error"></div>
+
+
+<div id="growthResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Required investment growth rate before retirement</div>
+<div id="requiredGrowthRate" class="asb-value"></div>
+<div class="asb-small">This is the estimated annual growth rate required before retirement based on your current capital and savings.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Capital required at retirement</div>
+<div id="growthCapitalRequired" class="asb-value"></div>
+<div class="asb-small">Estimated capital required to fund your retirement income until your selected planning age.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Monthly income required at retirement</div>
+<div id="growthFutureMonthlyIncome" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Years until retirement</div>
+<div id="growthYearsToRetirement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Income planning period</div>
+<div id="growthIncomePlanningPeriod" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="growthSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand the financial implications of your retirement growth requirement.
+It is an educational planning tool and does not constitute financial, tax or investment advice.
+Required growth rates may be unrealistic where the time period is short, current capital is low, or monthly savings are insufficient.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how retirement income,
+inflation, savings and investment growth work together.
+</p>
+
+
+<a href="/insights/retirement-growth-rate-calculator">Learn what this result means by following link to full article below →</a>
+</div>
+
+
+<script>
+function growthFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function growthGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateRequiredGrowthRate() {
+const currentAge = growthGetNumber("growthCurrentAge");
+const retirementAge = growthGetNumber("growthRetirementAge");
+const planningAge = growthGetNumber("growthPlanningAge");
+const monthlyIncomeToday = growthGetNumber("growthMonthlyIncome");
+
+
+const inflationRate = growthGetNumber("growthInflationRate") / 100;
+const currentCapital = growthGetNumber("growthCurrentCapital");
+const monthlySavings = growthGetNumber("growthMonthlySavings");
+const savingsIncrease = growthGetNumber("growthSavingsIncrease") / 100;
+const growthDuringRetirement = growthGetNumber("growthDuringRetirement") / 100;
+const incomeIncreaseRetirement = growthGetNumber("growthIncomeIncreaseRetirement") / 100;
+
+
+const errorBox = document.getElementById("growthError");
+const resultsBox = document.getElementById("growthResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(retirementAge) ||
+isNaN(planningAge) ||
+isNaN(monthlyIncomeToday) ||
+isNaN(inflationRate) ||
+isNaN(currentCapital) ||
+isNaN(monthlySavings) ||
+isNaN(savingsIncrease) ||
+isNaN(growthDuringRetirement) ||
+isNaN(incomeIncreaseRetirement)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (retirementAge <= currentAge) {
+errorBox.innerText = "Retirement age must be higher than current age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (planningAge <= retirementAge) {
+errorBox.innerText = "Planning age must be higher than retirement age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (monthlyIncomeToday <= 0) {
+errorBox.innerText = "Monthly income must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (currentCapital < 0 || monthlySavings < 0) {
+errorBox.innerText = "Current capital and monthly savings cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+const yearsToRetirement = retirementAge - currentAge;
+const yearsInRetirement = planningAge - retirementAge;
+const monthsToRetirement = yearsToRetirement * 12;
+const monthsInRetirement = yearsInRetirement * 12;
+
+
+const futureMonthlyIncome = monthlyIncomeToday * Math.pow(1 + inflationRate, yearsToRetirement);
+const retirementMonthlyGrowth = Math.pow(1 + growthDuringRetirement, 1 / 12) - 1;
+
+
+let capitalRequired = 0;
+
+
+for (let month = 1; month <= monthsInRetirement; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const monthlyIncomeAtMonth = futureMonthlyIncome * Math.pow(1 + incomeIncreaseRetirement, yearIndex);
+capitalRequired += monthlyIncomeAtMonth / Math.pow(1 + retirementMonthlyGrowth, month);
+}
+
+
+function projectedCapitalAtGrowth(annualGrowthRate) {
+const monthlyGrowthRate = Math.pow(1 + annualGrowthRate, 1 / 12) - 1;
+let balance = currentCapital;
+
+
+for (let month = 1; month <= monthsToRetirement; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const escalatedSaving = monthlySavings * Math.pow(1 + savingsIncrease, yearIndex);
+
+
+balance = balance * (1 + monthlyGrowthRate);
+balance += escalatedSaving;
+}
+
+
+return balance;
+}
+
+
+let low = -0.9999;
+let high = 1;
+
+
+while (projectedCapitalAtGrowth(high) < capitalRequired) {
+high = high * 2;
+
+
+if (high > 1000) {
+errorBox.innerText =
+"The required growth rate is extremely high. This usually means the retirement target is too large for the current time period, capital and monthly savings."
+errorBox.style.display = "block"
+return;
+}
+}
+
+
+for (let i = 0; i < 140; i++) {
+const mid = (low + high) / 2;
+
+
+if (projectedCapitalAtGrowth(mid) < capitalRequired) {
+low = mid;
+} else {
+high = mid;
+}
+}
+
+
+const requiredGrowthRate = high * 100;
+
+
+document.getElementById("requiredGrowthRate").innerText = requiredGrowthRate.toFixed(2) + "% p.a."
+document.getElementById("growthCapitalRequired").innerText = growthFormatRand(capitalRequired);
+document.getElementById("growthFutureMonthlyIncome").innerText = growthFormatRand(futureMonthlyIncome);
+document.getElementById("growthYearsToRetirement").innerText = yearsToRetirement + " years"
+document.getElementById("growthIncomePlanningPeriod").innerText =
+retirementAge + " to " + planningAge + " (" + yearsInRetirement + " years)"
+
+
+document.getElementById("growthSummaryText").innerText =
+"To retire at age " + retirementAge +
+" with an income equal to approximately " + growthFormatRand(futureMonthlyIncome) +
+" per month, increasing by " + (incomeIncreaseRetirement * 100).toFixed(1) +
+"% per year until age " + planningAge +
+", you may need approximately " + growthFormatRand(capitalRequired) +
+" in retirement capital. Based on your current retirement capital of " +
+growthFormatRand(currentCapital) +
+" and current monthly savings of " + growthFormatRand(monthlySavings) +
+", increasing by " + (savingsIncrease * 100).toFixed(1) +
+"% per year, you may need an estimated investment growth rate of " +
+requiredGrowthRate.toFixed(2) +
+"% per year before retirement."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

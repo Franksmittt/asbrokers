@@ -8,7 +8,7 @@ const EXTERNAL_IFRAME_HOSTNAMES = [
   "player.vimeo.com",
 ] as const;
 
-const CALCULATOR_EMBED_PREFIX = "/embed/calculators/";
+const CALCULATOR_EMBED_PREFIXES = ["/embed-calculators/"] as const;
 
 function siteIframeHostnames(): string[] {
   const hosts: string[] = [...EXTERNAL_IFRAME_HOSTNAMES];
@@ -26,11 +26,15 @@ function siteIframeHostnames(): string[] {
   return hosts;
 }
 
+function isCalculatorEmbedPath(pathname: string): boolean {
+  return CALCULATOR_EMBED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
+
 function isAllowedCalculatorIframeSrc(src: string): boolean {
-  if (src.startsWith(CALCULATOR_EMBED_PREFIX)) return true;
+  if (CALCULATOR_EMBED_PREFIXES.some((prefix) => src.startsWith(prefix))) return true;
   try {
     const { hostname, pathname } = new URL(src, getSiteOrigin());
-    return siteIframeHostnames().includes(hostname) && pathname.startsWith(CALCULATOR_EMBED_PREFIX);
+    return siteIframeHostnames().includes(hostname) && isCalculatorEmbedPath(pathname);
   } catch {
     return false;
   }

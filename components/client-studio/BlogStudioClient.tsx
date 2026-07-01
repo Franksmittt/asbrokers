@@ -224,6 +224,23 @@ const COPY_PROMPT_PRESETS = [
     ],
     exampleHtml: SAMPLE_CALCULATOR_VIDEO_HTML,
   },
+  {
+    id: "images-only",
+    title: "Images only",
+    includes: "Image upload slots only",
+    hover: "Copies the brand guide plus rules for image uploads with no video or calculator slots.",
+    rules: [
+      `Use ${IMAGE_TOKEN} for every image position. Add as many image slots as the article genuinely needs.`,
+      `Do not include ${VIDEO_TOKEN} or ${CALC_TOKEN}.`,
+    ],
+    exampleHtml: SAMPLE_HTML.replaceAll(`
+  [VIDEO_SLOT]
+
+`, "").replaceAll(`
+  [CALCULATOR_SLOT]
+
+`, ""),
+  },
 ] as const;
 
 type CopyPromptPreset = (typeof COPY_PROMPT_PRESETS)[number];
@@ -1625,6 +1642,11 @@ export function BlogStudioClient(props: Props) {
             </div>
             <p className="mb-3 text-sm text-zinc-400">
               Choose one calculator for each {CALC_TOKEN} and paste one video link for each {VIDEO_TOKEN}.
+              {embedReadySnippets.length > 0 && (
+                <span className="mt-1 block text-xs text-zinc-500">
+                  {embedReadySnippets.length} AS Brokers calculators available (ASSET 001–017).
+                </span>
+              )}
             </p>
             <div className="space-y-3">
               {Array.from({ length: calcCount }).map((_, i) => (
@@ -1643,7 +1665,7 @@ export function BlogStudioClient(props: Props) {
                     <option value="">-- Choose Calculator Component --</option>
                     {embedReadySnippets.map((snippet) => (
                       <option key={snippet.id} value={snippet.id}>
-                        {snippet.title}
+                        {snippet.staffLabel}
                       </option>
                     ))}
                   </select>

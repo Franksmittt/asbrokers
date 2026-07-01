@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import {
-  Home4CalculatorTile,
   Home4GoalCard,
   Home4JourneyFunnel,
   Home4Reveal,
@@ -14,7 +13,6 @@ import {
 } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import {
-  HOME4_CALCULATOR_TILES,
   HOME4_GOAL_CARDS,
   HOME4_JOURNEY_STAGES,
   HOME4_TESTIMONIALS,
@@ -70,25 +68,13 @@ export function Home4Preview() {
         </div>
       </section>
 
-      {/* Calculators */}
-      <section className="py-16 md:py-24" aria-labelledby="home4-calculators">
+      {/* Journey */}
+      <section className="py-16 md:py-24" aria-labelledby="home4-journey">
         <div className={HOME4_WRAP}>
-          <Home4Reveal>
-            <Home4SectionHeader
-              kicker="Tools"
-              title="Calculate your next financial move"
-              description="Friendly, illustrative calculators to help you understand the problem before any product conversation."
-            />
-          </Home4Reveal>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {HOME4_CALCULATOR_TILES.map((tile, index) => (
-              <Home4Reveal key={tile.href} delay={index * 0.05}>
-                <Home4CalculatorTile tile={tile} />
-              </Home4Reveal>
-            ))}
-          </div>
-
-          <Home4Reveal className="mt-14 rounded-3xl bg-white/70 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm sm:p-8 md:p-10">
+          <Home4Reveal className="rounded-3xl bg-white/70 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm sm:p-8 md:p-10">
+            <h2 id="home4-journey" className="sr-only">
+              Start your journey
+            </h2>
             <Home4SectionHeader
               kicker="Your journey"
               title="Start your journey"
@@ -108,7 +94,7 @@ export function Home4Preview() {
                 Prefer to explore on your own?
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
-                Access calculators, articles, and guides at your own pace, no forms, no pressure.
+                Access articles and guides at your own pace, no forms, no pressure.
               </p>
               <Link
                 href="/insights"

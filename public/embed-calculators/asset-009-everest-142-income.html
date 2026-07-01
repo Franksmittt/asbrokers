@@ -1,0 +1,373 @@
+<div id="asb-income-142-calculator">
+<style>
+#asb-income-142-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-income-142-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-income-142-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers 14.2% Income Calculator</h2>
+
+
+<p class="intro">
+Estimate the potential income from an investment targeting a 14.2% annual dividend return before dividends tax.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Investment amount</label>
+<input id="income142InvestmentAmount" type="number" value="1000000">
+</div>
+
+
+<div class="asb-field">
+<label>Targeted annual return (%)</label>
+<input id="income142ReturnRate" type="number" step="0.1" value="14.2">
+</div>
+
+
+<div class="asb-field">
+<label>Dividends tax (%)</label>
+<input id="income142DividendTax" type="number" step="0.1" value="20">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateIncome142()">Calculate income</button>
+
+
+<div id="income142Error" class="asb-error"></div>
+
+
+<div id="income142Results" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Net monthly income</div>
+<div id="income142NetMonthly" class="asb-value"></div>
+<div class="asb-small">Estimated monthly income after dividends tax.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Net annual income</div>
+<div id="income142NetAnnual" class="asb-value"></div>
+<div class="asb-small">Estimated annual income after dividends tax.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Gross annual return</div>
+<div id="income142GrossAnnual" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Estimated dividends tax</div>
+<div id="income142TaxAmount" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net return rate after dividends tax</div>
+<div id="income142NetRate" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="income142SummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is an educational illustration based on a targeted annual dividend return and assumed dividends tax.
+It is not a quote, guarantee, recommendation or offer to invest. Returns, liquidity, risk, fees, product rules and tax treatment must be confirmed before any investment decision is made.
+</p>
+
+
+<h3>Important liquidity note</h3>
+<p>
+Some income investments, including unlisted preference share structures, may be illiquid. Withdrawals may be restricted, subject to notice periods, penalties, product rules and market conditions.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how income, tax, risk and liquidity work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function income142FormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function income142GetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateIncome142() {
+const investmentAmount = income142GetNumber("income142InvestmentAmount");
+const returnRate = income142GetNumber("income142ReturnRate") / 100;
+const dividendTaxRate = income142GetNumber("income142DividendTax") / 100;
+
+
+const errorBox = document.getElementById("income142Error");
+const resultsBox = document.getElementById("income142Results");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(investmentAmount) ||
+isNaN(returnRate) ||
+isNaN(dividendTaxRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (investmentAmount <= 0) {
+errorBox.innerText = "Investment amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (returnRate < 0) {
+errorBox.innerText = "Return rate cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (dividendTaxRate < 0 || dividendTaxRate >= 1) {
+errorBox.innerText = "Dividends tax must be between 0% and 99%."
+errorBox.style.display = "block"
+return;
+}
+
+
+const grossAnnualIncome = investmentAmount * returnRate;
+const dividendTaxAmount = grossAnnualIncome * dividendTaxRate;
+const netAnnualIncome = grossAnnualIncome - dividendTaxAmount;
+const netMonthlyIncome = netAnnualIncome / 12;
+const netReturnRate = returnRate * (1 - dividendTaxRate);
+
+
+document.getElementById("income142NetMonthly").innerText =
+income142FormatRand(netMonthlyIncome);
+
+
+document.getElementById("income142NetAnnual").innerText =
+income142FormatRand(netAnnualIncome);
+
+
+document.getElementById("income142GrossAnnual").innerText =
+income142FormatRand(grossAnnualIncome);
+
+
+document.getElementById("income142TaxAmount").innerText =
+income142FormatRand(dividendTaxAmount);
+
+
+document.getElementById("income142NetRate").innerText =
+(netReturnRate * 100).toFixed(2) + "%"
+
+
+document.getElementById("income142SummaryText").innerText =
+"Based on an investment amount of " + income142FormatRand(investmentAmount) +
+" and a targeted annual return of " + (returnRate * 100).toFixed(1) +
+"%, the estimated gross annual income is " + income142FormatRand(grossAnnualIncome) +
+". After assumed dividends tax of " + (dividendTaxRate * 100).toFixed(1) +
+"%, the estimated net annual income is " + income142FormatRand(netAnnualIncome) +
+", or approximately " + income142FormatRand(netMonthlyIncome) +
+" per month. The estimated net return rate after dividends tax is " +
+(netReturnRate * 100).toFixed(2) +
+"% per year. This is an illustration only and must be checked against the actual product terms, risk profile, liquidity rules and tax treatment."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

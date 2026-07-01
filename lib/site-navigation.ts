@@ -80,7 +80,6 @@ export const FOOTER_HOW_WE_HELP: NavLink[] = [
 /** Mega-footer: education and tools. */
 export const FOOTER_RESOURCES: NavLink[] = [
   { label: "Insights", href: "/insights" },
-  { label: "Calculators", href: "/calculators" },
   { label: "Financial Health Quiz", href: "/quiz" },
   { label: "Understanding Everest", href: "/everest-wealth/about" },
   { label: "Digital Wealth Assistant", href: "/chat" },

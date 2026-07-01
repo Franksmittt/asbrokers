@@ -1,0 +1,386 @@
+<div id="asb-estate-duty-calculator">
+<style>
+#asb-estate-duty-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-estate-duty-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-estate-duty-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Estate Duty & Executor Fee Calculator</h2>
+
+
+<p class="intro">
+Estimate estate duty, executor fees and the cash your estate may need at death.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Gross estate value</label>
+<input id="estateGrossValue" type="number" value="5000000">
+</div>
+
+
+<div class="asb-field">
+<label>Liabilities</label>
+<input id="estateLiabilities" type="number" value="500000">
+</div>
+
+
+<div class="asb-field">
+<label>Bequests to spouse</label>
+<input id="estateSpouseBequest" type="number" value="0">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateEstateDuty()">Calculate estate costs</button>
+
+
+<div id="estateError" class="asb-error"></div>
+
+
+<div id="estateResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Total estate costs</div>
+<div id="estateTotalCosts" class="asb-value"></div>
+<div class="asb-small">Estimated cash the estate may need for estate duty and executor fees.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estate duty payable</div>
+<div id="estateDutyPayable" class="asb-value"></div>
+<div class="asb-small">Estimated estate duty after liabilities, spouse deduction and abatement.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Executor fees</div>
+<div id="estateExecutorFees" class="asb-value"></div>
+<div class="asb-small">Estimated executor fee at 3.5% of gross estate value plus 15% VAT.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net estate before abatement</div>
+<div id="estateNetBeforeAbatement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Section 4A abatement used</div>
+<div id="estateAbatementUsed" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Dutiable estate value</div>
+<div id="estateDutiableValue" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="estateSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator provides a simplified estimate of South African estate duty and executor fees.
+It does not include Master's fees, conveyancing costs, valuation costs, capital gains tax,
+income tax in the estate, funeral expenses or other administration costs.
+It is an educational planning tool and does not constitute legal, tax or financial advice.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how estate duty,
+estate liquidity, executor fees and proper estate planning work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function estateFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function estateGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateEstateDutyAmount(dutiableValue) {
+if (dutiableValue <= 0) {
+return 0;
+}
+
+
+if (dutiableValue <= 30000000) {
+return dutiableValue * 0.20;
+}
+
+
+return (30000000 * 0.20) + ((dutiableValue - 30000000) * 0.25);
+}
+
+
+function calculateEstateDuty() {
+const grossEstateValue = estateGetNumber("estateGrossValue");
+const liabilities = estateGetNumber("estateLiabilities");
+const spouseBequest = estateGetNumber("estateSpouseBequest");
+
+
+const errorBox = document.getElementById("estateError");
+const resultsBox = document.getElementById("estateResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(grossEstateValue) ||
+isNaN(liabilities) ||
+isNaN(spouseBequest)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (grossEstateValue < 0 || liabilities < 0 || spouseBequest < 0) {
+errorBox.innerText = "Values cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+const section4AAbatement = 3500000;
+
+
+const netEstateBeforeAbatement = Math.max(
+0,
+grossEstateValue - liabilities - spouseBequest
+);
+
+
+const abatementUsed = Math.min(section4AAbatement, netEstateBeforeAbatement);
+const dutiableEstateValue = Math.max(0, netEstateBeforeAbatement - section4AAbatement);
+
+
+const estateDutyPayable = calculateEstateDutyAmount(dutiableEstateValue);
+
+
+const executorFeeBeforeVat = grossEstateValue * 0.035;
+const executorVat = executorFeeBeforeVat * 0.15;
+const executorFees = executorFeeBeforeVat + executorVat;
+
+
+const totalEstateCosts = estateDutyPayable + executorFees;
+
+
+document.getElementById("estateTotalCosts").innerText = estateFormatRand(totalEstateCosts);
+document.getElementById("estateDutyPayable").innerText = estateFormatRand(estateDutyPayable);
+document.getElementById("estateExecutorFees").innerText = estateFormatRand(executorFees);
+document.getElementById("estateNetBeforeAbatement").innerText = estateFormatRand(netEstateBeforeAbatement);
+document.getElementById("estateAbatementUsed").innerText = estateFormatRand(abatementUsed);
+document.getElementById("estateDutiableValue").innerText = estateFormatRand(dutiableEstateValue);
+
+
+document.getElementById("estateSummaryText").innerText =
+"Based on a gross estate value of " + estateFormatRand(grossEstateValue) +
+", liabilities of " + estateFormatRand(liabilities) +
+" and spouse bequests of " + estateFormatRand(spouseBequest) +
+", the estimated net estate before abatement is " +
+estateFormatRand(netEstateBeforeAbatement) +
+". After applying the Section 4A abatement, the estimated dutiable estate value is " +
+estateFormatRand(dutiableEstateValue) +
+". Estimated estate duty is " + estateFormatRand(estateDutyPayable) +
+". Estimated executor fees are " + estateFormatRand(executorFees) +
+". This means the estate may need approximately " +
+estateFormatRand(totalEstateCosts) +
+" in cash for these two estate costs alone. Other estate costs may still apply."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

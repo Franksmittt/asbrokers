@@ -61,7 +61,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/everest-wealth",
     links: [
       { label: "Everest Wealth", href: "/everest-wealth" },
-      { label: "Tax-free planning", href: "/wealth-building-calculator" },
+      { label: "Planning tools", href: "/calculators" },
       { label: "Before retirement", href: "/retirement-readiness" },
       { label: "Investment calculators", href: "/calculators" },
     ],
@@ -91,7 +91,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/solutions/estate-planning",
     links: [
       { label: "Wills & trusts", href: "/solutions/estate-planning" },
-      { label: "Estate duty calculator", href: "/estate-duty-calculator" },
+      { label: "Planning tools", href: "/calculators" },
       { label: "Business succession", href: "/solutions/business-life" },
       { label: "Legacy guides", href: "/insights" },
     ],
@@ -116,13 +116,13 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   {
     label: "Living Annuity",
     description: "Model drawdowns, income, and sustainability.",
-    href: "/everest-amethyst-living-annuity",
+    href: "/calculators",
     image: "/images/living-annuity-inset-1x1.jpg",
   },
   {
     label: "Estate Duty",
     description: "Estimate duty and plan for a smoother transfer.",
-    href: "/estate-duty-calculator",
+    href: "/calculators",
     image: "/images/estate-duty-calculator-inset-1x1.jpg",
   },
 ];

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { getAllEmbedCalculators } from "@/lib/calculators/embed-registry";
+import { formatStaffCalculatorLabel } from "@/lib/calculators/registry";
 import { getCalculatorReviewMeta } from "@/lib/calculators/review-meta";
 import {
   CRM_CALCULATOR_REVIEW_STORAGE_KEY,
@@ -61,6 +62,10 @@ export function CalculatorReviewGrid() {
       ...calc,
       index: index + 1,
       meta: getCalculatorReviewMeta(calc.id),
+      staffLabel: formatStaffCalculatorLabel({
+        assetCode: calc.assetCode,
+        title: calc.title,
+      }),
     }));
     if (groupFilter === "all") return rows;
     return rows.filter((c) => c.meta.group === groupFilter);
@@ -219,7 +224,7 @@ export function CalculatorReviewGrid() {
                     </span>
                   )}
                 </div>
-                <h2 className="text-xl font-bold leading-snug text-white sm:text-2xl">{calc.title}</h2>
+                <h2 className="text-xl font-bold leading-snug text-white sm:text-2xl">{calc.staffLabel}</h2>
                 {calc.meta.note && <p className="mt-1.5 text-sm text-zinc-500">{calc.meta.note}</p>}
               </header>
 

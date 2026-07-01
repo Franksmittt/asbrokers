@@ -76,13 +76,13 @@ export default function EstatePlanningPage() {
             </p>
             <ul className="text-zinc-400 space-y-3 text-sm">
               <li>
-                <Link href="/estate-duty-calculator" prefetch={false} className="text-cinematic-teal hover:underline font-medium">
+                <Link href="/calculators" prefetch={false} className="text-cinematic-teal hover:underline font-medium">
                   Estate duty calculator
                 </Link>
                 <span className="text-zinc-500">  -  high-level duty and cost awareness.</span>
               </li>
               <li>
-                <Link href="/annual-estate-reduction-strategy" prefetch={false} className="text-cinematic-teal hover:underline font-medium">
+                <Link href="/calculators" prefetch={false} className="text-cinematic-teal hover:underline font-medium">
                   Annual estate reduction strategy
                 </Link>
                 <span className="text-zinc-500">  -  model recurring donations within exemption limits.</span>

@@ -20,7 +20,7 @@ const categories = [
     items: [
       { name: "Retirement Income Planning", desc: "Structured income planning for retirees who want clearer cash-flow expectations.", href: "/everest-wealth", badge: null, featured: false },
       { name: "Retirement Reality Calculator", desc: "How much capital you really need for retirement.", href: "/retirement", badge: "Calculator", featured: true },
-      { name: "Income in Retirement (Life of Capital)", desc: "How long your savings will last with withdrawals and inflation.", href: "/income-in-retirement", badge: "Calculator", featured: false },
+      { name: "Income in Retirement (Life of Capital)", desc: "How long your savings will last with withdrawals and inflation.", href: "/calculators", badge: "Calculator", featured: false },
       { name: "Everest Wealth Products", desc: "Targeted return profiles: 12.8%, 14.2%, 14.5%, Amethyst living annuity.", href: "/everest-wealth", badge: "Popular", featured: true },
       { name: "Financial Education & Calculators", desc: "Tools and structure, not just product sales.", href: "/calculators", badge: null, featured: false },
     ],
@@ -36,7 +36,7 @@ const categories = [
       { name: "Short-Term Business", desc: "Commercial property, liability, business interruption and fleet.", href: "/solutions/business-insurance", badge: null },
       { name: "Life Insurance (Personal)", desc: "Death cover, disability, income protection and severe illness.", href: "/solutions/life-insurance", badge: null },
       { name: "Life Insurance (Business)", desc: "Buy-and-sell, key person, loan account and employee benefits.", href: "/solutions/business-life", badge: null },
-      { name: "Premium Increase Calculator", desc: "Compare long-term cost of escalating life premiums.", href: "/premium-increase-calculator", badge: "Calculator" },
+      { name: "Premium Increase Calculator", desc: "Compare long-term cost of escalating life premiums.", href: "/calculators", badge: "Calculator" },
     ],
   },
   {
@@ -59,8 +59,8 @@ const categories = [
     items: [
       { name: "Estate Planning & Wills", desc: "Wills, testaments and estate structuring.", href: "/solutions/estate-planning", badge: null },
       { name: "Trust & Business Structure", desc: "Asset protection and tax-efficient structuring.", href: "/contact", badge: null },
-      { name: "Estate Duty Calculator", desc: "Estimate estate duty and executor fees at death.", href: "/estate-duty-calculator", badge: "Calculator" },
-      { name: "Annual Estate Reduction Strategy", desc: "Use annual donations to reduce estate duty over time.", href: "/annual-estate-reduction-strategy", badge: "Calculator" },
+      { name: "Estate Duty Calculator", desc: "Estimate estate duty and executor fees at death.", href: "/calculators", badge: "Calculator" },
+      { name: "Annual Estate Reduction Strategy", desc: "Use annual donations to reduce estate duty over time.", href: "/calculators", badge: "Calculator" },
     ],
   },
 ];

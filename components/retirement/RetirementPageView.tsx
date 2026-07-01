@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { RetirementRealityCalculator } from "@/components/RetirementRealityCalculator";
 import { Home4Reveal, HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, Calendar, LineChart, Scroll, ShieldCheck } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -15,9 +14,9 @@ const PATHWAY_PLANNING = {
   title: "I'm planning for retirement",
   description: "I want to know if I'm saving enough and when I can afford to stop working.",
   links: [
-    { label: "Retirement Goal Calculator", href: "/retirement-readiness" },
-    { label: "Freedom Rate Calculator", href: "/wealth-building-calculator" },
-    { label: "Wealth Building", href: "/wealth-building-calculator" },
+    { label: "Healthy Retirement Blueprint", href: "/healthy-retirement-blueprint" },
+    { label: "Retirement insights", href: "/insights" },
+    { label: "Speak with an adviser", href: "/contact" },
   ],
 };
 
@@ -33,15 +32,15 @@ const PATHWAY_RETIRED = {
 
 const FUNNEL_ASSESS = [
   {
-    label: "Retirement Reality Calculator",
-    description: "How much capital you may need to fund the income you want.",
-    href: "#reality-calculator",
+    label: "Healthy Retirement Blueprint",
+    description: "A guided assessment of your retirement health gap.",
+    href: "/healthy-retirement-blueprint",
     image: "/images/home-actuarial-engine-16x9.jpg",
   },
   {
-    label: "Life of Capital Calculator",
-    description: "How long your savings may last with inflation and drawdown.",
-    href: "/income-in-retirement",
+    label: "Retirement Survival Blueprint",
+    description: "Stress-test whether your capital may last through retirement.",
+    href: "/retirement-survival-blueprint",
     image: "/images/calculators-capital-lifespan-4x3.jpg",
   },
 ];
@@ -65,7 +64,7 @@ const FUNNEL_UNDERSTAND = [
 ];
 
 const FUNNEL_STEPS = [
-  { step: "1", title: "Assess", subtitle: "Run the numbers with our calculators" },
+  { step: "1", title: "Assess", subtitle: "Start with a guided blueprint or conversation" },
   { step: "2", title: "Understand", subtitle: "Read guides written for South Africans" },
   { step: "3", title: "Engineer", subtitle: "Speak with an independent adviser" },
 ];
@@ -312,26 +311,6 @@ export function RetirementPageView() {
               </div>
             </Home4Reveal>
           </div>
-        </div>
-      </section>
-
-      {/* Retirement Reality calculator */}
-      <section id="reality-calculator" className={`scroll-mt-28 ${SECTION_PY}`} data-chunk-boundary>
-        <div className={HOME4_WRAP}>
-          <Home4Reveal>
-            <div className="mx-auto max-w-4xl">
-              <h2 className="text-center text-2xl font-bold tracking-tight text-shark sm:text-3xl">
-                Retirement Reality Calculator
-              </h2>
-              <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-stone-600 sm:text-base">
-                Estimate the capital that may be required to fund your target retirement income, based
-                on your own assumptions about growth, inflation, and tax.
-              </p>
-              <div className="mt-8 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/80">
-                <RetirementRealityCalculator />
-              </div>
-            </div>
-          </Home4Reveal>
         </div>
       </section>
 

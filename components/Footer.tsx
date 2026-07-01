@@ -17,7 +17,6 @@ const initialNewsletterState: NewsletterActionState = { success: false };
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
   { label: "Solutions", href: "/solutions" },
-  { label: "Calculators", href: "/calculators" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
 ] as const;

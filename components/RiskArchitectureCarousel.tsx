@@ -63,7 +63,7 @@ const ITEMS = [
     title: "Premium Sustainability",
     subtitle: "Tools",
     description: "Model long-term premium paths and compare escalating vs level cover costs.",
-    href: "/premium-increase-calculator",
+    href: "/calculators",
   },
   {
     id: "estate-duty",
@@ -71,7 +71,7 @@ const ITEMS = [
     title: "Estate Duty & Liquidity",
     subtitle: "Fiduciary",
     description: "Stress-test SARS duty, executor fees and liquidity at death - before it matters.",
-    href: "/estate-duty-calculator",
+    href: "/calculators",
   },
 ];
 

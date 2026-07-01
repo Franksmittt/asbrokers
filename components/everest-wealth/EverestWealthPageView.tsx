@@ -14,9 +14,9 @@ const BEFORE_RETIREMENT = {
   focus: "Wealth Building & Compounding",
   description: "Grow your capital aggressively and tax-efficiently while you are still working.",
   links: [
-    { label: "Tax-Free Investments", href: "/wealth-building-calculator" },
-    { label: "Retirement Annuities", href: "/retirement-readiness" },
-    { label: "Wealth Building", href: "/wealth-building-calculator" },
+    { label: "Strategic Growth 14.5%", href: "/everest-strategic-growth-145" },
+    { label: "Retirement planning", href: "/retirement" },
+    { label: "Speak with an adviser", href: "/contact" },
   ],
 };
 
@@ -55,7 +55,7 @@ const EVEREST_PRODUCTS = [
     tag: "Maximum day-one income",
     description:
       "Higher monthly income from day one, with no loyalty bonus. Suited to retirees who need maximum cash flow now.",
-    href: "/immediate-higher-income-calculator",
+    href: "/calculators",
     cta: "Explore Onyx Income+",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -79,21 +79,6 @@ const EVEREST_PRODUCTS = [
       "Five-year term commitment",
       "Illiquid; early exit subject to issuer discretion",
     ],
-  },
-];
-
-const CALCULATOR_ENTRIES = [
-  {
-    label: "Wealth Building Calculator",
-    description: "Model how capital could grow with contributions, tax, and compound returns over time.",
-    href: "/wealth-building-calculator",
-    image: "/images/calculators-inset-1x1.jpg",
-  },
-  {
-    label: "Immediate Higher Income Calculator",
-    description: "Compare higher day-one income options and see what monthly dividends could look like.",
-    href: "/immediate-higher-income-calculator",
-    image: "/images/everest-128-inset-1x1.jpg",
   },
 ];
 
@@ -193,41 +178,6 @@ function ProductCard({
         </ul>
       </div>
     </article>
-  );
-}
-
-function CalculatorEntryCard({
-  label,
-  description,
-  href,
-  image,
-}: (typeof CALCULATOR_ENTRIES)[number]) {
-  return (
-    <Link
-      href={href}
-      prefetch={false}
-      className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-stone-200/80 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl"
-    >
-      <div className="relative h-36 overflow-hidden">
-        <Image
-          src={image}
-          alt={getAlt(image, label)}
-          fill
-          unoptimized
-          className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-shark/55 to-transparent" />
-      </div>
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-bold text-shark">{label}</h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-stone-600">{description}</p>
-        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue group-hover:text-cinematic-teal">
-          Open calculator
-          <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" aria-hidden />
-        </span>
-      </div>
-    </Link>
   );
 }
 
@@ -350,27 +300,6 @@ export function EverestWealthPageView() {
               </div>
             </article>
           </Home4Reveal>
-        </div>
-      </section>
-
-      {/* Calculator funnel */}
-      <section className={SECTION_PY} aria-labelledby="everest-calculators">
-        <div className={HOME4_WRAP}>
-          <Home4Reveal>
-            <h2 id="everest-calculators" className="text-2xl font-bold tracking-tight text-shark sm:text-3xl">
-              See the math for yourself.
-            </h2>
-            <p className="mt-3 max-w-2xl text-stone-600 leading-relaxed">
-              Friendly discovery tools to explore growth and income before you speak to an adviser.
-            </p>
-          </Home4Reveal>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            {CALCULATOR_ENTRIES.map((entry, index) => (
-              <Home4Reveal key={entry.href} delay={index * 0.05}>
-                <CalculatorEntryCard {...entry} />
-              </Home4Reveal>
-            ))}
-          </div>
         </div>
       </section>
 

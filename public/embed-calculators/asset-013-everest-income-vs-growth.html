@@ -1,0 +1,428 @@
+<style>
+#asb-everest-strategy-comparison-calculator {
+max-width: 860px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+#asb-everest-strategy-comparison-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+#asb-everest-strategy-comparison-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+.asb-table-wrap {
+overflow-x: auto;
+margin-top: 16px;
+}
+.asb-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 14px;
+}
+.asb-table th,
+.asb-table td {
+padding: 12px;
+border-bottom: 1px solid #e5e7eb;
+text-align: left;
+vertical-align: top;
+}
+.asb-table th {
+background: #f9fafb;
+color: #111827;
+font-weight: 800;
+}
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+.asb-value {
+font-size: 24px;
+}
+}
+</style>
+
+<div id="asb-everest-strategy-comparison-calculator">
+
+<h2>AS Brokers Everest Income vs Growth Comparison Calculator</h2>
+<p class="intro">
+Compare three Everest-style strategies side by side: 12.8% income with a five-year loyalty bonus,
+14.2% higher income from day one, and 14.5% accumulated growth paid at maturity.
+</p>
+<div class="asb-grid">
+<div class="asb-field">
+<label>Investment amount</label>
+<input id="evInvestmentAmount" type="number" value="1000000">
+</div>
+<div class="asb-field">
+<label>Dividends tax (%)</label>
+<input id="evDividendTax" type="number" step="0.1" value="20">
+</div>
+<div class="asb-field">
+<label>Comparison period (years)</label>
+<input id="evYears" type="number" value="5">
+</div>
+<div class="asb-field">
+<label>12.8% income option (%)</label>
+<input id="evRate128" type="number" step="0.1" value="12.8">
+</div>
+<div class="asb-field">
+<label>12.8% loyalty bonus after 5 years (%)</label>
+<input id="evBonus128" type="number" step="0.1" value="10">
+</div>
+<div class="asb-field">
+<label>14.2% income option (%)</label>
+<input id="evRate142" type="number" step="0.1" value="14.2">
+</div>
+<div class="asb-field">
+<label>14.5% growth option (%)</label>
+<input id="evRate145" type="number" step="0.1" value="14.5">
+</div>
+</div>
+<button class="asb-button" onclick="calculateEverestStrategyComparison()">Compare the three strategies</button>
+<div id="evError" class="asb-error"></div>
+<div id="evResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Highest monthly income</div>
+<div id="evMonthlyWinner" class="asb-value"></div>
+<div id="evMonthlyWinnerText" class="asb-small"></div>
+</div>
+<div class="asb-result-box main">
+<div class="asb-label">Highest total five-year outcome</div>
+<div id="evTotalWinner" class="asb-value"></div>
+<div id="evTotalWinnerText" class="asb-small"></div>
+</div>
+<div class="asb-table-wrap">
+<table class="asb-table">
+<thead>
+<tr>
+<th>Metric</th>
+<th>12.8% Income + Bonus</th>
+<th>14.2% Income</th>
+<th>14.5% Growth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gross annual return</td>
+<td id="evGrossRate128"></td>
+<td id="evGrossRate142"></td>
+<td id="evGrossRate145"></td>
+</tr>
+<tr>
+<td>Net monthly income</td>
+<td id="evMonthly128"></td>
+<td id="evMonthly142"></td>
+<td id="evMonthly145"></td>
+</tr>
+<tr>
+<td>Net annual income</td>
+<td id="evAnnual128"></td>
+<td id="evAnnual142"></td>
+<td id="evAnnual145"></td>
+</tr>
+<tr>
+<td>Total net income paid over period</td>
+<td id="evIncomePaid128"></td>
+<td id="evIncomePaid142"></td>
+<td id="evIncomePaid145"></td>
+</tr>
+<tr>
+<td>Net bonus / net accumulated growth</td>
+<td id="evBonusNet128"></td>
+<td>R 0</td>
+<td id="evGrowthNet145"></td>
+</tr>
+<tr>
+<td>Projected capital / maturity value</td>
+<td id="evCapital128"></td>
+<td id="evCapital142"></td>
+<td id="evCapital145"></td>
+</tr>
+<tr>
+<td>Total five-year outcome including capital</td>
+<td id="evTotal128"></td>
+<td id="evTotal142"></td>
+<td id="evTotal145"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Decision explanation</div>
+<div id="evSummaryText" class="asb-small"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Strategic interpretation</div>
+<div class="asb-small">
+<strong>12.8% income + bonus:</strong> lower monthly income, but stronger five-year income outcome because of the loyalty bonus.<br><br>
+<strong>14.2% income:</strong> strongest income from day one, but no loyalty bonus.<br><br>
+<strong>14.5% growth:</strong> no monthly income, but strongest maturity value if the investor can leave the capital untouched.
+</div>
+</div>
+</div>
+<div class="asb-cta">
+<h3>Important note</h3>
+<p>
+This calculator compares income and growth strategies for educational purposes only.
+It does not constitute advice, a quote, a recommendation, a guarantee, or an offer to invest.
+</p>
+<h3>Liquidity warning</h3>
+<p>
+Unlisted preference share investments may be illiquid. Withdrawals may be restricted, subject to notice periods,
+issuer discretion, penalties, product terms and market conditions.
+</p>
+<h3>Next step</h3>
+<p>
+The correct option depends on whether the investor needs income now, wants higher total income over five years,
+or wants to maximise capital growth at maturity.
+</p>
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+<script>
+function evFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+function evGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+function calculateEverestStrategyComparison() {
+const investmentAmount = evGetNumber("evInvestmentAmount");
+const dividendTaxRate = evGetNumber("evDividendTax") / 100;
+const years = evGetNumber("evYears");
+const rate128 = evGetNumber("evRate128") / 100;
+const bonus128 = evGetNumber("evBonus128") / 100;
+const rate142 = evGetNumber("evRate142") / 100;
+const rate145 = evGetNumber("evRate145") / 100;
+const errorBox = document.getElementById("evError");
+const resultsBox = document.getElementById("evResults");
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+if (
+isNaN(investmentAmount) ||
+isNaN(dividendTaxRate) ||
+isNaN(years) ||
+isNaN(rate128) ||
+isNaN(bonus128) ||
+isNaN(rate142) ||
+isNaN(rate145)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+if (investmentAmount < 100000) {
+errorBox.innerText = "Minimum investment amount is R100,000."
+errorBox.style.display = "block"
+return;
+}
+if (
+dividendTaxRate < 0 ||
+dividendTaxRate >= 1 ||
+years <= 0 ||
+rate128 < 0 ||
+bonus128 < 0 ||
+rate142 < 0 ||
+rate145 < 0
+) {
+errorBox.innerText = "Please check the tax, return and term assumptions."
+errorBox.style.display = "block"
+return;
+}
+/* 12.8% income option */
+const grossAnnual128 = investmentAmount * rate128;
+const taxAnnual128 = grossAnnual128 * dividendTaxRate;
+const netAnnual128 = grossAnnual128 - taxAnnual128;
+const netMonthly128 = netAnnual128 / 12;
+const totalIncome128 = netAnnual128 * years;
+const grossBonus128 = years >= 5 ? investmentAmount * bonus128 : 0;
+const bonusTax128 = grossBonus128 * dividendTaxRate;
+const netBonus128 = grossBonus128 - bonusTax128;
+const capital128 = investmentAmount;
+const totalOutcome128 = capital128 + totalIncome128 + netBonus128;
+/* 14.2% income option */
+const grossAnnual142 = investmentAmount * rate142;
+const taxAnnual142 = grossAnnual142 * dividendTaxRate;
+const netAnnual142 = grossAnnual142 - taxAnnual142;
+const netMonthly142 = netAnnual142 / 12;
+const totalIncome142 = netAnnual142 * years;
+const capital142 = investmentAmount;
+const totalOutcome142 = capital142 + totalIncome142;
+/* 14.5% growth option */
+const grossValue145 = investmentAmount * Math.pow(1 + rate145, years);
+const grossGrowth145 = grossValue145 - investmentAmount;
+const taxGrowth145 = grossGrowth145 * dividendTaxRate;
+const netGrowth145 = grossGrowth145 - taxGrowth145;
+const maturityValue145 = investmentAmount + netGrowth145;
+const netMonthly145 = 0;
+const netAnnual145 = 0;
+const totalIncome145 = 0;
+const totalOutcome145 = maturityValue145;
+/* Winners */
+const monthlyOptions = [
+{ name: "12.8% Income + Bonus", value: netMonthly128 },
+{ name: "14.2% Income", value: netMonthly142 },
+{ name: "14.5% Growth", value: netMonthly145 }
+];
+const totalOptions = [
+{ name: "12.8% Income + Bonus", value: totalOutcome128 },
+{ name: "14.2% Income", value: totalOutcome142 },
+{ name: "14.5% Growth", value: totalOutcome145 }
+];
+monthlyOptions.sort((a, b) => b.value - a.value);
+totalOptions.sort((a, b) => b.value - a.value);
+const monthlyWinner = monthlyOptions[0];
+const totalWinner = totalOptions[0];
+document.getElementById("evMonthlyWinner").innerText = monthlyWinner.name;
+document.getElementById("evMonthlyWinnerText").innerText =
+monthlyWinner.name + " provides the highest monthly income at approximately " +
+evFormatRand(monthlyWinner.value) + " per month."
+document.getElementById("evTotalWinner").innerText = totalWinner.name;
+document.getElementById("evTotalWinnerText").innerText =
+totalWinner.name + " produces the highest projected total outcome over " +
+years + " years at approximately " + evFormatRand(totalWinner.value) +
+", including capital where applicable."
+/* Fill table */
+document.getElementById("evGrossRate128").innerText = (rate128 * 100).toFixed(1) + "%"
+document.getElementById("evGrossRate142").innerText = (rate142 * 100).toFixed(1) + "%"
+document.getElementById("evGrossRate145").innerText = (rate145 * 100).toFixed(1) + "% accumulated"
+document.getElementById("evMonthly128").innerText = evFormatRand(netMonthly128);
+document.getElementById("evMonthly142").innerText = evFormatRand(netMonthly142);
+document.getElementById("evMonthly145").innerText = "R 0"
+document.getElementById("evAnnual128").innerText = evFormatRand(netAnnual128);
+document.getElementById("evAnnual142").innerText = evFormatRand(netAnnual142);
+document.getElementById("evAnnual145").innerText = "R 0"
+document.getElementById("evIncomePaid128").innerText = evFormatRand(totalIncome128);
+document.getElementById("evIncomePaid142").innerText = evFormatRand(totalIncome142);
+document.getElementById("evIncomePaid145").innerText = "R 0"
+document.getElementById("evBonusNet128").innerText = evFormatRand(netBonus128);
+document.getElementById("evGrowthNet145").innerText = evFormatRand(netGrowth145);
+document.getElementById("evCapital128").innerText = evFormatRand(capital128);
+document.getElementById("evCapital142").innerText = evFormatRand(capital142);
+document.getElementById("evCapital145").innerText = evFormatRand(maturityValue145);
+document.getElementById("evTotal128").innerText = evFormatRand(totalOutcome128);
+document.getElementById("evTotal142").innerText = evFormatRand(totalOutcome142);
+document.getElementById("evTotal145").innerText = evFormatRand(totalOutcome145);
+document.getElementById("evSummaryText").innerText =
+"If the investor needs monthly income, the 14.2% income option produces the highest income from day one. " +
+"If the investor wants income but is willing to accept lower monthly cash flow in exchange for a five-year bonus, " +
+"the 12.8% option may produce a stronger total income result over five years. " +
+"If the investor does not need income and wants to maximise the projected maturity value, the 14.5% growth option is designed for capital accumulation. " +
+"The correct strategy depends on income need, time horizon, liquidity requirement, tax position, product risk and suitability."
+resultsBox.style.display = "block"
+}
+</script>
+</div>

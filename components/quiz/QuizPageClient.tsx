@@ -307,7 +307,7 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
       return [
         { label: "Business Life & Key Person", href: "/solutions/business-life" },
         { label: "Business Insurance", href: "/solutions/business-insurance" },
-        { label: "All calculators", href: "/calculators" },
+        { label: "Insights", href: "/insights" },
       ];
     if (concern === "Retirement Shortfall")
       return [
@@ -317,17 +317,17 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
       ];
     if (concern === "Estate Taxes")
       return [
-        { label: "Estate Duty Calculator", href: "/estate-duty-calculator" },
+        { label: "Planning tools", href: "/calculators" },
         { label: "Annual Estate Reduction Strategy", href: "/annual-estate-reduction-strategy" },
       ];
     if (concern === "Low Investment Yields")
       return [
         { label: "Everest Wealth", href: "/everest-wealth" },
         { label: "12.8% Strategic Income", href: "/everest-128-product" },
-        { label: "Calculators", href: "/calculators" },
+        { label: "Retirement planning", href: "/retirement" },
       ];
     return [
-      { label: "Calculator Hub", href: "/calculators" },
+      { label: "Insights", href: "/insights" },
       { label: "Everest Wealth", href: "/everest-wealth" },
       { label: "Contact us", href: "/contact" },
     ];
@@ -384,11 +384,11 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
           Get a personalised plan
         </Link>
         <Link
-          href="/calculators"
+          href="/insights"
           prefetch={false}
           className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3 rounded-full text-sm hover:bg-white/10"
         >
-          View all calculators
+          Read insights
         </Link>
       </div>
     </>

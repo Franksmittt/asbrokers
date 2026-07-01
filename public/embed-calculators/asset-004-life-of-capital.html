@@ -1,0 +1,474 @@
+<div id="asb-life-of-capital-calculator">
+<style>
+#asb-life-of-capital-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-life-of-capital-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-life-of-capital-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>Life of Capital Calculator</h2>
+
+
+<p class="intro">
+Enter your numbers to see how long your retirement savings may last.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="lifeCurrentAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Capital amount</label>
+<input id="lifeCapital" type="number" value="5000000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly income needed — net after tax</label>
+<input id="lifeMonthlyIncome" type="number" value="35000">
+</div>
+
+
+<div class="asb-field">
+<label>Expected investment return (% p.a.)</label>
+<input id="lifeReturnRate" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Estimated tax on income (%)</label>
+<input id="lifeTaxRate" type="number" step="0.1" value="25">
+</div>
+
+
+<div class="asb-field">
+<label>Inflation / income escalation (% p.a.)</label>
+<input id="lifeInflationRate" type="number" step="0.1" value="7">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateLifeOfCapital()">Calculate how long it may last</button>
+
+
+<div id="lifeError" class="asb-error"></div>
+
+
+<div id="lifeResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Estimated capital lifespan</div>
+<div id="lifeCapitalLifespan" class="asb-value"></div>
+<div class="asb-small">Estimated time before the capital may be depleted.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated depletion age</div>
+<div id="lifeDepletionAge" class="asb-value"></div>
+<div class="asb-small">Approximate age at which the capital may run out.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Starting gross monthly withdrawal</div>
+<div id="lifeGrossWithdrawal" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Starting net monthly income</div>
+<div id="lifeNetIncome" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Your starting withdrawal rate</div>
+<div id="lifeWithdrawalRate" class="asb-value"></div>
+<div id="lifeWithdrawalRiskText" class="asb-small"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Withdrawal risk guide</div>
+<div class="asb-small">
+Below 5% may be more conservative. 5% to 7% needs regular review. Above 7% may indicate higher capital depletion risk.
+</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="lifeSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand how long retirement capital may last under selected income,
+tax, inflation and investment return assumptions. It is an educational planning tool and does not constitute
+financial, tax or investment advice. Actual outcomes will depend on market returns, fees, tax, inflation,
+income changes and your personal circumstances.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how drawdown rates,
+inflation and investment returns work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function lifeFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function lifeGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateLifeOfCapital() {
+const currentAge = lifeGetNumber("lifeCurrentAge");
+const capital = lifeGetNumber("lifeCapital");
+const monthlyIncomeNet = lifeGetNumber("lifeMonthlyIncome");
+const returnRate = lifeGetNumber("lifeReturnRate") / 100;
+const taxRate = lifeGetNumber("lifeTaxRate") / 100;
+const inflationRate = lifeGetNumber("lifeInflationRate") / 100;
+
+
+const errorBox = document.getElementById("lifeError");
+const resultsBox = document.getElementById("lifeResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(capital) ||
+isNaN(monthlyIncomeNet) ||
+isNaN(returnRate) ||
+isNaN(taxRate) ||
+isNaN(inflationRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (capital <= 0) {
+errorBox.innerText = "Capital amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (monthlyIncomeNet <= 0) {
+errorBox.innerText = "Monthly income must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (taxRate < 0 || taxRate >= 1) {
+errorBox.innerText = "Tax rate must be between 0% and 99%."
+errorBox.style.display = "block"
+return;
+}
+
+
+const monthlyReturn = Math.pow(1 + returnRate, 1 / 12) - 1;
+const startingGrossWithdrawal = monthlyIncomeNet / (1 - taxRate);
+const firstYearWithdrawalRate = (startingGrossWithdrawal * 12) / capital;
+
+
+let withdrawalRiskText = ""
+
+
+if (firstYearWithdrawalRate < 0.05) {
+withdrawalRiskText = "Assessment: This starting withdrawal rate may be relatively conservative, depending on inflation, fees, tax and investment returns."
+} else if (firstYearWithdrawalRate <= 0.07) {
+withdrawalRiskText = "Assessment: This starting withdrawal rate needs regular review. Sustainability will depend heavily on investment returns, inflation and future income increases."
+} else {
+withdrawalRiskText = "Assessment: This is a high starting withdrawal rate and may increase the risk of running out of capital."
+}
+
+
+let balance = capital;
+let monthsLasted = 0;
+const maxMonths = 100 * 12;
+
+
+for (let month = 1; month <= maxMonths; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const netIncomeThisMonth = monthlyIncomeNet * Math.pow(1 + inflationRate, yearIndex);
+const grossWithdrawalThisMonth = netIncomeThisMonth / (1 - taxRate);
+
+
+balance = balance * (1 + monthlyReturn);
+balance -= grossWithdrawalThisMonth;
+
+
+monthsLasted = month;
+
+
+if (balance <= 0) {
+break;
+}
+}
+
+
+let lifespanText = ""
+let depletionAgeText = ""
+let summaryLifespanText = ""
+
+
+if (balance > 0) {
+lifespanText = "Beyond 100 years"
+depletionAgeText = "Beyond age " + (currentAge + 100);
+summaryLifespanText = "Based on these assumptions, your capital may last beyond the 100-year projection period."
+} else {
+const yearsLasted = Math.floor(monthsLasted / 12);
+const extraMonths = monthsLasted % 12;
+const depletionAgeYears = currentAge + yearsLasted;
+
+
+lifespanText = yearsLasted + " years"
+
+
+if (extraMonths > 0) {
+lifespanText += " and " + extraMonths + " months"
+}
+
+
+depletionAgeText = "About age " + depletionAgeYears;
+
+
+if (extraMonths > 0) {
+depletionAgeText += " and " + extraMonths + " months"
+}
+
+
+summaryLifespanText =
+"Based on these assumptions, your capital may last for approximately " +
+yearsLasted + " years"
+
+
+if (extraMonths > 0) {
+summaryLifespanText += " and " + extraMonths + " months"
+}
+
+
+summaryLifespanText += "."
+}
+
+
+document.getElementById("lifeCapitalLifespan").innerText = lifespanText;
+document.getElementById("lifeDepletionAge").innerText = depletionAgeText;
+document.getElementById("lifeGrossWithdrawal").innerText = lifeFormatRand(startingGrossWithdrawal);
+document.getElementById("lifeNetIncome").innerText = lifeFormatRand(monthlyIncomeNet);
+document.getElementById("lifeWithdrawalRate").innerText = (firstYearWithdrawalRate * 100).toFixed(2) + "%"
+document.getElementById("lifeWithdrawalRiskText").innerText = withdrawalRiskText;
+
+
+document.getElementById("lifeSummaryText").innerText =
+"With retirement capital of " + lifeFormatRand(capital) +
+" and a required net income of " + lifeFormatRand(monthlyIncomeNet) +
+" per month, the starting gross withdrawal required is approximately " +
+lifeFormatRand(startingGrossWithdrawal) +
+" per month after allowing for an estimated tax rate of " +
+(taxRate * 100).toFixed(1) +
+"%. This creates a starting withdrawal rate of " +
+(firstYearWithdrawalRate * 100).toFixed(2) +
+"%. If your capital grows by " +
+(returnRate * 100).toFixed(1) +
+"% per year and your income need increases by " +
+(inflationRate * 100).toFixed(1) +
+"% per year, " + summaryLifespanText + " " + withdrawalRiskText;
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

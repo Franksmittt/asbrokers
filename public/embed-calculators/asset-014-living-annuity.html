@@ -1,0 +1,343 @@
+<style>
+#asb-everest-living-annuity-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+#asb-everest-living-annuity-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+#asb-everest-living-annuity-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+.asb-field input,
+.asb-field select {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+<div id="asb-everest-living-annuity-calculator">
+
+<h2>AS Brokers Living Annuity Income Calculator</h2>
+<p class="intro">
+Estimate the monthly income, reinvested surplus and five-year inflation protection value from a living annuity using a targeted 12.80% annual return assumption.
+</p>
+<div class="asb-grid">
+<div class="asb-field">
+<label>Living annuity capital</label>
+<input id="everestLaCapital" type="number" value="2000000">
+</div>
+<div class="asb-field">
+<label>Annual drawdown rate (%)</label>
+<select id="everestLaDrawdown">
+<option value="2.5">2.5%</option>
+<option value="3">3%</option>
+<option value="4">4%</option>
+<option value="5">5%</option>
+<option value="6">6%</option>
+<option value="7">7%</option>
+<option value="8">8%</option>
+<option value="9" selected>9%</option>
+<option value="10">10%</option>
+<option value="11">11%</option>
+<option value="12">12%</option>
+<option value="13">13%</option>
+<option value="14">14%</option>
+<option value="15">15%</option>
+<option value="16">16%</option>
+<option value="17">17%</option>
+<option value="17.5">17.5%</option>
+</select>
+</div>
+<div class="asb-field">
+<label>Targeted annual return (%)</label>
+<input id="everestLaReturn" type="number" step="0.01" value="12.8">
+</div>
+<div class="asb-field">
+<label>Inflation protection dividend (%)</label>
+<input id="everestLaInflationDividend" type="number" step="0.1" value="9">
+</div>
+</div>
+<button class="asb-button" onclick="calculateEverestLivingAnnuity()">Calculate living annuity income</button>
+<div id="everestLaError" class="asb-error"></div>
+<div id="everestLaResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Gross monthly income</div>
+<div id="everestLaMonthlyIncome" class="asb-value"></div>
+<div class="asb-small">Estimated monthly living annuity income before personal income tax.</div>
+</div>
+<div class="asb-result-box main">
+<div class="asb-label">Annual income drawn</div>
+<div id="everestLaAnnualIncome" class="asb-value"></div>
+<div class="asb-small">The annual rand income selected from your living annuity capital.</div>
+</div>
+<div class="asb-result-box main">
+<div class="asb-label">Estimated annual surplus return</div>
+<div id="everestLaSurplus" class="asb-value"></div>
+<div class="asb-small">Targeted return remaining after the selected drawdown, before fees and product rules.</div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Targeted annual return amount</div>
+<div id="everestLaAnnualReturnAmount" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Targeted monthly return amount</div>
+<div id="everestLaMonthlyReturnAmount" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Surplus return percentage</div>
+<div id="everestLaSurplusPercent" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Five-year inflation protection dividend</div>
+<div id="everestLaInflationDividendAmount" class="asb-value"></div>
+<div class="asb-small">Illustrative special dividend based on original capital.</div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Five-year income drawn</div>
+<div id="everestLaFiveYearIncome" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Five-year income plus inflation protection</div>
+<div id="everestLaFiveYearTotal" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="everestLaSummaryText" class="asb-small"></div>
+</div>
+</div>
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator illustrates how a living annuity income may look when compared with a targeted annual return. The selected drawdown determines the income paid to you. Any return above the drawdown may help preserve or grow capital, but this depends on product rules, fees, tax, investment performance and annual review terms.
+</p>
+<h3>Important living annuity note</h3>
+<p>
+A living annuity does not guarantee that your capital will last for life. Drawdown rates are normally selected between 2.5% and 17.5% per year. A higher drawdown creates higher income now but increases long-term sustainability risk.
+</p>
+<h3>Product and compliance note</h3>
+<p>
+This is an educational illustration only. It is not a quote, guarantee, recommendation or offer to invest. The product provider, investment terms, liquidity rules, return assumptions, fees, tax treatment and suitability must be confirmed before advice or implementation.
+</p>
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+<script>
+function everestLaFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+function everestLaGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+function calculateEverestLivingAnnuity() {
+const capital = everestLaGetNumber("everestLaCapital");
+const drawdownRate = everestLaGetNumber("everestLaDrawdown") / 100;
+const returnRate = everestLaGetNumber("everestLaReturn") / 100;
+const inflationDividendRate = everestLaGetNumber("everestLaInflationDividend") / 100;
+const errorBox = document.getElementById("everestLaError");
+const resultsBox = document.getElementById("everestLaResults");
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+if (
+isNaN(capital) ||
+isNaN(drawdownRate) ||
+isNaN(returnRate) ||
+isNaN(inflationDividendRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+if (capital <= 0) {
+errorBox.innerText = "Living annuity capital must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+if (drawdownRate < 0.025 || drawdownRate > 0.175) {
+errorBox.innerText = "Living annuity drawdown must be between 2.5% and 17.5%."
+errorBox.style.display = "block"
+return;
+}
+if (returnRate < 0) {
+errorBox.innerText = "Targeted annual return cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+if (inflationDividendRate < 0) {
+errorBox.innerText = "Inflation protection dividend cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+const annualIncome = capital * drawdownRate;
+const monthlyIncome = annualIncome / 12;
+const annualReturnAmount = capital * returnRate;
+const monthlyReturnAmount = annualReturnAmount / 12;
+const annualSurplus = annualReturnAmount - annualIncome;
+const surplusPercent = returnRate - drawdownRate;
+const inflationDividendAmount = capital * inflationDividendRate;
+const fiveYearIncome = annualIncome * 5;
+const fiveYearTotal = fiveYearIncome + inflationDividendAmount;
+document.getElementById("everestLaMonthlyIncome").innerText =
+everestLaFormatRand(monthlyIncome);
+document.getElementById("everestLaAnnualIncome").innerText =
+everestLaFormatRand(annualIncome);
+document.getElementById("everestLaSurplus").innerText =
+everestLaFormatRand(annualSurplus);
+document.getElementById("everestLaAnnualReturnAmount").innerText =
+everestLaFormatRand(annualReturnAmount);
+document.getElementById("everestLaMonthlyReturnAmount").innerText =
+everestLaFormatRand(monthlyReturnAmount);
+document.getElementById("everestLaSurplusPercent").innerText =
+(surplusPercent * 100).toFixed(2) + "%"
+document.getElementById("everestLaInflationDividendAmount").innerText =
+everestLaFormatRand(inflationDividendAmount);
+document.getElementById("everestLaFiveYearIncome").innerText =
+everestLaFormatRand(fiveYearIncome);
+document.getElementById("everestLaFiveYearTotal").innerText =
+everestLaFormatRand(fiveYearTotal);
+let surplusMessage = ""
+if (annualSurplus > 0) {
+surplusMessage =
+"The targeted annual return is higher than the selected drawdown, leaving an illustrative surplus of " +
+everestLaFormatRand(annualSurplus) +
+" per year before fees, tax, product rules and annual review conditions."
+} else if (annualSurplus === 0) {
+surplusMessage =
+"The selected drawdown is equal to the targeted annual return. This leaves no illustrative surplus before fees, tax, product rules and annual review conditions."
+} else {
+surplusMessage =
+"The selected drawdown is higher than the targeted annual return. This creates an illustrative shortfall of " +
+everestLaFormatRand(Math.abs(annualSurplus)) +
+" per year before fees, tax, product rules and annual review conditions."
+}
+document.getElementById("everestLaSummaryText").innerText =
+"Based on living annuity capital of " + everestLaFormatRand(capital) +
+", a selected drawdown rate of " + (drawdownRate * 100).toFixed(1) +
+"% produces estimated gross income of " + everestLaFormatRand(monthlyIncome) +
+" per month, or " + everestLaFormatRand(annualIncome) +
+" per year. At a targeted annual return of " + (returnRate * 100).toFixed(2) +
+"%, the illustrative annual return amount is " + everestLaFormatRand(annualReturnAmount) +
+". " + surplusMessage +
+" The illustrative five-year inflation protection dividend is " +
+everestLaFormatRand(inflationDividendAmount) +
+", based on " + (inflationDividendRate * 100).toFixed(1) +
+"% of original capital. This calculator does not calculate personal income tax and does not confirm suitability."
+resultsBox.style.display = "block"
+}
+</script>
+</div>

@@ -19,6 +19,7 @@ const STATIC_PATHS = [
   "/everest-wealth",
   "/everest-wealth/about",
   "/how-we-work",
+  "/insurance",
   "/insights",
   "/insights/semigration-retirement",
   "/lab",

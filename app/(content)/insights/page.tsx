@@ -1,45 +1,42 @@
-import Link from "next/link";
-import { WarmHero, WarmPageWithFooter, WarmSection } from "@/components/warm/WarmShell";
+import { InsightsHubPageView } from "@/components/insights/InsightsHubPageView";
+import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getInsightFeed } from "@/lib/insights/feed";
-import { InsightsFeedFilter } from "@/components/insights/InsightsFeedFilter";
-import { getPrimaryPageImage } from "@/lib/primary-page-images";
 import { buildPageMetadata } from "@/lib/seo-metadata";
+
+const PAGE_TITLE = "Financial Education & Fiduciary Insights | AS Brokers";
+const PAGE_DESCRIPTION =
+  "Articles and guides on retirement planning, estate duty, Everest Wealth, semigration, and financial planning for South Africans. Educational content from FSP 17273.";
+
+const insightsFAQs = [
+  {
+    question: "Are these articles personalised financial advice?",
+    answer:
+      "No. Insights and guides on this page are educational only. For advice tailored to your circumstances, book a consultation with a qualified AS Brokers adviser (FSP 17273).",
+  },
+  {
+    question: "How often is new content published?",
+    answer:
+      "We add articles on retirement, investments, insurance, and estate planning as market conditions and client questions evolve. Subscribe to the newsletter for occasional updates.",
+  },
+];
 
 export const metadata = buildPageMetadata({
   path: "/insights",
-  title: "Insights & Resources",
-  description:
-    "Articles and guides on retirement planning, estate duty, Everest Wealth, semigration, and financial planning for South Africans. Educational content from FSP 17273.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 export default async function InsightsPage() {
   const articles = await getInsightFeed();
-  const heroImage = getPrimaryPageImage("/insights") ?? "/images/insights-inset-1x1.jpg";
 
   return (
-    <WarmPageWithFooter>
-      <WarmHero
-        kicker="Resources"
-        title="Insights & Education"
-        description="Articles, guides, and tools to help you make informed decisions about retirement, estate planning, and wealth."
-        imageSrc={heroImage}
-        maxWidth="4xl"
-      >
-        <p className="mt-4 text-sm text-white/80">
-          Featured:{" "}
-          <Link
-            href="/insights/semigration-retirement"
-            prefetch={false}
-            className="font-medium text-cinematic-teal hover:underline"
-          >
-            Semigration & retirement villages
-          </Link>
-        </p>
-      </WarmHero>
-
-      <WarmSection className="pb-24">
-        <InsightsFeedFilter articles={articles} />
-      </WarmSection>
-    </WarmPageWithFooter>
+    <>
+      <PageJsonLd
+        path="/insights"
+        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        faqs={insightsFAQs}
+      />
+      <InsightsHubPageView articles={articles} />
+    </>
   );
 }

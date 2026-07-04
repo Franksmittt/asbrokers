@@ -1,0 +1,160 @@
+AS Brokers Calculator Library — ASSET 001–017
+================================================
+Version: June 2026 rebuild (static HTML embeds)
+Staff label format: ASSET 00X — [Public title]
+Embed path: /embed-calculators/asset-XXX-*.html
+Registry: lib/calculators/registry.ts
+
+Categories (8)
+----------------
+1. Retirement planning     — Pre- and at-retirement capital, contributions, longevity
+2. Inflation & tax         — Purchasing power and SARS personal tax
+3. Estate                  — Duty, executor costs, donation strategies
+4. Everest single product  — Individual Everest Wealth voluntary / annuity illustrations
+5. Everest 12.8 vs 14.2    — Direct income product comparison
+6. Everest comparison      — Multi-strategy (income vs growth) comparison
+7. Living annuity          — Drawdown and living annuity income modelling
+8. Insurance               — Short-term / personal insurance mechanics
+9. Wealth building         — General growth, goals, and compound illustrations
+
+Where calculators live on the site
+------------------------------------
+- Blog Studio (Step 3): All 17 — staff pick from dropdown (ASSET code visible)
+- CRM calculator review (/crm/calculators): All 17 — internal curation grid
+- Team office calculator sessions: All 17 — live client sessions
+- Public /calculators hub: Maintenance placeholder (hub not yet re-enabled)
+- Marketing page links: Retirement hub, solutions, insights embeds as published
+
+Suggested page / funnel fit
+-----------------------------
+Retirement hub (/retirement)     → 001, 002, 004, 017 (planning path); 004, 014 (retired path)
+Everest Wealth (/everest-wealth) → 009, 010, 011, 012, 013, 014
+Estate planning (solutions)      → 007, 008
+Life / personal insurance        → 015, 003 (premium)
+Insights / blog articles         → Any, matched to article topic
+Contact / adviser follow-up      → Output from any calculator as conversation starter
+
+
+THE 17 CALCULATORS
+==================
+
+ASSET 001 — AS Brokers Retirement Growth Calculator
+Category: Retirement planning
+What it does: Estimates the growth rate required to reach a retirement capital target from current savings, contributions, and time horizon.
+Best for: Clients still working who ask “Am I on track?” or “What return do I need?”
+Site fit: /retirement (planning pathway), retirement insights, pre-retirement blog posts.
+
+ASSET 002 — AS Brokers Retirement Reality Check Calculator
+Category: Retirement planning
+What it does: Compares desired retirement income against projected capital to show a funding gap or surplus (reality check, not a product quote).
+Best for: “Will I have enough?” — the core worry funnel on /retirement.
+Site fit: /retirement (assessment step), retirement readiness content, semigration articles.
+
+ASSET 003 — AS Brokers Retirement Premium Calculator
+Category: Retirement planning
+What it does: Illustrates retirement-funding premiums or contribution levels needed to close a capital shortfall over time.
+Best for: Clients who know their gap and want a monthly funding number.
+Site fit: Life insurance / risk solutions, adviser sessions after reality check.
+
+ASSET 004 — AS Brokers Life of Capital Calculator
+Category: Retirement planning
+What it does: Models how long retirement capital may last given drawdown rate, inflation, and growth assumptions.
+Best for: Already-retired clients worried about running out of money.
+Site fit: /retirement (retired pathway + worry funnel), income-in-retirement topics, Amethyst follow-up.
+
+ASSET 005 — AS Brokers Future Value Calculator
+Category: Inflation & tax
+What it does: Shows how inflation erodes purchasing power of a lump sum or cost over time (future cost of today’s money).
+Best for: Education on inflation before investment or retirement conversations.
+Site fit: General insights, wealth education articles, cost-of-living topics.
+
+ASSET 006 — AS Brokers Income Tax Calculator
+Category: Inflation & tax
+What it does: Estimates South African personal income tax, PAYE, and net pay using SARS bracket logic (2026/27 tables in source).
+Best for: Tax-aware retirement income planning and take-home pay clarity.
+Site fit: Tax / retirement articles, Amethyst drawdown discussions, adviser prep.
+
+ASSET 007 — AS Brokers Estate Duty & Executor Fee Calculator
+Category: Estate
+What it does: Estimates estate duty (after abatement), executor fees, and total cash the estate may need at death.
+Best for: Estate planning introductions and liquidity conversations.
+Site fit: /solutions/estate-planning, legacy content, high-net-worth estate articles.
+
+ASSET 008 — AS Brokers Estate Reduction Strategy Calculator
+Category: Estate
+What it does: Illustrates how annual donations and structured giving may reduce estate duty over time (R100k/R200k allowances).
+Best for: Proactive estate reduction and trust/donation planning discussions.
+Site fit: Estate planning solutions, annual donation strategy articles.
+
+ASSET 009 — AS Brokers 14.2% Income Calculator
+Category: Everest single product
+What it does: Illustrates net monthly and annual income from the Everest 14.2% Onyx-style income profile after dividends tax.
+Best for: Clients who want higher income from day one without a five-year bonus wait.
+Site fit: /everest-wealth, 14.2% product pages, income-focused blog posts.
+
+ASSET 010 — AS Brokers 12.8% Income Calculator
+Category: Everest single product
+What it does: Illustrates 12.8% Strategic Income returns including the 10% loyalty bonus at year five, with tax on income and bonus.
+Best for: Clients open to lower initial income in exchange for the five-year bonus structure.
+Site fit: /everest-wealth, 12.8% product content, comparison articles.
+
+ASSET 011 — AS Brokers 12.8% vs 14.2% Income Comparison Calculator
+Category: Everest 12.8 vs 14.2
+What it does: Side-by-side comparison of 12.8% (with bonus) vs 14.2% income over a five-year horizon on the same capital.
+Best for: “Which income product suits me?” — narrow product choice.
+Site fit: Everest Wealth hub, product comparison insights.
+
+ASSET 012 — AS Brokers Strategic Growth Portfolio Calculator
+Category: Everest single product
+What it does: Projects five-year maturity value for the 14.5% Strategic Growth profile (compound growth, tax on accumulated growth).
+Best for: Clients who do not need income and want capital accumulation at maturity.
+Site fit: /everest-strategic-growth-145, growth-oriented Everest content.
+
+ASSET 013 — AS Brokers Everest Income vs Growth Comparison Calculator
+Category: Everest comparison
+What it does: Compares three Everest-style strategies: 12.8% income (+ bonus), 14.2% income, and 14.5% growth maturity — monthly income and total outcome.
+Best for: Full strategy selection (income need vs growth vs bonus trade-offs).
+Site fit: /everest-wealth main funnel, adviser-led product education.
+
+ASSET 014 — AS Brokers Living Annuity Income Calculator
+Category: Living annuity
+What it does: Estimates living annuity drawdown income, surplus return, and illustrative five-year inflation protection dividend (Amethyst-style assumptions).
+Best for: Retirees with pension / RA / preservation capital considering living annuity drawdown.
+Site fit: /everest-amethyst-living-annuity, /retirement retired pathway, post-retirement articles.
+
+ASSET 015 — AS Brokers Average Clause Calculator
+Category: Insurance
+What it does: Shows how much an insurance claim may be reduced when sum insured is less than actual replacement value (average clause).
+Best for: Underinsurance education on home, contents, and commercial assets.
+Site fit: /solutions/personal-insurance, /solutions/business-insurance, risk articles.
+
+ASSET 016 — AS Brokers The Power of Growth Calculator
+Category: Wealth building
+What it does: Projects future value of lump sum plus monthly contributions at a chosen growth rate (multi-currency option).
+Best for: General wealth-building and compound-growth education across life stages.
+Site fit: Wealth insights, business owner content, young accumulator articles.
+
+ASSET 017 — AS Brokers Personal Goal Growth Calculator
+Category: Wealth building
+What it does: Sets a personal financial goal, required monthly growth rate, and produces a month-by-month contribution spreadsheet to target date.
+Best for: Goal-based planning (“I need R X by date Y”) before product selection.
+Site fit: /retirement planning pathway, youth / mid-career insights, adviser discovery calls.
+
+
+Quick reference by category
+---------------------------
+Retirement planning : 001, 002, 003, 004
+Inflation & tax     : 005, 006
+Estate              : 007, 008
+Everest single      : 009, 010, 012
+Everest 12.8 vs 14.2: 011
+Everest comparison  : 013
+Living annuity      : 014
+Insurance           : 015
+Wealth building     : 016, 017
+
+Notes for staff
+---------------
+- Customers see public title only in embeds; Blog Studio and CRM show ASSET code + title.
+- All tools are illustrative — not personalised advice. FAIS-compliant disclaimers are in each HTML embed.
+- Legacy React calculators (/embed/calculators/*) are retired; use ASSET 001–017 only for new content.

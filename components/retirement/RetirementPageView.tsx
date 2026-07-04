@@ -8,15 +8,14 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, FileText, LineChart, MessageCircle } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 
-/** Smooth reveal — not default ease-in-out */
 const EASE_SMOOTH = [0.65, 0, 0.35, 1] as const;
-/** Apple snappy — hover / micro-interactions */
-const EASE_SNAPPY = [0.4, 0, 0.6, 1] as const;
 
 const TEAL = "#008080";
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#2B2B2E";
+
+const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-8 lg:gap-x-8`;
 
 const HERO_IMAGE = "/images/home4-goal-retire-16x9.png";
 const AMETHYST_IMAGE = "/images/living-annuity-inset-1x1.jpg";
@@ -58,27 +57,25 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-48px" }}
-      transition={{ duration: 0.75, ease: EASE_SMOOTH, delay }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.65, ease: EASE_SMOOTH, delay }}
     >
       {children}
     </motion.div>
   );
 }
 
-function FluidEyebrow({ children }: { children: React.ReactNode }) {
+function StepBadge({ n }: { n: number }) {
   return (
-    <p
-      className="font-semibold uppercase tracking-[0.22em]"
-      style={{
-        fontSize: "clamp(0.6875rem, 0.62rem + 0.28vw, 0.8125rem)",
-        color: TEAL,
-      }}
+    <span
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-base font-bold text-white sm:h-11 sm:w-11"
+      style={{ backgroundColor: TEAL }}
+      aria-hidden
     >
-      {children}
-    </p>
+      {n}
+    </span>
   );
 }
 
@@ -98,34 +95,34 @@ function CalculatorEntryCard({
     <Link
       href={href}
       prefetch={false}
-      className="group block h-full rounded-[1.25rem] bg-white p-6 shadow-[0_12px_40px_rgba(29,29,31,0.08)] ring-2 ring-stone-200/90 transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,128,128,0.12)] sm:p-8"
+      className="group flex h-full flex-col rounded-[1.25rem] bg-white p-6 shadow-[0_8px_32px_rgba(29,29,31,0.07)] ring-1 ring-stone-200/90 transition-[transform,box-shadow] duration-500 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(0,128,128,0.1)] sm:p-7"
       style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)" }}
     >
       <div
-        className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl"
+        className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl"
         style={{ backgroundColor: `${border}18`, color: border }}
       >
-        <LineChart className="h-6 w-6" aria-hidden />
+        <LineChart className="h-5 w-5" aria-hidden />
       </div>
       <h3
         className="font-bold tracking-tight"
-        style={{ fontSize: "clamp(1.125rem, 1rem + 0.5vw, 1.375rem)", color: INK }}
+        style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
       >
         {title}
       </h3>
       <p
-        className="mt-3 leading-relaxed"
-        style={{ fontSize: "clamp(1rem, 0.95rem + 0.2vw, 1.125rem)", color: BODY }}
+        className="mt-2 flex-1 leading-relaxed"
+        style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.15vw, 1.0625rem)", color: BODY }}
       >
         {description}
       </p>
       <span
-        className="mt-6 inline-flex items-center gap-2 font-semibold"
-        style={{ color: border, fontSize: "clamp(0.9375rem, 0.9rem + 0.15vw, 1rem)" }}
+        className="mt-5 inline-flex items-center gap-2 font-semibold"
+        style={{ color: border, fontSize: "clamp(0.875rem, 0.85rem + 0.12vw, 0.9375rem)" }}
       >
         Open calculator
         <ArrowRight
-          className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
+          className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5"
           style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)" }}
           aria-hidden
         />
@@ -134,28 +131,85 @@ function CalculatorEntryCard({
   );
 }
 
+function PathwayCard({
+  title,
+  description,
+  links,
+  accent,
+}: {
+  title: string;
+  description: string;
+  links: { label: string; href: string }[];
+  accent: "teal" | "blue";
+}) {
+  const border = accent === "teal" ? TEAL : "#0057B8";
+  return (
+    <article
+      className="flex h-full flex-col rounded-[1.5rem] bg-white p-7 shadow-[0_8px_32px_rgba(29,29,31,0.06)] ring-1 ring-stone-200/90 sm:p-8"
+      style={{ borderLeft: `4px solid ${border}` }}
+    >
+      <h3
+        className="font-bold tracking-tight"
+        style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)", color: INK }}
+      >
+        {title}
+      </h3>
+      <p
+        className="mt-3 leading-relaxed"
+        style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+      >
+        {description}
+      </p>
+      <ul className="mt-6 space-y-3">
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              prefetch={false}
+              className="group inline-flex items-center gap-2 font-semibold"
+              style={{ color: border, fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
+            >
+              {link.label}
+              <ArrowRight
+                className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-0.5"
+                style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)" }}
+                aria-hidden
+              />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
 export function RetirementPageView() {
   return (
     <>
-      {/* 1 · Asymmetrical hero — 12-column, no full-bleed template grid */}
-      <header className="pt-28 md:pt-36 lg:pt-40" style={{ backgroundColor: CANVAS }}>
-        <div className={`${HOME4_WRAP} grid grid-cols-12 items-end gap-x-6 gap-y-10 lg:gap-x-8`}>
-          <Reveal className="col-span-12 lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:pb-16">
-            <FluidEyebrow>Retirement · FSP 17273 · Independent advice</FluidEyebrow>
+      {/* Hero — side-by-side, no column overlap */}
+      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40" style={{ backgroundColor: CANVAS }}>
+        <div className={`${GRID} gap-y-10 lg:items-center lg:gap-y-8`}>
+          <Reveal className="col-span-12 lg:col-span-5">
+            <p
+              className="font-semibold uppercase tracking-[0.2em]"
+              style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
+            >
+              Retirement · FSP 17273
+            </p>
             <h1
-              className="mt-5 max-w-xl font-bold tracking-tight"
+              className="mt-4 font-bold tracking-tight"
               style={{
-                fontSize: "clamp(2rem, 1.35rem + 2.8vw, 3.35rem)",
-                lineHeight: 1.08,
+                fontSize: "clamp(1.875rem, 1.25rem + 2.2vw, 3rem)",
+                lineHeight: 1.1,
                 color: INK,
               }}
             >
               Retirement planning, engineered for peace of mind.
             </h1>
             <p
-              className="mt-6 max-w-lg leading-relaxed"
+              className="mt-5 max-w-md leading-relaxed"
               style={{
-                fontSize: "clamp(1.0625rem, 0.98rem + 0.35vw, 1.3125rem)",
+                fontSize: "clamp(1rem, 0.95rem + 0.2vw, 1.125rem)",
                 lineHeight: 1.65,
                 color: BODY,
               }}
@@ -165,8 +219,8 @@ export function RetirementPageView() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.08} className="col-span-12 lg:col-span-8 lg:col-start-5 lg:row-start-1">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] shadow-[0_24px_64px_rgba(29,29,31,0.14)] ring-1 ring-stone-300/80 sm:aspect-[16/9]">
+          <Reveal delay={0.06} className="col-span-12 lg:col-span-7 lg:col-start-6">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[16/9] lg:aspect-[4/3]">
               <Image
                 src={HERO_IMAGE}
                 alt={getAlt(HERO_IMAGE, "Relaxed South African retiree couple enjoying retirement")}
@@ -174,17 +228,14 @@ export function RetirementPageView() {
                 priority
                 unoptimized
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 58vw"
+                sizes="(max-width: 1024px) 100vw, 42vw"
               />
               <div
-                className="absolute inset-0"
-                style={{
-                  background: `linear-gradient(115deg, ${TEAL}99 0%, ${TEAL}55 42%, transparent 72%)`,
-                }}
+                className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-warm-canvas/20"
                 aria-hidden
               />
               <div
-                className="absolute inset-0 bg-gradient-to-t from-shark/35 via-transparent to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-shark/25 via-transparent to-transparent lg:hidden"
                 aria-hidden
               />
             </div>
@@ -192,343 +243,268 @@ export function RetirementPageView() {
         </div>
       </header>
 
-      {/* 2 · Audience self-segmentation */}
+      {/* Pathways — header + two cards on one row */}
       <section
-        className="py-16 md:py-24"
+        className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="retirement-pathways-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-8 lg:gap-x-8`}>
-          <div className="col-span-12 lg:col-span-4 lg:col-start-1">
-            <Reveal>
-              <h2
-                id="retirement-pathways-heading"
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem)", color: INK }}
-              >
-                Where are you in your journey?
-              </h2>
-              <p
-                className="mt-4 leading-relaxed"
-                style={{ fontSize: "clamp(1rem, 0.95rem + 0.2vw, 1.125rem)", color: BODY }}
-              >
-                Choose the path that matches your stage. We will point you to the right tools first.
-              </p>
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.05} className="col-span-12 lg:col-span-7 lg:col-start-1">
-            <article
-              className="h-full rounded-[1.75rem] bg-white p-8 shadow-[0_16px_48px_rgba(29,29,31,0.07)] ring-1 ring-stone-200/90 sm:p-10"
-              style={{ borderLeft: `4px solid ${TEAL}` }}
+        <div className={`${GRID} gap-y-8`}>
+          <Reveal className="col-span-12">
+            <h2
+              id="retirement-pathways-heading"
+              className="font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
             >
-              <h3
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)", color: INK }}
-              >
-                I&apos;m planning for retirement.
-              </h3>
-              <p
-                className="mt-4 max-w-2xl leading-relaxed"
-                style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: BODY }}
-              >
-                I want to know if I&apos;m saving enough and when I can afford to stop working.
-              </p>
-              <ul className="mt-8 space-y-4">
-                {[
-                  { label: "Retirement Growth Calculator", href: CALC_GROWTH },
-                  { label: "Personal Goal Growth Calculator", href: CALC_GOAL },
-                  { label: "Retirement insights & guides", href: "/insights" },
-                ].map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      prefetch={false}
-                      className="group inline-flex items-center gap-2 font-semibold"
-                      style={{ color: TEAL, fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
-                    >
-                      {link.label}
-                      <ArrowRight
-                        className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
-                        style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)" }}
-                        aria-hidden
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </article>
+              Where are you in your journey?
+            </h2>
+            <p
+              className="mt-3 max-w-2xl leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            >
+              Choose the path that matches your stage. We will point you to the right tools first.
+            </p>
           </Reveal>
 
-          <Reveal delay={0.1} className="col-span-12 lg:col-span-5 lg:col-start-8 lg:row-start-2">
-            <article
-              className="h-full rounded-[1.75rem] bg-white p-8 shadow-[0_16px_48px_rgba(29,29,31,0.07)] ring-1 ring-stone-200/90 sm:p-10"
-              style={{ borderLeft: "4px solid #0057B8" }}
-            >
-              <h3
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)", color: INK }}
-              >
-                I&apos;m already retired.
-              </h3>
-              <p
-                className="mt-4 leading-relaxed"
-                style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: BODY }}
-              >
-                I need a sustainable income strategy so my money doesn&apos;t run out.
-              </p>
-              <ul className="mt-8 space-y-4">
-                {[
-                  { label: "Everest Amethyst Living Annuity", href: "/everest-amethyst-living-annuity" },
-                  { label: "Life of Capital Calculator", href: CALC_LIFE_OF_CAPITAL },
-                  { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
-                ].map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      prefetch={false}
-                      className="group inline-flex items-center gap-2 font-semibold"
-                      style={{ color: "#0057B8", fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
-                    >
-                      {link.label}
-                      <ArrowRight
-                        className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1"
-                        style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)" }}
-                        aria-hidden
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </article>
+          <Reveal delay={0.04} className="col-span-12 lg:col-span-6">
+            <PathwayCard
+              title="I'm planning for retirement."
+              description="I want to know if I'm saving enough and when I can afford to stop working."
+              links={[
+                { label: "Retirement Growth Calculator", href: CALC_GROWTH },
+                { label: "Personal Goal Growth Calculator", href: CALC_GOAL },
+                { label: "Retirement insights & guides", href: "/insights" },
+              ]}
+              accent="teal"
+            />
+          </Reveal>
+
+          <Reveal delay={0.08} className="col-span-12 lg:col-span-6">
+            <PathwayCard
+              title="I'm already retired."
+              description="I need a sustainable income strategy so my money doesn't run out."
+              links={[
+                { label: "Everest Amethyst Living Annuity", href: "/everest-amethyst-living-annuity" },
+                { label: "Life of Capital Calculator", href: CALC_LIFE_OF_CAPITAL },
+                { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
+              ]}
+              accent="blue"
+            />
           </Reveal>
         </div>
       </section>
 
-      {/* 3 · Worry funnel — Question → Education → Calculator → Advice */}
+      {/* Worry funnel — stacked steps, no dead columns */}
       <section
-        className="border-y border-stone-300/70 py-16 md:py-24"
+        className="border-y border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="retirement-worry-heading"
       >
-        <div className={`${HOME4_WRAP}`}>
+        <div className={`${HOME4_WRAP} space-y-12 md:space-y-16`}>
           <Reveal>
             <h2
               id="retirement-worry-heading"
-              className="max-w-3xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.625rem, 1.25rem + 1.5vw, 2.5rem)", color: INK }}
+              className="max-w-2xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.375rem, 1.1rem + 1vw, 2rem)", color: INK }}
             >
               I&apos;m worried I won&apos;t have enough money.
             </h2>
             <p
-              className="mt-5 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: BODY }}
+              className="mt-4 max-w-xl leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
-              That concern is common, and it is solvable with clarity. Follow a calm path from learning
-              to numbers to conversation.
+              That concern is common, and it is solvable with clarity. Follow a calm path from
+              learning to numbers to conversation.
             </p>
           </Reveal>
 
-          {/* Step 1 · Education — asymmetric 8 + 4 with intentional whitespace */}
-          <div className="mt-14 grid grid-cols-12 gap-x-6 gap-y-10 lg:gap-x-8">
-            <Reveal className="col-span-12 lg:col-span-8">
-              <div className="flex items-start gap-4">
-                <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-bold text-white"
-                  style={{ backgroundColor: TEAL, fontSize: "1.125rem" }}
-                  aria-hidden
-                >
-                  1
-                </span>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <FileText className="h-5 w-5" style={{ color: TEAL }} aria-hidden />
-                    <h3
-                      className="font-bold"
-                      style={{ fontSize: "clamp(1.125rem, 1rem + 0.45vw, 1.375rem)", color: INK }}
-                    >
-                      Education
-                    </h3>
-                  </div>
-                  <p
-                    className="mt-2 leading-relaxed"
-                    style={{ fontSize: "clamp(1rem, 0.95rem + 0.2vw, 1.125rem)", color: BODY }}
+          {/* Step 1 */}
+          <Reveal delay={0.03}>
+            <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
+              <div className="flex items-center gap-3 sm:w-44 sm:shrink-0 sm:flex-col sm:items-start sm:gap-2">
+                <StepBadge n={1} />
+                <div className="flex items-center gap-2">
+                  <FileText className="h-5 w-5 shrink-0" style={{ color: TEAL }} aria-hidden />
+                  <h3
+                    className="font-bold"
+                    style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: INK }}
                   >
-                    Read retirement guides written for South Africans, not product brochures.
-                  </p>
-                  <ul className="mt-6 space-y-4">
-                    {EDUCATION_LINKS.map((item) => (
-                      <li key={item.href}>
-                        <Link href={item.href} prefetch={false} className="group block rounded-xl p-4 ring-1 ring-stone-200/90 bg-white transition-shadow duration-500 hover:shadow-md" style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)" }}>
-                          <span className="font-semibold" style={{ color: INK, fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}>
-                            {item.label}
-                          </span>
-                          <p className="mt-1 leading-relaxed" style={{ color: BODY, fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}>
-                            {item.description}
-                          </p>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                    Education
+                  </h3>
                 </div>
               </div>
-            </Reveal>
-            <div className="hidden lg:col-span-4 lg:block" aria-hidden />
-          </div>
-
-          {/* Step 2 · Assessment — 7 + 5 asymmetric calculator cards */}
-          <div className="mt-16 grid grid-cols-12 gap-x-6 gap-y-8 lg:mt-20 lg:gap-x-8">
-            <Reveal delay={0.05} className="col-span-12 lg:col-span-4 lg:col-start-1">
-              <div className="flex items-start gap-4 lg:sticky lg:top-28">
-                <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-bold text-white"
-                  style={{ backgroundColor: TEAL, fontSize: "1.125rem" }}
-                  aria-hidden
+              <div className="min-w-0 flex-1">
+                <p
+                  className="leading-relaxed"
+                  style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
                 >
-                  2
-                </span>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <LineChart className="h-5 w-5" style={{ color: TEAL }} aria-hidden />
-                    <h3
-                      className="font-bold"
-                      style={{ fontSize: "clamp(1.125rem, 1rem + 0.45vw, 1.375rem)", color: INK }}
-                    >
-                      Assessment
-                    </h3>
-                  </div>
-                  <p
-                    className="mt-2 leading-relaxed"
-                    style={{ fontSize: "clamp(1rem, 0.95rem + 0.2vw, 1.125rem)", color: BODY }}
-                  >
-                    Run your own numbers in plain language. Illustrative only, not personalised advice.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.08} className="col-span-12 lg:col-span-7 lg:col-start-6">
-              <CalculatorEntryCard
-                title="Retirement Reality Check"
-                description="See whether your current savings path supports the income you want in retirement."
-                href={CALC_REALITY}
-                accent="teal"
-              />
-            </Reveal>
-            <Reveal delay={0.12} className="col-span-12 lg:col-span-5 lg:col-start-7 lg:row-start-2">
-              <CalculatorEntryCard
-                title="Life of Capital"
-                description="Model how long your retirement capital may last with drawdowns and inflation."
-                href={CALC_LIFE_OF_CAPITAL}
-                accent="blue"
-              />
-            </Reveal>
-          </div>
-
-          {/* Step 3 · Advice */}
-          <div className="mt-16 grid grid-cols-12 gap-x-6 lg:mt-20 lg:gap-x-8">
-            <Reveal delay={0.1} className="col-span-12 lg:col-span-7">
-              <div className="flex h-full flex-col rounded-[1.75rem] bg-white p-8 ring-2 ring-stone-200/90 sm:p-10" style={{ borderTop: `4px solid ${TEAL}` }}>
-                <div className="flex items-start gap-4">
-                  <span
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full font-bold text-white"
-                    style={{ backgroundColor: TEAL, fontSize: "1.125rem" }}
-                    aria-hidden
-                  >
-                    3
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <MessageCircle className="h-5 w-5" style={{ color: TEAL }} aria-hidden />
-                      <h3
-                        className="font-bold"
-                        style={{ fontSize: "clamp(1.125rem, 1rem + 0.45vw, 1.375rem)", color: INK }}
+                  Read retirement guides written for South Africans, not product brochures.
+                </p>
+                <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {EDUCATION_LINKS.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        prefetch={false}
+                        className="group block h-full rounded-xl bg-white p-4 ring-1 ring-stone-200/90 transition-shadow duration-500 hover:shadow-md"
+                        style={{ transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)" }}
                       >
-                        Advice
-                      </h3>
-                    </div>
-                    <p
-                      className="mt-3 max-w-xl leading-relaxed"
-                      style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: BODY }}
-                    >
-                      When the numbers raise questions, an independent FSP 17273 adviser can help you
-                      interpret them and explore suitable next steps, without pressure or jargon.
-                    </p>
-                    <Link
-                      href="/contact"
-                      prefetch={false}
-                      className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-4 font-semibold text-white shadow-md shadow-samsung-blue/25 transition-[background-color,box-shadow,transform] duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue active:scale-[0.98]"
-                      style={{
-                        fontSize: "clamp(0.9375rem, 0.9rem + 0.15vw, 1rem)",
-                        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)",
-                      }}
-                    >
-                      Book a consultation
-                      <ArrowRight className="h-4 w-4" aria-hidden />
-                    </Link>
-                  </div>
+                        <span
+                          className="font-semibold leading-snug"
+                          style={{ color: INK, fontSize: "clamp(0.9375rem, 0.9rem + 0.1vw, 1rem)" }}
+                        >
+                          {item.label}
+                        </span>
+                        <p
+                          className="mt-1.5 leading-relaxed"
+                          style={{ color: BODY, fontSize: "clamp(0.8125rem, 0.8rem + 0.08vw, 0.875rem)" }}
+                        >
+                          {item.description}
+                        </p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Step 2 */}
+          <Reveal delay={0.06}>
+            <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
+              <div className="flex items-center gap-3 sm:w-44 sm:shrink-0 sm:flex-col sm:items-start sm:gap-2">
+                <StepBadge n={2} />
+                <div className="flex items-center gap-2">
+                  <LineChart className="h-5 w-5 shrink-0" style={{ color: TEAL }} aria-hidden />
+                  <h3
+                    className="font-bold"
+                    style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: INK }}
+                  >
+                    Assessment
+                  </h3>
                 </div>
               </div>
-            </Reveal>
-            <div className="hidden lg:col-span-5 lg:block" aria-hidden />
-          </div>
+              <div className="min-w-0 flex-1">
+                <p
+                  className="mb-5 leading-relaxed"
+                  style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
+                >
+                  Run your own numbers in plain language. Illustrative only, not personalised advice.
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <CalculatorEntryCard
+                    title="Retirement Reality Check"
+                    description="See whether your savings path supports the income you want in retirement."
+                    href={CALC_REALITY}
+                    accent="teal"
+                  />
+                  <CalculatorEntryCard
+                    title="Life of Capital"
+                    description="Model how long your capital may last with drawdowns and inflation."
+                    href={CALC_LIFE_OF_CAPITAL}
+                    accent="blue"
+                  />
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Step 3 */}
+          <Reveal delay={0.09}>
+            <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
+              <div className="flex items-center gap-3 sm:w-44 sm:shrink-0 sm:flex-col sm:items-start sm:gap-2">
+                <StepBadge n={3} />
+                <div className="flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5 shrink-0" style={{ color: TEAL }} aria-hidden />
+                  <h3
+                    className="font-bold"
+                    style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: INK }}
+                  >
+                    Advice
+                  </h3>
+                </div>
+              </div>
+              <div
+                className="min-w-0 flex-1 rounded-[1.25rem] bg-white p-6 ring-1 ring-stone-200/90 sm:p-8"
+                style={{ borderTop: `3px solid ${TEAL}` }}
+              >
+                <p
+                  className="max-w-2xl leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                >
+                  When the numbers raise questions, an independent FSP 17273 adviser can help you
+                  interpret them and explore suitable next steps, without pressure or jargon.
+                </p>
+                <Link
+                  href="/contact"
+                  prefetch={false}
+                  className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md shadow-samsung-blue/20 transition-[background-color,box-shadow] duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue"
+                  style={{
+                    fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)",
+                    transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)",
+                  }}
+                >
+                  Book a consultation
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* 4 · Amethyst solution — half image, half content */}
+      {/* Amethyst — balanced 5 + 7 split, shorter image */}
       <section
-        className="py-16 md:py-24"
+        className="py-14 md:py-20"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="retirement-amethyst-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-10 lg:items-center lg:gap-x-10`}>
-          <Reveal className="col-span-12 lg:col-span-6 lg:col-start-1">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-[0_24px_64px_rgba(29,29,31,0.12)] ring-1 ring-stone-300/80 sm:aspect-[3/4] lg:aspect-[4/5]">
+        <div className={`${GRID} gap-y-10 lg:items-center lg:gap-y-8`}>
+          <Reveal className="col-span-12 lg:col-span-5">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[4/3]">
               <Image
                 src={AMETHYST_IMAGE}
                 alt={getAlt(AMETHYST_IMAGE, "Premium retirement lifestyle and travel")}
                 fill
                 unoptimized
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-tr from-shark/50 via-transparent to-teal-900/20"
-                aria-hidden
+                sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="col-span-12 lg:col-span-5 lg:col-start-8">
-            <FluidEyebrow>Everest Amethyst Living Annuity</FluidEyebrow>
+          <Reveal delay={0.06} className="col-span-12 lg:col-span-7">
+            <p
+              className="font-semibold uppercase tracking-[0.2em]"
+              style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
+            >
+              Everest Amethyst Living Annuity
+            </p>
             <h2
               id="retirement-amethyst-heading"
-              className="mt-4 font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.15rem + 1.4vw, 2.25rem)", color: INK }}
+              className="mt-3 font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem)", color: INK }}
             >
               Structured retirement income, without daily market noise.
             </h2>
-            <p
-              className="mt-2 font-semibold"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.2vw, 1.125rem)", color: TEAL }}
-            >
-              Target net yield profile
-            </p>
-            <p
-              className="mt-1 font-bold tabular-nums tracking-tight"
-              style={{ fontSize: "clamp(2.75rem, 2rem + 4.5vw, 4.75rem)", lineHeight: 1, color: INK }}
-              aria-label="Approximately 10.2 percent per annum"
-            >
-              ~10.2%
+            <div className="mt-5 flex flex-wrap items-end gap-x-3 gap-y-1">
               <span
-                className="ml-2 font-semibold"
-                style={{ fontSize: "clamp(1.125rem, 1rem + 0.4vw, 1.5rem)", color: BODY }}
+                className="font-bold tabular-nums tracking-tight"
+                style={{ fontSize: "clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem)", lineHeight: 1, color: INK }}
+                aria-label="Approximately 10.2 percent per annum"
               >
-                p.a.
+                ~10.2%
               </span>
-            </p>
+              <span
+                className="pb-1 font-semibold"
+                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)", color: BODY }}
+              >
+                p.a. targeted net yield profile
+              </span>
+            </div>
             <p
-              className="mt-6 leading-relaxed"
-              style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: BODY }}
+              className="mt-5 leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
               For pension, provident, preservation, and RA capital, Amethyst offers a regulated
               living-annuity wrapper with flexible drawdown between{" "}
@@ -538,8 +514,8 @@ export function RetirementPageView() {
               , designed for retirees who want clarity on sustainable income.
             </p>
             <ul
-              className="mt-6 space-y-3 leading-relaxed"
-              style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
+              className="mt-5 space-y-2.5 leading-relaxed"
+              style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)", color: BODY }}
             >
               <li>
                 <strong className="font-semibold" style={{ color: INK }}>
@@ -559,8 +535,8 @@ export function RetirementPageView() {
             <Link
               href="/everest-amethyst-living-annuity"
               prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 font-semibold"
-              style={{ color: TEAL, fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
+              className="mt-6 inline-flex items-center gap-2 font-semibold"
+              style={{ color: TEAL, fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
             >
               Explore Amethyst Living Annuity
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -569,44 +545,45 @@ export function RetirementPageView() {
         </div>
       </section>
 
-      {/* 5 · Empathic conversion footer — high contrast on warm canvas */}
+      {/* CTA — single row, no orphan column */}
       <section
-        className="border-t border-stone-300/70 py-16 md:py-24"
+        className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="retirement-cta-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-x-6 lg:gap-x-8`}>
-          <Reveal className="col-span-12 lg:col-span-7 lg:col-start-1">
-            <h2
-              id="retirement-cta-heading"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.6vw, 2.75rem)", color: INK }}
-            >
-              Stop guessing. Let&apos;s look at the math together.
-            </h2>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: BODY }}
-            >
-              Book a retirement clarity call with an independent adviser. Personal, structured, and
-              focused on your goals. FSP 17273 · Category 1.8.
-            </p>
-          </Reveal>
-          <Reveal delay={0.06} className="col-span-12 flex items-center lg:col-span-4 lg:col-start-9">
+        <Reveal>
+          <div
+            className={`${HOME4_WRAP} flex flex-col items-start gap-6 rounded-2xl bg-white p-8 ring-1 ring-stone-200/90 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10`}
+          >
+            <div className="max-w-2xl">
+              <h2
+                id="retirement-cta-heading"
+                className="font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.375rem, 1.1rem + 1vw, 2rem)", color: INK }}
+              >
+                Stop guessing. Let&apos;s look at the math together.
+              </h2>
+              <p
+                className="mt-3 leading-relaxed"
+                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+              >
+                Book a retirement clarity call with an independent adviser. FSP 17273 · Category 1.8.
+              </p>
+            </div>
             <Link
               href="/contact"
               prefetch={false}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-8 py-4 font-semibold text-white shadow-lg shadow-samsung-blue/30 transition-[background-color,box-shadow,transform] duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue active:scale-[0.98] sm:w-auto"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-[background-color,box-shadow] duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue"
               style={{
-                fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)",
+                fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)",
                 transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)",
               }}
             >
               Book a Retirement Clarity Call
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </section>
 
       <Footer />

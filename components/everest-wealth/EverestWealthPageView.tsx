@@ -17,7 +17,7 @@ const BODY = "#2B2B2E";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
 
-const HERO_IMAGE = "/images/contact-trust.jpg";
+const HERO_IMAGE = "/images/home4-import/card1.png";
 
 const CALC_INCOME_VS_GROWTH = "/embed-calculators/asset-013-everest-income-vs-growth.html";
 const CALC_POWER_OF_GROWTH = "/embed-calculators/asset-016-growth-comparison.html";

@@ -22,14 +22,14 @@ const BODY = "#2B2B2E";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
 
-const HERO_IMAGE = "/images/calculators-education-16x9.jpg";
+const HERO_IMAGE = "/images/home4-why-independence-4x3.jpg";
 
 const FEATURED = {
   title: "Semigration & Retirement Villages Western Cape",
   description:
     "A flagship guide for high-net-worth families relocating from Gauteng to the coast — retirement capital, village living, and estate planning in one place.",
   href: "/insights/semigration-retirement",
-  image: "/images/semigration-retirement-inset-1x1.jpg",
+  image: "/images/home4-goal-estate-16x9.png",
 };
 
 export const INSIGHTS_TOPIC_NAV = [

@@ -352,8 +352,8 @@ export function InsightsFeedFilter({
               >
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
                   <img
-                    src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
-                    alt={getAlt(a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg", a.title)}
+                    src={a.thumbnailUrl ?? "/images/og-default.jpg"}
+                    alt={getAlt(a.thumbnailUrl ?? "/images/og-default.jpg", a.title)}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   />

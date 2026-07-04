@@ -62,7 +62,7 @@ export const PILLAR_HUB: NavLink = {
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Retirement", href: "/retirement" },
   { label: "Investments", href: "/everest-wealth" },
-  { label: "Insurance", href: "/solutions/personal-insurance" },
+  { label: "Insurance", href: "/insurance" },
   { label: "Estate Planning", href: "/solutions/estate-planning" },
   { label: "Learn", href: "/insights" },
   { label: "About", href: "/about" },
@@ -73,7 +73,7 @@ export const PRIMARY_NAV: NavLink[] = [
 export const FOOTER_HOW_WE_HELP: NavLink[] = [
   { label: "Retirement & Everest", href: "/retirement" },
   { label: "Investments", href: "/everest-wealth" },
-  { label: "Insurance & Risk", href: "/solutions/personal-insurance" },
+  { label: "Insurance & Risk", href: "/insurance" },
   { label: "Estate Planning", href: "/solutions/estate-planning" },
 ];
 

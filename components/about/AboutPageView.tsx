@@ -17,7 +17,7 @@ const BODY = "#2B2B2E";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
 
-const HERO_IMAGE = "/images/about-krugersdorp-trust-16x9.jpg";
+const HERO_IMAGE = "/images/home4-why-independence-4x3.jpg";
 
 const FOUNDERS = [
   {
@@ -25,14 +25,14 @@ const FOUNDERS = [
     name: "Albert Schuurman",
     role: "Co-founder & Key Individual",
     focus: "Retirement engineering, Everest Wealth, and living annuities.",
-    image: "/images/team-albert.jpg",
+    initials: "AS",
   },
   {
     id: "person-johnny-farinha",
     name: "Johnny Farinha",
     role: "Co-founder",
     focus: "Estate structuring, business continuity, and personal life risk.",
-    image: "/images/team-johnny.jpg",
+    initials: "JF",
   },
 ];
 
@@ -67,22 +67,24 @@ function FounderCard({
   name,
   role,
   focus,
-  image,
+  initials,
 }: (typeof FOUNDERS)[number]) {
   return (
     <article
       id={id}
       className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-stone-200/90 sm:flex-row"
     >
-      <div className="relative aspect-square w-full shrink-0 bg-stone-100 sm:w-44 md:w-48">
-        <Image
-          src={image}
-          alt={getAlt(image, `${name}, ${role} at AS Brokers`)}
-          fill
-          unoptimized
-          className="object-cover object-top"
-          sizes="(max-width: 640px) 100vw, 12rem"
-        />
+      <div
+        className="flex aspect-square w-full shrink-0 items-center justify-center sm:w-44 md:w-48"
+        style={{ backgroundColor: `${TEAL}14` }}
+        aria-hidden
+      >
+        <span
+          className="font-bold tracking-tight"
+          style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 2.75rem)", color: TEAL }}
+        >
+          {initials}
+        </span>
       </div>
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <h3

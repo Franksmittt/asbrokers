@@ -39,7 +39,7 @@ const steps = [
 
 export function ContactPageView() {
   return (
-    <div className="min-h-screen bg-[#F7F6F3] pb-24 text-shark md:pb-0">
+    <>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -56,7 +56,7 @@ export function ContactPageView() {
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-shark/88 via-shark/60 to-shark/35" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F7F6F3] via-shark/10 to-shark/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-warm-canvas via-shark/10 to-shark/25" />
         </div>
 
         <div className="relative pt-32 pb-20 sm:pt-36 sm:pb-24 md:pt-40 md:pb-28">
@@ -195,6 +195,6 @@ export function ContactPageView() {
       </section>
 
       <Footer />
-    </div>
+    </>
   );
 }

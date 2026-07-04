@@ -11,6 +11,15 @@ import {
   type InsightCategoryValue,
 } from "@/lib/insights/insightCategories";
 import { getAlt } from "@/lib/image-alt";
+import {
+  WARM_BTN_PRIMARY,
+  WARM_BTN_SECONDARY,
+  WARM_CARD,
+  WARM_EYEBROW,
+  WARM_H3,
+  WARM_LINK,
+  WARM_META,
+} from "@/lib/warm-theme";
 
 type DatePreset = "all" | "6m" | "1y" | "custom";
 
@@ -177,11 +186,11 @@ export function InsightsFeedFilter({ articles }: Props) {
   return (
     <div className="mt-10">
       {/* Filter toolbar */}
-      <div className="rim-light rounded-[2rem] border-0 overflow-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 px-5 py-4 sm:px-6">
+      <div className={`${WARM_CARD} overflow-hidden p-0`}>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200/80 px-5 py-4 sm:px-6">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cinematic-teal">Refine</p>
-            <p className="mt-0.5 text-sm text-zinc-400">
+            <p className={WARM_EYEBROW}>Refine</p>
+            <p className={`mt-0.5 text-sm text-stone-600`}>
               {filtered.length} of {articles.length} article{articles.length === 1 ? "" : "s"}
             </p>
           </div>
@@ -190,7 +199,7 @@ export function InsightsFeedFilter({ articles }: Props) {
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1.5 text-xs font-semibold text-stone-600 transition hover:bg-stone-100 hover:text-shark"
               >
                 Clear all
               </button>
@@ -198,7 +207,7 @@ export function InsightsFeedFilter({ articles }: Props) {
             <button
               type="button"
               onClick={() => setFiltersOpen((o) => !o)}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/10"
+              className="rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs font-semibold text-shark transition hover:bg-stone-50"
               aria-expanded={filtersOpen}
             >
               {filtersOpen ? "Hide filters" : "Show filters"}
@@ -208,12 +217,11 @@ export function InsightsFeedFilter({ articles }: Props) {
 
         {filtersOpen && (
           <div className="space-y-6 px-5 py-5 sm:px-6 sm:py-6">
-            {/* Topics */}
             {visibleCategories.length > 0 && (
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">Topics</p>
+                <p className={`mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-stone-500`}>Topics</p>
                 <div className="relative -mx-1">
-                  <div className="flex gap-2 overflow-x-auto pb-1 px-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10">
+                  <div className="flex gap-2 overflow-x-auto pb-1 px-1">
                     {visibleCategories.map((cat) => {
                       const active = selectedCategories.includes(cat.value);
                       return (
@@ -223,12 +231,12 @@ export function InsightsFeedFilter({ articles }: Props) {
                           onClick={() => toggleCategory(cat.value)}
                           className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
                             active
-                              ? "bg-cinematic-teal/20 text-cinematic-teal ring-1 ring-cinematic-teal/40 shadow-[0_0_20px_rgba(45,212,191,0.12)]"
-                              : "bg-white/5 text-zinc-300 ring-1 ring-white/10 hover:bg-white/10 hover:text-white"
+                              ? "bg-cinematic-teal/15 text-cinematic-teal ring-1 ring-cinematic-teal/30"
+                              : "bg-stone-100 text-stone-700 ring-1 ring-stone-200 hover:bg-stone-200 hover:text-shark"
                           }`}
                         >
                           {cat.label}
-                          <span className={`ml-1.5 text-xs ${active ? "text-cinematic-teal/80" : "text-zinc-500"}`}>
+                          <span className={`ml-1.5 text-xs ${active ? "text-cinematic-teal/80" : "text-stone-500"}`}>
                             {cat.count}
                           </span>
                         </button>
@@ -239,9 +247,8 @@ export function InsightsFeedFilter({ articles }: Props) {
               </div>
             )}
 
-            {/* Published */}
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">Published</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">Published</p>
               <div className="flex flex-wrap gap-2">
                 {(
                   [
@@ -259,8 +266,8 @@ export function InsightsFeedFilter({ articles }: Props) {
                       onClick={() => selectDatePreset(preset.id)}
                       className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
                         active
-                          ? "bg-white text-black shadow-sm"
-                          : "bg-white/5 text-zinc-300 ring-1 ring-white/10 hover:bg-white/10 hover:text-white"
+                          ? "bg-samsung-blue text-white shadow-sm"
+                          : "bg-stone-100 text-stone-700 ring-1 ring-stone-200 hover:bg-stone-200 hover:text-shark"
                       }`}
                     >
                       {preset.label}
@@ -270,27 +277,27 @@ export function InsightsFeedFilter({ articles }: Props) {
               </div>
 
               {datePreset === "custom" && (
-                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 max-w-xl">
+                <div className="mt-4 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                   <label className="block">
-                    <span className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                    <span className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-stone-500">
                       From
                     </span>
                     <input
                       type="date"
                       value={fromDate}
                       onChange={(e) => setFromDate(e.target.value)}
-                      className="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white [color-scheme:dark] focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25"
+                      className="w-full rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm text-shark focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25"
                     />
                   </label>
                   <label className="block">
-                    <span className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+                    <span className="mb-1.5 block text-[11px] font-medium uppercase tracking-wider text-stone-500">
                       To
                     </span>
                     <input
                       type="date"
                       value={toDate}
                       onChange={(e) => setToDate(e.target.value)}
-                      className="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white [color-scheme:dark] focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25"
+                      className="w-full rounded-xl border border-stone-200 bg-white px-3 py-2.5 text-sm text-shark focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25"
                     />
                   </label>
                 </div>
@@ -299,19 +306,18 @@ export function InsightsFeedFilter({ articles }: Props) {
           </div>
         )}
 
-        {/* Active filter chips */}
         {activeFilterChips.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 border-t border-white/5 px-5 py-3 sm:px-6">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Active</span>
+          <div className="flex flex-wrap items-center gap-2 border-t border-stone-200/80 px-5 py-3 sm:px-6">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500">Active</span>
             {activeFilterChips.map((chip) => (
               <button
                 key={chip.key}
                 type="button"
                 onClick={chip.onRemove}
-                className="inline-flex items-center gap-1.5 rounded-full bg-cinematic-teal/15 pl-3 pr-2 py-1 text-xs font-medium text-cinematic-teal ring-1 ring-cinematic-teal/25 transition hover:bg-cinematic-teal/25"
+                className="inline-flex items-center gap-1.5 rounded-full bg-cinematic-teal/10 pl-3 pr-2 py-1 text-xs font-medium text-cinematic-teal ring-1 ring-cinematic-teal/20 transition hover:bg-cinematic-teal/20"
               >
                 {chip.label}
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cinematic-teal/20 text-[10px] leading-none">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cinematic-teal/15 text-[10px] leading-none">
                   ×
                 </span>
               </button>
@@ -320,26 +326,17 @@ export function InsightsFeedFilter({ articles }: Props) {
         )}
       </div>
 
-      {/* Results */}
       {articles.length === 0 ? (
-        <div className="mt-10 rim-light rounded-[2rem] border-0 p-10 md:p-14 text-center">
-          <p className="text-zinc-400 mb-8 max-w-md mx-auto leading-relaxed">
+        <div className={`mt-10 ${WARM_CARD} p-10 text-center md:p-14`}>
+          <p className="mx-auto mb-8 max-w-md leading-relaxed text-stone-600">
             Our insight articles and resource hub are coming soon. We&apos;ll share regular updates on estate
             planning, retirement income, and Everest Wealth so you stay ahead.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/calculators"
-              prefetch={false}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:bg-zinc-200"
-            >
+            <Link href="/calculators" prefetch={false} className={WARM_BTN_PRIMARY}>
               Use our calculators
             </Link>
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
+            <Link href="/contact" prefetch={false} className={WARM_BTN_SECONDARY}>
               Get in touch
             </Link>
           </div>
@@ -350,23 +347,20 @@ export function InsightsFeedFilter({ articles }: Props) {
             <li key={`${a.id}::${a.slug}::${a.locale}`}>
               <Link
                 href={`/insights/${a.slug}?locale=${a.locale}`}
-                className="group flex h-full flex-col overflow-hidden rounded-[2.25rem] rim-light border-0 transition-all duration-500 hover:-translate-y-1 hover:bg-white/[0.07]"
+                className={`group flex h-full flex-col overflow-hidden ${WARM_CARD} p-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl`}
               >
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-900/80">
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
                   <img
                     src={a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg"}
                     alt={getAlt(a.thumbnailUrl ?? "/images/insights-inset-1x1.jpg", a.title)}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/80 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-shark/40 via-transparent to-transparent opacity-60" />
                 </div>
                 <div className="flex flex-1 flex-col p-6 md:p-7">
                   <div className="flex flex-wrap items-center gap-2">
-                    <time
-                      className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500"
-                      dateTime={a.publishedAt}
-                    >
+                    <time className={`${WARM_META} font-semibold uppercase tracking-wider`} dateTime={a.publishedAt}>
                       {formatDateShort(a.publishedAt)}
                     </time>
                     {a.source === "studio" && (
@@ -375,30 +369,30 @@ export function InsightsFeedFilter({ articles }: Props) {
                       </span>
                     )}
                   </div>
-                  <h2 className="mt-3 text-lg font-bold leading-snug text-white transition-colors group-hover:text-cinematic-teal">
+                  <h2 className={`mt-3 ${WARM_H3} leading-snug transition-colors group-hover:text-samsung-blue`}>
                     {a.title}
                   </h2>
                   {a.excerpt && (
-                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-400">{a.excerpt}</p>
+                    <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-stone-600">{a.excerpt}</p>
                   )}
                   {(a.categories?.length ?? 0) > 0 && (
                     <div className="mt-4 flex flex-wrap gap-1.5">
                       {a.categories.slice(0, 2).map((value) => (
                         <span
                           key={value}
-                          className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-medium text-zinc-400 ring-1 ring-white/10"
+                          className="rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-medium text-stone-600 ring-1 ring-stone-200"
                         >
                           {INSIGHT_CATEGORY_LABEL_BY_VALUE[value as InsightCategoryValue] ?? value}
                         </span>
                       ))}
                       {a.categories.length > 2 && (
-                        <span className="rounded-full px-2 py-0.5 text-[10px] font-medium text-zinc-500">
+                        <span className="rounded-full px-2 py-0.5 text-[10px] font-medium text-stone-500">
                           +{a.categories.length - 2}
                         </span>
                       )}
                     </div>
                   )}
-                  <span className="mt-4 inline-flex items-center text-sm font-semibold text-cinematic-teal group-hover:underline">
+                  <span className={`mt-4 inline-flex items-center text-sm font-semibold ${WARM_LINK}`}>
                     Read article →
                   </span>
                 </div>
@@ -407,16 +401,12 @@ export function InsightsFeedFilter({ articles }: Props) {
           ))}
         </ul>
       ) : (
-        <div className="mt-10 rim-light rounded-[2rem] border-0 p-10 md:p-12 text-center">
-          <p className="text-lg font-semibold text-white">No articles match</p>
-          <p className="mt-2 text-sm text-zinc-400 max-w-sm mx-auto">
+        <div className={`mt-10 ${WARM_CARD} p-10 text-center md:p-12`}>
+          <p className="text-lg font-semibold text-shark">No articles match</p>
+          <p className="mx-auto mt-2 max-w-sm text-sm text-stone-600">
             Try clearing a topic or widening the date range to see more insights.
           </p>
-          <button
-            type="button"
-            onClick={clearAllFilters}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black transition hover:bg-zinc-200"
-          >
+          <button type="button" onClick={clearAllFilters} className={`mt-6 ${WARM_BTN_PRIMARY}`}>
             Reset filters
           </button>
         </div>

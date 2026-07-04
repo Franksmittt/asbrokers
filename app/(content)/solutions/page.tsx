@@ -1,28 +1,74 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
-import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
+import { Home4Reveal } from "@/components/home4/Home4Blocks";
+import { PageMediaStrip } from "@/components/PageMediaStrip";
 import { SolutionsSectionNav } from "@/components/SolutionsSectionNav";
 import { PlanningToolsStrip } from "@/components/PlanningToolsStrip";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import {
+  WarmHero,
+  WarmPageWithFooter,
+  WarmPrimaryLink,
+  WarmSecondaryLink,
+  WarmSection,
+} from "@/components/warm/WarmShell";
 import { LineChart, HeartPulse, Lock, Scroll, ArrowRight } from "@/components/icons";
-const trustBadges = [
-  "FSP 17273",
-  "25+ years experience",
-  "Independent advice",
-];
+import {
+  WARM_BODY,
+  WARM_CTA_BAND,
+  WARM_H2,
+  WARM_H3,
+  WARM_LEAD,
+  WARM_META,
+  WARM_TRUST_BADGE,
+  WARM_WRAP,
+} from "@/lib/warm-theme";
+
+const trustBadges = ["FSP 17273", "25+ years experience", "Independent advice"];
+
 const categories = [
   {
     id: "retirement",
     title: "Private Wealth & Yield",
-    tagline: "Explore structured private equity return profiles, living annuities, and capital longevity planning.",
+    tagline:
+      "Explore structured private equity return profiles, living annuities, and capital longevity planning.",
     icon: LineChart,
     accent: "blue",
     items: [
-      { name: "Retirement Income Planning", desc: "Structured income planning for retirees who want clearer cash-flow expectations.", href: "/everest-wealth", badge: null, featured: false },
-      { name: "Retirement Reality Calculator", desc: "How much capital you really need for retirement.", href: "/retirement", badge: "Calculator", featured: true },
-      { name: "Income in Retirement (Life of Capital)", desc: "How long your savings will last with withdrawals and inflation.", href: "/calculators", badge: "Calculator", featured: false },
-      { name: "Everest Wealth Products", desc: "Targeted return profiles: 12.8%, 14.2%, 14.5%, Amethyst living annuity.", href: "/everest-wealth", badge: "Popular", featured: true },
-      { name: "Financial Education & Calculators", desc: "Tools and structure, not just product sales.", href: "/calculators", badge: null, featured: false },
+      {
+        name: "Retirement Income Planning",
+        desc: "Structured income planning for retirees who want clearer cash-flow expectations.",
+        href: "/everest-wealth",
+        badge: null,
+        featured: false,
+      },
+      {
+        name: "Retirement Reality Calculator",
+        desc: "How much capital you really need for retirement.",
+        href: "/retirement",
+        badge: "Calculator",
+        featured: true,
+      },
+      {
+        name: "Income in Retirement (Life of Capital)",
+        desc: "How long your savings will last with withdrawals and inflation.",
+        href: "/calculators",
+        badge: "Calculator",
+        featured: false,
+      },
+      {
+        name: "Everest Wealth Products",
+        desc: "Targeted return profiles: 12.8%, 14.2%, 14.5%, Amethyst living annuity.",
+        href: "/everest-wealth",
+        badge: "Popular",
+        featured: true,
+      },
+      {
+        name: "Financial Education & Calculators",
+        desc: "Tools and structure, not just product sales.",
+        href: "/calculators",
+        badge: null,
+        featured: false,
+      },
     ],
   },
   {
@@ -32,11 +78,36 @@ const categories = [
     icon: Lock,
     accent: "rose",
     items: [
-      { name: "Short-Term Personal", desc: "Home, car, valuables and personal asset protection.", href: "/solutions/personal-insurance", badge: null },
-      { name: "Short-Term Business", desc: "Commercial property, liability, business interruption and fleet.", href: "/solutions/business-insurance", badge: null },
-      { name: "Life Insurance (Personal)", desc: "Death cover, disability, income protection and severe illness.", href: "/solutions/life-insurance", badge: null },
-      { name: "Life Insurance (Business)", desc: "Buy-and-sell, key person, loan account and employee benefits.", href: "/solutions/business-life", badge: null },
-      { name: "Premium Increase Calculator", desc: "Compare long-term cost of escalating life premiums.", href: "/calculators", badge: "Calculator" },
+      {
+        name: "Short-Term Personal",
+        desc: "Home, car, valuables and personal asset protection.",
+        href: "/solutions/personal-insurance",
+        badge: null,
+      },
+      {
+        name: "Short-Term Business",
+        desc: "Commercial property, liability, business interruption and fleet.",
+        href: "/solutions/business-insurance",
+        badge: null,
+      },
+      {
+        name: "Life Insurance (Personal)",
+        desc: "Death cover, disability, income protection and severe illness.",
+        href: "/solutions/life-insurance",
+        badge: null,
+      },
+      {
+        name: "Life Insurance (Business)",
+        desc: "Buy-and-sell, key person, loan account and employee benefits.",
+        href: "/solutions/business-life",
+        badge: null,
+      },
+      {
+        name: "Premium Increase Calculator",
+        desc: "Compare long-term cost of escalating life premiums.",
+        href: "/calculators",
+        badge: "Calculator",
+      },
     ],
   },
   {
@@ -46,8 +117,18 @@ const categories = [
     icon: HeartPulse,
     accent: "teal",
     items: [
-      { name: "Medical Aid & Gap Cover", desc: "Health insurance and gap cover structuring.", href: "/solutions/medical-aid", badge: null },
-      { name: "Wellness & Integration", desc: "Holistic health and wellness planning for high-income earners.", href: "/contact", badge: null },
+      {
+        name: "Medical Aid & Gap Cover",
+        desc: "Health insurance and gap cover structuring.",
+        href: "/solutions/medical-aid",
+        badge: null,
+      },
+      {
+        name: "Wellness & Integration",
+        desc: "Holistic health and wellness planning for high-income earners.",
+        href: "/contact",
+        badge: null,
+      },
     ],
   },
   {
@@ -57,19 +138,57 @@ const categories = [
     icon: Scroll,
     accent: "amber",
     items: [
-      { name: "Estate Planning & Wills", desc: "Wills, testaments and estate structuring.", href: "/solutions/estate-planning", badge: null },
-      { name: "Trust & Business Structure", desc: "Asset protection and tax-efficient structuring.", href: "/contact", badge: null },
-      { name: "Estate Duty Calculator", desc: "Estimate estate duty and executor fees at death.", href: "/calculators", badge: "Calculator" },
-      { name: "Annual Estate Reduction Strategy", desc: "Use annual donations to reduce estate duty over time.", href: "/calculators", badge: "Calculator" },
+      {
+        name: "Estate Planning & Wills",
+        desc: "Wills, testaments and estate structuring.",
+        href: "/solutions/estate-planning",
+        badge: null,
+      },
+      {
+        name: "Trust & Business Structure",
+        desc: "Asset protection and tax-efficient structuring.",
+        href: "/contact",
+        badge: null,
+      },
+      {
+        name: "Estate Duty Calculator",
+        desc: "Estimate estate duty and executor fees at death.",
+        href: "/calculators",
+        badge: "Calculator",
+      },
+      {
+        name: "Annual Estate Reduction Strategy",
+        desc: "Use annual donations to reduce estate duty over time.",
+        href: "/calculators",
+        badge: "Calculator",
+      },
     ],
   },
 ];
-const accentStyles: Record<string, { iconBg: string; border: string; hoverBorder: string }> = {
-  blue: { iconBg: "bg-blue-500/20 text-blue-400", border: "border-blue-500/20", hoverBorder: "group-hover:border-blue-500/40" },
-  rose: { iconBg: "bg-rose-500/20 text-rose-400", border: "border-rose-500/20", hoverBorder: "group-hover:border-rose-500/40" },
-  teal: { iconBg: "bg-teal-500/20 text-teal-400", border: "border-teal-500/20", hoverBorder: "group-hover:border-teal-500/40" },
-  amber: { iconBg: "bg-amber-500/20 text-amber-400", border: "border-amber-500/20", hoverBorder: "group-hover:border-amber-500/40" },
+
+const accentStyles: Record<string, { iconBg: string; ring: string; hoverRing: string }> = {
+  blue: {
+    iconBg: "bg-samsung-blue/10 text-samsung-blue",
+    ring: "ring-samsung-blue/20",
+    hoverRing: "hover:ring-samsung-blue/40",
+  },
+  rose: {
+    iconBg: "bg-rose-500/10 text-rose-600",
+    ring: "ring-rose-500/20",
+    hoverRing: "hover:ring-rose-500/40",
+  },
+  teal: {
+    iconBg: "bg-cinematic-teal/10 text-cinematic-teal",
+    ring: "ring-cinematic-teal/20",
+    hoverRing: "hover:ring-cinematic-teal/40",
+  },
+  amber: {
+    iconBg: "bg-amber-500/10 text-amber-700",
+    ring: "ring-amber-500/20",
+    hoverRing: "hover:ring-amber-500/40",
+  },
 };
+
 function ServiceCard({
   name,
   desc,
@@ -92,33 +211,33 @@ function ServiceCard({
     <Link
       href={href}
       prefetch={false}
-      className={`group block rounded-2xl p-6 border transition-all duration-300 ${
-        muted ? "bg-[#101014] hover:bg-[#121218]" : "bg-[#151518] hover:bg-[#1a1a1e]"
-      } ${style.border} ${style.hoverBorder} hover:shadow-lg hover:shadow-black/20 ${wide ? "sm:col-span-2 lg:col-span-2" : ""}`}
+      className={`group block rounded-2xl p-6 shadow-lg ring-1 transition-all duration-300 hover:shadow-xl ${style.ring} ${style.hoverRing} ${
+        muted ? "bg-white/70" : "bg-white/95"
+      } ring-stone-200/80 ${wide ? "sm:col-span-2 lg:col-span-2" : ""}`}
     >
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <h3 className="text-base font-semibold text-white group-hover:text-white">
-          {name}
-        </h3>
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <h3 className="text-base font-semibold text-shark">{name}</h3>
         {badge && (
-          <span className="shrink-0 text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/10 text-zinc-400">
+          <span className="shrink-0 rounded-md bg-stone-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-stone-600">
             {badge}
           </span>
         )}
       </div>
-      <p className="mb-4 text-sm leading-relaxed text-zinc-500">{desc}</p>
-      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 group-hover:gap-2.5 transition-all">
+      <p className={`mb-4 text-sm leading-relaxed ${WARM_BODY}`}>{desc}</p>
+      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-samsung-blue transition-all group-hover:gap-2.5 group-hover:text-cinematic-teal">
         Explore
-        <ArrowRight className="w-4 h-4" />
+        <ArrowRight className="h-4 w-4" />
       </span>
     </Link>
   );
 }
+
 export default function SolutionsPage() {
   const [focusCategory, ...defenseCategories] = categories;
   const FocusIcon = focusCategory.icon;
+
   return (
-    <div className="bg-[#0a0a0c] min-h-screen">
+    <WarmPageWithFooter>
       <PageJsonLd
         path="/solutions"
         webPage={{
@@ -133,69 +252,52 @@ export default function SolutionsPage() {
           serviceType: "Financial Planning, Investment Advisory, Insurance Broking, Retirement Planning",
         }}
       />
-      {/* Hero */}
-      <section data-chunk-boundary className="relative pt-28 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/15 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full -translate-y-1/2 pointer-events-none" />
-        <div className={`relative ${PAGE_CONTENT_MAX}`}>
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-zinc-500 text-xs font-medium uppercase tracking-[0.2em] mb-4">
-              For individuals and business owners
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
-              Engineered Wealth
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">& Risk Architecture.</span>
-            </h1>
-            <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Explore alternatives to traditional markets with structured private equity return profiles and retirement solutions. Full-service insurance and risk management when you need it.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-zinc-500">
-              {trustBadges.map((badge) => (
-                <span key={badge} className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                  {badge}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="mt-10 md:mt-12">
-            <PageMediaStrip
-              variant="primary"
-              src="/images/solutions-hero-16x9.jpg"
-              priority
-              rounded="3xl"
-            />
-          </div>
+
+      <WarmHero
+        kicker="For individuals and business owners"
+        title="Engineered Wealth & Risk Architecture."
+        description="Explore alternatives to traditional markets with structured private equity return profiles and retirement solutions. Full-service insurance and risk management when you need it."
+        imageSrc="/images/solutions-hero-16x9.jpg"
+        priority
+        maxWidth="4xl"
+      >
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          {trustBadges.map((badge) => (
+            <span key={badge} className={WARM_TRUST_BADGE}>
+              {badge}
+            </span>
+          ))}
         </div>
-      </section>
+      </WarmHero>
+
       <SolutionsSectionNav />
-      <div className={`${PAGE_CONTENT_MAX} pt-8`}>
+
+      <WarmSection className="pt-8 pb-0">
         <PlanningToolsStrip className="mb-8" />
-      </div>
-      <div className={`${PAGE_CONTENT_MAX} pb-24`}>
-        {/* Section 1: Private Wealth & Yield (focus) */}
+      </WarmSection>
+
+      <WarmSection className="pt-4">
         <section
           data-chunk-boundary
           id={focusCategory.id}
-          className="scroll-mt-32 py-16 md:py-20 border-b border-white/5"
+          className="scroll-mt-32 border-b border-stone-200/80 pb-16 md:pb-20"
         >
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-            <div className="flex items-start gap-4">
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${accentStyles[focusCategory.accent].iconBg}`}>
-                <FocusIcon className="w-7 h-7" />
-              </div>
-              <div>
-                <h2 className="text-2xl md:text-4xl font-bold text-white mb-2">
-                  {focusCategory.title}
-                </h2>
-                <p className="text-zinc-400 max-w-xl leading-relaxed text-base md:text-lg">
-                  {focusCategory.tagline}
-                </p>
+          <Home4Reveal>
+            <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="flex items-start gap-4">
+                <div
+                  className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${accentStyles[focusCategory.accent].iconBg}`}
+                >
+                  <FocusIcon className="h-7 w-7" />
+                </div>
+                <div>
+                  <h2 className={`mb-2 ${WARM_H2}`}>{focusCategory.title}</h2>
+                  <p className={`max-w-xl ${WARM_LEAD}`}>{focusCategory.tagline}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          </Home4Reveal>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {focusCategory.items.map((item) => (
               <ServiceCard
                 key={item.name}
@@ -210,16 +312,17 @@ export default function SolutionsPage() {
             ))}
           </div>
         </section>
-        <div className="pb-10">
+
+        <div className="pb-10 pt-8">
           <PageMediaStrip
             variant="secondary"
             src={`/images/${encodeURIComponent("solutions-fiduciary-defense-1x1 (2).jpg")}`}
             rounded="3xl"
           />
         </div>
-        {/* Phase 2: Wealth Protection & Fiduciary Defense */}
-        <div className="pt-8">
-          <h2 className="text-xl md:text-2xl font-bold text-zinc-500 uppercase tracking-wider mb-10 md:mb-12">
+
+        <div className="pt-4">
+          <h2 className={`mb-10 text-xl font-bold uppercase tracking-wider text-stone-500 md:mb-12 md:text-2xl`}>
             Phase 2: Wealth Protection & Fiduciary Defense
           </h2>
           {defenseCategories.map((cat) => {
@@ -230,20 +333,18 @@ export default function SolutionsPage() {
                 data-chunk-boundary
                 key={cat.id}
                 id={cat.id}
-                className="scroll-mt-32 py-12 md:py-16 border-b border-white/5 last:border-0"
+                className="scroll-mt-32 border-b border-stone-200/80 py-12 last:border-0 md:py-16"
               >
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+                <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                   <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${Style.iconBg}`}>
-                      <Icon className="w-6 h-6" />
+                    <div
+                      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${Style.iconBg}`}
+                    >
+                      <Icon className="h-6 w-6" />
                     </div>
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
-                        {cat.title}
-                      </h3>
-                      <p className="text-zinc-500 max-w-xl leading-relaxed text-sm">
-                        {cat.tagline}
-                      </p>
+                      <h3 className={`mb-1 ${WARM_H3}`}>{cat.title}</h3>
+                      <p className={`max-w-xl text-sm ${WARM_BODY}`}>{cat.tagline}</p>
                     </div>
                   </div>
                 </div>
@@ -269,39 +370,28 @@ export default function SolutionsPage() {
             );
           })}
         </div>
-        {/* CTA block */}
-        <section data-chunk-boundary className="mt-20 md:mt-28 rounded-[2rem] bg-gradient-to-br from-[#151518] to-[#1a1a24] border border-white/10 p-8 md:p-12 relative overflow-hidden">
+      </WarmSection>
+
+      <section data-chunk-boundary className={WARM_CTA_BAND}>
+        <div className={`${WARM_WRAP} relative text-center`}>
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-teal-600/10 pointer-events-none" />
-          <div className="relative text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-              Stop Guessing. Start Engineering.
-            </h2>
-            <p className="text-zinc-400 mb-8">
+          <div className="relative mx-auto max-w-2xl">
+            <h2 className="mb-3 text-2xl font-bold text-white md:text-3xl">Stop Guessing. Start Engineering.</h2>
+            <p className="mb-8 text-white/80">
               Book a private actuarial review of your capital lifespan, or run the numbers yourself.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/contact"
-                prefetch={false}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-8 py-4 rounded-full hover:bg-zinc-200 transition-colors"
-              >
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <WarmPrimaryLink href="/contact" className="w-full sm:w-auto">
                 Book Private Consultation
-              </Link>
-              <Link
-                href="/calculators"
-                prefetch={false}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold px-8 py-4 rounded-full transition-colors"
-              >
+              </WarmPrimaryLink>
+              <WarmSecondaryLink href="/calculators" className="w-full sm:w-auto">
                 All calculators
-              </Link>
+              </WarmSecondaryLink>
             </div>
-            <p className="text-zinc-500 text-sm mt-6">
-              WhatsApp +27 66 227 6044 for a quick response
-            </p>
+            <p className={`mt-6 ${WARM_META} text-white/60`}>WhatsApp +27 66 227 6044 for a quick response</p>
           </div>
-        </section>
-      </div>
-      <Footer />
-    </div>
+        </div>
+      </section>
+    </WarmPageWithFooter>
   );
 }

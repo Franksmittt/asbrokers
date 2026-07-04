@@ -12,7 +12,7 @@ export const metadata = buildPageMetadata({
 
 export default function CalculatorsPage() {
   return (
-    <div className="min-h-screen bg-[#F7F6F3] text-shark">
+    <>
       <PageJsonLd
         path="/calculators"
         webPage={{
@@ -53,6 +53,6 @@ export default function CalculatorsPage() {
       </section>
 
       <Footer />
-    </div>
+    </>
   );
 }

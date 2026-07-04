@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
-import { RelatedContent } from "@/components/seo/RelatedContent";
-import { buildPageMetadata } from "@/lib/seo-metadata";
-import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
+import { WarmHero, WarmPageWithFooter, WarmSection } from "@/components/warm/WarmShell";
 import { getInsightFeed } from "@/lib/insights/feed";
 import { InsightsFeedFilter } from "@/components/insights/InsightsFeedFilter";
+import { getPrimaryPageImage } from "@/lib/primary-page-images";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
 export const metadata = buildPageMetadata({
   path: "/insights",
@@ -15,43 +14,32 @@ export const metadata = buildPageMetadata({
 
 export default async function InsightsPage() {
   const articles = await getInsightFeed();
+  const heroImage = getPrimaryPageImage("/insights") ?? "/images/insights-inset-1x1.jpg";
 
   return (
-    <div className="bg-[#0a0a0c] min-h-screen">
-      <section className="pt-28 pb-10">
-        <div className={PAGE_CONTENT_MAX}>
-          <div className="max-w-4xl mx-auto text-center md:text-left">
-            <p className="text-blue-400 text-xs font-semibold uppercase tracking-[0.2em] mb-3">Resources</p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-              Insights & Education
-            </h1>
-            <p className="text-lg text-zinc-400 max-w-2xl mx-auto md:mx-0">
-              Articles, guides, and tools to help you make informed decisions about retirement, estate planning, and wealth.
-            </p>
-            <p className="mt-4 text-sm text-zinc-500">
-              Featured:{" "}
-              <Link href="/insights/semigration-retirement" prefetch={false} className="text-cinematic-teal hover:underline">
-                Semigration & retirement villages
-              </Link>
-            </p>
-          </div>
-          <div className="mt-8">
-            <PageMediaStrip
-              variant="secondary"
-              src="/images/insights-inset-1x1.jpg"
-              rounded="3xl"
-            />
-          </div>
-        </div>
-      </section>
+    <WarmPageWithFooter>
+      <WarmHero
+        kicker="Resources"
+        title="Insights & Education"
+        description="Articles, guides, and tools to help you make informed decisions about retirement, estate planning, and wealth."
+        imageSrc={heroImage}
+        maxWidth="4xl"
+      >
+        <p className="mt-4 text-sm text-white/80">
+          Featured:{" "}
+          <Link
+            href="/insights/semigration-retirement"
+            prefetch={false}
+            className="font-medium text-cinematic-teal hover:underline"
+          >
+            Semigration & retirement villages
+          </Link>
+        </p>
+      </WarmHero>
 
-      <section className={`${PAGE_CONTENT_MAX} pb-24`}>
-        <div className="mx-auto max-w-7xl">
-          <InsightsFeedFilter articles={articles} />
-        </div>
-      </section>
-
-      <Footer />
-    </div>
+      <WarmSection className="pb-24">
+        <InsightsFeedFilter articles={articles} />
+      </WarmSection>
+    </WarmPageWithFooter>
   );
 }

@@ -22,7 +22,7 @@ import { getAlt } from "@/lib/image-alt";
 
 export function Home4Preview() {
   return (
-    <div className="min-h-screen bg-[#F7F6F3] pb-24 text-shark md:pb-0">
+    <>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -36,7 +36,7 @@ export function Home4Preview() {
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-shark/85 via-shark/55 to-shark/25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F7F6F3] via-transparent to-shark/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-warm-canvas via-transparent to-shark/20" />
         </div>
 
         <div className="relative pt-32 pb-36 sm:pt-36 sm:pb-44 md:pt-40 md:pb-52">
@@ -196,6 +196,6 @@ export function Home4Preview() {
       </section>
 
       <Footer />
-    </div>
+    </>
   );
 }

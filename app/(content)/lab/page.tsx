@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
 import { RunOutCalculator } from "@/components/RunOutCalculator";
+import { WarmHero, WarmPageWithFooter, WarmSection } from "@/components/warm/WarmShell";
+import { getPrimaryPageImage } from "@/lib/primary-page-images";
+import { WARM_BODY, WARM_CARD, WARM_H2, WARM_H3, WARM_LINK } from "@/lib/warm-theme";
 
 const tools = [
   { name: "Retirement run-out", desc: "When does your money run out?", href: "#calculator" },
@@ -10,57 +12,57 @@ const tools = [
 ];
 
 export default function LabPage() {
+  const heroImage = getPrimaryPageImage("/lab") ?? "/images/lab-inset-1x1.jpg";
+
   return (
-    <div className="bg-[#0a0a0c] min-h-screen">
-      <section className="pt-28 pb-16 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">The Lab</h1>
-          <p className="text-zinc-400 text-lg mb-4">
-            10+ free calculators for retirement, investment and risk. So you know where you stand.
-          </p>
-          <p className="text-sm text-zinc-500 mb-8">
-            Prefer the curated hub?{" "}
-            <Link href="/calculators" prefetch={false} className="text-cinematic-teal hover:underline">
-              Browse all calculators
-            </Link>
-          </p>
-          <Link
-            href="/calculators"
-            className="text-blue-400 hover:underline text-sm font-medium"
-          >
-            See all calculators, products & education
+    <WarmPageWithFooter>
+      <WarmHero
+        kicker="Calculators"
+        title="The Lab"
+        description="10+ free calculators for retirement, investment and risk. So you know where you stand."
+        imageSrc={heroImage}
+        maxWidth="4xl"
+      >
+        <p className="mt-4 text-sm text-white/80">
+          Prefer the curated hub?{" "}
+          <Link href="/calculators" prefetch={false} className="font-medium text-cinematic-teal hover:underline">
+            Browse all calculators
           </Link>
-        </div>
-      </section>
-      <section id="calculator" className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8">
+        </p>
+      </WarmHero>
+
+      <WarmSection>
+        <div id="calculator" className="scroll-mt-24">
         <div className="mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-2">The &quot;Run-Out&quot; Calculator.</h2>
-          <p className="text-zinc-400 max-w-3xl">
+          <h2 className={WARM_H2}>The &quot;Run-Out&quot; Calculator</h2>
+          <p className={`mt-2 max-w-3xl ${WARM_BODY}`}>
             Adjust the sliders to see when your capital might face the &quot;cliff&quot; based on current withdrawal rates.
           </p>
         </div>
-        <RunOutCalculator />
-      </section>
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-12 pb-32">
-        <h2 className="text-xl font-bold text-white mb-6">More tools</h2>
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className={`${WARM_CARD} overflow-hidden p-0`}>
+          <RunOutCalculator />
+        </div>
+        </div>
+      </WarmSection>
+
+      <WarmSection alt className="pb-32">
+        <h2 className={`${WARM_H2} mb-6`}>More tools</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
           {tools.map((t) => (
-            <Link
-              key={t.name}
-              href={t.href}
-              className="bg-[#151518] rounded-[2rem] p-6 border border-white/5 hover:border-white/20 transition-colors block"
-            >
-              <h3 className="font-bold text-white">{t.name}</h3>
-              <p className="text-zinc-500 text-sm mt-1">{t.desc}</p>
+            <Link key={t.name} href={t.href} className={`${WARM_CARD} block transition-colors hover:ring-stone-300`}>
+              <h3 className={WARM_H3}>{t.name}</h3>
+              <p className={`mt-1 text-sm text-stone-500`}>{t.desc}</p>
             </Link>
           ))}
         </div>
-        <p className="text-zinc-500 text-sm mt-8">
+        <p className={`mt-8 text-sm text-stone-500`}>
           More calculators coming. Need something specific?{" "}
-          <Link href="/contact" className="text-blue-400 hover:underline">Contact us</Link>.
+          <Link href="/contact" className={WARM_LINK}>
+            Contact us
+          </Link>
+          .
         </p>
-      </section>
-      <Footer />
-    </div>
+      </WarmSection>
+    </WarmPageWithFooter>
   );
 }

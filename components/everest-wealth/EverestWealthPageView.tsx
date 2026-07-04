@@ -183,7 +183,7 @@ function ProductCard({
 
 export function EverestWealthPageView() {
   return (
-    <div className="min-h-screen bg-[#F7F6F3] pb-24 text-shark md:pb-0">
+    <>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -197,7 +197,7 @@ export function EverestWealthPageView() {
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-shark/88 via-shark/55 to-shark/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F7F6F3] via-transparent to-shark/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-warm-canvas via-transparent to-shark/20" />
         </div>
 
         <div className="relative pt-32 pb-20 sm:pt-36 sm:pb-24 md:pt-40 md:pb-28">
@@ -364,6 +364,6 @@ export function EverestWealthPageView() {
       </section>
 
       <Footer />
-    </div>
+    </>
   );
 }

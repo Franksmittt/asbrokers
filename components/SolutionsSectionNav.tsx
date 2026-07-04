@@ -32,18 +32,18 @@ export function SolutionsSectionNav() {
 
   return (
     <nav
-      className="sticky top-[72px] z-40 -mx-4 sm:-mx-6 md:-mx-8 px-4 sm:px-6 md:px-8 py-3 bg-[#0a0a0c]/95 backdrop-blur-xl border-b border-white/5"
+      className="sticky top-[72px] z-40 -mx-4 border-b border-stone-200/80 bg-warm-canvas/95 px-4 py-3 backdrop-blur-xl sm:-mx-6 sm:px-6 md:-mx-8 md:px-8"
       aria-label="Solutions sections"
     >
-      <div className="max-w-6xl mx-auto flex overflow-x-auto no-scrollbar flex-nowrap sm:flex-wrap items-center gap-2 scroll-smooth">
+      <div className="mx-auto flex max-w-6xl flex-nowrap items-center gap-2 overflow-x-auto scroll-smooth sm:flex-wrap no-scrollbar">
         {sections.map((s) => (
           <a
             key={s.id}
             href={`#${s.id}`}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
               activeId === s.id
-                ? "bg-white text-black"
-                : "text-zinc-400 hover:text-white hover:bg-white/10"
+                ? "bg-samsung-blue text-white shadow-sm"
+                : "text-stone-600 hover:bg-stone-100 hover:text-shark"
             }`}
           >
             {s.label}

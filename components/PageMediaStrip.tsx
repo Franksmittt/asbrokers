@@ -35,7 +35,7 @@ export function PageMediaStrip({ src, alt, variant = "primary", priority, classN
   const resolvedAlt = alt ?? getAlt(src);
   return (
     <div
-      className={`relative w-full overflow-hidden border border-white/10 rim-light ${round} ${h} ${className ?? ""}`}
+      className={`relative w-full overflow-hidden ring-1 ring-stone-200/80 shadow-md ${round} ${h} ${className ?? ""}`}
     >
       <Image
         src={src}
@@ -63,7 +63,7 @@ export function PageMediaStripTriple({ items, className }: TripleProps) {
       {items.map((item) => (
         <div
           key={item.src}
-          className={`relative w-full overflow-hidden rounded-2xl border border-white/10 rim-light ${heights.tile}`}
+          className={`relative w-full overflow-hidden rounded-2xl ring-1 ring-stone-200/80 shadow-md ${heights.tile}`}
         >
           <Image
             src={item.src}

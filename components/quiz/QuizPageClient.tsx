@@ -6,6 +6,15 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useQueryState } from "nuqs";
 import { ArrowRight } from "@/components/icons";
 import {
+  WARM_BODY,
+  WARM_BTN_PRIMARY,
+  WARM_BTN_SECONDARY,
+  WARM_CARD,
+  WARM_H3,
+  WARM_LINK,
+  WARM_WRAP,
+} from "@/lib/warm-theme";
+import {
   useQuizStore,
   AGE_BRACKETS,
   PRIMARY_CONCERNS,
@@ -51,10 +60,10 @@ const opacityOnlyAnimate: MotionTransition = { opacity: 1 };
 
 export function QuizPageLoading() {
   return (
-    <section id="quiz-content" className="px-4 sm:px-6 md:px-8 pb-24">
-      <div className="max-w-2xl mx-auto">
-        <div className="glass-card rounded-2xl border border-white/10 p-6 md:p-10 min-h-[320px] flex items-center justify-center">
-          <p className="text-zinc-500">Preparing your quiz…</p>
+    <section id="quiz-content" className="pb-24">
+      <div className={`${WARM_WRAP} max-w-2xl`}>
+        <div className={`${WARM_CARD} flex min-h-[320px] items-center justify-center`}>
+          <p className="text-stone-500">Preparing your quiz…</p>
         </div>
       </div>
     </section>
@@ -111,9 +120,9 @@ function QuizPageContent() {
   const animateTransition = reducedMotion ? opacityOnlyAnimate : slideInAnimate;
 
   return (
-    <section id="quiz-content" className="px-4 sm:px-6 md:px-8 pb-24">
-      <div className="max-w-2xl mx-auto">
-        <div className="glass-card glass-card-hover rounded-2xl border border-white/10 p-6 md:p-10 min-h-[320px] overflow-hidden relative">
+    <section id="quiz-content" className="pb-24">
+      <div className={`${WARM_WRAP} max-w-2xl`}>
+        <div className={`${WARM_CARD} relative min-h-[320px] overflow-hidden`}>
           <AnimatePresence mode="wait">
             {currentStep === "concern" && (
               <StepPanel
@@ -123,20 +132,20 @@ function QuizPageContent() {
                 animateTransition={animateTransition}
                 onBack={null}
               >
-                <h2 className="text-xl font-bold text-white mb-2">
+                <h2 className={`${WARM_H3} mb-2`}>
                   What&apos;s your biggest financial concern right now?
                 </h2>
-                <p className="text-zinc-500 text-sm mb-6">Choose the one that matters most to you.</p>
+                <p className="mb-6 text-sm text-stone-500">Choose the one that matters most to you.</p>
                 <div className="space-y-3">
                   {PRIMARY_CONCERNS.map((c) => (
                     <button
                       key={c}
                       type="button"
                       onClick={() => setPrimaryConcern(c)}
-                      className="w-full flex items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/30 hover:bg-white/10 text-left transition-colors"
+                      className="flex w-full items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50 p-4 text-left transition-colors hover:border-samsung-blue/30 hover:bg-white"
                     >
-                      <span className="text-zinc-200">{c}</span>
-                      <ArrowRight className="w-5 h-5 text-blue-400 shrink-0" />
+                      <span className="text-shark">{c}</span>
+                      <ArrowRight className="h-5 w-5 shrink-0 text-samsung-blue" />
                     </button>
                   ))}
                 </div>
@@ -151,18 +160,18 @@ function QuizPageContent() {
                 animateTransition={animateTransition}
                 onBack={() => useQuizStore.getState().setPrimaryConcern(null as unknown as PrimaryConcern)}
               >
-                <h2 className="text-xl font-bold text-white mb-2">Roughly, which age group are you in?</h2>
-                <p className="text-zinc-500 text-sm mb-6">This helps us tailor recommendations.</p>
+                <h2 className={`${WARM_H3} mb-2`}>Roughly, which age group are you in?</h2>
+                <p className="mb-6 text-sm text-stone-500">This helps us tailor recommendations.</p>
                 <div className="space-y-3">
                   {AGE_BRACKETS.map((a) => (
                     <button
                       key={a}
                       type="button"
                       onClick={() => setAgeBracket(a)}
-                      className="w-full flex items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/30 hover:bg-white/10 text-left transition-colors"
+                      className="flex w-full items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50 p-4 text-left transition-colors hover:border-samsung-blue/30 hover:bg-white"
                     >
-                      <span className="text-zinc-200">{a}</span>
-                      <ArrowRight className="w-5 h-5 text-blue-400 shrink-0" />
+                      <span className="text-shark">{a}</span>
+                      <ArrowRight className="h-5 w-5 shrink-0 text-samsung-blue" />
                     </button>
                   ))}
                 </div>
@@ -177,10 +186,10 @@ function QuizPageContent() {
                 animateTransition={animateTransition}
                 onBack={() => useQuizStore.getState().setAgeBracket(null as unknown as AgeBracket)}
               >
-                <h2 className="text-xl font-bold text-white mb-2">
+                <h2 className={`${WARM_H3} mb-2`}>
                   Roughly how much capital do you have available to invest?
                 </h2>
-                <p className="text-zinc-500 text-sm mb-6">
+                <p className="mb-6 text-sm text-stone-500">
                   This helps us recommend suitable options (e.g. Everest products from R100k).
                 </p>
                 <div className="space-y-3">
@@ -189,10 +198,10 @@ function QuizPageContent() {
                       key={r.id}
                       type="button"
                       onClick={() => setAvailableCapital(r.id)}
-                      className="w-full flex items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/30 hover:bg-white/10 text-left transition-colors"
+                      className="flex w-full items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50 p-4 text-left transition-colors hover:border-samsung-blue/30 hover:bg-white"
                     >
-                      <span className="text-zinc-200">{r.label}</span>
-                      <ArrowRight className="w-5 h-5 text-blue-400 shrink-0" />
+                      <span className="text-shark">{r.label}</span>
+                      <ArrowRight className="h-5 w-5 shrink-0 text-samsung-blue" />
                     </button>
                   ))}
                 </div>
@@ -257,7 +266,7 @@ function StepPanel({
     >
       {children}
       {onBack && (
-        <button type="button" onClick={onBack} className="mt-6 text-sm text-zinc-500 hover:text-zinc-300">
+        <button type="button" onClick={onBack} className="mt-6 text-sm text-stone-500 hover:text-shark">
           ← Back
         </button>
       )}
@@ -335,59 +344,47 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
 
   return (
     <>
-      <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center mb-6">
-        <ArrowRight className="w-7 h-7 text-blue-400" />
+      <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-samsung-blue/10">
+        <ArrowRight className="h-7 w-7 text-samsung-blue" />
       </div>
-      <h2 className="text-xl font-bold text-white mb-2">Here&apos;s where to go next</h2>
-      <p className="text-zinc-400 text-sm mb-6">
+      <h2 className={`${WARM_H3} mb-2`}>Here&apos;s where to go next</h2>
+      <p className={`mb-6 text-sm ${WARM_BODY}`}>
         Based on your answers, we recommend the following. Share this page to keep your results.
       </p>
 
       {primaryRecommendation && (
-        <div className="mb-6 p-4 rounded-xl bg-blue-500/10 border border-blue-500/30">
-          <p className="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-1">Top recommendation</p>
+        <div className="mb-6 rounded-xl border border-samsung-blue/25 bg-samsung-blue/5 p-4">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-samsung-blue">Top recommendation</p>
           <Link
             href={primaryRecommendation.href}
             prefetch={false}
-            className="inline-flex items-center gap-2 text-white font-semibold hover:text-blue-300"
+            className="inline-flex items-center gap-2 font-semibold text-shark hover:text-samsung-blue"
           >
             {primaryRecommendation.title}
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="h-4 w-4" />
           </Link>
-          <p className="text-sm text-zinc-400 mt-2">{primaryRecommendation.description}</p>
+          <p className={`mt-2 text-sm ${WARM_BODY}`}>{primaryRecommendation.description}</p>
         </div>
       )}
 
-      <ul className="space-y-3 mb-8">
+      <ul className="mb-8 space-y-3">
         {(primaryRecommendation ? fallbackLinks.filter((l) => l.href !== primaryRecommendation.href) : fallbackLinks)
           .slice(0, 4)
           .map(({ label, href }) => (
             <li key={href}>
-              <Link
-                href={href}
-                prefetch={false}
-                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium"
-              >
+              <Link href={href} prefetch={false} className={`inline-flex items-center gap-2 font-medium ${WARM_LINK}`}>
                 {label}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </li>
           ))}
       </ul>
 
       <div className="flex flex-wrap gap-3">
-        <Link
-          href="/contact"
-          prefetch={false}
-          className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full text-sm hover:bg-zinc-200"
-        >
+        <Link href="/contact" prefetch={false} className={WARM_BTN_PRIMARY}>
           Get a personalised plan
         </Link>
-        <Link
-          href="/insights"
-          prefetch={false}
-          className="inline-flex items-center gap-2 border border-white/20 text-white px-6 py-3 rounded-full text-sm hover:bg-white/10"
-        >
+        <Link href="/insights" prefetch={false} className={WARM_BTN_SECONDARY}>
           Read insights
         </Link>
       </div>

@@ -19,6 +19,7 @@ const config: Config = {
         },
         void: "#000000",
         shark: "#1D1D1F",
+        "warm-canvas": "#F7F6F3",
         "cinematic-teal": "#00A3A3",
         "gold-orange": "#FF7F50",
         "samsung-blue": "#0057B8",

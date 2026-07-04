@@ -1,8 +1,14 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { EstateDutyCalculator } from "@/components/EstateDutyCalculator";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import {
+  WarmPageWithFooter,
+  WarmPrimaryLink,
+  WarmSection,
+  WarmSimpleHero,
+} from "@/components/warm/WarmShell";
+import { WARM_BODY, WARM_CARD, WARM_H2, WARM_H3, WARM_LINK, WARM_META } from "@/lib/warm-theme";
 import { getRelatedLinks } from "@/lib/related-content";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
@@ -25,198 +31,156 @@ export const metadata = buildPageMetadata({
 
 export default function EstateDutyCalculatorPage() {
   return (
-    <div className="bg-[#0a0a0c] min-h-screen">
+    <WarmPageWithFooter>
       <PageJsonLd path="/estate-duty-calculator" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
-      {/* Hero */}
-      <section className="relative pt-28 pb-12 px-4 sm:px-6 md:px-8 overflow-hidden">
-        <div className="absolute top-1/4 right-0 w-[320px] h-[320px] bg-red-500/15 blur-[100px] rounded-full pointer-events-none" aria-hidden />
-        <div className="absolute bottom-1/4 left-0 w-[240px] h-[240px] bg-amber-600/10 blur-[80px] rounded-full pointer-events-none" aria-hidden />
-        <div className="relative max-w-4xl mx-auto text-center">
-          <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">
-            Phase 2: Risk Architecture · Fiduciary Liability.
-          </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-4">
-            Estate Duty Calculator
-          </h1>
-          <p className="text-xl text-zinc-400 leading-relaxed mb-4">Understand the cost of dying.</p>
-          <p className="text-zinc-500">
-            Calculate estate duty, executor fees, and the total cash your estate will need at death, before your family
-            has to find out the hard way.
-          </p>
-        </div>
-      </section>
 
-      {/* Teaser bullets */}
-      <section className="py-8 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap gap-6 justify-center text-sm text-zinc-400">
-            <span>Estate duty payable</span>
-            <span>Executor fees</span>
-            <span>Total estate costs</span>
-          </div>
-        </div>
-      </section>
+      <WarmSimpleHero
+        centered
+        kicker="Phase 2: Risk Architecture · Fiduciary Liability"
+        title="Estate Duty Calculator"
+        description="Understand the cost of dying. Calculate estate duty, executor fees, and the total cash your estate will need at death, before your family has to find out the hard way."
+      />
 
-      {/* Educational context */}
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto space-y-4 text-sm text-zinc-400 leading-relaxed">
-          <h2 className="text-xl font-bold text-white mb-2">Understanding estate duty (headline level only)</h2>
-          <p>
-            <strong className="text-zinc-300">Estate duty</strong> is a tax levied on the dutiable amount of a deceased
-            person’s South African estate. The net estate considers allowable deductions and abatements in terms of{" "}
-            <strong className="text-zinc-300">current statute and SARS guidance</strong>. Rates commonly discussed include
-            portions taxed at <strong className="text-zinc-300">20%</strong> and higher bands at{" "}
-            <strong className="text-zinc-300">25%</strong>, but your outcome depends on assets, debts, rollovers to surviving
+      <WarmSection narrow className="py-8">
+        <div className="flex flex-wrap justify-center gap-6 text-sm text-stone-500">
+          <span>Estate duty payable</span>
+          <span>Executor fees</span>
+          <span>Total estate costs</span>
+        </div>
+      </WarmSection>
+
+      <WarmSection alt narrow>
+        <div className="space-y-4">
+          <h2 className={WARM_H3}>Understanding estate duty (headline level only)</h2>
+          <p className={WARM_BODY}>
+            <strong className="text-shark">Estate duty</strong> is a tax levied on the dutiable amount of a deceased
+            person&apos;s South African estate. The net estate considers allowable deductions and abatements in terms of{" "}
+            <strong className="text-shark">current statute and SARS guidance</strong>. Rates commonly discussed include
+            portions taxed at <strong className="text-shark">20%</strong> and higher bands at{" "}
+            <strong className="text-shark">25%</strong>, but your outcome depends on assets, debts, rollovers to surviving
             spouses where applicable, and filing accuracy.
           </p>
-          <p>
-            <strong className="text-zinc-300">Executor fees</strong> (often commission-based subject to regulation and agreed
-            terms) and <strong className="text-zinc-300">liquidity timing</strong> mean families sometimes must raise cash
+          <p className={WARM_BODY}>
+            <strong className="text-shark">Executor fees</strong> (often commission-based subject to regulation and agreed
+            terms) and <strong className="text-shark">liquidity timing</strong> mean families sometimes must raise cash
             before inheritances flow. Life policies and liquid investments may help - if ownership and beneficiary structures
             were set up correctly and remain appropriate.
           </p>
-          <p className="text-zinc-500">
+          <p className={WARM_META}>
             This calculator uses simplified assumptions to surface magnitude, not to replace a conveyancer, accountant, or
             SARS filing. Laws and abatements change; verify with professionals for your estate.
           </p>
           <p className="pt-2">
-            <Link href="/solutions/estate-planning" className="text-cinematic-teal hover:underline font-medium">
+            <Link href="/solutions/estate-planning" className={WARM_LINK}>
               Estate planning services overview
             </Link>
             {" · "}
-            <Link href="/annual-estate-reduction-strategy" className="text-cinematic-teal hover:underline font-medium">
+            <Link href="/annual-estate-reduction-strategy" className={WARM_LINK}>
               Donations modelling tool
             </Link>
           </p>
         </div>
-      </section>
+      </WarmSection>
 
-      {/* Calculator */}
-      <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
+      <WarmSection narrow>
+        <div className={WARM_CARD}>
           <EstateDutyCalculator />
         </div>
-      </section>
+      </WarmSection>
 
-      {/* Liquidity Stress Test – Bento card */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8 lg:p-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              Liquidity Stress Test
-            </h2>
-            <p className="text-zinc-400 leading-relaxed mb-4">
-              The figure above is a high-level estimate of the cash your estate must produce at death. SARS can claim{" "}
-              <strong className="text-zinc-300">20% on the first R30 million</strong> and{" "}
-              <strong className="text-zinc-300">25% on amounts above that</strong>, plus executor fees. All of it is
-              payable in cash before heirs receive their inheritances.
-            </p>
-            <p className="text-zinc-400 leading-relaxed mb-4">
-              Estate duty is calculated on the total value of your estate at death, including property, investments,
-              policies, cash, and other assets, after allowable deductions. This calculator is not designed for
-              precision. Its purpose is awareness: to expose the liquidity gap before it becomes a crisis.
-            </p>
-            <p className="text-zinc-400 leading-relaxed font-medium text-zinc-300">
-              You have just run a liquidity stress test. The next step is to reduce the number.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* The Hidden Problem */}
-      <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">The Hidden Problem</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            What often catches families off guard is not poor investment performance, but the fact that growth inside an
-            estate quietly increases the eventual tax bill over time. Capital locked in low-yield, traditional
-            structures makes it worse: when the estate freezes, that capital cannot be turned into cash quickly
-            enough. The liquidity crisis is exacerbated precisely when families can least afford it.
+      <WarmSection alt narrow>
+        <div className={WARM_CARD}>
+          <h2 className={`${WARM_H2} mb-6`}>Liquidity Stress Test</h2>
+          <p className={`${WARM_BODY} mb-4`}>
+            The figure above is a high-level estimate of the cash your estate must produce at death. SARS can claim{" "}
+            <strong className="text-shark">20% on the first R30 million</strong> and{" "}
+            <strong className="text-shark">25% on amounts above that</strong>, plus executor fees. All of it is
+            payable in cash before heirs receive their inheritances.
           </p>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            When sufficient liquidity is not available, estates are often forced to sell assets under pressure, delay
-            finalisation, or disrupt long-term plans.
+          <p className={`${WARM_BODY} mb-4`}>
+            Estate duty is calculated on the total value of your estate at death, including property, investments,
+            policies, cash, and other assets, after allowable deductions. This calculator is not designed for
+            precision. Its purpose is awareness: to expose the liquidity gap before it becomes a crisis.
           </p>
-          <p className="text-zinc-400 leading-relaxed">
-            The good news is that estate duty exposure can usually be reduced legally and gradually, but only if
-            planning starts early and is applied consistently.
+          <p className={`${WARM_BODY} font-medium text-shark`}>
+            You have just run a liquidity stress test. The next step is to reduce the number.
           </p>
         </div>
-      </section>
+      </WarmSection>
 
-      {/* Strategic Capital Migration */}
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Strategic Capital Migration</h2>
-          <p className="text-zinc-400 leading-relaxed mb-4">
-            The first step in mathematically reducing your exposure is the annual donations allowance. South African
-            tax residents may donate up to <strong className="text-zinc-300">R100,000 per individual</strong> or{" "}
-            <strong className="text-zinc-300">R200,000 per married couple</strong> each tax year free of donations tax.
-            By using this exemption and redirecting growth outside your personal estate (for example into a family
-            trust), future estate duty can be reduced without drastic once-off decisions.
-          </p>
-          <p className="text-zinc-400 leading-relaxed mb-2">
-            This result is not a prediction.
-          </p>
-          <p className="text-zinc-400 leading-relaxed font-medium text-zinc-300">
-            It is a planning signal. The size of the problem is shown above; the solution requires structured action over
-            time.
-          </p>
-        </div>
-      </section>
+      <WarmSection narrow>
+        <h2 className={`${WARM_H2} mb-6`}>The Hidden Problem</h2>
+        <p className={`${WARM_BODY} mb-4`}>
+          What often catches families off guard is not poor investment performance, but the fact that growth inside an
+          estate quietly increases the eventual tax bill over time. Capital locked in low-yield, traditional
+          structures makes it worse: when the estate freezes, that capital cannot be turned into cash quickly
+          enough. The liquidity crisis is exacerbated precisely when families can least afford it.
+        </p>
+        <p className={`${WARM_BODY} mb-4`}>
+          When sufficient liquidity is not available, estates are often forced to sell assets under pressure, delay
+          finalisation, or disrupt long-term plans.
+        </p>
+        <p className={WARM_BODY}>
+          The good news is that estate duty exposure can usually be reduced legally and gradually, but only if
+          planning starts early and is applied consistently.
+        </p>
+      </WarmSection>
 
-      {/* Next Step – Squircle CTA with pulsing glow */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-[2rem] bg-[#151518] border-2 border-blue-500/40 p-8 md:p-10 shadow-[0_0_50px_rgba(59,130,246,0.2)]">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-white mb-6">Next Step</h2>
-              <p className="text-zinc-400 leading-relaxed mb-8">
-                If you would like to see how annual donations, when invested correctly, can reduce estate duty and shift
-                long-term growth outside your estate, the next calculator will walk you through that strategy.
-              </p>
-              <Link
-                href="/annual-estate-reduction-strategy"
-                prefetch={false}
-                className="inline-flex items-center gap-2 bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors w-full sm:w-auto justify-center"
-              >
-                Engineer Your Estate Reduction Strategy →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WarmSection alt narrow>
+        <h2 className={`${WARM_H2} mb-6`}>Strategic Capital Migration</h2>
+        <p className={`${WARM_BODY} mb-4`}>
+          The first step in mathematically reducing your exposure is the annual donations allowance. South African
+          tax residents may donate up to <strong className="text-shark">R100,000 per individual</strong> or{" "}
+          <strong className="text-shark">R200,000 per married couple</strong> each tax year free of donations tax.
+          By using this exemption and redirecting growth outside your personal estate (for example into a family
+          trust), future estate duty can be reduced without drastic once-off decisions.
+        </p>
+        <p className={`${WARM_BODY} mb-2`}>This result is not a prediction.</p>
+        <p className={`${WARM_BODY} font-medium text-shark`}>
+          It is a planning signal. The size of the problem is shown above; the solution requires structured action over
+          time.
+        </p>
+      </WarmSection>
 
-      {/* Quick links */}
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-            <a
-              href="https://wa.me/27662276044"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-white transition-colors"
-            >
-              WhatsApp us · +27 66 227 6044
-            </a>
-            <Link href="/income-in-retirement" className="text-blue-400 hover:underline">
-              Income in retirement
-            </Link>
-            <Link href="/solutions" className="text-blue-400 hover:underline">
-              Solutions hub
-            </Link>
-            <Link href="/solutions/estate-planning" className="text-blue-400 hover:underline">
-              Estate planning
-            </Link>
-            <Link href="/solutions/business-insurance" className="text-blue-400 hover:underline">
-              Business insurance
-            </Link>
-          </div>
+      <WarmSection narrow>
+        <div className={`${WARM_CARD} text-center`}>
+          <h2 className={`${WARM_H2} mb-6`}>Next Step</h2>
+          <p className={`${WARM_BODY} mb-8`}>
+            If you would like to see how annual donations, when invested correctly, can reduce estate duty and shift
+            long-term growth outside your estate, the next calculator will walk you through that strategy.
+          </p>
+          <WarmPrimaryLink href="/annual-estate-reduction-strategy">
+            Engineer Your Estate Reduction Strategy →
+          </WarmPrimaryLink>
         </div>
-      </section>
+      </WarmSection>
+
+      <WarmSection alt narrow>
+        <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
+          <a
+            href="https://wa.me/27662276044"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={WARM_LINK}
+          >
+            WhatsApp us · +27 66 227 6044
+          </a>
+          <Link href="/income-in-retirement" className={WARM_LINK}>
+            Income in retirement
+          </Link>
+          <Link href="/solutions" className={WARM_LINK}>
+            Solutions hub
+          </Link>
+          <Link href="/solutions/estate-planning" className={WARM_LINK}>
+            Estate planning
+          </Link>
+          <Link href="/solutions/business-insurance" className={WARM_LINK}>
+            Business insurance
+          </Link>
+        </div>
+      </WarmSection>
 
       <RelatedContent links={getRelatedLinks("/estate-duty-calculator")} />
-      <Footer />
-    </div>
+    </WarmPageWithFooter>
   );
 }

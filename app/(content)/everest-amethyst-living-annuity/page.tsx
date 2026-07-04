@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
 import { AmethystAnnuityCalculator } from "@/components/AmethystAnnuityCalculator";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { WarmHero, WarmPageWithFooter, WarmPrimaryLink, WarmSection } from "@/components/warm/WarmShell";
+import { getPrimaryPageImage } from "@/lib/primary-page-images";
 import { buildPageMetadata } from "@/lib/seo-metadata";
+import { WARM_BODY, WARM_CARD, WARM_H2, WARM_LINK } from "@/lib/warm-theme";
 
 const PAGE_TITLE = "Amethyst Living Annuity | Targeted 10.2% Retirement Income";
 const PAGE_DESCRIPTION =
@@ -33,74 +35,70 @@ const amethystFAQs = [
 ];
 
 export default function AmethystAnnuityPage() {
+  const heroImage =
+    getPrimaryPageImage("/everest-amethyst-living-annuity") ?? "/images/living-annuity-inset-1x1.jpg";
+
   return (
-    <div className="bg-[#0a0a0c] min-h-screen">
+    <WarmPageWithFooter>
       <PageJsonLd
         path="/everest-amethyst-living-annuity"
         webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
         faqs={amethystFAQs}
       />
-      <section className="pt-28 pb-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">Phase 3: Retirement Liquidity Architecture.</p>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            Insulated Retirement: The Amethyst Living Annuity.
-          </h1>
-          <p className="text-xl text-zinc-400 leading-relaxed">
-            Transfer your Pension, Provident, or Retirement Annuity into a structured return profile. Model targeted income (~10.2% net) and a 9% capital maturity bonus while understanding liquidity, tax, and product risks.
-          </p>
-        </div>
-      </section>
-      <section className="py-12 px-4 sm:px-6 md:px-8">
-        <div className="max-w-4xl mx-auto">
+      <WarmHero
+        kicker="Phase 3: Retirement Liquidity Architecture"
+        title="Insulated Retirement: The Amethyst Living Annuity"
+        description="Transfer your Pension, Provident, or Retirement Annuity into a structured return profile. Model targeted income (~10.2% net) and a 9% capital maturity bonus while understanding liquidity, tax, and product risks."
+        imageSrc={heroImage}
+        maxWidth="4xl"
+      />
+
+      <WarmSection>
+        <div className={`${WARM_CARD} overflow-hidden p-0`}>
           <AmethystAnnuityCalculator />
         </div>
-      </section>
-      {/* 2-column Bento: The Yield Architecture + Strategic Deployment */}
-      <section className="py-16 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
-              <h2 className="text-xl font-bold text-white mb-4">The Yield Architecture</h2>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                The Amethyst targets a structured net return of{" "}
-                <span className="text-cinematic-teal font-bold text-lg">~10.2%</span> per year, with a{" "}
-                <span className="text-cinematic-teal font-bold text-lg">9%</span> capital maturity bonus after five years. Returns are not guaranteed and should be assessed with the full product disclosure pack.
-              </p>
-              <p className="text-zinc-500 text-xs leading-relaxed">
-                Income tax is calculated based on standard SARS drawdown tables.
-              </p>
-            </div>
-            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
-              <h2 className="text-xl font-bold text-white mb-4">Strategic Deployment</h2>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                For retirees seeking a structured alternative to daily market volatility: zero ongoing fund-switching fees, no performance monitoring, and a defined product framework. Your income and capital growth must still be reviewed against your drawdown, liquidity, and tax needs.
-              </p>
-            </div>
+      </WarmSection>
+
+      <WarmSection alt>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className={WARM_CARD}>
+            <h2 className={WARM_H2}>The Yield Architecture</h2>
+            <p className={`mt-4 ${WARM_BODY}`}>
+              The Amethyst targets a structured net return of{" "}
+              <span className="font-bold text-cinematic-teal">~10.2%</span> per year, with a{" "}
+              <span className="font-bold text-cinematic-teal">9%</span> capital maturity bonus after five years. Returns are not guaranteed and should be assessed with the full product disclosure pack.
+            </p>
+            <p className="mt-3 text-xs leading-relaxed text-stone-500">
+              Income tax is calculated based on standard SARS drawdown tables.
+            </p>
+          </div>
+          <div className={WARM_CARD}>
+            <h2 className={WARM_H2}>Strategic Deployment</h2>
+            <p className={`mt-4 ${WARM_BODY}`}>
+              For retirees seeking a structured alternative to daily market volatility: zero ongoing fund-switching fees, no performance monitoring, and a defined product framework. Your income and capital growth must still be reviewed against your drawdown, liquidity, and tax needs.
+            </p>
           </div>
         </div>
-      </section>
-      {/* CTA – Squircle container */}
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-[2rem] bg-[#151518] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-8 md:p-10 text-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 w-full bg-white text-black font-bold px-6 py-4 rounded-[2rem] hover:bg-zinc-200 transition-colors"
-            >
-              Initiate Section 14 Pension Transfer Review →
-            </Link>
-          </div>
+      </WarmSection>
+
+      <WarmSection>
+        <div className={`${WARM_CARD} text-center ring-samsung-blue/20`}>
+          <WarmPrimaryLink href="/contact" className="w-full sm:w-auto">
+            Initiate Section 14 Pension Transfer Review →
+          </WarmPrimaryLink>
         </div>
-      </section>
-      <section className="py-12 px-4 sm:px-6 md:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 text-sm text-zinc-500">
-          <a href="https://wa.me/27662276044" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp +27 66 227 6044</a>
-          <Link href="/everest-wealth" className="text-cinematic-teal hover:underline">Investment options</Link>
-          <Link href="/contact" className="text-cinematic-teal hover:underline">Contact</Link>
+        <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-stone-500">
+          <a href="https://wa.me/27662276044" target="_blank" rel="noopener noreferrer" className="hover:text-shark">
+            WhatsApp +27 66 227 6044
+          </a>
+          <Link href="/everest-wealth" className={WARM_LINK}>
+            Investment options
+          </Link>
+          <Link href="/contact" className={WARM_LINK}>
+            Contact
+          </Link>
         </div>
-      </section>
-      <Footer />
-    </div>
+      </WarmSection>
+    </WarmPageWithFooter>
   );
 }

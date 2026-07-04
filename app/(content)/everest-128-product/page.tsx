@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
-import { PAGE_CONTENT_MAX, PageMediaStrip } from "@/components/PageMediaStrip";
 import { Everest128Calculator } from "@/components/Everest128Calculator";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { WarmHero, WarmPageWithFooter, WarmSection } from "@/components/warm/WarmShell";
+import { getPrimaryPageImage } from "@/lib/primary-page-images";
 import { buildPageMetadata } from "@/lib/seo-metadata";
+import { WARM_BODY, WARM_CARD, WARM_EYEBROW, WARM_H2, WARM_LINK } from "@/lib/warm-theme";
 
 export const metadata = buildPageMetadata({
   path: "/everest-128-product",
@@ -13,8 +14,10 @@ export const metadata = buildPageMetadata({
 });
 
 export default function Everest128Page() {
+  const heroImage = getPrimaryPageImage("/everest-128-product") ?? "/images/everest-128-inset-1x1.jpg";
+
   return (
-    <div className="bg-[#0a0a0c] min-h-screen">
+    <WarmPageWithFooter>
       <PageJsonLd
         path="/everest-128-product"
         webPage={{
@@ -29,62 +32,45 @@ export default function Everest128Page() {
           brandName: "Everest Wealth",
         }}
       />
-      <section className="pt-28 pb-8">
-        <div className={PAGE_CONTENT_MAX}>
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-zinc-500 text-sm font-medium uppercase tracking-widest mb-3">Code 1.8 Wealth Engineering</p>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-              Yield Engineering: 12.8% Strategic Income.
-            </h1>
-            <p className="text-xl text-zinc-400 leading-relaxed">
-              Calculate the targeted monthly cash flow profile. This unlisted structure includes a 10% capital maturity bonus at year 5 and must be reviewed with its liquidity and risk disclosures.
+      <WarmHero
+        kicker="Code 1.8 Wealth Engineering"
+        title="Yield Engineering: 12.8% Strategic Income"
+        description="Calculate the targeted monthly cash flow profile. This unlisted structure includes a 10% capital maturity bonus at year 5 and must be reviewed with its liquidity and risk disclosures."
+        imageSrc={heroImage}
+        maxWidth="4xl"
+      />
+
+      <WarmSection>
+        <div className={`${WARM_CARD} overflow-hidden p-0 ring-samsung-blue/20`}>
+          <Everest128Calculator />
+        </div>
+      </WarmSection>
+
+      <WarmSection alt>
+        <h2 className={WARM_H2}>Fiduciary Compliance & Structure</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <div className={WARM_CARD}>
+            <p className={WARM_EYEBROW}>Regulated Efficiency</p>
+            <p className={`mt-3 ${WARM_BODY}`}>
+              All yields are subject to a flat 20% Dividend Withholding Tax (DWT), vastly outperforming standard income tax scales.
             </p>
           </div>
-          <div className="mt-8">
-            <PageMediaStrip
-              variant="secondary"
-              src="/images/everest-128-inset-1x1.jpg"
-              rounded="3xl"
-            />
-          </div>
-        </div>
-      </section>
-      <section className="py-12">
-        <div className={PAGE_CONTENT_MAX}>
-          <div className="rounded-[2rem] border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.12)] p-0 overflow-hidden">
-            <Everest128Calculator />
-          </div>
-        </div>
-      </section>
-      {/* Fiduciary Compliance & Structure – Bento grid */}
-      <section className="py-12 border-t border-white/5">
-        <div className={PAGE_CONTENT_MAX}>
-          <div className="max-w-4xl mx-auto">
-          <div className="mb-6">
-            <h2 className="text-xl font-bold text-white">Fiduciary Compliance & Structure</h2>
-          </div>
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
-              <p className="text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">Regulated Efficiency</p>
-              <p className="text-zinc-400 text-sm leading-relaxed">
-                All yields are subject to a flat 20% Dividend Withholding Tax (DWT), vastly outperforming standard income tax scales.
-              </p>
-            </div>
-            <div className="rounded-[2rem] bg-[#151518] border border-white/10 p-6 md:p-8">
-              <p className="text-zinc-500 text-xs font-semibold uppercase tracking-wider mb-3">Authority</p>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-4">
-                Albert Schuurman & Johnny Farinha · AS Brokers FSP 17273 · Code 1.8 Shares.
-              </p>
-              <div className="flex flex-wrap gap-3 text-sm">
-                <Link href="/everest-wealth" className="text-cinematic-teal hover:underline">Investment options</Link>
-                <Link href="/contact" className="text-cinematic-teal hover:underline">Contact</Link>
-              </div>
+          <div className={WARM_CARD}>
+            <p className="text-xs font-semibold uppercase tracking-wider text-stone-500">Authority</p>
+            <p className={`mt-3 ${WARM_BODY}`}>
+              Albert Schuurman & Johnny Farinha · AS Brokers FSP 17273 · Code 1.8 Shares.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3 text-sm">
+              <Link href="/everest-wealth" className={WARM_LINK}>
+                Investment options
+              </Link>
+              <Link href="/contact" className={WARM_LINK}>
+                Contact
+              </Link>
             </div>
           </div>
-          </div>
         </div>
-      </section>
-      <Footer />
-    </div>
+      </WarmSection>
+    </WarmPageWithFooter>
   );
 }

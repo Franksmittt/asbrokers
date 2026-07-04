@@ -1,7 +1,14 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
 import { WealthBuildingCalculator } from "@/components/WealthBuildingCalculator";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import {
+  WarmPageWithFooter,
+  WarmPrimaryLink,
+  WarmSecondaryLink,
+  WarmSection,
+  WarmSimpleHero,
+} from "@/components/warm/WarmShell";
+import { WARM_BODY, WARM_CARD, WARM_H2, WARM_META } from "@/lib/warm-theme";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "AS Brokers Wealth Building Calculator";
@@ -16,76 +23,47 @@ export const metadata = buildPageMetadata({
 
 export default function WealthBuildingCalculatorPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0c]">
+    <WarmPageWithFooter>
       <PageJsonLd path="/wealth-building-calculator" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
-      <section className="relative overflow-hidden px-4 pb-12 pt-28 sm:px-6 md:px-8">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-30"
-          aria-hidden
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 50% at 50% -10%, rgba(0,84,159,0.45), transparent)",
-          }}
-        />
-        <div className="relative mx-auto max-w-4xl text-center">
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-zinc-500">
-            Capital Lifespan &amp; Wealth Planning
-          </p>
-          <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            AS Brokers Wealth Building Calculator
-          </h1>
-          <p className="text-lg leading-relaxed text-zinc-400 sm:text-xl">
-            Model how capital can grow over time, for investments, retirement savings, business growth, or financial
-            freedom planning. No artificial limits on growth assumptions.
-          </p>
-        </div>
-      </section>
 
-      <section className="px-4 py-12 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-white/10">
+      <WarmSimpleHero
+        centered
+        kicker="Capital Lifespan & Wealth Planning"
+        title="AS Brokers Wealth Building Calculator"
+        description="Model how capital can grow over time, for investments, retirement savings, business growth, or financial freedom planning. No artificial limits on growth assumptions."
+      />
+
+      <WarmSection narrow>
+        <div className={`${WARM_CARD} overflow-hidden`}>
           <WealthBuildingCalculator />
         </div>
-      </section>
+      </WarmSection>
 
-      <section className="border-t border-white/5 px-4 py-16 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="mb-4 text-2xl font-bold text-white">What this tool is for</h2>
-          <p className="mb-4 text-sm leading-relaxed text-zinc-400">
-            This is a general-purpose compound growth calculator, not only an investment tool. Use it to illustrate how
-            starting capital, monthly contributions, annual contribution increases, and your chosen growth rate combine
-            over time.
-          </p>
-          <ul className="space-y-2 text-sm text-zinc-500">
-            {[
-              "Investment and wealth accumulation scenarios",
-              "Retirement savings projections",
-              "Business growth illustrations",
-              "Financial freedom planning conversations",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-[#00549F]">→</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/calculators"
-              className="inline-flex items-center justify-center rounded-[2rem] border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
-            >
-              All calculators
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-[2rem] bg-white px-6 py-3 text-sm font-bold text-black hover:bg-zinc-200"
-            >
-              Speak to AS Brokers
-            </Link>
-          </div>
+      <WarmSection alt narrow>
+        <h2 className={`${WARM_H2} mb-4`}>What this tool is for</h2>
+        <p className={`${WARM_BODY} mb-4`}>
+          This is a general-purpose compound growth calculator, not only an investment tool. Use it to illustrate how
+          starting capital, monthly contributions, annual contribution increases, and your chosen growth rate combine
+          over time.
+        </p>
+        <ul className={`space-y-2 ${WARM_META}`}>
+          {[
+            "Investment and wealth accumulation scenarios",
+            "Retirement savings projections",
+            "Business growth illustrations",
+            "Financial freedom planning conversations",
+          ].map((item) => (
+            <li key={item} className="flex items-start gap-2">
+              <span className="text-samsung-blue">→</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <WarmSecondaryLink href="/calculators">All calculators</WarmSecondaryLink>
+          <WarmPrimaryLink href="/contact">Speak to AS Brokers</WarmPrimaryLink>
         </div>
-      </section>
-
-      <Footer />
-    </div>
+      </WarmSection>
+    </WarmPageWithFooter>
   );
 }

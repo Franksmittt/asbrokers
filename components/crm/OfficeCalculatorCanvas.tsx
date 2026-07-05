@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 import { Maximize2, X } from "@/components/icons";
+import { recordCalculatorSessionForLead } from "@/app/actions/crm-calculator-session";
 import {
   DEFAULT_OFFICE_CALCULATOR_ID,
   OFFICE_CALCULATORS,
@@ -19,10 +21,14 @@ function findCalculator(id: string): OfficeCalculator | undefined {
   return OFFICE_CALCULATORS.find((c) => c.id === id);
 }
 
-export function OfficeCalculatorCanvas() {
+export function OfficeCalculatorCanvas({ leadId }: { leadId?: string }) {
   const reduceMotion = useReducedMotion();
   const [calculatorId, setCalculatorId] = useState(DEFAULT_OFFICE_CALCULATOR_ID);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
+  const [drawdownPct, setDrawdownPct] = useState("");
+  const [sessionNotes, setSessionNotes] = useState("");
+  const [sessionMessage, setSessionMessage] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     try {
@@ -111,6 +117,64 @@ export function OfficeCalculatorCanvas() {
             Your last choice is remembered on this device.
           </p>
         </div>
+
+        {leadId ? (
+          <div className="rim-light rounded-3xl border border-cinematic-teal/20 bg-cinematic-teal/5 p-4 sm:p-5">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-cinematic-teal">
+              Link session to lead
+            </p>
+            <p className="mt-1 text-[11px] text-zinc-400">
+              After your Amethyst walkthrough, log the drawdown % — compliance flags appear on the Kanban automatically.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <input
+                type="number"
+                min={0}
+                max={100}
+                step={0.1}
+                placeholder="Drawdown %"
+                value={drawdownPct}
+                onChange={(e) => setDrawdownPct(e.target.value)}
+                className="w-32 rounded-xl border border-white/10 bg-zinc-950/90 px-3 py-2 text-sm text-white"
+              />
+              <input
+                type="text"
+                placeholder="Session notes (optional)"
+                value={sessionNotes}
+                onChange={(e) => setSessionNotes(e.target.value)}
+                className="min-w-[200px] flex-1 rounded-xl border border-white/10 bg-zinc-950/90 px-3 py-2 text-sm text-white"
+              />
+              <button
+                type="button"
+                disabled={isPending}
+                onClick={() => {
+                  startTransition(async () => {
+                    const pct = drawdownPct.trim() ? parseFloat(drawdownPct) : undefined;
+                    const result = await recordCalculatorSessionForLead({
+                      leadId,
+                      calculatorId: active.id,
+                      drawdownPercentage: pct,
+                      notes: sessionNotes,
+                    });
+                    setSessionMessage(result.ok ? "Session saved to lead." : result.error);
+                  });
+                }}
+                className="rounded-xl bg-cinematic-teal/20 px-4 py-2 text-sm font-semibold text-cinematic-teal hover:bg-cinematic-teal/30 disabled:opacity-50"
+              >
+                {isPending ? "Saving…" : "Save to lead"}
+              </button>
+              <Link
+                href={`/crm/leads/${leadId}`}
+                className="rounded-xl border border-white/10 px-4 py-2 text-sm text-zinc-300 hover:text-white"
+              >
+                View lead
+              </Link>
+            </div>
+            {sessionMessage ? (
+              <p className="mt-2 text-xs text-zinc-400">{sessionMessage}</p>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="rim-light overflow-hidden rounded-3xl border border-white/10 bg-[#050506] p-2 sm:p-3">
           <div className="border-b border-white/10 px-3 py-2 sm:px-4">

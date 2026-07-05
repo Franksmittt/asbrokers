@@ -42,6 +42,21 @@ export type CrmLead = {
   capitalHint?: string;
   estimatedCapital: number;
   funnelData: LeadFunnelData;
+  /** Gemini AI priority (stored in raw_payload). */
+  aiPriorityLabel?: string;
+  aiPriorityScore?: number;
+  /** Recommended advisor from auto-routing. */
+  recommendedAdvisorName?: string;
+  /** Delegated advisor (Albert AI / manual delegation in raw_payload). */
+  delegatedAdvisorId?: string;
+  delegatedAdvisorName?: string;
+  /** Last calculator session snapshot (raw_payload.calculatorSession). */
+  calculatorSession?: {
+    calculatorId?: string;
+    drawdownPercentage?: number;
+    capturedAt?: string;
+    notes?: string;
+  };
 };
 
 export type CrmGlobalNote = {

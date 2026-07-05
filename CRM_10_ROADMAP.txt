@@ -1,0 +1,105 @@
+================================================================================
+  AS BROKERS CRM — ROADMAP TO 10/10
+  From strong Phase 1 → Rolls-Royce Wealth Concierge
+================================================================================
+
+Current rating (June 2026): 8/10 → targeting 10/10
+Gemini AI layer: Phase 2 started (see Section 2)
+
+================================================================================
+1. WHAT "10/10" MEANS FOR AS BROKERS
+================================================================================
+
+  • Every website enquiry lands in CRM instantly — zero manual copy-paste
+  • Advisors know who to call first (AI prioritisation + morning brief)
+  • One-click AI drafts for WhatsApp/email — FAIS-safe, Everest-aware
+  • Albert sees the whole business in one executive view
+  • Clients use a real portal with live portfolio data (not mock)
+  • WhatsApp two-way inbox fully live
+  • Compliance flags automatic (drawdown, suitability, POPIA)
+  • Staff email login (not demo PIN) with audit trail
+  • HubSpot + Everest integrations where needed
+  • Mobile-first PWA for advisors in the field
+
+================================================================================
+2. PHASE 2 — AI (GEMINI) — IN PROGRESS ✓ STARTED
+================================================================================
+
+  Model: gemini-2.5-flash (paid API via GOOGLE_GENERATIVE_AI_API_KEY)
+  Embeddings: gemini-embedding-001 + pgvector RAG (Everest/SARS docs)
+
+  LIVE NOW (deploy after push):
+  --------------------------------
+  ✓ Morning AI brief on CRM dashboard (/crm)
+  ✓ Lead AI advisor panel on every lead detail (/crm/leads/[id])
+  ✓ AI WhatsApp reply draft (one click → composer)
+  ✓ Executive command centre (/crm/executive) — admin only
+  ✓ FAIS/Everest compliance rules baked into all CRM AI prompts
+  ✓ RAG grounding from ingested compliance/product docs
+
+  NEXT (Phase 2b):
+  ----------------
+  ✓ Kanban AI priority badges on cards
+  ✓ Auto-route leads to advisor (Johnny → estate, Petro → commercial)
+  ✓ Sentiment analysis on correspondence thread
+  ✓ AI pre-meeting brief (Print/PDF from lead detail)
+  ✓ Retirement Readiness Score in client portal (illustrative)
+  ✓ Compliance auto-flag when drawdown > 17.5% (Kanban + lead detail)
+  ✓ AI audit log table (who asked AI what, when — POPIA)
+  ✓ Executive AI activity feed (/crm/executive)
+  [ ] Trigger.dev PDF automation (optional upgrade)
+
+  ENV REQUIRED ON VERCEL PRODUCTION:
+  ----------------------------------
+  GOOGLE_GENERATIVE_AI_API_KEY=<your paid Gemini key>
+  DATABASE_URL, SUPABASE_*, RESEND_* (already set)
+
+================================================================================
+3. PHASE 3 — INTEGRATIONS & PORTAL
+================================================================================
+
+  [ ] Replace lib/mock-portal.ts with real Everest/portfolio API
+  [ ] Client portal RLS — clients see only own data
+  [ ] WhatsApp Meta production webhook + outbound fully wired
+  [ ] HubSpot bi-sync (contact form + CRM leads)
+  [ ] Trigger.dev PDF quotes for Everest products
+  [ ] Santam / short-term API when available
+
+================================================================================
+4. PHASE 4 — SECURITY & ENTERPRISE HARDENING
+================================================================================
+
+  [ ] Replace demo PIN with magic-link + optional MFA for staff
+  [ ] Postgres RLS policies (defence in depth)
+  [ ] 4-eyes approval on high-value proposals
+  [ ] Full audit trail export for FAIS inspections
+  [ ] Rate limiting on AI endpoints
+  [ ] PWA offline mode for CRM kanban read-only
+
+================================================================================
+5. PHASE 5 — POLISH TO 10/10
+================================================================================
+
+  [ ] Predictive conversion forecasting (Gemini on historical pipeline)
+  [ ] Household mapping (family/estate links)
+  [ ] AUM tracking dashboard
+  [ ] Referral analytics
+  [ ] Mobile scan-to-upload documents with AI categorisation
+  [ ] Client satisfaction surveys post-meeting
+
+================================================================================
+6. HOW TO USE THE NEW AI FEATURES (ALBERT)
+================================================================================
+
+  1. Log in: https://www.asbrokers.co.za/login (PIN 85879)
+  2. Dashboard: read the green "Gemini AI · Morning brief" card
+  3. Open any lead → "Gemini AI advisor" panel on the left
+  4. Click "AI draft WhatsApp reply" to populate the message box
+  5. Admin: sidebar → "Command centre" for executive AI report
+
+  If AI shows "not configured" → add GOOGLE_GENERATIVE_AI_API_KEY on Vercel
+  and redeploy.
+
+================================================================================
+  END — Updated June 2026
+================================================================================

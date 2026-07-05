@@ -3,6 +3,10 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { isBlockedTrainingBot, isPrivateRoute } from "@/lib/crawler-policy";
+import {
+  CRM_PIN_COOKIE,
+  hasCrmPinSessionFromCookieValue,
+} from "@/lib/crm/pin-session";
 import { normalizeRequestUrl } from "@/lib/url-normalize";
 
 const GONE_CACHE = "public, max-age=86400";
@@ -80,37 +84,46 @@ export async function middleware(request: NextRequest) {
   }
 
   const pathname = request.nextUrl.pathname;
+  const pinSession = await hasCrmPinSessionFromCookieValue(
+    request.cookies.get(CRM_PIN_COOKIE)?.value
+  );
   const supabaseCtx = createSupabaseMiddlewareClient(request);
   let response = supabaseCtx?.getResponse() ?? NextResponse.next({ request });
+  let user: { app_metadata?: Record<string, unknown> } | null = null;
 
   if (supabaseCtx) {
     const {
-      data: { user },
+      data: { user: authUser },
     } = await supabaseCtx.supabase.auth.getUser();
+    user = authUser;
+    response = supabaseCtx.getResponse();
+  }
 
-    const supabaseResponse = supabaseCtx.getResponse();
+  const isCrmRoute = pathname === "/crm" || pathname.startsWith("/crm/");
 
-    if (isProtectedAppRoute(pathname) && !user) {
+  if (isProtectedAppRoute(pathname)) {
+    const crmPinAllowed = isCrmRoute && pinSession;
+    if (!user && !crmPinAllowed) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/login";
-      loginUrl.searchParams.set("next", pathname);
+      loginUrl.searchParams.set("next", isCrmRoute ? pathname : "/crm");
       const redirectResponse = NextResponse.redirect(loginUrl);
-      supabaseResponse.cookies.getAll().forEach((cookie) => {
+      response.cookies.getAll().forEach((cookie) => {
         redirectResponse.cookies.set(cookie);
       });
       return redirectResponse;
     }
+  }
 
-    if (pathname === "/login" && user) {
-      const destination = defaultRedirectForRole(roleFromAppMetadata(user));
-      const redirectResponse = NextResponse.redirect(new URL(destination, request.url));
-      supabaseResponse.cookies.getAll().forEach((cookie) => {
-        redirectResponse.cookies.set(cookie);
-      });
-      return redirectResponse;
-    }
-
-    response = supabaseResponse;
+  if (pathname === "/login" && (user || pinSession)) {
+    const destination = pinSession
+      ? "/crm"
+      : defaultRedirectForRole(roleFromAppMetadata(user!));
+    const redirectResponse = NextResponse.redirect(new URL(destination, request.url));
+    response.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie);
+    });
+    return redirectResponse;
   }
 
   if (isPrivateRoute(pathname)) {

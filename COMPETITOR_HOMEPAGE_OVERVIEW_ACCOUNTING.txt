@@ -1,0 +1,893 @@
+================================================================================
+  SA ACCOUNTING / AUDIT / ADVISORY — FIRM HOMEPAGE & NAVIGATION OVERVIEW
+  Structural analysis (not styling/colours)
+================================================================================
+
+Captured: 30 June 2026
+Method: HTML scrape (PowerShell + User-Agent), page fetch, web search fallback.
+Raw data: scripts/accounting-scrape.json
+
+Note: Many Big 4 and network sites are JavaScript-heavy; structure reflects rendered
+experience where possible. Several listed domains redirect, fail SSL, or no longer
+host the intended firm (see URL notes per firm).
+
+================================================================================
+EXECUTIVE SUMMARY — PATTERNS ACROSS ALL 30
+================================================================================
+
+1. THREE SITE ARCHETYPES
+   A) GLOBAL NETWORK HUB (Big 4 + international brands):
+      PwC, Deloitte, EY, KPMG, BDO, Forvis Mazars, Crowe, Baker Tilly, RSM, Moore.
+      Industry mega-menus, insights-led heroes, careers funnels, global country pickers.
+   B) MID-TIER NETWORK MEMBER (Grant Thornton, PKF, Nexia, UHY, Nolands, Ecovis):
+      Service pillars (Audit / Tax / Advisory), publications/news, office locators,
+      network membership badges, SME and entrepreneurial positioning.
+   C) REGIONAL / BOUTIQUE PRACTICE:
+      Morar, MGI Bass Gordon, MD Accountants, C2M, LPH, BVSA, TDP network, Ngubane,
+      Rakoma, GRIPP. Simpler nav, partner-led tone, sector or geography emphasis.
+
+2. HOMEPAGE MESSAGING ANGLES
+   - Transformation & complexity: Deloitte ("Connecting the dots"), EY ("Shape the
+     future with confidence"), KPMG (agile, human-led, tech-forward).
+   - Thought leadership as hero: BDO (sector research reports), PwC (AI ROI, infra
+     outlook), Forvis Mazars (C-suite barometer), SNG Grant Thornton (IFRS/ESG packs).
+   - Trust + access: PKF ("Driven by your ambition"), Nexia ("People Behind the Numbers"),
+     Baker Tilly ("Now, for tomorrow"), RSM ("Empowering you to move forward").
+   - Public sector / BEE identity: Nexia (majority black-owned), Ngubane (black-owned
+     multidisciplinary), Morar (municipal & AG services).
+   - Minimal / gate-only: Nolands (country picker), GRIPP (single-line GRC boutique gate),
+     Rakoma (multi-business group hub, not pure accounting).
+
+3. NAVIGATION CONVENTIONS
+   - Top utility: Careers | Insights/Publications | Contact | Office finder | Log in
+   - Service pillars almost always: Audit & Assurance | Tax | Advisory/Consulting
+   - Secondary: Industries/Sectors | Forensics | ESG/Sustainability | B-BBEE | Outsourcing
+   - Big 4 add: Deals/M&A, Legal, Technology, Risk, Private/Entrepreneur programmes
+
+4. PRIMARY CTAs
+   - Enterprise: "Contact us" | "Request for proposal" | "Subscribe to insights"
+   - Mid-tier: "Contact us" | "Find an office" | Newsletter signup | "Explore careers"
+   - Boutique: "Speak to a consultant" | WhatsApp/phone in header | "Enter" portal pages
+
+5. URL / DOMAIN WARNINGS (critical for research)
+   - moore.co.za → unrelated industrial automation company (NOT Moore Global accounting)
+   - bvsa.ltd → 404; live site is bvsa.co.za
+   - skxprotiviti.co.za → DNS failure; firm operates at skx.co.za (Protiviti member)
+   - ngubane.co.za → connection/500 errors; live site is ngubane.co
+   - kreston.co.za → SSL trust failure; live network site is krestonsa.com
+   - kpmg.co.za → scrape connection errors; kpmg.com/za/en.html loads
+   - rsmza.co.za → SSL failure; rsm.global/southafrica loads
+   - tdp.co.za → connection failure; TDP network uses tdpsa.co.za, theronduplessis.com, etc.
+   - sng-grantthornton.co.za → redirects to grantthornton.co.za
+   - nolands.co.za → redirects to nolands.global
+   - morar.co.za → scrape returned valid firm HTML; live fetch intermittently shows
+     unrelated parked/spam content (domain integrity risk)
+   - ashtons.co.za → "Website Under Construction" placeholder only
+   - zeelie.co.za → bare directory listing ("Index of /"), no firm site
+
+================================================================================
+COMPARISON MATRIX (STRUCTURAL)
+================================================================================
+
+| Firm                    | Archetype        | Hero focus              | Primary CTA           |
+|-------------------------|------------------|-------------------------|-----------------------|
+| PwC                     | Global hub       | AI / campaigns          | Learn more / Careers  |
+| Deloitte                | Global hub       | Brand + featured article| Who we are / Contact  |
+| EY                      | Global hub       | Complexity / confidence | Insights / Services   |
+| KPMG                    | Global hub       | Southern Africa hub     | Create account / Svcs |
+| BDO                     | Global hub       | Research reports        | Read report           |
+| Forvis Mazars           | Global hub       | C-suite barometer       | Global country picker |
+| SNG Grant Thornton      | Network member   | IFRS S1/S2 product      | Insights / Careers    |
+| PKF                     | Network member   | Entrepreneurial growth  | Contact us            |
+| Moore SA                | Network hub      | Location directory      | Moore Global offices  |
+| RSM                     | Network member   | Middle-market confidence| Contact office / RFP  |
+| Nexia SAB&T             | Network member   | People / transformation | Contact / Careers     |
+| Crowe                   | Network member   | Backbone industries     | Request for proposal  |
+| Baker Tilly             | Network member   | Now, for tomorrow       | Start a conversation  |
+| UHY Hellmann            | Boutique network | Registered auditors     | Services / Contact    |
+| Kreston SA              | Network member   | Knowing you / trust     | Find out more         |
+| Nolands                 | Multi-country    | Location gate           | Pick country          |
+| BVSA                    | National branches| Expert advice since 1998| Call / branch finder  |
+| Theron du Plessis (TDP) | Branch network   | Personal service        | Branch contact        |
+| MGI Bass Gordon         | Boutique         | Journey / people        | Holistic services     |
+| Morar                   | Public sector    | 29 years experience     | Our services          |
+| Ngubane                 | Multidisciplinary| Black-owned / national  | Regional offices      |
+| Rakoma                  | Conglomerate hub | Multi-industry group    | Division tiles        |
+| SkX Protiviti           | Consulting       | Audit/advisory/forensic | Protiviti network     |
+| Ecovis                  | Global local     | SA + global news mix    | Services / Contact    |
+| MD Accountants          | Regional         | Here, With You          | Service offering      |
+| LPH                     | Boutique         | Assurance split         | Audit vs non-assurance|
+| C2M                     | Regional         | Cape Town multi-office  | Contact accountant    |
+| Ashton                  | N/A              | Under construction      | None                  |
+| Zeelie                  | N/A              | No site                 | None                  |
+| GRIPP Advisory          | Boutique GRC     | GRC suite gate          | Enter                 |
+
+================================================================================
+1. PWC SOUTH AFRICA
+================================================================================
+URL: https://www.pwc.co.za/ (final: /en.html)
+
+SITE TYPE
+  Big 4 global member. Full professional services: assurance, tax, consulting, deals,
+  legal business solutions, technology.
+
+HEADER — MAIN NAV (mega-menu pattern)
+  Industries (30+ sectors: banking, FS, mining, healthcare, public sector, etc.)
+  Services: Alliances | Assurance | Consulting | Deals | Legal | People & org |
+            PwC Private | Risk | Tax | Technology | SATIC
+  Important problems: Business transformation | ESG | Risk | New World New Skills
+  About us | Careers | Products
+
+HOMEPAGE FLOW
+  1. H1: "Make it happen with PwC"
+  2. Featured campaign: Decoding ROI from AI in Africa
+  3. Featured tiles: Family Business Survey, Infrastructure Outlook 2025-50
+  4. Success stories carousel
+  5. Blog insights carousel
+  6. Publications carousel (Tax alerts, Synopsis, exec remuneration)
+  7. Videos (Faranani initiative, productivity, infrastructure)
+  8. Press releases
+  9. Footer pillars: Careers | About | Offices
+
+KEY MESSAGING
+  "Unite expertise and tech so you can outthink, outpace and outperform."
+
+PRIMARY CTAs
+  Learn more | View all | Explore PwC Careers | Read more
+
+================================================================================
+2. DELOITTE SOUTH AFRICA
+================================================================================
+URL: https://www.deloitte.com/za → /za/en.html
+
+SITE TYPE
+  Big 4. Audit, consulting, tax, ~3,800 people, 12 SA offices, Southern Africa footprint.
+
+HEADER — MAIN NAV
+  Who we are (Purpose, People, Governance, Recognition, Press, Contact)
+  What we do (Overview, Case studies, Services, Industries, Alliances)
+  Services include Audit, Assurance, BPS, Consulting, Tax, Risk, etc.
+  Careers | Insights
+
+HOMEPAGE FLOW
+  1. Country/experience selector prompt
+  2. H2 brand line: "Connecting the dots. It's what we do."
+  3. Three entry tiles: Who we are | What we do | Careers
+  4. Featured thinking (Exchange Control Regulations article as H1 at capture)
+  5. Work highlights: Deloitte + SAP, CIO Programme, Africa Banking
+  6. Careers / awards strip
+
+KEY MESSAGING
+  Connection, impact, making a difference across clients, talent, communities.
+
+PRIMARY CTAs
+  Find out more | Contact Us | Explore our thinking
+
+================================================================================
+3. EY SOUTH AFRICA
+================================================================================
+URL: https://www.ey.com/za → /en_za
+
+SITE TYPE
+  Big 4. Assurance, consulting, strategy (EY-Parthenon), tax, transactions.
+
+HEADER — MAIN NAV
+  Insights | Technology | Transformation | Long-term value | Sustainability | Trust
+  Services (deep strategy/M&A submenu) | Careers | About
+
+HOMEPAGE FLOW
+  1. H1: "What will it take to win in a more complex world?"
+  2. Featured press releases
+  3. Service and insight modules (JS-rendered at capture)
+
+KEY MESSAGING
+  "Shape the future with confidence."
+
+PRIMARY CTAs
+  Explore services | Insights | Contact
+
+================================================================================
+4. KPMG SOUTH AFRICA
+================================================================================
+URL listed: www.kpmg.co.za (connection errors on automated scrape)
+Live URL: https://kpmg.com/za/en.html
+
+SITE TYPE
+  Big 4 Southern Africa hub (SA, Mauritius, Botswana, Mozambique, Namibia, Zambia, Zimbabwe).
+
+HEADER — MAIN NAV
+  Services | Industries | Insights | Careers | About
+  (Standard KPMG global IA)
+
+HOMEPAGE FLOW
+  1. Sector insight carousel (Family business report, Geopolitical outlook, etc.)
+  2. Brand narrative: agile, connected, human-led, tech at forefront
+  3. Subscribe to KPMG Insights (account creation)
+  4. Services grid: Audit | Tax & Legal | Advisory | Private Enterprise
+  5. Industry expertise: FS, Energy/Resources, Government, TMT
+  6. Careers: #ThriveWithUs
+
+KEY MESSAGING
+  Outcomes meaningful for people, clients, communities. Tech + human approach.
+
+PRIMARY CTAs
+  Read more | Find out more | Create an account | Find your next opportunity
+
+================================================================================
+5. BDO SOUTH AFRICA
+================================================================================
+URL: https://www.bdo.co.za → /en-za/home
+
+SITE TYPE
+  Top-tier international network. Audit, tax, advisory, business services outsourcing.
+
+HEADER — MAIN NAV
+  Services | Industries | Insights | About | Careers | Contact
+  (BDO global template)
+
+HOMEPAGE FLOW
+  1. H1: Research-led hero (Tier 1 banking report 2026 at capture)
+  2. Multiple insight cards: Global Risk Landscape, REIT regime, renewables, automotive
+  3. Featured topics: Digital | Cybersecurity | Quality
+  4. Data & AI / BDO Digital promo
+  5. Insights filter hub
+  6. Services + Find an Office
+
+KEY MESSAGING
+  Research authority, sector depth, quality and transparency commitment.
+
+PRIMARY CTAs
+  Access the report | Read More | Find an Office Near You
+
+================================================================================
+6. FORVIS MAZARS SOUTH AFRICA
+================================================================================
+URL: https://www.forvismazars.com/za → /za/en
+
+SITE TYPE
+  Global integrated partnership. Audit, tax, advisory in 100+ countries.
+
+HEADER — MAIN NAV
+  Global country/territory mega-picker (dominates header)
+  What we do | Industries | Insights | Careers | About
+
+HOMEPAGE FLOW
+  1. H1: C-suite barometer 2026 mid-year insights
+  2. Insight tiles: Supply chains, Cyber security 2026, Private equity report
+  3. Forvis Mazars worldwide / in South Africa sections
+  4. What we do | Insights modules
+
+KEY MESSAGING
+  Independent member of Forvis Mazars Global; integrated cross-border partnership.
+
+PRIMARY CTAs
+  Explore insights | Contact | Country selector
+
+================================================================================
+7. SNG GRANT THORNTON
+================================================================================
+URL: https://www.sng-grantthornton.co.za → https://www.grantthornton.co.za/
+
+SITE TYPE
+  Grant Thornton International member. Audit, tax, advisory since 1982.
+
+HEADER — MAIN NAV
+  About us | Insights | Advisory | Assurance | Tax Advisory | Industry Hub
+  Industry Hub sub-nav: Energy, TMT, FS, Public Sector, Real Estate, Education, ESG
+  Africa Tax Desk (multi-country African GT firms) | Careers | Contact
+
+HOMEPAGE FLOW
+  1. H1 product promo: IFRS S1 and S2 Ready-in-a-Box
+  2. Trending insights carousel (Women in Business, Budget 2026, Accounting tech)
+  3. Media release: SHEroes Internal Audit network
+  4. Careers: "Shape more than just your career" (purple employer brand)
+  5. Industry Hub promo
+  6. 24-hour Fraud Hotline (compliance trust signal)
+
+KEY MESSAGING
+  "Turning growth into shared progress." Dynamic organisations, proactive partners.
+
+PRIMARY CTAs
+  Find out more | Report now (fraud) | Explore careers | View insights
+
+================================================================================
+8. PKF SOUTH AFRICA
+================================================================================
+URL: https://www.pkf.co.za
+
+SITE TYPE
+  Large mid-tier PKF network member. Entrepreneurial business focus.
+
+HEADER — MAIN NAV
+  About Us | Sectors | Services | Locations | Publications | Insights (News)
+  Services: Audit & Assurance | Advisory | BEE Verification | Corporate Finance |
+            Taxation | Business Risk | Internal Audit | Corporate Governance |
+            Cloud Accounting (PKF Ignite) | Company Secretarial | Wealth Management
+
+HOMEPAGE FLOW
+  1. Welcome statement: mid-tier firm, growth and confidence in decision-making
+  2. Entrepreneurial client narrative + global network
+  3. Newsletter signup
+  4. Publications (ESG Policy, Tax Guide 2026-27, Transparency Report)
+  5. Latest News feed
+  6. H2: "Driven by your ambition" → Contact us
+
+KEY MESSAGING
+  Accessible partners, straightforward advice, globally relevant / locally grounded.
+
+PRIMARY CTAs
+  Contact us | Sign up newsletter | Read publications
+
+================================================================================
+9. MOORE SOUTH AFRICA
+================================================================================
+URL listed: www.moore.co.za → WRONG (Moore Process Controls, industrial automation)
+Correct network URL: https://www.moore-global.com/locations/south-africa/
+
+SITE TYPE
+  Moore Global location hub (not a standalone SA marketing site).
+
+HEADER — MAIN NAV
+  Moore Global: Services | Industries | Locations | Careers | Intelligence
+
+HOMEPAGE FLOW
+  1. Location directory for South Africa member firms (e.g. Moore Johannesburg)
+  2. Global services list: Audit, Tax, Advisory, Corporate Finance, Legal, etc.
+  3. Industries: Mining, FS, Real Estate, Private Clients, etc.
+
+KEY MESSAGING
+  Global network of independent firms; find local Moore office.
+
+PRIMARY CTAs
+  Explore firm pages | Contact Us | Apply Here
+
+================================================================================
+10. RSM SOUTH AFRICA
+================================================================================
+URL listed: www.rsmza.co.za (SSL scrape failure)
+Live URL: https://www.rsm.global/southafrica/
+
+SITE TYPE
+  Middle-market focused global network. Assurance, tax, consulting.
+
+HEADER — MAIN NAV
+  Services | Industries | Insights | About | Careers | Contact
+  Office contacts: Johannesburg, Cape Town, Polokwane
+
+HOMEPAGE FLOW
+  1. H1: "Empowering you to move forward with confidence"
+  2. Global revenue announcement / credibility
+  3. Services grid: Audit & Assurance | Tax | Consulting | Legal | Outsourcing | GRC
+  4. Get in touch / office contacts
+  5. Tax Guide download (annual)
+
+KEY MESSAGING
+  Middle-market specialist; collaborative multidisciplinary teams.
+
+PRIMARY CTAs
+  Contact office | About our services | Download tax guide
+
+================================================================================
+11. NEXIA SAB&T
+================================================================================
+URL: https://www.nexia-sabt.co.za
+
+SITE TYPE
+  Majority black-owned SA firm; Nexia global member. Audit, tax, advisory.
+
+HEADER — MAIN NAV
+  Verify Assurance Report | SAB&T Foundation | ESG Activities | Business Profile PDF
+  Services: Audit (external, internal, forensic, IT) | Tax | Business Services |
+            Advisory (ESG, automation) | Insights | Careers | Contact
+
+HOMEPAGE FLOW
+  1. H1: World-Class Auditing, Accounting and Consulting Services
+  2. "The People Behind the Numbers" culture section
+  3. IIA SA Internal Audit Service Provider badge (first in SA)
+  4. Careers / forensic / ESG / business tools promos
+  5. Three pillars: Audit | Tax | Advisory
+  6. Insights blog grid (SARS filing season, King V AI, Moody's outlook, etc.)
+  7. 30 years / 10 offices / global Nexia stats
+
+KEY MESSAGING
+  "Pragmatically Fearless." BEE leadership, legacy building since 1994.
+
+PRIMARY CTAs
+  Meet our People | Join Us | Learn More | Contact Us
+
+================================================================================
+12. CROWE SOUTH AFRICA
+================================================================================
+URL: https://www.crowe.com/za (403 on HTML scrape; content verified via fetch)
+
+SITE TYPE
+  Crowe Global member. Audit, tax, advisory, forensics, wealth, HR development.
+
+HEADER — MAIN NAV
+  Services | Industries | Insights | Careers | Contact
+  (Crowe global template)
+
+HOMEPAGE FLOW
+  1. H1: Crowe Southern Africa
+  2. Tagline: backbone industries, informed decisions, lasting value
+  3. Request for Proposal CTA (prominent)
+  4. Services: Audit | Tax | Advisory | Human Capital | Wealth | Forensics |
+                 Client Accounting | Technology Risk Assurance
+  5. Featured insights + alumni video
+  6. Newsletter subscribe
+  7. Careers (students & professionals)
+
+KEY MESSAGING
+  Core values: care, share, invest, grow. Client-first regional expertise.
+
+PRIMARY CTAs
+  Submit a request for proposal | Contact us | Subscribe | View insights
+
+================================================================================
+13. BAKER TILLY SOUTH AFRICA
+================================================================================
+URL: https://www.bakertilly.co.za → bakertilly.co.za
+
+SITE TYPE
+  Baker Tilly International member. Independent audit, accounting, advisory.
+
+HEADER — MAIN NAV
+  About Us | International | Contact
+  (Minimal top nav; phone/email in header)
+
+HOMEPAGE FLOW
+  1. H1: Baker Tilly South Africa | Tagline: "Now, for tomorrow"
+  2. Service tick list: Accounting, Payroll, Audit, Assurance, Compliance, Taxation
+  3. About + independent member firms (Greenwoods, JHB, Morrison Murray, Tuffias)
+  4. Why Choose: cost-effective, accredited, trust/transparency
+  5. Baker Tilly International network section
+  6. CTA: Speak to a Consultant
+
+KEY MESSAGING
+  Integrity, trust, commitment; global reach + national presence.
+
+PRIMARY CTAs
+  Start a Conversation Today | Speak to a Consultant | More About Us
+
+================================================================================
+14. UHY HELLMANN
+================================================================================
+URL: https://www.uhy.co.za → uhy.co.za
+
+SITE TYPE
+  UHY International member. Registered auditors.
+
+HEADER — MAIN NAV
+  Home | Services (Corporate | Private Client | International) | About Us |
+  Our People | Contact
+
+HOMEPAGE FLOW
+  1. UHY International member badge
+  2. H2 blocks: Audit Services | International Services
+  3. Welcome to UHY Hellmann (SA)
+  4. Our Services overview
+  5. About UHY International
+
+KEY MESSAGING
+  Registered auditors with international reach via UHY network.
+
+PRIMARY CTAs
+  Contact | Explore services
+
+================================================================================
+15. KRESTON SOUTH AFRICA
+================================================================================
+URL listed: www.kreston.co.za (SSL failure)
+Live URL: https://krestonsa.com/
+
+SITE TYPE
+  Kreston Global member. ~10 offices, 18+ partners, 300 staff. Forum of Firms member.
+
+HEADER — MAIN NAV
+  About Us | Services | Sectors | Contact
+  (WordPress-style firm site)
+
+HOMEPAGE FLOW
+  1. H1: Welcome to Kreston SA
+  2. Four tiles: About Us | Services | Our Sectors | Get in touch
+  3. "Knowing You" section: century of collective experience
+  4. Insight articles (SME global expansion, auditing challenges, internal audit)
+  5. Financial & Accounting Services footer pillar
+
+KEY MESSAGING
+  Trust, accuracy, quality, professionalism. Personal-level client understanding.
+
+PRIMARY CTAs
+  Find Out More | Contact us | Connect with us today
+
+================================================================================
+16. NOLANDS
+================================================================================
+URL: https://www.nolands.co.za → https://nolands.global/
+
+SITE TYPE
+  Multi-country audit, advisory & law group (7 countries).
+
+HEADER — MAIN NAV
+  Minimal at homepage gate
+
+HOMEPAGE FLOW
+  1. H1: Welcome to NOLANDS GLOBAL
+  2. Country/location picker: Kenya, Mauritius, Nigeria, South Africa, UK, Zambia, Zimbabwe
+  3. No services content until location selected
+
+KEY MESSAGING
+  "Not your ordinary auditors." Jurisdiction-first entry.
+
+PRIMARY CTAs
+  Pick your location | Enjoy the journey
+
+================================================================================
+17. BVSA
+================================================================================
+URL listed: www.bvsa.ltd (404)
+Live URL: https://bvsa.co.za/
+
+SITE TYPE
+  National branch network (25+ branches). Accounting, tax, audit (via associations).
+
+HEADER — MAIN NAV
+  Services: Accounting & Payroll | Financial Services | Secretarial | Fiduciary |
+            Taxation | Tax Advice | Audit
+  Directors | Contact | Branch finder
+
+HOMEPAGE FLOW
+  1. Hero: "Expert advice. Personal service. Since 1998."
+  2. Service summaries: accounting, CIPC compliance, governance
+  3. Client testimonial
+  4. Get in touch: 087 551 1667 | info@bvsa.co.za
+  5. Branch contact grid (national)
+
+KEY MESSAGING
+  Family business since 1998 (formerly Boshoff Visser). Personal yet professional.
+
+PRIMARY CTAs
+  Call us | Email us | Contact a branch near you
+
+================================================================================
+18. THERON DU PLESSIS (TDP)
+================================================================================
+URL listed: www.tdp.co.za (connection failure)
+Live network: https://tdpsa.co.za/ | https://theronduplessis.com/ | branch sites
+
+SITE TYPE
+  Independent office network (11 offices, founded 1976). Not a single unified homepage.
+
+HEADER — MAIN NAV (varies by branch)
+  Services | About | Contact per branch site
+
+HOMEPAGE FLOW (tdpsa.co.za representative)
+  1. Partner in Accounting hero
+  2. Auditing emphasis + compliance standards
+  3. History since 1976, eleven offices (Western/Eastern/Northern Cape)
+  4. Personalised solutions narrative
+
+SERVICES (network-wide)
+  Statutory audits, tax administration, estate planning, B-BBEE verification,
+  bookkeeping, business structuring, secretarial, viability studies.
+
+KEY MESSAGING
+  Customised personal service; independent offices sharing knowledge.
+
+PRIMARY CTAs
+  Contact branch | info@tdpsa.co.za
+
+================================================================================
+19. MGI BASS GORDON
+================================================================================
+URL: https://www.bassgordon.co.za
+
+SITE TYPE
+  MGI Worldwide member. Cape-based firm since 1935, 8 partners, 100+ staff.
+
+HEADER — MAIN NAV
+  (Minimal in scrape; single-page scroll style)
+
+HOMEPAGE FLOW
+  1. H1: "the journey"
+  2. H2: "the people who make business personal"
+  3. Holistic service offering
+  4. Why MGI? network credibility
+
+KEY MESSAGING
+  Quality, integrity, personal service, cost-effective timely delivery.
+
+PRIMARY CTAs
+  Explore services | Contact (implied scroll)
+
+================================================================================
+20. MORAR INCORPORATED
+================================================================================
+URL: https://www.morar.co.za
+
+SITE TYPE
+  Public sector-heavy multidisciplinary firm. 29 years experience.
+
+HEADER — MAIN NAV
+  Welcome | About Us | Vision & Values | Responsibility | Team | Our Services
+  Deep service menu: Accounting | Auditing | Tax | Secretarial | Consulting |
+  Municipal Finance | Public Finance | AG services | Transactions | Forensics |
+  Internal Audit | Training | ICT
+
+HOMEPAGE FLOW
+  1. H1: WELCOME TO MORAR INCORPORATED
+  2. H2: 29 years helping businesses find comprehensive solutions
+  3. Service overview / sector credibility
+  4. Blogs / news
+
+KEY MESSAGING
+  Maximise performance for public and private organisations.
+
+PRIMARY CTAs
+  Our Services | Join Our Team | Contact
+
+NOTE: Domain showed unrelated third-party content on one live fetch; verify domain
+      integrity before sending clients to this URL.
+
+================================================================================
+21. NGUBANE & CO.
+================================================================================
+URL listed: www.ngubane.co.za (connection failure)
+Live URL: https://ngubane.co/
+
+SITE TYPE
+  Black-owned multidisciplinary firm (est. 1995). IRBA registered audit practice.
+
+HEADER — MAIN NAV
+  About | Services | Sectors | Insights | Careers | Contact
+  (Inferred from site structure)
+
+HOMEPAGE FLOW
+  1. Firm story: accounting 1995 → forensic, IT, business consulting
+  2. BEE / national footprint (Inland + Coastal regions)
+  3. Credentials: 25+ years public/private audit, IT audit, governance, forensic
+  4. Office listings: Umhlanga (DBN), Bryanston (JHB)
+
+KEY MESSAGING
+  Indigenous firm advantage; authentic South African service; develop accounting talent.
+
+PRIMARY CTAs
+  Contact regional office | info@ngubane.co | dbn@ngubane.co
+
+================================================================================
+22. RAKOMA & ASSOCIATES
+================================================================================
+URL: https://www.rakoma.co.za
+
+SITE TYPE
+  Rakoma Group conglomerate hub (not a pure accounting homepage).
+
+HEADER — MAIN NAV
+  Division tiles only
+
+HOMEPAGE FLOW
+  1. Welcome to Rakoma Group multi-industry intro
+  2. Division cards: Rakoma & Associates Inc (audit) | Travel | Transport & Logistics |
+                    Car Rentals | Properties & Hotels
+  3. Social links | Ethics helpline | Portal | Careers | Newsletter signup
+
+KEY MESSAGING
+  Diversified group; auditing is one division among several.
+
+PRIMARY CTAs
+  Division-specific entry | Subscribe newsletter | Contact Us
+
+================================================================================
+23. SKX PROTIVITI
+================================================================================
+URL listed: www.skxprotiviti.co.za (DNS does not resolve)
+Live URL: https://www.skx.co.za (SkX / SekelaXabiso; Protiviti member firm)
+
+SITE TYPE
+  Internal audit, forensic, advisory. Protiviti global member since 2019.
+
+HEADER — MAIN NAV
+  Services | Industries | About | Careers | Contact
+  (Consulting firm pattern)
+
+HOMEPAGE FLOW
+  1. Audit | Advisory | Forensics positioning
+  2. B-BBEE Level 1, 100% black-owned credentials
+  3. 200+ consultants, Johannesburg + Durban offices
+  4. Protiviti network credibility
+
+KEY MESSAGING
+  Specialized expertise + industry experience; growth through Protiviti alliance.
+
+PRIMARY CTAs
+  Contact | Learn about services
+
+================================================================================
+24. ECOVIS SOUTH AFRICA
+================================================================================
+URL: https://www.ecovis.com/south-africa/
+
+SITE TYPE
+  Ecovis Global member. Tax advisors, accountants, auditors (JHB + Umhlanga).
+
+HEADER — MAIN NAV
+  Home | Global news | About us | Services | Downloads | Contact persons | Contact
+  Services: Audit | Accounting | Corporate compliance | Management consulting |
+            Taxation | B-BBEE
+
+HOMEPAGE FLOW
+  1. H1: Ecovis in South Africa
+  2. Global news feed (mixed international content)
+  3. ECOVIS ProventusLaw / ARB Auditors entity references
+  4. Newsletter signup
+
+KEY MESSAGING
+  Local tax/accounting with global Ecovis network news and reach.
+
+PRIMARY CTAs
+  Contact | View services | Global news
+
+================================================================================
+25. MD ACCOUNTANTS & AUDITORS
+================================================================================
+URL: https://www.mdacc.co.za
+
+SITE TYPE
+  MD Streets Accountants + Auditors. Broad SME and compliance services.
+
+HEADER — MAIN NAV
+  Home | About (team, evolution, awards) | Services | Resources | Contact
+  Services: Accounting | Auditing | Tax | B-BBEE | Business Rescue | Forensic |
+            Estate Planning | Company & Trust Compliance | Retail | Statutory
+
+HOMEPAGE FLOW
+  1. H1 sections: Member Institutes | Careers | Service Offering | "Here, With You."
+  2. H2: Financial Leadership through Professional Excellence
+  3. Newsletter/tax deadline updates
+  4. SAICA community content
+
+KEY MESSAGING
+  Client-centred value-added services; professional excellence.
+
+PRIMARY CTAs
+  Explore services | Contact | Careers
+
+================================================================================
+26. LPH CHARTERED ACCOUNTANTS
+================================================================================
+URL: https://www.lph.co.za
+
+SITE TYPE
+  Boutique CA firm. Clear assurance vs non-assurance split.
+
+HEADER — MAIN NAV
+  Home | Audit & Assurance | Non-Assurance | Directors | Careers | Resources | Contact
+  Non-Assurance: Accounting | Business Consulting | Taxation | Secretarial |
+                  Trusts/Wills/Estates
+
+HOMEPAGE FLOW
+  1. H2 pillars: AUDIT & ASSURANCE | NON-ASSURANCE
+  2. Team leaders per division
+  3. Trainee accountant (SAICA) recruitment
+
+KEY MESSAGING
+  Quality assurance and non-assurance with consistent professional commitment.
+
+PRIMARY CTAs
+  Contact Us | Careers | Division-specific entry
+
+================================================================================
+27. C2M CHARTERED ACCOUNTANTS
+================================================================================
+URL: https://www.c2m.co.za → c2m.co.za
+
+SITE TYPE
+  Cape Town regional firm since 1997, 150+ staff, multi-suburb office network.
+
+HEADER — MAIN NAV
+  Home | About | Services | Service Areas (10+ Cape Town locations) | Contact
+  Services: Audit & Assurance | Accounting | Taxation | Secretarial | Payroll |
+            Trust/Estate | B-BBEE | XERO Accounting
+
+HOMEPAGE FLOW
+  1. H1 tiles: AUDITING | Taxation | Accounting | payroll
+  2. Welcome + values: Innovation, Quality, Integrity, Trust, Care
+  3. C2M Services overview
+  4. Partner promos: Currency Partners, Wealth Management
+  5. Geographic office SEO pages (Bellville, Century City, Durbanville, etc.)
+
+KEY MESSAGING
+  Delivering excellence since 1997; compliance + growth support.
+
+PRIMARY CTAs
+  Contact one of our Accountants | Service area pages
+
+================================================================================
+28. ASHTON CHARTERED ACCOUNTANTS
+================================================================================
+URL: https://www.ashtons.co.za
+
+SITE TYPE
+  Placeholder only. No live firm content at capture.
+
+HOMEPAGE FLOW
+  1. H2: Website Under Construction
+  2. "Soon to be the new home of: ashtons.co.za"
+
+KEY MESSAGING
+  N/A
+
+PRIMARY CTAs
+  None
+
+================================================================================
+29. ZEELIE PROFESSIONAL ACCOUNTANTS
+================================================================================
+URL: https://www.zeelie.co.za
+
+SITE TYPE
+  No functional website. Apache directory listing only.
+
+HOMEPAGE FLOW
+  1. H1: Index of /
+
+KEY MESSAGING
+  N/A
+
+PRIMARY CTAs
+  None
+
+================================================================================
+30. GRIPP ADVISORY
+================================================================================
+URL: https://www.grippadvisory.co.za → grippadvisory.co.za
+
+SITE TYPE
+  Boutique GRC (governance, risk, internal control) consulting.
+
+HEADER — MAIN NAV
+  Minimal landing gate
+
+HOMEPAGE FLOW
+  1. H2: BOUTIQUE ADVISORY AND CONSULTING FIRM
+  2. Subline: holistic end-to-end GRC suite
+  3. Single "Enter" button + Privacy Statement
+
+KEY MESSAGING
+  GRC specialist, not full-service accounting firm on public homepage.
+
+PRIMARY CTAs
+  Enter
+
+================================================================================
+STRUCTURAL TAKEAWAYS (FOR POSITIONING ANY PROFESSIONAL SERVICES BRAND)
+================================================================================
+
+1. Big 4 homepages sell CONFIDENCE AT SCALE: insights carousels, campaigns, and
+   careers funnels outweigh service list readability.
+
+2. Mid-tier winners combine THREE homepage elements:
+   (a) clear Audit / Tax / Advisory pillars,
+   (b) proof (publications, transparency reports, fraud hotlines, BEE credentials),
+   (c) human/contact CTAs ("Driven by your ambition", "People Behind the Numbers").
+
+3. Public sector and BEE narrative is a differentiator for Ngubane, Nexia, Morar,
+   SkX: geography + transformation credentials above the fold.
+
+4. Broken, parked, or wrong domains are common in legacy firm lists. Always verify
+   live URL before UX benchmarking (Moore, BVSA, Kreston, TDP, Ngubane, SkX).
+
+5. Multi-division groups (Rakoma, Nolands) use homepage as a ROUTER, not a service
+   catalogue. Pure accounting firms should not mimic this unless truly diversified.
+
+6. Regional firms (C2M, LPH, MD, BVSA) win on GEOGRAPHIC SEO (suburb/office pages)
+   and straight service menus, not thought-leadership carousels.
+
+7. For a warm, premium, human-centric public site (cf. AS Brokers marketing direction),
+   the accounting sector gap is clear: most homepages remain cold, report-led, and
+   template-driven. Opportunity to lead with client life-stage questions and plain
+   language before service taxonomy.
+
+================================================================================
+END OF DOCUMENT
+================================================================================

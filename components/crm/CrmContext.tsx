@@ -21,6 +21,7 @@ type CrmContextValue = {
   role: CrmRole;
   staffId: string;
   staffName: string;
+  canUseAi: boolean;
   leads: CrmLead[];
   visibleLeads: CrmLead[];
   updateLeadStatus: (leadId: string, status: LeadStatus) => void;
@@ -37,6 +38,7 @@ type CrmProviderProps = {
   role: CrmRole;
   staffId: string;
   staffName: string;
+  canUseAi: boolean;
 };
 
 export function CrmProvider({
@@ -45,6 +47,7 @@ export function CrmProvider({
   role,
   staffId,
   staffName,
+  canUseAi,
 }: CrmProviderProps) {
   const router = useRouter();
   const [leads, setLeads] = useState<CrmLead[]>(() => initialLeads);
@@ -102,6 +105,7 @@ export function CrmProvider({
       role,
       staffId,
       staffName,
+      canUseAi,
       leads,
       visibleLeads,
       updateLeadStatus,
@@ -113,6 +117,7 @@ export function CrmProvider({
       role,
       staffId,
       staffName,
+      canUseAi,
       leads,
       visibleLeads,
       updateLeadStatus,

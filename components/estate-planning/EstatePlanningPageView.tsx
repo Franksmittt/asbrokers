@@ -33,7 +33,7 @@ const OUTCOME_CARDS = [
   {
     title: "Estate Duty & Tax Planning",
     description: "Legally minimize SARS liabilities so your family inherits your wealth, not the taxman.",
-    href: "/estate-duty-calculator",
+    href: CALC_ESTATE_DUTY,
     span: "col-span-12 lg:col-span-5",
     accent: "blue" as const,
   },

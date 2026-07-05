@@ -284,7 +284,7 @@ export function RetirementPageView() {
               title="I'm already retired."
               description="I need a sustainable income strategy so my money doesn't run out."
               links={[
-                { label: "Everest Amethyst Living Annuity", href: "/everest-amethyst-living-annuity" },
+                { label: "Living Annuity Income Calculator", href: "/embed-calculators/asset-014-living-annuity.html" },
                 { label: "Life of Capital Calculator", href: CALC_LIFE_OF_CAPITAL },
                 { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
               ]}
@@ -533,7 +533,7 @@ export function RetirementPageView() {
               </li>
             </ul>
             <Link
-              href="/everest-amethyst-living-annuity"
+              href="/embed-calculators/asset-014-living-annuity.html"
               prefetch={false}
               className="mt-6 inline-flex items-center gap-2 font-semibold"
               style={{ color: TEAL, fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}

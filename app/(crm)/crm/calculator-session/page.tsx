@@ -6,6 +6,11 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CalculatorSessionPage() {
-  return <OfficeCalculatorCanvas />;
+export default async function CalculatorSessionPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ leadId?: string }>;
+}) {
+  const params = await searchParams;
+  return <OfficeCalculatorCanvas leadId={params.leadId} />;
 }

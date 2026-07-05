@@ -63,15 +63,6 @@ const RISK_CALCULATORS = [
     span: "col-span-12 lg:col-span-7",
   },
   {
-    staffLabel: "Premium Liability Test",
-    title: "Escalating vs level premiums",
-    description:
-      "Compare escalating and level premiums over time so you see the trap of expiring guarantees.",
-    href: "/premium-increase-calculator",
-    accent: "blue" as const,
-    span: "col-span-12 lg:col-span-5",
-  },
-  {
     staffLabel: "Business Risk Review™",
     title: "Gap analysis for business owners",
     description:

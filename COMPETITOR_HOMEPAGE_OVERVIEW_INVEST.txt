@@ -1,0 +1,613 @@
+================================================================================
+  SA INVESTMENT / ASSET MANAGEMENT — COMPETITOR HOMEPAGE & NAVIGATION OVERVIEW
+  Structural analysis for AS Brokers positioning (not styling/colours)
+================================================================================
+
+Captured: 29 June 2026
+Method: Live homepage review (HTML scrape + browser accessibility snapshots + page fetch).
+Note: Many sites are heavy JavaScript and use geo/role gates. Structure reflects rendered experience.
+Redirects / gates: coronation.com → region/investor welcome page before personal site |
+                   mandg.co.za → role selector (SA Personal / Professional / Namibia) |
+                   ashburtoninvestments.com → /za with country + role modal |
+                   ninetyone.com → ninetyone.com/en/south-africa (not .com root) |
+                   momentum.co.za = full retail brand (not investments-only subsite)
+
+================================================================================
+EXECUTIVE SUMMARY — PATTERNS ACROSS ALL 12
+================================================================================
+
+1. ROLE / AUDIENCE GATE IS STANDARD
+   Almost every pure asset manager forces you to declare who you are before content:
+   Personal / Individual | Financial adviser | Institutional | Corporate.
+   Stanlib, M&G, Ashburton, Coronation, Ninety One all use this pattern.
+
+2. THREE HOMEPAGE ARCHETYPES
+   A) PURE ASSET MANAGER (fund + philosophy led):
+      Allan Gray, Coronation, Ninety One, Stanlib, M&G, Prescient, Ashburton.
+   B) LIFE-STAGE / GOAL JOURNEY (retail-friendly):
+      Sygnia, Old Mutual Invest, Coronation (guided journeys), Allan Gray (What we offer).
+   C) GROUP / DISTRIBUTION HUB (not a single retail invest homepage):
+      Sanlam Investments (multi-business + B2B), PSG (wealth group + advisers),
+      Momentum (full insurer/medical aid/estate stack).
+
+3. HERO MESSAGING ANGLES
+   - Philosophy & time horizon: Allan Gray ("Building long-term wealth"), Coronation ("long-term thinkers").
+   - Democratisation / access: Sygnia ("Money Management for All"), Prescient ("certainty in uncertain world").
+   - Change / global scale: Ninety One ("Investing for a world of change", R3.9tn AUM stats).
+   - Track record proof: Allan Gray (R10k since 1998 chart), Coronation (#1 fund rankings).
+   - Campaign carousel: Ashburton, Sanlam Investments, Ninety One (insights-led slides).
+
+4. EDUCATION IS PROMINENT (unlike insurers)
+   New-to-investing journeys, calculators, InvestRight/Fund Selector, Corospondent/Taking Stock
+   publications, video series, retirement guides. This is where AS Brokers /home3 aligns well.
+
+5. ADVISER VS DIRECT
+   - Direct digital invest: Coronation (Invest Now), Old Mutual Invest (online application), M&G (online forms).
+   - Adviser-intermediated: Allan Gray ("Find an independent financial adviser"), PSG (1,000 advisers),
+     most others offer both paths.
+   - AS Brokers sits firmly in adviser-led camp — similar to Allan Gray / PSG, not OUTsurance-style direct.
+
+6. RETIREMENT IS EVERYWHERE BUT RARELY THE HERO QUESTION
+   Retirement content exists (RA guides, two-pot hubs, "on track to retire" articles) but few lead with
+   "Will I have enough?" as the primary homepage question. Sygnia life-stage cards and Ninety One
+   retirement carousel slide are closest. AS Brokers /home3 retirement funnel is differentiated.
+
+================================================================================
+1. ALLAN GRAY
+================================================================================
+URL: https://www.allangray.co.za/
+
+SITE TYPE
+  Pure South African active investment manager. Conservative, philosophy-led brand.
+  Direct unit trust platform + strong adviser channel.
+
+HEADER — TOP UTILITY (audience)
+  New clients | Existing clients | Financial advisers | Institutional investors | Careers
+
+HEADER — MAIN NAV
+  What we offer (mega-menu by GOAL, not product name):
+    Start a basic investment | Save for your retirement | Start/transfer tax-free investment |
+    Save for child's education | Transfer existing retirement savings | Get income during retirement |
+    Invest offshore | Retirement savings for staff | Saving through employer
+  Unit trusts, prices & factsheets | Transactions, forms and documents
+  Find an independent financial adviser
+  News & insights (Latest insights, Literature library, Two-pot hub, Quarterly Commentary, Event hub)
+  About us (Values, People, Track record, Investment approach, Global expertise, Ownership)
+  Invest now | Search | Contact | Log in
+
+HOMEPAGE FLOW (top → bottom)
+  1. H1: "Building long-term wealth for our clients" — time as most valuable currency
+  2. Brand campaign CTA + long-term track record link
+  3. Performance section: "What R10,000 invested in 1998 would be worth today" — interactive chart
+     (Allan Gray Equity Fund vs benchmark, log scale)
+  4. "More than 50 years…" — video (CIOs/COOs reflect on five decades)
+  5. "Our approach to investing is simple" — buy undervalued, sell at worth, video
+  6. "Time is the greatest gift of all" — brand commercial
+  7. "Benefit from our investment expertise" — same philosophy for individuals and pension funds
+  8. CTA: Start a unit trust investment
+  9. Featured insight: Quarterly Commentary (e.g. Pan African Resources article)
+  10. Country/jurisdiction selector modal for non-SA visitors
+
+KEY MESSAGING
+  Long-term, patient capital. No hype. Track record as proof. Independence and client-first.
+  Minimal product catalogue on homepage — philosophy and proof dominate.
+
+PRIMARY CTAs
+  Invest now | Start a unit trust investment | Watch video | Explore brand campaign | Find adviser
+
+================================================================================
+2. CORONATION FUND MANAGERS
+================================================================================
+URL: https://www.coronation.com (→ https://www.coronation.com/en-za/personal/ after gate)
+Gate: Select location (South Africa) + Personal vs Institutional Investor → Continue
+
+SITE TYPE
+  Active multi-asset manager. Strong retail digital platform (Invest Now).
+
+HEADER — UTILITY
+  Personal Investor | Institutional Investor toggle
+  South Africa (region selector) | Contact Us | Log In
+
+HEADER — MAIN NAV (Personal)
+  Accounts (Unit Trust, Tax-free, Retirement Annuity, etc.)
+  Funds (full fund range by risk/return objective)
+  Publications / Insights (Corospondent)
+  Tools (investment calculator)
+  About | Invest Now
+
+HOMEPAGE FLOW
+  1. H1: "Start your investment journey today" — urgency on time in market
+  2. "Why Coronation" — three pillars: long-term thinkers | clients first | integrity
+  3. "New to investing?" — THREE GUIDED JOURNEYS (cards):
+     - Unit Trust Fund — goal/holiday/house/rainy day (R5,000 lump / R500/month)
+     - Tax-free Investment — R46,000 annual allowance
+     - Retirement Annuity — tax-efficient retirement saving
+     Each: "Take the guided journey"
+  4. "Quick invest" — flagship funds shortcut:
+     Balanced Plus | Global Managed [ZAR] Feeder
+     Full fund detail: risk rating 1–10, recommended term, performance tables, Invest in this fund
+  5. Embedded investment calculator (initial amount, debit order, fund selector)
+  6. "Invest with confidence" — world-class team + 24/7 digital platform
+  7. "If you had invested sooner" — R10,000 in Coronation Equity since 1996 → R588,000
+  8. Industry ranking callouts (#1 Balanced Plus, Top 20, Global Optimum Growth)
+  9. Client testimonials
+  10. "The importance of independent advice"
+  11. FAQ accordion (FSP licence, access rules, fund vs account, fees)
+
+KEY MESSAGING
+  Guided journeys for beginners. Quick path to flagship funds for experienced investors.
+  Performance proof and ASISA rankings. Digital self-service + adviser option.
+
+PRIMARY CTAs
+  View investment options | Take the guided journey | Invest in this fund | Calculate | Log In
+
+================================================================================
+3. NINETY ONE
+================================================================================
+URL: https://www.ninetyone.com (→ https://ninetyone.com/en/south-africa)
+Note: Root domain blocks scrapers (403); SA path works in browser.
+
+SITE TYPE
+  Global asset manager with SA roots (est. 1991). Dual-listed JSE/LSE.
+  Retail platform + institutional + corporate cash solutions.
+
+HEADER — UTILITY
+  Contact us | Investor relations | South Africa — Select your role
+
+HEADER — MAIN NAV
+  Insights | Funds | Investment platform | Sustainability | About us
+  Search: "What are you looking for today?"
+  Invest now | Login
+
+HOMEPAGE FLOW
+  1. Hero carousel (insights-led, not product):
+     - "Are you on track to retire comfortably?" — practical retirement guide
+     - "Celebrating 35 Years together" — brand/purpose
+     - "Taking Stock Publication Autumn 2026" — portfolio positioning
+     - "The risk beneath the rally" — market insight
+     - "Control the controllables: building a solid foundation for retirement"
+     - "Who wants to be a millionaire?" — long-term investing narrative
+  2. Brand narrative: "Change is everywhere… we were born out of change"
+  3. "Ninety One at a glance" — stats carousel:
+     R3.9 trillion AUM | 1991 established | Dual listed | 32.7% employee-owned |
+     22 offices / 15 countries | 1,289 employees | >260 investment professionals
+  4. Podcast: "The Investment Perspective, with Ninety One" (Spotify / Apple)
+  5. Social links (LinkedIn, Instagram, Facebook, Twitter, YouTube, Podcast)
+
+KEY MESSAGING
+  Global scale with emerging-markets roots. Active and sustainable investing.
+  Insights-first homepage — education and thought leadership before product push.
+  Retirement content prominent in carousel.
+
+PRIMARY CTAs
+  Learn more | Read more | Invest now | Login | View latest campaign
+
+================================================================================
+4. OLD MUTUAL INVESTMENT GROUP
+================================================================================
+URL: https://www.oldmutualinvest.com (→ https://www.oldmutualinvest.com/individual/)
+
+SITE TYPE
+  Unit trust and investment platform for individuals + institutional.
+  Goal-based navigation. Direct online investing + financial planner channel.
+
+HEADER — SEGMENT
+  Individual | Institutional
+
+HEADER — MAIN NAV
+  Home
+  Your Goals → VIEW ALL GOALS:
+    Home and Security | Education and Ambition | Retirement Independence |
+    Freedom and Adventure | My Big Goal
+  Our Solutions → VIEW ALL SOLUTIONS
+  Our Funds → VIEW ALL FUNDS:
+    Full Fund Range | Investment Series | Strategy Funds | Multi-Managers | Ethical Funds
+  Resources → VIEW ALL RESOURCES
+  Digital Solutions | Financial Planners | About Old Mutual
+  Login
+
+HOMEPAGE FLOW
+  1. H1: "Make the most of your savings"
+  2. "Partner with us today to tailor your investing around your journey"
+  3. Unit trust benefits explained (flexibility, diversification, tax efficiency, online transactions)
+  4. Retirement annuity narrative — start early, time in market
+  5. Online application process — invest from desk/home/vacation
+  6. InvestRight tool — interactive guide: how much to save for short/medium/long-term goals
+  7. Fund centre: prices, performance, declarations, minimums
+  8. Investment Series — "A solution for every investor, for every stage of life"
+     (handpicked core range of ~10 funds from 40+ universe)
+
+KEY MESSAGING
+  Goals-first ("your journey"). Simplified fund range (Investment Series) atop full catalogue.
+  Direct digital + planner. Calculator-led (InvestRight).
+
+PRIMARY CTAs
+  VIEW ALL GOALS | VIEW ALL SOLUTIONS | VIEW ALL FUNDS | Apply to invest | Financial Planners
+
+================================================================================
+5. SANLAM INVESTMENTS
+================================================================================
+URL: https://www.sanlaminvestments.com/
+
+SITE TYPE
+  GROUP investment holding site — not a simple retail "pick a fund" homepage.
+  Showcases business units; routes individuals/advisers/institutions to sub-paths.
+
+HEADER — MAIN NAV
+  Our businesses | Our sustainability journey | Our funds | Media centre |
+  Financial results | Market indicators
+  Audience paths (utility): Individual Investors | Financial Advisers | Institutional |
+  I am a new investor | I am an existing investor | Unit trusts | Fund fact sheets
+  Login | Register | Contact us
+
+HOMEPAGE FLOW
+  1. Hero campaign: "Where paths cross, futures rise" — Property Impact Fund
+     (township retail, affordable homes, schools — social infrastructure investing)
+  2. "Our businesses set us apart" — SIX PILLARS:
+     - Active Management (Ninety One as preferred primary active manager post-acquisition)
+     - Multi-Management (solutions architect, manager research)
+     - Alternative Investments (infrastructure, private equity, private markets)
+     - Index tracking by Satrix (ETFs, cost-effective passive)
+     - Structured Solutions (yield enhancement, downside protection)
+     - Sanlam Collective Investments (unit trust / hedge fund administration)
+  3. "Investing in you" — client-centric narrative
+  4. "Trending insights for you" — media coverage (Citywire, Currency News) + articles
+  5. Contact form: Full name, Organisation, Cellphone, Email, "I am a…", "I need help with…"
+  6. Footer: worldwide Sanlam group links, fund fact sheets, daily prices, FICA, PAIA
+
+KEY MESSAGING
+  Institutional/group positioning. Pivot from "fund factory" to solutions + private markets.
+  Not retail-friendly at homepage level — individuals must self-navigate to unit trusts.
+
+PRIMARY CTAs
+  Explore more | Read More | Our funds range | Find out more about us | Submit contact form
+
+================================================================================
+6. STANLIB
+================================================================================
+URL: https://www.stanlib.com (also stanlib.com)
+
+SITE TYPE
+  Leading SA investment manager (Liberty/Standard Bank group). Role-gated entry.
+
+HEADER — REGION + ROLE
+  South Africa | Africa
+  Individual | Adviser | Institutional | Corporate
+  On first visit: "Select your role to proceed" — four large role buttons
+
+HEADER — MAIN NAV (Individual)
+  Home | About Us | News and Insights | Funds and Solutions | Forms and Pricing | Contact Us
+  Login
+
+HOMEPAGE FLOW
+  1. Events & webinars carousel (4 slides) — e.g. "Digital Lowdown Ep3: Beyond the Buzz"
+  2. H1: "Our expert view" — news grid (5 articles: process, impact investing, AI disruption, etc.)
+  3. "Our core funds" — organised by INVESTMENT OBJECTIVE (not fund house structure):
+     - Income — "generate income, potentially some capital growth"
+       (Flexible Income Fund, Income Fund)
+     - Stable Growth — "capital growth and protection, medium-longer term"
+       (Absolute Plus, Multi-Asset Cautious)
+     - Growth — "long-term capital growth, willing to endure turbulence"
+       (Multi-Asset Growth, Equity, Property Income, Enhanced Multi Style Equity)
+     - Offshore — "diversify globally"
+       (Global Balanced Cautious, Global Balanced, Global Equity, Global Property,
+        Global Select, Global Multi-Strategy Diversified Growth)
+  4. "Benefit from our investment expertise" — Find an adviser | Subscribe to publications
+  5. Footer: 0860 123 003 | LinkedIn | YouTube | Legal
+
+KEY MESSAGING
+  Expert view / thought leadership first. Funds grouped by what investor NEEDS (income vs growth).
+  Adviser channel prominent. Webinar-heavy engagement.
+
+PRIMARY CTAs
+  Learn more | Find out more | View all funds & solutions | Find an adviser | Subscribe
+
+================================================================================
+7. SYGNIA
+================================================================================
+URL: https://www.sygnia.co.za/
+
+SITE TYPE
+  Retail-accessible fintech-leaning asset manager. Low-fee, direct + adviser.
+  ETFs, unit trusts, securities, tax-free for kids.
+
+HEADER — UTILITY
+  Fraud alert strip (fake Telegram/Facebook/WhatsApp groups)
+
+HEADER — MAIN NAV
+  Accounts | Top 5 Funds | Sygnia Securities | Newsroom | Sygnia Universe
+  Get started | Talk to us | Login
+
+HOMEPAGE FLOW
+  1. H1: "Money Management for All"
+  2. "Welcome to Sygnia. We won't tell you what to do with your money. Just how to make more of it."
+     — Learn more | Our fees
+  3. "What are you saving for?" — LIFE STAGE CARDS:
+     - Getting started (young, career-bound)
+     - Mid-career (family and future)
+     - Pre-retirement (shape retirement you'll love)
+     - Retirement (secure, growing, ready to fund retirement)
+  4. "Our top 5 funds" — strongest monthly returns (ETFs + unit trusts named)
+  5. Sygnia Securities — JSE stock transactions partner
+  6. News and insights (6 articles — CEO Magda Wierzycka, AI, dividends, etc.)
+  7. Client testimonials (3 quotes — Pretoria, Cape Town, Johannesburg)
+  8. "You talk – we listen" — client experience section
+  9. Audience modules:
+     - For All | For You | For Institutions | For Your Kids (Stargazer Tax Free) |
+       For Financial Advisors
+  10. Newsletter subscribe
+  11. Need help? Call 0860 794 642 | Email | Fund members (SURF admin)
+
+KEY MESSAGING
+  Democratised investing. Low fees. Life-stage segmentation. Transparent, direct tone.
+  Closest retail competitor to AS Brokers education-first / journey approach.
+
+PRIMARY CTAs
+  Get started | Talk to us | Learn more | View our funds | Email us | Call us
+
+================================================================================
+8. PSG ASSET MANAGEMENT (PSG GROUP)
+================================================================================
+URL: https://www.psg.co.za/
+Note: PSG Asset Management sits under group site — /for-professional-investors for AM detail.
+
+SITE TYPE
+  Financial services GROUP — wealth, insurance, employee benefits, asset management.
+  Adviser-distributed model (1,000 advisers, 270 offices).
+
+HEADER — MAIN NAV
+  For Myself | For My Business | For Professional Investors | About PSG
+  Contact | Find an Adviser | Log In | Search
+
+  For Myself submenu:
+    Personal Wealth Management | Personal Insurance Solutions
+  For My Business:
+    Employee Benefits (Group Risk, Retirement Fund Consulting) |
+    Commercial Insurance | Business Assurance
+  For Professional Investors:
+    PSG Asset Management funds, philosophy, annual report, CSI
+  About PSG: Careers | Investor Relations
+
+HOMEPAGE FLOW
+  1. H1: "A leading financial services group"
+  2. Three audience cards:
+     - For Myself — "Build wealth, insure what matters, plan with confidence"
+     - For My Business — employee benefits, insurance, business assurance
+     - For Professional Investors — diversified portfolios for advisers, bulk investors, DFMs
+  3. "Financial Solutions Designed Around You" — promo carousel:
+     Cash Account (yield vs money market) | PSG Family pricing (offshore fees) |
+     Think Big Series (expert dialogues — Eskom, Home Affairs, Transport ministers)
+  4. "Advice that goes beyond products" — 1,000 qualified Wealth and Insure advisers
+  5. Latest Webinars (video cards with ministers/industry leaders)
+  6. Newsletter signup
+
+KEY MESSAGING
+  Adviser-led wealth group. Asset management is one pillar under "Professional Investors".
+  Thought leadership via Think Big / webinars. Not a direct retail fund shop at homepage.
+
+PRIMARY CTAs
+  Find an Adviser | See Overview | Register for Think Big | Log In (myPSG, PSG Online)
+
+================================================================================
+9. PRESCIENT INVESTMENT MANAGEMENT
+================================================================================
+URL: https://www.prescient.co.za/
+
+SITE TYPE
+  Multi-affiliate financial services (investment management, securities, platform, retirement).
+  Systematic/global quant positioning. B2B + retail DIY paths.
+
+HEADER — MAIN NAV
+  About Us
+  New To Investing → Importance of Investing | Risk Profile & Time Horizon | Find the Fund for you
+  What We Offer → Investment Management | Stockbroking | Platform & Admin | Capital Markets | Retirement
+  Funds | News & Resources | Contact
+  Invest Now | Login
+
+HOMEPAGE FLOW
+  1. H1: "Creating certainty in an uncertain world" — 26-year track record
+  2. Latest news banner (e.g. Prescient Coding Challenge 2026)
+  3. "Tailored financial solutions" — 5 principles carousel:
+     Future-fit | Attention to detail | Passion for excellence | Beneficial outcomes | Clarity
+  4. "Find out how we can help you - based on who you are" — FOUR AUDIENCE TILES:
+     - Financial Advisors and Investors
+     - Investment Professionals and Management Companies
+     - Institutional Investors
+     - Do-It-Yourself Investors
+     (Each expands to specific actions: unit trust, TFSA, retirement, platform, mandates, umbrella)
+  5. "Invest with us for peace of mind" — View Our Funds
+  6. Responsible investing / campaigns carousel (7+ slides: RI report, awards, global offering,
+     InvestInHER, JSE Spire Awards, coding challenge)
+  7. "Prescient in the News" — large article grid (ETFs, retirement, Section 37D, etc.)
+  8. Prescient Global — country selector (SA, China, Ireland)
+  9. Scam warning (no WhatsApp/Facebook solicitation)
+
+KEY MESSAGING
+  Systematic investing, global data (500m data points). Audience-segmented homepage.
+  Heavy news/insights volume. DIY + adviser + institutional clearly split.
+
+PRIMARY CTAs
+  Invest Now | View Our Funds | Register (coding challenge) | Find out more | Login
+
+================================================================================
+10. MOMENTUM INVESTMENTS (MOMENTUM RETAIL)
+================================================================================
+URL: https://www.momentum.co.za/
+Note: User listed "Momentum Investments" — momentum.co.za is the full Momentum retail brand,
+not a standalone asset-manager-only site.
+
+SITE TYPE
+  Integrated financial services: medical aid, short-term insurance, life, investments,
+  savings, wills/estates. Investments is one module among six.
+
+HEADER — MAIN NAV (mega-menu by product)
+  Medical aid | Car & home insurance | Life insurance | Investments | Savings |
+  Wills, Trusts & Estates | Rewards
+  Each expands to options, benefits, get help, quotes
+  Brand story | Get advice | Login
+
+HOMEPAGE FLOW
+  1. H1: "Build financial confidence for uncertain times"
+     — Speak to Momentum accredited financial adviser
+  2. "Get an online quote" — Medical aid | Life | Car & home (not investments)
+  3. Advice stats: 3% higher returns for advised clients | 83% stay secure | 90% get real value
+  4. "Partner with a financial adviser" — #AdviceForSuccess
+  5. "Solutions to help build your financial dreams" — FEATURED CAROUSEL:
+     Medical aid | Short-term | Life | Investments | Savings | Estate
+     Investments card: "Local & offshore investing" — Call me back (not instant quote)
+  6. "In the spotlight" — FinGlobal expat tax, life cover promo, adviser careers, estate plan, annuities
+  7. Latest blog articles
+  8. Rewards narrative (HealthReturns, Safety Returns, LifeReturns) — character story (Lerato)
+  9. Stats: 2m products | R6.5bn life claims | 16,000 employees
+  10. Client success stories | Awards
+
+INVESTMENTS SUB-SECTION (from nav, not hero)
+  Local investing: Momentum Wealth platform, fact sheets, tax-free, retirement
+  Offshore: Momentum Wealth International, Global Investment Management
+  Savings: RA, education, endowment plans
+  CTAs: Call me back | Learn more | Speak to adviser
+
+KEY MESSAGING
+  Adviser-led confidence in uncertain times. Insurance and medical aid dominate homepage.
+  Investments secondary — callback-led, not self-serve fund catalogue.
+
+PRIMARY CTAs
+  Get advice | Get a quote (insurance/medical) | Call me back (investments) | Learn more
+
+================================================================================
+11. ASHBURTON INVESTMENTS
+================================================================================
+URL: https://www.ashburtoninvestments.com (→ https://www.ashburtoninvestments.com/za)
+Gate: Country (SA / International / Namibia) + Role (Individual / Financial advisor / Corporates)
+
+SITE TYPE
+  FirstRand group asset manager. Multi-asset, fixed income, offshore, passive/ETF.
+  Adviser + institutional + individual.
+
+HEADER — UTILITY
+  South Africa | Individual (role switcher) | Watchlist | Dark/Light mode
+  Register | Login | Search
+
+HEADER — MAIN NAV
+  About us → Who we are, Capabilities, Philosophy, People, Responsible investing, Careers
+  Funds and solutions → Multi-Asset | Fixed income | Specialist building blocks |
+    Offshore | Passive (GOVI Tracker, ETFs) — full fund list in mega-menu
+  Insights → Publications, Commentary, Multimedia, Events, In the Media
+  Contact us
+  QUICK LINKS: Factsheets | Insights | Prices & performance | Documents & forms | Get started
+
+HOMEPAGE FLOW
+  1. Hero carousel (5+ slides):
+     - Award Nominations (SA Income Fund & Bond Fund)
+     - "Target Real Returns. Stay Diversified." (Targeted Return Fund milestone)
+     - Scam Alert (WhatsApp fraudsters)
+     - "Your investments, our commitment."
+     - "Investing with Purpose" — education/opportunity
+  2. Static link cards:
+     - 2025 Abridged Annual Report
+     - Our Funds and Solutions (corporates, advisers, institutions)
+     - Latest Insights (e.g. JIBAR to ZARONIA)
+     - Responsible Investing
+  3. "Ready to start investing?" — Get started CTA
+  4. "Can't find what you're looking for?" — search/support
+  5. Role/country modal on entry ("Tell us about you")
+  6. Footer mega-links: funds by name, forms, Report to Society, FirstRand Group affiliation
+
+KEY MESSAGING
+  Target real returns, diversification. FirstRand credibility. Fund catalogue in nav not hero.
+  Compliance/scam alerts prominent.
+
+PRIMARY CTAs
+  Get started | Read more | Register | Login | Call 0860 000 339
+
+================================================================================
+12. M&G INVESTMENTS
+================================================================================
+URL: https://www.mandg.co.za/
+Gate: "Viewing as" — South Africa Personal Investor | Professional Investor | Namibia
+
+SITE TYPE
+  Unit trust manager (formerly Prudential Portfolio Managers SA). Global M&G plc group.
+  Education-heavy for new investors. Direct online application.
+
+HEADER — ROLE SWITCHER
+  Personal Investor | Financial Adviser | Institutional Investor
+
+HEADER — MAIN NAV (Personal Investor)
+  Home | New to Investing | Our Funds (all funds + tax-free + offshore) |
+  Invest with us (online application forms) | Insights | Tools (Fund Selector)
+  Contact | Login
+
+HOMEPAGE FLOW (Personal Investor — after role selection)
+  1. Fraud alert strip (social media impersonation warning)
+  2. Title positioning: "Local knowledge. Global expertise"
+  3. New to Investing section (key landing content):
+     - Slideshow: What is Investing? | Why Invest? | Who should invest? |
+       How do I invest? | Where do I invest? | Why choose unit trusts?
+     - Six-part video series + "Guide to Investing" PDF book
+  4. Fund Selector tool — risk level + investment horizon → suitable funds
+  5. Fund range: M&G Equity, Balanced, Inflation Plus, Global Balanced, Enhanced Income,
+     Dividend Maximiser, Money Market, Property, Global feeders, Tax-free variants
+  6. CTA: Complete an online application form (individual unit trust / tax-free / offshore)
+  7. Client services: 0860 105 775 | instructionsa@mymandg.co.za
+
+KEY MESSAGING
+  Education-first for newcomers. Tool-led fund selection. Direct digital invest path.
+  Prudential/M&G global heritage. Clear fee disclosure in application docs.
+
+PRIMARY CTAs
+  USE OUR TOOLS | COMPLETE AN ONLINE APPLICATION FORM | Fund Selector | Download Guide
+
+================================================================================
+COMPARISON MATRIX (STRUCTURE ONLY)
+================================================================================
+
+| Company           | Pure AM? | Role gate? | Hero type              | Journey segmentation      | Calculator/tools | Adviser CTA |
+|-------------------|----------|------------|------------------------|---------------------------|------------------|-------------|
+| Allan Gray        | Yes      | Audience   | Philosophy + track record | Goals in nav           | Performance chart| Strong      |
+| Coronation        | Yes      | Yes        | Start journey + guides | 3 guided journeys         | Investment calc  | Yes         |
+| Ninety One        | Yes      | Role       | Insights carousel      | Via content               | Via platform     | Implied     |
+| Old Mutual Invest | Yes      | Segment    | Savings headline       | Your Goals nav            | InvestRight      | Planners    |
+| Sanlam Investments| Group    | Yes        | Impact fund campaign   | Business units            | Market indicators| Contact form|
+| Stanlib           | Yes      | Yes        | Expert view + webinars | Income/Growth/Offshore    | Publications     | Strong      |
+| Sygnia            | Yes      | Light      | Money for All          | Life stage cards          | Fees transparency| Talk to us  |
+| PSG               | Group    | Audience   | 3 audience pillars     | Myself/Business/Pro       | Webinars         | Dominant    |
+| Prescient         | Yes      | Audience   | Certainty + principles | 4 audience tiles          | Find the Fund    | Yes         |
+| Momentum          | No       | No         | Financial confidence   | Product carousel          | Estate calc      | Dominant    |
+| Ashburton         | Yes      | Yes        | Campaign carousel      | Role modal                | Prices/factsheets| Get started |
+| M&G               | Yes      | Yes        | Education gate         | New to Investing path     | Fund Selector    | FA section  |
+
+================================================================================
+TAKEAWAYS FOR AS BROKERS (INVESTMENT / RETIREMENT POSITIONING)
+================================================================================
+
+WHAT WORKS (worth borrowing for /home3 and retirement content)
+  • Sygnia life-stage cards ("What are you saving for?") — plain language, retirement explicit
+  • Coronation guided journeys (unit trust / tax-free / RA) — beginner-friendly paths
+  • Old Mutual Invest goals nav + InvestRight calculator — goal → amount needed
+  • Allan Gray goal-based "What we offer" mega-menu — retirement, TFSA, education, offshore
+  • Ninety One retirement carousel ("on track to retire comfortably?") — question as hook
+  • Stanlib objective-based fund grouping (Income / Stable Growth / Growth / Offshore)
+  • M&G / Coronation calculators — interactive proof before advice conversation
+
+WHAT TO AVOID (asset-manager traps for a boutique adviser)
+  • Group holding pages as homepage (Sanlam Investments, PSG) — too much corporate noise
+  • Fund catalogue in hero before visitor self-identifies (Ashburton, Prescient news flood)
+  • Pure track-record bragging without education (Allan Gray is elegant but intimidating)
+  • Insurance-first homepage when selling Everest retirement (Momentum)
+
+AS BROKERS DIFFERENTIATION
+  • None of the 12 lead with "What do you need help with today?" + education pillar
+  • Retirement worry funnel ("not enough money", two-pot, drawdown) — only partial coverage
+  • Independent adviser + Everest product depth — neither pure AM nor bank-owned
+  • Calculators → articles → advice flow beats most AM sites that push "Invest Now" direct
+  • AS Brokers can be "Sygnia's clarity + Coronation's journeys + adviser's trust"
+
+RECOMMENDED BENCHMARKS FOR AS BROKERS INVESTMENT HOMEPAGE
+  Primary:   Sygnia (life stages), Coronation (guided journeys), Old Mutual Invest (goals + InvestRight)
+  Secondary: Allan Gray (retirement nav items), Ninety One (retirement content), Stanlib (objective groups)
+  Avoid:     Sanlam Investments group page, PSG group page, Momentum insurance-first layout
+
+================================================================================
+END OF DOCUMENT
+================================================================================

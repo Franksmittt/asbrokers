@@ -1,6 +1,6 @@
 "use server";
 
-import { and, asc, desc, eq, inArray } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, or, sql } from "drizzle-orm";
 import { z } from "zod";
 
 import {
@@ -70,8 +70,13 @@ async function assertLeadAccess(leadId: string) {
       return null;
     }
 
-    if (!canViewAllLeads && row.assignedAdvisor !== user.id) {
-      return null;
+    if (!canViewAllLeads) {
+      const payload = (row.rawPayload ?? {}) as Record<string, unknown>;
+      const delegatedId =
+        typeof payload.delegatedAdvisorId === "string" ? payload.delegatedAdvisorId : "";
+      if (row.assignedAdvisor !== user.id && delegatedId !== user.id) {
+        return null;
+      }
     }
 
     return { user, role, row };
@@ -82,7 +87,11 @@ async function assertLeadAccess(leadId: string) {
 }
 
 function leadScopeFilter(userId: string, canViewAllLeads: boolean) {
-  return canViewAllLeads ? undefined : eq(crmLeads.assignedAdvisor, userId);
+  if (canViewAllLeads) return undefined;
+  return or(
+    eq(crmLeads.assignedAdvisor, userId),
+    sql`${crmLeads.rawPayload}->>'delegatedAdvisorId' = ${userId}`
+  );
 }
 
 async function withCrmDb<T>(label: string, fallback: T, run: () => Promise<T>): Promise<T> {
@@ -496,7 +505,13 @@ export async function updateLeadStatus(
   }
 
   const where = !canViewAllLeads
-    ? and(eq(crmLeads.id, leadId), eq(crmLeads.assignedAdvisor, user.id))
+    ? and(
+        eq(crmLeads.id, leadId),
+        or(
+          eq(crmLeads.assignedAdvisor, user.id),
+          sql`${crmLeads.rawPayload}->>'delegatedAdvisorId' = ${user.id}`
+        )
+      )
     : eq(crmLeads.id, leadId);
 
   const updated = await db

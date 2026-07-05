@@ -1,17 +1,13 @@
-import { eq } from "drizzle-orm";
 import { forbidden } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 
 import type { CrmStaffPermissions } from "@/lib/crm/permissions";
 import { resolveStaffPermissions } from "@/lib/crm/permissions";
-import {
-  canAccessCrmRole,
-  crmRoleFromUser,
-  isAdminRole,
-} from "@/lib/crm/session";
+import { resolveCrmIdentity } from "@/lib/crm/resolve-session";
+import { isAdminRole } from "@/lib/crm/session";
 import type { CrmRole } from "@/lib/crm/types";
 import { crmStaffProfiles, getDb } from "@/lib/db";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { eq } from "drizzle-orm";
 
 export type CrmAccessContext = {
   user: User;
@@ -39,25 +35,30 @@ async function getActiveProfile(userId: string) {
 
 /** Authenticated CRM user with permissions and active-status check. */
 export async function requireCrmAccess(): Promise<CrmAccessContext> {
-  const supabase = await createServerSupabaseClient();
-  if (!supabase) forbidden();
+  const identity = await resolveCrmIdentity();
+  if (!identity) forbidden();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) forbidden();
+  const { user, role, viaPin } = identity;
 
-  const role = crmRoleFromUser(user);
-  if (!canAccessCrmRole(role)) forbidden();
+  if (!viaPin) {
+    const profile = await getActiveProfile(user.id);
+    if (profile && !profile.isActive) forbidden();
 
-  const profile = await getActiveProfile(user.id);
-  if (profile && !profile.isActive) forbidden();
+    const permissions = resolveStaffPermissions(
+      role,
+      profile?.permissions as Partial<CrmStaffPermissions> | undefined
+    );
 
-  const permissions = resolveStaffPermissions(
-    role,
-    profile?.permissions as Partial<CrmStaffPermissions> | undefined
-  );
+    return {
+      user,
+      role,
+      permissions,
+      canViewAllLeads: isAdminRole(role) || permissions.viewAllLeads,
+      canViewAllClients: isAdminRole(role) || permissions.viewAllClients,
+    };
+  }
 
+  const permissions = resolveStaffPermissions(role, undefined);
   return {
     user,
     role,

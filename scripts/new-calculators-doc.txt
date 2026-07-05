@@ -1,0 +1,3622 @@
+﻿Asset001 AS Brokers Retirement Growth Calculator
+<div id="asb-growth-rate-calculator">
+<style>
+#asb-growth-rate-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-growth-rate-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-growth-rate-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-cta a {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+text-decoration: none;
+font-weight: 700;
+font-size: 14px;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Retirement Growth Rate Calculator</h2>
+
+
+<p class="intro">
+Work out what annual investment growth rate may be required before retirement to reach your retirement income target.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="growthCurrentAge" type="number" value="50">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement age</label>
+<input id="growthRetirementAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Planning age</label>
+<input id="growthPlanningAge" type="number" value="90">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly income needed today</label>
+<input id="growthMonthlyIncome" type="number" value="40000">
+</div>
+
+
+<div class="asb-field">
+<label>Inflation before retirement (%)</label>
+<input id="growthInflationRate" type="number" step="0.1" value="6">
+</div>
+
+
+<div class="asb-field">
+<label>Current retirement capital</label>
+<input id="growthCurrentCapital" type="number" value="500000">
+</div>
+
+
+<div class="asb-field">
+<label>Current monthly savings</label>
+<input id="growthMonthlySavings" type="number" value="5000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly savings increase (%)</label>
+<input id="growthSavingsIncrease" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth during retirement (%)</label>
+<input id="growthDuringRetirement" type="number" step="0.1" value="8">
+</div>
+
+
+<div class="asb-field">
+<label>Income increase during retirement (%)</label>
+<input id="growthIncomeIncreaseRetirement" type="number" step="0.1" value="6">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateRequiredGrowthRate()">Calculate required growth rate</button>
+
+
+<div id="growthError" class="asb-error"></div>
+
+
+<div id="growthResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Required investment growth rate before retirement</div>
+<div id="requiredGrowthRate" class="asb-value"></div>
+<div class="asb-small">This is the estimated annual growth rate required before retirement based on your current capital and savings.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Capital required at retirement</div>
+<div id="growthCapitalRequired" class="asb-value"></div>
+<div class="asb-small">Estimated capital required to fund your retirement income until your selected planning age.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Monthly income required at retirement</div>
+<div id="growthFutureMonthlyIncome" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Years until retirement</div>
+<div id="growthYearsToRetirement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Income planning period</div>
+<div id="growthIncomePlanningPeriod" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="growthSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand the financial implications of your retirement growth requirement.
+It is an educational planning tool and does not constitute financial, tax or investment advice.
+Required growth rates may be unrealistic where the time period is short, current capital is low, or monthly savings are insufficient.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how retirement income,
+inflation, savings and investment growth work together.
+</p>
+
+
+<a href="/insights/retirement-growth-rate-calculator">Learn what this result means by following link to full article below →</a>
+</div>
+
+
+<script>
+function growthFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function growthGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateRequiredGrowthRate() {
+const currentAge = growthGetNumber("growthCurrentAge");
+const retirementAge = growthGetNumber("growthRetirementAge");
+const planningAge = growthGetNumber("growthPlanningAge");
+const monthlyIncomeToday = growthGetNumber("growthMonthlyIncome");
+
+
+const inflationRate = growthGetNumber("growthInflationRate") / 100;
+const currentCapital = growthGetNumber("growthCurrentCapital");
+const monthlySavings = growthGetNumber("growthMonthlySavings");
+const savingsIncrease = growthGetNumber("growthSavingsIncrease") / 100;
+const growthDuringRetirement = growthGetNumber("growthDuringRetirement") / 100;
+const incomeIncreaseRetirement = growthGetNumber("growthIncomeIncreaseRetirement") / 100;
+
+
+const errorBox = document.getElementById("growthError");
+const resultsBox = document.getElementById("growthResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(retirementAge) ||
+isNaN(planningAge) ||
+isNaN(monthlyIncomeToday) ||
+isNaN(inflationRate) ||
+isNaN(currentCapital) ||
+isNaN(monthlySavings) ||
+isNaN(savingsIncrease) ||
+isNaN(growthDuringRetirement) ||
+isNaN(incomeIncreaseRetirement)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (retirementAge <= currentAge) {
+errorBox.innerText = "Retirement age must be higher than current age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (planningAge <= retirementAge) {
+errorBox.innerText = "Planning age must be higher than retirement age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (monthlyIncomeToday <= 0) {
+errorBox.innerText = "Monthly income must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (currentCapital < 0 || monthlySavings < 0) {
+errorBox.innerText = "Current capital and monthly savings cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+const yearsToRetirement = retirementAge - currentAge;
+const yearsInRetirement = planningAge - retirementAge;
+const monthsToRetirement = yearsToRetirement * 12;
+const monthsInRetirement = yearsInRetirement * 12;
+
+
+const futureMonthlyIncome = monthlyIncomeToday * Math.pow(1 + inflationRate, yearsToRetirement);
+const retirementMonthlyGrowth = Math.pow(1 + growthDuringRetirement, 1 / 12) - 1;
+
+
+let capitalRequired = 0;
+
+
+for (let month = 1; month <= monthsInRetirement; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const monthlyIncomeAtMonth = futureMonthlyIncome * Math.pow(1 + incomeIncreaseRetirement, yearIndex);
+capitalRequired += monthlyIncomeAtMonth / Math.pow(1 + retirementMonthlyGrowth, month);
+}
+
+
+function projectedCapitalAtGrowth(annualGrowthRate) {
+const monthlyGrowthRate = Math.pow(1 + annualGrowthRate, 1 / 12) - 1;
+let balance = currentCapital;
+
+
+for (let month = 1; month <= monthsToRetirement; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const escalatedSaving = monthlySavings * Math.pow(1 + savingsIncrease, yearIndex);
+
+
+balance = balance * (1 + monthlyGrowthRate);
+balance += escalatedSaving;
+}
+
+
+return balance;
+}
+
+
+let low = -0.9999;
+let high = 1;
+
+
+while (projectedCapitalAtGrowth(high) < capitalRequired) {
+high = high * 2;
+
+
+if (high > 1000) {
+errorBox.innerText =
+"The required growth rate is extremely high. This usually means the retirement target is too large for the current time period, capital and monthly savings."
+errorBox.style.display = "block"
+return;
+}
+}
+
+
+for (let i = 0; i < 140; i++) {
+const mid = (low + high) / 2;
+
+
+if (projectedCapitalAtGrowth(mid) < capitalRequired) {
+low = mid;
+} else {
+high = mid;
+}
+}
+
+
+const requiredGrowthRate = high * 100;
+
+
+document.getElementById("requiredGrowthRate").innerText = requiredGrowthRate.toFixed(2) + "% p.a."
+document.getElementById("growthCapitalRequired").innerText = growthFormatRand(capitalRequired);
+document.getElementById("growthFutureMonthlyIncome").innerText = growthFormatRand(futureMonthlyIncome);
+document.getElementById("growthYearsToRetirement").innerText = yearsToRetirement + " years"
+document.getElementById("growthIncomePlanningPeriod").innerText =
+retirementAge + " to " + planningAge + " (" + yearsInRetirement + " years)"
+
+
+document.getElementById("growthSummaryText").innerText =
+"To retire at age " + retirementAge +
+" with an income equal to approximately " + growthFormatRand(futureMonthlyIncome) +
+" per month, increasing by " + (incomeIncreaseRetirement * 100).toFixed(1) +
+"% per year until age " + planningAge +
+", you may need approximately " + growthFormatRand(capitalRequired) +
+" in retirement capital. Based on your current retirement capital of " +
+growthFormatRand(currentCapital) +
+" and current monthly savings of " + growthFormatRand(monthlySavings) +
+", increasing by " + (savingsIncrease * 100).toFixed(1) +
+"% per year, you may need an estimated investment growth rate of " +
+requiredGrowthRate.toFixed(2) +
+"% per year before retirement."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+
+Asset002
+AS Brokers Retirement Reality Check Calculator
+Frank die calculator sit tans as Retirement Readiness Calculator voor
+
+
+<div id="asb-reality-check-calculator">
+<style>
+#asb-reality-check-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-reality-check-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-reality-check-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-button:hover {
+background: #374151;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Retirement Reality Check Calculator</h2>
+<p class="intro">
+Estimate what your current retirement capital and affordable monthly premium could grow to by retirement.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="realityCurrentAge" type="number" value="50">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement age</label>
+<input id="realityRetirementAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Current retirement capital</label>
+<input id="realityCurrentCapital" type="number" value="500000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly premium you can afford</label>
+<input id="realityMonthlyPremium" type="number" value="5000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly premium increase (%)</label>
+<input id="realityPremiumIncrease" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth before retirement (%)</label>
+<input id="realityGrowthRate" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement drawdown rate (%)</label>
+<input id="realityDrawdownRate" type="number" step="0.1" value="5">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateRetirementRealityCheck()">Calculate where I am now</button>
+
+
+<div id="realityError" class="asb-error"></div>
+
+
+<div id="realityResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Projected retirement capital</div>
+<div id="realityProjectedCapital" class="asb-value"></div>
+<div class="asb-small">Estimated value of your current retirement capital and future premiums at retirement.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated monthly retirement income</div>
+<div id="realityMonthlyIncome" class="asb-value"></div>
+<div class="asb-small">Estimated monthly income using the selected retirement drawdown rate.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Years until retirement</div>
+<div id="realityYearsToRetirement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Projected value of current capital</div>
+<div id="realityCapitalGrowthOnly" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Projected value of future premiums</div>
+<div id="realityPremiumGrowthOnly" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Summary</div>
+<div id="realitySummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<p class="asb-small">
+This calculator is for educational illustration only. It does not constitute financial advice. Actual retirement outcomes depend on investment returns, tax, fees, inflation, contribution behaviour and personal circumstances.
+</p>
+
+
+<script>
+function realityFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function realityGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateRetirementRealityCheck() {
+const currentAge = realityGetNumber("realityCurrentAge");
+const retirementAge = realityGetNumber("realityRetirementAge");
+const currentCapital = realityGetNumber("realityCurrentCapital");
+const monthlyPremium = realityGetNumber("realityMonthlyPremium");
+const premiumIncrease = realityGetNumber("realityPremiumIncrease") / 100;
+const growthRate = realityGetNumber("realityGrowthRate") / 100;
+const drawdownRate = realityGetNumber("realityDrawdownRate") / 100;
+
+
+const errorBox = document.getElementById("realityError");
+const resultsBox = document.getElementById("realityResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(retirementAge) ||
+isNaN(currentCapital) ||
+isNaN(monthlyPremium) ||
+isNaN(premiumIncrease) ||
+isNaN(growthRate) ||
+isNaN(drawdownRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (retirementAge <= currentAge) {
+errorBox.innerText = "Retirement age must be higher than current age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (currentCapital < 0 || monthlyPremium < 0) {
+errorBox.innerText = "Capital and monthly premium cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (drawdownRate <= 0) {
+errorBox.innerText = "Drawdown rate must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const yearsToRetirement = retirementAge - currentAge;
+const savingMonths = yearsToRetirement * 12;
+const monthlyGrowthRate = Math.pow(1 + growthRate, 1 / 12) - 1;
+
+
+const projectedCurrentCapital = currentCapital * Math.pow(1 + monthlyGrowthRate, savingMonths);
+
+
+let projectedPremiumValue = 0;
+
+
+for (let month = 1; month <= savingMonths; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const escalatedPremium = monthlyPremium * Math.pow(1 + premiumIncrease, yearIndex);
+
+
+projectedPremiumValue = projectedPremiumValue * (1 + monthlyGrowthRate);
+projectedPremiumValue += escalatedPremium;
+}
+
+
+const projectedRetirementCapital = projectedCurrentCapital + projectedPremiumValue;
+const estimatedAnnualIncome = projectedRetirementCapital * drawdownRate;
+const estimatedMonthlyIncome = estimatedAnnualIncome / 12;
+
+
+document.getElementById("realityProjectedCapital").innerText = realityFormatRand(projectedRetirementCapital);
+document.getElementById("realityMonthlyIncome").innerText = realityFormatRand(estimatedMonthlyIncome);
+document.getElementById("realityYearsToRetirement").innerText = yearsToRetirement + " years"
+document.getElementById("realityCapitalGrowthOnly").innerText = realityFormatRand(projectedCurrentCapital);
+document.getElementById("realityPremiumGrowthOnly").innerText = realityFormatRand(projectedPremiumValue);
+
+
+document.getElementById("realitySummaryText").innerText =
+"Based on your current retirement capital of " + realityFormatRand(currentCapital) +
+" and an affordable monthly premium of " + realityFormatRand(monthlyPremium) +
+", increasing by " + (premiumIncrease * 100).toFixed(1) +
+"% per year, you may have approximately " + realityFormatRand(projectedRetirementCapital) +
+" at age " + retirementAge + ". At a " + (drawdownRate * 100).toFixed(1) +
+"% drawdown rate, this could provide an estimated retirement income of about " +
+realityFormatRand(estimatedMonthlyIncome) + " per month."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+❌❌❌❌❌❌
+<div id="asb-reality-check-calculator">
+<style>
+#asb-reality-check-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-reality-check-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-reality-check-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-button:hover {
+background: #374151;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-cta a {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+text-decoration: none;
+font-weight: 700;
+font-size: 14px;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Retirement Reality Check Calculator</h2>
+
+
+<p class="intro">
+Estimate what your current retirement capital and current monthly savings could grow to by retirement, and how long your projected income may last.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="realityCurrentAge" type="number" value="50">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement age</label>
+<input id="realityRetirementAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Planning age</label>
+<input id="realityPlanningAge" type="number" value="90">
+</div>
+
+
+<div class="asb-field">
+<label>Current retirement capital</label>
+<input id="realityCurrentCapital" type="number" value="500000">
+</div>
+
+
+<div class="asb-field">
+<label>Current monthly savings</label>
+<input id="realityMonthlyPremium" type="number" value="5000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly savings increase (%)</label>
+<input id="realityPremiumIncrease" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth before retirement (%)</label>
+<input id="realityGrowthRate" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement drawdown rate (%)</label>
+<input id="realityDrawdownRate" type="number" step="0.1" value="9">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth during retirement (%)</label>
+<input id="realityGrowthDuringRetirement" type="number" step="0.1" value="8">
+</div>
+
+
+<div class="asb-field">
+<label>Income increase during retirement (%)</label>
+<input id="realityIncomeIncreaseRetirement" type="number" step="0.1" value="6">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateRetirementRealityCheck()">Calculate where I am now</button>
+
+
+<div id="realityError" class="asb-error"></div>
+
+
+<div id="realityResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Projected retirement capital</div>
+<div id="realityProjectedCapital" class="asb-value"></div>
+<div class="asb-small">Estimated value of your current retirement capital and future savings at retirement.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated starting monthly retirement income</div>
+<div id="realityMonthlyIncome" class="asb-value"></div>
+<div class="asb-small">Starting monthly income using the selected retirement drawdown rate.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated income lifespan</div>
+<div id="realityIncomeLifespan" class="asb-value"></div>
+<div class="asb-small">Estimated period your retirement income may last based on the retirement assumptions selected.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Years until retirement</div>
+<div id="realityYearsToRetirement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Projected value of current capital</div>
+<div id="realityCapitalGrowthOnly" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Projected value of future savings</div>
+<div id="realityPremiumGrowthOnly" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="realitySummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand the financial implications of your retirement plan.
+It is an educational planning tool and does not constitute financial, tax or investment advice.
+Actual outcomes will depend on investment returns, inflation, fees, tax, contribution behaviour and your personal circumstances.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how retirement income,
+inflation, savings and investment growth work together.
+</p>
+
+
+<a href="/insights/retirement-reality-check-calculator">Learn what this result means →</a>
+</div>
+
+
+<script>
+function realityFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function realityGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateRetirementRealityCheck() {
+const currentAge = realityGetNumber("realityCurrentAge");
+const retirementAge = realityGetNumber("realityRetirementAge");
+const planningAge = realityGetNumber("realityPlanningAge");
+const currentCapital = realityGetNumber("realityCurrentCapital");
+const monthlyPremium = realityGetNumber("realityMonthlyPremium");
+const premiumIncrease = realityGetNumber("realityPremiumIncrease") / 100;
+const growthRate = realityGetNumber("realityGrowthRate") / 100;
+const drawdownRate = realityGetNumber("realityDrawdownRate") / 100;
+const growthDuringRetirement = realityGetNumber("realityGrowthDuringRetirement") / 100;
+const incomeIncreaseRetirement = realityGetNumber("realityIncomeIncreaseRetirement") / 100;
+
+
+const errorBox = document.getElementById("realityError");
+const resultsBox = document.getElementById("realityResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(retirementAge) ||
+isNaN(planningAge) ||
+isNaN(currentCapital) ||
+isNaN(monthlyPremium) ||
+isNaN(premiumIncrease) ||
+isNaN(growthRate) ||
+isNaN(drawdownRate) ||
+isNaN(growthDuringRetirement) ||
+isNaN(incomeIncreaseRetirement)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (retirementAge <= currentAge) {
+errorBox.innerText = "Retirement age must be higher than current age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (planningAge <= retirementAge) {
+errorBox.innerText = "Planning age must be higher than retirement age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (currentCapital < 0 || monthlyPremium < 0) {
+errorBox.innerText = "Capital and monthly savings cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (drawdownRate <= 0) {
+errorBox.innerText = "Drawdown rate must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const yearsToRetirement = retirementAge - currentAge;
+const savingMonths = yearsToRetirement * 12;
+const monthlyGrowthRate = Math.pow(1 + growthRate, 1 / 12) - 1;
+
+
+const projectedCurrentCapital = currentCapital * Math.pow(1 + monthlyGrowthRate, savingMonths);
+
+
+let projectedPremiumValue = 0;
+
+
+for (let month = 1; month <= savingMonths; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const escalatedPremium = monthlyPremium * Math.pow(1 + premiumIncrease, yearIndex);
+
+
+projectedPremiumValue = projectedPremiumValue * (1 + monthlyGrowthRate);
+projectedPremiumValue += escalatedPremium;
+}
+
+
+const projectedRetirementCapital = projectedCurrentCapital + projectedPremiumValue;
+const estimatedAnnualIncome = projectedRetirementCapital * drawdownRate;
+const estimatedMonthlyIncome = estimatedAnnualIncome / 12;
+
+
+const retirementMonthsLimit = (planningAge - retirementAge) * 12;
+const retirementMonthlyGrowth = Math.pow(1 + growthDuringRetirement, 1 / 12) - 1;
+
+
+let retirementBalance = projectedRetirementCapital;
+let monthsIncomeLasts = 0;
+
+
+for (let month = 1; month <= retirementMonthsLimit; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const monthlyIncomeWithdrawal = estimatedMonthlyIncome * Math.pow(1 + incomeIncreaseRetirement, yearIndex);
+
+
+retirementBalance = retirementBalance * (1 + retirementMonthlyGrowth);
+retirementBalance -= monthlyIncomeWithdrawal;
+
+
+monthsIncomeLasts = month;
+
+
+if (retirementBalance <= 0) {
+break;
+}
+}
+
+
+let lifespanText = ""
+let lifespanSummary = ""
+
+
+if (retirementBalance > 0) {
+lifespanText = "Beyond age " + planningAge;
+lifespanSummary =
+"Based on these assumptions, your projected income may last beyond your planning age of " +
+planningAge + "."
+} else {
+const yearsLasted = Math.floor(monthsIncomeLasts / 12);
+const extraMonths = monthsIncomeLasts % 12;
+const approximateAge = retirementAge + yearsLasted;
+
+
+lifespanText = "Until about age " + approximateAge;
+
+
+if (extraMonths > 0) {
+lifespanText += " and " + extraMonths + " months"
+}
+
+
+lifespanSummary =
+"Based on these assumptions, your projected income may last for approximately " +
+yearsLasted + " years"
+
+
+if (extraMonths > 0) {
+lifespanSummary += " and " + extraMonths + " months"
+}
+
+
+lifespanSummary += " after retirement."
+}
+
+
+document.getElementById("realityProjectedCapital").innerText = realityFormatRand(projectedRetirementCapital);
+document.getElementById("realityMonthlyIncome").innerText = realityFormatRand(estimatedMonthlyIncome);
+document.getElementById("realityIncomeLifespan").innerText = lifespanText;
+document.getElementById("realityYearsToRetirement").innerText = yearsToRetirement + " years"
+document.getElementById("realityCapitalGrowthOnly").innerText = realityFormatRand(projectedCurrentCapital);
+document.getElementById("realityPremiumGrowthOnly").innerText = realityFormatRand(projectedPremiumValue);
+
+
+document.getElementById("realitySummaryText").innerText =
+"Based on your current retirement capital of " + realityFormatRand(currentCapital) +
+" and current monthly savings of " + realityFormatRand(monthlyPremium) +
+", increasing by " + (premiumIncrease * 100).toFixed(1) +
+"% per year, you may have approximately " + realityFormatRand(projectedRetirementCapital) +
+" at age " + retirementAge + ". At a " + (drawdownRate * 100).toFixed(1) +
+"% drawdown rate, this could provide an estimated starting retirement income of about " +
+realityFormatRand(estimatedMonthlyIncome) + " per month. If that income increases by " +
+(incomeIncreaseRetirement * 100).toFixed(1) +
+"% per year and the remaining capital grows by " +
+(growthDuringRetirement * 100).toFixed(1) +
+"% per year during retirement, " + lifespanSummary;
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+❌❌❌❌
+<div id="asb-reality-check-calculator">
+<style>
+#asb-reality-check-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-reality-check-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-reality-check-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-button:hover {
+background: #374151;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Retirement Reality Check Calculator</h2>
+
+
+<p class="intro">
+Estimate what your current retirement capital and current monthly savings could grow to by retirement, and how long your projected income may last.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="realityCurrentAge" type="number" value="40">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement age</label>
+<input id="realityRetirementAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Planning age</label>
+<input id="realityPlanningAge" type="number" value="90">
+</div>
+
+
+<div class="asb-field">
+<label>Current retirement capital</label>
+<input id="realityCurrentCapital" type="number" value="500000">
+</div>
+
+
+<div class="asb-field">
+<label>Current monthly savings</label>
+<input id="realityMonthlyPremium" type="number" value="5000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly savings increase (%)</label>
+<input id="realityPremiumIncrease" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth before retirement (%)</label>
+<input id="realityGrowthRate" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement drawdown rate (%)</label>
+<input id="realityDrawdownRate" type="number" step="0.1" value="8">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth during retirement (%)</label>
+<input id="realityGrowthDuringRetirement" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Income increase during retirement (%)</label>
+<input id="realityIncomeIncreaseRetirement" type="number" step="0.1" value="6">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateRetirementRealityCheck()">Calculate where I am now</button>
+
+
+<div id="realityError" class="asb-error"></div>
+
+
+<div id="realityResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Projected retirement capital</div>
+<div id="realityProjectedCapital" class="asb-value"></div>
+<div class="asb-small">Estimated value of your current retirement capital and future savings at retirement.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated starting monthly retirement income</div>
+<div id="realityMonthlyIncome" class="asb-value"></div>
+<div class="asb-small">Starting monthly income using the selected retirement drawdown rate.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Equivalent monthly income in today's money</div>
+<div id="realityMonthlyIncomeTodayValue" class="asb-value"></div>
+<div class="asb-small">Estimated purchasing power of the future retirement income in today's terms.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated income lifespan</div>
+<div id="realityIncomeLifespan" class="asb-value"></div>
+<div class="asb-small">Estimated period your retirement income may last based on the retirement assumptions selected.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Years until retirement</div>
+<div id="realityYearsToRetirement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Projected value of current capital</div>
+<div id="realityCapitalGrowthOnly" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Value built from future savings</div>
+<div id="realityPremiumGrowthOnly" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="realitySummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand the financial implications of your retirement plan.
+It is an educational planning tool and does not constitute financial, tax or investment advice.
+Actual outcomes will depend on investment returns, inflation, fees, tax, contribution behaviour and your personal circumstances.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how retirement income,
+inflation, savings and investment growth work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function realityFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function realityGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateRetirementRealityCheck() {
+const currentAge = realityGetNumber("realityCurrentAge");
+const retirementAge = realityGetNumber("realityRetirementAge");
+const planningAge = realityGetNumber("realityPlanningAge");
+const currentCapital = realityGetNumber("realityCurrentCapital");
+const monthlyPremium = realityGetNumber("realityMonthlyPremium");
+const premiumIncrease = realityGetNumber("realityPremiumIncrease") / 100;
+const growthRate = realityGetNumber("realityGrowthRate") / 100;
+const drawdownRate = realityGetNumber("realityDrawdownRate") / 100;
+const growthDuringRetirement = realityGetNumber("realityGrowthDuringRetirement") / 100;
+const incomeIncreaseRetirement = realityGetNumber("realityIncomeIncreaseRetirement") / 100;
+
+
+const errorBox = document.getElementById("realityError");
+const resultsBox = document.getElementById("realityResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(retirementAge) ||
+isNaN(planningAge) ||
+isNaN(currentCapital) ||
+isNaN(monthlyPremium) ||
+isNaN(premiumIncrease) ||
+isNaN(growthRate) ||
+isNaN(drawdownRate) ||
+isNaN(growthDuringRetirement) ||
+isNaN(incomeIncreaseRetirement)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (retirementAge <= currentAge) {
+errorBox.innerText = "Retirement age must be higher than current age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (planningAge <= retirementAge) {
+errorBox.innerText = "Planning age must be higher than retirement age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (currentCapital < 0 || monthlyPremium < 0) {
+errorBox.innerText = "Capital and monthly savings cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (drawdownRate <= 0) {
+errorBox.innerText = "Drawdown rate must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const yearsToRetirement = retirementAge - currentAge;
+const savingMonths = yearsToRetirement * 12;
+const monthlyGrowthRate = Math.pow(1 + growthRate, 1 / 12) - 1;
+
+
+const projectedCurrentCapital = currentCapital * Math.pow(1 + monthlyGrowthRate, savingMonths);
+
+
+let projectedPremiumValue = 0;
+
+
+for (let month = 1; month <= savingMonths; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const escalatedPremium = monthlyPremium * Math.pow(1 + premiumIncrease, yearIndex);
+
+
+projectedPremiumValue = projectedPremiumValue * (1 + monthlyGrowthRate);
+projectedPremiumValue += escalatedPremium;
+}
+
+
+const projectedRetirementCapital = projectedCurrentCapital + projectedPremiumValue;
+const estimatedAnnualIncome = projectedRetirementCapital * drawdownRate;
+const estimatedMonthlyIncome = estimatedAnnualIncome / 12;
+
+
+const estimatedMonthlyIncomeTodayValue =
+estimatedMonthlyIncome / Math.pow(1 + incomeIncreaseRetirement, yearsToRetirement);
+
+
+const retirementMonthsLimit = (planningAge - retirementAge) * 12;
+const retirementMonthlyGrowth = Math.pow(1 + growthDuringRetirement, 1 / 12) - 1;
+
+
+let retirementBalance = projectedRetirementCapital;
+let monthsIncomeLasts = 0;
+
+
+for (let month = 1; month <= retirementMonthsLimit; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const monthlyIncomeWithdrawal = estimatedMonthlyIncome * Math.pow(1 + incomeIncreaseRetirement, yearIndex);
+
+
+retirementBalance = retirementBalance * (1 + retirementMonthlyGrowth);
+retirementBalance -= monthlyIncomeWithdrawal;
+
+
+monthsIncomeLasts = month;
+
+
+if (retirementBalance <= 0) {
+break;
+}
+}
+
+
+let lifespanText = ""
+let lifespanSummary = ""
+
+
+if (retirementBalance > 0) {
+lifespanText = "Beyond age " + planningAge;
+lifespanSummary =
+"Based on these assumptions, your projected income may last beyond your planning age of " +
+planningAge + "."
+} else {
+const yearsLasted = Math.floor(monthsIncomeLasts / 12);
+const extraMonths = monthsIncomeLasts % 12;
+const approximateAge = retirementAge + yearsLasted;
+
+
+lifespanText = "Until about age " + approximateAge;
+
+
+if (extraMonths > 0) {
+lifespanText += " and " + extraMonths + " months"
+}
+
+
+lifespanSummary =
+"Based on these assumptions, your projected income may last for approximately " +
+yearsLasted + " years"
+
+
+if (extraMonths > 0) {
+lifespanSummary += " and " + extraMonths + " months"
+}
+
+
+lifespanSummary += " after retirement."
+}
+
+
+document.getElementById("realityProjectedCapital").innerText = realityFormatRand(projectedRetirementCapital);
+document.getElementById("realityMonthlyIncome").innerText = realityFormatRand(estimatedMonthlyIncome);
+document.getElementById("realityMonthlyIncomeTodayValue").innerText = realityFormatRand(estimatedMonthlyIncomeTodayValue);
+document.getElementById("realityIncomeLifespan").innerText = lifespanText;
+document.getElementById("realityYearsToRetirement").innerText = yearsToRetirement + " years"
+document.getElementById("realityCapitalGrowthOnly").innerText = realityFormatRand(projectedCurrentCapital);
+document.getElementById("realityPremiumGrowthOnly").innerText = realityFormatRand(projectedPremiumValue);
+
+
+document.getElementById("realitySummaryText").innerText =
+"Based on your current retirement capital of " + realityFormatRand(currentCapital) +
+" and current monthly savings of " + realityFormatRand(monthlyPremium) +
+", increasing by " + (premiumIncrease * 100).toFixed(1) +
+"% per year, you may have approximately " + realityFormatRand(projectedRetirementCapital) +
+" at age " + retirementAge + ". At a " + (drawdownRate * 100).toFixed(1) +
+"% drawdown rate, this could provide an estimated starting retirement income of about " +
+realityFormatRand(estimatedMonthlyIncome) + " per month. In today's purchasing power, that is roughly equal to " +
+realityFormatRand(estimatedMonthlyIncomeTodayValue) +
+" per month. If that income increases by " +
+(incomeIncreaseRetirement * 100).toFixed(1) +
+"% per year and the remaining capital grows by " +
+(growthDuringRetirement * 100).toFixed(1) +
+"% per year during retirement, " + lifespanSummary;
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+Asset003
+AS Brokers Retirement Premium Calculator
+
+
+
+
+<div id="asb-retirement-premium-calculator">
+<style>
+#asb-retirement-premium-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-retirement-premium-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-retirement-premium-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-cta a {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+text-decoration: none;
+font-weight: 700;
+font-size: 14px;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Retirement Premium Calculator</h2>
+
+
+<p class="intro">
+Estimate how much retirement capital you may need and what starting monthly saving may be required from today.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="premiumCurrentAge" type="number" value="50">
+</div>
+
+
+<div class="asb-field">
+<label>Retirement age</label>
+<input id="premiumRetirementAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Planning age</label>
+<input id="premiumPlanningAge" type="number" value="90">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly income needed today</label>
+<input id="premiumMonthlyIncome" type="number" value="40000">
+</div>
+
+
+<div class="asb-field">
+<label>Inflation before retirement (%)</label>
+<input id="premiumInflationRate" type="number" step="0.1" value="6">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly savings increase (%)</label>
+<input id="premiumSavingsIncrease" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth before retirement (%)</label>
+<input id="premiumGrowthBeforeRetirement" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Investment growth during retirement (%)</label>
+<input id="premiumGrowthDuringRetirement" type="number" step="0.1" value="8">
+</div>
+
+
+<div class="asb-field">
+<label>Income increase during retirement (%)</label>
+<input id="premiumIncomeIncreaseRetirement" type="number" step="0.1" value="6">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateRetirementPremium()">Calculate required monthly saving</button>
+
+
+<div id="premiumError" class="asb-error"></div>
+
+
+<div id="premiumResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Starting monthly saving required today</div>
+<div id="premiumRequiredSaving" class="asb-value"></div>
+<div class="asb-small">This is the estimated starting monthly saving required, increasing each year by the selected savings increase rate.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Capital required at retirement</div>
+<div id="premiumCapitalRequired" class="asb-value"></div>
+<div class="asb-small">Estimated capital required to fund the retirement income until the selected planning age.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Monthly income required at retirement</div>
+<div id="premiumFutureMonthlyIncome" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Years until retirement</div>
+<div id="premiumYearsToRetirement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Income planning period</div>
+<div id="premiumIncomePlanningPeriod" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="premiumSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand the financial implications of your retirement savings target.
+It is an educational planning tool and does not constitute financial, tax or investment advice.
+Actual outcomes will depend on investment returns, inflation, fees, tax, savings behaviour and your personal circumstances.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how retirement income,
+inflation, savings and investment growth work together.
+</p>
+
+
+<a href="/insights/retirement-premium-calculator">Learn what this result means by following link to full article below→</a>
+</div>
+
+
+<script>
+function premiumFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function premiumGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateRetirementPremium() {
+const currentAge = premiumGetNumber("premiumCurrentAge");
+const retirementAge = premiumGetNumber("premiumRetirementAge");
+const planningAge = premiumGetNumber("premiumPlanningAge");
+const monthlyIncomeToday = premiumGetNumber("premiumMonthlyIncome");
+
+
+const inflationRate = premiumGetNumber("premiumInflationRate") / 100;
+const savingsIncrease = premiumGetNumber("premiumSavingsIncrease") / 100;
+const growthBeforeRetirement = premiumGetNumber("premiumGrowthBeforeRetirement") / 100;
+const growthDuringRetirement = premiumGetNumber("premiumGrowthDuringRetirement") / 100;
+const incomeIncreaseRetirement = premiumGetNumber("premiumIncomeIncreaseRetirement") / 100;
+
+
+const errorBox = document.getElementById("premiumError");
+const resultsBox = document.getElementById("premiumResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(retirementAge) ||
+isNaN(planningAge) ||
+isNaN(monthlyIncomeToday) ||
+isNaN(inflationRate) ||
+isNaN(savingsIncrease) ||
+isNaN(growthBeforeRetirement) ||
+isNaN(growthDuringRetirement) ||
+isNaN(incomeIncreaseRetirement)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (retirementAge <= currentAge) {
+errorBox.innerText = "Retirement age must be higher than current age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (planningAge <= retirementAge) {
+errorBox.innerText = "Planning age must be higher than retirement age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (monthlyIncomeToday <= 0) {
+errorBox.innerText = "Monthly income must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const yearsToRetirement = retirementAge - currentAge;
+const yearsInRetirement = planningAge - retirementAge;
+const monthsInRetirement = yearsInRetirement * 12;
+
+
+const futureMonthlyIncome = monthlyIncomeToday * Math.pow(1 + inflationRate, yearsToRetirement);
+const retirementMonthlyGrowth = Math.pow(1 + growthDuringRetirement, 1 / 12) - 1;
+
+
+let capitalRequired = 0;
+
+
+for (let month = 1; month <= monthsInRetirement; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const monthlyIncomeAtMonth = futureMonthlyIncome * Math.pow(1 + incomeIncreaseRetirement, yearIndex);
+capitalRequired += monthlyIncomeAtMonth / Math.pow(1 + retirementMonthlyGrowth, month);
+}
+
+
+const savingMonths = yearsToRetirement * 12;
+const savingMonthlyGrowth = Math.pow(1 + growthBeforeRetirement, 1 / 12) - 1;
+
+
+function futureValueOfSavings(startingMonthlySaving) {
+let balance = 0;
+
+
+for (let month = 1; month <= savingMonths; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const monthlySaving = startingMonthlySaving * Math.pow(1 + savingsIncrease, yearIndex);
+
+
+balance = balance * (1 + savingMonthlyGrowth);
+balance += monthlySaving;
+}
+
+
+return balance;
+}
+
+
+let low = 0;
+let high = capitalRequired;
+
+
+for (let i = 0; i < 120; i++) {
+const mid = (low + high) / 2;
+const projectedValue = futureValueOfSavings(mid);
+
+
+if (projectedValue < capitalRequired) {
+low = mid;
+} else {
+high = mid;
+}
+}
+
+
+const requiredMonthlySaving = high;
+
+
+document.getElementById("premiumRequiredSaving").innerText = premiumFormatRand(requiredMonthlySaving);
+document.getElementById("premiumCapitalRequired").innerText = premiumFormatRand(capitalRequired);
+document.getElementById("premiumFutureMonthlyIncome").innerText = premiumFormatRand(futureMonthlyIncome);
+document.getElementById("premiumYearsToRetirement").innerText = yearsToRetirement + " years"
+document.getElementById("premiumIncomePlanningPeriod").innerText =
+retirementAge + " to " + planningAge + " (" + yearsInRetirement + " years)"
+
+
+document.getElementById("premiumSummaryText").innerText =
+"To retire at age " + retirementAge +
+" with an income equal to approximately " + premiumFormatRand(futureMonthlyIncome) +
+" per month, increasing by " + (incomeIncreaseRetirement * 100).toFixed(1) +
+"% per year until age " + planningAge +
+", you may need approximately " + premiumFormatRand(capitalRequired) +
+" in retirement capital. To reach that target, you may need to save approximately " +
+premiumFormatRand(requiredMonthlySaving) +
+" per month from today, increasing that saving by " +
+(savingsIncrease * 100).toFixed(1) +
+"% per year, assuming your capital grows by " +
+(growthBeforeRetirement * 100).toFixed(1) +
+"% per year before retirement."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+
+
+ASSET 004 — AS Brokers Life of Capital Calculator
+
+
+
+
+
+
+<div id="asb-life-of-capital-calculator">
+<style>
+#asb-life-of-capital-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-life-of-capital-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-life-of-capital-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>Life of Capital Calculator</h2>
+
+
+<p class="intro">
+Enter your numbers to see how long your retirement savings may last.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Current age</label>
+<input id="lifeCurrentAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Capital amount</label>
+<input id="lifeCapital" type="number" value="5000000">
+</div>
+
+
+<div class="asb-field">
+<label>Monthly income needed — net after tax</label>
+<input id="lifeMonthlyIncome" type="number" value="35000">
+</div>
+
+
+<div class="asb-field">
+<label>Expected investment return (% p.a.)</label>
+<input id="lifeReturnRate" type="number" step="0.1" value="10">
+</div>
+
+
+<div class="asb-field">
+<label>Estimated tax on income (%)</label>
+<input id="lifeTaxRate" type="number" step="0.1" value="25">
+</div>
+
+
+<div class="asb-field">
+<label>Inflation / income escalation (% p.a.)</label>
+<input id="lifeInflationRate" type="number" step="0.1" value="7">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateLifeOfCapital()">Calculate how long it may last</button>
+
+
+<div id="lifeError" class="asb-error"></div>
+
+
+<div id="lifeResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Estimated capital lifespan</div>
+<div id="lifeCapitalLifespan" class="asb-value"></div>
+<div class="asb-small">Estimated time before the capital may be depleted.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated depletion age</div>
+<div id="lifeDepletionAge" class="asb-value"></div>
+<div class="asb-small">Approximate age at which the capital may run out.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Starting gross monthly withdrawal</div>
+<div id="lifeGrossWithdrawal" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Starting net monthly income</div>
+<div id="lifeNetIncome" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Your starting withdrawal rate</div>
+<div id="lifeWithdrawalRate" class="asb-value"></div>
+<div id="lifeWithdrawalRiskText" class="asb-small"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Withdrawal risk guide</div>
+<div class="asb-small">
+Below 5% may be more conservative. 5% to 7% needs regular review. Above 7% may indicate higher capital depletion risk.
+</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="lifeSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand how long retirement capital may last under selected income,
+tax, inflation and investment return assumptions. It is an educational planning tool and does not constitute
+financial, tax or investment advice. Actual outcomes will depend on market returns, fees, tax, inflation,
+income changes and your personal circumstances.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how drawdown rates,
+inflation and investment returns work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function lifeFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function lifeGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateLifeOfCapital() {
+const currentAge = lifeGetNumber("lifeCurrentAge");
+const capital = lifeGetNumber("lifeCapital");
+const monthlyIncomeNet = lifeGetNumber("lifeMonthlyIncome");
+const returnRate = lifeGetNumber("lifeReturnRate") / 100;
+const taxRate = lifeGetNumber("lifeTaxRate") / 100;
+const inflationRate = lifeGetNumber("lifeInflationRate") / 100;
+
+
+const errorBox = document.getElementById("lifeError");
+const resultsBox = document.getElementById("lifeResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(currentAge) ||
+isNaN(capital) ||
+isNaN(monthlyIncomeNet) ||
+isNaN(returnRate) ||
+isNaN(taxRate) ||
+isNaN(inflationRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (capital <= 0) {
+errorBox.innerText = "Capital amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (monthlyIncomeNet <= 0) {
+errorBox.innerText = "Monthly income must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (taxRate < 0 || taxRate >= 1) {
+errorBox.innerText = "Tax rate must be between 0% and 99%."
+errorBox.style.display = "block"
+return;
+}
+
+
+const monthlyReturn = Math.pow(1 + returnRate, 1 / 12) - 1;
+const startingGrossWithdrawal = monthlyIncomeNet / (1 - taxRate);
+const firstYearWithdrawalRate = (startingGrossWithdrawal * 12) / capital;
+
+
+let withdrawalRiskText = ""
+
+
+if (firstYearWithdrawalRate < 0.05) {
+withdrawalRiskText = "Assessment: This starting withdrawal rate may be relatively conservative, depending on inflation, fees, tax and investment returns."
+} else if (firstYearWithdrawalRate <= 0.07) {
+withdrawalRiskText = "Assessment: This starting withdrawal rate needs regular review. Sustainability will depend heavily on investment returns, inflation and future income increases."
+} else {
+withdrawalRiskText = "Assessment: This is a high starting withdrawal rate and may increase the risk of running out of capital."
+}
+
+
+let balance = capital;
+let monthsLasted = 0;
+const maxMonths = 100 * 12;
+
+
+for (let month = 1; month <= maxMonths; month++) {
+const yearIndex = Math.floor((month - 1) / 12);
+const netIncomeThisMonth = monthlyIncomeNet * Math.pow(1 + inflationRate, yearIndex);
+const grossWithdrawalThisMonth = netIncomeThisMonth / (1 - taxRate);
+
+
+balance = balance * (1 + monthlyReturn);
+balance -= grossWithdrawalThisMonth;
+
+
+monthsLasted = month;
+
+
+if (balance <= 0) {
+break;
+}
+}
+
+
+let lifespanText = ""
+let depletionAgeText = ""
+let summaryLifespanText = ""
+
+
+if (balance > 0) {
+lifespanText = "Beyond 100 years"
+depletionAgeText = "Beyond age " + (currentAge + 100);
+summaryLifespanText = "Based on these assumptions, your capital may last beyond the 100-year projection period."
+} else {
+const yearsLasted = Math.floor(monthsLasted / 12);
+const extraMonths = monthsLasted % 12;
+const depletionAgeYears = currentAge + yearsLasted;
+
+
+lifespanText = yearsLasted + " years"
+
+
+if (extraMonths > 0) {
+lifespanText += " and " + extraMonths + " months"
+}
+
+
+depletionAgeText = "About age " + depletionAgeYears;
+
+
+if (extraMonths > 0) {
+depletionAgeText += " and " + extraMonths + " months"
+}
+
+
+summaryLifespanText =
+"Based on these assumptions, your capital may last for approximately " +
+yearsLasted + " years"
+
+
+if (extraMonths > 0) {
+summaryLifespanText += " and " + extraMonths + " months"
+}
+
+
+summaryLifespanText += "."
+}
+
+
+document.getElementById("lifeCapitalLifespan").innerText = lifespanText;
+document.getElementById("lifeDepletionAge").innerText = depletionAgeText;
+document.getElementById("lifeGrossWithdrawal").innerText = lifeFormatRand(startingGrossWithdrawal);
+document.getElementById("lifeNetIncome").innerText = lifeFormatRand(monthlyIncomeNet);
+document.getElementById("lifeWithdrawalRate").innerText = (firstYearWithdrawalRate * 100).toFixed(2) + "%"
+document.getElementById("lifeWithdrawalRiskText").innerText = withdrawalRiskText;
+
+
+document.getElementById("lifeSummaryText").innerText =
+"With retirement capital of " + lifeFormatRand(capital) +
+" and a required net income of " + lifeFormatRand(monthlyIncomeNet) +
+" per month, the starting gross withdrawal required is approximately " +
+lifeFormatRand(startingGrossWithdrawal) +
+" per month after allowing for an estimated tax rate of " +
+(taxRate * 100).toFixed(1) +
+"%. This creates a starting withdrawal rate of " +
+(firstYearWithdrawalRate * 100).toFixed(2) +
+"%. If your capital grows by " +
+(returnRate * 100).toFixed(1) +
+"% per year and your income need increases by " +
+(inflationRate * 100).toFixed(1) +
+"% per year, " + summaryLifespanText + " " + withdrawalRiskText;
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+
+
+ASSET 005 — AS Brokers Future Value Calculator
+<div id="asb-future-value-calculator">
+<style>
+#asb-future-value-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-future-value-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-future-value-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-button:hover {
+background: #374151;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Future Value Calculator</h2>
+
+
+<p class="intro">
+See how inflation may affect your money over time and what today's amount may need to become in future to keep the same buying power.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Today's amount</label>
+<input id="futurePresentValue" type="number" value="50000">
+</div>
+
+
+<div class="asb-field">
+<label>Inflation rate (% per year)</label>
+<input id="futureInflationRate" type="number" step="0.1" value="6">
+</div>
+
+
+<div class="asb-field">
+<label>Time period (years)</label>
+<input id="futureYears" type="number" value="20">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateFutureValue()">Calculate future value</button>
+
+
+<div id="futureError" class="asb-error"></div>
+
+
+<div id="futureResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Future cost</div>
+<div id="futureCost" class="asb-value"></div>
+<div class="asb-small">Estimated future amount needed to maintain the same buying power.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Additional amount required because of inflation</div>
+<div id="futureAdditionalAmount" class="asb-value"></div>
+<div class="asb-small">Extra amount needed in future purely because prices may rise.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Purchasing power lost</div>
+<div id="futurePowerLost" class="asb-value"></div>
+<div class="asb-small">Estimated percentage of buying power lost if the money does not grow.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Today's amount</div>
+<div id="futureTodayValue" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Future buying power if your money does not grow</div>
+<div id="futureBuyingPower" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="futureSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is designed to help you understand how inflation may reduce the buying power of money over time.
+It is an educational planning tool and does not constitute financial, tax or investment advice.
+Actual inflation varies over time and may differ from your personal inflation rate.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how inflation,
+investment growth and long-term planning work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function futureFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function futureGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateFutureValue() {
+const presentValue = futureGetNumber("futurePresentValue");
+const inflationRate = futureGetNumber("futureInflationRate") / 100;
+const years = futureGetNumber("futureYears");
+
+
+const errorBox = document.getElementById("futureError");
+const resultsBox = document.getElementById("futureResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(presentValue) ||
+isNaN(inflationRate) ||
+isNaN(years)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (presentValue <= 0) {
+errorBox.innerText = "Today's amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (years <= 0) {
+errorBox.innerText = "Time period must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const futureCost = presentValue * Math.pow(1 + inflationRate, years);
+const additionalAmount = futureCost - presentValue;
+const futureBuyingPower = presentValue / Math.pow(1 + inflationRate, years);
+const purchasingPowerLost = (1 - (futureBuyingPower / presentValue)) * 100;
+
+
+document.getElementById("futureCost").innerText = futureFormatRand(futureCost);
+document.getElementById("futureAdditionalAmount").innerText = futureFormatRand(additionalAmount);
+document.getElementById("futurePowerLost").innerText = purchasingPowerLost.toFixed(1) + "%"
+document.getElementById("futureTodayValue").innerText = futureFormatRand(presentValue);
+document.getElementById("futureBuyingPower").innerText = futureFormatRand(futureBuyingPower);
+
+
+document.getElementById("futureSummaryText").innerText =
+"At an inflation rate of " + (inflationRate * 100).toFixed(1) +
+"% per year, an amount of " + futureFormatRand(presentValue) +
+" today may need to grow to approximately " + futureFormatRand(futureCost) +
+" in " + years +
+" years to maintain the same buying power. That means you may need an additional " +
+futureFormatRand(additionalAmount) +
+" simply to keep pace with inflation. If the money does not grow, its future buying power may fall to about " +
+futureFormatRand(futureBuyingPower) +
+" in today's terms. This represents an estimated purchasing power loss of " +
+purchasingPowerLost.toFixed(1) + "%."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+ASSET 006 — AS Brokers Income Tax Calculator
+
+
+
+
+<div id="asb-income-tax-calculator">
+<style>
+#asb-income-tax-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-income-tax-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-income-tax-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Income Tax Calculator</h2>
+
+
+<p class="intro">
+Estimate your South African income tax, monthly PAYE and net monthly pay using the 2026/27 individual tax tables.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Gross monthly income</label>
+<input id="taxMonthlyIncome" type="number" value="50000">
+</div>
+
+
+<div class="asb-field">
+<label>Your age</label>
+<input id="taxAge" type="number" value="45">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateIncomeTax()">Calculate my tax</button>
+
+
+<div id="taxError" class="asb-error"></div>
+
+
+<div id="taxResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Annual tax payable</div>
+<div id="taxAnnualPayable" class="asb-value"></div>
+<div class="asb-small">Estimated annual income tax after age-based rebates.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Monthly PAYE</div>
+<div id="taxMonthlyPAYE" class="asb-value"></div>
+<div class="asb-small">Estimated monthly tax deduction before other payroll deductions.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net monthly pay</div>
+<div id="taxNetMonthlyPay" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Effective tax rate</div>
+<div id="taxEffectiveRate" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Annual gross income</div>
+<div id="taxAnnualIncome" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Age rebate applied</div>
+<div id="taxRebateApplied" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="taxSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator provides a simplified estimate based on the South African 2026/27 individual income tax tables and age rebates.
+It does not include UIF, medical tax credits, retirement fund deductions, travel allowances, bonuses or other deductions that may affect your final tax position.
+It is an educational planning tool and does not constitute tax or financial advice.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how income tax,
+retirement contributions and after-tax income planning work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function taxFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function taxGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateAnnualTaxBeforeRebate(taxableIncome) {
+if (taxableIncome <= 245100) {
+return taxableIncome * 0.18;
+} else if (taxableIncome <= 383100) {
+return 44118 + (taxableIncome - 245100) * 0.26;
+} else if (taxableIncome <= 530200) {
+return 79998 + (taxableIncome - 383100) * 0.31;
+} else if (taxableIncome <= 695800) {
+return 125599 + (taxableIncome - 530200) * 0.36;
+} else if (taxableIncome <= 887000) {
+return 185215 + (taxableIncome - 695800) * 0.39;
+} else if (taxableIncome <= 1878600) {
+return 259783 + (taxableIncome - 887000) * 0.41;
+} else {
+return 666339 + (taxableIncome - 1878600) * 0.45;
+}
+}
+
+
+function calculateRebate(age) {
+const primaryRebate = 17820;
+const secondaryRebate = 9765;
+const tertiaryRebate = 3249;
+
+
+let rebate = primaryRebate;
+
+
+if (age >= 65) {
+rebate += secondaryRebate;
+}
+
+
+if (age >= 75) {
+rebate += tertiaryRebate;
+}
+
+
+return rebate;
+}
+
+
+function calculateIncomeTax() {
+const monthlyIncome = taxGetNumber("taxMonthlyIncome");
+const age = taxGetNumber("taxAge");
+
+
+const errorBox = document.getElementById("taxError");
+const resultsBox = document.getElementById("taxResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (isNaN(monthlyIncome) || isNaN(age)) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (monthlyIncome < 0) {
+errorBox.innerText = "Monthly income cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (age <= 0) {
+errorBox.innerText = "Age must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+const annualIncome = monthlyIncome * 12;
+const taxBeforeRebate = calculateAnnualTaxBeforeRebate(annualIncome);
+const rebateApplied = calculateRebate(age);
+const annualTaxPayable = Math.max(0, taxBeforeRebate - rebateApplied);
+const monthlyPAYE = annualTaxPayable / 12;
+const netMonthlyPay = monthlyIncome - monthlyPAYE;
+const effectiveTaxRate = annualIncome > 0 ? (annualTaxPayable / annualIncome) * 100 : 0;
+
+
+document.getElementById("taxAnnualPayable").innerText = taxFormatRand(annualTaxPayable);
+document.getElementById("taxMonthlyPAYE").innerText = taxFormatRand(monthlyPAYE);
+document.getElementById("taxNetMonthlyPay").innerText = taxFormatRand(netMonthlyPay);
+document.getElementById("taxEffectiveRate").innerText = effectiveTaxRate.toFixed(1) + "%"
+document.getElementById("taxAnnualIncome").innerText = taxFormatRand(annualIncome);
+document.getElementById("taxRebateApplied").innerText = taxFormatRand(rebateApplied);
+
+
+document.getElementById("taxSummaryText").innerText =
+"Based on a gross monthly income of " + taxFormatRand(monthlyIncome) +
+", your annual gross income is approximately " + taxFormatRand(annualIncome) +
+". After applying the 2026/27 individual income tax tables and an age-based rebate of " +
+taxFormatRand(rebateApplied) +
+", your estimated annual tax payable is " + taxFormatRand(annualTaxPayable) +
+". This equals estimated monthly PAYE of " + taxFormatRand(monthlyPAYE) +
+", leaving an estimated net monthly pay of " + taxFormatRand(netMonthlyPay) +
+". Your estimated effective tax rate is " + effectiveTaxRate.toFixed(1) + "%."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

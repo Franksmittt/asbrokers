@@ -75,7 +75,6 @@ function main() {
     "app/(content)/page.tsx",
     "app/(content)/solutions/layout.tsx",
     "app/(content)/how-we-work/layout.tsx",
-    "app/(content)/lab/layout.tsx",
     "app/(content)/manage-cookies/layout.tsx",
     "app/(content)/insights/[slug]/page.tsx",
   ];

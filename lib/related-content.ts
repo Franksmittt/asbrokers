@@ -10,7 +10,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/calculators",
       title: "Planning calculators",
-      description: "Illustrative tools for premiums, retirement, and estate planning.",
+      description: "ASSET 001–017 illustrative tools for retirement, estate, and insurance.",
     },
     {
       href: "/contact",
@@ -42,13 +42,13 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Home, motor, and personal asset protection.",
     },
     {
-      href: "/calculators",
-      title: "Planning calculators",
-      description: "Model escalating life premiums over time.",
+      href: "/calculators#asset-015-average-clause",
+      title: "Average clause calculator",
+      description: "See how underinsurance affects a claim payout.",
     },
     {
-      href: "/calculators",
-      title: "Income in retirement",
+      href: "/calculators#asset-004-life-of-capital",
+      title: "Life of capital",
       description: "How long retirement capital may last with drawdowns.",
     },
   ],
@@ -88,12 +88,12 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/solutions/estate-planning": [
     {
-      href: "/calculators",
+      href: "/calculators#asset-007-estate-duty",
       title: "Estate duty calculator",
       description: "Estimate duty and executor fees on your estate.",
     },
     {
-      href: "/calculators",
+      href: "/calculators#asset-008-estate-reduction",
       title: "Annual estate reduction",
       description: "Use R100k/R200k donation allowances over time.",
     },
@@ -105,49 +105,6 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
 };
 
-export const CALCULATOR_RELATED: Record<string, RelatedLink[]> = {
-  "/estate-duty-calculator": [
-    { href: "/annual-estate-reduction-strategy", title: "Annual estate reduction", description: "Donation strategy calculator." },
-    { href: "/solutions/estate-planning", title: "Estate planning services", description: "Wills, trusts, and structuring." },
-    { href: "/contact", title: "Estate review", description: "Book a structured estate conversation." },
-  ],
-  "/income-in-retirement": [
-    { href: "/retirement", title: "Retirement Reality Calculator", description: "Capital required at retirement." },
-    { href: "/everest-amethyst-living-annuity", title: "Amethyst living annuity", description: "Drawdown 2.5%–17.5% education." },
-    { href: "/calculators", title: "All calculators", description: "Curated retirement and wealth tools." },
-  ],
-  "/income-tax-calculator": [
-    { href: "/retirement", title: "Retirement Reality", description: "Model capital needs with your tax rate." },
-    { href: "/wealth-building-calculator", title: "Wealth building", description: "Long-term capital growth illustration." },
-    { href: "/calculators", title: "Calculator hub", description: "Educational planning tools." },
-  ],
-  "/cost-of-inflation-over-time": [
-    { href: "/retirement-readiness", title: "Retirement readiness", description: "Shortfall and contribution planning." },
-    { href: "/calculators", title: "Calculator hub", description: "Inflation and retirement tools." },
-    { href: "/everest-wealth", title: "Everest Wealth", description: "Structured yield education." },
-  ],
-  "/wealth-building-calculator": [
-    { href: "/everest-strategic-growth-145", title: "14.5% Strategic Growth", description: "Compound growth product education." },
-    { href: "/calculators", title: "Calculator hub", description: "Wealth and retirement calculators." },
-    { href: "/contact", title: "Capital review", description: "Structured wealth engineering call." },
-  ],
-  "/premium-increase-calculator": [
-    { href: "/solutions/life-insurance", title: "Life insurance", description: "Personal life and disability cover." },
-    { href: "/solutions/business-life", title: "Business life cover", description: "Key person and buy-and-sell funding." },
-    { href: "/contact", title: "Policy review", description: "Compare escalating premium structures." },
-  ],
-  "/immediate-higher-income-calculator": [
-    { href: "/everest-128-product", title: "12.8% Strategic Income", description: "Compare with 14.2% Onyx Income+." },
-    { href: "/everest-wealth", title: "Everest Wealth hub", description: "All voluntary yield products." },
-    { href: "/contact", title: "Income planning", description: "Match product to your cash-flow need." },
-  ],
-  "/annual-estate-reduction-strategy": [
-    { href: "/estate-duty-calculator", title: "Estate duty calculator", description: "Duty and executor cost estimate." },
-    { href: "/solutions/estate-planning", title: "Estate planning", description: "Wills, trusts, and donations." },
-    { href: "/legacy-readiness-checklist", title: "Legacy checklist", description: "Free readiness assessment." },
-  ],
-};
-
 export function getRelatedLinks(path: string): RelatedLink[] {
-  return SOLUTION_RELATED[path] ?? CALCULATOR_RELATED[path] ?? [];
+  return SOLUTION_RELATED[path] ?? [];
 }

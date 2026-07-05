@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 
+import { clearCrmPinSession } from "@/lib/crm/pin-session";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { clearMockSession } from "@/lib/mock-auth";
 
@@ -10,6 +11,7 @@ export async function logout() {
   if (supabase) {
     await supabase.auth.signOut();
   }
+  await clearCrmPinSession();
   await clearMockSession();
   redirect("/login");
 }

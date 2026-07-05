@@ -13,7 +13,7 @@ export function LeadDetailGate({
 }) {
   const { role, staffId } = useCrm();
 
-  if (role === "staff" && lead.assignedAdvisorId !== staffId) {
+  if (role === "staff" && lead.assignedAdvisorId !== staffId && lead.delegatedAdvisorId !== staffId) {
     return (
       <div className="rounded-[2rem] rim-light p-8 text-center">
         <p className="text-lg font-semibold text-white">Lead not in your view</p>

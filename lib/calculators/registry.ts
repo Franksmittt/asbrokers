@@ -35,7 +35,7 @@ const staticHtml = (file: string, title: string, assetCode: string, id: string):
   embedKind: "static-html",
   embedPath: `/embed-calculators/${file}`,
   sourcePath: `public/embed-calculators/${file}`,
-  publicHub: false,
+  publicHub: true,
   generation: "v2",
 });
 

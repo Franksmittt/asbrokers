@@ -23,13 +23,16 @@ const CALC_INCOME_VS_GROWTH = "/embed-calculators/asset-013-everest-income-vs-gr
 const CALC_POWER_OF_GROWTH = "/embed-calculators/asset-016-growth-comparison.html";
 const CALC_142_INCOME = "/embed-calculators/asset-009-everest-142-income.html";
 const CALC_128_INCOME = "/embed-calculators/asset-010-everest-128-income.html";
+const CALC_LIVING_ANNUITY = "/embed-calculators/asset-014-living-annuity.html";
+const CALC_STRATEGIC_GROWTH = "/embed-calculators/asset-012-strategic-growth.html";
+const CALC_LIFE_OF_CAPITAL = "/embed-calculators/asset-004-life-of-capital.html";
 
 const BEFORE_RETIREMENT = {
   title: "Before Retirement",
   focus: "Wealth Building & Compounding",
   description: "Grow your capital aggressively and tax-efficiently while you work.",
   links: [
-    { label: "Strategic Growth 14.5%", href: "/everest-strategic-growth-145" },
+    { label: "Strategic Growth 14.5%", href: CALC_STRATEGIC_GROWTH },
     { label: "Retirement planning", href: "/retirement" },
     { label: "Power of Growth calculator", href: CALC_POWER_OF_GROWTH },
   ],
@@ -40,9 +43,9 @@ const AFTER_RETIREMENT = {
   focus: "Income & Capital Preservation",
   description: "Generate reliable, structured income to sustain your lifestyle.",
   links: [
-    { label: "Amethyst Living Annuity", href: "/everest-amethyst-living-annuity" },
-    { label: "Income in retirement", href: "/income-in-retirement" },
-    { label: "Strategic Income 12.8%", href: "/everest-128-product" },
+    { label: "Amethyst Living Annuity", href: CALC_LIVING_ANNUITY },
+    { label: "Life of capital", href: CALC_LIFE_OF_CAPITAL },
+    { label: "Strategic Income 12.8%", href: CALC_128_INCOME },
   ],
 };
 
@@ -54,7 +57,7 @@ const EVEREST_PRODUCTS = [
     tag: "Monthly income + loyalty bonus",
     description:
       "Monthly dividend income with a 10% loyalty bonus on capital after five years. A balanced choice if you can accept slightly lower cash flow now for long-term value.",
-    href: "/everest-128-product",
+    href: CALC_128_INCOME,
     cta: "Explore Strategic Income",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -70,7 +73,7 @@ const EVEREST_PRODUCTS = [
     tag: "Maximum day-one income",
     description:
       "Higher monthly income from day one, with no loyalty bonus. Suited to retirees who need maximum cash flow now.",
-    href: "/immediate-higher-income-calculator",
+    href: CALC_142_INCOME,
     cta: "Explore Onyx Income+",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -86,7 +89,7 @@ const EVEREST_PRODUCTS = [
     tag: "Pure compounding",
     description:
       "Capital compounding with no monthly withdrawals. Returns accumulate over five years and are paid at maturity.",
-    href: "/everest-strategic-growth-145",
+    href: CALC_STRATEGIC_GROWTH,
     cta: "Explore Strategic Growth",
     fiduciary: [
       "R100,000 minimum lump sum",

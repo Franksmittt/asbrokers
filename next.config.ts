@@ -12,31 +12,32 @@ const nextConfig: NextConfig = {
     },
   },
   async redirects() {
-    const legacyCalculatorPaths = [
-      "/income-tax-calculator",
-      "/estate-duty-calculator",
-      "/wealth-building-calculator",
-      "/premium-increase-calculator",
-      "/immediate-higher-income-calculator",
-      "/cost-of-inflation-over-time",
-      "/retirement-readiness",
-      "/income-in-retirement",
-      "/annual-estate-reduction-strategy",
-      "/everest-strategic-growth-145",
-      "/everest-amethyst-living-annuity",
-      "/everest-128-product",
-      "/lab",
+    /** Retired React calculator routes → ASSET hub anchors or service hubs. */
+    const legacyCalculatorRedirects = [
+      { source: "/income-tax-calculator", destination: "/calculators#asset-006-income-tax" },
+      { source: "/estate-duty-calculator", destination: "/calculators#asset-007-estate-duty" },
+      { source: "/wealth-building-calculator", destination: "/calculators#asset-001-retirement-growth" },
+      { source: "/premium-increase-calculator", destination: "/insurance" },
+      { source: "/immediate-higher-income-calculator", destination: "/calculators#asset-009-everest-142-income" },
+      { source: "/cost-of-inflation-over-time", destination: "/calculators#asset-005-future-value" },
+      { source: "/retirement-readiness", destination: "/retirement" },
+      { source: "/income-in-retirement", destination: "/calculators#asset-004-life-of-capital" },
+      { source: "/annual-estate-reduction-strategy", destination: "/calculators#asset-008-estate-reduction" },
+      { source: "/everest-strategic-growth-145", destination: "/everest-wealth" },
+      { source: "/everest-amethyst-living-annuity", destination: "/calculators#asset-014-living-annuity" },
+      { source: "/everest-128-product", destination: "/calculators#asset-010-everest-128-income" },
+      { source: "/lab", destination: "/calculators" },
     ] as const;
 
     return [
       { source: "/home2", destination: "/", permanent: true },
       { source: "/home3", destination: "/", permanent: true },
       { source: "/home4", destination: "/", permanent: true },
-      { source: "/embed/calculators/:path*", destination: "/calculators", permanent: false },
-      ...legacyCalculatorPaths.map((source) => ({
+      { source: "/embed/calculators/:path*", destination: "/calculators", permanent: true },
+      ...legacyCalculatorRedirects.map(({ source, destination }) => ({
         source,
-        destination: "/calculators",
-        permanent: false,
+        destination,
+        permanent: true,
       })),
       /** Consolidate alternate hosts onto GSC canonical origin (HTTPS + www). */
       {

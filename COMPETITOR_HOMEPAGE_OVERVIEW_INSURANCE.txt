@@ -1,0 +1,547 @@
+================================================================================
+  SA FINANCIAL SERVICES — COMPETITOR HOMEPAGE & NAVIGATION OVERVIEW
+  Structural analysis for AS Brokers positioning (not styling/colours)
+================================================================================
+
+Captured: 29 June 2026
+Method: Live homepage review (HTML scrape + browser accessibility snapshots).
+Note: Many sites are heavy JavaScript; structure reflects rendered experience.
+Redirects: sanlam.co.za → sanlamonline.co.za | absa.co.za → /personal/ |
+           momentummetropolitan.co.za → momentumgroupltd.co.za |
+           www.guardrisk.co.za → guardrisk.co.za | www.tihsa.co.za → tihsa.co.za
+
+================================================================================
+EXECUTIVE SUMMARY — PATTERNS ACROSS ALL 12
+================================================================================
+
+1. AUDIENCE SPLIT FIRST
+   Almost every large player splits the header by WHO you are before WHAT you need:
+   Personal / Business / Corporate (Old Mutual, Sanlam, Absa, Discovery INDIVIDUALS|BUSINESS).
+   Santam splits by insurance segment: for me | for my business | specialised risks | agriculture.
+
+2. PRODUCT-LED vs JOURNEY-LED
+   - Product-led: Discovery, OUTsurance (quote-first), Liberty (product grids).
+   - Journey-led: Sanlam ("I want to: start / saving and investing"), Old Mutual (goal cards:
+     Save & invest | Insure | Bank & Borrow), Absa ("What would you like to do?").
+   - Corporate-only: TIH, Centriq, Guardrisk (B2B / cell captive / group).
+
+3. HERO = ACTION OR CAMPAIGN
+   Dominant hero patterns:
+   - Quote / lead form in hero (OUTsurance, Santam call-me-back).
+   - Rotating promotional carousel (Old Mutual, Absa, Discovery, Momentum Group).
+   - Self-segmentation prompt (Sanlam "I want to:", Hollard three big buttons).
+
+4. LOGIN / PORTAL PROMINENCE
+   All retail sites surface client login, adviser finders, or broker portals in header utility row.
+
+5. EDUCATION & TRUST LOWER ON PAGE
+   Articles, research, fraud alerts, awards, and "how we work" typically sit mid-to-lower page —
+   rarely in primary nav except Discovery (dense product mega-menus).
+
+6. IMPLICATION FOR AS BROKERS
+   Your /home2 and /home3 direction (problem-first, education before advice) is NOT how most
+   incumbents structure homepages. They assume brand recognition and push products/campaigns.
+   AS Brokers can differentiate with journey cards + calculators + education funnel — similar
+   to Sanlam's "I want to" and Old Mutual's goal tiles, but deeper and retirement-weighted.
+
+================================================================================
+1. SANLAM
+================================================================================
+URL: https://www.sanlam.co.za (→ https://www.sanlamonline.co.za/)
+Title: Personal | Sanlam
+
+SITE TYPE
+  Retail personal financial services hub (insurance, retire, invest, plan, credit, wealth).
+  Group corporate links in utility header (Media, About, global subsidiaries).
+
+HEADER — TOP UTILITY
+  Personal | Business | Corporate | Media | About | Contact
+  Country / group sites (Sanlam Investments, Glacier, BlueStar, regional Africa/Europe links)
+  Scam alert banner ("Stay Scam Smart")
+  Login | Register
+
+HEADER — MAIN NAV (mega-menu)
+  Insure     → Life, disability, severe illness, cancer, income protection, funeral, credit life, health
+  Retire     → Retirement annuity, preservation, saving for retirement, two-pot, fund members
+  Invest     → Tax-free savings, unit trusts, education planning, international, fund fact sheets
+  Plan       → Financial Check, get advice, wills/trusts/estates, tools & calculators
+  Credit     → Credit score, personal loans, home loans
+  Wealth     → Sanlam Private Wealth, Glacier by Sanlam
+  Rewards    → Sanlam Reality, Wealth Bonus
+  Help       → Contact, get advice, report fraud, claims, stay safe online
+
+HOMEPAGE FLOW (top → bottom)
+  1. Hero campaign: "The F Factor" (financial wellness brand)
+  2. "I want to:" — two pathway selectors (e.g. start, saving and investing) — SELF-SEGMENTATION
+  3. "Calculate your next financial move" — calculator tiles:
+     Retirement | Two-pot retirement | Financial check | Personal loan
+  4. "Speak to an expert" — call-me-back form (name, cell, weekdays 08:00–17:00)
+  5. "Here to support you" — content cards:
+     Stay Scam Smart | Sanlam Benchmark 2026 | AI Credit Coach | Budget Speech 2026 | Financial check quiz
+  6. AI chat overlay: "Coach" — virtual assistant for strengths, debt, advice
+  7. Footer: products, legal, worldwide sites
+
+KEY MESSAGING
+  Financial wellness / "F Factor" — not product names in hero.
+  Heavy on tools, quizzes, and expert callback.
+  Education via Benchmark research, budget speech content, AI coach.
+
+PRIMARY CTAs
+  Learn more | Call me back | Search | Login
+
+================================================================================
+2. OLD MUTUAL
+================================================================================
+URL: https://www.oldmutual.co.za/
+
+SITE TYPE
+  Full-stack financial services: personal, wealth, business, corporate, institutions.
+
+HEADER — TOP UTILITY
+  Phone: 0860 66 66 59
+  Country selector (South Africa, Botswana, Ghana, etc.)
+  Personal | Wealth | Business | Corporate | Institutions
+  Claims | Find an adviser | Careers | About | Contact Us
+  Search | Login (mega: MyOldMutual, Secure Services, OM Insure, Wealth portals, etc.)
+
+HEADER — MAIN NAV (under Personal)
+  Organised by customer GOALS (visible on homepage cards):
+  - Save & invest (Tax-free savings, retirement annuity, unit trusts, flexible plan)
+  - Insure (Funeral plan, car & home, life insurance)
+  - Bank & Borrow (OM Bank, personal loans)
+  - Protect (business/commercial — Multisure, marine, travel, engineering)
+  - Retirement investments
+
+HOMEPAGE FLOW
+  1. Hero carousel (promotional campaigns):
+     - Rewards (R30 twice a week streak)
+     - Smart financial advice for every stage of life
+     - Funeral cover from R39/month
+     - Tax-free savings from R500/month
+     - Personal loan messaging
+     - OM Bank launch narrative
+  2. H1: "Your financial needs deserve solutions that match"
+     Sub: "Whoever you are, we have financial solutions and advice to make life great"
+  3. Goal-based product cards (Save & invest | Bank & Borrow | Insure) with BUY NOW / LEARN MORE
+  4. "Welcome to our world. Let's help you through yours" — secondary journey section
+  5. Product grid / View All Products
+  6. Goals section (VIEW ALL GOALS)
+  7. App download (iOS / Android / Huawei)
+  8. Footer: branch locator, complaints, social, legal
+
+KEY MESSAGING
+  Solutions that match your life stage; warmth + breadth.
+  Strong promotional / campaign-driven hero (not a single question).
+
+PRIMARY CTAs
+  Learn More | Buy Now | Invest Now | Check now | Login
+
+================================================================================
+3. SANTAM
+================================================================================
+URL: https://www.santam.co.za/
+Title: Santam | This is freedom.
+
+SITE TYPE
+  Short-term & commercial insurer (personal, business, agriculture, specialised risks).
+  Intermediary/broker-led distribution.
+
+HEADER — UTILITY
+  Call 0860 444 444 | Claims 0860 505 911
+  Client Portal | Broker Portal | Pocket Underwriter | Engineering Online | Emerging Business
+  Referral Agencies | Careers/Learning Portal
+
+HEADER — MAIN NAV
+  Insurance:
+    for me          → Car, home contents, building, all risk, watercraft, drone, travel, personal legal
+    for my business → Motor, property, SME, liability, legal, industry-specific
+    for specialised risks
+    for agriculture
+  Per segment: Get a quote | Call me back | Find an intermediary | Submit/track claim
+
+HOMEPAGE FLOW
+  1. Cybersafety alert strip
+  2. Search
+  3. Four audience tiles (H2): for me | for my business | for specialised risks | for agriculture
+  4. Get a quote | Log in
+  5. Hero carousel / story cards:
+     - 2025 Insurance Barometer Report (research)
+     - "Live in the moment. Not in the worry." (personal)
+     - Car quote under 2 minutes
+     - Business quote in minutes
+  6. Embedded "Call me back" lead form (name, surname, phone, ID, email, T&Cs)
+  7. Cookie consent
+
+KEY MESSAGING
+  Freedom / worry-free living. Audience split before product.
+  Research (Barometer) as authority content.
+  Speed of quote emphasized.
+
+PRIMARY CTAs
+  Get a quote | Call me back | Learn more | Log in
+
+================================================================================
+4. LIBERTY
+================================================================================
+URL: https://www.liberty.co.za/
+Title: Financial Services Company | Insurance and Investments | Liberty
+
+SITE TYPE
+  Life insurance, investments, estate, gap cover, corporate solutions.
+  Adviser-intermediated retail.
+
+HEADER — QUICK LINKS (utility)
+  Estate Planning | How to Claim | Find a Form | Fund Fact Sheets | Unclaimed Benefits | Helpful Resources
+
+HEADER — MAIN NAV (product mega-menu)
+  Protect: Critical illness, disability, funeral, income protection, life cover, gap cover
+  Save & Grow: Save for retirement, invest for income, invest, offshore, education, STASH
+  Business: Umbrella funds, investment solutions, group risk, consulting/actuarial, entrepreneurs, business assurance
+  Talk to an Adviser | Media & Insights | About Us | Contact Us
+  Login: MyLiberty Self-Service | Corporate portals
+
+HOMEPAGE FLOW
+  1. H2: "We're in it with you. Explore our range of insurance and investment solutions."
+  2. "Life is unpredictable. Your plan shouldn't be" — emotional hook
+  3. Quick links section
+  4. Media & Insights (articles)
+  5. Connect with Liberty — adviser / callback CTAs
+  6. Product promotion cards (Protect your legacy, etc.)
+  7. CTAs: Call me back | Find an Adviser | Explore tools | File a claim
+
+KEY MESSAGING
+  Partnership ("in it with you"), unpredictability of life, adviser-led.
+  Product range stated early; less self-segmentation than Sanlam.
+
+PRIMARY CTAs
+  Call me back | Find an Adviser | Find out more | Explore tools
+
+================================================================================
+5. MOMENTUM METROPOLITAN (GROUP)
+================================================================================
+URL: https://www.momentummetropolitan.co.za (→ https://www.momentumgroupltd.co.za/)
+Title: Momentum Group | South Africa Financial Services Group
+
+SITE TYPE
+  CORPORATE / HOLDING COMPANY — not a retail product homepage.
+  Retail customers directed to Momentum, Metropolitan, Guardrisk, Eris brand sites.
+
+HEADER NAV
+  Home | About Us | Investor relations | Sustainability | Responsible Investment |
+  Corporate Social Investment | Media | Contact Us
+
+HOMEPAGE FLOW
+  1. Hero carousel (5 slides): Capital Markets Day, Interim Results, Top Employer, Scam warning, Group purpose
+  2. H1: "Momentum Group" — corporate narrative (B-BBEE Level 1, federated model, client-facing brands)
+  3. "Our group purpose: We build and protect our clients' financial dreams"
+  4. Shareholder diary (investor calendar)
+  5. Latest news (6 press releases)
+  6. Top resources: Investor relations | Careers | Social investment
+  7. Recognition: B-BBEE | Top Employer
+  8. Security and Fraud section
+  9. Footer brand links: Momentum | Metropolitan | Guardrisk | Eris
+
+KEY MESSAGING
+  Investor and stakeholder focused. Purpose and governance.
+  NOT useful as retail homepage benchmark — use momentum.co.za for retail instead.
+
+================================================================================
+6. DISCOVERY
+================================================================================
+URL: https://www.discovery.co.za/
+Title: Medical Aid, Bank, Insurance, Invest & Vitality - Discovery
+
+SITE TYPE
+  Integrated health, bank, insure, invest, vitality ecosystem.
+  Shared-value / rewards-led model.
+
+HEADER — UTILITY
+  INDIVIDUALS | BUSINESS
+  Discovery Health Medical Scheme link
+  Online banking | Register | Log in | Find an adviser
+
+HEADER — MAIN NAV (mega-menu by business unit)
+  Bank            → Accounts, credit cards, home loans, loans, savings, crypto, EasyEquities, app, AI
+  Medical aid     → Plans, quotes, gap cover, flexicare
+  More Health Cover
+  Life Insurance
+  Investments
+  Car and home
+  Vitality
+  Travel
+  (Each expands to dozens of product links)
+
+HOMEPAGE FLOW
+  1. Multi-product promotional carousel:
+     - DStv / Discovery Miles rewards
+     - Discovery Insure: "Insurance that keeps you safe" / "Actively preventing, responding and rewarding"
+     - Discovery Bank credit card
+     - Fuel / Insure promotions (QUOTE TO QUALIFY, JOIN DISCOVERY INSURE)
+  2. Product quote tiles with price anchors:
+     - Gap cover from R53pm
+     - Medical aid from R1,350pm
+     - Flexicare from R459pm
+     - "Get a quote in 60 seconds"
+  3. Vitality / Miles / travel cross-sell blocks
+  4. Deep footer mega-links per division
+
+KEY MESSAGING
+  Rewards, prevention, shared value — "insurance like no other."
+  Price-forward quote tiles. Ecosystem cross-sell (bank + insure + health + vitality).
+
+PRIMARY CTAs
+  Join now | Log in | Get a quote | QUOTE TO QUALIFY | JOIN DISCOVERY INSURE / BANK
+
+================================================================================
+7. HOLLARD
+================================================================================
+URL: https://www.hollard.co.za/
+Title: South Africa's Favourite Insurance Company | Hollard
+
+SITE TYPE
+  Life, short-term, investments, business — broker/adviser distributed.
+
+HEADER — UTILITY
+  Contact us | Find a broker/adviser | How to claim | Work with us | Logins for brokers/advisers
+
+HEADER — MAIN NAV (large journey buttons)
+  Insure my life & my stuff
+  Invest & save
+  Insure my business & my people
+  For policyholders
+  For brokers & advisers
+  Our world
+  New Hollard Engage (digital platform)
+
+HOMEPAGE FLOW
+  1. Interactive hero carousel (6 slides): Click to explore → Our World → Our Partners → Hollard International
+  2. H2: "Cover your great unknown with our solutions: insure, invest and protect"
+  3. Three solution pillars (cards with copy):
+     - Insure my life and stuff (life, disability, critical illness, short-term)
+     - Invest and save (wealth goals)
+     - Insure my business and people (sector experts, B2B)
+  4. "Find a broker or adviser" — intermediary finder (repeated)
+  5. "Who we are" — Leaders | Purpose & Culture | Better Futures
+  6. Latest news (4 articles)
+  7. "10 FAQs about Hollard" — SEO/trust accordion
+  8. Footer: customer care, contact, social impact, company links
+
+KEY MESSAGING
+  Warm, informal tone ("big gees", curveballs, whisperers).
+  Three journeys clearly named — close to AS Brokers home3 pillar idea.
+  Broker-centric (not direct quote in hero).
+
+PRIMARY CTAs
+  Find a Broker or Adviser | Read Article | For policyholders links
+
+================================================================================
+8. GUARDRISK
+================================================================================
+URL: https://www.guardrisk.co.za (→ https://guardrisk.co.za/)
+Title: Guardrisk | Tailored Risk Solutions
+
+SITE TYPE
+  B2B insurer: cell captives, UMA, insurtech, general insurance, premium finance.
+  NOT retail consumer homepage.
+
+HEADER NAV
+  About Us
+  Offerings (dropdown):
+    Cell Captives | Insurtech | General Insurance | International |
+    Mining rehabilitation guarantees | Premium Finance | UMA | Microinsurance | Embedded Insurance
+  Careers
+  News (Newsroom)
+  Complaints | Contact Us
+
+HOMEPAGE FLOW
+  1. Announcement banners (Business Report 2025, policy transfer notice)
+  2. H1: "How Guardrisk works for you"
+  3. Featured Products
+  4. Latest News
+  5. Important Links | Compliance | Get In Touch
+
+KEY MESSAGING
+  Tailored risk solutions, cell captive leadership, corporate/partner audience.
+
+PRIMARY CTAs
+  Learn More | Read more | Contact
+
+================================================================================
+9. OUTSURANCE
+================================================================================
+URL: https://www.outsurance.co.za/
+Title: OUTsurance | Insurance for Cars, Homes, Life & Business Pet
+
+SITE TYPE
+  Direct insurer — quote-first, OUTbonus cash-back brand, app-led service.
+
+HEADER — UTILITY
+  08 600 60 000 | Start a quote | SUBMIT A CLAIM | Log in
+  Claims | Contact Us | FAQ's | My Policy
+
+HEADER — MAIN (product shortcuts)
+  Car | Home | Life | Pet | Business insurance | About us
+
+HOMEPAGE FLOW
+  1. H1: "Let's start your quote..." — FULL LEAD FORM IN HERO
+     (Title, name, phone, email, ID type/number) + "Give me a call" | "Start quote"
+  2. Product icon row: Car | Home | Life | Pet | Business
+  3. OUT ID registration promo ("CREATE MY OUT ID")
+  4. Awards / "better deal or cash back" / OUTbonus messaging
+  5. Help@OUT self-service tiles:
+     Panic assistance | Windscreen/Geyser claim | Roadside/Home assistance |
+     Vehicle inspection | SmartDrive | Self service | Home maintenance
+  6. Educational links: underinsurance, funeral vs life, complaints ratio
+  7. Footer sections: Insurance offering | Help@OUT | Why OUTsurance | About us
+
+KEY MESSAGING
+  Direct, transactional, OUTbonus differentiation.
+  Zero brand story in hero — immediate quote capture.
+  App and assistance services as retention layer.
+
+PRIMARY CTAs
+  Start quote | Start a quote | Give me a call | CREATE MY OUT ID | GET A NEW QUOTE
+
+================================================================================
+10. TELESURE (TIH)
+================================================================================
+URL: https://www.tihsa.co.za (→ https://tihsa.co.za/)
+Title: Home - TIH SA
+
+SITE TYPE
+  HOLDING COMPANY / corporate — Telesure Investment Holdings.
+  Owns Auto & General, First for Women, Dialdirect, Budget, etc. (brands on Our Brands page).
+  NOT a consumer insurance quote site.
+
+HEADER NAV
+  HOME | ABOUT US | OUR BRANDS | CSI | WORKING AT TIH | NEWS
+  About submenu: Who We are | TIH Board
+  CSI: Focus areas, Entrepreneurship, Learning Development, Fight against GBV
+
+HOMEPAGE FLOW
+  1. H1: "INSURANCE BRANDS"
+  2. H2: "HOME TO SOUTH AFRICA'S LEADING [short-term insurance brands]"
+  3. Brand portfolio showcase (links out to consumer brands)
+  4. H2: "AT TIH WE SEE THE VALUE IN TALENT EXPERTISE"
+  5. H2: "Homegrown success, global expansion"
+  6. Corporate narrative / investor-style content
+
+KEY MESSAGING
+  Corporate reputation, brands umbrella, talent, CSI.
+  Consumers must leave TIH site to buy insurance.
+
+================================================================================
+11. ABSA (PERSONAL — includes insurance)
+================================================================================
+URL: https://www.absa.co.za (→ https://www.absa.co.za/personal/)
+Title: Absa | Digital Banking for individuals and businesses
+
+SITE TYPE
+  Bank-first digital platform; insurance is one menu pillar among accounts, loans, cards, investments.
+
+HEADER — SEGMENT
+  Personal | Private & Wealth | Business | Corporate | Get help
+
+HEADER — MAIN NAV (mega-menu under Personal)
+  Accounts        → Everyday, Islamic, Youth/Student/MegaU
+  Credit cards    → Premium, Gold, credit services, Credit Coach
+  Loans           → Personal, home, vehicle
+  Savings         → Instant access, notice, fixed deposits
+  Investment      → Unit trusts, shares, EasyEquities, outcome plans
+  Insurance       → Car & home, building, portable possessions, life, funeral, credit protection
+  Rewards         → Absa Rewards, advantage, Small Business Friday
+  Log in (many portals: Absa Online, OST, Wealth, Business banking, etc.)
+
+HOMEPAGE FLOW
+  1. Promo carousel: Ultimate Banking spouse offer | Shell fuel rewards | Eyenu Nonke Funeral | etc.
+  2. H1: "Absa digital banking solutions"
+  3. Digital service tiles: Digital Banking | Self-service guides | Safety | Switching | Service status | Talk to us
+  4. H2: "What would you like to do?" — FOUR GOAL CARDS:
+     Save or invest | Insure | Bank | Apply for a loan
+  5. More promo strips: Seniors savings | Wellness app | Cashbuild home loan | Ultimate Banking cashback | Islamic Banking
+  6. Download Absa Banking App
+  7. Footer: rates, branches, indices, about, legal
+
+KEY MESSAGING
+  Digital banking first; insurance is secondary journey tile.
+  "What would you like to do?" = clear journey segmentation (similar to home3).
+
+PRIMARY CTAs
+  Tell me more | Log in | Menu (mobile)
+
+================================================================================
+12. CENTRIQ INSURANCE
+================================================================================
+URL: https://www.centriq.co.za/
+Title: Home - Centriq
+
+SITE TYPE
+  B2B cell captive / UMA / alternative distribution — NOT retail consumer.
+
+HEADER NAV
+  Home | Us At A Glance | BEE | CSI | Management | Financials
+  Solutions → Alternative Distribution | UMA | Risk Finance
+  News | Contact | Stay Safe Online | Rating Announcement
+
+HOMEPAGE FLOW
+  1. H2: "CELL CAPTIVE SOLUTIONS"
+  2. H2: "PARTNER PORTAL"
+  3. H2: "LATEST INDUSTRY NEWS" (3 article headlines on UMA/cell captive topics)
+  4. Corporate/partner positioning
+
+KEY MESSAGING
+  Industry infrastructure, cell captive expertise, partner-facing.
+
+================================================================================
+COMPARISON MATRIX (STRUCTURE ONLY)
+================================================================================
+
+| Company          | Retail? | Hero pattern              | Nav split        | Education on home | Quote in hero |
+|------------------|---------|---------------------------|------------------|-------------------|---------------|
+| Sanlam           | Yes     | Brand + "I want to"       | Product pillars  | Strong (tools)    | Callback form |
+| Old Mutual       | Yes     | Campaign carousel         | Personal/Wealth  | Medium            | Product CTAs  |
+| Santam           | Yes     | Audience 4-tile           | By insurance type| Barometer report  | Call me back  |
+| Liberty          | Yes     | Emotional + products    | Protect/Save/Biz | Media & Insights  | Call me back  |
+| Momentum Metro   | No      | Corporate carousel        | IR/About/CSI     | News only         | No            |
+| Discovery        | Yes     | Multi-product promos      | Bank/Health/etc  | Low in hero       | Price tiles   |
+| Hollard          | Yes     | 3 journey cards           | Life/Invest/Biz  | FAQs + news       | Via broker    |
+| Guardrisk        | No      | B2B products              | Offerings        | News              | No            |
+| OUTsurance       | Yes     | Quote form                | Product icons    | Blog links        | YES (full)    |
+| TIH              | No      | Brand portfolio           | Corporate        | No                | No            |
+| Absa             | Yes     | Bank promos + goal cards  | Banking pillars  | Wellness/Islamic  | Tell me more  |
+| Centriq          | No      | B2B solutions             | Corporate        | Industry news     | No            |
+
+================================================================================
+TAKEAWAYS FOR AS BROKERS HOMEPAGE STRATEGY
+================================================================================
+
+WHAT WORKS (worth borrowing structurally)
+  • Sanlam "I want to:" + calculator row — self-segmentation before products
+  • Old Mutual / Absa goal cards — Save | Insure | Bank | Borrow
+  • Hollard three plain-language journeys — insure life / invest / business
+  • Santam audience-first tiles — for me vs for my business
+  • Liberty adviser CTA persistent — "Talk to an adviser" / "Find an adviser"
+  • Discovery price anchors on quote tiles — "from R Xm" (transparency)
+
+WHAT TO AVOID (incumbent traps)
+  • Campaign carousel as hero (Old Mutual, Absa, Discovery) — pushes promos not clarity
+  • Corporate holding page masquerading as consumer entry (Momentum Metro, TIH)
+  • Product catalogue in hero before visitor self-identifies (Liberty)
+  • Full quote form above fold (OUTsurance) — high friction for education-first brand
+
+AS BROKERS DIFFERENTIATION (aligned with /home2 and /home3)
+  • Lead with QUESTION not brand ("What do you need help with today?")
+  • Retirement + "not enough money" funnel — none of the 12 do this prominently
+  • Calculators inside journey (Sanlam closest with financial check / retirement calc)
+  • Education → calculator → article → advice flow — unique vs product mega-menus
+  • Independent adviser positioning vs direct insurer or bank-owned distribution
+  • No login/portal clutter in header for prospects (all majors surface login early)
+
+RECOMMENDED BENCHMARKS FOR AS BROKERS
+  Primary:   Sanlam (journey + tools), Hollard (three journeys), Absa (goal cards)
+  Secondary: Old Mutual (life-stage messaging), Santam (audience split)
+  Avoid:     OUTsurance hero form, Discovery promo density, corporate group sites
+
+================================================================================
+END OF DOCUMENT
+================================================================================

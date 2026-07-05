@@ -19,15 +19,6 @@ const BASE = process.env.SEO_BASE_URL ?? `http://127.0.0.1:${PORT}`;
 const CALCULATOR_PAGES = [
   "app/(content)/calculators/page.tsx",
   "app/(content)/retirement/page.tsx",
-  "app/(content)/retirement-readiness/page.tsx",
-  "app/(content)/wealth-building-calculator/page.tsx",
-  "app/(content)/cost-of-inflation-over-time/page.tsx",
-  "app/(content)/income-tax-calculator/page.tsx",
-  "app/(content)/premium-increase-calculator/page.tsx",
-  "app/(content)/estate-duty-calculator/page.tsx",
-  "app/(content)/annual-estate-reduction-strategy/page.tsx",
-  "app/(content)/income-in-retirement/page.tsx",
-  "app/(content)/immediate-higher-income-calculator/page.tsx",
 ];
 
 const AUDIT_REPORTS = [
@@ -154,11 +145,11 @@ async function main() {
   }
   if (!failed) console.log("PASS: indexable calculator pages use buildPageMetadata");
 
-  if (!read("app/(content)/calculators/page.tsx").includes("/income-tax-calculator")) {
-    console.error("FAIL: /calculators hub missing inbound links to secondary tools");
+  if (!read("app/(content)/calculators/page.tsx").includes("CALCULATOR_REGISTRY")) {
+    console.error("FAIL: /calculators hub missing ASSET registry listing");
     failed = true;
   } else {
-    console.log("PASS: /calculators links to secondary calculator routes");
+    console.log("PASS: /calculators lists ASSET 001–017 from registry");
   }
 
   if (!existsSync(join(ROOT, ".next"))) {

@@ -158,12 +158,20 @@ export function CrmSidebar({
 
         <div className="space-y-1 border-t border-[#2a2a2a] p-2">
           {isAdmin ? (
-            <NavItem
-              href="/crm/settings"
-              label="Settings"
-              icon={Settings}
-              active={pathname.startsWith("/crm/settings")}
-            />
+            <>
+              <NavItem
+                href="/crm/executive"
+                label="Command centre"
+                icon={LayoutDashboard}
+                active={pathname.startsWith("/crm/executive")}
+              />
+              <NavItem
+                href="/crm/settings"
+                label="Settings"
+                icon={Settings}
+                active={pathname.startsWith("/crm/settings")}
+              />
+            </>
           ) : null}
           <p className="truncate px-2 py-1 text-[11px] text-zinc-500 opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
             {name}

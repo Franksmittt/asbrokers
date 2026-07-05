@@ -74,5 +74,36 @@ export function mapDbLeadToCrmLead(row: typeof crmLeads.$inferSelect): CrmLead {
     estimatedCapital:
       typeof payload.estimatedCapital === "number" ? payload.estimatedCapital : 0,
     funnelData: parseFunnelData(payload.funnelData),
+    aiPriorityLabel:
+      typeof payload.aiPriorityLabel === "string" ? payload.aiPriorityLabel : undefined,
+    aiPriorityScore:
+      typeof payload.aiPriorityScore === "number" ? payload.aiPriorityScore : undefined,
+    recommendedAdvisorName:
+      typeof payload.recommendedAdvisorName === "string"
+        ? payload.recommendedAdvisorName
+        : typeof (payload.autoRoute as Record<string, unknown> | undefined)?.advisorName ===
+            "string"
+          ? ((payload.autoRoute as Record<string, unknown>).advisorName as string)
+          : undefined,
+    delegatedAdvisorId:
+      typeof payload.delegatedAdvisorId === "string" ? payload.delegatedAdvisorId : undefined,
+    delegatedAdvisorName:
+      typeof payload.delegatedAdvisorName === "string"
+        ? payload.delegatedAdvisorName
+        : undefined,
+    calculatorSession: parseCalculatorSession(payload.calculatorSession),
+  };
+}
+
+function parseCalculatorSession(value: unknown): CrmLead["calculatorSession"] {
+  if (!value || typeof value !== "object") return undefined;
+  const row = value as Record<string, unknown>;
+  const drawdown =
+    typeof row.drawdownPercentage === "number" ? row.drawdownPercentage : undefined;
+  return {
+    calculatorId: typeof row.calculatorId === "string" ? row.calculatorId : undefined,
+    drawdownPercentage: drawdown,
+    capturedAt: typeof row.capturedAt === "string" ? row.capturedAt : undefined,
+    notes: typeof row.notes === "string" ? row.notes : undefined,
   };
 }

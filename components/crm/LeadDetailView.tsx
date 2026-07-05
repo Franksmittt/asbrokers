@@ -1,9 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, useTransition } from "react";
 
+import { CorrespondenceSentimentBar } from "@/components/crm/CorrespondenceSentimentBar";
+import { ComplianceFlagBadge } from "@/components/crm/ComplianceFlagBadge";
+import { LeadPreMeetingBrief } from "@/components/crm/LeadPreMeetingBrief";
 import { sendWhatsAppMessage } from "@/app/actions/whatsapp";
+import { LeadAiPanel } from "@/components/crm/LeadAiPanel";
 import { useCrm } from "@/components/crm/CrmContext";
 import type { CrmCorrespondence, CrmLead, CrmReminder, CrmTask } from "@/lib/crm/types";
 import { SERVICE_LABELS } from "@/lib/crm/types";
@@ -129,7 +134,7 @@ export function LeadDetailView({
   staffName,
 }: LeadDetailViewProps) {
   const router = useRouter();
-  const { addReminder } = useCrm();
+  const { addReminder, canUseAi } = useCrm();
   const [thread, setThread] = useState<CrmCorrespondence[]>(() => correspondence);
   const [reminderTitle, setReminderTitle] = useState("");
   const [reminderDue, setReminderDue] = useState("");
@@ -200,6 +205,12 @@ export function LeadDetailView({
         </section>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          {canUseAi ? <LeadAiPanel leadId={lead.id} onApplyDraft={setDraft} /> : null}
+
+          <ComplianceFlagBadge lead={lead} />
+
+          {canUseAi ? <LeadPreMeetingBrief leadId={lead.id} /> : null}
+
           <FunnelIntelligenceCard lead={lead} />
 
           <section className="rim-light rounded-[2rem] p-5">
@@ -211,6 +222,12 @@ export function LeadDetailView({
             {lead.company ? (
               <p className="mt-2 text-xs text-gray-400">{lead.company}</p>
             ) : null}
+            <Link
+              href={`/crm/calculator-session?leadId=${lead.id}`}
+              className="mt-4 inline-flex text-xs font-medium text-cinematic-teal hover:text-white"
+            >
+              Open calculator session →
+            </Link>
           </section>
 
           <section className="rim-light rounded-[2rem] p-5">
@@ -231,7 +248,7 @@ export function LeadDetailView({
             <p className="mt-3 text-xs text-gray-400">
               Assigned advisor ·{" "}
               <span className="text-gray-100">
-                {formatAdvisorLabel(lead.assignedAdvisorId)}
+                {formatAdvisorLabel(lead.assignedAdvisorId, lead.recommendedAdvisorName)}
               </span>
             </p>
             <span className="mt-4 inline-flex rounded-full bg-supernova-gold/20 px-3 py-1 text-xs font-bold tabular-nums text-supernova-gold">
@@ -308,6 +325,11 @@ export function LeadDetailView({
         <header className="border-b border-white/10 px-5 py-4">
           <h2 className="text-lg font-bold tracking-[-0.03em] text-white">Unified thread</h2>
           <p className="text-xs text-gray-400">Email · WhatsApp · portal</p>
+          {canUseAi ? (
+            <div className="mt-2">
+              <CorrespondenceSentimentBar leadId={lead.id} />
+            </div>
+          ) : null}
         </header>
 
         <ul className="flex-1 space-y-3 overflow-y-auto px-4 py-4 sm:px-5">

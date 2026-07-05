@@ -1,0 +1,2621 @@
+﻿Asset 007 Estate Duty Calculator
+
+
+
+
+<div id="asb-estate-duty-calculator">
+<style>
+#asb-estate-duty-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-estate-duty-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-estate-duty-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Estate Duty & Executor Fee Calculator</h2>
+
+
+<p class="intro">
+Estimate estate duty, executor fees and the cash your estate may need at death.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Gross estate value</label>
+<input id="estateGrossValue" type="number" value="5000000">
+</div>
+
+
+<div class="asb-field">
+<label>Liabilities</label>
+<input id="estateLiabilities" type="number" value="500000">
+</div>
+
+
+<div class="asb-field">
+<label>Bequests to spouse</label>
+<input id="estateSpouseBequest" type="number" value="0">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateEstateDuty()">Calculate estate costs</button>
+
+
+<div id="estateError" class="asb-error"></div>
+
+
+<div id="estateResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Total estate costs</div>
+<div id="estateTotalCosts" class="asb-value"></div>
+<div class="asb-small">Estimated cash the estate may need for estate duty and executor fees.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estate duty payable</div>
+<div id="estateDutyPayable" class="asb-value"></div>
+<div class="asb-small">Estimated estate duty after liabilities, spouse deduction and abatement.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Executor fees</div>
+<div id="estateExecutorFees" class="asb-value"></div>
+<div class="asb-small">Estimated executor fee at 3.5% of gross estate value plus 15% VAT.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net estate before abatement</div>
+<div id="estateNetBeforeAbatement" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Section 4A abatement used</div>
+<div id="estateAbatementUsed" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Dutiable estate value</div>
+<div id="estateDutiableValue" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="estateSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator provides a simplified estimate of South African estate duty and executor fees.
+It does not include Master's fees, conveyancing costs, valuation costs, capital gains tax,
+income tax in the estate, funeral expenses or other administration costs.
+It is an educational planning tool and does not constitute legal, tax or financial advice.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how estate duty,
+estate liquidity, executor fees and proper estate planning work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function estateFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function estateGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateEstateDutyAmount(dutiableValue) {
+if (dutiableValue <= 0) {
+return 0;
+}
+
+
+if (dutiableValue <= 30000000) {
+return dutiableValue * 0.20;
+}
+
+
+return (30000000 * 0.20) + ((dutiableValue - 30000000) * 0.25);
+}
+
+
+function calculateEstateDuty() {
+const grossEstateValue = estateGetNumber("estateGrossValue");
+const liabilities = estateGetNumber("estateLiabilities");
+const spouseBequest = estateGetNumber("estateSpouseBequest");
+
+
+const errorBox = document.getElementById("estateError");
+const resultsBox = document.getElementById("estateResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(grossEstateValue) ||
+isNaN(liabilities) ||
+isNaN(spouseBequest)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (grossEstateValue < 0 || liabilities < 0 || spouseBequest < 0) {
+errorBox.innerText = "Values cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+const section4AAbatement = 3500000;
+
+
+const netEstateBeforeAbatement = Math.max(
+0,
+grossEstateValue - liabilities - spouseBequest
+);
+
+
+const abatementUsed = Math.min(section4AAbatement, netEstateBeforeAbatement);
+const dutiableEstateValue = Math.max(0, netEstateBeforeAbatement - section4AAbatement);
+
+
+const estateDutyPayable = calculateEstateDutyAmount(dutiableEstateValue);
+
+
+const executorFeeBeforeVat = grossEstateValue * 0.035;
+const executorVat = executorFeeBeforeVat * 0.15;
+const executorFees = executorFeeBeforeVat + executorVat;
+
+
+const totalEstateCosts = estateDutyPayable + executorFees;
+
+
+document.getElementById("estateTotalCosts").innerText = estateFormatRand(totalEstateCosts);
+document.getElementById("estateDutyPayable").innerText = estateFormatRand(estateDutyPayable);
+document.getElementById("estateExecutorFees").innerText = estateFormatRand(executorFees);
+document.getElementById("estateNetBeforeAbatement").innerText = estateFormatRand(netEstateBeforeAbatement);
+document.getElementById("estateAbatementUsed").innerText = estateFormatRand(abatementUsed);
+document.getElementById("estateDutiableValue").innerText = estateFormatRand(dutiableEstateValue);
+
+
+document.getElementById("estateSummaryText").innerText =
+"Based on a gross estate value of " + estateFormatRand(grossEstateValue) +
+", liabilities of " + estateFormatRand(liabilities) +
+" and spouse bequests of " + estateFormatRand(spouseBequest) +
+", the estimated net estate before abatement is " +
+estateFormatRand(netEstateBeforeAbatement) +
+". After applying the Section 4A abatement, the estimated dutiable estate value is " +
+estateFormatRand(dutiableEstateValue) +
+". Estimated estate duty is " + estateFormatRand(estateDutyPayable) +
+". Estimated executor fees are " + estateFormatRand(executorFees) +
+". This means the estate may need approximately " +
+estateFormatRand(totalEstateCosts) +
+" in cash for these two estate costs alone. Other estate costs may still apply."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+
+Asset 008 Estate Reduction Strategy Calculator
+<div id="asb-estate-reduction-calculator">
+<style>
+#asb-estate-reduction-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-estate-reduction-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-estate-reduction-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input,
+.asb-field select {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-button:hover {
+background: #374151;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Estate Reduction Strategy Calculator</h2>
+
+
+<p class="intro">
+Estimate how annual tax-free donations may reduce your estate over time and potentially lower future estate duty.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Donation type</label>
+<select id="reductionDonationType">
+<option value="150000">Single person — R150,000 per year</option>
+<option value="300000">Couple — R300,000 per year</option>
+</select>
+</div>
+
+
+<div class="asb-field">
+<label>Current age</label>
+<input id="reductionCurrentAge" type="number" value="65">
+</div>
+
+
+<div class="asb-field">
+<label>Planned age</label>
+<input id="reductionPlannedAge" type="number" value="85">
+</div>
+
+
+<div class="asb-field">
+<label>Assumed growth rate (% p.a.)</label>
+<input id="reductionGrowthRate" type="number" step="0.1" value="10">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateEstateReduction()">Calculate estate reduction strategy</button>
+
+
+<div id="reductionError" class="asb-error"></div>
+
+
+<div id="reductionResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Estimated estate duty saving</div>
+<div id="reductionEstateDutySaving" class="asb-value"></div>
+<div class="asb-small">Illustrative saving based on 20% estate duty on the capital moved out of the estate.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Total donations made</div>
+<div id="reductionTotalDonations" class="asb-value"></div>
+<div class="asb-small">Total amount donated over the planning period.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Estimated investment value at planned age</div>
+<div id="reductionTrustValue" class="asb-value"></div>
+<div class="asb-small">Illustrative value if the annual donations are invested and grow at the selected rate.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Annual donation amount</div>
+<div id="reductionAnnualDonation" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Donation period</div>
+<div id="reductionDonationPeriod" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="reductionSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator illustrates how annual tax-free donations may reduce the value of a future estate.
+It assumes the annual donations are made consistently and that the estate duty saving is calculated at 20%.
+It does not account for attribution rules, trust tax, CGT, loan accounts, administration costs, changing legislation or personal estate planning needs.
+It is an educational planning tool and does not constitute legal, tax or financial advice.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how donations,
+trusts, estate duty and long-term estate liquidity planning work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function reductionFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function reductionGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateEstateReduction() {
+const annualDonation = reductionGetNumber("reductionDonationType");
+const currentAge = reductionGetNumber("reductionCurrentAge");
+const plannedAge = reductionGetNumber("reductionPlannedAge");
+const growthRate = reductionGetNumber("reductionGrowthRate") / 100;
+
+
+const errorBox = document.getElementById("reductionError");
+const resultsBox = document.getElementById("reductionResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(annualDonation) ||
+isNaN(currentAge) ||
+isNaN(plannedAge) ||
+isNaN(growthRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (plannedAge <= currentAge) {
+errorBox.innerText = "Planned age must be higher than current age."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (growthRate < -0.99) {
+errorBox.innerText = "Growth rate is too low."
+errorBox.style.display = "block"
+return;
+}
+
+
+const donationPeriod = plannedAge - currentAge;
+const totalDonations = annualDonation * donationPeriod;
+const estimatedEstateDutySaving = totalDonations * 0.20;
+
+
+let estimatedTrustValue = 0;
+
+
+for (let year = 1; year <= donationPeriod; year++) {
+estimatedTrustValue = estimatedTrustValue * (1 + growthRate);
+estimatedTrustValue += annualDonation;
+}
+
+
+const donorTypeText = annualDonation === 300000 ? "a couple" : "a single person"
+
+
+document.getElementById("reductionEstateDutySaving").innerText =
+reductionFormatRand(estimatedEstateDutySaving);
+
+
+document.getElementById("reductionTotalDonations").innerText =
+reductionFormatRand(totalDonations);
+
+
+document.getElementById("reductionTrustValue").innerText =
+reductionFormatRand(estimatedTrustValue);
+
+
+document.getElementById("reductionAnnualDonation").innerText =
+reductionFormatRand(annualDonation);
+
+
+document.getElementById("reductionDonationPeriod").innerText =
+donationPeriod + " years"
+
+
+document.getElementById("reductionSummaryText").innerText =
+"Based on " + donorTypeText +
+" donating " + reductionFormatRand(annualDonation) +
+" per year from age " + currentAge +
+" to age " + plannedAge +
+", the total donations made would be approximately " +
+reductionFormatRand(totalDonations) +
+". If those donations reduce the taxable estate, the illustrative estate duty saving at 20% could be about " +
+reductionFormatRand(estimatedEstateDutySaving) +
+". If the donated money is invested and grows at " +
+(growthRate * 100).toFixed(1) +
+"% per year, the illustrative investment value at age " +
+plannedAge +
+" could be approximately " +
+reductionFormatRand(estimatedTrustValue) +
+"."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+ASSET 009 — AS Brokers 14.2% Income Calculator
+
+
+This is NOT the 12.8% calculator.
+This is the 14.2% immediate income calculator.
+
+
+
+
+<div id="asb-income-142-calculator">
+<style>
+#asb-income-142-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-income-142-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-income-142-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers 14.2% Income Calculator</h2>
+
+
+<p class="intro">
+Estimate the potential income from an investment targeting a 14.2% annual dividend return before dividends tax.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Investment amount</label>
+<input id="income142InvestmentAmount" type="number" value="1000000">
+</div>
+
+
+<div class="asb-field">
+<label>Targeted annual return (%)</label>
+<input id="income142ReturnRate" type="number" step="0.1" value="14.2">
+</div>
+
+
+<div class="asb-field">
+<label>Dividends tax (%)</label>
+<input id="income142DividendTax" type="number" step="0.1" value="20">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateIncome142()">Calculate income</button>
+
+
+<div id="income142Error" class="asb-error"></div>
+
+
+<div id="income142Results" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Net monthly income</div>
+<div id="income142NetMonthly" class="asb-value"></div>
+<div class="asb-small">Estimated monthly income after dividends tax.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Net annual income</div>
+<div id="income142NetAnnual" class="asb-value"></div>
+<div class="asb-small">Estimated annual income after dividends tax.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Gross annual return</div>
+<div id="income142GrossAnnual" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Estimated dividends tax</div>
+<div id="income142TaxAmount" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net return rate after dividends tax</div>
+<div id="income142NetRate" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="income142SummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is an educational illustration based on a targeted annual dividend return and assumed dividends tax.
+It is not a quote, guarantee, recommendation or offer to invest. Returns, liquidity, risk, fees, product rules and tax treatment must be confirmed before any investment decision is made.
+</p>
+
+
+<h3>Important liquidity note</h3>
+<p>
+Some income investments, including unlisted preference share structures, may be illiquid. Withdrawals may be restricted, subject to notice periods, penalties, product rules and market conditions.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how income, tax, risk and liquidity work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function income142FormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function income142GetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateIncome142() {
+const investmentAmount = income142GetNumber("income142InvestmentAmount");
+const returnRate = income142GetNumber("income142ReturnRate") / 100;
+const dividendTaxRate = income142GetNumber("income142DividendTax") / 100;
+
+
+const errorBox = document.getElementById("income142Error");
+const resultsBox = document.getElementById("income142Results");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(investmentAmount) ||
+isNaN(returnRate) ||
+isNaN(dividendTaxRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (investmentAmount <= 0) {
+errorBox.innerText = "Investment amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (returnRate < 0) {
+errorBox.innerText = "Return rate cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (dividendTaxRate < 0 || dividendTaxRate >= 1) {
+errorBox.innerText = "Dividends tax must be between 0% and 99%."
+errorBox.style.display = "block"
+return;
+}
+
+
+const grossAnnualIncome = investmentAmount * returnRate;
+const dividendTaxAmount = grossAnnualIncome * dividendTaxRate;
+const netAnnualIncome = grossAnnualIncome - dividendTaxAmount;
+const netMonthlyIncome = netAnnualIncome / 12;
+const netReturnRate = returnRate * (1 - dividendTaxRate);
+
+
+document.getElementById("income142NetMonthly").innerText =
+income142FormatRand(netMonthlyIncome);
+
+
+document.getElementById("income142NetAnnual").innerText =
+income142FormatRand(netAnnualIncome);
+
+
+document.getElementById("income142GrossAnnual").innerText =
+income142FormatRand(grossAnnualIncome);
+
+
+document.getElementById("income142TaxAmount").innerText =
+income142FormatRand(dividendTaxAmount);
+
+
+document.getElementById("income142NetRate").innerText =
+(netReturnRate * 100).toFixed(2) + "%"
+
+
+document.getElementById("income142SummaryText").innerText =
+"Based on an investment amount of " + income142FormatRand(investmentAmount) +
+" and a targeted annual return of " + (returnRate * 100).toFixed(1) +
+"%, the estimated gross annual income is " + income142FormatRand(grossAnnualIncome) +
+". After assumed dividends tax of " + (dividendTaxRate * 100).toFixed(1) +
+"%, the estimated net annual income is " + income142FormatRand(netAnnualIncome) +
+", or approximately " + income142FormatRand(netMonthlyIncome) +
+" per month. The estimated net return rate after dividends tax is " +
+(netReturnRate * 100).toFixed(2) +
+"% per year. This is an illustration only and must be checked against the actual product terms, risk profile, liquidity rules and tax treatment."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+ASSET 010 — AS Brokers 12.8% Income Calculator
+
+
+<div id="asb-income-128-calculator">
+<style>
+#asb-income-128-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-income-128-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-income-128-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers 12.8% Income Calculator</h2>
+
+
+<p class="intro">
+Estimate the potential income from an investment targeting a 12.8% annual dividend return, including an illustrative 10% loyalty bonus after five years.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Investment amount</label>
+<input id="income128InvestmentAmount" type="number" value="1000000">
+</div>
+
+
+<div class="asb-field">
+<label>Targeted annual return (%)</label>
+<input id="income128ReturnRate" type="number" step="0.1" value="12.8">
+</div>
+
+
+<div class="asb-field">
+<label>Dividends tax (%)</label>
+<input id="income128DividendTax" type="number" step="0.1" value="20">
+</div>
+
+
+<div class="asb-field">
+<label>Five-year loyalty bonus (%)</label>
+<input id="income128BonusRate" type="number" step="0.1" value="10">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateIncome128()">Calculate income</button>
+
+
+<div id="income128Error" class="asb-error"></div>
+
+
+<div id="income128Results" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Net monthly income</div>
+<div id="income128NetMonthly" class="asb-value"></div>
+<div class="asb-small">Estimated monthly income after dividends tax.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Net annual income</div>
+<div id="income128NetAnnual" class="asb-value"></div>
+<div class="asb-small">Estimated annual income after dividends tax.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Net five-year loyalty bonus</div>
+<div id="income128NetBonus" class="asb-value"></div>
+<div class="asb-small">Estimated loyalty bonus after dividends tax.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Gross annual return</div>
+<div id="income128GrossAnnual" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Annual dividends tax</div>
+<div id="income128AnnualTax" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Gross five-year loyalty bonus</div>
+<div id="income128GrossBonus" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Dividends tax on loyalty bonus</div>
+<div id="income128BonusTax" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Total five-year net income</div>
+<div id="income128TotalFiveYear" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Five-year return on capital</div>
+<div id="income128ReturnOnCapital" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net return rate after dividends tax</div>
+<div id="income128NetRate" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="income128SummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is an educational illustration based on a targeted annual dividend return, assumed dividends tax and an illustrative five-year loyalty bonus.
+It is not a quote, guarantee, recommendation or offer to invest. Product terms, risk, liquidity, fees, return profile and tax treatment must be confirmed before any investment decision is made.
+</p>
+
+
+<h3>Important liquidity note</h3>
+<p>
+Some income investments, including unlisted preference share structures, may be illiquid. Withdrawals may be restricted, subject to notice periods, penalties, product rules and market conditions.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how income, tax, loyalty bonuses, risk and liquidity work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function income128FormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function income128GetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateIncome128() {
+const investmentAmount = income128GetNumber("income128InvestmentAmount");
+const returnRate = income128GetNumber("income128ReturnRate") / 100;
+const dividendTaxRate = income128GetNumber("income128DividendTax") / 100;
+const bonusRate = income128GetNumber("income128BonusRate") / 100;
+
+
+const errorBox = document.getElementById("income128Error");
+const resultsBox = document.getElementById("income128Results");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(investmentAmount) ||
+isNaN(returnRate) ||
+isNaN(dividendTaxRate) ||
+isNaN(bonusRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (investmentAmount <= 0) {
+errorBox.innerText = "Investment amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (returnRate < 0 || bonusRate < 0) {
+errorBox.innerText = "Return rate and bonus rate cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (dividendTaxRate < 0 || dividendTaxRate >= 1) {
+errorBox.innerText = "Dividends tax must be between 0% and 99%."
+errorBox.style.display = "block"
+return;
+}
+
+
+const grossAnnualIncome = investmentAmount * returnRate;
+const annualDividendTax = grossAnnualIncome * dividendTaxRate;
+const netAnnualIncome = grossAnnualIncome - annualDividendTax;
+const netMonthlyIncome = netAnnualIncome / 12;
+
+
+const grossBonus = investmentAmount * bonusRate;
+const bonusTax = grossBonus * dividendTaxRate;
+const netBonus = grossBonus - bonusTax;
+
+
+const totalFiveYearNetIncome = (netAnnualIncome * 5) + netBonus;
+const returnOnCapital = totalFiveYearNetIncome / investmentAmount;
+const netReturnRate = returnRate * (1 - dividendTaxRate);
+
+
+document.getElementById("income128NetMonthly").innerText =
+income128FormatRand(netMonthlyIncome);
+
+
+document.getElementById("income128NetAnnual").innerText =
+income128FormatRand(netAnnualIncome);
+
+
+document.getElementById("income128NetBonus").innerText =
+income128FormatRand(netBonus);
+
+
+document.getElementById("income128GrossAnnual").innerText =
+income128FormatRand(grossAnnualIncome);
+
+
+document.getElementById("income128AnnualTax").innerText =
+income128FormatRand(annualDividendTax);
+
+
+document.getElementById("income128GrossBonus").innerText =
+income128FormatRand(grossBonus);
+
+
+document.getElementById("income128BonusTax").innerText =
+income128FormatRand(bonusTax);
+
+
+document.getElementById("income128TotalFiveYear").innerText =
+income128FormatRand(totalFiveYearNetIncome);
+
+
+document.getElementById("income128ReturnOnCapital").innerText =
+(returnOnCapital * 100).toFixed(1) + "%"
+
+
+document.getElementById("income128NetRate").innerText =
+(netReturnRate * 100).toFixed(2) + "%"
+
+
+document.getElementById("income128SummaryText").innerText =
+"Based on an investment amount of " + income128FormatRand(investmentAmount) +
+" and a targeted annual return of " + (returnRate * 100).toFixed(1) +
+"%, the estimated gross annual income is " + income128FormatRand(grossAnnualIncome) +
+". After assumed dividends tax of " + (dividendTaxRate * 100).toFixed(1) +
+"%, the estimated net annual income is " + income128FormatRand(netAnnualIncome) +
+", or approximately " + income128FormatRand(netMonthlyIncome) +
+" per month. The illustrative five-year loyalty bonus is " +
+income128FormatRand(grossBonus) +
+" before dividends tax and " + income128FormatRand(netBonus) +
+" after dividends tax. Total estimated five-year net income, including the net bonus, is " +
+income128FormatRand(totalFiveYearNetIncome) +
+", equal to approximately " + (returnOnCapital * 100).toFixed(1) +
+"% of the original capital. This is an illustration only and must be checked against the actual product terms, liquidity rules, risk profile and tax treatment."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+ASSET 011 — AS Brokers 12.8% vs 14.2% Income Comparison Calculator
+
+
+<div id="asb-income-comparison-calculator">
+<style>
+#asb-income-comparison-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-income-comparison-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-income-comparison-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-table-wrap {
+overflow-x: auto;
+margin-top: 16px;
+}
+
+
+.asb-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 14px;
+}
+
+
+.asb-table th,
+.asb-table td {
+padding: 12px;
+border-bottom: 1px solid #e5e7eb;
+text-align: left;
+}
+
+
+.asb-table th {
+background: #f9fafb;
+color: #111827;
+font-weight: 800;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers 12.8% vs 14.2% Income Comparison Calculator</h2>
+
+
+<p class="intro">
+Compare two income options side by side. The 14.2% option gives higher income from day one, while the 12.8% option may produce a better five-year total when the loyalty bonus is included.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Investment amount</label>
+<input id="compareInvestmentAmount" type="number" value="1000000">
+</div>
+
+
+<div class="asb-field">
+<label>Dividends tax (%)</label>
+<input id="compareDividendTax" type="number" step="0.1" value="20">
+</div>
+
+
+<div class="asb-field">
+<label>Option A annual return (%)</label>
+<input id="compareRateA" type="number" step="0.1" value="12.8">
+</div>
+
+
+<div class="asb-field">
+<label>Option B annual return (%)</label>
+<input id="compareRateB" type="number" step="0.1" value="14.2">
+</div>
+
+
+<div class="asb-field">
+<label>Option A loyalty bonus after 5 years (%)</label>
+<input id="compareBonusA" type="number" step="0.1" value="10">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateIncomeComparison()">Compare income options</button>
+
+
+<div id="compareError" class="asb-error"></div>
+
+
+<div id="compareResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Higher monthly income from day one</div>
+<div id="compareMonthlyWinner" class="asb-value"></div>
+<div id="compareMonthlyWinnerText" class="asb-small"></div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Higher total over five years</div>
+<div id="compareFiveYearWinner" class="asb-value"></div>
+<div id="compareFiveYearWinnerText" class="asb-small"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Five-year difference</div>
+<div id="compareFiveYearDifference" class="asb-value"></div>
+</div>
+
+
+<div class="asb-table-wrap">
+<table class="asb-table">
+<thead>
+<tr>
+<th>Metric</th>
+<th>Option A: 12.8%</th>
+<th>Option B: 14.2%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gross annual return</td>
+<td id="compareGrossRateA"></td>
+<td id="compareGrossRateB"></td>
+</tr>
+<tr>
+<td>Gross annual income</td>
+<td id="compareGrossIncomeA"></td>
+<td id="compareGrossIncomeB"></td>
+</tr>
+<tr>
+<td>Annual dividends tax</td>
+<td id="compareTaxA"></td>
+<td id="compareTaxB"></td>
+</tr>
+<tr>
+<td>Net annual income</td>
+<td id="compareNetAnnualA"></td>
+<td id="compareNetAnnualB"></td>
+</tr>
+<tr>
+<td>Net monthly income</td>
+<td id="compareNetMonthlyA"></td>
+<td id="compareNetMonthlyB"></td>
+</tr>
+<tr>
+<td>Five-year net income</td>
+<td id="compareFiveYearIncomeA"></td>
+<td id="compareFiveYearIncomeB"></td>
+</tr>
+<tr>
+<td>Gross loyalty bonus</td>
+<td id="compareGrossBonusA"></td>
+<td>R 0</td>
+</tr>
+<tr>
+<td>Tax on loyalty bonus</td>
+<td id="compareBonusTaxA"></td>
+<td>R 0</td>
+</tr>
+<tr>
+<td>Net loyalty bonus</td>
+<td id="compareNetBonusA"></td>
+<td>R 0</td>
+</tr>
+<tr>
+<td>Total five-year income</td>
+<td id="compareTotalFiveYearA"></td>
+<td id="compareTotalFiveYearB"></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="compareSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Educational note</h3>
+<p>
+This calculator is an educational comparison of two targeted income structures using assumed dividends tax and an illustrative five-year loyalty bonus on Option A.
+It is not a quote, guarantee, recommendation or offer to invest. Product terms, risk, liquidity, fees, return profile and tax treatment must be confirmed before any investment decision is made.
+</p>
+
+
+<h3>Important liquidity note</h3>
+<p>
+Some income investments, including unlisted preference share structures, may be illiquid. Withdrawals may be restricted, subject to notice periods, penalties, product rules and market conditions.
+</p>
+
+
+<h3>Next step</h3>
+<p>
+Your calculator result is only the first step. Learn what this result means and how income, tax, loyalty bonuses, liquidity and investment suitability work together.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function compareFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function compareGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateIncomeComparison() {
+const investmentAmount = compareGetNumber("compareInvestmentAmount");
+const dividendTaxRate = compareGetNumber("compareDividendTax") / 100;
+const rateA = compareGetNumber("compareRateA") / 100;
+const rateB = compareGetNumber("compareRateB") / 100;
+const bonusRateA = compareGetNumber("compareBonusA") / 100;
+
+
+const errorBox = document.getElementById("compareError");
+const resultsBox = document.getElementById("compareResults");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+
+
+if (
+isNaN(investmentAmount) ||
+isNaN(dividendTaxRate) ||
+isNaN(rateA) ||
+isNaN(rateB) ||
+isNaN(bonusRateA)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (investmentAmount <= 0) {
+errorBox.innerText = "Investment amount must be greater than zero."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (dividendTaxRate < 0 || dividendTaxRate >= 1) {
+errorBox.innerText = "Dividends tax must be between 0% and 99%."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (rateA < 0 || rateB < 0 || bonusRateA < 0) {
+errorBox.innerText = "Return and bonus rates cannot be negative."
+errorBox.style.display = "block"
+return;
+}
+
+
+const grossAnnualA = investmentAmount * rateA;
+const grossAnnualB = investmentAmount * rateB;
+
+
+const taxA = grossAnnualA * dividendTaxRate;
+const taxB = grossAnnualB * dividendTaxRate;
+
+
+const netAnnualA = grossAnnualA - taxA;
+const netAnnualB = grossAnnualB - taxB;
+
+
+const netMonthlyA = netAnnualA / 12;
+const netMonthlyB = netAnnualB / 12;
+
+
+const fiveYearIncomeA = netAnnualA * 5;
+const fiveYearIncomeB = netAnnualB * 5;
+
+
+const grossBonusA = investmentAmount * bonusRateA;
+const bonusTaxA = grossBonusA * dividendTaxRate;
+const netBonusA = grossBonusA - bonusTaxA;
+
+
+const totalFiveYearA = fiveYearIncomeA + netBonusA;
+const totalFiveYearB = fiveYearIncomeB;
+
+
+const monthlyDifference = Math.abs(netMonthlyB - netMonthlyA);
+const fiveYearDifference = Math.abs(totalFiveYearA - totalFiveYearB);
+
+
+const monthlyWinner = netMonthlyA > netMonthlyB ? "Option A" : "Option B"
+const fiveYearWinner = totalFiveYearA > totalFiveYearB ? "Option A" : "Option B"
+
+
+document.getElementById("compareMonthlyWinner").innerText = monthlyWinner;
+document.getElementById("compareMonthlyWinnerText").innerText =
+monthlyWinner + " provides approximately " + compareFormatRand(monthlyDifference) +
+" more net monthly income from day one."
+
+
+document.getElementById("compareFiveYearWinner").innerText = fiveYearWinner;
+document.getElementById("compareFiveYearWinnerText").innerText =
+fiveYearWinner + " provides approximately " + compareFormatRand(fiveYearDifference) +
+" more total net income over five years."
+
+
+document.getElementById("compareFiveYearDifference").innerText =
+compareFormatRand(fiveYearDifference);
+
+
+document.getElementById("compareGrossRateA").innerText = (rateA * 100).toFixed(1) + "%"
+document.getElementById("compareGrossRateB").innerText = (rateB * 100).toFixed(1) + "%"
+
+
+document.getElementById("compareGrossIncomeA").innerText = compareFormatRand(grossAnnualA);
+document.getElementById("compareGrossIncomeB").innerText = compareFormatRand(grossAnnualB);
+
+
+document.getElementById("compareTaxA").innerText = compareFormatRand(taxA);
+document.getElementById("compareTaxB").innerText = compareFormatRand(taxB);
+
+
+document.getElementById("compareNetAnnualA").innerText = compareFormatRand(netAnnualA);
+document.getElementById("compareNetAnnualB").innerText = compareFormatRand(netAnnualB);
+
+
+document.getElementById("compareNetMonthlyA").innerText = compareFormatRand(netMonthlyA);
+document.getElementById("compareNetMonthlyB").innerText = compareFormatRand(netMonthlyB);
+
+
+document.getElementById("compareFiveYearIncomeA").innerText = compareFormatRand(fiveYearIncomeA);
+document.getElementById("compareFiveYearIncomeB").innerText = compareFormatRand(fiveYearIncomeB);
+
+
+document.getElementById("compareGrossBonusA").innerText = compareFormatRand(grossBonusA);
+document.getElementById("compareBonusTaxA").innerText = compareFormatRand(bonusTaxA);
+document.getElementById("compareNetBonusA").innerText = compareFormatRand(netBonusA);
+
+
+document.getElementById("compareTotalFiveYearA").innerText = compareFormatRand(totalFiveYearA);
+document.getElementById("compareTotalFiveYearB").innerText = compareFormatRand(totalFiveYearB);
+
+
+document.getElementById("compareSummaryText").innerText =
+"Option B at " + (rateB * 100).toFixed(1) +
+"% provides the higher net monthly income from day one by approximately " +
+compareFormatRand(monthlyDifference) +
+" per month. Option A at " + (rateA * 100).toFixed(1) +
+"% provides lower monthly income, but includes an illustrative five-year loyalty bonus of " +
+compareFormatRand(grossBonusA) +
+" before dividends tax and " + compareFormatRand(netBonusA) +
+" after dividends tax. Over five years, Option " +
+(fiveYearWinner === "Option A" ? "A" : "B") +
+" produces the higher total net income by approximately " +
+compareFormatRand(fiveYearDifference) +
+". The better option depends on whether the client values higher monthly cash flow from day one or a stronger total five-year outcome, subject to product risk, liquidity, tax and suitability."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>
+
+
+
+
+
+Asset 012 Strategic Growth / Five-Year Maturity Value Calculator.
+
+
+
+
+<div id="asb-strategic-growth-calculator">
+<style>
+#asb-strategic-growth-calculator {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+
+
+#asb-strategic-growth-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+
+
+#asb-strategic-growth-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+
+
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+
+
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+
+
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+
+
+.asb-field input {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+
+
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+
+
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+
+
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+
+
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+
+
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+
+
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+
+
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+
+
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+
+
+.asb-table-wrap {
+overflow-x: auto;
+margin-top: 16px;
+}
+
+
+.asb-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 14px;
+}
+
+
+.asb-table th,
+.asb-table td {
+padding: 12px;
+border-bottom: 1px solid #e5e7eb;
+text-align: left;
+}
+
+
+.asb-table th {
+background: #f9fafb;
+color: #111827;
+font-weight: 800;
+}
+
+
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+
+
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+
+
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+
+
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+
+
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+
+
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+
+<h2>AS Brokers Strategic Growth Portfolio Calculator</h2>
+
+
+<p class="intro">
+Estimate what your investment could be worth after five years if returns are accumulated instead of paid out as monthly income.
+This calculator uses a 14.5% annual return assumption, a five-year term, and 20% dividends tax on accumulated growth.
+</p>
+
+
+<div class="asb-grid">
+<div class="asb-field">
+<label>Investment amount</label>
+<input id="growthInvestmentAmount" type="number" value="1000000">
+</div>
+
+
+<div class="asb-field">
+<label>Annual return (%)</label>
+<input id="growthAnnualReturn" type="number" step="0.1" value="14.5">
+</div>
+
+
+<div class="asb-field">
+<label>Investment term (years)</label>
+<input id="growthYears" type="number" value="5">
+</div>
+
+
+<div class="asb-field">
+<label>Dividends tax on growth (%)</label>
+<input id="growthDividendTax" type="number" step="0.1" value="20">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateStrategicGrowth()">Calculate my 5-year growth</button>
+
+
+<div id="growthError" class="asb-error"></div>
+
+
+<div id="growthResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Projected value at maturity</div>
+<div id="growthProjectedValue" class="asb-value"></div>
+<div class="asb-small">
+Estimated value after accumulated growth and dividends tax on growth.
+</div>
+</div>
+
+
+<div class="asb-grid">
+<div class="asb-result-box">
+<div class="asb-label">Capital invested</div>
+<div id="growthCapitalInvested" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net growth</div>
+<div id="growthNetGrowth" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Gross value before tax</div>
+<div id="growthGrossValue" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Net return over term</div>
+<div id="growthNetReturnPercent" class="asb-value"></div>
+</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Tax on accumulated growth</div>
+<div id="growthTaxSummary" class="asb-small"></div>
+</div>
+
+
+<div class="asb-table-wrap">
+<table class="asb-table">
+<thead>
+<tr>
+<th>Year</th>
+<th>Gross accumulated value</th>
+<th>Gross growth</th>
+</tr>
+</thead>
+<tbody id="growthYearTable"></tbody>
+</table>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means</div>
+<div id="growthSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+
+<div class="asb-cta">
+<h3>Who this calculator is for</h3>
+<p>
+This calculator is most relevant for investors who do not need monthly income now and want to understand the potential
+five-year maturity value of an accumulated-return strategy.
+</p>
+
+
+<h3>Important liquidity note</h3>
+<p>
+Unlisted preference share investments may be illiquid. Early redemption may be restricted, subject to issuer discretion,
+notice periods, penalties, product rules and market conditions.
+</p>
+
+
+<h3>Educational note</h3>
+<p>
+This calculator is for illustration only. It is not a quote, guarantee, recommendation or offer to invest.
+Returns, tax treatment, liquidity, suitability, fees and product terms must be confirmed before any investment decision is made.
+</p>
+
+
+<div class="asb-disabled-button">
+Learn what this result means by following the link below
+</div>
+</div>
+
+
+<script>
+function growthFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function growthGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateStrategicGrowth() {
+const investmentAmount = growthGetNumber("growthInvestmentAmount");
+const annualReturn = growthGetNumber("growthAnnualReturn") / 100;
+const years = growthGetNumber("growthYears");
+const dividendTaxRate = growthGetNumber("growthDividendTax") / 100;
+
+
+const errorBox = document.getElementById("growthError");
+const resultsBox = document.getElementById("growthResults");
+const yearTable = document.getElementById("growthYearTable");
+
+
+errorBox.style.display = "none"
+resultsBox.style.display = "none"
+yearTable.innerHTML = ""
+
+
+if (
+isNaN(investmentAmount) ||
+isNaN(annualReturn) ||
+isNaN(years) ||
+isNaN(dividendTaxRate)
+) {
+errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (investmentAmount < 100000) {
+errorBox.innerText = "Minimum investment amount is R100,000."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (annualReturn < 0 || years <= 0 || dividendTaxRate < 0 || dividendTaxRate >= 1) {
+errorBox.innerText = "Please check your return, term and tax assumptions."
+errorBox.style.display = "block"
+return;
+}
+
+
+const grossValue = investmentAmount * Math.pow(1 + annualReturn, years);
+const grossGrowth = grossValue - investmentAmount;
+const taxOnGrowth = grossGrowth * dividendTaxRate;
+const netGrowth = grossGrowth - taxOnGrowth;
+const projectedValue = investmentAmount + netGrowth;
+const netReturnPercent = (netGrowth / investmentAmount) * 100;
+
+
+document.getElementById("growthProjectedValue").innerText = growthFormatRand(projectedValue);
+document.getElementById("growthCapitalInvested").innerText = growthFormatRand(investmentAmount);
+document.getElementById("growthNetGrowth").innerText = growthFormatRand(netGrowth);
+document.getElementById("growthGrossValue").innerText = growthFormatRand(grossValue);
+document.getElementById("growthNetReturnPercent").innerText = netReturnPercent.toFixed(1) + "%"
+
+
+document.getElementById("growthTaxSummary").innerHTML =
+"Gross accumulated growth: <strong>" + growthFormatRand(grossGrowth) + "</strong><br>" +
+"Less dividends tax on growth: <strong>− " + growthFormatRand(taxOnGrowth) + "</strong><br>" +
+"Net growth kept by investor: <strong>" + growthFormatRand(netGrowth) + "</strong>"
+
+
+for (let year = 1; year <= years; year++) {
+const yearValue = investmentAmount * Math.pow(1 + annualReturn, year);
+const yearGrowth = yearValue - investmentAmount;
+
+
+const row = document.createElement("tr");
+row.innerHTML =
+"<td>Year " + year + "</td>" +
+"<td>" + growthFormatRand(yearValue) + "</td>" +
+"<td>" + growthFormatRand(yearGrowth) + "</td>"
+
+
+yearTable.appendChild(row);
+}
+
+
+document.getElementById("growthSummaryText").innerText =
+"Based on an investment of " + growthFormatRand(investmentAmount) +
+", an annual accumulated return assumption of " + (annualReturn * 100).toFixed(1) +
+"% over " + years + " years would produce a gross maturity value of " +
+growthFormatRand(grossValue) + ". After applying dividends tax of " +
+(dividendTaxRate * 100).toFixed(1) + "% to the accumulated growth, the projected value at maturity is " +
+growthFormatRand(projectedValue) + ". This strategy is designed for investors who want capital growth rather than monthly income, subject to product risk, liquidity, tax and suitability."
+
+
+resultsBox.style.display = "block"
+}
+</script>
+</div>

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
+import { CrmAiMorningBrief } from "@/components/crm/CrmAiMorningBrief";
+import { CrmLeadAdvisorChat } from "@/components/crm/CrmLeadAdvisorChat";
 import { useCrm } from "@/components/crm/CrmContext";
 import {
   KANBAN_COLUMNS,
@@ -99,7 +101,7 @@ export function CrmDashboardClient({
   tasksDueToday: CrmTask[];
   recentCorrespondence: CrmCorrespondence[];
 }) {
-  const { role, visibleLeads } = useCrm();
+  const { role, visibleLeads, canUseAi } = useCrm();
 
   const stats = useMemo(
     () => getCrmStatsFromLeads(visibleLeads, openTasks, clientCount),
@@ -141,6 +143,13 @@ export function CrmDashboardClient({
           </Link>
         </div>
       </header>
+
+      {canUseAi ? (
+        <>
+          <CrmAiMorningBrief />
+          <CrmLeadAdvisorChat />
+        </>
+      ) : null}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Total leads" value={stats.totalLeads} href="/crm/leads" />

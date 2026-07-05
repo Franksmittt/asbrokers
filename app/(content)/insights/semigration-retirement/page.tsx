@@ -44,7 +44,7 @@ export default function SemigrationRetirementPage() {
           </div>
           <div className="flex flex-wrap gap-4">
             <WarmPrimaryLink href="/retirement">Retirement Reality Calculator</WarmPrimaryLink>
-            <WarmSecondaryLink href="/everest-amethyst-living-annuity">Amethyst Living Annuity</WarmSecondaryLink>
+            <WarmSecondaryLink href="/calculators#asset-014-living-annuity">Living Annuity Calculator</WarmSecondaryLink>
             <WarmSecondaryLink href="/contact">Contact us</WarmSecondaryLink>
           </div>
         </div>

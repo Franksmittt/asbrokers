@@ -1,7 +1,8 @@
 import "server-only";
 
-import { crmLeads, getDb } from "@/lib/db";
+import { applyAutoAdvisorRoute } from "@/lib/crm/lead-metadata";
 import type { ServiceCategory } from "@/lib/crm/types";
+import { crmLeads, getDb } from "@/lib/db";
 
 export type InsertCrmLeadInput = {
   sourceFunnel: string;
@@ -28,7 +29,15 @@ export async function insertCrmLead(input: InsertCrmLeadInput): Promise<string |
       })
       .returning({ id: crmLeads.id });
 
-    return row?.id ?? null;
+    const leadId = row?.id ?? null;
+    if (leadId) {
+      void applyAutoAdvisorRoute(
+        leadId,
+        (input.serviceCategory as ServiceCategory) ?? "retirement_everest"
+      );
+    }
+
+    return leadId;
   } catch (error) {
     console.error("[CRM] insertCrmLead failed:", error);
     return null;

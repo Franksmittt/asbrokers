@@ -1,5 +1,6 @@
 import { User } from "@/components/icons";
 import { PortalDashboardChartsLazy } from "@/components/portal/PortalDashboardChartsLazy";
+import { PortalRetirementReadiness } from "@/components/portal/PortalRetirementReadiness";
 import {
   advisor,
   clientProfile,
@@ -32,6 +33,10 @@ export default function PortalDashboardPage() {
           Portfolio snapshot as at June 2026 — illustrative prototype data.
         </p>
       </header>
+
+      <div className="mb-8">
+        <PortalRetirementReadiness />
+      </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
         {/* Portfolio summary — spans 2 cols on large screens */}

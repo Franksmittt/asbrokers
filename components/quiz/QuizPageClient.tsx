@@ -291,21 +291,21 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
     if (concern === "Low Investment Yields" && capitalOver100k)
       return {
         title: "Everest Wealth 12.8% Strategic Income",
-        href: "/everest-128-product",
+        href: "/everest-wealth",
         description:
           "Targeted income option for capital from R100,000. Ideal when your main concern is low investment yields.",
       };
     if (concern === "Retirement Shortfall" && age === "55+")
       return {
         title: "Amethyst Living Annuity",
-        href: "/everest-amethyst-living-annuity",
+        href: "/calculators#asset-014-living-annuity",
         description:
           "Structure pension/retirement capital with flexible drawdown (2.5%–17.5%). Suited to retirement shortfall and 55+.",
       };
     if (concern === "Estate Taxes")
       return {
         title: "Annual Estate Reduction Strategy",
-        href: "/annual-estate-reduction-strategy",
+        href: "/calculators#asset-008-estate-reduction",
         description: "Use R100k/R200k annual donation allowances to reduce estate duty over time.",
       };
     return null;
@@ -321,18 +321,18 @@ function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToA
     if (concern === "Retirement Shortfall")
       return [
         { label: "Retirement Reality Calculator", href: "/retirement" },
-        { label: "Income in Retirement", href: "/income-in-retirement" },
+        { label: "Life of capital calculator", href: "/calculators#asset-004-life-of-capital" },
         { label: "Everest Wealth", href: "/everest-wealth" },
       ];
     if (concern === "Estate Taxes")
       return [
         { label: "Planning tools", href: "/calculators" },
-        { label: "Annual Estate Reduction Strategy", href: "/annual-estate-reduction-strategy" },
+        { label: "Estate reduction calculator", href: "/calculators#asset-008-estate-reduction" },
       ];
     if (concern === "Low Investment Yields")
       return [
         { label: "Everest Wealth", href: "/everest-wealth" },
-        { label: "12.8% Strategic Income", href: "/everest-128-product" },
+        { label: "12.8% Strategic Income", href: "/calculators#asset-010-everest-128-income" },
         { label: "Retirement planning", href: "/retirement" },
       ];
     return [

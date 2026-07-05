@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import {
+  CALCULATOR_REGISTRY,
+  formatPublicCalculatorTitle,
+  formatStaffCalculatorLabel,
+} from "@/lib/calculators/registry";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
 export const metadata = buildPageMetadata({
   path: "/calculators",
   title: "Financial Calculators",
   description:
-    "AS Brokers financial calculators are being refreshed. Book a consultation for personalised planning. FSP 17273.",
+    "AS Brokers ASSET 001–017 planning calculators — retirement, Everest Wealth, estate, tax, and insurance. Educational tools only. FSP 17273.",
 });
 
 export default function CalculatorsPage() {
@@ -18,22 +23,47 @@ export default function CalculatorsPage() {
         webPage={{
           name: "Financial Calculators | AS Brokers CC",
           description:
-            "AS Brokers financial calculators are being refreshed. Book a consultation for personalised planning.",
+            "Educational planning calculators for retirement, Everest Wealth, estate duty, tax, and insurance.",
         }}
       />
 
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 md:px-8">
+      <section className="pt-32 pb-12 md:pt-40 md:pb-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">Planning tools</p>
           <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Our calculators are being refreshed.
+            AS Brokers calculator library
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-stone-600 sm:text-lg">
-            We are rebuilding our planning calculators with clearer assumptions and a warmer experience.
-            The new AS Brokers calculator library (ASSET 001–017) is available in insights and the team office.
-            The public calculator hub will return here soon.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-stone-600 sm:text-lg">
+            Seventeen illustrative calculators (ASSET 001–017) for retirement, Everest Wealth, estate planning,
+            tax, and insurance. Results are educational only — not financial advice.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+        </div>
+      </section>
+
+      <section className="pb-20 md:pb-28">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {CALCULATOR_REGISTRY.map((entry) => (
+              <li key={entry.id} id={entry.id}>
+                <Link
+                  href={entry.embedPath}
+                  prefetch={false}
+                  className="group flex h-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200 transition-all duration-300 ease-in-out hover:ring-samsung-blue/40 hover:shadow-md"
+                >
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-400">
+                    {entry.assetCode}
+                  </p>
+                  <h2 className="mt-2 text-base font-semibold leading-snug text-shark group-hover:text-samsung-blue">
+                    {formatPublicCalculatorTitle(entry)}
+                  </h2>
+                  <p className="mt-2 text-sm text-stone-500">{formatStaffCalculatorLabel(entry)}</p>
+                  <span className="mt-auto pt-4 text-sm font-semibold text-samsung-blue">Open calculator →</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/contact"
               prefetch={false}
@@ -42,11 +72,11 @@ export default function CalculatorsPage() {
               Speak with an adviser
             </Link>
             <Link
-              href="/insights"
+              href="/retirement"
               prefetch={false}
               className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-shark ring-1 ring-stone-200 transition-colors duration-300 ease-in-out hover:bg-stone-50"
             >
-              Read insights
+              Retirement hub
             </Link>
           </div>
         </div>

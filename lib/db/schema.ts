@@ -356,3 +356,27 @@ export const crmStaffProfiles = pgTable(
 
 export type CrmStaffProfile = typeof crmStaffProfiles.$inferSelect;
 export type NewCrmStaffProfile = typeof crmStaffProfiles.$inferInsert;
+
+/**
+ * Append-only audit trail for CRM Gemini AI actions (POPIA / FAIS explainability).
+ */
+export const crmAiAuditLog = pgTable(
+  "crm_ai_audit_log",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    staffUserId: uuid("staff_user_id").references(() => authUsers.id, { onDelete: "set null" }),
+    actionType: varchar("action_type", { length: 64 }).notNull(),
+    leadId: uuid("lead_id").references(() => crmLeads.id, { onDelete: "set null" }),
+    model: varchar("model", { length: 64 }),
+    summary: text("summary"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("crm_ai_audit_log_created_idx").on(table.createdAt),
+    index("crm_ai_audit_log_staff_idx").on(table.staffUserId),
+    index("crm_ai_audit_log_lead_idx").on(table.leadId),
+  ]
+);
+
+export type CrmAiAuditLog = typeof crmAiAuditLog.$inferSelect;
+export type NewCrmAiAuditLog = typeof crmAiAuditLog.$inferInsert;

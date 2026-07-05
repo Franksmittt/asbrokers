@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { Bell, MessageCircle } from "@/components/icons";
+import { KanbanAiToolbar } from "@/components/crm/KanbanAiToolbar";
+import { ComplianceFlagBadge } from "@/components/crm/ComplianceFlagBadge";
 import { useCrm } from "@/components/crm/CrmContext";
 import {
   KANBAN_COLUMNS,
@@ -163,8 +165,17 @@ function LeadCard({
         <span className="text-[10px] font-medium text-zinc-400">
           {SERVICE_LABELS[lead.service_category]}
         </span>
+        {lead.recommendedAdvisorName ? (
+          <span className="text-[10px] text-zinc-500">→ {lead.recommendedAdvisorName}</span>
+        ) : null}
+        {lead.aiPriorityLabel ? (
+          <span className="rounded-full bg-[#3ecf8e]/10 px-2 py-0.5 text-[9px] font-medium text-[#3ecf8e]">
+            ✦ {lead.aiPriorityLabel}
+          </span>
+        ) : null}
+        <ComplianceFlagBadge lead={lead} compact />
         <span className="ml-auto rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold tabular-nums text-amber-400">
-          {lead.lead_score}
+          {lead.aiPriorityScore ?? lead.lead_score}
         </span>
       </div>
     </motion.div>
@@ -172,9 +183,22 @@ function LeadCard({
 }
 
 export function LeadsKanban() {
-  const { visibleLeads, updateLeadStatus, addReminder } = useCrm();
+  const { visibleLeads, updateLeadStatus, addReminder, canUseAi } = useCrm();
   const [hoverColumn, setHoverColumn] = useState<LeadStatus | null>(null);
+  const [aiSortEnabled, setAiSortEnabled] = useState(true);
   const draggingRef = useRef(false);
+
+  const sortLeads = useCallback(
+    (items: CrmLead[]) => {
+      if (!aiSortEnabled) return items;
+      return [...items].sort((a, b) => {
+        const aScore = a.aiPriorityScore ?? a.lead_score;
+        const bScore = b.aiPriorityScore ?? b.lead_score;
+        return bScore - aScore;
+      });
+    },
+    [aiSortEnabled]
+  );
 
   const handleDrop = useCallback(
     (leadId: string, point: { x: number; y: number }) => {
@@ -217,20 +241,26 @@ export function LeadsKanban() {
   const columns = useMemo(
     () =>
       KANBAN_COLUMNS.map((col) => {
-        const items = visibleLeads.filter((l) => l.status === col.status);
+        const items = sortLeads(visibleLeads.filter((l) => l.status === col.status));
         return {
           ...col,
           items,
           totalCapital: sumColumnCapital(items),
         };
       }),
-    [visibleLeads]
+    [visibleLeads, sortLeads]
   );
 
   return (
     <LayoutGroup>
+      {canUseAi ? (
+        <KanbanAiToolbar
+          aiSortEnabled={aiSortEnabled}
+          onToggleAiSort={() => setAiSortEnabled((v) => !v)}
+        />
+      ) : null}
       <div
-        className="flex gap-6 overflow-x-auto pb-8"
+        className="mt-4 flex gap-6 overflow-x-auto pb-8"
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerUp}

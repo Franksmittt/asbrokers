@@ -101,7 +101,6 @@ export const FOOTER_EXPLORE: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Calculators", href: "/calculators" },
-  { label: "The Lab", href: "/lab" },
   { label: "Solutions", href: "/solutions" },
   { label: "Insights", href: "/insights" },
   { label: "How we work", href: "/how-we-work" },

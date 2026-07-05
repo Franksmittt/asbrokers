@@ -1,0 +1,2181 @@
+Asset 013 Everest Income vs Growth Calculator 
+ 
+ 
+#asb-everest-strategy-comparison-calculator { 
+max-width: 860px; 
+margin: 24px auto; 
+padding: 24px; 
+border-radius: 18px; 
+background: #ffffff; 
+box-shadow: 0 8px 28px rgba(0,0,0,0.08); 
+font-family: Arial, sans-serif; 
+color: #1f2937; 
+} 
+ 
+ 
+#asb-everest-strategy-comparison-calculator h2 { 
+margin-top: 0; 
+font-size: 26px; 
+color: #111827; 
+} 
+ 
+ 
+#asb-everest-strategy-comparison-calculator p.intro { 
+color: #4b5563; 
+margin-bottom: 22px; 
+line-height: 1.5; 
+} 
+ 
+ 
+.asb-grid { 
+display: grid; 
+grid-template-columns: 1fr 1fr; 
+gap: 16px; 
+} 
+ 
+ 
+.asb-field { 
+display: flex; 
+flex-direction: column; 
+} 
+ 
+ 
+.asb-field label { 
+font-weight: 700; 
+margin-bottom: 6px; 
+font-size: 14px; 
+} 
+ 
+ 
+.asb-field input { 
+padding: 12px; 
+border: 1px solid #d1d5db; 
+border-radius: 10px; 
+font-size: 16px; 
+background: #2f3336; 
+color: #ffffff; 
+} 
+ 
+ 
+.asb-button { 
+width: 100%; 
+margin-top: 22px; 
+padding: 14px 18px; 
+border: none; 
+border-radius: 12px; 
+background: #111827; 
+color: #ffffff; 
+font-size: 17px; 
+font-weight: 700; 
+cursor: pointer; 
+} 
+ 
+ 
+.asb-results { 
+margin-top: 26px; 
+display: none; 
+} 
+ 
+ 
+.asb-result-box { 
+padding: 18px; 
+border-radius: 14px; 
+background: #f9fafb; 
+border: 1px solid #e5e7eb; 
+margin-bottom: 14px; 
+} 
+ 
+ 
+.asb-result-box.main { 
+background: #111827; 
+color: #ffffff; 
+} 
+ 
+ 
+.asb-label { 
+font-size: 13px; 
+text-transform: uppercase; 
+letter-spacing: 0.04em; 
+opacity: 0.75; 
+margin-bottom: 6px; 
+} 
+ 
+ 
+.asb-value { 
+font-size: 28px; 
+font-weight: 800; 
+} 
+ 
+ 
+.asb-small { 
+font-size: 14px; 
+color: #6b7280; 
+line-height: 1.5; 
+} 
+ 
+ 
+.asb-result-box.main .asb-small { 
+color: #d1d5db; 
+} 
+ 
+ 
+.asb-table-wrap { 
+overflow-x: auto; 
+margin-top: 16px; 
+} 
+ 
+ 
+.asb-table { 
+width: 100%; 
+border-collapse: collapse; 
+font-size: 14px; 
+} 
+ 
+ 
+.asb-table th, 
+.asb-table td { 
+padding: 12px; 
+border-bottom: 1px solid #e5e7eb; 
+text-align: left; 
+vertical-align: top; 
+} 
+ 
+ 
+.asb-table th { 
+background: #f9fafb; 
+color: #111827; 
+font-weight: 800; 
+} 
+ 
+ 
+.asb-error { 
+margin-top: 16px; 
+color: #b91c1c; 
+font-weight: 700; 
+display: none; 
+} 
+ 
+ 
+.asb-cta { 
+margin-top: 18px; 
+padding: 18px; 
+border-radius: 14px; 
+background: #f3f4f6; 
+border: 1px solid #e5e7eb; 
+} 
+ 
+ 
+.asb-cta h3 { 
+margin-top: 0; 
+margin-bottom: 8px; 
+font-size: 18px; 
+color: #111827; 
+} 
+ 
+ 
+.asb-cta p { 
+margin: 0 0 14px 0; 
+color: #4b5563; 
+line-height: 1.5; 
+font-size: 14px; 
+} 
+ 
+ 
+.asb-disabled-button { 
+display: inline-block; 
+padding: 12px 16px; 
+border-radius: 10px; 
+background: #111827; 
+color: #ffffff; 
+font-weight: 700; 
+font-size: 14px; 
+cursor: default; 
+} 
+ 
+ 
+@media (max-width: 640px) { 
+.asb-grid { 
+grid-template-columns: 1fr; 
+} 
+ 
+ 
+.asb-value { 
+font-size: 24px; 
+} 
+} 
+ 
+ 
+ 
+ AS Brokers Everest Income vs Growth Comparison Calculator 
+ 
+ 
+ 
+Compare three Everest-style strategies side by side: 12.8% income with a five-year loyalty bonus, 
+14.2% higher income from day one, and 14.5% accumulated growth paid at maturity. 
+ 
+ 
+ 
+ 
+ 
+ Investment amount 
+ 
+ 
+ 
+ 
+ 
+ Dividends tax (%) 
+ 
+ 
+ 
+ 
+ 
+ Comparison period (years) 
+ 
+ 
+ 
+ 
+ 
+ 12.8% income option (%) 
+ 
+ 
+ 
+ 
+ 
+ 12.8% loyalty bonus after 5 years (%) 
+ 
+ 
+ 
+ 
+ 
+ 14.2% income option (%) 
+ 
+ 
+ 
+ 
+ 
+ 14.5% growth option (%) 
+ 
+ 
+ 
+ 
+ 
+ Compare the three strategies 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Highest monthly income 
+ 
+ 
+ 
+ 
+ 
+ 
+ Highest total five-year outcome 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Metric 
+ 12.8% Income + Bonus 
+ 14.2% Income 
+ 14.5% Growth 
+ 
+ 
+ 
+ 
+ Gross annual return 
+ 
+ 
+ 
+ 
+ 
+ Net monthly income 
+ 
+ 
+ 
+ 
+ 
+ Net annual income 
+ 
+ 
+ 
+ 
+ 
+ Total net income paid over period 
+ 
+ 
+ 
+ 
+ 
+ Net bonus / net accumulated growth 
+ 
+ R 0 
+ 
+ 
+ 
+ Projected capital / maturity value 
+ 
+ 
+ 
+ 
+ 
+ Total five-year outcome including capital 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Decision explanation 
+ 
+ 
+ 
+ 
+ 
+ Strategic interpretation 
+ 
+ 12.8% income + bonus: lower monthly income, but stronger five-year income outcome because of the loyalty bonus. 
+ 14.2% income: strongest income from day one, but no loyalty bonus. 
+ 14.5% growth: no monthly income, but strongest maturity value if the investor can leave the capital untouched. 
+ 
+ 
+ 
+ 
+ 
+ 
+ Important note 
+ 
+This calculator compares income and growth strategies for educational purposes only. 
+It does not constitute advice, a quote, a recommendation, a guarantee, or an offer to invest. 
+ 
+ 
+ 
+ Liquidity warning 
+ 
+Unlisted preference share investments may be illiquid. Withdrawals may be restricted, subject to notice periods, 
+issuer discretion, penalties, product terms and market conditions. 
+ 
+ 
+ 
+ Next step 
+ 
+The correct option depends on whether the investor needs income now, wants higher total income over five years, 
+or wants to maximise capital growth at maturity. 
+ 
+ 
+ 
+ 
+Learn what this result means by following the link below 
+ 
+ 
+ 
+ 
+ 
+function evFormatRand(value) { 
+return "R " + Math.round(value).toLocaleString("en-ZA"); 
+} 
+ 
+ 
+function evGetNumber(id) { 
+return parseFloat(document.getElementById(id).value); 
+} 
+ 
+ 
+function calculateEverestStrategyComparison() { 
+const investmentAmount = evGetNumber("evInvestmentAmount"); 
+const dividendTaxRate = evGetNumber("evDividendTax") / 100; 
+const years = evGetNumber("evYears"); 
+ 
+ 
+const rate128 = evGetNumber("evRate128") / 100; 
+const bonus128 = evGetNumber("evBonus128") / 100; 
+const rate142 = evGetNumber("evRate142") / 100; 
+const rate145 = evGetNumber("evRate145") / 100; 
+ 
+ 
+const errorBox = document.getElementById("evError"); 
+const resultsBox = document.getElementById("evResults"); 
+ 
+ 
+errorBox.style.display = "none" 
+resultsBox.style.display = "none" 
+ 
+ 
+if ( 
+isNaN(investmentAmount) || 
+isNaN(dividendTaxRate) || 
+isNaN(years) || 
+isNaN(rate128) || 
+isNaN(bonus128) || 
+isNaN(rate142) || 
+isNaN(rate145) 
+) { 
+errorBox.innerText = "Please complete all fields." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+if (investmentAmount < 100000) { 
+errorBox.innerText = "Minimum investment amount is R100,000." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+if ( 
+dividendTaxRate < 0 || 
+dividendTaxRate >= 1 || 
+years <= 0 || 
+rate128 < 0 || 
+bonus128 < 0 || 
+rate142 < 0 || 
+rate145 < 0 
+) { 
+errorBox.innerText = "Please check the tax, return and term assumptions." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+/* 12.8% income option */ 
+const grossAnnual128 = investmentAmount * rate128; 
+const taxAnnual128 = grossAnnual128 * dividendTaxRate; 
+const netAnnual128 = grossAnnual128 - taxAnnual128; 
+const netMonthly128 = netAnnual128 / 12; 
+const totalIncome128 = netAnnual128 * years; 
+ 
+ 
+const grossBonus128 = years >= 5 ? investmentAmount * bonus128 : 0; 
+const bonusTax128 = grossBonus128 * dividendTaxRate; 
+const netBonus128 = grossBonus128 - bonusTax128; 
+ 
+ 
+const capital128 = investmentAmount; 
+const totalOutcome128 = capital128 + totalIncome128 + netBonus128; 
+ 
+ 
+/* 14.2% income option */ 
+const grossAnnual142 = investmentAmount * rate142; 
+const taxAnnual142 = grossAnnual142 * dividendTaxRate; 
+const netAnnual142 = grossAnnual142 - taxAnnual142; 
+const netMonthly142 = netAnnual142 / 12; 
+const totalIncome142 = netAnnual142 * years; 
+ 
+ 
+const capital142 = investmentAmount; 
+const totalOutcome142 = capital142 + totalIncome142; 
+ 
+ 
+/* 14.5% growth option */ 
+const grossValue145 = investmentAmount * Math.pow(1 + rate145, years); 
+const grossGrowth145 = grossValue145 - investmentAmount; 
+const taxGrowth145 = grossGrowth145 * dividendTaxRate; 
+const netGrowth145 = grossGrowth145 - taxGrowth145; 
+const maturityValue145 = investmentAmount + netGrowth145; 
+ 
+ 
+const netMonthly145 = 0; 
+const netAnnual145 = 0; 
+const totalIncome145 = 0; 
+const totalOutcome145 = maturityValue145; 
+ 
+ 
+/* Winners */ 
+const monthlyOptions = [ 
+{ name: "12.8% Income + Bonus", value: netMonthly128 }, 
+{ name: "14.2% Income", value: netMonthly142 }, 
+{ name: "14.5% Growth", value: netMonthly145 } 
+]; 
+ 
+ 
+const totalOptions = [ 
+{ name: "12.8% Income + Bonus", value: totalOutcome128 }, 
+{ name: "14.2% Income", value: totalOutcome142 }, 
+{ name: "14.5% Growth", value: totalOutcome145 } 
+]; 
+ 
+ 
+monthlyOptions.sort((a, b) => b.value - a.value); 
+totalOptions.sort((a, b) => b.value - a.value); 
+ 
+ 
+const monthlyWinner = monthlyOptions[0]; 
+const totalWinner = totalOptions[0]; 
+ 
+ 
+document.getElementById("evMonthlyWinner").innerText = monthlyWinner.name; 
+document.getElementById("evMonthlyWinnerText").innerText = 
+monthlyWinner.name + " provides the highest monthly income at approximately " + 
+evFormatRand(monthlyWinner.value) + " per month." 
+ 
+ 
+document.getElementById("evTotalWinner").innerText = totalWinner.name; 
+document.getElementById("evTotalWinnerText").innerText = 
+totalWinner.name + " produces the highest projected total outcome over " + 
+years + " years at approximately " + evFormatRand(totalWinner.value) + 
+", including capital where applicable." 
+ 
+ 
+/* Fill table */ 
+document.getElementById("evGrossRate128").innerText = (rate128 * 100).toFixed(1) + "%" 
+document.getElementById("evGrossRate142").innerText = (rate142 * 100).toFixed(1) + "%" 
+document.getElementById("evGrossRate145").innerText = (rate145 * 100).toFixed(1) + "% accumulated" 
+ 
+ 
+document.getElementById("evMonthly128").innerText = evFormatRand(netMonthly128); 
+document.getElementById("evMonthly142").innerText = evFormatRand(netMonthly142); 
+document.getElementById("evMonthly145").innerText = "R 0" 
+ 
+ 
+document.getElementById("evAnnual128").innerText = evFormatRand(netAnnual128); 
+document.getElementById("evAnnual142").innerText = evFormatRand(netAnnual142); 
+document.getElementById("evAnnual145").innerText = "R 0" 
+ 
+ 
+document.getElementById("evIncomePaid128").innerText = evFormatRand(totalIncome128); 
+document.getElementById("evIncomePaid142").innerText = evFormatRand(totalIncome142); 
+document.getElementById("evIncomePaid145").innerText = "R 0" 
+ 
+ 
+document.getElementById("evBonusNet128").innerText = evFormatRand(netBonus128); 
+document.getElementById("evGrowthNet145").innerText = evFormatRand(netGrowth145); 
+ 
+ 
+document.getElementById("evCapital128").innerText = evFormatRand(capital128); 
+document.getElementById("evCapital142").innerText = evFormatRand(capital142); 
+document.getElementById("evCapital145").innerText = evFormatRand(maturityValue145); 
+ 
+ 
+document.getElementById("evTotal128").innerText = evFormatRand(totalOutcome128); 
+document.getElementById("evTotal142").innerText = evFormatRand(totalOutcome142); 
+document.getElementById("evTotal145").innerText = evFormatRand(totalOutcome145); 
+ 
+ 
+document.getElementById("evSummaryText").innerText = 
+"If the investor needs monthly income, the 14.2% income option produces the highest income from day one. " + 
+"If the investor wants income but is willing to accept lower monthly cash flow in exchange for a five-year bonus, " + 
+"the 12.8% option may produce a stronger total income result over five years. " + 
+"If the investor does not need income and wants to maximise the projected maturity value, the 14.5% growth option is designed for capital accumulation. " + 
+"The correct strategy depends on income need, time horizon, liquidity requirement, tax position, product risk and suitability." 
+ 
+ 
+resultsBox.style.display = "block" 
+} 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Asset 014 Living Annuity 
+ 
+ 
+ 
+ 
+#asb-everest-living-annuity-calculator { 
+max-width: 760px; 
+margin: 24px auto; 
+padding: 24px; 
+border-radius: 18px; 
+background: #ffffff; 
+box-shadow: 0 8px 28px rgba(0,0,0,0.08); 
+font-family: Arial, sans-serif; 
+color: #1f2937; 
+} 
+ 
+ 
+#asb-everest-living-annuity-calculator h2 { 
+margin-top: 0; 
+font-size: 26px; 
+color: #111827; 
+} 
+ 
+ 
+#asb-everest-living-annuity-calculator p.intro { 
+color: #4b5563; 
+margin-bottom: 22px; 
+line-height: 1.5; 
+} 
+ 
+ 
+.asb-grid { 
+display: grid; 
+grid-template-columns: 1fr 1fr; 
+gap: 16px; 
+} 
+ 
+ 
+.asb-field { 
+display: flex; 
+flex-direction: column; 
+} 
+ 
+ 
+.asb-field label { 
+font-weight: 700; 
+margin-bottom: 6px; 
+font-size: 14px; 
+} 
+ 
+ 
+.asb-field input, 
+.asb-field select { 
+padding: 12px; 
+border: 1px solid #d1d5db; 
+border-radius: 10px; 
+font-size: 16px; 
+background: #2f3336; 
+color: #ffffff; 
+} 
+ 
+ 
+.asb-button { 
+width: 100%; 
+margin-top: 22px; 
+padding: 14px 18px; 
+border: none; 
+border-radius: 12px; 
+background: #111827; 
+color: #ffffff; 
+font-size: 17px; 
+font-weight: 700; 
+cursor: pointer; 
+} 
+ 
+ 
+.asb-results { 
+margin-top: 26px; 
+display: none; 
+} 
+ 
+ 
+.asb-result-box { 
+padding: 18px; 
+border-radius: 14px; 
+background: #f9fafb; 
+border: 1px solid #e5e7eb; 
+margin-bottom: 14px; 
+} 
+ 
+ 
+.asb-result-box.main { 
+background: #111827; 
+color: #ffffff; 
+} 
+ 
+ 
+.asb-label { 
+font-size: 13px; 
+text-transform: uppercase; 
+letter-spacing: 0.04em; 
+opacity: 0.75; 
+margin-bottom: 6px; 
+} 
+ 
+ 
+.asb-value { 
+font-size: 28px; 
+font-weight: 800; 
+} 
+ 
+ 
+.asb-small { 
+font-size: 14px; 
+color: #6b7280; 
+line-height: 1.5; 
+} 
+ 
+ 
+.asb-result-box.main .asb-small { 
+color: #d1d5db; 
+} 
+ 
+ 
+.asb-error { 
+margin-top: 16px; 
+color: #b91c1c; 
+font-weight: 700; 
+display: none; 
+} 
+ 
+ 
+.asb-cta { 
+margin-top: 18px; 
+padding: 18px; 
+border-radius: 14px; 
+background: #f3f4f6; 
+border: 1px solid #e5e7eb; 
+} 
+ 
+ 
+.asb-cta h3 { 
+margin-top: 0; 
+margin-bottom: 8px; 
+font-size: 18px; 
+color: #111827; 
+} 
+ 
+ 
+.asb-cta p { 
+margin: 0 0 14px 0; 
+color: #4b5563; 
+line-height: 1.5; 
+font-size: 14px; 
+} 
+ 
+ 
+.asb-disabled-button { 
+display: inline-block; 
+padding: 12px 16px; 
+border-radius: 10px; 
+background: #111827; 
+color: #ffffff; 
+font-weight: 700; 
+font-size: 14px; 
+cursor: default; 
+} 
+ 
+ 
+@media (max-width: 640px) { 
+.asb-grid { 
+grid-template-columns: 1fr; 
+} 
+} 
+ 
+ 
+ 
+ AS Brokers Living Annuity Income Calculator 
+ 
+ 
+ 
+Estimate the monthly income, reinvested surplus and five-year inflation protection value from a living annuity using a targeted 12.80% annual return assumption. 
+ 
+ 
+ 
+ 
+ 
+ Living annuity capital 
+ 
+ 
+ 
+ 
+ 
+ Annual drawdown rate (%) 
+ 
+ 2.5% 
+ 3% 
+ 4% 
+ 5% 
+ 6% 
+ 7% 
+ 8% 
+ 9% 
+ 10% 
+ 11% 
+ 12% 
+ 13% 
+ 14% 
+ 15% 
+ 16% 
+ 17% 
+ 17.5% 
+ 
+ 
+ 
+ 
+ 
+ Targeted annual return (%) 
+ 
+ 
+ 
+ 
+ 
+ Inflation protection dividend (%) 
+ 
+ 
+ 
+ 
+ 
+ Calculate living annuity income 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Gross monthly income 
+ 
+ Estimated monthly living annuity income before personal income tax. 
+ 
+ 
+ 
+ 
+ Annual income drawn 
+ 
+ The annual rand income selected from your living annuity capital. 
+ 
+ 
+ 
+ 
+ Estimated annual surplus return 
+ 
+ Targeted return remaining after the selected drawdown, before fees and product rules. 
+ 
+ 
+ 
+ 
+ Targeted annual return amount 
+ 
+ 
+ 
+ 
+ 
+ Targeted monthly return amount 
+ 
+ 
+ 
+ 
+ 
+ Surplus return percentage 
+ 
+ 
+ 
+ 
+ 
+ Five-year inflation protection dividend 
+ 
+ Illustrative special dividend based on original capital. 
+ 
+ 
+ 
+ 
+ Five-year income drawn 
+ 
+ 
+ 
+ 
+ 
+ Five-year income plus inflation protection 
+ 
+ 
+ 
+ 
+ 
+ What this means for you 
+ 
+ 
+ 
+ 
+ 
+ 
+ Educational note 
+ 
+This calculator illustrates how a living annuity income may look when compared with a targeted annual return. The selected drawdown determines the income paid to you. Any return above the drawdown may help preserve or grow capital, but this depends on product rules, fees, tax, investment performance and annual review terms. 
+ 
+ 
+ 
+ Important living annuity note 
+ 
+A living annuity does not guarantee that your capital will last for life. Drawdown rates are normally selected between 2.5% and 17.5% per year. A higher drawdown creates higher income now but increases long-term sustainability risk. 
+ 
+ 
+ 
+ Product and compliance note 
+ 
+This is an educational illustration only. It is not a quote, guarantee, recommendation or offer to invest. The product provider, investment terms, liquidity rules, return assumptions, fees, tax treatment and suitability must be confirmed before advice or implementation. 
+ 
+ 
+ 
+ 
+Learn what this result means by following the link below 
+ 
+ 
+ 
+ 
+ 
+function everestLaFormatRand(value) { 
+return "R " + Math.round(value).toLocaleString("en-ZA"); 
+} 
+ 
+ 
+function everestLaGetNumber(id) { 
+return parseFloat(document.getElementById(id).value); 
+} 
+ 
+ 
+function calculateEverestLivingAnnuity() { 
+const capital = everestLaGetNumber("everestLaCapital"); 
+const drawdownRate = everestLaGetNumber("everestLaDrawdown") / 100; 
+const returnRate = everestLaGetNumber("everestLaReturn") / 100; 
+const inflationDividendRate = everestLaGetNumber("everestLaInflationDividend") / 100; 
+ 
+ 
+const errorBox = document.getElementById("everestLaError"); 
+const resultsBox = document.getElementById("everestLaResults"); 
+ 
+ 
+errorBox.style.display = "none" 
+resultsBox.style.display = "none" 
+ 
+ 
+if ( 
+isNaN(capital) || 
+isNaN(drawdownRate) || 
+isNaN(returnRate) || 
+isNaN(inflationDividendRate) 
+) { 
+errorBox.innerText = "Please complete all fields." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+if (capital <= 0) { 
+errorBox.innerText = "Living annuity capital must be greater than zero." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+if (drawdownRate < 0.025 || drawdownRate > 0.175) { 
+errorBox.innerText = "Living annuity drawdown must be between 2.5% and 17.5%." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+if (returnRate < 0) { 
+errorBox.innerText = "Targeted annual return cannot be negative." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+if (inflationDividendRate < 0) { 
+errorBox.innerText = "Inflation protection dividend cannot be negative." 
+errorBox.style.display = "block" 
+return; 
+} 
+ 
+ 
+const annualIncome = capital * drawdownRate; 
+const monthlyIncome = annualIncome / 12; 
+ 
+ 
+const annualReturnAmount = capital * returnRate; 
+const monthlyReturnAmount = annualReturnAmount / 12; 
+ 
+ 
+const annualSurplus = annualReturnAmount - annualIncome; 
+const surplusPercent = returnRate - drawdownRate; 
+ 
+ 
+const inflationDividendAmount = capital * inflationDividendRate; 
+ 
+ 
+const fiveYearIncome = annualIncome * 5; 
+const fiveYearTotal = fiveYearIncome + inflationDividendAmount; 
+ 
+ 
+document.getElementById("everestLaMonthlyIncome").innerText = 
+everestLaFormatRand(monthlyIncome); 
+ 
+ 
+document.getElementById("everestLaAnnualIncome").innerText = 
+everestLaFormatRand(annualIncome); 
+ 
+ 
+document.getElementById("everestLaSurplus").innerText = 
+everestLaFormatRand(annualSurplus); 
+ 
+ 
+document.getElementById("everestLaAnnualReturnAmount").innerText = 
+everestLaFormatRand(annualReturnAmount); 
+ 
+ 
+document.getElementById("everestLaMonthlyReturnAmount").innerText = 
+everestLaFormatRand(monthlyReturnAmount); 
+ 
+ 
+document.getElementById("everestLaSurplusPercent").innerText = 
+(surplusPercent * 100).toFixed(2) + "%" 
+ 
+ 
+document.getElementById("everestLaInflationDividendAmount").innerText = 
+everestLaFormatRand(inflationDividendAmount); 
+ 
+ 
+document.getElementById("everestLaFiveYearIncome").innerText = 
+everestLaFormatRand(fiveYearIncome); 
+ 
+ 
+document.getElementById("everestLaFiveYearTotal").innerText = 
+everestLaFormatRand(fiveYearTotal); 
+ 
+ 
+let surplusMessage = "" 
+ 
+ 
+if (annualSurplus > 0) { 
+surplusMessage = 
+"The targeted annual return is higher than the selected drawdown, leaving an illustrative surplus of " + 
+everestLaFormatRand(annualSurplus) + 
+" per year before fees, tax, product rules and annual review conditions." 
+} else if (annualSurplus === 0) { 
+surplusMessage = 
+"The selected drawdown is equal to the targeted annual return. This leaves no illustrative surplus before fees, tax, product rules and annual review conditions." 
+} else { 
+surplusMessage = 
+"The selected drawdown is higher than the targeted annual return. This creates an illustrative shortfall of " + 
+everestLaFormatRand(Math.abs(annualSurplus)) + 
+" per year before fees, tax, product rules and annual review conditions." 
+} 
+ 
+ 
+document.getElementById("everestLaSummaryText").innerText = 
+"Based on living annuity capital of " + everestLaFormatRand(capital) + 
+", a selected drawdown rate of " + (drawdownRate * 100).toFixed(1) + 
+"% produces estimated gross income of " + everestLaFormatRand(monthlyIncome) + 
+" per month, or " + everestLaFormatRand(annualIncome) + 
+" per year. At a targeted annual return of " + (returnRate * 100).toFixed(2) + 
+"%, the illustrative annual return amount is " + everestLaFormatRand(annualReturnAmount) + 
+". " + surplusMessage + 
+" The illustrative five-year inflation protection dividend is " + 
+everestLaFormatRand(inflationDividendAmount) + 
+", based on " + (inflationDividendRate * 100).toFixed(1) + 
+"% of original capital. This calculator does not calculate personal income tax and does not confirm suitability." 
+ 
+ 
+resultsBox.style.display = "block" 
+} 
+ 
+ 
+ 
+ 
+ 
+Asset 015 Average Clause Calculator 
+ 
+ 
+ Average Clause Calculator 
+ 
+See how much a claim may be reduced when the sum insured is less than the actual replacement value. 
+ 
+ 
+ 
+ 
+ Warning: If your assets are underinsured, the average clause can reduce every claim, even a partial loss. 
+ 
+ 
+ 
+ 
+ Sum Insured 
+ 
+ 
+ 
+ 
+ 
+ Actual Value at Risk 
+ 
+ 
+ 
+ 
+ 
+ Claim Amount 
+ 
+ 
+ 
+ 
+ 
+ 
+ Average Percentage 
+ 50.00% 
+ 
+ 
+ 
+ 
+ Claim Payable 
+ R500 000 
+ 
+ 
+ 
+ 
+ Uninsured Portion 
+ R500 000 
+ 
+ 
+ 
+ 
+ 
+For illustration only. Claim outcomes depend on policy wording, endorsements, and insurer assessment. 
+This does not constitute financial or insurance advice. 
+ 
+ 
+ 
+ 
+ 
+ 
+.asb-average-calculator { 
+font-family: Inter, Arial, sans-serif; 
+max-width: 760px; 
+margin: 0 auto; 
+padding: 24px; 
+color: #ffffff; 
+} 
+ 
+ 
+.asb-calc-card { 
+background: linear-gradient(145deg, #1f2a2a, #151b1b); 
+border: 1px solid rgba(255,255,255,0.14); 
+border-radius: 28px; 
+padding: 32px; 
+box-shadow: 0 20px 50px rgba(0,0,0,0.35); 
+} 
+ 
+ 
+.asb-calc-card h2 { 
+margin: 0 0 8px; 
+font-size: 30px; 
+line-height: 1.2; 
+font-weight: 800; 
+} 
+ 
+ 
+.asb-subtitle { 
+margin: 0 0 24px; 
+color: #e3e7e7; 
+font-size: 16px; 
+line-height: 1.5; 
+} 
+ 
+ 
+.asb-warning { 
+border: 2px solid #d9a12b; 
+color: #fff1c9; 
+background: rgba(217,161,43,0.08); 
+border-radius: 14px; 
+padding: 16px 18px; 
+margin-bottom: 24px; 
+font-size: 15px; 
+line-height: 1.45; 
+} 
+ 
+ 
+.asb-field { 
+margin-bottom: 18px; 
+} 
+ 
+ 
+.asb-field label { 
+display: block; 
+margin-bottom: 8px; 
+font-weight: 700; 
+font-size: 15px; 
+color: #f4f7f7; 
+} 
+ 
+ 
+.asb-field input { 
+width: 100%; 
+box-sizing: border-box; 
+padding: 16px 18px; 
+border-radius: 14px; 
+border: 1px solid rgba(255,255,255,0.28); 
+background: rgba(255,255,255,0.08); 
+color: #ffffff; 
+font-size: 17px; 
+outline: none; 
+} 
+ 
+ 
+.asb-field input:focus { 
+border-color: #5eead4; 
+box-shadow: 0 0 0 3px rgba(94,234,212,0.15); 
+} 
+ 
+ 
+.asb-results { 
+display: grid; 
+grid-template-columns: repeat(3, 1fr); 
+gap: 14px; 
+margin-top: 26px; 
+} 
+ 
+ 
+.asb-result-box { 
+border: 1px solid rgba(255,255,255,0.22); 
+background: rgba(255,255,255,0.08); 
+border-radius: 14px; 
+padding: 18px; 
+min-height: 92px; 
+} 
+ 
+ 
+.asb-result-box span { 
+display: block; 
+text-transform: uppercase; 
+letter-spacing: 0.06em; 
+font-size: 12px; 
+font-weight: 800; 
+color: #d7dddd; 
+margin-bottom: 10px; 
+} 
+ 
+ 
+.asb-result-box strong { 
+display: block; 
+font-size: 25px; 
+line-height: 1.15; 
+font-weight: 900; 
+} 
+ 
+ 
+.asb-green { 
+background: rgba(20, 184, 166, 0.22); 
+border-color: rgba(94, 234, 212, 0.5); 
+} 
+ 
+ 
+.asb-green strong { 
+color: #5eead4; 
+} 
+ 
+ 
+.asb-red { 
+background: rgba(185, 65, 65, 0.24); 
+border-color: rgba(248, 113, 113, 0.5); 
+} 
+ 
+ 
+.asb-red strong { 
+color: #fecaca; 
+} 
+ 
+ 
+.asb-disclaimer { 
+margin: 22px 0 0; 
+color: #d5dddd; 
+font-size: 13px; 
+line-height: 1.45; 
+} 
+ 
+ 
+@media (max-width: 700px) { 
+.asb-average-calculator { 
+padding: 16px; 
+} 
+ 
+ 
+.asb-calc-card { 
+padding: 24px; 
+border-radius: 22px; 
+} 
+ 
+ 
+.asb-results { 
+grid-template-columns: 1fr; 
+} 
+ 
+ 
+.asb-calc-card h2 { 
+font-size: 26px; 
+} 
+} 
+ 
+ 
+ 
+ 
+function formatRand(value) { 
+return "R" + Math.round(value).toLocaleString("en-ZA").replace(/,/g, " "); 
+} 
+ 
+ 
+function calculateAverageClause() { 
+const sumInsured = Number(document.getElementById("sumInsured").value) || 0; 
+const actualValue = Number(document.getElementById("actualValue").value) || 0; 
+const claimAmount = Number(document.getElementById("claimAmount").value) || 0; 
+ 
+ 
+let averagePercentage = 0; 
+let claimPayable = 0; 
+ 
+ 
+if (actualValue > 0 && sumInsured > 0 && claimAmount > 0) { 
+averagePercentage = Math.min(sumInsured / actualValue, 1); 
+claimPayable = claimAmount * averagePercentage; 
+} 
+ 
+ 
+const uninsuredPortion = Math.max(claimAmount - claimPayable, 0); 
+ 
+ 
+document.getElementById("averagePercentage").textContent = 
+(averagePercentage * 100).toFixed(2) + "%" 
+ 
+ 
+document.getElementById("claimPayable").textContent = 
+formatRand(claimPayable); 
+ 
+ 
+document.getElementById("uninsuredPortion").textContent = 
+formatRand(uninsuredPortion); 
+} 
+ 
+ 
+document.querySelectorAll( 
+"#sumInsured, #actualValue, #claimAmount" 
+).forEach(input => { 
+input.addEventListener("input", calculateAverageClause); 
+}); 
+ 
+ 
+calculateAverageClause(); 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Asset 016 Growth Rate Comparison Calculator 
+ 
+ 
+ 
+ 
+ 
+ AS BROKERS 
+ The Power of Growth Calculator 
+ See how different growth rates change the future value of your capital and monthly contributions over time. 
+ 
+ 
+ 
+ 
+ Currency 
+ 
+ South African Rand (R) 
+ US Dollar ($) 
+ Euro (€) 
+ British Pound (£) 
+ Japanese Yen (¥) 
+ No Currency 
+ 
+ 
+ 
+ Initial Investment / Starting Value 
+ 
+ The amount you are starting with today. 
+ 
+ 
+ Years 
+ 
+ Number of years the investment will continue. 
+ 
+ 
+ Monthly Contribution 
+ 
+ Amount added each month. 
+ 
+ 
+ Annual Increase (%) 
+ 
+ Increase your monthly contribution each year. 
+ 
+ 
+ Annual Growth Rate (%) 
+ 
+ Change this number to see how growth affects the future value. 
+ 
+ 
+ Calculate future value 
+ 
+ 
+ 
+ 
+ Estimated Future Value 
+ R 0 
+ Final value after growth and contributions. 
+ 
+ 
+ 
+ 
+ 
+ Total Invested 
+ R 0 
+ 
+ 
+ Growth Earned 
+ R 0 
+ 
+ 
+ 
+ 
+ 
+ 
+This calculator is for educational and illustrative purposes only. Actual investment returns and business growth outcomes may differ. AS Brokers CC · FSP 17273. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+.asb-growth-calculator { 
+max-width: 760px; 
+margin: 0 auto; 
+font-family: Inter, Arial, sans-serif; 
+} 
+ 
+ 
+.asb-growth-card { 
+overflow: hidden; 
+border-radius: 22px; 
+background: #f8f7ef; 
+box-shadow: 0 20px 50px rgba(0,0,0,0.18); 
+color: #1f2937; 
+} 
+ 
+ 
+.asb-header { 
+padding: 32px; 
+background: linear-gradient(135deg, #0057d9, #008cff); 
+color: white; 
+} 
+ 
+ 
+.asb-kicker { 
+letter-spacing: 0.35em; 
+font-size: 13px; 
+font-weight: 800; 
+margin-bottom: 10px; 
+} 
+ 
+ 
+.asb-header h2 { 
+margin: 0 0 10px; 
+font-size: 34px; 
+line-height: 1.1; 
+} 
+ 
+ 
+.asb-header p { 
+margin: 0; 
+font-size: 17px; 
+line-height: 1.45; 
+} 
+ 
+ 
+.asb-body { 
+padding: 32px; 
+} 
+ 
+ 
+.asb-body label { 
+display: block; 
+margin: 18px 0 8px; 
+color: #29497c; 
+font-weight: 800; 
+} 
+ 
+ 
+.asb-body input, 
+.asb-body select { 
+width: 100%; 
+box-sizing: border-box; 
+border: 1px solid #d4d7dc; 
+border-radius: 14px; 
+padding: 16px 18px; 
+font-size: 18px; 
+background: #fbfaf5; 
+color: #1f2937; 
+} 
+ 
+ 
+.asb-body small { 
+display: block; 
+margin-top: 7px; 
+color: #6b7280; 
+font-size: 13px; 
+line-height: 1.35; 
+} 
+ 
+ 
+.asb-body button { 
+width: 100%; 
+margin-top: 28px; 
+padding: 17px 22px; 
+border: none; 
+border-radius: 14px; 
+background: linear-gradient(135deg, #0066e6, #008cff); 
+color: white; 
+font-size: 18px; 
+font-weight: 800; 
+cursor: pointer; 
+} 
+ 
+ 
+.asb-results { 
+margin-top: 28px; 
+} 
+ 
+ 
+.asb-result-main, 
+.asb-result-grid div { 
+border: 1px solid #d9dde3; 
+border-radius: 16px; 
+background: #fbfaf5; 
+padding: 20px; 
+} 
+ 
+ 
+.asb-result-main span, 
+.asb-result-grid span { 
+display: block; 
+text-transform: uppercase; 
+letter-spacing: 0.12em; 
+color: #29497c; 
+font-size: 12px; 
+font-weight: 900; 
+margin-bottom: 8px; 
+} 
+ 
+ 
+.asb-result-main strong { 
+display: block; 
+font-size: 32px; 
+font-weight: 500; 
+} 
+ 
+ 
+.asb-result-main p { 
+margin: 8px 0 0; 
+color: #6b7280; 
+} 
+ 
+ 
+.asb-result-grid { 
+display: grid; 
+grid-template-columns: 1fr 1fr; 
+gap: 16px; 
+margin-top: 16px; 
+} 
+ 
+ 
+.asb-result-grid strong { 
+font-size: 24px; 
+font-weight: 500; 
+} 
+ 
+ 
+.asb-disclaimer { 
+margin: 22px 0 0; 
+color: #6b7280; 
+font-size: 13px; 
+line-height: 1.45; 
+} 
+ 
+ 
+@media (max-width: 650px) { 
+.asb-header, 
+.asb-body { 
+padding: 24px; 
+} 
+ 
+ 
+.asb-header h2 { 
+font-size: 28px; 
+} 
+ 
+ 
+.asb-result-grid { 
+grid-template-columns: 1fr; 
+} 
+} 
+ 
+ 
+ 
+ 
+function formatMoney(value, symbol) { 
+const formatted = Number(value).toLocaleString("en-ZA", { 
+minimumFractionDigits: 2, 
+maximumFractionDigits: 2 
+}); 
+ 
+ 
+return symbol ? symbol + " " + formatted : formatted; 
+} 
+ 
+ 
+function calculateGrowth() { 
+const symbol = document.getElementById("currency").value; 
+const initial = Number(document.getElementById("initialInvestment").value) || 0; 
+const years = Math.max(Number(document.getElementById("years").value) || 0, 0); 
+const monthlyContributionStart = Number(document.getElementById("monthlyContribution").value) || 0; 
+const annualIncrease = (Number(document.getElementById("annualIncrease").value) || 0) / 100; 
+const annualGrowth = (Number(document.getElementById("growthRate").value) || 0) / 100; 
+ 
+ 
+let balance = initial; 
+let totalInvested = initial; 
+let monthlyContribution = monthlyContributionStart; 
+const monthlyGrowthRate = Math.pow(1 + annualGrowth, 1 / 12) - 1; 
+ 
+ 
+for (let year = 1; year <= years; year++) { 
+for (let month = 1; month <= 12; month++) { 
+balance = balance * (1 + monthlyGrowthRate); 
+balance += monthlyContribution; 
+totalInvested += monthlyContribution; 
+} 
+ 
+ 
+monthlyContribution = monthlyContribution * (1 + annualIncrease); 
+} 
+ 
+ 
+const growthEarned = balance - totalInvested; 
+ 
+ 
+document.getElementById("futureValue").textContent = formatMoney(balance, symbol); 
+document.getElementById("totalInvested").textContent = formatMoney(totalInvested, symbol); 
+document.getElementById("growthEarned").textContent = formatMoney(growthEarned, symbol); 
+} 
+ 
+ 
+document.querySelectorAll( 
+"#currency, #initialInvestment, #years, #monthlyContribution, #annualIncrease, #growthRate" 
+).forEach(function(input) { 
+input.addEventListener("input", calculateGrowth); 
+input.addEventListener("change", calculateGrowth); 
+}); 
+ 
+ 
+calculateGrowth(); 
+ 
+ 
+ 
+Asset 017 Personal Goal Setting Calculator 
+ 
+ 
+#asb-goal-calculator { 
+font-family: Arial, sans-serif; 
+max-width: 980px; 
+margin: 0 auto; 
+color: #111827; 
+} 
+ 
+ 
+#asb-goal-calculator .card { 
+background: #ffffff; 
+border: 1px solid #e5e7eb; 
+border-radius: 18px; 
+padding: 24px; 
+box-shadow: 0 8px 24px rgba(0,0,0,0.06); 
+margin-bottom: 20px; 
+} 
+ 
+ 
+#asb-goal-calculator h2 { 
+margin: 0 0 8px; 
+font-size: 30px; 
+color: #111827; 
+} 
+ 
+ 
+#asb-goal-calculator .subtitle { 
+color: #6b7280; 
+margin-bottom: 24px; 
+line-height: 1.5; 
+} 
+ 
+ 
+#asb-goal-calculator label { 
+display: block; 
+font-weight: 700; 
+margin-bottom: 6px; 
+color: #1f2937; 
+} 
+ 
+ 
+#asb-goal-calculator input, 
+#asb-goal-calculator select { 
+width: 100%; 
+padding: 14px; 
+border-radius: 12px; 
+border: 1px solid #d1d5db; 
+font-size: 16px; 
+box-sizing: border-box; 
+margin-bottom: 16px; 
+} 
+ 
+ 
+#asb-goal-calculator .grid { 
+display: grid; 
+grid-template-columns: repeat(2, 1fr); 
+gap: 16px; 
+} 
+ 
+ 
+#asb-goal-calculator button { 
+width: 100%; 
+padding: 16px; 
+background: #0057ff; 
+color: white; 
+border: none; 
+border-radius: 14px; 
+font-size: 17px; 
+font-weight: 700; 
+cursor: pointer; 
+margin-top: 8px; 
+} 
+ 
+ 
+#asb-goal-calculator button:hover { 
+background: #0047d6; 
+} 
+ 
+ 
+#asb-goal-calculator .results { 
+display: grid; 
+grid-template-columns: repeat(3, 1fr); 
+gap: 16px; 
+} 
+ 
+ 
+#asb-goal-calculator .result-box { 
+border: 1px solid #e5e7eb; 
+border-radius: 16px; 
+padding: 18px; 
+background: #f9fafb; 
+} 
+ 
+ 
+#asb-goal-calculator .result-label { 
+font-size: 12px; 
+letter-spacing: 1px; 
+text-transform: uppercase; 
+color: #6b7280; 
+font-weight: 700; 
+margin-bottom: 8px; 
+} 
+ 
+ 
+#asb-goal-calculator .result-value { 
+font-size: 24px; 
+font-weight: 800; 
+color: #111827; 
+} 
+ 
+ 
+#asb-goal-calculator table { 
+width: 100%; 
+border-collapse: collapse; 
+margin-top: 16px; 
+font-size: 14px; 
+} 
+ 
+ 
+#asb-goal-calculator th, 
+#asb-goal-calculator td { 
+border-bottom: 1px solid #e5e7eb; 
+padding: 10px; 
+text-align: right; 
+} 
+ 
+ 
+#asb-goal-calculator th:first-child, 
+#asb-goal-calculator td:first-child { 
+text-align: center; 
+} 
+ 
+ 
+#asb-goal-calculator th { 
+background: #f3f4f6; 
+color: #374151; 
+} 
+ 
+ 
+#asb-goal-calculator .note { 
+background: #fff7ed; 
+border: 1px solid #fed7aa; 
+color: #7c2d12; 
+border-radius: 14px; 
+padding: 16px; 
+line-height: 1.5; 
+margin-top: 16px; 
+} 
+ 
+ 
+#asb-goal-calculator .table-wrap { 
+overflow-x: auto; 
+max-height: 520px; 
+overflow-y: auto; 
+} 
+ 
+ 
+@media (max-width: 768px) { 
+#asb-goal-calculator .grid, 
+#asb-goal-calculator .results { 
+grid-template-columns: 1fr; 
+} 
+} 
+ 
+ 
+ 
+ 
+ AS Brokers Personal Goal Growth Calculator 
+ 
+Reverse-engineer the monthly growth rate required to reach a personal or business goal, 
+then generate a month-by-month growth spreadsheet. 
+ 
+ 
+ 
+ 
+ 
+ Starting Value 
+ 
+ 
+ 
+ 
+ 
+ Target Value 
+ 
+ 
+ 
+ 
+ 
+ Number of Months 
+ 
+ 
+ 
+ 
+ 
+ Monthly Contribution 
+ 
+ 
+ 
+ 
+ 
+ Annual Increase in Contribution (%) 
+ 
+ 
+ 
+ 
+ 
+ Growth Mode 
+ 
+ Calculate required monthly growth rate 
+ Enter my own monthly growth rate 
+ 
+ 
+ 
+ 
+ 
+ Manual Monthly Growth Rate (%) 
+ 
+ 
+ 
+ 
+ 
+ Calculate Goal 
+ 
+ 
+ 
+This calculator is for personal goal-setting and business modelling. It shows the mathematical 
+growth rate required to reach a target. It is not a guaranteed investment return, financial product 
+return, or financial advice. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Monthly Growth Rate 
+ — 
+ 
+ 
+ 
+ 
+ Equivalent Annual Growth 
+ — 
+ 
+ 
+ 
+ 
+ Final Value 
+ — 
+ 
+ 
+ 
+ 
+ Total Contributions 
+ — 
+ 
+ 
+ 
+ 
+ Growth Created 
+ — 
+ 
+ 
+ 
+ 
+ Months Modelled 
+ — 
+ 
+ 
+ 
+ 
+ Download CSV Spreadsheet 
+ 
+ 
+ 
+ 
+ Monthly Goal Spreadsheet 
+ 
+ 
+ 
+ 
+ Month 
+ Opening Value 
+ Monthly Contribution 
+ Growth Earned 
+ Closing Value 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+let currentRows = []; 
+ 
+ 
+function toggleGrowthInput() { 
+const mode = document.getElementById("growthMode").value; 
+document.getElementById("manualGrowthBox").style.display = 
+mode === "manual" ? "block" : "none" 
+} 
+ 
+ 
+function money(value) { 
+return "R " + Number(value).toLocaleString("en-ZA", { 
+minimumFractionDigits: 2, 
+maximumFractionDigits: 2 
+}); 
+} 
+ 
+ 
+function percent(value) { 
+return (value * 100).toFixed(4) + "%" 
+} 
+ 
+ 
+function projectValue(start, months, contribution, annualIncrease, monthlyRate) { 
+let value = start; 
+let totalContributions = 0; 
+let rows = []; 
+ 
+ 
+for (let month = 1; month <= months; month++) { 
+let opening = value; 
+ 
+ 
+let contributionFactor = Math.pow( 
+1 + annualIncrease, 
+Math.floor((month - 1) / 12) 
+); 
+ 
+ 
+let monthContribution = contribution * contributionFactor; 
+ 
+ 
+value += monthContribution; 
+totalContributions += monthContribution; 
+ 
+ 
+let growthEarned = value * monthlyRate; 
+value += growthEarned; 
+ 
+ 
+rows.push({ 
+month, 
+opening, 
+contribution: monthContribution, 
+growth: growthEarned, 
+closing: value 
+}); 
+} 
+ 
+ 
+return { 
+finalValue: value, 
+totalContributions, 
+rows 
+}; 
+} 
+ 
+ 
+function solveRequiredMonthlyRate(start, target, months, contribution, annualIncrease) { 
+let low = -0.99; 
+let high = 10; 
+ 
+ 
+for (let i = 0; i < 200; i++) { 
+let mid = (low + high) / 2; 
+let result = projectValue(start, months, contribution, annualIncrease, mid); 
+ 
+ 
+if (result.finalValue < target) { 
+low = mid; 
+} else { 
+high = mid; 
+} 
+} 
+ 
+ 
+return (low + high) / 2; 
+} 
+ 
+ 
+function calculateGoal() { 
+const start = Number(document.getElementById("startingValue").value); 
+const target = Number(document.getElementById("targetValue").value); 
+const months = Number(document.getElementById("months").value); 
+const contribution = Number(document.getElementById("monthlyContribution").value); 
+const annualIncrease = Number(document.getElementById("annualIncrease").value) / 100; 
+const mode = document.getElementById("growthMode").value; 
+ 
+ 
+if (start <= 0 || months <= 0) { 
+alert("Starting value and number of months must be greater than zero."); 
+return; 
+} 
+ 
+ 
+let monthlyRate; 
+ 
+ 
+if (mode === "required") { 
+monthlyRate = solveRequiredMonthlyRate( 
+start, 
+target, 
+months, 
+contribution, 
+annualIncrease 
+); 
+} else { 
+monthlyRate = Number(document.getElementById("manualMonthlyRate").value) / 100; 
+} 
+ 
+ 
+const projection = projectValue( 
+start, 
+months, 
+contribution, 
+annualIncrease, 
+monthlyRate 
+); 
+ 
+ 
+const annualRate = Math.pow(1 + monthlyRate, 12) - 1; 
+const growthCreated = projection.finalValue - start - projection.totalContributions; 
+ 
+ 
+document.getElementById("monthlyRateResult").innerText = percent(monthlyRate); 
+document.getElementById("annualRateResult").innerText = percent(annualRate); 
+document.getElementById("finalValueResult").innerText = money(projection.finalValue); 
+document.getElementById("totalContributionsResult").innerText = money(projection.totalContributions); 
+document.getElementById("growthCreatedResult").innerText = money(growthCreated); 
+document.getElementById("monthsResult").innerText = months; 
+ 
+ 
+currentRows = projection.rows; 
+renderTable(currentRows); 
+} 
+ 
+ 
+function renderTable(rows) { 
+const tbody = document.getElementById("resultTable"); 
+tbody.innerHTML = "" 
+ 
+ 
+rows.forEach(row => { 
+const tr = document.createElement("tr"); 
+ 
+ 
+tr.innerHTML = ` 
+ ${row.month} 
+ ${money(row.opening)} 
+ ${money(row.contribution)} 
+ ${money(row.growth)} 
+ ${money(row.closing)} 
+`; 
+ 
+ 
+tbody.appendChild(tr); 
+}); 
+} 
+ 
+ 
+function downloadCSV() { 
+if (!currentRows.length) { 
+alert("Please calculate the goal first."); 
+return; 
+} 
+ 
+ 
+let csv = "Month,Opening Value,Monthly Contribution,Growth Earned,Closing Value\n" 
+ 
+ 
+currentRows.forEach(row => { 
+csv += [ 
+row.month, 
+row.opening.toFixed(2), 
+row.contribution.toFixed(2), 
+row.growth.toFixed(2), 
+row.closing.toFixed(2) 
+].join(",") + "\n" 
+}); 
+ 
+ 
+const blob = new Blob([csv], { type: "text/csv" }); 
+const url = window.URL.createObjectURL(blob); 
+ 
+ 
+const a = document.createElement("a"); 
+a.href = url; 
+a.download = "personal-goal-growth-calculator.csv" 
+a.click(); 
+ 
+ 
+window.URL.revokeObjectURL(url); 
+} 
+ 
+ 
+calculateGoal(); 
+ 

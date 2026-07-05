@@ -1,3 +1,4 @@
+import { advisorDisplayName } from "@/lib/crm/advisor-routing";
 import { KANBAN_COLUMNS, type CrmLead, type LeadStatus } from "@/lib/crm/types";
 
 export function formatLeadStatus(status: LeadStatus): string {
@@ -49,9 +50,11 @@ export function getCrmStatsFromLeads(
   };
 }
 
-export function formatAdvisorLabel(advisorId: string | null | undefined): string {
-  if (!advisorId) return "Unassigned";
-  return `Advisor · ${advisorId.slice(0, 8)}`;
+export function formatAdvisorLabel(
+  advisorId: string | null | undefined,
+  recommendedName?: string | null
+): string {
+  return advisorDisplayName(advisorId, recommendedName);
 }
 
 /** Resolve kanban column status at screen coordinates using column bounds. */

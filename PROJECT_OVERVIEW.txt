@@ -2,9 +2,35 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
-Last updated: June 2026 (Phases 4–7: production CRM/portal backend — Supabase SSR, Drizzle ORM, WhatsApp webhooks; Phase 12 deployment readiness)
+Last updated: June 2026 (Production CRM + Gemini AI on www.asbrokers.co.za; ~8/10 maturity)
 
-For a CRM-builder research brief (lead flows, webhooks, WhatsApp, DB tables), see also §18–§22 below and BACKEND.md, CRM_AND_PORTAL.txt, AS_BROKERS_SERVICES.txt.
+Albert/staff CRM guide: ALBERT_CRM_GUIDE.txt | Roadmap: CRM_10_ROADMAP.txt
+Builder research: §18–§22 below, BACKEND.md, CRM_AND_PORTAL.txt, AS_BROKERS_SERVICES.txt
+
+--------------------------------------------------------------------------------
+CURRENT STATUS (JUNE 2026)
+--------------------------------------------------------------------------------
+
+Production:         https://www.asbrokers.co.za (Vercel)
+Database:           Supabase PostgreSQL (Drizzle ORM, DATABASE_URL)
+CRM demo login:     https://www.asbrokers.co.za/login — PIN 85879 (Albert admin)
+CRM maturity:       ~8/10 (live for demos + daily use; portal live data = Phase 3)
+
+LIVE NOW
+  • Full marketing site + calculators + planning funnels + contact form
+  • Contact form → crm_leads (automatic) + Resend email to Albert
+  • CRM: Kanban, leads, clients, tasks, notes, funnel admin, calculator session
+  • Gemini AI: lead advisor, WhatsApp draft, pre-meeting brief, Kanban prioritise,
+    sentiment, compliance flags, executive activity log (POPIA audit)
+  • Auto-advisor routing by service line (Albert, Johnny, Petro, Monique, etc.)
+  • Client portal with Retirement Readiness Score (mock portfolio until Everest API)
+  • Blog Studio, SEO/AEO stack, WhatsApp webhook architecture
+
+COMING NEXT (Phase 3–5)
+  • Everest/portfolio API in portal; HubSpot bi-sync; staff email login (replace PIN)
+  • Postgres RLS; full WhatsApp inbox; morning/executive AI reliability polish
+
+DB SAFETY: CRM AI writes merge into raw_payload only; crm_ai_audit_log is append-only.
 
 --------------------------------------------------------------------------------
 1. PROJECT OVERVIEW
@@ -16,7 +42,7 @@ Framework:         Next.js 15 (App Router)
 Language:          TypeScript
 Styling:           Tailwind CSS
 Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
-                   Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/openai,
+                   Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/google,
                    @ai-sdk/react), Drizzle ORM, pg, pgvector, @supabase/ssr,
                    @supabase/supabase-js, server-only (HubSpot), Resend (email);
                    Trigger.dev v4 + Puppeteer (background PDF + WhatsApp inbound jobs).
@@ -40,8 +66,9 @@ Purpose:
 
 What this project can do:
   - Full marketing site: home (Reality Check hero, RunOutCalculator, EverestWealthBento, Code18Advantage, RiskArchitectureCarousel, FloatingChat), solutions hub (Phase 1/2 hierarchy), calculators hub (Phase 1/2), team, about, contact.
-  - Contact form → HubSpot CRM (search-patch, cumulative lead score); optional PDF email via Trigger.dev + Resend.
-  - Digital Wealth Assistant (chat) with deterministic tools (estate duty, 12.8% income, Amethyst) and optional RAG (pgvector).
+  - Contact form → crm_leads (Drizzle/PostgreSQL) + Resend staff alert; optional HubSpot sync.
+  - Digital Wealth Assistant (chat) with Gemini 2.5 Flash; deterministic tools (estate duty,
+    12.8% income, Amethyst) and RAG (pgvector + gemini-embedding-001).
   - Financial Health Quiz with shareable result URLs (nuqs) and routing to relevant calculators.
   - Insights publishing via Sanity CMS plus Client Blog Studio backed by Supabase/Postgres; draft mode, Visual Editing, FSP disclaimer blocks, and private uploaded blog images served through the existing media proxy.
   - Blog Studio supports loading existing posts, editing drafts/published posts, previewing current image slots, replacing/swapping images, and removing image assignments without deleting Supabase Storage objects.
@@ -56,16 +83,16 @@ What this project can do:
   - Run-out and product calculators (retirement, tax, estate, inflation, Everest Wealth, Amethyst).
   - Lead funnels: Retirement Readiness, Healthy Retirement Blueprint™, Retirement Survival Blueprint™, Business Risk Review™, Legacy Readiness Checklist™, Wealth Building Calculator, and related report flows.
   - Planning Tools nav (four pillars): free assessments → R299 tripwire (coming soon) → /contact ascension. See §19.
-  - CRM & Client Portal: Supabase SSR magic-link auth (/login); Drizzle ORM + PostgreSQL
-    pipeline (crm_leads, correspondence, global_notes, lead_reminders, crm_tasks);
-    role-based CRM (admin/staff dashboard, Kanban with persisted drag-drop, leads,
-    clients, tasks, lead/client detail with live WhatsApp correspondence, notes, reminders);
-    Client Portal (wealth dashboard, documents, messages — portal UI still uses
-    lib/mock-portal.ts for illustrative charts until Everest API). WhatsApp Business
-    Cloud API: inbound Meta webhook + Trigger.dev worker + outbound Server Action.
-    See CRM_AND_PORTAL.txt, build logs r11–r14.
+  - CRM & Client Portal: Supabase SSR auth + CRM PIN demo login (/login PIN 85879);
+    Drizzle ORM + PostgreSQL (crm_leads, correspondence, crm_tasks, crm_ai_audit_log, etc.);
+    role-based CRM (admin/staff dashboard, Kanban with persisted drag-drop, Gemini AI
+    advisor, auto-advisor routing, compliance flags, executive command centre);
+    Client Portal (wealth dashboard, Retirement Readiness Score — charts still
+    lib/mock-portal.ts until Everest API). WhatsApp Business Cloud API: inbound Meta
+    webhook + Trigger.dev worker + outbound Server Action.
+    See ALBERT_CRM_GUIDE.txt, CRM_10_ROADMAP.txt, CRM_AND_PORTAL.txt.
 
-Recent work done (Phases 1–12, June 2026):
+Recent work done (Phases 1–12 + CRM Gemini AI, June 2026):
 
   SEO / AEO / crawl infrastructure (Phases 1–5, 7, 10, 12):
   - middleware.ts: strip utm/fbclid/gclid, trailing-slash normalisation (301), crawl traps (410), training-bot 403, X-Robots-Tag noindex on /crm, /portal, /login, /studio, /internal.
@@ -84,16 +111,25 @@ Recent work done (Phases 1–12, June 2026):
     supplemented by real-time, database-driven staff workflows (Kanban, tasks, notes,
     unified correspondence threads). lib/mock-crm.ts eradicated; CRM reads/writes via
     Drizzle ORM against PostgreSQL (DATABASE_URL).
-  - Authentication: @supabase/ssr magic links (signInWithOtp → /auth/callback → session
-    cookies). app_metadata.role = admin | staff | client. Edge middleware.ts gates
-    /crm and /portal; CRM layout enforces admin/staff; clients routed to /portal.
-  - Server Actions: app/actions/crm.ts (getLeads, updateLeadStatus, getLeadDetails,
-    correspondence, notes, reminders, tasks); app/actions/whatsapp.ts (outbound send).
+  - Authentication: @supabase/ssr magic links OR CRM PIN session (85879 demo for Albert).
+    app_metadata.role = admin | staff | client. Edge middleware.ts gates /crm and /portal;
+    PIN cookie (asb-crm-pin-session) grants CRM-only superuser access for meetings.
+  - Server Actions: app/actions/crm.ts, app/actions/crm-ai.ts (Gemini), app/actions/crm-calculator-session.ts,
+    app/actions/whatsapp.ts; lib/crm/insert-lead.ts (contact → crm_leads).
   - WhatsApp Business Cloud API: POST /api/webhooks/whatsapp (HMAC SHA-256 verify) →
     Trigger.dev process-whatsapp-inbound → idempotent correspondence insert; auto-creates
     crm_leads with source_funnel whatsapp_inbound when phone unknown.
-  - Pre-flight verified (r13–r14): tsc, production build, axe a11y on marketing pages,
-    end-to-end flow trace (auth, Kanban mutation, WhatsApp bidirectional).
+
+  CRM Gemini AI layer (June 2026 — LIVE ON PRODUCTION):
+  - Model: gemini-2.5-flash via @ai-sdk/google (GOOGLE_GENERATIVE_AI_API_KEY on Vercel).
+  - RAG: gemini-embedding-001 + pgvector (lib/db/rag.ts) for FAIS/Everest doc grounding.
+  - lib/crm/ai/: client.ts, schemas.ts, generate.ts, audit.ts — FAIS/POPIA prompts baked in.
+  - Features: morning brief (/crm), lead AI panel + WhatsApp draft + pre-meeting brief
+    (/crm/leads/[id]), Kanban AI prioritise (/crm/kanban), thread sentiment, compliance
+    flags (drawdown > 17.5%, Everest R100k min), executive report + AI activity log
+    (/crm/executive), crm_ai_audit_log table (append-only POPIA trail).
+  - Auto-advisor routing: lib/crm/advisor-routing.ts — service line → team member on insert.
+  - Albert guide: ALBERT_CRM_GUIDE.txt; roadmap: CRM_10_ROADMAP.txt (~8/10 today).
 
   Accessibility & media (Phase 7):
   - data/image-metadata.json + scripts/generate-alt-text.mjs (npm run alt:compile); lib/image-alt.ts wired to BrandLogo, PageMediaStrip, ImagePlaceholder, Nav.
@@ -170,9 +206,13 @@ Category:          Category 1.8 (Securities and Instruments: Shares) for
 Location:           Krugersdorp, West Rand, Gauteng, South Africa
 Established:       Est. 1998 (25+ years experience)
 
-Founders / team:
-  - Albert Schuurman  – Co-founder; retirement income planning, certainty for clients
-  - Johnny Farinha    – Co-founder; estate structuring, business continuity, risk planning
+Founders / team (CRM auto-routing):
+  - Albert Schuurman  – Co-founder; retirement/Everest (Key Individual); CRM superuser
+  - Johnny Farinha    – Co-founder; estate structuring, life personal, business continuity
+  - Petro Vermeulen   – Commercial short-term insurance
+  - Monique Schuurman – Personal short-term insurance & renewals
+  - Sharine van Vollenstee – Medical aid & wellness
+  - Shanel van Niekerk  – Claims consultant
 
 Services offered:
   - Retirement & investment planning (targeted income profiles, living annuities, RA)
@@ -215,7 +255,7 @@ Quick index (all routes):
   /quiz  /chat  /privacy  /terms  /complaints  /conflict-of-interest  /manage-cookies
   /llms.txt  /llms-full.txt  /opengraph-image  /sitemap.xml  /robots.txt
   /studio/[[...tool]]  /studio/blog  /internal/pdf-report  /api/chat  /api/og  /api/draft-mode/enable
-  /login  /crm/*  /portal/*  /embed/calculators/[id]
+  /login  /crm/*  /crm/executive  /portal/*  /embed/calculators/[id]
 
 ---
 
@@ -331,35 +371,48 @@ Quick index (all routes):
   Print-only page for Trigger.dev: searchParams portfolio, drawdown → Recharts AreaChart (no animation). Puppeteer captures to PDF; Resend emails attachment. No nav/footer in print.
 
 /api/chat (POST)
-  streamText, OpenAI gpt-4o-mini; tools calculateEstateDuty, calculateStrategicIncome128, calcAmethystAnnuity; RAG getRagContext(latestMessage, 5) injected into system prompt.
+  streamText, google gemini-2.5-flash; tools calculateEstateDuty, calculateStrategicIncome128,
+  calcAmethystAnnuity; RAG getRagContext(latestMessage, 5) via gemini-embedding-001 injected
+  into system prompt.
 
 /api/draft-mode/enable (GET)
   next-sanity defineEnableDraftMode; enables draft for Visual Editing. SANITY_VIEWER_TOKEN.
 
 /login
-  Supabase magic-link sign-in (email only). signInWithMagicLink Server Action →
-  signInWithOtp; redirect via /auth/callback?next=. Role routing: admin/staff → /crm,
-  client → /portal. Logout clears Supabase session (+ legacy mock cookie cleanup).
-  See app/login/actions.ts, app/auth/callback/route.ts.
+  CRM access PIN (85879 demo for Albert) via PinLoginForm + signInWithCrmPin Server Action;
+  sets asb-crm-pin-session cookie (Web Crypto, edge-safe). Supabase magic-link sign-in
+  also available (signInWithOtp → /auth/callback). Role routing: admin/staff → /crm,
+  client → /portal. middleware.ts accepts valid PIN cookie OR Supabase session for /crm.
+  See app/login/pin-actions.ts, lib/crm/pin-session.ts, app/auth/callback/route.ts.
 
 /auth/callback
   GET: exchangeCodeForSession(code) via @supabase/ssr + await cookies(); redirect to ?next=.
 
 /crm
-  CRM dashboard: pipeline stats (New→Won/Lost), recent tasks/clients/correspondence;
-  Drizzle-backed; role-filtered (admin = all, staff = assigned). Links to Kanban and Leads.
+  CRM dashboard: pipeline stats, recent leads/tasks/messages; CrmAiMorningBrief (Gemini);
+  Drizzle-backed; role-filtered. Links to Kanban and Leads.
 
 /crm/kanban
-  Pipeline Kanban: columns New, Contacted, Qualified, Proposal, Won, Lost; drag-drop
-  persists via updateLeadStatus Server Action → crm_leads.pipeline_status. Role-filtered.
+  Pipeline Kanban: New→Won/Lost; drag-drop persists via updateLeadStatus. KanbanAiToolbar:
+  “AI prioritise pipeline”, AI sort toggle, priority/compliance badges on cards.
+  Auto-advisor names on new leads (recommendedAdvisorName in raw_payload).
 
 /crm/leads
-  Leads table: Name, Contact, Service, Intent, Status, Assigned, Fit/Eng. Drizzle-backed.
-  Role-filtered. Name links to /crm/leads/[id].
+  Leads table: searchable list; links to Lead 360 detail. Drizzle-backed; role-filtered.
 
 /crm/leads/[id]
-  Lead detail: contact, intent, status, service, correspondence thread (WhatsApp send via
-  sendWhatsAppMessage Server Action), reminders, tasks. getLeadDetails Server Action.
+  Lead 360: Gemini AI advisor panel (insight, priority score, WhatsApp draft),
+  pre-meeting brief (Generate → Print/PDF), correspondence + sentiment bar,
+  compliance flags, calculator session link, reminders, tasks. getLeadDetails +
+  fetchLeadAiInsight / fetchPreMeetingBrief / fetchThreadSentiment (app/actions/crm-ai.ts).
+
+/crm/executive
+  Owner command centre (admin only): KPIs, service mix, pipeline stages, Gemini
+  executive report, CrmAiActivityFeed (POPIA audit log from crm_ai_audit_log).
+
+/crm/calculator-session
+  OfficeCalculatorCanvas — live meeting calculators; optional ?leadId= to log drawdown
+  session back to lead raw_payload (recordCalculatorSessionForLead).
 
 /crm/clients
   Clients table (pipeline_status = won); Drizzle-backed; role-filtered.
@@ -374,8 +427,9 @@ Quick index (all routes):
   Team scratchpad (global_notes table); addGlobalNote Server Action.
 
 /portal
-  Client Portal dashboard: portfolio summary, holdings, Recharts (lib/mock-portal.ts
-  illustrative data until Everest API). Auth-gated via middleware.
+  Client Portal dashboard: portfolio summary, holdings, Recharts, Retirement Readiness
+  Score (lib/portal/retirement-readiness-score.ts). Charts use lib/mock-portal.ts until
+  Everest API. Auth-gated via middleware (PIN does not grant portal access).
 
 /portal/documents
   Document vault UI; upload component (Supabase Storage integration planned).
@@ -473,11 +527,13 @@ Financial Health Quiz (Phase 2):
   app/(content)/quiz/layout.tsx – NuqsAdapter scoped to quiz routes only
 
 Digital Wealth Assistant (chat):
-  app/api/chat/route.ts   – POST handler; streamText, system prompt, three tools
+  app/api/chat/route.ts   – POST handler; streamText with google("gemini-2.5-flash"); three tools
   app/api/chat/schemas.ts – Zod: calculateEstateDuty, calculateStrategicIncome128,
                             calcAmethystAnnuity (R100k min, 2.5–17.5% drawdown)
   app/api/chat/tools.ts   – Deterministic: estate duty, 12.8% income, Amethyst tax
   app/(content)/chat/page.tsx – useChat, DefaultChatTransport, tool result cards
+  RAG: getRagContext via gemini-embedding-001 + pgvector (requires DATABASE_URL +
+       GOOGLE_GENERATIVE_AI_API_KEY)
 
 Calculator components (one per calculator page):
   RetirementRealityCalculator (incl. scenario + Recharts bar), LifeOfCapitalCalculator,
@@ -486,16 +542,25 @@ Calculator components (one per calculator page):
   Everest128Calculator, ImmediateHigherIncomeCalculator,
   EverestStrategicGrowth145Calculator, AmethystLivingAnnuityCalculator
 
-CRM & Client Portal (see CRM_AND_PORTAL.txt):
-  CrmSidebar         – Desktop: nav (Dashboard, Kanban, Leads, Clients, Tasks, Notes), name, Log out.
-  LeadsKanban        – Drag-drop Kanban; CrmContext optimistic UI → updateLeadStatus Server Action.
+CRM & Client Portal (see ALBERT_CRM_GUIDE.txt, CRM_AND_PORTAL.txt):
+  CrmSidebar         – Nav including Command centre (/crm/executive) for admin.
+  LeadsKanban        – Drag-drop Kanban; KanbanAiToolbar (AI prioritise, AI sort);
+                       ComplianceFlagBadge; CrmContext → updateLeadStatus.
+  CrmAiMorningBrief  – Dashboard Gemini morning brief (app/actions/crm-ai.ts).
+  LeadAiPanel        – Lead detail Gemini insight + WhatsApp draft.
+  LeadPreMeetingBrief – Generate brief → Print/PDF for client meetings.
+  CorrespondenceSentimentBar – Thread sentiment on lead detail.
+  CrmExecutiveDashboard + CrmAiActivityFeed – Owner view + POPIA audit log.
   CrmContext         – initialLeads from layout getLeads(); wraps all /crm/* pages.
-  LeadDetailView     – Live correspondence thread; sendWhatsAppMessage with optimistic UI.
+  LeadDetailView     – Full Lead 360: AI, correspondence, compliance, calculator link.
+  PortalRetirementReadiness – Client portal readiness score card.
   PortalNav          – Fixed top nav: logo, Dashboard/Documents/Messages, Log out, Site.
   PortalDashboardChartsLazy – Client-only Recharts (ssr: false) for portal dashboard.
-  Data: lib/crm/types.ts, map-crm.ts, map-lead.ts, utils.ts, session.ts (CRM domain);
-        lib/db/schema.ts + Drizzle (crm_leads, correspondence, global_notes, lead_reminders,
-        crm_tasks); lib/mock-portal.ts (portal wealth charts only — not CRM).
+  Data: lib/crm/types.ts, map-lead.ts, advisor-routing.ts, compliance-flags.ts,
+        lead-metadata.ts (safe raw_payload merge), pin-session.ts, constants.ts;
+        lib/crm/ai/* (Gemini); lib/db/schema.ts + Drizzle (crm_leads, correspondence,
+        crm_tasks, crm_ai_audit_log, crm_staff_profiles, funnel tables);
+        lib/mock-portal.ts (portal wealth charts only — not CRM).
 
 --------------------------------------------------------------------------------
 6. METADATA & TECHNICAL SEO
@@ -559,12 +624,14 @@ PWA:  public/manifest.json (name, theme, start_url). Root layout references mani
 --------------------------------------------------------------------------------
 
 Memory bank:
-  - BACKEND.md         – Backend setup checklist; env vars; Supabase, HubSpot, Trigger.dev, Resend, Sanity, OpenAI, RAG
-  - docs/DEPLOYMENT.md – CI gates, GSC setup, pre-launch checklist, master-audit, post-deploy monitoring
-  - CRM_AND_PORTAL.txt – CRM & Client Portal mock vs planned backend
+  - ALBERT_CRM_GUIDE.txt  – Staff/owner CRM guide (PIN, demo, AI features) — Albert-facing
+  - CRM_10_ROADMAP.txt      – Path from ~8/10 to 10/10 CRM maturity
+  - BACKEND.md              – Backend setup checklist; env vars; Supabase, HubSpot, Trigger.dev, Resend, Sanity, Gemini, RAG
+  - docs/DEPLOYMENT.md      – CI gates, GSC setup, pre-launch checklist, master-audit, post-deploy monitoring
+  - CRM_AND_PORTAL.txt      – CRM & Client Portal architecture reference
   - ROLLS_ROYCE_CRM_VISION.txt – Vision for bespoke CRM (client portal, staff, owner dashboards)
   - .cursor/rules/crm-rolls-royce.mdc – Cursor rule for CRM/portal work
-  - agents.md          – Tech stack, business context, architecture, Everest constraints
+  - agents.md               – Tech stack, business context, architecture, Everest constraints
   - app/(content)/calculators/CONTEXT.md – Formula and tax context for all calculators
   - docs/CUSTOMER_OVERVIEW.txt – Customer-facing project and feature overview
   - docs/SOLUTIONS_PAGE_OVERVIEW.txt, CALCULATORS_PAGE_OVERVIEW.txt, CONTACT_PAGE_OVERVIEW.txt
@@ -625,7 +692,8 @@ Tools:
   - calculateStrategicIncome128: capital ≥ R100k; 12.8% gross, 20% DWT, 10% bonus
   - calcAmethystAnnuity: capital ≥ R100k, drawdown 2.5–17.5%; SARS 2026/27 65+ tax
 
-Requires: OPENAI_API_KEY in environment for /api/chat. DATABASE_URL optional (see RAG).
+Requires: GOOGLE_GENERATIVE_AI_API_KEY for /api/chat and CRM AI. DATABASE_URL optional
+for RAG (chat works without retrieved context if unset).
 
 --------------------------------------------------------------------------------
 10. RAG PIPELINE (RETRIEVAL-AUGMENTED GENERATION)
@@ -646,11 +714,11 @@ Database (Drizzle ORM + PostgreSQL + pgvector):
 Retrieval:
   - lib/db/rag.ts:
     - getRagContext(query, limit?) → Promise<string>
-    - Embeds query via AI SDK embed + openai.embedding('text-embedding-3-small')
-    - If DATABASE_URL missing: returns "" (no DB connection)
-    - Otherwise: Drizzle select from embeddings join resources, orderBy sql`embedding <=> $vector::vector`, limit 5
+    - Embeds query via AI SDK embed + google.textEmbeddingModel("gemini-embedding-001")
+    - If DATABASE_URL or GOOGLE_GENERATIVE_AI_API_KEY missing: returns "" (graceful degrade)
+    - Otherwise: Drizzle select from embeddings join resources, orderBy cosine distance, limit 5
     - Returns concatenated "[Source: ...]\ncontent" blocks or "" on error
-  - lib/db/index.ts: getDb() returns Drizzle client or null; lazy pool from DATABASE_URL
+  - Used by: /api/chat, lib/crm/ai/generate.ts (CRM Gemini features)
 
 Chat route (app/api/chat/route.ts):
   - getLatestUserMessageText(messages) → last user message text from parts/content
@@ -658,11 +726,13 @@ Chat route (app/api/chat/route.ts):
   - streamText({ system: systemPrompt, ... }) — baseline constraints untouched
 
 Environment:
-  - OPENAI_API_KEY: required for chat (and for RAG embedding)
-  - DATABASE_URL: optional; if set, RAG retrieval runs; if unset, chat still works with empty retrieved context
+  - GOOGLE_GENERATIVE_AI_API_KEY: required for chat + CRM AI (and for RAG embedding)
+  - DATABASE_URL: optional for RAG retrieval; required for CRM pipeline and audit log
 
 Document ingestion:
-  - scripts/ingest-rag.ts: chunks .txt/.md from scripts/rag-documents (or custom dir), embeds with text-embedding-3-small, inserts into resources + embeddings. Run: npm run rag:ingest (needs OPENAI_API_KEY, DATABASE_URL). Plan: docs/RAG_IMPLEMENTATION_PLAN.md.
+  - scripts/ingest-rag.ts: chunks .txt/.md from scripts/rag-documents, embeds with
+    gemini-embedding-001, inserts into resources + embeddings. Run: npm run rag:ingest
+    (needs GOOGLE_GENERATIVE_AI_API_KEY, DATABASE_URL).
 
 --------------------------------------------------------------------------------
 11. PHASE 2: PDF GENERATION & EMAIL (TRIGGER.DEV + RESEND)
@@ -739,54 +809,61 @@ Build / env:
 --------------------------------------------------------------------------------
 
 Purpose: Production-grade authenticated CRM for staff/owners and Client Portal for
-clients. Phases 4–7 (June 2026) replaced all mock CRM data with Supabase SSR
-Authentication (magic links) and Drizzle ORM against PostgreSQL.
+clients. Phases 4–7 (June 2026) replaced mock CRM with Supabase + Drizzle PostgreSQL.
+June 2026 Gemini AI layer adds FAIS-aware advisor intelligence (~8/10 maturity).
 
-Entry: Nav "Team office" / CRM link → /login. User enters email; Supabase dispatches
-magic link. On click: /auth/callback exchanges code for session cookies. Role from
-user.app_metadata.role routes admin/staff → /crm, client → /portal.
+Entry (demo): Nav "Team office" / CRM → /login → PIN 85879 → /crm (Albert admin).
+Entry (staff email): /login magic link → /auth/callback → role-based redirect.
 
 Authentication stack:
-  - @supabase/ssr createServerClient with await cookies() in Server Actions, Route
-    Handlers, and middleware session refresh.
-  - app/login/actions.ts — signInWithMagicLink (signInWithOtp).
-  - app/auth/callback/route.ts — exchangeCodeForSession.
-  - middleware.ts — Edge auth gate on /crm and /portal; unauthenticated → /login?next=;
-    authenticated /login → role default redirect; training-bot 403; X-Robots-Tag noindex.
-  - app/(crm)/crm/layout.tsx — force-dynamic; canAccessCrmRole (admin|staff only);
-    CrmProvider hydrated with getLeads() from database.
-  - Roles: admin (all leads), staff (assigned_advisor = user.id), client (/portal).
+  - CRM PIN: lib/crm/pin-session.ts (Web Crypto, edge-safe cookie asb-crm-pin-session);
+    CRM_SUPERUSER_PIN on Vercel (85879); Albert UUID in lib/crm/constants.ts.
+  - Supabase @supabase/ssr: magic links for permanent staff/client accounts.
+  - middleware.ts — /crm allowed with valid PIN cookie OR Supabase session; /portal
+    requires Supabase client session; training-bot 403; X-Robots-Tag noindex.
+  - app/(crm)/crm/layout.tsx — force-dynamic; requireCrmAccess(); CrmProvider + getLeads().
+  - Roles: admin (all leads + /crm/executive), staff (assigned leads), client (/portal).
 
-CRM (admin/staff) — Drizzle-backed:
-  - Dashboard: pipeline stats, recent tasks, clients, correspondence (getTasks,
-    getClients, getRecentCorrespondence Server Actions).
-  - Kanban: drag-drop pipeline (New→Won/Lost); optimistic CrmContext + updateLeadStatus
-    persists crm_leads.pipeline_status.
-  - Leads: table + detail (getLeadDetails: lead, correspondence, reminders, tasks).
-  - Clients: won leads (pipeline_status = 'won'); client detail view.
-  - Tasks: crm_tasks table; staff filtered by assignee_id.
-  - Notes: global_notes team scratchpad.
-  - WhatsApp: unified correspondence thread; outbound via sendWhatsAppMessage Server
-    Action (Meta Graph API + correspondence insert with staff_user_id).
-  - Funnel admin views (real DB): /crm/healthy-retirement-assessments,
-    /crm/legacy-checklist-leads, /crm/business-risk-reviews.
+CRM (admin/staff) — Drizzle-backed + Gemini AI:
+  - Dashboard (/crm): KPIs, recent leads, CrmAiMorningBrief.
+  - Kanban (/crm/kanban): drag-drop pipeline; AI prioritise; compliance badges;
+    auto-advisor routing display on cards.
+  - Lead 360 (/crm/leads/[id]): LeadAiPanel, LeadPreMeetingBrief, sentiment,
+    compliance flags, WhatsApp thread, calculator session link.
+  - Executive (/crm/executive): CrmExecutiveDashboard + CrmAiActivityFeed (admin).
+  - Clients: won leads (pipeline_status = 'won'); tasks; notes; funnel admin queues.
+  - WhatsApp: correspondence thread; outbound sendWhatsAppMessage Server Action.
+  - Calculator session: log Amethyst drawdown to lead raw_payload (compliance flags).
+
+Gemini CRM AI (app/actions/crm-ai.ts, lib/crm/ai/*):
+  - fetchCrmMorningBrief, fetchLeadAiInsight, fetchLeadReplyDraft, fetchPreMeetingBrief,
+    refreshKanbanAiPriorities, fetchThreadSentiment, fetchExecutiveAiReport,
+    fetchRecentAiAuditLog
+  - Audit: crm_ai_audit_log table (append-only); logCrmAiAction on every AI call.
+  - Safe metadata: mergeLeadRawPayload only (aiPriorityScore, autoRoute, calculatorSession).
+
+Auto-advisor routing (lib/crm/advisor-routing.ts):
+  retirement_everest → Albert; estate_business → Johnny; short_term_business → Petro;
+  short_term_personal → Monique; medical_wellness → Sharine; claims → Shanel.
+  Applied on insert via applyAutoAdvisorRoute in lib/crm/insert-lead.ts.
 
 Client Portal (client role):
-  - Dashboard: wealth overview, holdings, Recharts (lib/mock-portal.ts illustrative
-    until Everest/portfolio API).
-  - Documents / Messages: UI scaffold; Supabase Storage + client RLS planned.
+  - Dashboard: wealth overview, Retirement Readiness Score, Recharts (mock-portal).
+  - Documents / Messages: UI scaffold; live data + RLS planned (Phase 3).
 
 Database tables (lib/db/schema.ts):
-  crm_leads, correspondence, global_notes, lead_reminders, crm_tasks
-  (+ healthy_retirement_assessments, legacy_checklist_leads, business_risk_reviews)
+  crm_leads, correspondence, global_notes, lead_reminders, crm_tasks, crm_staff_profiles,
+  crm_ai_audit_log (+ healthy_retirement_assessments, legacy_checklist_leads,
+  business_risk_reviews)
 
-Server Actions: app/actions/crm.ts, app/actions/whatsapp.ts
-Mappers: lib/crm/map-crm.ts, lib/crm/map-lead.ts, lib/crm/types.ts
+Server Actions: app/actions/crm.ts, crm-ai.ts, crm-calculator-session.ts, whatsapp.ts;
+  lib/crm/insert-lead.ts (contact + funnels → crm_leads)
 
-Env: DATABASE_URL, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,
-     WHATSAPP_* , META_APP_SECRET, TRIGGER_SECRET_KEY. See .env.example, r14.txt.
+Env (production verified June 2026): DATABASE_URL, NEXT_PUBLIC_SUPABASE_*,
+  GOOGLE_GENERATIVE_AI_API_KEY, CRM_SUPERUSER_PIN, RESEND_*, WHATSAPP_* (partial).
 
-Full documentation: CRM_AND_PORTAL.txt, ROLLS_ROYCE_CRM_VISION.txt, build logs r11–r14.
+Documentation: ALBERT_CRM_GUIDE.txt, CRM_10_ROADMAP.txt, CRM_AND_PORTAL.txt,
+  ROLLS_ROYCE_CRM_VISION.txt, docs/CRM_ROLLS_ROYCE.md
 
 --------------------------------------------------------------------------------
 14. PHASE 4: ANALYTICS & POPIA COOKIE CONSENT
@@ -883,9 +960,9 @@ Pre-deploy (automated):
 
 Pre-deploy (manual):
   - Production env: NEXT_PUBLIC_SITE_URL=https://www.asbrokers.co.za
-  - Supabase RLS smoke test (client/staff/admin visibility)
+  - DATABASE_URL, NEXT_PUBLIC_SUPABASE_*, GOOGLE_GENERATIVE_AI_API_KEY, CRM_SUPERUSER_PIN
   - RESEND_API_KEY for contact form email
-  - HubSpot token when CRM sync enabled
+  - HubSpot token when CRM sync enabled (optional — crm_leads is primary pipeline)
   - GSC domain verification + sitemap submit
 
 Post-deploy:
@@ -1114,13 +1191,12 @@ A. CONTACT FORM (/contact)
   Component:  components/forms/ContactEnquiryForm.tsx (lazy on contact via ContactEnquiryFormLazy)
   Action:     app/actions/contact.ts → submitContactEnquiry
   Fields:     fullName, phone, email, topics[] (multi-select), consent (POPIA), honeypot website
-  Topics IDs: everest, medical_gap, medical, gap, short_business, short_personal, life_business,
-              life_personal, will, trust, wellness, estate, general
   On submit:
     1. Zod contactFormSchema validation
-    2. notifyStaffContactEnquiry → Resend → RESEND_NOTIFY_EMAIL (default albert@asbrokers.co.za)
-    3. syncContactToHubSpot (non-blocking) — search by email, PATCH or POST
-    4. Optional Trigger.dev generate-financial-pdf if TRIGGER_SECRET_KEY set
+    2. insertCrmLead → crm_leads (pipeline_status: new) + applyAutoAdvisorRoute
+    3. notifyStaffContactEnquiry → Resend → RESEND_NOTIFY_EMAIL (albert@asbrokers.co.za)
+    4. syncContactToHubSpot (non-blocking) — search by email, PATCH or POST
+    5. Optional Trigger.dev generate-financial-pdf if TRIGGER_SECRET_KEY set
   HubSpot properties: email, firstname, lastname, phone, financial_inquiry_topic,
     platform_lead_score (cumulative), financial_capital_input (if capital on calculator leads)
   Lead score increments: +20 if capitalAmount > R1M; +15 if topic short_business or trust
@@ -1142,17 +1218,16 @@ C. PLANNING TOOL FUNNELS (see §19)
     /crm/legacy-checklist-leads
     /crm/business-risk-reviews
 
-D. PRODUCTION CRM (/crm, /portal) — LIVE (Phases 4–7)
-  Auth: /login — Supabase magic links (@supabase/ssr); session in HTTP-only cookies.
-    app_metadata.role: admin | staff | client. middleware.ts + CRM layout role gates.
+D. PRODUCTION CRM (/crm, /portal) — LIVE (Phases 4–7 + Gemini AI, June 2026)
+  Auth: /login — CRM PIN 85879 (demo) OR Supabase magic links. middleware.ts + CRM layout.
   Data: Drizzle ORM via lib/db (DATABASE_URL). lib/mock-crm.ts REMOVED.
-  Server Actions: app/actions/crm.ts (pipeline, correspondence, notes, tasks, reminders);
-    app/actions/whatsapp.ts (outbound Meta Graph API).
-  Schema (lib/db/schema.ts): crm_leads, correspondence, global_notes, lead_reminders,
-    crm_tasks. Contact phone stored in crm_leads.raw_payload.phone.
-  Kanban: LeadsKanban → CrmContext.updateLeadStatus → crm_leads.pipeline_status.
-  WhatsApp inbound: see §22. Deploy: npm run db:push; set Supabase + Meta + Trigger env.
-  Build logs: r11 (auth), r12 (mock eradication), r13 (pre-flight), r14 (flow verification).
+  Server Actions: app/actions/crm.ts, crm-ai.ts, crm-calculator-session.ts, whatsapp.ts;
+    lib/crm/insert-lead.ts (contact → crm_leads + auto-route).
+  Schema: crm_leads, correspondence, crm_tasks, crm_staff_profiles, crm_ai_audit_log,
+    global_notes, lead_reminders (+ funnel tables). Lead contact data in raw_payload jsonb.
+  AI: Gemini 2.5 Flash — see ALBERT_CRM_GUIDE.txt §7.
+  Kanban: LeadsKanban → updateLeadStatus + refreshKanbanAiPriorities.
+  WhatsApp inbound: see §22. Deploy: npm run db:push (additive migrations only).
 
 E. HUBSPOT (optional CRM sync today)
   Service: lib/hubspot.service.ts
@@ -1175,21 +1250,25 @@ G. PDF GENERATION (Run-out / contact)
   Print page: /internal/pdf-report?portfolio=&drawdown= (Puppeteer → Resend attachment)
   Env: TRIGGER_SECRET_KEY (Next.js), RESEND_API_KEY + APP_URL (Trigger worker)
 
-H. REMAINING INTEGRATION GAPS (post Phase 7)
-  1. RunOutCalculator home gate — wire Server Action + store portfolio/drawdown/scores in CRM
+H. REMAINING INTEGRATION GAPS (post Gemini CRM, June 2026)
+  1. RunOutCalculator home gate — wire Server Action + store portfolio/drawdown in CRM
   2. Retirement Survival Blueprint — add lead capture at results → crm_leads
   3. Business Risk Review — add HubSpot sync (other funnels have it)
   4. Quiz / LeadFormContext modal — connect to crm_leads pipeline
   5. /chat conversations — store messages; optional lead escalation
-  6. Contact form → auto-insert crm_leads row (today: Resend + HubSpot only)
-  7. Client Portal — replace lib/mock-portal.ts with Everest API + client RLS
-  8. Supabase RLS policies — enforce admin/staff/client at database layer (app-layer gates live)
+  6. Client Portal — replace lib/mock-portal.ts with Everest API + client RLS
+  7. Postgres RLS policies — defence in depth (app-layer gates live today)
+  8. Staff email login — replace demo PIN for permanent advisor accounts
+  9. Morning brief / executive AI report — reliability polish (lead-level AI works)
+  10. HubSpot bi-sync with crm_leads (contact form still optional HubSpot today)
+  11. Backfill auto-advisor routing on pre-existing test leads (optional script)
 
 I. SERVICE CATEGORY TAGS (for CRM routing)
   From lib/crm/types.ts / crm_leads.service_category:
-    retirement_everest, short_term_personal, short_term_business, life_personal, life_business,
+    retirement_everest, short_term_personal, short_term_business, life_personal,
     medical_wellness, estate_business, claims
-  Map contact topics + funnel source → service_category for advisor assignment
+  Auto-routed via lib/crm/advisor-routing.ts on insertCrmLead / applyAutoAdvisorRoute.
+  Map contact topics + funnel source → service_category for advisor assignment.
 
 --------------------------------------------------------------------------------
 22. WHATSAPP, COMMUNICATIONS & CLIENT TOUCHPOINTS
@@ -1240,5 +1319,6 @@ Other comms:
   - POPIA: consent checkbox on contact form and Run-out gate; cookie consent gates GA4/Hotjar
 
 --------------------------------------------------------------------------------
-END OF PROJECT OVERVIEW
+END OF PROJECT OVERVIEW — June 2026 (~8/10 CRM maturity)
+Albert CRM guide: ALBERT_CRM_GUIDE.txt | Roadmap: CRM_10_ROADMAP.txt
 ================================================================================

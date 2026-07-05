@@ -1,0 +1,1749 @@
+﻿[
+    {
+        "company":  "PwC South Africa",
+        "url":  "https://www.pwc.co.za",
+        "final_url":  "https://www.pwc.co.za/",
+        "status":  200,
+        "title":  "PwC South Africa | Homepage",
+        "h1":  [
+                   "Make it happen with PwC"
+               ],
+        "h2":  [
+                   "Decoding ROI from AI in Africa PwC\u0027s AI perfomance study",
+                   "Decoding ROI from AI in Africa PwC\u0027s AI perfomance study",
+                   "Featured",
+                   "{{filterContent.facetedTitle}}",
+                   "{{filterContent.facetedTitle}}",
+                   "{{filterContent.facetedTitle}}",
+                   "{{filterContent.facetedTitle}}",
+                   "{{filterContent.facetedTitle}}"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Skip to content",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Skip to footer",
+                        "href":  "#pgFooter"
+                    },
+                    {
+                        "text":  "Products",
+                        "href":  "https://www.pwc.co.za/en/products.html"
+                    },
+                    {
+                        "text":  "My Account",
+                        "href":  "{{myAccountHref}}"
+                    },
+                    {
+                        "text":  "Sign in",
+                        "href":  "javascript:void(0);"
+                    },
+                    {
+                        "text":  "Register",
+                        "href":  "{{createAccountHref}}"
+                    },
+                    {
+                        "text":  "Register",
+                        "href":  "javascript:void(0);"
+                    },
+                    {
+                        "text":  "{{this.linkText}}",
+                        "href":  "{{this.linkURL}}"
+                    },
+                    {
+                        "text":  "{{name}}",
+                        "href":  "{{domain}}"
+                    },
+                    {
+                        "text":  "{{this}}",
+                        "href":  "{{../domain}}"
+                    },
+                    {
+                        "text":  "Automotive",
+                        "href":  "https://www.pwc.co.za/en/industries/automotive.html"
+                    },
+                    {
+                        "text":  "Agribusiness",
+                        "href":  "https://www.pwc.co.za/en/industries/agribusiness.html"
+                    },
+                    {
+                        "text":  "Asset and wealth management",
+                        "href":  "https://www.pwc.co.za/en/industries/asset-management.html"
+                    },
+                    {
+                        "text":  "Banking",
+                        "href":  "https://www.pwc.co.za/en/industries/banking.html"
+                    },
+                    {
+                        "text":  "Chemicals",
+                        "href":  "https://www.pwc.co.za/en/industries/chemicals.html"
+                    },
+                    {
+                        "text":  "Energy, utilities and resources",
+                        "href":  "https://www.pwc.co.za/en/industries/energy-utilities-mining.html"
+                    },
+                    {
+                        "text":  "Engineering and construction",
+                        "href":  "https://www.pwc.co.za/en/industries/engineering-and-construction.html"
+                    },
+                    {
+                        "text":  "Education",
+                        "href":  "https://www.pwc.co.za/en/industries/higher-education.html"
+                    },
+                    {
+                        "text":  "Financial services",
+                        "href":  "https://www.pwc.co.za/en/industries/financial-services-industry.html"
+                    },
+                    {
+                        "text":  "Forest, paper and packaging",
+                        "href":  "https://www.pwc.co.za/en/industries/forest-paper-packaging.html"
+                    },
+                    {
+                        "text":  "Government and public sector",
+                        "href":  "https://www.pwc.co.za/en/industries/public-sector.html"
+                    },
+                    {
+                        "text":  "Hospitality and leisure",
+                        "href":  "https://www.pwc.co.za/en/industries/hospitality-and-leisure.html"
+                    },
+                    {
+                        "text":  "Healthcare",
+                        "href":  "https://www.pwc.co.za/en/industries/healthcare.html"
+                    },
+                    {
+                        "text":  "Insurance",
+                        "href":  "https://www.pwc.co.za/en/industries/insurance.html"
+                    },
+                    {
+                        "text":  "Industrial manufacturing",
+                        "href":  "https://www.pwc.co.za/en/industries/industrial-manufacturing.html"
+                    }
+                ],
+        "meta_description":  "We unite expertise and tech so you can outthink, outpace and outperform",
+        "error":  null
+    },
+    {
+        "company":  "Deloitte South Africa",
+        "url":  "https://www.deloitte.com/za",
+        "final_url":  "https://www.deloitte.com/za/en.html",
+        "status":  200,
+        "title":  "Deloitte South Africa | Audit, Consulting, Tax",
+        "h1":  [
+                   "The modernisation of Exchange Control Regulations in South Africa"
+               ],
+        "h2":  [
+                   "Connecting the dots. It’s what we do."
+               ],
+        "nav":  [
+                    {
+                        "text":  "Who we are",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Purpose \u0026amp; Values",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Our People",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Governance",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Recognition",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Press room",
+                        "href":  "/za/en/about/recognition/news.html?icid=top_news"
+                    },
+                    {
+                        "text":  "Contact Us",
+                        "href":  "/za/en/contact/contact-us.html?icid=top_contact-us"
+                    },
+                    {
+                        "text":  "What we believe in",
+                        "href":  "/za/en/about/story/purpose-values.html?icid=top_purpose-values"
+                    },
+                    {
+                        "text":  "Future vision",
+                        "href":  "/za/en/about/story/impact.html?icid=top_impact"
+                    },
+                    {
+                        "text":  "Code of Conduct",
+                        "href":  "/za/en/about/governance/code-of-conduct.html?icid=top_code-of-conduct"
+                    },
+                    {
+                        "text":  "Our People",
+                        "href":  "/za/en/about/people.html?icid=top_people"
+                    },
+                    {
+                        "text":  "Social responsibility",
+                        "href":  "/za/en/about/people/social-responsibility.html?icid=top_social-responsibility"
+                    },
+                    {
+                        "text":  "Network, brands \u0026amp; alliances",
+                        "href":  "/za/en/about/governance/network-brand-alliances.html?icid=top_network-brand-alliances"
+                    },
+                    {
+                        "text":  "Global events",
+                        "href":  "/za/en/events.html?icid=top_events"
+                    },
+                    {
+                        "text":  "Accolades",
+                        "href":  "/za/en/about/recognition/accolades.html?icid=top_accolades"
+                    },
+                    {
+                        "text":  "Analyst Relations",
+                        "href":  "/za/en/about/recognition/analyst-relations/deloitte-analyst-recognitions.html?icid=top_deloitte-analyst-recognitions"
+                    },
+                    {
+                        "text":  "Deloitte in the News",
+                        "href":  "/za/en/about/recognition/news.html?icid=top_news"
+                    },
+                    {
+                        "text":  "Overview",
+                        "href":  "/za/en/what-we-do.html?icid=top_what-we-do"
+                    },
+                    {
+                        "text":  "Case studies",
+                        "href":  "/za/en/what-we-do/case-studies.html?icid=top_case-studies"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Industries",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Alliances",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Audit",
+                        "href":  "/za/en/services/audit-assurance.html?icid=top_audit"
+                    },
+                    {
+                        "text":  "Assurance",
+                        "href":  "/za/en/services/audit-assurance/services/assurance.html?icid=top_assurance"
+                    },
+                    {
+                        "text":  "Business Process Solutions",
+                        "href":  "/za/en/services/tax/services/business-process-solutions.html?icid=top_business-process-solutions-overview"
+                    }
+                ],
+        "meta_description":  "Deloitte \u0026amp; Touche South Africa, one of Africa\u0026#39;s leading professional services firms provides these services through nearly 3 800 people in 12 offices in South Africa and 17 cities in Southern Africa. Deloitte is the South African member firm of Deloitte Touche Tohmatsu Limited.",
+        "error":  null
+    },
+    {
+        "company":  "EY South Africa",
+        "url":  "https://www.ey.com/za",
+        "final_url":  "https://www.ey.com/en_za",
+        "status":  200,
+        "title":  "EY - Global | South Africa | Shape the future with confidence",
+        "h1":  [
+                   "What will it take to win in a more complex world?"
+               ],
+        "h2":  [
+                   "Featured press releases"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Insights",
+                        "href":  "/en_za/insights"
+                    },
+                    {
+                        "text":  "Technology",
+                        "href":  "/en_za/services/technology"
+                    },
+                    {
+                        "text":  "Transformation",
+                        "href":  "https://www.ey.com/en_za/transformation-realized"
+                    },
+                    {
+                        "text":  "Long-term value",
+                        "href":  "/en_za/services/long-term-value"
+                    },
+                    {
+                        "text":  "Sustainability",
+                        "href":  "/en_za/services/sustainability"
+                    },
+                    {
+                        "text":  "Trust",
+                        "href":  "/en_za/insights/trust"
+                    },
+                    {
+                        "text":  "Purpose",
+                        "href":  "/en_za/insights/purpose"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "/en_za/services"
+                    },
+                    {
+                        "text":  "Strategy by EY-Parthenon",
+                        "href":  "/en_za/services/strategy/parthenon"
+                    },
+                    {
+                        "text":  "Strategy consulting",
+                        "href":  "/en_za/services/strategy/consulting"
+                    },
+                    {
+                        "text":  "Corporate Strategy",
+                        "href":  "/en_za/services/strategy/corporate-growth-strategy"
+                    },
+                    {
+                        "text":  "Geopolitical Strategy",
+                        "href":  "/en_za/services/geostrategy/geostrategic-business-group"
+                    },
+                    {
+                        "text":  "Commercial strategy",
+                        "href":  "/en_za/services/strategy/commercial-strategy-consulting"
+                    },
+                    {
+                        "text":  "Working Capital",
+                        "href":  "/en_za/services/strategy-transactions/liquidity-working-capital-advisory"
+                    },
+                    {
+                        "text":  "Turnaround and Restructuring Consulting",
+                        "href":  "/en_za/services/strategy/restructuring-turnaround-strategy"
+                    },
+                    {
+                        "text":  "Sustainability Strategy",
+                        "href":  "/en_za/services/strategy-transactions/sustainability-esg-strategy"
+                    },
+                    {
+                        "text":  "AI Strategy Services",
+                        "href":  "/en_za/services/strategy/ai-strategy-consulting-mergers-acquisitions"
+                    },
+                    {
+                        "text":  "Industry strategy",
+                        "href":  "/en_za/services/strategy/industry-strategy"
+                    },
+                    {
+                        "text":  "Transactions and Corporate Finance by EY-Parthenon",
+                        "href":  "/en_za/services/strategy-transactions"
+                    },
+                    {
+                        "text":  "M\u0026amp;A Advisory",
+                        "href":  "/en_za/services/strategy-transactions/buy-integrate"
+                    },
+                    {
+                        "text":  "M\u0026amp;A Integration",
+                        "href":  "/en_za/services/strategy-transactions/mergers-acquisitions-integration"
+                    },
+                    {
+                        "text":  "M\u0026amp;A AI-powered Technology",
+                        "href":  "/en_za/services/strategy-transactions/connected-capital-technologies"
+                    },
+                    {
+                        "text":  "Divestment Strategy",
+                        "href":  "/en_za/services/strategy-transactions/sell-separate"
+                    },
+                    {
+                        "text":  "Corporate Finance",
+                        "href":  "/en_za/services/strategy-transactions/corporate-finance"
+                    },
+                    {
+                        "text":  "Valuation, Modeling \u0026amp; Economics",
+                        "href":  "/en_za/services/strategy-transactions/valuation-modeling-economics"
+                    }
+                ],
+        "meta_description":  "EY provides consulting, assurance, tax and transaction services that help solve our client’s toughest challenges and build a better working world for all.",
+        "error":  null
+    },
+    {
+        "company":  "KPMG South Africa",
+        "url":  "https://www.kpmg.co.za",
+        "error":  "The underlying connection was closed: An unexpected error occurred on a send.",
+        "status":  null
+    },
+    {
+        "company":  "BDO South Africa",
+        "url":  "https://www.bdo.co.za",
+        "final_url":  "https://www.bdo.co.za/en-za/home",
+        "status":  200,
+        "title":  "Audit \u0026amp; Assurance, Tax, Advisory, BSO | BDO South Africa - BDO",
+        "h1":  [
+                   "BDO Tier 1 banking report 2026"
+               ],
+        "h2":  [
+                   "Global Risk Landscape 2026",
+                   "Fraud alert: person falsely claiming to represent BDO Forensics",
+                   "South Africa’s REIT Regime: Why the tax wrapper still matters",
+                   "Higher education research report",
+                   "BDO Automotive Research Report",
+                   "Telecommunications risk factor survey 2025/26",
+                   "What does leadership look like in a complex, changing market?",
+                   "BDO mid-tier banking report: 2026",
+                   "BDO South Africa renewables research 2025",
+                   "How collaboration helps deliver the promise of renewable energy",
+                   "Growth of the agricultural sector critical to ensure uninterrupted supply of food to the FMCG sector",
+                   "SA Automotive sector facing competitive and survival headwinds to achieve sustainable growth"
+               ],
+        "nav":  {
+                    "text":  "South Africa",
+                    "href":  "/en-za/home"
+                },
+        "meta_description":  "BDO is a consulting firm that offers business advisory, audit, tax and numerous business outsourcing services in different sectors and industries",
+        "error":  null
+    },
+    {
+        "company":  "Forvis Mazars South Africa",
+        "url":  "https://www.forvismazars.com/za",
+        "final_url":  "https://www.forvismazars.com/za/en",
+        "status":  200,
+        "title":  "Forvis Mazars Forvis Mazars in South Africa - South Africa",
+        "h1":  [
+                   "C-suite barometer: 2026 mid-year insights"
+               ],
+        "h2":  [
+                   "Strengthening supply chains: Growing Global",
+                   "Cyber security in 2026",
+                   "Global private equity report 2026",
+                   "Forvis Mazars worldwide",
+                   "Forvis Mazars in South Africa",
+                   "What we do",
+                   "Insights"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Forvis Mazars Group",
+                        "href":  "https://www.forvismazars.com/group"
+                    },
+                    {
+                        "text":  "Forvis Mazars US",
+                        "href":  "https://www.forvismazars.us"
+                    },
+                    {
+                        "text":  "Afghanistan",
+                        "href":  "https://www.forvismazars.com/group/en/countries-territories/afghanistan"
+                    },
+                    {
+                        "text":  "Albania",
+                        "href":  "https://www.forvismazars.com/al"
+                    },
+                    {
+                        "text":  "Algeria",
+                        "href":  "https://www.forvismazars.com/dz"
+                    },
+                    {
+                        "text":  "Angola",
+                        "href":  "https://www.forvismazars.com/group/en/countries-territories/angola"
+                    },
+                    {
+                        "text":  "Argentina",
+                        "href":  "https://www.forvismazars.com/ar"
+                    },
+                    {
+                        "text":  "Australia",
+                        "href":  "https://www.forvismazars.com/au"
+                    },
+                    {
+                        "text":  "Austria",
+                        "href":  "https://www.forvismazars.com/at"
+                    },
+                    {
+                        "text":  "Bahrain",
+                        "href":  "https://www.forvismazars.com/bh"
+                    },
+                    {
+                        "text":  "Belgium",
+                        "href":  "https://www.forvismazars.com/be"
+                    },
+                    {
+                        "text":  "Benin",
+                        "href":  "https://www.forvismazars.com/bj"
+                    },
+                    {
+                        "text":  "Bermuda",
+                        "href":  "https://www.forvismazars.com/bm"
+                    },
+                    {
+                        "text":  "Bosnia and Herzegovina",
+                        "href":  "https://www.forvismazars.com/ba"
+                    },
+                    {
+                        "text":  "Botswana",
+                        "href":  "https://www.forvismazars.com/bw"
+                    },
+                    {
+                        "text":  "Brazil",
+                        "href":  "https://www.forvismazars.com/br"
+                    },
+                    {
+                        "text":  "Bulgaria",
+                        "href":  "https://www.forvismazars.com/bg"
+                    },
+                    {
+                        "text":  "Burkina Faso",
+                        "href":  "https://www.forvismazars.com/group/en/countries-territories/burkina-faso"
+                    },
+                    {
+                        "text":  "Cameroon",
+                        "href":  "https://www.forvismazars.com/cm"
+                    },
+                    {
+                        "text":  "Canada",
+                        "href":  "https://www.forvismazars.com/ca"
+                    },
+                    {
+                        "text":  "Cayman Islands",
+                        "href":  "https://www.forvismazars.com/group/en/countries-territories/cayman-islands"
+                    },
+                    {
+                        "text":  "Chile",
+                        "href":  "https://www.forvismazars.com/cl"
+                    },
+                    {
+                        "text":  "China",
+                        "href":  "https://www.forvismazars.com/cn"
+                    },
+                    {
+                        "text":  "Colombia",
+                        "href":  "https://www.forvismazars.com/co"
+                    },
+                    {
+                        "text":  "Croatia",
+                        "href":  "https://www.forvismazars.com/hr"
+                    }
+                ],
+        "meta_description":  "We are Forvis Mazars Group, an independent member of Forvis Mazars Global, a leading global professional services network. Operating as an internationally integrated partnership in over 100 countries and territories, we specialise in audit, tax and advisory services. We draw on the expertise and cultural understanding of over 35,0000 professionals across the globe to assist clients of all sizes at every stage in their development.",
+        "error":  null
+    },
+    {
+        "company":  "SNG Grant Thornton",
+        "url":  "https://www.sng-grantthornton.co.za",
+        "final_url":  "https://www.grantthornton.co.za/",
+        "status":  200,
+        "title":  "SNG Grant Thornton",
+        "h1":  [
+                   "IFRS S1 and S2 Ready in-a-Box",
+                   "Women in Business 2026",
+                   "All things Budget Speech 2026",
+                   "Scaling Sustainability"
+               ],
+        "h2":  [
+                   "Advisory services",
+                   "Assurance services",
+                   "Tax Advisory services",
+                   "Industry Hub",
+                   "Africa Tax Desk",
+                   "Search dialog",
+                   "IFRS S1 and S2 Ready in-a-Box",
+                   "Women in Business 2026",
+                   "Budget 2026",
+                   "Scaling Sustainability",
+                   "Keep up to date on the latest insights",
+                   "SNG Grant Thornton introduces SHEroes Beyond Internal Audit: Our Women in Internal Audit Network"
+               ],
+        "nav":  [
+                    {
+                        "text":  "About us",
+                        "href":  "/about-us/"
+                    },
+                    {
+                        "text":  "Insights",
+                        "href":  "/insights2/"
+                    },
+                    {
+                        "text":  "Advisory services",
+                        "href":  "/service/advisory-services/"
+                    },
+                    {
+                        "text":  "Assurance services",
+                        "href":  "/service/Assurance/"
+                    },
+                    {
+                        "text":  "Tax Advisory services",
+                        "href":  "/service/tax-advisory-services/"
+                    },
+                    {
+                        "text":  "Industry Hub",
+                        "href":  "/industry-hub/"
+                    },
+                    {
+                        "text":  "Energy and Natural Resources",
+                        "href":  "/industry-hub/energy-natural-resources/"
+                    },
+                    {
+                        "text":  "Technology, Media \u0026amp; Telecommunications",
+                        "href":  "/industry-hub/technology-media-telecommunications/"
+                    },
+                    {
+                        "text":  "Financial Services Industry",
+                        "href":  "/industry-hub/financial-services-industry/"
+                    },
+                    {
+                        "text":  "Public Sector",
+                        "href":  "/industry-hub/public-sector/"
+                    },
+                    {
+                        "text":  "Real Estate \u0026amp; Construction",
+                        "href":  "/industry-hub/real-estate--construction/"
+                    },
+                    {
+                        "text":  "Travel, Tourism \u0026amp; Leisure",
+                        "href":  "/industry-hub/Travel-tourism-leisure/"
+                    },
+                    {
+                        "text":  "Education Industry",
+                        "href":  "/industry-hub/education/"
+                    },
+                    {
+                        "text":  "Environmental, Social and Governance (ESG)",
+                        "href":  "/industry-hub/environmental-social-and-governance-esg/"
+                    },
+                    {
+                        "text":  "Africa Tax Desk",
+                        "href":  "/africa-tax-desk/"
+                    },
+                    {
+                        "text":  "South Africa",
+                        "href":  "/africa-tax-desk/sng-grant-thornton/"
+                    },
+                    {
+                        "text":  "Grant Thornton Morocco",
+                        "href":  "/africa-tax-desk/grant-thornton-morocco/"
+                    },
+                    {
+                        "text":  "Grant Thornton Namibia",
+                        "href":  "/africa-tax-desk/grant-thornton-namibia/"
+                    },
+                    {
+                        "text":  "Grant Thornton Malawi",
+                        "href":  "/africa-tax-desk/grant-thornton-malawi/"
+                    },
+                    {
+                        "text":  "Grant Thornton Gabon",
+                        "href":  "/africa-tax-desk/grant-thornton-gabon/"
+                    },
+                    {
+                        "text":  "Grant Thornton Algeria",
+                        "href":  "/africa-tax-desk/grant-thornton-algeria/"
+                    },
+                    {
+                        "text":  "Grant Thornton Togo",
+                        "href":  "/africa-tax-desk/grant-thornton-togo/"
+                    },
+                    {
+                        "text":  "Grant Thornton C\u0026#xF4;te d\u0026#x27;Ivoire",
+                        "href":  "/africa-tax-desk/grant-thornton-cote-divoire/"
+                    },
+                    {
+                        "text":  "Grant Thornton Zimbabwe",
+                        "href":  "/africa-tax-desk/grant-thornton-zimbabwe/"
+                    },
+                    {
+                        "text":  "Grant Thornton Cameroon",
+                        "href":  "/africa-tax-desk/grant-thornton-cameroon/"
+                    }
+                ],
+        "meta_description":  "SNG Grant Thornton  - Turning growth into shared progress. SNG Grant Thornton is the South African member firm of Grant Thornton International Ltd. We have progressed expeditiously in every aspect ever since our establishment in 1982. Our aim is to help dynamic organisations unlock their potential for growth by providing meaningful, forward-looking advice. Proactive teams led by our approachable partners, use insights, experience and understand complex issues for privately owned, publicly listed and public sector clients and help them to find solutions.",
+        "error":  null
+    },
+    {
+        "company":  "PKF South Africa",
+        "url":  "https://www.pkf.co.za",
+        "final_url":  "https://www.pkf.co.za/",
+        "status":  200,
+        "title":  "PKF South Africa - Audit, Consulting, Financial Advisory, Risk Advisory, Tax",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "Our Expertise",
+                   "Publications",
+                   "Latest News"
+               ],
+        "nav":  [
+                    {
+                        "text":  "About Us",
+                        "href":  "/about-us/"
+                    },
+                    {
+                        "text":  "About PKF South Africa",
+                        "href":  "/about-us/"
+                    },
+                    {
+                        "text":  "Leadership Team",
+                        "href":  "/about-us/leadership-team/"
+                    },
+                    {
+                        "text":  "Our history",
+                        "href":  "/about-us/our-history/"
+                    },
+                    {
+                        "text":  "Legal \u0026amp; Disclaimers",
+                        "href":  "/about-us/legal-and-disclaimers/"
+                    },
+                    {
+                        "text":  "Cookie Policy",
+                        "href":  "/about-us/cookie-policy/"
+                    },
+                    {
+                        "text":  "Alumni",
+                        "href":  "/about-us/alumni/"
+                    },
+                    {
+                        "text":  "Sectors",
+                        "href":  "/sectors/"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "/services/"
+                    },
+                    {
+                        "text":  "Audit \u0026amp; Assurance",
+                        "href":  "/services/audit-assurance/"
+                    },
+                    {
+                        "text":  "Advisory",
+                        "href":  "/services/advisory/"
+                    },
+                    {
+                        "text":  "BEE Verification",
+                        "href":  "/services/bee-verification/"
+                    },
+                    {
+                        "text":  "Corporate Finance",
+                        "href":  "/services/corporate-finance-and-structuring/"
+                    },
+                    {
+                        "text":  "Taxation",
+                        "href":  "/services/taxation/"
+                    },
+                    {
+                        "text":  "Business Risk Services",
+                        "href":  "/services/business-risk-services/"
+                    },
+                    {
+                        "text":  "Internal Audit",
+                        "href":  "/services/internal-audit/"
+                    },
+                    {
+                        "text":  "Corporate Governance",
+                        "href":  "/services/corporate-governance/"
+                    },
+                    {
+                        "text":  "Cloud Accounting",
+                        "href":  "/services/cloud-accounting-pkf-ignite/"
+                    },
+                    {
+                        "text":  "Company Secretarial",
+                        "href":  "/services/company-secretarial/"
+                    },
+                    {
+                        "text":  "Wealth Management",
+                        "href":  "/services/wealth-management/"
+                    },
+                    {
+                        "text":  "Fixed Asset Management",
+                        "href":  "/services/fixed-asset-management/"
+                    },
+                    {
+                        "text":  "- View All Services",
+                        "href":  "/services/"
+                    },
+                    {
+                        "text":  "Locations",
+                        "href":  "/locations/"
+                    },
+                    {
+                        "text":  "Publications",
+                        "href":  "/publications/"
+                    },
+                    {
+                        "text":  "Insights",
+                        "href":  "/news/"
+                    }
+                ],
+        "meta_description":  "PKF South Africa is one of the largest mid-tier accounting firms in South Africa, providing high-quality audit, accounting, tax and business advisory solutions.",
+        "error":  null
+    },
+    {
+        "company":  "Moore South Africa",
+        "url":  "https://www.moore.co.za",
+        "final_url":  "https://www.moore.co.za/",
+        "status":  200,
+        "title":  "Moore Process Controls | Industrial Automation and Optimization Experts",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "Automation and Optimisation Experts",
+                   "Latest News",
+                   "Reference Projects"
+               ],
+        "nav":  null,
+        "error":  null
+    },
+    {
+        "company":  "RSM South Africa",
+        "url":  "https://www.rsmza.co.za",
+        "error":  "The request was aborted: Could not create SSL/TLS secure channel.",
+        "status":  null
+    },
+    {
+        "company":  "Nexia SAB\u0026T",
+        "url":  "https://www.nexia-sabt.co.za",
+        "final_url":  "https://www.nexia-sabt.co.za/",
+        "status":  200,
+        "title":  "World-Class Auditing, Accounting and Consulting Services",
+        "h1":  [
+                   "World-Class Auditing, Accounting and Consulting Services"
+               ],
+        "h2":  [
+                   "The People Behind the Numbers",
+                   "A first in South Africa",
+                   "Be part of the change",
+                   "Forensic Auditing",
+                   "ESG \u0026#038; Sustainability",
+                   "Business tools",
+                   "Audit.",
+                   "Tax.",
+                   "Advisory.",
+                   "Insights",
+                   "Why Nexia SAB\u0026amp;T",
+                   "We are Pragmatically Fearless."
+               ],
+        "nav":  [
+                    {
+                        "text":  "\u0026#x69; Verify an Assurance Report",
+                        "href":  "https://www.nexia-sabt.co.za/verify-audit-reports/"
+                    },
+                    {
+                        "text":  "\u0026#xf4be; SAB\u0026#038;T Foundation",
+                        "href":  "https://sabt-foundation.co.za/"
+                    },
+                    {
+                        "text":  "\u0026#xf299; ESG Activities",
+                        "href":  "https://www.nexia-sabt.co.za/about-us/esg-activities/"
+                    },
+                    {
+                        "text":  "\u0026#xf15c; Business Profile",
+                        "href":  "https://www.nexia-sabt.co.za/wp-content/uploads/2025/09/Nexia-SABT-Business-Profile.pdf"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Audit",
+                        "href":  "https://www.nexia-sabt.co.za/audit/"
+                    },
+                    {
+                        "text":  "External Auditing \u0026amp; Assurance",
+                        "href":  "https://www.nexia-sabt.co.za/audit/external-auditing-assurance/"
+                    },
+                    {
+                        "text":  "Internal Auditing",
+                        "href":  "https://www.nexia-sabt.co.za/audit/internal-auditing/"
+                    },
+                    {
+                        "text":  "External Quality Assessments",
+                        "href":  "https://www.nexia-sabt.co.za/audit/internal-auditing/external-quality-assessments/"
+                    },
+                    {
+                        "text":  "Forensic Auditing",
+                        "href":  "https://www.nexia-sabt.co.za/audit/forensic-auditing/"
+                    },
+                    {
+                        "text":  "IT Audit",
+                        "href":  "https://www.nexia-sabt.co.za/audit/it-audit/"
+                    },
+                    {
+                        "text":  "Data Analytics",
+                        "href":  "https://www.nexia-sabt.co.za/audit/data-analytics/"
+                    },
+                    {
+                        "text":  "Tax",
+                        "href":  "https://www.nexia-sabt.co.za/tax/"
+                    },
+                    {
+                        "text":  "Corporate Tax",
+                        "href":  "https://www.nexia-sabt.co.za/tax/corporate-tax/"
+                    },
+                    {
+                        "text":  "Tax Consulting",
+                        "href":  "https://www.nexia-sabt.co.za/tax/tax-consulting/"
+                    },
+                    {
+                        "text":  "Business Services",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Accounting and Bookkeeping",
+                        "href":  "https://www.nexia-sabt.co.za/business-services/accounting-and-bookkeeping/"
+                    },
+                    {
+                        "text":  "Company Establishment",
+                        "href":  "https://www.nexia-sabt.co.za/business-services/company-establishment/"
+                    },
+                    {
+                        "text":  "Company Secretarial Services",
+                        "href":  "https://www.nexia-sabt.co.za/business-services/company-secretarial-services/"
+                    },
+                    {
+                        "text":  "Financial Reporting",
+                        "href":  "https://www.nexia-sabt.co.za/business-services/financial-reporting/"
+                    },
+                    {
+                        "text":  "Outsourced Business Solutions",
+                        "href":  "https://www.nexia-sabt.co.za/business-services/outsourced-business-solutions/"
+                    },
+                    {
+                        "text":  "Payroll",
+                        "href":  "https://www.nexia-sabt.co.za/business-services/payroll/"
+                    },
+                    {
+                        "text":  "Business Tools",
+                        "href":  "https://www.nexia-sabt.co.za/advisory/automation-digitisation/#tools"
+                    },
+                    {
+                        "text":  "Advisory",
+                        "href":  "https://www.nexia-sabt.co.za/advisory/"
+                    },
+                    {
+                        "text":  "ESG \u0026amp; Sustainability Services",
+                        "href":  "https://www.nexia-sabt.co.za/advisory/esg-sustainability-services/"
+                    }
+                ],
+        "meta_description":  "Nexia SAB\u0026amp;T: Leading South African audit, tax, and advisory firm in Centurion. Expert accountants serving businesses nationwide. Part of the global Nexia network.",
+        "error":  null
+    },
+    {
+        "company":  "Crowe South Africa",
+        "url":  "https://www.crowe.com/za",
+        "error":  "The remote server returned an error: (403) Forbidden.",
+        "status":  null
+    },
+    {
+        "company":  "Baker Tilly South Africa",
+        "url":  "https://www.bakertilly.co.za",
+        "final_url":  "https://bakertilly.co.za/",
+        "status":  200,
+        "title":  "Baker Tilly South Africa | Now, For Tomorrow",
+        "h1":  [
+                   "Baker Tilly South Africa"
+               ],
+        "h2":  [
+                   "About Baker Tilly",
+                   "Our Independent Firms",
+                   "Why Choose Baker Tilly",
+                   "Baker Tilly International",
+                   "Let\u0026#8217;s get started"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Skip to main content",
+                        "href":  "#ajax-content-wrap"
+                    },
+                    {
+                        "text":  "twitter",
+                        "href":  "https://twitter.com/BakerTillyGW"
+                    },
+                    {
+                        "text":  "facebook",
+                        "href":  "https://www.facebook.com/bakertillygreenwoodsza/"
+                    },
+                    {
+                        "text":  "linkedin",
+                        "href":  "https://www.linkedin.com/company/baker-tilly-greenwoods/"
+                    },
+                    {
+                        "text":  "instagram",
+                        "href":  "https://www.instagram.com/bakertilly_greenwoods/"
+                    },
+                    {
+                        "text":  "+27 21 410 8500",
+                        "href":  "tel:0214108500"
+                    },
+                    {
+                        "text":  "mail@bakertillygreenwoods.co.za",
+                        "href":  "mailto:mail@bakertillygreenwoods.co.za"
+                    },
+                    {
+                        "text":  "About Us",
+                        "href":  "https://bakertilly.co.za/about/"
+                    },
+                    {
+                        "text":  "International",
+                        "href":  "https://bakertilly.co.za/international/"
+                    },
+                    {
+                        "text":  "Contact",
+                        "href":  "https://bakertilly.co.za/contact/"
+                    },
+                    {
+                        "text":  "search",
+                        "href":  "#search-box"
+                    }
+                ],
+        "meta_description":  "Baker Tilly South Africa is one of the largest independent auditing, accounting and advisory firms in the world. Let\u0026#039;s grow together.",
+        "error":  null
+    },
+    {
+        "company":  "UHY Hellmann",
+        "url":  "https://www.uhy.co.za",
+        "final_url":  "https://uhy.co.za/",
+        "status":  200,
+        "title":  "UHY Hellmann | Registered Auditors",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "UHY INTERNATIONAL MEMBER",
+                   "AUDIT SERVICES",
+                   "INTERNATIONAL SERVICES",
+                   "Welcome to UHY Hellmann (SA)",
+                   "Our Services",
+                   "About UHY International"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Home",
+                        "href":  "https://uhy.co.za/"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Corporate Services",
+                        "href":  "https://uhy.co.za/corporate-services/"
+                    },
+                    {
+                        "text":  "Private Client Services",
+                        "href":  "https://uhy.co.za/private-client-services/"
+                    },
+                    {
+                        "text":  "International Services",
+                        "href":  "https://uhy.co.za/international-services/"
+                    },
+                    {
+                        "text":  "About Us",
+                        "href":  "https://uhy.co.za/about-us/"
+                    },
+                    {
+                        "text":  "Our People",
+                        "href":  "https://uhy.co.za/our-people/"
+                    },
+                    {
+                        "text":  "Contact",
+                        "href":  "https://uhy.co.za/contact/"
+                    }
+                ],
+        "error":  null
+    },
+    {
+        "company":  "Kreston South Africa",
+        "url":  "https://www.kreston.co.za",
+        "error":  "The underlying connection was closed: Could not establish trust relationship for the SSL/TLS secure channel.",
+        "status":  null
+    },
+    {
+        "company":  "Nolands",
+        "url":  "https://www.nolands.co.za",
+        "final_url":  "https://nolands.global/",
+        "status":  200,
+        "title":  "Auditors in 7 Countries | Audit, Advisory \u0026 Law | Nolands Global",
+        "h1":  [
+                   "Welcome to NOLANDS GLOBAL"
+               ],
+        "h2":  [
+
+               ],
+        "nav":  null,
+        "error":  null
+    },
+    {
+        "company":  "BVSA",
+        "url":  "https://www.bvsa.ltd",
+        "error":  "The remote server returned an error: (404) Not Found.",
+        "status":  null
+    },
+    {
+        "company":  "Theron du Plessis",
+        "url":  "https://www.tdp.co.za",
+        "error":  "The request was aborted: The connection was closed unexpectedly.",
+        "status":  null
+    },
+    {
+        "company":  "MGI Bass Gordon",
+        "url":  "https://www.bassgordon.co.za",
+        "final_url":  "https://www.bassgordon.co.za/",
+        "status":  200,
+        "title":  "MGI BASS GORDON - MGI",
+        "h1":  [
+                   "the journey"
+               ],
+        "h2":  [
+                   "the people who make business personal.",
+                   "a holistic service offering",
+                   "why mgi?"
+               ],
+        "nav":  null,
+        "meta_description":  "Welcome to MGI Bass Gordon. Our firm, which dates back to 1935, has a commitment to quality, integrity and personal service that has seen us grow to a firm of eight partners and over 100 personnel. Our management team has substantial professional expertise, as well as a shared philosophy of providing cost-effective services in a timely fashion.",
+        "error":  null
+    },
+    {
+        "company":  "Morar Incorporated",
+        "url":  "https://www.morar.co.za",
+        "final_url":  "https://morar.co.za/",
+        "status":  200,
+        "title":  "Welcome To Morar Incorporated - Morar Incorporated",
+        "h1":  [
+                   "WELCOME TO MORAR INCORPORATED"
+               ],
+        "h2":  [
+                   "WITH 29 YEARS OF EXPERIENCE, HELPING BUSINESSES TO FIND COMPREHENSIVE SOLUTIONS."
+               ],
+        "nav":  [
+                    {
+                        "text":  "Welcome",
+                        "href":  "/"
+                    },
+                    {
+                        "text":  "About Us",
+                        "href":  "https://morar.co.za/about-us/"
+                    },
+                    {
+                        "text":  "Our Vision \u0026#038; Values",
+                        "href":  "https://morar.co.za/our-vision-values/"
+                    },
+                    {
+                        "text":  "Our Responsibility",
+                        "href":  "https://morar.co.za/our-responsibility/"
+                    },
+                    {
+                        "text":  "Our Team",
+                        "href":  "https://morar.co.za/our-team/"
+                    },
+                    {
+                        "text":  "Our Services",
+                        "href":  "https://morar.co.za/our-services/"
+                    },
+                    {
+                        "text":  "Accounting",
+                        "href":  "https://morar.co.za/accounting/"
+                    },
+                    {
+                        "text":  "Auditing",
+                        "href":  "https://morar.co.za/auditing/"
+                    },
+                    {
+                        "text":  "Tax",
+                        "href":  "https://morar.co.za/tax/"
+                    },
+                    {
+                        "text":  "Company Secretarial Services",
+                        "href":  "https://morar.co.za/secretarial-services/"
+                    },
+                    {
+                        "text":  "Consulting",
+                        "href":  "https://morar.co.za/consulting/"
+                    },
+                    {
+                        "text":  "Municipal Finance Management",
+                        "href":  "https://morar.co.za/municipalities-municipal-entities/"
+                    },
+                    {
+                        "text":  "Public Finance Management",
+                        "href":  "https://morar.co.za/services-to-provincial-departments-and-public-entities/"
+                    },
+                    {
+                        "text":  "Services to the AG",
+                        "href":  "https://morar.co.za/services-to-the-auditor-general-of-south-africa/"
+                    },
+                    {
+                        "text":  "Transactions Advisory Services",
+                        "href":  "https://morar.co.za/transactions-advisory-services/"
+                    },
+                    {
+                        "text":  "Business Plans",
+                        "href":  "https://morar.co.za/business-plans/"
+                    },
+                    {
+                        "text":  "Due Diligence Studies",
+                        "href":  "https://morar.co.za/due-diligence-and-feasibility-studies/"
+                    },
+                    {
+                        "text":  "Information Technology (ICT SERVICES)",
+                        "href":  "https://morar.co.za/information-technology/"
+                    },
+                    {
+                        "text":  "Forensic Investigations",
+                        "href":  "https://morar.co.za/forensic-investigations/"
+                    },
+                    {
+                        "text":  "Internal Audit and Risk Management",
+                        "href":  "https://morar.co.za/internal-audit-risk-management/"
+                    },
+                    {
+                        "text":  "Training",
+                        "href":  "https://morar.co.za/training/"
+                    },
+                    {
+                        "text":  "E-caps/Performance Management",
+                        "href":  "https://morar.co.za/e-capsperformance-management/"
+                    },
+                    {
+                        "text":  "Join Our Team",
+                        "href":  "https://morar.co.za/careers/"
+                    },
+                    {
+                        "text":  "Blogs",
+                        "href":  "https://morar.co.za/latest-news/"
+                    },
+                    {
+                        "text":  "2023 Budget FAQs \u0026#8211; Solar Panel Tax",
+                        "href":  "https://morar.co.za/wp-content/uploads/2023-Budget-FAQs-Solar-Panel-Tax-Incentive.pdf"
+                    }
+                ],
+        "meta_description":  "At Morar Incorporated we help organisations maximise their performance to achieve their goals and lead in the markets in which they compete.",
+        "error":  null
+    },
+    {
+        "company":  "Ngubane \u0026 Co.",
+        "url":  "https://www.ngubane.co.za",
+        "error":  "The underlying connection was closed: An unexpected error occurred on a send.",
+        "status":  null
+    },
+    {
+        "company":  "Rakoma \u0026 Associates",
+        "url":  "https://www.rakoma.co.za",
+        "final_url":  "https://rakoma.co.za/",
+        "status":  200,
+        "title":  "Rakoma Group",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "Sign up for our newsletters!"
+               ],
+        "nav":  null,
+        "error":  null
+    },
+    {
+        "company":  "SkX Protiviti",
+        "url":  "https://www.skxprotiviti.co.za",
+        "error":  "The remote name could not be resolved: \u0027www.skxprotiviti.co.za\u0027",
+        "status":  null
+    },
+    {
+        "company":  "Ecovis South Africa",
+        "url":  "https://www.ecovis.com/south-africa",
+        "final_url":  "https://www.ecovis.com/south-africa/",
+        "status":  200,
+        "title":  "Ecovis in Johannesburg and Umhlanga (Durban), South Africa",
+        "h1":  [
+                   "Ecovis in South Africa"
+               ],
+        "h2":  [
+                   "Newsletter",
+                   "China Patent Law: SPC Clarifies Inventive Step Requirements and Procedural Diligence",
+                   "China Prosecution History Estoppel: SPC Clarifies Limits in New Patent Case",
+                   "Japan Business Manager Visa Reform: Strict New Rules for Entrepreneurs",
+                   "Ecovis is now represented in Kazakhstan",
+                   "Understanding Decree 144 2026 ND CP: Changes to Vietnamese VAT regulations",
+                   "Tracking technologies in the digital age: A new wave of website tracking litigation",
+                   "Poland transfer pricing regulations: Draft amendment for regulatory compliance published",
+                   "Ecovis is offering legal services in the UK",
+                   "ECOVIS ProventusLaw Advises Backpack on Securing MiCA Licence from Latvijas Banka",
+                   "Ecovis strengthens its presence in Italy",
+                   "ECOVIS ARB Auditors Incorporated"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Home",
+                        "href":  "https://www.ecovis.com/south-africa/"
+                    },
+                    {
+                        "text":  "Global news",
+                        "href":  "https://www.ecovis.com/south-africa/global-news/"
+                    },
+                    {
+                        "text":  "About us",
+                        "href":  "https://www.ecovis.com/south-africa/profile/"
+                    },
+                    {
+                        "text":  "Philosophy of the practice",
+                        "href":  "https://www.ecovis.com/south-africa/profile/philosophy-of-the-practice/"
+                    },
+                    {
+                        "text":  "Departments",
+                        "href":  "https://www.ecovis.com/south-africa/profile/departments/"
+                    },
+                    {
+                        "text":  "ECOVIS International",
+                        "href":  "https://www.ecovis.com/south-africa/ecovis-international/"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "https://www.ecovis.com/south-africa/services/"
+                    },
+                    {
+                        "text":  "Audit",
+                        "href":  "https://www.ecovis.com/south-africa/services/audit/"
+                    },
+                    {
+                        "text":  "Accounting",
+                        "href":  "https://www.ecovis.com/south-africa/services/accounting/"
+                    },
+                    {
+                        "text":  "Corporate compliance",
+                        "href":  "https://www.ecovis.com/south-africa/services/corporate-compliance/"
+                    },
+                    {
+                        "text":  "Management consulting services",
+                        "href":  "https://www.ecovis.com/south-africa/services/management-consulting-services/"
+                    },
+                    {
+                        "text":  "Taxation",
+                        "href":  "https://www.ecovis.com/south-africa/services/taxation/"
+                    },
+                    {
+                        "text":  "Broad-based black economic empowerment",
+                        "href":  "https://www.ecovis.com/south-africa/services/broad-based-black-economic-empowerment/"
+                    },
+                    {
+                        "text":  "Downloads",
+                        "href":  "https://www.ecovis.com/south-africa/downloads/"
+                    },
+                    {
+                        "text":  "Contact persons",
+                        "href":  "https://www.ecovis.com/south-africa/contact-persons/"
+                    },
+                    {
+                        "text":  "Rossouw Pieterse",
+                        "href":  "https://www.ecovis.com/south-africa/contact-persons/rossouw-pieterse/"
+                    },
+                    {
+                        "text":  "Contact",
+                        "href":  "https://www.ecovis.com/south-africa/contact/"
+                    },
+                    {
+                        "text":  "About us",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Contact persons",
+                        "href":  "#"
+                    }
+                ],
+        "meta_description":  "Tax advisors, accountants and auditors in Johannesburg and Umhlanga (Durban), South Africa",
+        "error":  null
+    },
+    {
+        "company":  "MD Accountants \u0026 Auditors",
+        "url":  "https://www.mdacc.co.za",
+        "final_url":  "https://www.mdacc.co.za/",
+        "status":  200,
+        "title":  "MD Streets Accountants Proprietary Limited | MD Streets Auditors Incorporated | We are experts in providing focused Client Centred Value Added Accounting, Auditing, Taxation, Statutory, Retail, B-BBEE, Business Rescue and related Financial Services.",
+        "h1":  [
+                   "MEMBER INSTITUTES",
+                   "FURTHER MEMBER CONTENT",
+                   "CAREERS",
+                   "SERVICE OFFERING",
+                   "Here, With You."
+               ],
+        "h2":  [
+                   "Financial Leadership through Professional Excellence",
+                   "Tax Deadlines: 30 June",
+                   "Summary from our June 2026 Newsletter",
+                   "Our MDS June Birthdays!",
+                   "Tax Deadlines: 05 June, 25 June, 29 June",
+                   "Current 2026/2027 MD Streets Tax Card",
+                   "Happy Youth Day!",
+                   "Non-Compliant Trust? Penalties are Piling up…",
+                   "The Small Business Trends You Should Be Paying Attention To",
+                   "Top Tips for Handling Your Employee’s Personal Crisis",
+                   "Business Budgeting Strategies for Navigating Volatile Markets",
+                   "SAICA Food Parcel Drive"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Home",
+                        "href":  "https://www.mdacc.co.za/"
+                    },
+                    {
+                        "text":  "About",
+                        "href":  "https://www.mdacc.co.za/about-us/"
+                    },
+                    {
+                        "text":  "About Us",
+                        "href":  "https://www.mdacc.co.za/about-us/about-us/"
+                    },
+                    {
+                        "text":  "SAICA and SAIPA Honour’s Roll",
+                        "href":  "https://www.mdacc.co.za/about-us/honours-roll/"
+                    },
+                    {
+                        "text":  "MD’s Evolution",
+                        "href":  "https://www.mdacc.co.za/about-us/mds-evolution/"
+                    },
+                    {
+                        "text":  "Long Service Awards",
+                        "href":  "https://www.mdacc.co.za/staff-long-service-awards/"
+                    },
+                    {
+                        "text":  "Staff Awards",
+                        "href":  "https://www.mdacc.co.za/about-us/staff-awards-2015/"
+                    },
+                    {
+                        "text":  "Staff News",
+                        "href":  "https://www.mdacc.co.za/about-us/staff-news/"
+                    },
+                    {
+                        "text":  "Testimonials",
+                        "href":  "https://www.mdacc.co.za/about-us/testimonials/"
+                    },
+                    {
+                        "text":  "Vision and Mission",
+                        "href":  "https://www.mdacc.co.za/about-us/vision-and-mission/"
+                    },
+                    {
+                        "text":  "Team",
+                        "href":  "https://www.mdacc.co.za/team-4/"
+                    },
+                    {
+                        "text":  "MD Streets Accountants",
+                        "href":  "https://www.mdacc.co.za/team-4/md-streets-accountants/"
+                    },
+                    {
+                        "text":  "MD Streets Auditors",
+                        "href":  "https://www.mdacc.co.za/team-4/md-streets-auditors/"
+                    },
+                    {
+                        "text":  "Streets, UK",
+                        "href":  "https://www.mdacc.co.za/streets-uk/"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "https://www.mdacc.co.za/services/"
+                    },
+                    {
+                        "text":  "Accounting",
+                        "href":  "https://www.mdacc.co.za/accounting/"
+                    },
+                    {
+                        "text":  "AFS Drafting",
+                        "href":  "https://www.mdacc.co.za/afs-drafting/"
+                    },
+                    {
+                        "text":  "Auditing",
+                        "href":  "https://www.mdacc.co.za/auditing/"
+                    },
+                    {
+                        "text":  "B-BBEE",
+                        "href":  "https://www.mdacc.co.za/bbbee/"
+                    },
+                    {
+                        "text":  "Business Consulting",
+                        "href":  "https://www.mdacc.co.za/business-consulting/"
+                    },
+                    {
+                        "text":  "Business Rescue",
+                        "href":  "https://www.mdacc.co.za/business-rescue/"
+                    },
+                    {
+                        "text":  "Company \u0026#038; Trust Compliance",
+                        "href":  "https://www.mdacc.co.za/company-secretarial/"
+                    },
+                    {
+                        "text":  "Estate Planning",
+                        "href":  "https://www.mdacc.co.za/estate-planning/"
+                    },
+                    {
+                        "text":  "Focused Project Audits",
+                        "href":  "https://www.mdacc.co.za/focused-project-audits/"
+                    },
+                    {
+                        "text":  "Forensic Consulting",
+                        "href":  "https://www.mdacc.co.za/forensic-consulting/"
+                    }
+                ],
+        "error":  null
+    },
+    {
+        "company":  "LPH Chartered Accountants",
+        "url":  "https://www.lph.co.za",
+        "final_url":  "https://www.lph.co.za/",
+        "status":  200,
+        "title":  "LPH Chartered Accountants | Assurance and Non-Assurance Services",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "AUDIT \u0026amp; ASSURANCE",
+                   "NON-ASSURANCE"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Home",
+                        "href":  "https://www.lph.co.za/"
+                    },
+                    {
+                        "text":  "Audit \u0026#038; Assurance",
+                        "href":  "https://www.lph.co.za/assurance/"
+                    },
+                    {
+                        "text":  "Audit \u0026#038; Assurance",
+                        "href":  "https://www.lph.co.za/assurance/#auditing"
+                    },
+                    {
+                        "text":  "Trainee Accountants",
+                        "href":  "https://www.lph.co.za/assurance/#saica"
+                    },
+                    {
+                        "text":  "Our Team Leaders",
+                        "href":  "https://www.lph.co.za/assurance/#our2"
+                    },
+                    {
+                        "text":  "Non-Assurance",
+                        "href":  "https://www.lph.co.za/non-assurance/"
+                    },
+                    {
+                        "text":  "Accounting",
+                        "href":  "https://www.lph.co.za/non-assurance/#accounting"
+                    },
+                    {
+                        "text":  "Business Consulting",
+                        "href":  "https://www.lph.co.za/non-assurance/#business"
+                    },
+                    {
+                        "text":  "Taxation",
+                        "href":  "https://www.lph.co.za/non-assurance/#taxation"
+                    },
+                    {
+                        "text":  "Secretarial",
+                        "href":  "https://www.lph.co.za/non-assurance/#secretarial"
+                    },
+                    {
+                        "text":  "Trusts, Wills \u0026#038; Estates",
+                        "href":  "https://www.lph.co.za/non-assurance/#trusts"
+                    },
+                    {
+                        "text":  "Our Team Leaders",
+                        "href":  "https://www.lph.co.za/non-assurance/#our"
+                    },
+                    {
+                        "text":  "Directors",
+                        "href":  "https://www.lph.co.za/our-directors/"
+                    },
+                    {
+                        "text":  "Careers",
+                        "href":  "https://www.lph.co.za/recruitment/"
+                    },
+                    {
+                        "text":  "Resources",
+                        "href":  "https://www.lph.co.za/resources/"
+                    },
+                    {
+                        "text":  "Disclaimer",
+                        "href":  "https://www.lph.co.za/disclaimer/"
+                    },
+                    {
+                        "text":  "Contact Us",
+                        "href":  "https://www.lph.co.za/contact-us/"
+                    },
+                    {
+                        "text":  "Search",
+                        "href":  "?s="
+                    },
+                    {
+                        "text":  "Menu Menu",
+                        "href":  "#"
+                    }
+                ],
+        "meta_description":  "Our professionals are committed to delivering quality assurance and non-assurance services to all of our clients with consistent and unwavering ...",
+        "error":  null
+    },
+    {
+        "company":  "C2M Chartered Accountants",
+        "url":  "https://www.c2m.co.za",
+        "final_url":  "https://c2m.co.za/",
+        "status":  200,
+        "title":  "C2M Chartered Accountants | Accounting Firm Cape Town - C2M",
+        "h1":  [
+                   "C2M -",
+                   "AUDITING",
+                   "Taxation",
+                   "Accounting",
+                   "payroll"
+               ],
+        "h2":  [
+                   "Welcome to C2M Chartered Accountants",
+                   "INNOVATION",
+                   "QUALITY",
+                   "INTEGRITY",
+                   "TRUST",
+                   "CARE",
+                   "C2M Services",
+                   "Business Funding Simplified.",
+                   "Spend less time managing cash flow and more time growing your business.",
+                   "We are Currency Partners",
+                   "Tailored Wealth Management - Your Financial Success, Our Priority",
+                   "Contact one of our Accountants for specialized services."
+               ],
+        "nav":  [
+                    {
+                        "text":  "Home",
+                        "href":  "https://c2m.co.za/"
+                    },
+                    {
+                        "text":  "About",
+                        "href":  "https://c2m.co.za/about/"
+                    },
+                    {
+                        "text":  "About Us",
+                        "href":  "https://c2m.co.za/about/"
+                    },
+                    {
+                        "text":  "Community",
+                        "href":  "https://c2m.co.za/community/"
+                    },
+                    {
+                        "text":  "Documentation",
+                        "href":  "https://c2m.co.za/documentation/"
+                    },
+                    {
+                        "text":  "Services",
+                        "href":  "https://c2m.co.za/audit-assurance/"
+                    },
+                    {
+                        "text":  "Audit \u0026#038; Assurance",
+                        "href":  "https://c2m.co.za/audit-assurance/"
+                    },
+                    {
+                        "text":  "Accounting",
+                        "href":  "https://c2m.co.za/accounting/"
+                    },
+                    {
+                        "text":  "Taxation",
+                        "href":  "https://c2m.co.za/taxation/"
+                    },
+                    {
+                        "text":  "Secretarial",
+                        "href":  "https://c2m.co.za/secretarial/"
+                    },
+                    {
+                        "text":  "Payroll",
+                        "href":  "https://c2m.co.za/payroll/"
+                    },
+                    {
+                        "text":  "Trust Administration",
+                        "href":  "https://c2m.co.za/trust-administration/"
+                    },
+                    {
+                        "text":  "Estate Administration",
+                        "href":  "https://c2m.co.za/estate-administration/"
+                    },
+                    {
+                        "text":  "B-BBEE Consultation",
+                        "href":  "https://c2m.co.za/b-bbee-consultation/"
+                    },
+                    {
+                        "text":  "XERO Accounting",
+                        "href":  "https://c2m.co.za/xero-accounting/"
+                    },
+                    {
+                        "text":  "Service Areas",
+                        "href":  "#"
+                    },
+                    {
+                        "text":  "Head Office",
+                        "href":  "https://c2m.co.za/head-office/"
+                    },
+                    {
+                        "text":  "Cape Town",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-cape-town/"
+                    },
+                    {
+                        "text":  "Bellville",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-bellville/"
+                    },
+                    {
+                        "text":  "Cape Town CBD",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-cape-town/"
+                    },
+                    {
+                        "text":  "Century City",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-century-city/"
+                    },
+                    {
+                        "text":  "Constantia",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-constantia/"
+                    },
+                    {
+                        "text":  "Durbanville",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-durbanville/"
+                    },
+                    {
+                        "text":  "Milnerton",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-milnerton/"
+                    },
+                    {
+                        "text":  "Rondebosch",
+                        "href":  "https://c2m.co.za/c2m-chartered-accountants-rondebosch/"
+                    }
+                ],
+        "meta_description":  "AUDITING Delivering auditing excellence since 1997, with over 150 skilled staff members dedicated to precision. Taxation Experience top-tier taxation services for optimal financial health and compliance. Accounting Achieve optimal financial health and ensure compliance with our accounting solutions. payroll Experience the pinnacle of payroll management for optimal financial health and compliance. Welcome to C2M Chartered",
+        "error":  null
+    },
+    {
+        "company":  "Ashton Chartered Accountants",
+        "url":  "https://www.ashtons.co.za",
+        "final_url":  "https://www.ashtons.co.za/",
+        "status":  200,
+        "title":  "Soon to be the new home of: ashtons.co.za",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "Website Under Construction"
+               ],
+        "nav":  null,
+        "error":  null
+    },
+    {
+        "company":  "Zeelie Professional Accountants",
+        "url":  "https://www.zeelie.co.za",
+        "final_url":  "https://www.zeelie.co.za/",
+        "status":  200,
+        "title":  "Index of /",
+        "h1":  [
+                   "Index of /"
+               ],
+        "h2":  [
+
+               ],
+        "nav":  null,
+        "error":  null
+    },
+    {
+        "company":  "GRIPP Advisory",
+        "url":  "https://www.grippadvisory.co.za",
+        "final_url":  "https://grippadvisory.co.za/",
+        "status":  200,
+        "title":  "Landing page - Gripp Advisory",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "BOUTIQUE ADVISORY AND CONSULTING FIRM"
+               ],
+        "nav":  null,
+        "error":  null
+    }
+]

@@ -1,0 +1,1139 @@
+﻿[
+    {
+        "company":  "Sanlam",
+        "url":  "https://www.sanlam.co.za",
+        "final_url":  "https://www.sanlamonline.co.za/",
+        "title":  "Personal | Sanlam",
+        "h1":  [
+                   "The F Factor"
+               ],
+        "h2":  [
+                   "I want to:",
+                   "Calculate your next financial move",
+                   "Speak to an expert",
+                   "Here to support you"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Personal",
+                        "href":  "/"
+                    },
+                    {
+                        "text":  "Business",
+                        "href":  "/business"
+                    },
+                    {
+                        "text":  "Corporate",
+                        "href":  "/corporate/"
+                    },
+                    {
+                        "text":  "Media",
+                        "href":  "http:/www.sanlamonline.co.za/knowledge-hub"
+                    },
+                    {
+                        "text":  "About",
+                        "href":  "/about-us"
+                    },
+                    {
+                        "text":  "Contact",
+                        "href":  "/help/contact-us"
+                    },
+                    {
+                        "text":  "South Africa Home",
+                        "href":  "https://www.sanlam.co.za/?_ga=2.105914058.811894285.1666097037-2082613751.1654775393"
+                    },
+                    {
+                        "text":  "Sanlam Investments",
+                        "href":  "https://www.sanlaminvestments.com"
+                    },
+                    {
+                        "text":  "Sanlam Private Wealth",
+                        "href":  "https://sanlamprivatewealth.sanlam.com"
+                    },
+                    {
+                        "text":  "Glacier by Sanlam",
+                        "href":  "https://www.glacier.co.za"
+                    },
+                    {
+                        "text":  "Sanlam BlueStar",
+                        "href":  "/bluestar"
+                    },
+                    {
+                        "text":  "Sanlam Investments East Africa",
+                        "href":  "https://sanlamallianzinvestments.com"
+                    },
+                    {
+                        "text":  "Sanlam Kenya",
+                        "href":  "https://sanlam.co.ke"
+                    },
+                    {
+                        "text":  "Sanlam Mozambique",
+                        "href":  "https://sanlam.co.mz"
+                    },
+                    {
+                        "text":  "Sanlam Namibia",
+                        "href":  "https://sanlamallianz.com.na"
+                    },
+                    {
+                        "text":  "Sanlam Zambia",
+                        "href":  "https://sanlam.co.zm"
+                    },
+                    {
+                        "text":  "Sanlam Rwanda",
+                        "href":  "https://rw.sanlamallianz.com"
+                    },
+                    {
+                        "text":  "Sanlam Swaziland",
+                        "href":  "https://alphsz.com"
+                    },
+                    {
+                        "text":  "Sanlam Tanzania",
+                        "href":  "https://sanlamallianz.co.tz"
+                    },
+                    {
+                        "text":  "Sanlam Uganda",
+                        "href":  "https://sanlam.co.ug"
+                    },
+                    {
+                        "text":  "Sanlam Private Wealth Mauritius",
+                        "href":  "https://sanlamprivatewealth.mu"
+                    },
+                    {
+                        "text":  "Sanlam UK",
+                        "href":  "https://www.sanlam.co.uk"
+                    },
+                    {
+                        "text":  "Sanlam Asset Management Ireland",
+                        "href":  "https://www.sanlam.com/ireland"
+                    },
+                    {
+                        "text":  "Global Investment Solutions",
+                        "href":  "https://www.sanlamgis.com/"
+                    },
+                    {
+                        "text":  "Financial Planning",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/financial-planning"
+                    },
+                    {
+                        "text":  "Life Cover",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/life-cover"
+                    },
+                    {
+                        "text":  "Short-term Insurance",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/short-term-insurance"
+                    },
+                    {
+                        "text":  "Investment Planning and Solutions",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/investment-planning-and-solutions"
+                    },
+                    {
+                        "text":  "Fund Fact Sheets",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/fund-factsheets"
+                    },
+                    {
+                        "text":  "Saving for Retirement",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/saving-for-retirement"
+                    },
+                    {
+                        "text":  "I m Ready to Retire",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/ready-to-retire"
+                    },
+                    {
+                        "text":  "Wills and Trusts",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/wills-and-trusts"
+                    },
+                    {
+                        "text":  "Healthcare Benefits",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/healthcare-benefits"
+                    },
+                    {
+                        "text":  "Business Owners",
+                        "href":  "https://www.sfpadvice.co.za/sfp/clients/business-financial-planning"
+                    },
+                    {
+                        "text":  "Insure",
+                        "href":  "/personal/insurance/"
+                    },
+                    {
+                        "text":  "About insurance",
+                        "href":  "/personal/insurance"
+                    },
+                    {
+                        "text":  "Life insurance",
+                        "href":  "/personal/insurance/life-insurance"
+                    },
+                    {
+                        "text":  "Disability cover",
+                        "href":  "/personal/insurance/disability-cover"
+                    },
+                    {
+                        "text":  "Severe illness",
+                        "href":  "/personal/insurance/severe-illness"
+                    },
+                    {
+                        "text":  "Cancer cover",
+                        "href":  "/personal/insurance/cancer-protection"
+                    }
+                ],
+        "ctas":  [
+
+                 ]
+    },
+    {
+        "company":  "Old Mutual",
+        "url":  "https://www.oldmutual.co.za",
+        "final_url":  "https://www.oldmutual.co.za/",
+        "title":  "Old Mutual: Insurance, Investments, Loans \u0026amp; Financial Planning",
+        "h1":  [
+                   "Your financial needs deserve solutions that match",
+                   "Welcome to our world. Let\u0027s help you through yours"
+               ],
+        "h2":  [
+
+               ],
+        "nav":  [
+
+                ],
+        "ctas":  [
+
+                 ]
+    },
+    {
+        "company":  "Santam",
+        "url":  "https://www.santam.co.za",
+        "final_url":  "https://www.santam.co.za/",
+        "title":  "Santam | This is freedom.",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "for me",
+                   "for my business",
+                   "for specialised risks",
+                   "for agriculture",
+                   "Call me back",
+                   "Call me back"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Call us: 0860 444 444",
+                        "href":  "tel:0860444444"
+                    },
+                    {
+                        "text":  "Claims: 0860 505 911",
+                        "href":  "tel:0860505911"
+                    },
+                    {
+                        "text":  "Client Portal",
+                        "href":  "https://client.santam.co.za"
+                    },
+                    {
+                        "text":  "Broker Portal",
+                        "href":  "https://extranet.santam.co.za/"
+                    },
+                    {
+                        "text":  "Pocket Underwriter",
+                        "href":  "https://shaport.santam.co.za/pocketunderwriter/"
+                    },
+                    {
+                        "text":  "Engineering Online",
+                        "href":  "https://brokerportal.mirabilis.net/home"
+                    },
+                    {
+                        "text":  "Emerging Business",
+                        "href":  "https://vumport.santam.co.za/login.aspx"
+                    },
+                    {
+                        "text":  "Admin house",
+                        "href":  "https://extranet.santam.co.za/"
+                    },
+                    {
+                        "text":  "Referral Agencies",
+                        "href":  "/client-services/referral/login/"
+                    },
+                    {
+                        "text":  "Careers/Learning Portal",
+                        "href":  "https://alearning.santam.co.za/alearning/alearningpub/"
+                    },
+                    {
+                        "text":  "Insurance: for me",
+                        "href":  "/insurance/for-me/"
+                    },
+                    {
+                        "text":  "Insurance for me",
+                        "href":  "/insurance/for-me/"
+                    },
+                    {
+                        "text":  "Car insurance",
+                        "href":  "/insurance/for-me/car/"
+                    },
+                    {
+                        "text":  "Home contents insurance",
+                        "href":  "/insurance/for-me/home-contents/"
+                    },
+                    {
+                        "text":  "Building insurance",
+                        "href":  "/insurance/for-me/building-insurance/"
+                    },
+                    {
+                        "text":  "All risk insurance",
+                        "href":  "/insurance/for-me/all-risk/"
+                    },
+                    {
+                        "text":  "Watercraft insurance",
+                        "href":  "/insurance/for-me/watercraft/"
+                    },
+                    {
+                        "text":  "Drone insurance",
+                        "href":  "/insurance/for-me/drone-insurance/"
+                    },
+                    {
+                        "text":  "Travel insurance",
+                        "href":  "/insurance/for-me/travel-insurance/"
+                    },
+                    {
+                        "text":  "Personal legal insurance",
+                        "href":  "/insurance/for-me/personal-legal-insurance/"
+                    },
+                    {
+                        "text":  "Get a quote",
+                        "href":  "/webquotepl"
+                    },
+                    {
+                        "text":  "Call me back",
+                        "href":  "/call-me-back/?type=personal"
+                    },
+                    {
+                        "text":  "Find an intermediary",
+                        "href":  "/find-an-intermediary/?type=personal"
+                    },
+                    {
+                        "text":  "Submit a claim",
+                        "href":  "/claims/submit-a-claim/"
+                    },
+                    {
+                        "text":  "Track a claim",
+                        "href":  "/claims/track-a-claim/"
+                    },
+                    {
+                        "text":  "Login to Client Portal",
+                        "href":  "https://client.santam.co.za/"
+                    },
+                    {
+                        "text":  "for my business",
+                        "href":  "/insurance/for-my-business/"
+                    },
+                    {
+                        "text":  "Insurance for my business",
+                        "href":  "/insurance/for-my-business/"
+                    },
+                    {
+                        "text":  "Motor insurance",
+                        "href":  "/insurance/for-my-business/business-motor-insurance/"
+                    },
+                    {
+                        "text":  "Property insurance",
+                        "href":  "/insurance/for-my-business/property-insurance/"
+                    },
+                    {
+                        "text":  "Small business insurance",
+                        "href":  "/insurance/for-my-business/small-business-insurance/"
+                    },
+                    {
+                        "text":  "Liability insurance",
+                        "href":  "/insurance/for-my-business/liability-insurance/"
+                    },
+                    {
+                        "text":  "Business legal insurance",
+                        "href":  "/insurance/for-my-business/business-legal-insurance/"
+                    },
+                    {
+                        "text":  "Industry specific products",
+                        "href":  "/insurance/for-my-business/industry/"
+                    },
+                    {
+                        "text":  "Get a quote",
+                        "href":  "/webquotesmartsme/"
+                    },
+                    {
+                        "text":  "Call me back",
+                        "href":  "/call-me-back/?lob=business\u0026amp;type=business"
+                    },
+                    {
+                        "text":  "Find an intermediary",
+                        "href":  "/find-an-intermediary/?type=commercial"
+                    },
+                    {
+                        "text":  "for specialised risks",
+                        "href":  "/insurance/for-specialised-risks/"
+                    },
+                    {
+                        "text":  "Insurance for specialised risks",
+                        "href":  "/insurance/for-specialised-risks/"
+                    },
+                    {
+                        "text":  "Accident health",
+                        "href":  "/insurance/for-specialised-risks/accident-and-health/"
+                    }
+                ],
+        "ctas":  [
+                     "Get a quote",
+                     "Get a quote",
+                     "Get a quote"
+                 ]
+    },
+    {
+        "company":  "Liberty",
+        "url":  "https://www.liberty.co.za",
+        "final_url":  "https://www.liberty.co.za/",
+        "title":  "Financial Services Company | Insurance and Investments | Liberty",
+        "h1":  [
+                   "Home"
+               ],
+        "h2":  [
+                   "We’re in it with you. Explore our range of insurance and investment solutions.",
+                   "Life is unpredictable. Your plan shouldn\u0027t be",
+                   "Quick links",
+                   "Media \u0026 Insights",
+                   "Media \u0026 Insights",
+                   "Connect with Liberty"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Estate Planning",
+                        "href":  "https://www.liberty.co.za/estate-planning"
+                    },
+                    {
+                        "text":  "How to Claim",
+                        "href":  "https://www.liberty.co.za/how-to-claim"
+                    },
+                    {
+                        "text":  "Find a Form",
+                        "href":  "https://www.liberty.co.za/find-form"
+                    },
+                    {
+                        "text":  "Fund Fact Sheets",
+                        "href":  "https://www.liberty.co.za/fund-fact-sheets"
+                    },
+                    {
+                        "text":  "Unclaimed Benefits",
+                        "href":  "https://www.liberty.co.za/unclaimed-benefits"
+                    },
+                    {
+                        "text":  "Helpful Resources",
+                        "href":  "https://www.liberty.co.za/helpful-resources"
+                    },
+                    {
+                        "text":  "Critical Illness",
+                        "href":  "/critical-illness-cover"
+                    },
+                    {
+                        "text":  "Disability Cover",
+                        "href":  "/disability-cover"
+                    },
+                    {
+                        "text":  "Funeral Cover",
+                        "href":  "/funeral-cover"
+                    },
+                    {
+                        "text":  "Income Protection",
+                        "href":  "/income-protection"
+                    },
+                    {
+                        "text":  "Life Cover",
+                        "href":  "/life-cover"
+                    },
+                    {
+                        "text":  "Estate Planning",
+                        "href":  "/estate-planning"
+                    },
+                    {
+                        "text":  "Gap Cover",
+                        "href":  "/gap-cover"
+                    },
+                    {
+                        "text":  "Save for Retirement",
+                        "href":  "/save-for-retirement"
+                    },
+                    {
+                        "text":  "Invest for Income",
+                        "href":  "/invest-for-income"
+                    },
+                    {
+                        "text":  "Invest",
+                        "href":  "/invest"
+                    },
+                    {
+                        "text":  "Invest Offshore",
+                        "href":  "/invest-offshore"
+                    },
+                    {
+                        "text":  "Invest for Education",
+                        "href":  "/invest-for-education"
+                    },
+                    {
+                        "text":  "STASH",
+                        "href":  "/stash"
+                    },
+                    {
+                        "text":  "Umbrella Fund Solutions",
+                        "href":  "/umbrella-fund-solutions"
+                    },
+                    {
+                        "text":  "Investment Solutions",
+                        "href":  "/investment-solutions"
+                    },
+                    {
+                        "text":  "Group Risk Solutions",
+                        "href":  "/group-risk-solutions"
+                    },
+                    {
+                        "text":  "Consulting and Actuarial Solutions",
+                        "href":  "/consulting-and-actuarial-solutions"
+                    },
+                    {
+                        "text":  "Solutions for Entrepreneurs",
+                        "href":  "/solutions-for-entrepreneurs"
+                    },
+                    {
+                        "text":  "Business Assurance",
+                        "href":  "/business-assurance"
+                    },
+                    {
+                        "text":  "Talk to an Adviser",
+                        "href":  "/talk-to-adviser"
+                    },
+                    {
+                        "text":  "Media \u0026 Insights",
+                        "href":  "/media-insights"
+                    },
+                    {
+                        "text":  "About Us",
+                        "href":  "/about-us"
+                    },
+                    {
+                        "text":  "Contact Us",
+                        "href":  "/contact-us"
+                    },
+                    {
+                        "text":  "MyLiberty Self-Service",
+                        "href":  "https://myliberty.liberty.co.za/logon"
+                    },
+                    {
+                        "text":  "Blueprint Corporate Servicing",
+                        "href":  "/blueprint-corporate-servicing"
+                    },
+                    {
+                        "text":  "Liberty Corporate Member Information System",
+                        "href":  "https://www.libertycorporatebenefits-ieb.co.za/ieb/memberaccess/ "
+                    },
+                    {
+                        "text":  "Corporate Benefits Self-Service Portal",
+                        "href":  "https://lcportal.liberty.co.za/"
+                    }
+                ],
+        "ctas":  [
+                     "\u0026otimes;",
+                     "Call me back",
+                     "Protect your legacy, find out more",
+                     "Find an Adviser",
+                     "Call me back",
+                     "Find an Adviser",
+                     "Call me back",
+                     "Explore tools",
+                     "Find a form",
+                     "File a claim",
+                     "Find out more"
+                 ]
+    },
+    {
+        "company":  "Momentum Metropolitan",
+        "url":  "https://www.momentummetropolitan.co.za",
+        "error":  "The remote server returned an error: (403) Forbidden."
+    },
+    {
+        "company":  "Discovery",
+        "url":  "https://www.discovery.co.za",
+        "final_url":  "https://www.discovery.co.za/",
+        "title":  "Medical Aid, Bank, Insurance, Invest \u0026 Vitality - Discovery",
+        "h1":  [
+                   "Enjoy fast, secure and intelligent calls to our bankers directly from the app, anytime, anywhere.",
+                   "WIN FUEL FOR A YEAR!",
+                   "WIN FUEL FOR A YEAR!",
+                   "Insurance that keeps you safe",
+                   "Insurance that keeps you safe"
+               ],
+        "h2":  [
+                   "Get between 10% and 30% off when shopping with your Ðiscovery Miles",
+                   "PLUS Discovery Insure clients earn up to R1,500 fuel cash back every month",
+                   "PLUS Discovery Insure clients earn up to R1,500 fuel cash back every month",
+                   "Actively preventing, responding and rewarding you.",
+                   "Actively preventing, responding and rewarding you.",
+                   "get 25% off your premium.",
+                   "get 25% off your premium.",
+                   "Beat the fuel price with Đ1,500 PLUS get 25% off your premium when you get a car insurance quote.",
+                   "Invest in Crypto with Discovery Bank"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Find an adviser",
+                        "href":  "/find-an-adviser/home"
+                    },
+                    {
+                        "text":  "FIND OUT MORE",
+                        "href":  "/bank/news-dstv-package-rewards"
+                    },
+                    {
+                        "text":  "Join now",
+                        "href":  "/bank/join-discovery-bank"
+                    },
+                    {
+                        "text":  "Log in to Online Banking",
+                        "href":  "/bank/online-banking"
+                    },
+                    {
+                        "text":  "Compare your current bank account with Discovery Bank",
+                        "href":  "/bank/product-comparison-tool"
+                    },
+                    {
+                        "text":  "About Shared-value banking",
+                        "href":  "/bank/shared-value-banking"
+                    },
+                    {
+                        "text":  "Vitality Money",
+                        "href":  "/bank/vitality-money"
+                    },
+                    {
+                        "text":  "Rewards",
+                        "href":  "/bank/vitality-money-rewards"
+                    },
+                    {
+                        "text":  "Ðiscovery Miles earn and spend",
+                        "href":  "/bank/discovery-miles"
+                    },
+                    {
+                        "text":  "Ðiscovery Miles+ Network",
+                        "href":  "/bank/discovery-miles-plus-network"
+                    },
+                    {
+                        "text":  "Vitality Travel",
+                        "href":  "/bank/vitality-travel"
+                    },
+                    {
+                        "text":  "Friend Referral Rewards",
+                        "href":  "/bank/friend-referral-rewards"
+                    },
+                    {
+                        "text":  "Calculate your potential rewards",
+                        "href":  "/bank/shared-value-stack"
+                    },
+                    {
+                        "text":  "Explore all Discovery Bank accounts",
+                        "href":  "/bank/accounts"
+                    },
+                    {
+                        "text":  "Discovery Bank credit cards",
+                        "href":  "/bank/accounts-credit-card-collection"
+                    },
+                    {
+                        "text":  "Full banking suites",
+                        "href":  "/bank/accounts-suite-collection"
+                    },
+                    {
+                        "text":  "Home loans",
+                        "href":  "/bank/home-loans"
+                    },
+                    {
+                        "text":  "Revolving Credit Facility",
+                        "href":  "/bank/revolving-credit-facility"
+                    },
+                    {
+                        "text":  "Personal Loans",
+                        "href":  "/bank/personal-loans"
+                    },
+                    {
+                        "text":  "Transaction accounts - bundled fees",
+                        "href":  "/bank/accounts-transaction-bundled-collection"
+                    },
+                    {
+                        "text":  "Transaction accounts - pay-as-you-transact fees",
+                        "href":  "/bank/accounts-transaction-payt-collection"
+                    },
+                    {
+                        "text":  "Real-time forex accounts",
+                        "href":  "/bank/accounts-forex"
+                    },
+                    {
+                        "text":  "Savings accounts",
+                        "href":  "/bank/accounts-savings-comparison"
+                    },
+                    {
+                        "text":  "Hybrid Fixed Deposit Account",
+                        "href":  "/bank/accounts-savings-hybrid-fixed-deposit"
+                    },
+                    {
+                        "text":  "Trade crypto assets with Luno",
+                        "href":  "/bank/crypto"
+                    },
+                    {
+                        "text":  "Prepaid products and digital vouchers",
+                        "href":  "/bank/prepaid-products-services-and-digital-vouchers"
+                    },
+                    {
+                        "text":  "Trade and invest with EasyEquities",
+                        "href":  "/bank/easy-equities"
+                    },
+                    {
+                        "text":  "The Discovery Bank app",
+                        "href":  "/bank/digital-banking"
+                    },
+                    {
+                        "text":  "Discovery AI",
+                        "href":  "/bank/discovery-ai"
+                    },
+                    {
+                        "text":  "Payments with Discovery Bank",
+                        "href":  "/bank/payments"
+                    },
+                    {
+                        "text":  "Discovery Pay",
+                        "href":  "/bank/discovery-pay"
+                    },
+                    {
+                        "text":  "Vitality Money Financial Analyser",
+                        "href":  "/bank/financial-analyser"
+                    },
+                    {
+                        "text":  "Safety and security",
+                        "href":  "/bank/mobile-banking-security"
+                    },
+                    {
+                        "text":  "Info and tips",
+                        "href":  "/bank/info-and-tips"
+                    },
+                    {
+                        "text":  "Latest news",
+                        "href":  "/bank/news"
+                    },
+                    {
+                        "text":  "Bank Blog",
+                        "href":  "/bank/blog"
+                    },
+                    {
+                        "text":  "How-to videos",
+                        "href":  "/bank/how-to-videos"
+                    },
+                    {
+                        "text":  "Boost now",
+                        "href":  "/medical-aid/personal-health-fund"
+                    },
+                    {
+                        "text":  "Get a medical aid quote",
+                        "href":  "/medical-aid/get-a-medical-aid-quote"
+                    },
+                    {
+                        "text":  "DHMS medical aid plans",
+                        "href":  "/medical-aid/our-medical-aid-plans"
+                    }
+                ],
+        "ctas":  [
+                     "Back to old site",
+                     "Log in",
+                     "close",
+                     "search",
+                     "QUOTE TO QUALIFY",
+                     "QUOTE TO QUALIFY",
+                     "JOIN DISCOVERY INSURE",
+                     "JOIN DISCOVERY INSURE",
+                     "Join Discovery Bank",
+                     "Join Discovery Bank",
+                     "JOIN DISCOVERY INSURE",
+                     "JOIN DISCOVERY INSURE",
+                     "Join Discovery Insure",
+                     "JOIN DISCOVERY INSURE",
+                     "Join Discovery Bank"
+                 ]
+    },
+    {
+        "company":  "Hollard",
+        "url":  "https://www.hollard.co.za",
+        "final_url":  "https://www.hollard.co.za/",
+        "title":  "South Africa\u0026#x27;s Favourite Insurance Company | Hollard",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "Click to explore",
+                   "Our World",
+                   "Our Partners",
+                   "Hollard International",
+                   "Click to explore",
+                   "Our World",
+                   "Our Partners",
+                   "Hollard International"
+               ],
+        "nav":  [
+
+                ],
+        "ctas":  [
+                     "Insure my life \u0026amp; my stuff",
+                     "Invest \u0026amp; save",
+                     "Insure my business \u0026amp; my people",
+                     "For policyholders",
+                     "For brokers \u0026amp; advisers",
+                     "Our world",
+                     "NewHollard Engage",
+                     "South Africa",
+                     "South Africa"
+                 ]
+    },
+    {
+        "company":  "Guardrisk",
+        "url":  "https://www.guardrisk.co.za",
+        "final_url":  "https://guardrisk.co.za/",
+        "title":  "Guardrisk | Tailored Risk Solutions",
+        "h1":  [
+                   "Guardrisk’s 2025 Business Report is now available…",
+                   "Guardrisk Life Limited is transferring credit life underwritten insurance policies to Capitec Life Limited as part of a Section 50 Transfer of the Insurance Act 18 of 2017.",
+                   "Important announcement",
+                   "How Guardrisk works for you"
+               ],
+        "h2":  [
+                   "Featured Products",
+                   "Latest News",
+                   "Important Links",
+                   "Compliance",
+                   "Get In Touch"
+               ],
+        "nav":  [
+                    {
+                        "text":  "About Us",
+                        "href":  "https://guardrisk.co.za/about/"
+                    },
+                    {
+                        "text":  "Cell Captives",
+                        "href":  "https://guardrisk.co.za/cell-captives/"
+                    },
+                    {
+                        "text":  "Insurtech",
+                        "href":  "https://guardrisk.co.za/Insurtech/"
+                    },
+                    {
+                        "text":  "General Insurance",
+                        "href":  "https://guardrisk.co.za/general-insurance/"
+                    },
+                    {
+                        "text":  "International",
+                        "href":  "https://guardrisk.co.za/international/"
+                    },
+                    {
+                        "text":  "Mining rehabilitation guarantees",
+                        "href":  "https://guardrisk.co.za/mining-rehabilitation-guarantees/"
+                    },
+                    {
+                        "text":  "Premium Finance",
+                        "href":  "https://guardrisk.co.za/premium-finance/"
+                    },
+                    {
+                        "text":  "UMA",
+                        "href":  "https://guardrisk.co.za/uma/"
+                    },
+                    {
+                        "text":  "Microinsurance",
+                        "href":  "https://guardrisk.co.za/microinsurance/"
+                    },
+                    {
+                        "text":  "Embedded Insurance",
+                        "href":  "https://guardrisk.co.za/embedded-insurance/"
+                    },
+                    {
+                        "text":  "Careers",
+                        "href":  "https://guardrisk.co.za/careers/"
+                    },
+                    {
+                        "text":  "Newsroom",
+                        "href":  "https://guardrisk.co.za/newsroom/"
+                    },
+                    {
+                        "text":  "Complaints",
+                        "href":  "https://guardrisk.co.za/complaints/"
+                    },
+                    {
+                        "text":  "Contact Us",
+                        "href":  "https://guardrisk.co.za/contact/"
+                    }
+                ],
+        "ctas":  [
+                     "Learn More",
+                     "About Us",
+                     "Read more",
+                     "About Us",
+                     "Customize",
+                     "Reject All",
+                     "Accept All",
+                     "Necessary",
+                     "Functional",
+                     "Analytics",
+                     "Performance",
+                     "Advertisement",
+                     "Reject All",
+                     "Save My Preferences",
+                     "Accept All"
+                 ]
+    },
+    {
+        "company":  "OUTsurance",
+        "url":  "https://www.outsurance.co.za",
+        "final_url":  "https://www.outsurance.co.za/",
+        "title":  "OUTsurance | Insurance for Cars, Homes, Life \u0026amp; Business Pet",
+        "h1":  [
+                   "Let s start your quote...",
+                   "Let s start your quote"
+               ],
+        "h2":  [
+                   "A better deal or cash back",
+                   "Insurance offering",
+                   "Help@OUT",
+                   "Why OUTsurance",
+                   "About us",
+                   "Insurance offering",
+                   "Help@OUT",
+                   "Why OUTsurance",
+                   "About us"
+               ],
+        "nav":  [
+
+                ],
+        "ctas":  [
+                     "Done",
+                     "MAKE A CHANGE ON MY POLICY",
+                     "GET A NEW QUOTE",
+                     "Done",
+                     "MAKE A CHANGE ON MY POLICY",
+                     "GET A NEW QUOTE",
+                     "Car insurance",
+                     "Home insurance",
+                     "Life insurance",
+                     "Pet insurance",
+                     "Business insurance",
+                     "CREATE MY OUT ID",
+                     "Learn more",
+                     "CREATE MY OUT ID",
+                     "Learn more"
+                 ]
+    },
+    {
+        "company":  "Telesure (TIH)",
+        "url":  "https://www.tihsa.co.za",
+        "final_url":  "https://tihsa.co.za/",
+        "title":  "Home - TIH SA",
+        "h1":  [
+                   "INSURANCE BRANDS"
+               ],
+        "h2":  [
+                   "HOME TO SOUTH AFRICA’S LEADING",
+                   "AT TIH WE SEE THE VALUE IN TALENT EXPERTISE",
+                   "Homegrown success, global expansion"
+               ],
+        "nav":  [
+                    {
+                        "text":  "About us",
+                        "href":  "https://tihsa.co.za/about-us/"
+                    },
+                    {
+                        "text":  "About Us",
+                        "href":  "https://tihsa.co.za/about-us/"
+                    },
+                    {
+                        "text":  "Who We are",
+                        "href":  "https://tihsa.co.za/about-us/"
+                    },
+                    {
+                        "text":  "TIH Board",
+                        "href":  "https://tihsa.co.za/our-leaders/"
+                    },
+                    {
+                        "text":  "Our Brands",
+                        "href":  "https://tihsa.co.za/our-brands/"
+                    },
+                    {
+                        "text":  "short term insurance",
+                        "href":  "https://tihsa.co.za/our-brands/"
+                    },
+                    {
+                        "text":  "CSI",
+                        "href":  "https://tihsa.co.za/csi/"
+                    },
+                    {
+                        "text":  "OUR focus areas",
+                        "href":  "https://tihsa.co.za/csi"
+                    },
+                    {
+                        "text":  "Entrepreneurship and Job Creation",
+                        "href":  "https://tihsa.co.za/entrepreneurship-and-job-creation/"
+                    },
+                    {
+                        "text":  "Learning Development",
+                        "href":  "https://tihsa.co.za/learning-and-development/"
+                    },
+                    {
+                        "text":  "Fight against GBV",
+                        "href":  "https://tihsa.co.za/fight-against-gbv/"
+                    },
+                    {
+                        "text":  "News",
+                        "href":  "https://tihsa.co.za/news/"
+                    },
+                    {
+                        "text":  "Working At TIH",
+                        "href":  "https://tihsa.co.za/working-at-tih/"
+                    },
+                    {
+                        "text":  "HOME",
+                        "href":  "https://tihsa.co.za/"
+                    },
+                    {
+                        "text":  "ABOUT US",
+                        "href":  "https://tihsa.co.za/about-us/"
+                    },
+                    {
+                        "text":  "OUR BRANDS",
+                        "href":  "https://tihsa.co.za/our-brands/"
+                    },
+                    {
+                        "text":  "Short Term Insurance",
+                        "href":  "https://tihsa.co.za/our-brands/"
+                    },
+                    {
+                        "text":  "CSI",
+                        "href":  "http://tihsa.co.za.dedi651.jnb3.host-h.net/csi/"
+                    },
+                    {
+                        "text":  "Learning and Development",
+                        "href":  "https://tihsa.co.za/learning-and-development/"
+                    },
+                    {
+                        "text":  "WORKING AT TIH",
+                        "href":  "https://tihsa.co.za/working-at-tih/"
+                    },
+                    {
+                        "text":  "NEWS",
+                        "href":  "https://tihsa.co.za/news/"
+                    }
+                ],
+        "ctas":  [
+
+                 ]
+    },
+    {
+        "company":  "Absa Insurance",
+        "url":  "https://www.absa.co.za",
+        "final_url":  "https://www.absa.co.za/personal/",
+        "title":  "Absa | Digital Banking for individuals and businesses",
+        "h1":  [
+                   "Absa digital banking solutions"
+               ],
+        "h2":  [
+                   "Get discounted banking for your spouse, plus a MegaU Account with Ultimate Banking.",
+                   "Fuel stops at Shell just got more Rewarding!",
+                   "Eyenu Nonke Funeral Plan",
+                   "What would you like to do?",
+                   "Smarter savings for seniors",
+                   "Live happier, healthier and wealthier",
+                   "Turn your house into a home with Cashbuild",
+                   "Get up to R1 500 with Absa Ultimate Banking!"
+               ],
+        "nav":  [
+
+                ],
+        "ctas":  [
+                     "Tell me more",
+                     "Tell me more",
+                     "Tell me more",
+                     "Tell me more",
+                     "Tell me more",
+                     "Tell me more",
+                     "Tell me more",
+                     "Tell me more",
+                     "Tell me more"
+                 ]
+    },
+    {
+        "company":  "Centriq Insurance",
+        "url":  "https://www.centriq.co.za",
+        "final_url":  "https://www.centriq.co.za/",
+        "title":  "Home - Centriq",
+        "h1":  [
+
+               ],
+        "h2":  [
+                   "CELL CAPTIVE SOLUTIONS",
+                   "PARTNER PORTAL",
+                   "LATEST INDUSTRY NEWS",
+                   "Centriq and Axxis expand into engineering insurance with new UMA",
+                   "The first party cell captive as a risk management technique",
+                   "An exciting time for UMAs"
+               ],
+        "nav":  [
+                    {
+                        "text":  "Home",
+                        "href":  "https://www.centriq.co.za/"
+                    },
+                    {
+                        "text":  "Us At A Glance",
+                        "href":  "https://www.centriq.co.za/us-at-a-glance/"
+                    },
+                    {
+                        "text":  "BEE",
+                        "href":  "https://www.centriq.co.za/bee/"
+                    },
+                    {
+                        "text":  "CSI",
+                        "href":  "https://www.centriq.co.za/csi/"
+                    },
+                    {
+                        "text":  "Management",
+                        "href":  "https://www.centriq.co.za/management/"
+                    },
+                    {
+                        "text":  "Financials",
+                        "href":  "https://www.centriq.co.za/financials/"
+                    },
+                    {
+                        "text":  "Solutions",
+                        "href":  "https://www.centriq.co.za/solutions/"
+                    },
+                    {
+                        "text":  "Alternative Distribution",
+                        "href":  "https://www.centriq.co.za/alternative-distribution/"
+                    },
+                    {
+                        "text":  "UMA",
+                        "href":  "https://www.centriq.co.za/uma/"
+                    },
+                    {
+                        "text":  "Risk Finance",
+                        "href":  "https://www.centriq.co.za/risk-finance/"
+                    },
+                    {
+                        "text":  "News",
+                        "href":  "https://www.centriq.co.za/news/"
+                    },
+                    {
+                        "text":  "Contact",
+                        "href":  "https://www.centriq.co.za/contact/"
+                    },
+                    {
+                        "text":  "Stay Safe Online",
+                        "href":  "https://www.centriq.co.za/stay-safe-online/"
+                    },
+                    {
+                        "text":  "Rating Announcement",
+                        "href":  "https://www.centriq.co.za/rating-announcement/"
+                    }
+                ],
+        "ctas":  [
+
+                 ]
+    }
+]

@@ -6,32 +6,19 @@ import { getLeads } from "@/app/actions/crm";
 export const dynamic = "force-dynamic";
 import { CrmProvider } from "@/components/crm/CrmContext";
 import { CrmShell } from "@/components/crm/CrmShell";
-import {
-  canAccessCrmRole,
-  crmRoleFromUser,
-  staffDisplayName,
-} from "@/lib/crm/session";
+import { canUseCrmAi } from "@/lib/crm/ai-access";
+import { crmPinMemberName, getCrmPinSessionMemberKey } from "@/lib/crm/pin-session";
+import { resolveCrmIdentity } from "@/lib/crm/resolve-session";
+import { staffDisplayName } from "@/lib/crm/session";
 import { requireCrmAccess } from "@/lib/crm/staff-access";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export default async function CrmLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createServerSupabaseClient();
-  if (!supabase) {
+  const identity = await resolveCrmIdentity();
+  if (!identity) {
     redirect("/login?next=/crm");
   }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login?next=/crm");
-  }
-
-  const role = crmRoleFromUser(user);
-  if (!canAccessCrmRole(role)) {
-    redirect("/login?next=/crm");
-  }
+  const { user, role } = identity;
 
   let showFunnelAdmin = role === "admin";
   try {
@@ -42,15 +29,22 @@ export default async function CrmLayout({ children }: { children: React.ReactNod
   }
 
   const initialLeads = await getLeads();
+  const pinMemberKey = identity.viaPin ? await getCrmPinSessionMemberKey() : null;
+  const displayName =
+    identity.viaPin && pinMemberKey
+      ? crmPinMemberName(pinMemberKey)
+      : staffDisplayName(user);
+  const canUseAi = canUseCrmAi(identity);
 
   return (
     <CrmProvider
       initialLeads={initialLeads}
       role={role}
       staffId={user.id}
-      staffName={staffDisplayName(user)}
+      staffName={displayName}
+      canUseAi={canUseAi}
     >
-      <CrmShell staffName={staffDisplayName(user)} role={role} showFunnelAdmin={showFunnelAdmin}>
+      <CrmShell staffName={displayName} role={role} showFunnelAdmin={showFunnelAdmin}>
         {children}
       </CrmShell>
     </CrmProvider>

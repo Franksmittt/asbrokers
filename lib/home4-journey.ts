@@ -46,8 +46,8 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/retirement",
     links: [
       { label: "Retirement calculators", href: "/calculators#retirement-planning" },
-      { label: "Living annuities", href: "/everest-amethyst-living-annuity" },
-      { label: "Preservation & two-pot", href: "/retirement-readiness" },
+      { label: "Living annuity calculator", href: "/calculators#asset-014-living-annuity" },
+      { label: "Retirement planning", href: "/retirement" },
       { label: "Retirement articles", href: "/insights" },
     ],
     accent: "teal",
@@ -62,7 +62,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     links: [
       { label: "Everest Wealth", href: "/everest-wealth" },
       { label: "Planning tools", href: "/calculators" },
-      { label: "Before retirement", href: "/retirement-readiness" },
+      { label: "Before retirement", href: "/retirement" },
       { label: "Investment calculators", href: "/calculators" },
     ],
     accent: "blue",
@@ -104,7 +104,7 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   {
     label: "Run Out of Capital Test",
     description: "Will your retirement savings last your lifetime?",
-    href: "/income-in-retirement",
+    href: "/calculators#asset-004-life-of-capital",
     image: "/images/calculators-capital-lifespan-4x3.jpg",
   },
   {

@@ -419,18 +419,8 @@ export const SCHEMA_EXPLICIT_PATH_PREFIXES = [
   "/insurance",
   "/everest-wealth",
   "/everest-wealth/about",
-  "/everest-128-product",
-  "/everest-strategic-growth-145",
   "/regulatory-compliance",
   "/retirement",
-  "/retirement-readiness",
-  "/retirement-survival-blueprint",
-  "/healthy-retirement-blueprint",
-  "/legacy-readiness-checklist",
-  "/business-risk-review",
-  "/retirement-survival-blueprint",
-  "/healthy-retirement-blueprint",
-  "/everest-amethyst-living-annuity",
   "/insights/",
 ] as const;
 

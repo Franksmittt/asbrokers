@@ -1,0 +1,379 @@
+================================================================================
+  AS BROKERS CRM — GUIDE FOR ALBERT
+  What it is, what it does, and how to use it (June 2026)
+================================================================================
+
+Prepared: June 2026 (updated after Gemini AI + production go-live)
+For:     Albert Schuurman — AS Brokers CC (FSP 17273, Category 1.8)
+Live:    https://www.asbrokers.co.za
+
+================================================================================
+1. WHAT IS THIS — IN ONE SENTENCE
+================================================================================
+
+Your CRM is a bespoke staff command centre on the live website: every enquiry
+lands automatically, Gemini AI helps advisors prioritise and respond (FAIS-safe),
+and you see the whole pipeline from first contact to won client — built for
+AS Brokers services, not a generic off-the-shelf product.
+
+Current maturity: ~8/10 (strong for demos and daily use; portal live data and
+full WhatsApp inbox are the next upgrades — see Section 12).
+
+================================================================================
+2. WHY IT MATTERS — FEATURES & BENEFITS FOR AS BROKERS
+================================================================================
+
+FOR YOU (OWNER / KEY INDIVIDUAL)
+--------------------------------
+  • One dashboard — total leads, win rate, pipeline stages, service mix
+  • Executive command centre (/crm/executive) — owner view + AI activity log
+  • No more “where did that enquiry go?” — website forms feed CRM instantly
+  • POPIA-aware AI audit trail — every Gemini action logged for accountability
+  • FSP 17273 compliance baked into AI (no guaranteed returns, Everest rules)
+
+FOR YOUR ADVISORS
+-----------------
+  • Kanban pipeline — drag cards New → Contacted → Qualified → Proposal → Won/Lost
+  • Auto-routing — new leads suggested to the right team member by service line
+  • Gemini lead advisor — next best action, talking points, one-click WhatsApp draft
+  • Pre-meeting brief — Generate → Print/PDF before client consultations
+  • Calculator session — run Amethyst/Everest calcs in meetings; log drawdown to lead
+  • Compliance flags — automatic alert if drawdown > 17.5% or capital < R100k Everest min
+
+FOR YOUR CLIENTS (PUBLIC SITE + PORTAL)
+---------------------------------------
+  • Professional enquiry journey — contact form, planning tools, calculators
+  • Client portal (/portal) — wealth snapshot, advisor contact, Retirement Readiness Score
+  • (Portal portfolio data is illustrative until Everest API is connected — Phase 3)
+
+OPERATIONAL WINS
+----------------
+  • Zero copy-paste from email into spreadsheets
+  • Kanban moves save immediately to secure PostgreSQL (Supabase)
+  • Email alerts on new enquiries (Resend → your inbox)
+  • Presentation mode + office calculators for face-to-face meetings
+  • All planning funnels (Blueprint, Legacy Checklist, Business Risk Review) tie to CRM
+
+================================================================================
+3. HOW TO LOG IN
+================================================================================
+
+DEMO / DAILY ACCESS (PIN — fastest for meetings)
+------------------------------------------------
+  1. Open:  https://www.asbrokers.co.za/login
+  2. Enter your 5-digit PIN (see below)
+  3. Click “Enter CRM”
+
+  Test/demo PINs (rotate before real staff go-live):
+    Albert (admin + AI assistant):  85879
+    Johnny Farinha (staff, business insurance):  47291
+    Petro Vermeulen (admin, no AI):  63941
+
+  Albert only: Gemini morning brief, dashboard executive chat (move Kanban,
+  delegate to Johnny, reschedule calls, send WhatsApp), lead AI panel, Kanban AI.
+  Johnny/Petro see the CRM without AI panels.
+
+You get full admin (superuser) access with Albert's PIN — all leads, executive view.
+
+Sign out: “Log out” in the left sidebar.
+
+STAFF EMAIL LOGIN (coming)
+--------------------------
+Magic-link login for permanent advisor accounts can be enabled when you are ready
+to move off the demo PIN. Your Supabase auth already has albert@asbrokers.co.za
+and solo9t9@gmail.com as admins.
+
+================================================================================
+4. NAVIGATION MAP — WHERE EVERYTHING LIVES
+================================================================================
+
+  URL                              What it does
+  ---                              ------------
+  /crm                             Dashboard — morning snapshot, KPIs, recent leads
+  /crm/kanban                      Visual pipeline board (best for demos)
+  /crm/leads                       Searchable lead table
+  /crm/leads/[id]                  Lead 360 — AI, messages, briefs, compliance
+  /crm/clients                     Won leads = active client book
+  /crm/executive                   Owner command centre (admin only)
+  /crm/whatsapp                    WhatsApp inbox (when Meta fully wired)
+  /crm/tasks                       Follow-ups and reminders
+  /crm/notes                       Team internal scratchpad
+  /crm/calculator-session          Live meeting calculators (+ link from lead)
+  /crm/presentation                Full-screen sales canvas
+  /crm/calculators                 Grid of all site calculators
+  /crm/settings                    Staff, roles, permissions (admin)
+
+  Admin-only submission queues:
+  • /crm/business-risk-reviews     Business Risk Review™ leads
+  • /crm/legacy-checklist-leads    Legacy Readiness Checklist™ leads
+  • /crm/healthy-retirement-assessments  Healthy Retirement Blueprint™
+
+================================================================================
+5. HOW LEADS GET INTO THE CRM (AUTOMATIC)
+================================================================================
+
+You never manually re-type website enquiries. The system writes to PostgreSQL
+(crm_leads table) and shows them in Kanban within seconds.
+
+SOURCES LIVE TODAY
+------------------
+  CONTACT FORM (/contact)
+    Main “Book a consultation” form. Creates lead in “New”. You get email alert.
+
+  NEWSLETTER (footer sign-up)
+    Logged as CRM lead for follow-up.
+
+  PLANNING TOOLS & FUNNELS
+    • Healthy Retirement Blueprint™
+    • Retirement Survival Blueprint™
+    • Legacy Readiness Checklist™
+    • Business Risk Review™
+    Each saves assessment data AND creates/updates the CRM pipeline.
+
+  WHATSAPP (partial)
+    Webhook exists; full two-way CRM inbox is Phase 3.
+
+WHAT EACH LEAD RECORD CONTAINS
+------------------------------
+  • Name, email, phone, company (if provided)
+  • Intent / topics they selected
+  • Source funnel (e.g. contact form, blueprint)
+  • Pipeline stage (New, Contacted, Qualified, Proposal, Won, Lost)
+  • Lead score (priority hint)
+  • Service category — retirement/Everest, estate, short-term, medical, claims, etc.
+  • Recommended advisor (auto-routed — see Section 6)
+  • AI priority label & score (after you run AI prioritise or open lead detail)
+
+================================================================================
+6. AUTO-ADVISOR ROUTING (AS BROKERS TEAM)
+================================================================================
+
+New enquiries are automatically tagged with the right advisor by service line.
+When a Supabase auth account exists for that person, the lead can be assigned
+to them directly.
+
+  Service line                    Routed to
+  ------------                    ---------
+  Retirement & Everest            Albert Schuurman (Key Individual)
+  Estate & business structuring   Johnny Farinha
+  Short-term business             Petro Vermeulen
+  Short-term personal             Monique Schuurman
+  Life personal                   Johnny Farinha
+  Medical & wellness              Sharine van Vollenstee
+  Claims                          Shanel van Niekerk
+  Unclassified                    Albert Schuurman (default oversight)
+
+On Kanban cards you may see “→ Albert Schuurman” (or other names) on newly
+created leads. Older test leads may not show this until re-routed — new contact
+form submissions will.
+
+================================================================================
+7. GEMINI AI — HOW IT HELPS YOU (LIVE ON PRODUCTION)
+================================================================================
+
+Powered by Google Gemini (gemini-2.5-flash) with AS Brokers rules in every
+prompt: FSP 17273, FAIS framing, Everest R100k minimum, Amethyst drawdown
+2.5%–17.5%, POPIA, no guaranteed returns. Grounded in your compliance/product
+docs via RAG (vector search on ingested Everest/SARS material).
+
+DASHBOARD (/crm)
+----------------
+  • Gemini AI · Morning brief — daily command summary, top priorities,
+    compliance flags. Click Refresh if it says “temporarily unavailable”
+    (lead-level AI below always works reliably for demos).
+
+KANBAN (/crm/kanban)
+--------------------
+  • “AI prioritise pipeline” — one click; Gemini ranks active leads and saves
+    priority scores to each card.
+  • “AI sort: ON/OFF” — sort columns by AI urgency.
+  • Priority badges on cards (e.g. “Schedule meeting demo”).
+  • Compliance badges — red “Compliance” when drawdown > 17.5% or Everest
+    minimum issues detected.
+
+LEAD DETAIL (/crm/leads/[id]) — YOUR BEST DEMO SCREEN
+-----------------------------------------------------
+  • Gemini AI advisor panel — executive summary, AI priority score (1–100),
+    next best action, FAIS-safe talking points, compliance note.
+  • “AI draft WhatsApp reply” — populates the message composer in one click.
+  • Pre-meeting brief — “Generate brief” → structured agenda, compliance
+    checklist → “Print / PDF” for the consultation folder.
+  • Correspondence sentiment — neutral / positive / concerned / urgent + tone hint.
+  • Compliance flags — drawdown and Everest minimum warnings on the lead.
+  • “Open calculator session” — opens meeting calculators linked to this lead;
+    after Amethyst walkthrough, log drawdown % → flags appear on Kanban.
+
+EXECUTIVE (/crm/executive) — ADMIN ONLY
+---------------------------------------
+  • Pipeline KPIs — total leads, win rate, clients, active pipeline, service mix.
+  • Gemini executive report — owner narrative, strengths, risks, week focus.
+  • AI activity log — POPIA audit trail: who triggered AI, what action, when,
+    linked to lead. Refresh to see latest entries.
+
+CLIENT PORTAL (/portal)
+-----------------------
+  • Retirement Readiness Score — illustrative score from portfolio snapshot
+    (full live Everest data = Phase 3).
+
+TIP FOR DEMOS
+-------------
+If the dashboard morning brief or executive report show “temporarily unavailable”,
+go straight to Kanban → open any lead → the Gemini AI advisor panel is the
+star feature and works consistently.
+
+================================================================================
+8. COMPLIANCE & RISK FLAGS (AUTOMATIC)
+================================================================================
+
+The CRM watches for AS Brokers–specific red flags:
+
+  • Amethyst drawdown above 17.5% (regulatory maximum for living annuities)
+  • Everest voluntary products below R100,000 minimum capital
+  • Drawdown references detected in funnel/risk text
+
+Flags appear on lead detail and as badges on Kanban cards. Advisor should
+document suitability review before proceeding — aligned with FAIS practice.
+
+================================================================================
+9. MEETING TOOLS (CLIENT-FACING IN THE OFFICE)
+================================================================================
+
+  CALCULATOR SESSION (/crm/calculator-session)
+    Pick any site calculator (Amethyst, estate duty, retirement shortfall, etc.).
+    Full-screen presentation mode for client meetings.
+    Add ?leadId=... (or use link from lead detail) to save session notes and
+    drawdown % back to the lead record.
+
+  PRESENTATION MODE (/crm/presentation)
+    Sales canvas for structured wealth conversations.
+
+  CALCULATORS GRID (/crm/calculators)
+    All embed calculators in one place — no hunting through the public site.
+
+================================================================================
+10. ADMIN VS STAFF (WHEN YOU ONBOARD THE TEAM)
+================================================================================
+
+  ADMIN (you)
+    • All leads and clients
+    • Executive command centre
+    • Settings — invite staff, roles, permissions
+    • Funnel export queues (risk reviews, legacy, retirement assessments)
+
+  STAFF (advisors, ops)
+    • Leads assigned to them (unless “view all” permission granted)
+    • Same Kanban, AI tools, lead detail — scoped to their book
+
+Demo PIN 85879 = admin with full visibility.
+
+================================================================================
+11. CLIENT PORTAL (SEPARATE FROM CRM)
+================================================================================
+
+  URL: https://www.asbrokers.co.za/portal
+
+Clients see wealth overview, holdings, income/drawdown charts, advisor contact
+(WhatsApp/call), documents, and messages. Data is prototype/illustrative until
+Everest/portfolio API integration (Phase 3). CRM is staff-only; portal is
+client-facing.
+
+================================================================================
+12. BLOG STUDIO (SEPARATE FROM CRM)
+================================================================================
+
+  URL: https://www.asbrokers.co.za/studio/blog/login
+
+Edit Insights articles. Uses Blog Studio password — not the CRM PIN. Published
+posts appear on /insights and in the sitemap.
+
+================================================================================
+13. QUICK DEMO SCRIPT (5–10 MINUTES)
+================================================================================
+
+  1. Second device: open https://www.asbrokers.co.za/contact — submit test enquiry.
+
+  2. Laptop: https://www.asbrokers.co.za/login — PIN 85879.
+
+  3. Kanban — show new card; mention auto-routing to advisor name.
+
+  4. Click “AI prioritise pipeline” — cards get AI scores and labels.
+
+  5. Drag card to Contacted or Qualified — saves instantly.
+
+  6. Open lead detail:
+     • Gemini AI advisor panel (talking points, next action)
+     • “AI draft WhatsApp reply”
+     • “Generate brief” → Print/PDF
+     • Compliance flags if drawdown logged
+
+  7. Sidebar → Command centre (/crm/executive) — KPIs + AI activity log.
+
+  8. Mention: Blueprint, Legacy Checklist, Business Risk Review all feed same CRM.
+
+  9. Optional: /portal — Retirement Readiness Score for client experience story.
+
+================================================================================
+14. TECHNICAL PEACE OF MIND (PLAIN ENGLISH)
+================================================================================
+
+  Hosting:     Vercel — https://www.asbrokers.co.za
+  Database:    Supabase PostgreSQL — leads persist; Kanban saves immediately
+  Auth:        Supabase + CRM PIN session for demo access
+  Email:       Resend — enquiry notifications
+  AI:          Google Gemini (paid API) + pgvector RAG for compliance grounding
+  Security:    CRM routes staff-only; not indexed on Google; POPIA-aware design
+
+Database changes are additive only — new AI audit table and JSON metadata on
+leads; existing contact data is never wiped by AI features.
+
+Production environment verified June 2026: DATABASE_URL, Supabase keys,
+GOOGLE_GENERATIVE_AI_API_KEY, CRM_SUPERUSER_PIN, Resend — all set on Vercel.
+
+================================================================================
+15. WHAT’S NEXT (ROADMAP TO 10/10)
+================================================================================
+
+  Done now (~8/10):
+    ✓ Live CRM on production
+    ✓ Contact form → Kanban
+    ✓ Gemini AI on leads, Kanban, executive audit log
+    ✓ Auto-advisor routing, compliance flags, pre-meeting briefs
+    ✓ PIN demo access for Albert
+
+  Coming (Phase 3–5):
+    • Live Everest / portfolio data in client portal
+    • WhatsApp two-way inbox fully production-ready
+    • Staff magic-link login (replace demo PIN)
+    • HubSpot bi-sync
+    • Postgres RLS hardening, full FAIS audit export
+    • Mobile PWA for advisors in the field
+
+Full technical roadmap: CRM_10_ROADMAP.txt in the project folder.
+
+================================================================================
+16. SUPPORT
+================================================================================
+
+Built by Endpoint Media for AS Brokers CC.
+
+For training, changes, or issues after demo: contact your development team.
+
+================================================================================
+  QUICK REFERENCE
+================================================================================
+
+  Login:        https://www.asbrokers.co.za/login
+  PIN:          85879
+  CRM home:     https://www.asbrokers.co.za/crm
+  Kanban:       https://www.asbrokers.co.za/crm/kanban
+  Executive:    https://www.asbrokers.co.za/crm/executive
+  Contact form: https://www.asbrokers.co.za/contact  (creates leads automatically)
+  Client portal: https://www.asbrokers.co.za/portal
+
+The CRM is your single place to see who enquired, who should handle them,
+what AI recommends you say, and where they are in the process — from first
+website touch to won client. Tailored for AS Brokers, not a generic template.
+
+================================================================================
+  END — Albert CRM Guide, June 2026
+================================================================================

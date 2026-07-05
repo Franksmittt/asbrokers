@@ -54,7 +54,6 @@ const PROTECTION_BLOCKS = [
 
 const RISK_CALCULATORS = [
   {
-    staffLabel: "ASSET 015",
     title: "Average Clause Calculator",
     description:
       "See how underinsurance can decimate a commercial or home claim when the average clause applies.",
@@ -63,10 +62,10 @@ const RISK_CALCULATORS = [
     span: "col-span-12 lg:col-span-7",
   },
   {
-    staffLabel: "Business Risk Review™",
+    badge: "Business Risk Review™",
     title: "Gap analysis for business owners",
     description:
-      "Structured review of commercial, life, and continuity risks — not a generic quote form.",
+      "Structured review of commercial, life, and continuity risks, not a generic quote form.",
     href: "/business-risk-review",
     accent: "teal" as const,
     span: "col-span-12",
@@ -153,7 +152,7 @@ function ProtectionCard({
 }
 
 function RiskCalculatorTile({
-  staffLabel,
+  badge,
   title,
   description,
   href,
@@ -173,9 +172,11 @@ function RiskCalculatorTile({
       >
         <LineChart className="h-5 w-5" aria-hidden />
       </div>
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-stone-600">{staffLabel}</p>
+      {badge ? (
+        <p className="text-[11px] font-semibold uppercase tracking-wider text-stone-600">{badge}</p>
+      ) : null}
       <h3
-        className="mt-1 font-bold tracking-tight"
+        className={`font-bold tracking-tight ${badge ? "mt-1" : ""}`}
         style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
       >
         {title}
@@ -317,7 +318,7 @@ export function InsuranceHubPageView() {
               className="mt-3 max-w-2xl leading-relaxed"
               style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
-              Illustrative tools only — not quotes or personalised advice. Use them to spot gaps before
+              Illustrative tools only, not quotes or personalised advice. Use them to spot gaps before
               a fiduciary conversation.
             </p>
           </Reveal>

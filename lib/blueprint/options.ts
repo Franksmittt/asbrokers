@@ -32,7 +32,7 @@ export function getBlueprintOptions(freedomRatePercent: number, gap: number): Bl
     {
       id: "growth-strategy",
       title: "Review investment growth strategy",
-      description: "Structure and risk profile affect long-term progress — this is a planning conversation, not a product promise.",
+      description: "Structure and risk profile affect long-term progress. This is a planning conversation, not a product promise.",
       relevant: moderateRate || ambitiousRate,
     },
     {
@@ -68,7 +68,7 @@ export function getBlueprintOptions(freedomRatePercent: number, gap: number): Bl
     {
       id: "combine",
       title: "Combine multiple strategies",
-      description: "Most people close a meaningful gap through several changes — not one silver bullet.",
+      description: "Most people close a meaningful gap through several changes, not one silver bullet.",
       relevant: true,
     },
   ];

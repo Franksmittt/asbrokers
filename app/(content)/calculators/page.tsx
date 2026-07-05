@@ -1,18 +1,14 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import {
-  CALCULATOR_REGISTRY,
-  formatPublicCalculatorTitle,
-  formatStaffCalculatorLabel,
-} from "@/lib/calculators/registry";
+import { CALCULATOR_REGISTRY, formatPublicCalculatorTitle } from "@/lib/calculators/registry";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
 export const metadata = buildPageMetadata({
   path: "/calculators",
   title: "Financial Calculators",
   description:
-    "AS Brokers ASSET 001–017 planning calculators — retirement, Everest Wealth, estate, tax, and insurance. Educational tools only. FSP 17273.",
+    "AS Brokers planning calculators for retirement, Everest Wealth, estate, tax, and insurance. Educational tools only. FSP 17273.",
 });
 
 export default function CalculatorsPage() {
@@ -31,11 +27,11 @@ export default function CalculatorsPage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">Planning tools</p>
           <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            AS Brokers calculator library
+            Financial calculators
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-stone-600 sm:text-lg">
-            Seventeen illustrative calculators (ASSET 001–017) for retirement, Everest Wealth, estate planning,
-            tax, and insurance. Results are educational only — not financial advice.
+            Seventeen illustrative calculators for retirement, Everest Wealth, estate planning, tax, and insurance.
+            Results are educational only, not financial advice.
           </p>
         </div>
       </section>
@@ -50,14 +46,10 @@ export default function CalculatorsPage() {
                   prefetch={false}
                   className="group flex h-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200 transition-all duration-300 ease-in-out hover:ring-samsung-blue/40 hover:shadow-md"
                 >
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-400">
-                    {entry.assetCode}
-                  </p>
-                  <h2 className="mt-2 text-base font-semibold leading-snug text-shark group-hover:text-samsung-blue">
+                  <h2 className="text-base font-semibold leading-snug text-shark group-hover:text-samsung-blue">
                     {formatPublicCalculatorTitle(entry)}
                   </h2>
-                  <p className="mt-2 text-sm text-stone-500">{formatStaffCalculatorLabel(entry)}</p>
-                  <span className="mt-auto pt-4 text-sm font-semibold text-samsung-blue">Open calculator →</span>
+                  <span className="mt-auto pt-4 text-sm font-semibold text-samsung-blue">Open calculator</span>
                 </Link>
               </li>
             ))}

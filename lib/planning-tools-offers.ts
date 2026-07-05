@@ -48,7 +48,7 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
     navDescription: "Retirement Health Gap™ assessment",
     coreQuestion: "Will your body survive retirement?",
     problem:
-      "Most people plan their money for decades and almost no time planning their health — then discover too late that longevity without wellness is not freedom.",
+      "Most people plan their money for decades and almost no time planning their health, then discover too late that longevity without wellness is not freedom.",
     freeLabel: "Free assessment",
     freeSummary:
       "2-minute Retirement Health Gap™ score with instant results and a personalised action snapshot.",
@@ -65,10 +65,10 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
       summary: "Discuss medical aid, gap cover, and long-term health planning with AS Brokers.",
     },
     objections: [
-      "Free assessment — no payment",
-      "Educational only — not medical diagnosis",
+      "Free assessment, no payment",
+      "Educational only, not medical diagnosis",
       "FSP 17273 · Independent adviser",
-      "Instant score — 2 minutes",
+      "Instant score in 2 minutes",
     ],
     proofPoints: [
       "10 health & lifestyle questions",
@@ -92,10 +92,10 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
     navDescription: "Financial Freedom Score™ & Freedom Gap™",
     coreQuestion: "Will your money survive your retirement?",
     problem:
-      "Most retirement tools spit out an impossible capital number and leave you anxious — not clear on your gap or your options.",
+      "Most retirement tools spit out an impossible capital number and leave you anxious, not clear on your gap or your options.",
     freeLabel: "Free diagnostic",
     freeSummary:
-      "Guided conversation — not a calculator — that reveals your Financial Freedom Score™, Gap™, and AS Brokers Freedom Rate™.",
+      "Guided conversation, not a calculator, that reveals your Financial Freedom Score™, Gap™, and AS Brokers Freedom Rate™.",
     paid: {
       label: "Full Retirement Survival Blueprint™ PDF",
       priceZar: TRIPWIRE_LAUNCH_ZAR,
@@ -109,8 +109,8 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
       summary: "Book a discovery meeting for retirement income, living annuities, and structured capital planning.",
     },
     objections: [
-      "Free diagnostic — no payment",
-      "Educational only — not financial advice",
+      "Free diagnostic, no payment",
+      "Educational only, not financial advice",
       "FSP 17273 · Independent adviser",
       "Understanding, not just a number",
     ],
@@ -136,10 +136,10 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
     navDescription: "Estate planning gap review",
     coreQuestion: "What happens to your family and wealth if you die tomorrow?",
     problem:
-      "Families assume their affairs are in order — unsigned wills, outdated beneficiaries, and estate liquidity gaps are often found too late.",
+      "Families assume their affairs are in order, but unsigned wills, outdated beneficiaries, and estate liquidity gaps are often found too late.",
     freeLabel: "Free checklist",
     freeSummary:
-      "Eight-area estate review — wills, trusts, liquidity, beneficiaries, and succession — instant printable PDF.",
+      "Eight-area estate review covering wills, trusts, liquidity, beneficiaries, and succession, with an instant printable PDF.",
     paid: {
       label: "Legacy Conversations Guide™",
       priceZar: TRIPWIRE_LAUNCH_ZAR,
@@ -153,10 +153,10 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
       summary: "Formal review of wills, trusts, estate duty exposure, and succession with AS Brokers.",
     },
     objections: [
-      "Free checklist — no payment",
-      "Educational only — not legal advice",
+      "Free checklist, no payment",
+      "Educational only, not legal advice",
       "FSP 17273 · Independent adviser",
-      "Instant PDF — no waiting",
+      "Instant PDF, no waiting",
     ],
     proofPoints: [
       "8 estate planning areas",
@@ -180,7 +180,7 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
     navDescription: "Business insurance gap analysis",
     coreQuestion: "Could your business survive a major disruption?",
     problem:
-      "Business owners insure what they remember — gaps in liability, interruption, key person, and cyber cover often surface only after a claim.",
+      "Business owners insure what they remember, but gaps in liability, interruption, key person, and cyber cover often surface only after a claim.",
     freeLabel: "Free workbook review",
     freeSummary:
       "Interactive gap analysis across commercial, liability, crime, and business assurance categories with your Business Risk Score™.",
@@ -197,8 +197,8 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
       summary: "Structured insurance and assurance review for commercial, key person, and buy-sell needs.",
     },
     objections: [
-      "Free review — no payment",
-      "Educational only — not insurance advice",
+      "Free review, no payment",
+      "Educational only, not insurance advice",
       "FSP 17273 · Independent broker",
       "Instant PDF report",
     ],

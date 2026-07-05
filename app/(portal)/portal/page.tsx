@@ -30,7 +30,7 @@ export default function PortalDashboardPage() {
           Welcome back, {clientProfile.name.split(" ")[0]}
         </h1>
         <p className="mt-2 text-sm text-white/50">
-          Portfolio snapshot as at June 2026 — illustrative prototype data.
+          Portfolio snapshot as at June 2026. Illustrative prototype data.
         </p>
       </header>
 
@@ -106,7 +106,7 @@ export default function PortalDashboardPage() {
           <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
             <div>
               <h2 className="text-lg font-semibold text-white">Income & drawdown</h2>
-              <p className="text-xs text-white/50">Trailing 12 months — gap-filled where data missing</p>
+              <p className="text-xs text-white/50">Trailing 12 months, gap-filled where data missing</p>
             </div>
             <div className="flex gap-4 text-[11px] text-white/50">
               <span className="flex items-center gap-1.5">

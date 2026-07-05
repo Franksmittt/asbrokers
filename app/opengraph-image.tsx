@@ -2,7 +2,7 @@ import { createOgImageResponse } from "@/lib/og-image";
 import { OG_CONTENT_TYPE, OG_SIZE } from "@/lib/og-fonts";
 
 export const runtime = "edge";
-export const alt = "AS Brokers CC — Independent Financial Advisor Krugersdorp, FSP 17273";
+export const alt = "AS Brokers CC | Independent Financial Advisor Krugersdorp, FSP 17273";
 export { OG_SIZE as size };
 export const contentType = OG_CONTENT_TYPE;
 

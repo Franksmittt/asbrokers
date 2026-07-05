@@ -15,7 +15,7 @@ export default function PortalMessagesPage() {
       <header className="mx-auto w-full max-w-3xl px-4 pb-6 pt-2 sm:px-6">
         <h1 className="text-2xl font-bold text-white">Messages</h1>
         <p className="mt-2 text-sm text-white/50">
-          Email, portal, and WhatsApp — one chronological thread.
+          Email, portal, and WhatsApp in one chronological thread.
         </p>
       </header>
       <div className="flex-1 overflow-y-auto px-4 sm:px-6">

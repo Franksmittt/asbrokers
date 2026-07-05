@@ -27,7 +27,7 @@ const HERO_IMAGE = "/images/home4-why-independence-4x3.jpg";
 const FEATURED = {
   title: "Semigration & Retirement Villages Western Cape",
   description:
-    "A flagship guide for high-net-worth families relocating from Gauteng to the coast — retirement capital, village living, and estate planning in one place.",
+    "A flagship guide for high-net-worth families relocating from Gauteng to the coast: retirement capital, village living, and estate planning in one place.",
   href: "/insights/semigration-retirement",
   image: "/images/home4-goal-estate-16x9.png",
 };
@@ -108,7 +108,7 @@ function InsightsNewsletterSignup() {
         className="mt-3 leading-relaxed"
         style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
       >
-        Occasional fiduciary insights on retirement, estate duty, and wealth — no spam.
+        Occasional fiduciary insights on retirement, estate duty, and wealth. No spam.
       </p>
       <form action={formAction} className="relative mt-5">
         <input
@@ -321,7 +321,7 @@ export function InsightsHubPageView({ articles }: Props) {
               className="mt-2 max-w-2xl leading-relaxed"
               style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
-              Articles and guides from AS Brokers — educational only, not personalised advice.
+              Articles and guides from AS Brokers. Educational only, not personalised advice.
             </p>
           </Reveal>
 
@@ -352,8 +352,8 @@ export function InsightsHubPageView({ articles }: Props) {
                 className="mt-3 flex-1 leading-relaxed"
                 style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
               >
-                Access our Fiduciary Calculator Library — ASSET tools for retirement, estate duty,
-                insurance, and Everest Wealth scenarios.
+                Access our calculator library for retirement, estate duty, insurance, and Everest
+                Wealth scenarios.
               </p>
               <Link
                 href="/calculators"

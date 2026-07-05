@@ -37,7 +37,7 @@ export function DocumentUpload() {
       />
       <span className="mb-2 text-sm font-semibold text-white">Upload a document</span>
       <span className="max-w-xs text-xs text-white/50">
-        Drag and drop PDFs here, or click to browse. Prototype only — files are not stored.
+        Drag and drop PDFs here, or click to browse. Prototype only; files are not stored.
       </span>
     </motion.label>
   );

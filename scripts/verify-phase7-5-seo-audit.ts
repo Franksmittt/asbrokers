@@ -146,10 +146,10 @@ async function main() {
   if (!failed) console.log("PASS: indexable calculator pages use buildPageMetadata");
 
   if (!read("app/(content)/calculators/page.tsx").includes("CALCULATOR_REGISTRY")) {
-    console.error("FAIL: /calculators hub missing ASSET registry listing");
+    console.error("FAIL: /calculators hub missing registry listing");
     failed = true;
   } else {
-    console.log("PASS: /calculators lists ASSET 001–017 from registry");
+    console.log("PASS: /calculators lists calculators from registry");
   }
 
   if (!existsSync(join(ROOT, ".next"))) {

@@ -10,7 +10,7 @@ const insuranceFAQs = [
   {
     question: "Why start with a life event instead of a product list?",
     answer:
-      "High-net-worth clients rarely need a generic quote form first. We segment by what you are protecting — health, income, business, or assets — then match education, calculators, and advice to that need.",
+      "High-net-worth clients rarely need a generic quote form first. We segment by what you are protecting (health, income, business, or assets), then match education, calculators, and advice to that need.",
   },
   {
     question: "What does the Average Clause Calculator show?",

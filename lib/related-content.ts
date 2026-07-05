@@ -10,7 +10,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/calculators",
       title: "Planning calculators",
-      description: "ASSET 001–017 illustrative tools for retirement, estate, and insurance.",
+      description: "Illustrative tools for retirement, estate, and insurance.",
     },
     {
       href: "/contact",

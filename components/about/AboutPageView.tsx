@@ -272,7 +272,7 @@ export function AboutPageView() {
               className="max-w-3xl leading-relaxed"
               style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
             >
-              Our dedicated specialists —{" "}
+              Our dedicated specialists include{" "}
               <strong className="font-semibold" style={{ color: INK }}>
                 Petro Vermeulen
               </strong>{" "}
@@ -288,7 +288,7 @@ export function AboutPageView() {
               <strong className="font-semibold" style={{ color: INK }}>
                 Shanel van Niekerk
               </strong>{" "}
-              (claims) — ensure every policy and claim receives expert attention.
+              (claims). They ensure every policy and claim receives expert attention.
             </p>
           </Reveal>
         </div>

@@ -102,21 +102,18 @@ const EVEREST_PRODUCTS = [
 
 const CALCULATOR_TILES = [
   {
-    staffLabel: "ASSET 013",
     title: "Everest Income vs Growth Comparison",
     description: "Compare 12.8%, 14.2%, and 14.5% outcomes side by side.",
     href: CALC_INCOME_VS_GROWTH,
     accent: "teal" as const,
   },
   {
-    staffLabel: "ASSET 016",
     title: "The Power of Growth Calculator",
     description: "Project future lump sums and monthly contributions over time.",
     href: CALC_POWER_OF_GROWTH,
     accent: "blue" as const,
   },
   {
-    staffLabel: "ASSET 009 & 010",
     title: "Single Product Income Calculators",
     description: "Model day-one income for Onyx 14.2% or Strategic Income 12.8%.",
     href: CALC_142_INCOME,
@@ -280,7 +277,6 @@ function ProductCard({
 }
 
 function CalculatorTile({
-  staffLabel,
   title,
   description,
   href,
@@ -297,9 +293,8 @@ function CalculatorTile({
       >
         <LineChart className="h-5 w-5" aria-hidden />
       </div>
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-stone-500">{staffLabel}</p>
       <h3
-        className="mt-1 font-bold tracking-tight"
+        className="font-bold tracking-tight"
         style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
       >
         {title}
@@ -507,13 +502,13 @@ export function EverestWealthPageView() {
               className="mt-2 max-w-2xl leading-relaxed"
               style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
-              Illustrative calculators only — not personalised advice. Use them to explore scenarios
+              Illustrative calculators only, not personalised advice. Use them to explore scenarios
               before speaking with an adviser.
             </p>
           </Reveal>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {CALCULATOR_TILES.map((tile, index) => (
-              <Reveal key={tile.staffLabel} delay={index * 0.04}>
+              <Reveal key={tile.title} delay={index * 0.04}>
                 <CalculatorTile {...tile} />
               </Reveal>
             ))}

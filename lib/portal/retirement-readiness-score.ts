@@ -34,7 +34,7 @@ export function computeRetirementReadinessScore(profile: ClientProfile): Retirem
     band === "excellent"
       ? "Strong retirement income resilience"
       : band === "good"
-        ? "On track — monitor drawdown annually"
+        ? "On track. Monitor drawdown annually"
         : band === "attention"
           ? "Drawdown or capital needs review"
           : "Urgent review recommended";

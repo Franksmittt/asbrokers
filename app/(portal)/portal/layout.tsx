@@ -2,7 +2,7 @@ import { PortalNav } from "@/components/portal/PortalNav";
 
 export const metadata = {
   title: "Client Portal",
-  description: "AS Brokers client wealth portal — holdings, documents, and advisor messaging.",
+  description: "AS Brokers client wealth portal for holdings, documents, and advisor messaging.",
 };
 
 export default function PortalShellLayout({ children }: { children: React.ReactNode }) {

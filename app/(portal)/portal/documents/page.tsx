@@ -21,7 +21,7 @@ export default function PortalDocumentsPage() {
       <header className="mb-8">
         <h1 className="text-2xl font-bold text-white">Documents</h1>
         <p className="mt-2 text-sm text-white/50">
-          Statements, advice records, and policy schedules — prototype vault.
+          Statements, advice records, and policy schedules. Prototype vault.
         </p>
       </header>
 

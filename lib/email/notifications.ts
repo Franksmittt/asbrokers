@@ -23,13 +23,13 @@ export async function notifyStaffContactEnquiry(payload: {
   return sendEmail({
     to: getStaffNotifyEmail(),
     replyTo: payload.email,
-    subject: `New website enquiry — ${payload.fullName}`,
+    subject: `New website enquiry from ${payload.fullName}`,
     html: wrapHtml(`
       <h2 style="margin:0 0 12px">New contact form submission</h2>
       <p><strong>Name:</strong> ${escapeHtml(payload.fullName)}</p>
       <p><strong>Email:</strong> ${escapeHtml(payload.email)}</p>
       <p><strong>Phone:</strong> ${escapeHtml(payload.phone)}</p>
-      <p><strong>Topics:</strong> ${escapeHtml(payload.topics.join(", ") || "—")}</p>
+      <p><strong>Topics:</strong> ${escapeHtml(payload.topics.join(", ") || "None selected")}</p>
     `),
   });
 }
@@ -38,7 +38,7 @@ export async function notifyStaffContactEnquiry(payload: {
 export async function sendContactAutoReply(payload: { fullName: string; email: string }) {
   await sendEmail({
     to: payload.email,
-    subject: "We received your enquiry — AS Brokers",
+    subject: "We received your enquiry | AS Brokers",
     html: wrapHtml(`
       <p>Hi ${escapeHtml(payload.fullName)},</p>
       <p>Thank you for contacting AS Brokers. We have received your enquiry and will be in touch shortly.</p>
@@ -51,7 +51,7 @@ export async function sendContactAutoReply(payload: { fullName: string; email: s
 export async function sendNewsletterWelcome(email: string) {
   await sendEmail({
     to: email,
-    subject: "You're subscribed — AS Brokers insights",
+    subject: "You're subscribed to AS Brokers insights",
     html: wrapHtml(`
       <p>Thank you for subscribing to AS Brokers.</p>
       <p>You'll receive updates on retirement planning, wealth protection, and legacy planning for South African families.</p>
@@ -91,7 +91,7 @@ export async function notifyStaffLead(
   return sendEmail({
     to: getStaffNotifyEmail(),
     replyTo,
-    subject: `New lead — ${source}`,
+    subject: `New lead: ${source}`,
     html: wrapHtml(`<h2 style="margin:0 0 12px">${escapeHtml(source)}</h2>${rows}`),
   });
 }

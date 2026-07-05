@@ -20,7 +20,7 @@ const aboutFAQs = [
   {
     question: "Who leads advice at AS Brokers?",
     answer:
-      "Co-founders Albert Schuurman (Key Individual — retirement and Everest Wealth) and Johnny Farinha (estate structuring and business continuity) lead fiduciary advice, supported by specialists in commercial underwriting, medical aid, and claims.",
+      "Co-founders Albert Schuurman (Key Individual, retirement and Everest Wealth) and Johnny Farinha (estate structuring and business continuity) lead fiduciary advice, supported by specialists in commercial underwriting, medical aid, and claims.",
   },
 ];
 

@@ -15,7 +15,7 @@ const estateFAQs = [
   {
     question: "What does the Estate Duty Calculator show?",
     answer:
-      "ASSET 007 illustrates the cost of dying — estate duty, executor fees, and liquidity stress based on inputs you provide. It is an awareness aid, not a SARS assessment.",
+      "The estate duty calculator illustrates the cost of dying: estate duty, executor fees, and liquidity stress based on inputs you provide. It is an awareness aid, not a SARS assessment.",
   },
   {
     question: "Can AS Brokers draft my will or trust deed?",

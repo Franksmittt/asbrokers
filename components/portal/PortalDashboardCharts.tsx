@@ -53,7 +53,7 @@ export function PortalDashboardCharts({ data }: Props) {
             }}
             labelStyle={{ color: "rgba(255,255,255,0.6)" }}
             formatter={(value, name) => [
-              typeof value === "number" ? formatPortalCurrency(value) : "—",
+              typeof value === "number" ? formatPortalCurrency(value) : "N/A",
               name === "income" ? "Income" : "Drawdown",
             ]}
           />

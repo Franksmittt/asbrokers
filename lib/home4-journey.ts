@@ -45,7 +45,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     description: "Clarity on capital, income, and whether your money will last.",
     href: "/retirement",
     links: [
-      { label: "Retirement calculators", href: "/calculators#retirement-planning" },
+      { label: "Retirement calculators", href: "/calculators" },
       { label: "Living annuity calculator", href: "/calculators#asset-014-living-annuity" },
       { label: "Retirement planning", href: "/retirement" },
       { label: "Retirement articles", href: "/insights" },
@@ -138,7 +138,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "02",
     title: "Calculator",
-    description: "Run the numbers yourself — illustrative, transparent, no pressure.",
+    description: "Run the numbers yourself. Illustrative, transparent, no pressure.",
     href: "/calculators",
     cta: "Open calculators",
   },

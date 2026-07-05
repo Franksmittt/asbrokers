@@ -21,7 +21,7 @@ export type CalculatorRegistryEntry = {
 };
 
 export function formatStaffCalculatorLabel(entry: Pick<CalculatorRegistryEntry, "assetCode" | "title">): string {
-  return `${entry.assetCode} — ${entry.title}`;
+  return `${entry.assetCode}: ${entry.title}`;
 }
 
 export function formatPublicCalculatorTitle(entry: Pick<CalculatorRegistryEntry, "title">): string {

@@ -56,16 +56,14 @@ const OUTCOME_CARDS = [
 
 const ESTATE_CALCULATORS = [
   {
-    staffLabel: "ASSET 007",
     title: "Estate Duty & Executor Fee Calculator",
     description:
-      "Expose the cost of dying — duty, executor fees, and liquidity stress before your family faces it.",
+      "Expose the cost of dying: duty, executor fees, and liquidity stress before your family faces it.",
     href: CALC_ESTATE_DUTY,
     accent: "teal" as const,
     span: "col-span-12 lg:col-span-7",
   },
   {
-    staffLabel: "ASSET 008",
     title: "Estate Reduction Strategy",
     description:
       "Model R100k and R200k annual donation strategies to reduce estate duty over time within SARS limits.",
@@ -154,7 +152,6 @@ function OutcomeCard({
 }
 
 function EstateCalculatorTile({
-  staffLabel,
   title,
   description,
   href,
@@ -174,9 +171,8 @@ function EstateCalculatorTile({
       >
         <LineChart className="h-5 w-5" aria-hidden />
       </div>
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-stone-600">{staffLabel}</p>
       <h3
-        className="mt-1 font-bold tracking-tight"
+        className="font-bold tracking-tight"
         style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
       >
         {title}
@@ -282,7 +278,7 @@ export function EstatePlanningPageView() {
               className="mt-3 max-w-2xl leading-relaxed"
               style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
-              Start with the result you want — not a product brochure. We coordinate the financial and
+              Start with the result you want, not a product brochure. We coordinate the financial and
               risk architecture with your attorney who drafts binding legal instruments.
             </p>
           </Reveal>
@@ -318,7 +314,7 @@ export function EstatePlanningPageView() {
               className="mt-3 max-w-2xl leading-relaxed"
               style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
-              Illustrative calculators only — not SARS assessments or legal advice. Use them to grasp
+              Illustrative calculators only, not SARS assessments or legal advice. Use them to grasp
               scale, then involve qualified professionals for your specific facts.
             </p>
           </Reveal>

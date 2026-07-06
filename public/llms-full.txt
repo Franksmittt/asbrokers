@@ -3,21 +3,21 @@
 AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content — not personalised financial advice.
 
 ## Key URLs
-- https://www.asbrokers.co.za/ — Home — retirement runway, Everest yield portfolio, and wealth engineering overview.
-- https://www.asbrokers.co.za/about — About AS Brokers — FSP 17273 identity, West Rand presence, and advice philosophy.
-- https://www.asbrokers.co.za/solutions — Service hub — retirement, insurance, medical aid, and estate planning pathways.
-- https://www.asbrokers.co.za/everest-wealth — Everest Wealth products — 12.8%, 14.2%, 14.5%, and Amethyst living annuity education.
-- https://www.asbrokers.co.za/retirement — Retirement Reality Calculator — capital longevity and income sustainability.
-- https://www.asbrokers.co.za/calculators — Curated calculator hub — retirement readiness, inflation, and wealth building tools.
-- https://www.asbrokers.co.za/estate-duty-calculator — Estate duty and executor cost illustration for South African estates.
-- https://www.asbrokers.co.za/solutions/medical-aid — Medical aid and gap cover guidance for South African schemes.
-- https://www.asbrokers.co.za/solutions/estate-planning — Wills, trusts, and estate structuring education.
-- https://www.asbrokers.co.za/how-we-work — Four-step advice process — diagnose, design, implement, review.
-- https://www.asbrokers.co.za/regulatory-compliance — FAIS compliance, FSP disclosures, and client protections.
-- https://www.asbrokers.co.za/insights — Insights and education articles on retirement, estate, and markets.
+- [Home](https://www.asbrokers.co.za/): retirement runway, Everest yield portfolio, and wealth engineering overview.
+- [About AS Brokers](https://www.asbrokers.co.za/about): FSP 17273 identity, West Rand presence, and advice philosophy.
+- [Service hub](https://www.asbrokers.co.za/solutions): retirement, insurance, medical aid, and estate planning pathways.
+- [Everest Wealth products](https://www.asbrokers.co.za/everest-wealth): 12.8%, 14.2%, 14.5%, and Amethyst living annuity education.
+- [Retirement Reality Calculator](https://www.asbrokers.co.za/retirement): capital longevity and income sustainability.
+- [Curated calculator hub](https://www.asbrokers.co.za/calculators): retirement readiness, inflation, and wealth building tools.
+- [Estate duty calculator](https://www.asbrokers.co.za/estate-duty-calculator): executor cost illustration for South African estates.
+- [Medical aid](https://www.asbrokers.co.za/solutions/medical-aid): gap cover guidance for South African schemes.
+- [Estate planning](https://www.asbrokers.co.za/solutions/estate-planning): wills, trusts, and structuring education.
+- [How we work](https://www.asbrokers.co.za/how-we-work): four-step advice process: diagnose, design, implement, review.
+- [Regulatory compliance](https://www.asbrokers.co.za/regulatory-compliance): FAIS disclosures and client protections.
+- [Insights hub](https://www.asbrokers.co.za/insights): education articles on retirement, estate, and markets.
 
 ## Discovery
-- Sitemap: https://www.asbrokers.co.za/sitemap.xml
+- [Sitemap](https://www.asbrokers.co.za/sitemap.xml): XML sitemap of indexable public URLs.
 
 ## Compliance identity
 

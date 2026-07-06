@@ -49,8 +49,11 @@ function main() {
     if (!llms.startsWith("# AS Brokers")) {
       console.error("FAIL: public/llms.txt missing H1 brand header");
       failed = true;
+    } else if (!/\]\(https?:\/\//.test(llms)) {
+      console.error("FAIL: public/llms.txt missing spec-compliant markdown links [title](url)");
+      failed = true;
     } else {
-      console.log("PASS: public/llms.txt exists with H1 header");
+      console.log("PASS: public/llms.txt exists with H1 header and markdown links");
     }
 
     console.log(`PASS: public/llms-full.txt — ${fullTokens.toLocaleString()} est. BPE tokens (ceiling ${TOKEN_CEILING.toLocaleString()})`);

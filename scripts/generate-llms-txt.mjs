@@ -20,6 +20,15 @@ function absoluteUrl(path) {
   return `${origin}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
+/** Spec-compliant markdown link: `- [Title](https://url): notes` */
+function llmsLinkLine({ url, description }) {
+  const dash = description.indexOf(" — ");
+  const title = dash >= 0 ? description.slice(0, dash) : description;
+  const details = dash >= 0 ? description.slice(dash + 3) : "";
+  const href = absoluteUrl(url);
+  return details ? `- [${title}](${href}): ${details}` : `- [${title}](${href})`;
+}
+
 function buildLlmsTxt() {
   const lines = [
     `# ${B2A_MANIFEST.brand}`,
@@ -27,13 +36,13 @@ function buildLlmsTxt() {
     `> ${B2A_MANIFEST.summary}`,
     "",
     "## Core Services",
-    ...B2A_MANIFEST.llmsLinks.map(({ url, description }) => `- [${absoluteUrl(url)}]: ${description}`),
+    ...B2A_MANIFEST.llmsLinks.map((link) => llmsLinkLine(link)),
     "",
     "## Discovery",
-    `- Sitemap: ${absoluteUrl("/sitemap.xml")}`,
+    `- [Sitemap](${absoluteUrl("/sitemap.xml")}): XML sitemap of indexable public URLs.`,
     "",
-    "## Full briefing",
-    `- [${absoluteUrl("/llms-full.txt")}]: Extended markdown briefing for answer engines (token-capped).`,
+    "## Optional",
+    `- [Extended AI briefing](${absoluteUrl("/llms-full.txt")}): Token-capped markdown briefing for answer engines.`,
     "",
     "## Crawler notes",
     "- Use public HTML, sitemap.xml, and these files as orientation only.",
@@ -54,10 +63,10 @@ function buildLlmsFullTxt(sections) {
     B2A_MANIFEST.summary,
     "",
     "## Key URLs",
-    ...B2A_MANIFEST.llmsLinks.slice(0, 12).map(({ url, description }) => `- ${absoluteUrl(url)} — ${description}`),
+    ...B2A_MANIFEST.llmsLinks.slice(0, 12).map((link) => llmsLinkLine(link)),
     "",
     "## Discovery",
-    `- Sitemap: ${absoluteUrl("/sitemap.xml")}`,
+    `- [Sitemap](${absoluteUrl("/sitemap.xml")}): XML sitemap of indexable public URLs.`,
     "",
   ].join("\n");
 

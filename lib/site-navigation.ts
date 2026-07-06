@@ -64,6 +64,7 @@ export const PRIMARY_NAV: NavLink[] = [
   { label: "Investments", href: "/everest-wealth" },
   { label: "Insurance", href: "/insurance" },
   { label: "Estate Planning", href: "/solutions/estate-planning" },
+  { label: "Calculators", href: "/calculators" },
   { label: "Learn", href: "/insights" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -80,6 +81,7 @@ export const FOOTER_HOW_WE_HELP: NavLink[] = [
 /** Mega-footer: education and tools. */
 export const FOOTER_RESOURCES: NavLink[] = [
   { label: "Insights", href: "/insights" },
+  { label: "Calculators", href: "/calculators" },
   { label: "Financial Health Quiz", href: "/quiz" },
   { label: "Understanding Everest", href: "/everest-wealth/about" },
   { label: "Digital Wealth Assistant", href: "/chat" },

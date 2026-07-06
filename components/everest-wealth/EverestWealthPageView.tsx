@@ -2,18 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { EverestProductComparisonTable } from "@/components/EverestProductComparisonTable";
 import { Footer } from "@/components/Footer";
+import { HubReveal } from "@/components/hub/HubReveal";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
+import { getRelatedLinks } from "@/lib/related-content";
+import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, Briefcase, LineChart } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
-
-const EASE_SMOOTH = [0.65, 0, 0.35, 1] as const;
-
-const TEAL = "#008080";
-const CANVAS = "#F7F6F3";
-const INK = "#1D1D1F";
-const BODY = "#2B2B2E";
+import {
+  HUB_TEAL as TEAL,
+  HUB_CANVAS as CANVAS,
+  HUB_INK as INK,
+  HUB_BODY as BODY,
+} from "@/lib/hub-design-tokens";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
 
@@ -124,30 +129,6 @@ const CALCULATOR_TILES = [
 ];
 
 const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
-
-function Reveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.65, ease: EASE_SMOOTH, delay }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function LifeStageCard({
   title,
@@ -331,13 +312,17 @@ function CalculatorTile({
   );
 }
 
-export function EverestWealthPageView() {
+export function EverestWealthPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   return (
     <>
       {/* Hero — side-by-side, no text-on-image overlap */}
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40" style={{ backgroundColor: CANVAS }}>
+      <header
+        data-chunk-boundary="true"
+        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ backgroundColor: CANVAS }}
+      >
         <div className={`${GRID} gap-y-8 lg:items-center`}>
-          <Reveal className="col-span-12 lg:col-span-5">
+          <HubReveal className="col-span-12 lg:col-span-5">
             <p
               className="font-semibold uppercase tracking-[0.2em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
@@ -377,9 +362,9 @@ export function EverestWealthPageView() {
               Book an Investment Strategy Call
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 lg:col-span-7 lg:col-start-6">
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-7 lg:col-start-6">
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[4/3]">
               <Image
                 src={HERO_IMAGE}
@@ -389,23 +374,23 @@ export function EverestWealthPageView() {
                 )}
                 fill
                 priority
-                unoptimized
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 42vw"
+                sizes={HUB_SPLIT_HERO_SIZES}
               />
             </div>
-          </Reveal>
+          </HubReveal>
         </div>
       </header>
 
       {/* Life-stage journey */}
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="everest-life-stage-heading"
       >
         <div className={`${HOME4_WRAP} space-y-6`}>
-          <Reveal>
+          <HubReveal>
             <h2
               id="everest-life-stage-heading"
               className="font-bold tracking-tight"
@@ -420,26 +405,27 @@ export function EverestWealthPageView() {
               Start with your timeline. We will match the right structures, calculators, and
               conversations to your stage.
             </p>
-          </Reveal>
+          </HubReveal>
           <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <Reveal delay={0.04}>
+            <HubReveal delay={0.04}>
               <LifeStageCard {...BEFORE_RETIREMENT} accent="teal" />
-            </Reveal>
-            <Reveal delay={0.08}>
+            </HubReveal>
+            <HubReveal delay={0.08}>
               <LifeStageCard {...AFTER_RETIREMENT} accent="blue" />
-            </Reveal>
+            </HubReveal>
           </div>
         </div>
       </section>
 
       {/* Premium yield architectures */}
       <section
+        data-chunk-boundary="true"
         className="border-y border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="everest-products-heading"
       >
         <div className={`${HOME4_WRAP} space-y-6`}>
-          <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <HubReveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p
                 className="font-semibold uppercase tracking-[0.14em]"
@@ -471,26 +457,30 @@ export function EverestWealthPageView() {
               Understanding Everest
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-          </Reveal>
+          </HubReveal>
 
           <div className="grid gap-6 lg:grid-cols-3 lg:gap-8">
             {EVEREST_PRODUCTS.map((product, index) => (
-              <Reveal key={product.title} delay={index * 0.04}>
+              <HubReveal key={product.title} delay={index * 0.04}>
                 <ProductCard {...product} />
-              </Reveal>
+              </HubReveal>
             ))}
           </div>
+          <HubReveal delay={0.12}>
+            <EverestProductComparisonTable variant="warm" />
+          </HubReveal>
         </div>
       </section>
 
       {/* Calculator hub */}
       <section
+        data-chunk-boundary="true"
         className="py-12 md:py-16"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="everest-calculators-heading"
       >
         <div className={`${HOME4_WRAP} space-y-6`}>
-          <Reveal>
+          <HubReveal>
             <h2
               id="everest-calculators-heading"
               className="font-bold tracking-tight"
@@ -505,12 +495,12 @@ export function EverestWealthPageView() {
               Illustrative calculators only, not personalised advice. Use them to explore scenarios
               before speaking with an adviser.
             </p>
-          </Reveal>
+          </HubReveal>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {CALCULATOR_TILES.map((tile, index) => (
-              <Reveal key={tile.title} delay={index * 0.04}>
+              <HubReveal key={tile.title} delay={index * 0.04}>
                 <CalculatorTile {...tile} />
-              </Reveal>
+              </HubReveal>
             ))}
           </div>
         </div>
@@ -518,11 +508,12 @@ export function EverestWealthPageView() {
 
       {/* Authority & trust — warm footer, no dark void */}
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="everest-trust-heading"
       >
-        <Reveal>
+        <HubReveal>
           <div
             className={`${HOME4_WRAP} grid gap-8 rounded-2xl bg-white p-8 ring-1 ring-stone-200/90 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-10`}
           >
@@ -581,8 +572,8 @@ export function EverestWealthPageView() {
                 <Link
                   href="/everest-wealth/about"
                   prefetch={false}
-                  className="font-semibold text-cinematic-teal hover:text-teal-800"
-                  style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
+                  className="font-semibold hover:opacity-80"
+                  style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)", color: TEAL }}
                 >
                   Fiduciary briefing
                 </Link>
@@ -598,9 +589,11 @@ export function EverestWealthPageView() {
               </div>
             </div>
           </div>
-        </Reveal>
+        </HubReveal>
       </section>
 
+      <VisibleFaqSection faqs={faqs} />
+      <RelatedContent variant="warm" links={getRelatedLinks("/everest-wealth")} />
       <Footer />
     </>
   );

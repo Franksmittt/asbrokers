@@ -1,7 +1,9 @@
 import { InsightsHubPageView } from "@/components/insights/InsightsHubPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getInsightFeed } from "@/lib/insights/feed";
-import { buildPageMetadata } from "@/lib/seo-metadata";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Financial Education & Fiduciary Insights | AS Brokers";
 const PAGE_DESCRIPTION =
@@ -31,12 +33,13 @@ export default async function InsightsPage() {
 
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/insights"]} />
       <PageJsonLd
         path="/insights"
-        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={insightsFAQs}
       />
-      <InsightsHubPageView articles={articles} />
+      <InsightsHubPageView articles={articles} faqs={insightsFAQs} />
     </>
   );
 }

@@ -1,6 +1,8 @@
 import { EstatePlanningPageView } from "@/components/estate-planning/EstatePlanningPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { buildPageMetadata } from "@/lib/seo-metadata";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Estate Planning, Wills & Trusts | Protect Your Legacy";
 const PAGE_DESCRIPTION =
@@ -40,10 +42,16 @@ export const metadata = buildPageMetadata({
 export default function EstatePlanningPage() {
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/solutions/estate-planning"]} variant="split" />
       <PageJsonLd
         path="/solutions/estate-planning"
-        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={estateFAQs}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Solutions", path: "/solutions" },
+          { name: "Estate Planning", path: "/solutions/estate-planning" },
+        ]}
         service={{
           name: "Estate Planning by AS Brokers CC",
           description:
@@ -51,7 +59,7 @@ export default function EstatePlanningPage() {
           serviceType: "Estate Planning, Wills Coordination, Estate Duty Awareness, Succession Planning",
         }}
       />
-      <EstatePlanningPageView />
+      <EstatePlanningPageView faqs={estateFAQs} />
     </>
   );
 }

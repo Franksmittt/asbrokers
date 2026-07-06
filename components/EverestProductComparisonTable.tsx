@@ -1,5 +1,7 @@
 /** Everest voluntary + Amethyst product comparison, semantic table for AEO/RAG (Phase 3.3). */
-export function EverestProductComparisonTable() {
+export function EverestProductComparisonTable({ variant = "dark" }: { variant?: "dark" | "warm" }) {
+  const warm = variant === "warm";
+
   const rows = [
     {
       product: "12.8% Strategic Income",
@@ -44,13 +46,18 @@ export function EverestProductComparisonTable() {
   ];
 
   return (
-    <div className="mt-8 overflow-x-auto">
+    <div
+      className="mt-8 overflow-x-auto"
+      tabIndex={0}
+      role="region"
+      aria-label="Everest product comparison table"
+    >
       <table className="w-full min-w-[720px] border-collapse text-left text-sm">
-        <caption className="mb-3 text-left text-xs text-zinc-500">
+        <caption className={`mb-3 text-left text-xs ${warm ? "text-stone-500" : "text-zinc-500"}`}>
           Everest Wealth product comparison, targeted terms, not guaranteed returns
         </caption>
         <thead>
-          <tr className="border-b border-white/10 text-zinc-400">
+          <tr className={`border-b ${warm ? "border-stone-200 text-stone-600" : "border-white/10 text-zinc-400"}`}>
             <th scope="col" className="py-3 pr-4 font-semibold">
               Product
             </th>
@@ -79,29 +86,32 @@ export function EverestProductComparisonTable() {
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.product} className="border-b border-white/5 align-top">
-              <td data-label="Product" className="py-3 pr-4 font-medium text-white">
+            <tr
+              key={row.product}
+              className={`border-b align-top ${warm ? "border-stone-100" : "border-white/5"}`}
+            >
+              <td data-label="Product" className={`py-3 pr-4 font-medium ${warm ? "text-shark" : "text-white"}`}>
                 {row.product}
               </td>
-              <td data-label="Money type" className="py-3 px-3 text-zinc-400">
+              <td data-label="Money type" className={`py-3 px-3 ${warm ? "text-stone-600" : "text-zinc-400"}`}>
                 {row.moneyType}
               </td>
-              <td data-label="Targeted return" className="py-3 px-3 text-zinc-300">
+              <td data-label="Targeted return" className={`py-3 px-3 ${warm ? "text-stone-700" : "text-zinc-300"}`}>
                 {row.targetedReturn}
               </td>
-              <td data-label="Income" className="py-3 px-3 text-zinc-400">
+              <td data-label="Income" className={`py-3 px-3 ${warm ? "text-stone-600" : "text-zinc-400"}`}>
                 {row.income}
               </td>
-              <td data-label="Bonus" className="py-3 px-3 text-zinc-400">
+              <td data-label="Bonus" className={`py-3 px-3 ${warm ? "text-stone-600" : "text-zinc-400"}`}>
                 {row.bonus}
               </td>
-              <td data-label="Minimum" className="py-3 px-3 text-zinc-400">
+              <td data-label="Minimum" className={`py-3 px-3 ${warm ? "text-stone-600" : "text-zinc-400"}`}>
                 {row.minimum}
               </td>
-              <td data-label="Tax routing" className="py-3 px-3 text-zinc-400">
+              <td data-label="Tax routing" className={`py-3 px-3 ${warm ? "text-stone-600" : "text-zinc-400"}`}>
                 {row.tax}
               </td>
-              <td data-label="Term" className="py-3 pl-3 text-zinc-400">
+              <td data-label="Term" className={`py-3 pl-3 ${warm ? "text-stone-600" : "text-zinc-400"}`}>
                 {row.term}
               </td>
             </tr>

@@ -3,6 +3,9 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   experimental: {
     authInterrupts: true,
     optimizePackageImports: ["recharts", "framer-motion"],
@@ -33,6 +36,7 @@ const nextConfig: NextConfig = {
       { source: "/home2", destination: "/", permanent: true },
       { source: "/home3", destination: "/", permanent: true },
       { source: "/home4", destination: "/", permanent: true },
+      { source: "/favicon.ico", destination: "/images/og-default.jpg", permanent: true },
       { source: "/embed/calculators/:path*", destination: "/calculators", permanent: true },
       ...legacyCalculatorRedirects.map(({ source, destination }) => ({
         source,

@@ -61,7 +61,7 @@ export function WarmHero({
           alt={imageAlt ?? getAlt(imageSrc, title)}
           fill
           priority={priority}
-          unoptimized
+          fetchPriority={priority ? "high" : "auto"}
           className="object-cover object-center"
           sizes="100vw"
         />

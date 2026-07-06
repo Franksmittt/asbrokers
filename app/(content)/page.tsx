@@ -1,23 +1,28 @@
 import { Home4Preview } from "@/components/home4/Home4Preview";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { buildPageMetadata } from "@/lib/seo-metadata";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
+
+const PAGE_TITLE = "Independent Financial Advisor Krugersdorp";
+const PAGE_DESCRIPTION =
+  "25+ years helping South Africans with retirement planning, Everest Wealth, insurance, estate structuring, and business continuity. FSP 17273, Krugersdorp.";
 
 export const metadata = buildPageMetadata({
   path: "/",
-  title: "Independent Financial Advisor Krugersdorp",
-  description:
-    "25+ years helping South Africans with retirement planning, Everest Wealth, insurance, estate structuring, and business continuity. FSP 17273, Krugersdorp.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 export default function HomePage() {
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/"]} />
       <PageJsonLd
         path="/"
         webPage={{
-          name: "AS Brokers CC | Comprehensive Financial Planning & Investment Solutions | FSP 17273",
-          description:
-            "AS Brokers CC is an Authorised Financial Services Provider (FSP 17273) offering expert financial planning, investment, and insurance solutions in Krugersdorp and the West Rand, Gauteng.",
+          name: buildPageTitle(PAGE_TITLE),
+          description: PAGE_DESCRIPTION,
         }}
         primaryImagePath="/opengraph-image"
       />

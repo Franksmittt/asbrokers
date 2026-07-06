@@ -2,18 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { Footer } from "@/components/Footer";
+import { HubReveal } from "@/components/hub/HubReveal";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
+import { getRelatedLinks } from "@/lib/related-content";
+import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, LineChart, ShieldCheck } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
-
-const EASE_SMOOTH = [0.65, 0, 0.35, 1] as const;
-
-const TEAL = "#008080";
-const CANVAS = "#F7F6F3";
-const INK = "#1D1D1F";
-const BODY = "#2B2B2E";
+import {
+  HUB_TEAL as TEAL,
+  HUB_CANVAS as CANVAS,
+  HUB_INK as INK,
+  HUB_BODY as BODY,
+} from "@/lib/hub-design-tokens";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
 
@@ -74,30 +78,6 @@ const RISK_CALCULATORS = [
 
 const PARTNERS = ["Santam", "Old Mutual", "Bryte"];
 const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
-
-function Reveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.65, ease: EASE_SMOOTH, delay }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function ProtectionCard({
   title,
@@ -198,12 +178,16 @@ function RiskCalculatorTile({
   );
 }
 
-export function InsuranceHubPageView() {
+export function InsuranceHubPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   return (
     <>
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40" style={{ backgroundColor: CANVAS }}>
+      <header
+        data-chunk-boundary="true"
+        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ backgroundColor: CANVAS }}
+      >
         <div className={`${GRID} gap-y-8 lg:items-center`}>
-          <Reveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="col-span-12 lg:col-span-6">
             <p
               className="font-semibold uppercase tracking-[0.2em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
@@ -243,9 +227,9 @@ export function InsuranceHubPageView() {
               Request a Risk Audit
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 lg:col-span-6 lg:col-start-7">
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6 lg:col-start-7">
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[4/3]">
               <Image
                 src={HERO_IMAGE}
@@ -255,22 +239,22 @@ export function InsuranceHubPageView() {
                 )}
                 fill
                 priority
-                unoptimized
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes={HUB_SPLIT_HERO_SIZES}
               />
             </div>
-          </Reveal>
+          </HubReveal>
         </div>
       </header>
 
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="insurance-protect-heading"
       >
         <div className={GRID}>
-          <Reveal className="col-span-12 lg:col-span-8">
+          <HubReveal className="col-span-12 lg:col-span-8">
             <h2
               id="insurance-protect-heading"
               className="font-bold tracking-tight"
@@ -285,28 +269,29 @@ export function InsuranceHubPageView() {
               Start with your life event, not a product catalogue. Choose the area that matches your
               situation and we will guide you from education to advice.
             </p>
-          </Reveal>
+          </HubReveal>
 
           {PROTECTION_BLOCKS.map((block, index) => (
-            <Reveal key={block.href} delay={0.04 + index * 0.04} className={block.span}>
+            <HubReveal key={block.href} delay={0.04 + index * 0.04} className={block.span}>
               <ProtectionCard
                 title={block.title}
                 description={block.description}
                 href={block.href}
                 accent={block.accent}
               />
-            </Reveal>
+            </HubReveal>
           ))}
         </div>
       </section>
 
       <section
+        data-chunk-boundary="true"
         className="border-y border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="insurance-risk-heading"
       >
         <div className={GRID}>
-          <Reveal className="col-span-12 lg:col-span-8">
+          <HubReveal className="col-span-12 lg:col-span-8">
             <h2
               id="insurance-risk-heading"
               className="font-bold tracking-tight"
@@ -321,22 +306,23 @@ export function InsuranceHubPageView() {
               Illustrative tools only, not quotes or personalised advice. Use them to spot gaps before
               a fiduciary conversation.
             </p>
-          </Reveal>
+          </HubReveal>
 
           {RISK_CALCULATORS.map((tile, index) => (
-            <Reveal key={tile.href} delay={0.04 + index * 0.04} className={tile.span}>
+            <HubReveal key={tile.href} delay={0.04 + index * 0.04} className={tile.span}>
               <RiskCalculatorTile {...tile} />
-            </Reveal>
+            </HubReveal>
           ))}
         </div>
       </section>
 
       <section
+        data-chunk-boundary="true"
         className="py-12 md:py-16"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="insurance-trust-heading"
       >
-        <Reveal>
+        <HubReveal>
           <div
             className={`${HOME4_WRAP} rounded-2xl bg-white p-8 ring-1 ring-stone-200/90 sm:p-10`}
           >
@@ -401,9 +387,11 @@ export function InsuranceHubPageView() {
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
-        </Reveal>
+        </HubReveal>
       </section>
 
+      <VisibleFaqSection faqs={faqs} />
+      <RelatedContent variant="warm" links={getRelatedLinks("/insurance")} />
       <Footer />
     </>
   );

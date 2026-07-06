@@ -1,6 +1,8 @@
 import { RetirementPageView } from "@/components/retirement/RetirementPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { buildPageMetadata } from "@/lib/seo-metadata";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Retirement Planning | Peace of Mind for South Africans";
 const PAGE_DESCRIPTION =
@@ -33,12 +35,13 @@ export const metadata = buildPageMetadata({
 export default function RetirementPage() {
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/retirement"]} variant="split" />
       <PageJsonLd
         path="/retirement"
-        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={retirementFAQs}
       />
-      <RetirementPageView />
+      <RetirementPageView faqs={retirementFAQs} />
     </>
   );
 }

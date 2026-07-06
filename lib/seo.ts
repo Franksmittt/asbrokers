@@ -247,17 +247,23 @@ export function buildPageGraph(input: PageGraphInput): JsonLdGraph {
   if (input.service) {
     graph.push(buildServiceNode(ids, input.service));
     webPageNode.about = { "@id": ids.service };
-    webPageNode.mainEntity = { "@id": ids.service };
+    if (!input.faqs?.length) {
+      webPageNode.mainEntity = { "@id": ids.service };
+    }
   }
 
   if (input.product) {
     graph.push(buildProductNode(ids, input.product));
-    webPageNode.mainEntity = { "@id": ids.product };
+    if (!input.faqs?.length) {
+      webPageNode.mainEntity = { "@id": ids.product };
+    }
   }
 
   if (input.article) {
     graph.push(buildArticleNode(ids, origin, input.article, input.primaryImagePath));
-    webPageNode.mainEntity = { "@id": ids.article };
+    if (!input.faqs?.length) {
+      webPageNode.mainEntity = { "@id": ids.article };
+    }
   }
 
   graph.push(webPageNode);
@@ -409,6 +415,7 @@ export function fallbackWebPageFromPath(pathname: string): PageGraphInput["webPa
 export const SCHEMA_EXPLICIT_PATH_PREFIXES = [
   "/",
   "/about",
+  "/insights",
   "/solutions",
   "/solutions/estate-planning",
   "/complaints",

@@ -68,7 +68,7 @@ export function ContactEnquiryForm() {
           href="https://wa.me/27662276044"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-2xl bg-[#25D366] px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#1da851]"
+          className="inline-flex items-center gap-2 rounded-2xl bg-whatsapp-accessible px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#0d655e]"
         >
           WhatsApp us in the meantime
         </a>

@@ -2,18 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { Footer } from "@/components/Footer";
+import { HubReveal } from "@/components/hub/HubReveal";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
+import { getRelatedLinks } from "@/lib/related-content";
+import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, FileText, LineChart, MessageCircle } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
-
-const EASE_SMOOTH = [0.65, 0, 0.35, 1] as const;
-
-const TEAL = "#008080";
-const CANVAS = "#F7F6F3";
-const INK = "#1D1D1F";
-const BODY = "#2B2B2E";
+import {
+  HUB_TEAL as TEAL,
+  HUB_CANVAS as CANVAS,
+  HUB_INK as INK,
+  HUB_BODY as BODY,
+} from "@/lib/hub-design-tokens";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-8 lg:gap-x-8`;
 
@@ -42,30 +46,6 @@ const EDUCATION_LINKS = [
     href: "/healthy-retirement-blueprint",
   },
 ];
-
-function Reveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.65, ease: EASE_SMOOTH, delay }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function StepBadge({ n }: { n: number }) {
   return (
@@ -183,13 +163,17 @@ function PathwayCard({
   );
 }
 
-export function RetirementPageView() {
+export function RetirementPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   return (
     <>
       {/* Hero — side-by-side, no column overlap */}
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40" style={{ backgroundColor: CANVAS }}>
+      <header
+        data-chunk-boundary="true"
+        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ backgroundColor: CANVAS }}
+      >
         <div className={`${GRID} gap-y-10 lg:items-center lg:gap-y-8`}>
-          <Reveal className="col-span-12 lg:col-span-5">
+          <HubReveal className="col-span-12 lg:col-span-5">
             <p
               className="font-semibold uppercase tracking-[0.2em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
@@ -217,18 +201,17 @@ export function RetirementPageView() {
               Whether you are years away or already retired, discover exactly where you stand and how
               to make your capital last.
             </p>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 lg:col-span-7 lg:col-start-6">
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-7 lg:col-start-6">
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[16/9] lg:aspect-[4/3]">
               <Image
                 src={HERO_IMAGE}
                 alt={getAlt(HERO_IMAGE, "Relaxed South African retiree couple enjoying retirement")}
                 fill
                 priority
-                unoptimized
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 42vw"
+                sizes={HUB_SPLIT_HERO_SIZES}
               />
               <div
                 className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-warm-canvas/20"
@@ -239,18 +222,19 @@ export function RetirementPageView() {
                 aria-hidden
               />
             </div>
-          </Reveal>
+          </HubReveal>
         </div>
       </header>
 
       {/* Pathways — header + two cards on one row */}
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="retirement-pathways-heading"
       >
         <div className={`${GRID} gap-y-8`}>
-          <Reveal className="col-span-12">
+          <HubReveal className="col-span-12">
             <h2
               id="retirement-pathways-heading"
               className="font-bold tracking-tight"
@@ -264,9 +248,9 @@ export function RetirementPageView() {
             >
               Choose the path that matches your stage. We will point you to the right tools first.
             </p>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.04} className="col-span-12 lg:col-span-6">
+          <HubReveal delay={0.04} className="col-span-12 lg:col-span-6">
             <PathwayCard
               title="I'm planning for retirement."
               description="I want to know if I'm saving enough and when I can afford to stop working."
@@ -277,9 +261,9 @@ export function RetirementPageView() {
               ]}
               accent="teal"
             />
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.08} className="col-span-12 lg:col-span-6">
+          <HubReveal delay={0.08} className="col-span-12 lg:col-span-6">
             <PathwayCard
               title="I'm already retired."
               description="I need a sustainable income strategy so my money doesn't run out."
@@ -290,18 +274,19 @@ export function RetirementPageView() {
               ]}
               accent="blue"
             />
-          </Reveal>
+          </HubReveal>
         </div>
       </section>
 
       {/* Worry funnel — stacked steps, no dead columns */}
       <section
+        data-chunk-boundary="true"
         className="border-y border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="retirement-worry-heading"
       >
         <div className={`${HOME4_WRAP} space-y-12 md:space-y-16`}>
-          <Reveal>
+          <HubReveal>
             <h2
               id="retirement-worry-heading"
               className="max-w-2xl font-bold tracking-tight"
@@ -316,10 +301,10 @@ export function RetirementPageView() {
               That concern is common, and it is solvable with clarity. Follow a calm path from
               learning to numbers to conversation.
             </p>
-          </Reveal>
+          </HubReveal>
 
           {/* Step 1 */}
-          <Reveal delay={0.03}>
+          <HubReveal delay={0.03}>
             <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
               <div className="flex items-center gap-3 sm:w-44 sm:shrink-0 sm:flex-col sm:items-start sm:gap-2">
                 <StepBadge n={1} />
@@ -367,10 +352,10 @@ export function RetirementPageView() {
                 </ul>
               </div>
             </div>
-          </Reveal>
+          </HubReveal>
 
           {/* Step 2 */}
-          <Reveal delay={0.06}>
+          <HubReveal delay={0.06}>
             <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
               <div className="flex items-center gap-3 sm:w-44 sm:shrink-0 sm:flex-col sm:items-start sm:gap-2">
                 <StepBadge n={2} />
@@ -407,10 +392,10 @@ export function RetirementPageView() {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </HubReveal>
 
           {/* Step 3 */}
-          <Reveal delay={0.09}>
+          <HubReveal delay={0.09}>
             <div className="flex flex-col gap-5 sm:flex-row sm:gap-6">
               <div className="flex items-center gap-3 sm:w-44 sm:shrink-0 sm:flex-col sm:items-start sm:gap-2">
                 <StepBadge n={3} />
@@ -449,31 +434,31 @@ export function RetirementPageView() {
                 </Link>
               </div>
             </div>
-          </Reveal>
+          </HubReveal>
         </div>
       </section>
 
       {/* Amethyst — balanced 5 + 7 split, shorter image */}
       <section
+        data-chunk-boundary="true"
         className="py-14 md:py-20"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="retirement-amethyst-heading"
       >
         <div className={`${GRID} gap-y-10 lg:items-center lg:gap-y-8`}>
-          <Reveal className="col-span-12 lg:col-span-5">
+          <HubReveal className="col-span-12 lg:col-span-5">
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[4/3]">
               <Image
                 src={AMETHYST_IMAGE}
                 alt={getAlt(AMETHYST_IMAGE, "Premium retirement lifestyle and travel")}
                 fill
-                unoptimized
                 className="object-cover object-center"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </div>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 lg:col-span-7">
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-7">
             <p
               className="font-semibold uppercase tracking-[0.2em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
@@ -541,17 +526,18 @@ export function RetirementPageView() {
               Explore Amethyst Living Annuity
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-          </Reveal>
+          </HubReveal>
         </div>
       </section>
 
       {/* CTA — single row, no orphan column */}
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="retirement-cta-heading"
       >
-        <Reveal>
+        <HubReveal>
           <div
             className={`${HOME4_WRAP} flex flex-col items-start gap-6 rounded-2xl bg-white p-8 ring-1 ring-stone-200/90 sm:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10`}
           >
@@ -583,9 +569,11 @@ export function RetirementPageView() {
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
-        </Reveal>
+        </HubReveal>
       </section>
 
+      <VisibleFaqSection faqs={faqs} />
+      <RelatedContent variant="warm" links={getRelatedLinks("/retirement")} />
       <Footer />
     </>
   );

@@ -44,10 +44,15 @@ const config: Config = {
       },
       animation: {
         "fade-in": "fadeIn 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)",
+        "hub-reveal": "hubReveal 0.65s cubic-bezier(0.25, 0.1, 0.25, 1) both",
       },
       keyframes: {
         fadeIn: {
           "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        hubReveal: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },

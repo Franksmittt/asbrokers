@@ -2,23 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useActionState, useCallback, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
 import { Footer } from "@/components/Footer";
-import { InsightsFeedFilter } from "@/components/insights/InsightsFeedFilter";
+import { HubReveal } from "@/components/hub/HubReveal";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
+import { getRelatedLinks } from "@/lib/related-content";
+import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import type { InsightFeedItem } from "@/lib/insights/feed";
 import type { InsightCategoryValue } from "@/lib/insights/insightCategories";
 import { getAlt } from "@/lib/image-alt";
+import {
+  HUB_TEAL as TEAL,
+  HUB_CANVAS as CANVAS,
+  HUB_INK as INK,
+  HUB_BODY as BODY,
+} from "@/lib/hub-design-tokens";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
-const EASE_SMOOTH = [0.65, 0, 0.35, 1] as const;
-
-const TEAL = "#008080";
-const CANVAS = "#F7F6F3";
-const INK = "#1D1D1F";
-const BODY = "#2B2B2E";
+const InsightsFeedFilter = dynamic(
+  () => import("@/components/insights/InsightsFeedFilter").then((m) => m.InsightsFeedFilter),
+  { loading: () => <p className="mt-8 text-sm text-stone-500">Loading articles…</p> }
+);
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
 
@@ -68,30 +77,6 @@ export const INSIGHTS_TOPIC_NAV = [
 ] as const;
 
 const initialNewsletterState: NewsletterActionState = { success: false };
-
-function Reveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.65, ease: EASE_SMOOTH, delay }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function InsightsNewsletterSignup() {
   const [state, formAction, isPending] = useActionState(subscribeNewsletter, initialNewsletterState);
@@ -143,9 +128,10 @@ function InsightsNewsletterSignup() {
 
 type Props = {
   articles: InsightFeedItem[];
+  faqs?: FAQItem[];
 };
 
-export function InsightsHubPageView({ articles }: Props) {
+export function InsightsHubPageView({ articles, faqs = [] }: Props) {
   const [activeTopicId, setActiveTopicId] = useState<string | null>(null);
 
   const handleTopicSelect = useCallback((topicId: string) => {
@@ -155,9 +141,13 @@ export function InsightsHubPageView({ articles }: Props) {
 
   return (
     <>
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40" style={{ backgroundColor: CANVAS }}>
+      <header
+        data-chunk-boundary="true"
+        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ backgroundColor: CANVAS }}
+      >
         <div className={`${GRID} gap-y-8 lg:items-center`}>
-          <Reveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="col-span-12 lg:col-span-6">
             <p
               className="font-semibold uppercase tracking-[0.2em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
@@ -185,9 +175,9 @@ export function InsightsHubPageView({ articles }: Props) {
               Master your financial future with our library of retirement guides, investment strategies,
               and fiduciary research.
             </p>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 lg:col-span-6 lg:col-start-7">
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6 lg:col-start-7">
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[4/3]">
               <Image
                 src={HERO_IMAGE}
@@ -197,16 +187,16 @@ export function InsightsHubPageView({ articles }: Props) {
                 )}
                 fill
                 priority
-                unoptimized
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes={HUB_SPLIT_HERO_SIZES}
               />
             </div>
-          </Reveal>
+          </HubReveal>
         </div>
       </header>
 
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-8 md:py-10"
         style={{ backgroundColor: CANVAS }}
         aria-label="Insight topics"
@@ -229,11 +219,18 @@ export function InsightsHubPageView({ articles }: Props) {
                 type="button"
                 onClick={() => handleTopicSelect(topic.id)}
                 className={`rounded-full px-4 py-2.5 font-semibold shadow-sm ring-1 transition-[transform,box-shadow] duration-500 hover:-translate-y-0.5 hover:shadow-md sm:px-5 ${
-                  activeTopicId === topic.id
-                    ? "bg-cinematic-teal/15 text-cinematic-teal ring-cinematic-teal/30"
-                    : "bg-white text-shark ring-stone-200/90"
+                  activeTopicId === topic.id ? "" : "bg-white text-shark ring-stone-200/90"
                 }`}
-                style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
+                style={
+                  activeTopicId === topic.id
+                    ? {
+                        fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)",
+                        backgroundColor: `${TEAL}26`,
+                        color: TEAL,
+                        borderColor: `${TEAL}4D`,
+                      }
+                    : { fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }
+                }
               >
                 {topic.label}
               </button>
@@ -243,12 +240,13 @@ export function InsightsHubPageView({ articles }: Props) {
       </section>
 
       <section
+        data-chunk-boundary="true"
         className="border-y border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="insights-featured-heading"
       >
         <div className={GRID}>
-          <Reveal className="col-span-12 lg:col-span-8">
+          <HubReveal className="col-span-12 lg:col-span-8">
             <Link
               href={FEATURED.href}
               prefetch={false}
@@ -259,15 +257,14 @@ export function InsightsHubPageView({ articles }: Props) {
                   src={FEATURED.image}
                   alt={getAlt(FEATURED.image, FEATURED.title)}
                   fill
-                  unoptimized
                   className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
                   sizes="(max-width: 1024px) 100vw, 66vw"
                 />
               </div>
             </Link>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 flex lg:col-span-4">
+          <HubReveal delay={0.06} className="col-span-12 flex lg:col-span-4">
             <article className="flex h-full flex-col justify-center rounded-3xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 sm:p-8">
               <p
                 className="font-semibold uppercase tracking-[0.16em]"
@@ -298,18 +295,19 @@ export function InsightsHubPageView({ articles }: Props) {
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </article>
-          </Reveal>
+          </HubReveal>
         </div>
       </section>
 
       <section
+        data-chunk-boundary="true"
         id="latest"
         className="py-12 md:py-16"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="insights-latest-heading"
       >
         <div className={HOME4_WRAP}>
-          <Reveal>
+          <HubReveal>
             <h2
               id="insights-latest-heading"
               className="font-bold tracking-tight"
@@ -323,7 +321,7 @@ export function InsightsHubPageView({ articles }: Props) {
             >
               Articles and guides from AS Brokers. Educational only, not personalised advice.
             </p>
-          </Reveal>
+          </HubReveal>
 
           <InsightsFeedFilter
             articles={articles}
@@ -335,12 +333,13 @@ export function InsightsHubPageView({ articles }: Props) {
       </section>
 
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-label="Calculators and newsletter"
       >
         <div className={`${GRID} lg:items-stretch`}>
-          <Reveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="col-span-12 lg:col-span-6">
             <div className="flex h-full flex-col rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-7">
               <h3
                 className="font-bold tracking-tight"
@@ -365,14 +364,16 @@ export function InsightsHubPageView({ articles }: Props) {
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 lg:col-span-6">
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
             <InsightsNewsletterSignup />
-          </Reveal>
+          </HubReveal>
         </div>
       </section>
 
+      <VisibleFaqSection faqs={faqs} />
+      <RelatedContent variant="warm" links={getRelatedLinks("/insights")} />
       <Footer />
     </>
   );

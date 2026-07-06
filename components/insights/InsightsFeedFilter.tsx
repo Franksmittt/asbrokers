@@ -11,10 +11,10 @@ import {
   type InsightCategoryValue,
 } from "@/lib/insights/insightCategories";
 import { getAlt } from "@/lib/image-alt";
+import { HUB_TEAL as TEAL } from "@/lib/hub-design-tokens";
 
 const INK = "#1D1D1F";
 const BODY = "#2B2B2E";
-const TEAL = "#008080";
 
 type DatePreset = "all" | "6m" | "1y" | "custom";
 

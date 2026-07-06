@@ -1,6 +1,8 @@
 import { AboutPageView } from "@/components/about/AboutPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { buildPageMetadata } from "@/lib/seo-metadata";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "About AS Brokers CC | Independent Financial Advisor Krugersdorp";
 const PAGE_DESCRIPTION =
@@ -40,12 +42,13 @@ export const metadata = buildPageMetadata({
 export default function AboutPage() {
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/about"]} variant="split" />
       <PageJsonLd
         path="/about"
-        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={aboutFAQs}
       />
-      <AboutPageView />
+      <AboutPageView faqs={aboutFAQs} />
     </>
   );
 }

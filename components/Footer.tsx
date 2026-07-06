@@ -3,19 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUp } from "./icons";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
 import { SITE_COPYRIGHT_YEAR } from "@/lib/site-meta";
 import { isNavActive } from "@/lib/site-navigation";
 import { BrandLogo } from "@/components/BrandLogo";
 
-const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 const WHATSAPP = "https://wa.me/27662276044";
 const initialNewsletterState: NewsletterActionState = { success: false };
 
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
+  { label: "Calculators", href: "/calculators" },
   { label: "Solutions", href: "/solutions" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
@@ -96,7 +95,7 @@ export function Footer() {
                 href={WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[#25D366] px-4 py-1.5 text-xs font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#1da851]"
+                className="inline-flex items-center justify-center rounded-full bg-whatsapp-accessible px-4 py-1.5 text-xs font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#0d655e]"
               >
                 WhatsApp · +27 66 227 6044
               </a>
@@ -164,22 +163,20 @@ export function Footer() {
         </div>
       </footer>
 
-      <AnimatePresence>
-        {showScrollTop ? (
-          <motion.button
-            type="button"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.25, ease: APPLE_EASE }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className={`fixed z-[55] flex h-10 w-10 items-center justify-center rounded-full bg-samsung-blue text-white shadow-lg shadow-samsung-blue/25 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-cta-glow-blue ${scrollDockClass}`}
-            aria-label="Scroll to top"
-          >
-            <ArrowUp className="h-4 w-4" />
-          </motion.button>
-        ) : null}
-      </AnimatePresence>
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className={`fixed z-[55] flex h-10 w-10 items-center justify-center rounded-full bg-samsung-blue text-white shadow-lg shadow-samsung-blue/25 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-cta-glow-blue motion-reduce:transition-none ${scrollDockClass} ${
+          showScrollTop
+            ? "pointer-events-auto scale-100 opacity-100"
+            : "pointer-events-none scale-90 opacity-0"
+        }`}
+        aria-label="Scroll to top"
+        aria-hidden={!showScrollTop}
+        tabIndex={showScrollTop ? 0 : -1}
+      >
+        <ArrowUp className="h-4 w-4" />
+      </button>
     </>
   );
 }

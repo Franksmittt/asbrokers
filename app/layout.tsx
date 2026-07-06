@@ -40,6 +40,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: ["/opengraph-image"],
   },
+  icons: {
+    icon: [{ url: "/images/og-default.jpg", type: "image/jpeg" }],
+    apple: [{ url: "/images/og-default.jpg", type: "image/jpeg" }],
+  },
 };
 
 export default function RootLayout({

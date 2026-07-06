@@ -2,18 +2,22 @@
  * Phase 3 B2A / HtmlRAG verification — run: npx tsx scripts/verify-phase3-b2a.ts
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join } from "node:path";
 
 const ROOT = process.cwd();
 const PUBLIC_LLMS = join(ROOT, "public", "llms.txt");
 const PUBLIC_LLMS_FULL = join(ROOT, "public", "llms-full.txt");
 const TOKEN_CEILING = 128_000;
 
-const KEY_PAGES = [
-  "app/(content)/everest-wealth/page.tsx",
-  "app/(content)/solutions/page.tsx",
-  "app/(content)/how-we-work/page.tsx",
-  "app/(content)/calculators/page.tsx",
+/** Primary nav hub pages — handbook Phase 3 HtmlRAG chunk boundaries required. */
+const KEY_PAGE_VIEWS = [
+  "components/home4/Home4Preview.tsx",
+  "components/retirement/RetirementPageView.tsx",
+  "components/everest-wealth/EverestWealthPageView.tsx",
+  "components/insurance/InsuranceHubPageView.tsx",
+  "components/estate-planning/EstatePlanningPageView.tsx",
+  "components/insights/InsightsHubPageView.tsx",
+  "components/about/AboutPageView.tsx",
   "components/contact/ContactPageView.tsx",
 ];
 
@@ -56,7 +60,7 @@ function main() {
     }
   }
 
-  const missingChunks = KEY_PAGES.filter((rel) => {
+  const missingChunks = KEY_PAGE_VIEWS.filter((rel) => {
     const src = readFileSync(join(ROOT, rel), "utf8");
     return !src.includes("data-chunk-boundary");
   });
@@ -65,7 +69,19 @@ function main() {
     for (const p of missingChunks) console.error(`  - ${p}`);
     failed = true;
   } else {
-    console.log("PASS: key pages use data-chunk-boundary sections");
+    console.log("PASS: primary hub pages use data-chunk-boundary sections");
+  }
+
+  const missingRelated = KEY_PAGE_VIEWS.filter((rel) => {
+    const src = readFileSync(join(ROOT, rel), "utf8");
+    return !src.includes("RelatedContent");
+  });
+  if (missingRelated.length) {
+    console.error("FAIL: missing RelatedContent on hub pages:");
+    for (const p of missingRelated) console.error(`  - ${p}`);
+    failed = true;
+  } else {
+    console.log("PASS: primary hub pages include RelatedContent internal links");
   }
 
   const componentFiles = collectTsxFiles(join(ROOT, "components"));

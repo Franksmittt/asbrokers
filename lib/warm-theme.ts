@@ -12,7 +12,8 @@ export const WARM_CARD =
 export const WARM_CARD_MUTED =
   "rounded-3xl bg-white/70 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm md:p-8";
 
-export const WARM_EYEBROW = "text-xs font-semibold uppercase tracking-[0.2em] text-cinematic-teal";
+/** #006B6B — WCAG AA on warm-canvas (#F7F6F3) at 12px uppercase */
+export const WARM_EYEBROW = "text-xs font-semibold uppercase tracking-[0.2em] text-[#006B6B]";
 
 export const WARM_EYEBROW_HERO = "text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm";
 

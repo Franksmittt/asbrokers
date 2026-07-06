@@ -105,6 +105,164 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
 };
 
+/** Primary hub pages — internal link topology (Phase 5.2). */
+export const HUB_RELATED: Record<string, RelatedLink[]> = {
+  "/": [
+    {
+      href: "/retirement",
+      title: "Retirement planning",
+      description: "Capital, income, living annuities, and clarity on whether your money will last.",
+    },
+    {
+      href: "/everest-wealth",
+      title: "Investments & Everest Wealth",
+      description: "Structured return profiles for voluntary capital and retirement income.",
+    },
+    {
+      href: "/calculators",
+      title: "Planning calculators",
+      description: "Illustrative retirement, estate, tax, and insurance tools.",
+    },
+    {
+      href: "/contact",
+      title: "Book a consultation",
+      description: "Independent FSP 17273 advice in Krugersdorp and the West Rand.",
+    },
+  ],
+  "/retirement": [
+    {
+      href: "/calculators#asset-002-retirement-reality-check",
+      title: "Retirement Reality Check",
+      description: "See where you stand today and what gap remains.",
+    },
+    {
+      href: "/calculators#asset-014-living-annuity",
+      title: "Living Annuity Calculator",
+      description: "Model drawdowns, income, and sustainability for Amethyst.",
+    },
+    {
+      href: "/everest-wealth",
+      title: "Everest Wealth investments",
+      description: "Voluntary capital and living annuity structures for retirement.",
+    },
+    {
+      href: "/insights",
+      title: "Retirement insights",
+      description: "Plain-language guides on income, tax, and longevity.",
+    },
+  ],
+  "/everest-wealth": [
+    {
+      href: "/everest-wealth/about",
+      title: "Understanding Everest",
+      description: "How unlisted preference shares, tax routing, and liquidity work.",
+    },
+    {
+      href: "/calculators#asset-013-everest-income-vs-growth",
+      title: "Income vs Growth comparison",
+      description: "Compare Everest income and growth scenarios side by side.",
+    },
+    {
+      href: "/retirement",
+      title: "Retirement hub",
+      description: "Planning and living-annuity guidance for South Africans.",
+    },
+    {
+      href: "/contact",
+      title: "Investment strategy call",
+      description: "Speak with an independent Category 1.8 adviser.",
+    },
+  ],
+  "/insurance": [
+    {
+      href: "/solutions/personal-insurance",
+      title: "Personal insurance",
+      description: "Home, motor, and asset protection with independent advice.",
+    },
+    {
+      href: "/solutions/medical-aid",
+      title: "Medical aid & gap cover",
+      description: "Health pillar structuring for families and professionals.",
+    },
+    {
+      href: "/calculators#asset-015-average-clause",
+      title: "Average clause calculator",
+      description: "Stress-test underinsurance on property claims.",
+    },
+    {
+      href: "/business-risk-review",
+      title: "Business risk review",
+      description: "Gap analysis for commercial and key-person cover.",
+    },
+  ],
+  "/insights": [
+    {
+      href: "/retirement",
+      title: "Retirement planning",
+      description: "Hub for calculators, Amethyst, and retirement clarity.",
+    },
+    {
+      href: "/how-we-work",
+      title: "How we work",
+      description: "Education first, advice when you are ready.",
+    },
+    {
+      href: "/quiz",
+      title: "Financial health quiz",
+      description: "Quick assessment across health, wealth, and legacy pillars.",
+    },
+    {
+      href: "/calculators",
+      title: "Calculators",
+      description: "Run the numbers before your next conversation.",
+    },
+  ],
+  "/about": [
+    {
+      href: "/team",
+      title: "Meet the team",
+      description: "Albert, Johnny, and the specialists behind AS Brokers.",
+    },
+    {
+      href: "/how-we-work",
+      title: "How we work",
+      description: "Independent, education-led advice without product-house bias.",
+    },
+    {
+      href: "/regulatory-compliance",
+      title: "Regulatory & compliance",
+      description: "FSP 17273, FAIS, POPIA, and our compliance framework.",
+    },
+    {
+      href: "/contact",
+      title: "Contact us",
+      description: "Book a consultation in Krugersdorp or via WhatsApp.",
+    },
+  ],
+  "/contact": [
+    {
+      href: "/retirement",
+      title: "Retirement planning",
+      description: "Prepare questions on capital, drawdown, and living annuities.",
+    },
+    {
+      href: "/everest-wealth",
+      title: "Investments",
+      description: "Explore Everest Wealth and voluntary capital structures.",
+    },
+    {
+      href: "/insurance",
+      title: "Insurance & risk",
+      description: "Medical aid, life cover, and business protection.",
+    },
+    {
+      href: "/solutions/estate-planning",
+      title: "Estate planning",
+      description: "Wills, trusts, duty awareness, and succession.",
+    },
+  ],
+};
+
 export function getRelatedLinks(path: string): RelatedLink[] {
-  return SOLUTION_RELATED[path] ?? [];
+  return SOLUTION_RELATED[path] ?? HUB_RELATED[path] ?? [];
 }

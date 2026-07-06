@@ -66,15 +66,16 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Investment calculators", href: "/calculators" },
     ],
     accent: "blue",
-    image: "/images/home-yield-continuity-4x3.jpg",
+    image: "/images/home4-import/card1.png",
   },
   {
     id: "insurance",
     title: "I need insurance",
     badge: "Insure",
     description: "Personal protection, health cover, assets, and business risk.",
-    href: "/solutions/personal-insurance",
+    href: "/insurance",
     links: [
+      { label: "Insurance & risk hub", href: "/insurance" },
       { label: "Personal insurance", href: "/solutions/personal-insurance" },
       { label: "Medical aid & gap", href: "/solutions/medical-aid" },
       { label: "Life cover", href: "/solutions/life-insurance" },
@@ -164,21 +165,21 @@ export const HOME4_TESTIMONIALS: Testimonial[] = [
       "Albert helped us untangle the living annuity properly. First time someone explained the numbers without making me feel stupid.",
     who: "Susan M.",
     where: "Randpark Ridge",
-    photo: "/images/contact-trust.jpg",
+    photo: "/images/home4-why-independence-4x3.jpg",
   },
   {
     quote:
       "Retirement felt like a mountain. Albert broke it into small steps. We're actually on track now.",
     who: "Michelle B.",
     where: "Wilropark",
-    photo: "/images/retirement-inset-1x1.jpg",
+    photo: "/images/home4-goal-retire-16x9.png",
   },
   {
     quote:
       "Local, independent, no call-centre nonsense. Exactly what we wanted from an FSP.",
     who: "Johan & Karen T.",
     where: "Muldersdrift",
-    photo: "/images/about-krugersdorp-trust-16x9.jpg",
+    photo: "/images/home4-why-independence-4x3.jpg",
   },
 ];
 

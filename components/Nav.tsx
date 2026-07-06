@@ -85,7 +85,7 @@ export function Nav() {
             <span className="text-lg font-bold tracking-tight block leading-none text-shark">
               AS Brokers
             </span>
-            <span className="trust-hallmark text-[10px] font-semibold uppercase mt-0.5 block text-stone-700">
+            <span className="text-[10px] font-semibold uppercase mt-0.5 block text-stone-800 tabular-nums tracking-wider">
               FSP 17273
             </span>
           </div>

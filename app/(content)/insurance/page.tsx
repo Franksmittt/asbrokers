@@ -1,6 +1,8 @@
 import { InsuranceHubPageView } from "@/components/insurance/InsuranceHubPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { buildPageMetadata } from "@/lib/seo-metadata";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Insurance & Risk Protection | Wealth Protection for South Africans";
 const PAGE_DESCRIPTION =
@@ -33,9 +35,10 @@ export const metadata = buildPageMetadata({
 export default function InsuranceHubPage() {
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/insurance"]} variant="split" />
       <PageJsonLd
         path="/insurance"
-        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={insuranceFAQs}
         service={{
           name: "Insurance & Risk Protection by AS Brokers CC",
@@ -45,7 +48,7 @@ export default function InsuranceHubPage() {
             "Insurance Broking, Medical Aid Advice, Life Insurance, Business Risk, Short-Term Insurance",
         }}
       />
-      <InsuranceHubPageView />
+      <InsuranceHubPageView faqs={insuranceFAQs} />
     </>
   );
 }

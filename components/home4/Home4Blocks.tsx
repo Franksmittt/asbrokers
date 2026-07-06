@@ -80,12 +80,17 @@ export function Home4GoalCard({ card }: { card: GoalCard }) {
       {...motionProps}
       className={`group relative overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm transition-shadow duration-300 ease-apple hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
     >
-      <div className="relative h-36 w-full overflow-hidden sm:h-40">
+      <Link
+        href={card.href}
+        prefetch={false}
+        className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+        aria-label={`Explore ${card.title}`}
+      />
+      <div className="relative h-36 w-full overflow-hidden sm:h-40 pointer-events-none">
         <Image
           src={card.image}
           alt={getAlt(card.image, card.title)}
           fill
-          unoptimized
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 25vw"
         />
@@ -95,30 +100,28 @@ export function Home4GoalCard({ card }: { card: GoalCard }) {
           {card.badge}
         </div>
       </div>
-      <div className="p-5 sm:p-6">
-        <h3 className="text-lg font-semibold tracking-tight text-shark sm:text-xl">{card.title}</h3>
+      <div className="relative z-10 p-5 sm:p-6">
+        <h2 className="text-lg font-semibold tracking-tight text-shark sm:text-xl">{card.title}</h2>
         <p className="mt-2 text-sm leading-relaxed text-stone-600">{card.description}</p>
         <ul className="mt-4 space-y-1.5 border-t border-stone-100 pt-4">
           {card.links.map((link) => (
-            <li key={link.href}>
+            <li key={`${link.label}-${link.href}`}>
               <Link
                 href={link.href}
                 prefetch={false}
-                className="text-sm text-stone-600 transition-colors hover:text-samsung-blue"
+                className="relative z-10 text-sm text-stone-600 transition-colors hover:text-samsung-blue"
               >
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
-        <Link
-          href={card.href}
-          prefetch={false}
-          className={`mt-5 inline-flex items-center gap-2 text-sm font-semibold ${ACCENT_TEXT[card.accent]} transition-opacity hover:opacity-80`}
+        <span
+          className={`relative z-10 mt-5 inline-flex items-center gap-2 text-sm font-semibold ${ACCENT_TEXT[card.accent]}`}
         >
           Explore
           <ArrowRight className="h-4 w-4" aria-hidden />
-        </Link>
+        </span>
       </div>
     </motion.article>
   );
@@ -136,7 +139,6 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
           src={tile.image}
           alt={getAlt(tile.image, tile.label)}
           fill
-          unoptimized
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, 25vw"
         />
@@ -160,19 +162,21 @@ export function Home4JourneyFunnel({ stages }: { stages: FunnelStage[] }) {
       {stages.map((stage, index) => (
         <Home4Reveal key={stage.step} delay={index * 0.06}>
           <div className="relative h-full rounded-3xl bg-white/80 p-5 shadow-md ring-1 ring-stone-200/70 backdrop-blur-sm">
-            <span className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">
-              {stage.step}
-            </span>
-            <h3 className="mt-2 text-lg font-semibold text-shark">{stage.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-stone-600">{stage.description}</p>
             <Link
               href={stage.href}
               prefetch={false}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue hover:text-cinematic-teal"
-            >
+              className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+              aria-label={`${stage.cta}: ${stage.title}`}
+            />
+            <span className="relative z-10 text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">
+              {stage.step}
+            </span>
+            <h3 className="relative z-10 mt-2 text-lg font-semibold text-shark">{stage.title}</h3>
+            <p className="relative z-10 mt-2 text-sm leading-relaxed text-stone-600">{stage.description}</p>
+            <span className="relative z-10 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue">
               {stage.cta}
               <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            </span>
             {index < stages.length - 1 ? (
               <span
                 className="pointer-events-none absolute -right-2 top-1/2 hidden -translate-y-1/2 text-stone-300 lg:inline"
@@ -196,7 +200,6 @@ export function Home4TestimonialCard({ item }: { item: Testimonial }) {
           src={item.photo}
           alt={getAlt(item.photo, `${item.who}, client story`)}
           fill
-          unoptimized
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
@@ -218,17 +221,24 @@ export function Home4SectionHeader({
   kicker,
   title,
   description,
+  headingId,
 }: {
   kicker?: string;
   title: string;
   description?: string;
+  headingId?: string;
 }) {
   return (
     <div className="max-w-2xl">
       {kicker ? (
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">{kicker}</p>
       ) : null}
-      <h2 className="mt-2 text-2xl font-bold tracking-tight text-shark sm:text-3xl md:text-4xl">{title}</h2>
+      <h2
+        id={headingId}
+        className="mt-2 text-2xl font-bold tracking-tight text-shark sm:text-3xl md:text-4xl"
+      >
+        {title}
+      </h2>
       {description ? (
         <p className="mt-3 text-base leading-relaxed text-stone-600 sm:text-lg">{description}</p>
       ) : null}

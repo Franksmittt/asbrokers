@@ -2,18 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { Footer } from "@/components/Footer";
+import { HubReveal } from "@/components/hub/HubReveal";
+import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
+import { getRelatedLinks } from "@/lib/related-content";
+import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, Briefcase } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
-
-const EASE_SMOOTH = [0.65, 0, 0.35, 1] as const;
-
-const TEAL = "#008080";
-const CANVAS = "#F7F6F3";
-const INK = "#1D1D1F";
-const BODY = "#2B2B2E";
+import {
+  HUB_TEAL as TEAL,
+  HUB_CANVAS as CANVAS,
+  HUB_INK as INK,
+  HUB_BODY as BODY,
+} from "@/lib/hub-design-tokens";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
 
@@ -37,30 +41,6 @@ const FOUNDERS = [
 ];
 
 const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
-
-function Reveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.65, ease: EASE_SMOOTH, delay }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function FounderCard({
   id,
@@ -141,12 +121,16 @@ function IndependenceBlock({
   );
 }
 
-export function AboutPageView() {
+export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   return (
     <>
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40" style={{ backgroundColor: CANVAS }}>
+      <header
+        data-chunk-boundary="true"
+        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ backgroundColor: CANVAS }}
+      >
         <div className={`${GRID} gap-y-8 lg:items-center`}>
-          <Reveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="col-span-12 lg:col-span-6">
             <p
               className="font-semibold uppercase tracking-[0.2em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
@@ -178,31 +162,31 @@ export function AboutPageView() {
               , we have spent over 25 years helping South Africans secure their retirement and protect
               their businesses.
             </p>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.06} className="col-span-12 lg:col-span-6 lg:col-start-7">
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6 lg:col-start-7">
             <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[4/3]">
               <Image
                 src={HERO_IMAGE}
                 alt={getAlt(HERO_IMAGE, "AS Brokers Krugersdorp office and independent financial advisers")}
                 fill
                 priority
-                unoptimized
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes={HUB_SPLIT_HERO_SIZES}
               />
             </div>
-          </Reveal>
+          </HubReveal>
         </div>
       </header>
 
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="about-independence-heading"
       >
         <div className={GRID}>
-          <Reveal className="col-span-12 lg:col-span-8">
+          <HubReveal className="col-span-12 lg:col-span-8">
             <h2
               id="about-independence-heading"
               className="sr-only"
@@ -216,33 +200,34 @@ export function AboutPageView() {
               Category 1.8 is regulatory language. For you, it means broader choice, clearer duty of care,
               and access to solutions many tied advisers cannot offer.
             </p>
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.04} className="col-span-12 lg:col-span-7">
+          <HubReveal delay={0.04} className="col-span-12 lg:col-span-7">
             <IndependenceBlock
               title="We work for you, not the product providers."
               description="Because we are fully independent, we survey the entire market to build a bespoke risk and wealth architecture that serves your goals, free from institutional quotas."
               accent="teal"
             />
-          </Reveal>
+          </HubReveal>
 
-          <Reveal delay={0.08} className="col-span-12 lg:col-span-5">
+          <HubReveal delay={0.08} className="col-span-12 lg:col-span-5">
             <IndependenceBlock
               title="Access investments many advisers cannot offer."
               description="Our FSCA Category 1.8 license allows us to advise on and distribute exclusive structured returns and private market opportunities, such as Everest Wealth."
               accent="blue"
             />
-          </Reveal>
+          </HubReveal>
         </div>
       </section>
 
       <section
+        data-chunk-boundary="true"
         className="border-y border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="about-team-heading"
       >
         <div className={`${HOME4_WRAP} space-y-6`}>
-          <Reveal>
+          <HubReveal>
             <h2
               id="about-team-heading"
               className="font-bold tracking-tight"
@@ -257,17 +242,17 @@ export function AboutPageView() {
               Two co-founders lead advice. A specialist team handles commercial underwriting, medical aid,
               and claims behind the scenes.
             </p>
-          </Reveal>
+          </HubReveal>
 
           <div className="grid gap-6 md:grid-cols-2 md:gap-8">
             {FOUNDERS.map((founder, index) => (
-              <Reveal key={founder.id} delay={0.04 + index * 0.04}>
+              <HubReveal key={founder.id} delay={0.04 + index * 0.04}>
                 <FounderCard {...founder} />
-              </Reveal>
+              </HubReveal>
             ))}
           </div>
 
-          <Reveal delay={0.1}>
+          <HubReveal delay={0.1}>
             <p
               className="max-w-3xl leading-relaxed"
               style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
@@ -290,16 +275,17 @@ export function AboutPageView() {
               </strong>{" "}
               (claims). They ensure every policy and claim receives expert attention.
             </p>
-          </Reveal>
+          </HubReveal>
         </div>
       </section>
 
       <section
+        data-chunk-boundary="true"
         className="py-12 md:py-16"
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="about-education-heading"
       >
-        <Reveal>
+        <HubReveal>
           <div
             className={`${HOME4_WRAP} rounded-2xl bg-white p-8 ring-1 ring-stone-200/90 sm:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10`}
           >
@@ -331,15 +317,16 @@ export function AboutPageView() {
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
-        </Reveal>
+        </HubReveal>
       </section>
 
       <section
+        data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-12 md:py-16"
         style={{ backgroundColor: "#FDFCFA" }}
         aria-labelledby="about-cta-heading"
       >
-        <Reveal>
+        <HubReveal>
           <article
             className={`${HOME4_WRAP} rounded-2xl bg-white p-8 ring-1 ring-stone-200/90 sm:p-10`}
           >
@@ -388,9 +375,11 @@ export function AboutPageView() {
               AS Brokers CC · FSP 17273 · Krugersdorp, West Rand, Gauteng · Est. 1998
             </p>
           </article>
-        </Reveal>
+        </HubReveal>
       </section>
 
+      <VisibleFaqSection faqs={faqs} />
+      <RelatedContent variant="warm" links={getRelatedLinks("/about")} />
       <Footer />
     </>
   );

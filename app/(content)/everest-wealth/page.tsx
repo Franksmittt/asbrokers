@@ -1,6 +1,8 @@
 import { EverestWealthPageView } from "@/components/everest-wealth/EverestWealthPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { buildPageMetadata } from "@/lib/seo-metadata";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Investments & Everest Wealth | Smarter Investing for Every Stage";
 const PAGE_DESCRIPTION =
@@ -38,12 +40,13 @@ export const metadata = buildPageMetadata({
 export default function EverestWealthPage() {
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/everest-wealth"]} variant="split" />
       <PageJsonLd
         path="/everest-wealth"
-        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={everestWealthFAQs}
       />
-      <EverestWealthPageView />
+      <EverestWealthPageView faqs={everestWealthFAQs} />
     </>
   );
 }

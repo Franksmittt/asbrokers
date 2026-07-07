@@ -310,6 +310,28 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Wills, trusts, duty awareness, and succession.",
     },
   ],
+  "/calculators": [
+    {
+      href: "/retirement-planning",
+      title: "Planning for retirement",
+      description: "Pre-retirement clarity on capital, timeline, and growth needed.",
+    },
+    {
+      href: "/investments",
+      title: "Investments hub",
+      description: "Everest yields and wealth-building tools by life stage.",
+    },
+    {
+      href: "/estate-planning",
+      title: "Estate planning hub",
+      description: "Wills, duty, liquidity, and legacy readiness.",
+    },
+    {
+      href: "/contact",
+      title: "Book an actuarial consultation",
+      description: "Run your numbers live with FSP 17273.",
+    },
+  ],
 };
 
 export function getRelatedLinks(path: string): RelatedLink[] {

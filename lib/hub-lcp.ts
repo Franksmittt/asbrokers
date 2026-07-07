@@ -10,6 +10,7 @@ export const HUB_LCP_IMAGES: Record<string, string> = {
   "/insights": "/images/home4-why-independence-4x3.jpg",
   "/about": "/images/home4-why-independence-4x3.jpg",
   "/contact": "/images/home4-why-independence-4x3.jpg",
+  "/calculators": "/images/calculators-education-16x9.jpg",
 };
 
 /** Responsive `sizes` for full-bleed hub heroes (mobile LCP). */

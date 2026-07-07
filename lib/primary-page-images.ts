@@ -14,7 +14,7 @@ export const PAGE_PRIMARY_IMAGES: Record<string, string> = {
   "/regulatory-compliance": "/images/regulatory-compliance-inset-1x1.jpg",
   "/retirement": "/images/retirement-inset-1x1.jpg",
   "/solutions": "/images/solutions-hero-16x9.jpg",
-  "/solutions/estate-planning": "/images/home4-goal-estate-16x9.png",
+  "/estate-planning": "/images/home4-goal-estate-16x9.png",
   "/business-risk-review": "/images/business-insurance-inset-1x1.jpg",
   "/legacy-readiness-checklist": "/images/about-selective-inset-1x1.jpg",
   "/healthy-retirement-blueprint": "/images/calculators-education-16x9.jpg",

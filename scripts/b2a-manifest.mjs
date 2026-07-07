@@ -13,7 +13,7 @@ export const B2A_MANIFEST = {
     { url: "/calculators", description: "Curated calculator hub — retirement readiness, inflation, and wealth building tools." },
     { url: "/estate-duty-calculator", description: "Estate duty calculator — executor cost illustration for South African estates." },
     { url: "/solutions/medical-aid", description: "Medical aid — gap cover guidance for South African schemes." },
-    { url: "/solutions/estate-planning", description: "Estate planning — wills, trusts, and structuring education." },
+    { url: "/estate-planning", description: "Estate planning — wills, trusts, and structuring education." },
     { url: "/how-we-work", description: "How we work — four-step advice process: diagnose, design, implement, review." },
     { url: "/regulatory-compliance", description: "Regulatory compliance — FAIS disclosures and client protections." },
     { url: "/insights", description: "Insights hub — education articles on retirement, estate, and markets." },

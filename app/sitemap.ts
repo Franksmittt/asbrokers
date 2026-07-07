@@ -35,7 +35,7 @@ const STATIC_PATHS = [
   "/solutions",
   "/solutions/business-insurance",
   "/solutions/business-life",
-  "/solutions/estate-planning",
+  "/estate-planning",
   "/solutions/life-insurance",
   "/solutions/medical-aid",
   "/solutions/personal-insurance",

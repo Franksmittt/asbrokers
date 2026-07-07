@@ -13,7 +13,7 @@ const HUB_PATHS = [
   "/retirement",
   "/everest-wealth",
   "/insurance",
-  "/solutions/estate-planning",
+  "/estate-planning",
   "/insights",
   "/about",
   "/contact",

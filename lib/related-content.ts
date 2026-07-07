@@ -59,7 +59,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Property, liability, BI, and fleet cover.",
     },
     {
-      href: "/solutions/estate-planning",
+      href: "/estate-planning",
       title: "Estate & succession planning",
       description: "Wills, trusts, and business continuity.",
     },
@@ -86,7 +86,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Medical aid and gap cover guidance, FSP 17273.",
     },
   ],
-  "/solutions/estate-planning": [
+  "/estate-planning": [
     {
       href: "/calculators#asset-007-estate-duty",
       title: "Estate duty calculator",
@@ -305,7 +305,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Medical aid, life cover, and business protection.",
     },
     {
-      href: "/solutions/estate-planning",
+      href: "/estate-planning",
       title: "Estate planning",
       description: "Wills, trusts, duty awareness, and succession.",
     },

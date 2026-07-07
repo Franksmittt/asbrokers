@@ -16,7 +16,7 @@ const HUB_PAGES: Array<{
   { path: "/retirement", pageFile: "app/(content)/retirement/page.tsx", pageView: "components/retirement/RetirementPageView.tsx", hasFaqs: true },
   { path: "/everest-wealth", pageFile: "app/(content)/everest-wealth/page.tsx", pageView: "components/everest-wealth/EverestWealthPageView.tsx", hasFaqs: true },
   { path: "/insurance", pageFile: "app/(content)/insurance/page.tsx", pageView: "components/insurance/InsuranceHubPageView.tsx", hasFaqs: true },
-  { path: "/solutions/estate-planning", pageFile: "app/(content)/solutions/estate-planning/page.tsx", pageView: "components/estate-planning/EstatePlanningPageView.tsx", hasFaqs: true },
+  { path: "/estate-planning", pageFile: "app/(content)/estate-planning/page.tsx", pageView: "components/estate-planning/EstatePlanningPageView.tsx", hasFaqs: true },
   { path: "/insights", pageFile: "app/(content)/insights/page.tsx", pageView: "components/insights/InsightsHubPageView.tsx", hasFaqs: true },
   { path: "/about", pageFile: "app/(content)/about/page.tsx", pageView: "components/about/AboutPageView.tsx", hasFaqs: true },
   { path: "/contact", pageFile: "app/(content)/contact/page.tsx", pageView: "components/contact/ContactPageView.tsx", hasFaqs: true },

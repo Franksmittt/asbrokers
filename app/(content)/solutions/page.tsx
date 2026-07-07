@@ -141,7 +141,7 @@ const categories = [
       {
         name: "Estate Planning & Wills",
         desc: "Wills, testaments and estate structuring.",
-        href: "/solutions/estate-planning",
+        href: "/estate-planning",
         badge: null,
       },
       {

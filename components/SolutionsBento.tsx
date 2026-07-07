@@ -150,7 +150,7 @@ export function SolutionsBento() {
 
       <TiltCard {...cardMotion(3)}>
         <Link
-          href="/solutions/estate-planning"
+          href="/estate-planning"
           className="rim-light rounded-[2rem] p-6 sm:p-8 border-0 flex flex-col justify-between group hover:bg-white/[0.07] transition-all duration-500 block min-h-[200px] md:min-h-0 h-full"
         >
           <div>

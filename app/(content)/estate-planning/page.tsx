@@ -4,7 +4,7 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Estate Planning, Wills & Trusts | Protect Your Legacy";
+const PAGE_TITLE = "Estate Planning Hub | Wills, Trusts & Legacy Outcomes";
 const PAGE_DESCRIPTION =
   "Estate planning for South Africans: wills, trusts, duty awareness, liquidity, and succession. Independent FSP 17273 in Krugersdorp and Gauteng.";
 
@@ -27,31 +27,26 @@ const estateFAQs = [
 ];
 
 export const metadata = buildPageMetadata({
-  path: "/solutions/estate-planning",
+  path: "/estate-planning",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   keywords: [
     "estate planning South Africa",
     "wills and trusts Gauteng",
     "estate duty planning",
-    "financial adviser estate liquidity",
+    "legacy readiness checklist",
     "FSP 17273",
   ],
 });
 
-export default function EstatePlanningPage() {
+export default function EstatePlanningHubPage() {
   return (
     <>
-      <HubLcpPreload src={HUB_LCP_IMAGES["/solutions/estate-planning"]} variant="split" />
+      <HubLcpPreload src={HUB_LCP_IMAGES["/estate-planning"]} variant="split" />
       <PageJsonLd
-        path="/solutions/estate-planning"
+        path="/estate-planning"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={estateFAQs}
-        breadcrumbs={[
-          { name: "Home", path: "/" },
-          { name: "Solutions", path: "/solutions" },
-          { name: "Estate Planning", path: "/solutions/estate-planning" },
-        ]}
         service={{
           name: "Estate Planning by AS Brokers CC",
           description:

@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
     ] as const;
 
     return [
+      { source: "/solutions/estate-planning", destination: "/estate-planning", permanent: true },
       { source: "/home2", destination: "/", permanent: true },
       { source: "/home3", destination: "/", permanent: true },
       { source: "/home4", destination: "/", permanent: true },

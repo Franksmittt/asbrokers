@@ -89,9 +89,9 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     title: "I need estate planning",
     badge: "Estate",
     description: "Wills, trusts, duty, and legacy outcomes for your family.",
-    href: "/solutions/estate-planning",
+    href: "/estate-planning",
     links: [
-      { label: "Wills & trusts", href: "/solutions/estate-planning" },
+      { label: "Wills & trusts", href: "/legacy-readiness-checklist" },
       { label: "Planning tools", href: "/calculators" },
       { label: "Business succession", href: "/solutions/business-life" },
       { label: "Legacy guides", href: "/insights" },

@@ -417,7 +417,7 @@ export const SCHEMA_EXPLICIT_PATH_PREFIXES = [
   "/about",
   "/insights",
   "/solutions",
-  "/solutions/estate-planning",
+  "/estate-planning",
   "/complaints",
   "/conflict-of-interest",
   "/contact",

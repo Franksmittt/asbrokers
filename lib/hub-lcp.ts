@@ -6,7 +6,7 @@ export const HUB_LCP_IMAGES: Record<string, string> = {
   "/everest-wealth": "/images/home4-import/card1.png",
   "/investments": "/images/home4-import/card1.png",
   "/insurance": "/images/home4-goal-insure-16x9.png",
-  "/solutions/estate-planning": "/images/home4-goal-estate-16x9.png",
+  "/estate-planning": "/images/home4-goal-estate-16x9.png",
   "/insights": "/images/home4-why-independence-4x3.jpg",
   "/about": "/images/home4-why-independence-4x3.jpg",
   "/contact": "/images/home4-why-independence-4x3.jpg",

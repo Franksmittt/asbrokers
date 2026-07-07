@@ -63,7 +63,7 @@ export const PRIMARY_NAV: NavLink[] = [
   { label: "Retirement", href: "/retirement" },
   { label: "Investments", href: "/everest-wealth" },
   { label: "Insurance", href: "/insurance" },
-  { label: "Estate Planning", href: "/solutions/estate-planning" },
+  { label: "Estate Planning", href: "/estate-planning" },
   { label: "Calculators", href: "/calculators" },
   { label: "Learn", href: "/insights" },
   { label: "About", href: "/about" },
@@ -75,7 +75,7 @@ export const FOOTER_HOW_WE_HELP: NavLink[] = [
   { label: "Retirement & Everest", href: "/retirement" },
   { label: "Investments", href: "/everest-wealth" },
   { label: "Insurance & Risk", href: "/insurance" },
-  { label: "Estate Planning", href: "/solutions/estate-planning" },
+  { label: "Estate Planning", href: "/estate-planning" },
 ];
 
 /** Mega-footer: education and tools. */

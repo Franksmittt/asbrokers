@@ -39,7 +39,7 @@ const ITEMS = [
     title: "Estate Planning & Trusts",
     subtitle: "Legacy",
     description: "Wills, trusts and estate duty reduction. Secure your legacy.",
-    href: "/solutions/estate-planning",
+    href: "/estate-planning",
   },
   {
     id: "business-life",

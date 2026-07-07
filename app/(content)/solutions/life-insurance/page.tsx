@@ -98,7 +98,7 @@ export default function LifeInsurancePage() {
             <p>
               For <strong className="text-shark">liquidity at death</strong>, see also{" "}
               <Link href="/calculators" className={WARM_LINK}>estate duty calculator</Link> and{" "}
-              <Link href="/solutions/estate-planning" className={WARM_LINK}>estate planning</Link>.
+              <Link href="/estate-planning" className={WARM_LINK}>estate planning</Link>.
             </p>
           </WarmProse>
         </WarmSection>

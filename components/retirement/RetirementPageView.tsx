@@ -255,6 +255,7 @@ export function RetirementPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               title="I'm planning for retirement."
               description="I want to know if I'm saving enough and when I can afford to stop working."
               links={[
+                { label: "Planning for retirement hub", href: "/retirement-planning" },
                 { label: "Retirement Growth Calculator", href: CALC_GROWTH },
                 { label: "Personal Goal Growth Calculator", href: CALC_GOAL },
                 { label: "Retirement insights & guides", href: "/insights" },

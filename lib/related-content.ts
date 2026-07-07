@@ -109,14 +109,14 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
 export const HUB_RELATED: Record<string, RelatedLink[]> = {
   "/": [
     {
-      href: "/retirement",
+      href: "/retirement-planning",
       title: "Retirement planning",
       description: "Capital, income, living annuities, and clarity on whether your money will last.",
     },
     {
-      href: "/everest-wealth",
-      title: "Investments & Everest Wealth",
-      description: "Structured return profiles for voluntary capital and retirement income.",
+      href: "/investments",
+      title: "Investments hub",
+      description: "Wealth building, life-stage guidance, and Everest yield education.",
     },
     {
       href: "/calculators",
@@ -130,6 +130,11 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     },
   ],
   "/retirement": [
+    {
+      href: "/retirement-planning",
+      title: "Planning for retirement",
+      description: "Pre-retirement clarity on capital, timeline, and growth needed.",
+    },
     {
       href: "/calculators#asset-002-retirement-reality-check",
       title: "Retirement Reality Check",
@@ -149,6 +154,50 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       href: "/insights",
       title: "Retirement insights",
       description: "Plain-language guides on income, tax, and longevity.",
+    },
+  ],
+  "/retirement-planning": [
+    {
+      href: "/retirement-survival-blueprint",
+      title: "Retirement Survival Blueprint",
+      description: "5-step diagnostic and Financial Freedom Score™.",
+    },
+    {
+      href: "/calculators#asset-002-retirement-reality-check",
+      title: "Retirement Reality Check",
+      description: "Compare desired income against projected capital.",
+    },
+    {
+      href: "/retirement",
+      title: "Full retirement hub",
+      description: "Living annuities, drawdown tools, and post-retirement guidance.",
+    },
+    {
+      href: "/contact",
+      title: "Book a strategy call",
+      description: "Independent Category 1.8 advice, FSP 17273.",
+    },
+  ],
+  "/investments": [
+    {
+      href: "/everest-wealth",
+      title: "Everest Wealth deep dive",
+      description: "Product detail, comparison tables, and fiduciary notes.",
+    },
+    {
+      href: "/retirement-planning",
+      title: "Planning for retirement",
+      description: "Pre-retirement accumulation and gap analysis tools.",
+    },
+    {
+      href: "/calculators#asset-013-everest-income-vs-growth",
+      title: "Income vs Growth comparison",
+      description: "Compare Everest yield strategies side by side.",
+    },
+    {
+      href: "/contact",
+      title: "Book a strategy call",
+      description: "Independent Category 1.8 investment advice, FSP 17273.",
     },
   ],
   "/everest-wealth": [
@@ -246,9 +295,9 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Prepare questions on capital, drawdown, and living annuities.",
     },
     {
-      href: "/everest-wealth",
+      href: "/investments",
       title: "Investments",
-      description: "Explore Everest Wealth and voluntary capital structures.",
+      description: "Wealth building, Everest yields, and life-stage investment guidance.",
     },
     {
       href: "/insurance",

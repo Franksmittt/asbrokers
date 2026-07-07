@@ -20,6 +20,11 @@ const insuranceFAQs = [
       "It illustrates how underinsurance on home or commercial property can reduce a claim when insurers apply the average clause. Use it to stress-test whether your sums insured reflect true replacement value.",
   },
   {
+    question: "What is the Premium Liability Test?",
+    answer:
+      "It compares escalating versus level life insurance premiums over time, exposing how cheap starting premiums can become unaffordable when guarantees expire. Our life insurance hub walks through escalation traps; speak with FSP 17273 for a personalised comparison.",
+  },
+  {
     question: "Are AS Brokers tied to one insurer?",
     answer:
       "No. We are an independent Category 1.8 FSP (17273) and review solutions across the market, including partners such as Santam, Old Mutual, and Bryte, to engineer cover that pays out when you need it.",

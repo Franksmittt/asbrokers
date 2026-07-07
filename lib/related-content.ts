@@ -234,9 +234,9 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Health pillar structuring for families and professionals.",
     },
     {
-      href: "/calculators#asset-015-average-clause",
-      title: "Average clause calculator",
-      description: "Stress-test underinsurance on property claims.",
+      href: "/solutions/life-insurance",
+      title: "Premium Liability Test",
+      description: "Escalating vs level life premiums and expiring guarantees.",
     },
     {
       href: "/business-risk-review",

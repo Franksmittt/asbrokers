@@ -13,8 +13,8 @@ const HUB_PAGES: Array<{
   hasFaqs: boolean;
 }> = [
   { path: "/", pageFile: "app/(content)/page.tsx", pageView: "components/home4/Home4Preview.tsx", hasFaqs: false },
-  { path: "/retirement", pageFile: "app/(content)/retirement/page.tsx", pageView: "components/retirement/RetirementPageView.tsx", hasFaqs: true },
-  { path: "/everest-wealth", pageFile: "app/(content)/everest-wealth/page.tsx", pageView: "components/everest-wealth/EverestWealthPageView.tsx", hasFaqs: true },
+  { path: "/retirement-planning", pageFile: "app/(content)/retirement-planning/page.tsx", pageView: "components/retirement-planning/RetirementPlanningPageView.tsx", hasFaqs: true },
+  { path: "/investments", pageFile: "app/(content)/investments/page.tsx", pageView: "components/investments/InvestmentsPageView.tsx", hasFaqs: true },
   { path: "/insurance", pageFile: "app/(content)/insurance/page.tsx", pageView: "components/insurance/InsuranceHubPageView.tsx", hasFaqs: true },
   { path: "/estate-planning", pageFile: "app/(content)/estate-planning/page.tsx", pageView: "components/estate-planning/EstatePlanningPageView.tsx", hasFaqs: true },
   { path: "/insights", pageFile: "app/(content)/insights/page.tsx", pageView: "components/insights/InsightsHubPageView.tsx", hasFaqs: true },

@@ -11,7 +11,7 @@ import {
   FunnelObjectionStripCustom,
   FunnelToolShell,
 } from "@/components/funnel/FunnelMarketingSections";
-import { funnel } from "@/components/funnel/FunnelLayout";
+import { funnel, funnelForm } from "@/components/funnel/FunnelLayout";
 import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
 import {
   BUSINESS_RISK_SECTIONS,
@@ -38,9 +38,8 @@ type LeadForm = {
   industry: (typeof INDUSTRY_OPTIONS)[number];
 };
 
-const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white placeholder:text-zinc-600 focus:border-cinematic-teal/40 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25";
-const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
+const inputClass = funnelForm.input;
+const labelClass = funnelForm.label;
 
 export function BusinessRiskReviewTool() {
   const reducedMotion = useReducedMotion();
@@ -142,6 +141,8 @@ export function BusinessRiskReviewTool() {
       {phase === "landing" && (
         <FunnelMarketingPage
           offer={OFFER}
+          heroImage="/images/home4-goal-insure-16x9.png"
+          heroImageAlt="Business owner reviewing commercial risk protection"
           capture={captureCard}
           onScrollToCapture={startReview}
           primaryCtaLabel="Start free workbook"
@@ -150,12 +151,13 @@ export function BusinessRiskReviewTool() {
 
       {phase !== "landing" && (
         <FunnelToolShell
+          offer={OFFER}
           compactHeader={
             <div className="mb-4">
               <p className={funnel.eyebrow}>{OFFER.title}</p>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+              <div className={funnelForm.progressTrack}>
                 <div
-                  className="h-full rounded-full bg-[#00549F] transition-all duration-500"
+                  className={funnelForm.progressFill}
                   style={{ width: `${toolProgress}%` }}
                 />
               </div>
@@ -167,7 +169,7 @@ export function BusinessRiskReviewTool() {
               <motion.div key={phase} {...motionProps}>
                 {phase === "lead" && (
                   <div className="space-y-4">
-                    <h2 className="text-xl font-bold text-white">Step 1, Your details</h2>
+                    <h2 className="text-xl font-bold text-[#1D1D1F]">Step 1, Your details</h2>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="sm:col-span-2">
                         <label className={labelClass} htmlFor="brr-name">Name</label>
@@ -200,8 +202,8 @@ export function BusinessRiskReviewTool() {
                 {phase === "covers" && (
                   <div className="space-y-8">
                     <div>
-                      <h2 className="text-xl font-bold text-white">Step 2, What cover do you have?</h2>
-                      <p className="mt-2 text-sm text-zinc-400">
+                      <h2 className="text-xl font-bold text-[#1D1D1F]">Step 2, What cover do you have?</h2>
+                      <p className="mt-2 text-sm text-stone-600">
                         Tick every category you believe is already in place. Unticked items are flagged as potential gaps.
                       </p>
                     </div>
@@ -210,7 +212,7 @@ export function BusinessRiskReviewTool() {
                         <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-cinematic-teal">{section.title}</h3>
                         <ul className="space-y-2">
                           {section.items.map((item) => (
-                            <li key={item.id} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                            <li key={item.id} className="flex items-start gap-3 rounded-xl border border-stone-200 bg-stone-50 p-3">
                               <input
                                 type="checkbox"
                                 id={`cover-${item.id}`}
@@ -219,14 +221,14 @@ export function BusinessRiskReviewTool() {
                                 className="mt-1 h-4 w-4 shrink-0"
                               />
                               <div className="min-w-0 flex-1">
-                                <label htmlFor={`cover-${item.id}`} className="cursor-pointer font-medium text-white">
+                                <label htmlFor={`cover-${item.id}`} className="cursor-pointer font-medium text-[#1D1D1F]">
                                   {item.label}
                                 </label>
                               </div>
                               <button
                                 type="button"
                                 onClick={() => setActiveInfo(item)}
-                                className="shrink-0 rounded-full border border-white/15 px-2 py-0.5 text-xs text-zinc-400 hover:text-white"
+                                className="shrink-0 rounded-full border border-white/15 px-2 py-0.5 text-xs text-stone-600 hover:text-[#1D1D1F]"
                                 aria-label={`More information about ${item.label}`}
                               >
                                 ⓘ
@@ -236,7 +238,7 @@ export function BusinessRiskReviewTool() {
                         </ul>
                       </div>
                     ))}
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-stone-500">
                       Selected: {selected.size} of {TOTAL_RISK_COVER_COUNT} categories
                     </p>
                   </div>
@@ -253,7 +255,7 @@ export function BusinessRiskReviewTool() {
             <div className="mt-6 flex flex-wrap gap-3">
               {phase === "lead" && (
                 <>
-                  <button type="button" onClick={() => setPhase("landing")} className="rounded-xl border border-white/15 px-5 py-3 text-sm text-zinc-300 hover:bg-white/5">
+                  <button type="button" onClick={() => setPhase("landing")} className="rounded-xl border border-stone-200 px-5 py-3 text-sm text-stone-600 hover:bg-stone-50">
                     Back
                   </button>
                   <button type="button" onClick={handleLeadContinue} className="rounded-xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110">
@@ -263,7 +265,7 @@ export function BusinessRiskReviewTool() {
               )}
               {phase === "covers" && (
                 <>
-                  <button type="button" onClick={() => setPhase("lead")} className="rounded-xl border border-white/15 px-5 py-3 text-sm text-zinc-300 hover:bg-white/5">
+                  <button type="button" onClick={() => setPhase("lead")} className="rounded-xl border border-stone-200 px-5 py-3 text-sm text-stone-600 hover:bg-stone-50">
                     Back
                   </button>
                   <button type="button" onClick={handleSeeResults} disabled={isPending} className="rounded-xl bg-[#00549F] px-6 py-3 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60">
@@ -292,15 +294,15 @@ export function BusinessRiskReviewTool() {
       </p>
 
       {activeInfo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true">
-          <div className="max-w-md rounded-2xl border border-white/10 bg-[#151518] p-6 shadow-2xl">
-            <h3 className="text-lg font-bold text-white">{activeInfo.label}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-zinc-300">{activeInfo.description}</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/40 p-4" role="dialog" aria-modal="true">
+          <div className="max-w-md rounded-2xl border border-stone-200 bg-white p-6 shadow-2xl">
+            <h3 className="text-lg font-bold text-[#1D1D1F]">{activeInfo.label}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-stone-600">{activeInfo.description}</p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Link href="/contact" className="rounded-xl bg-[#00549F] px-4 py-2 text-sm font-semibold text-white">
+              <Link href="/contact" className="rounded-xl bg-[#00549F] px-4 py-2 text-sm font-semibold text-[#1D1D1F]">
                 Learn more, request review
               </Link>
-              <button type="button" onClick={() => setActiveInfo(null)} className="rounded-xl border border-white/15 px-4 py-2 text-sm text-zinc-300">
+              <button type="button" onClick={() => setActiveInfo(null)} className="rounded-xl border border-white/15 px-4 py-2 text-sm text-stone-600">
                 Close
               </button>
             </div>
@@ -326,31 +328,31 @@ function ResultsPanel({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-bold text-white">Your Business Risk Score</h2>
+      <h2 className="text-xl font-bold text-[#1D1D1F]">Your Business Risk Score</h2>
       <div className="rounded-2xl border p-6 text-center" style={{ borderColor: `${bandColor}55`, backgroundColor: `${bandColor}15` }}>
         <p className="text-sm font-bold uppercase tracking-wide" style={{ color: bandColor }}>
           {score.bandLabel}
         </p>
-        <p className="mt-4 text-5xl font-extrabold text-white">{score.protectionPercent}%</p>
-        <p className="mt-2 text-sm text-zinc-300">Risk Protection</p>
+        <p className="mt-4 text-5xl font-extrabold text-samsung-blue">{score.protectionPercent}%</p>
+        <p className="mt-2 text-sm text-stone-600">Risk Protection</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Coverage score</p>
-          <p className="mt-1 text-2xl font-bold text-white">
+        <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+          <p className="text-xs uppercase tracking-wide text-stone-500">Coverage score</p>
+          <p className="mt-1 text-2xl font-bold text-[#1D1D1F]">
             {score.coveredCount} / {score.totalCount}
           </p>
         </div>
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Potential gaps</p>
-          <p className="mt-1 text-2xl font-bold text-white">{score.gapCount}</p>
+        <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+          <p className="text-xs uppercase tracking-wide text-stone-500">Potential gaps</p>
+          <p className="mt-1 text-2xl font-bold text-[#1D1D1F]">{score.gapCount}</p>
         </div>
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-500">Company</p>
-          <p className="mt-1 text-lg font-bold text-white">{company}</p>
+        <div className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+          <p className="text-xs uppercase tracking-wide text-stone-500">Company</p>
+          <p className="mt-1 text-lg font-bold text-[#1D1D1F]">{company}</p>
         </div>
       </div>
-      <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-sm text-zinc-300">
+      <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700">
         <p className="font-semibold text-amber-100">Recommendations</p>
         <ul className="mt-2 list-disc space-y-1 pl-5">
           <li>Request a professional insurance and risk review with AS Brokers.</li>
@@ -359,7 +361,7 @@ function ResultsPanel({
         </ul>
       </div>
       {reportId && (
-        <p className="text-sm text-zinc-400">
+        <p className="text-sm text-stone-600">
           Your report has been saved. Download the PDF for your records or share it with your adviser.
         </p>
       )}

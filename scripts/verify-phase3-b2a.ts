@@ -12,8 +12,8 @@ const TOKEN_CEILING = 128_000;
 /** Primary nav hub pages — handbook Phase 3 HtmlRAG chunk boundaries required. */
 const KEY_PAGE_VIEWS = [
   "components/home4/Home4Preview.tsx",
-  "components/retirement/RetirementPageView.tsx",
-  "components/everest-wealth/EverestWealthPageView.tsx",
+  "components/retirement-planning/RetirementPlanningPageView.tsx",
+  "components/investments/InvestmentsPageView.tsx",
   "components/insurance/InsuranceHubPageView.tsx",
   "components/estate-planning/EstatePlanningPageView.tsx",
   "components/insights/InsightsHubPageView.tsx",

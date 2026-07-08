@@ -1,8 +1,10 @@
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
 import { ClientInsightArticle } from "@/components/client-studio/ClientInsightArticle";
 import { ArticlePortableText } from "@/components/portable-text/ArticlePortableText";
-import { WarmHero, WarmPageWithFooter, WarmSection } from "@/components/warm/WarmShell";
+import {
+  HubContentSection,
+  HubSplitHero,
+  PageWithFooter,
+} from "@/components/hub/HubContentShell";
 import { getPublishedStudioPostBySlug } from "@/lib/client-studio/posts";
 import { insightUrlPath } from "@/lib/site-url";
 import { formatDateEnZa } from "@/lib/format-date";
@@ -10,9 +12,10 @@ import { buildArticleMetadata } from "@/lib/seo-metadata";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getPrimaryPageImage } from "@/lib/primary-page-images";
-import { WARM_META } from "@/lib/warm-theme";
 import { cachedSanityFetch } from "@/sanity/lib/fetch";
 import { articleBySlugQuery } from "@/sanity/lib/queries";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 type Article = {
   _id: string;
@@ -85,10 +88,10 @@ export default async function ArticlePage({ params, searchParams }: Props) {
     notFound();
   }
 
-  const heroImage = getPrimaryPageImage(path) ?? "/images/insights-inset-1x1.jpg";
+  const heroImage = getPrimaryPageImage(path) ?? "/images/home4-why-independence-4x3.jpg";
 
   return (
-    <WarmPageWithFooter>
+    <PageWithFooter>
       <PageJsonLd
         path={path}
         webPage={{
@@ -106,23 +109,24 @@ export default async function ArticlePage({ params, searchParams }: Props) {
           { name: article.title, path },
         ]}
       />
-      <WarmHero
+      <HubSplitHero
         kicker="Insights"
         title={article.title}
         description={article.excerpt ?? undefined}
         imageSrc={heroImage}
-        maxWidth="5xl"
+        imageAlt={article.title}
+        priority
       >
-        <time className={`mt-4 block ${WARM_META} text-white/70`} dateTime={article.publishedAt}>
+        <time className="mt-4 block text-xs font-medium uppercase tracking-wider text-stone-500" dateTime={article.publishedAt}>
           {formatDate(article.publishedAt)}
         </time>
-      </WarmHero>
+      </HubSplitHero>
 
-      <WarmSection narrow className="pb-8">
+      <HubContentSection narrow className="pb-8">
         <div className="prose prose-stone max-w-none prose-headings:text-shark prose-p:text-stone-600 prose-a:text-samsung-blue hover:prose-a:text-cinematic-teal">
           <ArticlePortableText value={article.body as import("@portabletext/types").PortableTextBlock[]} />
         </div>
-      </WarmSection>
+      </HubContentSection>
 
       <RelatedContent
         variant="warm"
@@ -132,6 +136,6 @@ export default async function ArticlePage({ params, searchParams }: Props) {
           { href: "/contact", title: "Book a review", description: "Discuss how this applies to your plan." },
         ]}
       />
-    </WarmPageWithFooter>
+    </PageWithFooter>
   );
 }

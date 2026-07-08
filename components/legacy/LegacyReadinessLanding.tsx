@@ -1,7 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
+import { HubReveal } from "@/components/hub/HubReveal";
 import {
   funnel,
   FunnelCheckItem,
@@ -14,9 +17,13 @@ import {
 } from "@/components/funnel/FunnelMarketingSections";
 import { ArrowRight, ShieldCheck } from "@/components/icons";
 import { LegacyChecklistLeadForm } from "@/components/legacy/LegacyChecklistLeadForm";
+import { getAlt } from "@/lib/image-alt";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
 
 const OFFER = PLANNING_TOOL_OFFERS["legacy-checklist"];
+const HERO_IMAGE = "/images/home4-goal-estate-16x9.png";
+const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 
 const ASSUMPTIONS = [
   "I have a will",
@@ -66,9 +73,12 @@ function scrollToForm() {
 
 function LeadCaptureCard() {
   return (
-    <section id="checklist-form" className={`scroll-mt-24 ${funnel.cardAccent} ${funnel.cardSticky}`}>
+    <section
+      id="checklist-form"
+      className={`scroll-mt-28 rounded-3xl bg-white p-6 shadow-2xl ring-1 ring-stone-200/90 sm:p-8 lg:sticky lg:top-28`}
+    >
       <p className={funnel.eyebrow}>{OFFER.freeLabel}</p>
-      <h2 className={`mt-2 ${funnel.h2}`}>Get your {OFFER.title}</h2>
+      <h2 className={`mt-2 ${funnel.h2}`}>Get your printable 8-area checklist</h2>
       <p className={`mt-2 ${funnel.body}`}>{OFFER.freeSummary}</p>
       <div className="mt-3">
         <FunnelPriceBadge offer={OFFER} />
@@ -94,41 +104,52 @@ export function LegacyReadinessLanding() {
       <div className={funnel.glow} aria-hidden />
 
       <div className={`${funnel.shell} ${funnel.stack}`}>
-        {/* Hero, full shell width, answer-first, single primary CTA */}
-        <header>
-          <p className={funnel.eyebrow}>Legacy Conversations™ · Stage 1</p>
-          <h1 className={`mt-2 ${funnel.h1}`}>Don&apos;t die without a plan</h1>
-          <p className={`mt-3 max-w-4xl ${funnel.lead}`}>
-            Most families believe their affairs are in order. Many are not, and problems found after
-            death cannot be fixed.
-          </p>
-          <p className={`mt-2 max-w-4xl ${funnel.body}`}>
-            The Legacy Readiness Checklist™ reviews wills, trusts, beneficiaries, liquidity, and succession
-            in plain language. Free. Immediate. Built for South African families.
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <button type="button" onClick={scrollToForm} className={funnel.ctaLg}>
-              Download free checklist
-              <ArrowRight className="h-4 w-4" />
-            </button>
-            <p className={`trust-hallmark ${funnel.meta}`}>AS Brokers · FSP 17273</p>
-          </div>
-        </header>
+        <div className={`${GRID} items-center gap-y-8`}>
+          <HubReveal className="col-span-12 lg:col-span-6">
+            <p className={funnel.eyebrow}>Legacy Conversations™ · Stage 1</p>
+            <h1 className={`mt-4 ${funnel.h1}`}>Is your legacy plan actually ready?</h1>
+            <p className={`mt-5 max-w-xl ${funnel.lead}`}>
+              Most families believe their affairs are in order. Many are not — and problems found after
+              death cannot be fixed.
+            </p>
+            <p className={`mt-3 max-w-xl ${funnel.body}`}>
+              The Legacy Readiness Checklist™ reviews wills, trusts, beneficiaries, liquidity, and
+              succession in plain language. Free. Immediate. Built for South African families.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button type="button" onClick={scrollToForm} className={funnel.ctaLg}>
+                Download free checklist
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <p className={`trust-hallmark ${funnel.meta}`}>AS Brokers · FSP 17273</p>
+            </div>
+          </HubReveal>
 
-        {/* Mobile: form early (value ladder, capture before long scroll) */}
+          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
+              <Image
+                src={HERO_IMAGE}
+                alt={getAlt(HERO_IMAGE, "Family estate planning and legacy readiness review")}
+                fill
+                priority
+                className="object-cover object-center"
+                sizes={HUB_SPLIT_HERO_SIZES}
+              />
+            </div>
+          </HubReveal>
+        </div>
+
         <div className="lg:hidden">
           <LeadCaptureCard />
         </div>
 
-        {/* Main band: content + sticky form (desktop) */}
-        <div className="grid gap-4 lg:grid-cols-12 lg:gap-5">
-          <div className="flex flex-col gap-4 lg:col-span-8 lg:gap-5">
-            {/* Problem + pre-handled objection */}
+        <div className={GRID}>
+          <div className="col-span-12 flex flex-col gap-6 lg:col-span-5 lg:gap-8">
             <section className={funnel.card}>
               <FunnelSectionHeader
                 compact
-                title="The problem"
-                subtitle="If you assume the four statements below are true, you are in good company, and that is exactly why estates fail."
+                title="Why take this diagnostic?"
+                subtitle="If you assume the four statements below are true, you are in good company — and that is exactly why estates fail."
               />
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {ASSUMPTIONS.map((item) => (
@@ -143,12 +164,11 @@ export function LegacyReadinessLanding() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-sm font-medium text-white">
+              <p className="mt-4 text-sm font-medium text-[#1D1D1F]">
                 A gap discovered after death is usually impossible to fix.
               </p>
             </section>
 
-            {/* Checklist covers, proof of work / substance */}
             <section className={funnel.card}>
               <FunnelSectionHeader
                 compact
@@ -158,14 +178,13 @@ export function LegacyReadinessLanding() {
               <ul className={`mt-4 ${funnel.grid4}`}>
                 {CHECKLIST_COVERS.map((item) => (
                   <li key={item} className={funnel.tileRow}>
-                    <ShieldCheck className="h-4 w-4 shrink-0 text-[#00549F]" aria-hidden />
+                    <ShieldCheck className="h-4 w-4 shrink-0 text-cinematic-teal" aria-hidden />
                     <span className="font-medium leading-tight">{item}</span>
                   </li>
                 ))}
               </ul>
             </section>
 
-            {/* Who + social proof framing */}
             <section className={funnel.card}>
               <FunnelSectionHeader compact title="Who this is for" />
               <ul className={`mt-3 ${funnel.grid2}`}>
@@ -175,16 +194,16 @@ export function LegacyReadinessLanding() {
               </ul>
               <div className={`mt-4 ${funnel.divider} pt-4`}>
                 <p className={funnel.eyebrow}>Your adviser</p>
-                <h3 className="mt-2 text-lg font-bold text-white">Albert Schuurman</h3>
+                <h3 className="mt-2 text-lg font-bold text-[#1D1D1F]">Albert Schuurman</h3>
                 <p className={`mt-2 ${funnel.body}`}>
-                  Helping South African families protect wealth since 1999, estate planning, trusts,
+                  Helping South African families protect wealth since 1999 — estate planning, trusts,
                   succession, and risk.
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {ALBERT_SERVICES.map((service) => (
                     <li
                       key={service}
-                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-zinc-400"
+                      className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1 text-xs text-stone-600"
                     >
                       {service}
                     </li>
@@ -194,20 +213,18 @@ export function LegacyReadinessLanding() {
             </section>
           </div>
 
-          {/* Desktop sticky form */}
-          <div className="hidden lg:col-span-4 lg:block">
+          <div className="hidden lg:col-span-7 lg:block">
             <LeadCaptureCard />
           </div>
         </div>
 
-        {/* Final CTA, compact bar, not another tall card */}
         <section
           className={`${funnel.card} flex flex-col items-start justify-between gap-4 md:flex-row md:items-center`}
         >
           <div className="max-w-2xl">
             <h2 className={funnel.h2}>What happens if you don&apos;t wake up tomorrow?</h2>
             <p className={`mt-1.5 ${funnel.body}`}>
-              Find out whether your legacy plan is ready, takes two minutes.
+              Find out whether your legacy plan is ready — takes two minutes.
             </p>
           </div>
           <button type="button" onClick={scrollToForm} className={`shrink-0 ${funnel.ctaLg}`}>
@@ -218,7 +235,7 @@ export function LegacyReadinessLanding() {
 
         <p className={`text-center ${funnel.meta}`}>
           Educational only, not legal advice ·{" "}
-          <Link href="/contact" className="text-[#00549F] hover:underline">
+          <Link href="/contact" className="text-samsung-blue hover:text-cinematic-teal">
             Speak to AS Brokers
           </Link>
         </p>

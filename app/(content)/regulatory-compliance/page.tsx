@@ -1,94 +1,100 @@
-import Image from "next/image";
-import Link from "next/link";
-import {
-  WarmPageWithFooter,
-  WarmProse,
-  WarmSection,
-  WarmSimpleHero,
-} from "@/components/warm/WarmShell";
+import { LegalDocumentLayout, LegalSection } from "@/components/legal/LegalDocumentLayout";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { getAlt } from "@/lib/image-alt";
-import { getPrimaryPageImage } from "@/lib/primary-page-images";
-import { buildPageMetadata } from "@/lib/seo-metadata";
-import { WARM_BODY, WARM_CARD, WARM_H3, WARM_LINK, WARM_MEDIA_FRAME, WARM_META } from "@/lib/warm-theme";
+import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Regulatory Compliance | FSP 17273 | Authorised Financial Services Provider";
 const PAGE_DESCRIPTION =
   "AS Brokers CC operates as an Authorised Financial Services Provider (FSP 17273, Category 1.8) in strict adherence to South African financial regulations, ensuring transparent and ethical service delivery.";
 
-const heroImage = getPrimaryPageImage("/regulatory-compliance") ?? "/images/regulatory-compliance-inset-1x1.jpg";
-
 export const metadata = buildPageMetadata({
   path: "/regulatory-compliance",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  keywords: [
+    "FSP 17273",
+    "Category 1.8",
+    "Code 1.8 FSP",
+    "FSCA",
+    "Everest FSP 795",
+    "authorised financial services provider",
+  ],
 });
 
 export default function RegulatoryCompliancePage() {
   return (
-    <WarmPageWithFooter>
+    <>
       <PageJsonLd
         path="/regulatory-compliance"
-        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
       />
+      <LegalDocumentLayout
+        kicker="Fiduciary briefing · Compliance"
+        title="Regulatory Compliance & Licensing"
+        description="AS Brokers CC operates under the Financial Sector Conduct Authority (FSCA) as an independent authorised financial services provider."
+        lastUpdated="July 2026"
+        pillTags={[
+          "AS Brokers FSP 17273",
+          "Category 1.8 · Shares",
+          "Everest FSP 795",
+        ]}
+        footerLinks={[
+          { href: "/everest-wealth/about", label: "Understanding Everest" },
+          { href: "/investments", label: "Investments hub" },
+          { href: "/contact", label: "Contact us" },
+        ]}
+      >
+        <LegalSection title="Category 1.8 (Securities and Instruments: Shares)">
+          <p>
+            The FSCA designates <strong>Category 1.8</strong> for &quot;Securities and Instruments: Shares&quot;.
+            This classification requires meeting experience and qualification standards and permits the holder to
+            advise on and intermediate <strong>unlisted preference shares</strong> and related alternative investment
+            products.
+          </p>
+          <p>
+            AS Brokers CC holds Category 1.8 authority — a capability many standard Category I or II brokers do not
+            hold. This is central to our Everest Wealth distribution: structured return profiles and living annuity
+            solutions that fall outside traditional unit trust or life assurance wrappers.
+          </p>
+        </LegalSection>
 
-      <WarmSimpleHero
-        kicker="Compliance"
-        title="Code 1.8 FSP License Broker"
-        description="AS Brokers CC operates under the Financial Sector Conduct Authority (FSCA) as an independent authorised financial services provider. Our specific license category 1.8 (Securities and Instruments: Shares) permits us to advise on and intermediate unlisted shares, a capability that standard Category I or II brokers often do not hold."
-      />
+        <LegalSection title="Regulatory identifiers">
+          <ul>
+            <li>
+              <strong>AS Brokers CC</strong> — FSP <strong>17273</strong> · Category{" "}
+              <strong>1.8 (Securities and Instruments: Shares)</strong>
+            </li>
+            <li>
+              <strong>Everest Wealth Management</strong> — FSP <strong>795</strong> · Category I, II &amp; IIA
+              (product provider and structurer)
+            </li>
+          </ul>
+          <p>
+            Everest designs and structures investment products; AS Brokers is authorised to advise on and distribute
+            them to qualifying clients through compliant, audited channels — never via unsolicited social media or
+            unverified offers.
+          </p>
+        </LegalSection>
 
-      <WarmSection narrow>
-        <WarmProse>
-          <div className={`${WARM_MEDIA_FRAME} aspect-[16/9] max-w-2xl`}>
-            <Image
-              src={heroImage}
-              alt={getAlt(heroImage, "Regulatory compliance and FSP licensing")}
-              fill
-              unoptimized
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 672px"
-            />
-          </div>
+        <LegalSection title="FAIS, FSCA & client protections">
+          <p>
+            We operate in strict adherence to the Financial Advisory and Intermediary Services Act (FAIS), FSCA
+            conduct standards, and applicable POPIA data protection requirements. Our conflict of interest, complaints,
+            and privacy policies are published on this site and available on request.
+          </p>
+          <p>
+            All illustrations, calculators, and educational content are for general information only and do not
+            constitute personalised financial advice until you engage us through a formal advisory process.
+          </p>
+        </LegalSection>
 
-          <div className={WARM_CARD}>
-            <h2 className={`${WARM_H3} mb-4`}>What Category 1.8 means</h2>
-            <p className={`${WARM_BODY} mb-4`}>
-              The FSCA designates Category 1.8 for &quot;Securities and Instruments: Shares&quot;. This classification
-              requires meeting experience and qualification standards and allows the holder to distribute unlisted
-              preference shares and related alternative investment products. Everest Wealth Management (FSP 795)
-              structures such products; AS Brokers CC (FSP 17273) is authorised to advise on and distribute them to
-              qualifying clients.
-            </p>
-            <p className={WARM_META}>
-              This capacity is central to our offering: structured return and living annuity solutions that fall
-              outside traditional unit trust or life assurance wrappers.
-            </p>
-          </div>
-
-          <div className={WARM_CARD}>
-            <h2 className={`${WARM_H3} mb-4`}>Regulatory identifiers</h2>
-            <ul className={`${WARM_BODY} space-y-2`}>
-              <li>
-                <strong className="font-semibold text-shark">AS Brokers CC</strong>: FSP 17273 · Category 1.8
-              </li>
-              <li>
-                <strong className="font-semibold text-shark">Everest Wealth Management</strong>: FSP 795 · Category I,
-                II & IIA
-              </li>
-            </ul>
-          </div>
-
-          <div className="flex flex-wrap gap-4 pt-2">
-            <Link href="/everest-wealth" prefetch={false} className={WARM_LINK}>
-              Everest Wealth products →
-            </Link>
-            <Link href="/contact" prefetch={false} className={WARM_LINK}>
-              Contact us →
-            </Link>
-          </div>
-        </WarmProse>
-      </WarmSection>
-    </WarmPageWithFooter>
+        <LegalSection title="Independent intermediary status">
+          <p>
+            AS Brokers is an <strong>independent</strong> financial services provider. We are not tied to a single
+            product house. Advice is based on your needs and objectives, with remuneration disclosed in line with
+            regulatory requirements.
+          </p>
+        </LegalSection>
+      </LegalDocumentLayout>
+    </>
   );
 }

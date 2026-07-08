@@ -180,9 +180,9 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/investments": [
     {
-      href: "/everest-wealth",
-      title: "Everest Wealth deep dive",
-      description: "Product detail, comparison tables, and fiduciary notes.",
+      href: "/everest-wealth/about",
+      title: "Understanding Everest",
+      description: "Regulatory briefing on structure, tax, fees, and liquidity.",
     },
     {
       href: "/retirement-planning",
@@ -220,6 +220,116 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       href: "/contact",
       title: "Investment strategy call",
       description: "Speak with an independent Category 1.8 adviser.",
+    },
+  ],
+  "/everest-wealth/about": [
+    {
+      href: "/everest-128-product",
+      title: "12.8% Strategic Income",
+      description: "Monthly dividends with 10% loyalty bonus at month 60.",
+    },
+    {
+      href: "/immediate-higher-income-calculator",
+      title: "14.2% Onyx Income+",
+      description: "Maximum day-one yield with no loyalty bonus.",
+    },
+    {
+      href: "/everest-strategic-growth-145",
+      title: "14.5% Strategic Growth",
+      description: "Pure compounding paid at maturity.",
+    },
+    {
+      href: "/everest-amethyst-living-annuity",
+      title: "Amethyst Living Annuity",
+      description: "Section 14 transfer, ~10.2% net yield, drawdown 2.5%–17.5%.",
+    },
+  ],
+  "/everest-128-product": [
+    {
+      href: "/immediate-higher-income-calculator",
+      title: "14.2% Onyx Income+",
+      description: "Compare maximum day-one income versus loyalty bonus structures.",
+    },
+    {
+      href: "/everest-wealth/about",
+      title: "Everest regulatory briefing",
+      description: "Structure, fees, tax, and liquidity in plain language.",
+    },
+    {
+      href: "/calculators#asset-013-everest-income-vs-growth",
+      title: "Income vs Growth",
+      description: "Side-by-side Everest yield comparison.",
+    },
+    {
+      href: "/contact",
+      title: "Speak to an adviser",
+      description: "Independent Category 1.8 advice, FSP 17273.",
+    },
+  ],
+  "/immediate-higher-income-calculator": [
+    {
+      href: "/everest-128-product",
+      title: "12.8% Strategic Income",
+      description: "Lower day-one income with 10% loyalty bonus at month 60.",
+    },
+    {
+      href: "/everest-wealth/about",
+      title: "Everest regulatory briefing",
+      description: "How unlisted preference shares and DWT work.",
+    },
+    {
+      href: "/investments",
+      title: "Investments hub",
+      description: "Life-stage investment guidance and Everest education.",
+    },
+    {
+      href: "/contact",
+      title: "Request Onyx term sheet",
+      description: "Formal product documentation via a licensed adviser.",
+    },
+  ],
+  "/everest-strategic-growth-145": [
+    {
+      href: "/everest-128-product",
+      title: "12.8% Strategic Income",
+      description: "Monthly income alternative with loyalty bonus.",
+    },
+    {
+      href: "/calculators#asset-013-everest-income-vs-growth",
+      title: "Income vs Growth",
+      description: "Compare income and compounding strategies.",
+    },
+    {
+      href: "/everest-wealth/about",
+      title: "Everest regulatory briefing",
+      description: "Fees, tax efficiency, and illiquidity rules.",
+    },
+    {
+      href: "/contact",
+      title: "Discuss suitability",
+      description: "Independent Category 1.8 advice, FSP 17273.",
+    },
+  ],
+  "/everest-amethyst-living-annuity": [
+    {
+      href: "/retirement-planning",
+      title: "Retirement planning",
+      description: "Pre-retirement accumulation and gap analysis.",
+    },
+    {
+      href: "/retirement",
+      title: "Retirement hub",
+      description: "Living annuities, drawdown tools, and post-retirement guidance.",
+    },
+    {
+      href: "/everest-wealth/about",
+      title: "Everest regulatory briefing",
+      description: "Compulsory vs voluntary capital and Section 14 context.",
+    },
+    {
+      href: "/contact",
+      title: "Request a quotation",
+      description: "Formal living annuity illustration via a licensed adviser.",
     },
   ],
   "/insurance": [

@@ -11,7 +11,7 @@ import {
   FunnelObjectionStripCustom,
   FunnelToolShell,
 } from "@/components/funnel/FunnelMarketingSections";
-import { funnel } from "@/components/funnel/FunnelLayout";
+import { funnel, funnelForm } from "@/components/funnel/FunnelLayout";
 import {
   submitHealthyRetirementAssessment,
   type HealthyRetirementSubmitState,
@@ -38,9 +38,8 @@ const INITIAL_ANSWERS: HealthyRetirementAnswers = {
   retirement20Years: "",
 };
 
-const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white placeholder:text-zinc-600 focus:border-[#00549F]/50 focus:outline-none focus:ring-2 focus:ring-[#00549F]/25 disabled:opacity-60";
-const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
+const inputClass = funnelForm.input;
+const labelClass = funnelForm.label;
 
 const initialSubmitState: HealthyRetirementSubmitState = { success: false };
 
@@ -154,6 +153,8 @@ export function HealthyRetirementBlueprint() {
       {phase === "landing" && (
         <FunnelMarketingPage
           offer={OFFER}
+          heroImage="/images/home4-goal-retire-16x9.png"
+          heroImageAlt="Healthy retirement planning — wellness and longevity"
           capture={captureCard}
           onScrollToCapture={startAssessment}
           primaryCtaLabel="Start free assessment"
@@ -162,12 +163,13 @@ export function HealthyRetirementBlueprint() {
 
       {phase !== "landing" && (
         <FunnelToolShell
+          offer={OFFER}
           compactHeader={
             <div className="mb-4">
               <p className={funnel.eyebrow}>{OFFER.title}</p>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+              <div className={funnelForm.progressTrack}>
                 <div
-                  className="h-full rounded-full bg-[#00549F] transition-all duration-500"
+                  className={funnelForm.progressFill}
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -179,10 +181,10 @@ export function HealthyRetirementBlueprint() {
               <motion.div key={`${phase}-${questionStep}`} {...motionProps}>
                 {phase === "assessment" && currentQuestion && (
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                    <p className={funnelForm.questionMeta}>
                       Question {questionStep + 1} of {HEALTH_QUESTIONS.length}
                     </p>
-                    <h2 className="mt-3 text-xl font-bold text-white sm:text-2xl">{currentQuestion.question}</h2>
+                    <h2 className={funnelForm.questionTitle}>{currentQuestion.question}</h2>
                     <div className="mt-6 grid gap-2.5">
                       {currentQuestion.options.map((opt) => {
                         const selected = answers[currentQuestion.id] === opt.value;
@@ -191,10 +193,8 @@ export function HealthyRetirementBlueprint() {
                             key={opt.value}
                             type="button"
                             onClick={() => selectAnswer(opt.value)}
-                            className={`rounded-xl border px-4 py-3.5 text-left text-sm font-medium transition sm:text-base ${
-                              selected
-                                ? "border-[#00549F] bg-[#00549F]/15 text-white"
-                                : "border-white/10 bg-white/5 text-zinc-300 hover:border-white/20"
+                            className={`${funnelForm.option} ${
+                              selected ? funnelForm.optionSelected : ""
                             }`}
                           >
                             {opt.label}
@@ -202,13 +202,13 @@ export function HealthyRetirementBlueprint() {
                         );
                       })}
                     </div>
-                    {error && <p className="mt-4 text-sm text-amber-400">{error}</p>}
+                    {error && <p className={`mt-4 ${funnelForm.error}`}>{error}</p>}
                   </div>
                 )}
 
                 {phase === "lead" && (
                   <div>
-                    <h2 className="text-xl font-bold text-white sm:text-2xl">Where should we send your results?</h2>
+                    <h2 className={funnelForm.questionTitle}>Where should we send your results?</h2>
                     <p className={`mt-2 ${funnel.body}`}>
                       Enter your details to unlock your Retirement Health Score™ and blueprint snapshot.
                     </p>
@@ -232,7 +232,7 @@ export function HealthyRetirementBlueprint() {
                           disabled={isPending}
                         />
                         {submitState.fieldErrors?.firstName?.[0] && (
-                          <p className="mt-1 text-sm text-amber-400">{submitState.fieldErrors.firstName[0]}</p>
+                          <p className="mt-1 text-sm text-amber-800">{submitState.fieldErrors.firstName[0]}</p>
                         )}
                       </div>
                       <div>
@@ -248,12 +248,12 @@ export function HealthyRetirementBlueprint() {
                           disabled={isPending}
                         />
                         {submitState.fieldErrors?.email?.[0] && (
-                          <p className="mt-1 text-sm text-amber-400">{submitState.fieldErrors.email[0]}</p>
+                          <p className="mt-1 text-sm text-amber-800">{submitState.fieldErrors.email[0]}</p>
                         )}
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="hrb-phone">
-                          Mobile number <span className="text-zinc-500">(optional)</span>
+                          Mobile number <span className="text-stone-500">(optional)</span>
                         </label>
                         <input
                           id="hrb-phone"
@@ -266,7 +266,7 @@ export function HealthyRetirementBlueprint() {
                       </div>
 
                       {submitState.message && !submitState.success && (
-                        <p className="text-sm text-amber-400" role="alert">
+                        <p className="text-sm text-amber-800" role="alert">
                           {submitState.message}
                         </p>
                       )}
@@ -287,14 +287,14 @@ export function HealthyRetirementBlueprint() {
                     <p className={funnel.eyebrow}>Your results</p>
                     <h2 className={`mt-2 ${funnel.h2}`}>Retirement Health Score™</h2>
                     <p className="mt-5 text-5xl font-extrabold sm:text-6xl" style={{ color: bandColor }}>
-                      {displayScore} <span className="text-2xl text-zinc-500">/ 100</span>
+                      {displayScore} <span className="text-2xl text-stone-500">/ 100</span>
                     </p>
-                    {displayBand && <p className="mt-2 text-lg font-semibold text-zinc-300">{displayBand}</p>}
+                    {displayBand && <p className="mt-2 text-lg font-semibold text-stone-700">{displayBand}</p>}
 
-                    <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-5 text-left">
+                    <div className="mt-8 rounded-xl border border-stone-200 bg-stone-50 p-5 text-left">
                       <p className={funnel.h3}>Your Retirement Health Gap™</p>
-                      <p className="mt-2 text-3xl font-bold text-[#00549F]">
-                        {displayGap} <span className="text-base font-medium text-zinc-500">points</span>
+                      <p className="mt-2 text-3xl font-bold text-samsung-blue">
+                        {displayGap} <span className="text-base font-medium text-stone-500">points</span>
                       </p>
                       <p className={`mt-3 ${funnel.body}`}>{GAP_EXPLANATION}</p>
                     </div>
@@ -321,7 +321,7 @@ export function HealthyRetirementBlueprint() {
             </AnimatePresence>
 
             {phase !== "results" && (
-              <button type="button" onClick={goBack} className="mt-6 text-sm text-zinc-500 hover:text-white">
+              <button type="button" onClick={goBack} className="mt-6 text-sm text-stone-500 hover:text-[#1D1D1F]">
                 ← Back
               </button>
             )}

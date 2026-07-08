@@ -18,7 +18,7 @@ const BASE = process.env.SEO_BASE_URL ?? `http://127.0.0.1:${PORT}`;
 
 const CALCULATOR_PAGES = [
   "app/(content)/calculators/page.tsx",
-  "app/(content)/retirement/page.tsx",
+  "app/(content)/retirement-planning/page.tsx",
 ];
 
 const AUDIT_REPORTS = [

@@ -17,18 +17,10 @@ const nextConfig: NextConfig = {
   async redirects() {
     /** Retired React calculator routes → ASSET hub anchors or service hubs. */
     const legacyCalculatorRedirects = [
-      { source: "/income-tax-calculator", destination: "/calculators#asset-006-income-tax" },
-      { source: "/estate-duty-calculator", destination: "/calculators#asset-007-estate-duty" },
       { source: "/wealth-building-calculator", destination: "/calculators#asset-001-retirement-growth" },
-      { source: "/premium-increase-calculator", destination: "/insurance" },
-      { source: "/immediate-higher-income-calculator", destination: "/calculators#asset-009-everest-142-income" },
       { source: "/cost-of-inflation-over-time", destination: "/calculators#asset-005-future-value" },
       { source: "/retirement-readiness", destination: "/retirement-planning", permanent: true },
-      { source: "/income-in-retirement", destination: "/calculators#asset-004-life-of-capital" },
       { source: "/annual-estate-reduction-strategy", destination: "/calculators#asset-008-estate-reduction" },
-      { source: "/everest-strategic-growth-145", destination: "/investments" },
-      { source: "/everest-amethyst-living-annuity", destination: "/calculators#asset-014-living-annuity" },
-      { source: "/everest-128-product", destination: "/calculators#asset-010-everest-128-income" },
       { source: "/lab", destination: "/calculators" },
     ] as const;
 

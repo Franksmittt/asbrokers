@@ -50,7 +50,7 @@ const EVEREST_PRODUCTS = [
     tag: "Monthly income + loyalty bonus",
     description:
       "Monthly dividend income with a 10% loyalty bonus on capital after five years. A balanced choice if you can accept slightly lower cash flow now for long-term value.",
-    href: "/embed-calculators/asset-010-everest-128-income.html",
+    href: "/everest-128-product",
     cta: "Explore Strategic Income",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -66,7 +66,7 @@ const EVEREST_PRODUCTS = [
     tag: "Maximum day-one income",
     description:
       "Higher monthly income from day one, with no loyalty bonus. Suited when you need maximum cash flow now.",
-    href: "/embed-calculators/asset-009-everest-142-income.html",
+    href: "/immediate-higher-income-calculator",
     cta: "Explore Onyx Income+",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -82,7 +82,7 @@ const EVEREST_PRODUCTS = [
     tag: "Pure compounding",
     description:
       "Capital compounding with no monthly withdrawals. Returns accumulate over five years and are paid at maturity.",
-    href: "/embed-calculators/asset-012-strategic-growth.html",
+    href: "/everest-strategic-growth-145",
     cta: "Explore Strategic Growth",
     fiduciary: [
       "R100,000 minimum lump sum",

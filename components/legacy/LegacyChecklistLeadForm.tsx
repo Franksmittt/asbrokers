@@ -2,15 +2,14 @@
 
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { funnel } from "@/components/funnel/FunnelLayout";
+import { funnel, funnelForm } from "@/components/funnel/FunnelLayout";
 import {
   submitLegacyChecklistLead,
   type LegacyChecklistSubmitState,
 } from "@/app/(content)/legacy-readiness-checklist/actions";
 
-const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-sm text-white placeholder:text-zinc-600 focus:border-[#00549F]/50 focus:outline-none focus:ring-2 focus:ring-[#00549F]/20 disabled:opacity-60";
-const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
+const inputClass = funnelForm.input;
+const labelClass = funnelForm.label;
 
 const initialState: LegacyChecklistSubmitState = { success: false };
 
@@ -32,8 +31,8 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = fals
 
   if (state.success && state.checklistUrl) {
     return (
-      <div className="rounded-2xl border border-[#00549F]/30 bg-[#00549F]/10 px-6 py-8 text-center">
-        <p className="text-sm text-zinc-300">{state.message ?? "Preparing your checklist…"}</p>
+      <div className={funnelForm.successBox}>
+        <p className={funnelForm.successText}>{state.message ?? "Preparing your checklist…"}</p>
       </div>
     );
   }
@@ -55,7 +54,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = fals
             aria-invalid={!!state.fieldErrors?.firstName}
           />
           {state.fieldErrors?.firstName?.[0] && (
-            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.firstName[0]}</p>
+            <p className={`mt-1.5 text-sm ${funnelForm.error}`}>{state.fieldErrors.firstName[0]}</p>
           )}
         </div>
         <div>
@@ -72,7 +71,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = fals
             aria-invalid={!!state.fieldErrors?.surname}
           />
           {state.fieldErrors?.surname?.[0] && (
-            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.surname[0]}</p>
+            <p className="mt-1.5 text-sm text-amber-800">{state.fieldErrors.surname[0]}</p>
           )}
         </div>
         <div>
@@ -89,7 +88,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = fals
             aria-invalid={!!state.fieldErrors?.email}
           />
           {state.fieldErrors?.email?.[0] && (
-            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.email[0]}</p>
+            <p className="mt-1.5 text-sm text-amber-800">{state.fieldErrors.email[0]}</p>
           )}
         </div>
         <div>
@@ -106,7 +105,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = fals
             aria-invalid={!!state.fieldErrors?.phone}
           />
           {state.fieldErrors?.phone?.[0] && (
-            <p className="mt-1.5 text-sm text-amber-400">{state.fieldErrors.phone[0]}</p>
+            <p className="mt-1.5 text-sm text-amber-800">{state.fieldErrors.phone[0]}</p>
           )}
         </div>
         <div>
@@ -150,7 +149,7 @@ export function LegacyChecklistLeadForm({ id = "checklist-form", embedded = fals
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
 
       {state.message && !state.success && (
-        <p className="text-sm text-amber-400" role="alert">
+        <p className="text-sm text-amber-800" role="alert">
           {state.message}
         </p>
       )}

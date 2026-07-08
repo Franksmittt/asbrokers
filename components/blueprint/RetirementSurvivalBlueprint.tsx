@@ -12,7 +12,7 @@ import {
   FunnelObjectionStripCustom,
   FunnelToolShell,
 } from "@/components/funnel/FunnelMarketingSections";
-import { funnel } from "@/components/funnel/FunnelLayout";
+import { funnel, funnelForm } from "@/components/funnel/FunnelLayout";
 import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
 import {
   calculateBlueprintResults,
@@ -58,13 +58,12 @@ const INITIAL_CONTACT: ContactDetails = {
 
 const PHASES: Phase[] = ["landing", "intro", "step1", "step2", "step3", "step4", "step5", "results"];
 
-const inputClass =
-  "w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3.5 text-white placeholder:text-zinc-600 focus:border-cinematic-teal/40 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/25";
-const labelClass = "mb-2 block text-sm font-medium text-zinc-300";
+const inputClass = funnelForm.input;
+const labelClass = funnelForm.label;
 
 function CoachMessage({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-cinematic-teal/20 bg-cinematic-teal/5 px-5 py-4 text-sm leading-relaxed text-zinc-200">
+    <div className="rounded-2xl border border-cinematic-teal/20 bg-cinematic-teal/5 px-5 py-4 text-sm leading-relaxed text-stone-700">
       {children}
     </div>
   );
@@ -73,10 +72,10 @@ function CoachMessage({ children }: { children: React.ReactNode }) {
 function MetricCard({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div
-      className={`rounded-2xl border p-5 ${highlight ? "border-[#00549F]/50 bg-[#00549F]/10" : "border-white/10 bg-white/5"}`}
+      className={`rounded-2xl border p-5 ${highlight ? "border-[#00549F]/50 bg-[#00549F]/10" : "border-stone-200 bg-stone-50"}`}
     >
-      <p className="text-xs font-bold uppercase tracking-wide text-zinc-500">{label}</p>
-      <p className={`mt-2 font-bold ${highlight ? "text-3xl text-white sm:text-4xl" : "text-xl text-white"}`}>
+      <p className="text-xs font-bold uppercase tracking-wide text-stone-500">{label}</p>
+      <p className={`mt-2 font-bold ${highlight ? "text-3xl text-samsung-blue sm:text-4xl" : "text-xl text-[#1D1D1F]"}`}>
         {value}
       </p>
     </div>
@@ -261,6 +260,8 @@ export function RetirementSurvivalBlueprint() {
       {phase === "landing" && (
         <FunnelMarketingPage
           offer={OFFER}
+          heroImage="/images/home4-goal-retire-16x9.png"
+          heroImageAlt="Retirement survival planning — will your money last?"
           capture={captureCard}
           onScrollToCapture={startBlueprint}
           primaryCtaLabel="Start free diagnostic"
@@ -269,18 +270,16 @@ export function RetirementSurvivalBlueprint() {
 
       {phase !== "landing" && (
         <FunnelToolShell
+          offer={OFFER}
           compactHeader={
             <div className="mb-4">
               <p className={funnel.eyebrow}>{OFFER.title}</p>
-              <div className="mt-2 flex justify-between text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+              <div className="mt-2 flex justify-between text-[10px] font-semibold uppercase tracking-wider text-stone-500">
                 <span>Your journey</span>
                 <span>{Math.round(progress)}%</span>
               </div>
-              <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-[#00549F] transition-all duration-500"
-                  style={{ width: `${progress}%` }}
-                />
+              <div className={funnelForm.progressTrack}>
+                <div className={funnelForm.progressFill} style={{ width: `${progress}%` }} />
               </div>
             </div>
           }
@@ -291,19 +290,19 @@ export function RetirementSurvivalBlueprint() {
                 {phase === "intro" && (
                   <div className="space-y-6">
                     <CoachMessage>
-                      <p className="mb-3 font-semibold text-white">There is something most retirement tools skip.</p>
+                      <p className="mb-3 font-semibold text-[#1D1D1F]">There is something most retirement tools skip.</p>
                       <p>
                         They spit out a number, &quot;You need R15 million&quot;, and leave you with anxiety, not
                         understanding. This Blueprint is different. It is a conversation that creates clarity.
                       </p>
                     </CoachMessage>
-                    <p className="text-sm text-zinc-500">
+                    <p className="text-sm text-stone-500">
                       This is educational only. It does not constitute financial advice. You will see your Financial
                       Freedom Score™, Gap™, and AS Brokers Freedom Rate™ at the end.
                     </p>
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 space-y-4">
-                      <p className="text-sm font-medium text-white">Your details</p>
-                      <p className="text-xs text-zinc-500">
+                    <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 space-y-4">
+                      <p className="text-sm font-medium text-[#1D1D1F]">Your details</p>
+                      <p className="text-xs text-stone-500">
                         So we can save your blueprint and follow up if you would like a clarity conversation.
                       </p>
                       <div>
@@ -355,8 +354,8 @@ export function RetirementSurvivalBlueprint() {
                   <div className="space-y-5">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">Step 1</p>
-                      <h2 className="mt-1 text-2xl font-bold text-white">What do I want?</h2>
-                      <p className="mt-2 text-sm text-zinc-400">Let&apos;s define your destination first.</p>
+                      <h2 className="mt-1 text-2xl font-bold text-[#1D1D1F]">What do I want?</h2>
+                      <p className="mt-2 text-sm text-stone-600">Let&apos;s define your destination first.</p>
                     </div>
                     <CoachMessage>
                       Before we talk numbers, tell me about the life you are planning toward, in today&apos;s money.
@@ -419,7 +418,7 @@ export function RetirementSurvivalBlueprint() {
                   <div className="space-y-5">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">Step 2</p>
-                      <h2 className="mt-1 text-2xl font-bold text-white">What will it cost?</h2>
+                      <h2 className="mt-1 text-2xl font-bold text-[#1D1D1F]">What will it cost?</h2>
                     </div>
                     <CoachMessage>
                       <p>
@@ -447,7 +446,7 @@ export function RetirementSurvivalBlueprint() {
                   <div className="space-y-5">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">Step 3</p>
-                      <h2 className="mt-1 text-2xl font-bold text-white">What is my gap?</h2>
+                      <h2 className="mt-1 text-2xl font-bold text-[#1D1D1F]">What is my gap?</h2>
                     </div>
                     <CoachMessage>
                       Now let&apos;s look at where you are today, what you have built and what you are putting aside
@@ -499,7 +498,7 @@ export function RetirementSurvivalBlueprint() {
                   <div className="space-y-5">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">Step 4</p>
-                      <h2 className="mt-1 text-2xl font-bold text-white">What must change?</h2>
+                      <h2 className="mt-1 text-2xl font-bold text-[#1D1D1F]">What must change?</h2>
                     </div>
                     <CoachMessage>
                       <p>
@@ -533,7 +532,7 @@ export function RetirementSurvivalBlueprint() {
                   <div className="space-y-5">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">Step 5</p>
-                      <h2 className="mt-1 text-2xl font-bold text-white">What are my options?</h2>
+                      <h2 className="mt-1 text-2xl font-bold text-[#1D1D1F]">What are my options?</h2>
                     </div>
                     <CoachMessage>
                       Awareness is only the first step. Most people close a gap through several levers, not one magic
@@ -546,11 +545,11 @@ export function RetirementSurvivalBlueprint() {
                           className={`rounded-2xl border p-4 ${
                             option.relevant
                               ? "border-cinematic-teal/30 bg-cinematic-teal/5"
-                              : "border-white/10 bg-white/[0.03] opacity-80"
+                              : "border-stone-200 bg-stone-50 opacity-80"
                           }`}
                         >
-                          <p className="font-semibold text-white">{option.title}</p>
-                          <p className="mt-1 text-sm text-zinc-400">{option.description}</p>
+                          <p className="font-semibold text-[#1D1D1F]">{option.title}</p>
+                          <p className="mt-1 text-sm text-stone-600">{option.description}</p>
                         </li>
                       ))}
                     </ul>
@@ -561,7 +560,7 @@ export function RetirementSurvivalBlueprint() {
                   <div className="space-y-6">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">Your Blueprint</p>
-                      <h2 className="mt-1 text-2xl font-bold text-white">Your retirement survival picture</h2>
+                      <h2 className="mt-1 text-2xl font-bold text-[#1D1D1F]">Your retirement survival picture</h2>
                     </div>
                     <CoachMessage>
                       <p>
@@ -588,7 +587,7 @@ export function RetirementSurvivalBlueprint() {
                         value={`${readyResults.freedomRatePercent.toFixed(2)}%`}
                       />
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm leading-relaxed text-zinc-300">
+                    <div className="rounded-2xl border border-stone-200 bg-stone-50 p-5 text-sm leading-relaxed text-stone-600">
                       <p>
                         Target capital: <strong>{formatBlueprintRand(readyResults.capitalRequired)}</strong> · Projected
                         at current pace: <strong>{formatBlueprintRand(readyResults.projectedCapital)}</strong> ·{" "}
@@ -612,13 +611,13 @@ export function RetirementSurvivalBlueprint() {
                       </Link>
                       <Link
                         href="/calculators"
-                        className="inline-flex items-center justify-center rounded-2xl border border-white/15 px-6 py-3.5 text-sm font-medium text-zinc-300 hover:bg-white/5"
+                        className="inline-flex items-center justify-center rounded-2xl border border-white/15 px-6 py-3.5 text-sm font-medium text-stone-600 hover:bg-white/5"
                       >
                         Explore calculators
                       </Link>
                     </div>
                     {savedToCrm ? (
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-stone-600">
                         Your blueprint is saved. We can reference these numbers in a clarity conversation.
                       </p>
                     ) : null}
@@ -635,7 +634,7 @@ export function RetirementSurvivalBlueprint() {
                   <button
                     type="button"
                     onClick={goBack}
-                    className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-zinc-300 hover:bg-white/5"
+                    className="rounded-xl border border-white/15 px-5 py-3 text-sm font-medium text-stone-600 hover:bg-white/5"
                   >
                     Back
                   </button>

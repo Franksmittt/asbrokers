@@ -27,11 +27,16 @@ export function Nav() {
 
   useEffect(() => {
     if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMobileOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [mobileOpen]);
 
   const closeMobile = () => setMobileOpen(false);
@@ -72,7 +77,7 @@ export function Nav() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 border-b transition-all duration-500 ease-apple ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ease-apple ${
         scrolled
           ? "border-stone-300/90 bg-white py-3 shadow-lg shadow-stone-900/8 backdrop-blur-xl"
           : "border-stone-200/70 bg-white/95 py-4 backdrop-blur-xl"
@@ -136,41 +141,53 @@ export function Nav() {
       </div>
 
       {mobileOpen && (
-        <div
-          id="mobile-nav-panel"
-          className="lg:hidden absolute top-full left-0 right-0 bg-white/98 backdrop-blur-2xl border-b border-stone-200 shadow-2xl max-h-[85vh] overflow-y-auto"
-        >
-          <div className="py-3 px-4 flex flex-col">
-            {navLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                prefetch={false}
-                onClick={closeMobile}
-                className="py-3 px-2 font-medium rounded-2xl text-shark hover:bg-stone-100"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="border-t border-stone-200 mt-3 pt-3 flex flex-col gap-2">
-              <Link
-                href="/contact"
-                prefetch={false}
-                onClick={closeMobile}
-                className="w-full py-3.5 text-center font-semibold rounded-[2rem] bg-samsung-blue text-white"
-              >
-                Contact us
-              </Link>
-              <Link
-                href="/login"
-                onClick={closeMobile}
-                className="w-full py-3 text-center text-sm font-medium text-stone-800 hover:text-shark"
-              >
-                Client Portal
-              </Link>
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 top-[var(--nav-height,4.5rem)] z-40 bg-shark/50 lg:hidden"
+            aria-label="Close menu"
+            onClick={closeMobile}
+          />
+          <div
+            id="mobile-nav-panel"
+            className="lg:hidden absolute top-full left-0 right-0 z-50 border-b border-stone-200 bg-[#F7F6F3] shadow-2xl ring-1 ring-stone-200/90 max-h-[85vh] overflow-y-auto"
+          >
+            <div className="py-3 px-4 flex flex-col">
+              {navLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  prefetch={false}
+                  onClick={closeMobile}
+                  className={`py-3 px-3 font-medium rounded-2xl transition-colors ${
+                    isNavActive(pathname ?? "", item.href)
+                      ? "bg-white text-shark font-semibold shadow-sm ring-1 ring-stone-200/80"
+                      : "text-[#2B2B2E] hover:bg-white hover:text-shark"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="border-t border-stone-300/80 mt-3 pt-3 flex flex-col gap-2">
+                <Link
+                  href="/contact"
+                  prefetch={false}
+                  onClick={closeMobile}
+                  className="w-full py-3.5 text-center font-semibold rounded-[2rem] bg-samsung-blue text-white shadow-md shadow-samsung-blue/20"
+                >
+                  Contact us
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={closeMobile}
+                  className="w-full py-3 text-center text-sm font-medium text-[#2B2B2E] hover:text-shark"
+                >
+                  Client Portal
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );

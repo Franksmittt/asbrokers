@@ -12,29 +12,34 @@ export function MarketingNavServer() {
 
   useEffect(() => {
     if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMobileOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [mobileOpen]);
 
   const closeMobile = () => setMobileOpen(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 border-b border-transparent py-5 bg-transparent">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-stone-200/80 bg-white/95 py-4 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
         <Link href="/" prefetch={false} className="flex items-center gap-3 shrink-0">
           <BrandLogo height={36} priority className="h-9 w-auto rounded-2xl object-contain" />
           <div className="hidden sm:block">
-            <span className="text-lg font-bold tracking-tight block leading-none text-white">AS Brokers</span>
-            <span className="trust-hallmark text-[10px] font-semibold uppercase mt-0.5 block text-zinc-400">
+            <span className="text-lg font-bold tracking-tight block leading-none text-shark">AS Brokers</span>
+            <span className="text-[10px] font-semibold uppercase mt-0.5 block text-stone-700 tabular-nums tracking-wider">
               FSP 17273
             </span>
           </div>
         </Link>
         <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
-          <Link href="/calculators" prefetch={false} className="px-3 py-2 rounded-2xl text-zinc-400 hover:text-white">
+          <Link href="/calculators" prefetch={false} className="px-3 py-2 rounded-2xl text-[#2B2B2E] hover:text-shark">
             Calculators
           </Link>
           {PRIMARY_NAV.filter((item) => item.href !== "/calculators").map((item) => (
@@ -42,7 +47,7 @@ export function MarketingNavServer() {
               key={item.href}
               href={item.href}
               prefetch={false}
-              className="px-3 py-2 rounded-2xl text-zinc-400 hover:text-white whitespace-nowrap"
+              className="px-3 py-2 rounded-2xl text-[#2B2B2E] hover:text-shark whitespace-nowrap"
             >
               {item.label}
             </Link>
@@ -52,14 +57,14 @@ export function MarketingNavServer() {
           <Link
             href="/contact"
             prefetch={false}
-            className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold rim-light text-white hover:bg-white/10"
+            className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold bg-samsung-blue text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e]"
           >
             Contact
           </Link>
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-zinc-400 hover:text-white transition-colors"
+            className="lg:hidden p-2 text-shark hover:text-[#0057B8] transition-colors"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-panel"
@@ -70,42 +75,50 @@ export function MarketingNavServer() {
       </div>
 
       {mobileOpen && (
-        <div
-          id="mobile-nav-panel"
-          className="lg:hidden absolute top-full left-0 right-0 bg-shark/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl max-h-[85vh] overflow-y-auto"
-        >
-          <div className="py-3 px-4 flex flex-col">
-            <Link
-              href="/calculators"
-              prefetch={false}
-              onClick={closeMobile}
-              className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl"
-            >
-              Calculators
-            </Link>
-            {PRIMARY_NAV.filter((item) => item.href !== "/calculators").map((item) => (
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 top-[var(--nav-height,4.5rem)] z-40 bg-shark/50 lg:hidden"
+            aria-label="Close menu"
+            onClick={closeMobile}
+          />
+          <div
+            id="mobile-nav-panel"
+            className="lg:hidden absolute top-full left-0 right-0 z-50 border-b border-stone-200 bg-[#F7F6F3] shadow-2xl ring-1 ring-stone-200/90 max-h-[85vh] overflow-y-auto"
+          >
+            <div className="py-3 px-4 flex flex-col">
               <Link
-                key={item.href}
-                href={item.href}
+                href="/calculators"
                 prefetch={false}
                 onClick={closeMobile}
-                className="py-3 px-2 text-white font-medium hover:bg-white/5 rounded-2xl"
+                className="py-3 px-3 text-[#2B2B2E] font-medium hover:bg-white hover:text-shark rounded-2xl"
               >
-                {item.label}
+                Calculators
               </Link>
-            ))}
-            <div className="border-t border-white/10 mt-3 pt-3">
-              <Link
-                href="/contact"
-                prefetch={false}
-                onClick={closeMobile}
-                className="w-full py-3.5 text-center text-white font-semibold bg-[#00549F] rounded-[2rem] block"
-              >
-                Contact us
-              </Link>
+              {PRIMARY_NAV.filter((item) => item.href !== "/calculators").map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  prefetch={false}
+                  onClick={closeMobile}
+                  className="py-3 px-3 text-[#2B2B2E] font-medium hover:bg-white hover:text-shark rounded-2xl"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="border-t border-stone-300/80 mt-3 pt-3">
+                <Link
+                  href="/contact"
+                  prefetch={false}
+                  onClick={closeMobile}
+                  className="w-full py-3.5 text-center text-white font-semibold bg-samsung-blue rounded-[2rem] block shadow-md shadow-samsung-blue/20"
+                >
+                  Contact us
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );

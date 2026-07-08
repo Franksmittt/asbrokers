@@ -14,8 +14,11 @@ const initialNewsletterState: NewsletterActionState = { success: false };
 
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
+  { label: "Retirement", href: "/retirement-planning" },
+  { label: "Investments", href: "/investments" },
+  { label: "Insurance", href: "/insurance" },
+  { label: "Estate", href: "/estate-planning" },
   { label: "Calculators", href: "/calculators" },
-  { label: "Solutions", href: "/solutions" },
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
 ] as const;

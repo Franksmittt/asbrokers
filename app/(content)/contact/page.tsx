@@ -35,7 +35,7 @@ export const metadata = buildPageMetadata({
 export default function ContactPage() {
   return (
     <>
-      <HubLcpPreload src={HUB_LCP_IMAGES["/contact"]} />
+      <HubLcpPreload src={HUB_LCP_IMAGES["/contact"]} variant="split" />
       <PageJsonLd
         path="/contact"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}

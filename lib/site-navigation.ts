@@ -60,8 +60,8 @@ export const PILLAR_HUB: NavLink = {
 
 /** Primary header links (Contact is a separate CTA button). */
 export const PRIMARY_NAV: NavLink[] = [
-  { label: "Retirement", href: "/retirement" },
-  { label: "Investments", href: "/everest-wealth" },
+  { label: "Retirement", href: "/retirement-planning" },
+  { label: "Investments", href: "/investments" },
   { label: "Insurance", href: "/insurance" },
   { label: "Estate Planning", href: "/estate-planning" },
   { label: "Calculators", href: "/calculators" },
@@ -72,8 +72,8 @@ export const PRIMARY_NAV: NavLink[] = [
 
 /** Mega-footer: goal-led service links. */
 export const FOOTER_HOW_WE_HELP: NavLink[] = [
-  { label: "Retirement & Everest", href: "/retirement" },
-  { label: "Investments", href: "/everest-wealth" },
+  { label: "Retirement planning", href: "/retirement-planning" },
+  { label: "Investments", href: "/investments" },
   { label: "Insurance & Risk", href: "/insurance" },
   { label: "Estate Planning", href: "/estate-planning" },
 ];
@@ -103,7 +103,7 @@ export const FOOTER_EXPLORE: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Calculators", href: "/calculators" },
-  { label: "Solutions", href: "/solutions" },
+  { label: "Solutions", href: "/insurance" },
   { label: "Insights", href: "/insights" },
   { label: "How we work", href: "/how-we-work" },
   { label: "Contact", href: "/contact" },

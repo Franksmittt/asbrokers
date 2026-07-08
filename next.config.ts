@@ -23,17 +23,34 @@ const nextConfig: NextConfig = {
       { source: "/premium-increase-calculator", destination: "/insurance" },
       { source: "/immediate-higher-income-calculator", destination: "/calculators#asset-009-everest-142-income" },
       { source: "/cost-of-inflation-over-time", destination: "/calculators#asset-005-future-value" },
-      { source: "/retirement-readiness", destination: "/retirement" },
+      { source: "/retirement-readiness", destination: "/retirement-planning", permanent: true },
       { source: "/income-in-retirement", destination: "/calculators#asset-004-life-of-capital" },
       { source: "/annual-estate-reduction-strategy", destination: "/calculators#asset-008-estate-reduction" },
-      { source: "/everest-strategic-growth-145", destination: "/everest-wealth" },
+      { source: "/everest-strategic-growth-145", destination: "/investments" },
       { source: "/everest-amethyst-living-annuity", destination: "/calculators#asset-014-living-annuity" },
       { source: "/everest-128-product", destination: "/calculators#asset-010-everest-128-income" },
       { source: "/lab", destination: "/calculators" },
     ] as const;
 
+    const retiredCatalogueRedirects = [
+      { source: "/retirement", destination: "/retirement-planning" },
+      { source: "/everest-wealth", destination: "/investments" },
+      { source: "/solutions", destination: "/insurance" },
+      { source: "/solutions/medical-aid", destination: "/insurance" },
+      { source: "/solutions/life-insurance", destination: "/insurance" },
+      { source: "/solutions/personal-insurance", destination: "/insurance" },
+      { source: "/solutions/business-insurance", destination: "/insurance" },
+      { source: "/solutions/business-life", destination: "/insurance" },
+      { source: "/how-we-work", destination: "/about" },
+    ] as const;
+
     return [
       { source: "/solutions/estate-planning", destination: "/estate-planning", permanent: true },
+      ...retiredCatalogueRedirects.map(({ source, destination }) => ({
+        source,
+        destination,
+        permanent: true,
+      })),
       { source: "/home2", destination: "/", permanent: true },
       { source: "/home3", destination: "/", permanent: true },
       { source: "/home4", destination: "/", permanent: true },

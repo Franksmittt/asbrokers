@@ -29,11 +29,13 @@ export function MarketingNavServer() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-stone-200/80 bg-white/95 py-4 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
-        <Link href="/" prefetch={false} className="flex items-center gap-3 shrink-0">
-          <BrandLogo height={36} priority className="h-9 w-auto rounded-2xl object-contain" />
-          <div className="hidden sm:block">
-            <span className="text-lg font-bold tracking-tight block leading-none text-shark">AS Brokers</span>
-            <span className="text-[10px] font-semibold uppercase mt-0.5 block text-stone-700 tabular-nums tracking-wider">
+        <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-2.5 sm:gap-3 shrink-0">
+          <BrandLogo height={36} priority className="h-9 w-auto shrink-0 rounded-2xl object-contain" />
+          <div className="min-w-0">
+            <span className="text-base font-bold tracking-tight block leading-none text-shark sm:text-lg">
+              AS Brokers
+            </span>
+            <span className="hidden sm:block text-[10px] font-semibold uppercase mt-0.5 text-stone-700 tabular-nums tracking-wider">
               FSP 17273
             </span>
           </div>

@@ -84,13 +84,13 @@ export function Nav() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
-        <Link href="/" prefetch={false} className="flex items-center gap-3 shrink-0">
-          <BrandLogo height={36} priority className="h-9 w-auto rounded-2xl object-contain" />
-          <div className="hidden sm:block">
-            <span className="text-lg font-bold tracking-tight block leading-none text-shark">
+        <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-2.5 sm:gap-3 shrink-0">
+          <BrandLogo height={36} priority className="h-9 w-auto shrink-0 rounded-2xl object-contain" />
+          <div className="min-w-0">
+            <span className="text-base font-bold tracking-tight block leading-none text-shark sm:text-lg">
               AS Brokers
             </span>
-            <span className="text-[10px] font-semibold uppercase mt-0.5 block text-stone-800 tabular-nums tracking-wider">
+            <span className="hidden sm:block text-[10px] font-semibold uppercase mt-0.5 text-stone-800 tabular-nums tracking-wider">
               FSP 17273
             </span>
           </div>

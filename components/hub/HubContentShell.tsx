@@ -85,7 +85,7 @@ export function HubSplitHero({
   imageSrc,
   imageAlt,
   children,
-  priority,
+  priority = true,
 }: {
   kicker: string;
   title: string;
@@ -135,6 +135,7 @@ export function HubSplitHero({
               alt={getAlt(imageSrc, imageAlt ?? title)}
               fill
               priority={priority}
+              fetchPriority={priority ? "high" : "auto"}
               className="object-cover object-center"
               sizes={HUB_SPLIT_HERO_SIZES}
             />

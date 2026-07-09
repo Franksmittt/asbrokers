@@ -1,5 +1,6 @@
 import { LegacyReadinessLanding } from "@/components/legacy/LegacyReadinessLanding";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
 const legacyChecklistFaqs = [
   {
@@ -19,11 +20,12 @@ const legacyChecklistFaqs = [
   },
 ];
 
-export const metadata = {
-  title: "Legacy Readiness Checklist™ | AS Brokers",
+export const metadata = buildPageMetadata({
+  path: "/legacy-readiness-checklist",
+  title: "Legacy Readiness Checklist™",
   description:
     "Download the free Legacy Readiness Checklist™. Identify potential gaps in your will, trust, beneficiaries, estate liquidity, and succession planning before it is too late.",
-};
+});
 
 export default function LegacyReadinessChecklistPage() {
   return (

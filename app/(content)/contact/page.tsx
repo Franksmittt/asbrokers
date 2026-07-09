@@ -1,4 +1,5 @@
 import { ContactPageView } from "@/components/contact/ContactPageView";
+import { ContactHero } from "@/components/contact/ContactHero";
 import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
@@ -41,6 +42,7 @@ export default function ContactPage() {
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={contactFAQs}
       />
+      <ContactHero />
       <ContactPageView faqs={contactFAQs} />
     </>
   );

@@ -30,6 +30,7 @@ export default function SemigrationRetirementPage() {
         description="A significant demographic shift is under way: high-net-worth individuals and families are relocating from Gauteng to the Western Cape (semigration), driven by lifestyle, governance, and energy resilience. That move often involves redeploying capital, downsizing or upgrading property, and rethinking retirement income and estate planning."
         imageSrc={heroImage}
         imageAlt="Semigration and retirement village planning in the Western Cape"
+        priority
       />
 
       <HubContentSection narrow>

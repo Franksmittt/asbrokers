@@ -4,7 +4,6 @@ import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getRelatedLinks } from "@/lib/related-content";
 import {
-  Home4GoalCard,
   Home4JourneyFunnel,
   Home4Reveal,
   Home4SectionHeader,
@@ -13,30 +12,19 @@ import {
 } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import {
-  HOME4_GOAL_CARDS,
   HOME4_JOURNEY_STAGES,
   HOME4_TESTIMONIALS,
   HOME4_TRUST_BADGES,
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
 
-/** Below-fold home content — code-split so hero LCP is not blocked by Framer Motion. */
-export function Home4BelowFold() {
+/** Home sections after goal cards — loaded after idle to protect LCP/TBT. */
+export function Home4BelowFoldRest() {
   return (
     <>
-      <div className={`${HOME4_WRAP} relative -mt-24 pb-6 sm:-mt-28 md:-mt-32`}>
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 md:gap-5">
-          {HOME4_GOAL_CARDS.map((card) => (
-            <Home4Reveal key={card.id} instant>
-              <Home4GoalCard card={card} />
-            </Home4Reveal>
-          ))}
-        </div>
-      </div>
-
       <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-journey">
         <div className={HOME4_WRAP}>
-          <Home4Reveal className="rounded-3xl bg-white/70 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm sm:p-8 md:p-10">
+          <Home4Reveal instant className="rounded-3xl bg-white/70 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm sm:p-8 md:p-10">
             <Home4SectionHeader
               headingId="home4-journey"
               kicker="Your journey"
@@ -50,7 +38,7 @@ export function Home4BelowFold() {
 
       <section data-chunk-boundary="true" className="border-y border-stone-200/80 bg-white/60 py-16 md:py-20" aria-labelledby="home4-pathways">
         <div className={`${HOME4_WRAP} grid gap-6 lg:grid-cols-2`}>
-          <Home4Reveal>
+          <Home4Reveal instant>
             <div className="group relative flex h-full flex-col rounded-3xl bg-gradient-to-br from-stone-50 to-white p-8 shadow-xl ring-1 ring-stone-200/70">
               <Link
                 href="/insights"
@@ -70,7 +58,7 @@ export function Home4BelowFold() {
               </span>
             </div>
           </Home4Reveal>
-          <Home4Reveal delay={0.08}>
+          <Home4Reveal instant>
             <div className="group relative flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15">
               <Link
                 href="/contact"
@@ -94,7 +82,7 @@ export function Home4BelowFold() {
 
       <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-trust">
         <div className={HOME4_WRAP}>
-          <Home4Reveal>
+          <Home4Reveal instant>
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
               <div>
                 <Home4SectionHeader
@@ -140,7 +128,7 @@ export function Home4BelowFold() {
           </Home4Reveal>
 
           <div className="mt-14">
-            <Home4Reveal>
+            <Home4Reveal instant>
               <h3 id="home4-trust" className="text-xl font-bold text-shark sm:text-2xl">
                 Stories from clients we serve
               </h3>
@@ -150,8 +138,8 @@ export function Home4BelowFold() {
               </p>
             </Home4Reveal>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
-              {HOME4_TESTIMONIALS.map((item, index) => (
-                <Home4Reveal key={item.who} delay={index * 0.06}>
+              {HOME4_TESTIMONIALS.map((item) => (
+                <Home4Reveal key={item.who} instant>
                   <Home4TestimonialCard item={item} />
                 </Home4Reveal>
               ))}

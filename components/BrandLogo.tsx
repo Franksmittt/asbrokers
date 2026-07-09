@@ -8,7 +8,7 @@ type BrandLogoProps = {
   priority?: boolean;
 };
 
-/** Optimized nav/footer logo, serves static asset directly (bypasses Vercel /_next/image when quota exceeded). */
+/** Nav/footer logo — sized to rendered height to satisfy Lighthouse responsive-image audits. */
 export function BrandLogo({ className = "h-9 w-auto rounded-2xl object-contain", height = 36, priority }: BrandLogoProps) {
   const width = Math.round(height * (120 / 36));
   return (
@@ -18,9 +18,9 @@ export function BrandLogo({ className = "h-9 w-auto rounded-2xl object-contain",
       width={width}
       height={height}
       className={className}
-      sizes={`${width}px`}
+      sizes={`(max-width: 768px) ${height}px, ${width}px`}
       priority={priority}
-      unoptimized
+      quality={75}
     />
   );
 }

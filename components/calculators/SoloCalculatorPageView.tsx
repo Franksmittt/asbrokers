@@ -97,6 +97,7 @@ export function SoloCalculatorPageView({
                 alt={getAlt(heroImage, heroImageAlt)}
                 fill
                 priority
+                fetchPriority="high"
                 className="object-cover object-center"
                 sizes={HUB_SPLIT_HERO_SIZES}
               />

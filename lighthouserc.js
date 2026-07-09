@@ -6,13 +6,8 @@ const CPU_SLOWDOWN = process.env.CI ? 4 : 2;
 
 const HUB_PATHS = [
   "/",
-  "/retirement",
-  "/everest-wealth",
-  "/insurance",
-  "/estate-planning",
-  "/insights",
-  "/about",
   "/contact",
+  "/privacy",
 ];
 
 module.exports = {

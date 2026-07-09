@@ -53,6 +53,7 @@ export function ClientInsightArticle({ post }: Props) {
         description={post.excerpt ?? undefined}
         imageSrc={heroImage}
         imageAlt={post.title}
+        priority
       >
         <time className="mt-4 block text-xs font-medium uppercase tracking-wider text-stone-500" dateTime={published}>
           {formatDate(published)}

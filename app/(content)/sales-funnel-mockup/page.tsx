@@ -3,12 +3,15 @@ import Link from "next/link";
 import { BackgroundOrbs } from "@/components/BackgroundOrbs";
 import { Footer } from "@/components/Footer";
 import { PAGE_CONTENT_MAX } from "@/components/PageMediaStrip";
+import { buildPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
+  path: "/sales-funnel-mockup",
   title: "Sales Funnel Mockup | Everest Strategic Income Example",
   description:
     "A standalone AS Brokers sales funnel mockup for Everest Strategic Income 12.8%, created as a client-facing example of a high-converting financial-services funnel.",
-};
+  noIndex: true,
+});
 
 const proofItems = [
   {

@@ -3,11 +3,6 @@ import { redirect } from "next/navigation";
 import { PinLoginForm } from "./PinLoginForm";
 import { resolveCrmIdentity } from "@/lib/crm/resolve-session";
 
-export const metadata = {
-  title: "Sign in",
-  description: "PIN access to AS Brokers CRM.",
-};
-
 export default async function LoginPage({
   searchParams,
 }: {

@@ -1,27 +1,19 @@
-"use client";
-
-import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { FAQItem } from "@/lib/seo";
-import { ContactEnquiryFormLazy } from "@/components/contact/ContactEnquiryFormLazy";
+import { ContactFormDeferred } from "@/components/contact/ContactFormDeferred";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { CheckSquare, LineChart, MessageCircle, ShieldCheck } from "@/components/icons";
-import { getAlt } from "@/lib/image-alt";
 import {
   HUB_TEAL as TEAL,
-  HUB_CANVAS as CANVAS,
   HUB_INK as INK,
   HUB_BODY as BODY,
 } from "@/lib/hub-design-tokens";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
-
-const HERO_IMAGE = "/images/contact-trust.jpg";
 
 const trustBadges = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
 
@@ -56,60 +48,6 @@ const steps = [
 export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   return (
     <>
-      <header
-        data-chunk-boundary="true"
-        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
-        style={{ backgroundColor: CANVAS }}
-      >
-        <div className={`${GRID} items-center gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
-            <p
-              className="font-semibold uppercase tracking-[0.2em]"
-              style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
-            >
-              Contact · Krugersdorp · West Rand
-            </p>
-            <h1
-              className="mt-4 font-bold tracking-tight"
-              style={{
-                fontSize: "clamp(1.875rem, 1.35rem + 2vw, 2.75rem)",
-                lineHeight: 1.12,
-                color: INK,
-              }}
-            >
-              Let&apos;s build your financial future together.
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{
-                fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)",
-                lineHeight: 1.65,
-                color: BODY,
-              }}
-            >
-              Speak with our independent fiduciary experts about your retirement, investments,
-              insurance, or estate planning.
-            </p>
-          </HubReveal>
-
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
-              <Image
-                src={HERO_IMAGE}
-                alt={getAlt(
-                  HERO_IMAGE,
-                  "Welcoming financial advisory consultation with clients in a bright, professional meeting room"
-                )}
-                fill
-                priority
-                className="object-cover object-center"
-                sizes={HUB_SPLIT_HERO_SIZES}
-              />
-            </div>
-          </HubReveal>
-        </div>
-      </header>
-
       <section
         data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-12 md:py-16"
@@ -122,7 +60,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </h2>
 
           <div className="col-span-12 space-y-10 lg:col-span-5">
-            <HubReveal>
+            <HubReveal instant>
               <div>
                 <h3
                   className="font-bold tracking-tight"
@@ -158,7 +96,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </div>
             </HubReveal>
 
-            <HubReveal delay={0.05}>
+            <HubReveal instant>
               <div>
                 <h3
                   className="font-bold tracking-tight"
@@ -258,7 +196,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             </HubReveal>
           </div>
 
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-7">
+          <HubReveal instant className="col-span-12 lg:col-span-7">
             <div className="rounded-3xl bg-white p-6 shadow-2xl ring-1 ring-stone-200/90 sm:p-8 lg:sticky lg:top-28">
               <div className="mb-6">
                 <h3
@@ -275,7 +213,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                   personally — not via a call centre.
                 </p>
               </div>
-              <ContactEnquiryFormLazy />
+              <ContactFormDeferred />
             </div>
           </HubReveal>
         </div>

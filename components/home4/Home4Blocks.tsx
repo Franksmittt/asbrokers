@@ -1,9 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Calendar, LineChart, Scroll, ShieldCheck } from "@/components/icons";
+import { HubReveal } from "@/components/hub/HubReveal";
 import type {
   CalculatorTile,
   FunnelStage,
@@ -11,10 +9,11 @@ import type {
   Testimonial,
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
+import { HUB_TEAL } from "@/lib/hub-design-tokens";
 
 export const HOME4_WRAP = "mx-auto max-w-7xl px-4 sm:px-6 md:px-8";
 
-const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
+const GOAL_CARD_IMAGE_SIZES = "(max-width: 640px) 380px, (max-width: 1280px) 50vw, 300px";
 
 const ACCENT_RING: Record<GoalCard["accent"], string> = {
   teal: "ring-cinematic-teal/25 hover:ring-cinematic-teal/45",
@@ -24,9 +23,9 @@ const ACCENT_RING: Record<GoalCard["accent"], string> = {
 };
 
 const ACCENT_TEXT: Record<GoalCard["accent"], string> = {
-  teal: "text-cinematic-teal",
+  teal: "text-[#006B6B]",
   blue: "text-samsung-blue",
-  orange: "text-orange-600",
+  orange: "text-orange-700",
   gold: "text-amber-700",
 };
 
@@ -37,48 +36,31 @@ const GOAL_ICONS: Record<GoalCard["accent"], typeof LineChart> = {
   gold: Scroll,
 };
 
+/** @deprecated Use HubReveal — kept as alias for below-fold imports. */
 export function Home4Reveal({
   children,
   className = "",
   delay = 0,
+  instant = false,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  instant?: boolean;
 }) {
-  const reduce = useReducedMotion();
-
-  if (reduce) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.65, ease: APPLE_EASE, delay }}
-    >
+    <HubReveal className={className} delay={delay} instant={instant}>
       {children}
-    </motion.div>
+    </HubReveal>
   );
 }
 
-export function Home4GoalCard({ card }: { card: GoalCard }) {
+export function Home4GoalCard({ card, priority = false }: { card: GoalCard; priority?: boolean }) {
   const Icon = GOAL_ICONS[card.accent];
-  const reduce = useReducedMotion();
-
-  const motionProps = reduce
-    ? {}
-    : {
-        whileHover: { y: -8, transition: { duration: 0.35, ease: APPLE_EASE } },
-      };
 
   return (
-    <motion.article
-      {...motionProps}
-      className={`group relative overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm transition-shadow duration-300 ease-apple hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
+    <article
+      className={`group relative overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm transition-all duration-300 ease-apple hover:-translate-y-2 hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
     >
       <Link
         href={card.href}
@@ -91,8 +73,11 @@ export function Home4GoalCard({ card }: { card: GoalCard }) {
           src={card.image}
           alt={getAlt(card.image, card.title)}
           fill
+          priority={priority}
+          fetchPriority={priority ? "high" : "auto"}
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 25vw"
+          sizes={GOAL_CARD_IMAGE_SIZES}
+          quality={65}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-shark/70 via-shark/20 to-transparent" />
         <div className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}>
@@ -123,7 +108,7 @@ export function Home4GoalCard({ card }: { card: GoalCard }) {
           <ArrowRight className="h-4 w-4" aria-hidden />
         </span>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -140,14 +125,15 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
           alt={getAlt(tile.image, tile.label)}
           fill
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 25vw"
+          sizes={GOAL_CARD_IMAGE_SIZES}
+          quality={65}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-shark/55 to-transparent" />
       </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="text-base font-semibold text-shark">{tile.label}</h3>
         <p className="mt-1.5 flex-1 text-sm leading-relaxed text-stone-600">{tile.description}</p>
-        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-cinematic-teal">
+        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: HUB_TEAL }}>
           Open calculator
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
         </span>
@@ -168,7 +154,7 @@ export function Home4JourneyFunnel({ stages }: { stages: FunnelStage[] }) {
               className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
               aria-label={`${stage.cta}: ${stage.title}`}
             />
-            <span className="relative z-10 text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">
+            <span className="relative z-10 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: HUB_TEAL }}>
               {stage.step}
             </span>
             <h3 className="relative z-10 mt-2 text-lg font-semibold text-shark">{stage.title}</h3>
@@ -231,7 +217,7 @@ export function Home4SectionHeader({
   return (
     <div className="max-w-2xl">
       {kicker ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">{kicker}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: HUB_TEAL }}>{kicker}</p>
       ) : null}
       <h2
         id={headingId}

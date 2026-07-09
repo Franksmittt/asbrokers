@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AppShell } from "@/components/AppShell";
 import { Providers } from "@/components/Providers";
-import { SpeculationRulesClient } from "@/components/seo/SpeculationRulesClient";
-import { FallbackPageJsonLdClient } from "@/components/seo/FallbackPageJsonLdClient";
+import { DeferredRootExtras } from "@/components/DeferredRootExtras";
 import { getSiteOrigin } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -53,12 +51,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-void text-white selection:bg-samsung-blue selection:text-white min-h-screen">
-        <FallbackPageJsonLdClient />
-        <Providers>
-          <AppShell>{children}</AppShell>
-        </Providers>
-        <SpeculationRulesClient />
+      <body className="font-sans antialiased bg-warm-canvas text-shark selection:bg-samsung-blue selection:text-white min-h-screen">
+        <DeferredRootExtras />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

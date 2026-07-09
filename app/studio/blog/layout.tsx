@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { PRIVATE_ROUTE_ROBOTS } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = {
   title: "Insights studio",
   description: "Create and publish HTML insight articles for the AS Brokers website.",
-  robots: "noindex, nofollow",
+  robots: PRIVATE_ROUTE_ROBOTS,
 };
 
 export default function StudioBlogLayout({ children }: { children: React.ReactNode }) {

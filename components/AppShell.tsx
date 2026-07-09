@@ -2,32 +2,26 @@
 
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { AppShellChrome } from "@/components/AppShellChrome";
 
 type Props = {
   children: ReactNode;
 };
 
+function isMarketingRoute(pathname: string): boolean {
+  if (pathname.startsWith("/studio/blog")) return false;
+  if (pathname.startsWith("/embed")) return false;
+  if (pathname.startsWith("/crm")) return false;
+  if (pathname.startsWith("/portal")) return false;
+  if (pathname.startsWith("/login")) return false;
+  if (pathname.startsWith("/internal")) return false;
+  return true;
+}
+
 export function AppShell({ children }: Props) {
   const pathname = usePathname() ?? "";
-  const clientStudio = pathname.startsWith("/studio/blog");
-  const embed = pathname.startsWith("/embed");
-  const isCrmOrPortal =
-    pathname.startsWith("/crm") ||
-    pathname.startsWith("/portal") ||
-    pathname.startsWith("/login");
 
-  if (clientStudio || embed || isCrmOrPortal) {
-    return (
-      <>
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        <main id="main-content" className="min-h-screen" tabIndex={-1}>
-          {children}
-        </main>
-      </>
-    );
+  if (isMarketingRoute(pathname)) {
+    return <>{children}</>;
   }
 
   return (
@@ -35,7 +29,9 @@ export function AppShell({ children }: Props) {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-      <AppShellChrome>{children}</AppShellChrome>
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>
+        {children}
+      </main>
     </>
   );
 }

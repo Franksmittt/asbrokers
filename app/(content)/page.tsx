@@ -1,4 +1,6 @@
-import { Home4Preview } from "@/components/home4/Home4Preview";
+import { Home4Hero } from "@/components/home4/Home4Hero";
+import { Home4GoalCards } from "@/components/home4/Home4GoalCards";
+import { Home4RestDeferred } from "@/components/home4/Home4RestDeferred";
 import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
@@ -26,7 +28,9 @@ export default function HomePage() {
         }}
         primaryImagePath="/opengraph-image"
       />
-      <Home4Preview />
+      <Home4Hero />
+      <Home4GoalCards />
+      <Home4RestDeferred />
     </>
   );
 }

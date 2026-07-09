@@ -6,7 +6,6 @@ export const metadata: Metadata = buildPageMetadata({
   title: "Digital Wealth Assistant",
   description:
     "AS Brokers digital wealth assistant for estate duty, Everest 12.8% income, and Amethyst annuity illustrations. Educational only, not financial advice. FSP 17273.",
-  noIndex: true,
 });
 
 export default function ChatLayout({ children }: { children: React.ReactNode }) {

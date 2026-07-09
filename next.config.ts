@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     authInterrupts: true,
+    optimizeCss: true,
     optimizePackageImports: ["recharts", "framer-motion"],
     serverActions: {
       /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */

@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
@@ -38,7 +36,7 @@ export function LegalDocumentLayout({
     <>
       <div className="min-h-screen pb-20 pt-28 md:pb-24 md:pt-32" style={{ backgroundColor: CANVAS }}>
         <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-3">
+          <HubReveal instant className="col-span-12 lg:col-span-3">
             <aside className="lg:sticky lg:top-28">
               <p
                 className="font-semibold uppercase tracking-[0.2em]"
@@ -64,9 +62,7 @@ export function LegalDocumentLayout({
                   {description}
                 </p>
               ) : null}
-              <p
-                className="mt-6 text-xs font-medium uppercase tracking-wider text-stone-500"
-              >
+              <p className="mt-6 text-xs font-medium uppercase tracking-wider text-stone-600">
                 Last updated
               </p>
               <p className="mt-1 text-sm font-semibold text-stone-700">{lastUpdated}</p>
@@ -85,7 +81,7 @@ export function LegalDocumentLayout({
             </aside>
           </HubReveal>
 
-          <HubReveal delay={0.05} className="col-span-12 lg:col-span-7 lg:col-start-4">
+          <HubReveal instant className="col-span-12 lg:col-span-7 lg:col-start-4">
             <article className="rounded-3xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 sm:p-8 md:p-10">
               <LegalProse>{children}</LegalProse>
               {footerLinks && footerLinks.length > 0 ? (
@@ -95,7 +91,7 @@ export function LegalDocumentLayout({
                       key={link.href}
                       href={link.href}
                       prefetch={false}
-                      className="text-sm font-semibold text-samsung-blue hover:text-cinematic-teal"
+                      className="text-sm font-semibold text-samsung-blue hover:text-[#006B6B]"
                     >
                       {link.label} →
                     </Link>
@@ -127,7 +123,7 @@ export function LegalProse({ children }: { children: ReactNode }) {
         "[&_ul]:[font-size:clamp(1rem,0.95rem+0.15vw,1.0625rem)]",
         "[&_li]:leading-relaxed",
         "[&_strong]:font-semibold [&_strong]:text-[#1D1D1F]",
-        "[&_a]:font-medium [&_a]:text-samsung-blue [&_a]:underline-offset-2 hover:[&_a]:text-cinematic-teal",
+        "[&_a]:font-medium [&_a]:text-samsung-blue [&_a]:underline-offset-2 hover:[&_a]:text-[#006B6B]",
         "[&_section+section]:mt-10 [&_section+section]:border-t [&_section+section]:border-stone-200/80 [&_section+section]:pt-10",
       ].join(" ")}
     >

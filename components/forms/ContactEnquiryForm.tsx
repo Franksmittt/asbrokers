@@ -161,7 +161,7 @@ export function ContactEnquiryForm() {
             id="discussion-topics"
             onClick={() => setTopicsOpen(!topicsOpen)}
             disabled={isPending}
-            aria-labelledby="discussion-topics-label"
+            aria-labelledby="discussion-topics-label discussion-topics-value"
             aria-expanded={topicsOpen}
             aria-haspopup="listbox"
             className={`flex w-full items-center justify-between gap-2 rounded-xl border px-4 py-3 text-left transition-colors duration-300 ease-in-out disabled:opacity-60 ${
@@ -172,7 +172,7 @@ export function ContactEnquiryForm() {
                   : "border-stone-200 bg-stone-50 hover:border-stone-300"
             }`}
           >
-            <span className="truncate text-sm text-stone-700">
+            <span id="discussion-topics-value" className="truncate text-sm text-stone-700">
               {selectedTopics.length === 0
                 ? "Select topics..."
                 : `${selectedTopics.length} topic${selectedTopics.length === 1 ? "" : "s"} selected`}
@@ -242,6 +242,7 @@ export function ContactEnquiryForm() {
       <button
         type="submit"
         disabled={isPending}
+        aria-label={isPending ? "Sending consultation request" : "Request a consultation"}
         className="mt-2 w-full rounded-2xl bg-samsung-blue py-4 text-sm font-semibold text-white shadow-md shadow-samsung-blue/20 transition-all duration-300 ease-in-out hover:bg-[#004a9e] hover:shadow-cta-glow-blue disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isPending ? "Sending…" : "Request a Consultation"}

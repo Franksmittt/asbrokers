@@ -56,6 +56,7 @@ export function PinLoginForm({ nextPath }: PinLoginFormProps) {
       <button
         type="submit"
         disabled={isPending}
+        aria-label={isPending ? "Opening CRM" : "Enter CRM with PIN"}
         className="w-full rounded-2xl bg-white py-3.5 font-semibold text-black transition-colors hover:bg-zinc-200 disabled:opacity-50"
       >
         {isPending ? "Opening CRM…" : "Enter CRM"}

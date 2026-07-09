@@ -93,6 +93,20 @@ export type BuildPageMetadataInput = {
   keywords?: string[];
 };
 
+/** Robots directive for CRM, portal, studio, auth, internal, and dynamic report routes. */
+export const PRIVATE_ROUTE_ROBOTS: NonNullable<Metadata["robots"]> = {
+  index: false,
+  follow: false,
+};
+
+export function privateRouteMetadata(title: string, description?: string): Metadata {
+  return {
+    title,
+    description: description ?? title,
+    robots: PRIVATE_ROUTE_ROBOTS,
+  };
+}
+
 /** Programmatic Metadata with canonical, Open Graph, and Twitter (Phase 5.1). */
 export function buildPageMetadata(input: BuildPageMetadataInput): Metadata {
   const path = normalizePath(input.path);
@@ -112,7 +126,7 @@ export function buildPageMetadata(input: BuildPageMetadataInput): Metadata {
     description,
     keywords: input.keywords,
     alternates: { canonical },
-    robots: input.noIndex ? { index: false, follow: true } : undefined,
+    robots: input.noIndex ? PRIVATE_ROUTE_ROBOTS : undefined,
     openGraph: {
       type: "website",
       locale: "en_ZA",

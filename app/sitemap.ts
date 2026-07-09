@@ -5,13 +5,15 @@ import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 import { sanityFetch } from "@/sanity/lib/live";
 import { insightArticlesSitemapQuery } from "@/sanity/lib/queries";
 
-export const revalidate = 3600;
+/** Always resolve CMS posts at request time — avoids stale build-time sitemap cache. */
+export const dynamic = "force-dynamic";
 
-/** Public marketing/site pages — no auth, CRM, Studio, APIs, internal tools. */
+/** Public marketing/site pages — no auth, CRM, Studio, APIs, internal tools, or noindex routes. */
 const STATIC_PATHS = [
   "/",
   "/about",
   "/calculators",
+  "/chat",
   "/complaints",
   "/conflict-of-interest",
   "/contact",
@@ -32,6 +34,7 @@ const STATIC_PATHS = [
   "/insights/semigration-retirement",
   "/manage-cookies",
   "/privacy",
+  "/quiz",
   "/regulatory-compliance",
   "/retirement-planning",
   "/retirement-survival-blueprint",
@@ -65,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
   const push = (path: string, lastModified?: Date) => {
-    const url = absoluteUrl(path);
+    const url = absoluteUrl(path.split("?")[0] ?? path);
     if (seen.has(url)) return;
     seen.add(url);
     entries.push(lastModified ? { url, lastModified } : { url });
@@ -94,8 +97,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const studio = await listPublishedStudioPosts();
   for (const row of studio) {
-    if (!row.publishedAt || !row.slug?.trim()) continue;
-    const lastMod = maxModified(row.publishedAt, row.updatedAt);
+    if (!row.slug?.trim()) continue;
+    const lastMod = maxModified(row.publishedAt ?? row.updatedAt, row.updatedAt);
     push(insightUrlPath(row.slug, row.locale || "en"), lastMod);
     if (entries.length >= 49500) break;
   }

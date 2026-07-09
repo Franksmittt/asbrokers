@@ -31,6 +31,7 @@
     "test:perf:verify": "tsx scripts/verify-phase9-performance.ts",
     "test:master": "tsx scripts/verify-phase12-master.ts",
     "gsc:canonical": "node scripts/gsc-canonical-check.mjs",
+    "sitemap:verify": "node scripts/verify-sitemap.mjs",
     "audit:hub:gsc": "tsx scripts/verify-hub-gsc.ts",
     "audit:hub:axe": "node scripts/audit-hub-axe.mjs",
     "audit:hub:lighthouse": "node scripts/audit-hub-lighthouse.mjs",

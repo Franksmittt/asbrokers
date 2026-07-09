@@ -47,15 +47,15 @@ function main() {
   let failed = false;
   const sitemapSrc = read("app/sitemap.ts");
 
-  if (sitemapSrc.includes('"/chat"') || sitemapSrc.includes('"/quiz"')) {
-    console.error("FAIL: sitemap still includes /chat or /quiz");
+  if (!sitemapSrc.includes('"/chat"') || !sitemapSrc.includes('"/quiz"')) {
+    console.error("FAIL: sitemap must include /chat and /quiz (public indexable)");
     failed = true;
   } else {
-    console.log("PASS: sitemap excludes /chat and /quiz");
+    console.log("PASS: sitemap includes /chat and /quiz");
   }
 
   const layout = read("app/layout.tsx");
-  if (!layout.includes("SpeculationRules")) {
+  if (!layout.includes("DeferredRootExtras") && !layout.includes("SpeculationRules")) {
     console.error("FAIL: speculation rules script missing from root layout");
     failed = true;
   } else {
@@ -64,11 +64,11 @@ function main() {
 
   const chatLayout = read("app/(content)/chat/layout.tsx");
   const quizLayout = read("app/(content)/quiz/layout.tsx");
-  if (!chatLayout.includes("noIndex: true") || !quizLayout.includes("noIndex: true")) {
-    console.error("FAIL: chat/quiz layouts must set noIndex");
+  if (chatLayout.includes("noIndex: true") || quizLayout.includes("noIndex: true")) {
+    console.error("FAIL: chat/quiz layouts must not set noIndex (public lead magnets)");
     failed = true;
   } else {
-    console.log("PASS: chat/quiz layouts set noIndex");
+    console.log("PASS: chat/quiz layouts are indexable");
   }
 
   const hubChecks = [

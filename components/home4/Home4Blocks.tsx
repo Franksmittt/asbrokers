@@ -68,16 +68,16 @@ export function Home4GoalCard({ card, priority = false }: { card: GoalCard; prio
         className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
         aria-label={`Explore ${card.title}`}
       />
-      <div className="relative h-36 w-full overflow-hidden sm:h-40 pointer-events-none">
+      <div className="relative z-[1] h-36 w-full overflow-hidden sm:h-40 pointer-events-none">
         <Image
           src={card.image}
           alt={getAlt(card.image, card.title)}
           fill
+          unoptimized
           priority={priority}
           fetchPriority={priority ? "high" : "auto"}
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
           sizes={GOAL_CARD_IMAGE_SIZES}
-          quality={65}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-shark/70 via-shark/20 to-transparent" />
         <div className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}>
@@ -124,9 +124,9 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
           src={tile.image}
           alt={getAlt(tile.image, tile.label)}
           fill
+          unoptimized
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
           sizes={GOAL_CARD_IMAGE_SIZES}
-          quality={65}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-shark/55 to-transparent" />
       </div>
@@ -186,6 +186,7 @@ export function Home4TestimonialCard({ item }: { item: Testimonial }) {
           src={item.photo}
           alt={getAlt(item.photo, `${item.who}, client story`)}
           fill
+          unoptimized
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
         />

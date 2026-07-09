@@ -156,10 +156,10 @@ a[href]:active {
 }
 
 .skip-link {
-  position: absolute;
-  top: -100px;
+  position: fixed;
+  top: -100%;
   left: 1rem;
-  z-index: 100;
+  z-index: 60;
   padding: 0.75rem 1rem;
   background: var(--samsung-blue);
   color: white;
@@ -167,8 +167,9 @@ a[href]:active {
   font-weight: 600;
   transition: top 0.2s var(--ease-apple);
 }
-.skip-link:focus {
-  top: 1rem;
+/* Keyboard only — sit below fixed nav so header links stay clickable. */
+.skip-link:focus-visible {
+  top: 5.5rem;
 }
 
 /* Hero terminal — pulsing Samsung Blue / Supernova Gold glow */

@@ -118,6 +118,7 @@ export function Home4BelowFoldRest() {
                       "Independent financial adviser discussing investment options with clients in a Krugersdorp office"
                     )}
                     fill
+                    unoptimized
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     loading="lazy"

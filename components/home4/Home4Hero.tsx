@@ -12,11 +12,11 @@ export function Home4Hero() {
           src="/images/home4-why-independence-4x3.jpg"
           alt={getAlt("/images/home4-why-independence-4x3.jpg", "Relaxed consultation with an independent adviser")}
           fill
+          unoptimized
           priority
           fetchPriority="high"
           className="object-cover"
           sizes={HUB_HERO_SIZES}
-          quality={75}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-shark/85 via-shark/55 to-shark/25" />
         <div className="absolute inset-0 bg-gradient-to-t from-warm-canvas via-transparent to-shark/20" />

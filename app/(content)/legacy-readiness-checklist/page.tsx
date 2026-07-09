@@ -20,17 +20,20 @@ const legacyChecklistFaqs = [
   },
 ];
 
+const PAGE_TITLE = "Legacy Readiness Checklist™";
+const PAGE_DESCRIPTION =
+  "Download the free Legacy Readiness Checklist™. Identify potential gaps in your will, trust, beneficiaries, estate liquidity, and succession planning before it is too late.";
+
 export const metadata = buildPageMetadata({
   path: "/legacy-readiness-checklist",
-  title: "Legacy Readiness Checklist™",
-  description:
-    "Download the free Legacy Readiness Checklist™. Identify potential gaps in your will, trust, beneficiaries, estate liquidity, and succession planning before it is too late.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 export default function LegacyReadinessChecklistPage() {
   return (
     <>
-      <PageJsonLd path="/legacy-readiness-checklist" webPage={{ name: metadata.title, description: metadata.description }} faqs={legacyChecklistFaqs} />
+      <PageJsonLd path="/legacy-readiness-checklist" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} faqs={legacyChecklistFaqs} />
       <LegacyReadinessLanding />
     </>
   );

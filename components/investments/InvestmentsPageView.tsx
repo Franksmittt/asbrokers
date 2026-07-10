@@ -493,158 +493,109 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* TEMP review: three trust-section options — pick one, then we remove the other two */}
+      {/* TEMP review round 2 — pick D, E, or F */}
       <section
         data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-10"
         style={{ backgroundColor: "#FDFCFA" }}
-        aria-label="Trust section design options for review"
+        aria-label="Trust section design options round 2"
       >
         <div className={HOME4_WRAP}>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
-            Design review · Investments trust section
+            Design review · Round 2 (new directions)
           </p>
           <p className="mt-2 max-w-2xl text-sm text-stone-600">
-            Three options below. Tell us A, B, or C and we&apos;ll keep that one only.
+            Fresh options — not the previous A/B/C. Reply with <strong>D</strong>, <strong>E</strong>, or{" "}
+            <strong>F</strong>.
           </p>
         </div>
       </section>
 
-      {/* Option A — Split: copy left, trust card right */}
+      {/* Option D — Photo-led editorial */}
       <section
         data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: CANVAS }}
-        aria-labelledby="investments-trust-option-a"
+        aria-labelledby="investments-trust-option-d"
       >
         <div className={HOME4_WRAP}>
           <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
-            Option A · Split panel
+            Option D · Photo editorial
           </p>
-          <div className="grid items-stretch gap-8 lg:grid-cols-12 lg:gap-10">
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-300/70 sm:aspect-[5/4] lg:col-span-5 lg:aspect-auto lg:min-h-[420px]">
+              <Image
+                src="/images/home4-why-independence-4x3.jpg"
+                alt={getAlt(
+                  "/images/home4-why-independence-4x3.jpg",
+                  "Independent adviser meeting with clients in Krugersdorp"
+                )}
+                fill
+                unoptimized
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+            </div>
             <div className="lg:col-span-7">
               <p
-                className="font-semibold uppercase tracking-[0.18em]"
-                style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
+                className="font-semibold uppercase tracking-[0.2em]"
+                style={{ fontSize: "0.75rem", color: TEAL }}
               >
-                Independent · Category 1.8
+                Krugersdorp · West Rand · FSP 17273
               </p>
               <h2
-                id="investments-trust-option-a"
-                className="mt-3 font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2rem)", color: INK }}
+                id="investments-trust-option-d"
+                className="mt-4 font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem)", lineHeight: 1.1, color: INK }}
               >
                 Fiduciary structuring you can trust.
               </h2>
               <p
-                className="mt-4 max-w-xl leading-relaxed"
-                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.125rem)", color: BODY }}
+                className="mt-5 max-w-xl leading-relaxed"
+                style={{ fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)", color: BODY }}
               >
                 As an independent Category 1.8 FSP with over 25 years of experience, we survey the
                 entire market to build a bespoke wealth architecture that serves your goals, free
                 from institutional quotas.
               </p>
+              <dl className="mt-8 grid gap-4 sm:grid-cols-3">
+                {TRUST_BADGES.map((badge) => (
+                  <div key={`d-${badge}`} className="border-l-2 border-cinematic-teal/40 pl-4">
+                    <dt className="text-sm font-bold text-shark">{badge}</dt>
+                    <dd className="mt-1 text-xs text-stone-500">Verified credential</dd>
+                  </div>
+                ))}
+              </dl>
               <Link
                 href="/contact"
                 prefetch={false}
-                className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md shadow-samsung-blue/20 transition hover:bg-[#004a9e]"
+                className="mt-9 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-samsung-blue/25 transition hover:bg-[#004a9e]"
               >
                 Book an Investment Strategy Call
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-            <div className="lg:col-span-5">
-              <div className="flex h-full flex-col justify-center rounded-3xl bg-white p-7 shadow-xl ring-1 ring-stone-200/90 sm:p-8">
-                <Briefcase className="h-8 w-8" style={{ color: TEAL }} aria-hidden />
-                <ul className="mt-6 space-y-4">
-                  {TRUST_BADGES.map((badge) => (
-                    <li
-                      key={`a-${badge}`}
-                      className="flex items-center gap-3 border-b border-stone-100 pb-4 last:border-0 last:pb-0"
-                    >
-                      <span
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-xs font-bold text-white"
-                        style={{ backgroundColor: TEAL }}
-                        aria-hidden
-                      >
-                        ✓
-                      </span>
-                      <span className="text-sm font-semibold text-shark">{badge}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Option B — Centered statement + badge strip */}
+      {/* Option E — Oversized numbers */}
       <section
         data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="investments-trust-option-b"
+        aria-labelledby="investments-trust-option-e"
       >
         <div className={HOME4_WRAP}>
           <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: BLUE }}>
-            Option B · Centered strip
+            Option E · Big numbers
           </p>
-          <div className="mx-auto max-w-3xl text-center">
-            <h2
-              id="investments-trust-option-b"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2rem)", color: INK }}
-            >
-              Fiduciary structuring you can trust.
-            </h2>
-            <p
-              className="mx-auto mt-4 leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.125rem)", color: BODY }}
-            >
-              As an independent Category 1.8 FSP with over 25 years of experience, we survey the
-              entire market to build a bespoke wealth architecture that serves your goals, free from
-              institutional quotas.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              {TRUST_BADGES.map((badge) => (
-                <span
-                  key={`b-${badge}`}
-                  className="rounded-full bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-stone-700 shadow-sm ring-1 ring-stone-200/90"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-samsung-blue/20 transition hover:bg-[#004a9e]"
-            >
-              Book an Investment Strategy Call
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Option C — Full-width rim-light band with three pillars + CTA */}
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="investments-trust-option-c"
-      >
-        <div className={HOME4_WRAP}>
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
-            Option C · Three pillars
-          </p>
-          <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-white via-white to-cinematic-teal/[0.06] p-8 shadow-xl ring-1 ring-stone-200/90 sm:p-10 md:p-12">
-            <div className="max-w-3xl">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-5">
               <h2
-                id="investments-trust-option-c"
+                id="investments-trust-option-e"
                 className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2rem)", color: INK }}
+                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.125rem)", color: INK }}
               >
                 Fiduciary structuring you can trust.
               </h2>
@@ -656,51 +607,97 @@ export function InvestmentsPageView({ faqs }: Props) {
                 entire market to build a bespoke wealth architecture that serves your goals, free
                 from institutional quotas.
               </p>
-            </div>
-
-            <div className="mt-10 grid gap-6 sm:grid-cols-3">
-              {[
-                {
-                  label: "FSP 17273",
-                  detail: "Authorised financial services provider",
-                },
-                {
-                  label: "Category 1.8",
-                  detail: "Access to selected alternative investments",
-                },
-                {
-                  label: "25+ years",
-                  detail: "Independent advice across the West Rand",
-                },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-2xl bg-white/90 p-5 ring-1 ring-stone-200/80"
-                >
-                  <p className="text-lg font-bold tracking-tight text-shark">{item.label}</p>
-                  <p className="mt-1.5 text-sm leading-relaxed text-stone-600">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10 flex flex-wrap items-center gap-3">
               <Link
                 href="/contact"
                 prefetch={false}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md shadow-samsung-blue/20 transition hover:bg-[#004a9e]"
+                className="mt-8 inline-flex items-center gap-2 font-semibold text-samsung-blue transition hover:text-[#004a9e]"
               >
                 Book an Investment Strategy Call
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-              <Link
-                href="/about"
-                prefetch={false}
-                className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-shark ring-1 ring-stone-200 transition hover:bg-stone-50"
-              >
-                About AS Brokers
-              </Link>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-3 lg:col-span-7">
+              {[
+                { value: "25+", unit: "years", label: "Independent advice" },
+                { value: "1.8", unit: "category", label: "FSCA securities licence" },
+                { value: "17273", unit: "FSP", label: "Authorised provider" },
+              ].map((stat) => (
+                <div
+                  key={stat.value}
+                  className="rounded-3xl bg-white px-5 py-7 text-center shadow-lg ring-1 ring-stone-200/80"
+                >
+                  <p
+                    className="font-bold tabular-nums tracking-tight"
+                    style={{ fontSize: "clamp(2.25rem, 1.8rem + 1.5vw, 3.25rem)", color: TEAL, lineHeight: 1 }}
+                  >
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-400">
+                    {stat.unit}
+                  </p>
+                  <p className="mt-3 text-sm font-medium text-stone-600">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Option F — Full-bleed shark band */}
+      <section
+        data-chunk-boundary="true"
+        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        style={{ backgroundColor: INK }}
+        aria-labelledby="investments-trust-option-f"
+      >
+        <div
+          className="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-samsung-blue/25 blur-3xl"
+          aria-hidden
+        />
+        <div className={`relative ${HOME4_WRAP}`}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/50">
+            Option F · Dark command band
+          </p>
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cinematic-teal">
+              Independent fiduciary · West Rand
+            </p>
+            <h2
+              id="investments-trust-option-f"
+              className="mt-4 font-bold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+            >
+              Fiduciary structuring you can trust.
+            </h2>
+            <p
+              className="mt-5 max-w-2xl leading-relaxed text-white/75"
+              style={{ fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)" }}
+            >
+              As an independent Category 1.8 FSP with over 25 years of experience, we survey the
+              entire market to build a bespoke wealth architecture that serves your goals, free from
+              institutional quotas.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-y border-white/10 py-5 text-sm font-semibold text-white/90">
+            {TRUST_BADGES.map((badge) => (
+              <span key={`f-${badge}`} className="inline-flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
+                {badge}
+              </span>
+            ))}
+          </div>
+          <Link
+            href="/contact"
+            prefetch={false}
+            className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark shadow-lg transition hover:bg-stone-100"
+          >
+            Book an Investment Strategy Call
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </div>
       </section>
 

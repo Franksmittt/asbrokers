@@ -40,6 +40,7 @@ const FOUNDERS = [
   },
 ];
 
+const TRUST_FOCUS = ["Retirement planning", "Risk architecture", "Legacy structuring"];
 const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
 
 function FounderCard({
@@ -322,60 +323,74 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
 
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-12 md:py-16"
-        style={{ backgroundColor: "#FDFCFA" }}
+        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        style={{ backgroundColor: INK }}
         aria-labelledby="about-cta-heading"
       >
-        <HubReveal>
-          <article
-            className={`${HOME4_WRAP} rounded-2xl bg-white p-8 ring-1 ring-stone-200/90 sm:p-10`}
-          >
-            <div className="flex flex-wrap gap-2">
-              {TRUST_BADGES.map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-800 ring-1 ring-stone-200/90"
-                >
-                  {badge}
-                </span>
-              ))}
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-samsung-blue/20 blur-3xl"
+          aria-hidden
+        />
+        <div className={`relative ${HOME4_WRAP}`}>
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-6">
+              <h2
+                id="about-cta-heading"
+                className="font-bold tracking-tight text-white"
+                style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+              >
+                Let&apos;s look at the math together.
+              </h2>
+              <p className="mt-5 max-w-xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
+                Book a consultation with an independent adviser in Krugersdorp. We will review your
+                retirement, risk, and legacy goals without pressure or jargon.
+              </p>
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+              >
+                Book an Actuarial Consultation
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </div>
-
-            <h2
-              id="about-cta-heading"
-              className="mt-6 max-w-2xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.1rem + 1vw, 2rem)", color: INK }}
-            >
-              Let&apos;s look at the math together.
-            </h2>
-            <p
-              className="mt-4 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              Book a consultation with an independent adviser in Krugersdorp. We will review your retirement,
-              risk, and legacy goals without pressure or jargon.
-            </p>
-
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-[background-color,box-shadow] duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue"
-              style={{
-                fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)",
-                transitionTimingFunction: "cubic-bezier(0.4, 0, 0.6, 1)",
-              }}
-            >
-              Book an Actuarial Consultation
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-
-            <p
-              className="mt-6 text-sm leading-relaxed text-stone-600"
-            >
-              AS Brokers CC · FSP 17273 · Krugersdorp, West Rand, Gauteng · Est. 1998
-            </p>
-          </article>
-        </HubReveal>
+            <div className="lg:col-span-6">
+              <div className="rounded-3xl bg-white/5 p-7 ring-1 ring-white/10 backdrop-blur-2xl sm:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+                  What we review
+                </p>
+                <ul className="mt-5 space-y-3">
+                  {TRUST_FOCUS.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center justify-between border-b border-white/10 pb-3 last:border-0 last:pb-0"
+                    >
+                      <span className="text-base font-semibold text-white">{item}</span>
+                      <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {TRUST_BADGES.map((b) => (
+                    <span
+                      key={b}
+                      className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85 ring-1 ring-white/10"
+                    >
+                      {b}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="mt-10 max-w-3xl leading-relaxed text-white/50" style={{ fontSize: "0.875rem" }}>
+            AS Brokers CC · FSP 17273 · Krugersdorp, West Rand, Gauteng · Est. 1998
+          </p>
+        </div>
       </section>
 
       <VisibleFaqSection faqs={faqs} />

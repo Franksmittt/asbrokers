@@ -83,27 +83,35 @@ export function Nav() {
           : "border-stone-200/70 bg-white/95 py-4 backdrop-blur-xl"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
-        <Link href="/" prefetch={false} className="flex min-w-0 items-center gap-2.5 sm:gap-3 shrink-0">
-          <BrandLogo height={36} priority className="h-9 w-auto shrink-0 rounded-2xl object-contain" />
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 sm:gap-4 sm:px-6">
+        <Link
+          href="/"
+          prefetch={false}
+          className="flex min-w-0 flex-1 items-center gap-2.5 sm:gap-3 lg:flex-none"
+        >
+          <BrandLogo
+            height={36}
+            priority
+            className="h-9 w-[7.5rem] shrink-0 rounded-2xl object-contain object-left"
+          />
           <div className="min-w-0">
-            <span className="text-base font-bold tracking-tight block leading-none text-shark sm:text-lg">
+            <span className="block truncate text-base font-bold leading-none tracking-tight text-shark sm:text-lg">
               AS Brokers
             </span>
-            <span className="hidden sm:block text-[10px] font-semibold uppercase mt-0.5 text-stone-800 tabular-nums tracking-wider">
+            <span className="mt-0.5 hidden text-[10px] font-semibold uppercase tracking-wider text-stone-800 tabular-nums sm:block">
               FSP 17273
             </span>
           </div>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-0.5 text-sm font-medium">
+        <div className="hidden items-center gap-0.5 text-sm font-medium lg:flex">
           {navLinks.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               prefetch={false}
-              className={`px-3 py-2 rounded-2xl transition-colors duration-300 ${
-                isNavActive(pathname ?? "", item.href) ? "text-shark font-semibold" : linkClass
+              className={`rounded-2xl px-3 py-2 transition-colors duration-300 ${
+                isNavActive(pathname ?? "", item.href) ? "font-semibold text-shark" : linkClass
               }`}
             >
               {item.label}
@@ -111,31 +119,31 @@ export function Nav() {
           ))}
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
           <Link
             href="/login"
             aria-label="Client portal login"
-            className="hidden md:flex items-center gap-2 border-0 px-4 py-2 rounded-[2rem] text-sm font-semibold text-stone-800 hover:bg-stone-100 hover:text-shark transition-all"
+            className="hidden items-center gap-2 rounded-[2rem] border-0 px-4 py-2 text-sm font-semibold text-stone-800 transition-all hover:bg-stone-100 hover:text-shark md:flex"
           >
-            <User className="w-4 h-4" />
+            <User className="h-4 w-4" />
             <span className="hidden xl:inline">Client Portal</span>
           </Link>
           <Link
             href="/contact"
             prefetch={false}
-            className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold bg-samsung-blue text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e] transition-all"
+            className="hidden items-center rounded-[2rem] bg-samsung-blue px-4 py-2 text-sm font-semibold text-white shadow-md shadow-samsung-blue/20 transition-all hover:bg-[#004a9e] sm:flex"
           >
             Contact us
           </Link>
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-stone-800 hover:text-shark transition-colors"
+            className="p-2 text-stone-800 transition-colors hover:text-shark lg:hidden"
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-panel"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>

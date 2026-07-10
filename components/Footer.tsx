@@ -143,7 +143,22 @@ export function Footer() {
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs leading-relaxed text-stone-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-8">
             <div className="text-center lg:text-left">
-              <p>
+              <nav
+                aria-label="Legal and staff login"
+                className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 lg:justify-start"
+              >
+                {LEGAL_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    prefetch={false}
+                    className="transition-colors duration-300 ease-in-out hover:text-stone-300"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+              <p className="mt-1.5">
                 Copyright © {SITE_COPYRIGHT_YEAR} AS Brokers CC. All rights reserved.
                 <span aria-hidden className="mx-1.5 text-stone-600">
                   |
@@ -158,18 +173,6 @@ export function Footer() {
                   Endpoint Media
                 </a>
               </p>
-              <span className="mt-1.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 lg:justify-start">
-                {LEGAL_LINKS.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    prefetch={false}
-                    className="transition-colors duration-300 ease-in-out hover:text-stone-300"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </span>
             </div>
             <p className="text-center text-[11px] leading-snug text-stone-500 lg:max-w-xl lg:text-right">
               Authorised Financial Services Provider | FSP 17273 | FSCA Regulated | FAIS & POPIA

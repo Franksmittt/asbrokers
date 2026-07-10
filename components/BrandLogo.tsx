@@ -9,7 +9,7 @@ type BrandLogoProps = {
 };
 
 /** Nav/footer logo — sized to rendered height to satisfy Lighthouse responsive-image audits. */
-export function BrandLogo({ className = "h-9 w-auto rounded-2xl object-contain", height = 36, priority }: BrandLogoProps) {
+export function BrandLogo({ className = "h-9 w-[7.5rem] rounded-2xl object-contain", height = 36, priority }: BrandLogoProps) {
   const width = Math.round(height * (120 / 36));
   return (
     <Image
@@ -18,7 +18,7 @@ export function BrandLogo({ className = "h-9 w-auto rounded-2xl object-contain",
       width={width}
       height={height}
       className={className}
-      sizes={`(max-width: 768px) ${height}px, ${width}px`}
+      sizes={`${width}px`}
       priority={priority}
       quality={75}
     />

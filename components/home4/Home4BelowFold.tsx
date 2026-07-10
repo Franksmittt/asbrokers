@@ -153,10 +153,11 @@ export function Home4BelowFold() {
               ))}
             </div>
           </div>
+
+          <RelatedContent variant="warm" inset links={getRelatedLinks("/")} className="mt-14" />
         </div>
       </section>
 
-      <RelatedContent variant="warm" links={getRelatedLinks("/")} />
       <Footer />
     </>
   );

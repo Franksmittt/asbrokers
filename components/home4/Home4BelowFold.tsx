@@ -36,7 +36,16 @@ export function Home4BelowFold() {
 
       <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-journey">
         <div className={HOME4_WRAP}>
-          <Home4Reveal className="rounded-3xl bg-white/70 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm sm:p-8 md:p-10">
+          <Home4Reveal className="relative overflow-hidden rounded-3xl bg-white/75 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm sm:p-8 md:p-10">
+            <div
+              className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cinematic-teal/[0.07] blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -bottom-20 -left-12 h-44 w-44 rounded-full bg-samsung-blue/[0.06] blur-3xl"
+              aria-hidden
+            />
+            <div className="relative">
             <Home4SectionHeader
               headingId="home4-journey"
               kicker="Your journey"
@@ -44,6 +53,7 @@ export function Home4BelowFold() {
               description="Move from curiosity to clarity: education first, advice when you're ready."
             />
             <Home4JourneyFunnel stages={HOME4_JOURNEY_STAGES} />
+            </div>
           </Home4Reveal>
         </div>
       </section>

@@ -28,6 +28,7 @@ export type FunnelStage = {
   description: string;
   href: string;
   cta: string;
+  accent: "teal" | "blue" | "gold" | "advice";
 };
 
 export type Testimonial = {
@@ -131,30 +132,34 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "01",
     title: "Education",
-    description: "Start with plain-language guides that explain the trade-offs.",
+    description: "Retirement, estate, Everest, and insurance — explained in plain English.",
     href: "/insights",
     cta: "Read articles",
+    accent: "teal",
   },
   {
     step: "02",
     title: "Calculator",
-    description: "Run the numbers yourself. Illustrative, transparent, no pressure.",
+    description: "Model income, longevity, and estate duty before you commit to a plan.",
     href: "/calculators",
     cta: "Open calculators",
+    accent: "blue",
   },
   {
     step: "03",
     title: "Understanding",
-    description: "Connect the dots between your goals, risks, and options.",
-    href: "/how-we-work",
+    description: "See how we diagnose, design, implement, and review your plan over time.",
+    href: "/about",
     cta: "How we work",
+    accent: "gold",
   },
   {
     step: "04",
     title: "Advice",
-    description: "When you're ready, speak with a licensed independent adviser.",
+    description: "Licensed independent review with FSP 17273 — Krugersdorp and the West Rand.",
     href: "/contact",
     cta: "Book a consultation",
+    accent: "advice",
   },
 ];
 

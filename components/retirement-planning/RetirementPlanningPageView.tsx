@@ -19,14 +19,15 @@ import {
   HUB_BLUE as BLUE,
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 
 const HERO_IMAGE = "/images/home4-goal-retire-16x9.png";
 
-const CALC_REALITY = "/embed-calculators/asset-002-retirement-reality-check.html";
-const CALC_GROWTH = "/embed-calculators/asset-001-retirement-growth.html";
-const CALC_GOAL = "/embed-calculators/asset-017-personal-goal.html";
+const CALC_REALITY = calculatorPagePath("asset-002-retirement-reality-check");
+const CALC_GROWTH = calculatorPagePath("asset-001-retirement-growth");
+const CALC_GOAL = calculatorPagePath("asset-017-personal-goal");
 
 const CALCULATOR_TILES = [
   {

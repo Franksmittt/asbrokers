@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { CALCULATOR_REGISTRY, formatPublicCalculatorTitle } from "@/lib/calculators/registry";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
 export const metadata = buildPageMetadata({
@@ -63,7 +64,7 @@ export default function CalculatorsPage() {
             {CALCULATOR_REGISTRY.map((entry) => (
               <li key={entry.id} id={entry.id}>
                 <Link
-                  href={entry.embedPath}
+                  href={calculatorPagePath(entry.id)}
                   prefetch={false}
                   className="group flex h-full flex-col rounded-2xl bg-white p-5 shadow-md ring-1 ring-stone-200/90 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                 >

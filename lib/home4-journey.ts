@@ -105,7 +105,7 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   {
     label: "Run Out of Capital Test",
     description: "Will your retirement savings last your lifetime?",
-    href: "/calculators#asset-004-life-of-capital",
+    href: "/calculators/asset-004-life-of-capital",
     image: "/images/calculators-capital-lifespan-4x3.jpg",
   },
   {

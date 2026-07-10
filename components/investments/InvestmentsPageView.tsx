@@ -19,16 +19,17 @@ import {
   HUB_BLUE as BLUE,
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 
 const HERO_IMAGE = "/images/home4-import/card1.png";
 
-const CALC_POWER_OF_GROWTH = "/embed-calculators/asset-016-growth-comparison.html";
-const CALC_PERSONAL_GOAL = "/embed-calculators/asset-017-personal-goal.html";
-const CALC_INCOME_VS_GROWTH = "/embed-calculators/asset-013-everest-income-vs-growth.html";
-const CALC_LIVING_ANNUITY = "/embed-calculators/asset-014-living-annuity.html";
-const CALC_LIFE_OF_CAPITAL = "/embed-calculators/asset-004-life-of-capital.html";
+const CALC_POWER_OF_GROWTH = calculatorPagePath("asset-016-growth-comparison");
+const CALC_PERSONAL_GOAL = calculatorPagePath("asset-017-personal-goal");
+const CALC_INCOME_VS_GROWTH = calculatorPagePath("asset-013-everest-income-vs-growth");
+const CALC_LIVING_ANNUITY = calculatorPagePath("asset-014-living-annuity");
+const CALC_LIFE_OF_CAPITAL = calculatorPagePath("asset-004-life-of-capital");
 
 const BEFORE_LINKS = [
   { label: "Tax-free investments", href: "/everest-wealth" },

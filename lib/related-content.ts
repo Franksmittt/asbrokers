@@ -1,4 +1,5 @@
 import type { RelatedLink } from "@/components/seo/RelatedContent";
+import { getCalculatorPageConfig } from "@/lib/calculators/page-configs";
 
 export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   "/solutions/personal-insurance": [
@@ -445,5 +446,28 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
 };
 
 export function getRelatedLinks(path: string): RelatedLink[] {
+  if (path.startsWith("/calculators/asset-")) {
+    const slug = path.replace("/calculators/", "");
+    const config = getCalculatorPageConfig(slug);
+    if (config) {
+      return [
+        {
+          href: "/calculators",
+          title: "All calculators",
+          description: "Seventeen planning tools for retirement, Everest, estate, tax, and insurance.",
+        },
+        {
+          href: config.categoryHref,
+          title: config.categoryLabel,
+          description: "Explore related advice and resources on AS Brokers.",
+        },
+        {
+          href: "/contact",
+          title: "Book a consultation",
+          description: "Independent FSP 17273 advice in Krugersdorp.",
+        },
+      ];
+    }
+  }
   return SOLUTION_RELATED[path] ?? HUB_RELATED[path] ?? [];
 }

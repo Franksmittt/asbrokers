@@ -7,6 +7,7 @@ import {
   formatPublicCalculatorTitle,
   type CalculatorRegistryEntry,
 } from "@/lib/calculators/registry";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 
 export type HubCalculator = {
   id: string;
@@ -20,7 +21,7 @@ function toHubCalculator(entry: CalculatorRegistryEntry): HubCalculator {
     id: entry.id,
     assetCode: entry.assetCode,
     title: formatPublicCalculatorTitle(entry),
-    href: entry.embedPath,
+    href: calculatorPagePath(entry.id),
   };
 }
 

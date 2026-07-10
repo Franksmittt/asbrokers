@@ -19,13 +19,14 @@ import {
   HUB_BLUE as BLUE,
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 
 const HERO_IMAGE = "/images/home4-goal-estate-16x9.png";
 
-const CALC_ESTATE_DUTY = "/embed-calculators/asset-007-estate-duty.html";
-const CALC_ESTATE_REDUCTION = "/embed-calculators/asset-008-estate-reduction.html";
+const CALC_ESTATE_DUTY = calculatorPagePath("asset-007-estate-duty");
+const CALC_ESTATE_REDUCTION = calculatorPagePath("asset-008-estate-reduction");
 
 const OUTCOME_CARDS = [
   {

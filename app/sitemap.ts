@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import "server-only";
+import { CALCULATOR_PAGE_SLUGS } from "@/lib/calculators/page-configs";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
 import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -75,6 +77,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   };
 
   for (const path of STATIC_PATHS) push(path);
+
+  for (const slug of CALCULATOR_PAGE_SLUGS) push(calculatorPagePath(slug));
 
   let sanityRows: SanitySitemapRow[] = [];
   const sanityProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim();

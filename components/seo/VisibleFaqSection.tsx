@@ -4,6 +4,7 @@ type VisibleFaqSectionProps = {
   faqs: FAQItem[];
   heading?: string;
   className?: string;
+  wide?: boolean;
 };
 
 /**
@@ -13,6 +14,7 @@ export function VisibleFaqSection({
   faqs,
   heading = "Frequently asked questions",
   className = "",
+  wide = false,
 }: VisibleFaqSectionProps) {
   if (!faqs.length) return null;
 
@@ -22,7 +24,7 @@ export function VisibleFaqSection({
       className={`border-t border-stone-200/80 bg-[#FDFCFA] py-12 md:py-16 ${className}`}
       aria-labelledby="visible-faq-heading"
     >
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 md:px-8">
+      <div className={`mx-auto px-4 sm:px-6 md:px-8 ${wide ? "max-w-4xl" : "max-w-3xl"}`}>
         <h2 id="visible-faq-heading" className="text-2xl font-bold tracking-tight text-shark sm:text-3xl">
           {heading}
         </h2>

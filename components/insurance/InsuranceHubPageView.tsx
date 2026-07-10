@@ -19,13 +19,14 @@ import {
   HUB_BLUE as BLUE,
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 
 /** Golden-hour suburban family — text lives in a separate column, never overlaid. */
 const HERO_IMAGE = "/images/home4-goal-insure-16x9.png";
 
-const CALC_AVERAGE_CLAUSE = "/embed-calculators/asset-015-average-clause.html";
+const CALC_AVERAGE_CLAUSE = calculatorPagePath("asset-015-average-clause");
 const PREMIUM_LIABILITY = "/solutions/life-insurance";
 const BUSINESS_RISK_REVIEW = "/business-risk-review";
 

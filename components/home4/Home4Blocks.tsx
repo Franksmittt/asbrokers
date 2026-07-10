@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar, LineChart, Scroll, ShieldCheck } from "@/components/icons";
+import { ArrowRight } from "@/components/icons";
 import { HubReveal } from "@/components/hub/HubReveal";
 import type {
   CalculatorTile,
@@ -13,28 +13,7 @@ import { HUB_TEAL } from "@/lib/hub-design-tokens";
 
 export const HOME4_WRAP = "mx-auto max-w-7xl px-4 sm:px-6 md:px-8";
 
-const GOAL_CARD_IMAGE_SIZES = "(max-width: 640px) 380px, (max-width: 1280px) 50vw, 300px";
-
-const ACCENT_RING: Record<GoalCard["accent"], string> = {
-  teal: "ring-cinematic-teal/25 hover:ring-cinematic-teal/45",
-  blue: "ring-samsung-blue/25 hover:ring-samsung-blue/45",
-  orange: "ring-orange-300/40 hover:ring-orange-400/55",
-  gold: "ring-amber-300/40 hover:ring-amber-400/55",
-};
-
-const ACCENT_TEXT: Record<GoalCard["accent"], string> = {
-  teal: "text-[#006B6B]",
-  blue: "text-samsung-blue",
-  orange: "text-orange-700",
-  gold: "text-amber-700",
-};
-
-const GOAL_ICONS: Record<GoalCard["accent"], typeof LineChart> = {
-  teal: Calendar,
-  blue: LineChart,
-  orange: ShieldCheck,
-  gold: Scroll,
-};
+const GOAL_CARD_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 560px";
 
 /** @deprecated Use HubReveal — kept as alias for below-fold imports. */
 export function Home4Reveal({
@@ -55,20 +34,17 @@ export function Home4Reveal({
   );
 }
 
+/** Photo-led pathway — image first, no icon badges or heavy overlays. */
 export function Home4GoalCard({ card, priority = false }: { card: GoalCard; priority?: boolean }) {
-  const Icon = GOAL_ICONS[card.accent];
-
   return (
-    <article
-      className={`group relative overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm transition-all duration-300 ease-apple hover:-translate-y-2 hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
-    >
+    <article className="group relative">
       <Link
         href={card.href}
         prefetch={false}
-        className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+        className="absolute inset-0 z-0 rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
         aria-label={`Explore ${card.title}`}
       />
-      <div className="relative z-[1] h-36 w-full overflow-hidden sm:h-40 pointer-events-none">
+      <div className="relative z-[1] aspect-[16/10] w-full overflow-hidden pointer-events-none">
         <Image
           src={card.image}
           alt={getAlt(card.image, card.title)}
@@ -76,20 +52,22 @@ export function Home4GoalCard({ card, priority = false }: { card: GoalCard; prio
           unoptimized
           priority={priority}
           fetchPriority={priority ? "high" : "auto"}
-          className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
+          className="object-cover transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
           sizes={GOAL_CARD_IMAGE_SIZES}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-shark/70 via-shark/20 to-transparent" />
-        <div className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}>
-          <Icon className="h-3.5 w-3.5" aria-hidden />
-          {card.badge}
-        </div>
       </div>
-      <div className="relative z-10 p-5 sm:p-6">
-        <h2 className="text-lg font-semibold tracking-tight text-shark sm:text-xl">{card.title}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-stone-600">{card.description}</p>
-        <ul className="mt-4 space-y-1.5 border-t border-stone-100 pt-4">
-          {card.links.map((link) => (
+      <div className="relative z-10 pt-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+          {card.badge}
+        </p>
+        <h2 className="mt-2 text-xl font-semibold tracking-tight text-shark sm:text-2xl">
+          {card.title}
+        </h2>
+        <p className="mt-2 max-w-md text-sm leading-relaxed text-stone-600 sm:text-base">
+          {card.description}
+        </p>
+        <ul className="mt-4 space-y-1.5">
+          {card.links.slice(0, 3).map((link) => (
             <li key={`${link.label}-${link.href}`}>
               <Link
                 href={link.href}
@@ -101,11 +79,9 @@ export function Home4GoalCard({ card, priority = false }: { card: GoalCard; prio
             </li>
           ))}
         </ul>
-        <span
-          className={`relative z-10 mt-5 inline-flex items-center gap-2 text-sm font-semibold ${ACCENT_TEXT[card.accent]}`}
-        >
+        <span className="relative z-10 mt-5 inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue">
           Explore
-          <ArrowRight className="h-4 w-4" aria-hidden />
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
         </span>
       </div>
     </article>
@@ -117,7 +93,7 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
     <Link
       href={tile.href}
       prefetch={false}
-      className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-stone-200/70 transition-all duration-300 ease-apple hover:-translate-y-1 hover:shadow-2xl"
+      className="group flex flex-col overflow-hidden"
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden">
         <Image
@@ -125,12 +101,11 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
           alt={getAlt(tile.image, tile.label)}
           fill
           unoptimized
-          className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
+          className="object-cover transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
           sizes={GOAL_CARD_IMAGE_SIZES}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-shark/55 to-transparent" />
       </div>
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col pt-4">
         <h3 className="text-base font-semibold text-shark">{tile.label}</h3>
         <p className="mt-1.5 flex-1 text-sm leading-relaxed text-stone-600">{tile.description}</p>
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: HUB_TEAL }}>
@@ -142,46 +117,41 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
   );
 }
 
+/** Quiet numbered steps — no connector arrows, no glass dashboard panel. */
 export function Home4JourneyFunnel({ stages }: { stages: FunnelStage[] }) {
   return (
-    <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ol className="mt-10 grid list-none gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
       {stages.map((stage, index) => (
-        <Home4Reveal key={stage.step} delay={index * 0.06}>
-          <div className="relative h-full rounded-3xl bg-white/80 p-5 shadow-md ring-1 ring-stone-200/70 backdrop-blur-sm">
-            <Link
-              href={stage.href}
-              prefetch={false}
-              className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
-              aria-label={`${stage.cta}: ${stage.title}`}
-            />
-            <span className="relative z-10 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: HUB_TEAL }}>
-              {stage.step}
-            </span>
-            <h3 className="relative z-10 mt-2 text-lg font-semibold text-shark">{stage.title}</h3>
-            <p className="relative z-10 mt-2 text-sm leading-relaxed text-stone-600">{stage.description}</p>
-            <span className="relative z-10 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue">
-              {stage.cta}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </span>
-            {index < stages.length - 1 ? (
-              <span
-                className="pointer-events-none absolute -right-2 top-1/2 hidden -translate-y-1/2 text-stone-300 lg:inline"
-                aria-hidden
-              >
-                →
+        <li key={stage.step}>
+          <Home4Reveal delay={index * 0.06}>
+            <div className="relative h-full">
+              <Link
+                href={stage.href}
+                prefetch={false}
+                className="absolute inset-0 z-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+                aria-label={`${stage.cta}: ${stage.title}`}
+              />
+              <span className="relative z-10 font-serif text-4xl text-stone-300" aria-hidden>
+                {stage.step}
               </span>
-            ) : null}
-          </div>
-        </Home4Reveal>
+              <h3 className="relative z-10 mt-3 text-lg font-semibold text-shark">{stage.title}</h3>
+              <p className="relative z-10 mt-2 text-sm leading-relaxed text-stone-600">{stage.description}</p>
+              <span className="relative z-10 mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue">
+                {stage.cta}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </span>
+            </div>
+          </Home4Reveal>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }
 
 export function Home4TestimonialCard({ item }: { item: Testimonial }) {
   return (
-    <figure className="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-stone-200/70">
-      <div className="relative h-44 w-full">
+    <figure className="flex h-full flex-col">
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
         <Image
           src={item.photo}
           alt={getAlt(item.photo, `${item.who}, client story`)}
@@ -190,11 +160,10 @@ export function Home4TestimonialCard({ item }: { item: Testimonial }) {
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-shark/75 via-shark/15 to-transparent" />
       </div>
-      <blockquote className="flex flex-1 flex-col p-6">
+      <blockquote className="flex flex-1 flex-col pt-5">
         <p className="text-sm leading-relaxed text-stone-700 sm:text-[15px]">&ldquo;{item.quote}&rdquo;</p>
-        <figcaption className="mt-4 border-t border-stone-100 pt-4 text-sm">
+        <figcaption className="mt-4 text-sm">
           <span className="font-semibold text-shark">{item.who}</span>
           <span className="text-stone-400"> · </span>
           <span className="text-stone-500">{item.where}</span>

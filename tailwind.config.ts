@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+        serif: ["Iowan Old Style", "Palatino Linotype", "Palatino", "Georgia", "serif"],
       },
       colors: {
         vault: {

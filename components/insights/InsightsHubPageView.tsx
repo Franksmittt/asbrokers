@@ -82,16 +82,16 @@ function InsightsNewsletterSignup() {
   const [state, formAction, isPending] = useActionState(subscribeNewsletter, initialNewsletterState);
 
   return (
-    <div className="flex h-full flex-col rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-7">
+    <div className="flex h-full flex-col rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-2xl sm:p-7">
       <h3
-        className="font-bold tracking-tight"
-        style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)", color: INK }}
+        className="font-bold tracking-tight text-white"
+        style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)" }}
       >
         Stay ahead of your financial future.
       </h3>
       <p
-        className="mt-3 leading-relaxed"
-        style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
+        className="mt-3 leading-relaxed text-white/75"
+        style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
       >
         Occasional fiduciary insights on retirement, estate duty, and wealth. No spam.
       </p>
@@ -102,13 +102,13 @@ function InsightsNewsletterSignup() {
           placeholder="your@email.com"
           required
           disabled={isPending}
-          className="w-full rounded-xl border border-stone-200 bg-stone-50 py-3 pl-4 pr-12 text-sm text-shark placeholder:text-stone-500 transition-colors focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/20 disabled:opacity-60"
+          className="w-full rounded-xl border border-white/15 bg-white/10 py-3 pl-4 pr-12 text-sm text-white placeholder:text-white/45 transition-colors focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/20 disabled:opacity-60"
           aria-label="Email for newsletter"
         />
         <button
           type="submit"
           disabled={isPending}
-          className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-samsung-blue text-white transition-all duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue disabled:opacity-60"
+          className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-white text-shark transition hover:bg-stone-100 disabled:opacity-60"
           aria-label={isPending ? "Subscribing" : "Subscribe to newsletter"}
         >
           <ArrowRight className="h-4 w-4" aria-hidden />
@@ -116,7 +116,7 @@ function InsightsNewsletterSignup() {
       </form>
       {state.message ? (
         <p
-          className={`mt-2 text-sm ${state.success ? "text-cinematic-teal" : "text-amber-700"}`}
+          className={`mt-2 text-sm ${state.success ? "text-cinematic-teal" : "text-amber-300"}`}
           role="status"
         >
           {state.message}
@@ -334,22 +334,30 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
 
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-12 md:py-16"
-        style={{ backgroundColor: "#FDFCFA" }}
+        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        style={{ backgroundColor: INK }}
         aria-label="Calculators and newsletter"
       >
-        <div className={`${GRID} lg:items-stretch`}>
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-samsung-blue/20 blur-3xl"
+          aria-hidden
+        />
+        <div className={`relative ${GRID} lg:items-stretch`}>
           <HubReveal className="col-span-12 lg:col-span-6">
-            <div className="flex h-full flex-col rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-7">
+            <div className="flex h-full flex-col rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-2xl sm:p-7">
               <h3
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)", color: INK }}
+                className="font-bold tracking-tight text-white"
+                style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)" }}
               >
                 Prefer to run the numbers yourself?
               </h3>
               <p
-                className="mt-3 flex-1 leading-relaxed"
-                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
+                className="mt-3 flex-1 leading-relaxed text-white/75"
+                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
               >
                 Access our calculator library for retirement, estate duty, insurance, and Everest
                 Wealth scenarios.
@@ -357,7 +365,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
               <Link
                 href="/calculators"
                 prefetch={false}
-                className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 font-semibold text-white shadow-md shadow-samsung-blue/20 transition-[background-color,box-shadow] duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue"
+                className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-6 py-3 font-semibold text-shark transition hover:bg-stone-100"
                 style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
               >
                 View Calculators

@@ -34,6 +34,53 @@ const FIDUCIARY: string[] = [
   "FSP 17273 · Category 1.8 independent adviser · Krugersdorp.",
 ];
 
+/** Pad every calculator page to six FAQs for a 3×2 grid (merged into JSON-LD). */
+const COMMON_CALCULATOR_FAQS: FAQItem[] = [
+  {
+    question: "Is this personalised financial advice?",
+    answer:
+      "No. All AS Brokers calculators are educational illustrations only. Book FSP 17273 for advice tailored to your circumstances.",
+  },
+  {
+    question: "Is this calculator free to use?",
+    answer:
+      "Yes. You can run the tool as often as you like. There is no charge for using the calculator on asbrokers.co.za.",
+  },
+  {
+    question: "How do I book a consultation?",
+    answer:
+      "Visit our contact page or call AS Brokers in Krugersdorp. An independent adviser can review your numbers and next steps.",
+  },
+  {
+    question: "Are the results guaranteed?",
+    answer:
+      "No. Outputs depend on your inputs and assumptions. Markets, tax, and product terms can change actual outcomes.",
+  },
+  {
+    question: "Who is AS Brokers?",
+    answer:
+      "AS Brokers CC is an independent Category 1.8 financial services provider (FSP 17273) based in Krugersdorp, serving the West Rand.",
+  },
+  {
+    question: "Can I use this with my existing adviser?",
+    answer:
+      "Yes. Many clients bring calculator results to a review meeting. You can also book directly with our team.",
+  },
+];
+
+function buildFaqs(specific: FAQItem[]): FAQItem[] {
+  const seen = new Set(specific.map((item) => item.question));
+  const merged = [...specific];
+  for (const item of COMMON_CALCULATOR_FAQS) {
+    if (merged.length >= 6) break;
+    if (!seen.has(item.question)) {
+      merged.push(item);
+      seen.add(item.question);
+    }
+  }
+  return merged.slice(0, 6);
+}
+
 type PageContent = Omit<
   CalculatorPageConfig,
   "id" | "path" | "assetCode" | "calculatorSrc" | "calculatorTitle"
@@ -107,9 +154,24 @@ const PAGES: Record<string, PageContent> = {
           "Use your target in today's money and discuss real vs nominal returns with your adviser for a complete plan.",
       },
       {
+        question: "What should I include in current savings?",
+        answer:
+          "Include retirement annuities, pension funds, preservation funds, and voluntary investments you intend to use at retirement.",
+      },
+      {
+        question: "What return assumption is realistic?",
+        answer:
+          "Many planners stress-test conservative, moderate, and optimistic bands. Compare the required rate with those bands before acting.",
+      },
+      {
         question: "Can AS Brokers help me implement a plan?",
         answer:
           "Yes. We are an independent Category 1.8 FSP (17273) serving Krugersdorp and the West Rand.",
+      },
+      {
+        question: "How often should I rerun this calculator?",
+        answer:
+          "Rerun when your salary, contributions, or retirement date changes, or at least once a year as part of a retirement review.",
       },
     ],
     ...RETIREMENT,
@@ -955,13 +1017,14 @@ function buildConfig(entry: CalculatorRegistryEntry): CalculatorPageConfig {
   if (!content) {
     throw new Error(`Missing page content for calculator ${entry.id}`);
   }
-  const { shortTitle, ...rest } = content;
+  const { shortTitle, faqs, ...rest } = content;
   return {
     id: entry.id,
     path: calculatorPagePath(entry.id),
     assetCode: entry.assetCode,
     calculatorSrc: entry.embedPath,
     calculatorTitle: shortTitle,
+    faqs: buildFaqs(faqs),
     ...rest,
   };
 }

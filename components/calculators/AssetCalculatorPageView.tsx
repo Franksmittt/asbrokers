@@ -136,16 +136,16 @@ export function AssetCalculatorPageView({
               when you want numbers tailored to your situation.
             </p>
           </HubReveal>
-          <ol className="mt-10 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-10 grid list-none gap-6 sm:grid-cols-2 sm:items-stretch">
             {howToSteps.map((step, index) => (
-              <li key={step.title}>
-                <HubReveal delay={index * 0.04}>
-                  <div className="h-full rounded-2xl bg-white p-5 ring-1 ring-stone-200/90">
+              <li key={step.title} className="flex">
+                <HubReveal delay={index * 0.04} className="flex flex-1">
+                  <div className="flex h-full min-h-[10.5rem] w-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:min-h-[11rem]">
                     <span className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">
                       Step {index + 1}
                     </span>
                     <h3 className="mt-2 font-semibold text-shark">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-stone-600">{step.description}</p>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-stone-600">{step.description}</p>
                   </div>
                 </HubReveal>
               </li>
@@ -253,7 +253,7 @@ export function AssetCalculatorPageView({
         </section>
       ))}
 
-      <VisibleFaqSection faqs={faqs} wide />
+      <VisibleFaqSection faqs={faqs} wide twoColumn />
 
       <section className="border-t border-stone-200/80 py-12 md:py-14" style={{ backgroundColor: CANVAS }}>
         <div className={`${HOME4_WRAP} text-center`}>

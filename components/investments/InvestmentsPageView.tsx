@@ -51,7 +51,7 @@ const EVEREST_PRODUCTS = [
     tag: "Monthly income + loyalty bonus",
     description:
       "Monthly dividend income with a 10% loyalty bonus on capital after five years. A balanced choice if you can accept slightly lower cash flow now for long-term value.",
-    href: "/everest-128-product",
+    href: calculatorPagePath("asset-010-everest-128-income"),
     cta: "Explore Strategic Income",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -67,7 +67,7 @@ const EVEREST_PRODUCTS = [
     tag: "Maximum day-one income",
     description:
       "Higher monthly income from day one, with no loyalty bonus. Suited when you need maximum cash flow now.",
-    href: "/immediate-higher-income-calculator",
+    href: calculatorPagePath("asset-009-everest-142-income"),
     cta: "Explore Onyx Income+",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -83,7 +83,7 @@ const EVEREST_PRODUCTS = [
     tag: "Pure compounding",
     description:
       "Capital compounding with no monthly withdrawals. Returns accumulate over five years and are paid at maturity.",
-    href: "/everest-strategic-growth-145",
+    href: calculatorPagePath("asset-012-strategic-growth"),
     cta: "Explore Strategic Growth",
     fiduciary: [
       "R100,000 minimum lump sum",
@@ -197,7 +197,7 @@ function EverestProductCard({
   fiduciary,
 }: (typeof EVEREST_PRODUCTS)[number]) {
   return (
-    <article className="flex h-full flex-col rounded-2xl bg-white/90 p-6 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm sm:p-7">
+    <article className="flex h-full w-full flex-col rounded-2xl bg-white/90 p-6 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <span
@@ -364,6 +364,7 @@ export function InvestmentsPageView({ faqs }: Props) {
                   "Successful South African couple reviewing investment plans with an adviser"
                 )}
                 fill
+                unoptimized
                 priority
                 className="object-cover object-center"
                 sizes={HUB_SPLIT_HERO_SIZES}
@@ -415,17 +416,17 @@ export function InvestmentsPageView({ faqs }: Props) {
         style={{ backgroundColor: CANVAS }}
         aria-labelledby="investments-everest-heading"
       >
-        <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-8">
+        <div className={HOME4_WRAP}>
+          <HubReveal>
             <h2
               id="investments-everest-heading"
-              className="font-bold tracking-tight"
+              className="max-w-3xl font-bold tracking-tight"
               style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
             >
               Access investments many advisers cannot offer.
             </h2>
             <p
-              className="mt-3 max-w-2xl leading-relaxed"
+              className="mt-3 max-w-3xl leading-relaxed"
               style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
               Everest Wealth voluntary products target structured return profiles — not guaranteed
@@ -433,26 +434,24 @@ export function InvestmentsPageView({ faqs }: Props) {
             </p>
           </HubReveal>
 
-          {EVEREST_PRODUCTS.map((product, index) => (
-            <HubReveal
-              key={product.title}
-              delay={index * 0.04}
-              className="col-span-12 md:col-span-4"
-            >
-              <EverestProductCard {...product} />
-            </HubReveal>
-          ))}
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:items-stretch">
+            {EVEREST_PRODUCTS.map((product, index) => (
+              <HubReveal key={product.title} delay={index * 0.04} className="flex h-full">
+                <EverestProductCard {...product} />
+              </HubReveal>
+            ))}
+          </div>
 
-          <HubReveal className="col-span-12">
+          <HubReveal>
             <p
-              className="leading-relaxed text-stone-600"
+              className="mt-8 leading-relaxed text-stone-600"
               style={{ fontSize: "clamp(0.8125rem, 0.8rem + 0.08vw, 0.875rem)" }}
             >
               Targeted returns are not guaranteed. Voluntary Everest capital is illiquid: 120-day
               notice and up to 15% early exit penalty may apply. Dividends subject to 20% DWT.
               R100,000 minimum on voluntary products. Amethyst living annuity rules differ — see{" "}
-              <Link href="/everest-wealth" prefetch={false} className="font-semibold" style={{ color: TEAL }}>
-                Everest Wealth hub
+              <Link href="/everest-wealth/about" prefetch={false} className="font-semibold" style={{ color: TEAL }}>
+                Understanding Everest
               </Link>
               .
             </p>

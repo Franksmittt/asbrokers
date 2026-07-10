@@ -75,7 +75,6 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     description: "Personal protection, health cover, assets, and business risk.",
     href: "/insurance",
     links: [
-      { label: "Insurance & risk hub", href: "/insurance" },
       { label: "Personal insurance", href: "/solutions/personal-insurance" },
       { label: "Medical aid & gap", href: "/solutions/medical-aid" },
       { label: "Life cover", href: "/solutions/life-insurance" },

@@ -25,6 +25,9 @@ export function RelatedContent({
   if (!links.length) return null;
 
   const warm = variant === "warm";
+  const containerClass = warm
+    ? "mx-auto max-w-7xl px-4 sm:px-6 md:px-8"
+    : "mx-auto max-w-4xl px-4 sm:px-6 md:px-8";
 
   return (
     <section
@@ -32,7 +35,7 @@ export function RelatedContent({
       className={`border-t py-12 ${warm ? "border-stone-200/80" : "border-white/10"} ${className}`}
       aria-labelledby="related-content-heading"
     >
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 md:px-8">
+      <div className={containerClass}>
         <h2
           id="related-content-heading"
           className={`mb-6 text-xl font-bold md:text-2xl ${warm ? "text-shark" : "text-white"}`}

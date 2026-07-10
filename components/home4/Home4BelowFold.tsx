@@ -51,43 +51,39 @@ export function Home4BelowFold() {
       <section data-chunk-boundary="true" className="border-y border-stone-200/80 bg-white/60 py-16 md:py-20" aria-labelledby="home4-pathways">
         <div className={`${HOME4_WRAP} grid gap-6 lg:grid-cols-2`}>
           <Home4Reveal>
-            <div className="group relative flex h-full flex-col rounded-3xl bg-gradient-to-br from-stone-50 to-white p-8 shadow-xl ring-1 ring-stone-200/70">
-              <Link
-                href="/insights"
-                prefetch={false}
-                className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
-                aria-label="Explore resources and articles"
-              />
-              <h2 id="home4-pathways" className="relative z-10 text-2xl font-bold tracking-tight text-shark">
+            <Link
+              href="/insights"
+              prefetch={false}
+              className="group flex h-full flex-col rounded-3xl bg-gradient-to-br from-stone-50 to-white p-8 shadow-xl ring-1 ring-stone-200/70 transition-shadow hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+            >
+              <h2 id="home4-pathways" className="text-2xl font-bold tracking-tight text-shark">
                 Prefer to explore on your own?
               </h2>
-              <p className="relative z-10 mt-3 flex-1 text-stone-600 leading-relaxed">
+              <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
                 Access articles and guides at your own pace, no forms, no pressure.
               </p>
-              <span className="relative z-10 mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-stone-100 px-6 py-3 text-sm font-semibold text-shark transition-colors group-hover:bg-stone-200">
+              <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-stone-100 px-6 py-3 text-sm font-semibold text-shark transition-colors group-hover:bg-stone-200">
                 Explore resources
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </span>
-            </div>
+            </Link>
           </Home4Reveal>
           <Home4Reveal delay={0.08}>
-            <div className="group relative flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15">
-              <Link
-                href="/contact"
-                prefetch={false}
-                className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
-                aria-label="Book an actuarial consultation"
-              />
-              <h2 className="relative z-10 text-2xl font-bold tracking-tight text-shark">Need personalized guidance?</h2>
-              <p className="relative z-10 mt-3 flex-1 text-stone-600 leading-relaxed">
+            <Link
+              href="/contact"
+              prefetch={false}
+              className="group flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15 transition-shadow hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+            >
+              <h2 className="text-2xl font-bold tracking-tight text-shark">Need personalized guidance?</h2>
+              <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
                 Speak with a licensed independent fiduciary who can tailor retirement, investment, and estate
                 advice to your situation.
               </p>
-              <span className="relative z-10 mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-all group-hover:bg-[#004a9e] group-hover:shadow-xl">
+              <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-all group-hover:bg-[#004a9e] group-hover:shadow-xl">
                 Book an actuarial consultation
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </span>
-            </div>
+            </Link>
           </Home4Reveal>
         </div>
       </section>

@@ -27,6 +27,8 @@ const LEGAL_LINKS = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
   { label: "Complaints", href: "/complaints" },
+  { label: "Studio login", href: "/studio/blog/login" },
+  { label: "CRM login", href: "/login" },
 ] as const;
 
 function FooterNewsletter() {
@@ -140,12 +142,23 @@ export function Footer() {
         {/* Compliance strip */}
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs leading-relaxed text-stone-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-8">
-            <p className="text-center lg:text-left">
-              Copyright © {SITE_COPYRIGHT_YEAR} AS Brokers CC. All rights reserved.
-              <span aria-hidden className="mx-2 hidden text-stone-600 sm:inline">
-                |
-              </span>
-              <span className="mt-1 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:mt-0 sm:inline-flex">
+            <div className="text-center lg:text-left">
+              <p>
+                Copyright © {SITE_COPYRIGHT_YEAR} AS Brokers CC. All rights reserved.
+                <span aria-hidden className="mx-1.5 text-stone-600">
+                  |
+                </span>
+                Designed, Developed and Maintained by{" "}
+                <a
+                  href="https://www.endpointmedia.co.za/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-300 ease-in-out hover:text-stone-300"
+                >
+                  Endpoint Media
+                </a>
+              </p>
+              <span className="mt-1.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 lg:justify-start">
                 {LEGAL_LINKS.map((link) => (
                   <Link
                     key={link.href}
@@ -157,7 +170,7 @@ export function Footer() {
                   </Link>
                 ))}
               </span>
-            </p>
+            </div>
             <p className="text-center text-[11px] leading-snug text-stone-500 lg:max-w-xl lg:text-right">
               Authorised Financial Services Provider | FSP 17273 | FSCA Regulated | FAIS & POPIA
               Compliant.

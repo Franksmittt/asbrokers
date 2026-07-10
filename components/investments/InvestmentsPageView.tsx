@@ -493,35 +493,13 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* TEMP review round 2 — pick D, E, or F */}
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-10"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-label="Trust section design options round 2"
-      >
-        <div className={HOME4_WRAP}>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
-            Design review · Round 2 (new directions)
-          </p>
-          <p className="mt-2 max-w-2xl text-sm text-stone-600">
-            Fresh options — not the previous A/B/C. Reply with <strong>D</strong>, <strong>E</strong>, or{" "}
-            <strong>F</strong>.
-          </p>
-        </div>
-      </section>
-
-      {/* Option D — Photo-led editorial */}
       <section
         data-chunk-boundary="true"
         className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: CANVAS }}
-        aria-labelledby="investments-trust-option-d"
+        aria-labelledby="investments-trust-heading"
       >
         <div className={HOME4_WRAP}>
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
-            Option D · Photo editorial
-          </p>
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-300/70 sm:aspect-[5/4] lg:col-span-5 lg:aspect-auto lg:min-h-[420px]">
               <Image
@@ -544,7 +522,7 @@ export function InvestmentsPageView({ faqs }: Props) {
                 Krugersdorp · West Rand · FSP 17273
               </p>
               <h2
-                id="investments-trust-option-d"
+                id="investments-trust-heading"
                 className="mt-4 font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem)", lineHeight: 1.1, color: INK }}
               >
@@ -560,7 +538,7 @@ export function InvestmentsPageView({ faqs }: Props) {
               </p>
               <dl className="mt-8 grid gap-4 sm:grid-cols-3">
                 {TRUST_BADGES.map((badge) => (
-                  <div key={`d-${badge}`} className="border-l-2 border-cinematic-teal/40 pl-4">
+                  <div key={badge} className="border-l-2 border-cinematic-teal/40 pl-4">
                     <dt className="text-sm font-bold text-shark">{badge}</dt>
                     <dd className="mt-1 text-xs text-stone-500">Verified credential</dd>
                   </div>
@@ -576,128 +554,6 @@ export function InvestmentsPageView({ faqs }: Props) {
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Option E — Oversized numbers */}
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="investments-trust-option-e"
-      >
-        <div className={HOME4_WRAP}>
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: BLUE }}>
-            Option E · Big numbers
-          </p>
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-5">
-              <h2
-                id="investments-trust-option-e"
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.125rem)", color: INK }}
-              >
-                Fiduciary structuring you can trust.
-              </h2>
-              <p
-                className="mt-4 leading-relaxed"
-                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.125rem)", color: BODY }}
-              >
-                As an independent Category 1.8 FSP with over 25 years of experience, we survey the
-                entire market to build a bespoke wealth architecture that serves your goals, free
-                from institutional quotas.
-              </p>
-              <Link
-                href="/contact"
-                prefetch={false}
-                className="mt-8 inline-flex items-center gap-2 font-semibold text-samsung-blue transition hover:text-[#004a9e]"
-              >
-                Book an Investment Strategy Call
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-3 lg:col-span-7">
-              {[
-                { value: "25+", unit: "years", label: "Independent advice" },
-                { value: "1.8", unit: "category", label: "FSCA securities licence" },
-                { value: "17273", unit: "FSP", label: "Authorised provider" },
-              ].map((stat) => (
-                <div
-                  key={stat.value}
-                  className="rounded-3xl bg-white px-5 py-7 text-center shadow-lg ring-1 ring-stone-200/80"
-                >
-                  <p
-                    className="font-bold tabular-nums tracking-tight"
-                    style={{ fontSize: "clamp(2.25rem, 1.8rem + 1.5vw, 3.25rem)", color: TEAL, lineHeight: 1 }}
-                  >
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-400">
-                    {stat.unit}
-                  </p>
-                  <p className="mt-3 text-sm font-medium text-stone-600">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Option F — Full-bleed shark band */}
-      <section
-        data-chunk-boundary="true"
-        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
-        style={{ backgroundColor: INK }}
-        aria-labelledby="investments-trust-option-f"
-      >
-        <div
-          className="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-samsung-blue/25 blur-3xl"
-          aria-hidden
-        />
-        <div className={`relative ${HOME4_WRAP}`}>
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/50">
-            Option F · Dark command band
-          </p>
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cinematic-teal">
-              Independent fiduciary · West Rand
-            </p>
-            <h2
-              id="investments-trust-option-f"
-              className="mt-4 font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
-            >
-              Fiduciary structuring you can trust.
-            </h2>
-            <p
-              className="mt-5 max-w-2xl leading-relaxed text-white/75"
-              style={{ fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)" }}
-            >
-              As an independent Category 1.8 FSP with over 25 years of experience, we survey the
-              entire market to build a bespoke wealth architecture that serves your goals, free from
-              institutional quotas.
-            </p>
-          </div>
-          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-y border-white/10 py-5 text-sm font-semibold text-white/90">
-            {TRUST_BADGES.map((badge) => (
-              <span key={`f-${badge}`} className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
-                {badge}
-              </span>
-            ))}
-          </div>
-          <Link
-            href="/contact"
-            prefetch={false}
-            className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark shadow-lg transition hover:bg-stone-100"
-          >
-            Book an Investment Strategy Call
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
         </div>
       </section>
 

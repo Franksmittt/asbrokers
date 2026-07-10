@@ -79,6 +79,7 @@ const EDUCATION_CARDS = [
   },
 ];
 
+const TRUST_FOCUS = ["Tax-Free Investments & RAs", "Preservation Funds", "Retirement Readiness"];
 const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
 
 function CalculatorTile({
@@ -343,46 +344,70 @@ export function RetirementPlanningPageView({ faqs }: Props) {
       {/* Fiduciary trust */}
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: CANVAS }}
+        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        style={{ backgroundColor: INK }}
         aria-labelledby="planning-trust-heading"
       >
-        <div className={`${GRID} items-center gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-7">
-            <h2
-              id="planning-trust-heading"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-            >
-              Expert guidance for your final working years.
-            </h2>
-            <p
-              className="mt-4 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.125rem)", color: BODY }}
-            >
-              As an independent Category 1.8 FSP, we engineer wealth-building strategies that
-              aren&apos;t tied to a single institution. Let&apos;s build a plan that works for you.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {TRUST_BADGES.map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-700 shadow-sm ring-1 ring-stone-200/80"
-                >
-                  {badge}
-                </span>
-              ))}
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-samsung-blue/20 blur-3xl"
+          aria-hidden
+        />
+        <div className={`relative ${HOME4_WRAP}`}>
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-6">
+              <h2
+                id="planning-trust-heading"
+                className="font-bold tracking-tight text-white"
+                style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+              >
+                Expert guidance for your final working years.
+              </h2>
+              <p className="mt-5 max-w-xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
+                As an independent Category 1.8 FSP, we engineer wealth-building strategies that
+                aren&apos;t tied to a single institution. Let&apos;s build a plan that works for you.
+              </p>
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+              >
+                Book a Retirement Strategy Call
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </div>
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md shadow-samsung-blue/20 transition-all duration-300 hover:bg-[#004a9e] hover:shadow-cta-glow-blue"
-              style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-            >
-              Book a Retirement Strategy Call
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </HubReveal>
+            <div className="lg:col-span-6">
+              <div className="rounded-3xl bg-white/5 p-7 ring-1 ring-white/10 backdrop-blur-2xl sm:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+                  Retirement focus
+                </p>
+                <ul className="mt-5 space-y-3">
+                  {TRUST_FOCUS.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center justify-between border-b border-white/10 pb-3 last:border-0 last:pb-0"
+                    >
+                      <span className="text-base font-semibold text-white">{item}</span>
+                      <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {TRUST_BADGES.map((b) => (
+                    <span
+                      key={b}
+                      className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85 ring-1 ring-white/10"
+                    >
+                      {b}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

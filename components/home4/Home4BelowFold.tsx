@@ -5,12 +5,12 @@ import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getRelatedLinks } from "@/lib/related-content";
 import {
   Home4GoalCard,
-  Home4JourneyFunnel,
   Home4Reveal,
   Home4SectionHeader,
   Home4TestimonialCard,
   HOME4_WRAP,
 } from "@/components/home4/Home4Blocks";
+import { Home4JourneyStyleOptions } from "@/components/home4/Home4JourneyStyleOptions";
 import { ArrowRight } from "@/components/icons";
 import {
   HOME4_GOAL_CARDS,
@@ -34,29 +34,7 @@ export function Home4BelowFold() {
         </div>
       </div>
 
-      <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-journey">
-        <div className={HOME4_WRAP}>
-          <Home4Reveal className="relative overflow-hidden rounded-3xl bg-white/75 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm sm:p-8 md:p-10">
-            <div
-              className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cinematic-teal/[0.07] blur-3xl"
-              aria-hidden
-            />
-            <div
-              className="pointer-events-none absolute -bottom-20 -left-12 h-44 w-44 rounded-full bg-samsung-blue/[0.06] blur-3xl"
-              aria-hidden
-            />
-            <div className="relative">
-            <Home4SectionHeader
-              headingId="home4-journey"
-              kicker="Your journey"
-              title="Start your journey"
-              description="Move from curiosity to clarity: education first, advice when you're ready."
-            />
-            <Home4JourneyFunnel stages={HOME4_JOURNEY_STAGES} />
-            </div>
-          </Home4Reveal>
-        </div>
-      </section>
+      <Home4JourneyStyleOptions stages={HOME4_JOURNEY_STAGES} />
 
       <section data-chunk-boundary="true" className="border-y border-stone-200/80 bg-white/60 py-16 md:py-20" aria-labelledby="home4-pathways">
         <div className={`${HOME4_WRAP} grid gap-6 lg:grid-cols-2`}>

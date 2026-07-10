@@ -102,7 +102,8 @@ const EDUCATION_PILLARS = [
   },
 ];
 
-const TRUST_BADGES = ["FSP 17273", "25+ Years of Experience"];
+const TRUST_FOCUS = ["Wills & Trusts", "Estate Duty Planning", "Business Succession"];
+const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
 
 function OutcomeCard({
   title,
@@ -392,68 +393,83 @@ export function EstatePlanningPageView({ faqs }: Props) {
 
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: CANVAS }}
+        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        style={{ backgroundColor: INK }}
         aria-labelledby="estate-trust-heading"
       >
-        <div className={GRID}>
-          <HubReveal className="col-span-12">
-            <article className="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-stone-200/90 sm:p-10">
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-samsung-blue/20 blur-3xl"
+          aria-hidden
+        />
+        <div className={`relative ${HOME4_WRAP}`}>
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-6">
               <h2
                 id="estate-trust-heading"
-                className="max-w-3xl font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.375rem, 1.1rem + 1vw, 2rem)", color: INK }}
+                className="font-bold tracking-tight text-white"
+                style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
               >
                 Fiduciary structuring you can trust.
               </h2>
-              <p
-                className="mt-4 max-w-3xl leading-relaxed"
-                style={{ fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.125rem)", color: BODY }}
-              >
+              <p className="mt-5 max-w-xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
                 As an independent Category 1.8 FSP with over 25 years of experience, we engineer
                 estate plans that serve your family, not institutional executors.
               </p>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {TRUST_BADGES.map((badge) => (
-                  <span
-                    key={badge}
-                    className="rounded-full bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-800 ring-1 ring-stone-200/90"
-                  >
-                    {badge}
-                  </span>
-                ))}
-              </div>
-
               <Link
                 href="/contact"
                 prefetch={false}
-                className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-cta-glow-blue transition-all duration-300 hover:bg-[#004a9e]"
-                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
               >
                 Book an Estate Planning Review
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
-
-              <p
-                className="mt-8 max-w-3xl leading-relaxed text-stone-600"
-                style={{ fontSize: "clamp(0.8125rem, 0.8rem + 0.08vw, 0.875rem)" }}
-              >
-                AS Brokers does not draft wills or trust deeds and does not provide legal or tax advice
-                on this website. Calculators and articles are educational. Verify current SARS position
-                with qualified professionals.{" "}
-                <Link
-                  href="/regulatory-compliance"
-                  prefetch={false}
-                  className="font-semibold hover:opacity-80"
-                  style={{ color: TEAL }}
-                >
-                  Disclosures
-                </Link>
-                .
-              </p>
-            </article>
-          </HubReveal>
+            </div>
+            <div className="lg:col-span-6">
+              <div className="rounded-3xl bg-white/5 p-7 ring-1 ring-white/10 backdrop-blur-2xl sm:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+                  Estate focus
+                </p>
+                <ul className="mt-5 space-y-3">
+                  {TRUST_FOCUS.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-center justify-between border-b border-white/10 pb-3 last:border-0 last:pb-0"
+                    >
+                      <span className="text-base font-semibold text-white">{item}</span>
+                      <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {TRUST_BADGES.map((b) => (
+                    <span
+                      key={b}
+                      className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85 ring-1 ring-white/10"
+                    >
+                      {b}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="mt-10 max-w-3xl leading-relaxed text-white/50" style={{ fontSize: "0.875rem" }}>
+            AS Brokers does not draft wills or trust deeds and does not provide legal or tax advice on
+            this website. Calculators and articles are educational. Verify current SARS position with
+            qualified professionals.{" "}
+            <Link
+              href="/regulatory-compliance"
+              prefetch={false}
+              className="font-semibold text-cinematic-teal hover:opacity-80"
+            >
+              Disclosures
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

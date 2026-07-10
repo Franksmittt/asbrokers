@@ -368,85 +368,11 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* TEMP: 3 Option C variations — reply C1 / C2 / C3 */}
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-10"
-        style={{ backgroundColor: CANVAS }}
-        aria-label="Insurance trust section Option C variations"
-      >
-        <div className={HOME4_WRAP}>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
-            Design review · Option C variations
-          </p>
-          <p className="mt-2 max-w-2xl text-sm text-stone-600">
-            Same dark shark / teal palette you liked. Three layouts below. Reply with{" "}
-            <strong>C1</strong>, <strong>C2</strong>, or <strong>C3</strong> and we&apos;ll lock that one
-            in.
-          </p>
-        </div>
-      </section>
-
-      {/* C1 — Stacked command (original) */}
-      <section
         className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
         style={{ backgroundColor: INK }}
-        aria-labelledby="insurance-trust-c1"
-      >
-        <div
-          className="pointer-events-none absolute -right-20 top-10 h-64 w-64 rounded-full bg-cinematic-teal/25 blur-3xl"
-          aria-hidden
-        />
-        <div className={`relative ${HOME4_WRAP}`}>
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
-            C1 · Stacked command
-          </p>
-          <h2
-            id="insurance-trust-c1"
-            className="max-w-3xl font-bold tracking-tight text-white"
-            style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
-          >
-            We work for you, not the insurer.
-          </h2>
-          <p className="mt-5 max-w-2xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
-            As an independent Category 1.8 FSP, we review the entire market to engineer a risk
-            architecture that actually pays out when you need it most. No call centres — just
-            dedicated fiduciary experts.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-y border-white/10 py-5">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
-              Partners
-            </span>
-            {PARTNERS.map((p) => (
-              <span key={`c1-${p}`} className="text-sm font-semibold text-white">
-                {p}
-              </span>
-            ))}
-          </div>
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-white/80">
-            {TRUST_BADGES.map((b) => (
-              <span key={`c1-${b}`} className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
-                {b}
-              </span>
-            ))}
-          </div>
-          <Link
-            href="/contact"
-            prefetch={false}
-            className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
-          >
-            Speak to a Fiduciary Advisor
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
-        </div>
-      </section>
-
-      {/* C2 — Split panel */}
-      <section
-        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
-        style={{ backgroundColor: INK }}
-        aria-labelledby="insurance-trust-c2"
+        aria-labelledby="insurance-trust-heading"
       >
         <div
           className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
@@ -457,13 +383,10 @@ export function InsuranceHubPageView({ faqs }: Props) {
           aria-hidden
         />
         <div className={`relative ${HOME4_WRAP}`}>
-          <p className="mb-8 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
-            C2 · Split panel
-          </p>
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-6">
               <h2
-                id="insurance-trust-c2"
+                id="insurance-trust-heading"
                 className="font-bold tracking-tight text-white"
                 style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
               >
@@ -491,7 +414,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
                 <ul className="mt-5 space-y-3">
                   {PARTNERS.map((p) => (
                     <li
-                      key={`c2-${p}`}
+                      key={p}
                       className="flex items-center justify-between border-b border-white/10 pb-3 last:border-0 last:pb-0"
                     >
                       <span className="text-base font-semibold text-white">{p}</span>
@@ -502,7 +425,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
                 <div className="mt-7 flex flex-wrap gap-2">
                   {TRUST_BADGES.map((b) => (
                     <span
-                      key={`c2-${b}`}
+                      key={b}
                       className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85 ring-1 ring-white/10"
                     >
                       {b}
@@ -512,71 +435,6 @@ export function InsuranceHubPageView({ faqs }: Props) {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* C3 — Centered stage */}
-      <section
-        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
-        style={{ backgroundColor: INK }}
-        aria-labelledby="insurance-trust-c3"
-      >
-        <div
-          className="pointer-events-none absolute left-1/2 top-0 h-80 w-80 -translate-x-1/2 rounded-full bg-cinematic-teal/30 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -bottom-20 left-[15%] h-56 w-56 rounded-full bg-samsung-blue/15 blur-3xl"
-          aria-hidden
-        />
-        <div className={`relative ${HOME4_WRAP} text-center`}>
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
-            C3 · Centered stage
-          </p>
-          <h2
-            id="insurance-trust-c3"
-            className="mx-auto max-w-3xl font-bold tracking-tight text-white"
-            style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
-          >
-            We work for you, not the insurer.
-          </h2>
-          <p
-            className="mx-auto mt-5 max-w-2xl leading-relaxed text-white/75"
-            style={{ fontSize: "1.0625rem" }}
-          >
-            As an independent Category 1.8 FSP, we review the entire market to engineer a risk
-            architecture that actually pays out when you need it most. No call centres — just
-            dedicated fiduciary experts.
-          </p>
-          <div className="mx-auto mt-10 flex max-w-xl flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {PARTNERS.map((p, i) => (
-              <span key={`c3-${p}`} className="inline-flex items-center gap-10">
-                {i > 0 ? (
-                  <span className="hidden h-4 w-px bg-white/20 sm:block" aria-hidden />
-                ) : null}
-                <span className="text-sm font-semibold tracking-wide text-white">{p}</span>
-              </span>
-            ))}
-          </div>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {TRUST_BADGES.map((b) => (
-              <span
-                key={`c3-${b}`}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white/5 px-4 py-2.5 text-sm font-medium text-white/85 ring-1 ring-white/10 backdrop-blur-xl"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
-                {b}
-              </span>
-            ))}
-          </div>
-          <Link
-            href="/contact"
-            prefetch={false}
-            className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
-          >
-            Speak to a Fiduciary Advisor
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
         </div>
       </section>
 

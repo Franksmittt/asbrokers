@@ -9,7 +9,7 @@ import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { ArrowRight, Briefcase, LineChart } from "@/components/icons";
+import { ArrowRight, LineChart } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import {
   HUB_TEAL as TEAL,

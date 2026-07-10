@@ -111,19 +111,19 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   {
     label: "Retirement Reality",
     description: "See where you stand today and what gap remains.",
-    href: "/retirement",
+    href: "/calculators/asset-002-retirement-reality-check",
     image: "/images/home-actuarial-engine-16x9.jpg",
   },
   {
     label: "Living Annuity",
     description: "Model drawdowns, income, and sustainability.",
-    href: "/calculators",
+    href: "/calculators/asset-014-living-annuity",
     image: "/images/living-annuity-inset-1x1.jpg",
   },
   {
     label: "Estate Duty",
     description: "Estimate duty and plan for a smoother transfer.",
-    href: "/calculators",
+    href: "/calculators/asset-007-estate-duty",
     image: "/images/estate-duty-calculator-inset-1x1.jpg",
   },
 ];

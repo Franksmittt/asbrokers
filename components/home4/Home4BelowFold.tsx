@@ -5,12 +5,12 @@ import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getRelatedLinks } from "@/lib/related-content";
 import {
   Home4GoalCard,
+  Home4JourneyFunnel,
   Home4Reveal,
   Home4SectionHeader,
   Home4TestimonialCard,
   HOME4_WRAP,
 } from "@/components/home4/Home4Blocks";
-import { Home4JourneyStyleOptions } from "@/components/home4/Home4JourneyStyleOptions";
 import { ArrowRight } from "@/components/icons";
 import {
   HOME4_GOAL_CARDS,
@@ -34,7 +34,19 @@ export function Home4BelowFold() {
         </div>
       </div>
 
-      <Home4JourneyStyleOptions stages={HOME4_JOURNEY_STAGES} />
+      <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-journey">
+        <div className={HOME4_WRAP}>
+          <Home4Reveal instant>
+            <Home4SectionHeader
+              headingId="home4-journey"
+              kicker="Your journey"
+              title="Start your journey"
+              description="Move from curiosity to clarity: education first, advice when you're ready."
+            />
+            <Home4JourneyFunnel stages={HOME4_JOURNEY_STAGES} />
+          </Home4Reveal>
+        </div>
+      </section>
 
       <section data-chunk-boundary="true" className="border-y border-stone-200/80 bg-white/60 py-16 md:py-20" aria-labelledby="home4-pathways">
         <div className={`${HOME4_WRAP} grid gap-6 lg:grid-cols-2`}>

@@ -3,8 +3,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Calendar,
-  FileText,
-  LayoutDashboard,
   LineChart,
   Scroll,
   ShieldCheck,
@@ -44,52 +42,14 @@ const GOAL_ICONS: Record<GoalCard["accent"], typeof LineChart> = {
   gold: Scroll,
 };
 
-type JourneyAccent = FunnelStage["accent"];
-
-const JOURNEY_ICONS: Record<JourneyAccent, typeof LineChart> = {
-  teal: FileText,
-  blue: LineChart,
-  gold: LayoutDashboard,
-  advice: Calendar,
+const JOURNEY_IMAGES: Record<string, string> = {
+  "01": "/images/insights-inset-1x1.jpg",
+  "02": "/images/calculators-hub-16x9.jpg",
+  "03": "/images/about-krugersdorp-trust-16x9.jpg",
+  "04": "/images/contact-trust.jpg",
 };
 
-const JOURNEY_STYLES: Record<
-  JourneyAccent,
-  { card: string; iconWrap: string; icon: string; step: string; cta: string; dot: string }
-> = {
-  teal: {
-    card: "bg-gradient-to-br from-cinematic-teal/[0.08] via-white to-white ring-cinematic-teal/20 hover:ring-cinematic-teal/45",
-    iconWrap: "bg-cinematic-teal/12 ring-cinematic-teal/20",
-    icon: "text-[#006B6B]",
-    step: "text-[#006B6B]",
-    cta: "text-[#006B6B]",
-    dot: "border-cinematic-teal/45",
-  },
-  blue: {
-    card: "bg-gradient-to-br from-samsung-blue/[0.07] via-white to-white ring-samsung-blue/20 hover:ring-samsung-blue/45",
-    iconWrap: "bg-samsung-blue/10 ring-samsung-blue/20",
-    icon: "text-samsung-blue",
-    step: "text-samsung-blue",
-    cta: "text-samsung-blue",
-    dot: "border-samsung-blue/45",
-  },
-  gold: {
-    card: "bg-gradient-to-br from-amber-400/[0.08] via-white to-white ring-amber-300/35 hover:ring-amber-400/50",
-    iconWrap: "bg-amber-400/12 ring-amber-300/30",
-    icon: "text-amber-700",
-    step: "text-amber-700",
-    cta: "text-amber-700",
-    dot: "border-amber-400/50",
-  },
-  advice: {
-    card: "bg-gradient-to-br from-samsung-blue/12 via-white to-cinematic-teal/[0.08] ring-samsung-blue/30 shadow-lg shadow-samsung-blue/10 hover:ring-samsung-blue/50 hover:shadow-xl hover:shadow-samsung-blue/15",
-    iconWrap: "bg-samsung-blue/15 ring-samsung-blue/25",
-    icon: "text-samsung-blue",
-    step: "text-samsung-blue",
-    cta: "text-white",
-    dot: "border-samsung-blue/55",
-  },
-};
+const JOURNEY_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw";
 
 /** @deprecated Use HubReveal — kept as alias for below-fold imports. */
 export function Home4Reveal({
@@ -197,60 +157,39 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
   );
 }
 
+/** Photo-led journey steps — one image per stage, text below. */
 export function Home4JourneyFunnel({ stages }: { stages: FunnelStage[] }) {
   return (
-    <div className="relative mt-10">
-      <div
-        className="pointer-events-none absolute inset-x-[10%] top-7 hidden h-px bg-gradient-to-r from-cinematic-teal/25 via-samsung-blue/20 to-samsung-blue/35 lg:block"
-        aria-hidden
-      />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stages.map((stage, index) => {
-          const styles = JOURNEY_STYLES[stage.accent];
-          const Icon = JOURNEY_ICONS[stage.accent];
-          const isAdvice = stage.accent === "advice";
-
-          return (
-            <Home4Reveal key={stage.step} delay={index * 0.06}>
-              <Link
-                href={stage.href}
-                prefetch={false}
-                className={`group relative flex h-full flex-col rounded-3xl p-5 ring-1 backdrop-blur-sm transition-all duration-300 ease-apple hover:-translate-y-1.5 hover:shadow-xl ${styles.card} focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2`}
-              >
-                <div className="relative z-10 flex items-start justify-between gap-3">
-                  <div
-                    className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ring-1 ${styles.iconWrap}`}
-                  >
-                    <Icon className={`h-5 w-5 ${styles.icon}`} aria-hidden />
-                  </div>
-                  <span
-                    className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 bg-white text-[10px] font-bold shadow-sm ${styles.dot}`}
-                  >
-                    <span className={styles.step}>{stage.step}</span>
-                  </span>
-                </div>
-                <h3 className="relative z-10 mt-4 text-lg font-semibold text-shark">{stage.title}</h3>
-                <p className="relative z-10 mt-2 flex-1 text-sm leading-relaxed text-stone-600">
-                  {stage.description}
-                </p>
-                <span
-                  className={`relative z-10 mt-5 inline-flex w-fit items-center gap-1.5 rounded-2xl px-4 py-2.5 text-sm font-semibold transition-all ${
-                    isAdvice
-                      ? "bg-samsung-blue shadow-md shadow-samsung-blue/20 group-hover:bg-[#004a9e]"
-                      : `bg-stone-100/90 group-hover:bg-stone-200/90 ${styles.cta}`
-                  }`}
-                >
-                  {stage.cta}
-                  <ArrowRight
-                    className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${isAdvice ? "text-white" : ""}`}
-                    aria-hidden
-                  />
-                </span>
-              </Link>
-            </Home4Reveal>
-          );
-        })}
-      </div>
+    <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {stages.map((stage, index) => (
+        <Home4Reveal key={stage.step} delay={index * 0.05}>
+          <Link
+            href={stage.href}
+            prefetch={false}
+            className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+          >
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+              <Image
+                src={JOURNEY_IMAGES[stage.step] ?? "/images/insights-inset-1x1.jpg"}
+                alt={getAlt(JOURNEY_IMAGES[stage.step] ?? "", stage.title)}
+                fill
+                unoptimized
+                className="object-cover transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
+                sizes={JOURNEY_IMAGE_SIZES}
+              />
+            </div>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+              Step {stage.step}
+            </p>
+            <h3 className="mt-2 text-lg font-semibold text-shark">{stage.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-stone-600">{stage.description}</p>
+            <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue">
+              {stage.cta}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            </span>
+          </Link>
+        </Home4Reveal>
+      ))}
     </div>
   );
 }

@@ -368,80 +368,397 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
+      {/* TEMP: 6 trust-section options — reply A–F */}
       <section
         data-chunk-boundary="true"
+        className="border-t border-stone-200/80 py-10"
+        style={{ backgroundColor: CANVAS }}
+        aria-label="Insurance trust section design options"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
+            Design review · Insurance trust section
+          </p>
+          <p className="mt-2 max-w-2xl text-sm text-stone-600">
+            Six options below. Reply with <strong>A</strong>, <strong>B</strong>, <strong>C</strong>,{" "}
+            <strong>D</strong>, <strong>E</strong>, or <strong>F</strong> and we&apos;ll keep that one.
+          </p>
+        </div>
+      </section>
+
+      {/* A — Photo editorial */}
+      <section
         className="border-t border-stone-200/80 py-14 md:py-20"
         style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="insurance-trust-heading"
+        aria-labelledby="insurance-trust-a"
       >
-        <div className={GRID}>
-          <HubReveal className="col-span-12">
-            <div className="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-stone-200/90 sm:p-10">
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+            Option A · Photo editorial
+          </p>
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-300/70 sm:aspect-[5/4] lg:col-span-5 lg:min-h-[400px] lg:aspect-auto">
+              <Image
+                src={HERO_IMAGE}
+                alt={getAlt(HERO_IMAGE, "Family protection and insurance planning")}
+                fill
+                unoptimized
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+            </div>
+            <div className="lg:col-span-7">
               <h2
-                id="insurance-trust-heading"
-                className="max-w-3xl font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.375rem, 1.1rem + 1vw, 2rem)", color: INK }}
+                id="insurance-trust-a"
+                className="font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem)", lineHeight: 1.1, color: INK }}
               >
                 We work for you, not the insurer.
               </h2>
-              <p
-                className="mt-4 max-w-3xl leading-relaxed"
-                style={{ fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.125rem)", color: BODY }}
-              >
+              <p className="mt-5 max-w-xl leading-relaxed" style={{ fontSize: "1.0625rem", color: BODY }}>
                 As an independent Category 1.8 FSP, we review the entire market to engineer a risk
                 architecture that actually pays out when you need it most. No call centres — just
                 dedicated fiduciary experts.
               </p>
-
-              <div className="mt-8 border-t border-stone-200/80 pt-8">
-                <p
-                  className="font-semibold uppercase tracking-[0.18em] text-stone-700"
-                  style={{ fontSize: "clamp(0.6875rem, 0.65rem + 0.1vw, 0.75rem)" }}
-                >
-                  Recognised partners
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
-                  {PARTNERS.map((partner, index) => (
-                    <span key={partner} className="flex items-center gap-x-6">
-                      <span
-                        className="font-semibold"
-                        style={{
-                          fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)",
-                          color: INK,
-                        }}
-                      >
-                        {partner}
-                      </span>
-                      {index < PARTNERS.length - 1 ? (
-                        <span className="hidden h-4 w-px bg-stone-300 sm:block" aria-hidden />
-                      ) : null}
-                    </span>
-                  ))}
-                </div>
+              <p className="mt-8 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">
+                Recognised partners
+              </p>
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-shark">
+                {PARTNERS.map((p) => (
+                  <span key={`a-${p}`}>{p}</span>
+                ))}
               </div>
-
               <div className="mt-6 flex flex-wrap gap-2">
-                {TRUST_BADGES.map((badge) => (
+                {TRUST_BADGES.map((b) => (
                   <span
-                    key={badge}
-                    className="rounded-full bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-800 ring-1 ring-stone-200/90"
+                    key={`a-${b}`}
+                    className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-700 ring-1 ring-stone-200"
                   >
-                    {badge}
+                    {b}
                   </span>
                 ))}
               </div>
-
               <Link
                 href="/contact"
                 prefetch={false}
-                className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-cta-glow-blue transition-all duration-300 hover:bg-[#004a9e]"
-                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
               >
                 Speak to a Fiduciary Advisor
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-          </HubReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* B — Partner nameplates as equal cards */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: CANVAS }}
+        aria-labelledby="insurance-trust-b"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: BLUE }}>
+            Option B · Partner nameplates
+          </p>
+          <div className="max-w-3xl">
+            <h2
+              id="insurance-trust-b"
+              className="font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.125rem)", color: INK }}
+            >
+              We work for you, not the insurer.
+            </h2>
+            <p className="mt-4 leading-relaxed" style={{ fontSize: "1.0625rem", color: BODY }}>
+              As an independent Category 1.8 FSP, we review the entire market to engineer a risk
+              architecture that actually pays out when you need it most. No call centres — just
+              dedicated fiduciary experts.
+            </p>
+          </div>
+          <p className="mt-10 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">
+            Recognised partners
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            {PARTNERS.map((p) => (
+              <div
+                key={`b-${p}`}
+                className="flex min-h-[5.5rem] items-center justify-center rounded-2xl bg-white px-4 text-center text-lg font-bold tracking-tight text-shark shadow-md ring-1 ring-stone-200/90"
+              >
+                {p}
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {TRUST_BADGES.map((b) => (
+              <div
+                key={`b-${b}`}
+                className="rounded-xl bg-stone-100/80 px-4 py-3 text-center text-xs font-semibold uppercase tracking-wide text-stone-700"
+              >
+                {b}
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/contact"
+            prefetch={false}
+            className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
+          >
+            Speak to a Fiduciary Advisor
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+      </section>
+
+      {/* C — Dark command band */}
+      <section
+        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        style={{ backgroundColor: INK }}
+        aria-labelledby="insurance-trust-c"
+      >
+        <div
+          className="pointer-events-none absolute -right-20 top-10 h-64 w-64 rounded-full bg-cinematic-teal/25 blur-3xl"
+          aria-hidden
+        />
+        <div className={`relative ${HOME4_WRAP}`}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
+            Option C · Dark command band
+          </p>
+          <h2
+            id="insurance-trust-c"
+            className="max-w-3xl font-bold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+          >
+            We work for you, not the insurer.
+          </h2>
+          <p className="mt-5 max-w-2xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
+            As an independent Category 1.8 FSP, we review the entire market to engineer a risk
+            architecture that actually pays out when you need it most. No call centres — just
+            dedicated fiduciary experts.
+          </p>
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-y border-white/10 py-5">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+              Partners
+            </span>
+            {PARTNERS.map((p) => (
+              <span key={`c-${p}`} className="text-sm font-semibold text-white">
+                {p}
+              </span>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-white/80">
+            {TRUST_BADGES.map((b) => (
+              <span key={`c-${b}`} className="inline-flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
+                {b}
+              </span>
+            ))}
+          </div>
+          <Link
+            href="/contact"
+            prefetch={false}
+            className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+          >
+            Speak to a Fiduciary Advisor
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+      </section>
+
+      {/* D — Six-cell credential grid */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: "#FDFCFA" }}
+        aria-labelledby="insurance-trust-d"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+            Option D · Six-cell grid
+          </p>
+          <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-5">
+              <h2
+                id="insurance-trust-d"
+                className="font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.125rem)", color: INK }}
+              >
+                We work for you, not the insurer.
+              </h2>
+              <p className="mt-4 leading-relaxed" style={{ fontSize: "1.0625rem", color: BODY }}>
+                As an independent Category 1.8 FSP, we review the entire market to engineer a risk
+                architecture that actually pays out when you need it most. No call centres — just
+                dedicated fiduciary experts.
+              </p>
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
+              >
+                Speak to a Fiduciary Advisor
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-7">
+              {[
+                ...PARTNERS.map((p) => ({ label: p, kind: "partner" as const })),
+                ...TRUST_BADGES.map((b) => ({ label: b, kind: "badge" as const })),
+              ].map((cell) => (
+                <div
+                  key={`d-${cell.label}`}
+                  className={`flex min-h-[6.5rem] flex-col justify-center rounded-2xl px-4 py-5 ring-1 ${
+                    cell.kind === "partner"
+                      ? "bg-white shadow-md ring-stone-200/90"
+                      : "bg-cinematic-teal/[0.07] ring-cinematic-teal/20"
+                  }`}
+                >
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400">
+                    {cell.kind === "partner" ? "Partner" : "Credential"}
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-shark sm:text-base">{cell.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* E — Horizontal promise strip */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: CANVAS }}
+        aria-labelledby="insurance-trust-e"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: BLUE }}>
+            Option E · Promise strip
+          </p>
+          <div className="rounded-3xl bg-white p-8 shadow-xl ring-1 ring-stone-200/90 sm:p-10">
+            <h2
+              id="insurance-trust-e"
+              className="text-center font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.125rem)", color: INK }}
+            >
+              We work for you, not the insurer.
+            </h2>
+            <p
+              className="mx-auto mt-4 max-w-2xl text-center leading-relaxed"
+              style={{ fontSize: "1.0625rem", color: BODY }}
+            >
+              As an independent Category 1.8 FSP, we review the entire market to engineer a risk
+              architecture that actually pays out when you need it most. No call centres — just
+              dedicated fiduciary experts.
+            </p>
+            <ol className="mt-10 grid list-none gap-4 sm:grid-cols-3">
+              {[
+                { step: "01", title: "Independent", text: "You are the client — not the insurer." },
+                { step: "02", title: "Whole market", text: "We survey partners across the market." },
+                { step: "03", title: "Claims focus", text: "Architecture that pays when it matters." },
+              ].map((item) => (
+                <li
+                  key={item.step}
+                  className="rounded-2xl bg-stone-50 p-5 text-center ring-1 ring-stone-200/80"
+                >
+                  <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+                    {item.step}
+                  </p>
+                  <p className="mt-2 font-bold text-shark">{item.title}</p>
+                  <p className="mt-1 text-sm text-stone-600">{item.text}</p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-stone-100 pt-8 text-sm font-semibold text-shark">
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-400">
+                Partners
+              </span>
+              {PARTNERS.map((p) => (
+                <span key={`e-${p}`}>{p}</span>
+              ))}
+            </div>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              {TRUST_BADGES.map((b) => (
+                <span
+                  key={`e-${b}`}
+                  className="rounded-full bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-700"
+                >
+                  {b}
+                </span>
+              ))}
+            </div>
+            <div className="mt-8 flex justify-center">
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
+              >
+                Speak to a Fiduciary Advisor
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* F — Asymmetric: big quote + side rail */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: "#FDFCFA" }}
+        aria-labelledby="insurance-trust-f"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+            Option F · Quote + side rail
+          </p>
+          <div className="grid gap-6 lg:grid-cols-12">
+            <div className="rounded-3xl bg-gradient-to-br from-cinematic-teal/[0.08] via-white to-white p-8 shadow-xl ring-1 ring-stone-200/90 sm:p-10 lg:col-span-8">
+              <ShieldCheck className="h-9 w-9" style={{ color: TEAL }} aria-hidden />
+              <h2
+                id="insurance-trust-f"
+                className="mt-5 font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.2vw, 2.5rem)", lineHeight: 1.12, color: INK }}
+              >
+                We work for you, not the insurer.
+              </h2>
+              <p className="mt-5 max-w-2xl leading-relaxed" style={{ fontSize: "1.125rem", color: BODY }}>
+                As an independent Category 1.8 FSP, we review the entire market to engineer a risk
+                architecture that actually pays out when you need it most. No call centres — just
+                dedicated fiduciary experts.
+              </p>
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
+              >
+                Speak to a Fiduciary Advisor
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+            <aside className="flex flex-col justify-between gap-6 rounded-3xl bg-white p-6 shadow-lg ring-1 ring-stone-200/90 sm:p-7 lg:col-span-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">
+                  Recognised partners
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {PARTNERS.map((p) => (
+                    <li
+                      key={`f-${p}`}
+                      className="border-b border-stone-100 pb-3 text-base font-bold text-shark last:border-0 last:pb-0"
+                    >
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="space-y-2">
+                {TRUST_BADGES.map((b) => (
+                  <p
+                    key={`f-${b}`}
+                    className="rounded-xl bg-stone-50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-stone-700"
+                  >
+                    {b}
+                  </p>
+                ))}
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 

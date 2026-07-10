@@ -5,6 +5,55 @@ import { getSiteOrigin } from "@/lib/site-url";
 export type FAQItem = { question: string; answer: string };
 export type BreadcrumbItem = { name: string; path: string };
 
+/** Shared fillers so every FAQ block can render a uniform 3×2 grid (exactly 6). */
+const COMMON_SITE_FAQS: FAQItem[] = [
+  {
+    question: "Is this personalised financial advice?",
+    answer:
+      "No. Content and tools on asbrokers.co.za are educational only. Book FSP 17273 for advice tailored to your circumstances.",
+  },
+  {
+    question: "How do I book a consultation?",
+    answer:
+      "Visit our contact page, WhatsApp +27 66 227 6044, or email albert@asbrokers.co.za. An independent adviser in Krugersdorp will respond personally.",
+  },
+  {
+    question: "Who is AS Brokers?",
+    answer:
+      "AS Brokers CC is an independent Category 1.8 financial services provider (FSP 17273) based in Krugersdorp, serving the West Rand.",
+  },
+  {
+    question: "Are calculator or illustration results guaranteed?",
+    answer:
+      "No. Outputs depend on your inputs and assumptions. Markets, tax, fees, and product terms can change actual outcomes.",
+  },
+  {
+    question: "Do you charge for an initial conversation?",
+    answer:
+      "We explain our advice process and any fees during consultation. There is no obligation to proceed after an initial discussion.",
+  },
+  {
+    question: "Can I bring my own numbers or existing adviser?",
+    answer:
+      "Yes. Many clients bring calculator results or existing policies to a review. You can also book directly with our team.",
+  },
+];
+
+/** Pad or trim FAQs to exactly six items for a consistent 3×2 layout (and matching JSON-LD). */
+export function ensureSixFaqs(specific: FAQItem[] = []): FAQItem[] {
+  const seen = new Set(specific.map((item) => item.question.trim().toLowerCase()));
+  const merged = [...specific];
+  for (const item of COMMON_SITE_FAQS) {
+    if (merged.length >= 6) break;
+    const key = item.question.trim().toLowerCase();
+    if (!seen.has(key)) {
+      merged.push(item);
+      seen.add(key);
+    }
+  }
+  return merged.slice(0, 6);
+}
+
 export type PageGraphInput = {
   path: string;
   webPage: {
@@ -240,7 +289,8 @@ export function buildPageGraph(input: PageGraphInput): JsonLdGraph {
   }
 
   if (input.faqs?.length) {
-    graph.push(buildFAQPageNode(ids, input.faqs));
+    const faqs = ensureSixFaqs(input.faqs);
+    graph.push(buildFAQPageNode(ids, faqs));
     webPageNode.mainEntity = { "@id": ids.faqPage };
   }
 

@@ -1,4 +1,5 @@
 import type { FAQItem } from "@/lib/seo";
+import { ensureSixFaqs } from "@/lib/seo";
 import { CALCULATOR_REGISTRY, getCalculatorById, type CalculatorRegistryEntry } from "@/lib/calculators/registry";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
@@ -33,53 +34,6 @@ const FIDUCIARY: string[] = [
   "Tax tables and product terms may change. Confirm with a qualified practitioner.",
   "FSP 17273 · Category 1.8 independent adviser · Krugersdorp.",
 ];
-
-/** Pad every calculator page to six FAQs for a 3×2 grid (merged into JSON-LD). */
-const COMMON_CALCULATOR_FAQS: FAQItem[] = [
-  {
-    question: "Is this personalised financial advice?",
-    answer:
-      "No. All AS Brokers calculators are educational illustrations only. Book FSP 17273 for advice tailored to your circumstances.",
-  },
-  {
-    question: "Is this calculator free to use?",
-    answer:
-      "Yes. You can run the tool as often as you like. There is no charge for using the calculator on asbrokers.co.za.",
-  },
-  {
-    question: "How do I book a consultation?",
-    answer:
-      "Visit our contact page or call AS Brokers in Krugersdorp. An independent adviser can review your numbers and next steps.",
-  },
-  {
-    question: "Are the results guaranteed?",
-    answer:
-      "No. Outputs depend on your inputs and assumptions. Markets, tax, and product terms can change actual outcomes.",
-  },
-  {
-    question: "Who is AS Brokers?",
-    answer:
-      "AS Brokers CC is an independent Category 1.8 financial services provider (FSP 17273) based in Krugersdorp, serving the West Rand.",
-  },
-  {
-    question: "Can I use this with my existing adviser?",
-    answer:
-      "Yes. Many clients bring calculator results to a review meeting. You can also book directly with our team.",
-  },
-];
-
-function buildFaqs(specific: FAQItem[]): FAQItem[] {
-  const seen = new Set(specific.map((item) => item.question));
-  const merged = [...specific];
-  for (const item of COMMON_CALCULATOR_FAQS) {
-    if (merged.length >= 6) break;
-    if (!seen.has(item.question)) {
-      merged.push(item);
-      seen.add(item.question);
-    }
-  }
-  return merged.slice(0, 6);
-}
 
 type PageContent = Omit<
   CalculatorPageConfig,
@@ -1024,7 +978,7 @@ function buildConfig(entry: CalculatorRegistryEntry): CalculatorPageConfig {
     assetCode: entry.assetCode,
     calculatorSrc: entry.embedPath,
     calculatorTitle: shortTitle,
-    faqs: buildFaqs(faqs),
+    faqs: ensureSixFaqs(faqs),
     ...rest,
   };
 }

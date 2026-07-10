@@ -9,6 +9,7 @@ import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { FAQItem } from "@/lib/seo";
+import { ensureSixFaqs } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -274,7 +275,7 @@ export function EverestProductPageView({
         </div>
       </section>
 
-      {faqs.length > 0 ? <VisibleFaqSection faqs={faqs} /> : null}
+      {faqs.length > 0 ? <VisibleFaqSection faqs={ensureSixFaqs(faqs)} /> : null}
       <RelatedContent variant="warm" links={getRelatedLinks(path)} />
       <Footer />
     </>

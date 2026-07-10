@@ -108,10 +108,7 @@ export function AssetCalculatorPageView({
                 src={heroImage}
                 alt={getAlt(heroImage, heroImageAlt)}
                 fill
-<<<<<<< HEAD
-=======
                 unoptimized
->>>>>>> 96b7600 (feat: ship ASSET 001–017 calculator landing pages matching hub layout)
                 priority
                 fetchPriority="high"
                 className="object-cover object-center"

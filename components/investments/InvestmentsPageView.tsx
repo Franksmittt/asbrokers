@@ -1,500 +1,764 @@
 "use client";
 
-import Image from "next/image";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { HubReveal } from "@/components/hub/HubReveal";
-import { HubCalculatorToolBay } from "@/components/hub/HubCalculatorToolBay";
 import { RelatedContent } from "@/components/seo/RelatedContent";
-import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
-import type { FAQItem } from "@/lib/seo";
+import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
-import { getAlt } from "@/lib/image-alt";
-import {
-  HUB_TEAL as TEAL,
-  HUB_CANVAS as CANVAS,
-  HUB_INK as INK,
-  HUB_BODY as BODY,
-  HUB_BLUE as BLUE,
-} from "@/lib/hub-design-tokens";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
-
-const HERO_IMAGE = "/images/home4-import/card1.png";
+const CANVAS = "#F7F6F3";
+const INK = "#1D1D1F";
+const TEAL = "#00A3A3";
+const BODY = "#52525b";
+const HAIRLINE = "#E5E5E5";
+const FAIS_DISCLAIMER =
+  "Calculators are provided for illustrative and educational purposes only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes may differ due to market conditions, fees, and legislative changes.";
 
 const CALC_POWER_OF_GROWTH = calculatorPagePath("asset-016-growth-comparison");
 const CALC_PERSONAL_GOAL = calculatorPagePath("asset-017-personal-goal");
 const CALC_INCOME_VS_GROWTH = calculatorPagePath("asset-013-everest-income-vs-growth");
-const CALC_LIVING_ANNUITY = calculatorPagePath("asset-014-living-annuity");
-const CALC_LIFE_OF_CAPITAL = calculatorPagePath("asset-004-life-of-capital");
 
-const BEFORE_LINKS = [
-  { label: "Tax-free investments", href: "/everest-wealth" },
-  { label: "Retirement annuities", href: "/retirement-planning" },
-  { label: "Preservation funds", href: "/contact" },
-];
+const PAGE_NAV = [
+  { id: "fiduciary-philosophy", label: "Fiduciary approach" },
+  { id: "phase-accumulation", label: "Growth strategies" },
+  { id: "phase-distribution", label: "Income solutions" },
+  { id: "everest-toolkit", label: "Everest products" },
+  { id: "diagnostic-tools", label: "Diagnostic tools" },
+] as const;
 
-const AFTER_LINKS = [
-  { label: "Living annuities", href: CALC_LIVING_ANNUITY },
-  { label: "Sustainable drawdowns", href: CALC_LIFE_OF_CAPITAL },
-  { label: "Alternative yields", href: "/everest-wealth" },
-];
-
-const EVEREST_PRODUCTS = [
-  {
-    title: "12.8% Strategic Income",
-    rate: "12.8%",
-    rateLabel: "Targeted p.a.",
-    tag: "Monthly income + loyalty bonus",
-    description:
-      "Monthly dividend income with a 10% loyalty bonus on capital after five years. A balanced choice if you can accept slightly lower cash flow now for long-term value.",
-    href: calculatorPagePath("asset-010-everest-128-income"),
-    cta: "Explore Strategic Income",
-    fiduciary: [
-      "R100,000 minimum lump sum",
-      "Dividends taxed at 20% DWT (not marginal income tax)",
-      "120-day notice may apply on approved early exit",
-      "Up to 15% early exit penalty may apply",
-    ],
-  },
-  {
-    title: "14.2% Onyx Income+",
-    rate: "14.2%",
-    rateLabel: "Targeted p.a.",
-    tag: "Maximum day-one income",
-    description:
-      "Higher monthly income from day one, with no loyalty bonus. Suited when you need maximum cash flow now.",
-    href: calculatorPagePath("asset-009-everest-142-income"),
-    cta: "Explore Onyx Income+",
-    fiduciary: [
-      "R100,000 minimum lump sum",
-      "Dividends taxed at 20% DWT",
-      "120-day notice may apply on approved early exit",
-      "Up to 15% early exit penalty may apply",
-    ],
-  },
-  {
-    title: "14.5% Strategic Growth",
-    rate: "14.5%",
-    rateLabel: "Compound p.a.",
-    tag: "Pure compounding",
-    description:
-      "Capital compounding with no monthly withdrawals. Returns accumulate over five years and are paid at maturity.",
-    href: calculatorPagePath("asset-012-strategic-growth"),
-    cta: "Explore Strategic Growth",
-    fiduciary: [
-      "R100,000 minimum lump sum",
-      "20% DWT on growth at maturity",
-      "Five-year term commitment",
-      "Illiquid; early exit subject to issuer discretion",
-    ],
-  },
-];
-
-const CALCULATOR_TILES = [
+const GROWTH_TOOLS = [
   {
     code: "ASSET 016",
-    title: "The Power of Growth Calculator",
-    description: "Project future lump sums based on your monthly contributions.",
+    title: "The Power of Growth",
+    description: "Project future lump sums from monthly contributions and assumed growth.",
     href: CALC_POWER_OF_GROWTH,
-    accent: "blue" as const,
-    span: "col-span-12 lg:col-span-5",
   },
   {
     code: "ASSET 017",
     title: "Personal Goal Growth",
-    description: "Discover the exact return percentage you need to hit your target date.",
+    description: "Find the return profile needed to hit a target capital on your date.",
     href: CALC_PERSONAL_GOAL,
-    accent: "teal" as const,
-    span: "col-span-12 lg:col-span-4",
+  },
+] as const;
+
+const EVEREST_ROWS = [
+  {
+    name: "12.8% Strategic Income",
+    yieldLabel: "12.8% Targeted p.a.",
+    focus: "Monthly income + loyalty bonus",
+    notes: [
+      "R100,000 minimum lump sum",
+      "Dividends typically subject to 20% DWT",
+      "120-day notice may apply on approved early exit",
+      "Up to 15% early exit penalty may apply",
+    ],
+    href: calculatorPagePath("asset-010-everest-128-income"),
   },
   {
-    code: "ASSET 013",
-    title: "Everest Income vs Growth",
-    description: "Compare our high-yield strategies side by side.",
-    href: CALC_INCOME_VS_GROWTH,
-    accent: "teal" as const,
-    span: "col-span-12 lg:col-span-3",
+    name: "14.2% Onyx Income+",
+    yieldLabel: "14.2% Targeted p.a.",
+    focus: "Maximum day-one income",
+    notes: [
+      "R100,000 minimum lump sum",
+      "Dividends typically subject to 20% DWT",
+      "120-day notice may apply on approved early exit",
+      "Up to 15% early exit penalty may apply",
+    ],
+    href: calculatorPagePath("asset-009-everest-142-income"),
   },
-];
+  {
+    name: "14.5% Strategic Growth",
+    yieldLabel: "14.5% Targeted p.a.",
+    focus: "Pure compounding over term",
+    notes: [
+      "R100,000 minimum lump sum",
+      "20% DWT on growth at maturity (typical treatment)",
+      "Five-year term commitment",
+      "Illiquid; early exit subject to issuer discretion",
+    ],
+    href: calculatorPagePath("asset-012-strategic-growth"),
+  },
+] as const;
 
-const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
+type Props = { faqs: FAQItem[] };
 
-function LifeStageBlock({
-  title,
-  focus,
-  description,
-  links,
-  accent,
-}: {
-  title: string;
-  focus: string;
-  description: string;
-  links: { label: string; href: string }[];
-  accent: "teal" | "blue";
-}) {
-  const border = accent === "teal" ? TEAL : BLUE;
+/** Abstract accumulation → distribution continuum — not lifestyle photography. */
+function HeroDataViz() {
   return (
-    <article
-      className="flex h-full flex-col rounded-2xl bg-white p-6 shadow-lg ring-1 ring-stone-200/90 sm:p-8"
-      style={{ borderLeft: `4px solid ${border}` }}
+    <div
+      className="relative flex aspect-[4/3] w-full items-end justify-center overflow-hidden rounded border bg-white px-6 pb-8 pt-10"
+      style={{ borderColor: HAIRLINE }}
+      aria-hidden
     >
-      <span
-        className="inline-flex w-fit rounded-full px-3 py-1 font-semibold uppercase tracking-wide"
-        style={{
-          fontSize: "clamp(0.6875rem, 0.65rem + 0.1vw, 0.75rem)",
-          backgroundColor: `${border}14`,
-          color: border,
-        }}
-      >
-        {focus}
-      </span>
-      <h2
-        className="mt-4 font-bold tracking-tight"
-        style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
-      >
-        {title}
-      </h2>
-      <p
-        className="mt-3 leading-relaxed"
-        style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-      >
-        {description}
-      </p>
-      <ul className="mt-5 space-y-2.5">
-        {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              href={link.href}
-              prefetch={false}
-              className="group inline-flex items-center gap-2 font-semibold"
-              style={{ color: border, fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-            >
-              {link.label}
-              <ArrowRight
-                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-                aria-hidden
-              />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </article>
+      <svg viewBox="0 0 320 200" className="h-full w-full max-h-[280px]" fill="none">
+        <line x1="24" y1="176" x2="296" y2="176" stroke="#d6d3d1" strokeWidth="1" />
+        <line x1="24" y1="24" x2="24" y2="176" stroke="#d6d3d1" strokeWidth="1" />
+        <path
+          d="M24 148 C 70 140, 100 118, 140 96 C 180 74, 210 58, 248 48"
+          stroke={TEAL}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M248 48 C 268 44, 282 52, 296 72"
+          stroke={TEAL}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeDasharray="5 4"
+        />
+        <circle cx="248" cy="48" r="4" fill={TEAL} />
+        <text x="30" y="20" fill="#78716c" fontSize="10" fontFamily="system-ui,sans-serif">
+          Wealth continuum
+        </text>
+        <text x="120" y="88" fill={TEAL} fontSize="10" fontFamily="system-ui,sans-serif">
+          Accumulation
+        </text>
+        <text x="232" y="92" fill="#78716c" fontSize="10" fontFamily="system-ui,sans-serif">
+          Distribution
+        </text>
+      </svg>
+    </div>
   );
 }
 
-function EverestProductCard({
+function ToolCard({
+  code,
   title,
-  rate,
-  rateLabel,
-  tag,
   description,
   href,
-  cta,
-  fiduciary,
-}: (typeof EVEREST_PRODUCTS)[number]) {
+  cta = "Run calculation",
+}: {
+  code: string;
+  title: string;
+  description: string;
+  href: string;
+  cta?: string;
+}) {
   return (
-    <article className="flex h-full w-full flex-col rounded-2xl bg-white/90 p-6 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm sm:p-7">
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <span
-            className="font-semibold uppercase tracking-wider"
-            style={{ fontSize: "clamp(0.6875rem, 0.65rem + 0.1vw, 0.75rem)", color: TEAL }}
-          >
-            {tag}
-          </span>
-          <h3
-            className="mt-1 font-bold tracking-tight"
-            style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
-          >
-            {title}
-          </h3>
-        </div>
-        <div className="shrink-0 text-right">
-          <p
-            className="font-bold tabular-nums"
-            style={{ fontSize: "clamp(1.75rem, 1.5rem + 1vw, 2.25rem)", color: TEAL }}
-          >
-            {rate}
-          </p>
-          <p
-            className="font-medium uppercase tracking-wide text-stone-600"
-            style={{ fontSize: "clamp(0.625rem, 0.6rem + 0.05vw, 0.6875rem)" }}
-          >
-            {rateLabel}
-          </p>
-        </div>
-      </div>
-      <p
-        className="mt-4 flex-1 leading-relaxed"
-        style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)", color: BODY }}
-      >
-        {description}
+    <article className="flex h-full flex-col border bg-white p-6 sm:p-7" style={{ borderColor: HAIRLINE }}>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-500 tabular-nums">
+        {code}
       </p>
+      <h3
+        className="mt-3 font-serif font-semibold tracking-tight text-shark"
+        style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem)" }}
+      >
+        {title}
+      </h3>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{description}</p>
       <Link
         href={href}
         prefetch={false}
-        className="mt-5 inline-flex w-fit items-center gap-2 rounded-xl bg-stone-100 px-5 py-2.5 font-semibold text-shark transition-colors hover:bg-stone-200"
-        style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
+        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
       >
         {cta}
         <ArrowRight className="h-4 w-4" aria-hidden />
       </Link>
-      <div className="mt-5 border-t border-stone-200/80 pt-4">
-        <ul className="space-y-1.5">
-          {fiduciary.map((note) => (
-            <li
-              key={note}
-              className="leading-relaxed text-stone-600"
-              style={{ fontSize: "clamp(0.75rem, 0.72rem + 0.05vw, 0.8125rem)" }}
-            >
-              {note}
-            </li>
-          ))}
-        </ul>
+      <div className="mt-5 border-t pt-4" style={{ borderColor: HAIRLINE }}>
+        <p className="text-[11px] leading-relaxed text-stone-500">{FAIS_DISCLAIMER}</p>
       </div>
     </article>
   );
 }
 
-type Props = { faqs: FAQItem[] };
+function EditorialLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">{children}</p>
+  );
+}
 
 export function InvestmentsPageView({ faqs }: Props) {
+  const faqItems = ensureSixFaqs(faqs);
+
   return (
-    <>
-      <header
-        data-chunk-boundary="true"
-        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
-        style={{ backgroundColor: CANVAS }}
-      >
-        <div className={`${GRID} items-center gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
-            <p
-              className="font-semibold uppercase tracking-[0.2em]"
-              style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
-            >
+    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+      {/* §1 Orientation hero */}
+      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+        <div className={`${HOME4_WRAP} grid grid-cols-12 items-center gap-10 lg:gap-12`}>
+          <div className="col-span-12 lg:col-span-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
               Investments · FSP 17273 · Category 1.8
             </p>
             <h1
-              className="mt-4 font-bold tracking-tight"
+              className="mt-5 font-serif font-semibold tracking-tight"
               style={{
-                fontSize: "clamp(1.875rem, 1.35rem + 2vw, 2.75rem)",
-                lineHeight: 1.12,
+                fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)",
+                lineHeight: 1.15,
                 color: INK,
               }}
             >
-              Smarter investments for every stage of your life.
+              Independent wealth engineering and investment strategies
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"
-              style={{
-                fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)",
-                lineHeight: 1.65,
-                color: BODY,
-              }}
+              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              From tax-free wealth building to high-yield retirement income, access exclusive
-              opportunities tailored to your goals.
+              For serious South African investors structuring voluntary capital and retirement
+              income — from tax-efficient accumulation through sustainable distribution. Education
+              first; advice only when you book FSP 17273.
             </p>
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md shadow-cta-glow-blue transition-all duration-300 hover:bg-[#004a9e]"
-              style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
+            <a
+              href="#book-strategy"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
             >
-              Speak to an Investment Expert
+              Book an actuarial consultation
               <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </HubReveal>
-
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
-              <Image
-                src={HERO_IMAGE}
-                alt={getAlt(
-                  HERO_IMAGE,
-                  "Successful South African couple reviewing investment plans with an adviser"
-                )}
-                fill
-                unoptimized
-                priority
-                className="object-cover object-center"
-                sizes={HUB_SPLIT_HERO_SIZES}
-              />
-            </div>
-          </HubReveal>
+            </a>
+          </div>
+          <div className="col-span-12 lg:col-span-5">
+            <HeroDataViz />
+          </div>
         </div>
+
+        <nav
+          aria-label="On this page"
+          className={`${HOME4_WRAP} mt-12 border-t pt-6 md:mt-14`}
+          style={{ borderColor: HAIRLINE }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+            On this page
+          </p>
+          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+            {PAGE_NAV.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </header>
 
+      {/* §2 Fiduciary philosophy */}
       <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-16"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="investments-life-stage-heading"
+        id="fiduciary-philosophy"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="fiduciary-heading"
       >
-        <div className={GRID}>
-          <HubReveal className="col-span-12">
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <div className="lg:sticky lg:top-28">
+              <EditorialLabel>Philosophy</EditorialLabel>
+            </div>
+          </aside>
+          <div className="col-span-12 max-w-3xl lg:col-span-9">
             <h2
-              id="investments-life-stage-heading"
-              className="sr-only"
+              id="fiduciary-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
             >
-              Choose your life stage
+              The fiduciary advantage: Category 1.8 authority
             </h2>
-          </HubReveal>
-          <HubReveal className="col-span-12 lg:col-span-6">
-            <LifeStageBlock
-              title="Before Retirement"
-              focus="Wealth building"
-              description="Grow your capital aggressively and tax-efficiently while you are still working."
-              links={BEFORE_LINKS}
-              accent="blue"
-            />
-          </HubReveal>
-          <HubReveal delay={0.05} className="col-span-12 lg:col-span-6">
-            <LifeStageBlock
-              title="After Retirement"
-              focus="Income generation"
-              description="Generate reliable, structured income to sustain your lifestyle."
-              links={AFTER_LINKS}
-              accent="teal"
-            />
-          </HubReveal>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              AS Brokers CC is an independent FSP (17273) with Category 1.8 authorisation — including
+              advice on certain unlisted instruments beyond a standard unit-trust shelf. We survey
+              the market and structure advice around your goals, free from institutional product
+              quotas.
+            </p>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Where appropriate, structured return profiles (including Everest Wealth voluntary
+              products) can sit inside a broader wealth architecture. They are tools in a fiduciary
+              toolkit — not the default answer for every client.
+            </p>
+          </div>
         </div>
       </section>
 
+      {/* §3 Phase I: Accumulation */}
       <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="investments-everest-heading"
+        id="phase-accumulation"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="accumulation-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <div className="lg:sticky lg:top-28">
+              <EditorialLabel>Phase I · Accumulation</EditorialLabel>
+            </div>
+          </aside>
+          <div className="col-span-12 max-w-3xl lg:col-span-9">
+            <h2
+              id="accumulation-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              Phase I: Capital accumulation and tax efficiency
+            </h2>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              While you are still working, the engineering problem is growth, tax efficiency, and
+              compounding — without confusing accumulation vehicles with retirement income products.
+            </p>
+
+            <h3
+              className="mt-10 font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+            >
+              Balancing voluntary capital and retirement annuities
+            </h3>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Retirement annuities and preservation funds sit inside the retirement-fund tax
+              framework. Voluntary capital (including certain unlisted preference-share structures)
+              is typically funded with after-tax money and follows different liquidity and tax
+              rules. The right mix depends on cash flow, time horizon, and how much liquidity you
+              can genuinely commit.
+            </p>
+
+            <dl className="mt-8 space-y-0 border-y" style={{ borderColor: HAIRLINE }}>
+              {[
+                {
+                  dt: "Tax-free / RA wrappers",
+                  dd: "Contribution limits and deduction rules apply. Strong for long-term retirement capital — see pre-retirement diagnostics if the shortfall is the real question.",
+                },
+                {
+                  dt: "Voluntary structured capital",
+                  dd: "Often R100,000 minimum, term and notice constraints, and DWT on dividends. Suited when you understand illiquidity in exchange for a targeted profile.",
+                },
+                {
+                  dt: "Preservation funds",
+                  dd: "Job-change capital that must stay inside the retirement system until access rules allow. Not interchangeable with voluntary Everest products.",
+                },
+              ].map((row) => (
+                <div
+                  key={row.dt}
+                  className="grid gap-2 border-b py-5 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:gap-6"
+                  style={{ borderColor: HAIRLINE }}
+                >
+                  <dt className="text-sm font-semibold text-shark">{row.dt}</dt>
+                  <dd className="text-sm leading-relaxed text-stone-600">{row.dd}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <p className="mt-6 text-sm leading-relaxed" style={{ color: BODY }}>
+              Modelling a pre-retirement shortfall?{" "}
+              <Link
+                href="/retirement-planning"
+                prefetch={false}
+                className="font-semibold text-cinematic-teal hover:opacity-80"
+              >
+                Open the retirement planning hub
+              </Link>
+              .
+            </p>
+
+            <div className="mt-10">
+              <a
+                href="#growth-tools"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
+              >
+                Jump to growth calculators
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §4 Growth tools */}
+      <section
+        id="growth-tools"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="growth-tools-heading"
       >
         <div className={HOME4_WRAP}>
-          <HubReveal>
-            <h2
-              id="investments-everest-heading"
-              className="max-w-3xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-            >
-              Access investments many advisers cannot offer.
-            </h2>
-            <p
-              className="mt-3 max-w-3xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              Everest Wealth voluntary products target structured return profiles — not guaranteed
-              outcomes. Educational summaries only; suitability depends on your circumstances.
-            </p>
-          </HubReveal>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:items-stretch">
-            {EVEREST_PRODUCTS.map((product, index) => (
-              <HubReveal key={product.title} delay={index * 0.04} className="flex h-full">
-                <EverestProductCard {...product} />
-              </HubReveal>
+          <h2
+            id="growth-tools-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Growth projection tools
+          </h2>
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            Ungated, illustrative maths for the accumulation phase. Bring the outputs to a strategy
+            call if you want advice on your facts.
+          </p>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
+            {GROWTH_TOOLS.map((tool) => (
+              <ToolCard key={tool.code} {...tool} />
             ))}
           </div>
+        </div>
+      </section>
 
-          <HubReveal>
-            <p
-              className="mt-8 leading-relaxed text-stone-600"
-              style={{ fontSize: "clamp(0.8125rem, 0.8rem + 0.08vw, 0.875rem)" }}
+      {/* §5 Phase II: Distribution */}
+      <section
+        id="phase-distribution"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="distribution-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <div className="lg:sticky lg:top-28">
+              <EditorialLabel>Phase II · Distribution</EditorialLabel>
+            </div>
+          </aside>
+          <div className="col-span-12 max-w-3xl lg:col-span-9">
+            <h2
+              id="distribution-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
             >
-              Targeted returns are not guaranteed. Voluntary Everest capital is illiquid: 120-day
-              notice and up to 15% early exit penalty may apply. Dividends subject to 20% DWT.
-              R100,000 minimum on voluntary products. Amethyst living annuity rules differ — see{" "}
-              <Link href="/everest-wealth/about" prefetch={false} className="font-semibold" style={{ color: TEAL }}>
+              Phase II: Capital distribution and sustainable income
+            </h2>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              After work, the engineering problem shifts: reliable income, drawdown discipline, and
+              capital preservation. Living annuities and voluntary structured yields solve different
+              problems — they must not be conflated.
+            </p>
+            <dl className="mt-8 space-y-0 border-y" style={{ borderColor: HAIRLINE }}>
+              {[
+                {
+                  dt: "Living annuities",
+                  dd: "Drawdowns typically between 2.5% and 17.5% of residual capital per year, within Regulation 28 wrappers. Growth inside the wrapper is tax-advantaged; withdrawals are taxed as income.",
+                },
+                {
+                  dt: "Sustainable drawdowns",
+                  dd: "The rate you take must survive longevity and sequence risk — not just “feel affordable” in year one.",
+                },
+                {
+                  dt: "Structured voluntary yields",
+                  dd: "May provide targeted monthly income or deferred compounding on after-tax capital, with notice periods and early-exit constraints.",
+                },
+              ].map((row) => (
+                <div
+                  key={row.dt}
+                  className="grid gap-2 border-b py-5 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:gap-6"
+                  style={{ borderColor: HAIRLINE }}
+                >
+                  <dt className="text-sm font-semibold text-shark">{row.dt}</dt>
+                  <dd className="text-sm leading-relaxed text-stone-600">{row.dd}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-6 text-sm leading-relaxed" style={{ color: BODY }}>
+              Full post-work income focus:{" "}
+              <Link
+                href="/retirement"
+                prefetch={false}
+                className="font-semibold text-cinematic-teal hover:opacity-80"
+              >
+                Retirement income hub
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* §6 Everest toolkit — fiduciary comparison table */}
+      <section
+        id="everest-toolkit"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="everest-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <div className="lg:sticky lg:top-28">
+              <EditorialLabel>Everest toolkit</EditorialLabel>
+            </div>
+          </aside>
+          <div className="col-span-12 lg:col-span-9">
+            <h2
+              id="everest-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              Targeted yields: unlisted preference share structures
+            </h2>
+            <p className="mt-4 max-w-3xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Where suitable, AS Brokers can discuss Everest Wealth voluntary products as one option
+              among others. Targeted return profiles are not guarantees. Read liquidity, tax, and
+              term constraints in the same row as the yield.
+            </p>
+
+            <h3
+              className="mt-10 font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+            >
+              Understanding Dividends Withholding Tax (DWT) vs marginal tax
+            </h3>
+            <p className="mt-4 max-w-3xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Dividends on these voluntary structures are typically subject to 20% DWT — often more
+              tax-efficient than interest taxed at marginal rates (up to 45% for top earners). That
+              tax treatment does not remove liquidity risk or convert a targeted profile into a
+              guarantee.
+            </p>
+
+            <h3
+              className="mt-10 font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+            >
+              Liquidity, notice periods, and early exit risks
+            </h3>
+            <p className="mt-4 max-w-3xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Voluntary Everest capital is illiquid. A 120-day notice period and up to a 15% early
+              exit penalty may apply. R100,000 minimum applies on voluntary products. Compare
+              structures side-by-side below — then deep-dive product mechanics on the Everest hub if
+              needed.
+            </p>
+
+            <div
+              className="mt-10 overflow-hidden border bg-white"
+              style={{ borderColor: HAIRLINE }}
+              role="table"
+              aria-label="Everest voluntary product comparison"
+            >
+              <div
+                className="hidden grid-cols-12 border-b bg-[#F7F6F3] px-4 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-stone-500 md:grid"
+                style={{ borderColor: HAIRLINE }}
+                role="row"
+              >
+                <div className="col-span-3" role="columnheader">
+                  Structure
+                </div>
+                <div className="col-span-3" role="columnheader">
+                  Targeted profile
+                </div>
+                <div className="col-span-4" role="columnheader">
+                  Constraints (same visual group)
+                </div>
+                <div className="col-span-2" role="columnheader">
+                  Explore
+                </div>
+              </div>
+              {EVEREST_ROWS.map((row) => (
+                <div
+                  key={row.name}
+                  className="grid grid-cols-1 gap-4 border-b px-4 py-5 last:border-b-0 md:grid-cols-12 md:gap-6 md:py-6"
+                  style={{ borderColor: HAIRLINE }}
+                  role="row"
+                >
+                  <div className="md:col-span-3" role="cell">
+                    <p className="font-serif text-base font-semibold tracking-tight text-shark">
+                      {row.name}
+                    </p>
+                    <p className="mt-1 text-sm text-stone-600">{row.focus}</p>
+                  </div>
+                  <div className="md:col-span-3" role="cell">
+                    <p className="text-sm font-semibold tabular-nums text-shark">{row.yieldLabel}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-stone-500">
+                      Not guaranteed. Educational summary only.
+                    </p>
+                  </div>
+                  <div className="md:col-span-4" role="cell">
+                    <ul className="space-y-1.5">
+                      {row.notes.map((note) => (
+                        <li key={note} className="text-sm leading-relaxed text-stone-600">
+                          {note}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="md:col-span-2" role="cell">
+                    <Link
+                      href={row.href}
+                      prefetch={false}
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+                    >
+                      Illustrate
+                      <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-6 text-sm leading-relaxed" style={{ color: BODY }}>
+              Corporate structure, risks, and product mechanics:{" "}
+              <Link
+                href="/everest-wealth"
+                prefetch={false}
+                className="font-semibold text-cinematic-teal hover:opacity-80"
+              >
+                Everest Wealth hub
+              </Link>{" "}
+              ·{" "}
+              <Link
+                href="/everest-wealth/about"
+                prefetch={false}
+                className="font-semibold text-cinematic-teal hover:opacity-80"
+              >
                 Understanding Everest
               </Link>
               .
             </p>
-          </HubReveal>
-        </div>
-      </section>
-
-      <HubCalculatorToolBay
-        headingId="investments-calculators-heading"
-        title="Run the numbers for your portfolio."
-        lead="Illustrative calculators for wealth building and yield comparison. Not personalised advice."
-        tools={CALCULATOR_TILES.map((tile) => ({
-          code: tile.code,
-          title: tile.title,
-          description: tile.description,
-          href: tile.href,
-          span: tile.span,
-        }))}
-      />
-
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="investments-trust-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-300/70 sm:aspect-[5/4] lg:col-span-5 lg:aspect-auto lg:min-h-[420px]">
-              <Image
-                src="/images/home4-why-independence-4x3.jpg"
-                alt={getAlt(
-                  "/images/home4-why-independence-4x3.jpg",
-                  "Independent adviser meeting with clients in Krugersdorp"
-                )}
-                fill
-                unoptimized
-                className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-            </div>
-            <div className="lg:col-span-7">
-              <p
-                className="font-semibold uppercase tracking-[0.2em]"
-                style={{ fontSize: "0.75rem", color: TEAL }}
-              >
-                Krugersdorp · West Rand · FSP 17273
-              </p>
-              <h2
-                id="investments-trust-heading"
-                className="mt-4 font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem)", lineHeight: 1.1, color: INK }}
-              >
-                Fiduciary structuring you can trust.
-              </h2>
-              <p
-                className="mt-5 max-w-xl leading-relaxed"
-                style={{ fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)", color: BODY }}
-              >
-                As an independent Category 1.8 FSP with over 25 years of experience, we survey the
-                entire market to build a bespoke wealth architecture that serves your goals, free
-                from institutional quotas.
-              </p>
-              <dl className="mt-8 grid gap-4 sm:grid-cols-3">
-                {TRUST_BADGES.map((badge) => (
-                  <div key={badge} className="border-l-2 border-cinematic-teal/40 pl-4">
-                    <dt className="text-sm font-bold text-shark">{badge}</dt>
-                    <dd className="mt-1 text-xs text-stone-500">Verified credential</dd>
-                  </div>
-                ))}
-              </dl>
-              <Link
-                href="/contact"
-                prefetch={false}
-                className="mt-9 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-samsung-blue/25 transition hover:bg-[#004a9e]"
-              >
-                Book an Investment Strategy Call
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
           </div>
         </div>
       </section>
 
-      <VisibleFaqSection faqs={faqs} />
+      {/* §7 Income vs growth tool + diagnostic anchor */}
+      <section
+        id="diagnostic-tools"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="income-tool-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="income-tool-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Income vs growth: liquidity trade-offs
+          </h2>
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            Compare maximum day-one income against deferred compounding — without treating either
+            scenario as advice.
+          </p>
+          <div className="mt-10 max-w-xl">
+            <ToolCard
+              code="ASSET 013"
+              title="Everest Income vs Growth"
+              description="Side-by-side illustration of income-led versus growth-led voluntary structures."
+              href={CALC_INCOME_VS_GROWTH}
+              cta="Calculate scenario"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* §8 Amethyst distinction */}
+      <section
+        id="amethyst-distinction"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="amethyst-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <div className="lg:sticky lg:top-28">
+              <EditorialLabel>Amethyst distinction</EditorialLabel>
+            </div>
+          </aside>
+          <div className="col-span-12 max-w-3xl lg:col-span-9">
+            <h2
+              id="amethyst-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              The Amethyst living annuity structure
+            </h2>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Pension, provident, and retirement annuity capital typically converts into an annuity
+              at retirement. Amethyst is a living annuity structure with legislated drawdown bounds
+              (2.5%–17.5%) — a different legal and tax wrapper from voluntary preference-share
+              products taxed under DWT.
+            </p>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              If your question is about Reg 28 retirement capital already inside (or about to enter)
+              a living annuity, continue on the retirement income path rather than treating voluntary
+              yields as a substitute.
+            </p>
+            <Link
+              href="/retirement"
+              prefetch={false}
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+            >
+              Continue to retirement income
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Credential strip */}
+      <section className="border-y py-8" style={{ borderColor: HAIRLINE }} aria-label="Fiduciary credentials">
+        <div className={`${HOME4_WRAP} grid gap-6 sm:grid-cols-3 sm:gap-8`}>
+          {[
+            { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
+            { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },
+            { title: "Market survey", body: "Independence before any product shelf" },
+          ].map((item) => (
+            <div key={item.title}>
+              <p className="font-serif text-lg font-semibold tracking-tight text-shark">{item.title}</p>
+              <p className="mt-1 text-sm text-stone-600">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* §9 FAQ */}
+      <section className="py-16 md:py-24" aria-labelledby="investments-faq-heading">
+        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
+          <h2
+            id="investments-faq-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Frequently asked questions
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
+            Educational answers only. For advice on your circumstances, book a consultation with
+            FSP 17273.
+          </p>
+          <div className="mt-8 divide-y border-y" style={{ borderColor: HAIRLINE }}>
+            {faqItems.map((item) => (
+              <details key={item.question} className="group py-5">
+                <summary className="cursor-pointer list-none font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-start justify-between gap-4">
+                    <span>{item.question}</span>
+                    <span
+                      className="shrink-0 text-cinematic-teal transition group-open:rotate-45"
+                      aria-hidden
+                    >
+                      +
+                    </span>
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <RelatedContent variant="warm" links={getRelatedLinks("/investments")} />
+
+      {/* §10 Terminal conversion — inset dark only */}
+      <section
+        id="book-strategy"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="final-cta-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <div
+            className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
+            style={{ backgroundColor: INK }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+              FSP 17273 · Category 1.8
+            </p>
+            <h2
+              id="final-cta-heading"
+              className="mt-4 font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
+            >
+              Ready for a structured investment review?
+            </h2>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
+              You have the continuum — accumulation, distribution, and the constraints behind any
+              targeted yield. Bring your figures; an independent adviser will review without product
+              pressure.
+            </p>
+            <Link
+              href="/contact?source=investments_terminal"
+              prefetch={false}
+              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+            >
+              Book a strategy call
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <Footer />
-    </>
+    </div>
   );
 }

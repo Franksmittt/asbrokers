@@ -1,28 +1,41 @@
 import { InvestmentsPageView } from "@/components/investments/InvestmentsPageView";
-import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Investments Hub | Smarter Investing for Every Life Stage";
+const PAGE_TITLE = "Independent Wealth Engineering & Investment Strategies | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Independent investment guidance for South Africans: wealth building before retirement, income strategies after retirement, and Everest Wealth education. FSP 17273.";
+  "Independent Category 1.8 investment guidance for South Africans: tax-efficient accumulation, sustainable income, Everest voluntary education with liquidity and DWT disclosure. FSP 17273.";
 
 const investmentsFAQs = [
   {
-    question: "What is the difference between before and after retirement investing?",
+    question: "How are unlisted preference share dividends taxed in South Africa?",
     answer:
-      "Before retirement, the focus is typically on growth, tax efficiency, and compounding through vehicles such as tax-free savings, retirement annuities, and voluntary capital products. After retirement, the priority shifts to sustainable income, drawdown management, and capital preservation.",
+      "Dividends on many voluntary preference-share structures are typically subject to 20% Dividends Withholding Tax (DWT). For high earners, that can be more tax-efficient than interest taxed at marginal income tax rates (up to 45%). Tax treatment does not remove liquidity risk or convert a targeted return profile into a guarantee. Confirm the current SARS position with a qualified professional.",
   },
   {
-    question: "What are Everest Wealth voluntary products?",
+    question: "What is the difference between voluntary capital products and a living annuity?",
     answer:
-      "Everest voluntary products are unlisted preference share structures with targeted return profiles (e.g. 12.8%, 14.2%, 14.5% p.a.), a R100,000 minimum, five-year terms, and liquidity constraints including 120-day notice and a potential 15% early exit penalty.",
+      "Voluntary Everest-style products are typically funded with after-tax capital and follow product-specific liquidity, notice, and DWT rules. A living annuity (such as Amethyst) wraps retirement-fund capital under Regulation 28 with legislated drawdown bounds of 2.5%–17.5%. They are different legal and tax wrappers and should not be conflated.",
+  },
+  {
+    question: "What does a Category 1.8 FSP licence mean?",
+    answer:
+      "Category 1.8 authorisation includes advice on certain securities and instruments (including shares) beyond a standard unit-trust shelf. AS Brokers CC (FSP 17273) can evaluate and advise on appropriate unlisted structures where suitable — while remaining an independent adviser surveying the market.",
+  },
+  {
+    question: "Are Everest Wealth returns guaranteed?",
+    answer:
+      "No. Figures such as 12.8%, 14.2%, and 14.5% are targeted return profiles based on underlying private structures — not guarantees. Voluntary capital is illiquid: a 120-day notice period and up to a 15% early exit penalty may apply, with a R100,000 minimum on voluntary products.",
   },
   {
     question: "Does AS Brokers only recommend Everest products?",
     answer:
-      "No. As an independent Category 1.8 FSP (17273), we survey the market and structure advice around your goals. Everest is one solution we can access where appropriate — not the only option.",
+      "No. As an independent Category 1.8 FSP (17273), we structure advice around your goals and survey the market. Everest is one solution we can access where appropriate — not the only option, and never a default for every client.",
+  },
+  {
+    question: "Do the online investment calculators constitute financial advice?",
+    answer:
+      "No. Calculators on asbrokers.co.za are illustrative and educational only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Book FSP 17273 for advice tailored to your circumstances.",
   },
 ];
 
@@ -31,23 +44,30 @@ export const metadata = buildPageMetadata({
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   keywords: [
-    "investments South Africa",
-    "wealth building",
-    "Everest Wealth",
-    "independent financial adviser",
+    "independent investment strategies South Africa",
+    "wealth building South Africa",
+    "Category 1.8 FSP",
+    "Everest Wealth preference shares",
+    "DWT vs marginal tax",
+    "living annuity income strategies",
+    "tax-free investments",
     "FSP 17273",
-    "Category 1.8",
+    "Krugersdorp financial adviser",
   ],
 });
 
 export default function InvestmentsPage() {
   return (
     <>
-      <HubLcpPreload src={HUB_LCP_IMAGES["/investments"]} variant="split" />
       <PageJsonLd
         path="/investments"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={investmentsFAQs}
+        service={{
+          name: "Independent wealth engineering & investment strategies",
+          description: PAGE_DESCRIPTION,
+          serviceType: "Investment advice",
+        }}
       />
       <InvestmentsPageView faqs={investmentsFAQs} />
     </>

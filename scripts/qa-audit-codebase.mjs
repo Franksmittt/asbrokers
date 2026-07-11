@@ -149,7 +149,10 @@ for (const rel of heroFiles) {
 }
 
 const embed = readFileSync(join(ROOT, "components/everest/EverestCalculatorEmbed.tsx"), "utf8");
-report.cls = /aspect-\[4\/3\]|aspectRatio/.test(embed) && /height=/.test(embed) ? "PASS" : "CHECK";
+report.cls =
+  /resizeToContent|ResizeObserver/.test(embed) && /height/.test(embed) && !/aspect-\[4\/3\]/.test(embed)
+    ? "PASS"
+    : "CHECK";
 
 const contactForm = readFileSync(join(ROOT, "components/forms/ContactEnquiryForm.tsx"), "utf8");
 if (/aria-label/.test(contactForm) && /<label htmlFor/.test(contactForm)) {
@@ -214,7 +217,7 @@ ${report.missingCanonical.length === 0 ? "✅ No public static routes missing pr
 
 ### CLS — images & calculator iframes
 
-- \`EverestCalculatorEmbed\` — ✅ \`aspect-[4/3]\` wrapper + explicit iframe \`width\`/\`height\`
+- \`EverestCalculatorEmbed\` — ✅ auto-height iframe (no nested scroll box)
 - Solo calculator heroes — ✅ \`aspect-[4/3]\` containers with \`fill\` images
 - Hub split heroes — ✅ \`aspect-[4/3]\` containers
 

@@ -1,33 +1,41 @@
 import { InsuranceHubPageView } from "@/components/insurance/InsuranceHubPageView";
-import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Insurance & Risk Protection | Wealth Protection for South Africans";
+const PAGE_TITLE = "Independent Insurance & Risk Architecture | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Independent insurance and risk architecture for South Africans. Medical aid, life cover, business protection, and short-term assets. FSP 17273.";
+  "Independent Category 1.8 insurance and risk architecture for South Africans: medical aid vs gap demarcation, life cover, assets, business continuity, and Average Clause education. FSP 17273.";
 
 const insuranceFAQs = [
   {
-    question: "Why start with a life event instead of a product list?",
+    question: "What is the Average Clause and how does it reduce a claim?",
     answer:
-      "High-net-worth clients rarely need a generic quote form first. We segment by what you are protecting (health, income, business, or assets), then match education, calculators, and advice to that need.",
+      "If the sum insured is below the property’s replacement or market value, many policies reduce the claim proportionally: (Amount Insured ÷ Market Value) × Damages = Payout. The Average Clause calculator on this site is an educational illustration only — not a claim assessment.",
   },
   {
-    question: "What does the Average Clause Calculator show?",
+    question: "What is the difference between medical aid and gap cover?",
     answer:
-      "It illustrates how underinsurance on home or commercial property can reduce a claim when insurers apply the average clause. Use it to stress-test whether your sums insured reflect true replacement value.",
+      "Medical schemes are governed by the Medical Schemes Act and must provide Prescribed Minimum Benefits. Gap cover is a short-term insurance product under Demarcation Regulations, designed to fund certain in-hospital specialist shortfalls — not to replace a medical scheme. Annual gap benefit caps adjust under those regulations; verify current figures for your policy year.",
   },
   {
     question: "What is the Premium Liability Test?",
     answer:
-      "It compares escalating versus level life insurance premiums over time, exposing how cheap starting premiums can become unaffordable when guarantees expire. Our life insurance hub walks through escalation traps; speak with FSP 17273 for a personalised comparison.",
+      "It highlights how escalating life premiums can become unaffordable when introductory guarantees expire, compared with level-premium designs. Use it as education before comparing quotes on starting price alone. Speak with FSP 17273 for a personalised comparison.",
   },
   {
     question: "Are AS Brokers tied to one insurer?",
     answer:
-      "No. We are an independent Category 1.8 FSP (17273) and review solutions across the market, including partners such as Santam, Old Mutual, and Bryte, to engineer cover that pays out when you need it.",
+      "No. We are an independent Category 1.8 FSP (17273) and survey the market. Naming institutions such as Santam, Old Mutual, or Bryte indicates placement capability — not exclusivity or tied agency.",
+  },
+  {
+    question: "Why start with a protection domain instead of a product list?",
+    answer:
+      "High-intent clients usually know what they are protecting — health, income, assets, or the business — before they need a quote form. Domain routing keeps education and advice aligned to that need.",
+  },
+  {
+    question: "Do online insurance calculators constitute advice?",
+    answer:
+      "No. Calculators and hub content are illustrative and educational only and do not constitute financial or insurance advice under the FAIS Act, 2002. Book a risk audit with FSP 17273 for advice on your circumstances.",
   },
 ];
 
@@ -35,20 +43,26 @@ export const metadata = buildPageMetadata({
   path: "/insurance",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  keywords: [
+    "independent insurance broker South Africa",
+    "Average Clause underinsurance",
+    "medical aid vs gap cover",
+    "Category 1.8 FSP",
+    "business risk insurance",
+    "FSP 17273",
+  ],
 });
 
 export default function InsuranceHubPage() {
   return (
     <>
-      <HubLcpPreload src={HUB_LCP_IMAGES["/insurance"]} variant="split" />
       <PageJsonLd
         path="/insurance"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={insuranceFAQs}
         service={{
-          name: "Insurance & Risk Protection by AS Brokers CC",
-          description:
-            "Independent insurance broking, medical aid structuring, life cover, business risk, and short-term asset protection for Krugersdorp and the West Rand.",
+          name: "Independent insurance & risk architecture",
+          description: PAGE_DESCRIPTION,
           serviceType:
             "Insurance Broking, Medical Aid Advice, Life Insurance, Business Risk, Short-Term Insurance",
         }}

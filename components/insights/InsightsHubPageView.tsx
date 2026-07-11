@@ -1,60 +1,52 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useActionState, useCallback, useState } from "react";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
 import { Footer } from "@/components/Footer";
-import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
-import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
-import type { FAQItem } from "@/lib/seo";
+import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import type { InsightFeedItem } from "@/lib/insights/feed";
 import type { InsightCategoryValue } from "@/lib/insights/insightCategories";
-import { getAlt } from "@/lib/image-alt";
-import {
-  HUB_TEAL as TEAL,
-  HUB_CANVAS as CANVAS,
-  HUB_INK as INK,
-  HUB_BODY as BODY,
-} from "@/lib/hub-design-tokens";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const InsightsFeedFilter = dynamic(
   () => import("@/components/insights/InsightsFeedFilter").then((m) => m.InsightsFeedFilter),
   { loading: () => <p className="mt-8 text-sm text-stone-500">Loading articles…</p> }
 );
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-8 lg:gap-y-8`;
-
-const HERO_IMAGE = "/images/home4-why-independence-4x3.jpg";
+const CANVAS = "#F7F6F3";
+const INK = "#1D1D1F";
+const TEAL = "#00A3A3";
+const BODY = "#52525b";
+const HAIRLINE = "#E5E5E5";
+const FAIS_DISCLAIMER =
+  "Articles and guides on this page are educational only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Personalised advice requires a needs analysis with a licensed representative of FSP 17273.";
 
 const FEATURED = {
   title: "Semigration & Retirement Villages Western Cape",
   description:
     "A flagship guide for high-net-worth families relocating from Gauteng to the coast: retirement capital, village living, and estate planning in one place.",
   href: "/insights/semigration-retirement",
-  image: "/images/home4-goal-estate-16x9.png",
 };
 
 export const INSIGHTS_TOPIC_NAV = [
   {
     id: "retirement",
-    label: "Retirement Guides",
+    label: "Retirement",
     categories: ["retirement_planning", "financial_freedom"] as InsightCategoryValue[],
   },
   {
     id: "investments",
-    label: "Investment Strategies",
+    label: "Investments",
     categories: ["investments"] as InsightCategoryValue[],
   },
   {
     id: "insurance",
-    label: "Insurance & Risk",
+    label: "Insurance",
     categories: [
       "short_term_business",
       "short_term_personal",
@@ -66,14 +58,21 @@ export const INSIGHTS_TOPIC_NAV = [
   },
   {
     id: "estate",
-    label: "Estate Planning",
+    label: "Estate",
     categories: ["estate_planning", "last_will_testament", "trust_structure"] as InsightCategoryValue[],
   },
   {
     id: "calculators",
-    label: "Interactive Calculators",
+    label: "Calculators",
     href: "/calculators",
   },
+] as const;
+
+const CALC_HANDOFFS = [
+  { label: "Retirement reality check", href: "/calculators/asset-002-retirement-reality-check" },
+  { label: "Estate duty & executor fees", href: "/calculators/asset-007-estate-duty" },
+  { label: "Average clause underinsurance", href: "/calculators/asset-015-average-clause" },
+  { label: "Full calculator library", href: "/calculators" },
 ] as const;
 
 const initialNewsletterState: NewsletterActionState = { success: false };
@@ -82,41 +81,36 @@ function InsightsNewsletterSignup() {
   const [state, formAction, isPending] = useActionState(subscribeNewsletter, initialNewsletterState);
 
   return (
-    <div className="flex h-full flex-col rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-2xl sm:p-7">
-      <h3
-        className="font-bold tracking-tight text-white"
-        style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)" }}
-      >
-        Stay ahead of your financial future.
+    <div className="border bg-transparent p-6 sm:p-8" style={{ borderColor: HAIRLINE }}>
+      <h3 className="font-serif text-xl font-semibold tracking-tight text-shark">
+        Fiduciary newsletter
       </h3>
-      <p
-        className="mt-3 leading-relaxed text-white/75"
-        style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-      >
-        Occasional fiduciary insights on retirement, estate duty, and wealth. No spam.
+      <p className="mt-3 text-sm leading-relaxed text-stone-600">
+        Occasional insights on retirement, estate duty, and wealth engineering. No spam.
       </p>
-      <form action={formAction} className="relative mt-5">
+      <form action={formAction} className="mt-5 flex flex-col gap-3 sm:flex-row">
         <input
           type="email"
           name="email"
           placeholder="your@email.com"
           required
           disabled={isPending}
-          className="w-full rounded-xl border border-white/15 bg-white/10 py-3 pl-4 pr-12 text-sm text-white placeholder:text-white/45 transition-colors focus:border-cinematic-teal/50 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/20 disabled:opacity-60"
+          className="w-full flex-1 border border-stone-300 bg-white px-4 py-3 text-sm text-shark placeholder:text-stone-400 focus:border-cinematic-teal focus:outline-none focus:ring-1 focus:ring-cinematic-teal disabled:opacity-60"
           aria-label="Email for newsletter"
         />
         <button
           type="submit"
           disabled={isPending}
-          className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg bg-white text-shark transition hover:bg-stone-100 disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#008f8f] disabled:opacity-60"
           aria-label={isPending ? "Subscribing" : "Subscribe to newsletter"}
         >
+          Subscribe
           <ArrowRight className="h-4 w-4" aria-hidden />
         </button>
       </form>
       {state.message ? (
         <p
-          className={`mt-2 text-sm ${state.success ? "text-cinematic-teal" : "text-amber-300"}`}
+          className={`mt-3 text-sm ${state.success ? "text-cinematic-teal" : "text-amber-700"}`}
           role="status"
         >
           {state.message}
@@ -133,6 +127,7 @@ type Props = {
 
 export function InsightsHubPageView({ articles, faqs = [] }: Props) {
   const [activeTopicId, setActiveTopicId] = useState<string | null>(null);
+  const faqItems = ensureSixFaqs(faqs);
 
   const handleTopicSelect = useCallback((topicId: string) => {
     setActiveTopicId((prev) => (prev === topicId ? null : topicId));
@@ -140,249 +135,211 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
   }, []);
 
   return (
-    <>
-      <header
-        data-chunk-boundary="true"
-        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
-        style={{ backgroundColor: CANVAS }}
-      >
-        <div className={`${GRID} gap-y-8 lg:items-center`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
-            <p
-              className="font-semibold uppercase tracking-[0.2em]"
-              style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
-            >
-              Learn · Insights · FSP 17273
-            </p>
-            <h1
-              className="mt-4 font-bold tracking-tight"
-              style={{
-                fontSize: "clamp(1.875rem, 1.25rem + 2.2vw, 3rem)",
-                lineHeight: 1.1,
-                color: INK,
-              }}
-            >
-              Financial Education & Fiduciary Insights.
-            </h1>
-            <p
-              className="mt-5 max-w-lg leading-relaxed"
-              style={{
-                fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)",
-                lineHeight: 1.65,
-                color: BODY,
-              }}
-            >
-              Master your financial future with our library of retirement guides, investment strategies,
-              and fiduciary research.
-            </p>
-          </HubReveal>
-
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6 lg:col-start-7">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:aspect-[4/3]">
-              <Image
-                src={HERO_IMAGE}
-                alt={getAlt(
-                  HERO_IMAGE,
-                  "Professional financial education library and study environment"
-                )}
-                fill
-                priority
-                className="object-cover object-center"
-                sizes={HUB_SPLIT_HERO_SIZES}
-              />
-            </div>
-          </HubReveal>
+    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+      <header className="pb-10 pt-28 md:pb-12 md:pt-36 lg:pt-40">
+        <div className={HOME4_WRAP}>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+            Learn · Insights · FSP 17273
+          </p>
+          <h1
+            className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
+          >
+            Fiduciary insights &amp; wealth engineering library
+          </h1>
+          <p
+            className="mt-5 max-w-2xl leading-relaxed"
+            style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
+          >
+            Deep education authored under FSP 17273 — legislation, macroeconomic context, and
+            planning frameworks. Reading is not personalised advice.
+          </p>
         </div>
       </header>
 
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-8 md:py-10"
-        style={{ backgroundColor: CANVAS }}
-        aria-label="Insight topics"
-      >
-        <div className={`${HOME4_WRAP} flex flex-wrap gap-2 sm:gap-3`}>
-          {INSIGHTS_TOPIC_NAV.map((topic) =>
-            "href" in topic && topic.href ? (
-              <Link
-                key={topic.id}
-                href={topic.href}
-                prefetch={false}
-                className="rounded-full bg-white px-4 py-2.5 font-semibold text-shark shadow-sm ring-1 ring-stone-200/90 transition-[transform,box-shadow] duration-500 hover:-translate-y-0.5 hover:shadow-md sm:px-5"
-                style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
-              >
-                {topic.label}
-              </Link>
-            ) : (
-              <button
-                key={topic.id}
-                type="button"
-                onClick={() => handleTopicSelect(topic.id)}
-                className={`rounded-full px-4 py-2.5 font-semibold shadow-sm ring-1 transition-[transform,box-shadow] duration-500 hover:-translate-y-0.5 hover:shadow-md sm:px-5 ${
-                  activeTopicId === topic.id ? "" : "bg-white text-shark ring-stone-200/90"
-                }`}
-                style={
-                  activeTopicId === topic.id
-                    ? {
-                        fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)",
-                        backgroundColor: `${TEAL}26`,
-                        color: TEAL,
-                        borderColor: `${TEAL}4D`,
-                      }
-                    : { fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }
-                }
-              >
-                {topic.label}
-              </button>
-            )
-          )}
-        </div>
-      </section>
+      <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 pb-16 lg:gap-14 lg:pb-24`}>
+        <aside className="col-span-12 lg:col-span-3">
+          <nav
+            aria-label="Library topics"
+            className="border-t pt-6 lg:sticky lg:top-28 lg:border-t-0 lg:pt-0"
+            style={{ borderColor: HAIRLINE }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">Topics</p>
+            <ul className="mt-4 space-y-3">
+              {INSIGHTS_TOPIC_NAV.map((topic) =>
+                "href" in topic && topic.href ? (
+                  <li key={topic.id}>
+                    <Link
+                      href={topic.href}
+                      prefetch={false}
+                      className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
+                    >
+                      {topic.label}
+                    </Link>
+                  </li>
+                ) : (
+                  <li key={topic.id}>
+                    <button
+                      type="button"
+                      onClick={() => handleTopicSelect(topic.id)}
+                      aria-current={activeTopicId === topic.id ? "page" : undefined}
+                      className={`text-left text-sm font-medium transition hover:text-cinematic-teal ${
+                        activeTopicId === topic.id ? "text-cinematic-teal" : "text-stone-700"
+                      }`}
+                    >
+                      {topic.label}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+          </nav>
+        </aside>
 
-      <section
-        data-chunk-boundary="true"
-        className="border-y border-stone-200/80 py-12 md:py-16"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="insights-featured-heading"
-      >
-        <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-8">
+        <div className="col-span-12 lg:col-span-9">
+          <section aria-labelledby="insights-featured-heading">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+              Featured research
+            </p>
+            <h2
+              id="insights-featured-heading"
+              className="mt-3 font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              {FEATURED.title}
+            </h2>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              {FEATURED.description}
+            </p>
             <Link
               href={FEATURED.href}
               prefetch={false}
-              className="group block overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/90"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
             >
-              <div className="relative aspect-[16/10] w-full bg-stone-100 sm:aspect-[2/1]">
-                <Image
-                  src={FEATURED.image}
-                  alt={getAlt(FEATURED.image, FEATURED.title)}
-                  fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                />
-              </div>
+              Read the full guide
+              <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-          </HubReveal>
+          </section>
 
-          <HubReveal delay={0.06} className="col-span-12 flex lg:col-span-4">
-            <article className="flex h-full flex-col justify-center rounded-3xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 sm:p-8">
-              <p
-                className="font-semibold uppercase tracking-[0.16em]"
-                style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
-              >
-                Featured authority piece
-              </p>
-              <h2
-                id="insights-featured-heading"
-                className="mt-3 font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)", color: INK }}
-              >
-                {FEATURED.title}
-              </h2>
-              <p
-                className="mt-4 leading-relaxed"
-                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)", color: BODY }}
-              >
-                {FEATURED.description}
-              </p>
-              <Link
-                href={FEATURED.href}
-                prefetch={false}
-                className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-5 py-3 font-semibold text-white shadow-md shadow-samsung-blue/20 transition-[background-color,box-shadow] duration-500 hover:bg-[#004a9e] hover:shadow-cta-glow-blue"
-                style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
-              >
-                Read the full guide
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </article>
-          </HubReveal>
-        </div>
-      </section>
-
-      <section
-        data-chunk-boundary="true"
-        id="latest"
-        className="py-12 md:py-16"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="insights-latest-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <HubReveal>
+          <section id="latest" className="mt-16 scroll-mt-28" aria-labelledby="insights-latest-heading">
             <h2
               id="insights-latest-heading"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
             >
-              Latest from our fiduciaries
+              Latest financial intelligence
             </h2>
-            <p
-              className="mt-2 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              Articles and guides from AS Brokers. Educational only, not personalised advice.
+            <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
+              Chronological archive. Educational only — not personalised advice.
             </p>
-          </HubReveal>
+            <InsightsFeedFilter
+              articles={articles}
+              topicNav={INSIGHTS_TOPIC_NAV}
+              activeTopicId={activeTopicId}
+              onClearTopic={() => setActiveTopicId(null)}
+              variant="editorial"
+            />
+          </section>
 
-          <InsightsFeedFilter
-            articles={articles}
-            topicNav={INSIGHTS_TOPIC_NAV}
-            activeTopicId={activeTopicId}
-            onClearTopic={() => setActiveTopicId(null)}
-          />
-        </div>
-      </section>
-
-      <section
-        data-chunk-boundary="true"
-        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
-        style={{ backgroundColor: INK }}
-        aria-label="Calculators and newsletter"
-      >
-        <div
-          className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-samsung-blue/20 blur-3xl"
-          aria-hidden
-        />
-        <div className={`relative ${GRID} lg:items-stretch`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
-            <div className="flex h-full flex-col rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-2xl sm:p-7">
-              <h3
-                className="font-bold tracking-tight text-white"
-                style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)" }}
-              >
-                Prefer to run the numbers yourself?
-              </h3>
-              <p
-                className="mt-3 flex-1 leading-relaxed text-white/75"
-                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-              >
-                Access our calculator library for retirement, estate duty, insurance, and Everest
-                Wealth scenarios.
-              </p>
-              <Link
-                href="/calculators"
-                prefetch={false}
-                className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-6 py-3 font-semibold text-shark transition hover:bg-stone-100"
-                style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
-              >
-                View Calculators
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
-          </HubReveal>
-
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+          <section className="mt-16" aria-labelledby="newsletter-heading">
+            <h2 id="newsletter-heading" className="sr-only">
+              Newsletter
+            </h2>
             <InsightsNewsletterSignup />
-          </HubReveal>
+          </section>
+
+          <section className="mt-16" aria-labelledby="calc-handoff-heading">
+            <h2
+              id="calc-handoff-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)", color: INK }}
+            >
+              Fiduciary calculators &amp; diagnostic tools
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
+              Interactive tools live outside long-form reading — open them when you want numbers.
+            </p>
+            <ul className="mt-6 border-y" style={{ borderColor: HAIRLINE }}>
+              {CALC_HANDOFFS.map((item) => (
+                <li key={item.href} className="border-b last:border-b-0" style={{ borderColor: HAIRLINE }}>
+                  <Link
+                    href={item.href}
+                    prefetch={false}
+                    className="flex items-center justify-between gap-4 py-4 text-sm font-medium text-shark transition hover:text-cinematic-teal"
+                  >
+                    {item.label}
+                    <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <section className="border-t py-16 md:py-24" style={{ borderColor: HAIRLINE }} aria-labelledby="insights-faq-heading">
+        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
+          <h2
+            id="insights-faq-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Frequently asked questions on financial education
+          </h2>
+          <div className="mt-8 divide-y border-y" style={{ borderColor: HAIRLINE }}>
+            {faqItems.map((item) => (
+              <details key={item.question} className="group py-5">
+                <summary className="cursor-pointer list-none font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-start justify-between gap-4">
+                    <span>{item.question}</span>
+                    <span className="shrink-0 text-cinematic-teal transition group-open:rotate-45" aria-hidden>
+                      +
+                    </span>
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.answer}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
-      <VisibleFaqSection faqs={faqs} />
       <RelatedContent variant="warm" links={getRelatedLinks("/insights")} />
+
+      <section className="pb-16 md:pb-24" aria-labelledby="advice-boundary-heading">
+        <div className={HOME4_WRAP}>
+          <div
+            className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12"
+            style={{ backgroundColor: INK }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+              Education → advice boundary
+            </p>
+            <h2
+              id="advice-boundary-heading"
+              className="mt-4 font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
+            >
+              Need advice on your circumstances?
+            </h2>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
+              The articles above do not account for your personal financial situation. A
+              consultation with FSP 17273 starts with a proper needs analysis.
+            </p>
+            <Link
+              href="/contact?source=insights_terminal"
+              prefetch={false}
+              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+            >
+              Book a consultation
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-white/50">{FAIS_DISCLAIMER}</p>
+          </div>
+        </div>
+      </section>
+
       <Footer />
-    </>
+    </div>
   );
 }

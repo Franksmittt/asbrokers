@@ -1,24 +1,42 @@
 import { InsightsHubPageView } from "@/components/insights/InsightsHubPageView";
-import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getInsightFeed } from "@/lib/insights/feed";
-import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Financial Education & Fiduciary Insights | AS Brokers";
+const PAGE_TITLE = "Fiduciary Insights & Wealth Engineering Library | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Articles and guides on retirement planning, estate duty, Everest Wealth, semigration, and financial planning for South Africans. Educational content from FSP 17273.";
+  "Educational library from FSP 17273: retirement, investments, insurance, and estate planning insights. Articles are not personalised advice — book a consultation for a needs analysis.";
 
 const insightsFAQs = [
   {
     question: "Are these articles personalised financial advice?",
     answer:
-      "No. Insights and guides on this page are educational only. For advice tailored to your circumstances, book a consultation with a qualified AS Brokers adviser (FSP 17273).",
+      "No. Insights and guides are educational only. Under the FAIS General Code of Conduct, personalised advice requires a proper needs analysis with a licensed representative. Book a consultation with FSP 17273 for advice on your circumstances.",
   },
   {
     question: "How often is new content published?",
     answer:
-      "We add articles on retirement, investments, insurance, and estate planning as market conditions and client questions evolve. Subscribe to the newsletter for occasional updates.",
+      "We publish when legislation, budgets, or client questions warrant it — for example National Budget updates or SARB Monetary Policy Committee decisions. Subscribe to the newsletter for occasional updates.",
+  },
+  {
+    question: "How do topics relate to the service hubs?",
+    answer:
+      "Topic filters help you find articles on retirement, investments, insurance, or estate planning. For structured diagnostics and conversion paths, use the dedicated hubs (/retirement-planning, /investments, /insurance, /estate-planning).",
+  },
+  {
+    question: "What is the newsletter for?",
+    answer:
+      "A soft subscription for occasional fiduciary insights. It is separate from booking advice and does not enrol you in a sales sequence disguised as education.",
+  },
+  {
+    question: "Where are the calculators?",
+    answer:
+      "Interactive tools are listed in the calculator handoff on this page and in the full /calculators library. They are illustrative only and do not constitute advice.",
+  },
+  {
+    question: "Who authors this library?",
+    answer:
+      "Content is published under AS Brokers CC (FSP 17273), an independent Category 1.8 provider based in Krugersdorp. Educational framing relies on legislation and planning frameworks — not generic SEO filler.",
   },
 ];
 
@@ -26,6 +44,13 @@ export const metadata = buildPageMetadata({
   path: "/insights",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  keywords: [
+    "financial education South Africa",
+    "fiduciary insights",
+    "retirement planning articles",
+    "estate planning guides",
+    "FSP 17273",
+  ],
 });
 
 export default async function InsightsPage() {
@@ -33,7 +58,6 @@ export default async function InsightsPage() {
 
   return (
     <>
-      <HubLcpPreload src={HUB_LCP_IMAGES["/insights"]} />
       <PageJsonLd
         path="/insights"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}

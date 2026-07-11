@@ -35,6 +35,8 @@ type Props = {
   topicNav?: readonly TopicNavItem[];
   activeTopicId?: string | null;
   onClearTopic?: () => void;
+  /** editorial = hairline list (Continuous Editorial Library); cards = legacy grid */
+  variant?: "editorial" | "cards";
 };
 
 export function InsightsFeedFilter({
@@ -42,6 +44,7 @@ export function InsightsFeedFilter({
   topicNav = [],
   activeTopicId = null,
   onClearTopic,
+  variant = "cards",
 }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [datePreset, setDatePreset] = useState<DatePreset>("all");
@@ -170,10 +173,22 @@ export function InsightsFeedFilter({
 
   const activeTopicLabel = topicNav.find((t) => t.id === activeTopicId)?.label;
 
+  const isEditorial = variant === "editorial";
+
   return (
     <div className="mt-8">
-      <div className="overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200/90">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200/80 px-5 py-4 sm:px-6">
+      <div
+        className={
+          isEditorial
+            ? "border border-[#E5E5E5] bg-transparent"
+            : "overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200/90"
+        }
+      >
+        <div
+          className={`flex flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-6 ${
+            isEditorial ? "border-b border-[#E5E5E5]" : "border-b border-stone-200/80"
+          }`}
+        >
           <div>
             <p
               className="font-semibold uppercase tracking-[0.16em]"
@@ -190,7 +205,11 @@ export function InsightsFeedFilter({
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1.5 text-xs font-semibold text-stone-700 transition hover:bg-stone-100"
+                className={
+                  isEditorial
+                    ? "border border-[#E5E5E5] bg-transparent px-3 py-1.5 text-xs font-semibold text-stone-700 transition hover:text-cinematic-teal"
+                    : "rounded-full border border-stone-200 bg-stone-50 px-3 py-1.5 text-xs font-semibold text-stone-700 transition hover:bg-stone-100"
+                }
               >
                 Clear all
               </button>
@@ -198,7 +217,11 @@ export function InsightsFeedFilter({
             <button
               type="button"
               onClick={() => setFiltersOpen((o) => !o)}
-              className="rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs font-semibold text-shark transition hover:bg-stone-50"
+              className={
+                isEditorial
+                  ? "border border-[#E5E5E5] bg-transparent px-3 py-1.5 text-xs font-semibold text-shark transition hover:text-cinematic-teal"
+                  : "rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs font-semibold text-shark transition hover:bg-stone-50"
+              }
               aria-expanded={filtersOpen}
             >
               {filtersOpen ? "Hide filters" : "More filters"}
@@ -207,17 +230,19 @@ export function InsightsFeedFilter({
         </div>
 
         {activeTopicLabel ? (
-          <div className="flex flex-wrap items-center gap-2 border-b border-stone-200/80 px-5 py-3 sm:px-6">
+          <div
+            className={`flex flex-wrap items-center gap-2 px-5 py-3 sm:px-6 ${
+              isEditorial ? "border-b border-[#E5E5E5]" : "border-b border-stone-200/80"
+            }`}
+          >
             <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500">Topic</span>
             <button
               type="button"
               onClick={() => onClearTopic?.()}
-              className="inline-flex items-center gap-1.5 rounded-full bg-cinematic-teal/10 pl-3 pr-2 py-1 text-xs font-semibold text-cinematic-teal ring-1 ring-cinematic-teal/20"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-cinematic-teal"
             >
               {activeTopicLabel}
-              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cinematic-teal/15 text-[10px]">
-                ×
-              </span>
+              <span aria-hidden>×</span>
             </button>
           </div>
         ) : null}
@@ -317,7 +342,11 @@ export function InsightsFeedFilter({
       </div>
 
       {articles.length === 0 ? (
-        <div className="mt-8 rounded-2xl bg-white p-10 text-center ring-1 ring-stone-200/90 md:p-14">
+        <div
+          className={`mt-8 p-10 text-center md:p-14 ${
+            isEditorial ? "border border-[#E5E5E5]" : "rounded-2xl bg-white ring-1 ring-stone-200/90"
+          }`}
+        >
           <p
             className="mx-auto mb-8 max-w-md leading-relaxed"
             style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
@@ -329,94 +358,117 @@ export function InsightsFeedFilter({
             <Link
               href="/calculators"
               prefetch={false}
-              className="inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 font-semibold text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e]"
+              className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3 text-sm font-semibold text-white hover:bg-[#008f8f]"
             >
               Use our calculators
             </Link>
             <Link
               href="/contact"
               prefetch={false}
-              className="inline-flex items-center gap-2 rounded-2xl bg-stone-100 px-6 py-3 font-semibold text-shark ring-1 ring-stone-200 hover:bg-stone-200"
+              className="inline-flex items-center gap-2 border border-[#E5E5E5] px-6 py-3 text-sm font-semibold text-shark hover:text-cinematic-teal"
             >
               Get in touch
             </Link>
           </div>
         </div>
       ) : filtered.length > 0 ? (
-        <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 md:gap-8">
-          {filtered.map((a) => (
-            <li key={`${a.id}::${a.slug}::${a.locale}`}>
-              <Link
-                href={`/insights/${a.slug}?locale=${a.locale}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_8px_32px_rgba(29,29,31,0.07)] ring-1 ring-stone-200/90 transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,128,128,0.1)]"
-              >
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
-                  <img
-                    src={a.thumbnailUrl ?? "/images/og-default.jpg"}
-                    alt={getAlt(a.thumbnailUrl ?? "/images/og-default.jpg", a.title)}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-6 md:p-7">
-                  <div className="flex flex-wrap items-center gap-2">
+        isEditorial ? (
+          <ul className="mt-8 border-y border-[#E5E5E5]">
+            {filtered.map((a) => (
+              <li key={`${a.id}::${a.slug}::${a.locale}`} className="border-b border-[#E5E5E5] last:border-b-0">
+                <Link
+                  href={`/insights/${a.slug}?locale=${a.locale}`}
+                  className="group block py-6 transition hover:opacity-90"
+                  aria-label={`Read article: ${a.title}`}
+                >
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                     <time
-                      className="text-xs font-semibold uppercase tracking-wider text-stone-600"
+                      className="text-xs font-semibold uppercase tracking-wider text-stone-500 tabular-nums"
                       dateTime={a.publishedAt}
                     >
                       {formatDateShort(a.publishedAt)}
                     </time>
-                    {a.source === "studio" && (
-                      <span className="rounded-full bg-cinematic-teal/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-cinematic-teal">
-                        New
+                    {(a.categories?.length ?? 0) > 0 && (
+                      <span className="text-xs text-stone-500">
+                        {INSIGHT_CATEGORY_LABEL_BY_VALUE[a.categories[0] as InsightCategoryValue] ??
+                          a.categories[0]}
                       </span>
                     )}
                   </div>
                   <h3
-                    className="mt-3 font-bold leading-snug tracking-tight transition-colors group-hover:text-samsung-blue"
-                    style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
+                    className="mt-2 font-serif font-semibold tracking-tight text-shark group-hover:text-cinematic-teal"
+                    style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem)" }}
                   >
                     {a.title}
                   </h3>
-                  {a.excerpt && (
-                    <p
-                      className="mt-2 line-clamp-3 flex-1 leading-relaxed"
-                      style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
-                    >
-                      {a.excerpt}
-                    </p>
-                  )}
-                  {(a.categories?.length ?? 0) > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {a.categories.slice(0, 2).map((value) => (
-                        <span
-                          key={value}
-                          className="rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-semibold text-stone-700 ring-1 ring-stone-200"
-                        >
-                          {INSIGHT_CATEGORY_LABEL_BY_VALUE[value as InsightCategoryValue] ?? value}
-                        </span>
-                      ))}
-                      {a.categories.length > 2 && (
-                        <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold text-stone-600">
-                          +{a.categories.length - 2}
+                  {a.excerpt ? (
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-stone-600">{a.excerpt}</p>
+                  ) : null}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 md:gap-8">
+            {filtered.map((a) => (
+              <li key={`${a.id}::${a.slug}::${a.locale}`}>
+                <Link
+                  href={`/insights/${a.slug}?locale=${a.locale}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_8px_32px_rgba(29,29,31,0.07)] ring-1 ring-stone-200/90 transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,128,128,0.1)]"
+                >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
+                    <img
+                      src={a.thumbnailUrl ?? "/images/og-default.jpg"}
+                      alt={getAlt(a.thumbnailUrl ?? "/images/og-default.jpg", a.title)}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6 md:p-7">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <time
+                        className="text-xs font-semibold uppercase tracking-wider text-stone-600"
+                        dateTime={a.publishedAt}
+                      >
+                        {formatDateShort(a.publishedAt)}
+                      </time>
+                      {a.source === "studio" && (
+                        <span className="rounded-full bg-cinematic-teal/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-cinematic-teal">
+                          New
                         </span>
                       )}
                     </div>
-                  )}
-                  <span
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue group-hover:text-cinematic-teal"
-                  >
-                    Read article
-                    <span aria-hidden>→</span>
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                    <h3
+                      className="mt-3 font-bold leading-snug tracking-tight transition-colors group-hover:text-samsung-blue"
+                      style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
+                    >
+                      {a.title}
+                    </h3>
+                    {a.excerpt && (
+                      <p
+                        className="mt-2 line-clamp-3 flex-1 leading-relaxed"
+                        style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
+                      >
+                        {a.excerpt}
+                      </p>
+                    )}
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-samsung-blue group-hover:text-cinematic-teal">
+                      Read article
+                      <span aria-hidden>→</span>
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )
       ) : (
-        <div className="mt-8 rounded-2xl bg-white p-10 text-center ring-1 ring-stone-200/90 md:p-12">
-          <p className="text-lg font-bold" style={{ color: INK }}>
+        <div
+          className={`mt-8 p-10 text-center md:p-12 ${
+            isEditorial ? "border border-[#E5E5E5]" : "rounded-2xl bg-white ring-1 ring-stone-200/90"
+          }`}
+        >
+          <p className="font-serif text-lg font-semibold" style={{ color: INK }}>
             No articles match
           </p>
           <p
@@ -428,7 +480,7 @@ export function InsightsFeedFilter({
           <button
             type="button"
             onClick={clearAllFilters}
-            className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 font-semibold text-white shadow-md hover:bg-[#004a9e]"
+            className="mt-6 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3 text-sm font-semibold text-white hover:bg-[#008f8f]"
           >
             Reset filters
           </button>

@@ -1,378 +1,333 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { HubReveal } from "@/components/hub/HubReveal";
-import { HubCalculatorToolBay } from "@/components/hub/HubCalculatorToolBay";
 import { RelatedContent } from "@/components/seo/RelatedContent";
-import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
-import type { FAQItem } from "@/lib/seo";
+import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { ArrowRight, ShieldCheck } from "@/components/icons";
-import { getAlt } from "@/lib/image-alt";
-import {
-  HUB_TEAL as TEAL,
-  HUB_CANVAS as CANVAS,
-  HUB_INK as INK,
-  HUB_BODY as BODY,
-  HUB_BLUE as BLUE,
-} from "@/lib/hub-design-tokens";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
-
-/** Golden-hour suburban family — text lives in a separate column, never overlaid. */
-const HERO_IMAGE = "/images/home4-goal-insure-16x9.png";
+const CANVAS = "#F7F6F3";
+const INK = "#1D1D1F";
+const TEAL = "#00A3A3";
+const BODY = "#52525b";
+const HAIRLINE = "#E5E5E5";
+const INSET = "rgba(29,29,31,0.05)";
+const FAIS_DISCLAIMER =
+  "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or insurance advice as defined in the FAIS Act, 2002. Outcomes depend on underwriting, policy wording, and your circumstances.";
 
 const CALC_AVERAGE_CLAUSE = calculatorPagePath("asset-015-average-clause");
-const PREMIUM_LIABILITY = "/solutions/life-insurance";
-const BUSINESS_RISK_REVIEW = "/business-risk-review";
 
-const PROTECTION_BLOCKS = [
+const PROTECTION_DOMAINS = [
   {
-    title: "My Family's Health",
-    description: "Medical aid, gap cover, and wellness benefits structured for your household.",
+    title: "Medical aid & gap",
+    description: "Scheme structuring and shortfall cover within statutory demarcation.",
     href: "/solutions/medical-aid",
-    links: [
-      { label: "Medical aid", href: "/solutions/medical-aid" },
-      { label: "Gap cover", href: "/solutions/medical-aid" },
-    ],
-    span: "col-span-12 lg:col-span-7",
-    accent: "teal" as const,
-    large: true,
   },
   {
-    title: "My Life & Income",
-    description: "Life cover, disability, and severe illness to protect what you earn.",
+    title: "Life & income",
+    description: "Life, disability, and severe illness cover for dependents and earnings.",
     href: "/solutions/life-insurance",
-    links: [
-      { label: "Life cover", href: "/solutions/life-insurance" },
-      { label: "Disability & income", href: "/solutions/life-insurance" },
-      { label: "Severe illness", href: "/solutions/life-insurance" },
-    ],
-    span: "col-span-12 lg:col-span-5",
-    accent: "blue" as const,
-    large: false,
   },
   {
-    title: "My Short-Term Assets",
-    description: "Premium protection for your home, vehicles, and high-value possessions.",
+    title: "Personal assets",
+    description: "Home, motor, and high-value possessions — including underinsurance risk.",
     href: "/solutions/personal-insurance",
-    links: [
-      { label: "Home & contents", href: "/solutions/personal-insurance" },
-      { label: "Motor & valuables", href: "/solutions/personal-insurance" },
-    ],
-    span: "col-span-12 lg:col-span-5",
-    accent: "teal" as const,
-    large: false,
   },
   {
-    title: "My Business & Partners",
-    description: "Commercial cover, key person protection, and buy & sell continuity.",
+    title: "Business & partners",
+    description: "Commercial cover, key person protection, and buy-and-sell continuity.",
     href: "/solutions/business-insurance",
-    links: [
-      { label: "Business insurance", href: "/solutions/business-insurance" },
-      { label: "Key person cover", href: "/solutions/business-life" },
-      { label: "Buy & sell agreements", href: "/solutions/business-life" },
-    ],
-    span: "col-span-12 lg:col-span-7",
-    accent: "blue" as const,
-    large: true,
   },
-];
+] as const;
 
-const RISK_CALCULATORS = [
-  {
-    code: "ASSET 015",
-    title: "Average Clause Calculator",
-    description:
-      "See how underinsurance can decimate a commercial or home claim when the average clause applies.",
-    href: CALC_AVERAGE_CLAUSE,
-    accent: "teal" as const,
-    span: "col-span-12 lg:col-span-5",
-  },
-  {
-    code: "Premium Liability Test",
-    title: "Escalating vs level premiums",
-    description:
-      "Compare escalating and level life premiums to expose the trap of expiring guarantees.",
-    href: PREMIUM_LIABILITY,
-    accent: "blue" as const,
-    span: "col-span-12 lg:col-span-4",
-  },
-  {
-    code: "Business Risk Review™",
-    title: "Gap analysis for owners",
-    description:
-      "Structured review of commercial, life, and continuity risks — not a generic quote form.",
-    href: BUSINESS_RISK_REVIEW,
-    accent: "teal" as const,
-    span: "col-span-12 lg:col-span-3",
-  },
-];
-
-const PARTNERS = ["Santam", "Old Mutual", "Bryte"];
-const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
-
-function ProtectionCard({
-  title,
-  description,
-  href,
-  links,
-  accent,
-  large,
-}: (typeof PROTECTION_BLOCKS)[number]) {
-  const border = accent === "teal" ? TEAL : BLUE;
-  return (
-    <article className="h-full">
-      <Link
-        href={href}
-        prefetch={false}
-        className="group flex h-full min-h-[12rem] flex-col rounded-2xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(29,29,31,0.12)] sm:p-8"
-      >
-        <div
-          className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl"
-          style={{ backgroundColor: `${border}18`, color: border }}
-        >
-          <ShieldCheck className="h-5 w-5" aria-hidden />
-        </div>
-        <h3
-          className="font-bold tracking-tight"
-          style={{
-            fontSize: large
-              ? "clamp(1.25rem, 1.1rem + 0.55vw, 1.5625rem)"
-              : "clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)",
-            color: INK,
-          }}
-        >
-          {title}
-        </h3>
-        <p
-          className="mt-3 flex-1 leading-relaxed"
-          style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-        >
-          {description}
-        </p>
-        {links.length > 0 ? (
-          <ul className="mt-4 space-y-2">
-            {links.map((link) => (
-              <li key={`${link.label}-${link.href}`}>
-                <span
-                  className="inline-flex items-center gap-2 font-semibold"
-                  style={{ color: border, fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
-                >
-                  {link.label}
-                  <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        <span
-          className="mt-5 inline-flex items-center gap-2 font-semibold"
-          style={{ color: border, fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-        >
-          Explore protection
-          <ArrowRight
-            className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
-            aria-hidden
-          />
-        </span>
-      </Link>
-    </article>
-  );
-}
+const PARTNERS = ["Santam", "Old Mutual", "Bryte"] as const;
 
 type Props = { faqs: FAQItem[] };
 
 export function InsuranceHubPageView({ faqs }: Props) {
-  return (
-    <>
-      <header
-        data-chunk-boundary="true"
-        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
-        style={{ backgroundColor: CANVAS }}
-      >
-        <div className={`${GRID} items-center gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
-            <p
-              className="font-semibold uppercase tracking-[0.2em]"
-              style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
-            >
-              Insurance · Risk Architecture · FSP 17273
-            </p>
-            <h1
-              className="mt-4 font-bold tracking-tight"
-              style={{
-                fontSize: "clamp(1.875rem, 1.35rem + 2vw, 2.75rem)",
-                lineHeight: 1.12,
-                color: INK,
-              }}
-            >
-              Wealth protection and fiduciary defense.
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{
-                fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)",
-                lineHeight: 1.65,
-                color: BODY,
-              }}
-            >
-              From your health to your business, we structure independent insurance to protect
-              exactly what you&apos;ve built.
-            </p>
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md shadow-cta-glow-blue transition-all duration-300 hover:bg-[#004a9e]"
-              style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-            >
-              Request a Risk Audit
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </HubReveal>
+  const faqItems = ensureSixFaqs(faqs);
 
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
-              <Image
-                src={HERO_IMAGE}
-                alt={getAlt(
-                  HERO_IMAGE,
-                  "South African family walking together in a suburban driveway at golden hour, home and car softly in the background"
-                )}
-                fill
-                priority
-                className="object-cover object-center"
-                sizes={HUB_SPLIT_HERO_SIZES}
-              />
-            </div>
-          </HubReveal>
+  return (
+    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+        <div className={HOME4_WRAP}>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+            Insurance &amp; risk · FSP 17273 · Category 1.8
+          </p>
+          <h1
+            className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
+          >
+            Independent insurance &amp; risk architecture
+          </h1>
+          <p
+            className="mt-5 max-w-2xl leading-relaxed"
+            style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
+          >
+            For South African families, high-net-worth households, and business owners who need
+            structured protection — not a product warehouse. Independent advice, no institutional
+            sales quotas. Est. 1998, Krugersdorp.
+          </p>
+
+          <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+            <a href="#protection-domains" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Protection domains
+            </a>
+            <a href="#average-clause" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Average clause diagnostic
+            </a>
+            <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Independence
+            </a>
+            <a href="#risk-audit" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Book a risk audit
+            </a>
+          </nav>
+
+          <h2 id="protection-domains" className="sr-only">
+            Protecting personal wealth and commercial balance sheets
+          </h2>
+          <div className="mt-12 grid grid-cols-1 gap-px border sm:grid-cols-2" style={{ borderColor: HAIRLINE, backgroundColor: HAIRLINE }}>
+            {PROTECTION_DOMAINS.map((domain) => (
+              <Link
+                key={domain.href}
+                href={domain.href}
+                prefetch
+                className="group flex flex-col bg-[#F7F6F3] p-6 transition hover:bg-white sm:p-8"
+              >
+                <h3 className="font-serif text-xl font-semibold tracking-tight text-shark">{domain.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{domain.description}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal">
+                  Open domain
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden />
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </header>
 
       <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-16"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="insurance-protect-heading"
+        id="average-clause"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="average-clause-heading"
       >
-        <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-8">
-            <h2
-              id="insurance-protect-heading"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-            >
-              What do you need to protect?
-            </h2>
-            <p
-              className="mt-3 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              Start with your life event, not a product catalogue. Choose the area that matches your
-              situation and we will guide you from education to advice.
+        <div className={HOME4_WRAP}>
+          <div className="rounded-lg px-6 py-10 sm:px-10 sm:py-12" style={{ backgroundColor: INSET }}>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+              Diagnostic · ASSET 015
             </p>
-          </HubReveal>
+            <h2
+              id="average-clause-heading"
+              className="mt-4 font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              The mechanics of the Average Clause in South Africa
+            </h2>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              If the sum insured is below replacement value, many policies reduce the claim
+              proportionally:{" "}
+              <span className="font-semibold tabular-nums text-shark">
+                (Amount Insured ÷ Market Value) × Damages = Payout
+              </span>
+              . That is underwriting maths — not a scare tactic.
+            </p>
+            <Link
+              href={CALC_AVERAGE_CLAUSE}
+              prefetch={false}
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+            >
+              Run the Average Clause calculator
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-stone-500">{FAIS_DISCLAIMER}</p>
+          </div>
 
-          {PROTECTION_BLOCKS.map((block, index) => (
-            <HubReveal key={block.title} delay={index * 0.04} className={block.span}>
-              <ProtectionCard {...block} />
-            </HubReveal>
-          ))}
-        </div>
-      </section>
-
-      <HubCalculatorToolBay
-        headingId="insurance-risk-heading"
-        title="Test your current risk exposure."
-        lead="Illustrative tools only — not quotes or personalised advice. Use them to spot gaps before a fiduciary conversation."
-        tools={RISK_CALCULATORS.map((tile) => ({
-          code: tile.code,
-          title: tile.title,
-          description: tile.description,
-          href: tile.href,
-          span: tile.span,
-          cta: "Open tool",
-        }))}
-      />
-
-      <section
-        data-chunk-boundary="true"
-        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
-        style={{ backgroundColor: INK }}
-        aria-labelledby="insurance-trust-heading"
-      >
-        <div
-          className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-samsung-blue/20 blur-3xl"
-          aria-hidden
-        />
-        <div className={`relative ${HOME4_WRAP}`}>
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-6">
-              <h2
-                id="insurance-trust-heading"
-                className="font-bold tracking-tight text-white"
-                style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
-              >
-                We work for you, not the insurer.
-              </h2>
-              <p className="mt-5 max-w-xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
-                As an independent Category 1.8 FSP, we review the entire market to engineer a risk
-                architecture that actually pays out when you need it most. No call centres — just
-                dedicated fiduciary experts.
+          <div className="mt-10 grid gap-5 border bg-white p-6 sm:grid-cols-2 sm:p-8" style={{ borderColor: HAIRLINE }}>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">
+                Premium liability
+              </p>
+              <h3 className="mt-2 font-serif text-lg font-semibold tracking-tight text-shark">
+                Escalating vs level premiums
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                Cheap starting premiums can become unaffordable when guarantees expire. Review the
+                life insurance hub before comparing quotes on price alone.
               </p>
               <Link
-                href="/contact"
-                prefetch={false}
-                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+                href="/solutions/life-insurance"
+                prefetch
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
               >
-                Speak to a Fiduciary Advisor
+                Open life cover education
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-            <div className="lg:col-span-6">
-              <div className="rounded-3xl bg-white/5 p-7 ring-1 ring-white/10 backdrop-blur-2xl sm:p-8">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-                  Market partners
-                </p>
-                <ul className="mt-5 space-y-3">
-                  {PARTNERS.map((p) => (
-                    <li
-                      key={p}
-                      className="flex items-center justify-between border-b border-white/10 pb-3 last:border-0 last:pb-0"
-                    >
-                      <span className="text-base font-semibold text-white">{p}</span>
-                      <span className="h-1.5 w-1.5 rounded-full bg-cinematic-teal" aria-hidden />
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-7 flex flex-wrap gap-2">
-                  {TRUST_BADGES.map((b) => (
-                    <span
-                      key={b}
-                      className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85 ring-1 ring-white/10"
-                    >
-                      {b}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <div className="border-t pt-5 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0" style={{ borderColor: HAIRLINE }}>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">
+                Commercial continuity
+              </p>
+              <h3 className="mt-2 font-serif text-lg font-semibold tracking-tight text-shark">
+                Business risk review
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                Key person, buy-and-sell funding, and commercial liability — structured for the
+                balance sheet, not a generic package.
+              </p>
+              <Link
+                href="/business-risk-review"
+                prefetch={false}
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
+              >
+                Start a business risk review
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <VisibleFaqSection faqs={faqs} />
+      <section className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24" aria-labelledby="medical-gap-heading">
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
+              Regulatory demarcation
+            </p>
+          </aside>
+          <div className="col-span-12 max-w-3xl lg:col-span-9">
+            <h2
+              id="medical-gap-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              Medical aid structuring vs gap cover demarcation
+            </h2>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Medical schemes are governed by the Medical Schemes Act and must provide Prescribed
+              Minimum Benefits (PMBs). Gap cover is a short-term insurance product under Demarcation
+              Regulations — designed to fund in-hospital specialist shortfalls, not to replace a
+              medical scheme.
+            </p>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Annual gap cover benefit caps adjust under those regulations (verify the current
+              figure for your policy year with a licensed adviser). We structure household health
+              cover across both regimes without conflating them.
+            </p>
+            <Link
+              href="/solutions/medical-aid"
+              prefetch
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
+            >
+              Medical aid &amp; gap domain
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="independence"
+        className="scroll-mt-28 border-y py-12 md:py-16"
+        style={{ borderColor: HAIRLINE }}
+        aria-labelledby="independence-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="independence-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            The independence advantage: unrestricted market access
+          </h2>
+          <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            As an independent Category 1.8 FSP we survey the market and place cover where it fits —
+            without quotas that force a single insurer&apos;s shelf. Market access includes
+            institutions such as:
+          </p>
+          <ul className="mt-8 grid gap-0 border-y sm:grid-cols-3" style={{ borderColor: HAIRLINE }}>
+            {PARTNERS.map((name) => (
+              <li
+                key={name}
+                className="border-b px-4 py-5 font-serif text-lg font-semibold tracking-tight text-stone-700 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
+                style={{ borderColor: HAIRLINE }}
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm text-stone-600">
+            Names indicate placement capability — not endorsement exclusivity or tied agency.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24" aria-labelledby="insurance-faq-heading">
+        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
+          <h2
+            id="insurance-faq-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Frequently asked questions on insurance engineering
+          </h2>
+          <div className="mt-8 divide-y border-y" style={{ borderColor: HAIRLINE }}>
+            {faqItems.map((item) => (
+              <details key={item.question} className="group py-5">
+                <summary className="cursor-pointer list-none font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-start justify-between gap-4">
+                    <span>{item.question}</span>
+                    <span className="shrink-0 text-cinematic-teal transition group-open:rotate-45" aria-hidden>
+                      +
+                    </span>
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <RelatedContent variant="warm" links={getRelatedLinks("/insurance")} />
+
+      <section id="risk-audit" className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24" aria-labelledby="risk-audit-heading">
+        <div className={HOME4_WRAP}>
+          <div
+            className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12"
+            style={{ backgroundColor: INK }}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+              FSP 17273 · Category 1.8
+            </p>
+            <h2
+              id="risk-audit-heading"
+              className="mt-4 font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
+            >
+              Ready for a structured risk audit?
+            </h2>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
+              Bring policies, sums insured, and business continuity questions. An independent
+              adviser will review cover architecture without product pressure.
+            </p>
+            <Link
+              href="/contact?source=insurance_terminal"
+              prefetch={false}
+              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+            >
+              Book a risk audit
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-white/50">{FAIS_DISCLAIMER}</p>
+          </div>
+        </div>
+      </section>
+
       <Footer />
-    </>
+    </div>
   );
 }

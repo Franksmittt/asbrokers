@@ -1,5 +1,6 @@
 import type { RelatedLink } from "@/components/seo/RelatedContent";
 import { getCalculatorPageConfig } from "@/lib/calculators/page-configs";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 
 export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   "/solutions/personal-insurance": [
@@ -164,14 +165,14 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "5-step diagnostic and Financial Freedom Score™.",
     },
     {
-      href: "/calculators#asset-002-retirement-reality-check",
+      href: calculatorPagePath("asset-002-retirement-reality-check"),
       title: "Retirement Reality Check",
       description: "Compare desired income against projected capital.",
     },
     {
-      href: "/retirement",
-      title: "Full retirement hub",
-      description: "Living annuities, drawdown tools, and post-retirement guidance.",
+      href: "/about",
+      title: "About AS Brokers",
+      description: "Independent FSP 17273 · Est. 1998 · Krugersdorp.",
     },
     {
       href: "/contact",

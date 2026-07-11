@@ -2,9 +2,9 @@ import { InsuranceHubPageView } from "@/components/insurance/InsuranceHubPageVie
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Independent Insurance & Risk Architecture | AS Brokers";
+const PAGE_TITLE = "Commercial & Personal Risk Architecture | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Independent Category 1.8 insurance and risk architecture for South Africans: medical aid vs gap demarcation, life cover, assets, business continuity, and Average Clause education. FSP 17273.";
+  "Discover policy flaws before the claim: Average Clause underinsurance, Business Interruption, life premium traps. Independent risk architecture for families and business owners. FSP 17273.";
 
 const insuranceFAQs = [
   {

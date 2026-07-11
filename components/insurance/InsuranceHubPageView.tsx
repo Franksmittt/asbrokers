@@ -61,15 +61,16 @@ export function InsuranceHubPageView({ faqs }: Props) {
             className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
           >
-            Independent insurance &amp; risk architecture
+            Commercial and personal risk architecture
           </h1>
           <p
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            For South African families, high-net-worth households, and business owners who need
-            structured protection — not a product warehouse. Independent advice, no institutional
-            sales quotas. Est. 1998, Krugersdorp.
+            Most owners discover policy flaws after the fire — Average Clause underinsurance, broken
+            Business Interruption definitions, escalating life premiums. We structure indemnification
+            for your balance sheet, place cover independently across the market, and stay for the
+            claim.
           </p>
 
           <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">

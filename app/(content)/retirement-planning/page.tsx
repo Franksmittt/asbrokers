@@ -2,9 +2,9 @@ import { RetirementPlanningPageView } from "@/components/retirement-planning/Ret
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Pre-Retirement Wealth Engineering & Diagnostics | AS Brokers";
+const PAGE_TITLE = "Will Your Capital Survive Your Lifespan? | Pre-Retirement Diagnostics";
 const PAGE_DESCRIPTION =
-  "Pre-retirement diagnostics for South Africans still working: Retirement Survival Blueprint, fiduciary calculators, Two-Pot and 2026 RA context, and independent FSP 17273 advice in Krugersdorp.";
+  "Most plans reach retirement then fail to fund life after it. Pre-retirement diagnostics for South Africans: capital gap maths, Two-Pot context, and FSP 17273 Wealth Engineering — education before advice.";
 
 const planningFAQs = [
   {

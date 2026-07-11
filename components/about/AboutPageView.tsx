@@ -56,15 +56,16 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               className="mt-5 font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
             >
-              About AS Brokers: independent financial advisors &amp; wealth engineers
+              Protecting your legacy. Engineering your wealth.
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              An independent Financial Services Provider in Krugersdorp with over 25 years helping
-              South Africans secure retirement income, protect businesses, and structure legacies —
-              free from institutional product quotas.
+              Finding an adviser aligned with <em>you</em> — not a bank&apos;s product quota — is
+              hard. For 25+ years AS Brokers (FSP 17273, Category 1.8) has been an independent
+              fiduciary compass for professionals, families, and business owners in Krugersdorp and
+              beyond: math first, then advice.
             </p>
             <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
               <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">

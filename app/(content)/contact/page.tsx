@@ -2,9 +2,9 @@ import { ContactPageView } from "@/components/contact/ContactPageView";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Contact AS Brokers | Request a Wealth Engineering Call";
+const PAGE_TITLE = "Engineer Your Wealth Architecture | Contact AS Brokers";
 const PAGE_DESCRIPTION =
-  "Request a consultation with independent advisers in Krugersdorp (FSP 17273). Retirement, investments, insurance, and estate planning. Not a call centre. Submitting an enquiry is not FAIS advice.";
+  "Capital Assessment → Wealth Engineering Call → Implementation. Connect with an authorised FSP 17273 adviser in Krugersdorp — no call centre. Enquiry is not FAIS advice. POPIA compliant.";
 
 const contactFAQs = [
   {

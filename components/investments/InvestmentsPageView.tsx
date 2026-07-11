@@ -191,23 +191,33 @@ export function InvestmentsPageView({ faqs }: Props) {
                 color: INK,
               }}
             >
-              Independent wealth engineering and investment strategies
+              Independent wealth engineering beyond the standard unit trust
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              For serious South African investors structuring voluntary capital and retirement
-              income — from tax-efficient accumulation through sustainable distribution. Education
-              first; advice only when you book FSP 17273.
+              High earners lose too much yield to JSE volatility and marginal tax on interest. Where
+              suitable, Category 1.8 lets us discuss targeted private-market profiles and DWT
+              architecture — with liquidity constraints stated upfront. Education before advice.
             </p>
-            <a
-              href="#book-strategy"
-              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
-            >
-              Book an actuarial consultation
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#diagnostic-tools"
+                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+              >
+                Compare investment profiles
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </a>
+              <Link
+                href="/everest-wealth"
+                prefetch={false}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+              >
+                Explore Everest Wealth
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
           <div className="col-span-12 lg:col-span-5">
             <HeroDataViz />
@@ -264,9 +274,15 @@ export function InvestmentsPageView({ faqs }: Props) {
               quotas.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              The 45% problem: interest on cash and many retail yields is taxed at your marginal
+              rate. Where suitable, preference-share structures can sit in a 20% DWT environment —
+              with R100k minimums, term, and notice constraints stated next to any targeted profile.
+              That is the Category 1.8 bridge many generic IFAs cannot offer.
+            </p>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Where appropriate, structured return profiles (including Everest Wealth voluntary
-              products) can sit inside a broader wealth architecture. They are tools in a fiduciary
-              toolkit — not the default answer for every client.
+              products) are tools for a defined problem — tax drag, income predictability, or
+              compounding — never a default product catalogue.
             </p>
           </div>
         </div>

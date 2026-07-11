@@ -130,7 +130,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         <div className={`${HOME4_WRAP} grid grid-cols-12 items-center gap-10 lg:gap-12`}>
           <div className="col-span-12 lg:col-span-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-              Pre-retirement diagnostics · FSP 17273
+              Pre-retirement diagnostics · FSP 17273 · Category 1.8
             </p>
             <h1
               className="mt-5 font-serif font-semibold tracking-tight"
@@ -140,24 +140,34 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 color: INK,
               }}
             >
-              Are you on track to retire comfortably? Let&apos;s look at the math together.
+              Will your capital survive your lifespan?
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              For South African professionals still in the accumulation phase. Independent Category
-              1.8 advice (Est. 1998, Krugersdorp) — diagnose your trajectory first, then decide
-              whether you need a structured strategy call.
+              Most plans are built to <em>reach</em> retirement — then fail to fund life after it.
+              We calculate your capital gap and drawdown trajectory first (education before advice),
+              then decide whether a Wealth Engineering Call with FSP 17273 is needed.
             </p>
-            <Link
-              href="#retirement-survival-blueprint"
-              prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
-            >
-              Start diagnostic
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link
+                href="#retirement-survival-blueprint"
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+              >
+                Start diagnostic
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href={CALC_REALITY}
+                prefetch={false}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+              >
+                Run Reality Check
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
           <div className="col-span-12 lg:col-span-5">
             <HeroDataViz />

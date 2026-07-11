@@ -145,14 +145,15 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
           >
-            Fiduciary insights &amp; wealth engineering library
+            Fiduciary insights &amp; financial education
           </h1>
           <p
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            Deep education authored under FSP 17273 — legislation, macroeconomic context, and
-            planning frameworks. Reading is not personalised advice.
+            Financial intuition fails against South African legislation — Two-Pot, estate duty, gap
+            demarcation, tax drag. Read fiduciary analyses first; arrive at advice already educated.
+            Articles are not personalised advice.
           </p>
         </div>
       </header>

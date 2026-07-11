@@ -97,9 +97,9 @@ const calculatorsFAQs = [
 
 export const metadata = buildPageMetadata({
   path: "/calculators",
-  title: "Financial Calculators & Actuarial Planning Tools | AS Brokers",
+  title: "The Mathematical Reality Check | Fiduciary Calculators",
   description:
-    "Seventeen educational AS Brokers calculators for retirement, Everest Wealth, estate duty, tax, and insurance. Illustrative only — not FAIS advice. FSP 17273.",
+    "Run retirement, estate, insurance, and Everest scenarios yourself — ungated educational ASSET tools. Not FAIS advice. Then book FSP 17273 to interpret your numbers.",
 });
 
 function byId(id: string) {
@@ -131,14 +131,16 @@ export default function CalculatorsPage() {
               className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
             >
-              Financial calculators &amp; actuarial planning tools
+              The mathematical reality check
             </h1>
             <p
               className="mt-5 max-w-2xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              A public directory of seventeen educational ASSET tools. Open the calculator that
-              matches your question — then bring the output to a strategy call if you want advice.
+              You cannot plan a 30-year retirement or a risk structure on guesswork. Run the numbers
+              yourself — retirement longevity, estate liquidity, underinsurance, yield trade-offs —
+              before you speak to anyone. Educational only; then bring results to FSP 17273 if you
+              want advice.
             </p>
             <aside
               className="mt-8 max-w-3xl border bg-white p-5 text-sm leading-relaxed text-stone-600"

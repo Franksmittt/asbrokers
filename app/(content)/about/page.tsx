@@ -2,9 +2,9 @@ import { AboutPageView } from "@/components/about/AboutPageView";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "About AS Brokers: Independent Financial Advisors & Wealth Engineers";
+const PAGE_TITLE = "Protecting Your Legacy. Engineering Your Wealth. | AS Brokers";
 const PAGE_DESCRIPTION =
-  "AS Brokers CC is an independent FSP (17273, Category 1.8) in Krugersdorp with 25+ years of fiduciary advice across retirement, investments, insurance, and estate planning.";
+  "Independent FSP 17273 (Category 1.8) in Krugersdorp since 1998. Education before advice, human specialists for underwriting, medical aid, and claims — not a call centre.";
 
 const aboutFAQs = [
   {

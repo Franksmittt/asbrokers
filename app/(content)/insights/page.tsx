@@ -3,9 +3,9 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getInsightFeed } from "@/lib/insights/feed";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Fiduciary Insights & Wealth Engineering Library | AS Brokers";
+const PAGE_TITLE = "Fiduciary Insights & Financial Education | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Educational library from FSP 17273: retirement, investments, insurance, and estate planning insights. Articles are not personalised advice — book a consultation for a needs analysis.";
+  "Deep guides on Two-Pot, estate duty, tax drag, and risk — written by fiduciaries, not marketers. Education before advice. FSP 17273.";
 
 const insightsFAQs = [
   {

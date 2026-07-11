@@ -2,9 +2,9 @@ import { InvestmentsPageView } from "@/components/investments/InvestmentsPageVie
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Independent Wealth Engineering & Investment Strategies | AS Brokers";
+const PAGE_TITLE = "Wealth Engineering Beyond the Unit Trust | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Independent Category 1.8 investment guidance for South Africans: tax-efficient accumulation, sustainable income, Everest voluntary education with liquidity and DWT disclosure. FSP 17273.";
+  "High earners lose yield to market volatility and marginal tax on interest. Independent Category 1.8 wealth engineering for voluntary capital — targeted profiles, DWT architecture, education before advice. FSP 17273.";
 
 const investmentsFAQs = [
   {

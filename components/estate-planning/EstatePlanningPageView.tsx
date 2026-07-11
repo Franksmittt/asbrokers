@@ -98,15 +98,15 @@ export function EstatePlanningPageView({ faqs }: Props) {
               className="mt-5 font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
             >
-              Estate liquidity &amp; legacy engineering
+              Estate liquidity engineering &amp; succession
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              For individuals and business owners approaching abatement thresholds who need cash
-              available when an estate settles — not fear marketing. We coordinate financial
-              architecture; partnered attorneys draft wills and trust deeds.
+              A will is only half the job. Without cash for estate duty and executor fees, heirs can
+              be forced into a fire sale. We engineer liquidity — life cover and capital structure —
+              while partnered attorneys draft the legal instruments.
             </p>
             <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
               <a href="#legacy-checklist" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">

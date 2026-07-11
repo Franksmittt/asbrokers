@@ -70,14 +70,15 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
           >
-            Request a Wealth Engineering Call
+            Engineer your wealth architecture
           </h1>
           <p
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            Tell us what you want to discuss. An authorised adviser will respond personally — not a
-            call centre. Submitting an enquiry is not financial advice.
+            Untangling retirement, risk, medical, or estate questions can feel risky. Start here:
+            Capital Assessment → Wealth Engineering Call → Implementation — with an authorised
+            FSP 17273 adviser, not a call centre. Submitting an enquiry is not financial advice.
           </p>
           <Suspense fallback={null}>
             <IntakeContextBanner />
@@ -106,6 +107,18 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </div>
 
           <div className="col-span-12 space-y-12 lg:col-span-5">
+            <div>
+              <h2 className="font-serif text-xl font-semibold tracking-tight text-shark">
+                Who we help best
+              </h2>
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-stone-600">
+                <li>Pre-retirees who need capital-longevity maths, not a product pitch</li>
+                <li>Business owners worried about underinsurance and continuity</li>
+                <li>Families facing medical shortfalls or estate liquidity gaps</li>
+                <li>High earners seeking tax-aware structures under Category 1.8</li>
+              </ul>
+            </div>
+
             <div>
               <h2 className="font-serif text-xl font-semibold tracking-tight text-shark">
                 What happens next

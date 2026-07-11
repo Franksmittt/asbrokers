@@ -4,19 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { HubReveal } from "@/components/hub/HubReveal";
+import { HubCalculatorToolBay } from "@/components/hub/HubCalculatorToolBay";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { ArrowRight, LineChart, ShieldCheck, FileText } from "@/components/icons";
+import { ArrowRight, ShieldCheck, FileText } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import {
   HUB_TEAL as TEAL,
   HUB_CANVAS as CANVAS,
   HUB_INK as INK,
   HUB_BODY as BODY,
-  HUB_BLUE as BLUE,
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
@@ -81,180 +81,6 @@ const EDUCATION_CARDS = [
 
 const TRUST_FOCUS = ["Tax-Free Investments & RAs", "Preservation Funds", "Retirement Readiness"];
 const TRUST_BADGES = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
-
-function CalculatorTileA({
-  code,
-  title,
-  description,
-  href,
-  index,
-}: (typeof CALCULATOR_TILES)[number] & { index: number }) {
-  return (
-    <article className="h-full">
-      <Link
-        href={href}
-        prefetch={false}
-        className="group flex h-full flex-col rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-2xl transition hover:bg-white/[0.08] sm:p-7"
-      >
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">{code}</p>
-          <span className="text-xs font-bold tabular-nums text-white/35">0{index + 1}</span>
-        </div>
-        <h3
-          className="mt-4 font-bold tracking-tight text-white"
-          style={{ fontSize: "clamp(1.0625rem, 1rem + 0.3vw, 1.25rem)" }}
-        >
-          {title}
-        </h3>
-        <p
-          className="mt-3 flex-1 leading-relaxed text-white/70"
-          style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)" }}
-        >
-          {description}
-        </p>
-        <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-5 py-2.5 text-sm font-semibold text-shark transition group-hover:bg-stone-100">
-          Run calculator
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-        </span>
-      </Link>
-    </article>
-  );
-}
-
-function CalculatorTileB({
-  code,
-  title,
-  description,
-  href,
-  accent,
-  featured,
-}: (typeof CALCULATOR_TILES)[number] & { featured?: boolean }) {
-  const border = accent === "teal" ? TEAL : BLUE;
-  if (featured) {
-    return (
-      <article className="h-full">
-        <Link
-          href={href}
-          prefetch={false}
-          className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white p-8 shadow-xl ring-1 ring-stone-200/90 sm:p-10"
-        >
-          <div
-            className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-20 blur-2xl"
-            style={{ backgroundColor: border }}
-            aria-hidden
-          />
-          <p
-            className="font-semibold uppercase tracking-[0.16em]"
-            style={{ fontSize: "0.75rem", color: border }}
-          >
-            {code} · Start here
-          </p>
-          <h3
-            className="mt-3 max-w-lg font-bold tracking-tight"
-            style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-          >
-            {title}
-          </h3>
-          <p
-            className="mt-4 max-w-xl flex-1 leading-relaxed"
-            style={{ fontSize: "1.0625rem", color: BODY }}
-          >
-            {description}
-          </p>
-          <span
-            className="mt-8 inline-flex w-fit items-center gap-2 rounded-2xl px-6 py-3 font-semibold text-white shadow-md transition group-hover:opacity-95"
-            style={{ backgroundColor: border }}
-          >
-            Run calculator
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-          </span>
-        </Link>
-      </article>
-    );
-  }
-  return (
-    <article className="h-full">
-      <Link
-        href={href}
-        prefetch={false}
-        className="group flex h-full flex-col rounded-3xl border-l-4 bg-white p-6 shadow-lg ring-1 ring-stone-200/90 transition hover:-translate-y-0.5 hover:shadow-xl sm:p-7"
-        style={{ borderLeftColor: border }}
-      >
-        <p
-          className="font-semibold uppercase tracking-[0.14em]"
-          style={{ fontSize: "0.6875rem", color: border }}
-        >
-          {code}
-        </p>
-        <h3
-          className="mt-2 font-bold tracking-tight"
-          style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.2rem)", color: INK }}
-        >
-          {title}
-        </h3>
-        <p className="mt-3 flex-1 text-sm leading-relaxed" style={{ color: BODY }}>
-          {description}
-        </p>
-        <span
-          className="mt-5 inline-flex items-center gap-2 text-sm font-semibold"
-          style={{ color: border }}
-        >
-          Run calculator
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-        </span>
-      </Link>
-    </article>
-  );
-}
-
-function CalculatorTileC({
-  code,
-  title,
-  description,
-  href,
-  index,
-}: (typeof CALCULATOR_TILES)[number] & { index: number }) {
-  return (
-    <article className="h-full">
-      <Link
-        href={href}
-        prefetch={false}
-        className="group grid h-full grid-cols-[auto_1fr] gap-5 rounded-3xl bg-[#FDFCFA] p-6 ring-1 ring-stone-200/90 transition hover:bg-white hover:shadow-lg sm:gap-6 sm:p-8"
-      >
-        <span
-          className="font-bold tabular-nums tracking-tight text-cinematic-teal/25 transition group-hover:text-cinematic-teal/40"
-          style={{ fontSize: "clamp(2.5rem, 2rem + 1.5vw, 3.5rem)", lineHeight: 1 }}
-          aria-hidden
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <div className="flex min-w-0 flex-col">
-          <p
-            className="font-semibold uppercase tracking-[0.16em]"
-            style={{ fontSize: "0.6875rem", color: TEAL }}
-          >
-            {code}
-          </p>
-          <h3
-            className="mt-2 font-bold tracking-tight"
-            style={{ fontSize: "clamp(1.0625rem, 1rem + 0.3vw, 1.25rem)", color: INK }}
-          >
-            {title}
-          </h3>
-          <p className="mt-2 flex-1 text-sm leading-relaxed" style={{ color: BODY }}>
-            {description}
-          </p>
-          <span
-            className="mt-4 inline-flex items-center gap-2 border-b border-samsung-blue/30 pb-0.5 text-sm font-semibold text-samsung-blue transition group-hover:border-samsung-blue"
-          >
-            Run calculator
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-          </span>
-        </div>
-      </Link>
-    </article>
-  );
-}
 
 function EducationCard({
   title,
@@ -406,135 +232,18 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* TEMP: 3 calculator-section options — reply A / B / C */}
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-10"
-        style={{ backgroundColor: CANVAS }}
-        aria-label="Retirement calculator section design options"
-      >
-        <div className={HOME4_WRAP}>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
-            Design review · Run your own numbers
-          </p>
-          <p className="mt-2 max-w-2xl text-sm text-stone-600">
-            Three layouts below for the calculator block. Reply with <strong>A</strong>,{" "}
-            <strong>B</strong>, or <strong>C</strong> and we&apos;ll lock that one in.
-          </p>
-        </div>
-      </section>
-
-      {/* A — Dark tool bay */}
-      <section
-        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
-        style={{ backgroundColor: INK }}
-        aria-labelledby="planning-calculators-a"
-      >
-        <div
-          className="pointer-events-none absolute -right-16 top-0 h-64 w-64 rounded-full bg-cinematic-teal/25 blur-3xl"
-          aria-hidden
-        />
-        <div className={`relative ${GRID}`}>
-          <div className="col-span-12">
-            <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
-              Option A · Dark tool bay
-            </p>
-            <div className="flex items-center gap-3">
-              <LineChart className="h-7 w-7 shrink-0 text-cinematic-teal" aria-hidden />
-              <h2
-                id="planning-calculators-a"
-                className="font-bold tracking-tight text-white"
-                style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)" }}
-              >
-                Run your own numbers.
-              </h2>
-            </div>
-            <p className="mt-3 max-w-2xl leading-relaxed text-white/70" style={{ fontSize: "1.0625rem" }}>
-              Illustrative tools for the accumulation phase. Educational only — not personalised
-              advice.
-            </p>
-          </div>
-          {CALCULATOR_TILES.map((tile, index) => (
-            <div key={`a-${tile.code}`} className="col-span-12 md:col-span-4">
-              <CalculatorTileA {...tile} index={index} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* B — Spotlight + companions */}
-      <section
-        className="border-t border-stone-200/80 py-16 md:py-24"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="planning-calculators-b"
-      >
-        <div className={GRID}>
-          <div className="col-span-12">
-            <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
-              Option B · Spotlight + companions
-            </p>
-            <div className="flex items-center gap-3">
-              <LineChart className="h-7 w-7 shrink-0" style={{ color: TEAL }} aria-hidden />
-              <h2
-                id="planning-calculators-b"
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-              >
-                Run your own numbers.
-              </h2>
-            </div>
-            <p
-              className="mt-3 max-w-2xl leading-relaxed"
-              style={{ fontSize: "1.0625rem", color: BODY }}
-            >
-              Illustrative tools for the accumulation phase. Educational only — not personalised
-              advice.
-            </p>
-          </div>
-          <div className="col-span-12 lg:col-span-7">
-            <CalculatorTileB {...CALCULATOR_TILES[0]} featured />
-          </div>
-          <div className="col-span-12 flex flex-col gap-6 lg:col-span-5">
-            <CalculatorTileB {...CALCULATOR_TILES[1]} />
-            <CalculatorTileB {...CALCULATOR_TILES[2]} />
-          </div>
-        </div>
-      </section>
-
-      {/* C — Numbered editorial runway */}
-      <section
-        className="border-t border-stone-200/80 py-16 md:py-24"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="planning-calculators-c"
-      >
-        <div className={HOME4_WRAP}>
-          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: BLUE }}>
-            Option C · Numbered runway
-          </p>
-          <div className="flex items-center gap-3">
-            <LineChart className="h-7 w-7 shrink-0" style={{ color: TEAL }} aria-hidden />
-            <h2
-              id="planning-calculators-c"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-            >
-              Run your own numbers.
-            </h2>
-          </div>
-          <p
-            className="mt-3 max-w-2xl leading-relaxed"
-            style={{ fontSize: "1.0625rem", color: BODY }}
-          >
-            Illustrative tools for the accumulation phase. Educational only — not personalised
-            advice.
-          </p>
-          <div className="mt-10 grid gap-4 md:gap-5">
-            {CALCULATOR_TILES.map((tile, index) => (
-              <CalculatorTileC key={`c-${tile.code}`} {...tile} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <HubCalculatorToolBay
+        headingId="planning-calculators-heading"
+        title="Run your own numbers."
+        lead="Illustrative tools for the accumulation phase. Educational only — not personalised advice."
+        tools={CALCULATOR_TILES.map((tile) => ({
+          code: tile.code,
+          title: tile.title,
+          description: tile.description,
+          href: tile.href,
+          span: "col-span-12 md:col-span-4",
+        }))}
+      />
 
       {/* Education */}
       <section

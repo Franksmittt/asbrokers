@@ -4,12 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { HubReveal } from "@/components/hub/HubReveal";
+import { HubCalculatorToolBay } from "@/components/hub/HubCalculatorToolBay";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { ArrowRight, LineChart, ShieldCheck } from "@/components/icons";
+import { ArrowRight, ShieldCheck } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import {
   HUB_TEAL as TEAL,
@@ -185,57 +186,6 @@ function ProtectionCard({
   );
 }
 
-function RiskCalculatorTile({
-  code,
-  title,
-  description,
-  href,
-  accent,
-}: (typeof RISK_CALCULATORS)[number]) {
-  const border = accent === "teal" ? TEAL : BLUE;
-  return (
-    <article className="h-full">
-      <Link
-        href={href}
-        prefetch={false}
-        className="group flex h-full flex-col rounded-2xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(29,29,31,0.12)] sm:p-7"
-      >
-        <div
-          className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl"
-          style={{ backgroundColor: `${border}18`, color: border }}
-        >
-          <LineChart className="h-5 w-5" aria-hidden />
-        </div>
-        <p
-          className="font-semibold uppercase tracking-[0.12em]"
-          style={{ fontSize: "clamp(0.6875rem, 0.65rem + 0.1vw, 0.75rem)", color: TEAL }}
-        >
-          {code}
-        </p>
-        <h3
-          className="mt-2 font-bold tracking-tight"
-          style={{ fontSize: "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)", color: INK }}
-        >
-          {title}
-        </h3>
-        <p
-          className="mt-3 flex-1 leading-relaxed"
-          style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)", color: BODY }}
-        >
-          {description}
-        </p>
-        <span
-          className="mt-5 inline-flex items-center gap-2 font-semibold"
-          style={{ color: border, fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)" }}
-        >
-          Open tool
-          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
-        </span>
-      </Link>
-    </article>
-  );
-}
-
 type Props = { faqs: FAQItem[] };
 
 export function InsuranceHubPageView({ faqs }: Props) {
@@ -336,37 +286,19 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="insurance-risk-heading"
-      >
-        <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-8">
-            <h2
-              id="insurance-risk-heading"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-            >
-              Test your current risk exposure.
-            </h2>
-            <p
-              className="mt-3 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              Illustrative tools only — not quotes or personalised advice. Use them to spot gaps
-              before a fiduciary conversation.
-            </p>
-          </HubReveal>
-
-          {RISK_CALCULATORS.map((tile, index) => (
-            <HubReveal key={tile.code} delay={index * 0.04} className={tile.span}>
-              <RiskCalculatorTile {...tile} />
-            </HubReveal>
-          ))}
-        </div>
-      </section>
+      <HubCalculatorToolBay
+        headingId="insurance-risk-heading"
+        title="Test your current risk exposure."
+        lead="Illustrative tools only — not quotes or personalised advice. Use them to spot gaps before a fiduciary conversation."
+        tools={RISK_CALCULATORS.map((tile) => ({
+          code: tile.code,
+          title: tile.title,
+          description: tile.description,
+          href: tile.href,
+          span: tile.span,
+          cta: "Open tool",
+        }))}
+      />
 
       <section
         data-chunk-boundary="true"

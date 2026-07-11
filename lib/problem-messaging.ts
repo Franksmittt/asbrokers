@@ -188,6 +188,67 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
     primaryCta: { label: "Read featured guide", href: "#insights-featured-heading" },
     secondaryCta: { label: "Subscribe", href: "#newsletter-heading" },
   },
+  "/everest-wealth": {
+    path: "/everest-wealth",
+    fiveSecondTest:
+      "Predictable monthly income without daily JSE stress — with illiquidity and DWT stated before any calculator.",
+    h1: "Structured monthly income without daily market volatility",
+    subhead:
+      "Retirees and income-seekers cannot afford a 20% correction when they need to draw cash. Where suitable, Everest voluntary preference-share structures target predictable dividends — constraints first.",
+    problem:
+      "Sequence-of-returns risk and marginal tax on interest destroy income plans built on volatile equities or cash.",
+    promise:
+      "Category 1.8 access to targeted Everest profiles (12.8% / 14.2% / 14.5%) with radical constraint transparency — educational, not guaranteed.",
+    primaryCta: {
+      label: "Calculate 12.8% target income",
+      href: "/calculators/asset-010-everest-128-income",
+    },
+    secondaryCta: { label: "Read the full Everest guide", href: "/everest-wealth/about" },
+  },
+  "/everest-wealth/about": {
+    path: "/everest-wealth/about",
+    fiveSecondTest:
+      "A regulatory whitepaper on how Everest works, who regulates whom, and what can go wrong — before any sales conversation.",
+    h1: "Understanding Everest Wealth — regulation before yield",
+    subhead:
+      "How FSP 795, FSP 17273 Category 1.8, and the HoldCo separate roles — plus liquidity, tax, and who these structures suit.",
+    problem: "Headline yields without structure literacy create unsuitable allocations.",
+    promise: "Education-first briefing: structure, risks, fees, and tax before you run a single illustration.",
+    primaryCta: { label: "Open Everest hub", href: "/everest-wealth" },
+    secondaryCta: {
+      label: "Calculate 12.8% target income",
+      href: "/calculators/asset-010-everest-128-income",
+    },
+  },
+  "/solutions/medical-aid": {
+    path: "/solutions/medical-aid",
+    fiveSecondTest:
+      "They structure medical aid with gap cover and stay for claims — not the cheapest hospital plan on a comparison site.",
+    h1: "Health integration: defending against the medical inflation gap",
+    subhead:
+      "Schemes pay a base tariff. Specialists often charge far more. We structure scheme + demarcation-compliant gap, then provide human advocacy.",
+    problem: "Catastrophic in-hospital shortfalls wipe out households that bought “cheap” medical cover.",
+    promise:
+      "Demarcation-honest structuring plus specialist onboarding and claims support — FSP 17273, not a call centre.",
+    primaryCta: { label: "Book a health structuring call", href: "/contact?source=medical_terminal" },
+    secondaryCta: {
+      label: "Retirement health gap assessment",
+      href: "/healthy-retirement-blueprint",
+    },
+  },
+  "/legacy-readiness-checklist": {
+    path: "/legacy-readiness-checklist",
+    fiveSecondTest:
+      "A free checklist that surfaces the four dangerous assumptions families make about wills and estates — before death makes them permanent.",
+    h1: "Don't leave a financial mess behind",
+    subhead:
+      "Most families believe their affairs are in order. Many are not — and problems found after death cannot be fixed.",
+    problem: "Unsigned wills, wrong beneficiaries, and cashless estates create irreversible family damage.",
+    promise:
+      "An eight-area Legacy Readiness Checklist™ — free, printable, plain language for South African families.",
+    primaryCta: { label: "Get the free checklist", href: "#checklist-form" },
+    secondaryCta: { label: "Estate planning hub", href: "/estate-planning" },
+  },
 };
 
 export const EVEREST_CONSTRAINT_STRING =

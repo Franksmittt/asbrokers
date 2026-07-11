@@ -35,25 +35,25 @@ const PRODUCTS = [
   {
     name: "12.8% Strategic Income (Class A)",
     desc: "Monthly dividends; 10% loyalty bonus on capital at end of year 5. Suited to investors who can accept slightly lower monthly income in exchange for a deferred bonus.",
-    href: "/everest-128-product",
+    href: "/calculators/asset-010-everest-128-income",
     border: TEAL,
   },
   {
     name: "14.2% Onyx Income+ (Class J)",
     desc: "Higher monthly income from day one; no end-of-term bonus. Suited to those who need maximum cash flow now (e.g. retirees) and are willing to forgo the loyalty bonus.",
-    href: "/immediate-higher-income-calculator",
+    href: "/calculators/asset-009-everest-142-income",
     border: BLUE,
   },
   {
     name: "14.5% Strategic Growth (Class B)",
     desc: "No monthly withdrawals; returns compound and are paid at maturity (year 5). Best for capital you do not need as income during the term.",
-    href: "/everest-strategic-growth-145",
+    href: "/calculators/asset-012-strategic-growth",
     border: BLUE,
   },
   {
     name: "Amethyst Living Annuity",
     desc: "For pension, provident, preservation, or RA money. Wrapped in a 27four Life policy; Regulation 28 compliant. Targets structured net return (e.g. 10.2% p.a.), drawdown 2.5%–17.5%, tax-free growth inside the annuity, 9% capital bonus after five years. Residual capital on death goes to nominated beneficiaries outside the estate.",
-    href: "/everest-amethyst-living-annuity",
+    href: "/calculators/asset-014-living-annuity",
     border: TEAL,
   },
 ];
@@ -148,7 +148,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
       >
         <div className={`${GRID} items-center gap-y-8`}>
           <HubReveal className="col-span-12 lg:col-span-6">
-            <Eyebrow>Fiduciary briefing · AS Brokers education</Eyebrow>
+            <Eyebrow>Fiduciary briefing · Regulation before yield</Eyebrow>
             <h1
               className="mt-4 font-bold tracking-tight"
               style={{
@@ -157,11 +157,12 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
                 color: INK,
               }}
             >
-              Understanding Everest Wealth
+              Understanding Everest Wealth — regulation before yield
             </h1>
             <Body className="mt-5 max-w-xl">
-              A corporate whitepaper on regulation, product structure, how returns are generated, tax
-              benefits, risks, and who these investments suit.
+              Headline yields without structure literacy create unsuitable allocations. This briefing
+              covers who regulates whom (FSP 795 / FSP 17273 Category 1.8 / HoldCo), liquidity, tax,
+              and who these instruments suit — before any illustration.
             </Body>
             <div className="mt-6 flex flex-wrap gap-2">
               <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-800 shadow-sm ring-1 ring-stone-200/90">

@@ -4,9 +4,9 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getPrimaryPageImage } from "@/lib/primary-page-images";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Understanding Everest Wealth | How It Works, Structure & Risks";
+const PAGE_TITLE = "Understanding Everest Wealth — Regulation Before Yield";
 const PAGE_DESCRIPTION =
-  "A clear guide to Everest Wealth Management: regulation, product structure, how returns are generated, tax benefits, risks, and who these investments suit.";
+  "Education-first briefing: FSP 795, FSP 17273 Category 1.8, product structure, liquidity, tax, and risks — before any Everest illustration. Not advice.";
 
 const HERO_IMAGE =
   getPrimaryPageImage("/everest-wealth/about") ?? "/images/home4-import/card1.png";

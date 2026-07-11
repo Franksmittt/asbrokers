@@ -34,9 +34,7 @@ const nextConfig: NextConfig = {
 
     const retiredCatalogueRedirects = [
       { source: "/retirement", destination: "/retirement-planning" },
-      { source: "/everest-wealth", destination: "/investments" },
       { source: "/solutions", destination: "/insurance" },
-      { source: "/solutions/medical-aid", destination: "/insurance" },
       { source: "/solutions/life-insurance", destination: "/insurance" },
       { source: "/solutions/personal-insurance", destination: "/insurance" },
       { source: "/solutions/business-insurance", destination: "/insurance" },

@@ -78,13 +78,13 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Health pillar assessment for retirement planning.",
     },
     {
-      href: "/solutions/personal-insurance",
-      title: "Personal insurance",
-      description: "Gap cover works alongside medical scheme membership.",
+      href: "/insurance",
+      title: "Risk architecture hub",
+      description: "Personal and commercial cover structured together.",
     },
     {
-      href: "/contact",
-      title: "Scheme comparison",
+      href: "/contact?source=medical_terminal",
+      title: "Health structuring call",
       description: "Medical aid and gap cover guidance, FSP 17273.",
     },
   ],

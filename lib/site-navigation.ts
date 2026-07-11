@@ -83,6 +83,7 @@ export const FOOTER_RESOURCES: NavLink[] = [
   { label: "Insights", href: "/insights" },
   { label: "Calculators", href: "/calculators" },
   { label: "Financial Health Quiz", href: "/quiz" },
+  { label: "Everest Wealth", href: "/everest-wealth" },
   { label: "Understanding Everest", href: "/everest-wealth/about" },
   { label: "Digital Wealth Assistant", href: "/chat" },
 ];

@@ -107,14 +107,16 @@ export function LegacyReadinessLanding() {
         <div className={`${GRID} items-center gap-y-8`}>
           <HubReveal className="col-span-12 lg:col-span-6">
             <p className={funnel.eyebrow}>Legacy Conversations™ · Stage 1</p>
-            <h1 className={`mt-4 ${funnel.h1}`}>Is your legacy plan actually ready?</h1>
+            <h1 className={`mt-4 ${funnel.h1}`}>Don&apos;t leave a financial mess behind</h1>
             <p className={`mt-5 max-w-xl ${funnel.lead}`}>
               Most families believe their affairs are in order. Many are not — and problems found after
               death cannot be fixed.
             </p>
             <p className={`mt-3 max-w-xl ${funnel.body}`}>
-              The Legacy Readiness Checklist™ reviews wills, trusts, beneficiaries, liquidity, and
-              succession in plain language. Free. Immediate. Built for South African families.
+              Four dangerous assumptions: &ldquo;I have a will,&rdquo; &ldquo;my family is
+              protected,&rdquo; &ldquo;beneficiaries are correct,&rdquo; &ldquo;the estate will be
+              simple.&rdquo; The Legacy Readiness Checklist™ stress-tests all eight areas — free,
+              printable, plain language.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <button type="button" onClick={scrollToForm} className={funnel.ctaLg}>

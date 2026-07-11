@@ -20,9 +20,9 @@ const legacyChecklistFaqs = [
   },
 ];
 
-const PAGE_TITLE = "Legacy Readiness Checklist™";
+const PAGE_TITLE = "Don't Leave a Financial Mess Behind | Legacy Readiness Checklist™";
 const PAGE_DESCRIPTION =
-  "Download the free Legacy Readiness Checklist™. Identify potential gaps in your will, trust, beneficiaries, estate liquidity, and succession planning before it is too late.";
+  "Most families assume their estate is sorted. Many are wrong. Free eight-area checklist for wills, trusts, beneficiaries, liquidity, and succession — before gaps become permanent.";
 
 export const metadata = buildPageMetadata({
   path: "/legacy-readiness-checklist",

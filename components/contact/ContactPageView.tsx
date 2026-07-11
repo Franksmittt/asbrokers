@@ -1,227 +1,206 @@
+"use client";
+
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Footer } from "@/components/Footer";
-import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
-import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
-import type { FAQItem } from "@/lib/seo";
+import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { ContactFormDeferred } from "@/components/contact/ContactFormDeferred";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { CheckSquare, LineChart, MessageCircle, ShieldCheck } from "@/components/icons";
-import {
-  HUB_TEAL as TEAL,
-  HUB_INK as INK,
-  HUB_BODY as BODY,
-} from "@/lib/hub-design-tokens";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const CANVAS = "#F7F6F3";
+const INK = "#1D1D1F";
+const BODY = "#52525b";
+const HAIRLINE = "#E5E5E5";
+const FAIS_POPIA =
+  "Submitting this form does not constitute financial advice under the FAIS Act, 2002. Advice is only rendered after a documented needs analysis by a licensed representative of FSP 17273. Personal information is processed to respond to your enquiry and initiate a capital assessment, in line with POPIA. See our Privacy Policy.";
 
-const trustBadges = ["FSP 17273", "Category 1.8", "25+ Years of Experience"];
+const SOURCE_LABELS: Record<string, string> = {
+  investments_terminal: "Continuing from the Investments hub",
+  insurance_terminal: "Continuing from the Insurance risk audit",
+  estate_terminal: "Continuing from Estate planning",
+  insights_terminal: "Continuing from the Insights library",
+  about_terminal: "Continuing from About AS Brokers",
+  calculators_terminal: "Continuing after the calculator library",
+};
 
-const whoWeHelp = [
-  "High-net-worth individuals planning long-term wealth and income",
-  "Business owners needing insurance, continuity, and structured advice",
-  "Those nearing or in retirement who want clarity on drawdown and tax",
-  "Families seeking independent guidance on investments, insurance, and estate planning",
-];
-
-const steps = [
+const STEPS = [
   {
     number: "1",
     title: "Capital Assessment",
-    body: "Your information is reviewed by an authorised FSP 17273 adviser to understand your goals, time horizon, and preliminary capital needs.",
-    icon: LineChart,
+    body: "An authorised FSP 17273 adviser reviews your goals, time horizon, and preliminary capital needs — personally, not via a call centre.",
   },
   {
     number: "2",
     title: "Wealth Engineering Call",
-    body: "A direct consultation to review your current trajectory, discuss suitable structures, and answer your questions. No call centre.",
-    icon: MessageCircle,
+    body: "A direct consultation to review your trajectory, discuss suitable structures, and answer questions at your pace.",
   },
   {
     number: "3",
     title: "Implementation & Allocation",
-    body: "Where appropriate, formal quotations, tax-clearance routing, and next steps toward implementation and allocation.",
-    icon: ShieldCheck,
+    body: "Where appropriate: formal quotations, tax-clearance routing, and next steps toward implementation.",
   },
-];
+] as const;
+
+function IntakeContextBanner() {
+  const searchParams = useSearchParams();
+  const source = searchParams.get("source") ?? "";
+  const label = SOURCE_LABELS[source];
+  if (!label) return null;
+  return (
+    <p className="mt-4 border-l-2 border-cinematic-teal pl-4 text-sm font-medium text-stone-700">
+      {label}
+    </p>
+  );
+}
 
 export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
+  const faqItems = ensureSixFaqs(faqs);
+
   return (
-    <>
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-12 md:py-16"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="contact-main-heading"
-      >
-        <div className={GRID}>
-          <h2 id="contact-main-heading" className="sr-only">
-            Contact AS Brokers
-          </h2>
+    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+      <header className="pb-10 pt-28 md:pb-12 md:pt-36 lg:pt-40">
+        <div className={HOME4_WRAP}>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">
+            Contact · Krugersdorp · West Rand ·{" "}
+            <span className="tabular-nums">FSP 17273</span>
+          </p>
+          <h1
+            className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
+          >
+            Request a Wealth Engineering Call
+          </h1>
+          <p
+            className="mt-5 max-w-2xl leading-relaxed"
+            style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
+          >
+            Tell us what you want to discuss. An authorised adviser will respond personally — not a
+            call centre. Submitting an enquiry is not financial advice.
+          </p>
+          <Suspense fallback={null}>
+            <IntakeContextBanner />
+          </Suspense>
+        </div>
+      </header>
 
-          <div className="col-span-12 space-y-10 lg:col-span-5">
-            <HubReveal instant>
-              <div>
-                <h3
-                  className="font-bold tracking-tight"
-                  style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)", color: INK }}
-                >
-                  Who we help
-                </h3>
-                <p
-                  className="mt-3 max-w-xl leading-relaxed"
-                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-                >
-                  We work best with clients who value independent advice, long-term planning, and a
-                  structured review before any recommendation.
-                </p>
-                <ul className="mt-6 space-y-3">
-                  {whoWeHelp.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span
-                        className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full"
-                        style={{ backgroundColor: `${TEAL}18`, color: TEAL }}
-                      >
-                        <CheckSquare className="h-3.5 w-3.5" aria-hidden />
-                      </span>
-                      <span
-                        className="leading-relaxed"
-                        style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)", color: BODY }}
-                      >
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </HubReveal>
+      <section className="pb-16 md:pb-20" aria-labelledby="intake-form-heading">
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <div className="col-span-12 lg:col-span-7">
+            <h2 id="intake-form-heading" className="font-serif text-xl font-semibold tracking-tight text-shark">
+              Consultation enquiry
+            </h2>
+            <p className="mt-2 text-sm text-stone-600">
+              AS Brokers CC · <span className="tabular-nums">FSP 17273</span> · POPIA compliant
+            </p>
+            <div className="mt-8 border bg-white p-6 sm:p-8" style={{ borderColor: HAIRLINE }}>
+              <Suspense
+                fallback={
+                  <div className="min-h-[480px] border border-stone-200 bg-stone-50" aria-hidden />
+                }
+              >
+                <ContactFormDeferred />
+              </Suspense>
+            </div>
+          </div>
 
-            <HubReveal instant>
-              <div>
-                <h3
-                  className="font-bold tracking-tight"
-                  style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)", color: INK }}
-                >
-                  What to expect
-                </h3>
-                <p
-                  className="mt-3 max-w-xl leading-relaxed"
-                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-                >
-                  A clear, structured path from first conversation to implementation, at your pace.
-                </p>
-                <div className="mt-6 space-y-4">
-                  {steps.map((step) => {
-                    const Icon = step.icon;
-                    return (
-                      <article
-                        key={step.number}
-                        className="flex gap-4 rounded-2xl bg-white p-5 shadow-lg ring-1 ring-stone-200/90"
-                      >
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-samsung-blue/10 text-samsung-blue">
-                          <Icon className="h-5 w-5" aria-hidden />
-                        </div>
-                        <div>
-                          <p
-                            className="font-semibold uppercase tracking-wide"
-                            style={{ fontSize: "clamp(0.6875rem, 0.65rem + 0.1vw, 0.75rem)", color: TEAL }}
-                          >
-                            Step {step.number}
-                          </p>
-                          <h4
-                            className="mt-1 font-bold"
-                            style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: INK }}
-                          >
-                            {step.title}
-                          </h4>
-                          <p
-                            className="mt-1.5 leading-relaxed"
-                            style={{ fontSize: "clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem)", color: BODY }}
-                          >
-                            {step.body}
-                          </p>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </div>
-            </HubReveal>
-
-            <HubReveal delay={0.08}>
-              <div className="flex flex-wrap gap-2">
-                {trustBadges.map((badge) => (
-                  <span
-                    key={badge}
-                    className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-800 shadow-sm ring-1 ring-stone-200/90"
-                  >
-                    {badge}
-                  </span>
+          <div className="col-span-12 space-y-12 lg:col-span-5">
+            <div>
+              <h2 className="font-serif text-xl font-semibold tracking-tight text-shark">
+                What happens next
+              </h2>
+              <ol className="mt-6 space-y-6">
+                {STEPS.map((step) => (
+                  <li key={step.number} className="grid grid-cols-[2rem_1fr] gap-4">
+                    <span className="font-serif text-lg font-semibold tabular-nums text-stone-500">
+                      {step.number}
+                    </span>
+                    <div>
+                      <h3 className="text-sm font-semibold text-shark">{step.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-stone-600">{step.body}</p>
+                    </div>
+                  </li>
                 ))}
-              </div>
-            </HubReveal>
+              </ol>
+            </div>
 
-            <HubReveal delay={0.1}>
-              <div>
-                <h3
-                  className="font-bold"
-                  style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)", color: INK }}
-                >
-                  Prefer to reach out directly?
-                </h3>
-                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="border-t pt-8" style={{ borderColor: HAIRLINE }}>
+              <h2 className="font-serif text-xl font-semibold tracking-tight text-shark">
+                Prefer another channel?
+              </h2>
+              <ul className="mt-4 space-y-3 text-sm">
+                <li>
                   <a
                     href="https://wa.me/27662276044"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-whatsapp-accessible px-5 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#0d655e]"
+                    className="font-medium text-stone-700 underline-offset-2 hover:text-cinematic-teal hover:underline"
                   >
                     WhatsApp · +27 66 227 6044
                   </a>
+                </li>
+                <li>
                   <a
                     href="mailto:albert@asbrokers.co.za"
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold shadow-md ring-1 ring-stone-200/90 transition-all hover:ring-stone-300"
-                    style={{ color: INK }}
+                    className="font-medium text-stone-700 underline-offset-2 hover:text-cinematic-teal hover:underline"
                   >
                     albert@asbrokers.co.za
                   </a>
-                </div>
-                <p
-                  className="mt-4 leading-relaxed text-stone-600"
-                  style={{ fontSize: "clamp(0.8125rem, 0.8rem + 0.08vw, 0.875rem)" }}
-                >
-                  Existing clients: contact your adviser directly and we&apos;ll route you accordingly.
-                </p>
-              </div>
-            </HubReveal>
-          </div>
-
-          <HubReveal instant className="col-span-12 lg:col-span-7">
-            <div className="rounded-3xl bg-white p-6 shadow-2xl ring-1 ring-stone-200/90 sm:p-8 lg:sticky lg:top-28">
-              <div className="mb-6">
-                <h3
-                  className="font-bold tracking-tight"
-                  style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem)", color: INK }}
-                >
-                  Request a consultation
-                </h3>
-                <p
-                  className="mt-2 leading-relaxed"
-                  style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)", color: BODY }}
-                >
-                  Tell us a little about yourself and what you&apos;d like to discuss. We&apos;ll respond
-                  personally — not via a call centre.
-                </p>
-              </div>
-              <ContactFormDeferred />
+                </li>
+              </ul>
+              <p className="mt-4 text-xs leading-relaxed text-stone-500">
+                Existing clients: contact your adviser directly and we&apos;ll route you accordingly.
+              </p>
             </div>
-          </HubReveal>
+          </div>
         </div>
       </section>
 
-      <VisibleFaqSection faqs={faqs} />
+      <section className="border-y py-10" style={{ borderColor: HAIRLINE }} aria-labelledby="fais-popia-heading">
+        <div className={`${HOME4_WRAP} max-w-3xl`}>
+          <h2 id="fais-popia-heading" className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+            FAIS &amp; POPIA
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-stone-600">
+            {FAIS_POPIA}{" "}
+            <a href="/privacy" className="font-semibold text-cinematic-teal hover:opacity-80">
+              Privacy Policy
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24" aria-labelledby="contact-faq-heading">
+        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
+          <h2
+            id="contact-faq-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Frequently asked questions
+          </h2>
+          <div className="mt-8 divide-y border-y" style={{ borderColor: HAIRLINE }}>
+            {faqItems.map((item) => (
+              <details key={item.question} className="group py-5">
+                <summary className="cursor-pointer list-none font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-start justify-between gap-4">
+                    <span>{item.question}</span>
+                    <span className="shrink-0 text-cinematic-teal transition group-open:rotate-45" aria-hidden>
+                      +
+                    </span>
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <RelatedContent variant="warm" links={getRelatedLinks("/contact")} />
       <Footer />
-    </>
+    </div>
   );
 }

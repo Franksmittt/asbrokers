@@ -55,6 +55,10 @@ export async function submitContactEnquiry(
   }
 
   const payload = parsed.data;
+  const sourceAttr =
+    typeof formData.get("source") === "string"
+      ? String(formData.get("source")).slice(0, 120)
+      : "";
 
   if (payload.website && String(payload.website).length > 0) {
     return { success: true, message: "Thank you. We'll be in touch." };
@@ -70,6 +74,7 @@ export async function submitContactEnquiry(
       phone: payload.phone,
       intent: payload.topics.length ? payload.topics.join(", ") : "General enquiry",
       topics: payload.topics,
+      ...(sourceAttr ? { source: sourceAttr } : {}),
     },
   });
 

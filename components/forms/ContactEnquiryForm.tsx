@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "@/components/icons";
 import { submitContactEnquiry, type ContactActionState } from "@/app/actions/contact";
 
@@ -21,12 +22,14 @@ const serviceOptions = [
 ];
 
 const inputClass =
-  "w-full rounded-xl border border-stone-200 bg-stone-50 px-4 py-3 text-shark placeholder:text-stone-400 transition-colors focus:border-samsung-blue focus:outline-none focus:ring-2 focus:ring-samsung-blue/25 disabled:cursor-not-allowed disabled:opacity-60";
+  "w-full border border-[#1D1D1F] bg-white px-4 py-3 text-shark placeholder:text-stone-400 transition-colors focus:border-cinematic-teal focus:outline-none focus:ring-1 focus:ring-cinematic-teal disabled:cursor-not-allowed disabled:opacity-60";
 const labelClass = "mb-2 block text-sm font-medium text-stone-700";
 
 const initialState: ContactActionState = { success: false };
 
 export function ContactEnquiryForm() {
+  const searchParams = useSearchParams();
+  const source = searchParams.get("source") ?? "";
   const [state, formAction, isPending] = useActionState(submitContactEnquiry, initialState);
 
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
@@ -53,22 +56,17 @@ export function ContactEnquiryForm() {
 
   if (state.success) {
     return (
-      <div className="rounded-2xl bg-stone-50 p-8 text-center ring-1 ring-stone-200/80">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-          <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h3 className="mb-2 text-2xl font-bold text-shark">Request received</h3>
+      <div className="border border-[#E5E5E5] bg-[#F7F6F3] p-8 text-center">
+        <h3 className="mb-2 font-serif text-2xl font-semibold text-shark">Request received</h3>
         <p className="mb-6 text-sm leading-relaxed text-stone-600">
           We&apos;ll review your enquiry personally and get back to you by phone or WhatsApp. Not a call
-          centre. You&apos;ll hear from us.
+          centre.
         </p>
         <a
           href="https://wa.me/27662276044"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-2xl bg-whatsapp-accessible px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#0d655e]"
+          className="text-sm font-semibold text-cinematic-teal underline-offset-2 hover:underline"
         >
           WhatsApp us in the meantime
         </a>
@@ -79,6 +77,7 @@ export function ContactEnquiryForm() {
   return (
     <form action={formAction} className="space-y-6">
       <input type="hidden" name="topics" value={JSON.stringify(selectedTopics)} />
+      <input type="hidden" name="source" value={source} />
 
       <div>
         <label htmlFor="fullName" className={labelClass}>
@@ -222,10 +221,14 @@ export function ContactEnquiryForm() {
             disabled={isPending}
             className="mt-1 h-4 w-4 rounded border-stone-300 text-samsung-blue focus:ring-samsung-blue disabled:opacity-60"
           />
-          <span className="text-xs leading-relaxed text-stone-500 group-hover:text-stone-600">
-            I consent to receive transactional messages related to my enquiry (appointment reminders,
-            confirmations, account notifications). Message & data rates may apply. Reply HELP for help or
-            STOP to opt out.
+          <span className="text-sm leading-relaxed text-stone-700">
+            I consent to AS Brokers CC (FSP 17273) processing my personal information to respond to
+            this enquiry and initiate a capital assessment, and to send related transactional
+            messages. This is voluntary. See the{" "}
+            <a href="/privacy" className="font-semibold text-cinematic-teal hover:opacity-80">
+              Privacy Policy
+            </a>
+            . Reply STOP to opt out of messages.
           </span>
         </label>
         {state.fieldErrors?.consent?.[0] && (
@@ -243,9 +246,9 @@ export function ContactEnquiryForm() {
         type="submit"
         disabled={isPending}
         aria-label={isPending ? "Sending consultation request" : "Request a consultation"}
-        className="mt-2 w-full rounded-2xl bg-samsung-blue py-4 text-sm font-semibold text-white shadow-md shadow-samsung-blue/20 transition-all duration-300 ease-in-out hover:bg-[#004a9e] hover:shadow-cta-glow-blue disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-2 w-full rounded bg-cinematic-teal py-4 text-sm font-semibold text-white transition hover:bg-[#008f8f] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isPending ? "Sending…" : "Request a Consultation"}
+        {isPending ? "Sending…" : "Submit enquiry"}
       </button>
     </form>
   );

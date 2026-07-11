@@ -1,43 +1,41 @@
 import { RetirementPlanningPageView } from "@/components/retirement-planning/RetirementPlanningPageView";
-import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Retirement Planning South Africa | Are You on Track?";
+const PAGE_TITLE = "Pre-Retirement Wealth Engineering & Diagnostics | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Pre-retirement planning for South Africans still working. Diagnose your Financial Freedom Score™, run gap calculators, and book independent FSP 17273 advice in Krugersdorp.";
+  "Pre-retirement diagnostics for South Africans still working: Retirement Survival Blueprint, fiduciary calculators, Two-Pot and 2026 RA context, and independent FSP 17273 advice in Krugersdorp.";
 
 const planningFAQs = [
   {
     question: "Who is this retirement planning page for?",
     answer:
-      "South Africans still working who want clarity on whether their capital, timeline, and growth rate support a comfortable retirement. It is educational orientation — not personalised advice.",
-  },
-  {
-    question: "What should I do first on this page?",
-    answer:
-      "Start with the Retirement Survival Blueprint for a guided 5-step diagnostic and Financial Freedom Score™. Prefer DIY numbers first? Use the Reality Check, Growth, and Personal Goal calculators, then book FSP 17273 when you want advice.",
-  },
-  {
-    question: "How do I know if I am saving enough for retirement?",
-    answer:
-      "Use the Retirement Reality Check calculator to compare desired income against projected capital, then the Retirement Growth Calculator to see what return you need to close any gap. For a plan tailored to your facts, book AS Brokers CC (FSP 17273).",
+      "South African professionals still in the accumulation phase who need a mathematical reality check on capital, timeline, and growth — before they stop working. Content is educational, not personalised advice.",
   },
   {
     question: "What is the Retirement Survival Blueprint?",
     answer:
-      "A guided 5-step diagnostic that helps you discover your Financial Freedom Score™ and identify gaps in your retirement trajectory before you stop working. It is a lead diagnostic, not a substitute for regulated advice.",
+      "A guided 5-step diagnostic that helps you discover your Financial Freedom Score™ and identify gaps in your retirement trajectory. It is a lead diagnostic, not a substitute for regulated advice from FSP 17273.",
   },
   {
-    question: "Should I use a preservation fund when I change jobs?",
+    question: "How does the Two-Pot system affect my retirement planning?",
     answer:
-      "Preservation can protect retirement capital from early withdrawal, but the right structure depends on tax position, timeline, and goals. Speak with an authorised adviser (FSP 17273) before transferring benefits.",
+      "New contributions are split between a Savings Pot (limited annual access, taxed at marginal rates) and a Retirement Pot (preserved for annuity purchase). Pre-August 2024 balances sit in a Vested Pot under prior rules. Speak to an authorised adviser before changing contributions or withdrawing.",
   },
   {
-    question: "Is AS Brokers an independent retirement adviser?",
+    question: "What is the 2026 retirement annuity tax deduction limit?",
     answer:
-      "Yes. AS Brokers CC is an independent Category 1.8 financial services provider (FSP 17273), established in 1998 and based in Krugersdorp, West Rand. We engineer plans around your goals rather than a single institution’s product list.",
+      "From 1 March 2026 the annual deduction ceiling for qualifying retirement contributions rises to R430,000 (from R350,000), still within the 27.5% of remuneration or taxable income framework. Verify the current SARS position for your tax year with a qualified professional.",
+  },
+  {
+    question: "What does Category 1.8 mean for AS Brokers clients?",
+    answer:
+      "Category 1.8 authorisation includes advice on certain unlisted instruments beyond a standard unit-trust shelf. AS Brokers CC (FSP 17273) can discuss structured yield strategies where liquidity, term, and tax treatment must be understood clearly — including Everest Wealth voluntary products where appropriate.",
+  },
+  {
+    question: "Do the online calculators constitute financial advice?",
+    answer:
+      "No. Calculators on asbrokers.co.za are illustrative and educational only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Book FSP 17273 for advice tailored to your circumstances.",
   },
 ];
 
@@ -46,12 +44,13 @@ export const metadata = buildPageMetadata({
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   keywords: [
+    "pre-retirement planning South Africa",
     "retirement planning South Africa",
-    "planning for retirement South Africa",
-    "pre-retirement planning",
-    "retirement savings gap",
     "Financial Freedom Score",
     "Retirement Survival Blueprint",
+    "Two-Pot retirement system",
+    "retirement annuity tax deduction 2026",
+    "Category 1.8 FSP",
     "FSP 17273",
     "Krugersdorp financial adviser",
   ],
@@ -60,13 +59,12 @@ export const metadata = buildPageMetadata({
 export default function RetirementPlanningPage() {
   return (
     <>
-      <HubLcpPreload src={HUB_LCP_IMAGES["/retirement-planning"]} variant="split" />
       <PageJsonLd
         path="/retirement-planning"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={planningFAQs}
         service={{
-          name: "Pre-retirement planning",
+          name: "Pre-retirement wealth engineering & diagnostics",
           description: PAGE_DESCRIPTION,
           serviceType: "Retirement planning",
         }}

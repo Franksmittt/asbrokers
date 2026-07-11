@@ -1,408 +1,457 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
-import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
-import type { FAQItem } from "@/lib/seo";
+import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
-import { getAlt } from "@/lib/image-alt";
-import {
-  HUB_TEAL as TEAL,
-  HUB_CANVAS as CANVAS,
-  HUB_INK as INK,
-  HUB_BODY as BODY,
-} from "@/lib/hub-design-tokens";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
-
-const HERO_IMAGE = "/images/home4-goal-retire-16x9.png";
+const CANVAS = "#F7F6F3";
+const INK = "#1D1D1F";
+const TEAL = "#00A3A3";
+const BODY = "#52525b";
+const FAIS_DISCLAIMER =
+  "Calculators are provided for illustrative and educational purposes only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes may differ due to market conditions, fees, and legislative changes.";
 
 const CALC_REALITY = calculatorPagePath("asset-002-retirement-reality-check");
 const CALC_GROWTH = calculatorPagePath("asset-001-retirement-growth");
 const CALC_GOAL = calculatorPagePath("asset-017-personal-goal");
 
-const CALCULATOR_TILES = [
+const CALCULATORS = [
   {
     code: "ASSET 002",
     title: "Retirement Reality Check",
-    description: "Compare your desired income against your projected capital to see if a gap exists.",
+    description: "Compare desired retirement income against projected capital to see if a gap exists.",
     href: CALC_REALITY,
   },
   {
     code: "ASSET 001",
-    title: "Retirement Growth Calculator",
-    description: "Discover the exact return percentage you need to hit your target.",
+    title: "Required Capital Growth",
+    description: "Find the return percentage you need to hit your target capital on your timeline.",
     href: CALC_GROWTH,
   },
   {
     code: "ASSET 017",
-    title: "Personal Goal Growth",
-    description: "Project future lump sums based on your monthly contributions.",
+    title: "Personal Goal Projections",
+    description: "Project future lump sums from your monthly contributions and assumed growth.",
     href: CALC_GOAL,
   },
-];
+] as const;
 
-const EDUCATION_CARDS = [
-  {
-    title: "Tax-Free Investments & RAs",
-    description:
-      "Build long-term capital with tax-efficient structures and disciplined contributions before you retire.",
-    href: "/everest-wealth",
-    cta: "Explore wealth building",
-    span: "col-span-12 md:col-span-4",
-  },
-  {
-    title: "Preservation Funds",
-    description:
-      "Changing jobs? Understand your options for pension or provident capital without derailing your timeline.",
-    href: "/contact",
-    cta: "Speak to an adviser",
-    span: "col-span-12 md:col-span-4",
-  },
-  {
-    title: "Latest Retirement Guides",
-    description: "Plain-language articles on accumulation, tax, inflation, and retirement readiness.",
-    href: "/insights",
-    cta: "Browse insights",
-    span: "col-span-12 md:col-span-4",
-  },
-];
-
-const TRUST_ROWS = [
-  { dt: "Authorisation", dd: "FSCA FSP 17273 · Category 1.8" },
-  { dt: "Experience", dd: "Serving clients since 1998" },
-  { dt: "Location", dd: "Krugersdorp, West Rand, Gauteng" },
-  { dt: "Approach", dd: "Fiduciary, advice-led, not product quotas" },
-];
-
-/** Shared light-surface link card — same language for tools (on dark) and education (on light). */
-function SurfaceCard({
-  eyebrow,
-  title,
-  description,
-  href,
-  cta,
-  tone,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  href: string;
-  cta: string;
-  tone: "light" | "dark";
-}) {
-  const dark = tone === "dark";
-  return (
-    <Link
-      href={href}
-      prefetch={false}
-      className={`group flex h-full flex-col rounded-2xl p-6 transition-colors sm:p-7 ${
-        dark
-          ? "bg-white/5 ring-1 ring-white/10 hover:bg-white/[0.08]"
-          : "bg-white ring-1 ring-stone-200/90 hover:bg-stone-50"
-      }`}
-    >
-      <p
-        className={`text-xs font-semibold uppercase tracking-[0.16em] ${
-          dark ? "text-cinematic-teal" : ""
-        }`}
-        style={dark ? undefined : { color: TEAL }}
-      >
-        {eyebrow}
-      </p>
-      <h3
-        className={`mt-3 font-bold tracking-tight ${dark ? "text-white" : ""}`}
-        style={{
-          fontSize: "clamp(1.0625rem, 1rem + 0.3vw, 1.25rem)",
-          color: dark ? undefined : INK,
-        }}
-      >
-        {title}
-      </h3>
-      <p
-        className={`mt-3 flex-1 leading-relaxed ${dark ? "text-white/70" : ""}`}
-        style={{
-          fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1.0625rem)",
-          color: dark ? undefined : BODY,
-        }}
-      >
-        {description}
-      </p>
-      <span
-        className={`mt-5 inline-flex items-center gap-2 text-sm font-semibold ${
-          dark ? "text-white" : "text-samsung-blue"
-        }`}
-      >
-        {cta}
-        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-      </span>
-    </Link>
-  );
-}
+const EDUCATION_NAV = [
+  { id: "two-pot", label: "Two-Pot system" },
+  { id: "ra-limits", label: "2026 RA tax limits" },
+  { id: "cat-18", label: "Category 1.8 alternatives" },
+] as const;
 
 type Props = { faqs: FAQItem[] };
 
-export function RetirementPlanningPageView({ faqs }: Props) {
+/** Minimal abstract capital trajectory — not stock photography. */
+function HeroDataViz() {
   return (
-    <>
-      {/* Same light surface from hero through reading — no colour hopping */}
-      <div style={{ backgroundColor: CANVAS }}>
-        <header className="pb-12 pt-28 md:pb-14 md:pt-36 lg:pt-40">
-          <div className={`${GRID} items-center gap-y-8`}>
-            <HubReveal className="col-span-12 lg:col-span-6">
-              <p
-                className="font-semibold uppercase tracking-[0.2em]"
-                style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
-              >
-                Pre-retirement planning · FSP 17273
-              </p>
-              <h1
-                className="mt-4 font-bold tracking-tight"
-                style={{
-                  fontSize: "clamp(1.875rem, 1.35rem + 2vw, 2.75rem)",
-                  lineHeight: 1.12,
-                  color: INK,
-                }}
-              >
-                Are you on track to retire comfortably?
-              </h1>
-              <p
-                className="mt-5 max-w-xl leading-relaxed"
-                style={{
-                  fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)",
-                  lineHeight: 1.65,
-                  color: BODY,
-                }}
-              >
-                For South Africans still working. Diagnose your trajectory, check the numbers, then
-                speak with an independent adviser when you want a plan — not a product pitch.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/retirement-survival-blueprint"
-                  prefetch={false}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
-                >
-                  Start the Retirement Survival Blueprint
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-                <Link
-                  href="/contact"
-                  prefetch={false}
-                  className="inline-flex items-center justify-center rounded-2xl px-6 py-3.5 text-sm font-semibold ring-1 ring-stone-300 transition hover:bg-white"
-                  style={{ color: INK }}
-                >
-                  Book a strategy call
-                </Link>
-              </div>
-              <p className="mt-6 text-xs font-medium tracking-wide text-stone-500">
-                AS Brokers CC · Independent Category 1.8 · Est. 1998 · Krugersdorp
-              </p>
-            </HubReveal>
+    <div
+      className="relative flex aspect-[4/3] w-full items-end justify-center overflow-hidden rounded border border-stone-300/80 bg-white px-6 pb-8 pt-10"
+      aria-hidden
+    >
+      <svg viewBox="0 0 320 200" className="h-full w-full max-h-[280px]" fill="none">
+        <line x1="24" y1="176" x2="296" y2="176" stroke="#d6d3d1" strokeWidth="1" />
+        <line x1="24" y1="24" x2="24" y2="176" stroke="#d6d3d1" strokeWidth="1" />
+        <path
+          d="M24 150 C 80 142, 110 130, 150 108 C 200 78, 240 70, 296 42"
+          stroke={TEAL}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M24 158 C 90 152, 140 148, 190 140 C 240 132, 270 128, 296 122"
+          stroke="#a8a29e"
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
+          strokeLinecap="round"
+        />
+        <circle cx="296" cy="42" r="4" fill={TEAL} />
+        <text x="30" y="20" fill="#78716c" fontSize="10" fontFamily="system-ui,sans-serif">
+          Capital trajectory
+        </text>
+        <text x="200" y="38" fill={TEAL} fontSize="10" fontFamily="system-ui,sans-serif">
+          Target path
+        </text>
+        <text x="200" y="118" fill="#a8a29e" fontSize="10" fontFamily="system-ui,sans-serif">
+          Current path
+        </text>
+      </svg>
+    </div>
+  );
+}
 
-            <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.08)] ring-1 ring-stone-300/60">
-                <Image
-                  src={HERO_IMAGE}
-                  alt={getAlt(
-                    HERO_IMAGE,
-                    "Professional South African couple in their fifties reviewing retirement plans together"
-                  )}
-                  fill
-                  priority
-                  className="object-cover object-center"
-                  sizes={HUB_SPLIT_HERO_SIZES}
-                />
-              </div>
-            </HubReveal>
-          </div>
-        </header>
-
-        {/* Quiet page map — same surface, no new band */}
-        <div className={`${HOME4_WRAP} pb-12 md:pb-14`}>
-          <p className="max-w-2xl text-sm leading-relaxed" style={{ color: BODY }}>
-            Below: start with the Blueprint, use the calculators if you want to check figures
-            yourself, then book advice when you are ready. Optional reading sits after that.
-          </p>
-        </div>
+function ToolCard({
+  code,
+  title,
+  description,
+  href,
+}: (typeof CALCULATORS)[number]) {
+  return (
+    <article className="flex h-full flex-col border border-stone-300/90 bg-white p-6 sm:p-7">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-500 tabular-nums">
+        {code}
+      </p>
+      <h3
+        className="mt-3 font-serif font-semibold tracking-tight text-shark"
+        style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem)" }}
+      >
+        {title}
+      </h3>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{description}</p>
+      <Link
+        href={href}
+        prefetch={false}
+        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
+      >
+        Run calculation
+        <ArrowRight className="h-4 w-4" aria-hidden />
+      </Link>
+      <div className="mt-5 border-t border-stone-200 pt-4">
+        <p className="text-[11px] leading-relaxed text-stone-500">{FAIS_DISCLAIMER}</p>
       </div>
+    </article>
+  );
+}
 
-      {/* Single dark module — one colour, one layout system, soft spacing only */}
+export function RetirementPlanningPageView({ faqs }: Props) {
+  const faqItems = ensureSixFaqs(faqs);
+
+  return (
+    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+      {/* §1 Orientation hero — continuous canvas */}
+      <header className="pb-16 pt-28 md:pb-24 md:pt-36 lg:pb-[7.5rem] lg:pt-40">
+        <div className={`${HOME4_WRAP} grid grid-cols-12 items-center gap-10 lg:gap-12`}>
+          <div className="col-span-12 lg:col-span-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+              Pre-retirement diagnostics · FSP 17273
+            </p>
+            <h1
+              className="mt-5 font-serif font-semibold tracking-tight"
+              style={{
+                fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)",
+                lineHeight: 1.15,
+                color: INK,
+              }}
+            >
+              Are you on track to retire comfortably? Let&apos;s look at the math together.
+            </h1>
+            <p
+              className="mt-5 max-w-xl leading-relaxed"
+              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
+            >
+              For South African professionals still in the accumulation phase. Independent Category
+              1.8 advice (Est. 1998, Krugersdorp) — diagnose your trajectory first, then decide
+              whether you need a structured strategy call.
+            </p>
+            <Link
+              href="#retirement-survival-blueprint"
+              prefetch={false}
+              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+            >
+              Start diagnostic
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+          <div className="col-span-12 lg:col-span-5">
+            <HeroDataViz />
+          </div>
+        </div>
+      </header>
+
+      {/* §2 Inset Blueprint panel — NOT full-bleed dark */}
       <section
-        data-chunk-boundary="true"
-        className="py-16 md:py-20"
-        style={{ backgroundColor: INK }}
-        aria-label="Diagnose, calculate, and get advice"
+        id="retirement-survival-blueprint"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="blueprint-heading"
       >
         <div className={HOME4_WRAP}>
-          {/* Diagnose */}
-          <div className="max-w-3xl">
+          <div
+            className="mx-auto max-w-[1000px] rounded-lg px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
+            style={{ backgroundColor: INK }}
+          >
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-              Diagnose
+              Primary diagnostic
             </p>
             <h2
-              id="planning-worry-heading"
-              className="mt-3 font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", lineHeight: 1.15 }}
+              id="blueprint-heading"
+              className="mt-4 font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
             >
-              Will your money survive your retirement?
+              The Retirement Survival Blueprint
             </h2>
-            <p className="mt-4 leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
-              The Retirement Survival Blueprint is a guided 5-step diagnostic. It surfaces your
-              Financial Freedom Score™ and the gaps that matter — then you can run numbers or speak
-              to us.
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
+              A guided 5-step diagnostic that surfaces your Financial Freedom Score™ and the gaps
+              in your current trajectory — before you stop working.
             </p>
             <Link
               href="/retirement-survival-blueprint"
               prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
             >
-              Start the Retirement Survival Blueprint
+              Get my score
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-          </div>
-
-          {/* Calculate — same wrap, same type, space instead of a harsh rule */}
-          <div className="mt-16 md:mt-20">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-              Calculate
-            </p>
-            <h2
-              id="planning-calculators-heading"
-              className="mt-3 font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", lineHeight: 1.15 }}
-            >
-              Prefer to run the numbers yourself?
-            </h2>
-            <p className="mt-4 max-w-2xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
-              Illustrative tools only — not personalised advice. Spot gaps before a fiduciary
-              conversation.
-            </p>
-            <div className="mt-8 grid gap-4 md:grid-cols-3 md:gap-5">
-              {CALCULATOR_TILES.map((tile) => (
-                <SurfaceCard
-                  key={tile.code}
-                  tone="dark"
-                  eyebrow={tile.code}
-                  title={tile.title}
-                  description={tile.description}
-                  href={tile.href}
-                  cta="Run calculator"
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Advise */}
-          <div className="mt-16 md:mt-20">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-              Get advice
-            </p>
-            <div className="mt-3 grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
-              <div className="lg:col-span-7">
-                <h2
-                  id="planning-trust-heading"
-                  className="font-bold tracking-tight text-white"
-                  style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", lineHeight: 1.15 }}
-                >
-                  When you are ready for a plan built around your facts.
-                </h2>
-                <p className="mt-4 max-w-xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
-                  AS Brokers CC is an independent Category 1.8 FSP (17273) with over 25 years helping
-                  West Rand families — advice-led, not call-centre sales.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <Link
-                    href="/contact"
-                    prefetch={false}
-                    className="inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
-                  >
-                    Book a Retirement Strategy Call
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </Link>
-                  <Link
-                    href="/about"
-                    prefetch={false}
-                    className="inline-flex items-center rounded-2xl px-6 py-3.5 text-sm font-semibold text-white/85 ring-1 ring-white/15 transition hover:bg-white/5"
-                  >
-                    About AS Brokers
-                  </Link>
-                </div>
-              </div>
-              <dl className="space-y-4 lg:col-span-5">
-                {TRUST_ROWS.map((row) => (
-                  <div key={row.dt}>
-                    <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
-                      {row.dt}
-                    </dt>
-                    <dd className="mt-1 text-sm font-medium text-white/90">{row.dd}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Back to the same light surface */}
+      {/* §3 Toolkit — flat white cards on canvas */}
       <section
-        data-chunk-boundary="true"
-        className="py-14 md:py-16"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="planning-education-heading"
+        id="fiduciary-calculators"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="calculators-heading"
       >
-        <div className={GRID}>
-          <div className="col-span-12">
-            <p
-              className="font-semibold uppercase tracking-[0.16em]"
-              style={{ fontSize: "0.75rem", color: TEAL }}
-            >
-              Optional reading
-            </p>
-            <h2
-              id="planning-education-heading"
-              className="mt-3 font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-            >
-              Structures and guides for the accumulation phase.
-            </h2>
-            <p
-              className="mt-3 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              Not required to start — here when you want more context.
-            </p>
+        <div className={HOME4_WRAP}>
+          <h2
+            id="calculators-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Fiduciary calculators &amp; reality checks
+          </h2>
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            Ungated educational tools. Use them to see the raw numbers — then bring the output to a
+            strategy call if you want advice on your facts.
+          </p>
+          <div className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
+            {CALCULATORS.map((calc) => (
+              <ToolCard key={calc.code} {...calc} />
+            ))}
           </div>
+        </div>
+      </section>
 
-          {EDUCATION_CARDS.map((card) => (
-            <div key={card.title} className={card.span}>
-              <SurfaceCard
-                tone="light"
-                eyebrow="Guide"
-                title={card.title}
-                description={card.description}
-                href={card.href}
-                cta={card.cta}
-              />
+      {/* §4 Editorial education — sticky index + prose */}
+      <section
+        id="legislation"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="legislation-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <nav
+              aria-label="Education sections"
+              className="lg:sticky lg:top-28"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+                On this section
+              </p>
+              <ul className="mt-4 space-y-3">
+                {EDUCATION_NAV.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+
+          <div className="col-span-12 max-w-3xl lg:col-span-9">
+            <h2
+              id="legislation-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              Navigating South African retirement legislation
+            </h2>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Educational context only — not personalised advice. These frameworks shape every
+              pre-retirement conversation we have with clients.
+            </p>
+
+            <article id="two-pot" className="scroll-mt-28 mt-12 md:scroll-mt-32">
+              <h3
+                className="font-serif font-semibold tracking-tight"
+                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+              >
+                The impact of the Two-Pot retirement system
+              </h3>
+              <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+                From September 2024, new contributions to retirement funds are split: one-third into
+                a Savings Pot (accessible once per tax year, subject to tax) and two-thirds into a
+                Retirement Pot (preserved until retirement and typically used to purchase an
+                annuity). Amounts accumulated before 31 August 2024 sit in a Vested Pot under prior
+                rules. For pre-retirees, the practical question is how liquidity, tax, and annuity
+                planning interact — not a slogan about “access.”
+              </p>
+              <dl className="mt-6 space-y-4 border-t border-stone-300/80 pt-6">
+                {[
+                  {
+                    dt: "Vested Pot",
+                    dd: "Historical savings to 31 August 2024 — protected under previous access rules.",
+                  },
+                  {
+                    dt: "Savings Pot",
+                    dd: "One-third of new contributions; limited annual access; withdrawals taxed at marginal rates.",
+                  },
+                  {
+                    dt: "Retirement Pot",
+                    dd: "Two-thirds of new contributions; preserved until retirement for annuity purchase.",
+                  },
+                ].map((row) => (
+                  <div key={row.dt} className="grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-4">
+                    <dt className="text-sm font-semibold text-shark">{row.dt}</dt>
+                    <dd className="text-sm leading-relaxed text-stone-600">{row.dd}</dd>
+                  </div>
+                ))}
+              </dl>
+            </article>
+
+            <article id="ra-limits" className="scroll-mt-28 mt-14 md:scroll-mt-32">
+              <h3
+                className="font-serif font-semibold tracking-tight"
+                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+              >
+                Maximising the 2026 retirement annuity tax deduction limits
+              </h3>
+              <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+                Contributions to pension, provident, and retirement annuity funds are deductible at
+                27.5% of the greater of remuneration or taxable income, subject to an annual cap.
+                From March 2026 that annual ceiling rises to{" "}
+                <span className="font-semibold tabular-nums text-shark">R430,000</span> (from
+                R350,000). High earners in the final accumulation years should model whether they
+                are using the allowance — and what that means for cash flow — before assuming “max
+                RA” is automatically optimal.
+              </p>
+              <aside className="mt-6 border border-stone-300/90 bg-white px-5 py-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
+                  2026 callout
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-stone-700">
+                  Annual RA / retirement fund deduction cap:{" "}
+                  <strong className="tabular-nums">R430,000</strong> from 1 March 2026. Verify the
+                  current SARS position with a qualified professional for your tax year.
+                </p>
+              </aside>
+            </article>
+
+            <article id="cat-18" className="scroll-mt-28 mt-14 md:scroll-mt-32">
+              <h3
+                className="font-serif font-semibold tracking-tight"
+                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+              >
+                Category 1.8 alternative yield strategies
+              </h3>
+              <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+                AS Brokers holds Category 1.8 authorisation, which includes advice on certain
+                unlisted instruments that sit outside a standard unit-trust shelf. Structured yield
+                products (including Everest Wealth voluntary offerings with targeted return
+                profiles) can form part of a pre-retirement conversation where liquidity, term, and
+                tax treatment must be understood clearly — including 20% dividends tax on relevant
+                returns, R100,000 minimums on voluntary products, and early-exit constraints.
+              </p>
+              <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+                Targeted return profiles are not guarantees. Read{" "}
+                <Link href="/everest-wealth/about" prefetch={false} className="font-semibold text-cinematic-teal hover:opacity-80">
+                  Understanding Everest
+                </Link>{" "}
+                before comparing any voluntary product to liquid market funds.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* §5 Minimal credential strip */}
+      <section
+        className="border-y border-stone-300/80 py-8"
+        aria-label="Fiduciary credentials"
+      >
+        <div
+          className={`${HOME4_WRAP} grid gap-6 sm:grid-cols-3 sm:gap-8`}
+        >
+          {[
+            { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
+            { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },
+            { title: "Fiduciary tone", body: "Education before advice · no product quotas" },
+          ].map((item) => (
+            <div key={item.title}>
+              <p className="font-serif text-lg font-semibold tracking-tight text-shark">{item.title}</p>
+              <p className="mt-1 text-sm text-stone-600">{item.body}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <VisibleFaqSection
-        faqs={faqs}
-        className="border-t-0 !bg-[#F7F6F3]"
-        heading="Frequently asked questions"
-      />
+      {/* §6 FAQ — transparent, hairline only */}
+      <section
+        className="py-16 md:py-24"
+        aria-labelledby="planning-faq-heading"
+      >
+        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
+          <h2
+            id="planning-faq-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Frequently asked questions
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
+            Educational answers only. For advice on your circumstances, book a consultation with
+            FSP 17273.
+          </p>
+          <div className="mt-8 divide-y divide-stone-300/80 border-y border-stone-300/80">
+            {faqItems.map((item) => (
+              <details key={item.question} className="group py-5">
+                <summary className="cursor-pointer list-none font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-start justify-between gap-4">
+                    <span>{item.question}</span>
+                    <span className="shrink-0 text-cinematic-teal transition group-open:rotate-45" aria-hidden>
+                      +
+                    </span>
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <RelatedContent variant="warm" links={getRelatedLinks("/retirement-planning")} />
+
+      {/* §7 Final conversion — only full-bleed dark before footer */}
+      <section
+        className="py-16 md:py-20"
+        style={{ backgroundColor: INK }}
+        aria-labelledby="final-cta-heading"
+      >
+        <div className={`${HOME4_WRAP} max-w-3xl`}>
+          <h2
+            id="final-cta-heading"
+            className="font-serif font-semibold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
+          >
+            Ready for a structured review?
+          </h2>
+          <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/75">
+            Bring your portfolio figures, policies, and goals. An independent adviser will review
+            your position without pressure or jargon.
+          </p>
+          <Link
+            href="/contact"
+            prefetch={false}
+            className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+          >
+            Book an actuarial consultation
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+      </section>
+
       <Footer />
-    </>
+    </div>
   );
 }

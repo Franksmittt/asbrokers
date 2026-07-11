@@ -8,10 +8,10 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
+import { CapitalTrajectoryViz } from "@/components/trust/TrustDiagrams";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
-const TEAL = "#00A3A3";
 const BODY = "#52525b";
 const FAIS_DISCLAIMER =
   "Calculators are provided for illustrative and educational purposes only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes may differ due to market conditions, fees, and legislative changes.";
@@ -48,44 +48,6 @@ const EDUCATION_NAV = [
 ] as const;
 
 type Props = { faqs: FAQItem[] };
-
-/** Minimal abstract capital trajectory — not stock photography. */
-function HeroDataViz() {
-  return (
-    <div
-      className="relative flex aspect-[4/3] w-full items-end justify-center overflow-hidden rounded border border-stone-300/80 bg-white px-6 pb-8 pt-10"
-      aria-hidden
-    >
-      <svg viewBox="0 0 320 200" className="h-full w-full max-h-[280px]" fill="none">
-        <line x1="24" y1="176" x2="296" y2="176" stroke="#d6d3d1" strokeWidth="1" />
-        <line x1="24" y1="24" x2="24" y2="176" stroke="#d6d3d1" strokeWidth="1" />
-        <path
-          d="M24 150 C 80 142, 110 130, 150 108 C 200 78, 240 70, 296 42"
-          stroke={TEAL}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M24 158 C 90 152, 140 148, 190 140 C 240 132, 270 128, 296 122"
-          stroke="#a8a29e"
-          strokeWidth="1.5"
-          strokeDasharray="4 4"
-          strokeLinecap="round"
-        />
-        <circle cx="296" cy="42" r="4" fill={TEAL} />
-        <text x="30" y="20" fill="#78716c" fontSize="10" fontFamily="system-ui,sans-serif">
-          Capital trajectory
-        </text>
-        <text x="200" y="38" fill={TEAL} fontSize="10" fontFamily="system-ui,sans-serif">
-          Target path
-        </text>
-        <text x="200" y="118" fill="#a8a29e" fontSize="10" fontFamily="system-ui,sans-serif">
-          Current path
-        </text>
-      </svg>
-    </div>
-  );
-}
 
 function ToolCard({
   code,
@@ -170,7 +132,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-5">
-            <HeroDataViz />
+            <CapitalTrajectoryViz />
           </div>
         </div>
       </header>

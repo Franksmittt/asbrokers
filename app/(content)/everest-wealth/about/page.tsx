@@ -9,7 +9,7 @@ const PAGE_DESCRIPTION =
   "Education-first briefing: FSP 795, FSP 17273 Category 1.8, product structure, liquidity, tax, and risks — before any Everest illustration. Not advice.";
 
 const HERO_IMAGE =
-  getPrimaryPageImage("/everest-wealth/about") ?? "/images/home4-import/card1.png";
+  getPrimaryPageImage("/everest-wealth/about") ?? "/images/everest-copper-industrial-4x3.jpg";
 
 export const metadata = buildPageMetadata({
   path: "/everest-wealth/about",

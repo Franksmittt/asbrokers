@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
@@ -7,11 +8,14 @@ import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
+import { MedicalDemarcationDiagram } from "@/components/trust/TrustDiagrams";
+import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
+const MEDICAL_CRAFT = "/images/risk-arch-medical.png";
 
 type Props = { faqs: FAQItem[] };
 
@@ -23,7 +27,7 @@ export function MedicalAidPageView({ faqs }: Props) {
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
         <div className={HOME4_WRAP}>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-            Medical aid &amp; gap · FSP 17273 · Human onboarding
+            Medical aid &amp; gap · FSP 17273 · Claims advocacy
           </p>
           <h1
             className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
@@ -87,6 +91,26 @@ export function MedicalAidPageView({ faqs }: Props) {
               onboarding and chronic authorisations — the human layer that comparison sites do not
               provide.
             </p>
+            <figure className="mt-8">
+              <div
+                className="relative aspect-[16/9] overflow-hidden border bg-white"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <Image
+                  src={MEDICAL_CRAFT}
+                  alt={getAlt(
+                    MEDICAL_CRAFT,
+                    "Medical and wellness setting — household protection context, not staff portraits"
+                  )}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 70vw"
+                />
+              </div>
+              <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
+                Outcome context, not headshots: the job is insulating the household at claim time.
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
@@ -106,6 +130,9 @@ export function MedicalAidPageView({ faqs }: Props) {
             >
               Medical aid vs gap cover — different laws
             </h2>
+            <div className="mt-8">
+              <MedicalDemarcationDiagram />
+            </div>
             <dl className="mt-8 border-y" style={{ borderColor: HAIRLINE }}>
               {[
                 {
@@ -145,9 +172,9 @@ export function MedicalAidPageView({ faqs }: Props) {
             The advocacy promise
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            When a specialist bill arrives or an authorisation stalls, you need someone who knows
-            the wording — not a rotating call-centre queue. Our medical operations specialists handle
-            onboarding and claim pathways so you are not alone at the worst moment.
+            When a specialist bill arrives or an authorisation stalls, you need operational depth —
+            not a rotating call-centre queue. Our medical desk handles onboarding and claim pathways
+            so you are not alone at the worst moment.
           </p>
           <Link
             href="/insurance"

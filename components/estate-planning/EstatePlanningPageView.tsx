@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
@@ -8,13 +9,15 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
+import { EstateLiquidityWaterfall } from "@/components/trust/TrustDiagrams";
+import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
-const TEAL = "#00A3A3";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const INSET = "rgba(29,29,31,0.05)";
+const ESTATE_CRAFT = "/images/risk-arch-estate.png";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or legal advice as defined in the FAIS Act, 2002. Estate duty, executor fees, and donations rules change — verify current SARS and statutory positions with qualified professionals.";
 
@@ -124,7 +127,8 @@ export function EstatePlanningPageView({ faqs }: Props) {
             </nav>
           </div>
 
-          <div className="col-span-12 lg:col-span-6">
+          <div className="col-span-12 space-y-6 lg:col-span-6">
+            <EstateLiquidityWaterfall />
             <div
               id="legacy-checklist"
               className="scroll-mt-28 rounded-lg px-6 py-8 sm:px-8 sm:py-10"
@@ -170,6 +174,27 @@ export function EstatePlanningPageView({ faqs }: Props) {
             Objective legislative framing — engineer liquidity and optimize lawful rollovers. Not
             “avoid the taxman” rhetoric.
           </p>
+          <figure className="mt-8 max-w-3xl">
+            <div
+              className="relative aspect-[16/9] overflow-hidden border bg-white"
+              style={{ borderColor: HAIRLINE }}
+            >
+              <Image
+                src={ESTATE_CRAFT}
+                alt={getAlt(
+                  ESTATE_CRAFT,
+                  "Estate planning desk — documents, portfolio and succession context"
+                )}
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 720px"
+              />
+            </div>
+            <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
+              Craft, not faces: liquidity engineering is paperwork and capital structure — attorneys
+              draft; we engineer the cash.
+            </figcaption>
+          </figure>
           <dl className="mt-10 border-y" style={{ borderColor: HAIRLINE }}>
             {PILLARS.map((row) => (
               <div

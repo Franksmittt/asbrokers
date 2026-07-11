@@ -11,6 +11,7 @@ import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { EVEREST_CONSTRAINT_STRING } from "@/lib/problem-messaging";
 import { getAlt } from "@/lib/image-alt";
+import { EverestRolesTriangle } from "@/components/trust/TrustDiagrams";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -145,6 +146,9 @@ export function EverestWealthPageView({ faqs }: Props) {
                 <span className="tabular-nums text-stone-600">{EVEREST_CONSTRAINT_STRING}</span>
               </figcaption>
             </figure>
+            <div className="mt-10">
+              <EverestRolesTriangle />
+            </div>
           </div>
         </div>
       </section>

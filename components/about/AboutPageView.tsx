@@ -275,6 +275,10 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </li>
             ))}
           </ul>
+          <p className="mt-4 text-xs leading-relaxed text-stone-500">
+            Named desks, not call-centre queues — underwriting, medical onboarding, renewals, and
+            claims stay with specialists who know the file.
+          </p>
         </div>
       </section>
 

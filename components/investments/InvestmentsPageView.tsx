@@ -9,10 +9,10 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
+import { WealthContinuumViz } from "@/components/trust/TrustDiagrams";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
-const TEAL = "#00A3A3";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const FAIS_DISCLAIMER =
@@ -85,45 +85,6 @@ const EVEREST_ROWS = [
 ] as const;
 
 type Props = { faqs: FAQItem[] };
-
-/** Abstract accumulation → distribution continuum — not lifestyle photography. */
-function HeroDataViz() {
-  return (
-    <div
-      className="relative flex aspect-[4/3] w-full items-end justify-center overflow-hidden rounded border bg-white px-6 pb-8 pt-10"
-      style={{ borderColor: HAIRLINE }}
-      aria-hidden
-    >
-      <svg viewBox="0 0 320 200" className="h-full w-full max-h-[280px]" fill="none">
-        <line x1="24" y1="176" x2="296" y2="176" stroke="#d6d3d1" strokeWidth="1" />
-        <line x1="24" y1="24" x2="24" y2="176" stroke="#d6d3d1" strokeWidth="1" />
-        <path
-          d="M24 148 C 70 140, 100 118, 140 96 C 180 74, 210 58, 248 48"
-          stroke={TEAL}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M248 48 C 268 44, 282 52, 296 72"
-          stroke={TEAL}
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeDasharray="5 4"
-        />
-        <circle cx="248" cy="48" r="4" fill={TEAL} />
-        <text x="30" y="20" fill="#78716c" fontSize="10" fontFamily="system-ui,sans-serif">
-          Wealth continuum
-        </text>
-        <text x="120" y="88" fill={TEAL} fontSize="10" fontFamily="system-ui,sans-serif">
-          Accumulation
-        </text>
-        <text x="232" y="92" fill="#78716c" fontSize="10" fontFamily="system-ui,sans-serif">
-          Distribution
-        </text>
-      </svg>
-    </div>
-  );
-}
 
 function ToolCard({
   code,
@@ -220,7 +181,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-5">
-            <HeroDataViz />
+            <WealthContinuumViz />
           </div>
         </div>
 

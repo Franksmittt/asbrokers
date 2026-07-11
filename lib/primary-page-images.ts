@@ -7,7 +7,7 @@ export const PAGE_PRIMARY_IMAGES: Record<string, string> = {
   "/calculators": "/images/calculators-hub-16x9.jpg",
   "/contact": "/images/contact-trust.jpg",
   "/everest-wealth": "/images/everest-suite-hero-16x9.jpg",
-  "/everest-wealth/about": "/images/home4-import/card1.png",
+  "/everest-wealth/about": "/images/everest-copper-industrial-4x3.jpg",
   "/everest-128-product": "/images/home4-import/card1.png",
   "/immediate-higher-income-calculator": "/images/home4-import/card1.png",
   "/everest-strategic-growth-145": "/images/home4-import/card3.png",

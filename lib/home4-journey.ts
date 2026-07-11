@@ -52,7 +52,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Retirement articles", href: "/insights" },
     ],
     accent: "teal",
-    image: "/images/home4-goal-retire-16x9.png",
+    image: "/images/calculators-capital-lifespan-4x3.jpg",
   },
   {
     id: "investments",
@@ -67,7 +67,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Investment insights", href: "/insights" },
     ],
     accent: "blue",
-    image: "/images/home4-import/card1.png",
+    image: "/images/everest-copper-industrial-4x3.jpg",
   },
   {
     id: "insurance",
@@ -82,7 +82,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Business insurance", href: "/solutions/business-insurance" },
     ],
     accent: "orange",
-    image: "/images/home4-goal-insure-16x9.png",
+    image: "/images/risk-arch-commercial.png",
   },
   {
     id: "estate",
@@ -97,7 +97,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Legacy guides", href: "/insights" },
     ],
     accent: "gold",
-    image: "/images/home4-goal-estate-16x9.png",
+    image: "/images/risk-arch-estate.png",
   },
 ];
 
@@ -169,21 +169,21 @@ export const HOME4_TESTIMONIALS: Testimonial[] = [
       "Albert helped us untangle the living annuity properly. First time someone explained the numbers without making me feel stupid.",
     who: "Susan M.",
     where: "Randpark Ridge",
-    photo: "/images/home4-why-independence-4x3.jpg",
+    photo: "/images/about-krugersdorp-trust-16x9.jpg",
   },
   {
     quote:
       "Retirement felt like a mountain. Albert broke it into small steps. We're actually on track now.",
     who: "Michelle B.",
     where: "Wilropark",
-    photo: "/images/home4-goal-retire-16x9.png",
+    photo: "/images/calculators-capital-lifespan-4x3.jpg",
   },
   {
     quote:
       "Local, independent, no call-centre nonsense. Exactly what we wanted from an FSP.",
     who: "Johan & Karen T.",
     where: "Muldersdrift",
-    photo: "/images/home4-why-independence-4x3.jpg",
+    photo: "/images/about-fiduciary-plaque-4x3.jpg",
   },
 ];
 

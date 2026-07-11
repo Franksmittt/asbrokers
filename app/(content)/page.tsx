@@ -6,9 +6,9 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Independent Financial Advisor Krugersdorp";
+const PAGE_TITLE = "Everest Wealth Education & Independent Advice | AS Brokers";
 const PAGE_DESCRIPTION =
-  "25+ years helping South Africans with retirement planning, Everest Wealth, insurance, estate structuring, and business continuity. FSP 17273, Krugersdorp.";
+  "Run ASSET calculators, learn Everest Wealth structured-income profiles (Category 1.8), and book a capital assessment with independent FSP 17273 — Krugersdorp. Retirement, insurance, and estate when you need them.";
 
 export const metadata = buildPageMetadata({
   path: "/",

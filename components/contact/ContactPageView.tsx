@@ -26,8 +26,13 @@ const SOURCE_LABELS: Record<string, string> = {
   insights_terminal: "Continuing from the Insights library",
   about_terminal: "Continuing from About AS Brokers",
   calculators_terminal: "Continuing after the calculator library",
+  calculator_terminal: "Continuing after a calculator result",
   everest_terminal: "Continuing from the Everest Wealth hub",
   medical_terminal: "Continuing from medical aid & gap structuring",
+  home_hero: "Continuing from the homepage",
+  home_journey: "Continuing from the homepage journey",
+  home_pathways: "Continuing from the homepage",
+  nav_cta: "Continuing from the site navigation",
 };
 
 const STEPS = [

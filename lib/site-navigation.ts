@@ -60,20 +60,21 @@ export const PILLAR_HUB: NavLink = {
 
 /** Primary header links (Contact is a separate CTA button). */
 export const PRIMARY_NAV: NavLink[] = [
-  { label: "Retirement", href: "/retirement-planning" },
-  { label: "Investments", href: "/investments" },
-  { label: "Insurance", href: "/insurance" },
-  { label: "Estate Planning", href: "/estate-planning" },
   { label: "Calculators", href: "/calculators" },
+  { label: "Everest Wealth", href: "/everest-wealth" },
+  { label: "Investments", href: "/investments" },
+  { label: "Retirement", href: "/retirement-planning" },
+  { label: "Insurance", href: "/insurance" },
+  { label: "Estate", href: "/estate-planning" },
   { label: "Learn", href: "/insights" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 /** Mega-footer: goal-led service links. */
 export const FOOTER_HOW_WE_HELP: NavLink[] = [
-  { label: "Retirement planning", href: "/retirement-planning" },
+  { label: "Everest Wealth", href: "/everest-wealth" },
   { label: "Investments", href: "/investments" },
+  { label: "Retirement planning", href: "/retirement-planning" },
   { label: "Insurance & Risk", href: "/insurance" },
   { label: "Estate Planning", href: "/estate-planning" },
 ];

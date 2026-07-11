@@ -51,15 +51,7 @@ export function MarketingMobileMenu() {
             className="lg:hidden absolute top-full left-0 right-0 z-50 border-b border-stone-200 bg-[#F7F6F3] shadow-2xl ring-1 ring-stone-200/90 max-h-[85vh] overflow-y-auto"
           >
             <div className="py-3 px-4 flex flex-col">
-              <Link
-                href="/calculators"
-                prefetch={false}
-                onClick={closeMobile}
-                className="py-3 px-3 text-[#2B2B2E] font-medium hover:bg-white hover:text-shark rounded-2xl"
-              >
-                Calculators
-              </Link>
-              {PRIMARY_NAV.filter((item) => item.href !== "/calculators").map((item) => (
+              {PRIMARY_NAV.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -72,12 +64,12 @@ export function MarketingMobileMenu() {
               ))}
               <div className="border-t border-stone-300/80 mt-3 pt-3">
                 <Link
-                  href="/contact"
+                  href="/contact?source=nav_cta"
                   prefetch={false}
                   onClick={closeMobile}
                   className="w-full py-3.5 text-center text-white font-semibold bg-samsung-blue rounded-[2rem] block shadow-md shadow-samsung-blue/20"
                 >
-                  Contact us
+                  Book a capital assessment
                 </Link>
               </div>
             </div>

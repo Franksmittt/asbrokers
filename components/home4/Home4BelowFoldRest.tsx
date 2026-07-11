@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getRelatedLinks } from "@/lib/related-content";
 import {
+  Home4CalculatorTile,
   Home4JourneyFunnel,
   Home4Reveal,
   Home4SectionHeader,
@@ -12,6 +13,7 @@ import {
 } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import {
+  HOME4_CALCULATOR_TILES,
   HOME4_JOURNEY_STAGES,
   HOME4_TESTIMONIALS,
   HOME4_TRUST_BADGES,
@@ -22,53 +24,86 @@ import { getAlt } from "@/lib/image-alt";
 export function Home4BelowFoldRest() {
   return (
     <>
+      <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-calculators">
+        <div className={HOME4_WRAP}>
+          <Home4Reveal instant>
+            <Home4SectionHeader
+              headingId="home4-calculators"
+              kicker="Albert's ASSET tools"
+              title="Run the numbers before you speak to anyone"
+              description="Ungated educational calculators — Everest income, retirement longevity, estate duty. Illustrative only under FAIS; then bring results to a capital assessment."
+            />
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {HOME4_CALCULATOR_TILES.map((tile) => (
+                <Home4CalculatorTile key={tile.href} tile={tile} />
+              ))}
+            </div>
+            <Link
+              href="/calculators"
+              prefetch={false}
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue hover:text-[#006B6B]"
+            >
+              View all calculators
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </Home4Reveal>
+        </div>
+      </section>
+
       <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-journey">
         <div className={HOME4_WRAP}>
           <Home4Reveal instant>
             <Home4SectionHeader
               headingId="home4-journey"
               kicker="Your journey"
-              title="Start your journey"
-              description="Move from curiosity to clarity: education first, advice when you're ready."
+              title="Educate → calculate → Everest clarity → assessment"
+              description="The path that turns curiosity into a high-quality conversation — without a product pitch on day one."
             />
             <Home4JourneyFunnel stages={HOME4_JOURNEY_STAGES} />
           </Home4Reveal>
         </div>
       </section>
 
-      <section data-chunk-boundary="true" className="border-y border-stone-200/80 bg-white/60 py-16 md:py-20" aria-labelledby="home4-pathways">
+      <section
+        data-chunk-boundary="true"
+        className="border-y border-stone-200/80 bg-white/60 py-16 md:py-20"
+        aria-labelledby="home4-pathways"
+      >
         <div className={`${HOME4_WRAP} grid gap-6 lg:grid-cols-2`}>
           <Home4Reveal instant>
             <Link
-              href="/insights"
+              href="/everest-wealth"
               prefetch={false}
               className="group flex h-full flex-col rounded-3xl bg-gradient-to-br from-stone-50 to-white p-8 shadow-xl ring-1 ring-stone-200/70 transition-shadow hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
             >
               <h2 id="home4-pathways" className="text-2xl font-bold tracking-tight text-shark">
-                Prefer to explore on your own?
+                Start with Everest education
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
-                Access articles and guides at your own pace, no forms, no pressure.
+                Structure, constraints, and calculators first — so you arrive at advice already clear
+                on suitability.
               </p>
               <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-stone-100 px-6 py-3 text-sm font-semibold text-shark transition-colors group-hover:bg-stone-200">
-                Explore resources
+                Open Everest hub
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </span>
             </Link>
           </Home4Reveal>
           <Home4Reveal instant>
             <Link
-              href="/contact"
+              href="/contact?source=home_pathways"
               prefetch={false}
               className="group flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15 transition-shadow hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
             >
-              <h2 className="text-2xl font-bold tracking-tight text-shark">Need personalized guidance?</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-shark">
+                Ready for a capital assessment?
+              </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
-                Speak with a licensed independent fiduciary who can tailor retirement, investment, and estate
-                advice to your situation.
+                Speak with a licensed independent fiduciary (FSP 17273). Bring calculator results if
+                you have them — Everest, retirement, insurance, or estate.
               </p>
               <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-all group-hover:bg-[#004a9e] group-hover:shadow-xl">
-                Book an actuarial consultation
+                Book a capital assessment
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </span>
             </Link>
@@ -83,8 +118,8 @@ export function Home4BelowFoldRest() {
               <div>
                 <Home4SectionHeader
                   kicker="Why AS Brokers"
-                  title="Access investments many advisers cannot offer"
-                  description="As a Category 1.8 authorised financial services provider, we can guide suitable clients toward traditional and selected alternative investments, including Everest Wealth solutions, while remaining fully independent. For more than 25 years we have served families and business owners across the West Rand without tying advice to a single product house."
+                  title="Category 1.8 access — education before advice"
+                  description="We can discuss Everest Wealth structured-income profiles where suitable, while remaining fully independent. Insurance, medical, and estate built this firm — they stay available when your problem needs them. 25+ years on the West Rand, no call centre."
                 />
                 <div className="mt-6 flex flex-wrap gap-2">
                   {HOME4_TRUST_BADGES.map((badge) => (
@@ -96,22 +131,32 @@ export function Home4BelowFoldRest() {
                     </span>
                   ))}
                 </div>
-                <Link
-                  href="/about"
-                  prefetch={false}
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue hover:text-[#006B6B]"
-                >
-                  Learn about our independence
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
+                <div className="mt-6 flex flex-wrap gap-4">
+                  <Link
+                    href="/everest-wealth"
+                    prefetch={false}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue hover:text-[#006B6B]"
+                  >
+                    Everest Wealth hub
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                  <Link
+                    href="/about"
+                    prefetch={false}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-stone-600 hover:text-shark"
+                  >
+                    Meet Albert &amp; Johnny
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </div>
               </div>
               <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/70">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/images/home4-why-independence-4x3.jpg"
+                    src="/images/about-krugersdorp-trust-16x9.jpg"
                     alt={getAlt(
-                      "/images/home4-why-independence-4x3.jpg",
-                      "Independent financial adviser discussing investment options with clients in a Krugersdorp office"
+                      "/images/about-krugersdorp-trust-16x9.jpg",
+                      "AS Brokers Krugersdorp storefront with FSP 17273 signage"
                     )}
                     fill
                     unoptimized
@@ -130,8 +175,8 @@ export function Home4BelowFoldRest() {
                 Stories from clients we serve
               </h3>
               <p className="mt-2 max-w-2xl text-stone-600">
-                Real feedback from families and business owners: retirement clarity, insurance that makes sense,
-                and advice without the hard sell.
+                Real feedback from families and business owners: retirement clarity, insurance that
+                makes sense, and advice without the hard sell.
               </p>
             </Home4Reveal>
             <div className="mt-8 grid gap-6 md:grid-cols-3">

@@ -32,7 +32,22 @@ export function ContactEnquiryForm() {
   const source = searchParams.get("source") ?? "";
   const [state, formAction, isPending] = useActionState(submitContactEnquiry, initialState);
 
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [selectedTopics, setSelectedTopics] = useState<string[]>(() => {
+    if (
+      source.includes("everest") ||
+      source === "home_hero" ||
+      source === "home_journey" ||
+      source === "home_pathways" ||
+      source === "nav_cta" ||
+      source === "calculator_terminal"
+    ) {
+      return ["everest"];
+    }
+    if (source.includes("medical")) return ["medical_gap"];
+    if (source.includes("estate") || source.includes("legacy")) return ["estate"];
+    if (source.includes("insurance")) return ["short_business"];
+    return [];
+  });
   const [topicsOpen, setTopicsOpen] = useState(false);
   const topicsRef = useRef<HTMLDivElement>(null);
 
@@ -248,7 +263,7 @@ export function ContactEnquiryForm() {
         aria-label={isPending ? "Sending consultation request" : "Request a consultation"}
         className="mt-2 w-full rounded bg-cinematic-teal py-4 text-sm font-semibold text-white transition hover:bg-[#008f8f] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isPending ? "Sending…" : "Submit enquiry"}
+        {isPending ? "Sending…" : "Request capital assessment"}
       </button>
     </form>
   );

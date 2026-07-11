@@ -20,10 +20,7 @@ export function MarketingNav() {
           </div>
         </Link>
         <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
-          <Link href="/calculators" prefetch={false} className="px-3 py-2 rounded-2xl text-[#2B2B2E] hover:text-shark">
-            Calculators
-          </Link>
-          {PRIMARY_NAV.filter((item) => item.href !== "/calculators").map((item) => (
+          {PRIMARY_NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -36,11 +33,11 @@ export function MarketingNav() {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <Link
-            href="/contact"
+            href="/contact?source=nav_cta"
             prefetch={false}
             className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold bg-samsung-blue text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e]"
           >
-            Contact
+            Capital assessment
           </Link>
           <MarketingMobileMenu />
         </div>

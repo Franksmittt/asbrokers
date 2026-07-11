@@ -273,13 +273,21 @@ export function AssetCalculatorPageView({
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
-              href="/contact"
+              href="/contact?source=calculator_terminal"
               prefetch={false}
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-cta-glow-blue transition hover:bg-[#004a9e]"
               style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
             >
-              Book a consultation
+              Book a capital assessment
               <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link
+              href="/everest-wealth"
+              prefetch={false}
+              className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold ring-1 ring-stone-200 transition hover:bg-stone-50"
+              style={{ color: INK }}
+            >
+              Everest Wealth hub
             </Link>
             <Link
               href="/calculators"

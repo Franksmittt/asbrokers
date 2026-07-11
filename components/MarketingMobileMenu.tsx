@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "@/components/icons";
 import { PRIMARY_NAV } from "@/lib/site-navigation";
 
-/** Client island — mobile nav toggle only; desktop links stay server-rendered. */
+/** Client island, mobile nav toggle only; desktop links stay server-rendered. */
 export function MarketingMobileMenu() {
   const [mobileOpen, setMobileOpen] = useState(false);
 

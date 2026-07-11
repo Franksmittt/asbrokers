@@ -7,7 +7,7 @@ import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 const HERO_IMAGE = "/images/contact-trust.jpg";
 
-/** Contact split hero — server-rendered for LCP. */
+/** Contact split hero, server-rendered for LCP. */
 export function ContactHero() {
   return (
     <header

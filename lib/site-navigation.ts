@@ -20,7 +20,7 @@ export type PillarFunnel = NavLink & {
   pillar: Pillar;
 };
 
-/** Core lead magnets / assessments — Albert's four-pillar funnel entry points. */
+/** Core lead magnets / assessments, Albert's four-pillar funnel entry points. */
 export const PILLAR_FUNNELS: PillarFunnel[] = [
   {
     pillar: PLANNING_TOOL_OFFERS["healthy-retirement"].pillar,

@@ -1,4 +1,4 @@
-/** Canonical list of embed calculators — derived from `lib/calculators/registry.ts`. */
+/** Canonical list of embed calculators, derived from `lib/calculators/registry.ts`. */
 import {
   CALCULATOR_REGISTRY,
   formatPublicCalculatorTitle,

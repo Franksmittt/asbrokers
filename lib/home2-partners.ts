@@ -1,5 +1,5 @@
 /**
- * Product providers and markets AS Brokers works with — for homepage trust strips.
+ * Product providers and markets AS Brokers works with, for homepage trust strips.
  * Wording is category-level where scheme/insurer choice is client-specific.
  */
 

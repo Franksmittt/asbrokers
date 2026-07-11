@@ -109,13 +109,13 @@ export function LegacyReadinessLanding() {
             <p className={funnel.eyebrow}>Legacy Conversations™ · Stage 1</p>
             <h1 className={`mt-4 ${funnel.h1}`}>Don&apos;t leave a financial mess behind</h1>
             <p className={`mt-5 max-w-xl ${funnel.lead}`}>
-              Most families believe their affairs are in order. Many are not — and problems found after
+              Most families believe their affairs are in order. Many are not, and problems found after
               death cannot be fixed.
             </p>
             <p className={`mt-3 max-w-xl ${funnel.body}`}>
               Four dangerous assumptions: &ldquo;I have a will,&rdquo; &ldquo;my family is
               protected,&rdquo; &ldquo;beneficiaries are correct,&rdquo; &ldquo;the estate will be
-              simple.&rdquo; The Legacy Readiness Checklist™ stress-tests all eight areas — free,
+              simple.&rdquo; The Legacy Readiness Checklist™ stress-tests all eight areas, free,
               printable, plain language.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -151,7 +151,7 @@ export function LegacyReadinessLanding() {
               <FunnelSectionHeader
                 compact
                 title="Why take this diagnostic?"
-                subtitle="If you assume the four statements below are true, you are in good company — and that is exactly why estates fail."
+                subtitle="If you assume the four statements below are true, you are in good company, and that is exactly why estates fail."
               />
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {ASSUMPTIONS.map((item) => (
@@ -198,7 +198,7 @@ export function LegacyReadinessLanding() {
                 <p className={funnel.eyebrow}>Your adviser</p>
                 <h3 className="mt-2 text-lg font-bold text-[#1D1D1F]">Albert Schuurman</h3>
                 <p className={`mt-2 ${funnel.body}`}>
-                  Helping South African families protect wealth since 1999 — estate planning, trusts,
+                  Helping South African families protect wealth since 1999, estate planning, trusts,
                   succession, and risk.
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export function LegacyReadinessLanding() {
           <div className="max-w-2xl">
             <h2 className={funnel.h2}>What happens if you don&apos;t wake up tomorrow?</h2>
             <p className={`mt-1.5 ${funnel.body}`}>
-              Find out whether your legacy plan is ready — takes two minutes.
+              Find out whether your legacy plan is ready, takes two minutes.
             </p>
           </div>
           <button type="button" onClick={scrollToForm} className={`shrink-0 ${funnel.ctaLg}`}>

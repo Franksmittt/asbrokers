@@ -2,7 +2,7 @@ import type { CrmRole, ServiceCategory } from "@/lib/crm/types";
 
 import { CRM_PIN_SUPERUSER_EMAIL, CRM_PIN_SUPERUSER_ID, CRM_PIN_SUPERUSER_NAME } from "@/lib/crm/constants";
 
-/** Demo/test CRM identities — replace with Supabase auth users when going live. */
+/** Demo/test CRM identities, replace with Supabase auth users when going live. */
 export type CrmTeamMemberKey = "albert" | "johnny" | "petro";
 
 export type CrmTeamMember = {

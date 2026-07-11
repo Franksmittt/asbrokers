@@ -46,7 +46,7 @@ export function SoloCalculatorPageView({
   heroImageAlt,
   calculatorSrc,
   calculatorTitle,
-  calculatorLead = "Illustrative calculator only — not a quote, guarantee, or personalised advice.",
+  calculatorLead = "Illustrative calculator only, not a quote, guarantee, or personalised advice.",
   sidePanelTitle,
   sidePanelParagraphs,
   sidePanelBullets = [],
@@ -205,7 +205,7 @@ export function SoloCalculatorPageView({
             className="mx-auto mt-3 max-w-xl leading-relaxed"
             style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
           >
-            Illustrative tools are a starting point — not personalised advice. Book a conversation with
+            Illustrative tools are a starting point, not personalised advice. Book a conversation with
             an independent FSP 17273 adviser when you want clarity on your numbers.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">

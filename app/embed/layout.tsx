@@ -4,7 +4,7 @@ import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
   "Embed | AS Brokers",
-  "Legacy calculator embed — not for public indexing."
+  "Legacy calculator embed, not for public indexing."
 );
 
 export default function EmbedLayout({ children }: { children: React.ReactNode }) {

@@ -73,7 +73,7 @@ function ToolCard({
   );
 }
 
-/** Dark shark / glass calculator strip — Option A tool bay. */
+/** Dark shark / glass calculator strip, Option A tool bay. */
 export function HubCalculatorToolBay({
   headingId,
   title,

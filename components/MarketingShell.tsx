@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
-/** Lightweight marketing chrome — server nav, deferred floating widgets. */
+/** Lightweight marketing chrome, server nav, deferred floating widgets. */
 export function MarketingShell({ children }: Props) {
   return (
     <>

@@ -64,7 +64,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              Finding an adviser aligned with <em>you</em> — not a bank&apos;s product quota — is
+              Finding an adviser aligned with <em>you</em>, not a bank&apos;s product quota, is
               hard. For 25+ years AS Brokers (FSP 17273, Category 1.8) has been an independent
               fiduciary compass for professionals, families, and business owners in Krugersdorp and
               beyond: math first, then advice.
@@ -122,7 +122,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 As a fully independent intermediary, we survey the market to engineer risk and wealth
-                architecture around your goals — without institutional sales quotas.
+                architecture around your goals, without institutional sales quotas.
               </p>
             </div>
             <div>
@@ -132,7 +132,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 Category 1.8 (Securities and Instruments: Shares) authorisation allows advice on
                 certain unlisted instruments and structured return profiles that many tied advisers
-                cannot distribute — including Everest Wealth where appropriate.
+                cannot distribute, including Everest Wealth where appropriate.
               </p>
               <Link
                 href="/investments"
@@ -167,11 +167,11 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            A real office on the West Rand — not a call centre
+            A real office on the West Rand, not a call centre
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
             Local presence and visible compliance are trust cues you can verify. We are independent
-            intermediaries you can meet — not a national script queue.
+            intermediaries you can meet, not a national script queue.
           </p>
           <div className="mt-10 grid gap-6 lg:grid-cols-12">
             <figure className="lg:col-span-8">
@@ -206,7 +206,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                 />
               </div>
               <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
-                Integrity cue: FAIS disclosure pack and compliance materials kept on the desk — not
+                Integrity cue: FAIS disclosure pack and compliance materials kept on the desk, not
                 buried in a footer.
               </figcaption>
             </figure>
@@ -276,7 +276,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             ))}
           </ul>
           <p className="mt-4 text-xs leading-relaxed text-stone-500">
-            Named desks, not call-centre queues — underwriting, medical onboarding, renewals, and
+            Named desks, not call-centre queues, underwriting, medical onboarding, renewals, and
             claims stay with specialists who know the file.
           </p>
         </div>
@@ -326,7 +326,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 Seventeen educational calculators for retirement, estate, insurance, and Everest
-                scenarios — illustrative only.
+                scenarios, illustrative only.
               </p>
               <Link
                 href="/calculators"
@@ -346,7 +346,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 When you are ready for a needs analysis, request a Wealth Engineering Call with an
-                authorised FSP 17273 adviser — not a call centre.
+                authorised FSP 17273 adviser, not a call centre.
               </p>
               <Link
                 href="/contact?source=about_terminal"

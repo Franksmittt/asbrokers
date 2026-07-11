@@ -22,7 +22,7 @@ export type LegalDocumentLayoutProps = {
   footerLinks?: Array<{ href: string; label: string }>;
 };
 
-/** Warm legal/trust reading layout — sidebar metadata cols 1–3, prose cols 4–10, gutter 11–12. */
+/** Warm legal/trust reading layout, sidebar metadata cols 1–3, prose cols 4–10, gutter 11–12. */
 export function LegalDocumentLayout({
   kicker,
   title,
@@ -107,7 +107,7 @@ export function LegalDocumentLayout({
   );
 }
 
-/** High-contrast prose for legal documents — optimised line length inside cols 4–10. */
+/** High-contrast prose for legal documents, optimised line length inside cols 4–10. */
 export function LegalProse({ children }: { children: ReactNode }) {
   return (
     <div

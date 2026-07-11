@@ -131,7 +131,7 @@ export function CalculatorReviewGrid() {
           </p>
           <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">All calculators</h1>
           <p className="mt-2 max-w-3xl text-sm text-zinc-400">
-            Test every calculator below. Mark which ones Albert wants on the live site — the public page stays clean until
+            Test every calculator below. Mark which ones Albert wants on the live site, the public page stays clean until
             you export and we apply his choices.
           </p>
         </div>

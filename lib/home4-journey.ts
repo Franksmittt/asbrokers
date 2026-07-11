@@ -39,18 +39,18 @@ export type Testimonial = {
   photo: string;
 };
 
+/** Four equal cards: same link count, similar description length, Explore → card.href hub. */
 export const HOME4_GOAL_CARDS: GoalCard[] = [
   {
     id: "investments",
-    title: "I need structured income / Everest",
+    title: "Structured income & Everest",
     badge: "Invest · Everest",
     description:
-      "Category 1.8 access to targeted preference-share profiles — calculators first, constraints upfront.",
+      "Category 1.8 education on targeted preference-share profiles, with calculators and constraints first.",
     href: "/everest-wealth",
     links: [
       { label: "12.8% income calculator", href: "/calculators/asset-010-everest-128-income" },
       { label: "Everest Wealth hub", href: "/everest-wealth" },
-      { label: "Investments overview", href: "/investments" },
       { label: "Understanding Everest", href: "/everest-wealth/about" },
     ],
     accent: "blue",
@@ -58,46 +58,45 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
   },
   {
     id: "retirement",
-    title: "I'm planning for retirement",
+    title: "Retirement planning",
     badge: "Retire",
-    description: "Clarity on capital, income, and whether your money will last.",
+    description:
+      "Clarity on capital, income longevity, and whether your savings can fund the years ahead.",
     href: "/retirement-planning",
     links: [
       { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
-      { label: "Retirement calculators", href: "/calculators" },
-      { label: "Full retirement hub", href: "/retirement-planning" },
-      { label: "Retirement articles", href: "/insights" },
+      { label: "Retirement calculators", href: "/calculators#retirement" },
+      { label: "Retirement planning hub", href: "/retirement-planning" },
     ],
     accent: "teal",
     image: "/images/calculators-capital-lifespan-4x3.jpg",
   },
   {
     id: "insurance",
-    title: "I need insurance & medical",
+    title: "Insurance & medical",
     badge: "Insure",
     description:
-      "Personal protection, health cover, assets, and business risk — still core to the firm.",
+      "Personal protection, medical aid and gap, assets, and commercial risk for the balance sheet.",
     href: "/insurance",
     links: [
       { label: "Medical aid & gap", href: "/solutions/medical-aid" },
       { label: "Risk architecture hub", href: "/insurance" },
       { label: "Average Clause calculator", href: "/calculators/asset-015-average-clause" },
-      { label: "Business risk review", href: "/business-risk-review" },
     ],
     accent: "orange",
     image: "/images/risk-arch-commercial.png",
   },
   {
     id: "estate",
-    title: "I need estate planning",
+    title: "Estate planning",
     badge: "Estate",
-    description: "Wills, trusts, duty, and legacy liquidity — engineered alongside your wealth plan.",
+    description:
+      "Wills, trusts, duty, and estate liquidity so heirs are not forced into a fire sale.",
     href: "/estate-planning",
     links: [
       { label: "Legacy Readiness Checklist", href: "/legacy-readiness-checklist" },
       { label: "Estate duty calculator", href: "/calculators/asset-007-estate-duty" },
       { label: "Estate planning hub", href: "/estate-planning" },
-      { label: "Legacy guides", href: "/insights" },
     ],
     accent: "gold",
     image: "/images/risk-arch-estate.png",
@@ -107,7 +106,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
 export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   {
     label: "12.8% Strategic Income",
-    description: "Illustrate targeted monthly income from Everest Class A — educational only.",
+    description: "Illustrate targeted monthly income from Everest Class A. Educational only.",
     href: "/calculators/asset-010-everest-128-income",
     image: "/images/everest-suite-hero-16x9.jpg",
   },
@@ -125,7 +124,7 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   },
   {
     label: "Estate Duty",
-    description: "Estimate duty and executor pressure — then engineer liquidity.",
+    description: "Estimate duty and executor pressure, then engineer liquidity.",
     href: "/calculators/asset-007-estate-duty",
     image: "/images/risk-arch-estate.png",
   },
@@ -135,7 +134,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "01",
     title: "Educate",
-    description: "Everest, retirement maths, tax, and risk — explained in plain English.",
+    description: "Everest, retirement maths, tax, and risk explained in plain English.",
     href: "/insights",
     cta: "Read insights",
     accent: "teal",
@@ -143,7 +142,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "02",
     title: "Calculate",
-    description: "Albert's ASSET tools — income, longevity, estate — before any sales call.",
+    description: "Albert's ASSET tools for income, longevity, and estate before any sales call.",
     href: "/calculators",
     cta: "Open calculators",
     accent: "blue",
@@ -151,7 +150,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "03",
     title: "Understand Everest",
-    description: "Structure, constraints, and Category 1.8 — regulation before yield.",
+    description: "Structure, constraints, and Category 1.8. Regulation before yield.",
     href: "/everest-wealth",
     cta: "Everest hub",
     accent: "gold",
@@ -159,7 +158,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "04",
     title: "Capital assessment",
-    description: "Licensed FSP 17273 review when your numbers say it's time — Krugersdorp & beyond.",
+    description: "Licensed FSP 17273 review when your numbers say it is time.",
     href: "/contact?source=home_journey",
     cta: "Book assessment",
     accent: "advice",

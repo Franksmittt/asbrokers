@@ -16,7 +16,7 @@ export function pgTlsForSupabaseUrl(databaseUrl: string): ConnectionOptions | un
 
 /**
  * `pg` applies `sslmode` from the URL strictly; pairing it with `{ rejectUnauthorized: false }` can still fail on
- * some hosts (e.g. Vercel build prerender). Strip sslmode — TLS is enabled via explicit `ssl` on the Pool instead.
+ * some hosts (e.g. Vercel build prerender). Strip sslmode, TLS is enabled via explicit `ssl` on the Pool instead.
  */
 export function stripPgUrlSslmodeQuery(databaseUrl: string): string {
   const u = databaseUrl.trim();

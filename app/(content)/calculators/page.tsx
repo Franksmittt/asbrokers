@@ -74,7 +74,7 @@ const calculatorsFAQs = [
   {
     question: "What does a targeted return profile mean?",
     answer:
-      "Figures such as 12.8%, 14.2%, or 14.5% on Everest voluntary products are targeted structural profiles — not guaranteed rates. Liquidity constraints (including notice periods and possible early-exit penalties) apply. Read Understanding Everest before comparing products.",
+      "Figures such as 12.8%, 14.2%, or 14.5% on Everest voluntary products are targeted structural profiles, not guaranteed rates. Liquidity constraints (including notice periods and possible early-exit penalties) apply. Read Understanding Everest before comparing products.",
   },
   {
     question: "Which calculator should I use for a retirement shortfall?",
@@ -84,7 +84,7 @@ const calculatorsFAQs = [
   {
     question: "Which tool shows estate duty and executor fees?",
     answer:
-      "ASSET 007 illustrates duty and executor fee pressure. ASSET 008 models donation-based estate reduction strategies within SARS limits — educational only.",
+      "ASSET 007 illustrates duty and executor fee pressure. ASSET 008 models donation-based estate reduction strategies within SARS limits, educational only.",
   },
   {
     question: "What is the Average Clause calculator for?",
@@ -102,7 +102,7 @@ export const metadata = buildPageMetadata({
   path: "/calculators",
   title: "The Mathematical Reality Check | Fiduciary Calculators",
   description:
-    "Run retirement, estate, insurance, and Everest scenarios yourself — ungated educational ASSET tools. Not FAIS advice. Then book FSP 17273 to interpret your numbers.",
+    "Run retirement, estate, insurance, and Everest scenarios yourself, ungated educational ASSET tools. Not FAIS advice. Then book FSP 17273 to interpret your numbers.",
 });
 
 function byId(id: string) {
@@ -141,7 +141,7 @@ export default function CalculatorsPage() {
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
               You cannot plan a 30-year retirement or a risk structure on guesswork. Run the numbers
-              yourself — retirement longevity, estate liquidity, underinsurance, yield trade-offs —
+              yourself, retirement longevity, estate liquidity, underinsurance, yield trade-offs , 
               before you speak to anyone. Educational only; then bring results to FSP 17273 if you
               want advice.
             </p>
@@ -173,7 +173,7 @@ export default function CalculatorsPage() {
                 />
               </div>
               <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
-                Tools as craft — ungated ASSET calculators so you test assumptions before a sales
+                Tools as craft, ungated ASSET calculators so you test assumptions before a sales
                 conversation.
               </figcaption>
             </figure>
@@ -220,11 +220,11 @@ export default function CalculatorsPage() {
                   style={{ borderColor: HAIRLINE }}
                 >
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">
-                    Everest voluntary capital — read before opening tools
+                    Everest voluntary capital, read before opening tools
                   </p>
                   <p className="mt-2">
                     Everest calculators model targeted return profiles on unlisted preference-share
-                    structures — not bank guarantees. Typical constraints include a R100,000 minimum,
+                    structures, not bank guarantees. Typical constraints include a R100,000 minimum,
                     five-year term commitment, 120-day notice, and up to a 15% early exit penalty may
                     apply. Dividends are typically subject to 20% DWT.{" "}
                     <Link href="/everest-wealth/about" prefetch={false} className="font-semibold text-cinematic-teal">

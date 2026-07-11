@@ -10,12 +10,12 @@ const insuranceFAQs = [
   {
     question: "What is the Average Clause and how does it reduce a claim?",
     answer:
-      "If the sum insured is below the property’s replacement or market value, many policies reduce the claim proportionally: (Amount Insured ÷ Market Value) × Damages = Payout. The Average Clause calculator on this site is an educational illustration only — not a claim assessment.",
+      "If the sum insured is below the property’s replacement or market value, many policies reduce the claim proportionally: (Amount Insured ÷ Market Value) × Damages = Payout. The Average Clause calculator on this site is an educational illustration only, not a claim assessment.",
   },
   {
     question: "What is the difference between medical aid and gap cover?",
     answer:
-      "Medical schemes are governed by the Medical Schemes Act and must provide Prescribed Minimum Benefits. Gap cover is a short-term insurance product under Demarcation Regulations, designed to fund certain in-hospital specialist shortfalls — not to replace a medical scheme. Annual gap benefit caps adjust under those regulations; verify current figures for your policy year.",
+      "Medical schemes are governed by the Medical Schemes Act and must provide Prescribed Minimum Benefits. Gap cover is a short-term insurance product under Demarcation Regulations, designed to fund certain in-hospital specialist shortfalls, not to replace a medical scheme. Annual gap benefit caps adjust under those regulations; verify current figures for your policy year.",
   },
   {
     question: "What is the Premium Liability Test?",
@@ -25,12 +25,12 @@ const insuranceFAQs = [
   {
     question: "Are AS Brokers tied to one insurer?",
     answer:
-      "No. We are an independent Category 1.8 FSP (17273) and survey the market. Naming institutions such as Santam, Old Mutual, or Bryte indicates placement capability — not exclusivity or tied agency.",
+      "No. We are an independent Category 1.8 FSP (17273) and survey the market. Naming institutions such as Santam, Old Mutual, or Bryte indicates placement capability, not exclusivity or tied agency.",
   },
   {
     question: "Why start with a protection domain instead of a product list?",
     answer:
-      "High-intent clients usually know what they are protecting — health, income, assets, or the business — before they need a quote form. Domain routing keeps education and advice aligned to that need.",
+      "High-intent clients usually know what they are protecting, health, income, assets, or the business, before they need a quote form. Domain routing keeps education and advice aligned to that need.",
   },
   {
     question: "Do online insurance calculators constitute advice?",

@@ -7,10 +7,10 @@ import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 import { sanityFetch } from "@/sanity/lib/live";
 import { insightArticlesSitemapQuery } from "@/sanity/lib/queries";
 
-/** Always resolve CMS posts at request time — avoids stale build-time sitemap cache. */
+/** Always resolve CMS posts at request time, avoids stale build-time sitemap cache. */
 export const dynamic = "force-dynamic";
 
-/** Public marketing/site pages — no auth, CRM, Studio, APIs, internal tools, or noindex routes. */
+/** Public marketing/site pages, no auth, CRM, Studio, APIs, internal tools, or noindex routes. */
 const STATIC_PATHS = [
   "/",
   "/about",

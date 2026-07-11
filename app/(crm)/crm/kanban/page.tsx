@@ -11,7 +11,7 @@ export default function CrmKanbanPage() {
       <header>
         <h1 className="text-2xl font-bold tracking-[-0.03em] text-white">Wealth Pipeline</h1>
         <p className="mt-2 text-sm text-gray-100">
-          Elite financial dossiers — drag between stages or tap to open.
+          Elite financial dossiers, drag between stages or tap to open.
         </p>
       </header>
       <LeadsKanban />

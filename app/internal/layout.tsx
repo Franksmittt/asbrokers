@@ -4,7 +4,7 @@ import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
   "Internal | AS Brokers",
-  "Internal tools — not for public indexing."
+  "Internal tools, not for public indexing."
 );
 
 export default function InternalLayout({ children }: { children: React.ReactNode }) {

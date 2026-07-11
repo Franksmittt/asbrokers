@@ -25,7 +25,7 @@ export async function listStudioNotebookNotes(): Promise<
   try {
     await requireStudioSession();
   } catch {
-    return { ok: false, error: "Session expired — sign in again." };
+    return { ok: false, error: "Session expired, sign in again." };
   }
 
   const db = getDb();
@@ -65,7 +65,7 @@ export async function saveStudioNotebookNote(
   try {
     await requireStudioSession();
   } catch {
-    return { ok: false, error: "Session expired — sign in again." };
+    return { ok: false, error: "Session expired, sign in again." };
   }
 
   const db = getDb();
@@ -123,7 +123,7 @@ export async function deleteStudioNotebookNote(
   try {
     await requireStudioSession();
   } catch {
-    return { ok: false, error: "Session expired — sign in again." };
+    return { ok: false, error: "Session expired, sign in again." };
   }
 
   const db = getDb();

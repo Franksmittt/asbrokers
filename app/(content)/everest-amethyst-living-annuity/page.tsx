@@ -6,7 +6,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Amethyst Living Annuity | ~10.2% Net Yield";
 const PAGE_DESCRIPTION =
-  "Compulsory retirement capital in a regulated living annuity — targeted ~10.2% net yield, Section 14 transfer approved, drawdown 2.5%–17.5%.";
+  "Compulsory retirement capital in a regulated living annuity, targeted ~10.2% net yield, Section 14 transfer approved, drawdown 2.5%–17.5%.";
 
 export const metadata = buildPageMetadata({
   path: "/everest-amethyst-living-annuity",

@@ -6,7 +6,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Estate Duty Fiduciary Diagnostic | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Estimate estate duty and executor fees using current abatement structures — a structured starting point for legacy planning.";
+  "Estimate estate duty and executor fees using current abatement structures, a structured starting point for legacy planning.";
 
 export const metadata = buildPageMetadata({
   path: "/estate-duty-calculator",

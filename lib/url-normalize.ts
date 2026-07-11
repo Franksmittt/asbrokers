@@ -1,4 +1,4 @@
-/** Edge URL normalization — Phase 1. Skips /images/ and /fonts/ (case-sensitive paths). */
+/** Edge URL normalization, Phase 1. Skips /images/ and /fonts/ (case-sensitive paths). */
 
 const TRACKING_PARAM = /^(utm_|fbclid$|gclid$)/i;
 

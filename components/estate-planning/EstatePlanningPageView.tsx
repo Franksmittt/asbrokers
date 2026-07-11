@@ -19,7 +19,7 @@ const HAIRLINE = "#E5E5E5";
 const INSET = "rgba(29,29,31,0.05)";
 const ESTATE_CRAFT = "/images/risk-arch-estate.png";
 const FAIS_DISCLAIMER =
-  "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or legal advice as defined in the FAIS Act, 2002. Estate duty, executor fees, and donations rules change — verify current SARS and statutory positions with qualified professionals.";
+  "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or legal advice as defined in the FAIS Act, 2002. Estate duty, executor fees, and donations rules change, verify current SARS and statutory positions with qualified professionals.";
 
 const CALC_ESTATE_DUTY = calculatorPagePath("asset-007-estate-duty");
 const CALC_ESTATE_REDUCTION = calculatorPagePath("asset-008-estate-reduction");
@@ -27,23 +27,23 @@ const CALC_ESTATE_REDUCTION = calculatorPagePath("asset-008-estate-reduction");
 const PILLARS = [
   {
     dt: "Estate duty abatement",
-    dd: "The first R3.5 million of a net dutiable estate is generally free of estate duty. Amounts above that are typically taxed at 20% up to R30 million, and 25% thereafter — confirm the current statutory position for your planning year.",
+    dd: "The first R3.5 million of a net dutiable estate is generally free of estate duty. Amounts above that are typically taxed at 20% up to R30 million, and 25% thereafter, confirm the current statutory position for your planning year.",
   },
   {
     dt: "Executor fees",
-    dd: "Statutory maximum executor remuneration is commonly framed at 3.5% plus VAT (effective 4.025% where VAT applies). That cash must exist in the estate — a will alone does not create it.",
+    dd: "Statutory maximum executor remuneration is commonly framed at 3.5% plus VAT (effective 4.025% where VAT applies). That cash must exist in the estate, a will alone does not create it.",
   },
   {
     dt: "Spousal rollover",
-    dd: "Section 4(q) mechanisms can allow a surviving spouse to benefit from unused abatement capacity, often discussed as a combined R7 million shield across two estates — subject to facts and current law.",
+    dd: "Section 4(q) mechanisms can allow a surviving spouse to benefit from unused abatement capacity, often discussed as a combined R7 million shield across two estates, subject to facts and current law.",
   },
   {
     dt: "Annual donations",
-    dd: "Lifetime transfers within SARS donation exemptions can reduce dutiable estates over time. Budget updates adjust annual exemptions — verify the current natural-person exemption before modelling multi-year strategies.",
+    dd: "Lifetime transfers within SARS donation exemptions can reduce dutiable estates over time. Budget updates adjust annual exemptions, verify the current natural-person exemption before modelling multi-year strategies.",
   },
   {
     dt: "Section 7C trust loans",
-    dd: "Interest-free or low-interest loans to trusts can trigger deemed donations based on the official rate of interest. Rate changes (for example after SARB repo moves) alter the maths — treat any published rate as educational until verified.",
+    dd: "Interest-free or low-interest loans to trusts can trigger deemed donations based on the official rate of interest. Rate changes (for example after SARB repo moves) alter the maths, treat any published rate as educational until verified.",
   },
   {
     dt: "Business succession",
@@ -108,7 +108,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
               A will is only half the job. Without cash for estate duty and executor fees, heirs can
-              be forced into a fire sale. We engineer liquidity — life cover and capital structure —
+              be forced into a fire sale. We engineer liquidity, life cover and capital structure , 
               while partnered attorneys draft the legal instruments.
             </p>
             <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
@@ -142,7 +142,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 A guided readiness review covering wills, liquidity, duty awareness, and succession
-                gaps — before you book a strategy call.
+                gaps, before you book a strategy call.
               </p>
               <Link
                 href="/legacy-readiness-checklist"
@@ -171,7 +171,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
             The financial architecture of deceased estates in South Africa
           </h2>
           <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Objective legislative framing — engineer liquidity and optimize lawful rollovers. Not
+            Objective legislative framing, engineer liquidity and optimize lawful rollovers. Not
             “avoid the taxman” rhetoric.
           </p>
           <figure className="mt-8 max-w-3xl">
@@ -183,7 +183,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
                 src={ESTATE_CRAFT}
                 alt={getAlt(
                   ESTATE_CRAFT,
-                  "Estate planning desk — documents, portfolio and succession context"
+                  "Estate planning desk, documents, portfolio and succession context"
                 )}
                 fill
                 className="object-cover object-center"
@@ -191,7 +191,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
               />
             </div>
             <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
-              Craft, not faces: liquidity engineering is paperwork and capital structure — attorneys
+              Craft, not faces: liquidity engineering is paperwork and capital structure, attorneys
               draft; we engineer the cash.
             </figcaption>
           </figure>
@@ -224,7 +224,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
             Intergenerational wealth transfer tools
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Model liquidity stress and donation strategies. Illustrative only — bring outputs to a
+            Model liquidity stress and donation strategies. Illustrative only, bring outputs to a
             strategy call for advice on your facts.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
@@ -260,8 +260,8 @@ export function EstatePlanningPageView({ faqs }: Props) {
               Financial coordination vs legal drafting
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-              AS Brokers engineers liquidity — life cover, investment placement, and succession
-              funding — so an estate can settle fees and duty without forced sales. Binding wills,
+              AS Brokers engineers liquidity, life cover, investment placement, and succession
+              funding, so an estate can settle fees and duty without forced sales. Binding wills,
               trust deeds, and related instruments are drafted by admitted attorneys. We coordinate;
               we do not practise as a law firm on this website.
             </p>

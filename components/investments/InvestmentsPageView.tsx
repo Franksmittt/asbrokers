@@ -160,7 +160,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             >
               High earners lose too much yield to JSE volatility and marginal tax on interest. Where
               suitable, Category 1.8 lets us discuss targeted private-market profiles and DWT
-              architecture — with liquidity constraints stated upfront. Education before advice.
+              architecture, with liquidity constraints stated upfront. Education before advice.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
@@ -229,21 +229,21 @@ export function InvestmentsPageView({ faqs }: Props) {
               The fiduciary advantage: Category 1.8 authority
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-              AS Brokers CC is an independent FSP (17273) with Category 1.8 authorisation — including
+              AS Brokers CC is an independent FSP (17273) with Category 1.8 authorisation, including
               advice on certain unlisted instruments beyond a standard unit-trust shelf. We survey
               the market and structure advice around your goals, free from institutional product
               quotas.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               The 45% problem: interest on cash and many retail yields is taxed at your marginal
-              rate. Where suitable, preference-share structures can sit in a 20% DWT environment —
+              rate. Where suitable, preference-share structures can sit in a 20% DWT environment , 
               with R100k minimums, term, and notice constraints stated next to any targeted profile.
               That is the Category 1.8 bridge many generic IFAs cannot offer.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Where appropriate, structured return profiles (including Everest Wealth voluntary
-              products) are tools for a defined problem — tax drag, income predictability, or
-              compounding — never a default product catalogue.
+              products) are tools for a defined problem, tax drag, income predictability, or
+              compounding, never a default product catalogue.
             </p>
           </div>
         </div>
@@ -271,7 +271,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               While you are still working, the engineering problem is growth, tax efficiency, and
-              compounding — without confusing accumulation vehicles with retirement income products.
+              compounding, without confusing accumulation vehicles with retirement income products.
             </p>
 
             <h3
@@ -292,7 +292,7 @@ export function InvestmentsPageView({ faqs }: Props) {
               {[
                 {
                   dt: "Tax-free / RA wrappers",
-                  dd: "Contribution limits and deduction rules apply. Strong for long-term retirement capital — see pre-retirement diagnostics if the shortfall is the real question.",
+                  dd: "Contribution limits and deduction rules apply. Strong for long-term retirement capital, see pre-retirement diagnostics if the shortfall is the real question.",
                 },
                 {
                   dt: "Voluntary structured capital",
@@ -388,7 +388,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               After work, the engineering problem shifts: reliable income, drawdown discipline, and
               capital preservation. Living annuities and voluntary structured yields solve different
-              problems — they must not be conflated.
+              problems, they must not be conflated.
             </p>
             <dl className="mt-8 space-y-0 border-y" style={{ borderColor: HAIRLINE }}>
               {[
@@ -398,7 +398,7 @@ export function InvestmentsPageView({ faqs }: Props) {
                 },
                 {
                   dt: "Sustainable drawdowns",
-                  dd: "The rate you take must survive longevity and sequence risk — not just “feel affordable” in year one.",
+                  dd: "The rate you take must survive longevity and sequence risk, not just “feel affordable” in year one.",
                 },
                 {
                   dt: "Structured voluntary yields",
@@ -430,7 +430,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §6 Everest toolkit — fiduciary comparison table */}
+      {/* §6 Everest toolkit, fiduciary comparison table */}
       <section
         id="everest-toolkit"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
@@ -463,7 +463,7 @@ export function InvestmentsPageView({ faqs }: Props) {
               Understanding Dividends Withholding Tax (DWT) vs marginal tax
             </h3>
             <p className="mt-4 max-w-3xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-              Dividends on these voluntary structures are typically subject to 20% DWT — often more
+              Dividends on these voluntary structures are typically subject to 20% DWT, often more
               tax-efficient than interest taxed at marginal rates (up to 45% for top earners). That
               tax treatment does not remove liquidity risk or convert a targeted profile into a
               guarantee.
@@ -478,7 +478,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             <p className="mt-4 max-w-3xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Voluntary Everest capital is illiquid. A 120-day notice period and up to a 15% early
               exit penalty may apply. R100,000 minimum applies on voluntary products. Compare
-              structures side-by-side below — then deep-dive product mechanics on the Everest hub if
+              structures side-by-side below, then deep-dive product mechanics on the Everest hub if
               needed.
             </p>
 
@@ -586,7 +586,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             Income vs growth: liquidity trade-offs
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Compare maximum day-one income against deferred compounding — without treating either
+            Compare maximum day-one income against deferred compounding, without treating either
             scenario as advice.
           </p>
           <div className="mt-10 max-w-xl">
@@ -624,7 +624,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Pension, provident, and retirement annuity capital typically converts into an annuity
               at retirement. Amethyst is a living annuity structure with legislated drawdown bounds
-              (2.5%–17.5%) — a different legal and tax wrapper from voluntary preference-share
+              (2.5%–17.5%), a different legal and tax wrapper from voluntary preference-share
               products taxed under DWT.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
@@ -697,7 +697,7 @@ export function InvestmentsPageView({ faqs }: Props) {
 
       <RelatedContent variant="warm" links={getRelatedLinks("/investments")} />
 
-      {/* §10 Terminal conversion — inset dark only */}
+      {/* §10 Terminal conversion, inset dark only */}
       <section
         id="book-strategy"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
@@ -719,7 +719,7 @@ export function InvestmentsPageView({ faqs }: Props) {
               Ready for a structured investment review?
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
-              You have the continuum — accumulation, distribution, and the constraints behind any
+              You have the continuum, accumulation, distribution, and the constraints behind any
               targeted yield. Bring your figures; an independent adviser will review without product
               pressure.
             </p>

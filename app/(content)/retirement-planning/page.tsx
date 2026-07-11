@@ -4,13 +4,13 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Will Your Capital Survive Your Lifespan? | Pre-Retirement Diagnostics";
 const PAGE_DESCRIPTION =
-  "Most plans reach retirement then fail to fund life after it. Pre-retirement diagnostics for South Africans: capital gap maths, Two-Pot context, and FSP 17273 Wealth Engineering — education before advice.";
+  "Most plans reach retirement then fail to fund life after it. Pre-retirement diagnostics for South Africans: capital gap maths, Two-Pot context, and FSP 17273 Wealth Engineering, education before advice.";
 
 const planningFAQs = [
   {
     question: "Who is this retirement planning page for?",
     answer:
-      "South African professionals still in the accumulation phase who need a mathematical reality check on capital, timeline, and growth — before they stop working. Content is educational, not personalised advice.",
+      "South African professionals still in the accumulation phase who need a mathematical reality check on capital, timeline, and growth, before they stop working. Content is educational, not personalised advice.",
   },
   {
     question: "What is the Retirement Survival Blueprint?",
@@ -30,7 +30,7 @@ const planningFAQs = [
   {
     question: "What does Category 1.8 mean for AS Brokers clients?",
     answer:
-      "Category 1.8 authorisation includes advice on certain unlisted instruments beyond a standard unit-trust shelf. AS Brokers CC (FSP 17273) can discuss structured yield strategies where liquidity, term, and tax treatment must be understood clearly — including Everest Wealth voluntary products where appropriate.",
+      "Category 1.8 authorisation includes advice on certain unlisted instruments beyond a standard unit-trust shelf. AS Brokers CC (FSP 17273) can discuss structured yield strategies where liquidity, term, and tax treatment must be understood clearly, including Everest Wealth voluntary products where appropriate.",
   },
   {
     question: "Do the online calculators constitute financial advice?",

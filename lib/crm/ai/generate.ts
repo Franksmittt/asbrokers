@@ -99,7 +99,7 @@ Pipeline stats:
 - Win rate: ${stats.conversionRate}%
 - By status: ${JSON.stringify(stats.byStatus)}
 
-Leads (id in brackets — use for /crm/leads/[id] links mentally):
+Leads (id in brackets, use for /crm/leads/[id] links mentally):
 ${pipelineSnapshot(leads) || "No leads in pipeline yet."}
 
 Compliance reference:
@@ -206,7 +206,7 @@ Intent: ${lead.intent}
 Service line: ${SERVICE_LABELS[lead.service_category]}
 
 Thread context:
-${threadSummary || "First outreach — no prior messages."}
+${threadSummary || "First outreach, no prior messages."}
 
 Keep under 120 words. Professional South African English. No guaranteed returns.`,
     jsonShape: `{
@@ -321,7 +321,7 @@ export async function analyzeThreadSentiment(
   if (!threadSummary.trim()) {
     return {
       overall: "neutral",
-      summary: "No messages yet — first outreach pending.",
+      summary: "No messages yet, first outreach pending.",
       suggestedTone: "warm",
     };
   }

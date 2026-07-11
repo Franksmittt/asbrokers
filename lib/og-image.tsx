@@ -15,7 +15,7 @@ export type OgImageContent = {
   eyebrow?: string;
 };
 
-/** Flexbox-only Satori layout — 1200×630 (Phase 6.1). */
+/** Flexbox-only Satori layout, 1200×630 (Phase 6.1). */
 export function OgImageLayout({ title, description, eyebrow = "FSP 17273" }: OgImageContent) {
   const headline = truncateOgText(title, 72);
   const subline = truncateOgText(description, 140);

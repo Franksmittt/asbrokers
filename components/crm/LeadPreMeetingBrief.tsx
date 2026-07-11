@@ -112,7 +112,7 @@ export function LeadPreMeetingBrief({ leadId }: { leadId: string }) {
         <p className="text-sm text-gray-400">Building meeting brief…</p>
       ) : (
         <p className="text-xs text-gray-500">
-          Generate a structured brief before your consultation — includes talking points and FAIS checks.
+          Generate a structured brief before your consultation, includes talking points and FAIS checks.
         </p>
       )}
     </section>

@@ -3,17 +3,17 @@
  */
 
 /**
- * Long form — paste into ChatGPT, Claude, Gemini, etc. before asking for an article.
+ * Long form, paste into ChatGPT, Claude, Gemini, etc. before asking for an article.
  * Emphasises layout width and images so published pages match the live site.
  */
-export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for the AS Brokers website in South Africa. The owner will paste your output into the “Insights studio” (a text box on the site). They are not a web developer — your HTML must be correct first time.
+export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for the AS Brokers website in South Africa. The owner will paste your output into the “Insights studio” (a text box on the site). They are not a web developer, your HTML must be correct first time.
 
-## CRITICAL — page width (read before you write)
+## CRITICAL, page width (read before you write)
 - The website already provides a wide content area on large screens. You must NOT narrow the whole article with an outer wrapper like max-w-3xl, max-w-2xl, or max-w-4xl on the root <section> or first div. That used to make the page look like a “skinny column” with empty space on the left and right.
 - For the OUTER wrapper of the article fragment, use one of these approaches:
   (A) One <section> with classes like: class="space-y-6 w-full" (add padding if needed, e.g. py-8 px-4), OR
-  (B) No max-width classes at all on the outermost wrapper — only spacing classes like space-y-6.
-- You MAY still use grids, cards, and inner boxes with their own widths — that is fine. Only avoid shrinking the entire article with max-w-* on the outer shell.
+  (B) No max-width classes at all on the outermost wrapper, only spacing classes like space-y-6.
+- You MAY still use grids, cards, and inner boxes with their own widths, that is fine. Only avoid shrinking the entire article with max-w-* on the outer shell.
 
 ## Output format
 - Output ONLY the HTML fragment that sits between the site header and footer. Do NOT wrap in <html>, <head>, or <body>.
@@ -21,7 +21,7 @@ export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for
 - Do NOT put commentary before or after the HTML.
 
 ## Brand
-- Company: AS Brokers CC — independent financial advisor, Krugersdorp. FSP 17273.
+- Company: AS Brokers CC, independent financial advisor, Krugersdorp. FSP 17273.
 - Voice: Professional, clear, trustworthy, South African English. Avoid hype; be accurate and compliant. Do not promise returns or guarantee outcomes.
 
 ## Visual design (match the public site)
@@ -33,7 +33,7 @@ export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for
 - Calculator exception: if the user asks to include a calculator, include ONE full calculator embed snippet exactly as provided by the “Calculator code library”, including its <script>. Do not rewrite or "improve" that script.
 - Do not mix or merge calculator scripts. Keep IDs and structure exactly as supplied by the snippet.
 
-## Images — Insights studio upload
+## Images, Insights studio upload
 - For every image position, set img src to exactly: YOUR_IMAGE_URL_HERE until the owner uploads files in the studio.
 - Example: <img src="YOUR_IMAGE_URL_HERE" alt="Clear description for accessibility" style="width:100%;height:auto;display:block;" loading="lazy" />
 - Multiple images: repeat YOUR_IMAGE_URL_HERE for each image. The owner uploads photos in order from the top of the article downward (first file replaces the first placeholder).
@@ -49,11 +49,11 @@ export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for
 - End with a short disclaimer (aside or small paragraph): general information only, not personal advice; consult a licensed financial adviser. Mention FSP 17273 where appropriate.
 - Do not invent regulations, tax rates, or product terms.
 
-## Example outer wrapper (note: wide layout — no max-w-3xl on the root)
+## Example outer wrapper (note: wide layout, no max-w-3xl on the root)
 <section class="space-y-6 w-full px-4 py-8">
   <h2 class="text-2xl font-bold text-white">Your heading</h2>
   <p class="text-zinc-300 leading-relaxed">Paragraph text…</p>
-  <p class="text-sm text-zinc-500 mt-10">General information only — not financial advice. AS Brokers CC, FSP 17273.</p>
+  <p class="text-sm text-zinc-500 mt-10">General information only, not financial advice. AS Brokers CC, FSP 17273.</p>
 </section>
 
 Output ONLY the HTML fragment, nothing else.
@@ -63,8 +63,8 @@ Output ONLY the HTML fragment, nothing else.
  * Short, plain-language steps for the person publishing (no jargon).
  * Copy from the studio button “Copy my steps”.
  */
-export const INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT = `AS BROKERS — INSIGHTS STUDIO: SIMPLE STEPS FOR YOU
-(Print or save this. Large screens: your article will use the full width — you do not need to fix “narrow columns” yourself.)
+export const INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT = `AS BROKERS, INSIGHTS STUDIO: SIMPLE STEPS FOR YOU
+(Print or save this. Large screens: your article will use the full width, you do not need to fix “narrow columns” yourself.)
 
 WHEN YOU USE CHATGPT, CLAUDE, OR GEMINI
 1) In this studio, click “Copy brand guide for AI”.
@@ -83,7 +83,7 @@ PICTURES
 9) Click “Upload & replace”. Wait until it says it worked.
 
 SAVE AND GO LIVE
-10) Fill in Title and Slug (the slug is the web address piece — lowercase, use hyphens).
+10) Fill in Title and Slug (the slug is the web address piece, lowercase, use hyphens).
 11) Click Save draft to store safely.
 12) When it looks right in the preview, click Publish.
 13) Open “Website insights” to see it on the live site.

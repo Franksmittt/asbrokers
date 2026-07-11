@@ -51,7 +51,7 @@ const JOURNEY_IMAGES: Record<string, string> = {
 
 const JOURNEY_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw";
 
-/** @deprecated Use HubReveal — kept as alias for below-fold imports. */
+/** @deprecated Use HubReveal, kept as alias for below-fold imports. */
 export function Home4Reveal({
   children,
   className = "",
@@ -75,15 +75,14 @@ export function Home4GoalCard({ card, priority = false }: { card: GoalCard; prio
 
   return (
     <article
-      className={`group relative overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm transition-all duration-300 ease-apple hover:-translate-y-2 hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
+      className={`group flex h-full flex-col overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm transition-all duration-300 ease-apple hover:-translate-y-2 hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
     >
       <Link
         href={card.href}
         prefetch={false}
-        className="absolute inset-0 z-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
+        className="relative block h-36 w-full shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2 sm:h-40"
         aria-label={`Explore ${card.title}`}
-      />
-      <div className="relative z-[1] h-36 w-full overflow-hidden sm:h-40 pointer-events-none">
+      >
         <Image
           src={card.image}
           alt={getAlt(card.image, card.title)}
@@ -95,33 +94,37 @@ export function Home4GoalCard({ card, priority = false }: { card: GoalCard; prio
           sizes={GOAL_CARD_IMAGE_SIZES}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-shark/70 via-shark/20 to-transparent" />
-        <div className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}>
+        <div
+          className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}
+        >
           <Icon className="h-3.5 w-3.5" aria-hidden />
           {card.badge}
         </div>
-      </div>
-      <div className="relative z-10 p-5 sm:p-6">
+      </Link>
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h2 className="text-lg font-semibold tracking-tight text-shark sm:text-xl">{card.title}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-stone-600">{card.description}</p>
-        <ul className="mt-4 space-y-1.5 border-t border-stone-100 pt-4">
+        <p className="mt-2 min-h-[2.75rem] text-sm leading-relaxed text-stone-600">{card.description}</p>
+        <ul className="mt-4 flex-1 space-y-1.5 border-t border-stone-100 pt-4">
           {card.links.map((link) => (
             <li key={`${link.label}-${link.href}`}>
               <Link
                 href={link.href}
                 prefetch={false}
-                className="relative z-10 text-sm text-stone-600 transition-colors hover:text-samsung-blue"
+                className="text-sm text-stone-600 transition-colors hover:text-samsung-blue"
               >
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
-        <span
-          className={`relative z-10 mt-5 inline-flex items-center gap-2 text-sm font-semibold ${ACCENT_TEXT[card.accent]}`}
+        <Link
+          href={card.href}
+          prefetch={false}
+          className={`mt-5 inline-flex items-center gap-2 text-sm font-semibold ${ACCENT_TEXT[card.accent]} hover:opacity-80`}
         >
           Explore
           <ArrowRight className="h-4 w-4" aria-hidden />
-        </span>
+        </Link>
       </div>
     </article>
   );
@@ -157,7 +160,7 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
   );
 }
 
-/** Photo-led journey steps — one image per stage, text below. */
+/** Photo-led journey steps, one image per stage, text below. */
 export function Home4JourneyFunnel({ stages }: { stages: FunnelStage[] }) {
   return (
     <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">

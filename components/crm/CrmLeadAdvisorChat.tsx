@@ -105,7 +105,7 @@ export function CrmLeadAdvisorChat() {
             Gemini · Albert&apos;s executive assistant
           </p>
           <p className="mt-1 text-sm text-zinc-400">
-            Ask questions, move Kanban stages, delegate to Johnny, reschedule calls, or send WhatsApp — Albert only.
+            Ask questions, move Kanban stages, delegate to Johnny, reschedule calls, or send WhatsApp, Albert only.
           </p>
         </div>
         <span className="rounded-full bg-[#3ecf8e]/10 px-2.5 py-1 text-[10px] font-medium text-[#3ecf8e]">

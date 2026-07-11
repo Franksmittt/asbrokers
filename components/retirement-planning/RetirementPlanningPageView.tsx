@@ -87,7 +87,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      {/* §1 Orientation hero — continuous canvas */}
+      {/* §1 Orientation hero, continuous canvas */}
       <header className="pb-16 pt-28 md:pb-24 md:pt-36 lg:pb-[7.5rem] lg:pt-40">
         <div className={`${HOME4_WRAP} grid grid-cols-12 items-center gap-10 lg:gap-12`}>
           <div className="col-span-12 lg:col-span-7">
@@ -108,7 +108,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              Most plans are built to <em>reach</em> retirement — then fail to fund life after it.
+              Most plans are built to <em>reach</em> retirement, then fail to fund life after it.
               We calculate your capital gap and drawdown trajectory first (education before advice),
               then decide whether a Wealth Engineering Call with FSP 17273 is needed.
             </p>
@@ -137,7 +137,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </header>
 
-      {/* §2 Inset Blueprint panel — NOT full-bleed dark */}
+      {/* §2 Inset Blueprint panel, NOT full-bleed dark */}
       <section
         id="retirement-survival-blueprint"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
@@ -160,7 +160,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
               A guided 5-step diagnostic that surfaces your Financial Freedom Score™ and the gaps
-              in your current trajectory — before you stop working.
+              in your current trajectory, before you stop working.
             </p>
             <Link
               href="/retirement-survival-blueprint"
@@ -174,7 +174,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §3 Toolkit — flat white cards on canvas */}
+      {/* §3 Toolkit, flat white cards on canvas */}
       <section
         id="fiduciary-calculators"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
@@ -189,7 +189,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             Fiduciary calculators &amp; reality checks
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Ungated educational tools. Use them to see the raw numbers — then bring the output to a
+            Ungated educational tools. Use them to see the raw numbers, then bring the output to a
             strategy call if you want advice on your facts.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
@@ -200,7 +200,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §4 Editorial education — sticky index + prose */}
+      {/* §4 Editorial education, sticky index + prose */}
       <section
         id="legislation"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
@@ -239,7 +239,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               Navigating South African retirement legislation
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-              Educational context only — not personalised advice. These frameworks shape every
+              Educational context only, not personalised advice. These frameworks shape every
               pre-retirement conversation we have with clients.
             </p>
 
@@ -256,13 +256,13 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 Retirement Pot (preserved until retirement and typically used to purchase an
                 annuity). Amounts accumulated before 31 August 2024 sit in a Vested Pot under prior
                 rules. For pre-retirees, the practical question is how liquidity, tax, and annuity
-                planning interact — not a slogan about “access.”
+                planning interact, not a slogan about “access.”
               </p>
               <dl className="mt-6 space-y-4 border-t border-stone-300/80 pt-6">
                 {[
                   {
                     dt: "Vested Pot",
-                    dd: "Historical savings to 31 August 2024 — protected under previous access rules.",
+                    dd: "Historical savings to 31 August 2024, protected under previous access rules.",
                   },
                   {
                     dt: "Savings Pot",
@@ -294,7 +294,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 From March 2026 that annual ceiling rises to{" "}
                 <span className="font-semibold tabular-nums text-shark">R430,000</span> (from
                 R350,000). High earners in the final accumulation years should model whether they
-                are using the allowance — and what that means for cash flow — before assuming “max
+                are using the allowance, and what that means for cash flow, before assuming “max
                 RA” is automatically optimal.
               </p>
               <aside className="mt-6 border border-stone-300/90 bg-white px-5 py-4">
@@ -321,7 +321,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 unlisted instruments that sit outside a standard unit-trust shelf. Structured yield
                 products (including Everest Wealth voluntary offerings with targeted return
                 profiles) can form part of a pre-retirement conversation where liquidity, term, and
-                tax treatment must be understood clearly — including 20% dividends tax on relevant
+                tax treatment must be understood clearly, including 20% dividends tax on relevant
                 returns, R100,000 minimums on voluntary products, and early-exit constraints.
               </p>
               <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
@@ -357,7 +357,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §6 FAQ — transparent, hairline only */}
+      {/* §6 FAQ, transparent, hairline only */}
       <section
         className="py-16 md:py-24"
         aria-labelledby="planning-faq-heading"
@@ -394,7 +394,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
 
       <RelatedContent variant="warm" links={getRelatedLinks("/retirement-planning")} />
 
-      {/* §7 Final conversion — only full-bleed dark before footer */}
+      {/* §7 Final conversion, only full-bleed dark before footer */}
       <section
         className="py-16 md:py-20"
         style={{ backgroundColor: INK }}

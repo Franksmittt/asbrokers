@@ -51,7 +51,7 @@ export function mapDbTask(row: typeof crmTasks.$inferSelect): CrmTask {
   return {
     id: row.id,
     title: row.title,
-    dueDate: row.dueDate ? row.dueDate.toISOString().slice(0, 10) : "—",
+    dueDate: row.dueDate ? row.dueDate.toISOString().slice(0, 10) : ", ",
     leadId: row.leadId ?? undefined,
     assignedAdvisorId: row.assigneeId,
     completed: row.status === "completed",

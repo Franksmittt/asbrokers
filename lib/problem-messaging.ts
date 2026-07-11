@@ -5,7 +5,7 @@
  */
 
 export const DIFFERENTIATION_THESIS =
-  "AS Brokers replaces product-pushing with mathematical diagnostics. Independent FSP 17273 with Category 1.8 access, education before advice, and a human local team — so your problem dictates the solution.";
+  "AS Brokers replaces product-pushing with mathematical diagnostics. Independent FSP 17273 with Category 1.8 access, education before advice, and a human local team, so your problem dictates the solution.";
 
 export const PROOF_PILLARS = [
   "Category 1.8 unlisted market access",
@@ -77,10 +77,10 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/retirement-planning": {
     path: "/retirement-planning",
     fiveSecondTest:
-      "This firm helps me figure out exactly how much capital I need so I don't run out of money when I stop working — with rigorous math, not sales pitches.",
+      "This firm helps me figure out exactly how much capital I need so I don't run out of money when I stop working, with rigorous math, not sales pitches.",
     h1: "Will your capital survive your lifespan?",
     subhead:
-      "Pre-retirement diagnostics for South African professionals who cannot afford guesswork. We calculate the gap first — then decide whether a Wealth Engineering Call is needed.",
+      "Pre-retirement diagnostics for South African professionals who cannot afford guesswork. We calculate the gap first, then decide whether a Wealth Engineering Call is needed.",
     problem:
       "Most financial plans are built to reach retirement, but fail to generate sustainable income through it.",
     promise:
@@ -91,14 +91,14 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/investments": {
     path: "/investments",
     fiveSecondTest:
-      "They have regulatory access to unlisted alternatives my bank cannot offer — structured to reduce tax drag on voluntary capital.",
+      "They have regulatory access to unlisted alternatives my bank cannot offer, structured to reduce tax drag on voluntary capital.",
     h1: "Independent wealth engineering beyond the standard unit trust",
     subhead:
-      "De-risk voluntary capital. Access targeted double-digit yield profiles insulated from JSE volatility and marginal tax drag — through Category 1.8 authorisation where suitable.",
+      "De-risk voluntary capital. Access targeted double-digit yield profiles insulated from JSE volatility and marginal tax drag, through Category 1.8 authorisation where suitable.",
     problem:
       "High-net-worth investors lose too much yield to public market volatility and aggressive marginal income tax.",
     promise:
-      "Access structured private-market return profiles and tax-efficient capital architectures through our Category 1.8 authorisation — when they fit your problem.",
+      "Access structured private-market return profiles and tax-efficient capital architectures through our Category 1.8 authorisation, when they fit your problem.",
     primaryCta: { label: "Compare investment profiles", href: "#diagnostic-tools" },
     secondaryCta: { label: "Explore Everest Wealth", href: "/everest-wealth" },
   },
@@ -108,11 +108,11 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
       "They audit business and home insurance for the loopholes that wipe out a balance sheet after a fire, liability claim, or surge.",
     h1: "Commercial and personal risk architecture",
     subhead:
-      "Protection engineered for the reality of your balance sheet — not a generic underwriter's template. Independent placement across the market.",
+      "Protection engineered for the reality of your balance sheet, not a generic underwriter's template. Independent placement across the market.",
     problem:
       "Most business owners discover their policies are fundamentally flawed only after the factory has burned down.",
     promise:
-      "We structure precise indemnification matched to turnover, capex, and continuity — including Average Clause and Business Interruption realities.",
+      "We structure precise indemnification matched to turnover, capex, and continuity, including Average Clause and Business Interruption realities.",
     primaryCta: { label: "Book a commercial risk audit", href: "#risk-audit" },
     secondaryCta: {
       label: "Run Average Clause calculator",
@@ -125,21 +125,21 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
       "They make sure the estate has cash for taxes and executor fees so the family home is not forced into a fire sale.",
     h1: "Estate liquidity engineering & succession",
     subhead:
-      "Do not let executor fees and estate taxes dismantle wealth built over a lifetime. We engineer cash availability — attorneys draft the legal instruments.",
+      "Do not let executor fees and estate taxes dismantle wealth built over a lifetime. We engineer cash availability, attorneys draft the legal instruments.",
     problem:
       "Drafting a will is only half the job; without engineered liquidity, heirs may be forced into a fire sale to settle duties and fees.",
     promise:
-      "We engineer the financial liquidity required to settle SARS and executor fees seamlessly — then hand legal drafting to partnered attorneys.",
+      "We engineer the financial liquidity required to settle SARS and executor fees seamlessly, then hand legal drafting to partnered attorneys.",
     primaryCta: { label: "Run Estate Duty Calculator", href: "#estate-calculators" },
     secondaryCta: { label: "Start Legacy Checklist", href: "/legacy-readiness-checklist" },
   },
   "/about": {
     path: "/about",
     fiveSecondTest:
-      "Fully licensed, independent, 25+ years, with human specialists for every part of the portfolio — not a call centre.",
+      "Fully licensed, independent, 25+ years, with human specialists for every part of the portfolio, not a call centre.",
     h1: "Protecting your legacy. Engineering your wealth.",
     subhead:
-      "For over two decades, AS Brokers has served as an independent fiduciary compass for South African professionals, families, and business owners — free from institutional quotas.",
+      "For over two decades, AS Brokers has served as an independent fiduciary compass for South African professionals, families, and business owners, free from institutional quotas.",
     problem:
       "Finding a financial adviser whose interests are entirely aligned with yours, rather than an institution's, is remarkably difficult.",
     promise:
@@ -150,10 +150,10 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/contact": {
     path: "/contact",
     fiveSecondTest:
-      "A professional, secure intake that says what to prepare and protects my data under POPIA — then a real adviser responds.",
+      "A professional, secure intake that says what to prepare and protects my data under POPIA, then a real adviser responds.",
     h1: "Engineer your wealth architecture",
     subhead:
-      "Move from curiosity to clarity. Connect directly with an authorised FSP 17273 adviser — no call centres, no scripted sales pitches.",
+      "Move from curiosity to clarity. Connect directly with an authorised FSP 17273 adviser, no call centres, no scripted sales pitches.",
     problem: "Taking the first step to untangle your financial architecture can feel overwhelming and risky.",
     promise:
       "A structured, pressure-free path from enquiry to Capital Assessment → Wealth Engineering Call → Implementation.",
@@ -166,7 +166,7 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
       "I can run tax, retirement, and estate numbers myself without speaking to a salesperson first.",
     h1: "The mathematical reality check",
     subhead:
-      "Intuition fails in complex finance. Use our fiduciary calculator library to test assumptions before you decide — educational only, not advice.",
+      "Intuition fails in complex finance. Use our fiduciary calculator library to test assumptions before you decide, educational only, not advice.",
     problem: "You cannot plan a 30-year retirement or a corporate risk structure on guesswork.",
     promise:
       "Model retirement longevity, estate liquidity, underinsurance, and yield trade-offs in real time with ungated ASSET tools.",
@@ -179,10 +179,10 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/insights": {
     path: "/insights",
     fiveSecondTest:
-      "Deep guides on South African tax, retirement, and investments written by fiduciaries — not marketers.",
+      "Deep guides on South African tax, retirement, and investments written by fiduciaries, not marketers.",
     h1: "Fiduciary insights & financial education",
     subhead:
-      "Deep-dive analyses of South African market mechanics — from Two-Pot legislation to estate duty — so you arrive at advice already educated.",
+      "Deep-dive analyses of South African market mechanics, from Two-Pot legislation to estate duty, so you arrive at advice already educated.",
     problem: "Financial intuition fails when faced with complex South African legislation.",
     promise: "Master your trajectory through unbiased analyses of market mechanics and fiduciary strategy.",
     primaryCta: { label: "Read featured guide", href: "#insights-featured-heading" },
@@ -191,14 +191,14 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/everest-wealth": {
     path: "/everest-wealth",
     fiveSecondTest:
-      "Predictable monthly income without daily JSE stress — with illiquidity and DWT stated before any calculator.",
+      "Predictable monthly income without daily JSE stress, with illiquidity and DWT stated before any calculator.",
     h1: "Structured monthly income without daily market volatility",
     subhead:
-      "Retirees and income-seekers cannot afford a 20% correction when they need to draw cash. Where suitable, Everest voluntary preference-share structures target predictable dividends — constraints first.",
+      "Retirees and income-seekers cannot afford a 20% correction when they need to draw cash. Where suitable, Everest voluntary preference-share structures target predictable dividends, constraints first.",
     problem:
       "Sequence-of-returns risk and marginal tax on interest destroy income plans built on volatile equities or cash.",
     promise:
-      "Category 1.8 access to targeted Everest profiles (12.8% / 14.2% / 14.5%) with radical constraint transparency — educational, not guaranteed.",
+      "Category 1.8 access to targeted Everest profiles (12.8% / 14.2% / 14.5%) with radical constraint transparency, educational, not guaranteed.",
     primaryCta: {
       label: "Calculate 12.8% target income",
       href: "/calculators/asset-010-everest-128-income",
@@ -208,10 +208,10 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/everest-wealth/about": {
     path: "/everest-wealth/about",
     fiveSecondTest:
-      "A regulatory whitepaper on how Everest works, who regulates whom, and what can go wrong — before any sales conversation.",
-    h1: "Understanding Everest Wealth — regulation before yield",
+      "A regulatory whitepaper on how Everest works, who regulates whom, and what can go wrong, before any sales conversation.",
+    h1: "Understanding Everest Wealth, regulation before yield",
     subhead:
-      "How FSP 795, FSP 17273 Category 1.8, and the HoldCo separate roles — plus liquidity, tax, and who these structures suit.",
+      "How FSP 795, FSP 17273 Category 1.8, and the HoldCo separate roles, plus liquidity, tax, and who these structures suit.",
     problem: "Headline yields without structure literacy create unsuitable allocations.",
     promise: "Education-first briefing: structure, risks, fees, and tax before you run a single illustration.",
     primaryCta: { label: "Open Everest hub", href: "/everest-wealth" },
@@ -223,13 +223,13 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/solutions/medical-aid": {
     path: "/solutions/medical-aid",
     fiveSecondTest:
-      "They structure medical aid with gap cover and stay for claims — not the cheapest hospital plan on a comparison site.",
+      "They structure medical aid with gap cover and stay for claims, not the cheapest hospital plan on a comparison site.",
     h1: "Health integration: defending against the medical inflation gap",
     subhead:
       "Schemes pay a base tariff. Specialists often charge far more. We structure scheme + demarcation-compliant gap, then provide human advocacy.",
     problem: "Catastrophic in-hospital shortfalls wipe out households that bought “cheap” medical cover.",
     promise:
-      "Demarcation-honest structuring plus specialist onboarding and claims support — FSP 17273, not a call centre.",
+      "Demarcation-honest structuring plus specialist onboarding and claims support, FSP 17273, not a call centre.",
     primaryCta: { label: "Book a health structuring call", href: "/contact?source=medical_terminal" },
     secondaryCta: {
       label: "Retirement health gap assessment",
@@ -239,13 +239,13 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/legacy-readiness-checklist": {
     path: "/legacy-readiness-checklist",
     fiveSecondTest:
-      "A free checklist that surfaces the four dangerous assumptions families make about wills and estates — before death makes them permanent.",
+      "A free checklist that surfaces the four dangerous assumptions families make about wills and estates, before death makes them permanent.",
     h1: "Don't leave a financial mess behind",
     subhead:
-      "Most families believe their affairs are in order. Many are not — and problems found after death cannot be fixed.",
+      "Most families believe their affairs are in order. Many are not, and problems found after death cannot be fixed.",
     problem: "Unsigned wills, wrong beneficiaries, and cashless estates create irreversible family damage.",
     promise:
-      "An eight-area Legacy Readiness Checklist™ — free, printable, plain language for South African families.",
+      "An eight-area Legacy Readiness Checklist™, free, printable, plain language for South African families.",
     primaryCta: { label: "Get the free checklist", href: "#checklist-form" },
     secondaryCta: { label: "Estate planning hub", href: "/estate-planning" },
   },

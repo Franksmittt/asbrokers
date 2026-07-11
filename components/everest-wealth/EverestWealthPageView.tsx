@@ -65,7 +65,7 @@ export function EverestWealthPageView({ faqs }: Props) {
           >
             Retirees and income-seekers cannot afford a 20% market correction exactly when they need
             to draw cash. Where suitable, Everest voluntary preference-share structures target
-            predictable dividends — with illiquidity and DWT stated before you run a single number.
+            predictable dividends, with illiquidity and DWT stated before you run a single number.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
@@ -115,12 +115,12 @@ export function EverestWealthPageView({ faqs }: Props) {
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Drawing income from volatile equities means selling into dips. Interest-bearing cash
-              can attract marginal tax up to 45%. The job is predictable cash flow — not another
+              can attract marginal tax up to 45%. The job is predictable cash flow, not another
               unit-trust brochure.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               AS Brokers (FSP 17273, Category 1.8) can discuss Everest Wealth structures where they
-              fit — as one tool among others, never a default for every client. Everest is regulated
+              fit, as one tool among others, never a default for every client. Everest is regulated
               separately (FSP 795). We are an independent intermediary, not a tied agent or
               subsidiary.
             </p>
@@ -141,7 +141,7 @@ export function EverestWealthPageView({ faqs }: Props) {
                 />
               </div>
               <figcaption className="mt-3 max-w-2xl text-xs leading-relaxed text-stone-500">
-                Real-economy illustration — not a yield lifestyle shot. Preference-share structures
+                Real-economy illustration, not a yield lifestyle shot. Preference-share structures
                 sit behind audited channels; returns remain targeted, not guaranteed.{" "}
                 <span className="tabular-nums text-stone-600">{EVEREST_CONSTRAINT_STRING}</span>
               </figcaption>
@@ -160,10 +160,10 @@ export function EverestWealthPageView({ faqs }: Props) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            Three voluntary profiles — pick the cash-flow job
+            Three voluntary profiles, pick the cash-flow job
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Yields sit at body weight with “Targeted p.a.” — never as glowing sales numerals.
+            Yields sit at body weight with “Targeted p.a.”, never as glowing sales numerals.
             Constraints travel in the same visual group.
           </p>
           <div className="mt-10 overflow-hidden border bg-white" style={{ borderColor: HAIRLINE }}>
@@ -198,7 +198,7 @@ export function EverestWealthPageView({ faqs }: Props) {
             ))}
           </div>
           <p className="mt-6 text-sm text-stone-600">
-            Living annuity capital (Amethyst, Reg 28, 2.5%–17.5% drawdown) is a different wrapper —{" "}
+            Living annuity capital (Amethyst, Reg 28, 2.5%–17.5% drawdown) is a different wrapper , {" "}
             <Link
               href={calculatorPagePath("asset-014-living-annuity")}
               prefetch={false}
@@ -222,7 +222,7 @@ export function EverestWealthPageView({ faqs }: Props) {
               Income vs growth: which trade-off fits?
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600">
-              Compare maximum day-one income against deferred compounding — illustrative only.
+              Compare maximum day-one income against deferred compounding, illustrative only.
             </p>
             <Link
               href={calculatorPagePath("asset-013-everest-income-vs-growth")}
@@ -276,7 +276,7 @@ export function EverestWealthPageView({ faqs }: Props) {
               className="font-serif font-semibold tracking-tight text-white"
               style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
             >
-              Ready to test suitability — not chase a headline yield?
+              Ready to test suitability, not chase a headline yield?
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
               Run the calculators, read the constraints, then book FSP 17273 if you want a needs

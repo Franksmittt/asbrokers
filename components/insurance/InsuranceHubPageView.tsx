@@ -36,7 +36,7 @@ const PROTECTION_DOMAINS = [
   },
   {
     title: "Personal assets",
-    description: "Home, motor, and high-value possessions — including underinsurance risk.",
+    description: "Home, motor, and high-value possessions, including underinsurance risk.",
     href: "/solutions/personal-insurance",
   },
   {
@@ -70,7 +70,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            Most owners discover policy flaws after the fire — Average Clause underinsurance, broken
+            Most owners discover policy flaws after the fire, Average Clause underinsurance, broken
             Business Interruption definitions, escalating life premiums. We structure indemnification
             for your balance sheet, place cover independently across the market, and stay for the
             claim.
@@ -131,7 +131,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Workshops, stock, machinery, and interruption risk do not match a template policy sold
-              on price. Independent placement starts with what can burn, stop, or sue — then the
+              on price. Independent placement starts with what can burn, stop, or sue, then the
               wording.
             </p>
             <figure className="mt-8">
@@ -143,7 +143,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
                   src={COMMERCIAL_IMAGE}
                   alt={getAlt(
                     COMMERCIAL_IMAGE,
-                    "South African workshop — commercial property and interruption risk context"
+                    "South African workshop, commercial property and interruption risk context"
                   )}
                   fill
                   className="object-cover object-center"
@@ -151,7 +151,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
                 />
               </div>
               <figcaption className="mt-3 max-w-2xl text-xs leading-relaxed text-stone-500">
-                Ability cue: real operating environments — not glass-tower stock. Average Clause and
+                Ability cue: real operating environments, not glass-tower stock. Average Clause and
                 Business Interruption definitions decide whether a claim restores the firm.
               </figcaption>
             </figure>
@@ -182,7 +182,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
               <span className="font-semibold tabular-nums text-shark">
                 (Amount Insured ÷ Market Value) × Damages = Payout
               </span>
-              . That is underwriting maths — not a scare tactic.
+              . That is underwriting maths, not a scare tactic.
             </p>
             <Link
               href={CALC_AVERAGE_CLAUSE}
@@ -224,7 +224,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
                 Business risk review
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                Key person, buy-and-sell funding, and commercial liability — structured for the
+                Key person, buy-and-sell funding, and commercial liability, structured for the
                 balance sheet, not a generic package.
               </p>
               <Link
@@ -258,7 +258,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Medical schemes are governed by the Medical Schemes Act and must provide Prescribed
               Minimum Benefits (PMBs). Gap cover is a short-term insurance product under Demarcation
-              Regulations — designed to fund in-hospital specialist shortfalls, not to replace a
+              Regulations, designed to fund in-hospital specialist shortfalls, not to replace a
               medical scheme.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
@@ -293,7 +293,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
             The independence advantage: unrestricted market access
           </h2>
           <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            As an independent Category 1.8 FSP we survey the market and place cover where it fits —
+            As an independent Category 1.8 FSP we survey the market and place cover where it fits , 
             without quotas that force a single insurer&apos;s shelf. Market access includes
             institutions such as:
           </p>
@@ -309,7 +309,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
             ))}
           </ul>
           <p className="mt-6 text-sm text-stone-600">
-            Names indicate placement capability — not endorsement exclusivity or tied agency.
+            Names indicate placement capability, not endorsement exclusivity or tied agency.
           </p>
         </div>
       </section>

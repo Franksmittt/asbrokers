@@ -4,11 +4,11 @@ import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
   "Client Portal | AS Brokers",
-  "Private client portal — not for public indexing."
+  "Private client portal, not for public indexing."
 );
 
 /**
- * Client Portal route group — dark baseline isolated from marketing layout.
+ * Client Portal route group, dark baseline isolated from marketing layout.
  * URLs remain /portal/* via nested app/(portal)/portal/ segment (Phase 2+ pages).
  */
 export default function PortalRouteGroupLayout({

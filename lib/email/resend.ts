@@ -12,10 +12,10 @@ export function isResendConfigured(): boolean {
   return Boolean(process.env.RESEND_API_KEY?.trim());
 }
 
-/** Verified sender on asbrokers.co.za — override with RESEND_FROM on Vercel. */
+/** Verified sender on asbrokers.co.za, override with RESEND_FROM on Vercel. */
 export const DEFAULT_RESEND_FROM = "AS Brokers <albert@asbrokers.co.za>";
 
-/** Staff inbox for form/lead alerts — override with RESEND_NOTIFY_EMAIL on Vercel. */
+/** Staff inbox for form/lead alerts, override with RESEND_NOTIFY_EMAIL on Vercel. */
 export const DEFAULT_STAFF_NOTIFY_EMAIL = "albert@asbrokers.co.za";
 
 export function getResendFromAddress(): string {

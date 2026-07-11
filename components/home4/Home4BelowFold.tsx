@@ -20,7 +20,7 @@ import {
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
 
-/** Below-fold home content — code-split so hero LCP is not blocked by Framer Motion. */
+/** Below-fold home content, code-split so hero LCP is not blocked by Framer Motion. */
 export function Home4BelowFold() {
   return (
     <>

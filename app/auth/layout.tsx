@@ -4,7 +4,7 @@ import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
   "Authentication | AS Brokers",
-  "Authentication callback — not for public indexing."
+  "Authentication callback, not for public indexing."
 );
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {

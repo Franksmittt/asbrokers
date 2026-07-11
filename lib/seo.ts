@@ -86,7 +86,7 @@ export type JsonLdGraph = {
   "@graph": Record<string, unknown>[];
 };
 
-/** Stable @id hash fragments — Phase 4.2 IdFactory. */
+/** Stable @id hash fragments, Phase 4.2 IdFactory. */
 export function createSeoIds(origin: string, path: string) {
   const normalized = normalizePath(path);
   const pageUrl = `${origin}${normalized === "/" ? "" : normalized}`;
@@ -410,7 +410,7 @@ function buildBreadcrumbListNode(
   };
 }
 
-/** Phase 4.3 — every @id reference must resolve to a node in the same @graph. */
+/** Phase 4.3, every @id reference must resolve to a node in the same @graph. */
 export function validateGraphOrphans(graph: JsonLdGraph): string[] {
   const defined = new Set<string>();
   const referenced = new Set<string>();

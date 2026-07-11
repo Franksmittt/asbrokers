@@ -103,7 +103,7 @@ async function withCrmDb<T>(label: string, fallback: T, run: () => Promise<T>): 
   }
 }
 
-/** Fetch pipeline leads — staff see assigned only; admin sees all. */
+/** Fetch pipeline leads, staff see assigned only; admin sees all. */
 export async function getLeads(): Promise<CrmLead[]> {
   const { user, canViewAllLeads } = await requireCrmUser();
   const db = getDb();

@@ -4,13 +4,13 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Estate Liquidity Engineering & Succession | AS Brokers";
 const PAGE_DESCRIPTION =
-  "A will is only half the job. Engineer cash for estate duty and executor fees so heirs are not forced into a fire sale. Legacy checklist + duty calculators. FSP 17273 — attorneys draft legal instruments.";
+  "A will is only half the job. Engineer cash for estate duty and executor fees so heirs are not forced into a fire sale. Legacy checklist + duty calculators. FSP 17273, attorneys draft legal instruments.";
 
 const estateFAQs = [
   {
     question: "Why does liquidity matter as much as having a will?",
     answer:
-      "A will directs who receives what, but the estate must still settle duty, executor fees, and debts in cash. Without liquidity, assets may need to be sold under pressure. Life cover and liquid investments can improve cash availability — educational framing only.",
+      "A will directs who receives what, but the estate must still settle duty, executor fees, and debts in cash. Without liquidity, assets may need to be sold under pressure. Life cover and liquid investments can improve cash availability, educational framing only.",
   },
   {
     question: "How does the R3.5 million estate duty abatement work?",
@@ -20,7 +20,7 @@ const estateFAQs = [
   {
     question: "What about the spousal rollover and a R7 million shield?",
     answer:
-      "Section 4(q) mechanisms can allow a surviving spouse to benefit from unused abatement capacity, often discussed as a combined R7 million shield across two estates. Application depends on facts and current law — not a guarantee on this website.",
+      "Section 4(q) mechanisms can allow a surviving spouse to benefit from unused abatement capacity, often discussed as a combined R7 million shield across two estates. Application depends on facts and current law, not a guarantee on this website.",
   },
   {
     question: "What does the Estate Duty Calculator show?",
@@ -30,7 +30,7 @@ const estateFAQs = [
   {
     question: "Can AS Brokers draft my will or trust deed?",
     answer:
-      "No. We coordinate the financial and risk side — liquidity, cover, and succession funding. Admitted attorneys draft binding legal instruments. We do not provide legal drafting on this website.",
+      "No. We coordinate the financial and risk side, liquidity, cover, and succession funding. Admitted attorneys draft binding legal instruments. We do not provide legal drafting on this website.",
   },
   {
     question: "Do online estate calculators constitute advice?",

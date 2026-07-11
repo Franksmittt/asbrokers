@@ -16,7 +16,7 @@ const serviceKey = normalizeEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 /**
  * Server-side Supabase Auth client (session cookies).
- * Prefers SUPABASE_SERVICE_ROLE_KEY when set — some publishable anon keys reject OTP dispatch
+ * Prefers SUPABASE_SERVICE_ROLE_KEY when set, some publishable anon keys reject OTP dispatch
  * and getUser while the secret key still works for server-side auth flows.
  */
 export async function createServerSupabaseClient() {

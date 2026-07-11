@@ -11,7 +11,7 @@ export function CrmClientsClient({ clients }: { clients: CrmClient[] }) {
     <div className="space-y-6">
       <header>
         <h1 className="text-2xl font-bold text-white">Clients</h1>
-        <p className="mt-2 text-sm text-gray-100">Converted relationships — pipeline won</p>
+        <p className="mt-2 text-sm text-gray-100">Converted relationships, pipeline won</p>
       </header>
       <div className="grid gap-4 sm:grid-cols-2">
         {clients.length === 0 ? (

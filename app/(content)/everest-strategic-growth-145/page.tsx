@@ -6,7 +6,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "14.5% Strategic Growth | Pure Compounding";
 const PAGE_DESCRIPTION =
-  "14.5% p.a. targeted compound return profile over five years — no monthly withdrawals. R100,000 minimum, 20% DWT at maturity, liquidity constraints apply.";
+  "14.5% p.a. targeted compound return profile over five years, no monthly withdrawals. R100,000 minimum, 20% DWT at maturity, liquidity constraints apply.";
 
 export const metadata = buildPageMetadata({
   path: "/everest-strategic-growth-145",

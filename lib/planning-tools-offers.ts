@@ -1,9 +1,9 @@
 /**
- * AS Brokers planning tools — value ladder offers aligned with Albert's master plan.
+ * AS Brokers planning tools, value ladder offers aligned with Albert's master plan.
  * Stage 1: free lead magnet · Stage 2: tripwire digital product · Stage 3: advisory ascension
  *
  * Tripwire launch price: R299 (~$19 USD impulse band per product research).
- * Payment integration is Phase 3 — UI shows pricing; checkout links to contact until live.
+ * Payment integration is Phase 3, UI shows pricing; checkout links to contact until live.
  */
 
 export type Pillar = "Health" | "Wealth" | "Legacy" | "Business";
@@ -36,7 +36,7 @@ export type PlanningToolOffer = {
   whoFor: string[];
 };
 
-/** Launch tripwire — charm pricing aligned to ~$19 USD band */
+/** Launch tripwire, charm pricing aligned to ~$19 USD band */
 export const TRIPWIRE_LAUNCH_ZAR = 299;
 
 export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {

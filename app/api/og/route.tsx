@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const description =
     rawDescription && rawDescription.length > 0
       ? clampMetaDescription(rawDescription, { ideal: 120 })
-      : "Independent financial advisor in Krugersdorp — retirement, Everest Wealth, insurance, and estate planning. FSP 17273.";
+      : "Independent financial advisor in Krugersdorp, retirement, Everest Wealth, insurance, and estate planning. FSP 17273.";
 
   return createOgImageResponse({ title, description });
 }

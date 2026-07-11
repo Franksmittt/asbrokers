@@ -20,7 +20,7 @@ import {
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
 
-/** Home sections after goal cards — loaded after idle to protect LCP/TBT. */
+/** Home sections after goal cards, loaded after idle to protect LCP/TBT. */
 export function Home4BelowFoldRest() {
   return (
     <>
@@ -31,7 +31,7 @@ export function Home4BelowFoldRest() {
               headingId="home4-calculators"
               kicker="Albert's ASSET tools"
               title="Run the numbers before you speak to anyone"
-              description="Ungated educational calculators — Everest income, retirement longevity, estate duty. Illustrative only under FAIS; then bring results to a capital assessment."
+              description="Ungated educational calculators, Everest income, retirement longevity, estate duty. Illustrative only under FAIS; then bring results to a capital assessment."
             />
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {HOME4_CALCULATOR_TILES.map((tile) => (
@@ -57,7 +57,7 @@ export function Home4BelowFoldRest() {
               headingId="home4-journey"
               kicker="Your journey"
               title="Educate → calculate → Everest clarity → assessment"
-              description="The path that turns curiosity into a high-quality conversation — without a product pitch on day one."
+              description="The path that turns curiosity into a high-quality conversation, without a product pitch on day one."
             />
             <Home4JourneyFunnel stages={HOME4_JOURNEY_STAGES} />
           </Home4Reveal>
@@ -80,7 +80,7 @@ export function Home4BelowFoldRest() {
                 Start with Everest education
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
-                Structure, constraints, and calculators first — so you arrive at advice already clear
+                Structure, constraints, and calculators first, so you arrive at advice already clear
                 on suitability.
               </p>
               <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-stone-100 px-6 py-3 text-sm font-semibold text-shark transition-colors group-hover:bg-stone-200">
@@ -100,7 +100,7 @@ export function Home4BelowFoldRest() {
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
                 Speak with a licensed independent fiduciary (FSP 17273). Bring calculator results if
-                you have them — Everest, retirement, insurance, or estate.
+                you have them, Everest, retirement, insurance, or estate.
               </p>
               <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-all group-hover:bg-[#004a9e] group-hover:shadow-xl">
                 Book a capital assessment
@@ -118,8 +118,8 @@ export function Home4BelowFoldRest() {
               <div>
                 <Home4SectionHeader
                   kicker="Why AS Brokers"
-                  title="Category 1.8 access — education before advice"
-                  description="We can discuss Everest Wealth structured-income profiles where suitable, while remaining fully independent. Insurance, medical, and estate built this firm — they stay available when your problem needs them. 25+ years on the West Rand, no call centre."
+                  title="Category 1.8 access, education before advice"
+                  description="We can discuss Everest Wealth structured-income profiles where suitable, while remaining fully independent. Insurance, medical, and estate built this firm, they stay available when your problem needs them. 25+ years on the West Rand, no call centre."
                 />
                 <div className="mt-6 flex flex-wrap gap-2">
                   {HOME4_TRUST_BADGES.map((badge) => (

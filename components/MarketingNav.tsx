@@ -3,7 +3,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { MarketingMobileMenu } from "@/components/MarketingMobileMenu";
 import { PRIMARY_NAV } from "@/lib/site-navigation";
 
-/** Server-rendered marketing nav — mobile menu is a small client island. */
+/** Server-rendered marketing nav, mobile menu is a small client island. */
 export function MarketingNav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-stone-200/80 bg-white py-4">

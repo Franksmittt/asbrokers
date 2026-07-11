@@ -1,5 +1,5 @@
 /**
- * Canonical calculator registry — ASSET 001–017 (2026 rebuild).
+ * Canonical calculator registry, ASSET 001–017 (2026 rebuild).
  *
  * - `title` is the public-facing name (customers, embed iframe titles).
  * - `assetCode` + `title` form the staff label in Blog Studio / CRM (backend only).
@@ -39,7 +39,7 @@ const staticHtml = (file: string, title: string, assetCode: string, id: string):
   generation: "v2",
 });
 
-/** AS Brokers calculator library — static HTML embeds in /public/embed-calculators */
+/** AS Brokers calculator library, static HTML embeds in /public/embed-calculators */
 export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
   staticHtml(
     "asset-001-retirement-growth.html",

@@ -8,7 +8,7 @@ export type CalculatorReviewEntry = {
 
 export type CalculatorReviewState = Record<string, CalculatorReviewEntry>;
 
-/** CRM-only — never on public /calculators */
+/** CRM-only, never on public /calculators */
 export const CRM_CALCULATOR_REVIEW_STORAGE_KEY = "asbrokers-crm-calculator-review-v1";
 
 export type CrmCalculatorReviewExport = {

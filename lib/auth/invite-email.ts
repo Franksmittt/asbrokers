@@ -13,7 +13,7 @@ function inviteEmailHtml(fullName: string, actionLink: string): string {
   <div style="max-width:480px;margin:0 auto;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:32px;">
     <p style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;">AS Brokers · FSP 17273</p>
     <h1 style="font-size:22px;margin:16px 0 8px;">You're invited to the CRM</h1>
-    <p style="color:#aaa;line-height:1.6;">${greeting} You've been added to the AS Brokers team workspace. Tap below to set up secure access — no password required.</p>
+    <p style="color:#aaa;line-height:1.6;">${greeting} You've been added to the AS Brokers team workspace. Tap below to set up secure access, no password required.</p>
     <p style="margin:28px 0;">
       <a href="${actionLink}" style="display:inline-block;background:#3ecf8e;color:#000;font-weight:600;text-decoration:none;padding:14px 28px;border-radius:16px;">Accept invite</a>
     </p>

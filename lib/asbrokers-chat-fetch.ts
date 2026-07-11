@@ -19,13 +19,13 @@ export function asbrokersChatFetch(
 
     if (response.status === 404) {
       throw new Error(
-        "Chat API not found (404). This server may be missing the Next.js route at POST /api/chat—deploy the latest build or fix reverse-proxy rewrites for /api/*."
+        "Chat API not found (404). This server may be missing the Next.js route at POST /api/chat, deploy the latest build or fix reverse-proxy rewrites for /api/*."
       );
     }
 
     if (looksLikeHtmlDocument(text)) {
       throw new Error(
-        `Chat request failed (${response.status}). The server returned a web page instead of a chat stream—usually a missing API route, redirect, or hosting misconfiguration.`
+        `Chat request failed (${response.status}). The server returned a web page instead of a chat stream, usually a missing API route, redirect, or hosting misconfiguration.`
       );
     }
 

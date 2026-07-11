@@ -5,7 +5,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Fiduciary Insights & Financial Education | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Deep guides on Two-Pot, estate duty, tax drag, and risk — written by fiduciaries, not marketers. Education before advice. FSP 17273.";
+  "Deep guides on Two-Pot, estate duty, tax drag, and risk, written by fiduciaries, not marketers. Education before advice. FSP 17273.";
 
 const insightsFAQs = [
   {
@@ -16,7 +16,7 @@ const insightsFAQs = [
   {
     question: "How often is new content published?",
     answer:
-      "We publish when legislation, budgets, or client questions warrant it — for example National Budget updates or SARB Monetary Policy Committee decisions. Subscribe to the newsletter for occasional updates.",
+      "We publish when legislation, budgets, or client questions warrant it, for example National Budget updates or SARB Monetary Policy Committee decisions. Subscribe to the newsletter for occasional updates.",
   },
   {
     question: "How do topics relate to the service hubs?",
@@ -36,7 +36,7 @@ const insightsFAQs = [
   {
     question: "Who authors this library?",
     answer:
-      "Content is published under AS Brokers CC (FSP 17273), an independent Category 1.8 provider based in Krugersdorp. Educational framing relies on legislation and planning frameworks — not generic SEO filler.",
+      "Content is published under AS Brokers CC (FSP 17273), an independent Category 1.8 provider based in Krugersdorp. Educational framing relies on legislation and planning frameworks, not generic SEO filler.",
   },
 ];
 

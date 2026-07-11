@@ -4,7 +4,7 @@ import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
   "Team | AS Brokers",
-  "Team page redirect — not for public indexing."
+  "Team page redirect, not for public indexing."
 );
 
 export default function TeamPage() {

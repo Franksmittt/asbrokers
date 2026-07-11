@@ -3,7 +3,7 @@
  * AI tools often use different tokens than the legacy single string.
  */
 
-/** Preferred token — documented in brand guide and inserted by “Add image slot”. */
+/** Preferred token, documented in brand guide and inserted by “Add image slot”. */
 export const PRIMARY_IMAGE_PLACEHOLDER = "YOUR_IMAGE_URL_HERE";
 
 /** Longest-first so shorter tokens do not double-count longer ones. */

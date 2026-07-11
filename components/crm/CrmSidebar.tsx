@@ -98,7 +98,7 @@ export function CrmSidebar({
 
   return (
     <>
-      {/* Desktop — icon rail, expands on hover */}
+      {/* Desktop, icon rail, expands on hover */}
       <aside
         className={cn(
           "group/sidebar fixed left-0 top-0 z-50 hidden h-screen w-[52px] flex-col",

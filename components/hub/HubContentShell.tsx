@@ -77,7 +77,7 @@ export function HubUtilityHero({
   );
 }
 
-/** Split hero — text cols 1–6, image cols 7–12 (no text overlay). */
+/** Split hero, text cols 1–6, image cols 7–12 (no text overlay). */
 export function HubSplitHero({
   kicker,
   title,

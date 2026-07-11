@@ -39,9 +39,9 @@ export function MedicalAidPageView({ faqs }: Props) {
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            Schemes pay a base tariff. Private specialists often charge far more — leaving
+            Schemes pay a base tariff. Private specialists often charge far more, leaving
             catastrophic in-hospital shortfalls. We structure medical aid with demarcation-compliant
-            gap cover, then stay for authorisations and claims advocacy — not the cheapest plan on a
+            gap cover, then stay for authorisations and claims advocacy, not the cheapest plan on a
             comparison site.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -83,12 +83,12 @@ export function MedicalAidPageView({ faqs }: Props) {
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               Call-centre medical brokers sell speed. The failure mode is the claim: PMBs, hospital
               authorisations, and specialist billing that exceeds scheme tariff by hundreds of
-              percent. Your problem is insulating the household balance sheet — not winning a quote
+              percent. Your problem is insulating the household balance sheet, not winning a quote
               race.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               AS Brokers structures scheme + gap together, with specialist operational support for
-              onboarding and chronic authorisations — the human layer that comparison sites do not
+              onboarding and chronic authorisations, the human layer that comparison sites do not
               provide.
             </p>
             <figure className="mt-8">
@@ -100,7 +100,7 @@ export function MedicalAidPageView({ faqs }: Props) {
                   src={MEDICAL_CRAFT}
                   alt={getAlt(
                     MEDICAL_CRAFT,
-                    "Medical and wellness setting — household protection context, not staff portraits"
+                    "Medical and wellness setting, household protection context, not staff portraits"
                   )}
                   fill
                   className="object-cover object-center"
@@ -128,7 +128,7 @@ export function MedicalAidPageView({ faqs }: Props) {
               className="font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
             >
-              Medical aid vs gap cover — different laws
+              Medical aid vs gap cover, different laws
             </h2>
             <div className="mt-8">
               <MedicalDemarcationDiagram />
@@ -141,11 +141,11 @@ export function MedicalAidPageView({ faqs }: Props) {
                 },
                 {
                   dt: "Gap cover",
-                  dd: "Short-term insurance under Demarcation Regulations — typically for in-hospital specialist shortfalls. It requires an underlying medical scheme. It is not a substitute for medical aid, and it is not day-to-day GP cover.",
+                  dd: "Short-term insurance under Demarcation Regulations, typically for in-hospital specialist shortfalls. It requires an underlying medical scheme. It is not a substitute for medical aid, and it is not day-to-day GP cover.",
                 },
                 {
                   dt: "Annual caps",
-                  dd: "Gap benefits are subject to regulatory annual limits that adjust over time. Verify the current figure for your policy year with a licensed adviser — we do not sell “unlimited gap” myths.",
+                  dd: "Gap benefits are subject to regulatory annual limits that adjust over time. Verify the current figure for your policy year with a licensed adviser, we do not sell “unlimited gap” myths.",
                 },
               ].map((row) => (
                 <div
@@ -172,7 +172,7 @@ export function MedicalAidPageView({ faqs }: Props) {
             The advocacy promise
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            When a specialist bill arrives or an authorisation stalls, you need operational depth —
+            When a specialist bill arrives or an authorisation stalls, you need operational depth , 
             not a rotating call-centre queue. Our medical desk handles onboarding and claim pathways
             so you are not alone at the worst moment.
           </p>

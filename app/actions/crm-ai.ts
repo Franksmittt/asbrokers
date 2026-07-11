@@ -226,7 +226,7 @@ export async function fetchExecutiveAiReport(): Promise<CrmAiResult<ExecutiveAiR
   }
 }
 
-/** Gemini batch prioritisation — persists scores to raw_payload (safe merge). */
+/** Gemini batch prioritisation, persists scores to raw_payload (safe merge). */
 export async function refreshKanbanAiPriorities(): Promise<CrmAiResult<KanbanPriorities>> {
   const access = await requireAlbertAiAccess();
   if (!access) {

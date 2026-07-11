@@ -37,7 +37,7 @@ export function pruneHtmlRagLite(input: string): string {
   return text.replace(/\s+/g, " ").trim();
 }
 
-/** Clamp meta description — ideal 150–160 chars; hard max ~300 tokens (~1200 chars). */
+/** Clamp meta description, ideal 150–160 chars; hard max ~300 tokens (~1200 chars). */
 export function clampMetaDescription(
   raw: string,
   options: { ideal?: number; max?: number; min?: number } = {}
@@ -61,7 +61,7 @@ export function buildPageTitle(entityTitle: string, includeBrand = true): string
   return `${clean} | ${BRAND_NAME}`;
 }
 
-/** Absolute dynamic OG URL — passes HtmlRAG title/description into Satori template (Phase 6.5). */
+/** Absolute dynamic OG URL, passes HtmlRAG title/description into Satori template (Phase 6.5). */
 export function buildDynamicOgImageUrl(title: string, description: string): string {
   const params = new URLSearchParams({
     title: title.replace(/\s*\|\s*AS Brokers CC$/i, "").trim() || BRAND_NAME,

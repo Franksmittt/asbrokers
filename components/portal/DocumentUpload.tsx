@@ -32,7 +32,7 @@ export function DocumentUpload() {
         accept=".pdf,.doc,.docx,image/*"
         className="sr-only"
         onChange={() => {
-          /* prototype — no upload wiring */
+          /* prototype, no upload wiring */
         }}
       />
       <span className="mb-2 text-sm font-semibold text-white">Upload a document</span>

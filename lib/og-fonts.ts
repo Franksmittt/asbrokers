@@ -12,7 +12,7 @@ export type OgFont = {
   style: "normal";
 };
 
-/** Module-scope font cache — single ArrayBuffer per edge isolate (Phase 6.2). */
+/** Module-scope font cache, single ArrayBuffer per edge isolate (Phase 6.2). */
 let cachedFont: ArrayBuffer | null = null;
 let fontPromise: Promise<ArrayBuffer> | null = null;
 

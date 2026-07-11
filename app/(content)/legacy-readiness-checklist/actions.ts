@@ -60,9 +60,9 @@ export async function submitLegacyChecklistLead(
       intent: "Legacy Readiness Checklist",
       funnelData: {
         assessment: "Legacy Readiness Checklist",
-        score: String(parsed.data.age ?? "—"),
+        score: String(parsed.data.age ?? ", "),
         keyRisk: parsed.data.businessOwner === "yes" ? "Business owner" : "Personal estate",
-        capital: "—",
+        capital: ", ",
       },
       legacyChecklistLeadId: leadId,
     },

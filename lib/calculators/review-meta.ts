@@ -1,4 +1,4 @@
-/** Review metadata for the internal calculator grid — groups similar tools for curation. */
+/** Review metadata for the internal calculator grid, groups similar tools for curation. */
 export type CalculatorReviewMeta = {
   group: string;
   note?: string;
@@ -51,7 +51,7 @@ export const CALCULATOR_REVIEW_META: Record<string, CalculatorReviewMeta> = {
   },
   "asset-012-strategic-growth": {
     group: "Everest single product",
-    note: "14.5% strategic growth — five-year maturity value",
+    note: "14.5% strategic growth, five-year maturity value",
   },
   "asset-013-everest-income-vs-growth": {
     group: "Everest comparison",

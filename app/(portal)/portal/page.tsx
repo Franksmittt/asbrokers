@@ -39,7 +39,7 @@ export default function PortalDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
-        {/* Portfolio summary — spans 2 cols on large screens */}
+        {/* Portfolio summary, spans 2 cols on large screens */}
         <section className="rim-light rounded-[2rem] p-6 lg:col-span-2 lg:p-8">
           <p className="text-xs font-medium uppercase tracking-wider text-white/50">
             Total portfolio value
@@ -101,7 +101,7 @@ export default function PortalDashboardPage() {
           </div>
         </section>
 
-        {/* Wealth charts — full width */}
+        {/* Wealth charts, full width */}
         <section className="rim-light rounded-[2rem] p-6 lg:col-span-3 lg:p-8">
           <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
             <div>

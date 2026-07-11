@@ -9,12 +9,12 @@ export type AdvisorRoute = {
   reason: string;
 };
 
-/** AS Brokers team routing — names from CRM seed; UUIDs only where auth accounts exist. */
+/** AS Brokers team routing, names from CRM seed; UUIDs only where auth accounts exist. */
 const ROUTES: Record<ServiceCategory, AdvisorRoute> = {
   retirement_everest: {
     advisorName: "Albert Schuurman",
     authUserId: CRM_PIN_SUPERUSER_ID,
-    reason: "Everest / retirement specialist — Key Individual",
+    reason: "Everest / retirement specialist, Key Individual",
   },
   estate_business: {
     advisorName: "Johnny Farinha",
@@ -52,7 +52,7 @@ export function resolveAdvisorRoute(serviceCategory: ServiceCategory | string): 
   return {
     advisorName: "Albert Schuurman",
     authUserId: CRM_PIN_SUPERUSER_ID,
-    reason: "Default oversight — unclassified enquiry",
+    reason: "Default oversight, unclassified enquiry",
   };
 }
 

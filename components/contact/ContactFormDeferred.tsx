@@ -11,7 +11,7 @@ const ContactEnquiryForm = dynamic(
   }
 );
 
-/** Code-split enquiry form — visible skeleton keeps Speed Index stable in lab audits. */
+/** Code-split enquiry form, visible skeleton keeps Speed Index stable in lab audits. */
 export function ContactFormDeferred() {
   return <ContactEnquiryForm />;
 }

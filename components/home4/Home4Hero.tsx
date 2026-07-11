@@ -6,7 +6,7 @@ import { getAlt } from "@/lib/image-alt";
 import { HUB_HERO_SIZES } from "@/lib/hub-lcp";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
-/** Above-fold home hero — conversion-first: Everest + education, other products still reachable below. */
+/** Above-fold home hero, conversion-first: Everest + education, other products still reachable below. */
 export function Home4Hero() {
   return (
     <section data-chunk-boundary="true" className="relative overflow-hidden">
@@ -34,12 +34,12 @@ export function Home4Hero() {
             Independent · FSP 17273 · Category 1.8 · Education before advice
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.08]">
-            Structured income education — then advice that fits
+            Structured income education, then advice that fits
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
             Run Albert&apos;s ASSET calculators, learn how Everest Wealth preference-share profiles
             work where suitable, and book a capital assessment with an independent Category 1.8
-            adviser — not a call centre. Retirement, insurance, medical, and estate stay on the
+            adviser, not a call centre. Retirement, insurance, medical, and estate stay on the
             table when your problem needs them.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">

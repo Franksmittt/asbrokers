@@ -8,7 +8,7 @@ const Home4BelowFoldRest = dynamic(
   { ssr: false, loading: () => <div className="min-h-[40vh]" aria-hidden /> }
 );
 
-/** Defer heavy home sections until the browser is idle — keeps LCP/TBT clean. */
+/** Defer heavy home sections until the browser is idle, keeps LCP/TBT clean. */
 export function Home4RestDeferred() {
   const [ready, setReady] = useState(false);
 

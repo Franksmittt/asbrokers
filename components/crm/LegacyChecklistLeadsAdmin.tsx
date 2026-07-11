@@ -133,8 +133,8 @@ export function LegacyChecklistLeadsAdmin({ initialRows }: { initialRows: Serial
                   </td>
                   <td className="px-4 py-3">{row.email}</td>
                   <td className="px-4 py-3">{row.phone}</td>
-                  <td className="px-4 py-3">{row.age ?? "—"}</td>
-                  <td className="px-4 py-3 capitalize">{row.businessOwner ?? "—"}</td>
+                  <td className="px-4 py-3">{row.age ?? ", "}</td>
+                  <td className="px-4 py-3 capitalize">{row.businessOwner ?? ", "}</td>
                 </tr>
               ))
             )}

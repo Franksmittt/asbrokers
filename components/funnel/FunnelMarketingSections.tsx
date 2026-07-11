@@ -243,7 +243,7 @@ export function FunnelMarketingPage({
   );
 }
 
-/** Interactive wizard — left educational panel, right glass form card. */
+/** Interactive wizard, left educational panel, right glass form card. */
 export function FunnelToolShell({
   children,
   compactHeader,

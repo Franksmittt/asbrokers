@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import { getLeads } from "@/app/actions/crm";
 
-/** Auth-gated CRM — skip static prerender (no session at build time). */
+/** Auth-gated CRM, skip static prerender (no session at build time). */
 export const dynamic = "force-dynamic";
 import { CrmProvider } from "@/components/crm/CrmContext";
 import { CrmShell } from "@/components/crm/CrmShell";

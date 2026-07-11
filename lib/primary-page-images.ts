@@ -1,6 +1,6 @@
 import { normalizePath } from "@/lib/seo";
 
-/** Primary hero/inset image per indexable route — feeds ImageObject in @graph (Phase 7.5). */
+/** Primary hero/inset image per indexable route, feeds ImageObject in @graph (Phase 7.5). */
 export const PAGE_PRIMARY_IMAGES: Record<string, string> = {
   "/": "/opengraph-image",
   "/about": "/images/home4-why-independence-4x3.jpg",

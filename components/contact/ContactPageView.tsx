@@ -39,7 +39,7 @@ const STEPS = [
   {
     number: "1",
     title: "Capital Assessment",
-    body: "An authorised FSP 17273 adviser reviews your goals, time horizon, and preliminary capital needs — personally, not via a call centre.",
+    body: "An authorised FSP 17273 adviser reviews your goals, time horizon, and preliminary capital needs, personally, not via a call centre.",
   },
   {
     number: "2",
@@ -87,7 +87,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
             Untangling retirement, risk, medical, or estate questions can feel risky. Start here:
-            Capital Assessment → Wealth Engineering Call → Implementation — with an authorised
+            Capital Assessment → Wealth Engineering Call → Implementation, with an authorised
             FSP 17273 adviser, not a call centre. Submitting an enquiry is not financial advice.
           </p>
           <Suspense fallback={null}>
@@ -131,7 +131,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                 />
               </div>
               <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
-                Human intake: an authorised FSP 17273 adviser responds — not a rotating call centre.
+                Human intake: an authorised FSP 17273 adviser responds, not a rotating call centre.
               </figcaption>
             </figure>
 

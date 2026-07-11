@@ -46,7 +46,7 @@ export function CrmNotesClient({ initialNotes }: { initialNotes: CrmGlobalNote[]
     <div className="flex min-h-[calc(100vh-10rem)] flex-col">
       <header className="mb-8">
         <h1 className="text-3xl font-bold tracking-[-0.03em] text-white">Notes</h1>
-        <p className="mt-2 text-sm text-gray-100">Team thoughts — Apple Notes inspired workspace</p>
+        <p className="mt-2 text-sm text-gray-100">Team thoughts, Apple Notes inspired workspace</p>
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col gap-8 lg:flex-row">

@@ -4,7 +4,7 @@ import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
   "Studio | AS Brokers",
-  "Internal content studio — not for public indexing."
+  "Internal content studio, not for public indexing."
 );
 
 export default function StudioLayout({ children }: { children: React.ReactNode }) {

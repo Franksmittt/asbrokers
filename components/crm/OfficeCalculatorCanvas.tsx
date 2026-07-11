@@ -81,7 +81,7 @@ export function OfficeCalculatorCanvas({ leadId }: { leadId?: string }) {
             </p>
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">Calculators</h1>
             <p className="mt-1 text-sm text-zinc-400">
-              Choose a tool below and walk your client through the numbers — no need to open a blog article.
+              Choose a tool below and walk your client through the numbers, no need to open a blog article.
             </p>
           </div>
           <motion.button
@@ -124,7 +124,7 @@ export function OfficeCalculatorCanvas({ leadId }: { leadId?: string }) {
               Link session to lead
             </p>
             <p className="mt-1 text-[11px] text-zinc-400">
-              After your Amethyst walkthrough, log the drawdown % — compliance flags appear on the Kanban automatically.
+              After your Amethyst walkthrough, log the drawdown %, compliance flags appear on the Kanban automatically.
             </p>
             <div className="mt-3 flex flex-wrap gap-3">
               <input

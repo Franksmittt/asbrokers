@@ -173,7 +173,7 @@ function UserFormModal({
         <form onSubmit={handleSubmit} className="space-y-5 p-5">
           {mode === "add" ? (
             <p className="rounded-md border border-[#3ecf8e]/20 bg-[#3ecf8e]/5 px-3 py-2 text-xs leading-relaxed text-zinc-300">
-              They&apos;ll receive a secure invite link by email — no password needed. Once they
+              They&apos;ll receive a secure invite link by email, no password needed. Once they
               accept, they can sign in anytime with a magic link.
             </p>
           ) : null}
@@ -227,8 +227,8 @@ function UserFormModal({
               }
               className="w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white outline-none focus:border-[#3ecf8e]/50"
             >
-              <option value="staff">Staff — limited access (configurable)</option>
-              <option value="admin">Admin — full access (super user)</option>
+              <option value="staff">Staff, limited access (configurable)</option>
+              <option value="admin">Admin, full access (super user)</option>
             </select>
           </label>
 
@@ -366,7 +366,7 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
               <tr key={user.id} className="bg-black/40">
                 <td className="px-4 py-3 font-medium text-white">{user.fullName}</td>
                 <td className="px-4 py-3 text-zinc-400">{user.email}</td>
-                <td className="px-4 py-3 text-zinc-400">{user.phone ?? "—"}</td>
+                <td className="px-4 py-3 text-zinc-400">{user.phone ?? ", "}</td>
                 <td className="px-4 py-3">
                   <span
                     className={cn(

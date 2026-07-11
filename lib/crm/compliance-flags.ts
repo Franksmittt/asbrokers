@@ -35,7 +35,7 @@ export function getLeadComplianceFlags(lead: CrmLead): ComplianceFlag[] {
     flags.push({
       severity: "high",
       code: "drawdown_exceeded",
-      message: `Amethyst drawdown ${sessionPct}% exceeds ${AMETHYST_DRAWDOWN_MAX}% regulatory maximum — suitability review required.`,
+      message: `Amethyst drawdown ${sessionPct}% exceeds ${AMETHYST_DRAWDOWN_MAX}% regulatory maximum, suitability review required.`,
     });
   }
 
@@ -51,7 +51,7 @@ export function getLeadComplianceFlags(lead: CrmLead): ComplianceFlag[] {
     flags.push({
       severity: "high",
       code: "drawdown_exceeded",
-      message: `Detected ${textPct}% drawdown reference — exceeds Amethyst ${AMETHYST_DRAWDOWN_MAX}% limit.`,
+      message: `Detected ${textPct}% drawdown reference, exceeds Amethyst ${AMETHYST_DRAWDOWN_MAX}% limit.`,
     });
   }
 
@@ -63,7 +63,7 @@ export function getLeadComplianceFlags(lead: CrmLead): ComplianceFlag[] {
     flags.push({
       severity: "medium",
       code: "below_everest_minimum",
-      message: "Estimated capital below R100k voluntary Everest minimum — confirm product suitability.",
+      message: "Estimated capital below R100k voluntary Everest minimum, confirm product suitability.",
     });
   }
 

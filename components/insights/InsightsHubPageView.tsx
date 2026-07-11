@@ -151,7 +151,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            Financial intuition fails against South African legislation — Two-Pot, estate duty, gap
+            Financial intuition fails against South African legislation, Two-Pot, estate duty, gap
             demarcation, tax drag. Read fiduciary analyses first; arrive at advice already educated.
             Articles are not personalised advice.
           </p>
@@ -231,7 +231,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
               Latest financial intelligence
             </h2>
             <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
-              Chronological archive. Educational only — not personalised advice.
+              Chronological archive. Educational only, not personalised advice.
             </p>
             <InsightsFeedFilter
               articles={articles}
@@ -258,7 +258,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
               Fiduciary calculators &amp; diagnostic tools
             </h2>
             <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
-              Interactive tools live outside long-form reading — open them when you want numbers.
+              Interactive tools live outside long-form reading, open them when you want numbers.
             </p>
             <ul className="mt-6 border-y" style={{ borderColor: HAIRLINE }}>
               {CALC_HANDOFFS.map((item) => (

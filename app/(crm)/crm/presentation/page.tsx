@@ -41,7 +41,7 @@ export default function CrmPresentationPage() {
               <p className="mt-2 text-lg font-medium text-cinematic-teal/90">Sales canvas & talking points</p>
               <p className="mt-3 text-sm leading-relaxed text-zinc-400">
                 Walk clients through Create → Protect → Pass On. Tap any node on the timeline for advisor scripts,
-                bullets, and highlights — ideal for screen-share or in-room meetings.
+                bullets, and highlights, ideal for screen-share or in-room meetings.
               </p>
             </div>
             <div className="flex flex-col gap-2 sm:items-end">

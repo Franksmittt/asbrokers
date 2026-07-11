@@ -62,7 +62,7 @@ export function ClientDetailView({ client }: { client: CrmClient }) {
       </Link>
 
       <div className="grid min-h-[calc(100vh-10rem)] grid-cols-1 gap-8 lg:grid-cols-5">
-        {/* Left Bento — client profile + holdings */}
+        {/* Left Bento, client profile + holdings */}
         <div className="space-y-4 lg:col-span-2">
           <section className="rounded-[2rem] bg-shark p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-gray-400">Client</p>
@@ -103,12 +103,12 @@ export function ClientDetailView({ client }: { client: CrmClient }) {
           </section>
         </div>
 
-        {/* Right — portal-aligned wealth charts */}
+        {/* Right, portal-aligned wealth charts */}
         <section className="rim-light rounded-[2rem] p-6 lg:col-span-3 lg:p-8">
           <header className="mb-6">
             <h2 className="text-xl font-bold tracking-[-0.03em] text-white">Wealth snapshot</h2>
             <p className="mt-1 text-xs text-gray-400">
-              Same income & drawdown view as the client portal — cumulative performance
+              Same income & drawdown view as the client portal, cumulative performance
             </p>
           </header>
           <div className="mb-4 flex gap-4 text-[11px] text-gray-400">

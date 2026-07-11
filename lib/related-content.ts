@@ -107,7 +107,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
 };
 
-/** Primary hub pages — internal link topology (Phase 5.2). */
+/** Primary hub pages, internal link topology (Phase 5.2). */
 export const HUB_RELATED: Record<string, RelatedLink[]> = {
   "/": [
     {

@@ -51,7 +51,7 @@ export default function RegulatoryCompliancePage() {
             products.
           </p>
           <p>
-            AS Brokers CC holds Category 1.8 authority — a capability many standard Category I or II brokers do not
+            AS Brokers CC holds Category 1.8 authority, a capability many standard Category I or II brokers do not
             hold. This is central to our Everest Wealth distribution: structured return profiles and living annuity
             solutions that fall outside traditional unit trust or life assurance wrappers.
           </p>
@@ -60,17 +60,17 @@ export default function RegulatoryCompliancePage() {
         <LegalSection title="Regulatory identifiers">
           <ul>
             <li>
-              <strong>AS Brokers CC</strong> — FSP <strong>17273</strong> · Category{" "}
+              <strong>AS Brokers CC</strong>, FSP <strong>17273</strong> · Category{" "}
               <strong>1.8 (Securities and Instruments: Shares)</strong>
             </li>
             <li>
-              <strong>Everest Wealth Management</strong> — FSP <strong>795</strong> · Category I, II &amp; IIA
+              <strong>Everest Wealth Management</strong>, FSP <strong>795</strong> · Category I, II &amp; IIA
               (product provider and structurer)
             </li>
           </ul>
           <p>
             Everest designs and structures investment products; AS Brokers is authorised to advise on and distribute
-            them to qualifying clients through compliant, audited channels — never via unsolicited social media or
+            them to qualifying clients through compliant, audited channels, never via unsolicited social media or
             unverified offers.
           </p>
         </LegalSection>

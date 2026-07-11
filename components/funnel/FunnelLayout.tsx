@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /**
- * AS Brokers funnel layout — warm premium theme aligned with hub pages.
+ * AS Brokers funnel layout, warm premium theme aligned with hub pages.
  */
 export const funnel = {
   page: "min-h-screen bg-[#F7F6F3] text-[#1D1D1F]",
@@ -37,7 +37,7 @@ export const funnel = {
     "flex flex-wrap items-center justify-center gap-x-5 gap-y-2 rounded-2xl bg-stone-50 px-4 py-3 text-xs text-stone-600 ring-1 ring-stone-200/90",
 } as const;
 
-/** Warm form controls for funnel wizards — high APCA contrast on white cards. */
+/** Warm form controls for funnel wizards, high APCA contrast on white cards. */
 export const funnelForm = {
   input:
     "w-full rounded-2xl border border-stone-200 bg-white px-4 py-3.5 text-[#1D1D1F] placeholder:text-stone-400 focus:border-samsung-blue/50 focus:outline-none focus:ring-2 focus:ring-samsung-blue/20 disabled:opacity-60",

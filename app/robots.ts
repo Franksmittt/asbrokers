@@ -13,7 +13,7 @@ export default function robots(): MetadataRoute.Robots {
          */
         disallow: ["/api/"],
       },
-      /** Phase 1.3 — block uncompensated LLM training scrapers (mirrors middleware 403). */
+      /** Phase 1.3, block uncompensated LLM training scrapers (mirrors middleware 403). */
       { userAgent: "GPTBot", disallow: "/" },
       { userAgent: "ClaudeBot", disallow: "/" },
       { userAgent: "CCBot", disallow: "/" },

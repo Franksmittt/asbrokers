@@ -870,7 +870,7 @@ export function BlogStudioClient(props: Props) {
     setStatus(post.status === "published" ? "Editing published post" : "Editing draft");
     setBanner(
       categories.length === 0
-        ? `Loaded "${post.title}". This older post has no categories yet — tick one or more in Step 4, then Save.`
+        ? `Loaded "${post.title}". This older post has no categories yet, tick one or more in Step 4, then Save.`
         : `Loaded "${post.title}" for editing.`
     );
     requestAnimationFrame(() => {
@@ -1797,7 +1797,7 @@ export function BlogStudioClient(props: Props) {
                 </div>
                 <p className={STUDIO_FIELD_HINT_CLASS}>
                   Pick one or more so clients can filter on the Insights page. Older posts can be updated here any
-                  time — tick categories, then Save draft (or Save live changes).
+                  time, tick categories, then Save draft (or Save live changes).
                 </p>
               </div>
               <div>
@@ -1808,7 +1808,7 @@ export function BlogStudioClient(props: Props) {
                   id="studio-post-meta-title"
                   value={metaTitle}
                   onChange={(e) => setMetaTitle(e.target.value)}
-                  placeholder="Search result title — defaults to article title"
+                  placeholder="Search result title, defaults to article title"
                   className={STUDIO_FIELD_CLASS}
                   autoComplete="off"
                 />
@@ -1821,7 +1821,7 @@ export function BlogStudioClient(props: Props) {
                   id="studio-post-meta-description"
                   value={metaDescription}
                   onChange={(e) => setMetaDescription(e.target.value)}
-                  placeholder="Search snippet — defaults to short summary"
+                  placeholder="Search snippet, defaults to short summary"
                   rows={2}
                   className={STUDIO_FIELD_CLASS}
                 />

@@ -521,7 +521,7 @@ export async function deleteStudioPost(id: string): Promise<{ ok: true } | { ok:
   return { ok: true };
 }
 
-/** @deprecated Prefer deleteStudioPost — same behaviour (drafts and live posts). */
+/** @deprecated Prefer deleteStudioPost, same behaviour (drafts and live posts). */
 export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok: false; error: string }> {
   return deleteStudioPost(id);
 }

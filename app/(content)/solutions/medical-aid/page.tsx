@@ -4,7 +4,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Medical Aid & Gap Cover Structuring | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Specialist shortfalls can bankrupt a household. We structure medical aid with demarcation-compliant gap cover and human claims advocacy — not the cheapest hospital plan. FSP 17273.";
+  "Specialist shortfalls can bankrupt a household. We structure medical aid with demarcation-compliant gap cover and human claims advocacy, not the cheapest hospital plan. FSP 17273.";
 
 const faqs = [
   {
@@ -20,12 +20,12 @@ const faqs = [
   {
     question: "Why not just pick the cheapest hospital plan online?",
     answer:
-      "Cheapest often fails at claim time — tariff shortfalls, PMB navigation, and authorisations. We optimise for household insulation and advocacy, not quote theatre.",
+      "Cheapest often fails at claim time, tariff shortfalls, PMB navigation, and authorisations. We optimise for household insulation and advocacy, not quote theatre.",
   },
   {
     question: "Who helps when a claim or authorisation stalls?",
     answer:
-      "AS Brokers provides specialist operational support for medical onboarding and claims pathways — a human team, not a rotating call centre.",
+      "AS Brokers provides specialist operational support for medical onboarding and claims pathways, a human team, not a rotating call centre.",
   },
   {
     question: "Is this personalised medical advice on the website?",

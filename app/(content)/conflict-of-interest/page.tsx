@@ -52,7 +52,7 @@ export default function ConflictOfInterestPage() {
           <p>
             Advice and product remuneration structures are disclosed before you commit to a product or service. Where
             Everest or other providers pay commissions or fees, these are explained in product documentation and FAIS
-            disclosure packs — not hidden in opaque pricing.
+            disclosure packs, not hidden in opaque pricing.
           </p>
         </LegalSection>
       </LegalDocumentLayout>

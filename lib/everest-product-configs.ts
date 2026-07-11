@@ -13,7 +13,7 @@ export const EVEREST_128_PRODUCT: EverestProductPageProps = {
   kicker: "Everest Wealth · 12.8% Strategic Income",
   heroTitle: "Yield Engineering: 12.8% Strategic Income.",
   heroSubtitle:
-    "Targeted monthly dividend income with a 10% loyalty bonus on capital after five years — for investors who can accept slightly lower cash flow now for long-term value.",
+    "Targeted monthly dividend income with a 10% loyalty bonus on capital after five years, for investors who can accept slightly lower cash flow now for long-term value.",
   heroImage: "/images/home4-import/card1.png",
   heroImageAlt: "Premium lifestyle context for Everest 12.8% Strategic Income planning",
   calculatorSrc: "/embed-calculators/asset-010-everest-128-income.html",
@@ -24,14 +24,14 @@ export const EVEREST_128_PRODUCT: EverestProductPageProps = {
     {
       title: "Targeted monthly income",
       description:
-        "12.8% p.a. targeted dividend profile paid monthly from voluntary Everest capital — structured return profile, not a guaranteed outcome.",
+        "12.8% p.a. targeted dividend profile paid monthly from voluntary Everest capital, structured return profile, not a guaranteed outcome.",
       accent: "teal",
       span: "col-span-12 lg:col-span-7",
     },
     {
       title: "10% loyalty bonus at month 60",
       description:
-        "A 10% capital loyalty bonus after five years for investors who remain fully invested for the term — a trade-off for slightly lower day-one income than Onyx.",
+        "A 10% capital loyalty bonus after five years for investors who remain fully invested for the term, a trade-off for slightly lower day-one income than Onyx.",
       accent: "blue",
       span: "col-span-12 lg:col-span-5",
     },
@@ -39,7 +39,7 @@ export const EVEREST_128_PRODUCT: EverestProductPageProps = {
   trustCard: {
     title: "Regulated efficiency (20% DWT)",
     description:
-      "Voluntary Everest returns are structured as dividends on preference shares, taxed at a flat 20% Dividends Withholding Tax at source — not marginal income tax on interest. For many higher earners this can be materially more efficient than interest taxed at up to 45%.",
+      "Voluntary Everest returns are structured as dividends on preference shares, taxed at a flat 20% Dividends Withholding Tax at source, not marginal income tax on interest. For many higher earners this can be materially more efficient than interest taxed at up to 45%.",
   },
   fiduciaryNotes: VOLUNTARY_FIDUCIARY,
   cta: { label: "Speak to an Everest adviser", href: "/contact" },
@@ -52,7 +52,7 @@ export const EVEREST_128_PRODUCT: EverestProductPageProps = {
     {
       question: "How is tax applied?",
       answer:
-        "Dividends are subject to 20% DWT at source, not marginal income tax on interest. This is an educational summary — confirm your position with a tax practitioner.",
+        "Dividends are subject to 20% DWT at source, not marginal income tax on interest. This is an educational summary, confirm your position with a tax practitioner.",
     },
   ],
 };
@@ -62,9 +62,9 @@ export const EVEREST_142_PRODUCT: EverestProductPageProps = {
   kicker: "Everest Wealth · 14.2% Onyx Income+",
   heroTitle: "Maximum Liquidity: 14.2% Onyx Income+.",
   heroSubtitle:
-    "Higher targeted monthly income from day one, with no five-year loyalty bonus — suited when maximum cash flow now matters more than deferred capital rewards.",
+    "Higher targeted monthly income from day one, with no five-year loyalty bonus, suited when maximum cash flow now matters more than deferred capital rewards.",
   heroImage: "/images/home4-import/card1.png",
-  heroImageAlt: "Everest Onyx Income+ — maximum day-one yield planning",
+  heroImageAlt: "Everest Onyx Income+, maximum day-one yield planning",
   calculatorSrc: "/embed-calculators/asset-009-everest-142-income.html",
   calculatorTitle: "14.2% Onyx Income+ Calculator",
   calculatorLead:
@@ -73,7 +73,7 @@ export const EVEREST_142_PRODUCT: EverestProductPageProps = {
     {
       title: "Max day-one yield",
       description:
-        "14.2% p.a. targeted monthly dividends from the start — no five-year wait for enhanced cash flow versus the 12.8% Strategic Income loyalty structure.",
+        "14.2% p.a. targeted monthly dividends from the start, no five-year wait for enhanced cash flow versus the 12.8% Strategic Income loyalty structure.",
       accent: "blue",
       span: "col-span-12 lg:col-span-7",
     },
@@ -101,9 +101,9 @@ export const EVEREST_145_PRODUCT: EverestProductPageProps = {
   kicker: "Everest Wealth · 14.5% Strategic Growth",
   heroTitle: "Pure Compounding: 14.5% Strategic Growth.",
   heroSubtitle:
-    "Capital compounding with no monthly withdrawals — returns accumulate over five years and are paid at maturity for investors who do not need interim income.",
+    "Capital compounding with no monthly withdrawals, returns accumulate over five years and are paid at maturity for investors who do not need interim income.",
   heroImage: "/images/home4-import/card3.png",
-  heroImageAlt: "Strategic growth compounding — Everest 14.5% voluntary capital",
+  heroImageAlt: "Strategic growth compounding, Everest 14.5% voluntary capital",
   calculatorSrc: "/embed-calculators/asset-012-strategic-growth.html",
   calculatorTitle: "14.5% Strategic Growth Calculator",
   calculatorLead:
@@ -112,14 +112,14 @@ export const EVEREST_145_PRODUCT: EverestProductPageProps = {
     {
       title: "Projected value at maturity",
       description:
-        "Returns compound with no monthly withdrawals and are illustrated at the end of the five-year term — ideal when you do not need income during the lock-in period.",
+        "Returns compound with no monthly withdrawals and are illustrated at the end of the five-year term, ideal when you do not need income during the lock-in period.",
       accent: "teal",
       span: "col-span-12 lg:col-span-7",
     },
     {
       title: "Pure compounding profile",
       description:
-        "14.5% p.a. targeted compound return profile on voluntary capital — higher than income products because nothing is drawn monthly.",
+        "14.5% p.a. targeted compound return profile on voluntary capital, higher than income products because nothing is drawn monthly.",
       accent: "blue",
       span: "col-span-12 lg:col-span-5",
     },
@@ -144,7 +144,7 @@ export const EVEREST_AMETHYST_PRODUCT: EverestProductPageProps = {
   kicker: "Everest Wealth · Amethyst Living Annuity",
   heroTitle: "Insulated Retirement: The Amethyst Living Annuity.",
   heroSubtitle:
-    "Compulsory retirement capital in a regulated living annuity wrapper — targeted ~10.2% net yield, flexible drawdown, and Section 14 transfer approved.",
+    "Compulsory retirement capital in a regulated living annuity wrapper, targeted ~10.2% net yield, flexible drawdown, and Section 14 transfer approved.",
   heroImage: "/images/home4-goal-retire-16x9.png",
   heroImageAlt: "Retired couple reviewing Amethyst living annuity income planning",
   calculatorSrc: "/embed-calculators/asset-014-living-annuity.html",
@@ -156,21 +156,21 @@ export const EVEREST_AMETHYST_PRODUCT: EverestProductPageProps = {
     {
       title: "~10.2% targeted net yield",
       description:
-        "Structured return profile inside a 27four Life policy wrapper — not market-linked unit trust volatility. Growth inside the annuity is tax-sheltered; drawdown income is taxed at your marginal rate.",
+        "Structured return profile inside a 27four Life policy wrapper, not market-linked unit trust volatility. Growth inside the annuity is tax-sheltered; drawdown income is taxed at your marginal rate.",
       accent: "teal",
       span: "col-span-12 lg:col-span-7",
     },
     {
       title: "Regulation 28 compliant drawdown",
       description:
-        "Sustainable drawdown band of 2.5% to 17.5% p.a. — advisers must flag when drawdown exceeds sustainable thresholds for your age and capital.",
+        "Sustainable drawdown band of 2.5% to 17.5% p.a., advisers must flag when drawdown exceeds sustainable thresholds for your age and capital.",
       accent: "blue",
       span: "col-span-12 lg:col-span-5",
     },
     {
       title: "Section 14 transfers",
       description:
-        "Pension, provident, preservation, and RA capital may transfer via Section 14 to Amethyst where suitability is confirmed — independent advice required.",
+        "Pension, provident, preservation, and RA capital may transfer via Section 14 to Amethyst where suitability is confirmed, independent advice required.",
       accent: "teal",
       span: "col-span-12",
     },
@@ -193,7 +193,7 @@ export const EVEREST_AMETHYST_PRODUCT: EverestProductPageProps = {
     {
       question: "What drawdown rate should I use?",
       answer:
-        "Regulation allows 2.5% to 17.5% p.a. Higher drawdowns deplete capital faster. Use the calculator to stress-test sustainability — not as personalised advice.",
+        "Regulation allows 2.5% to 17.5% p.a. Higher drawdowns deplete capital faster. Use the calculator to stress-test sustainability, not as personalised advice.",
     },
   ],
 };

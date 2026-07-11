@@ -157,12 +157,12 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
                 color: INK,
               }}
             >
-              Understanding Everest Wealth — regulation before yield
+              Understanding Everest Wealth, regulation before yield
             </h1>
             <Body className="mt-5 max-w-xl">
               Headline yields without structure literacy create unsuitable allocations. This briefing
               covers who regulates whom (FSP 795 / FSP 17273 Category 1.8 / HoldCo), liquidity, tax,
-              and who these instruments suit — before any illustration.
+              and who these instruments suit, before any illustration.
             </Body>
             <div className="mt-6 flex flex-wrap gap-2">
               <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-stone-800 shadow-sm ring-1 ring-stone-200/90">
@@ -192,7 +192,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
               <Image
                 src={heroImage}
-                alt={getAlt(heroImage, "Everest Wealth regulatory briefing — real-economy portfolio context")}
+                alt={getAlt(heroImage, "Everest Wealth regulatory briefing, real-economy portfolio context")}
                 fill
                 priority
                 className="object-cover object-center"

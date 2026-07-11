@@ -1,5 +1,5 @@
 /**
- * Faceless trust diagrams — Ability/Integrity cues without staff photography.
+ * Faceless trust diagrams, Ability/Integrity cues without staff photography.
  * Warm canvas editorial style: hairlines, teal accents, serif-adjacent labels.
  */
 
@@ -68,7 +68,7 @@ export function EstateLiquidityWaterfall({ className = "" }: { className?: strin
         </text>
 
         <text x="16" y="214" fill={MUTED} fontSize="8" fontFamily="system-ui,sans-serif">
-          *Illustrative SARS framing — verify current law. Not legal advice.
+          *Illustrative SARS framing, verify current law. Not legal advice.
         </text>
       </svg>
     </div>
@@ -129,7 +129,7 @@ export function MedicalDemarcationDiagram({ className = "" }: { className?: stri
 
         <path d="M188 86 H212" stroke={TEAL} strokeWidth="1.5" strokeDasharray="4 3" />
         <text x="200" y="178" textAnchor="middle" fill={MUTED} fontSize="9" fontFamily="system-ui,sans-serif">
-          Structure both — then advocate at claim time
+          Structure both, then advocate at claim time
         </text>
       </svg>
     </div>

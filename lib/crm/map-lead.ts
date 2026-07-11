@@ -37,18 +37,18 @@ function parseServiceCategory(value: string | null | undefined): ServiceCategory
 function parseFunnelData(value: unknown): LeadFunnelData {
   if (!value || typeof value !== "object") {
     return {
-      assessment: "—",
-      score: "—",
-      keyRisk: "—",
-      capital: "—",
+      assessment: ", ",
+      score: ", ",
+      keyRisk: ", ",
+      capital: ", ",
     };
   }
   const row = value as Record<string, unknown>;
   return {
-    assessment: typeof row.assessment === "string" ? row.assessment : "—",
-    score: typeof row.score === "string" ? row.score : "—",
-    keyRisk: typeof row.keyRisk === "string" ? row.keyRisk : "—",
-    capital: typeof row.capital === "string" ? row.capital : "—",
+    assessment: typeof row.assessment === "string" ? row.assessment : ", ",
+    score: typeof row.score === "string" ? row.score : ", ",
+    keyRisk: typeof row.keyRisk === "string" ? row.keyRisk : ", ",
+    capital: typeof row.capital === "string" ? row.capital : ", ",
   };
 }
 

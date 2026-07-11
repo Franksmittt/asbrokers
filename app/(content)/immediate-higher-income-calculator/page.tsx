@@ -6,7 +6,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "14.2% Onyx Income+ | Maximum Day-One Yield";
 const PAGE_DESCRIPTION =
-  "14.2% p.a. targeted monthly income from day one — no five-year loyalty bonus. R100,000 minimum, 20% DWT, 120-day notice and early exit rules apply.";
+  "14.2% p.a. targeted monthly income from day one, no five-year loyalty bonus. R100,000 minimum, 20% DWT, 120-day notice and early exit rules apply.";
 
 export const metadata = buildPageMetadata({
   path: "/immediate-higher-income-calculator",

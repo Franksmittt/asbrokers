@@ -90,7 +90,7 @@ export function EverestProductPageView({
   heroImageAlt,
   calculatorSrc,
   calculatorTitle,
-  calculatorLead = "Illustrative calculator only — not a quote, guarantee, or personalised advice.",
+  calculatorLead = "Illustrative calculator only, not a quote, guarantee, or personalised advice.",
   featureCards,
   trustCard,
   fiduciaryNotes,
@@ -253,7 +253,7 @@ export function EverestProductPageView({
                 className="mt-4 leading-relaxed text-stone-600"
                 style={{ fontSize: "clamp(0.8125rem, 0.8rem + 0.08vw, 0.875rem)" }}
               >
-                Targeted returns are not guaranteed. Educational summary only — suitability depends on your
+                Targeted returns are not guaranteed. Educational summary only, suitability depends on your
                 circumstances. FSP 17273 · Category 1.8.
               </p>
             </div>

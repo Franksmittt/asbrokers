@@ -14,7 +14,7 @@ import {
   vector,
 } from "drizzle-orm/pg-core";
 
-/** Supabase Auth users — referenced by CRM client_id (auth schema managed by Supabase). */
+/** Supabase Auth users, referenced by CRM client_id (auth schema managed by Supabase). */
 const authSchema = pgSchema("auth");
 export const authUsers = authSchema.table("users", {
   id: uuid("id").primaryKey(),
@@ -200,7 +200,7 @@ export type HealthyRetirementAssessment = typeof healthyRetirementAssessments.$i
 export type NewHealthyRetirementAssessment = typeof healthyRetirementAssessments.$inferInsert;
 
 /**
- * CRM leads — funnel-sourced pipeline records; contact phone lives in raw_payload.phone.
+ * CRM leads, funnel-sourced pipeline records; contact phone lives in raw_payload.phone.
  */
 export const crmLeads = pgTable(
   "crm_leads",
@@ -239,7 +239,7 @@ export const correspondence = pgTable(
     channel: varchar("channel", { length: 32 }).notNull(),
     senderType: varchar("sender_type", { length: 32 }).notNull(),
     messageBody: text("message_body").notNull(),
-    /** Meta wamid (or other provider id) — unique for inbound deduplication. */
+    /** Meta wamid (or other provider id), unique for inbound deduplication. */
     externalMessageId: varchar("external_message_id", { length: 255 }),
     /** auth.users id of staff member who sent an outbound message. */
     staffUserId: uuid("staff_user_id").references(() => authUsers.id),
@@ -328,7 +328,7 @@ export type CrmTaskRow = typeof crmTasks.$inferSelect;
 export type NewCrmTaskRow = typeof crmTasks.$inferInsert;
 
 /**
- * CRM staff profiles — extended team directory linked to Supabase auth.users.
+ * CRM staff profiles, extended team directory linked to Supabase auth.users.
  * Role is mirrored in auth app_metadata; permissions gate feature access for staff.
  */
 export const crmStaffProfiles = pgTable(

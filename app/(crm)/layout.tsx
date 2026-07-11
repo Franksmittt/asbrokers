@@ -4,11 +4,11 @@ import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
   "CRM | AS Brokers",
-  "Staff CRM workspace — not for public indexing."
+  "Staff CRM workspace, not for public indexing."
 );
 
 /**
- * CRM route group — dark baseline isolated from marketing (content) layout.
+ * CRM route group, dark baseline isolated from marketing (content) layout.
  * URLs remain /crm/* via nested app/(crm)/crm/ segment.
  */
 export default function CrmRouteGroupLayout({

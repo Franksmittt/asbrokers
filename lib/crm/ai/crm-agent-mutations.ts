@@ -288,10 +288,10 @@ export function suggestDelegationForLead(lead: {
     cat === "estate_business" ||
     cat === "life_personal"
   ) {
-    return `Business/personal insurance lead — consider delegating ${lead.name} to Johnny Farinha (johnny).`;
+    return `Business/personal insurance lead, consider delegating ${lead.name} to Johnny Farinha (johnny).`;
   }
   if (cat === "retirement_everest") {
-    return `${lead.name} is retirement/Everest — Albert or senior advisor follow-up recommended.`;
+    return `${lead.name} is retirement/Everest, Albert or senior advisor follow-up recommended.`;
   }
   return `Review ${lead.name} and assign to the best-fit advisor from the roster.`;
 }

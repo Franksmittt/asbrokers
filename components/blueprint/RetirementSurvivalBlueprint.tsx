@@ -261,7 +261,7 @@ export function RetirementSurvivalBlueprint() {
         <FunnelMarketingPage
           offer={OFFER}
           heroImage="/images/home4-goal-retire-16x9.png"
-          heroImageAlt="Retirement survival planning — will your money last?"
+          heroImageAlt="Retirement survival planning, will your money last?"
           capture={captureCard}
           onScrollToCapture={startBlueprint}
           primaryCtaLabel="Start free diagnostic"

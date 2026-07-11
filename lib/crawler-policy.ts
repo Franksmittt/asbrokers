@@ -2,10 +2,10 @@
  * Crawler policy shared by middleware.ts and app/robots.ts (Handbook Phase 1).
  */
 
-/** Uncompensated LLM training scrapers — blocked at edge with 403. */
+/** Uncompensated LLM training scrapers, blocked at edge with 403. */
 export const BLOCKED_TRAINING_BOTS = /GPTBot|ClaudeBot|CCBot/i;
 
-/** Live retrieval / search indexing — allowed through edge firewall. */
+/** Live retrieval / search indexing, allowed through edge firewall. */
 export const ALLOWED_ANSWER_AND_SEARCH_BOTS =
   /OAI-SearchBot|PerplexityBot|Claude-Web|Googlebot|Google-InspectionTool|bingbot|Applebot/i;
 

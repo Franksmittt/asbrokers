@@ -90,7 +90,7 @@ export async function submitHealthyRetirementAssessment(
         assessment: "Healthy Retirement Blueprint",
         score: String(result.score),
         keyRisk: result.bandLabel,
-        capital: "—",
+        capital: ", ",
       },
       healthyRetirementReportId: reportId,
     },

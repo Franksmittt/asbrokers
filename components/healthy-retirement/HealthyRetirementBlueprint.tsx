@@ -154,7 +154,7 @@ export function HealthyRetirementBlueprint() {
         <FunnelMarketingPage
           offer={OFFER}
           heroImage="/images/home4-goal-retire-16x9.png"
-          heroImageAlt="Healthy retirement planning — wellness and longevity"
+          heroImageAlt="Healthy retirement planning, wellness and longevity"
           capture={captureCard}
           onScrollToCapture={startAssessment}
           primaryCtaLabel="Start free assessment"

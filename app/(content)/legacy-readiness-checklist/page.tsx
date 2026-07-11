@@ -22,7 +22,7 @@ const legacyChecklistFaqs = [
 
 const PAGE_TITLE = "Don't Leave a Financial Mess Behind | Legacy Readiness Checklist™";
 const PAGE_DESCRIPTION =
-  "Most families assume their estate is sorted. Many are wrong. Free eight-area checklist for wills, trusts, beneficiaries, liquidity, and succession — before gaps become permanent.";
+  "Most families assume their estate is sorted. Many are wrong. Free eight-area checklist for wills, trusts, beneficiaries, liquidity, and succession, before gaps become permanent.";
 
 export const metadata = buildPageMetadata({
   path: "/legacy-readiness-checklist",

@@ -103,7 +103,7 @@ async function countActiveAdmins(excludeUserId?: string): Promise<number> {
   );
 }
 
-/** List CRM team members — admin only. */
+/** List CRM team members, admin only. */
 export async function listCrmUsers(): Promise<CrmStaffUser[]> {
   await requireAdminAccess();
 
@@ -161,7 +161,7 @@ export async function listCrmUsers(): Promise<CrmStaffUser[]> {
   }
 }
 
-/** Invite a new team member — sends secure magic invite link. */
+/** Invite a new team member, sends secure magic invite link. */
 export async function inviteCrmUser(raw: unknown): Promise<UserActionResult> {
   const admin = await requireAdminAccess();
   const parsed = inviteCrmUserSchema.safeParse(raw);

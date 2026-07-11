@@ -6,7 +6,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Capital Sustainability Test | Income in Retirement";
 const PAGE_DESCRIPTION =
-  "Model how long retirement capital may last at your chosen drawdown — a fiduciary diagnostic for sustainable retirement income.";
+  "Model how long retirement capital may last at your chosen drawdown, a fiduciary diagnostic for sustainable retirement income.";
 
 export const metadata = buildPageMetadata({
   path: "/income-in-retirement",

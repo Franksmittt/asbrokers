@@ -12,7 +12,7 @@ type VisibleFaqSectionProps = {
 };
 
 /**
- * Visible FAQ block — always 6 items in a 3×2 grid at hub width (HOME4_WRAP).
+ * Visible FAQ block, always 6 items in a 3×2 grid at hub width (HOME4_WRAP).
  * Must match PageJsonLd FAQPage schema (both use ensureSixFaqs).
  */
 export function VisibleFaqSection({

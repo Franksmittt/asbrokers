@@ -19,7 +19,7 @@ function formatWhen(iso: string) {
 
 function preview(body: string) {
   const t = body.trim().replace(/\s+/g, " ");
-  return t.length > 72 ? `${t.slice(0, 72)}…` : t || "—";
+  return t.length > 72 ? `${t.slice(0, 72)}…` : t || ", ";
 }
 
 type Props = {
@@ -76,7 +76,7 @@ export function StudioNotebookModal({ open, onClose, initialNotes, databaseConfi
 
   function runSave() {
     if (!databaseConfigured) {
-      setBanner("Database not connected yet — notebook cannot save.");
+      setBanner("Database not connected yet, notebook cannot save.");
       return;
     }
     setBanner(null);
@@ -151,7 +151,7 @@ export function StudioNotebookModal({ open, onClose, initialNotes, databaseConfi
               Notebook
             </h2>
             <p className="hidden text-xs text-zinc-500 md:block">
-              Personal notes only — visitors never see this
+              Personal notes only, visitors never see this
             </p>
             <button
               type="button"
@@ -188,7 +188,7 @@ export function StudioNotebookModal({ open, onClose, initialNotes, databaseConfi
               <ul className="min-h-0 flex-1 list-none space-y-1 overflow-y-auto p-2">
                 {!emptyLibrary ? null : (
                   <li className="rounded-lg px-3 py-4 text-center text-xs leading-relaxed text-zinc-500">
-                    No notes yet. Tap New note above — or Write your first note on the right.
+                    No notes yet. Tap New note above, or Write your first note on the right.
                   </li>
                 )}
                 {notes.map((n) => (
@@ -221,7 +221,7 @@ export function StudioNotebookModal({ open, onClose, initialNotes, databaseConfi
               {!showEditor && emptyLibrary && databaseConfigured && (
                 <div className="flex flex-1 flex-col items-center justify-center gap-4 py-6 text-center">
                   <p className="max-w-md text-sm text-zinc-400">
-                    Anything you jot here stays private — phone numbers to call back, wording ideas for an article,
+                    Anything you jot here stays private, phone numbers to call back, wording ideas for an article,
                     reminders. Nothing appears on your public website.
                   </p>
                   <button
@@ -241,7 +241,7 @@ export function StudioNotebookModal({ open, onClose, initialNotes, databaseConfi
                     <input
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      placeholder="e.g. Reminder — follow up Mrs du Preez"
+                      placeholder="e.g. Reminder, follow up Mrs du Preez"
                       className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white placeholder:text-zinc-600"
                     />
                   </label>
@@ -250,7 +250,7 @@ export function StudioNotebookModal({ open, onClose, initialNotes, databaseConfi
                     <textarea
                       value={body}
                       onChange={(e) => setBody(e.target.value)}
-                      placeholder="Type anything — links, ideas, drafts to paste elsewhere later…"
+                      placeholder="Type anything, links, ideas, drafts to paste elsewhere later…"
                       spellCheck
                       className="min-h-[220px] w-full flex-1 resize-y rounded-xl border border-white/10 bg-black/60 px-3 py-2.5 text-sm leading-relaxed text-zinc-100 placeholder:text-zinc-600 lg:min-h-[260px]"
                     />

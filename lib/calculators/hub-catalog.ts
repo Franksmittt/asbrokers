@@ -1,5 +1,5 @@
 /**
- * Public /calculators hub — ASSET 001–017 only (June 2026 rebuild).
+ * Public /calculators hub, ASSET 001–017 only (June 2026 rebuild).
  */
 
 import {

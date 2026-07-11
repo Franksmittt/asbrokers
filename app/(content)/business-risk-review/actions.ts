@@ -71,7 +71,7 @@ export async function submitBusinessRiskReview(
         assessment: "Business Risk Review",
         score: `${score.protectionPercent}% protected`,
         keyRisk: score.band,
-        capital: "—",
+        capital: ", ",
       },
       businessRiskReportId: reportId,
     },

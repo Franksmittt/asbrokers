@@ -219,7 +219,7 @@ export function LeadsKanban() {
       tomorrow.setDate(tomorrow.getDate() + 1);
       tomorrow.setHours(10, 0, 0, 0);
       const isoLocal = tomorrow.toISOString().slice(0, 16);
-      addReminder(lead.id, `Follow up — ${lead.name}`, isoLocal);
+      addReminder(lead.id, `Follow up, ${lead.name}`, isoLocal);
     },
     [addReminder]
   );

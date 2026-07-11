@@ -1,4 +1,4 @@
-/** Warm premium marketing theme — shared with home, contact, retirement. */
+/** Warm premium marketing theme, shared with home, contact, retirement. */
 
 export const WARM_WRAP = "mx-auto max-w-7xl px-4 sm:px-6 md:px-8";
 
@@ -12,7 +12,7 @@ export const WARM_CARD =
 export const WARM_CARD_MUTED =
   "rounded-3xl bg-white/70 p-6 shadow-lg ring-1 ring-stone-200/70 backdrop-blur-sm md:p-8";
 
-/** #006B6B — WCAG AA on warm-canvas (#F7F6F3) at 12px uppercase */
+/** #006B6B, WCAG AA on warm-canvas (#F7F6F3) at 12px uppercase */
 export const WARM_EYEBROW = "text-xs font-semibold uppercase tracking-[0.2em] text-[#006B6B]";
 
 export const WARM_EYEBROW_HERO = "text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm";

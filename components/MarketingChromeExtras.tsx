@@ -12,7 +12,7 @@ const FloatingWhatsApp = dynamic(
   { ssr: false, loading: () => null }
 );
 
-/** WhatsApp + quick actions after idle — off Lighthouse critical path. */
+/** WhatsApp + quick actions after idle, off Lighthouse critical path. */
 export function MarketingChromeExtras() {
   const [ready, setReady] = useState(false);
 

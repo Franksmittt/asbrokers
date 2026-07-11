@@ -189,46 +189,306 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </header>
 
-      {/* Worry funnel */}
+      {/* TEMP: 6 Survival Blueprint options — reply A–F */}
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-16"
-        style={{ backgroundColor: "#FDFCFA" }}
-        aria-labelledby="planning-worry-heading"
+        className="border-t border-stone-200/80 py-10"
+        style={{ backgroundColor: CANVAS }}
+        aria-label="Retirement Survival Blueprint design options"
       >
-        <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-8">
-            <article className="rounded-3xl bg-white/80 p-8 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-xl sm:p-10">
-              <div className="flex items-start gap-4">
-                <ShieldCheck className="mt-1 h-8 w-8 shrink-0" style={{ color: TEAL }} aria-hidden />
+        <div className={HOME4_WRAP}>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-800">
+            Design review · Survival Blueprint block
+          </p>
+          <p className="mt-2 max-w-2xl text-sm text-stone-600">
+            Six options below. Reply with <strong>A</strong>, <strong>B</strong>, <strong>C</strong>,{" "}
+            <strong>D</strong>, <strong>E</strong>, or <strong>F</strong> and we&apos;ll lock that one
+            in.
+          </p>
+        </div>
+      </section>
+
+      {/* A — Glass card (current direction) */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: "#FDFCFA" }}
+        aria-labelledby="planning-worry-a"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+            Option A · Glass card
+          </p>
+          <article className="max-w-3xl rounded-3xl bg-white/80 p-8 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-xl sm:p-10">
+            <div className="flex items-start gap-4">
+              <ShieldCheck className="mt-1 h-8 w-8 shrink-0" style={{ color: TEAL }} aria-hidden />
+              <div>
+                <h2
+                  id="planning-worry-a"
+                  className="font-bold tracking-tight"
+                  style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.9vw, 2rem)", color: INK }}
+                >
+                  Will your money survive your retirement?
+                </h2>
+                <p
+                  className="mt-4 max-w-2xl leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.125rem)", color: BODY }}
+                >
+                  Stop guessing. Take our 5-step guided diagnostic to discover your Financial Freedom
+                  Score™ and identify any gaps in your current trajectory.
+                </p>
+                <Link
+                  href="/retirement-survival-blueprint"
+                  prefetch={false}
+                  className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-lg shadow-cta-glow-blue transition hover:bg-[#004a9e]"
+                >
+                  Start the Retirement Survival Blueprint
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      {/* B — Dark command band */}
+      <section
+        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        style={{ backgroundColor: INK }}
+        aria-labelledby="planning-worry-b"
+      >
+        <div
+          className="pointer-events-none absolute -right-16 top-8 h-64 w-64 rounded-full bg-cinematic-teal/25 blur-3xl"
+          aria-hidden
+        />
+        <div className={`relative ${HOME4_WRAP}`}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
+            Option B · Dark command band
+          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+            5-step guided diagnostic
+          </p>
+          <h2
+            id="planning-worry-b"
+            className="mt-4 max-w-3xl font-bold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+          >
+            Will your money survive your retirement?
+          </h2>
+          <p className="mt-5 max-w-2xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
+            Stop guessing. Take our 5-step guided diagnostic to discover your Financial Freedom
+            Score™ and identify any gaps in your current trajectory.
+          </p>
+          <Link
+            href="/retirement-survival-blueprint"
+            prefetch={false}
+            className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+          >
+            Start the Retirement Survival Blueprint
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+      </section>
+
+      {/* C — Split with score panel */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: CANVAS }}
+        aria-labelledby="planning-worry-c"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+            Option C · Split + score panel
+          </p>
+          <div className="grid items-stretch gap-6 lg:grid-cols-12 lg:gap-8">
+            <div className="flex flex-col justify-center lg:col-span-7">
+              <h2
+                id="planning-worry-c"
+                className="font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", color: INK }}
+              >
+                Will your money survive your retirement?
+              </h2>
+              <p className="mt-4 max-w-xl leading-relaxed" style={{ fontSize: "1.0625rem", color: BODY }}>
+                Stop guessing. Take our 5-step guided diagnostic to discover your Financial Freedom
+                Score™ and identify any gaps in your current trajectory.
+              </p>
+              <Link
+                href="/retirement-survival-blueprint"
+                prefetch={false}
+                className="mt-8 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
+              >
+                Start the Retirement Survival Blueprint
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+            <div className="lg:col-span-5">
+              <div className="flex h-full flex-col justify-between rounded-3xl bg-white p-7 shadow-xl ring-1 ring-stone-200/90 sm:p-8">
                 <div>
-                  <h2
-                    id="planning-worry-heading"
-                    className="font-bold tracking-tight"
-                    style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.9vw, 2rem)", color: INK }}
-                  >
-                    Will your money survive your retirement?
-                  </h2>
-                  <p
-                    className="mt-4 max-w-2xl leading-relaxed"
-                    style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.125rem)", color: BODY }}
-                  >
-                    Stop guessing. Take our 5-step guided diagnostic to discover your Financial
-                    Freedom Score™ and identify any gaps in your current trajectory.
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+                    Financial Freedom Score™
                   </p>
-                  <Link
-                    href="/retirement-survival-blueprint"
-                    prefetch={false}
-                    className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-lg shadow-cta-glow-blue transition-all duration-300 hover:bg-[#004a9e]"
-                    style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
+                  <p
+                    className="mt-4 font-bold tracking-tight text-shark"
+                    style={{ fontSize: "clamp(3rem, 2.5rem + 2vw, 4.5rem)", lineHeight: 1 }}
                   >
-                    Start the Retirement Survival Blueprint
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </Link>
+                    ??
+                    <span className="text-2xl font-semibold text-stone-400"> /100</span>
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                    Complete the blueprint to unlock your personalised score and gap map.
+                  </p>
+                </div>
+                <div className="mt-8 flex gap-2">
+                  {[1, 2, 3, 4, 5].map((step) => (
+                    <span
+                      key={step}
+                      className="flex h-9 flex-1 items-center justify-center rounded-xl bg-stone-100 text-xs font-bold text-stone-500"
+                    >
+                      {step}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </article>
-          </HubReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* D — Full-bleed gradient banner */}
+      <section
+        className="border-t border-stone-200/80 py-16 md:py-24"
+        style={{
+          background: "linear-gradient(135deg, #004a9e 0%, #006b6b 55%, #1D1D1F 100%)",
+        }}
+        aria-labelledby="planning-worry-d"
+      >
+        <div className={`${HOME4_WRAP} text-center`}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em] text-white/50">
+            Option D · Gradient banner
+          </p>
+          <ShieldCheck className="mx-auto h-10 w-10 text-white/80" aria-hidden />
+          <h2
+            id="planning-worry-d"
+            className="mx-auto mt-5 max-w-3xl font-bold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+          >
+            Will your money survive your retirement?
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-white/80" style={{ fontSize: "1.0625rem" }}>
+            Stop guessing. Take our 5-step guided diagnostic to discover your Financial Freedom
+            Score™ and identify any gaps in your current trajectory.
+          </p>
+          <Link
+            href="/retirement-survival-blueprint"
+            prefetch={false}
+            className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+          >
+            Start the Retirement Survival Blueprint
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+      </section>
+
+      {/* E — Numbered runway */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: "#FDFCFA" }}
+        aria-labelledby="planning-worry-e"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+            Option E · Numbered runway
+          </p>
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
+              <h2
+                id="planning-worry-e"
+                className="font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", color: INK }}
+              >
+                Will your money survive your retirement?
+              </h2>
+              <p className="mt-4 max-w-xl leading-relaxed" style={{ fontSize: "1.0625rem", color: BODY }}>
+                Stop guessing. Take our 5-step guided diagnostic to discover your Financial Freedom
+                Score™ and identify any gaps in your current trajectory.
+              </p>
+              <Link
+                href="/retirement-survival-blueprint"
+                prefetch={false}
+                className="mt-8 inline-flex items-center gap-2 border-b-2 border-samsung-blue pb-1 font-semibold text-samsung-blue transition hover:opacity-80"
+              >
+                Start the Retirement Survival Blueprint
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+            <ol className="grid list-none grid-cols-5 gap-2 lg:col-span-5">
+              {["Capital", "Income", "Timeline", "Gaps", "Score"].map((label, i) => (
+                <li
+                  key={label}
+                  className="rounded-2xl bg-white px-2 py-4 text-center shadow-md ring-1 ring-stone-200/90"
+                >
+                  <span className="block text-lg font-bold tabular-nums text-cinematic-teal">
+                    {i + 1}
+                  </span>
+                  <span className="mt-1 block text-[10px] font-semibold uppercase tracking-wide text-stone-500">
+                    {label}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* F — Photo editorial split */}
+      <section
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: CANVAS }}
+        aria-labelledby="planning-worry-f"
+      >
+        <div className={HOME4_WRAP}>
+          <p className="mb-6 text-xs font-bold uppercase tracking-[0.16em]" style={{ color: TEAL }}>
+            Option F · Photo editorial
+          </p>
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-300/70 lg:col-span-5 lg:aspect-auto lg:min-h-[360px]">
+              <Image
+                src={HERO_IMAGE}
+                alt={getAlt(HERO_IMAGE, "Couple reviewing retirement plans")}
+                fill
+                unoptimized
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+            </div>
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 rounded-full bg-cinematic-teal/10 px-3 py-1.5">
+                <ShieldCheck className="h-4 w-4" style={{ color: TEAL }} aria-hidden />
+                <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: TEAL }}>
+                  Financial Freedom Score™
+                </span>
+              </div>
+              <h2
+                id="planning-worry-f"
+                className="mt-5 font-bold tracking-tight"
+                style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", color: INK }}
+              >
+                Will your money survive your retirement?
+              </h2>
+              <p className="mt-4 max-w-xl leading-relaxed" style={{ fontSize: "1.0625rem", color: BODY }}>
+                Stop guessing. Take our 5-step guided diagnostic to discover your Financial Freedom
+                Score™ and identify any gaps in your current trajectory.
+              </p>
+              <Link
+                href="/retirement-survival-blueprint"
+                prefetch={false}
+                className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
+              >
+                Start the Retirement Survival Blueprint
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

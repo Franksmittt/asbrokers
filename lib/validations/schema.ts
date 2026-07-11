@@ -18,6 +18,24 @@ export const financialCalculatorSchema = contactFormSchema.extend({
     .pipe(z.number().min(0).optional()),
 });
 
+/**
+ * Soft post-calculator capture (no topic multi-select).
+ * Calculators stay ungated; this sits after the tool for CRM handoff.
+ */
+export const calculatorLeadSchema = z.object({
+  fullName: z.string().min(2, "Please enter your full name"),
+  phone: z.string().min(9, "Please enter a valid phone number"),
+  email: z.string().email("Please enter a valid email"),
+  capitalAmount: z
+    .union([z.string(), z.number()])
+    .transform((v) => (v === "" || v == null ? undefined : Number(v)))
+    .pipe(z.number().min(0).optional()),
+  consent: z.literal(true, { errorMap: () => ({ message: "Please accept to continue" }) }),
+  website: z.string().max(0).optional(),
+  calculatorId: z.string().max(160).optional(),
+  calculatorPath: z.string().max(240).optional(),
+});
+
 /** Footer newsletter signup: email only. HubSpot +10 lead score on submit. */
 export const newsletterSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -25,6 +43,7 @@ export const newsletterSchema = z.object({
 
 export type ContactFormPayload = z.infer<typeof contactFormSchema>;
 export type FinancialCalculatorPayload = z.infer<typeof financialCalculatorSchema>;
+export type CalculatorLeadPayload = z.infer<typeof calculatorLeadSchema>;
 export type NewsletterPayload = z.infer<typeof newsletterSchema>;
 
 /** Action state returned to client for useActionState; supports field-level errors. */
@@ -36,6 +55,19 @@ export interface ContactActionState {
     phone?: string[];
     email?: string[];
     topics?: string[];
+    consent?: string[];
+    capitalAmount?: string[];
+    website?: string[];
+  };
+}
+
+export interface CalculatorLeadActionState {
+  success: boolean;
+  message?: string;
+  fieldErrors?: {
+    fullName?: string[];
+    phone?: string[];
+    email?: string[];
     consent?: string[];
     capitalAmount?: string[];
     website?: string[];

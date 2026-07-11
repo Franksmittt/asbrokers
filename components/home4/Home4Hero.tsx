@@ -5,8 +5,13 @@ import { ArrowRight } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import { HUB_HERO_SIZES } from "@/lib/hub-lcp";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
+import {
+  WHATSAPP_DISPLAY,
+  whatsappUrl,
+  WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
+} from "@/lib/whatsapp";
 
-/** Above-fold home hero, conversion-first: Everest + education, other products still reachable below. */
+/** Above-fold home hero: one problem, one primary CTA, WhatsApp as same-day path. */
 export function Home4Hero() {
   return (
     <section data-chunk-boundary="true" className="relative overflow-hidden">
@@ -34,13 +39,11 @@ export function Home4Hero() {
             Independent · FSP 17273 · Category 1.8 · Education before advice
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.08]">
-            Structured income education, then advice that fits
+            Will this capital last, and what income can it support?
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
-            Run Albert&apos;s ASSET calculators, learn how Everest Wealth preference-share profiles
-            work where suitable, and book a capital assessment with an independent Category 1.8
-            adviser, not a call centre. Retirement, insurance, medical, and estate stay on the
-            table when your problem needs them.
+            Run Albert&apos;s Everest income calculator first. Then book a capital assessment with an
+            independent Category 1.8 adviser in Krugersdorp, not a call centre.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -51,22 +54,24 @@ export function Home4Hero() {
               Calculate 12.8% target income
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-            <Link
-              href="/calculators"
-              prefetch={false}
+            <a
+              href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-6 py-3.5 text-sm font-semibold text-shark transition hover:bg-white"
             >
-              Open all calculators
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+              WhatsApp {WHATSAPP_DISPLAY}
+            </a>
+          </div>
+          <p className="mt-4">
             <Link
               href="/contact?source=home_hero"
               prefetch={false}
-              className="inline-flex items-center gap-2 px-2 py-3.5 text-sm font-semibold text-white underline-offset-4 hover:underline"
+              className="text-sm font-semibold text-white/85 underline-offset-4 hover:text-white hover:underline"
             >
-              Book a capital assessment
+              Or book a capital assessment online
             </Link>
-          </div>
+          </p>
           <p className="mt-5 text-xs leading-relaxed text-white/70">
             Targeted returns are not guarantees. R100k min · liquidity and DWT constraints apply ·
             educational only under FAIS.

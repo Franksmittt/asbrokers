@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { EverestCalculatorEmbed } from "@/components/everest/EverestCalculatorEmbed";
+import { CalculatorLeadCapture } from "@/components/forms/CalculatorLeadCapture";
 import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
@@ -19,6 +20,7 @@ import {
   HUB_BODY as BODY,
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { WHATSAPP_DISPLAY, whatsappUrl, WHATSAPP_CALCULATOR_MESSAGE } from "@/lib/whatsapp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 
@@ -219,6 +221,11 @@ export function AssetCalculatorPageView({
             <div className="mt-6 rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-stone-200/90 sm:p-6">
               <EverestCalculatorEmbed src={calculatorSrc} title={calculatorTitle} />
             </div>
+            <CalculatorLeadCapture
+              calculatorId={assetCode}
+              calculatorPath={path}
+              calculatorTitle={calculatorTitle}
+            />
           </HubReveal>
         </div>
       </section>
@@ -281,6 +288,17 @@ export function AssetCalculatorPageView({
               Book a capital assessment
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
+            <a
+              href={whatsappUrl(
+                `${WHATSAPP_CALCULATOR_MESSAGE} Calculator: ${calculatorTitle}.`
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold ring-1 ring-stone-200 transition hover:bg-stone-50"
+              style={{ color: INK }}
+            >
+              WhatsApp {WHATSAPP_DISPLAY}
+            </a>
             <Link
               href="/everest-wealth"
               prefetch={false}
@@ -288,14 +306,6 @@ export function AssetCalculatorPageView({
               style={{ color: INK }}
             >
               Everest Wealth hub
-            </Link>
-            <Link
-              href="/calculators"
-              prefetch={false}
-              className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold ring-1 ring-stone-200 transition hover:bg-stone-50"
-              style={{ color: INK }}
-            >
-              All calculators
             </Link>
           </div>
         </div>

@@ -19,6 +19,11 @@ import {
   HOME4_TRUST_BADGES,
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
+import {
+  WHATSAPP_DISPLAY,
+  whatsappUrl,
+  WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
+} from "@/lib/whatsapp";
 
 /** Home sections after goal cards, loaded after idle to protect LCP/TBT. */
 export function Home4BelowFoldRest() {
@@ -90,11 +95,7 @@ export function Home4BelowFoldRest() {
             </Link>
           </Home4Reveal>
           <Home4Reveal instant>
-            <Link
-              href="/contact?source=home_pathways"
-              prefetch={false}
-              className="group flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15 transition-shadow hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
-            >
+            <div className="flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15">
               <h2 className="text-2xl font-bold tracking-tight text-shark">
                 Ready for a capital assessment?
               </h2>
@@ -102,11 +103,25 @@ export function Home4BelowFoldRest() {
                 Speak with a licensed independent fiduciary (FSP 17273). Bring calculator results if
                 you have them, Everest, retirement, insurance, or estate.
               </p>
-              <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-all group-hover:bg-[#004a9e] group-hover:shadow-xl">
-                Book a capital assessment
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </span>
-            </Link>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/contact?source=home_pathways"
+                  prefetch={false}
+                  className="inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition hover:bg-[#004a9e]"
+                >
+                  Book online
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+                <a
+                  href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-shark ring-1 ring-stone-200 transition hover:bg-stone-50"
+                >
+                  WhatsApp {WHATSAPP_DISPLAY}
+                </a>
+              </div>
+            </div>
           </Home4Reveal>
         </div>
       </section>

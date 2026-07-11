@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { EverestCalculatorEmbed } from "@/components/everest/EverestCalculatorEmbed";
+import { CalculatorLeadCapture } from "@/components/forms/CalculatorLeadCapture";
 import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getRelatedLinks } from "@/lib/related-content";
@@ -17,6 +18,7 @@ import {
   HUB_BODY as BODY,
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { WHATSAPP_DISPLAY, whatsappUrl, WHATSAPP_CALCULATOR_MESSAGE } from "@/lib/whatsapp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
 
@@ -186,6 +188,11 @@ export function SoloCalculatorPageView({
                 fallbackPanel
               )}
             </div>
+            <CalculatorLeadCapture
+              calculatorId={path.replace(/^\//, "").replace(/\//g, "-")}
+              calculatorPath={path}
+              calculatorTitle={calculatorTitle}
+            />
           </HubReveal>
         </div>
       </section>
@@ -218,14 +225,17 @@ export function SoloCalculatorPageView({
               Book a capital assessment
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-            <Link
-              href="/everest-wealth"
-              prefetch={false}
+            <a
+              href={whatsappUrl(
+                `${WHATSAPP_CALCULATOR_MESSAGE} Calculator: ${calculatorTitle}.`
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold ring-1 ring-stone-200 transition hover:bg-stone-50"
               style={{ color: INK }}
             >
-              Everest Wealth hub
-            </Link>
+              WhatsApp {WHATSAPP_DISPLAY}
+            </a>
           </div>
         </div>
       </section>

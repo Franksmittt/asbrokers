@@ -39,7 +39,8 @@ export function ContactEnquiryForm() {
       source === "home_journey" ||
       source === "home_pathways" ||
       source === "nav_cta" ||
-      source === "calculator_terminal"
+      source === "calculator_terminal" ||
+      source === "calculator_lead"
     ) {
       return ["everest"];
     }

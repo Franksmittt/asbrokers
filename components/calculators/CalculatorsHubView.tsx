@@ -46,10 +46,12 @@ function cardGridClass(count: number): string {
 }
 
 function domainTone(domainId: string): SectionTone {
-  // Alternating chapter rhythm: Everest light, retirement dark, estate light, tax dark, insurance light.
-  if (domainId === "retirement" || domainId === "tax") return "dark";
+  // Alternating chapter rhythm (tax/insurance are paired in a light row).
+  if (domainId === "retirement") return "dark";
   return "light";
 }
+
+const PAIRED_DOMAIN_IDS = new Set(["tax", "insurance"]);
 
 function CalculatorCard({
   tool,
@@ -123,6 +125,7 @@ function DomainSection({ domain }: { domain: HubDomain }) {
   const tools = getHubDomainCalculators(domain);
   const tone = domainTone(domain.id);
   const dark = tone === "dark";
+  const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
 
   return (
     <section
@@ -139,7 +142,7 @@ function DomainSection({ domain }: { domain: HubDomain }) {
             }`}
             style={dark ? undefined : { color: TEAL }}
           >
-            {tools.length} tools
+            {toolLabel}
           </p>
           <h2
             id={`${domain.id}-heading`}
@@ -167,11 +170,7 @@ function DomainSection({ domain }: { domain: HubDomain }) {
                 : "bg-shark text-white/80 ring-shark"
             }`}
           >
-            <p
-              className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] ${
-                dark ? "text-cinematic-teal" : "text-cinematic-teal"
-              }`}
-            >
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
               Everest voluntary capital, read before opening tools
             </p>
             <p className="mt-1.5 text-[0.8125rem] leading-relaxed">
@@ -194,6 +193,59 @@ function DomainSection({ domain }: { domain: HubDomain }) {
           {tools.map((tool) => (
             <CalculatorCard key={tool.id} tool={tool} anchor tone={tone} />
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Single-tool domains side by side so cards do not stretch full width. */
+function PairedDomainRow({ domains }: { domains: readonly HubDomain[] }) {
+  return (
+    <section
+      className="border-b py-12 md:py-16"
+      style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      aria-label="Tax and insurance calculators"
+    >
+      <div className={HOME4_WRAP}>
+        <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 md:gap-6 lg:gap-8">
+          {domains.map((domain) => {
+            const tools = getHubDomainCalculators(domain);
+            const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
+            return (
+              <div
+                key={domain.id}
+                id={domain.id}
+                className="flex scroll-mt-24 flex-col"
+                aria-labelledby={`${domain.id}-heading`}
+              >
+                <p
+                  className="text-xs font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: TEAL }}
+                >
+                  {toolLabel}
+                </p>
+                <h2
+                  id={`${domain.id}-heading`}
+                  className="mt-2 font-bold tracking-tight"
+                  style={{
+                    fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)",
+                    color: INK,
+                  }}
+                >
+                  {domain.label}
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
+                  {domain.lead}
+                </p>
+                <div className="mt-5 flex flex-1 flex-col">
+                  {tools.map((tool) => (
+                    <CalculatorCard key={tool.id} tool={tool} anchor tone="light" />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

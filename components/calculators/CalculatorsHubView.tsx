@@ -199,54 +199,65 @@ function DomainSection({ domain }: { domain: HubDomain }) {
   );
 }
 
-/** Single-tool domains side by side so cards do not stretch full width. */
+/** Single-tool domains side by side: one light panel, one dark panel. */
 function PairedDomainRow({ domains }: { domains: readonly HubDomain[] }) {
   return (
     <section
-      className="border-b py-12 md:py-16"
-      style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      className="border-b"
+      style={{ borderColor: HAIRLINE }}
       aria-label="Tax and insurance calculators"
     >
-      <div className={HOME4_WRAP}>
-        <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 md:gap-6 lg:gap-8">
-          {domains.map((domain) => {
-            const tools = getHubDomainCalculators(domain);
-            const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
-            return (
-              <div
-                key={domain.id}
-                id={domain.id}
-                className="flex scroll-mt-24 flex-col"
-                aria-labelledby={`${domain.id}-heading`}
-              >
+      <div className="grid grid-cols-1 items-stretch md:grid-cols-2">
+        {domains.map((domain, index) => {
+          const tools = getHubDomainCalculators(domain);
+          const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
+          const dark = index % 2 === 1;
+          const tone: SectionTone = dark ? "dark" : "light";
+
+          return (
+            <div
+              key={domain.id}
+              id={domain.id}
+              className={`flex scroll-mt-24 flex-col px-4 py-12 sm:px-6 md:px-8 md:py-16 lg:px-10 ${
+                dark ? "bg-shark text-white" : ""
+              }`}
+              style={dark ? undefined : { backgroundColor: CANVAS }}
+              aria-labelledby={`${domain.id}-heading`}
+            >
+              <div className="mx-auto flex w-full max-w-xl flex-1 flex-col md:mx-0 md:max-w-none lg:max-w-lg lg:self-center">
                 <p
-                  className="text-xs font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: TEAL }}
+                  className={`text-xs font-semibold uppercase tracking-[0.18em] ${
+                    dark ? "text-cinematic-teal" : ""
+                  }`}
+                  style={dark ? undefined : { color: TEAL }}
                 >
                   {toolLabel}
                 </p>
                 <h2
                   id={`${domain.id}-heading`}
-                  className="mt-2 font-bold tracking-tight"
+                  className={`mt-2 font-bold tracking-tight ${dark ? "text-white" : ""}`}
                   style={{
                     fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)",
-                    color: INK,
+                    color: dark ? undefined : INK,
                   }}
                 >
                   {domain.label}
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
+                <p
+                  className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : ""}`}
+                  style={dark ? undefined : { color: BODY }}
+                >
                   {domain.lead}
                 </p>
                 <div className="mt-5 flex flex-1 flex-col">
                   {tools.map((tool) => (
-                    <CalculatorCard key={tool.id} tool={tool} anchor tone="light" />
+                    <CalculatorCard key={tool.id} tool={tool} anchor tone={tone} />
                   ))}
                 </div>
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -467,9 +478,13 @@ export function CalculatorsHubView({ faqItems }: Props) {
         </div>
       </section>
 
-      {HUB_DOMAINS.map((domain) => (
+      {HUB_DOMAINS.filter((domain) => !PAIRED_DOMAIN_IDS.has(domain.id)).map((domain) => (
         <DomainSection key={domain.id} domain={domain} />
       ))}
+
+      <PairedDomainRow
+        domains={HUB_DOMAINS.filter((domain) => PAIRED_DOMAIN_IDS.has(domain.id))}
+      />
 
       {/* Dark FAQ revamp */}
       <section

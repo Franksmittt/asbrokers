@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
@@ -8,6 +9,7 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
+import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -15,6 +17,7 @@ const TEAL = "#00A3A3";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const INSET = "rgba(29,29,31,0.05)";
+const COMMERCIAL_IMAGE = "/images/risk-arch-commercial.png";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or insurance advice as defined in the FAIS Act, 2002. Outcomes depend on underwriting, policy wording, and your circumstances.";
 
@@ -110,6 +113,51 @@ export function InsuranceHubPageView({ faqs }: Props) {
           </div>
         </div>
       </header>
+
+      <section className="pb-16 md:pb-20" aria-labelledby="commercial-reality-heading">
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <aside className="col-span-12 lg:col-span-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
+              Commercial reality
+            </p>
+          </aside>
+          <div className="col-span-12 lg:col-span-9">
+            <h2
+              id="commercial-reality-heading"
+              className="font-serif font-semibold tracking-tight"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            >
+              Cover written for the balance sheet that actually operates
+            </h2>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+              Workshops, stock, machinery, and interruption risk do not match a template policy sold
+              on price. Independent placement starts with what can burn, stop, or sue — then the
+              wording.
+            </p>
+            <figure className="mt-8">
+              <div
+                className="relative aspect-[16/9] overflow-hidden border bg-white"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <Image
+                  src={COMMERCIAL_IMAGE}
+                  alt={getAlt(
+                    COMMERCIAL_IMAGE,
+                    "South African workshop — commercial property and interruption risk context"
+                  )}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 70vw"
+                />
+              </div>
+              <figcaption className="mt-3 max-w-2xl text-xs leading-relaxed text-stone-500">
+                Ability cue: real operating environments — not glass-tower stock. Average Clause and
+                Business Interruption definitions decide whether a claim restores the firm.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
 
       <section
         id="average-clause"

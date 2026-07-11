@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { RelatedContent } from "@/components/seo/RelatedContent";
@@ -9,11 +10,13 @@ import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
+import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
+const CRAFT_STRIP = "/images/calculators-hub-16x9.jpg";
 
 const FAIS_DISCLAIMER =
   "These calculators are illustrative and educational only. They do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes depend on fees, markets, underwriting, and your circumstances. Targeted Everest return profiles are not guarantees.";
@@ -152,6 +155,28 @@ export default function CalculatorsPage() {
               </p>
               <p className="mt-2">{FAIS_DISCLAIMER}</p>
             </aside>
+            <figure className="mt-10 max-w-4xl">
+              <div
+                className="relative aspect-[16/9] overflow-hidden border bg-white"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <Image
+                  src={CRAFT_STRIP}
+                  alt={getAlt(
+                    CRAFT_STRIP,
+                    "Calculator planning sheets for retirement, tax, estate and premiums on a desk"
+                  )}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 900px"
+                  priority={false}
+                />
+              </div>
+              <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
+                Tools as craft — ungated ASSET calculators so you test assumptions before a sales
+                conversation.
+              </figcaption>
+            </figure>
           </div>
         </header>
 

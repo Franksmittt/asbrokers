@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
@@ -9,12 +10,14 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { EVEREST_CONSTRAINT_STRING } from "@/lib/problem-messaging";
+import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const INSET = "rgba(29,29,31,0.05)";
+const CRAFT_IMAGE = "/images/everest-copper-industrial-4x3.jpg";
 
 const PRODUCTS = [
   {
@@ -120,6 +123,28 @@ export function EverestWealthPageView({ faqs }: Props) {
               separately (FSP 795). We are an independent intermediary, not a tied agent or
               subsidiary.
             </p>
+            <figure className="mt-10">
+              <div
+                className="relative aspect-[4/3] overflow-hidden border bg-white sm:aspect-[16/9]"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <Image
+                  src={CRAFT_IMAGE}
+                  alt={getAlt(
+                    CRAFT_IMAGE,
+                    "Copper refinery illustrating tangible industrial backing behind structured income"
+                  )}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 70vw"
+                />
+              </div>
+              <figcaption className="mt-3 max-w-2xl text-xs leading-relaxed text-stone-500">
+                Real-economy illustration — not a yield lifestyle shot. Preference-share structures
+                sit behind audited channels; returns remain targeted, not guaranteed.{" "}
+                <span className="tabular-nums text-stone-600">{EVEREST_CONSTRAINT_STRING}</span>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>

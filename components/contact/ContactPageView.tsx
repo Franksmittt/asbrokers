@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Footer } from "@/components/Footer";
@@ -8,11 +9,13 @@ import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { ContactFormDeferred } from "@/components/contact/ContactFormDeferred";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
+import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
+const TRUST_IMAGE = "/images/contact-trust.jpg";
 const FAIS_POPIA =
   "Submitting this form does not constitute financial advice under the FAIS Act, 2002. Advice is only rendered after a documented needs analysis by a licensed representative of FSP 17273. Personal information is processed to respond to your enquiry and initiate a capital assessment, in line with POPIA. See our Privacy Policy.";
 
@@ -23,6 +26,8 @@ const SOURCE_LABELS: Record<string, string> = {
   insights_terminal: "Continuing from the Insights library",
   about_terminal: "Continuing from About AS Brokers",
   calculators_terminal: "Continuing after the calculator library",
+  everest_terminal: "Continuing from the Everest Wealth hub",
+  medical_terminal: "Continuing from medical aid & gap structuring",
 };
 
 const STEPS = [
@@ -107,6 +112,24 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </div>
 
           <div className="col-span-12 space-y-12 lg:col-span-5">
+            <figure>
+              <div
+                className="relative aspect-[4/3] overflow-hidden border bg-white"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <Image
+                  src={TRUST_IMAGE}
+                  alt={getAlt(TRUST_IMAGE, "In-person consultation with an AS Brokers adviser")}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </div>
+              <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
+                Human intake: an authorised FSP 17273 adviser responds — not a rotating call centre.
+              </figcaption>
+            </figure>
+
             <div>
               <h2 className="font-serif text-xl font-semibold tracking-tight text-shark">
                 Who we help best

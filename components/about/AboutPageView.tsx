@@ -13,6 +13,8 @@ const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const HERO_IMAGE = "/images/home4-why-independence-4x3.jpg";
+const PLACE_IMAGE = "/images/about-krugersdorp-trust-16x9.jpg";
+const PLAQUE_IMAGE = "/images/about-fiduciary-plaque-4x3.jpg";
 
 const FOUNDERS = [
   {
@@ -20,14 +22,14 @@ const FOUNDERS = [
     name: "Albert Schuurman",
     role: "Co-founder & Key Individual",
     focus: "Retirement engineering, Everest Wealth, and living annuities.",
-    initials: "AS",
+    photo: "/images/team-albert.jpg",
   },
   {
     id: "person-johnny-farinha",
     name: "Johnny Farinha",
     role: "Co-founder",
     focus: "Estate structuring, business continuity, and personal life risk.",
-    initials: "JF",
+    photo: "/images/team-johnny.jpg",
   },
 ] as const;
 
@@ -70,6 +72,9 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
               <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
                 Independence
+              </a>
+              <a href="#place" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+                Place &amp; proof
               </a>
               <a href="#fiduciaries" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
                 Fiduciaries
@@ -152,6 +157,64 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
       </section>
 
       <section
+        id="place"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="place-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="place-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            A real office on the West Rand — not a call centre
+          </h2>
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            Local presence and visible compliance are trust cues you can verify. We are independent
+            intermediaries you can meet — not a national script queue.
+          </p>
+          <div className="mt-10 grid gap-6 lg:grid-cols-12">
+            <figure className="lg:col-span-8">
+              <div
+                className="relative aspect-[16/9] overflow-hidden border bg-white"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <Image
+                  src={PLACE_IMAGE}
+                  alt={getAlt(PLACE_IMAGE, "Krugersdorp storefront with FSP 17273 signage")}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 66vw"
+                />
+              </div>
+              <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
+                Independent financial advice · Est. presence on the West Rand ·{" "}
+                <span className="tabular-nums">FSP 17273</span>
+              </figcaption>
+            </figure>
+            <figure className="lg:col-span-4">
+              <div
+                className="relative aspect-[4/3] overflow-hidden border bg-white lg:aspect-auto lg:h-full lg:min-h-[220px]"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <Image
+                  src={PLAQUE_IMAGE}
+                  alt={getAlt(PLAQUE_IMAGE, "FAIS compliance binders and adviser materials on desk")}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                />
+              </div>
+              <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
+                Integrity cue: FAIS disclosure pack and compliance materials kept on the desk — not
+                buried in a footer.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section
         id="fiduciaries"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="fiduciaries-heading"
@@ -173,16 +236,19 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               <article
                 key={founder.id}
                 id={founder.id}
-                className="grid grid-cols-[5rem_1fr] gap-5 bg-[#F7F6F3] p-6 sm:p-8"
+                className="grid grid-cols-[5.5rem_1fr] gap-5 bg-[#F7F6F3] p-6 sm:grid-cols-[7rem_1fr] sm:p-8"
               >
                 <div
-                  className="flex aspect-square items-center justify-center border bg-white"
+                  className="relative aspect-square overflow-hidden border bg-white"
                   style={{ borderColor: HAIRLINE }}
-                  aria-hidden
                 >
-                  <span className="font-serif text-2xl font-semibold tabular-nums text-stone-700">
-                    {founder.initials}
-                  </span>
+                  <Image
+                    src={founder.photo}
+                    alt={getAlt(founder.photo, founder.name)}
+                    fill
+                    className="object-cover object-top"
+                    sizes="112px"
+                  />
                 </div>
                 <div>
                   <h3 className="font-serif text-xl font-semibold tracking-tight text-shark">

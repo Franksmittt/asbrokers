@@ -10,7 +10,7 @@ import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { ArrowRight, ShieldCheck, FileText } from "@/components/icons";
+import { ArrowRight, ShieldCheck } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import {
   HUB_TEAL as TEAL,
@@ -22,6 +22,7 @@ import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const WARM = "#FDFCFA";
 
 const HERO_IMAGE = "/images/home4-goal-retire-16x9.png";
 
@@ -35,21 +36,18 @@ const CALCULATOR_TILES = [
     title: "Retirement Reality Check",
     description: "Compare your desired income against your projected capital to see if a gap exists.",
     href: CALC_REALITY,
-    accent: "teal" as const,
   },
   {
     code: "ASSET 001",
     title: "Retirement Growth Calculator",
     description: "Discover the exact return percentage you need to hit your target.",
     href: CALC_GROWTH,
-    accent: "blue" as const,
   },
   {
     code: "ASSET 017",
     title: "Personal Goal Growth",
     description: "Project future lump sums based on your monthly contributions.",
     href: CALC_GOAL,
-    accent: "teal" as const,
   },
 ];
 
@@ -87,14 +85,13 @@ function EducationCard({
   description,
   href,
   cta,
-  span,
 }: (typeof EDUCATION_CARDS)[number]) {
   return (
-    <article className={span}>
+    <article className="h-full">
       <Link
         href={href}
         prefetch={false}
-        className="group flex h-full flex-col rounded-2xl bg-white/95 p-6 shadow-lg ring-1 ring-stone-200/80 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8"
+        className="group flex h-full flex-col border-l-[3px] border-cinematic-teal bg-white p-6 ring-1 ring-stone-200/90 transition-colors hover:bg-stone-50 sm:p-8"
       >
         <h3
           className="font-bold tracking-tight"
@@ -125,7 +122,6 @@ type Props = { faqs: FAQItem[] };
 export function RetirementPlanningPageView({ faqs }: Props) {
   return (
     <>
-      {/* Split hero — text and image in separate grid cells */}
       <header
         data-chunk-boundary="true"
         className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
@@ -160,15 +156,23 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               Clarity on your capital, your timeline, and exactly what growth rate you need to reach
               financial independence.
             </p>
-            <Link
-              href="/retirement-survival-blueprint"
-              prefetch={false}
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-cta-glow-blue transition-all duration-300 hover:bg-[#004a9e]"
-              style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-            >
-              Take the Retirement Survival Blueprint
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link
+                href="#planning-education-heading"
+                prefetch={false}
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#004a9e]"
+              >
+                Explore your options
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href="#planning-calculators-heading"
+                prefetch={false}
+                className="text-sm font-semibold text-samsung-blue transition hover:opacity-80"
+              >
+                Or run the calculators
+              </Link>
+            </div>
           </HubReveal>
 
           <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
@@ -189,16 +193,70 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </header>
 
+      {/* 1. Educate — warm light */}
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-16 md:py-24"
+        className="border-t border-stone-200/80 py-14 md:py-20"
+        style={{ backgroundColor: WARM }}
+        aria-labelledby="planning-education-heading"
+      >
+        <div className={GRID}>
+          <HubReveal className="col-span-12">
+            <p
+              className="font-semibold uppercase tracking-[0.16em]"
+              style={{ fontSize: "0.75rem", color: TEAL }}
+            >
+              Accumulation phase
+            </p>
+            <h2
+              id="planning-education-heading"
+              className="mt-3 font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
+            >
+              Master your accumulation phase.
+            </h2>
+            <p
+              className="mt-3 max-w-2xl leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            >
+              Structures and reading that matter before you stop working — then test the numbers
+              yourself.
+            </p>
+          </HubReveal>
+
+          {EDUCATION_CARDS.map((card, index) => (
+            <HubReveal key={card.title} delay={index * 0.04} className={card.span}>
+              <EducationCard {...card} />
+            </HubReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* 2. Tools — dark tool bay */}
+      <HubCalculatorToolBay
+        headingId="planning-calculators-heading"
+        title="Run your own numbers."
+        lead="Illustrative tools for the accumulation phase. Educational only — not personalised advice."
+        tools={CALCULATOR_TILES.map((tile) => ({
+          code: tile.code,
+          title: tile.title,
+          description: tile.description,
+          href: tile.href,
+          span: "col-span-12 md:col-span-4",
+        }))}
+      />
+
+      {/* 3. Convert — single Blueprint moment */}
+      <section
+        data-chunk-boundary="true"
+        className="border-t border-stone-800 py-16 md:py-24"
         style={{
           background: "linear-gradient(135deg, #004a9e 0%, #006b6b 55%, #1D1D1F 100%)",
         }}
         aria-labelledby="planning-worry-heading"
       >
         <div className={`${HOME4_WRAP} text-center`}>
-          <ShieldCheck className="mx-auto h-10 w-10 text-white/80" aria-hidden />
+          <ShieldCheck className="mx-auto h-9 w-9 text-white/75" aria-hidden />
           <h2
             id="planning-worry-heading"
             className="mx-auto mt-5 max-w-3xl font-bold tracking-tight text-white"
@@ -221,63 +279,14 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      <HubCalculatorToolBay
-        headingId="planning-calculators-heading"
-        title="Run your own numbers."
-        lead="Illustrative tools for the accumulation phase. Educational only — not personalised advice."
-        tools={CALCULATOR_TILES.map((tile) => ({
-          code: tile.code,
-          title: tile.title,
-          description: tile.description,
-          href: tile.href,
-          span: "col-span-12 md:col-span-4",
-        }))}
-      />
-
-      {/* Education */}
+      {/* 4. Trust closer — dark, no glow ornaments */}
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 bg-white/60 py-14 md:py-20"
-        aria-labelledby="planning-education-heading"
-      >
-        <div className={GRID}>
-          <HubReveal className="col-span-12">
-            <div className="flex items-center gap-3">
-              <FileText className="h-7 w-7 shrink-0" style={{ color: TEAL }} aria-hidden />
-              <h2
-                id="planning-education-heading"
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-              >
-                Master your accumulation phase.
-              </h2>
-            </div>
-          </HubReveal>
-
-          {EDUCATION_CARDS.map((card, index) => (
-            <HubReveal key={card.title} delay={index * 0.05} className={card.span}>
-              <EducationCard {...card} />
-            </HubReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Fiduciary trust */}
-      <section
-        data-chunk-boundary="true"
-        className="relative overflow-hidden border-t border-stone-800 py-16 md:py-24"
+        className="border-t border-stone-800 py-16 md:py-24"
         style={{ backgroundColor: INK }}
         aria-labelledby="planning-trust-heading"
       >
-        <div
-          className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-cinematic-teal/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -right-10 top-0 h-48 w-48 rounded-full bg-samsung-blue/20 blur-3xl"
-          aria-hidden
-        />
-        <div className={`relative ${HOME4_WRAP}`}>
+        <div className={HOME4_WRAP}>
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-6">
               <h2
@@ -301,7 +310,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               </Link>
             </div>
             <div className="lg:col-span-6">
-              <div className="rounded-3xl bg-white/5 p-7 ring-1 ring-white/10 backdrop-blur-2xl sm:p-8">
+              <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-7 sm:p-8">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
                   Retirement focus
                 </p>
@@ -320,7 +329,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                   {TRUST_BADGES.map((b) => (
                     <span
                       key={b}
-                      className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85 ring-1 ring-white/10"
+                      className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/85"
                     >
                       {b}
                     </span>

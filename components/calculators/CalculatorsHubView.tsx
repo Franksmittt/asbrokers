@@ -35,11 +35,14 @@ type FaqItem = { question: string; answer: string };
 
 type SectionTone = "light" | "dark";
 
-/** Even tool rows: leftover cards expand (no stranded empty column). */
+/** Even tool rows with equal card heights in each row. */
 function cardGridClass(count: number): string {
   if (count <= 1) return "grid grid-cols-1 gap-4";
   if (count === 2) return "grid grid-cols-1 gap-4 sm:grid-cols-2";
-  return "flex flex-wrap gap-4 [&>*]:min-h-0 [&>*]:min-w-[min(100%,17.5rem)] [&>*]:flex-1 [&>*]:basis-[17.5rem] lg:[&>*]:basis-[calc(33.333%-0.75rem)]";
+  // Exactly 3 (Start here): one row, equal height via CSS grid stretch.
+  if (count === 3) return "grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3";
+  // 4+: max 3 cols; last incomplete row still equal-height within the row.
+  return "grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3";
 }
 
 function domainTone(domainId: string): SectionTone {
@@ -61,11 +64,14 @@ function CalculatorCard({
 }) {
   const dark = tone === "dark";
   return (
-    <article {...(anchor ? { id: tool.id } : {})} className="scroll-mt-28 h-full min-h-0">
+    <article
+      {...(anchor ? { id: tool.id } : {})}
+      className="flex h-full min-h-0 scroll-mt-28 flex-col"
+    >
       <Link
         href={tool.href}
         prefetch={false}
-        className={`group flex h-full flex-col rounded-2xl p-5 ring-1 transition sm:p-5 ${
+        className={`group flex h-full min-h-[13.5rem] flex-1 flex-col rounded-2xl p-5 ring-1 transition sm:min-h-[14.5rem] sm:p-5 ${
           dark
             ? "bg-white/[0.06] ring-white/10 hover:bg-white/[0.1] hover:ring-cinematic-teal/40"
             : featured
@@ -98,7 +104,7 @@ function CalculatorCard({
           {tool.problem}
         </p>
         <span
-          className={`mt-4 inline-flex items-center gap-1.5 text-sm font-semibold ${
+          className={`mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold ${
             dark ? "text-cinematic-teal" : "text-samsung-blue"
           }`}
         >

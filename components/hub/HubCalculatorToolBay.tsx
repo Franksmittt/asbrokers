@@ -22,6 +22,11 @@ type Props = {
   lead: string;
   tools: HubCalculatorTool[];
   showChartIcon?: boolean;
+  /**
+   * Render as a block inside a parent dark chapter (no full-bleed section chrome).
+   * Use when Blueprint → tools → trust should read as one continuous band.
+   */
+  embedded?: boolean;
 };
 
 const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
@@ -75,7 +80,43 @@ export function HubCalculatorToolBay({
   lead,
   tools,
   showChartIcon = true,
+  embedded = false,
 }: Props) {
+  const body = (
+    <div className={`relative ${GRID}`}>
+      <div className="col-span-12">
+        <div className="flex items-center gap-3">
+          {showChartIcon ? (
+            <LineChart className="h-7 w-7 shrink-0 text-cinematic-teal" aria-hidden />
+          ) : null}
+          <h2
+            id={headingId}
+            className="font-bold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)" }}
+          >
+            {title}
+          </h2>
+        </div>
+        <p className="mt-3 max-w-2xl leading-relaxed text-white/70" style={{ fontSize: "1.0625rem" }}>
+          {lead}
+        </p>
+      </div>
+      {tools.map((tool, index) => (
+        <div key={tool.code} className={tool.span ?? "col-span-12 md:col-span-4"}>
+          <ToolCard {...tool} index={index} />
+        </div>
+      ))}
+    </div>
+  );
+
+  if (embedded) {
+    return (
+      <div className="relative" aria-labelledby={headingId}>
+        {body}
+      </div>
+    );
+  }
+
   return (
     <section
       data-chunk-boundary="true"
@@ -84,36 +125,10 @@ export function HubCalculatorToolBay({
       aria-labelledby={headingId}
     >
       <div
-        className="pointer-events-none absolute -right-16 top-0 h-64 w-64 rounded-full bg-cinematic-teal/25 blur-3xl"
+        className="pointer-events-none absolute -right-16 top-0 h-64 w-64 rounded-full bg-cinematic-teal/20 blur-3xl"
         aria-hidden
       />
-      <div className={`relative ${GRID}`}>
-        <div className="col-span-12">
-          <div className="flex items-center gap-3">
-            {showChartIcon ? (
-              <LineChart className="h-7 w-7 shrink-0 text-cinematic-teal" aria-hidden />
-            ) : null}
-            <h2
-              id={headingId}
-              className="font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)" }}
-            >
-              {title}
-            </h2>
-          </div>
-          <p className="mt-3 max-w-2xl leading-relaxed text-white/70" style={{ fontSize: "1.0625rem" }}>
-            {lead}
-          </p>
-        </div>
-        {tools.map((tool, index) => (
-          <div
-            key={tool.code}
-            className={tool.span ?? "col-span-12 md:col-span-4"}
-          >
-            <ToolCard {...tool} index={index} />
-          </div>
-        ))}
-      </div>
+      {body}
     </section>
   );
 }

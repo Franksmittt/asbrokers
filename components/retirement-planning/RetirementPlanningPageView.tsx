@@ -31,27 +31,9 @@ const CALC_GROWTH = calculatorPagePath("asset-001-retirement-growth");
 const CALC_GOAL = calculatorPagePath("asset-017-personal-goal");
 
 const PATH_STEPS = [
-  {
-    step: "01",
-    title: "Diagnose your trajectory",
-    body: "Start with the Retirement Survival Blueprint — a 5-step diagnostic that surfaces your Financial Freedom Score™ and the gaps that matter.",
-    href: "/retirement-survival-blueprint",
-    cta: "Start the Blueprint",
-  },
-  {
-    step: "02",
-    title: "Run the numbers yourself",
-    body: "Use the calculators below for income gaps, required growth, and contribution projections. Educational only — not personalised advice.",
-    href: "#planning-calculators-heading",
-    cta: "Open the tools",
-  },
-  {
-    step: "03",
-    title: "Speak with an independent adviser",
-    body: "When you want a plan built around your facts, book a strategy call with AS Brokers CC — FSP 17273, Krugersdorp, 25+ years.",
-    href: "/contact",
-    cta: "Book a strategy call",
-  },
+  { n: "1", label: "Diagnose", href: "#planning-worry-heading" },
+  { n: "2", label: "Calculate", href: "#planning-calculators-heading" },
+  { n: "3", label: "Get advice", href: "#planning-trust-heading" },
 ] as const;
 
 const CALCULATOR_TILES = [
@@ -101,8 +83,6 @@ const EDUCATION_CARDS = [
   },
 ];
 
-const TRUST_BADGES = ["FSP 17273", "Category 1.8", "Est. 1998", "Krugersdorp · West Rand"];
-
 function EducationCard({
   title,
   description,
@@ -145,10 +125,10 @@ type Props = { faqs: FAQItem[] };
 export function RetirementPlanningPageView({ faqs }: Props) {
   return (
     <>
-      {/* Purpose: orient the visitor in one screen */}
+      {/* Chapter 1 — light: arrive, understand, choose a path */}
       <header
         data-chunk-boundary="true"
-        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        className="pb-10 pt-28 md:pb-14 md:pt-36 lg:pb-16 lg:pt-40"
         style={{ backgroundColor: CANVAS }}
       >
         <div className={`${GRID} items-center gap-y-8`}>
@@ -177,9 +157,8 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 color: BODY,
               }}
             >
-              This page is for South Africans still working. Diagnose your trajectory, check the
-              numbers, then speak with an independent adviser when you want a plan — not a product
-              pitch.
+              For South Africans still working: diagnose your trajectory, check the numbers, then
+              speak with an independent adviser when you want a plan — not a product pitch.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
@@ -199,9 +178,6 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 Book a strategy call
               </Link>
             </div>
-            <p className="mt-6 text-xs font-medium uppercase tracking-[0.12em] text-stone-500">
-              AS Brokers CC · Independent Category 1.8 · Est. 1998 · Krugersdorp
-            </p>
           </HubReveal>
 
           <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
@@ -220,151 +196,161 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </div>
           </HubReveal>
         </div>
+
+        <div className={`${HOME4_WRAP} mt-10 border-t border-stone-200/90 pt-8 md:mt-12`}>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">
+            AS Brokers CC · Independent Category 1.8 · Est. 1998 · Krugersdorp
+          </p>
+          <nav aria-label="Page path" className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-3 text-sm">
+            <span className="mr-2 font-medium text-stone-600">On this page:</span>
+            {PATH_STEPS.map((step, i) => (
+              <span key={step.href} className="inline-flex items-center gap-2">
+                {i > 0 ? <span className="text-stone-300" aria-hidden>/</span> : null}
+                <Link
+                  href={step.href}
+                  prefetch={false}
+                  className="inline-flex items-center gap-1.5 font-semibold text-samsung-blue transition hover:opacity-80"
+                >
+                  <span className="tabular-nums text-cinematic-teal">{step.n}</span>
+                  {step.label}
+                </Link>
+              </span>
+            ))}
+          </nav>
+        </div>
       </header>
 
-      {/* Trust bar — established, not decorative */}
+      {/* Chapter 2 — one continuous dark journey: diagnose → calculate → advise */}
       <section
         data-chunk-boundary="true"
-        className="border-y border-stone-200/80 py-5"
-        style={{ backgroundColor: WARM }}
-        aria-label="Credentials"
+        className="bg-[#1D1D1F] text-white"
+        aria-label="Diagnose, calculate, and get advice"
       >
-        <div className={`${HOME4_WRAP} flex flex-wrap items-center justify-center gap-x-8 gap-y-2 sm:justify-between`}>
-          {TRUST_BADGES.map((badge) => (
-            <p
-              key={badge}
-              className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-600"
-            >
-              {badge}
-            </p>
-          ))}
-        </div>
-      </section>
-
-      {/* How to use this page — remove the “wall of content” feeling */}
-      <section
-        data-chunk-boundary="true"
-        className="border-b border-stone-200/80 py-14 md:py-20"
-        style={{ backgroundColor: CANVAS }}
-        aria-labelledby="planning-path-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <HubReveal>
-            <h2
-              id="planning-path-heading"
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
-            >
-              Three clear next steps.
-            </h2>
-            <p
-              className="mt-3 max-w-2xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              You do not need to read everything. Follow the path that matches where you are —
-              diagnose, calculate, or speak to us.
-            </p>
-          </HubReveal>
-
-          <ol className="mt-10 grid list-none gap-6 md:grid-cols-3">
-            {PATH_STEPS.map((item, index) => (
-              <li key={item.step}>
-                <HubReveal delay={index * 0.04} className="h-full">
-                  <article className="flex h-full flex-col border-t-2 border-cinematic-teal bg-white p-6 ring-1 ring-stone-200/90 sm:p-7">
-                    <span
-                      className="font-bold tabular-nums tracking-tight text-cinematic-teal"
-                      style={{ fontSize: "1.25rem" }}
-                    >
-                      {item.step}
-                    </span>
-                    <h3
-                      className="mt-3 font-bold tracking-tight"
-                      style={{ fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.25rem)", color: INK }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className="mt-3 flex-1 text-sm leading-relaxed"
-                      style={{ color: BODY }}
-                    >
-                      {item.body}
-                    </p>
-                    <Link
-                      href={item.href}
-                      prefetch={false}
-                      className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue transition hover:opacity-80"
-                    >
-                      {item.cta}
-                      <ArrowRight className="h-4 w-4" aria-hidden />
-                    </Link>
-                  </article>
-                </HubReveal>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* Primary lead magnet */}
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-800 py-16 md:py-24"
-        style={{
-          background: "linear-gradient(135deg, #004a9e 0%, #006b6b 55%, #1D1D1F 100%)",
-        }}
-        aria-labelledby="planning-worry-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <div className="mx-auto max-w-3xl text-center">
+        <div
+          className="py-16 md:py-20"
+          style={{
+            background: "linear-gradient(165deg, #004a9e 0%, #006b6b 42%, #1D1D1F 88%)",
+          }}
+        >
+          <div className={HOME4_WRAP}>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
-              Flagship diagnostic · Financial Freedom Score™
+              Step 1 · Financial Freedom Score™
             </p>
-            <ShieldCheck className="mx-auto mt-5 h-9 w-9 text-white/75" aria-hidden />
-            <h2
-              id="planning-worry-heading"
-              className="mt-5 font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
-            >
-              Will your money survive your retirement?
-            </h2>
-            <p
-              className="mx-auto mt-5 max-w-2xl leading-relaxed text-white/80"
-              style={{ fontSize: "1.0625rem" }}
-            >
-              Stop guessing. The Retirement Survival Blueprint is a guided 5-step diagnostic that
-              shows your score and the gaps in your current trajectory — then points you toward
-              advice when you are ready.
+            <div className="mt-6 grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-7">
+                <ShieldCheck className="h-8 w-8 text-white/75" aria-hidden />
+                <h2
+                  id="planning-worry-heading"
+                  className="mt-4 font-bold tracking-tight text-white"
+                  style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+                >
+                  Will your money survive your retirement?
+                </h2>
+                <p className="mt-5 max-w-xl leading-relaxed text-white/80" style={{ fontSize: "1.0625rem" }}>
+                  The Retirement Survival Blueprint is a guided 5-step diagnostic. It shows your score
+                  and the gaps in your trajectory — then you can check the maths below, or speak to us.
+                </p>
+                <Link
+                  href="/retirement-survival-blueprint"
+                  prefetch={false}
+                  className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+                >
+                  Start the Retirement Survival Blueprint
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </div>
+              <div className="lg:col-span-5">
+                <p className="text-sm leading-relaxed text-white/70">
+                  Prefer to explore first? Keep scrolling — the same tools our clients use for gap
+                  checks are next, then a clear path to book independent advice (FSP 17273).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 py-14 md:py-16">
+          <p className={`${HOME4_WRAP} mb-8 text-xs font-semibold uppercase tracking-[0.18em] text-white/45`}>
+            Step 2 · Illustrative calculators
+          </p>
+          <HubCalculatorToolBay
+            embedded
+            showChartIcon={false}
+            headingId="planning-calculators-heading"
+            title="Run the numbers yourself."
+            lead="Educational tools only — not personalised advice. Use them to spot gaps before a fiduciary conversation."
+            tools={CALCULATOR_TILES.map((tile) => ({
+              code: tile.code,
+              title: tile.title,
+              description: tile.description,
+              href: tile.href,
+              span: "col-span-12 md:col-span-4",
+            }))}
+          />
+        </div>
+
+        <div className="border-t border-white/10 py-16 md:py-20">
+          <div className={HOME4_WRAP}>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+              Step 3 · Independent advice · Krugersdorp
             </p>
-            <Link
-              href="/retirement-survival-blueprint"
-              prefetch={false}
-              className="mt-10 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
-            >
-              Start the Retirement Survival Blueprint
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <div className="mt-6 grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-7">
+                <h2
+                  id="planning-trust-heading"
+                  className="font-bold tracking-tight text-white"
+                  style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
+                >
+                  When you are ready for a plan built around your facts.
+                </h2>
+                <p className="mt-5 max-w-xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
+                  AS Brokers CC is an independent Category 1.8 FSP (17273) with over 25 years helping
+                  West Rand families — advice-led, not call-centre sales or institutional quotas.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href="/contact"
+                    prefetch={false}
+                    className="inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
+                  >
+                    Book a Retirement Strategy Call
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                  <Link
+                    href="/about"
+                    prefetch={false}
+                    className="inline-flex items-center rounded-2xl px-6 py-3.5 text-sm font-semibold text-white/85 ring-1 ring-white/20 transition hover:bg-white/5"
+                  >
+                    About AS Brokers
+                  </Link>
+                </div>
+              </div>
+              <div className="lg:col-span-5">
+                <dl className="space-y-5 border border-white/10 bg-white/[0.04] p-7 sm:p-8">
+                  {[
+                    { dt: "Authorisation", dd: "FSCA FSP 17273 · Category 1.8" },
+                    { dt: "Experience", dd: "Serving clients since 1998" },
+                    { dt: "Location", dd: "Krugersdorp, West Rand, Gauteng" },
+                    { dt: "Approach", dd: "Fiduciary, advice-led, not product quotas" },
+                  ].map((row) => (
+                    <div key={row.dt} className="border-b border-white/10 pb-4 last:border-0 last:pb-0">
+                      <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+                        {row.dt}
+                      </dt>
+                      <dd className="mt-1.5 text-sm font-medium text-white">{row.dd}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* DIY tools */}
-      <HubCalculatorToolBay
-        headingId="planning-calculators-heading"
-        title="Prefer to run the numbers yourself?"
-        lead="Illustrative tools for the accumulation phase. Educational only — not personalised advice. Use them to spot gaps before a fiduciary conversation."
-        tools={CALCULATOR_TILES.map((tile) => ({
-          code: tile.code,
-          title: tile.title,
-          description: tile.description,
-          href: tile.href,
-          span: "col-span-12 md:col-span-4",
-        }))}
-      />
-
-      {/* SEO / depth — framed as optional deeper reading */}
+      {/* Chapter 3 — warm depth (optional), then FAQ */}
       <section
         data-chunk-boundary="true"
-        className="border-t border-stone-200/80 py-14 md:py-20"
+        className="py-14 md:py-20"
         style={{ backgroundColor: WARM }}
         aria-labelledby="planning-education-heading"
       >
@@ -374,20 +360,20 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               className="font-semibold uppercase tracking-[0.16em]"
               style={{ fontSize: "0.75rem", color: TEAL }}
             >
-              When you want more depth
+              Optional deeper reading
             </p>
             <h2
               id="planning-education-heading"
               className="mt-3 font-bold tracking-tight"
               style={{ fontSize: "clamp(1.375rem, 1.15rem + 0.8vw, 1.875rem)", color: INK }}
             >
-              Structures and reading that matter before you stop working.
+              Structures and guides for the accumulation phase.
             </h2>
             <p
               className="mt-3 max-w-2xl leading-relaxed"
               style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
             >
-              Optional next reading — not required to start the Blueprint or book a call.
+              Not required to start the Blueprint or book a call — here when you want more context.
             </p>
           </HubReveal>
 
@@ -396,69 +382,6 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               <EducationCard {...card} />
             </HubReveal>
           ))}
-        </div>
-      </section>
-
-      {/* Trust closer → lead */}
-      <section
-        data-chunk-boundary="true"
-        className="border-t border-stone-800 py-16 md:py-24"
-        style={{ backgroundColor: INK }}
-        aria-labelledby="planning-trust-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-                Independent advice · Krugersdorp
-              </p>
-              <h2
-                id="planning-trust-heading"
-                className="mt-4 font-bold tracking-tight text-white"
-                style={{ fontSize: "clamp(1.75rem, 1.35rem + 1.4vw, 2.75rem)", lineHeight: 1.1 }}
-              >
-                Your retirement is too important for guesswork or institutional quotas.
-              </h2>
-              <p className="mt-5 max-w-xl leading-relaxed text-white/75" style={{ fontSize: "1.0625rem" }}>
-                AS Brokers CC is an independent Category 1.8 FSP (17273) with over 25 years helping
-                West Rand families build plans that serve their goals — not a single product house.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href="/contact"
-                  prefetch={false}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3.5 font-semibold text-shark transition hover:bg-stone-100"
-                >
-                  Book a Retirement Strategy Call
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-                <Link
-                  href="/about"
-                  prefetch={false}
-                  className="inline-flex items-center rounded-2xl px-6 py-3.5 text-sm font-semibold text-white/85 ring-1 ring-white/20 transition hover:bg-white/5"
-                >
-                  About AS Brokers
-                </Link>
-              </div>
-            </div>
-            <div className="lg:col-span-5">
-              <dl className="space-y-5 border border-white/10 bg-white/[0.04] p-7 sm:p-8">
-                {[
-                  { dt: "Authorisation", dd: "FSCA FSP 17273 · Category 1.8" },
-                  { dt: "Experience", dd: "Serving clients since 1998" },
-                  { dt: "Location", dd: "Krugersdorp, West Rand, Gauteng" },
-                  { dt: "Approach", dd: "Fiduciary, advice-led, not call-centre sales" },
-                ].map((row) => (
-                  <div key={row.dt} className="border-b border-white/10 pb-4 last:border-0 last:pb-0">
-                    <dt className="text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
-                      {row.dt}
-                    </dt>
-                    <dd className="mt-1.5 text-sm font-medium text-white">{row.dd}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
         </div>
       </section>
 

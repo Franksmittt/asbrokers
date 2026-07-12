@@ -51,6 +51,25 @@ const GROWTH_TOOLS = [
   },
 ] as const;
 
+const DIAGNOSTIC_TOOLS = [
+  {
+    code: "ASSET 013",
+    title: "Everest Income vs Growth",
+    description:
+      "Side-by-side illustration of income-led versus growth-led voluntary structures.",
+    href: CALC_INCOME_VS_GROWTH,
+    cta: "Calculate scenario",
+  },
+  {
+    code: "ASSET 011",
+    title: "12.8% vs 14.2% Income",
+    description:
+      "Compare Strategic Income and Onyx Income+ targeted monthly cash flow side by side.",
+    href: CALC_128_VS_142,
+    cta: "Compare profiles",
+  },
+] as const;
+
 const EVEREST_ROWS = [
   {
     name: "12.8% Strategic Income",
@@ -613,17 +632,13 @@ export function InvestmentsPageView({ faqs }: Props) {
             Income vs growth: liquidity trade-offs
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
-            Compare maximum day-one income against deferred compounding, without treating either
-            scenario as advice.
+            Compare income versus growth, and day-one cash flow versus loyalty-bonus trade-offs,
+            without treating either scenario as advice.
           </p>
-          <div className="mt-10 max-w-xl">
-            <ToolCard
-              code="ASSET 013"
-              title="Everest Income vs Growth"
-              description="Side-by-side illustration of income-led versus growth-led voluntary structures."
-              href={CALC_INCOME_VS_GROWTH}
-              cta="Calculate scenario"
-            />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 md:gap-6">
+            {DIAGNOSTIC_TOOLS.map((tool) => (
+              <ToolCard key={tool.code} {...tool} />
+            ))}
           </div>
         </div>
       </section>

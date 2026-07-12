@@ -7,12 +7,6 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import {
-  HUB_TEAL as TEAL,
-  HUB_CANVAS as CANVAS,
-  HUB_INK as INK,
-  HUB_BODY as BODY,
-} from "@/lib/hub-design-tokens";
-import {
   HUB_DOMAINS,
   getHubDomainCalculators,
   getHubFeaturedCalculators,
@@ -25,173 +19,159 @@ import {
   WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
 } from "@/lib/whatsapp";
 
+/** Continuous Document tokens, matched to Estate / Retirement hubs. */
+const CANVAS = "#F7F6F3";
+const INK = "#1D1D1F";
+const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
+const INSET = "rgba(29,29,31,0.05)";
 const CRAFT_STRIP = "/images/calculators-hub-16x9.jpg";
 
 const FAIS_DISCLAIMER =
   "These calculators are illustrative and educational only. They do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes depend on fees, markets, underwriting, and your circumstances. Targeted Everest return profiles are not guarantees.";
 
-type FaqItem = { question: string; answer: string };
-
-type SectionTone = "light" | "dark";
-
-/** Even tool rows with equal card heights in each row. */
-function cardGridClass(count: number): string {
-  if (count <= 1) return "grid grid-cols-1 gap-4";
-  if (count === 2) return "grid grid-cols-1 gap-4 sm:grid-cols-2";
-  // Exactly 3 (Start here): one row, equal height via CSS grid stretch.
-  if (count === 3) return "grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3";
-  // 4+: max 3 cols; last incomplete row still equal-height within the row.
-  return "grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3";
-}
-
-function domainTone(domainId: string): SectionTone {
-  // Alternating chapter rhythm (tax/insurance are paired in a light row).
-  if (domainId === "retirement") return "dark";
-  return "light";
-}
-
 const PAIRED_DOMAIN_IDS = new Set(["tax", "insurance"]);
 
+type FaqItem = { question: string; answer: string };
+
+function cardGridClass(count: number): string {
+  if (count <= 1) return "grid grid-cols-1 gap-5";
+  if (count === 2) return "grid grid-cols-1 gap-5 sm:grid-cols-2";
+  if (count === 3) return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-3";
+  return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3";
+}
+
+/** One card language everywhere (light chapters, shark chapters, split pair). */
 function CalculatorCard({
   tool,
-  featured = false,
   anchor = false,
-  tone = "light",
 }: {
   tool: HubCalculator;
-  featured?: boolean;
   anchor?: boolean;
-  tone?: SectionTone;
 }) {
-  const dark = tone === "dark";
   return (
     <article
       {...(anchor ? { id: tool.id } : {})}
-      className="flex h-full min-h-0 scroll-mt-28 flex-col"
+      className="flex h-full scroll-mt-28 flex-col border bg-white p-6 sm:p-7"
+      style={{ borderColor: HAIRLINE }}
     >
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-500 tabular-nums">
+        {tool.assetCode}
+      </p>
+      <h3
+        className="mt-3 font-serif font-semibold tracking-tight text-shark"
+        style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem)" }}
+      >
+        {tool.title}
+      </h3>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{tool.problem}</p>
       <Link
         href={tool.href}
         prefetch={false}
-        className={`group flex h-full min-h-[13.5rem] flex-1 flex-col rounded-2xl p-5 ring-1 transition sm:min-h-[14.5rem] sm:p-5 ${
-          dark
-            ? "bg-white/[0.06] ring-white/10 hover:bg-white/[0.1] hover:ring-cinematic-teal/40"
-            : featured
-              ? "bg-white ring-samsung-blue/25 shadow-sm hover:ring-cinematic-teal/50"
-              : "bg-white ring-stone-200/90 hover:ring-cinematic-teal/50"
-        }`}
+        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
       >
-        <p
-          className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] tabular-nums ${
-            dark ? "text-cinematic-teal" : ""
-          }`}
-          style={dark ? undefined : { color: TEAL }}
-        >
-          {tool.assetCode}
-        </p>
-        <h3
-          className={`mt-2 font-bold tracking-tight group-hover:text-cinematic-teal ${
-            dark ? "text-white" : "text-shark"
-          }`}
-          style={{ fontSize: "clamp(1rem, 0.95rem + 0.2vw, 1.125rem)", lineHeight: 1.3 }}
-        >
-          {tool.title}
-        </h3>
-        <p
-          className={`mt-2 flex-1 text-sm leading-relaxed ${
-            dark ? "text-white/70" : ""
-          }`}
-          style={dark ? undefined : { color: BODY }}
-        >
-          {tool.problem}
-        </p>
-        <span
-          className={`mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold ${
-            dark ? "text-cinematic-teal" : "text-samsung-blue"
-          }`}
-        >
-          Open
-          <ArrowRight
-            className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-            aria-hidden
-          />
-        </span>
+        Run calculation
+        <ArrowRight className="h-4 w-4" aria-hidden />
       </Link>
     </article>
   );
 }
 
-function DomainSection({ domain }: { domain: HubDomain }) {
+function SectionHeader({
+  kicker,
+  headingId,
+  title,
+  lead,
+  invert = false,
+}: {
+  kicker: string;
+  headingId: string;
+  title: string;
+  lead?: string;
+  invert?: boolean;
+}) {
+  return (
+    <div className="max-w-2xl">
+      <p
+        className={`text-xs font-semibold uppercase tracking-[0.18em] ${
+          invert ? "text-cinematic-teal" : "text-cinematic-teal"
+        }`}
+      >
+        {kicker}
+      </p>
+      <h2
+        id={headingId}
+        className={`mt-3 font-serif font-semibold tracking-tight ${
+          invert ? "text-white" : ""
+        }`}
+        style={{
+          fontSize: "clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)",
+          color: invert ? undefined : INK,
+        }}
+      >
+        {title}
+      </h2>
+      {lead ? (
+        <p
+          className={`mt-3 text-sm leading-relaxed sm:text-base ${
+            invert ? "text-white/70" : ""
+          }`}
+          style={invert ? undefined : { color: BODY }}
+        >
+          {lead}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function DomainChapter({ domain }: { domain: HubDomain }) {
   const tools = getHubDomainCalculators(domain);
-  const tone = domainTone(domain.id);
-  const dark = tone === "dark";
   const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
 
   return (
     <section
       id={domain.id}
-      className={`scroll-mt-24 py-12 md:py-16 ${dark ? "bg-shark text-white" : "border-b"}`}
-      style={dark ? undefined : { borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      className="scroll-mt-28 border-b pb-16 pt-14 md:pb-24 md:pt-20"
+      style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
       aria-labelledby={`${domain.id}-heading`}
     >
       <div className={HOME4_WRAP}>
-        <div className="max-w-2xl">
-          <p
-            className={`text-xs font-semibold uppercase tracking-[0.18em] ${
-              dark ? "text-cinematic-teal" : ""
-            }`}
-            style={dark ? undefined : { color: TEAL }}
-          >
-            {toolLabel}
-          </p>
-          <h2
-            id={`${domain.id}-heading`}
-            className={`mt-2 font-bold tracking-tight ${dark ? "text-white" : ""}`}
-            style={{
-              fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)",
-              color: dark ? undefined : INK,
-            }}
-          >
-            {domain.label}
-          </h2>
-          <p
-            className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : ""}`}
-            style={dark ? undefined : { color: BODY }}
-          >
-            {domain.lead}
-          </p>
-        </div>
+        <SectionHeader
+          kicker={toolLabel}
+          headingId={`${domain.id}-heading`}
+          title={domain.label}
+          lead={domain.lead}
+        />
 
         {domain.everestDisclosure ? (
-          <div
-            className={`mt-5 rounded-2xl p-4 text-sm leading-relaxed ring-1 ${
-              dark
-                ? "bg-white/[0.06] text-white/75 ring-white/10"
-                : "bg-shark text-white/80 ring-shark"
-            }`}
+          <aside
+            className="mt-8 max-w-3xl rounded-lg p-5 text-sm leading-relaxed"
+            style={{ backgroundColor: INSET, color: BODY }}
+            role="note"
           >
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
               Everest voluntary capital, read before opening tools
             </p>
-            <p className="mt-1.5 text-[0.8125rem] leading-relaxed">
+            <p className="mt-2">
               Targeted return profiles on unlisted preference-share structures, not bank guarantees.
               R100,000 min · five-year term · 120-day notice · up to 15% early exit penalty may apply ·
               20% DWT typical.{" "}
               <Link
                 href="/everest-wealth/about"
                 prefetch={false}
-                className="font-semibold text-cinematic-teal underline-offset-2 hover:underline"
+                className="font-semibold text-cinematic-teal hover:opacity-80"
               >
                 Understanding Everest
               </Link>
               .
             </p>
-          </div>
+          </aside>
         ) : null}
 
-        <div className={`mt-6 ${cardGridClass(tools.length)}`}>
+        <div className={`mt-10 ${cardGridClass(tools.length)}`}>
           {tools.map((tool) => (
-            <CalculatorCard key={tool.id} tool={tool} anchor tone={tone} />
+            <CalculatorCard key={tool.id} tool={tool} anchor />
           ))}
         </div>
       </div>
@@ -199,59 +179,37 @@ function DomainSection({ domain }: { domain: HubDomain }) {
   );
 }
 
-/** Single-tool domains side by side: one light panel, one dark panel. */
+/** Keep the light | dark pair the user liked; same card language inside both halves. */
 function PairedDomainRow({ domains }: { domains: readonly HubDomain[] }) {
   return (
-    <section
-      className="border-b"
-      style={{ borderColor: HAIRLINE }}
-      aria-label="Tax and insurance calculators"
-    >
+    <section className="border-b" style={{ borderColor: HAIRLINE }} aria-label="Tax and insurance">
       <div className="grid grid-cols-1 items-stretch md:grid-cols-2">
         {domains.map((domain, index) => {
           const tools = getHubDomainCalculators(domain);
           const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
           const dark = index % 2 === 1;
-          const tone: SectionTone = dark ? "dark" : "light";
 
           return (
             <div
               key={domain.id}
               id={domain.id}
-              className={`flex scroll-mt-24 flex-col px-4 py-12 sm:px-6 md:px-8 md:py-16 lg:px-10 ${
+              className={`scroll-mt-28 px-4 py-14 sm:px-6 md:px-8 md:py-20 lg:px-10 ${
                 dark ? "bg-shark text-white" : ""
               }`}
               style={dark ? undefined : { backgroundColor: CANVAS }}
               aria-labelledby={`${domain.id}-heading`}
             >
-              <div className="mx-auto flex w-full max-w-xl flex-1 flex-col md:mx-0 md:max-w-none lg:max-w-lg lg:self-center">
-                <p
-                  className={`text-xs font-semibold uppercase tracking-[0.18em] ${
-                    dark ? "text-cinematic-teal" : ""
-                  }`}
-                  style={dark ? undefined : { color: TEAL }}
-                >
-                  {toolLabel}
-                </p>
-                <h2
-                  id={`${domain.id}-heading`}
-                  className={`mt-2 font-bold tracking-tight ${dark ? "text-white" : ""}`}
-                  style={{
-                    fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)",
-                    color: dark ? undefined : INK,
-                  }}
-                >
-                  {domain.label}
-                </h2>
-                <p
-                  className={`mt-2 text-sm leading-relaxed ${dark ? "text-white/70" : ""}`}
-                  style={dark ? undefined : { color: BODY }}
-                >
-                  {domain.lead}
-                </p>
-                <div className="mt-5 flex flex-1 flex-col">
+              <div className="mx-auto flex h-full w-full max-w-xl flex-col lg:max-w-lg">
+                <SectionHeader
+                  kicker={toolLabel}
+                  headingId={`${domain.id}-heading`}
+                  title={domain.label}
+                  lead={domain.lead}
+                  invert={dark}
+                />
+                <div className="mt-8 flex flex-1 flex-col gap-5">
                   {tools.map((tool) => (
-                    <CalculatorCard key={tool.id} tool={tool} anchor tone={tone} />
+                    <CalculatorCard key={tool.id} tool={tool} anchor />
                   ))}
                 </div>
               </div>
@@ -268,68 +226,73 @@ type Props = {
 };
 
 /**
- * Calculators hub: light/dark chapter rhythm, even card grids, substantive FAQ.
+ * Calculators hub, Continuous Document unity:
+ * Canvas chapters + one Shark "Start here" + Tax|Insurance split + inset terminal.
+ * Same hairline ToolCard as Estate / Retirement.
  */
 export function CalculatorsHubView({ faqItems }: Props) {
   const featured = getHubFeaturedCalculators();
+  const mainDomains = HUB_DOMAINS.filter((d) => !PAIRED_DOMAIN_IDS.has(d.id));
+  const pairedDomains = HUB_DOMAINS.filter((d) => PAIRED_DOMAIN_IDS.has(d.id));
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      {/* Light hero */}
-      <header className="border-b pb-10 pt-28 md:pb-12 md:pt-36 lg:pt-40" style={{ borderColor: HAIRLINE }}>
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`}>
+      {/* 1. Hero */}
+      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+        <div className={`${HOME4_WRAP} grid grid-cols-12 items-start gap-10 lg:gap-12`}>
           <div className="col-span-12 lg:col-span-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: TEAL }}>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
               Albert&apos;s ASSET library · FSP 17273 · Ungated
             </p>
             <h1
-              className="mt-3 font-bold tracking-tight"
+              className="mt-5 font-serif font-semibold tracking-tight"
               style={{
-                fontSize: "clamp(1.875rem, 1.4rem + 1.8vw, 2.75rem)",
-                lineHeight: 1.12,
+                fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)",
+                lineHeight: 1.15,
                 color: INK,
               }}
             >
               Run the numbers before anyone sells you a product
             </h1>
             <p
-              className="mt-4 max-w-xl leading-relaxed"
-              style={{ fontSize: "1.0625rem", color: BODY }}
+              className="mt-5 max-w-xl leading-relaxed"
+              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
               Seventeen educational calculators for retirement, Everest income, estate duty, tax, and
               underinsurance. Test assumptions yourself, then book a capital assessment if you want
               advice.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <a
                 href="#start-here"
-                className="inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
+                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Start here
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
               <a
                 href="#investments"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold ring-1 ring-stone-200 transition hover:bg-stone-50"
-                style={{ color: INK }}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
               >
-                Everest tools
+                Browse Everest tools
+                <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
             </div>
           </div>
 
-          <div className="col-span-12 flex flex-col gap-4 lg:col-span-5">
+          <div className="col-span-12 flex flex-col gap-5 lg:col-span-5">
             <aside
-              className="rounded-2xl bg-shark p-4 text-sm leading-relaxed text-white/80"
+              className="border bg-white p-5 text-sm leading-relaxed"
+              style={{ borderColor: HAIRLINE, color: BODY }}
               role="note"
             >
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
                 FAIS notice
               </p>
-              <p className="mt-1.5 text-[0.8125rem] leading-relaxed text-white/75">{FAIS_DISCLAIMER}</p>
+              <p className="mt-2 text-[13px] leading-relaxed">{FAIS_DISCLAIMER}</p>
             </aside>
-            <figure className="overflow-hidden rounded-2xl ring-1 ring-stone-200/90">
-              <div className="relative aspect-[2/1] bg-white sm:aspect-[16/9] lg:aspect-[2/1]">
+            <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
+              <div className="relative aspect-[16/10]">
                 <Image
                   src={CRAFT_STRIP}
                   alt={getAlt(
@@ -342,108 +305,79 @@ export function CalculatorsHubView({ faqItems }: Props) {
                   priority={false}
                 />
               </div>
+              <figcaption className="border-t px-4 py-3 text-[11px] leading-relaxed text-stone-500" style={{ borderColor: HAIRLINE }}>
+                Craft, not theatre. Tools stay free so you arrive informed.
+              </figcaption>
             </figure>
           </div>
         </div>
+
+        {/* 2. On this page, non-sticky */}
+        <nav
+          aria-label="On this page"
+          className={`${HOME4_WRAP} mt-12 border-t pt-6`}
+          style={{ borderColor: HAIRLINE }}
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
+            On this page
+          </p>
+          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+            <a href="#start-here" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Start here
+            </a>
+            {HUB_DOMAINS.map((domain) => (
+              <a
+                key={domain.id}
+                href={`#${domain.id}`}
+                className="text-sm font-medium text-stone-700 hover:text-cinematic-teal"
+              >
+                {domain.label}
+              </a>
+            ))}
+            <a href="#faq" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              FAQ
+            </a>
+          </div>
+        </nav>
       </header>
 
-      <nav
-        aria-label="Calculator domains"
-        className="sticky top-0 z-20 border-b bg-[#F7F6F3]/95 backdrop-blur-sm"
-        style={{ borderColor: HAIRLINE }}
-      >
-        <div className={`${HOME4_WRAP} flex flex-wrap items-center gap-x-5 gap-y-2 py-3`}>
-          <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-stone-500">
-            Jump
-          </span>
-          <a
-            href="#start-here"
-            className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
-          >
-            Start here
-          </a>
-          {HUB_DOMAINS.map((domain) => (
-            <a
-              key={domain.id}
-              href={`#${domain.id}`}
-              className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
-            >
-              {domain.label}
-            </a>
-          ))}
-        </div>
-      </nav>
-
-      {/* Dark: start here */}
+      {/* 3. Start here, one Shark Chapter */}
       <section
         id="start-here"
-        className="scroll-mt-24 bg-shark py-12 text-white md:py-16"
+        className="scroll-mt-28 bg-shark py-16 text-white md:py-24"
         aria-labelledby="start-here-heading"
       >
         <div className={HOME4_WRAP}>
-          <div className="grid grid-cols-12 gap-6 lg:gap-8">
-            <div className="col-span-12 max-w-2xl lg:col-span-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-                Where most visitors begin
-              </p>
-              <h2
-                id="start-here-heading"
-                className="mt-2 font-bold tracking-tight text-white"
-                style={{ fontSize: "clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)" }}
-              >
-                Three tools. Three common problems.
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/70 sm:text-base">
-                Pick the problem that sounds like yours. Tools stay ungated. If you want an adviser
-                on the numbers afterward, leave details on the calculator page or WhatsApp us.
-              </p>
-            </div>
-            <div className="col-span-12 grid grid-cols-3 gap-3 lg:col-span-5 lg:content-end">
-              {[
-                { n: "01", label: "Income" },
-                { n: "02", label: "Shortfall" },
-                { n: "03", label: "Estate" },
-              ].map((step) => (
-                <div
-                  key={step.n}
-                  className="rounded-xl bg-white/[0.06] px-3 py-3 ring-1 ring-white/10"
-                >
-                  <p className="text-[0.65rem] font-semibold tabular-nums text-cinematic-teal">
-                    {step.n}
-                  </p>
-                  <p className="mt-1 text-xs font-semibold text-white/90">{step.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={`mt-8 ${cardGridClass(featured.length)}`}>
+          <SectionHeader
+            kicker="Where most visitors begin"
+            headingId="start-here-heading"
+            title="Three tools. Three common problems."
+            lead="Pick the problem that sounds like yours. Tools stay ungated. Soft lead capture sits after each calculator if you want an adviser on the numbers."
+            invert
+          />
+          <div className={`mt-10 ${cardGridClass(featured.length)}`}>
             {featured.map((tool) => (
-              <CalculatorCard key={tool.id} tool={tool} featured tone="dark" />
+              <CalculatorCard key={tool.id} tool={tool} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Light: how the library works */}
+      {/* 4. How this library works */}
       <section
-        className="border-b py-12 md:py-14"
+        className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="how-library-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`}>
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-12`}>
           <div className="col-span-12 lg:col-span-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: TEAL }}>
-              How this library works
-            </p>
-            <h2
-              id="how-library-heading"
-              className="mt-2 font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
-            >
-              Educate, calculate, then decide if you need advice
-            </h2>
+            <SectionHeader
+              kicker="How this library works"
+              headingId="how-library-heading"
+              title="Educate, calculate, then decide if you need advice"
+            />
           </div>
-          <ol className="col-span-12 grid gap-4 sm:grid-cols-3 lg:col-span-8">
+          <ol className="col-span-12 space-y-0 divide-y lg:col-span-8" style={{ borderColor: HAIRLINE }}>
             {[
               {
                 step: "01",
@@ -463,142 +397,123 @@ export function CalculatorsHubView({ faqItems }: Props) {
             ].map((item) => (
               <li
                 key={item.step}
-                className="rounded-2xl bg-white p-5 ring-1 ring-stone-200/90"
+                className="grid grid-cols-[3rem_1fr] gap-4 py-6 first:pt-0 last:pb-0"
+                style={{ borderColor: HAIRLINE }}
               >
-                <p className="text-[0.6875rem] font-semibold tabular-nums" style={{ color: TEAL }}>
-                  {item.step}
-                </p>
-                <h3 className="mt-2 font-bold tracking-tight text-shark">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
-                  {item.body}
-                </p>
+                <span className="text-[11px] font-semibold tabular-nums text-stone-500">{item.step}</span>
+                <div>
+                  <h3 className="font-serif text-lg font-semibold tracking-tight text-shark">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
+                    {item.body}
+                  </p>
+                </div>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      {HUB_DOMAINS.filter((domain) => !PAIRED_DOMAIN_IDS.has(domain.id)).map((domain) => (
-        <DomainSection key={domain.id} domain={domain} />
+      {/* 5–7. Domain chapters */}
+      {mainDomains.map((domain) => (
+        <DomainChapter key={domain.id} domain={domain} />
       ))}
 
-      <PairedDomainRow
-        domains={HUB_DOMAINS.filter((domain) => PAIRED_DOMAIN_IDS.has(domain.id))}
-      />
+      {/* 8. Tax | Insurance split */}
+      <PairedDomainRow domains={pairedDomains} />
 
-      {/* Dark FAQ revamp */}
+      {/* 9. FAQ, canvas hairline */}
       <section
-        className="bg-shark py-14 text-white md:py-20"
-        aria-labelledby="calc-faq-heading"
         id="faq"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-labelledby="calc-faq-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-8 lg:gap-12`}>
-          <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-24 lg:self-start">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-              Before you book
-            </p>
-            <h2
-              id="calc-faq-heading"
-              className="mt-2 font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)" }}
-            >
-              Straight answers on advice, Everest, and which tool to open
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-white/65">
-              Education first. Personal financial advice only after a needs analysis with AS Brokers
-              CC, FSP 17273.
-            </p>
-            <div className="mt-6 hidden gap-3 lg:flex lg:flex-col">
-              <Link
-                href="/everest-wealth/about"
-                prefetch={false}
-                className="text-sm font-semibold text-cinematic-teal underline-offset-2 hover:underline"
-              >
-                Understanding Everest
-              </Link>
-              <Link
-                href="/contact?source=calculators_faq"
-                prefetch={false}
-                className="text-sm font-semibold text-white/80 underline-offset-2 hover:text-white hover:underline"
-              >
-                Book a capital assessment
-              </Link>
-            </div>
-          </div>
-
-          <div className="col-span-12 space-y-3 lg:col-span-8">
-            {faqItems.map((item, index) => (
-              <details
-                key={item.question}
-                className="group rounded-2xl bg-white/[0.06] ring-1 ring-white/10 open:bg-white/[0.09] open:ring-cinematic-teal/30"
-              >
-                <summary className="cursor-pointer list-none marker:content-none [&::-webkit-details-marker]:hidden">
-                  <span className="flex items-start gap-4 p-5 sm:p-6">
-                    <span className="mt-0.5 shrink-0 text-[0.6875rem] font-semibold tabular-nums text-cinematic-teal">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="flex min-w-0 flex-1 items-start justify-between gap-4">
-                      <span className="font-semibold leading-snug text-white text-sm sm:text-base">
-                        {item.question}
-                      </span>
-                      <span
-                        className="mt-0.5 shrink-0 text-lg leading-none text-cinematic-teal transition group-open:rotate-45"
-                        aria-hidden
-                      >
-                        +
-                      </span>
+        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
+          <SectionHeader
+            kicker="Before you book"
+            headingId="calc-faq-heading"
+            title="Straight answers on advice, Everest, and which tool to open"
+            lead="Education first. Personal financial advice only after a needs analysis with AS Brokers CC, FSP 17273."
+          />
+          <div className="mt-10 divide-y border-y" style={{ borderColor: HAIRLINE }}>
+            {faqItems.map((item) => (
+              <details key={item.question} className="group py-5">
+                <summary className="cursor-pointer list-none font-serif font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-start justify-between gap-4">
+                    <span className="text-base leading-snug sm:text-lg">{item.question}</span>
+                    <span
+                      className="shrink-0 text-cinematic-teal transition group-open:rotate-45"
+                      aria-hidden
+                    >
+                      +
                     </span>
                   </span>
                 </summary>
-                <div className="border-t border-white/10 px-5 pb-5 pt-0 sm:px-6 sm:pb-6">
-                  <p className="pl-8 text-sm leading-relaxed text-white/70 sm:pl-10">
-                    {item.answer}
-                  </p>
-                </div>
+                <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
+                  {item.answer}
+                </p>
               </details>
             ))}
           </div>
+          <p className="mt-8 text-sm">
+            <Link
+              href="/everest-wealth/about"
+              prefetch={false}
+              className="font-semibold text-cinematic-teal hover:opacity-80"
+            >
+              Understanding Everest
+            </Link>
+            <span className="mx-2 text-stone-400">·</span>
+            <Link
+              href="/contact?source=calculators_faq"
+              prefetch={false}
+              className="font-semibold text-cinematic-teal hover:opacity-80"
+            >
+              Book a capital assessment
+            </Link>
+          </p>
         </div>
       </section>
 
       <RelatedContent variant="warm" links={getRelatedLinks("/calculators")} />
 
-      {/* Light terminal with dark CTA block */}
-      <section className="pb-14 md:pb-20" aria-labelledby="calc-terminal-heading">
+      {/* 10. Inset terminal */}
+      <section className="pb-16 md:pb-24" aria-labelledby="calc-terminal-heading">
         <div className={HOME4_WRAP}>
-          <div className="rounded-2xl bg-shark p-6 text-white sm:p-8 md:flex md:items-end md:justify-between md:gap-8">
+          <div className="mx-auto max-w-[1000px] rounded-xl bg-shark px-6 py-10 text-white sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10">
             <div className="max-w-xl">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
                 Next step
               </p>
               <h2
                 id="calc-terminal-heading"
-                className="mt-2 font-bold tracking-tight text-white"
-                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)" }}
+                className="mt-3 font-serif text-2xl font-semibold tracking-tight text-white"
               >
                 Need help interpreting the numbers?
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
+              <p className="mt-3 text-sm leading-relaxed text-white/70">
                 Calculators stay educational. For Everest suitability, retirement longevity, estate
                 liquidity, or cover gaps, speak with an independent Category 1.8 adviser.
               </p>
             </div>
-            <div className="mt-5 flex shrink-0 flex-wrap gap-3 md:mt-0">
+            <div className="mt-8 flex shrink-0 flex-col items-start gap-3 md:mt-0 md:items-end">
               <Link
                 href="/contact?source=calculators_terminal"
                 prefetch={false}
-                className="inline-flex items-center gap-2 rounded-2xl bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
               >
-                Book assessment
+                Book a capital assessment
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <a
                 href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-sm font-semibold text-white ring-1 ring-white/20 transition hover:bg-white/15"
+                className="text-sm font-semibold text-white/80 underline-offset-2 hover:text-white hover:underline"
               >
-                WhatsApp {WHATSAPP_DISPLAY}
+                Or WhatsApp {WHATSAPP_DISPLAY}
               </a>
             </div>
           </div>

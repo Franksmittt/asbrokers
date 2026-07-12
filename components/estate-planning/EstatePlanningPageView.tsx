@@ -304,7 +304,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
       <section id="strategy-call" className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24" aria-labelledby="strategy-heading">
         <div className={HOME4_WRAP}>
           <div
-            className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12"
+            className="rounded-xl px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
             style={{ backgroundColor: INK }}
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">

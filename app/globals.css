@@ -49,6 +49,15 @@ body {
   min-height: 100vh;
 }
 
+/* Prevent 12-col / long-kicker intrinsic mins from forcing horizontal scroll on phones. */
+#main-content,
+#main-content .grid > * {
+  min-width: 0;
+}
+#main-content {
+  overflow-x: clip;
+}
+
 ::selection {
   background: var(--samsung-blue);
   color: white;

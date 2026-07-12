@@ -10,7 +10,7 @@ import {
   HUB_BODY as BODY,
 } from "@/lib/hub-design-tokens";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 export type LegalDocumentLayoutProps = {
   kicker: string;
@@ -36,10 +36,10 @@ export function LegalDocumentLayout({
     <>
       <div className="min-h-screen pb-20 pt-28 md:pb-24 md:pt-32" style={{ backgroundColor: CANVAS }}>
         <div className={GRID}>
-          <HubReveal instant className="col-span-12 lg:col-span-3">
+          <HubReveal instant className="min-w-0 lg:col-span-3">
             <aside className="lg:sticky lg:top-28">
               <p
-                className="font-semibold uppercase tracking-[0.2em]"
+                className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
                 style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
               >
                 {kicker}
@@ -81,7 +81,7 @@ export function LegalDocumentLayout({
             </aside>
           </HubReveal>
 
-          <HubReveal instant className="col-span-12 lg:col-span-7 lg:col-start-4">
+          <HubReveal instant className="min-w-0 lg:col-span-7 lg:col-start-4">
             <article className="rounded-3xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 sm:p-8 md:p-10">
               <LegalProse>{children}</LegalProse>
               {footerLinks && footerLinks.length > 0 ? (

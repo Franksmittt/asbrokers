@@ -237,7 +237,7 @@ export function Home4SectionHeader({
   return (
     <div className="max-w-2xl">
       {kicker ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: HUB_TEAL }}>{kicker}</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]" style={{ color: HUB_TEAL }}>{kicker}</p>
       ) : null}
       <h2
         id={headingId}

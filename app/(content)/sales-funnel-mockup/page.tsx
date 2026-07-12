@@ -119,7 +119,7 @@ function MockInput({ label, value }: { label: string; value: string }) {
 function FunnelMetric({ label, value, note }: { label: string; value: string; note: string }) {
   return (
     <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5 shadow-rim-glow">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">{label}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-zinc-500">{label}</p>
       <p className="mt-3 text-3xl font-bold tracking-[-0.04em] text-white">{value}</p>
       <p className="mt-2 text-sm leading-relaxed text-zinc-500">{note}</p>
     </div>
@@ -133,10 +133,10 @@ export default function SalesFunnelMockupPage() {
         <BackgroundOrbs />
         <div className={`${PAGE_CONTENT_MAX} relative z-10`}>
           <div className="mx-auto mb-8 flex max-w-5xl flex-wrap items-center justify-center gap-3 text-center">
-            <span className="rounded-full border border-supernova-gold/30 bg-supernova-gold/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-supernova-gold">
+            <span className="rounded-full border border-supernova-gold/30 bg-supernova-gold/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-supernova-gold">
               Mockup concept only
             </span>
-            <span className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-400">
+            <span className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-zinc-400">
               Unlinked standalone funnel page
             </span>
           </div>
@@ -185,7 +185,7 @@ export default function SalesFunnelMockupPage() {
               <div className="rounded-[2rem] border border-white/10 bg-[#101014] p-5">
                 <div className="mb-5 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-zinc-500">
                       Income preview
                     </p>
                     <p className="mt-1 text-xl font-bold text-white">R1,000,000 example</p>
@@ -209,7 +209,7 @@ export default function SalesFunnelMockupPage() {
                 </div>
 
                 <div className="mt-4 rounded-[1.75rem] border border-supernova-gold/20 bg-supernova-gold/10 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-supernova-gold">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-supernova-gold">
                     Maturity hook
                   </p>
                   <p className="mt-2 text-2xl font-bold text-white">10% loyalty bonus at year 5</p>
@@ -219,7 +219,7 @@ export default function SalesFunnelMockupPage() {
                 </div>
 
                 <div className="mt-4 rounded-[1.75rem] border border-white/10 bg-black/30 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Visitor path</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-zinc-500">Visitor path</p>
                   <div className="mt-4 space-y-3">
                     {["Estimate income", "Download report", "Book advisor fit call"].map((step, index) => (
                       <div key={step} className="flex items-center gap-3 text-sm text-zinc-300">
@@ -249,7 +249,7 @@ export default function SalesFunnelMockupPage() {
           <div className="grid gap-4 md:grid-cols-3">
             {proofItems.map((item) => (
               <article key={item.title} className="rim-light rounded-[2rem] p-6 md:p-8">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">{item.eyebrow}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">{item.eyebrow}</p>
                 <h3 className="mt-4 text-xl font-bold tracking-[-0.03em] text-white">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-zinc-400">{item.body}</p>
               </article>
@@ -258,7 +258,7 @@ export default function SalesFunnelMockupPage() {
 
           <div className="mt-6 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="rounded-[2rem] border border-white/10 bg-[#101014] p-6 md:p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-zinc-500">
                 Behind-the-scenes proof panel
               </p>
               <div className="mt-6 space-y-4 font-mono text-xs text-zinc-400">
@@ -278,7 +278,7 @@ export default function SalesFunnelMockupPage() {
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.025] p-6 md:p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Value ladder</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-zinc-500">Value ladder</p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {funnelStages.map((item) => (
                   <div key={item.stage} className="rounded-2xl border border-white/10 bg-black/20 p-4">
@@ -341,7 +341,7 @@ export default function SalesFunnelMockupPage() {
             <div className="rim-light rounded-[2.5rem] p-4">
               <div className="rounded-[2rem] bg-black/30 p-5 md:p-7">
                 <div className="mb-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Example form state</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-zinc-500">Example form state</p>
                   <h3 className="mt-2 text-2xl font-bold text-white">Preview your income profile</h3>
                   <p className="mt-2 text-sm leading-relaxed text-zinc-500">
                     Static mockup only. A production version would use Zod validation, a Server Action, CRM capture, and

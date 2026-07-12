@@ -589,7 +589,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
           <div className="rounded-xl bg-shark px-6 py-10 text-white sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10">
             <div className="max-w-2xl">
               <p
-                className="text-xs font-semibold uppercase tracking-[0.18em]"
+                className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
                 style={{ color: TEAL_ON_DARK }}
               >
                 Next step

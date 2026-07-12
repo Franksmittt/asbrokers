@@ -18,7 +18,7 @@ import {
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 const navSections = [
   { id: "context", label: "Why alternatives" },
@@ -108,7 +108,7 @@ function SectionCard({
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <p
-      className="font-semibold uppercase tracking-[0.18em]"
+      className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
       style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
     >
       {children}
@@ -147,7 +147,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
         style={{ backgroundColor: CANVAS }}
       >
         <div className={`${GRID} items-center gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="min-w-0 lg:col-span-6">
             <Eyebrow>Fiduciary briefing · Regulation before yield</Eyebrow>
             <h1
               className="mt-4 font-bold tracking-tight"
@@ -188,7 +188,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </div>
           </HubReveal>
 
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+          <HubReveal delay={0.06} className="min-w-0 lg:col-span-6">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
               <Image
                 src={heroImage}
@@ -223,7 +223,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
 
       <div className="border-t border-stone-200/80 py-12 md:py-16" style={{ backgroundColor: "#FDFCFA" }}>
         <div className={`${GRID} gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-7">
+          <HubReveal className="min-w-0 lg:col-span-7">
             <SectionCard id="context">
               <Eyebrow>Context</Eyebrow>
               <H2>Why alternative investments in South Africa?</H2>
@@ -243,7 +243,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </SectionCard>
           </HubReveal>
 
-          <HubReveal className="col-span-12 lg:col-span-5">
+          <HubReveal className="min-w-0 lg:col-span-5">
             <SectionCard className="h-full bg-gradient-to-br from-white to-stone-50">
               <Eyebrow>Regulatory architecture</Eyebrow>
               <H2>Three distinct roles</H2>
@@ -255,7 +255,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </SectionCard>
           </HubReveal>
 
-          <HubReveal className="col-span-12">
+          <HubReveal className="min-w-0 col-span-full">
             <div id="structure" className="scroll-mt-28 grid gap-6 md:grid-cols-3 lg:gap-8">
               {ROLES.map((role) => (
                 <SectionCard key={role.num} className="border-l-4" style={{ borderLeftColor: role.accent }}>
@@ -277,7 +277,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </div>
           </HubReveal>
 
-          <HubReveal className="col-span-12">
+          <HubReveal className="min-w-0 col-span-full">
             <div id="products" className="scroll-mt-28">
             <Eyebrow>Products</Eyebrow>
             <H2>The product suite in plain terms</H2>
@@ -318,7 +318,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </div>
           </HubReveal>
 
-          <HubReveal className="col-span-12 lg:col-span-8">
+          <HubReveal className="min-w-0 lg:col-span-8">
             <SectionCard id="returns">
               <Eyebrow>Mechanics</Eyebrow>
               <H2>How are the returns generated?</H2>
@@ -343,7 +343,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </SectionCard>
           </HubReveal>
 
-          <HubReveal className="col-span-12 lg:col-span-4">
+          <HubReveal className="min-w-0 lg:col-span-4">
             <SectionCard className="h-full bg-stone-50">
               <Eyebrow>Portfolio concentration</Eyebrow>
               <H2>Concentration risk</H2>
@@ -356,7 +356,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </SectionCard>
           </HubReveal>
 
-          <HubReveal className="col-span-12 lg:col-span-7">
+          <HubReveal className="min-w-0 lg:col-span-7">
             <SectionCard id="risks">
               <Eyebrow>Important</Eyebrow>
               <H2>Illiquidity and early exit</H2>
@@ -378,7 +378,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </SectionCard>
           </HubReveal>
 
-          <HubReveal className="col-span-12 lg:col-span-5">
+          <HubReveal className="min-w-0 lg:col-span-5">
             <SectionCard id="fees" className="h-full">
               <Eyebrow>Remuneration</Eyebrow>
               <H2>Fees: &quot;Zero broker fee&quot;</H2>
@@ -401,7 +401,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </SectionCard>
           </HubReveal>
 
-          <HubReveal className="col-span-12">
+          <HubReveal className="min-w-0 col-span-full">
             <SectionCard id="tax">
               <Eyebrow>Efficiency</Eyebrow>
               <H2>Tax: why dividends can work in your favour</H2>
@@ -433,7 +433,7 @@ export function EverestWealthAboutPageView({ heroImage }: Props) {
             </SectionCard>
           </HubReveal>
 
-          <HubReveal className="col-span-12">
+          <HubReveal className="min-w-0 col-span-full">
             <SectionCard id="summary" className="bg-gradient-to-br from-white to-stone-50">
               <Eyebrow>Next steps</Eyebrow>
               <H2>Who is this for? Summary and next steps</H2>

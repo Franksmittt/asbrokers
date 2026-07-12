@@ -140,9 +140,9 @@ export function InvestmentsPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Orientation hero */}
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-12 items-center gap-10 lg:gap-12`}>
-          <div className="col-span-12 lg:col-span-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
+          <div className="min-w-0 lg:col-span-7">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
               Investments · FSP 17273 · Category 1.8
             </p>
             <h1
@@ -181,7 +181,7 @@ export function InvestmentsPageView({ faqs }: Props) {
               </Link>
             </div>
           </div>
-          <div className="col-span-12 lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             <WealthContinuumViz />
           </div>
         </div>
@@ -215,13 +215,13 @@ export function InvestmentsPageView({ faqs }: Props) {
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="fiduciary-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <div className="lg:sticky lg:top-28">
               <EditorialLabel>Philosophy</EditorialLabel>
             </div>
           </aside>
-          <div className="col-span-12 max-w-3xl lg:col-span-9">
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="fiduciary-heading"
               className="font-serif font-semibold tracking-tight"
@@ -256,13 +256,13 @@ export function InvestmentsPageView({ faqs }: Props) {
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="accumulation-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <div className="lg:sticky lg:top-28">
               <EditorialLabel>Phase I · Accumulation</EditorialLabel>
             </div>
           </aside>
-          <div className="col-span-12 max-w-3xl lg:col-span-9">
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="accumulation-heading"
               className="font-serif font-semibold tracking-tight"
@@ -372,13 +372,13 @@ export function InvestmentsPageView({ faqs }: Props) {
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="distribution-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <div className="lg:sticky lg:top-28">
               <EditorialLabel>Phase II · Distribution</EditorialLabel>
             </div>
           </aside>
-          <div className="col-span-12 max-w-3xl lg:col-span-9">
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="distribution-heading"
               className="font-serif font-semibold tracking-tight"
@@ -437,13 +437,13 @@ export function InvestmentsPageView({ faqs }: Props) {
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="everest-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <div className="lg:sticky lg:top-28">
               <EditorialLabel>Everest toolkit</EditorialLabel>
             </div>
           </aside>
-          <div className="col-span-12 lg:col-span-9">
+          <div className="min-w-0 lg:col-span-9">
             <h2
               id="everest-heading"
               className="font-serif font-semibold tracking-tight"
@@ -608,13 +608,13 @@ export function InvestmentsPageView({ faqs }: Props) {
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="amethyst-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <div className="lg:sticky lg:top-28">
               <EditorialLabel>Amethyst distinction</EditorialLabel>
             </div>
           </aside>
-          <div className="col-span-12 max-w-3xl lg:col-span-9">
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="amethyst-heading"
               className="font-serif font-semibold tracking-tight"
@@ -647,7 +647,7 @@ export function InvestmentsPageView({ faqs }: Props) {
 
       {/* Credential strip */}
       <section className="border-y py-8" style={{ borderColor: HAIRLINE }} aria-label="Fiduciary credentials">
-        <div className={`${HOME4_WRAP} grid gap-6 sm:grid-cols-3 sm:gap-8`}>
+        <div className={`${HOME4_WRAP} grid gap-6 md:grid-cols-3 md:gap-8`}>
           {[
             { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
             { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },
@@ -680,7 +680,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
             style={{ backgroundColor: INK }}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
               FSP 17273 · Category 1.8
             </p>
             <h2

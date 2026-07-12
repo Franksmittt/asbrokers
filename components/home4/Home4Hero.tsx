@@ -35,7 +35,7 @@ export function Home4Hero() {
 
       <div className="relative pt-32 pb-40 sm:pt-36 sm:pb-48 md:pt-40 md:pb-56">
         <div className={`${HOME4_WRAP} max-w-3xl`}>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80 sm:text-sm">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/80 sm:text-sm sm:tracking-[0.18em]">
             Independent · FSP 17273 · Category 1.8 · Education before advice
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.08]">

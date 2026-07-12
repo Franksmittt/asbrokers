@@ -111,7 +111,7 @@ export function HomeClientReviews() {
       aria-labelledby="reviews-heading"
     >
       <div className="mx-auto mb-10 max-w-2xl px-4 text-center sm:px-6 md:mb-12">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-cinematic-teal">Client voices</p>
+        <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">Client voices</p>
         <h2 id="reviews-heading" className="mb-3 text-2xl font-bold tracking-tight text-white md:text-3xl">
           What people say
         </h2>

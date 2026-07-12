@@ -27,7 +27,7 @@ export function MedicalAidPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
         <div className={HOME4_WRAP}>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
             Medical aid &amp; gap · FSP 17273 · Claims advocacy
           </p>
           <h1
@@ -67,13 +67,13 @@ export function MedicalAidPageView({ faqs }: Props) {
       </header>
 
       <section className="pb-16 md:pb-24" aria-labelledby="shortfall-heading">
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
               The shortfall reality
             </p>
           </aside>
-          <div className="col-span-12 max-w-3xl lg:col-span-9">
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="shortfall-heading"
               className="font-serif font-semibold tracking-tight"
@@ -117,13 +117,13 @@ export function MedicalAidPageView({ faqs }: Props) {
       </section>
 
       <section className="pb-16 md:pb-24" aria-labelledby="gap-heading">
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
               Demarcation
             </p>
           </aside>
-          <div className="col-span-12 max-w-3xl lg:col-span-9">
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="gap-heading"
               className="font-serif font-semibold tracking-tight"

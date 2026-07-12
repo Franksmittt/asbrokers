@@ -23,7 +23,7 @@ import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
 
 const OFFER = PLANNING_TOOL_OFFERS["legacy-checklist"];
 const HERO_IMAGE = "/images/risk-arch-estate.png";
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 const ASSUMPTIONS = [
   "I have a will",
@@ -105,7 +105,7 @@ export function LegacyReadinessLanding() {
 
       <div className={`${funnel.shell} ${funnel.stack}`}>
         <div className={`${GRID} items-center gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="min-w-0 lg:col-span-6">
             <p className={funnel.eyebrow}>Legacy Conversations™ · Stage 1</p>
             <h1 className={`mt-4 ${funnel.h1}`}>Don&apos;t leave a financial mess behind</h1>
             <p className={`mt-5 max-w-xl ${funnel.lead}`}>
@@ -127,7 +127,7 @@ export function LegacyReadinessLanding() {
             </div>
           </HubReveal>
 
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+          <HubReveal delay={0.06} className="min-w-0 lg:col-span-6">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
               <Image
                 src={HERO_IMAGE}
@@ -146,7 +146,7 @@ export function LegacyReadinessLanding() {
         </div>
 
         <div className={GRID}>
-          <div className="col-span-12 flex flex-col gap-6 lg:col-span-5 lg:gap-8">
+          <div className="min-w-0 col-span-full flex flex-col gap-6 lg:col-span-5 lg:gap-8">
             <section className={funnel.card}>
               <FunnelSectionHeader
                 compact

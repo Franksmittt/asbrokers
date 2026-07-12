@@ -18,7 +18,7 @@ import { ArrowRight } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 export function FunnelObjectionStripCustom({ items }: { items: string[] }) {
   return (
@@ -144,7 +144,7 @@ export function FunnelMarketingPage({
   return (
     <div className={`${funnel.shell} ${funnel.stack}`}>
       <div className={`${GRID} items-center gap-y-8`}>
-        <HubReveal className="col-span-12 lg:col-span-6">
+        <HubReveal className="min-w-0 lg:col-span-6">
           <p className={funnel.eyebrow}>
             {offer.pillar} · {stageLabel ?? offer.title}
           </p>
@@ -163,7 +163,7 @@ export function FunnelMarketingPage({
           <p className={`mt-4 trust-hallmark ${funnel.meta}`}>AS Brokers · FSP 17273</p>
         </HubReveal>
 
-        <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+        <HubReveal delay={0.06} className="min-w-0 lg:col-span-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
             <Image
               src={heroImage}
@@ -180,7 +180,7 @@ export function FunnelMarketingPage({
       <div className="lg:hidden">{capture}</div>
 
       <div className={GRID}>
-        <div className="col-span-12 flex flex-col gap-6 lg:col-span-5 lg:gap-8">
+        <div className="min-w-0 col-span-full flex flex-col gap-6 lg:col-span-5 lg:gap-8">
           <section className={funnel.card}>
             <FunnelSectionHeader
               compact
@@ -280,8 +280,8 @@ export function FunnelToolShell({
     <div className={`${funnel.shell} ${funnel.toolShell}`}>
       {compactHeader ? <div className="mb-6">{compactHeader}</div> : null}
       <div className={GRID}>
-        <aside className="col-span-12 lg:col-span-5">{sidebar ?? defaultSidebar}</aside>
-        <div className="col-span-12 lg:col-span-7">
+        <aside className="min-w-0 lg:col-span-5">{sidebar ?? defaultSidebar}</aside>
+        <div className="min-w-0 lg:col-span-7">
           <div className="min-h-[380px] rounded-3xl bg-white p-6 shadow-2xl ring-1 ring-stone-200/90 sm:p-8">
             {children}
           </div>

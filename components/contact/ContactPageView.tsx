@@ -73,7 +73,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       <header className="pb-10 pt-28 md:pb-12 md:pt-36 lg:pt-40">
         <div className={HOME4_WRAP}>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-stone-500">
             Contact · Krugersdorp · West Rand ·{" "}
             <span className="tabular-nums">FSP 17273</span>
           </p>
@@ -98,8 +98,8 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
       </header>
 
       <section className="pb-16 md:pb-20" aria-labelledby="intake-form-heading">
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <div className="col-span-12 lg:col-span-7">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <div className="min-w-0 lg:col-span-7">
             <h2 id="intake-form-heading" className="font-serif text-xl font-semibold tracking-tight text-shark">
               Consultation enquiry
             </h2>
@@ -117,7 +117,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             </div>
           </div>
 
-          <div className="col-span-12 space-y-12 lg:col-span-5">
+          <div className="min-w-0 col-span-full space-y-12 lg:col-span-5">
             <figure>
               <div
                 className="relative aspect-[4/3] overflow-hidden border bg-white"

@@ -90,9 +90,9 @@ export function RetirementPlanningPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Orientation hero, continuous canvas */}
       <header className="pb-16 pt-28 md:pb-24 md:pt-36 lg:pb-[7.5rem] lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-12 items-center gap-10 lg:gap-12`}>
-          <div className="col-span-12 lg:col-span-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
+          <div className="min-w-0 lg:col-span-7">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
               Pre-retirement diagnostics · FSP 17273 · Category 1.8
             </p>
             <h1
@@ -132,7 +132,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               </Link>
             </div>
           </div>
-          <div className="col-span-12 lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             <CapitalTrajectoryViz />
           </div>
         </div>
@@ -149,7 +149,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             className="mx-auto max-w-[1000px] rounded-lg px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
             style={{ backgroundColor: INK }}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
               Primary diagnostic
             </p>
             <h2
@@ -207,8 +207,8 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="legislation-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <aside className="col-span-12 lg:col-span-3">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
             <nav
               aria-label="Education sections"
               className="lg:sticky lg:top-28"
@@ -231,7 +231,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </nav>
           </aside>
 
-          <div className="col-span-12 max-w-3xl lg:col-span-9">
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="legislation-heading"
               className="font-serif font-semibold tracking-tight"
@@ -343,7 +343,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         aria-label="Fiduciary credentials"
       >
         <div
-          className={`${HOME4_WRAP} grid gap-6 sm:grid-cols-3 sm:gap-8`}
+          className={`${HOME4_WRAP} grid gap-6 md:grid-cols-3 md:gap-8`}
         >
           {[
             { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },

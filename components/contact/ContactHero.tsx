@@ -4,7 +4,7 @@ import { getAlt } from "@/lib/image-alt";
 import { HUB_CANVAS, HUB_TEAL, HUB_INK, HUB_BODY } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 const HERO_IMAGE = "/images/contact-trust.jpg";
 
 /** Contact split hero, server-rendered for LCP. */
@@ -16,7 +16,7 @@ export function ContactHero() {
       style={{ backgroundColor: HUB_CANVAS }}
     >
       <div className={`${GRID} items-center gap-y-8`}>
-        <div className="order-1 col-span-12 lg:order-2 lg:col-span-6">
+        <div className="order-1 min-w-0 col-span-full lg:order-2 lg:col-span-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
             <Image
               src={HERO_IMAGE}
@@ -34,9 +34,9 @@ export function ContactHero() {
           </div>
         </div>
 
-        <div className="order-2 col-span-12 lg:order-1 lg:col-span-6">
+        <div className="order-2 min-w-0 col-span-full lg:order-1 lg:col-span-6">
           <p
-            className="font-semibold uppercase tracking-[0.2em]"
+            className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
             style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: HUB_TEAL }}
           >
             Contact · Krugersdorp · West Rand

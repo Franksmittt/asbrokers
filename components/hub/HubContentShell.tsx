@@ -14,7 +14,7 @@ import {
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 export function PageWithFooter({ children }: { children: ReactNode }) {
   return (
@@ -47,7 +47,7 @@ export function HubUtilityHero({
       <div className={`${HOME4_WRAP} max-w-4xl ${centered ? "mx-auto text-center" : ""}`}>
         {kicker ? (
           <p
-            className="font-semibold uppercase tracking-[0.2em]"
+            className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
             style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
           >
             {kicker}
@@ -101,9 +101,9 @@ export function HubSplitHero({
       style={{ backgroundColor: CANVAS }}
     >
       <div className={`${GRID} items-center gap-y-8`}>
-        <HubReveal className="col-span-12 lg:col-span-6">
+        <HubReveal className="min-w-0 lg:col-span-6">
           <p
-            className="font-semibold uppercase tracking-[0.2em]"
+            className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
             style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
           >
             {kicker}
@@ -128,7 +128,7 @@ export function HubSplitHero({
           ) : null}
           {children}
         </HubReveal>
-        <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+        <HubReveal delay={0.06} className="min-w-0 lg:col-span-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
             <Image
               src={imageSrc}

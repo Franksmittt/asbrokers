@@ -47,9 +47,9 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-12 items-center gap-10 lg:gap-12`}>
-          <div className="col-span-12 lg:col-span-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
+          <div className="min-w-0 lg:col-span-7">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-stone-500">
               <span className="tabular-nums">FSP 17273</span>
               {" · "}
               <span className="tabular-nums">Category 1.8</span>
@@ -88,7 +88,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </Link>
             </nav>
           </div>
-          <div className="col-span-12 lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             <div className="relative aspect-[4/3] overflow-hidden border" style={{ borderColor: HAIRLINE }}>
               <Image
                 src={HERO_IMAGE}
@@ -174,7 +174,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             Local presence and visible compliance are trust cues you can verify. We are independent
             intermediaries you can meet, not a national script queue.
           </p>
-          <div className="mt-10 grid gap-6 lg:grid-cols-12">
+          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
             <figure className="lg:col-span-8">
               <div
                 className="relative aspect-[16/9] overflow-hidden border bg-white"

@@ -139,7 +139,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       <header className="pb-10 pt-28 md:pb-12 md:pt-36 lg:pt-40">
         <div className={HOME4_WRAP}>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
             Learn · Insights · FSP 17273
           </p>
           <h1
@@ -159,8 +159,8 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
         </div>
       </header>
 
-      <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 pb-16 lg:gap-14 lg:pb-24`}>
-        <aside className="col-span-12 lg:col-span-3">
+      <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 pb-16 lg:grid-cols-12 lg:gap-14 lg:pb-24`}>
+        <aside className="min-w-0 lg:col-span-3">
           <nav
             aria-label="Library topics"
             className="border-t pt-6 lg:sticky lg:top-28 lg:border-t-0 lg:pt-0"
@@ -198,7 +198,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
           </nav>
         </aside>
 
-        <div className="col-span-12 lg:col-span-9">
+        <div className="min-w-0 lg:col-span-9">
           <section aria-labelledby="insights-featured-heading">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
               Featured research
@@ -293,7 +293,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12"
             style={{ backgroundColor: INK }}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
               Education → advice boundary
             </p>
             <h2

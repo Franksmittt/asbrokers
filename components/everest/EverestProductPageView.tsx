@@ -22,7 +22,7 @@ import {
 } from "@/lib/hub-design-tokens";
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 export type EverestFeatureCard = {
   title: string;
@@ -53,7 +53,7 @@ function FeatureCard({
   title,
   description,
   accent = "teal",
-  span = "col-span-12 md:col-span-6",
+  span = "min-w-0 md:col-span-6",
 }: EverestFeatureCard & { span?: string }) {
   const border = accent === "teal" ? TEAL : BLUE;
   return (
@@ -106,9 +106,9 @@ export function EverestProductPageView({
         style={{ backgroundColor: CANVAS }}
       >
         <div className={`${GRID} items-center gap-y-8`}>
-          <HubReveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="min-w-0 lg:col-span-6">
             <p
-              className="font-semibold uppercase tracking-[0.2em]"
+              className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
             >
               {kicker}
@@ -147,7 +147,7 @@ export function EverestProductPageView({
             ) : null}
           </HubReveal>
 
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+          <HubReveal delay={0.06} className="min-w-0 lg:col-span-6">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
               <Image
                 src={heroImage}
@@ -169,13 +169,13 @@ export function EverestProductPageView({
       >
         <div className={GRID}>
           {featureCards.map((card, index) => (
-            <HubReveal key={card.title} delay={index * 0.04} className={card.span ?? "col-span-12 md:col-span-6"}>
+            <HubReveal key={card.title} delay={index * 0.04} className={card.span ?? "min-w-0 md:col-span-6"}>
               <FeatureCard {...card} />
             </HubReveal>
           ))}
 
           {trustCard ? (
-            <HubReveal className="col-span-12 lg:col-span-7">
+            <HubReveal className="min-w-0 lg:col-span-7">
               <article className="h-full rounded-3xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 sm:p-8">
                 <p
                   className="font-semibold uppercase tracking-[0.12em]"
@@ -208,7 +208,7 @@ export function EverestProductPageView({
         aria-labelledby={`${path}-calculator-heading`}
       >
         <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-8">
+          <HubReveal className="min-w-0 lg:col-span-8">
             <h2
               id={`${path}-calculator-heading`}
               className="font-bold tracking-tight"
@@ -224,13 +224,13 @@ export function EverestProductPageView({
             </p>
           </HubReveal>
 
-          <HubReveal className="col-span-12">
+          <HubReveal className="min-w-0 col-span-full">
             <div className="rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-stone-200/90 sm:p-6">
               <EverestCalculatorEmbed src={calculatorSrc} title={calculatorTitle} />
             </div>
           </HubReveal>
 
-          <HubReveal className="col-span-12">
+          <HubReveal className="min-w-0 col-span-full">
             <div className="rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-8">
               <h3
                 className="font-bold tracking-tight"
@@ -260,7 +260,7 @@ export function EverestProductPageView({
           </HubReveal>
 
           {cta ? (
-            <HubReveal className="col-span-12">
+            <HubReveal className="min-w-0 col-span-full">
               <Link
                 href={cta.href}
                 prefetch={false}

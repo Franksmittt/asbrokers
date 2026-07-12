@@ -53,7 +53,7 @@ export function TrustBar() {
 
         {/* Partners  -  clean label + names */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-          <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-[0.2em]">
+          <span className="text-zinc-500 text-[10px] font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]">
             Recognised partners
           </span>
           <div className="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2">

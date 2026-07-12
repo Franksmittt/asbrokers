@@ -22,7 +22,7 @@ import {
 import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { WHATSAPP_DISPLAY, whatsappUrl, WHATSAPP_CALCULATOR_MESSAGE } from "@/lib/whatsapp";
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 export function AssetCalculatorPageView({
   path,
@@ -53,7 +53,7 @@ export function AssetCalculatorPageView({
         style={{ backgroundColor: CANVAS }}
       >
         <div className={GRID}>
-          <HubReveal className="col-span-12">
+          <HubReveal className="min-w-0 col-span-full">
             <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1 text-sm text-stone-500">
               <Link href="/calculators" prefetch={false} className="font-medium hover:text-samsung-blue">
                 Calculators
@@ -67,9 +67,9 @@ export function AssetCalculatorPageView({
             </nav>
           </HubReveal>
 
-          <HubReveal className="col-span-12 lg:col-span-6">
+          <HubReveal className="min-w-0 lg:col-span-6">
             <p
-              className="font-semibold uppercase tracking-[0.2em]"
+              className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
             >
               {kicker} · {assetCode}
@@ -104,7 +104,7 @@ export function AssetCalculatorPageView({
             </Link>
           </HubReveal>
 
-          <HubReveal delay={0.06} className="col-span-12 lg:col-span-6">
+          <HubReveal delay={0.06} className="min-w-0 lg:col-span-6">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
               <Image
                 src={heroImage}
@@ -165,7 +165,7 @@ export function AssetCalculatorPageView({
         aria-labelledby={`${path}-calculator-heading`}
       >
         <div className={GRID}>
-          <HubReveal className="col-span-12 lg:col-span-4">
+          <HubReveal className="min-w-0 lg:col-span-4">
             <div className="lg:sticky lg:top-28">
               <h2
                 className="font-bold tracking-tight"
@@ -213,7 +213,7 @@ export function AssetCalculatorPageView({
             </div>
           </HubReveal>
 
-          <HubReveal className="col-span-12 lg:col-span-8">
+          <HubReveal className="min-w-0 lg:col-span-8">
             <h2 id={`${path}-calculator-heading`} className="text-xl font-bold text-shark sm:text-2xl">
               {calculatorTitle}
             </h2>

@@ -17,7 +17,7 @@ export const funnel = {
   toolScrollMargin: "scroll-mt-28 md:scroll-mt-32",
   divider: "border-t border-stone-200/80",
   eyebrow:
-    "font-semibold uppercase tracking-[0.2em] text-cinematic-teal [font-size:clamp(0.6875rem,0.62rem+0.25vw,0.75rem)]",
+    "font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em] text-cinematic-teal [font-size:clamp(0.6875rem,0.62rem+0.25vw,0.75rem)]",
   h1: "font-bold tracking-tight text-[#1D1D1F] [font-size:clamp(1.875rem,1.35rem+2vw,2.75rem)] [line-height:1.12]",
   h2: "font-bold tracking-tight text-[#1D1D1F] [font-size:clamp(1.125rem,1.05rem+0.4vw,1.375rem)]",
   h3: "text-sm font-semibold uppercase tracking-wide text-stone-500",

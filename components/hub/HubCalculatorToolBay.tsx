@@ -10,7 +10,7 @@ export type HubCalculatorTool = {
   title: string;
   description: string;
   href: string;
-  /** Grid span classes, e.g. `col-span-12 md:col-span-4`. Defaults to equal thirds. */
+  /** Grid span classes, e.g. `min-w-0 md:col-span-4`. Defaults to equal thirds. */
   span?: string;
   /** CTA label. Defaults to "Run calculator". */
   cta?: string;
@@ -29,7 +29,7 @@ type Props = {
   embedded?: boolean;
 };
 
-const GRID = `${HOME4_WRAP} grid grid-cols-12 gap-6 lg:gap-8`;
+const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 function ToolCard({
   code,
@@ -47,7 +47,7 @@ function ToolCard({
         className="group flex h-full flex-col rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur-2xl transition hover:bg-white/[0.08] sm:p-7"
       >
         <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">{code}</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">{code}</p>
           <span className="text-xs font-bold tabular-nums text-white/35">
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -84,7 +84,7 @@ export function HubCalculatorToolBay({
 }: Props) {
   const body = (
     <div className={`relative ${GRID}`}>
-      <div className="col-span-12">
+      <div className="min-w-0 col-span-full">
         <div className="flex items-center gap-3">
           {showChartIcon ? (
             <LineChart className="h-7 w-7 shrink-0 text-cinematic-teal" aria-hidden />
@@ -102,7 +102,7 @@ export function HubCalculatorToolBay({
         </p>
       </div>
       {tools.map((tool, index) => (
-        <div key={tool.code} className={tool.span ?? "col-span-12 md:col-span-4"}>
+        <div key={tool.code} className={tool.span ?? "min-w-0 md:col-span-4"}>
           <ToolCard {...tool} index={index} />
         </div>
       ))}

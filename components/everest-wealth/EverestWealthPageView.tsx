@@ -328,28 +328,27 @@ export function EverestWealthPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* 5. Products */}
+      {/* 5. Products — shark chapter */}
       <section
         id="profiles"
-        className="scroll-mt-28 border-b pb-16 pt-14 md:pb-24 md:pt-20"
-        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        className="scroll-mt-28 bg-shark py-16 text-white md:py-24"
         aria-labelledby="suite-heading"
       >
         <div className={HOME4_WRAP}>
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
-            style={{ color: TEAL }}
+            style={{ color: TEAL_ON_DARK }}
           >
             Three voluntary profiles
           </p>
           <h2
             id="suite-heading"
-            className="mt-3 max-w-2xl font-serif font-semibold tracking-tight text-balance"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)", color: INK }}
+            className="mt-3 max-w-2xl font-serif font-semibold tracking-tight text-balance text-white"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)" }}
           >
             Pick the cash-flow job, then run the illustration
           </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed sm:text-base" style={{ color: BODY }}>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
             Same constraints on every row. Different income versus growth trade-offs. Calculators
             stay ungated.
           </p>
@@ -358,8 +357,7 @@ export function EverestWealthPageView({ faqs }: Props) {
             {PRODUCTS.map((product) => (
               <article
                 key={product.name}
-                className="flex min-w-0 flex-col border bg-white p-6 sm:p-7"
-                style={{ borderColor: HAIRLINE }}
+                className="flex min-w-0 flex-col border border-white/10 bg-white p-6 sm:p-7"
               >
                 <p
                   className="text-[11px] font-semibold uppercase tracking-[0.14em] tabular-nums"
@@ -374,7 +372,10 @@ export function EverestWealthPageView({ faqs }: Props) {
                   {product.focus}
                 </p>
                 <p className="mt-4 text-sm font-medium text-shark">
-                  Best when: <span className="font-normal" style={{ color: BODY }}>{product.bestFor}</span>
+                  Best when:{" "}
+                  <span className="font-normal" style={{ color: BODY }}>
+                    {product.bestFor}
+                  </span>
                 </p>
                 <Link
                   href={product.href}
@@ -389,19 +390,16 @@ export function EverestWealthPageView({ faqs }: Props) {
             ))}
           </div>
 
-          <div
-            className="mt-8 border bg-white px-6 py-6 sm:px-8"
-            style={{ borderColor: HAIRLINE }}
-          >
-            <p className="text-sm leading-relaxed" style={{ color: BODY }}>
-              <span className="font-semibold text-shark">Living annuity capital is different.</span>{" "}
+          <div className="mt-8 border border-white/15 bg-white/[0.04] px-6 py-6 sm:px-8">
+            <p className="text-sm leading-relaxed text-white/70">
+              <span className="font-semibold text-white">Living annuity capital is different.</span>{" "}
               Amethyst wraps retirement-fund money under Regulation 28 with legislated drawdowns
               (2.5%–17.5%). Do not conflate it with voluntary preference shares.{" "}
               <Link
                 href={calculatorPagePath("asset-014-living-annuity")}
                 prefetch={false}
                 className="font-semibold hover:opacity-80"
-                style={{ color: TEAL }}
+                style={{ color: TEAL_ON_DARK }}
               >
                 Model living annuity income
               </Link>

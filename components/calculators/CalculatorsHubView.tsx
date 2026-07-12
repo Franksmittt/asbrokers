@@ -161,16 +161,25 @@ function SectionHeader({
   );
 }
 
+function domainChapterDark(domainId: string): boolean {
+  // Rhythm after Start here (dark) + How it works (light):
+  // Investments dark → Retirement light → Estate dark → Tax/Insurance light
+  return domainId === "investments" || domainId === "estate";
+}
+
 function DomainChapter({ domain }: { domain: HubDomain }) {
   const tools = getHubDomainCalculators(domain);
   const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
   const isEverest = Boolean(domain.everestDisclosure);
+  const dark = domainChapterDark(domain.id);
 
   return (
     <section
       id={domain.id}
-      className="scroll-mt-28 border-b pb-16 pt-14 md:pb-24 md:pt-20"
-      style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      className={`scroll-mt-28 pb-16 pt-14 md:pb-24 md:pt-20 ${
+        dark ? "bg-shark text-white" : "border-b"
+      }`}
+      style={dark ? undefined : { borderColor: HAIRLINE, backgroundColor: CANVAS }}
       aria-labelledby={`${domain.id}-heading`}
     >
       <div className={HOME4_WRAP}>
@@ -182,6 +191,7 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
                 headingId={`${domain.id}-heading`}
                 title={domain.label}
                 lead={domain.lead}
+                invert={dark}
               />
               <p className="mt-6 text-sm">
                 <Link
@@ -239,6 +249,7 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
             headingId={`${domain.id}-heading`}
             title={domain.label}
             lead={domain.lead}
+            invert={dark}
           />
         )}
 

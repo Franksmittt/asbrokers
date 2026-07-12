@@ -38,7 +38,44 @@ function cardGridClass(count: number): string {
   if (count <= 1) return "grid grid-cols-1 gap-5";
   if (count === 2) return "grid grid-cols-1 gap-5 sm:grid-cols-2";
   if (count === 3) return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-3";
+  // 8 Everest tools: two even rows of four.
+  if (count === 8) return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4";
+  // 5 retirement tools: 6-col track so row 1 is 3×2-span, row 2 is 2×3-span.
+  if (count === 5) return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-6";
   return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3";
+}
+
+function cardSpanClass(count: number, index: number): string {
+  if (count === 5) {
+    // Row 1: three equal cards. Row 2: two equal cards filling the width.
+    return index < 3 ? "lg:col-span-2" : "lg:col-span-3";
+  }
+  return "";
+}
+
+function CalculatorGrid({
+  tools,
+  anchor = false,
+}: {
+  tools: HubCalculator[];
+  anchor?: boolean;
+}) {
+  const count = tools.length;
+  return (
+    <div className={`mt-10 ${cardGridClass(count)}`}>
+      {tools.map((tool, index) => {
+        const span = cardSpanClass(count, index);
+        if (!span) {
+          return <CalculatorCard key={tool.id} tool={tool} anchor={anchor} />;
+        }
+        return (
+          <div key={tool.id} className={`flex min-h-0 flex-col ${span}`}>
+            <CalculatorCard tool={tool} anchor={anchor} />
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 /** One card language everywhere (light chapters, shark chapters, split pair). */
@@ -169,11 +206,7 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
           </aside>
         ) : null}
 
-        <div className={`mt-10 ${cardGridClass(tools.length)}`}>
-          {tools.map((tool) => (
-            <CalculatorCard key={tool.id} tool={tool} anchor />
-          ))}
-        </div>
+        <CalculatorGrid tools={tools} anchor />
       </div>
     </section>
   );
@@ -355,11 +388,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
             lead="Pick the problem that sounds like yours. Tools stay ungated. Soft lead capture sits after each calculator if you want an adviser on the numbers."
             invert
           />
-          <div className={`mt-10 ${cardGridClass(featured.length)}`}>
-            {featured.map((tool) => (
-              <CalculatorCard key={tool.id} tool={tool} />
-            ))}
-          </div>
+          <CalculatorGrid tools={featured} />
         </div>
       </section>
 

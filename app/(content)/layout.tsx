@@ -5,7 +5,7 @@ export default function ContentLayout({ children }: { children: React.ReactNode 
   return (
     <MarketingShell>
       <div
-        className="min-h-screen bg-warm-canvas pb-24 text-shark md:pb-0"
+        className="min-h-screen overflow-x-clip bg-warm-canvas pb-24 text-shark md:pb-0"
         style={{ backgroundColor: "#F7F6F3", color: "#1D1D1F" }}
       >
         {children}

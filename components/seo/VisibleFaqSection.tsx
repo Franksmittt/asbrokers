@@ -51,15 +51,15 @@ export function VisibleFaqSection({
       className={`scroll-mt-28 bg-shark py-16 text-white md:py-24 ${className}`}
       aria-labelledby={headingId}
     >
-      <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-        <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#5EEAD4]">
+      <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+        <div className="min-w-0 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5EEAD4] sm:text-xs sm:tracking-[0.18em]">
             {kicker}
           </p>
           <h2
             id={headingId}
-            className="mt-3 font-serif font-semibold tracking-tight text-white"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)" }}
+            className="mt-3 max-w-full font-serif font-semibold tracking-tight text-balance text-white"
+            style={{ fontSize: "clamp(1.375rem, 1.2rem + 0.8vw, 2rem)" }}
           >
             {heading}
           </h2>
@@ -88,14 +88,14 @@ export function VisibleFaqSection({
           </div>
         </div>
 
-        <ol className="col-span-12 divide-y divide-white/10 border-y border-white/10 lg:col-span-8">
+        <ol className="min-w-0 divide-y divide-white/10 border-y border-white/10 lg:col-span-8">
           {items.map((item, index) => (
-            <li key={item.question} className="grid grid-cols-[2.75rem_1fr] gap-4 py-6 sm:gap-6">
+            <li key={item.question} className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-3 py-6 sm:grid-cols-[2.75rem_minmax(0,1fr)] sm:gap-6">
               <span className="pt-1 text-[11px] font-semibold tabular-nums text-[#5EEAD4]">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <div>
-                <h3 className="font-serif text-lg font-semibold tracking-tight text-white sm:text-xl">
+              <div className="min-w-0">
+                <h3 className="font-serif text-lg font-semibold tracking-tight text-balance text-white sm:text-xl">
                   {item.question}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-[0.9375rem]">

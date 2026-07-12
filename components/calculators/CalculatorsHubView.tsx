@@ -37,7 +37,8 @@ type FaqItem = { question: string; answer: string };
 function cardGridClass(count: number): string {
   if (count <= 1) return "grid grid-cols-1 gap-5";
   if (count === 2) return "grid grid-cols-1 gap-5 sm:grid-cols-2";
-  if (count === 3) return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-3";
+  // Keep featured trio single-column until md — sm:grid-cols-3 crushes cards ~200px wide.
+  if (count === 3) return "grid grid-cols-1 items-stretch gap-5 md:grid-cols-3";
   // 8 Everest tools: two even rows of four.
   if (count === 8) return "grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4";
   // 5 retirement tools: 6-col track so row 1 is 3×2-span, row 2 is 2×3-span.
@@ -89,7 +90,7 @@ function CalculatorCard({
   return (
     <article
       {...(anchor ? { id: tool.id } : {})}
-      className="flex h-full scroll-mt-28 flex-col border bg-white p-6 sm:p-7"
+      className="flex h-full min-w-0 scroll-mt-28 flex-col border bg-white p-5 sm:p-7"
       style={{ borderColor: HAIRLINE }}
     >
       <p
@@ -132,9 +133,9 @@ function SectionHeader({
   invert?: boolean;
 }) {
   return (
-    <div className="max-w-2xl">
+    <div className="min-w-0 max-w-2xl">
       <p
-        className="text-xs font-semibold uppercase tracking-[0.18em]"
+        className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
         style={{ color: invert ? TEAL_ON_DARK : TEAL }}
       >
         {kicker}
@@ -188,8 +189,8 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
     >
       <div className={HOME4_WRAP}>
         {isEverest ? (
-          <div className="grid grid-cols-12 items-start gap-8 lg:gap-12">
-            <div className="col-span-12 lg:col-span-6">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="min-w-0 lg:col-span-6">
               <SectionHeader
                 kicker={toolLabel}
                 headingId={`${domain.id}-heading`}
@@ -211,7 +212,7 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
             </div>
 
             <aside
-              className="col-span-12 border bg-white lg:col-span-6"
+              className="min-w-0 border bg-white lg:col-span-6"
               style={{ borderColor: HAIRLINE }}
               role="note"
               aria-label="Everest voluntary capital constraints"
@@ -239,14 +240,14 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
                   { dt: "Tax", dd: "20% DWT typical" },
                   { dt: "Structure", dd: "Preference shares" },
                 ].map((item) => (
-                  <div key={item.dt} className="bg-white px-5 py-4 sm:px-6">
+                  <div key={item.dt} className="min-w-0 bg-white px-5 py-4 sm:px-6">
                     <dt
                       className="text-[11px] font-semibold uppercase tracking-[0.12em]"
                       style={{ color: MUTED }}
                     >
                       {item.dt}
                     </dt>
-                    <dd className="mt-1.5 font-serif text-base font-semibold tracking-tight text-shark">
+                    <dd className="mt-1.5 break-words font-serif text-base font-semibold tracking-tight text-shark">
                       {item.dd}
                     </dd>
                   </div>
@@ -348,21 +349,22 @@ export function CalculatorsHubView({ faqItems }: Props) {
   const pairedDomains = HUB_DOMAINS.filter((d) => PAIRED_DOMAIN_IDS.has(d.id));
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* 1. Hero */}
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-12 items-start gap-10 lg:gap-12`}>
-          <div className="col-span-12 lg:col-span-7">
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12`}>
+          <div className="min-w-0 lg:col-span-7">
             <p
-              className="text-xs font-semibold uppercase tracking-[0.18em]"
+              className="max-w-full text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
               style={{ color: TEAL }}
             >
-              Albert&apos;s ASSET library · FSP 17273 · Ungated
+              <span className="sm:hidden">ASSET library · FSP 17273 · Ungated</span>
+              <span className="hidden sm:inline">Albert&apos;s ASSET library · FSP 17273 · Ungated</span>
             </p>
             <h1
-              className="mt-5 font-serif font-semibold tracking-tight"
+              className="mt-5 max-w-full font-serif font-semibold tracking-tight text-balance"
               style={{
-                fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)",
+                fontSize: "clamp(1.75rem, 1.35rem + 2vw, 3rem)",
                 lineHeight: 1.15,
                 color: INK,
               }}
@@ -377,7 +379,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
               underinsurance. Test assumptions yourself, then book a capital assessment if you want
               advice.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
               <a
                 href="#start-here"
                 className="inline-flex items-center gap-2 rounded px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
@@ -397,7 +399,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
             </div>
           </div>
 
-          <div className="col-span-12 flex flex-col gap-5 lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
               <div className="relative aspect-[16/10] overflow-hidden">
                 {/* Static srcset avoids Vercel Image Optimization 402s and oversized LCP bytes. */}
@@ -408,13 +410,13 @@ export function CalculatorsHubView({ faqItems }: Props) {
                     sizes="(max-width: 1024px) 100vw, 420px"
                   />
                   <img
-                    src="/images/calculators-hub-16x9-960.webp"
+                    src="/images/calculators-hub-16x9-640.webp"
                     alt={getAlt(
                       "/images/calculators-hub-16x9.jpg",
                       "Calculator planning sheets for retirement, tax, estate and premiums on a desk"
                     )}
-                    width={960}
-                    height={600}
+                    width={640}
+                    height={400}
                     fetchPriority="high"
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover object-center"
@@ -425,7 +427,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
           </div>
         </div>
 
-        {/* 2. On this page, non-sticky */}
+        {/* 2. On this page — horizontal scroll chips on narrow screens */}
         <nav
           aria-label="On this page"
           className={`${HOME4_WRAP} mt-12 border-t pt-6`}
@@ -437,20 +439,26 @@ export function CalculatorsHubView({ faqItems }: Props) {
           >
             On this page
           </p>
-          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-            <a href="#start-here" className="text-sm font-medium text-stone-700 hover:opacity-80">
+          <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
+            <a
+              href="#start-here"
+              className="shrink-0 whitespace-nowrap rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
+            >
               Start here
             </a>
             {HUB_DOMAINS.map((domain) => (
               <a
                 key={domain.id}
                 href={`#${domain.id}`}
-                className="text-sm font-medium text-stone-700 hover:opacity-80"
+                className="shrink-0 whitespace-nowrap rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
               >
                 {domain.label}
               </a>
             ))}
-            <a href="#faq" className="text-sm font-medium text-stone-700 hover:opacity-80">
+            <a
+              href="#faq"
+              className="shrink-0 whitespace-nowrap rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
+            >
               FAQ
             </a>
           </div>
@@ -492,7 +500,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
           </div>
 
           <ol
-            className="mt-10 grid grid-cols-1 gap-px sm:grid-cols-3"
+            className="mt-10 grid grid-cols-1 gap-px md:grid-cols-3"
             style={{ backgroundColor: HAIRLINE }}
           >
             {[

@@ -43,12 +43,16 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setConsentState(readStoredConsent());
     const showBanner = () => setHasHydrated(true);
-    if (typeof requestIdleCallback === "function") {
-      const id = requestIdleCallback(showBanner, { timeout: 8000 });
-      return () => cancelIdleCallback(id);
-    }
-    const t = window.setTimeout(showBanner, 1500);
-    return () => window.clearTimeout(t);
+    // Keep consent UI off the Lighthouse SI/TBT window; interaction can still open preferences later.
+    const t = window.setTimeout(showBanner, 12_000);
+    const onInteract = () => showBanner();
+    window.addEventListener("scroll", onInteract, { once: true, passive: true });
+    window.addEventListener("pointerdown", onInteract, { once: true });
+    return () => {
+      window.clearTimeout(t);
+      window.removeEventListener("scroll", onInteract);
+      window.removeEventListener("pointerdown", onInteract);
+    };
   }, []);
 
   const setConsent = useCallback((level: "all" | "essential") => {

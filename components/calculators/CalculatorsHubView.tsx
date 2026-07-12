@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
@@ -25,7 +24,11 @@ const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
-const CRAFT_STRIP = "/images/calculators-hub-16x9.jpg";
+/** WCAG AA teal on canvas/white (brand #00A3A3 fails 4.5:1 at body sizes). */
+const TEAL = "#0F766E";
+/** Lighter teal for shark chapters only. */
+const TEAL_ON_DARK = "#5EEAD4";
+const MUTED = "#57534e";
 
 const PAIRED_DOMAIN_IDS = new Set(["tax", "insurance"]);
 
@@ -89,7 +92,10 @@ function CalculatorCard({
       className="flex h-full scroll-mt-28 flex-col border bg-white p-6 sm:p-7"
       style={{ borderColor: HAIRLINE }}
     >
-      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-500 tabular-nums">
+      <p
+        className="text-[11px] font-semibold uppercase tracking-[0.16em] tabular-nums"
+        style={{ color: MUTED }}
+      >
         {tool.assetCode}
       </p>
       <h3
@@ -102,7 +108,8 @@ function CalculatorCard({
       <Link
         href={tool.href}
         prefetch={false}
-        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
+        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+        style={{ color: TEAL }}
       >
         Run calculation
         <ArrowRight className="h-4 w-4" aria-hidden />
@@ -127,9 +134,8 @@ function SectionHeader({
   return (
     <div className="max-w-2xl">
       <p
-        className={`text-xs font-semibold uppercase tracking-[0.18em] ${
-          invert ? "text-cinematic-teal" : "text-cinematic-teal"
-        }`}
+        className="text-xs font-semibold uppercase tracking-[0.18em]"
+        style={{ color: invert ? TEAL_ON_DARK : TEAL }}
       >
         {kicker}
       </p>
@@ -195,7 +201,8 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
                 <Link
                   href="/everest-wealth/about"
                   prefetch={false}
-                  className="inline-flex items-center gap-2 font-semibold text-cinematic-teal hover:opacity-80"
+                  className="inline-flex items-center gap-2 font-semibold hover:opacity-80"
+                  style={{ color: dark ? TEAL_ON_DARK : TEAL }}
                 >
                   Understanding Everest
                   <ArrowRight className="h-4 w-4" aria-hidden />
@@ -210,7 +217,10 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
               aria-label="Everest voluntary capital constraints"
             >
               <div className="border-b px-5 py-4 sm:px-6" style={{ borderColor: HAIRLINE }}>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
+                <p
+                  className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                  style={{ color: MUTED }}
+                >
                   Before you open these tools
                 </p>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
@@ -230,7 +240,10 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
                   { dt: "Structure", dd: "Preference shares" },
                 ].map((item) => (
                   <div key={item.dt} className="bg-white px-5 py-4 sm:px-6">
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-stone-500">
+                    <dt
+                      className="text-[11px] font-semibold uppercase tracking-[0.12em]"
+                      style={{ color: MUTED }}
+                    >
                       {item.dt}
                     </dt>
                     <dd className="mt-1.5 font-serif text-base font-semibold tracking-tight text-shark">
@@ -290,7 +303,10 @@ function PairedDomainRow({ domains }: { domains: readonly HubDomain[] }) {
                 aria-labelledby={`${domain.id}-heading`}
               >
                 <div className="border-b px-6 py-6 sm:px-8" style={{ borderColor: HAIRLINE }}>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
+                  <p
+                    className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                    style={{ color: MUTED }}
+                  >
                     1 tool
                   </p>
                   <h3
@@ -337,7 +353,10 @@ export function CalculatorsHubView({ faqItems }: Props) {
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
         <div className={`${HOME4_WRAP} grid grid-cols-12 items-start gap-10 lg:gap-12`}>
           <div className="col-span-12 lg:col-span-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.18em]"
+              style={{ color: TEAL }}
+            >
               Albert&apos;s ASSET library · FSP 17273 · Ungated
             </p>
             <h1
@@ -361,14 +380,16 @@ export function CalculatorsHubView({ faqItems }: Props) {
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <a
                 href="#start-here"
-                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: TEAL }}
               >
                 Start here
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
               <a
                 href="#investments"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+                className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+                style={{ color: TEAL }}
               >
                 Browse Everest tools
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -378,18 +399,27 @@ export function CalculatorsHubView({ faqItems }: Props) {
 
           <div className="col-span-12 flex flex-col gap-5 lg:col-span-5">
             <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
-              <div className="relative aspect-[16/10]">
-                <Image
-                  src={CRAFT_STRIP}
-                  alt={getAlt(
-                    CRAFT_STRIP,
-                    "Calculator planning sheets for retirement, tax, estate and premiums on a desk"
-                  )}
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 420px"
-                  priority={false}
-                />
+              <div className="relative aspect-[16/10] overflow-hidden">
+                {/* Static srcset avoids Vercel Image Optimization 402s and oversized LCP bytes. */}
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcSet="/images/calculators-hub-16x9-640.webp 640w, /images/calculators-hub-16x9-960.webp 960w"
+                    sizes="(max-width: 1024px) 100vw, 420px"
+                  />
+                  <img
+                    src="/images/calculators-hub-16x9-960.webp"
+                    alt={getAlt(
+                      "/images/calculators-hub-16x9.jpg",
+                      "Calculator planning sheets for retirement, tax, estate and premiums on a desk"
+                    )}
+                    width={960}
+                    height={600}
+                    fetchPriority="high"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                  />
+                </picture>
               </div>
             </figure>
           </div>
@@ -401,23 +431,26 @@ export function CalculatorsHubView({ faqItems }: Props) {
           className={`${HOME4_WRAP} mt-12 border-t pt-6`}
           style={{ borderColor: HAIRLINE }}
         >
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+            style={{ color: MUTED }}
+          >
             On this page
           </p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-            <a href="#start-here" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+            <a href="#start-here" className="text-sm font-medium text-stone-700 hover:opacity-80">
               Start here
             </a>
             {HUB_DOMAINS.map((domain) => (
               <a
                 key={domain.id}
                 href={`#${domain.id}`}
-                className="text-sm font-medium text-stone-700 hover:text-cinematic-teal"
+                className="text-sm font-medium text-stone-700 hover:opacity-80"
               >
                 {domain.label}
               </a>
             ))}
-            <a href="#faq" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+            <a href="#faq" className="text-sm font-medium text-stone-700 hover:opacity-80">
               FAQ
             </a>
           </div>
@@ -481,8 +514,12 @@ export function CalculatorsHubView({ faqItems }: Props) {
             ].map((item) => (
               <li key={item.step} className="flex flex-col bg-white px-6 py-8 sm:px-7 sm:py-10">
                 <span
-                  className="font-serif font-semibold tabular-nums tracking-tight text-cinematic-teal"
-                  style={{ fontSize: "clamp(2rem, 1.6rem + 1.2vw, 2.75rem)", lineHeight: 1 }}
+                  className="font-serif font-semibold tabular-nums tracking-tight"
+                  style={{
+                    fontSize: "clamp(2rem, 1.6rem + 1.2vw, 2.75rem)",
+                    lineHeight: 1,
+                    color: TEAL,
+                  }}
                 >
                   {item.step}
                 </span>
@@ -499,7 +536,8 @@ export function CalculatorsHubView({ faqItems }: Props) {
           <p className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
             <a
               href="#start-here"
-              className="inline-flex items-center gap-2 font-semibold text-cinematic-teal hover:opacity-80"
+              className="inline-flex items-center gap-2 font-semibold hover:opacity-80"
+              style={{ color: TEAL }}
             >
               Jump to Start here
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -542,7 +580,10 @@ export function CalculatorsHubView({ faqItems }: Props) {
         <div className={HOME4_WRAP}>
           <div className="rounded-xl bg-shark px-6 py-10 text-white sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10">
             <div className="max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+              <p
+                className="text-xs font-semibold uppercase tracking-[0.18em]"
+                style={{ color: TEAL_ON_DARK }}
+              >
                 Next step
               </p>
               <h2
@@ -560,7 +601,8 @@ export function CalculatorsHubView({ faqItems }: Props) {
               <Link
                 href="/contact?source=calculators_terminal"
                 prefetch={false}
-                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: TEAL }}
               >
                 Book a capital assessment
                 <ArrowRight className="h-4 w-4" aria-hidden />

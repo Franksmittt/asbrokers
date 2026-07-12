@@ -79,6 +79,12 @@ export type PageGraphInput = {
   };
   breadcrumbs?: BreadcrumbItem[];
   primaryImagePath?: string;
+  /** Collection / hub ItemList (e.g. calculator library). */
+  itemList?: {
+    name: string;
+    description?: string;
+    items: Array<{ name: string; path: string }>;
+  };
 };
 
 export type JsonLdGraph = {
@@ -104,6 +110,7 @@ export function createSeoIds(origin: string, path: string) {
     product: `${pageUrl}/#product`,
     breadcrumb: `${pageUrl}/#breadcrumb`,
     primaryImage: `${pageUrl}/#primaryimage`,
+    itemList: `${pageUrl}/#itemlist`,
   } as const;
 }
 
@@ -269,7 +276,7 @@ export function buildPageGraph(input: PageGraphInput): JsonLdGraph {
   }
 
   const webPageNode: Record<string, unknown> = {
-    "@type": "WebPage",
+    "@type": input.itemList?.items.length ? ["WebPage", "CollectionPage"] : "WebPage",
     "@id": ids.webPage,
     url: pageUrl,
     name: input.webPage.name,
@@ -313,6 +320,15 @@ export function buildPageGraph(input: PageGraphInput): JsonLdGraph {
     graph.push(buildArticleNode(ids, origin, input.article, input.primaryImagePath));
     if (!input.faqs?.length) {
       webPageNode.mainEntity = { "@id": ids.article };
+    }
+  }
+
+  if (input.itemList?.items.length) {
+    graph.push(buildItemListNode(ids, origin, input.itemList));
+    if (!input.faqs?.length) {
+      webPageNode.mainEntity = { "@id": ids.itemList };
+    } else {
+      webPageNode.hasPart = { "@id": ids.itemList };
     }
   }
 
@@ -406,6 +422,26 @@ function buildBreadcrumbListNode(
       position: index + 1,
       name: item.name,
       item: `${origin}${normalizePath(item.path)}`,
+    })),
+  };
+}
+
+function buildItemListNode(
+  ids: ReturnType<typeof createSeoIds>,
+  origin: string,
+  list: NonNullable<PageGraphInput["itemList"]>
+): Record<string, unknown> {
+  return {
+    "@type": "ItemList",
+    "@id": ids.itemList,
+    name: list.name,
+    description: list.description,
+    numberOfItems: list.items.length,
+    itemListElement: list.items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: `${origin}${normalizePath(item.path)}`,
     })),
   };
 }

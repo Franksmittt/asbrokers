@@ -1,5 +1,6 @@
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { CalculatorsHubView } from "@/components/calculators/CalculatorsHubView";
+import { HUB_CALCULATORS } from "@/lib/calculators/hub-catalog";
 import { ensureSixFaqs } from "@/lib/seo";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
@@ -41,6 +42,17 @@ export const metadata = buildPageMetadata({
   title: "Financial Calculators | ASSET Library FSP 17273",
   description:
     "Run retirement, Everest Wealth, estate, tax, and insurance scenarios yourself. Ungated educational ASSET tools. Not FAIS advice. Then book FSP 17273 to interpret your numbers.",
+  keywords: [
+    "financial calculators South Africa",
+    "retirement calculator",
+    "estate duty calculator",
+    "Everest Wealth calculator",
+    "living annuity drawdown calculator",
+    "average clause calculator",
+    "ASSET library AS Brokers",
+    "FSP 17273",
+  ],
+  ogImagePath: "/images/calculators-hub-16x9.jpg",
 });
 
 export default function CalculatorsPage() {
@@ -48,6 +60,14 @@ export default function CalculatorsPage() {
 
   return (
     <>
+      <link
+        rel="preload"
+        as="image"
+        href="/images/calculators-hub-16x9-640.webp"
+        imageSrcSet="/images/calculators-hub-16x9-640.webp 640w, /images/calculators-hub-16x9-960.webp 960w"
+        imageSizes="(max-width: 1024px) 100vw, 420px"
+        fetchPriority="high"
+      />
       <PageJsonLd
         path="/calculators"
         webPage={{
@@ -56,6 +76,19 @@ export default function CalculatorsPage() {
             "Educational planning calculators for retirement, Everest Wealth, estate duty, tax, and insurance.",
         }}
         faqs={faqItems}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Calculators", path: "/calculators" },
+        ]}
+        itemList={{
+          name: "AS Brokers ASSET calculator library",
+          description:
+            "Seventeen ungated educational calculators for retirement, Everest Wealth, estate, tax, and insurance.",
+          items: HUB_CALCULATORS.map((tool) => ({
+            name: `${tool.assetCode} ${tool.title}`,
+            path: tool.href,
+          })),
+        }}
       />
       <CalculatorsHubView faqItems={faqItems} />
     </>

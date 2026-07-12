@@ -21,6 +21,7 @@ export function BrandLogo({ className = "h-9 w-[7.5rem] rounded-2xl object-conta
       sizes={`${width}px`}
       priority={priority}
       quality={75}
+      unoptimized
     />
   );
 }

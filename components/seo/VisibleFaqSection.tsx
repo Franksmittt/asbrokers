@@ -53,7 +53,7 @@ export function VisibleFaqSection({
     >
       <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
         <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#5EEAD4]">
             {kicker}
           </p>
           <h2
@@ -69,7 +69,7 @@ export function VisibleFaqSection({
               <Link
                 href={secondaryCta.href}
                 prefetch={false}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
               >
                 {secondaryCta.label}
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -79,7 +79,7 @@ export function VisibleFaqSection({
               <Link
                 href={primaryCta.href}
                 prefetch={false}
-                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded bg-[#0F766E] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 {primaryCta.label}
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -91,7 +91,7 @@ export function VisibleFaqSection({
         <ol className="col-span-12 divide-y divide-white/10 border-y border-white/10 lg:col-span-8">
           {items.map((item, index) => (
             <li key={item.question} className="grid grid-cols-[2.75rem_1fr] gap-4 py-6 sm:gap-6">
-              <span className="pt-1 text-[11px] font-semibold tabular-nums text-cinematic-teal">
+              <span className="pt-1 text-[11px] font-semibold tabular-nums text-[#5EEAD4]">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div>

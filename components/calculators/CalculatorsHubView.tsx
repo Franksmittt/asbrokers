@@ -24,7 +24,6 @@ const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
-const INSET = "rgba(29,29,31,0.05)";
 const CRAFT_STRIP = "/images/calculators-hub-16x9.jpg";
 
 const FAIS_DISCLAIMER =
@@ -165,6 +164,7 @@ function SectionHeader({
 function DomainChapter({ domain }: { domain: HubDomain }) {
   const tools = getHubDomainCalculators(domain);
   const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
+  const isEverest = Boolean(domain.everestDisclosure);
 
   return (
     <section
@@ -174,37 +174,73 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
       aria-labelledby={`${domain.id}-heading`}
     >
       <div className={HOME4_WRAP}>
-        <SectionHeader
-          kicker={toolLabel}
-          headingId={`${domain.id}-heading`}
-          title={domain.label}
-          lead={domain.lead}
-        />
+        {isEverest ? (
+          <div className="grid grid-cols-12 items-start gap-8 lg:gap-12">
+            <div className="col-span-12 lg:col-span-6">
+              <SectionHeader
+                kicker={toolLabel}
+                headingId={`${domain.id}-heading`}
+                title={domain.label}
+                lead={domain.lead}
+              />
+              <p className="mt-6 text-sm">
+                <Link
+                  href="/everest-wealth/about"
+                  prefetch={false}
+                  className="inline-flex items-center gap-2 font-semibold text-cinematic-teal hover:opacity-80"
+                >
+                  Understanding Everest
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </p>
+            </div>
 
-        {domain.everestDisclosure ? (
-          <aside
-            className="mt-8 max-w-3xl rounded-lg p-5 text-sm leading-relaxed"
-            style={{ backgroundColor: INSET, color: BODY }}
-            role="note"
-          >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
-              Everest voluntary capital, read before opening tools
-            </p>
-            <p className="mt-2">
-              Targeted return profiles on unlisted preference-share structures, not bank guarantees.
-              R100,000 min · five-year term · 120-day notice · up to 15% early exit penalty may apply ·
-              20% DWT typical.{" "}
-              <Link
-                href="/everest-wealth/about"
-                prefetch={false}
-                className="font-semibold text-cinematic-teal hover:opacity-80"
+            <aside
+              className="col-span-12 border bg-white lg:col-span-6"
+              style={{ borderColor: HAIRLINE }}
+              role="note"
+              aria-label="Everest voluntary capital constraints"
+            >
+              <div className="border-b px-5 py-4 sm:px-6" style={{ borderColor: HAIRLINE }}>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
+                  Before you open these tools
+                </p>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
+                  Targeted return profiles on unlisted preference shares, not bank guarantees.
+                </p>
+              </div>
+              <dl
+                className="grid grid-cols-2 gap-px sm:grid-cols-3"
+                style={{ backgroundColor: HAIRLINE }}
               >
-                Understanding Everest
-              </Link>
-              .
-            </p>
-          </aside>
-        ) : null}
+                {[
+                  { dt: "Minimum", dd: "R100,000" },
+                  { dt: "Term", dd: "5 years" },
+                  { dt: "Notice", dd: "120 days" },
+                  { dt: "Early exit", dd: "Up to 15% may apply" },
+                  { dt: "Tax", dd: "20% DWT typical" },
+                  { dt: "Structure", dd: "Preference shares" },
+                ].map((item) => (
+                  <div key={item.dt} className="bg-white px-5 py-4 sm:px-6">
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-stone-500">
+                      {item.dt}
+                    </dt>
+                    <dd className="mt-1.5 font-serif text-base font-semibold tracking-tight text-shark">
+                      {item.dd}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </aside>
+          </div>
+        ) : (
+          <SectionHeader
+            kicker={toolLabel}
+            headingId={`${domain.id}-heading`}
+            title={domain.label}
+            lead={domain.lead}
+          />
+        )}
 
         <CalculatorGrid tools={tools} anchor />
       </div>

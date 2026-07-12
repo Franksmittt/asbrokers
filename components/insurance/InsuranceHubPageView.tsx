@@ -14,10 +14,12 @@ import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
-const TEAL = "#00A3A3";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const INSET = "rgba(29,29,31,0.05)";
+/** WCAG AA teal on canvas; lighter teal for shark chapters. */
+const TEAL = "#0F766E";
+const TEAL_ON_DARK = "#5EEAD4";
 const COMMERCIAL_IMAGE = "/images/risk-arch-commercial.png";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or insurance advice as defined in the FAIS Act, 2002. Outcomes depend on underwriting, policy wording, and your circumstances.";
@@ -56,9 +58,16 @@ export function InsuranceHubPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+      {/* §1 Hero + domains — light */}
+      <header
+        className="border-b pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      >
         <div className={HOME4_WRAP}>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+            style={{ color: TEAL }}
+          >
             Insurance &amp; risk · FSP 17273 · Category 1.8
           </p>
           <h1
@@ -105,7 +114,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
               >
                 <h3 className="font-serif text-xl font-semibold tracking-tight text-shark">{domain.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{domain.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal">
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: TEAL }}>
                   Open domain
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden />
                 </span>
@@ -115,31 +124,35 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </header>
 
-      <section className="pb-16 md:pb-20" aria-labelledby="commercial-reality-heading">
+      {/* §2 Commercial reality — shark */}
+      <section
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
+        aria-labelledby="commercial-reality-heading"
+      >
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.16em] lg:sticky lg:top-28"
+              style={{ color: TEAL_ON_DARK }}
+            >
               Commercial reality
             </p>
           </aside>
           <div className="min-w-0 lg:col-span-9">
             <h2
               id="commercial-reality-heading"
-              className="font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+              className="font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
             >
               Cover written for the balance sheet that actually operates
             </h2>
-            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
               Workshops, stock, machinery, and interruption risk do not match a template policy sold
               on price. Independent placement starts with what can burn, stop, or sue, then the
               wording.
             </p>
             <figure className="mt-8">
-              <div
-                className="relative aspect-[16/9] overflow-hidden border bg-white"
-                style={{ borderColor: HAIRLINE }}
-              >
+              <div className="relative aspect-[16/9] overflow-hidden border border-white/10 bg-white/5">
                 <Image
                   src={COMMERCIAL_IMAGE}
                   alt={getAlt(
@@ -151,7 +164,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
                   sizes="(max-width: 1024px) 100vw, 70vw"
                 />
               </div>
-              <figcaption className="mt-3 max-w-2xl text-xs leading-relaxed text-stone-500">
+              <figcaption className="mt-3 max-w-2xl text-xs leading-relaxed text-white/50">
                 Ability cue: real operating environments, not glass-tower stock. Average Clause and
                 Business Interruption definitions decide whether a claim restores the firm.
               </figcaption>
@@ -160,9 +173,11 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
+      {/* §3 Average clause + tools — light */}
       <section
         id="average-clause"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="average-clause-heading"
       >
         <div className={HOME4_WRAP}>
@@ -188,7 +203,8 @@ export function InsuranceHubPageView({ faqs }: Props) {
             <Link
               href={CALC_AVERAGE_CLAUSE}
               prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+              style={{ color: TEAL }}
             >
               Run the Average Clause calculator
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -211,7 +227,8 @@ export function InsuranceHubPageView({ faqs }: Props) {
               <Link
                 href="/solutions/life-insurance"
                 prefetch
-                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL }}
               >
                 Open life cover education
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -231,7 +248,8 @@ export function InsuranceHubPageView({ faqs }: Props) {
               <Link
                 href="/business-risk-review"
                 prefetch={false}
-                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL }}
               >
                 Start a business risk review
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -241,28 +259,35 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      <section className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24" aria-labelledby="medical-gap-heading">
+      {/* §4 Medical / gap demarcation — shark */}
+      <section
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
+        aria-labelledby="medical-gap-heading"
+      >
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.16em] lg:sticky lg:top-28"
+              style={{ color: TEAL_ON_DARK }}
+            >
               Regulatory demarcation
             </p>
           </aside>
           <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="medical-gap-heading"
-              className="font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+              className="font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
             >
               Medical aid structuring vs gap cover demarcation
             </h2>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
               Medical schemes are governed by the Medical Schemes Act and must provide Prescribed
               Minimum Benefits (PMBs). Gap cover is a short-term insurance product under Demarcation
               Regulations, designed to fund in-hospital specialist shortfalls, not to replace a
               medical scheme.
             </p>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
               Annual gap cover benefit caps adjust under those regulations (verify the current
               figure for your policy year with a licensed adviser). We structure household health
               cover across both regimes without conflating them.
@@ -270,7 +295,8 @@ export function InsuranceHubPageView({ faqs }: Props) {
             <Link
               href="/solutions/medical-aid"
               prefetch
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+              style={{ color: TEAL_ON_DARK }}
             >
               Medical aid &amp; gap domain
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -279,10 +305,11 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
+      {/* §5 Independence — light */}
       <section
         id="independence"
-        className="scroll-mt-28 border-y py-12 md:py-16"
-        style={{ borderColor: HAIRLINE }}
+        className="scroll-mt-28 border-b py-12 md:py-16"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="independence-heading"
       >
         <div className={HOME4_WRAP}>
@@ -315,21 +342,32 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
+      {/* §6 FAQ — shark (component default) */}
       <VisibleFaqSection
         faqs={faqItems}
         headingId="insurance-faq-heading"
         primaryCta={{ href: "/contact?source=insurance_faq", label: "Book a capital assessment" }}
       />
 
+      {/* §7 Related — light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/insurance")} />
 
-      <section id="risk-audit" className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24" aria-labelledby="risk-audit-heading">
+      {/* §8 Terminal — dark panel (kept) */}
+      <section
+        id="risk-audit"
+        className="scroll-mt-28 pb-16 pt-4 md:scroll-mt-32 md:pb-24"
+        style={{ backgroundColor: CANVAS }}
+        aria-labelledby="risk-audit-heading"
+      >
         <div className={HOME4_WRAP}>
           <div
             className="rounded-xl px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
             style={{ backgroundColor: INK }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+              style={{ color: TEAL_ON_DARK }}
+            >
               FSP 17273 · Category 1.8
             </p>
             <h2
@@ -346,7 +384,8 @@ export function InsuranceHubPageView({ faqs }: Props) {
             <Link
               href="/contact?source=insurance_terminal"
               prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+              className="mt-8 inline-flex items-center gap-2 rounded px-7 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
+              style={{ backgroundColor: TEAL }}
             >
               Book a risk audit
               <ArrowRight className="h-4 w-4" aria-hidden />

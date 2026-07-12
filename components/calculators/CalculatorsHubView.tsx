@@ -248,43 +248,61 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
   );
 }
 
-/** Keep the light | dark pair the user liked; same card language inside both halves. */
+/**
+ * Tax + Insurance as one canvas chapter with two equal columns
+ * (same hairline language as Estate / Everest fact sheets).
+ */
 function PairedDomainRow({ domains }: { domains: readonly HubDomain[] }) {
   return (
-    <section className="border-b" style={{ borderColor: HAIRLINE }} aria-label="Tax and insurance">
-      <div className="grid grid-cols-1 items-stretch md:grid-cols-2">
-        {domains.map((domain, index) => {
-          const tools = getHubDomainCalculators(domain);
-          const toolLabel = tools.length === 1 ? "1 tool" : `${tools.length} tools`;
-          const dark = index % 2 === 1;
+    <section
+      className="scroll-mt-28 border-b pb-16 pt-14 md:pb-24 md:pt-20"
+      style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      aria-label="Tax and insurance calculators"
+    >
+      <div className={HOME4_WRAP}>
+        <SectionHeader
+          kicker="2 specialised tools"
+          headingId="tax-insurance-heading"
+          title="Tax & insurance"
+          lead="SARS income estimates and underinsurance risk when the average clause applies. Same ungated ASSET format as the rest of the library."
+        />
 
-          return (
-            <div
-              key={domain.id}
-              id={domain.id}
-              className={`scroll-mt-28 px-4 py-14 sm:px-6 md:px-8 md:py-20 lg:px-10 ${
-                dark ? "bg-shark text-white" : ""
-              }`}
-              style={dark ? undefined : { backgroundColor: CANVAS }}
-              aria-labelledby={`${domain.id}-heading`}
-            >
-              <div className="mx-auto flex h-full w-full max-w-xl flex-col lg:max-w-lg">
-                <SectionHeader
-                  kicker={toolLabel}
-                  headingId={`${domain.id}-heading`}
-                  title={domain.label}
-                  lead={domain.lead}
-                  invert={dark}
-                />
-                <div className="mt-8 flex flex-1 flex-col gap-5">
+        <div
+          className="mt-10 grid grid-cols-1 gap-px md:grid-cols-2"
+          style={{ backgroundColor: HAIRLINE }}
+        >
+          {domains.map((domain) => {
+            const tools = getHubDomainCalculators(domain);
+            return (
+              <div
+                key={domain.id}
+                id={domain.id}
+                className="flex scroll-mt-28 flex-col bg-white"
+                aria-labelledby={`${domain.id}-heading`}
+              >
+                <div className="border-b px-6 py-6 sm:px-8" style={{ borderColor: HAIRLINE }}>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
+                    1 tool
+                  </p>
+                  <h3
+                    id={`${domain.id}-heading`}
+                    className="mt-2 font-serif text-xl font-semibold tracking-tight text-shark"
+                  >
+                    {domain.label}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
+                    {domain.lead}
+                  </p>
+                </div>
+                <div className="flex flex-1 flex-col gap-5 p-6 sm:p-8">
                   {tools.map((tool) => (
                     <CalculatorCard key={tool.id} tool={tool} anchor />
                   ))}
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -296,7 +314,7 @@ type Props = {
 
 /**
  * Calculators hub, Continuous Document unity:
- * Canvas chapters + one Shark "Start here" + Tax|Insurance split + inset terminal.
+ * Canvas chapters + one Shark "Start here" + Tax|Insurance pair chapter + inset terminal.
  * Same hairline ToolCard as Estate / Retirement.
  */
 export function CalculatorsHubView({ faqItems }: Props) {

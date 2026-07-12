@@ -669,7 +669,7 @@ export function InvestmentsPageView({ faqs }: Props) {
 
       <RelatedContent variant="warm" links={getRelatedLinks("/investments")} />
 
-      {/* §10 Terminal conversion, inset dark only */}
+      {/* §10 Terminal conversion — full Related-content width */}
       <section
         id="book-strategy"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
@@ -677,32 +677,36 @@ export function InvestmentsPageView({ faqs }: Props) {
       >
         <div className={HOME4_WRAP}>
           <div
-            className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
+            className="rounded-xl px-6 py-10 sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10 md:px-12 md:py-14"
             style={{ backgroundColor: INK }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
-              FSP 17273 · Category 1.8
-            </p>
-            <h2
-              id="final-cta-heading"
-              className="mt-4 font-serif font-semibold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
-            >
-              Ready for a structured investment review?
-            </h2>
-            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
-              You have the continuum, accumulation, distribution, and the constraints behind any
-              targeted yield. Bring your figures; an independent adviser will review without product
-              pressure.
-            </p>
-            <Link
-              href="/contact?source=investments_terminal"
-              prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
-            >
-              Book a strategy call
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <div className="max-w-2xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
+                FSP 17273 · Category 1.8
+              </p>
+              <h2
+                id="final-cta-heading"
+                className="mt-4 font-serif font-semibold tracking-tight text-white"
+                style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
+              >
+                Ready for a structured investment review?
+              </h2>
+              <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/75">
+                You have the continuum, accumulation, distribution, and the constraints behind any
+                targeted yield. Bring your figures; an independent adviser will review without product
+                pressure.
+              </p>
+            </div>
+            <div className="mt-8 shrink-0 md:mt-0">
+              <Link
+                href="/contact?source=investments_terminal"
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+              >
+                Book a strategy call
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

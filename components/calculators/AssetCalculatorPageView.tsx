@@ -261,7 +261,10 @@ export function AssetCalculatorPageView({
         </section>
       ))}
 
-      <VisibleFaqSection faqs={faqs} />
+      <VisibleFaqSection
+        faqs={faqs}
+        primaryCta={{ href: "/contact?source=calculator_faq", label: "Book a capital assessment" }}
+      />
 
       <section className="border-t border-stone-200/80 py-12 md:py-14" style={{ backgroundColor: CANVAS }}>
         <div className={`${HOME4_WRAP} text-center`}>

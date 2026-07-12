@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
@@ -282,32 +283,12 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      <section id="about-faq" className="scroll-mt-28 py-16 md:py-24" aria-labelledby="about-faq-heading">
-        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
-          <h2
-            id="about-faq-heading"
-            className="font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
-          >
-            Frequently asked questions
-          </h2>
-          <div className="mt-8 divide-y border-y" style={{ borderColor: HAIRLINE }}>
-            {faqItems.map((item) => (
-              <details key={item.question} className="group py-5">
-                <summary className="cursor-pointer list-none font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
-                  <span className="flex items-start justify-between gap-4">
-                    <span>{item.question}</span>
-                    <span className="shrink-0 text-cinematic-teal transition group-open:rotate-45" aria-hidden>
-                      +
-                    </span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <VisibleFaqSection
+        faqs={faqItems}
+        id="about-faq"
+        headingId="about-faq-heading"
+        primaryCta={{ href: "/contact?source=about_faq", label: "Book a capital assessment" }}
+      />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/about")} />
 

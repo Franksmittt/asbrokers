@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { ContactFormDeferred } from "@/components/contact/ContactFormDeferred";
@@ -213,32 +214,11 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      <section className="py-16 md:py-24" aria-labelledby="contact-faq-heading">
-        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
-          <h2
-            id="contact-faq-heading"
-            className="font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
-          >
-            Frequently asked questions
-          </h2>
-          <div className="mt-8 divide-y border-y" style={{ borderColor: HAIRLINE }}>
-            {faqItems.map((item) => (
-              <details key={item.question} className="group py-5">
-                <summary className="cursor-pointer list-none font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
-                  <span className="flex items-start justify-between gap-4">
-                    <span>{item.question}</span>
-                    <span className="shrink-0 text-cinematic-teal transition group-open:rotate-45" aria-hidden>
-                      +
-                    </span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <VisibleFaqSection
+        faqs={faqItems}
+        headingId="contact-faq-heading"
+        primaryCta={{ href: "/contact?source=contact_faq", label: "Book a capital assessment" }}
+      />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/contact")} />
       <Footer />

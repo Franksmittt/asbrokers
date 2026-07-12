@@ -42,7 +42,8 @@ export function ContactEnquiryForm() {
       source === "calculator_terminal" ||
       source === "calculator_lead" ||
       source === "calculators_terminal" ||
-      source === "calculators_faq"
+      source === "calculators_faq" ||
+      source.endsWith("_faq")
     ) {
       return ["everest"];
     }

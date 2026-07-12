@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
+import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
@@ -539,67 +540,16 @@ export function CalculatorsHubView({ faqItems }: Props) {
       {/* 8. Tax | Insurance split */}
       <PairedDomainRow domains={pairedDomains} />
 
-      {/* 9. FAQ, shark chapter with open answers (not accordion) */}
-      <section
+      {/* 9. FAQ */}
+      <VisibleFaqSection
+        faqs={faqItems}
         id="faq"
-        className="scroll-mt-28 bg-shark py-16 text-white md:py-24"
-        aria-labelledby="calc-faq-heading"
-      >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
-          <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
-              Before you book
-            </p>
-            <h2
-              id="calc-faq-heading"
-              className="mt-3 font-serif font-semibold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)" }}
-            >
-              Straight answers before you open a tool or book a call
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-white/65">
-              Education first. Personal financial advice only after a needs analysis with AS Brokers
-              CC, FSP 17273.
-            </p>
-            <div className="mt-8 flex flex-col items-start gap-3">
-              <Link
-                href="/everest-wealth/about"
-                prefetch={false}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
-              >
-                Understanding Everest
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <Link
-                href="/contact?source=calculators_faq"
-                prefetch={false}
-                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-              >
-                Book a capital assessment
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
-          </div>
-
-          <ol className="col-span-12 divide-y divide-white/10 border-y border-white/10 lg:col-span-8">
-            {faqItems.map((item, index) => (
-              <li key={item.question} className="grid grid-cols-[2.75rem_1fr] gap-4 py-6 sm:gap-6">
-                <span className="pt-1 text-[11px] font-semibold tabular-nums text-cinematic-teal">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-serif text-lg font-semibold tracking-tight text-white sm:text-xl">
-                    {item.question}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-[0.9375rem]">
-                    {item.answer}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+        headingId="calc-faq-heading"
+        primaryCta={{
+          href: "/contact?source=calculators_faq",
+          label: "Book a capital assessment",
+        }}
+      />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/calculators")} />
 

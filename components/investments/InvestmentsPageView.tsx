@@ -26,6 +26,7 @@ const FAIS_DISCLAIMER =
 const CALC_POWER_OF_GROWTH = calculatorPagePath("asset-016-growth-comparison");
 const CALC_PERSONAL_GOAL = calculatorPagePath("asset-017-personal-goal");
 const CALC_INCOME_VS_GROWTH = calculatorPagePath("asset-013-everest-income-vs-growth");
+const CALC_128_VS_142 = calculatorPagePath("asset-011-everest-128-vs-142");
 
 const PAGE_NAV = [
   { id: "fiduciary-philosophy", label: "Fiduciary approach" },

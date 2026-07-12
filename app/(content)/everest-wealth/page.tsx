@@ -2,9 +2,9 @@ import { EverestWealthPageView } from "@/components/everest-wealth/EverestWealth
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Structured Monthly Income Without Market Volatility | Everest Wealth";
+const PAGE_TITLE = "Everest Wealth Structured Income | Independent FSP 17273";
 const PAGE_DESCRIPTION =
-  "Need predictable income without JSE stress? Everest voluntary preference-share education via independent FSP 17273 Category 1.8, targeted profiles, R100k min, liquidity and DWT upfront. Not guaranteed.";
+  "Need monthly income without market stress? Independent Category 1.8 education on Everest voluntary preference shares: 12.8%, 14.2%, 14.5% targeted profiles, R100k min, liquidity and DWT upfront. Run calculators, then book AS Brokers.";
 
 const faqs = [
   {
@@ -45,11 +45,14 @@ export const metadata = buildPageMetadata({
   description: PAGE_DESCRIPTION,
   keywords: [
     "Everest Wealth South Africa",
-    "structured income without market volatility",
+    "structured monthly income",
     "Category 1.8 preference shares",
     "12.8% Strategic Income",
+    "14.2% Onyx Income",
     "FSP 17273",
+    "independent Everest broker",
   ],
+  ogImagePath: "/images/everest-copper-industrial-4x3.jpg",
 });
 
 export default function EverestWealthPage() {

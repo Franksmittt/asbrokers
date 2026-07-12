@@ -191,19 +191,19 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/everest-wealth": {
     path: "/everest-wealth",
     fiveSecondTest:
-      "Predictable monthly income without daily JSE stress, with illiquidity and DWT stated before any calculator.",
-    h1: "Structured monthly income without daily market volatility",
+      "Need monthly income without a market correction wiping the plan, constraints and calculators before any sales call.",
+    h1: "Need monthly income without betting on the next market correction?",
     subhead:
-      "Retirees and income-seekers cannot afford a 20% correction when they need to draw cash. Where suitable, Everest voluntary preference-share structures target predictable dividends, constraints first.",
+      "Albert's Category 1.8 practice educates on Everest voluntary preference-share profiles first: targeted dividends, illiquidity, and tax, before anyone asks you to sign.",
     problem:
-      "Sequence-of-returns risk and marginal tax on interest destroy income plans built on volatile equities or cash.",
+      "Retirees and income-seekers cannot afford selling into dips, or paying up to 45% marginal tax on interest, when they need predictable cash flow.",
     promise:
-      "Category 1.8 access to targeted Everest profiles (12.8% / 14.2% / 14.5%) with radical constraint transparency, educational, not guaranteed.",
+      "Independent FSP 17273 education on targeted Everest profiles (12.8% / 14.2% / 14.5%) with radical constraint transparency, then a capital assessment if you want advice.",
     primaryCta: {
       label: "Calculate 12.8% target income",
       href: "/calculators/asset-010-everest-128-income",
     },
-    secondaryCta: { label: "Read the full Everest guide", href: "/everest-wealth/about" },
+    secondaryCta: { label: "Understanding Everest", href: "/everest-wealth/about" },
   },
   "/everest-wealth/about": {
     path: "/everest-wealth/about",

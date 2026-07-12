@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
@@ -10,229 +8,467 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
-import { EVEREST_CONSTRAINT_STRING } from "@/lib/problem-messaging";
 import { getAlt } from "@/lib/image-alt";
 import { EverestRolesTriangle } from "@/components/trust/TrustDiagrams";
+import {
+  WHATSAPP_DISPLAY,
+  whatsappUrl,
+  WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
+} from "@/lib/whatsapp";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
-const INSET = "rgba(29,29,31,0.05)";
+const TEAL = "#0F766E";
+const TEAL_ON_DARK = "#5EEAD4";
+const MUTED = "#57534e";
 const CRAFT_IMAGE = "/images/everest-copper-industrial-4x3.jpg";
+
+const CONSTRAINTS = [
+  { dt: "Minimum", dd: "R100,000" },
+  { dt: "Term", dd: "5 years" },
+  { dt: "Notice", dd: "120 days" },
+  { dt: "Early exit", dd: "Up to 15% may apply" },
+  { dt: "Tax", dd: "20% DWT typical" },
+  { dt: "Structure", dd: "Preference shares" },
+] as const;
+
+const PROBLEMS = [
+  {
+    title: "You need income, not another market rollercoaster",
+    body: "A 20% drawdown the year you start withdrawing can gut a retirement plan. The job is cash you can budget on, not a unit-trust brochure.",
+  },
+  {
+    title: "Cash and interest are getting taxed hard",
+    body: "Interest can attract marginal rates up to 45%. Dividend-style structures typically face 20% DWT, a different tax conversation for many higher earners.",
+  },
+  {
+    title: "You want clarity before anyone sells you a product",
+    body: "Run the numbers yourself. Constraints sit on the same page as the yield. Advice only after a needs analysis with FSP 17273.",
+  },
+] as const;
 
 const PRODUCTS = [
   {
     name: "12.8% Strategic Income",
-    yieldLabel: "12.8% Targeted p.a.",
-    focus: "Monthly income + 10% loyalty bonus after five years",
+    yieldLabel: "12.8% targeted p.a.",
+    focus: "Monthly income with a 10% loyalty bonus illustration after five years.",
+    bestFor: "Income now, with a term reward if you stay invested.",
     href: calculatorPagePath("asset-010-everest-128-income"),
   },
   {
     name: "14.2% Onyx Income+",
-    yieldLabel: "14.2% Targeted p.a.",
-    focus: "Maximum day-one monthly income; no loyalty bonus",
+    yieldLabel: "14.2% targeted p.a.",
+    focus: "Maximum day-one monthly income. No loyalty bonus.",
+    bestFor: "When cash flow this month matters more than deferred capital rewards.",
     href: calculatorPagePath("asset-009-everest-142-income"),
   },
   {
     name: "14.5% Strategic Growth",
-    yieldLabel: "14.5% Targeted p.a.",
-    focus: "Pure compounding to maturity; no monthly drawings",
+    yieldLabel: "14.5% targeted p.a.",
+    focus: "Pure compounding to maturity. No monthly drawings.",
+    bestFor: "Capital you can leave untouched for the full term.",
     href: calculatorPagePath("asset-012-strategic-growth"),
   },
 ] as const;
 
+const TRUST_FACTS = [
+  { dt: "Your adviser", dd: "AS Brokers CC · FSP 17273" },
+  { dt: "Licence", dd: "Category 1.8 · unlisted shares" },
+  { dt: "Independence", dd: "Not a tied Everest agent" },
+  { dt: "Product provider", dd: "Everest Wealth · FSP 795" },
+] as const;
+
 type Props = { faqs: FAQItem[] };
 
+/**
+ * Everest hub: problem → trust → constraints → products → tools.
+ * Continuous Document unity with /calculators (canvas, hairlines, shark FAQ).
+ */
 export function EverestWealthPageView({ faqs }: Props) {
   const faqItems = ensureSixFaqs(faqs);
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
+      {/* 1. Hero */}
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={HOME4_WRAP}>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
-            Everest Wealth · Category 1.8 · FSP 17273 advising · Everest FSP 795
-          </p>
-          <h1
-            className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
-          >
-            Structured monthly income without daily market volatility
-          </h1>
-          <p
-            className="mt-5 max-w-2xl leading-relaxed"
-            style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-          >
-            Retirees and income-seekers cannot afford a 20% market correction exactly when they need
-            to draw cash. Where suitable, Everest voluntary preference-share structures target
-            predictable dividends, with illiquidity and DWT stated before you run a single number.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link
-              href={calculatorPagePath("asset-010-everest-128-income")}
-              prefetch={false}
-              className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12`}>
+          <div className="min-w-0 lg:col-span-7">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+              style={{ color: TEAL }}
             >
-              Calculate 12.8% target income
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <Link
-              href="/everest-wealth/about"
-              prefetch={false}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+              Everest Wealth · Independent Category 1.8 · FSP 17273
+            </p>
+            <h1
+              className="mt-5 max-w-3xl font-serif font-semibold tracking-tight text-balance"
+              style={{
+                fontSize: "clamp(1.875rem, 1.4rem + 2vw, 3rem)",
+                lineHeight: 1.15,
+                color: INK,
+              }}
             >
-              Read the full Everest guide
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </div>
-          <aside
-            className="mt-8 max-w-3xl border bg-white p-5 text-sm leading-relaxed text-stone-600"
-            style={{ borderColor: HAIRLINE }}
-            role="note"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">
-              Constraint string (read before any calculator)
-            </p>
-            <p className="mt-2 tabular-nums">{EVEREST_CONSTRAINT_STRING}</p>
-          </aside>
-        </div>
-      </header>
-
-      <section className="pb-16 md:pb-24" aria-labelledby="volatility-heading">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
-          <aside className="min-w-0 lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
-              The problem
-            </p>
-          </aside>
-          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
-            <h2
-              id="volatility-heading"
-              className="font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+              Need monthly income without betting on the next market correction?
+            </h1>
+            <p
+              className="mt-5 max-w-xl leading-relaxed"
+              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              Sequence-of-returns risk meets South African tax drag
-            </h2>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-              Drawing income from volatile equities means selling into dips. Interest-bearing cash
-              can attract marginal tax up to 45%. The job is predictable cash flow, not another
-              unit-trust brochure.
+              Albert&apos;s Category 1.8 practice educates you on Everest voluntary preference-share
+              profiles first: targeted dividends, illiquidity, and tax, before anyone asks you to
+              sign. Run the maths yourself. Then book FSP 17273 if you want advice.
             </p>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-              AS Brokers (FSP 17273, Category 1.8) can discuss Everest Wealth structures where they
-              fit, as one tool among others, never a default for every client. Everest is regulated
-              separately (FSP 795). We are an independent intermediary, not a tied agent or
-              subsidiary.
-            </p>
-            <figure className="mt-10">
-              <div
-                className="relative aspect-[4/3] overflow-hidden border bg-white sm:aspect-[16/9]"
-                style={{ borderColor: HAIRLINE }}
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+              <Link
+                href={calculatorPagePath("asset-010-everest-128-income")}
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: TEAL }}
               >
+                Calculate 12.8% target income
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <a
+                href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+                style={{ color: TEAL }}
+              >
+                WhatsApp {WHATSAPP_DISPLAY}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </a>
+            </div>
+            <p className="mt-5 text-sm" style={{ color: BODY }}>
+              Prefer the deep brief first?{" "}
+              <Link
+                href="/everest-wealth/about"
+                prefetch={false}
+                className="font-semibold underline-offset-2 hover:underline"
+                style={{ color: TEAL }}
+              >
+                Understanding Everest
+              </Link>
+            </p>
+          </div>
+
+          <div className="min-w-0 lg:col-span-5">
+            <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={CRAFT_IMAGE}
                   alt={getAlt(
                     CRAFT_IMAGE,
-                    "Copper refinery illustrating tangible industrial backing behind structured income"
+                    "Copper industrial plant illustrating real-economy backing behind structured income"
                   )}
                   fill
+                  unoptimized
+                  priority
+                  fetchPriority="high"
                   className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 70vw"
+                  sizes="(max-width: 1024px) 100vw, 420px"
                 />
               </div>
-              <figcaption className="mt-3 max-w-2xl text-xs leading-relaxed text-stone-500">
-                Real-economy illustration, not a yield lifestyle shot. Preference-share structures
-                sit behind audited channels; returns remain targeted, not guaranteed.{" "}
-                <span className="tabular-nums text-stone-600">{EVEREST_CONSTRAINT_STRING}</span>
+              <figcaption className="border-t px-5 py-4 text-sm leading-relaxed" style={{ borderColor: HAIRLINE, color: BODY }}>
+                Real-economy illustration, not a yield lifestyle shot. Returns remain{" "}
+                <span className="font-semibold text-shark">targeted, not guaranteed</span>.
               </figcaption>
             </figure>
-            <div className="mt-10">
-              <EverestRolesTriangle />
-            </div>
           </div>
         </div>
-      </section>
+      </header>
 
-      <section className="pb-16 md:pb-24" aria-labelledby="suite-heading">
+      {/* 2. Trust band */}
+      <section
+        className="border-y bg-white"
+        style={{ borderColor: HAIRLINE }}
+        aria-label="Who you are dealing with"
+      >
         <div className={HOME4_WRAP}>
-          <h2
-            id="suite-heading"
-            className="font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          <dl
+            className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4"
+            style={{ backgroundColor: HAIRLINE }}
           >
-            Three voluntary profiles, pick the cash-flow job
-          </h2>
-          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Yields sit at body weight with “Targeted p.a.”, never as glowing sales numerals.
-            Constraints travel in the same visual group.
-          </p>
-          <div className="mt-10 overflow-hidden border bg-white" style={{ borderColor: HAIRLINE }}>
-            {PRODUCTS.map((row) => (
-              <div
-                key={row.name}
-                className="grid gap-3 border-b px-5 py-6 last:border-b-0 md:grid-cols-12 md:items-center md:gap-6"
-                style={{ borderColor: HAIRLINE }}
-              >
-                <div className="md:col-span-4">
-                  <p className="font-serif text-lg font-semibold tracking-tight text-shark">{row.name}</p>
-                  <p className="mt-1 text-sm text-stone-600">{row.focus}</p>
-                </div>
-                <div className="md:col-span-3">
-                  <p className="text-sm font-semibold tabular-nums text-shark">{row.yieldLabel}</p>
-                  <p className="mt-1 text-xs text-stone-500">Not guaranteed. Educational only.</p>
-                </div>
-                <div className="md:col-span-3">
-                  <p className="text-xs leading-relaxed text-stone-500">{EVEREST_CONSTRAINT_STRING}</p>
-                </div>
-                <div className="md:col-span-2">
-                  <Link
-                    href={row.href}
-                    prefetch={false}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-cinematic-teal hover:opacity-80"
-                  >
-                    Illustrate
-                    <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-                  </Link>
-                </div>
+            {TRUST_FACTS.map((item) => (
+              <div key={item.dt} className="min-w-0 bg-white px-5 py-6 sm:px-6">
+                <dt
+                  className="text-[11px] font-semibold uppercase tracking-[0.12em]"
+                  style={{ color: MUTED }}
+                >
+                  {item.dt}
+                </dt>
+                <dd className="mt-2 font-serif text-base font-semibold tracking-tight text-shark">
+                  {item.dd}
+                </dd>
               </div>
             ))}
-          </div>
-          <p className="mt-6 text-sm text-stone-600">
-            Living annuity capital (Amethyst, Reg 28, 2.5%–17.5% drawdown) is a different wrapper , {" "}
-            <Link
-              href={calculatorPagePath("asset-014-living-annuity")}
-              prefetch={false}
-              className="font-semibold text-cinematic-teal"
-            >
-              model living annuity income
-            </Link>{" "}
-            separately from voluntary preference shares.
-          </p>
+          </dl>
         </div>
       </section>
 
-      <section className="pb-16 md:pb-24" aria-labelledby="compare-heading">
+      {/* 3. Problems */}
+      <section
+        className="scroll-mt-28 bg-shark py-16 text-white md:py-24"
+        aria-labelledby="everest-problems-heading"
+      >
         <div className={HOME4_WRAP}>
-          <div className="rounded-lg px-6 py-10 sm:px-10" style={{ backgroundColor: INSET }}>
-            <h2
-              id="compare-heading"
-              className="font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem)", color: INK }}
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
+            style={{ color: TEAL_ON_DARK }}
+          >
+            Why people land here
+          </p>
+          <h2
+            id="everest-problems-heading"
+            className="mt-3 max-w-2xl font-serif font-semibold tracking-tight text-balance"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)" }}
+          >
+            Three problems. One educational toolkit.
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
+            We do not start with a brochure. We start with the cash-flow job you actually have.
+          </p>
+
+          <div
+            className="mt-10 grid grid-cols-1 gap-px md:grid-cols-3"
+            style={{ backgroundColor: "rgba(255,255,255,0.12)" }}
+          >
+            {PROBLEMS.map((item, index) => (
+              <article key={item.title} className="flex flex-col bg-shark px-6 py-8 sm:px-7">
+                <span
+                  className="font-serif text-3xl font-semibold tabular-nums"
+                  style={{ color: TEAL_ON_DARK }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-5 font-serif text-xl font-semibold tracking-tight text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-white/70">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Constraints fact sheet */}
+      <section
+        className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-labelledby="everest-constraints-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12`}>
+          <div className="min-w-0 lg:col-span-5">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
+              style={{ color: TEAL }}
             >
-              Income vs growth: which trade-off fits?
+              Before you open a calculator
+            </p>
+            <h2
+              id="everest-constraints-heading"
+              className="mt-3 font-serif font-semibold tracking-tight text-balance"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)", color: INK }}
+            >
+              The rules sit next to the yield
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600">
-              Compare maximum day-one income against deferred compounding, illustrative only.
+            <p className="mt-4 text-sm leading-relaxed sm:text-base" style={{ color: BODY }}>
+              Voluntary Everest profiles are unlisted preference-share structures. They are not bank
+              deposits, not guaranteed rates, and not for money you may need next year. Albert will
+              not soft-pedal that in a meeting, so we do not soft-pedal it on the page.
             </p>
             <Link
-              href={calculatorPagePath("asset-013-everest-income-vs-growth")}
+              href="/everest-wealth/about"
               prefetch={false}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+              style={{ color: TEAL }}
             >
-              Open Income vs Growth calculator
+              Full Understanding Everest guide
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
+          </div>
+
+          <aside
+            className="min-w-0 border bg-white lg:col-span-7"
+            style={{ borderColor: HAIRLINE }}
+            role="note"
+            aria-label="Everest voluntary capital constraints"
+          >
+            <div className="border-b px-5 py-4 sm:px-6" style={{ borderColor: HAIRLINE }}>
+              <p
+                className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                style={{ color: MUTED }}
+              >
+                Voluntary capital facts
+              </p>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
+                Targeted return profiles. Educational illustrations only under FAIS.
+              </p>
+            </div>
+            <dl
+              className="grid grid-cols-2 gap-px sm:grid-cols-3"
+              style={{ backgroundColor: HAIRLINE }}
+            >
+              {CONSTRAINTS.map((item) => (
+                <div key={item.dt} className="min-w-0 bg-white px-5 py-4 sm:px-6">
+                  <dt
+                    className="text-[11px] font-semibold uppercase tracking-[0.12em]"
+                    style={{ color: MUTED }}
+                  >
+                    {item.dt}
+                  </dt>
+                  <dd className="mt-1.5 break-words font-serif text-base font-semibold tracking-tight text-shark">
+                    {item.dd}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      {/* 5. Products */}
+      <section
+        id="profiles"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-labelledby="suite-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
+            style={{ color: TEAL }}
+          >
+            Three voluntary profiles
+          </p>
+          <h2
+            id="suite-heading"
+            className="mt-3 max-w-2xl font-serif font-semibold tracking-tight text-balance"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)", color: INK }}
+          >
+            Pick the cash-flow job, then run the illustration
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed sm:text-base" style={{ color: BODY }}>
+            Same constraints on every row. Different income versus growth trade-offs. Calculators
+            stay ungated.
+          </p>
+
+          <div className="mt-10 grid grid-cols-1 items-stretch gap-5 md:grid-cols-3">
+            {PRODUCTS.map((product) => (
+              <article
+                key={product.name}
+                className="flex min-w-0 flex-col border bg-white p-6 sm:p-7"
+                style={{ borderColor: HAIRLINE }}
+              >
+                <p
+                  className="text-[11px] font-semibold uppercase tracking-[0.14em] tabular-nums"
+                  style={{ color: MUTED }}
+                >
+                  {product.yieldLabel}
+                </p>
+                <h3 className="mt-3 font-serif text-xl font-semibold tracking-tight text-shark">
+                  {product.name}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
+                  {product.focus}
+                </p>
+                <p className="mt-4 text-sm font-medium text-shark">
+                  Best when: <span className="font-normal" style={{ color: BODY }}>{product.bestFor}</span>
+                </p>
+                <Link
+                  href={product.href}
+                  prefetch={false}
+                  className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-semibold hover:opacity-80"
+                  style={{ color: TEAL }}
+                >
+                  Run calculation
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </article>
+            ))}
+          </div>
+
+          <div
+            className="mt-8 border bg-white px-6 py-6 sm:px-8"
+            style={{ borderColor: HAIRLINE }}
+          >
+            <p className="text-sm leading-relaxed" style={{ color: BODY }}>
+              <span className="font-semibold text-shark">Living annuity capital is different.</span>{" "}
+              Amethyst wraps retirement-fund money under Regulation 28 with legislated drawdowns
+              (2.5%–17.5%). Do not conflate it with voluntary preference shares.{" "}
+              <Link
+                href={calculatorPagePath("asset-014-living-annuity")}
+                prefetch={false}
+                className="font-semibold hover:opacity-80"
+                style={{ color: TEAL }}
+              >
+                Model living annuity income
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Compare + roles */}
+      <section
+        className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-labelledby="compare-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12`}>
+          <div className="min-w-0 lg:col-span-5">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
+              style={{ color: TEAL }}
+            >
+              Still deciding
+            </p>
+            <h2
+              id="compare-heading"
+              className="mt-3 font-serif font-semibold tracking-tight text-balance"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)", color: INK }}
+            >
+              Compare income vs growth before you book
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed sm:text-base" style={{ color: BODY }}>
+              Side-by-side illustrations for day-one cash flow versus deferred compounding. Still
+              educational. Still not advice.
+            </p>
+            <div className="mt-6 flex flex-col items-start gap-3">
+              <Link
+                href={calculatorPagePath("asset-013-everest-income-vs-growth")}
+                prefetch={false}
+                className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+                style={{ color: TEAL }}
+              >
+                Income vs growth calculator
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href={calculatorPagePath("asset-011-everest-128-vs-142")}
+                prefetch={false}
+                className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+                style={{ color: TEAL }}
+              >
+                12.8% vs 14.2% comparison
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href="/calculators#investments"
+                prefetch={false}
+                className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+                style={{ color: TEAL }}
+              >
+                All Everest tools on the ASSET hub
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
+          </div>
+
+          <div className="min-w-0 lg:col-span-7">
+            <EverestRolesTriangle />
           </div>
         </div>
       </section>
@@ -245,31 +481,47 @@ export function EverestWealthPageView({ faqs }: Props) {
 
       <RelatedContent variant="warm" links={getRelatedLinks("/everest-wealth")} />
 
+      {/* Terminal */}
       <section className="pb-16 md:pb-24" aria-labelledby="everest-cta-heading">
         <div className={HOME4_WRAP}>
-          <div
-            className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12"
-            style={{ backgroundColor: INK }}
-          >
-            <h2
-              id="everest-cta-heading"
-              className="font-serif font-semibold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
-            >
-              Ready to test suitability, not chase a headline yield?
-            </h2>
-            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
-              Run the calculators, read the constraints, then book FSP 17273 if you want a needs
-              analysis. Calculators are not advice.
-            </p>
-            <Link
-              href="/contact?source=everest_terminal"
-              prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
-            >
-              Book a capital assessment
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+          <div className="rounded-xl bg-shark px-6 py-10 text-white sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10">
+            <div className="max-w-2xl">
+              <p
+                className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.18em]"
+                style={{ color: TEAL_ON_DARK }}
+              >
+                Next step
+              </p>
+              <h2
+                id="everest-cta-heading"
+                className="mt-3 font-serif text-2xl font-semibold tracking-tight text-white"
+              >
+                Test suitability, do not chase a headline yield
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/70">
+                Calculators stay educational. For Everest suitability, liquidity, and tax fit, speak
+                with an independent Category 1.8 adviser at AS Brokers CC.
+              </p>
+            </div>
+            <div className="mt-8 flex shrink-0 flex-col items-start gap-3 md:mt-0 md:items-end">
+              <Link
+                href="/contact?source=everest_terminal"
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: TEAL }}
+              >
+                Book a capital assessment
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <a
+                href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-white/80 underline-offset-2 hover:text-white hover:underline"
+              >
+                Or WhatsApp {WHATSAPP_DISPLAY}
+              </a>
+            </div>
           </div>
         </div>
       </section>

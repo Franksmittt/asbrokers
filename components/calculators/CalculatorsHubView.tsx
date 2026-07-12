@@ -27,9 +27,6 @@ const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const CRAFT_STRIP = "/images/calculators-hub-16x9.jpg";
 
-const FAIS_DISCLAIMER =
-  "These calculators are illustrative and educational only. They do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes depend on fees, markets, underwriting, and your circumstances. Targeted Everest return profiles are not guarantees.";
-
 const PAIRED_DOMAIN_IDS = new Set(["tax", "insurance"]);
 
 type FaqItem = { question: string; answer: string };
@@ -380,16 +377,6 @@ export function CalculatorsHubView({ faqItems }: Props) {
           </div>
 
           <div className="col-span-12 flex flex-col gap-5 lg:col-span-5">
-            <aside
-              className="border bg-white p-5 text-sm leading-relaxed"
-              style={{ borderColor: HAIRLINE, color: BODY }}
-              role="note"
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-stone-500">
-                FAIS notice
-              </p>
-              <p className="mt-2 text-[13px] leading-relaxed">{FAIS_DISCLAIMER}</p>
-            </aside>
             <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
               <div className="relative aspect-[16/10]">
                 <Image

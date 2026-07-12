@@ -16,6 +16,10 @@ const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
+/** WCAG AA teal on canvas; lighter teal for shark chapters. */
+const TEAL = "#0F766E";
+const TEAL_ON_DARK = "#5EEAD4";
+const MUTED = "#57534e";
 const FAIS_DISCLAIMER =
   "Calculators are provided for illustrative and educational purposes only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes may differ due to market conditions, fees, and legislative changes.";
 
@@ -127,9 +131,14 @@ function ToolCard({
   );
 }
 
-function EditorialLabel({ children }: { children: ReactNode }) {
+function EditorialLabel({ children, invert = false }: { children: ReactNode; invert?: boolean }) {
   return (
-    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">{children}</p>
+    <p
+      className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.16em]"
+      style={{ color: invert ? TEAL_ON_DARK : MUTED }}
+    >
+      {children}
+    </p>
   );
 }
 
@@ -209,10 +218,11 @@ export function InvestmentsPageView({ faqs }: Props) {
         </nav>
       </header>
 
-      {/* §2 Fiduciary philosophy */}
+      {/* §2 Fiduciary philosophy — light (pairs with hero) */}
       <section
         id="fiduciary-philosophy"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 md:scroll-mt-32 md:pb-24"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="fiduciary-heading"
       >
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
@@ -250,38 +260,38 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §3 Phase I: Accumulation */}
+      {/* §3 Phase I: Accumulation — shark */}
       <section
         id="phase-accumulation"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="accumulation-heading"
       >
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
             <div className="lg:sticky lg:top-28">
-              <EditorialLabel>Phase I · Accumulation</EditorialLabel>
+              <EditorialLabel invert>Phase I · Accumulation</EditorialLabel>
             </div>
           </aside>
           <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="accumulation-heading"
-              className="font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+              className="font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
             >
               Phase I: Capital accumulation and tax efficiency
             </h2>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
               While you are still working, the engineering problem is growth, tax efficiency, and
               compounding, without confusing accumulation vehicles with retirement income products.
             </p>
 
             <h3
-              className="mt-10 font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+              className="mt-10 font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)" }}
             >
               Balancing voluntary capital and retirement annuities
             </h3>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
               Retirement annuities and preservation funds sit inside the retirement-fund tax
               framework. Voluntary capital (including certain unlisted preference-share structures)
               is typically funded with after-tax money and follows different liquidity and tax
@@ -289,7 +299,7 @@ export function InvestmentsPageView({ faqs }: Props) {
               can genuinely commit.
             </p>
 
-            <dl className="mt-8 space-y-0 border-y" style={{ borderColor: HAIRLINE }}>
+            <dl className="mt-8 space-y-0 border-y border-white/10">
               {[
                 {
                   dt: "Tax-free / RA wrappers",
@@ -306,21 +316,21 @@ export function InvestmentsPageView({ faqs }: Props) {
               ].map((row) => (
                 <div
                   key={row.dt}
-                  className="grid gap-2 border-b py-5 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:gap-6"
-                  style={{ borderColor: HAIRLINE }}
+                  className="grid gap-2 border-b border-white/10 py-5 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:gap-6"
                 >
-                  <dt className="text-sm font-semibold text-shark">{row.dt}</dt>
-                  <dd className="text-sm leading-relaxed text-stone-600">{row.dd}</dd>
+                  <dt className="text-sm font-semibold text-white">{row.dt}</dt>
+                  <dd className="text-sm leading-relaxed text-white/65">{row.dd}</dd>
                 </div>
               ))}
             </dl>
 
-            <p className="mt-6 text-sm leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-6 text-sm leading-relaxed text-white/70">
               Modelling a pre-retirement shortfall?{" "}
               <Link
                 href="/retirement-planning"
                 prefetch={false}
-                className="font-semibold text-cinematic-teal hover:opacity-80"
+                className="font-semibold hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
               >
                 Open the retirement planning hub
               </Link>
@@ -330,7 +340,8 @@ export function InvestmentsPageView({ faqs }: Props) {
             <div className="mt-10">
               <a
                 href="#growth-tools"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal transition hover:opacity-80"
+                className="inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
               >
                 Jump to growth calculators
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -340,16 +351,23 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §4 Growth tools */}
+      {/* §4 Growth tools — light (white cards) */}
       <section
         id="growth-tools"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="growth-tools-heading"
       >
         <div className={HOME4_WRAP}>
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.16em]"
+            style={{ color: TEAL }}
+          >
+            Accumulation tools
+          </p>
           <h2
             id="growth-tools-heading"
-            className="font-serif font-semibold tracking-tight"
+            className="mt-3 font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
             Growth projection tools
@@ -366,32 +384,32 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §5 Phase II: Distribution */}
+      {/* §5 Phase II: Distribution — shark */}
       <section
         id="phase-distribution"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="distribution-heading"
       >
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
             <div className="lg:sticky lg:top-28">
-              <EditorialLabel>Phase II · Distribution</EditorialLabel>
+              <EditorialLabel invert>Phase II · Distribution</EditorialLabel>
             </div>
           </aside>
           <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
             <h2
               id="distribution-heading"
-              className="font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+              className="font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
             >
               Phase II: Capital distribution and sustainable income
             </h2>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
               After work, the engineering problem shifts: reliable income, drawdown discipline, and
               capital preservation. Living annuities and voluntary structured yields solve different
               problems, they must not be conflated.
             </p>
-            <dl className="mt-8 space-y-0 border-y" style={{ borderColor: HAIRLINE }}>
+            <dl className="mt-8 space-y-0 border-y border-white/10">
               {[
                 {
                   dt: "Living annuities",
@@ -408,20 +426,20 @@ export function InvestmentsPageView({ faqs }: Props) {
               ].map((row) => (
                 <div
                   key={row.dt}
-                  className="grid gap-2 border-b py-5 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:gap-6"
-                  style={{ borderColor: HAIRLINE }}
+                  className="grid gap-2 border-b border-white/10 py-5 last:border-b-0 sm:grid-cols-[12rem_1fr] sm:gap-6"
                 >
-                  <dt className="text-sm font-semibold text-shark">{row.dt}</dt>
-                  <dd className="text-sm leading-relaxed text-stone-600">{row.dd}</dd>
+                  <dt className="text-sm font-semibold text-white">{row.dt}</dt>
+                  <dd className="text-sm leading-relaxed text-white/65">{row.dd}</dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-6 text-sm leading-relaxed" style={{ color: BODY }}>
+            <p className="mt-6 text-sm leading-relaxed text-white/70">
               Full post-work income focus:{" "}
               <Link
                 href="/retirement"
                 prefetch={false}
-                className="font-semibold text-cinematic-teal hover:opacity-80"
+                className="font-semibold hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
               >
                 Retirement income hub
               </Link>
@@ -431,10 +449,11 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §6 Everest toolkit, fiduciary comparison table */}
+      {/* §6 Everest toolkit — light (comparison table stays readable) */}
       <section
         id="everest-toolkit"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="everest-heading"
       >
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
@@ -572,21 +591,27 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §7 Income vs growth tool + diagnostic anchor */}
+      {/* §7 Income vs growth — shark (white tool card) */}
       <section
         id="diagnostic-tools"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="income-tool-heading"
       >
         <div className={HOME4_WRAP}>
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] sm:text-xs sm:tracking-[0.16em]"
+            style={{ color: TEAL_ON_DARK }}
+          >
+            Diagnostic tools
+          </p>
           <h2
             id="income-tool-heading"
-            className="font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            className="mt-3 font-serif font-semibold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
           >
             Income vs growth: liquidity trade-offs
           </h2>
-          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
             Compare maximum day-one income against deferred compounding, without treating either
             scenario as advice.
           </p>
@@ -602,10 +627,11 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §8 Amethyst distinction */}
+      {/* §8 Amethyst distinction — light */}
       <section
         id="amethyst-distinction"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="amethyst-heading"
       >
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
@@ -645,9 +671,12 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* Credential strip */}
-      <section className="border-y py-8" style={{ borderColor: HAIRLINE }} aria-label="Fiduciary credentials">
-        <div className={`${HOME4_WRAP} grid gap-6 md:grid-cols-3 md:gap-8`}>
+      {/* Credential strip — light, quiet */}
+      <section
+        className="border-b py-8"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-label="Fiduciary credentials"
+      >        <div className={`${HOME4_WRAP} grid gap-6 md:grid-cols-3 md:gap-8`}>
           {[
             { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
             { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },

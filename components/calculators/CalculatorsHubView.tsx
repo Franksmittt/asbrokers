@@ -434,15 +434,20 @@ export function CalculatorsHubView({ faqItems }: Props) {
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="how-library-heading"
       >
-        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-12`}>
-          <div className="col-span-12 lg:col-span-4">
+        <div className={HOME4_WRAP}>
+          <div className="max-w-2xl">
             <SectionHeader
               kicker="How this library works"
               headingId="how-library-heading"
               title="Educate, calculate, then decide if you need advice"
+              lead="Three moves. Same path whether you came for Everest income, retirement longevity, or estate pressure."
             />
           </div>
-          <ol className="col-span-12 space-y-0 divide-y lg:col-span-8" style={{ borderColor: HAIRLINE }}>
+
+          <ol
+            className="mt-10 grid grid-cols-1 gap-px sm:grid-cols-3"
+            style={{ backgroundColor: HAIRLINE }}
+          >
             {[
               {
                 step: "01",
@@ -460,23 +465,40 @@ export function CalculatorsHubView({ faqItems }: Props) {
                 body: "Book a capital assessment or WhatsApp when you want FSP 17273 to interpret the maths.",
               },
             ].map((item) => (
-              <li
-                key={item.step}
-                className="grid grid-cols-[3rem_1fr] gap-4 py-6 first:pt-0 last:pb-0"
-                style={{ borderColor: HAIRLINE }}
-              >
-                <span className="text-[11px] font-semibold tabular-nums text-stone-500">{item.step}</span>
-                <div>
-                  <h3 className="font-serif text-lg font-semibold tracking-tight text-shark">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed" style={{ color: BODY }}>
-                    {item.body}
-                  </p>
-                </div>
+              <li key={item.step} className="flex flex-col bg-white px-6 py-8 sm:px-7 sm:py-10">
+                <span
+                  className="font-serif font-semibold tabular-nums tracking-tight text-cinematic-teal"
+                  style={{ fontSize: "clamp(2rem, 1.6rem + 1.2vw, 2.75rem)", lineHeight: 1 }}
+                >
+                  {item.step}
+                </span>
+                <h3 className="mt-5 font-serif text-xl font-semibold tracking-tight text-shark">
+                  {item.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed" style={{ color: BODY }}>
+                  {item.body}
+                </p>
               </li>
             ))}
           </ol>
+
+          <p className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            <a
+              href="#start-here"
+              className="inline-flex items-center gap-2 font-semibold text-cinematic-teal hover:opacity-80"
+            >
+              Jump to Start here
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+            <a
+              href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-stone-600 underline-offset-2 hover:text-shark hover:underline"
+            >
+              Or WhatsApp {WHATSAPP_DISPLAY}
+            </a>
+          </p>
         </div>
       </section>
 

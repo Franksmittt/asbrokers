@@ -488,57 +488,65 @@ export function CalculatorsHubView({ faqItems }: Props) {
       {/* 8. Tax | Insurance split */}
       <PairedDomainRow domains={pairedDomains} />
 
-      {/* 9. FAQ, canvas hairline */}
+      {/* 9. FAQ, shark chapter with open answers (not accordion) */}
       <section
         id="faq"
-        className="scroll-mt-28 border-b pb-16 pt-14 md:pb-24 md:pt-20"
-        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        className="scroll-mt-28 bg-shark py-16 text-white md:py-24"
         aria-labelledby="calc-faq-heading"
       >
-        <div className={`${HOME4_WRAP} mx-auto max-w-3xl`}>
-          <SectionHeader
-            kicker="Before you book"
-            headingId="calc-faq-heading"
-            title="Straight answers on advice, Everest, and which tool to open"
-            lead="Education first. Personal financial advice only after a needs analysis with AS Brokers CC, FSP 17273."
-          />
-          <div className="mt-10 divide-y border-y" style={{ borderColor: HAIRLINE }}>
-            {faqItems.map((item) => (
-              <details key={item.question} className="group py-5">
-                <summary className="cursor-pointer list-none font-serif font-semibold text-shark marker:content-none [&::-webkit-details-marker]:hidden">
-                  <span className="flex items-start justify-between gap-4">
-                    <span className="text-base leading-snug sm:text-lg">{item.question}</span>
-                    <span
-                      className="shrink-0 text-cinematic-teal transition group-open:rotate-45"
-                      aria-hidden
-                    >
-                      +
-                    </span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed" style={{ color: BODY }}>
-                  {item.answer}
-                </p>
-              </details>
-            ))}
+        <div className={`${HOME4_WRAP} grid grid-cols-12 gap-10 lg:gap-14`}>
+          <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
+              Before you book
+            </p>
+            <h2
+              id="calc-faq-heading"
+              className="mt-3 font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 0.8vw, 2rem)" }}
+            >
+              Straight answers before you open a tool or book a call
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-white/65">
+              Education first. Personal financial advice only after a needs analysis with AS Brokers
+              CC, FSP 17273.
+            </p>
+            <div className="mt-8 flex flex-col items-start gap-3">
+              <Link
+                href="/everest-wealth/about"
+                prefetch={false}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+              >
+                Understanding Everest
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href="/contact?source=calculators_faq"
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              >
+                Book a capital assessment
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
-          <p className="mt-8 text-sm">
-            <Link
-              href="/everest-wealth/about"
-              prefetch={false}
-              className="font-semibold text-cinematic-teal hover:opacity-80"
-            >
-              Understanding Everest
-            </Link>
-            <span className="mx-2 text-stone-400">·</span>
-            <Link
-              href="/contact?source=calculators_faq"
-              prefetch={false}
-              className="font-semibold text-cinematic-teal hover:opacity-80"
-            >
-              Book a capital assessment
-            </Link>
-          </p>
+
+          <ol className="col-span-12 divide-y divide-white/10 border-y border-white/10 lg:col-span-8">
+            {faqItems.map((item, index) => (
+              <li key={item.question} className="grid grid-cols-[2.75rem_1fr] gap-4 py-6 sm:gap-6">
+                <span className="pt-1 text-[11px] font-semibold tabular-nums text-cinematic-teal">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-serif text-lg font-semibold tracking-tight text-white sm:text-xl">
+                    {item.question}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-[0.9375rem]">
+                    {item.answer}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

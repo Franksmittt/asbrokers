@@ -391,9 +391,6 @@ export function CalculatorsHubView({ faqItems }: Props) {
                   priority={false}
                 />
               </div>
-              <figcaption className="border-t px-4 py-3 text-[11px] leading-relaxed text-stone-500" style={{ borderColor: HAIRLINE }}>
-                Craft, not theatre. Tools stay free so you arrive informed.
-              </figcaption>
             </figure>
           </div>
         </div>

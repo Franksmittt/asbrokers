@@ -146,7 +146,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
       >
         <div className={HOME4_WRAP}>
           <div
-            className="mx-auto max-w-[1000px] rounded-lg px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
+            className="rounded-lg px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
             style={{ backgroundColor: INK }}
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">

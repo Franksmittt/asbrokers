@@ -574,11 +574,11 @@ export function CalculatorsHubView({ faqItems }: Props) {
 
       <RelatedContent variant="warm" links={getRelatedLinks("/calculators")} />
 
-      {/* 10. Inset terminal */}
+      {/* 10. Terminal, same content width as Related content above */}
       <section className="pb-16 md:pb-24" aria-labelledby="calc-terminal-heading">
         <div className={HOME4_WRAP}>
-          <div className="mx-auto max-w-[1000px] rounded-xl bg-shark px-6 py-10 text-white sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10">
-            <div className="max-w-xl">
+          <div className="rounded-xl bg-shark px-6 py-10 text-white sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10">
+            <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cinematic-teal">
                 Next step
               </p>

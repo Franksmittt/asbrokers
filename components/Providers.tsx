@@ -1,23 +1,24 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import { ConsentProvider } from "@/components/analytics/ConsentProvider";
 
-const MagicLinkHashHandler = dynamic(
-  () =>
-    import("@/components/auth/MagicLinkHashHandler").then((m) => m.MagicLinkHashHandler),
-  { ssr: false }
-);
-
+/** Only load magic-link handler when the hash actually contains a token. */
 function LazyMagicLinkHashHandler() {
-  const [need, setNeed] = useState(false);
+  const [Handler, setHandler] = useState<ComponentType | null>(null);
+
   useEffect(() => {
-    if (typeof window !== "undefined" && window.location.hash.includes("access_token=")) {
-      setNeed(true);
-    }
+    if (!window.location.hash.includes("access_token=")) return;
+    let cancelled = false;
+    void import("@/components/auth/MagicLinkHashHandler").then((m) => {
+      if (!cancelled) setHandler(() => m.MagicLinkHashHandler);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
-  return need ? <MagicLinkHashHandler /> : null;
+
+  return Handler ? <Handler /> : null;
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {

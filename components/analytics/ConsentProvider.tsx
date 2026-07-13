@@ -93,8 +93,9 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
+      {/* Both islands wait until post-interaction / 12s so GA/Hotjar never hit TBT. */}
       {hasHydrated && <CookieConsent />}
-      <ConditionalAnalytics />
+      {hasHydrated && <ConditionalAnalytics />}
     </ConsentContext.Provider>
   );
 }

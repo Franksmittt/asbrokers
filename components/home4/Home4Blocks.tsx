@@ -8,7 +8,6 @@ import {
   ShieldCheck,
 } from "@/components/icons";
 import { HubReveal } from "@/components/hub/HubReveal";
-import { Home4DeferredCardImage } from "@/components/home4/Home4DeferredCardImage";
 import type {
   CalculatorTile,
   FunnelStage,
@@ -84,7 +83,16 @@ export function Home4GoalCard({ card }: { card: GoalCard; priority?: boolean }) 
         className="relative block h-36 w-full shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2 sm:h-40"
         aria-label={`Explore ${card.title}`}
       >
-        <Home4DeferredCardImage src={card.image} title={card.title} />
+        <Image
+          src={card.image}
+          alt={getAlt(card.image, card.title)}
+          fill
+          unoptimized
+          quality={65}
+          loading="lazy"
+          className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
+          sizes={GOAL_CARD_IMAGE_SIZES}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-shark/70 via-shark/20 to-transparent" />
         <div
           className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}

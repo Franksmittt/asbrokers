@@ -78,6 +78,12 @@ const nextConfig: NextConfig = {
   htmlLimitedBots: HTML_LIMITED_BOTS,
   images: {
     formats: ["image/avif", "image/webp"],
+    /**
+     * Vercel Image Optimization returns 402 when the plan quota is exhausted.
+     * Masters under public/images are already resized/compressed for display,
+     * so serving them statically avoids blank logos/cards site-wide.
+     */
+    unoptimized: true,
   },
   experimental: {
     authInterrupts: true,

@@ -53,4 +53,16 @@ Fixes:
 - Gate `MagicLinkHashHandler` behind hash token
 - Drop goal-card `priority` (LCP-only hero); hero quality 65
 
-*(scores after rebuild)*
+Live (post-deploy): Perf **76**, LCP **2.3s**, TBT **1060ms**, CLS 0, payload ~243KB.
+Logo blank on mobile: `/_next/image?...logo.jpg` → **402** (Vercel Image Optimization quota).
+
+### Loop 3 — logo 402 + TBT cut (this change)
+Fixes:
+- `images.unoptimized: true` in `next.config.ts` (masters already compressed; avoids site-wide 402)
+- `BrandLogo` explicit `unoptimized` (static ~1.4KB JPEG)
+- Zero-JS `MarketingMobileMenu` via `<details>` (removes React hamburger island from marketing critical path)
+- Gate `ConditionalAnalytics` behind `hasHydrated` (12s / interaction) so GA/Hotjar chunks never load in the LH window
+- Goal cards: SSR `Image` + lazy (delete `Home4DeferredCardImage` client island)
+- Slim `Providers` magic-link import (hash-only dynamic import)
+
+*(retest on live mobile after deploy)*

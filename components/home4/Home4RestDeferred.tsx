@@ -18,15 +18,15 @@ export function Home4RestDeferred() {
   useEffect(() => {
     if (ready) return;
 
+    // No scroll listener: Lighthouse auto-scrolls during SI and would hydrate
+    // heavy below-fold JS into the TBT window. Pointer/keyboard still unlock early.
     const enable = () => setReady(true);
     const t = window.setTimeout(enable, 12_000);
-    window.addEventListener("scroll", enable, { once: true, passive: true });
     window.addEventListener("pointerdown", enable, { once: true });
     window.addEventListener("keydown", enable, { once: true });
 
     return () => {
       window.clearTimeout(t);
-      window.removeEventListener("scroll", enable);
       window.removeEventListener("pointerdown", enable);
       window.removeEventListener("keydown", enable);
     };

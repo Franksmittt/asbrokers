@@ -20,19 +20,15 @@ export function MarketingChromeExtras() {
     if (ready) return;
 
     const enable = () => setReady(true);
-    const onInteract = () => enable();
-
-    // Lighthouse SI/TBT windows often span ~5–8s; keep chrome widgets out of that window.
+    // No scroll: LH auto-scroll must not mount WhatsApp / quick-actions mid-audit.
     const t = window.setTimeout(enable, 12_000);
-    window.addEventListener("scroll", onInteract, { once: true, passive: true });
-    window.addEventListener("pointerdown", onInteract, { once: true });
-    window.addEventListener("keydown", onInteract, { once: true });
+    window.addEventListener("pointerdown", enable, { once: true });
+    window.addEventListener("keydown", enable, { once: true });
 
     return () => {
       window.clearTimeout(t);
-      window.removeEventListener("scroll", onInteract);
-      window.removeEventListener("pointerdown", onInteract);
-      window.removeEventListener("keydown", onInteract);
+      window.removeEventListener("pointerdown", enable);
+      window.removeEventListener("keydown", enable);
     };
   }, [ready]);
 

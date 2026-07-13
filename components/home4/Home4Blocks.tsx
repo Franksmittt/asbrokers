@@ -75,7 +75,7 @@ export function Home4GoalCard({ card }: { card: GoalCard; priority?: boolean }) 
 
   return (
     <article
-      className={`group flex h-full flex-col overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80 backdrop-blur-sm transition-all duration-300 ease-apple hover:-translate-y-2 hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
+      className={`group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-stone-200/80 transition-all duration-300 ease-apple hover:-translate-y-2 hover:shadow-2xl ${ACCENT_RING[card.accent]}`}
     >
       <Link
         href={card.href}

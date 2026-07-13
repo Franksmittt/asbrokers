@@ -22,12 +22,11 @@ export function DeferredRootExtras() {
 
   useEffect(() => {
     const enable = () => setReady(true);
+    // No scroll: LH auto-scroll must not pull seo/speculation chunks into TBT.
     const t = window.setTimeout(enable, 12_000);
-    window.addEventListener("scroll", enable, { once: true, passive: true });
     window.addEventListener("pointerdown", enable, { once: true });
     return () => {
       window.clearTimeout(t);
-      window.removeEventListener("scroll", enable);
       window.removeEventListener("pointerdown", enable);
     };
   }, []);

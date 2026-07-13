@@ -66,3 +66,15 @@ Fixes:
 - Slim `Providers` magic-link import (hash-only dynamic import)
 
 *(retest on live mobile after deploy)*
+
+### Loop 4 — Perf 89 → chase 100 (images + LH scroll trap)
+Live Loop 3: Perf **89**, FCP 1.2s, LCP 2.1s, TBT **400ms**, CLS 0, SI 2.2s.
+
+Fixes:
+- **Remove `scroll` unlock** from deferred islands (`Home4RestDeferred`, `MarketingChromeExtras`, `DeferredRootExtras`, `ConsentProvider`). Lighthouse auto-scroll was hydrating heavy JS mid-audit.
+- Display-sized WebP goal cards (~760w): `home-card-*.webp` (~29–55KB vs 76–260KB JPGs).
+- Tighter `home-lcp.webp` (~38KB @ 640w).
+- Drop `backdrop-blur` on goal cards (Style & Layout cost).
+- Modern `browserslist` to shrink legacy polyfill pressure in shared chunks.
+
+*(retest on live mobile after deploy)*

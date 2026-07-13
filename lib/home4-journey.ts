@@ -54,7 +54,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Understanding Everest", href: "/everest-wealth/about" },
     ],
     accent: "blue",
-    image: "/images/everest-suite-hero-16x9.jpg",
+    image: "/images/home-card-investments.webp",
   },
   {
     id: "retirement",
@@ -69,7 +69,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Retirement planning hub", href: "/retirement-planning" },
     ],
     accent: "teal",
-    image: "/images/calculators-capital-lifespan-4x3.jpg",
+    image: "/images/home-card-retirement.webp",
   },
   {
     id: "insurance",
@@ -84,7 +84,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Average Clause calculator", href: "/calculators/asset-015-average-clause" },
     ],
     accent: "orange",
-    image: "/images/risk-arch-commercial.jpg",
+    image: "/images/home-card-insurance.webp",
   },
   {
     id: "estate",
@@ -99,7 +99,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Estate planning hub", href: "/estate-planning" },
     ],
     accent: "gold",
-    image: "/images/risk-arch-estate.jpg",
+    image: "/images/home-card-estate.webp",
   },
 ];
 

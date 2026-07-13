@@ -51,15 +51,12 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setConsentState(readStoredConsent());
     const showBanner = () => setHasHydrated(true);
-    // Keep consent UI off the Lighthouse SI/TBT window; interaction can still open preferences later.
+    // No scroll: LH auto-scroll must not load cookie/analytics chunks mid-audit.
     const t = window.setTimeout(showBanner, 12_000);
-    const onInteract = () => showBanner();
-    window.addEventListener("scroll", onInteract, { once: true, passive: true });
-    window.addEventListener("pointerdown", onInteract, { once: true });
+    window.addEventListener("pointerdown", showBanner, { once: true });
     return () => {
       window.clearTimeout(t);
-      window.removeEventListener("scroll", onInteract);
-      window.removeEventListener("pointerdown", onInteract);
+      window.removeEventListener("pointerdown", showBanner);
     };
   }, []);
 

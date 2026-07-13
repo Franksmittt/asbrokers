@@ -18,7 +18,7 @@ const INSET = "rgba(29,29,31,0.05)";
 /** WCAG AA teal on canvas; lighter teal for shark chapters. */
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
-const COMMERCIAL_IMAGE = "/images/risk-arch-commercial.png";
+const COMMERCIAL_IMAGE = "/images/risk-arch-commercial.jpg";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or insurance advice as defined in the FAIS Act, 2002. Outcomes depend on underwriting, policy wording, and your circumstances.";
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { QuizProviders } from "@/components/Providers";
+import { QuizProviders } from "@/components/QuizProviders";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = buildPageMetadata({

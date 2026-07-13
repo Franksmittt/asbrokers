@@ -141,7 +141,7 @@ export function BusinessRiskReviewTool() {
       {phase === "landing" && (
         <FunnelMarketingPage
           offer={OFFER}
-          heroImage="/images/home4-goal-insure-16x9.png"
+          heroImage="/images/home4-goal-insure-16x9.jpg"
           heroImageAlt="Business owner reviewing commercial risk protection"
           capture={captureCard}
           onScrollToCapture={startReview}

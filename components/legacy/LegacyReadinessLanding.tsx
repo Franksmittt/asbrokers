@@ -22,7 +22,7 @@ import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { PLANNING_TOOL_OFFERS } from "@/lib/planning-tools-offers";
 
 const OFFER = PLANNING_TOOL_OFFERS["legacy-checklist"];
-const HERO_IMAGE = "/images/risk-arch-estate.png";
+const HERO_IMAGE = "/images/risk-arch-estate.jpg";
 const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
 const ASSUMPTIONS = [

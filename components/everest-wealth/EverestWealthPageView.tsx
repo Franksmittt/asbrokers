@@ -163,7 +163,7 @@ export function EverestWealthPageView({ faqs }: Props) {
                     "Copper industrial plant illustrating real-economy backing behind structured income"
                   )}
                   fill
-                  unoptimized
+                  quality={75}
                   priority
                   fetchPriority="high"
                   className="object-cover object-center"

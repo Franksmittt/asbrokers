@@ -153,7 +153,7 @@ export function HealthyRetirementBlueprint() {
       {phase === "landing" && (
         <FunnelMarketingPage
           offer={OFFER}
-          heroImage="/images/home4-goal-retire-16x9.png"
+          heroImage="/images/home4-goal-retire-16x9.jpg"
           heroImageAlt="Healthy retirement planning, wellness and longevity"
           capture={captureCard}
           onScrollToCapture={startAssessment}

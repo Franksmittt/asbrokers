@@ -12,7 +12,7 @@ export const SOLO_INCOME_IN_RETIREMENT: SoloCalculatorPageProps = {
   heroTitle: "Capital Sustainability Test",
   heroSubtitle:
     "Model how long your retirement capital may last at your chosen drawdown, before lifestyle decisions become irreversible.",
-  heroImage: "/images/home4-goal-retire-16x9.png",
+  heroImage: "/images/home4-goal-retire-16x9.jpg",
   heroImageAlt: "Retiree reviewing sustainable drawdown and capital longevity",
   calculatorSrc: "/embed-calculators/asset-004-life-of-capital.html",
   calculatorTitle: "Life of Capital Calculator",
@@ -84,7 +84,7 @@ export const SOLO_ESTATE_DUTY: SoloCalculatorPageProps = {
   heroTitle: "Estate Duty Fiduciary Diagnostic",
   heroSubtitle:
     "Estimate estate duty and executor fees using current abatement and rate structures, a structured starting point for legacy planning.",
-  heroImage: "/images/home4-goal-estate-16x9.png",
+  heroImage: "/images/home4-goal-estate-16x9.jpg",
   heroImageAlt: "Estate planning documents and duty estimation",
   calculatorSrc: "/embed-calculators/asset-007-estate-duty.html",
   calculatorTitle: "Estate Duty & Executor Fee Calculator",
@@ -108,7 +108,7 @@ export const SOLO_ESTATE_REDUCTION: SoloCalculatorPageProps = {
   heroTitle: "Annual Estate Reduction Diagnostic",
   heroSubtitle:
     "Model how structured annual donations (R100k / R200k limits) may reduce dutiable estate over time, aligned to SARS donation rules.",
-  heroImage: "/images/home4-goal-estate-16x9.png",
+  heroImage: "/images/home4-goal-estate-16x9.jpg",
   heroImageAlt: "Legacy planning, annual donation and estate reduction strategy",
   calculatorSrc: "/embed-calculators/asset-008-estate-reduction.html",
   calculatorTitle: "Estate Reduction Strategy Calculator",
@@ -132,7 +132,7 @@ export const SOLO_PREMIUM_INCREASE: SoloCalculatorPageProps = {
   heroTitle: "Premium Escalation Fiduciary Diagnostic",
   heroSubtitle:
     "The cheapest life policy today can become the most expensive to keep in 10, 15, or 20 years. Understand escalation before you commit.",
-  heroImage: "/images/home4-goal-insure-16x9.png",
+  heroImage: "/images/home4-goal-insure-16x9.jpg",
   heroImageAlt: "Life insurance policy review, premium sustainability planning",
   calculatorTitle: "Premium Escalation Comparison",
   sidePanelTitle: "The real question",

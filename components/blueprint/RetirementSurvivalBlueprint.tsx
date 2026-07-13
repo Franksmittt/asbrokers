@@ -260,7 +260,7 @@ export function RetirementSurvivalBlueprint() {
       {phase === "landing" && (
         <FunnelMarketingPage
           offer={OFFER}
-          heroImage="/images/home4-goal-retire-16x9.png"
+          heroImage="/images/home4-goal-retire-16x9.jpg"
           heroImageAlt="Retirement survival planning, will your money last?"
           capture={captureCard}
           onScrollToCapture={startBlueprint}

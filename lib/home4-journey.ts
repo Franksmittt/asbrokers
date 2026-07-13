@@ -54,7 +54,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Understanding Everest", href: "/everest-wealth/about" },
     ],
     accent: "blue",
-    image: "/images/everest-copper-industrial-4x3.jpg",
+    image: "/images/everest-suite-hero-16x9.jpg",
   },
   {
     id: "retirement",
@@ -84,7 +84,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Average Clause calculator", href: "/calculators/asset-015-average-clause" },
     ],
     accent: "orange",
-    image: "/images/risk-arch-commercial.png",
+    image: "/images/risk-arch-commercial.jpg",
   },
   {
     id: "estate",
@@ -99,7 +99,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Estate planning hub", href: "/estate-planning" },
     ],
     accent: "gold",
-    image: "/images/risk-arch-estate.png",
+    image: "/images/risk-arch-estate.jpg",
   },
 ];
 
@@ -126,7 +126,7 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
     label: "Estate Duty",
     description: "Estimate duty and executor pressure, then engineer liquidity.",
     href: "/calculators/asset-007-estate-duty",
-    image: "/images/risk-arch-estate.png",
+    image: "/images/risk-arch-estate.jpg",
   },
 ];
 

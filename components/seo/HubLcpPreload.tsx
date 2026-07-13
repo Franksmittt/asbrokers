@@ -15,7 +15,8 @@ export function HubLcpPreload({ src, variant = "full" }: Props) {
     fill: true,
     sizes,
     priority: true,
-    quality: 75,
+    quality: 65,
+    ...(src.endsWith(".webp") || src.endsWith(".avif") ? { unoptimized: true } : {}),
   });
 
   return (

@@ -8,6 +8,7 @@ import {
   ShieldCheck,
 } from "@/components/icons";
 import { HubReveal } from "@/components/hub/HubReveal";
+import { Home4DeferredCardImage } from "@/components/home4/Home4DeferredCardImage";
 import type {
   CalculatorTile,
   FunnelStage,
@@ -19,7 +20,7 @@ import { HUB_TEAL } from "@/lib/hub-design-tokens";
 
 export const HOME4_WRAP = "mx-auto max-w-7xl px-4 sm:px-6 md:px-8";
 
-const GOAL_CARD_IMAGE_SIZES = "(max-width: 640px) 380px, (max-width: 1280px) 50vw, 300px";
+const GOAL_CARD_IMAGE_SIZES = "(max-width: 640px) 92vw, (max-width: 1280px) 45vw, 300px";
 
 const ACCENT_RING: Record<GoalCard["accent"], string> = {
   teal: "ring-cinematic-teal/25 hover:ring-cinematic-teal/45",
@@ -70,7 +71,7 @@ export function Home4Reveal({
   );
 }
 
-export function Home4GoalCard({ card, priority = false }: { card: GoalCard; priority?: boolean }) {
+export function Home4GoalCard({ card }: { card: GoalCard; priority?: boolean }) {
   const Icon = GOAL_ICONS[card.accent];
 
   return (
@@ -83,16 +84,7 @@ export function Home4GoalCard({ card, priority = false }: { card: GoalCard; prio
         className="relative block h-36 w-full shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2 sm:h-40"
         aria-label={`Explore ${card.title}`}
       >
-        <Image
-          src={card.image}
-          alt={getAlt(card.image, card.title)}
-          fill
-          unoptimized
-          priority={priority}
-          fetchPriority={priority ? "high" : "auto"}
-          className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
-          sizes={GOAL_CARD_IMAGE_SIZES}
-        />
+        <Home4DeferredCardImage src={card.image} title={card.title} />
         <div className="absolute inset-0 bg-gradient-to-t from-shark/70 via-shark/20 to-transparent" />
         <div
           className={`absolute bottom-3 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold shadow-md ${ACCENT_TEXT[card.accent]}`}
@@ -142,7 +134,7 @@ export function Home4CalculatorTile({ tile }: { tile: CalculatorTile }) {
           src={tile.image}
           alt={getAlt(tile.image, tile.label)}
           fill
-          unoptimized
+          quality={70}
           className="object-cover transition-transform duration-500 ease-apple group-hover:scale-105"
           sizes={GOAL_CARD_IMAGE_SIZES}
         />
@@ -176,7 +168,7 @@ export function Home4JourneyFunnel({ stages }: { stages: FunnelStage[] }) {
                 src={JOURNEY_IMAGES[stage.step] ?? "/images/insights-inset-1x1.jpg"}
                 alt={getAlt(JOURNEY_IMAGES[stage.step] ?? "", stage.title)}
                 fill
-                unoptimized
+                quality={70}
                 className="object-cover transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
                 sizes={JOURNEY_IMAGE_SIZES}
               />
@@ -205,7 +197,7 @@ export function Home4TestimonialCard({ item }: { item: Testimonial }) {
           src={item.photo}
           alt={getAlt(item.photo, `${item.who}, client story`)}
           fill
-          unoptimized
+          quality={70}
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
         />

@@ -145,7 +145,7 @@ export const EVEREST_AMETHYST_PRODUCT: EverestProductPageProps = {
   heroTitle: "Insulated Retirement: The Amethyst Living Annuity.",
   heroSubtitle:
     "Compulsory retirement capital in a regulated living annuity wrapper, targeted ~10.2% net yield, flexible drawdown, and Section 14 transfer approved.",
-  heroImage: "/images/home4-goal-retire-16x9.png",
+  heroImage: "/images/home4-goal-retire-16x9.jpg",
   heroImageAlt: "Retired couple reviewing Amethyst living annuity income planning",
   calculatorSrc: "/embed-calculators/asset-014-living-annuity.html",
   calculatorTitle: "Amethyst Living Annuity Calculator",

@@ -10,9 +10,9 @@ export function Home4GoalCards() {
   return (
     <div className={`${HOME4_WRAP} relative z-10 -mt-24 pb-6 sm:-mt-28 md:-mt-32`}>
       <div className="grid items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-4 md:gap-5">
-        {HOME4_GOAL_CARDS.map((card, index) => (
+        {HOME4_GOAL_CARDS.map((card) => (
           <Home4Reveal key={card.id} instant className="h-full">
-            <Home4GoalCard card={card} priority={index < 2} />
+            <Home4GoalCard card={card} />
           </Home4Reveal>
         ))}
       </div>

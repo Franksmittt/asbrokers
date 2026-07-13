@@ -17,15 +17,15 @@ export function Home4Hero() {
     <section data-chunk-boundary="true" className="relative overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/images/everest-copper-industrial-4x3.jpg"
+          src="/images/home-lcp.webp"
           alt={getAlt(
             "/images/everest-copper-industrial-4x3.jpg",
             "Real-economy industrial assets behind structured income education"
           )}
           fill
-          unoptimized
           priority
           fetchPriority="high"
+          unoptimized
           className="object-cover"
           sizes={HUB_HERO_SIZES}
         />

@@ -57,7 +57,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "What growth rate do you need to retire on track?",
     heroSubtitle:
       "Model the illustrative return required to close the gap between where you are today and the capital you want at retirement.",
-    heroImage: "/images/home4-goal-retire-16x9.png",
+    heroImage: "/images/home4-goal-retire-16x9.jpg",
     heroImageAlt: "Couple reviewing retirement savings growth with an adviser",
     calculatorLead:
       "Enter current savings, monthly contributions, years to retirement, and your target lump sum. The tool shows an illustrative required growth rate.",
@@ -411,7 +411,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Estimate estate duty and executor costs",
     heroSubtitle:
       "Quantify potential duty above the R3.5 million abatement and executor fees so your family is not caught without liquidity.",
-    heroImage: "/images/home4-goal-estate-16x9.png",
+    heroImage: "/images/home4-goal-estate-16x9.jpg",
     heroImageAlt: "Estate planning and duty estimation",
     calculatorLead:
       "Enter net estate value, deductions, and abatement to see illustrative duty at 20% and 25% bands plus executor fees.",
@@ -821,7 +821,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "How underinsurance cuts your claim",
     heroSubtitle:
       "Illustrate claim reduction when sum insured is below replacement value. Essential for home, contents, and commercial property.",
-    heroImage: "/images/home4-goal-insure-16x9.png",
+    heroImage: "/images/home4-goal-insure-16x9.jpg",
     heroImageAlt: "Home insurance underinsurance review",
     calculatorLead:
       "Enter replacement value, sum insured, and claim amount to see illustrative payment after average clause application.",

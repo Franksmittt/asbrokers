@@ -108,7 +108,7 @@ export function AssetCalculatorPageView({
                 src={heroImage}
                 alt={getAlt(heroImage, heroImageAlt)}
                 fill
-                unoptimized
+                quality={75}
                 priority
                 fetchPriority="high"
                 className="object-cover object-center"

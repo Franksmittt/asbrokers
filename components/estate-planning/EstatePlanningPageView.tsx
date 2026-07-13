@@ -18,7 +18,7 @@ const HAIRLINE = "#E5E5E5";
 /** WCAG AA teal on canvas; lighter teal for shark chapters. */
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
-const ESTATE_CRAFT = "/images/risk-arch-estate.png";
+const ESTATE_CRAFT = "/images/risk-arch-estate.jpg";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or legal advice as defined in the FAIS Act, 2002. Estate duty, executor fees, and donations rules change, verify current SARS and statutory positions with qualified professionals.";
 

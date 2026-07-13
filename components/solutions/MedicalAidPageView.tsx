@@ -14,7 +14,7 @@ const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
-const MEDICAL_CRAFT = "/images/risk-arch-medical.png";
+const MEDICAL_CRAFT = "/images/risk-arch-medical.jpg";
 
 type Props = { faqs: FAQItem[] };
 

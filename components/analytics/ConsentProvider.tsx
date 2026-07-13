@@ -8,8 +8,16 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { CookieConsent } from "@/components/ui/CookieConsent";
-import { ConditionalAnalytics } from "./ConditionalAnalytics";
+import dynamic from "next/dynamic";
+
+const CookieConsent = dynamic(
+  () => import("@/components/ui/CookieConsent").then((m) => m.CookieConsent),
+  { ssr: false }
+);
+const ConditionalAnalytics = dynamic(
+  () => import("./ConditionalAnalytics").then((m) => m.ConditionalAnalytics),
+  { ssr: false }
+);
 
 const STORAGE_KEY = "asbrokers-cookie-consent";
 

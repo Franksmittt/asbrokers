@@ -174,7 +174,7 @@ export function Home4BelowFoldRest() {
                       "AS Brokers Krugersdorp storefront with FSP 17273 signage"
                     )}
                     fill
-                    unoptimized
+                    quality={70}
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     loading="lazy"

@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { useEffect, useState } from "react";
 import { ConsentProvider } from "@/components/analytics/ConsentProvider";
 
 const MagicLinkHashHandler = dynamic(
@@ -10,16 +10,21 @@ const MagicLinkHashHandler = dynamic(
   { ssr: false }
 );
 
+function LazyMagicLinkHashHandler() {
+  const [need, setNeed] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash.includes("access_token=")) {
+      setNeed(true);
+    }
+  }, []);
+  return need ? <MagicLinkHashHandler /> : null;
+}
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ConsentProvider>
-      <MagicLinkHashHandler />
+      <LazyMagicLinkHashHandler />
       {children}
     </ConsentProvider>
   );
-}
-
-/** URL-state adapter scoped to quiz routes only (keeps Nuqs off marketing critical path). */
-export function QuizProviders({ children }: { children: React.ReactNode }) {
-  return <NuqsAdapter>{children}</NuqsAdapter>;
 }

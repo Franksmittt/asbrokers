@@ -17,7 +17,9 @@ const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
-const INSET = "rgba(29,29,31,0.05)";
+/** WCAG AA teal on canvas; lighter teal for shark chapters. */
+const TEAL = "#0F766E";
+const TEAL_ON_DARK = "#5EEAD4";
 const ESTATE_CRAFT = "/images/risk-arch-estate.png";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or legal advice as defined in the FAIS Act, 2002. Estate duty, executor fees, and donations rules change, verify current SARS and statutory positions with qualified professionals.";
@@ -75,7 +77,8 @@ function ToolCard({
       <Link
         href={href}
         prefetch={false}
-        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+        style={{ color: TEAL }}
       >
         Run calculation
         <ArrowRight className="h-4 w-4" aria-hidden />
@@ -92,10 +95,17 @@ export function EstatePlanningPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+      {/* §1 Hero — light */}
+      <header
+        className="border-b pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      >
         <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
           <div className="min-w-0 lg:col-span-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+              style={{ color: TEAL }}
+            >
               Estate planning · FSP 17273 · Category 1.8
             </p>
             <h1
@@ -134,45 +144,47 @@ export function EstatePlanningPageView({ faqs }: Props) {
         </div>
       </header>
 
+      {/* §2 Primary diagnostic — shark */}
       <section
         id="legacy-checklist"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="legacy-checklist-heading"
       >
         <div className={HOME4_WRAP}>
-          <div
-            className="rounded-lg px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
-            style={{ backgroundColor: INSET }}
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+            style={{ color: TEAL_ON_DARK }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-stone-500">
-              Primary diagnostic
-            </p>
-            <h2
-              id="legacy-checklist-heading"
-              className="mt-4 font-serif font-semibold tracking-tight text-shark"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
-            >
-              Legacy Readiness Checklist
-            </h2>
-            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-stone-600">
-              A guided readiness review covering wills, liquidity, duty awareness, and succession
-              gaps, before you book a strategy call.
-            </p>
-            <Link
-              href="/legacy-readiness-checklist"
-              prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
-            >
-              Start the checklist
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </div>
+            Primary diagnostic
+          </p>
+          <h2
+            id="legacy-checklist-heading"
+            className="mt-4 font-serif font-semibold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
+          >
+            Legacy Readiness Checklist
+          </h2>
+          <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
+            A guided readiness review covering wills, liquidity, duty awareness, and succession
+            gaps, before you book a strategy call.
+          </p>
+          <Link
+            href="/legacy-readiness-checklist"
+            prefetch={false}
+            className="mt-8 inline-flex items-center gap-2 rounded px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
+            style={{ backgroundColor: TEAL }}
+          >
+            Start the checklist
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </div>
       </section>
 
+      {/* §3 Architecture — light */}
       <section
         id="estate-architecture"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="architecture-heading"
       >
         <div className={HOME4_WRAP}>
@@ -223,9 +235,52 @@ export function EstatePlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
+      {/* §4 Scope boundary — shark */}
+      <section
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
+        aria-labelledby="scope-heading"
+      >
+        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
+          <aside className="min-w-0 lg:col-span-3">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.16em] lg:sticky lg:top-28"
+              style={{ color: TEAL_ON_DARK }}
+            >
+              Scope boundary
+            </p>
+          </aside>
+          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
+            <h2
+              id="scope-heading"
+              className="font-serif font-semibold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
+            >
+              Financial coordination vs legal drafting
+            </h2>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
+              AS Brokers engineers liquidity, life cover, investment placement, and succession
+              funding, so an estate can settle fees and duty without forced sales. Binding wills,
+              trust deeds, and related instruments are drafted by admitted attorneys. We coordinate;
+              we do not practise as a law firm on this website.
+            </p>
+            <Link
+              href="/solutions/business-life"
+              prefetch
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+              style={{ color: TEAL_ON_DARK }}
+            >
+              Business succession domain
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* §5 Calculators + credentials — light */}
       <section
         id="estate-calculators"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="estate-calcs-heading"
       >
         <div className={HOME4_WRAP}>
@@ -254,72 +309,48 @@ export function EstatePlanningPageView({ faqs }: Props) {
               href={CALC_ESTATE_REDUCTION}
             />
           </div>
-        </div>
-      </section>
 
-      <section className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24" aria-labelledby="scope-heading">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
-          <aside className="min-w-0 lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
-              Scope boundary
-            </p>
-          </aside>
-          <div className="min-w-0 col-span-full max-w-3xl lg:col-span-9">
-            <h2
-              id="scope-heading"
-              className="font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
-            >
-              Financial coordination vs legal drafting
-            </h2>
-            <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-              AS Brokers engineers liquidity, life cover, investment placement, and succession
-              funding, so an estate can settle fees and duty without forced sales. Binding wills,
-              trust deeds, and related instruments are drafted by admitted attorneys. We coordinate;
-              we do not practise as a law firm on this website.
-            </p>
-            <Link
-              href="/solutions/business-life"
-              prefetch
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
-            >
-              Business succession domain
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+          <div className="mt-14 grid gap-6 border-t pt-10 md:grid-cols-3" style={{ borderColor: HAIRLINE }}>
+            {[
+              { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
+              { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },
+              { title: "Scope honesty", body: "Financial engineering · attorney-drafted instruments" },
+            ].map((item) => (
+              <div key={item.title}>
+                <p className="font-serif text-lg font-semibold tracking-tight text-shark">{item.title}</p>
+                <p className="mt-1 text-sm text-stone-600">{item.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="border-y py-8" style={{ borderColor: HAIRLINE }} aria-label="Fiduciary credentials">
-        <div className={`${HOME4_WRAP} grid gap-6 md:grid-cols-3`}>
-          {[
-            { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
-            { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },
-            { title: "Scope honesty", body: "Financial engineering · attorney-drafted instruments" },
-          ].map((item) => (
-            <div key={item.title}>
-              <p className="font-serif text-lg font-semibold tracking-tight text-shark">{item.title}</p>
-              <p className="mt-1 text-sm text-stone-600">{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
+      {/* §6 FAQ — shark (component default) */}
       <VisibleFaqSection
         faqs={faqItems}
         headingId="estate-faq-heading"
         primaryCta={{ href: "/contact?source=estate_faq", label: "Book a capital assessment" }}
       />
 
+      {/* §7 Related — light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/estate-planning")} />
 
-      <section id="strategy-call" className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24" aria-labelledby="strategy-heading">
+      {/* §8 Terminal — dark panel (kept) */}
+      <section
+        id="strategy-call"
+        className="scroll-mt-28 pb-16 pt-4 md:scroll-mt-32 md:pb-24"
+        style={{ backgroundColor: CANVAS }}
+        aria-labelledby="strategy-heading"
+      >
         <div className={HOME4_WRAP}>
           <div
             className="rounded-xl px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
             style={{ backgroundColor: INK }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+              style={{ color: TEAL_ON_DARK }}
+            >
               FSP 17273 · Category 1.8
             </p>
             <h2
@@ -336,7 +367,8 @@ export function EstatePlanningPageView({ faqs }: Props) {
             <Link
               href="/contact?source=estate_terminal"
               prefetch={false}
-              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+              className="mt-8 inline-flex items-center gap-2 rounded px-7 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
+              style={{ backgroundColor: TEAL }}
             >
               Book a strategy call
               <ArrowRight className="h-4 w-4" aria-hidden />

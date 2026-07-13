@@ -175,9 +175,9 @@ export function EstatePlanningPageView({ faqs }: Props) {
             Objective legislative framing, engineer liquidity and optimize lawful rollovers. Not
             “avoid the taxman” rhetoric.
           </p>
-          <figure className="mt-8 max-w-3xl">
+          <figure className="mt-8">
             <div
-              className="relative aspect-[16/9] overflow-hidden border bg-white"
+              className="relative aspect-[21/9] overflow-hidden border bg-white sm:aspect-[2.4/1]"
               style={{ borderColor: HAIRLINE }}
             >
               <Image
@@ -188,10 +188,10 @@ export function EstatePlanningPageView({ faqs }: Props) {
                 )}
                 fill
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 720px"
+                sizes="(max-width: 1280px) 100vw, 1280px"
               />
             </div>
-            <figcaption className="mt-3 text-xs leading-relaxed text-stone-500">
+            <figcaption className="mt-3 max-w-3xl text-xs leading-relaxed text-stone-500">
               Craft, not faces: liquidity engineering is paperwork and capital structure, attorneys
               draft; we engineer the cash.
             </figcaption>

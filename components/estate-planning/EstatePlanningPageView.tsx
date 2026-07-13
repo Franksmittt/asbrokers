@@ -93,7 +93,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12`}>
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
           <div className="min-w-0 lg:col-span-6">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
               Estate planning · FSP 17273 · Category 1.8
@@ -128,35 +128,47 @@ export function EstatePlanningPageView({ faqs }: Props) {
             </nav>
           </div>
 
-          <div className="min-w-0 col-span-full space-y-6 lg:col-span-6">
+          <div className="min-w-0 lg:col-span-6">
             <EstateLiquidityWaterfall />
-            <div
-              id="legacy-checklist"
-              className="scroll-mt-28 rounded-lg px-6 py-8 sm:px-8 sm:py-10"
-              style={{ backgroundColor: INSET }}
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
-                Primary diagnostic
-              </p>
-              <h2 className="mt-3 font-serif text-2xl font-semibold tracking-tight text-shark">
-                Legacy Readiness Checklist
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                A guided readiness review covering wills, liquidity, duty awareness, and succession
-                gaps, before you book a strategy call.
-              </p>
-              <Link
-                href="/legacy-readiness-checklist"
-                prefetch={false}
-                className="mt-6 inline-flex items-center gap-2 rounded bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
-              >
-                Start the checklist
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
           </div>
         </div>
       </header>
+
+      <section
+        id="legacy-checklist"
+        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        aria-labelledby="legacy-checklist-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <div
+            className="rounded-lg px-6 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14"
+            style={{ backgroundColor: INSET }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-stone-500">
+              Primary diagnostic
+            </p>
+            <h2
+              id="legacy-checklist-heading"
+              className="mt-4 font-serif font-semibold tracking-tight text-shark"
+              style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
+            >
+              Legacy Readiness Checklist
+            </h2>
+            <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-stone-600">
+              A guided readiness review covering wills, liquidity, duty awareness, and succession
+              gaps, before you book a strategy call.
+            </p>
+            <Link
+              href="/legacy-readiness-checklist"
+              prefetch={false}
+              className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+            >
+              Start the checklist
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <section
         id="estate-architecture"

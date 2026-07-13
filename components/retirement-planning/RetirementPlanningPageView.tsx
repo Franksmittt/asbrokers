@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";

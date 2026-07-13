@@ -4,8 +4,6 @@ import { CALCULATOR_PAGE_SLUGS } from "@/lib/calculators/page-configs";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
 import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
-import { sanityFetch } from "@/sanity/lib/live";
-import { insightArticlesSitemapQuery } from "@/sanity/lib/queries";
 
 /** Always resolve CMS posts at request time, avoids stale build-time sitemap cache. */
 export const dynamic = "force-dynamic";
@@ -27,7 +25,6 @@ const STATIC_PATHS = [
   "/investments",
   "/insights",
   "/insights/semigration-retirement",
-  "/manage-cookies",
   "/privacy",
   "/quiz",
   "/regulatory-compliance",
@@ -40,13 +37,6 @@ const STATIC_PATHS = [
   "/estate-planning",
   "/terms",
 ] as const;
-
-type SanitySitemapRow = {
-  slug: string;
-  locale: string;
-  publishedAt: string;
-  sanityUpdatedAt?: string;
-};
 
 function maxModified(...inputs: Array<string | Date | undefined | null>): Date | undefined {
   let best: number | undefined;
@@ -73,25 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const slug of CALCULATOR_PAGE_SLUGS) push(calculatorPagePath(slug));
 
-  let sanityRows: SanitySitemapRow[] = [];
-  const sanityProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim();
-  if (sanityProjectId && sanityProjectId !== "placeholder") {
-    try {
-      sanityRows = await sanityFetch<SanitySitemapRow[]>(insightArticlesSitemapQuery);
-    } catch (err) {
-      console.error("[sitemap] Sanity query failed:", err);
-      sanityRows = [];
-    }
-  }
-
-  for (const row of sanityRows) {
-    if (!row?.slug?.trim()) continue;
-    const lastMod = maxModified(row.publishedAt, row.sanityUpdatedAt);
-    push(insightUrlPath(row.slug, row.locale || "en"), lastMod ?? undefined);
-
-    if (entries.length >= 49500) break;
-  }
-
+  /** Insights URLs from Blog Studio only (legacy Sanity sitemap rows retired). */
   const studio = await listPublishedStudioPosts();
   for (const row of studio) {
     if (!row.slug?.trim()) continue;

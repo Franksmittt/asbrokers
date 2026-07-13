@@ -22,7 +22,7 @@ export type VisibleFaqSectionProps = {
 
 /**
  * Sitewide FAQ chapter: shark band, sticky intro + CTAs, numbered open answers.
- * Matches /calculators FAQ layout. Keep in sync with PageJsonLd via ensureSixFaqs.
+ * Matches /calculators FAQ layout. Pads to six for UI only; JSON-LD uses page FAQs as authored.
  */
 export function VisibleFaqSection({
   faqs,

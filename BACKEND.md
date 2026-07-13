@@ -13,7 +13,7 @@ You’ve only done the frontend so far. This list covers **all backend-related s
      - `financial_capital_input` (Number, optional)
   2. Save each, then submit the contact form again. The form will work once these exist.
 - **Trigger.dev + Resend** (PDF after contact): worker runs with `npx trigger.dev@latest dev`; ensure `APP_URL` in Trigger dashboard points to your app so the PDF page loads.
-- **Rest of backend**: see checklist below (OpenAI, Sanity, RAG ingest, etc.).
+- **Rest of backend**: see checklist below (OpenAI, Blog Studio / Insights, RAG ingest, etc.).
 
 ---
 
@@ -29,11 +29,7 @@ Create `.env.local` (and add the same in your host: Vercel, Trigger.dev, etc.). 
 | `OPENAI_API_KEY` | For chat + RAG | From [OpenAI](https://platform.openai.com/api-keys). |
 | `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN` | For contact form | HubSpot API token (see §4). |
 | `TRIGGER_SECRET_KEY` | For PDF-after-contact | From Trigger.dev project (see §6). |
-| `NEXT_PUBLIC_APP_URL` or `APP_URL` | For PDF + draft mode | Full app URL, e.g. `https://yoursite.com`. |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | For Sanity CMS | From [sanity.io](https://sanity.io) project. |
-| `NEXT_PUBLIC_SANITY_DATASET` | Optional | Default `production`. |
-| `NEXT_PUBLIC_SANITY_STUDIO_URL` | Optional | e.g. `https://yoursite.com/studio`. |
-| `SANITY_VIEWER_TOKEN` | For draft/preview | Sanity API token with read access (see §5). |
+| `NEXT_PUBLIC_APP_URL` or `APP_URL` | For PDF + absolute URLs | Full app URL, e.g. `https://yoursite.com`. |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional, Phase 4 | GA4 measurement ID (only used after consent). |
 | `NEXT_PUBLIC_HOTJAR_ID` | Optional, Phase 4 | Hotjar site ID (only used after consent). |
 | `NEXT_PUBLIC_SUPABASE_URL` | For CRM | Supabase project URL (see §3.1). |
@@ -52,7 +48,7 @@ Create `.env.local` (and add the same in your host: Vercel, Trigger.dev, etc.). 
 
 ### Optional: `.env.example` (already present)
 
-Your `.env.example` currently has Sanity and analytics. Consider adding (with empty values) so others know what’s needed:
+Your `.env.example` currently has analytics and app keys. Consider adding (with empty values) so others know what’s needed:
 
 - `DATABASE_URL`
 - `OPENAI_API_KEY`
@@ -71,8 +67,8 @@ No separate backend server is required. These run inside Next.js:
   `app/actions/contact.ts` and `app/(content)/actions/contact.ts`: validate with Zod → `syncContactToHubSpot()` → optionally trigger Trigger.dev task `generate-financial-pdf`.
 - **Chat API**  
   `app/api/chat/route.ts`: uses OpenAI + optional RAG (`getRagContext()` from DB). Works without DB (empty context).
-- **Draft mode**  
-  `app/api/draft-mode/enable/route.ts`: uses `SANITY_VIEWER_TOKEN` for Sanity preview.
+- **Insights / Blog Studio**  
+  Public `/insights` is served from **Blog Studio** (`client_insight_posts` via Supabase/Postgres). Editors use `/studio/blog`. Legacy Sanity CMS tooling and draft-mode routes were removed (Perfect-10 Tasks 12–13). `/studio` permanently redirects to `/studio/blog`.
 
 So your “backend” work is: **env vars + external services + DB + Trigger worker**, not a new codebase.
 
@@ -144,28 +140,24 @@ Contact form submissions are synced to HubSpot (search by email, create or patch
 
 ---
 
-## 5. Sanity (Phase 3 CMS)
+## 5. Blog Studio (Insights CMS)
 
-Insights and any Sanity-driven content.
+**Source of truth for public Insights.** Sanity is retired from the app runtime (no `NEXT_PUBLIC_SANITY_*` / `SANITY_*` env required).
 
-1. **Sanity project**
-   - [sanity.io](https://sanity.io) → create project → note **Project ID** and **Dataset** (e.g. `production`).
+1. **Database**
+   - Postgres/Supabase table `client_insight_posts` (see Studio repair/verify scripts: `npm run db:repair-studio`, `npm run db:verify-studio`).
+   - Needs `DATABASE_URL` and/or `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` for inventory/admin tooling.
 
-2. **Env in Next.js**
-   - `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_STUDIO_URL` (if you use embedded studio).
+2. **Editor UI**
+   - Blog Studio lives at `/studio/blog` (login + workspace).
+   - Legacy `/studio` URL permanently redirects to `/studio/blog`.
 
-3. **Draft / Visual Editing**
-   - Create an API token with **Viewer** (or read) access.
-   - Set `SANITY_VIEWER_TOKEN` in `.env.local` (and in Vercel). Used by `app/api/draft-mode/enable/route.ts` and `sanity/lib/live.ts`.
+3. **Public site**
+   - Feed + article pages + sitemap use Studio published posts only (`lib/insights/feed.ts`).
+   - Inventory (read-only): `npm run insights:inventory`.
 
-4. **CORS**
-   - In Sanity project settings, add your app origins (e.g. `http://localhost:3000`, `https://yoursite.com`).
-
-5. **Studio**
-   - Studio is at `/studio` in this repo. Deploy the app and open `/studio` to edit content; or deploy Sanity Studio separately and set `NEXT_PUBLIC_SANITY_STUDIO_URL` to that URL.
-
-6. **Schemas**
-   - Ensure your document types (e.g. for “insights”) are defined and deployed so the frontend queries match.
+4. **Remote Sanity project (ops only)**
+   - Optional human ops later: archive/unpublish the old Sanity project in the Sanity dashboard. Not required for the app to run.
 
 ---
 
@@ -241,7 +233,7 @@ No backend code to add; only env and consent wiring (already in place).
 - [ ] `CREATE EXTENSION vector` run; Drizzle migrations generated and applied.
 - [ ] (Optional) RAG ingestion script/process: populate `resources` + `embeddings`.
 - [ ] HubSpot: private app or token; `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN` set.
-- [ ] Sanity: project + dataset; env set; `SANITY_VIEWER_TOKEN` for draft; CORS and schemas done.
+- [ ] Blog Studio / Insights: `client_insight_posts` reachable; editors use `/studio/blog`; public feed Studio-only.
 - [ ] Trigger.dev: project created; worker env set (Resend, APP_URL, etc.); worker deployed or run with `trigger dev`.
 - [ ] Resend: API key in Trigger worker env; domain verified for production.
 - [ ] OpenAI: API key set in Next.js.
@@ -265,4 +257,4 @@ You may want to add to `package.json`:
 
 ---
 
-Once the above are done, your “backend” is effectively complete for this stack: contact → HubSpot + optional PDF email; chat → OpenAI + optional RAG; draft mode → Sanity; analytics → GA4/Hotjar after consent.
+Once the above are done, your “backend” is effectively complete for this stack: contact → HubSpot + optional PDF email; chat → OpenAI + optional RAG; Insights → Blog Studio; analytics → GA4/Hotjar after consent.

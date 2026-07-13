@@ -1,5 +1,4 @@
 import type { FAQItem } from "@/lib/seo";
-import { ensureSixFaqs } from "@/lib/seo";
 import { CALCULATOR_REGISTRY, getCalculatorById, type CalculatorRegistryEntry } from "@/lib/calculators/registry";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
@@ -978,7 +977,8 @@ function buildConfig(entry: CalculatorRegistryEntry): CalculatorPageConfig {
     assetCode: entry.assetCode,
     calculatorSrc: entry.embedPath,
     calculatorTitle: shortTitle,
-    faqs: ensureSixFaqs(faqs),
+    /** Page-authored FAQs only; VisibleFaqSection pads for UI, PageJsonLd does not. */
+    faqs,
     ...rest,
   };
 }

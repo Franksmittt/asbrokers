@@ -1,8 +1,6 @@
 import "server-only";
 
 import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
-import { cachedSanityFetch } from "@/sanity/lib/fetch";
-import { insightsListQuery } from "@/sanity/lib/queries";
 import { normalizeInsightCategories } from "@/lib/insights/insightCategories";
 
 export type InsightFeedItem = {
@@ -14,24 +12,10 @@ export type InsightFeedItem = {
   excerpt: string | null;
   author: string;
   thumbnailUrl: string | null;
-  source: "sanity" | "studio";
+  /** Public insights are Blog Studio only (legacy Sanity fallback retired). */
+  source: "studio";
   categories: string[];
 };
-
-type SanityStub = {
-  _id: string;
-  title: string;
-  slug: string;
-  locale: string;
-  publishedAt: string;
-  excerpt: string | null;
-  thumbnailUrl?: string | null;
-};
-
-function toIso(d: string | Date): string {
-  if (typeof d === "string") return d;
-  return d.toISOString();
-}
 
 function firstImageSrcFromHtml(html: string | null | undefined): string | null {
   if (!html) return null;
@@ -60,26 +44,14 @@ function firstImageSrcFromHtml(html: string | null | undefined): string | null {
 }
 
 /**
- * Sanity articles plus published studio HTML posts, newest first.
+ * Public Insights feed — Blog Studio / Postgres only.
+ * Legacy Sanity insights fallback removed (Task 12); Studio is the intentional CMS.
  */
 export async function getInsightFeed(): Promise<InsightFeedItem[]> {
-  const [sanityRows, studioRows] = await Promise.all([
-    cachedSanityFetch<SanityStub[]>(insightsListQuery).catch(() => [] as SanityStub[]),
-    listPublishedStudioPosts(),
-  ]);
-
-  const sanityItems: InsightFeedItem[] = sanityRows.map((a) => ({
-    id: a._id,
-    title: a.title,
-    slug: a.slug,
-    locale: a.locale,
-    publishedAt: toIso(a.publishedAt),
-    excerpt: a.excerpt,
-    author: "AS Brokers",
-    thumbnailUrl: a.thumbnailUrl ?? null,
-    source: "sanity",
-    categories: [],
-  }));
+  const studioRows = await listPublishedStudioPosts().catch((err) => {
+    console.warn("[insights feed] Studio list failed:", err);
+    return [] as Awaited<ReturnType<typeof listPublishedStudioPosts>>;
+  });
 
   const studioItems: InsightFeedItem[] = studioRows
     .filter((r) => r.publishedAt)
@@ -96,12 +68,7 @@ export async function getInsightFeed(): Promise<InsightFeedItem[]> {
       categories: normalizeInsightCategories(r.categories),
     }));
 
-  const sanitySlugKeys = new Set(sanityItems.map((item) => `${item.slug}::${item.locale}`));
-  const studioItemsWithoutSanitySlugConflict = studioItems.filter(
-    (item) => !sanitySlugKeys.has(`${item.slug}::${item.locale}`)
-  );
-
-  return [...sanityItems, ...studioItemsWithoutSanitySlugConflict].sort(
+  return studioItems.sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 }

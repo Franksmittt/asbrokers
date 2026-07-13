@@ -1,0 +1,163 @@
+AS BROKERS CC — PERFECT-10 / ENDPOINTGM-STYLE AUDIT (READ-ONLY)
+================================================================
+Auditor stance: Hostile Principal Engineer + SEO/GEO + CWV
+Date: 2026-07-13
+Scope: Workspace c:\Users\User1\Downloads\asbrokers-main (repo evidence only)
+Authority docs: MASTER-STRATEGY-HANDBOOK.txt / factory/MASTER-FLOW.txt / docs/endpointgm/perfect-10-standard.md — NOT FOUND
+Action taken: AUDIT ONLY. No product/source refactors. This file is the requested deliverable.
+
+================================================================
+1) PROJECT SNAPSHOT
+================================================================
+
+1. Framework/version
+   Next.js App Router, next ^15.5.12, React 19. Evidence: package.json
+
+2. Hosting target
+   Vercel (vercel.json + scripts/push-vercel-env.ts + CI env NEXT_PUBLIC_SITE_URL)
+
+3. Canonical production domain / metadataBase
+   https://www.asbrokers.co.za
+   Evidence: lib/site-url.ts DEFAULT_ORIGIN; app/layout.tsx metadataBase; next.config.ts host redirects (asbrokers.co.za / asbrokers.online → www)
+
+4. Marketing-only vs SaaS/app/commerce
+   Hybrid: public marketing/education site + Blog Studio + CRM (/crm) + client portal (/portal) + WhatsApp/Trigger.dev. Not commerce checkout.
+
+5. Local business vs national/online-only
+   Local / regional SA broker with NAP in schema (Krugersdorp, West Rand, Gauteng; street address in lib/seo.ts; FSP 17273). Also serves remote enquiries (WhatsApp/email).
+
+6. Primary money URLs (high-intent)
+   /contact
+   /everest-wealth (+ product paths)
+   /retirement-planning
+   /investments
+   /insurance
+   /estate-planning
+   /calculators (+ /calculators/asset-*)
+   /retirement-survival-blueprint
+   /legacy-readiness-checklist
+   /business-risk-review
+
+7. CI present?
+   YES — .github/workflows/ci.yml: build, Playwright axe a11y, visual regression, LHCI, SEO/WRS Playwright, master-audit (verify-phase12-master)
+
+8. Perfect-10 / handoff / brand DNA / entity log / red-team docs?
+   NOT FOUND as named Perfect-10 artifacts. Partial substitutes: AGENTS.md, docs/CRM_*, docs/STUDIO_DATABASE.md, docs/archive/*, scripts/verify-phase*, scripts/qa-audit-codebase.mjs. No endpointgm scorecard, no entity verification log, no red-team pack.
+
+9. CMS/content source
+   Dual: Sanity (legacy insights) + Blog Studio / Postgres client_insight_posts (+ Supabase Storage). Evidence: lib/insights/feed.ts, app/studio/blog/*, sanity/*
+
+10. Env/secrets patterns (NAMES ONLY — no values)
+    NEXT_PUBLIC_SITE_URL / NEXT_PUBLIC_APP_URL
+    NEXT_PUBLIC_SUPABASE_URL / SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY
+    DATABASE_URL
+    NEXT_PUBLIC_SANITY_PROJECT_ID / SANITY_VIEWER_TOKEN
+    NEXT_PUBLIC_GA_MEASUREMENT_ID / NEXT_PUBLIC_HOTJAR_ID
+    GSC_PROPERTY / GOOGLE_APPLICATION_CREDENTIALS / GSC_SAMPLE_URLS
+    GOOGLE_GENERATIVE_AI_API_KEY
+    RESEND_API_KEY / RESEND_FROM / RESEND_NOTIFY_EMAIL
+    HUBSPOT_ACCESS_TOKEN / HUBSPOT_PRIVATE_APP_TOKEN
+    WHATSAPP_VERIFY_TOKEN / META_APP_SECRET / WHATSAPP_ACCESS_TOKEN / WHATSAPP_PHONE_NUMBER_ID
+    TRIGGER_SECRET_KEY / TRIGGER_PROJECT_REF
+    CLIENT_STUDIO_PASSWORD / CLIENT_STUDIO_SESSION_SECRET
+
+================================================================
+2) SCORE TABLE
+================================================================
+
+Category            | Score /10 | PASS | FAIL | PARTIAL | UNKNOWN | N/A
+--------------------|-----------|------|------|---------|---------|----
+Engineering         |     5     |  4   |  6   |    3    |    0    |  0
+Content / GEO       |     6     |  3   |  2   |    7    |    0    |  0
+Discoverability     |     7     |  4   |  0   |    2    |    0    |  0
+Design / Brand      |     7     |  3   |  1   |    1    |    0    |  0
+Trust / Conv / A11y |     8     |  3   |  0   |    2    |    0    |  1
+Operate / Perfect-10|     4   |  1   |  5   |    1    |    0    |  0
+
+================================================================
+3) OVERALL
+================================================================
+
+Overall /10: 6 / 10
+Perfect-10 ready?: NO
+
+Top 10 FAIL items (impact order):
+1. Marketing hubs shipped as "use client" PageViews (RSC-first FAIL) — hurts TBT/JS weight on money+hub URLs.
+2. No CSP / security response headers in next.config or middleware (engineering/security FAIL).
+3. No next/font (system Tailwind font-sans; Perfect-10 font pipeline FAIL).
+4. No cacheComponents / "use cache" / cacheTag strategy on Next 15 (PERF/CWV architecture FAIL vs current standard).
+5. Entity sameAs: [] empty; no isAccessibleForFree on public WebPage graph (GEO entity hardness FAIL).
+6. FAQ graph padded to exactly 6 via ensureSixFaqs on many pages (FAQ schema spam risk).
+7. Dual CMS insights (Sanity + Studio) with category/filter parity gaps and empty-feed UX risk on /insights.
+8. No Perfect-10 ops artifacts: weekly scorecard, incident runbook, entity verification log, 90-day post-launch plan.
+9. No htmlLimitedBots / bot-complete <head> strategy documented or coded.
+10. Tailwind v3.4 not v4 @theme (styling-system standard gap vs checklist).
+
+Top 5 quick wins (DO NOT IMPLEMENT — list only):
+1. Convert hub PageViews back to RSC shells with client leaves only (form/filter/motion).
+2. Populate Organization.sameAs with real verified profiles; add isAccessibleForFree where schema is emitted.
+3. Add security headers (CSP report-only first, HSTS, X-Frame-Options, Referrer-Policy) via next.config headers().
+4. Introduce next/font for brand serif/sans; remove implicit system stack reliance on marketing.
+5. Stop padding FAQs to 6 when page has fewer real Qs; emit only authentic FAQPage items.
+
+Already excellent (short):
+- Canonical origin discipline + host redirects to www.asbrokers.co.za
+- robots.ts Sitemap line + crawler policy / training-bot blocks
+- Programmatic buildPageMetadata + server JSON-LD graph (Organization / LocalBusiness / Person @id)
+- Strong CI matrix (build, axe, visual, LHCI, SEO Playwright, master gate)
+- FAIS/POPIA education framing and contact Server Action path
+- Brand tokens (warm canvas, shark, teal) and prefers-reduced-motion
+- Visual regression baselines in CI
+
+================================================================
+4) EVIDENCE LOG
+================================================================
+
+FAIL — components/{insurance,investments,estate-planning,insights,contact,retirement-planning,calculators,solutions/MedicalAid,everest}/*PageView.tsx — hubs are "use client" wholes, not RSC shells
+FAIL — next.config.ts / middleware.ts — no CSP, HSTS, X-Frame-Options, or Referrer-Policy headers
+FAIL — app/layout.tsx / tailwind.config.ts — no next/font; sans is system-ui stack; serif is local fallback stack only
+FAIL — repo-wide — no cacheComponents / "use cache" / cacheLife / cacheTag usage
+FAIL — next.config.ts / app/layout.tsx — no htmlLimitedBots or equivalent bot-complete head strategy
+FAIL — lib/seo.ts:155 — Organization.sameAs is empty array []; no approved social/profile URLs in Footer/About/Contact either
+FAIL — lib/seo.ts WebPage builder — isAccessibleForFree not emitted on public marketing pages
+FAIL — docs/ops — no weekly Perfect-10 scorecard, incident runbook, entity verification log, or 90-day post-launch plan
+FAIL — docs/endpointgm — Perfect-10 / handoff audit artifacts absent (checklist authority files not in repo)
+PARTIAL — components/contact/ContactPageView.tsx + ContactEnquiryForm — searchParams used; banner Suspense-wrapped, but form path is fully client
+PARTIAL — next/image usage across hubs — sizes often present; some remote/studio images forced unoptimized
+PARTIAL — hub copy (insights/contact/about) — BLUF improved but still mixed long ledes vs answer-first
+PARTIAL — lib/seo.ts ensureSixFaqs — pads FAQ JSON-LD (and visible FAQ UI) to 6; real FAQ quality uneven
+PARTIAL — components/calculators/AssetCalculatorPageView.tsx — visible breadcrumbs exist there; most hubs lack visible breadcrumb UI even when schema can emit
+PARTIAL — app/sitemap.ts — includes /chat, /quiz, /manage-cookies; unclear if marketing wants these indexed
+PARTIAL — GSC scripts exist (gsc-canonical-check, verify-hub-gsc); IndexNow absent; Bing Webmaster not evidenced
+PARTIAL — consent/cookie UI present; CLS risk not measured in this audit
+PARTIAL — continuous monitoring — LHCI/axe scripts exist but no always-on synthetic/uptime ops pack
+PASS — lib/seo-metadata.ts / app/layout.tsx — absolute self-canonicals, OG/Twitter, no UTM on canonical builder
+PASS — lib/seo.ts PageJsonLd graph — Organization, WebSite, FinancialService, LocalBusiness, Person stubs with stable @ids
+PASS — app/robots.ts — Sitemap line, host, GPTBot/ClaudeBot/CCBot disallow, answer-engine allow
+PASS — lib/crawler-policy.ts + middleware.ts — private prefixes /login /crm /portal /internal /studio get X-Robots-Tag noindex
+PASS — .github/workflows/ci.yml — build + axe + visual + LHCI + SEO + master-audit
+PASS — public/llms.txt + llms-full.txt — absolute curated links
+PASS — app/globals.css — prefers-reduced-motion kill-switch
+PASS — tests/visual.spec.ts — visual baselines in CI
+PASS — contact form Server Action path (app/actions/contact.ts) + Zod boundaries elsewhere
+PASS — About/Contact/Privacy/Terms/Complaints/Regulatory pages exist
+
+================================================================
+5) QUESTIONS FOR HUMAN
+================================================================
+
+1. Which social / directory profiles are REAL and approved for Organization.sameAs (LinkedIn, Facebook, Google Business Profile, etc.)?
+2. Is Google Business Profile claimed and does NAP exactly match lib/seo.ts (Unit 2, The Bridge, 47 Commissioner Street / +27116601445)?
+3. Is Bing Webmaster configured for www.asbrokers.co.za, or Google-only?
+4. Should /chat, /quiz, and /manage-cookies stay indexed, or be noindex + removed from sitemap?
+5. Is Sanity still an active publishing path for Insights, or is Blog Studio the only source going forward?
+6. What is the expected production Insights article count today (Studio vs Sanity)?
+7. What CWV field thresholds define Perfect-10 success here (mobile LCP/INP/CLS), and which RUM source?
+8. Are security headers / CSP intentionally deferred because of Hotjar/GA embeds, or just missing?
+9. Is CRM/portal in scope for Perfect-10, or is this audit marketing-surface only?
+10. Are GSC_PROPERTY + GOOGLE_APPLICATION_CREDENTIALS wired in production/CI, or only local SKIP?
+
+================================================================
+END OF AUDIT
+Overall: 6/10. Not Perfect-10 ready. Strongest: canonical/www discipline, CI, server JSON-LD skeleton, brand tokens. Weakest: client-heavy hubs, no CSP/headers, no next/font, empty sameAs, FAQ padding, dual-CMS insights risk, missing Perfect-10 ops artifacts.
+================================================================

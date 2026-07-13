@@ -1,15 +1,15 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { ContactFormDeferred } from "@/components/contact/ContactFormDeferred";
+import {
+  ContactIntakeBanner,
+} from "@/components/contact/ContactIntakeBanner.client";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -23,22 +23,6 @@ const TEAL_ON_DARK = "#5EEAD4";
 const TRUST_IMAGE = "/images/contact-trust.jpg";
 const FAIS_POPIA =
   "Submitting this form does not constitute financial advice under the FAIS Act, 2002. Advice is only rendered after a documented needs analysis by a licensed representative of FSP 17273. Personal information is processed to respond to your enquiry and arrange a consultation, in line with POPIA. See our Privacy Policy.";
-
-const SOURCE_LABELS: Record<string, string> = {
-  investments_terminal: "Continuing from the Investments hub",
-  insurance_terminal: "Continuing from the Insurance risk audit",
-  estate_terminal: "Continuing from Estate planning",
-  insights_terminal: "Continuing from the Insights library",
-  about_terminal: "Continuing from About AS Brokers",
-  calculators_terminal: "Continuing after the calculator library",
-  calculator_terminal: "Continuing after a calculator result",
-  everest_terminal: "Continuing from the Everest Wealth hub",
-  medical_terminal: "Continuing from medical aid & gap structuring",
-  home_hero: "Continuing from the homepage",
-  home_journey: "Continuing from the homepage journey",
-  home_pathways: "Continuing from the homepage",
-  nav_cta: "Continuing from the site navigation",
-};
 
 const STEPS = [
   {
@@ -64,21 +48,6 @@ const WHO_WE_HELP = [
   "Families facing medical shortfalls or estate liquidity gaps",
   "High earners seeking tax-aware structures under Category 1.8",
 ] as const;
-
-function IntakeContextBanner() {
-  const searchParams = useSearchParams();
-  const source = searchParams.get("source") ?? "";
-  const label = SOURCE_LABELS[source];
-  if (!label) return null;
-  return (
-    <p
-      className="mt-5 border-l-2 pl-4 text-sm font-medium text-stone-700"
-      style={{ borderColor: TEAL }}
-    >
-      {label}
-    </p>
-  );
-}
 
 export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   const faqItems = ensureSixFaqs(faqs);
@@ -114,7 +83,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               is not financial advice under FAIS.
             </p>
             <Suspense fallback={null}>
-              <IntakeContextBanner />
+              <ContactIntakeBanner />
             </Suspense>
           </div>
           <div className="min-w-0 lg:col-span-5">

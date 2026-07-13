@@ -1,7 +1,6 @@
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { CalculatorsHubView } from "@/components/calculators/CalculatorsHubView";
 import { HUB_CALCULATORS } from "@/lib/calculators/hub-catalog";
-import { ensureSixFaqs } from "@/lib/seo";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const calculatorsFAQs = [
@@ -56,8 +55,6 @@ export const metadata = buildPageMetadata({
 });
 
 export default function CalculatorsPage() {
-  const faqItems = ensureSixFaqs(calculatorsFAQs);
-
   return (
     <>
       <link
@@ -75,7 +72,7 @@ export default function CalculatorsPage() {
           description:
             "Educational planning calculators for retirement, Everest Wealth, estate duty, tax, and insurance.",
         }}
-        faqs={faqItems}
+        faqs={calculatorsFAQs}
         breadcrumbs={[
           { name: "Home", path: "/" },
           { name: "Calculators", path: "/calculators" },
@@ -90,7 +87,7 @@ export default function CalculatorsPage() {
           })),
         }}
       />
-      <CalculatorsHubView faqItems={faqItems} />
+      <CalculatorsHubView faqItems={calculatorsFAQs} />
     </>
   );
 }

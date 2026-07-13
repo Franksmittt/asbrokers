@@ -39,7 +39,10 @@ const COMMON_SITE_FAQS: FAQItem[] = [
   },
 ];
 
-/** Pad or trim FAQs to exactly six items for a consistent 3×2 layout (and matching JSON-LD). */
+/**
+ * UI-only: pad or trim FAQs to exactly six for the VisibleFaqSection 3×2 layout.
+ * Do not use for JSON-LD — schema must emit only page-authored FAQs (see buildPageGraph).
+ */
 export function ensureSixFaqs(specific: FAQItem[] = []): FAQItem[] {
   const seen = new Set(specific.map((item) => item.question.trim().toLowerCase()));
   const merged = [...specific];
@@ -52,6 +55,11 @@ export function ensureSixFaqs(specific: FAQItem[] = []): FAQItem[] {
     }
   }
   return merged.slice(0, 6);
+}
+
+/** Authentic FAQ list for JSON-LD: page items only, no COMMON_SITE_FAQS padding. */
+export function faqsForJsonLd(specific: FAQItem[] = []): FAQItem[] {
+  return specific.filter((item) => item.question.trim().length > 0 && item.answer.trim().length > 0);
 }
 
 export type PageGraphInput = {
@@ -125,6 +133,35 @@ function logoUrl(origin: string): string {
   return `${origin}/opengraph-image`;
 }
 
+function contactAreaServed(): Record<string, unknown>[] {
+  return [
+    { "@type": "AdministrativeArea", name: "West Rand" },
+    { "@type": "City", name: "Krugersdorp" },
+    { "@type": "Country", name: "South Africa" },
+  ];
+}
+
+/** Public contact channels already shown on marketing contact/about surfaces. */
+function buildContactPoints(): Record<string, unknown>[] {
+  return [
+    {
+      "@type": "ContactPoint",
+      telephone: "+27116601445",
+      email: "albert@asbrokers.co.za",
+      contactType: "customer service",
+      areaServed: contactAreaServed(),
+      availableLanguage: ["English"],
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+27662276044",
+      contactType: "WhatsApp",
+      areaServed: contactAreaServed(),
+      availableLanguage: ["English"],
+    },
+  ];
+}
+
 function buildOrganizationNode(origin: string, ids: ReturnType<typeof createSeoIds>): Record<string, unknown> {
   return {
     "@type": "Organization",
@@ -153,6 +190,17 @@ function buildOrganizationNode(origin: string, ids: ReturnType<typeof createSeoI
     founder: [{ "@id": ids.personAlbert }, { "@id": ids.personJohnny }],
     identifier: { "@type": "PropertyValue", name: "FSP Number", value: "17273" },
     sameAs: [] as string[],
+    email: "albert@asbrokers.co.za",
+    telephone: "+27116601445",
+    contactPoint: buildContactPoints(),
+    knowsAbout: [
+      "Retirement Planning",
+      "Investments",
+      "Insurance",
+      "Estate Planning",
+      "Everest Wealth",
+    ],
+    isAccessibleForFree: true,
   };
 }
 
@@ -219,6 +267,7 @@ function buildLocalBusinessNode(origin: string, ids: ReturnType<typeof createSeo
     url: origin,
     image: { "@id": `${origin}/#logo` },
     telephone: "+27116601445",
+    email: "albert@asbrokers.co.za",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Unit 2, The Bridge, 47 Commissioner Street",
@@ -232,8 +281,17 @@ function buildLocalBusinessNode(origin: string, ids: ReturnType<typeof createSeo
       latitude: -26.085,
       longitude: 27.775,
     },
+    contactPoint: buildContactPoints(),
+    knowsAbout: [
+      "Retirement Planning",
+      "Investments",
+      "Insurance",
+      "Estate Planning",
+      "Everest Wealth",
+    ],
     parentOrganization: { "@id": ids.organization },
     areaServed: { "@type": "Country", name: "South Africa" },
+    isAccessibleForFree: true,
   };
 }
 
@@ -284,6 +342,7 @@ export function buildPageGraph(input: PageGraphInput): JsonLdGraph {
     isPartOf: { "@id": ids.website },
     about: { "@id": ids.financialService },
     publisher: { "@id": ids.organization },
+    isAccessibleForFree: true,
   };
 
   if (input.primaryImagePath) {
@@ -296,9 +355,11 @@ export function buildPageGraph(input: PageGraphInput): JsonLdGraph {
   }
 
   if (input.faqs?.length) {
-    const faqs = ensureSixFaqs(input.faqs);
-    graph.push(buildFAQPageNode(ids, faqs));
-    webPageNode.mainEntity = { "@id": ids.faqPage };
+    const faqs = faqsForJsonLd(input.faqs);
+    if (faqs.length) {
+      graph.push(buildFAQPageNode(ids, faqs));
+      webPageNode.mainEntity = { "@id": ids.faqPage };
+    }
   }
 
   if (input.service) {
@@ -406,6 +467,7 @@ function buildArticleNode(
     isPartOf: { "@id": ids.webPage },
     mainEntityOfPage: { "@id": ids.webPage },
     image: primaryImagePath ? { "@id": ids.primaryImage } : { "@id": `${origin}/#logo` },
+    isAccessibleForFree: true,
   };
 }
 

@@ -34,8 +34,6 @@ import {
 import { clientInsightPosts, getDb } from "@/lib/db";
 import { collectErrorText, missingClientInsightOptionalColumns } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
-import { cachedSanityFetch } from "@/sanity/lib/fetch";
-import { insightSlugExistsQuery } from "@/sanity/lib/queries";
 import {
   INSIGHT_CATEGORIES,
   normalizeInsightCategories,
@@ -99,15 +97,6 @@ function verifyStudioPassword(plain: string): boolean {
 async function requireStudioSession() {
   if (!(await getClientStudioSession())) {
     throw new Error("Not signed in.");
-  }
-}
-
-async function hasSanitySlugConflict(slug: string, locale: "en" | "af"): Promise<boolean> {
-  try {
-    const match = await cachedSanityFetch<{ _id: string } | null>(insightSlugExistsQuery, { slug, locale });
-    return Boolean(match?._id);
-  } catch {
-    return false;
   }
 }
 
@@ -258,13 +247,6 @@ export async function saveStudioPost(
       error: "Hero image must be an uploaded studio image or a valid http(s) URL.",
     };
   }
-  if (await hasSanitySlugConflict(v.slug, v.locale)) {
-    return {
-      ok: false,
-      error:
-        "That URL slug already exists in the CMS for this language. Use a different slug to avoid article conflicts.",
-    };
-  }
   const now = new Date();
   const sanitizedForLive = sanitizeInsightBody(bodyHtmlWithCategoryMarker);
   const unresolvedSlots = unresolvedPublishSlotMessage(bodyHtmlWithCategoryMarker);
@@ -410,13 +392,6 @@ export async function publishStudioPost(
     return {
       ok: false,
       error: "Hero image must be an uploaded studio image or a valid http(s) URL.",
-    };
-  }
-  if (await hasSanitySlugConflict(parsed.data.slug, parsed.data.locale)) {
-    return {
-      ok: false,
-      error:
-        "This URL slug already exists in the CMS for this language. Change the slug before publishing.",
     };
   }
 

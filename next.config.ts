@@ -1,8 +1,81 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+/**
+ * Blocking metadata for HTML-limited / preview / answer crawlers.
+ * Custom htmlLimitedBots REPLACES Next.js defaults — keep the full Next union, then extend.
+ * Source baseline: next/dist/shared/lib/router/utils/html-bots.js (Next 15.5).
+ * Aligns with lib/crawler-policy.ts allow-list for answer/search bots (not blocked trainers).
+ */
+const HTML_LIMITED_BOTS =
+  /[\w-]+-Google|Google-[\w-]+|Googlebot|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|bingbot|applebot|Applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight|OAI-SearchBot|ChatGPT-User|PerplexityBot|Claude-Web|anthropic-ai|Bytespider|meta-externalagent/i;
+
+/**
+ * Report-Only CSP — observe violations without blocking Hotjar / GA / Supabase.
+ * Tighten and switch to Content-Security-Policy after reviewing reports (see docs/TASK2-HARDENING.md).
+ */
+const CSP_REPORT_ONLY = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  [
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+    "https://www.googletagmanager.com",
+    "https://www.google-analytics.com",
+    "https://static.hotjar.com",
+    "https://script.hotjar.com",
+    "https://*.hotjar.com",
+    "https://va.vercel-scripts.com",
+    "https://vercel.live",
+  ].join(" "),
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data: https:",
+  [
+    "connect-src 'self'",
+    "https://www.google-analytics.com",
+    "https://analytics.google.com",
+    "https://region1.google-analytics.com",
+    "https://www.googletagmanager.com",
+    "https://*.hotjar.com",
+    "https://*.hotjar.io",
+    "wss://*.hotjar.com",
+    "https://*.supabase.co",
+    "wss://*.supabase.co",
+    "https://vercel.live",
+    "https://va.vercel-scripts.com",
+  ].join(" "),
+  [
+    "frame-src 'self'",
+    "https://vars.hotjar.com",
+    "https://*.hotjar.com",
+    "https://www.googletagmanager.com",
+    "https://vercel.live",
+  ].join(" "),
+  "worker-src 'self' blob:",
+  "media-src 'self' https:",
+].join("; ");
+
+const SECURITY_HEADERS = [
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
+  },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains",
+  },
+  { key: "Content-Security-Policy-Report-Only", value: CSP_REPORT_ONLY },
+] as const;
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  htmlLimitedBots: HTML_LIMITED_BOTS,
   images: {
     formats: ["image/avif", "image/webp"],
   },
@@ -14,6 +87,14 @@ const nextConfig: NextConfig = {
       /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */
       bodySizeLimit: "12mb",
     },
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [...SECURITY_HEADERS],
+      },
+    ];
   },
   async redirects() {
     /** Retired React calculator routes → ASSET hub anchors or service hubs. */
@@ -44,6 +125,9 @@ const nextConfig: NextConfig = {
 
     return [
       { source: "/solutions/estate-planning", destination: "/estate-planning", permanent: true },
+      /** Legacy Sanity Studio URL → Blog Studio (intentional CMS). */
+      { source: "/studio", destination: "/studio/blog", permanent: true },
+      { source: "/studio/", destination: "/studio/blog", permanent: true },
       ...retiredCatalogueRedirects.map(({ source, destination }) => ({
         source,
         destination,

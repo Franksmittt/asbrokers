@@ -138,7 +138,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Skip Next internals, Sanity studio, WhatsApp webhook, and static assets.
+     * Skip Next internals, Blog Studio (/studio), WhatsApp webhook, and static assets.
      */
     "/((?!_next/static|_next/image|favicon.ico|studio(?:/|$)|api/webhooks/whatsapp|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff2?|ttf|otf)$).*)",
   ],

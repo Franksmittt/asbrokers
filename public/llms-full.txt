@@ -1,6 +1,6 @@
-# AS Brokers CC — AI Search Briefing
+# AS Brokers CC: AI Search Briefing
 
-AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content — not personalised financial advice.
+AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content, not personalised financial advice.
 
 ## Key URLs
 - [Home](https://www.asbrokers.co.za/): retirement runway, Everest yield portfolio, and wealth engineering overview.
@@ -46,7 +46,7 @@ AS Brokers CC is an authorised South African financial services provider (FSP 17
 - 14.5% Strategic Growth compounds returns with no monthly withdrawals during the term.
 - Amethyst Living Annuity applies to pension, preservation, provident, and RA capital with drawdown between 2.5% and 17.5%.
 - Voluntary products are illiquid: 120-day notice and up to 15% early exit penalty may apply.
-- Returns are targeted or structured return profiles — not guaranteed outcomes.
+- Returns are targeted or structured return profiles, not guaranteed outcomes.
 - Dividends from unlisted preference shares are subject to 20% Dividends Withholding Tax.
 
 ## Insurance and risk

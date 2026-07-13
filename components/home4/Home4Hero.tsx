@@ -42,7 +42,7 @@ export function Home4Hero() {
             Will this capital last, and what income can it support?
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
-            Run Albert&apos;s Everest income calculator first. Then contact us — speak with an
+            Run Albert&apos;s Everest income calculator first. Then contact us and speak with an
             independent Category 1.8 adviser in Krugersdorp, not a call centre.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">

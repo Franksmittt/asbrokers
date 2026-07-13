@@ -44,7 +44,7 @@ const STEPS = [
   {
     number: "01",
     title: "We reply personally",
-    body: "An authorised FSP 17273 adviser reviews your enquiry and gets back to you — not a rotating call centre.",
+    body: "An authorised FSP 17273 adviser reviews your enquiry and gets back to you, not a rotating call centre.",
   },
   {
     number: "02",
@@ -110,7 +110,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
               Tell us what you need help with. An authorised AS Brokers adviser will respond
-              personally — retirement, Everest, insurance, medical, or estate. Submitting an enquiry
+              personally about retirement, Everest, insurance, medical, or estate. Submitting an enquiry
               is not financial advice under FAIS.
             </p>
             <Suspense fallback={null}>

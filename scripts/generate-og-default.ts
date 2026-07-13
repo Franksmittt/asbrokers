@@ -17,7 +17,7 @@ async function main() {
     {
       title: "AS Brokers CC",
       description:
-        "Independent financial advisor in Krugersdorp — retirement, Everest Wealth, insurance, and estate planning. FSP 17273.",
+        "Independent financial advisor in Krugersdorp: retirement, Everest Wealth, insurance, and estate planning. FSP 17273.",
     },
     loadNodeOgFonts()
   );

@@ -157,7 +157,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
       title: latest.title,
       description:
         latest.excerpt?.trim() ||
-        "A fiduciary deep-dive from the AS Brokers insights library — education before advice.",
+        "A fiduciary deep-dive from the AS Brokers insights library: education before advice.",
       href: `/insights/${latest.slug}?locale=${latest.locale}`,
       thumbnailUrl: latest.thumbnailUrl,
       publishedAt: latest.publishedAt,
@@ -200,7 +200,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            Deep reading for people who take South African wealth seriously — Two-Pot, estate duty,
+            Deep reading for people who take South African wealth seriously: Two-Pot, estate duty,
             underinsurance, tax drag, Everest structuring. Written here so you arrive at advice
             already educated. Articles are educational only, not personalised advice.
           </p>
@@ -384,7 +384,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
               Written for people who refuse thin advice
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
-              This library is where AS Brokers publishes the thinking behind the practice —
+              This library is where AS Brokers publishes the thinking behind the practice:
               legislation, liquidity, risk architecture, and the questions clients actually ask.
               It is not content marketing filler. It is the reading room before a strategy call.
             </p>
@@ -392,11 +392,11 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
               {[
                 {
                   dt: "Education first",
-                  dd: "Arrive informed. Personalised advice still requires a needs analysis with FSP 17273 — these pages never replace that.",
+                  dd: "Arrive informed. Personalised advice still requires a needs analysis with FSP 17273. These pages never replace that.",
                 },
                 {
                   dt: "South African context",
-                  dd: "SARS, Two-Pot, Medical Schemes Act demarcation, estate duty — framed for local balance sheets, not imported generic blogs.",
+                  dd: "SARS, Two-Pot, Medical Schemes Act demarcation, estate duty, framed for local balance sheets, not imported generic blogs.",
                 },
                 {
                   dt: "Published from the practice",
@@ -496,7 +496,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
               The library educates. A consultation with FSP 17273 starts with a proper needs
-              analysis — bring the questions these articles raised.
+              analysis. Bring the questions these articles raised.
             </p>
             <Link
               href="/contact?source=insights_terminal"

@@ -303,7 +303,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             ))}
           </ul>
           <p className="mt-4 text-xs leading-relaxed text-white/50">
-            Named desks, not call-centre queues — underwriting, medical onboarding, renewals, and
+            Named desks, not call-centre queues: underwriting, medical onboarding, renewals, and
             claims stay with specialists who know the file.
           </p>
         </div>
@@ -337,7 +337,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 Seventeen educational calculators for retirement, estate, insurance, and Everest
-                scenarios — illustrative only.
+                scenarios, illustrative only.
               </p>
               <Link
                 href="/calculators"
@@ -358,7 +358,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 When you are ready for a needs analysis, request a Wealth Engineering Call with an
-                authorised FSP 17273 adviser — not a call centre.
+                authorised FSP 17273 adviser, not a call centre.
               </p>
               <Link
                 href="/contact?source=about_terminal"

@@ -5,7 +5,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Insights Library | Fiduciary Education | AS Brokers";
 const PAGE_DESCRIPTION =
-  "The AS Brokers insights library — deep guides on Two-Pot, estate duty, tax drag, and risk, written by fiduciaries for people who take wealth seriously. Education before advice. FSP 17273.";
+  "The AS Brokers insights library: deep guides on Two-Pot, estate duty, tax drag, and risk, written by fiduciaries for people who take wealth seriously. Education before advice. FSP 17273.";
 
 const insightsFAQs = [
   {

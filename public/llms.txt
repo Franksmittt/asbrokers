@@ -1,6 +1,6 @@
 # AS Brokers CC
 
-> AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content — not personalised financial advice.
+> AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content, not personalised financial advice.
 
 ## Core Services
 - [Home](https://www.asbrokers.co.za/): retirement runway, Everest yield portfolio, and wealth engineering overview.

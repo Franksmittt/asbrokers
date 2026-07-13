@@ -4,7 +4,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Contact Us | AS Brokers CC | FSP 17273";
 const PAGE_DESCRIPTION =
-  "Contact AS Brokers in Krugersdorp. An authorised FSP 17273 adviser responds personally — retirement, Everest, insurance, medical, or estate. Enquiry is not FAIS advice. POPIA compliant.";
+  "Contact AS Brokers in Krugersdorp. An authorised FSP 17273 adviser responds personally about retirement, Everest, insurance, medical, or estate. Enquiry is not FAIS advice. POPIA compliant.";
 
 const contactFAQs = [
   {

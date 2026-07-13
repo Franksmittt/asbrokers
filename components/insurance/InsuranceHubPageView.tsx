@@ -346,7 +346,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="insurance-faq-heading"
-        primaryCta={{ href: "/contact?source=insurance_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=insurance_faq", label: "Contact us" }}
       />
 
       {/* §7 Related — light */}

@@ -157,7 +157,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   },
   {
     step: "04",
-    title: "Capital assessment",
+    title: "Contact us",
     description: "Licensed FSP 17273 review when your numbers say it is time.",
     href: "/contact?source=home_journey",
     cta: "Book assessment",

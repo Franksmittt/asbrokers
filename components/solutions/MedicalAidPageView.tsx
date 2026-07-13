@@ -191,7 +191,7 @@ export function MedicalAidPageView({ faqs }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="medical-faq-heading"
-        primaryCta={{ href: "/contact?source=medical_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=medical_faq", label: "Contact us" }}
       />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/solutions/medical-aid")} />

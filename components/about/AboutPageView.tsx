@@ -379,7 +379,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         faqs={faqItems}
         id="about-faq"
         headingId="about-faq-heading"
-        primaryCta={{ href: "/contact?source=about_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=about_faq", label: "Contact us" }}
       />
 
       {/* §7 Related — light */}

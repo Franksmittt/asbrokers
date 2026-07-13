@@ -69,7 +69,7 @@ export function MarketingMobileMenu() {
                   onClick={closeMobile}
                   className="w-full py-3.5 text-center text-white font-semibold bg-samsung-blue rounded-[2rem] block shadow-md shadow-samsung-blue/20"
                 >
-                  Book a capital assessment
+                  Contact us
                 </Link>
               </div>
             </div>

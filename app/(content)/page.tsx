@@ -8,7 +8,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Everest Wealth Education & Independent Advice | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Run ASSET calculators, learn Everest Wealth structured-income profiles (Category 1.8), and book a capital assessment with independent FSP 17273, Krugersdorp. Retirement, insurance, and estate when you need them.";
+  "Run ASSET calculators, learn Everest Wealth structured-income profiles (Category 1.8), and contact independent FSP 17273, Krugersdorp. Retirement, insurance, and estate when you need them.";
 
 export const metadata = buildPageMetadata({
   path: "/",

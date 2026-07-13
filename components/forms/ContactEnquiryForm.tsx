@@ -242,7 +242,7 @@ export function ContactEnquiryForm() {
           />
           <span className="text-sm leading-relaxed text-stone-700">
             I consent to AS Brokers CC (FSP 17273) processing my personal information to respond to
-            this enquiry and initiate a capital assessment, and to send related transactional
+            this enquiry and arrange a consultation, and to send related transactional
             messages. This is voluntary. See the{" "}
             <a href="/privacy" className="font-semibold text-cinematic-teal hover:opacity-80">
               Privacy Policy
@@ -264,10 +264,10 @@ export function ContactEnquiryForm() {
       <button
         type="submit"
         disabled={isPending}
-        aria-label={isPending ? "Sending consultation request" : "Request a consultation"}
+        aria-label={isPending ? "Sending enquiry" : "Send enquiry"}
         className="mt-2 w-full rounded bg-cinematic-teal py-4 text-sm font-semibold text-white transition hover:bg-[#008f8f] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isPending ? "Sending…" : "Request capital assessment"}
+        {isPending ? "Sending…" : "Send enquiry"}
       </button>
     </form>
   );

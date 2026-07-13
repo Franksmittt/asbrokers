@@ -222,7 +222,7 @@ export function SoloCalculatorPageView({
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-cta-glow-blue transition-all hover:bg-[#004a9e]"
               style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
             >
-              Book a capital assessment
+              Contact us
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <a

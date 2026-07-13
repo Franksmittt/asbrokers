@@ -474,7 +474,7 @@ export function EverestWealthPageView({ faqs }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="everest-faq-heading"
-        primaryCta={{ href: "/contact?source=everest_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=everest_faq", label: "Contact us" }}
       />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/everest-wealth")} />
@@ -508,7 +508,7 @@ export function EverestWealthPageView({ faqs }: Props) {
                 className="inline-flex items-center gap-2 rounded px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                 style={{ backgroundColor: TEAL }}
               >
-                Book a capital assessment
+                Contact us
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <a

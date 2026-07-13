@@ -33,7 +33,7 @@ export function VisibleFaqSection({
   lead = "Education first. Personal financial advice only after a needs analysis with AS Brokers CC, FSP 17273.",
   primaryCta = {
     href: "/contact?source=faq",
-    label: "Book a capital assessment",
+    label: "Contact us",
   },
   secondaryCta = {
     href: "/everest-wealth/about",

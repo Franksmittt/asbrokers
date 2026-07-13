@@ -361,7 +361,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="planning-faq-heading"
-        primaryCta={{ href: "/contact?source=retirement_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=retirement_faq", label: "Contact us" }}
       />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/retirement-planning")} />

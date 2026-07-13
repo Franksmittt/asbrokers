@@ -376,7 +376,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
               Seventeen educational calculators for retirement, Everest income, estate duty, tax, and
-              underinsurance. Test assumptions yourself, then book a capital assessment if you want
+              underinsurance. Test assumptions yourself, then contact us if you want
               advice.
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
@@ -517,7 +517,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
               {
                 step: "03",
                 title: "Bring results in",
-                body: "Book a capital assessment or WhatsApp when you want FSP 17273 to interpret the maths.",
+                body: "Contact us or WhatsApp when you want FSP 17273 to interpret the maths.",
               },
             ].map((item) => (
               <li key={item.step} className="flex flex-col bg-white px-6 py-8 sm:px-7 sm:py-10">
@@ -577,7 +577,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
         headingId="calc-faq-heading"
         primaryCta={{
           href: "/contact?source=calculators_faq",
-          label: "Book a capital assessment",
+          label: "Contact us",
         }}
       />
 
@@ -612,7 +612,7 @@ export function CalculatorsHubView({ faqItems }: Props) {
                 className="inline-flex items-center gap-2 rounded px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                 style={{ backgroundColor: TEAL }}
               >
-                Book a capital assessment
+                Contact us
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <a

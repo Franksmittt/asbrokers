@@ -37,7 +37,7 @@ export function MarketingNav() {
             prefetch={false}
             className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold bg-samsung-blue text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e]"
           >
-            Capital assessment
+            Contact us
           </Link>
           <MarketingMobileMenu />
         </div>

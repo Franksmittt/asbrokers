@@ -329,7 +329,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="estate-faq-heading"
-        primaryCta={{ href: "/contact?source=estate_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=estate_faq", label: "Contact us" }}
       />
 
       {/* §7 Related — light */}

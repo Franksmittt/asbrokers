@@ -2,13 +2,13 @@ import { ContactPageView } from "@/components/contact/ContactPageView";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Engineer Your Wealth Architecture | Contact AS Brokers";
+const PAGE_TITLE = "Contact Us | AS Brokers CC | FSP 17273";
 const PAGE_DESCRIPTION =
-  "Capital Assessment → Wealth Engineering Call → Implementation. Connect with an authorised FSP 17273 adviser in Krugersdorp, no call centre. Enquiry is not FAIS advice. POPIA compliant.";
+  "Contact AS Brokers in Krugersdorp. An authorised FSP 17273 adviser responds personally — retirement, Everest, insurance, medical, or estate. Enquiry is not FAIS advice. POPIA compliant.";
 
 const contactFAQs = [
   {
-    question: "How do I book a consultation with AS Brokers?",
+    question: "How do I contact AS Brokers?",
     answer:
       "Complete the enquiry form on this page, WhatsApp +27 66 227 6044, or email albert@asbrokers.co.za. An authorised FSP 17273 adviser will respond personally, not via a call centre.",
   },
@@ -30,7 +30,7 @@ const contactFAQs = [
   {
     question: "How is my personal information used (POPIA)?",
     answer:
-      "We process your details to respond to your enquiry and initiate a capital assessment. Consent is voluntary and specific. See our Privacy Policy for rights and contact details for privacy queries.",
+      "We process your details to respond to your enquiry and arrange a consultation. Consent is voluntary and specific. See our Privacy Policy for rights and contact details for privacy queries.",
   },
   {
     question: "Should I use WhatsApp or the form?",

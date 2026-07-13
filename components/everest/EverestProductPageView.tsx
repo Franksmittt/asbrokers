@@ -278,7 +278,7 @@ export function EverestProductPageView({
       {faqs.length > 0 ? (
         <VisibleFaqSection
           faqs={ensureSixFaqs(faqs)}
-          primaryCta={{ href: "/contact?source=everest_faq", label: "Book a capital assessment" }}
+          primaryCta={{ href: "/contact?source=everest_faq", label: "Contact us" }}
         />
       ) : null}
       <RelatedContent variant="warm" links={getRelatedLinks(path)} />

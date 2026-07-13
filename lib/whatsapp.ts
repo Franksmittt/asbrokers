@@ -10,7 +10,7 @@ export function whatsappUrl(message?: string): string {
 }
 
 export const WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE =
-  "Hi AS Brokers, I would like a capital assessment with an independent adviser (FSP 17273).";
+  "Hi AS Brokers, I would like to contact an independent adviser (FSP 17273).";
 
 export const WHATSAPP_CALCULATOR_MESSAGE =
   "Hi AS Brokers, I just used a calculator on your site and would like to talk through the numbers.";

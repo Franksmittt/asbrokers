@@ -709,7 +709,7 @@ export function InvestmentsPageView({ faqs }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="investments-faq-heading"
-        primaryCta={{ href: "/contact?source=investments_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=investments_faq", label: "Contact us" }}
       />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/investments")} />

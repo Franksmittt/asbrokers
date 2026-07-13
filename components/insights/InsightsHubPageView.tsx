@@ -464,7 +464,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="insights-faq-heading"
-        primaryCta={{ href: "/contact?source=insights_faq", label: "Book a capital assessment" }}
+        primaryCta={{ href: "/contact?source=insights_faq", label: "Contact us" }}
       />
 
       {/* §6 Related — light */}

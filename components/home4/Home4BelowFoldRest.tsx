@@ -36,7 +36,7 @@ export function Home4BelowFoldRest() {
               headingId="home4-calculators"
               kicker="Albert's ASSET tools"
               title="Run the numbers before you speak to anyone"
-              description="Ungated educational calculators, Everest income, retirement longevity, estate duty. Illustrative only under FAIS; then bring results to a capital assessment."
+              description="Ungated educational calculators, Everest income, retirement longevity, estate duty. Illustrative only under FAIS; then bring results when you contact us."
             />
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {HOME4_CALCULATOR_TILES.map((tile) => (
@@ -97,7 +97,7 @@ export function Home4BelowFoldRest() {
           <Home4Reveal instant>
             <div className="flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15">
               <h2 className="text-2xl font-bold tracking-tight text-shark">
-                Ready for a capital assessment?
+                Ready to contact us?
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
                 Speak with a licensed independent fiduciary (FSP 17273). Bring calculator results if

@@ -342,32 +342,32 @@ export function InsightsFeedFilter({
       </div>
 
       {articles.length === 0 ? (
-        <div
-          className={`mt-8 p-10 text-center md:p-14 ${
-            isEditorial ? "border border-[#E5E5E5]" : "rounded-2xl bg-white ring-1 ring-stone-200/90"
-          }`}
-        >
+        <div className={`mt-8 p-10 md:p-14 ${isEditorial ? "border border-[#E5E5E5]" : "rounded-2xl bg-white ring-1 ring-stone-200/90"}`}>
+          <p className="font-serif text-xl font-semibold tracking-tight" style={{ color: INK }}>
+            The next article is being written
+          </p>
           <p
-            className="mx-auto mb-8 max-w-md leading-relaxed"
+            className="mt-3 max-w-xl leading-relaxed"
             style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
           >
-            Our insight articles and resource hub are coming soon. We&apos;ll share regular updates on estate
-            planning, retirement income, and Everest Wealth so you stay ahead.
+            New insights published from Blog Studio appear in this library automatically. Meanwhile,
+            start with the flagship Semigration guide or open a calculator.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              href="/insights/semigration-retirement"
+              prefetch={false}
+              className="inline-flex items-center gap-2 rounded px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              style={{ backgroundColor: TEAL }}
+            >
+              Read the Semigration guide
+            </Link>
             <Link
               href="/calculators"
               prefetch={false}
-              className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3 text-sm font-semibold text-white hover:bg-[#008f8f]"
+              className="inline-flex items-center gap-2 border border-[#E5E5E5] px-6 py-3 text-sm font-semibold text-shark transition hover:text-cinematic-teal"
             >
-              Use our calculators
-            </Link>
-            <Link
-              href="/contact"
-              prefetch={false}
-              className="inline-flex items-center gap-2 border border-[#E5E5E5] px-6 py-3 text-sm font-semibold text-shark hover:text-cinematic-teal"
-            >
-              Get in touch
+              Open calculators
             </Link>
           </div>
         </div>
@@ -378,32 +378,50 @@ export function InsightsFeedFilter({
               <li key={`${a.id}::${a.slug}::${a.locale}`} className="border-b border-[#E5E5E5] last:border-b-0">
                 <Link
                   href={`/insights/${a.slug}?locale=${a.locale}`}
-                  className="group block py-6 transition hover:opacity-90"
+                  className="group grid grid-cols-1 gap-5 py-7 transition sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:gap-8"
                   aria-label={`Read article: ${a.title}`}
                 >
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <time
-                      className="text-xs font-semibold uppercase tracking-wider text-stone-500 tabular-nums"
-                      dateTime={a.publishedAt}
-                    >
-                      {formatDateShort(a.publishedAt)}
-                    </time>
-                    {(a.categories?.length ?? 0) > 0 && (
-                      <span className="text-xs text-stone-500">
-                        {INSIGHT_CATEGORY_LABEL_BY_VALUE[a.categories[0] as InsightCategoryValue] ??
-                          a.categories[0]}
-                      </span>
-                    )}
+                  <div className="relative aspect-[16/10] overflow-hidden border border-[#E5E5E5] bg-stone-100 sm:aspect-square">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- remote studio/CDN URLs */}
+                    <img
+                      src={a.thumbnailUrl ?? "/images/og-default.jpg"}
+                      alt={getAlt(a.thumbnailUrl ?? "/images/og-default.jpg", a.title)}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
                   </div>
-                  <h3
-                    className="mt-2 font-serif font-semibold tracking-tight text-shark group-hover:text-cinematic-teal"
-                    style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem)" }}
-                  >
-                    {a.title}
-                  </h3>
-                  {a.excerpt ? (
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-stone-600">{a.excerpt}</p>
-                  ) : null}
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <time
+                        className="text-xs font-semibold uppercase tracking-wider text-stone-500 tabular-nums"
+                        dateTime={a.publishedAt}
+                      >
+                        {formatDateShort(a.publishedAt)}
+                      </time>
+                      {(a.categories?.length ?? 0) > 0 ? (
+                        <span className="text-xs text-stone-500">
+                          {INSIGHT_CATEGORY_LABEL_BY_VALUE[a.categories[0] as InsightCategoryValue] ??
+                            a.categories[0]}
+                        </span>
+                      ) : null}
+                    </div>
+                    <h3
+                      className="mt-2 font-serif font-semibold tracking-tight text-shark transition group-hover:opacity-80"
+                      style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem)", color: INK }}
+                    >
+                      {a.title}
+                    </h3>
+                    {a.excerpt ? (
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-stone-600">{a.excerpt}</p>
+                    ) : null}
+                    <span
+                      className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold"
+                      style={{ color: TEAL }}
+                    >
+                      Read article
+                      <span aria-hidden>→</span>
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))}

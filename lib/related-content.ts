@@ -358,19 +358,19 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/insights": [
     {
-      href: "/retirement",
+      href: "/retirement-planning",
       title: "Retirement planning",
       description: "Hub for calculators, Amethyst, and retirement clarity.",
     },
     {
-      href: "/how-we-work",
-      title: "How we work",
-      description: "Education first, advice when you are ready.",
+      href: "/estate-planning",
+      title: "Estate planning",
+      description: "Liquidity engineering, duty framing, and succession.",
     },
     {
-      href: "/quiz",
-      title: "Financial health quiz",
-      description: "Quick assessment across health, wealth, and legacy pillars.",
+      href: "/investments",
+      title: "Investments",
+      description: "Accumulation, distribution, and structured capital.",
     },
     {
       href: "/calculators",

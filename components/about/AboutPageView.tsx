@@ -13,6 +13,9 @@ const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
+/** WCAG AA teal on canvas; lighter teal for shark chapters. */
+const TEAL = "#0F766E";
+const TEAL_ON_DARK = "#5EEAD4";
 const HERO_IMAGE = "/images/home4-why-independence-4x3.jpg";
 const PLACE_IMAGE = "/images/about-krugersdorp-trust-16x9.jpg";
 const PLAQUE_IMAGE = "/images/about-fiduciary-plaque-4x3.jpg";
@@ -46,10 +49,17 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+      {/* §1 Hero — light */}
+      <header
+        className="border-b pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+      >
         <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
-          <div className="min-w-0 lg:col-span-7">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-stone-500">
+          <div className="min-w-0 lg:col-span-6">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+              style={{ color: TEAL }}
+            >
               <span className="tabular-nums">FSP 17273</span>
               {" · "}
               <span className="tabular-nums">Category 1.8</span>
@@ -88,49 +98,56 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </Link>
             </nav>
           </div>
-          <div className="min-w-0 lg:col-span-5">
-            <div className="relative aspect-[4/3] overflow-hidden border" style={{ borderColor: HAIRLINE }}>
+          <div className="min-w-0 lg:col-span-6">
+            <div className="relative aspect-[4/3] overflow-hidden border sm:aspect-[5/4]" style={{ borderColor: HAIRLINE }}>
               <Image
                 src={HERO_IMAGE}
                 alt={getAlt(HERO_IMAGE, "AS Brokers Krugersdorp advisory environment")}
                 fill
                 priority
                 className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>
         </div>
       </header>
 
+      {/* §2 Independence — shark */}
       <section
         id="independence"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="independence-heading"
       >
         <div className={HOME4_WRAP}>
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+            style={{ color: TEAL_ON_DARK }}
+          >
+            Independence
+          </p>
           <h2
             id="independence-heading"
-            className="font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            className="mt-4 max-w-3xl font-serif font-semibold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
           >
             The independence advantage: FSCA Category 1.8
           </h2>
-          <div className="mt-10 grid gap-10 border-t pt-10 md:grid-cols-2 lg:grid-cols-3" style={{ borderColor: HAIRLINE }}>
-            <div>
-              <h3 className="font-serif text-lg font-semibold tracking-tight text-shark">
+          <div className="mt-10 grid gap-0 border-y border-white/10 md:grid-cols-3">
+            <div className="border-b border-white/10 py-8 md:border-b-0 md:border-r md:pr-8 md:py-10">
+              <h3 className="font-serif text-lg font-semibold tracking-tight text-white">
                 We work for you, not product houses
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-stone-600">
+              <p className="mt-3 text-sm leading-relaxed text-white/65">
                 As a fully independent intermediary, we survey the market to engineer risk and wealth
                 architecture around your goals, without institutional sales quotas.
               </p>
             </div>
-            <div>
-              <h3 className="font-serif text-lg font-semibold tracking-tight text-shark">
+            <div className="border-b border-white/10 py-8 md:border-b-0 md:border-r md:px-8 md:py-10">
+              <h3 className="font-serif text-lg font-semibold tracking-tight text-white">
                 Access to unlisted securities and Everest Wealth
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-stone-600">
+              <p className="mt-3 text-sm leading-relaxed text-white/65">
                 Category 1.8 (Securities and Instruments: Shares) authorisation allows advice on
                 certain unlisted instruments and structured return profiles that many tied advisers
                 cannot distribute, including Everest Wealth where appropriate.
@@ -138,17 +155,18 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               <Link
                 href="/investments"
                 prefetch={false}
-                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
               >
                 Investments hub
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-            <div>
-              <h3 className="font-serif text-lg font-semibold tracking-tight text-shark">
+            <div className="py-8 md:pl-8 md:py-10">
+              <h3 className="font-serif text-lg font-semibold tracking-tight text-white">
                 Education before advice
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-stone-600">
+              <p className="mt-3 text-sm leading-relaxed text-white/65">
                 Calculators, hubs, and insights exist so you understand the maths before a needs
                 analysis. Submission of an enquiry is not advice under the FAIS Act.
               </p>
@@ -157,9 +175,11 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
+      {/* §3 Place & proof — light */}
       <section
         id="place"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="place-heading"
       >
         <div className={HOME4_WRAP}>
@@ -174,10 +194,10 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             Local presence and visible compliance are trust cues you can verify. We are independent
             intermediaries you can meet, not a national script queue.
           </p>
-          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
-            <figure className="lg:col-span-8">
+          <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6 lg:items-stretch">
+            <figure className="min-w-0 lg:col-span-8">
               <div
-                className="relative aspect-[16/9] overflow-hidden border bg-white"
+                className="relative aspect-[16/9] overflow-hidden border bg-white lg:aspect-auto lg:h-full lg:min-h-[320px]"
                 style={{ borderColor: HAIRLINE }}
               >
                 <Image
@@ -193,9 +213,9 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                 <span className="tabular-nums">FSP 17273</span>
               </figcaption>
             </figure>
-            <figure className="lg:col-span-4">
+            <figure className="min-w-0 lg:col-span-4">
               <div
-                className="relative aspect-[4/3] overflow-hidden border bg-white lg:aspect-auto lg:h-full lg:min-h-[220px]"
+                className="relative aspect-[4/3] overflow-hidden border bg-white lg:aspect-auto lg:h-full lg:min-h-[320px]"
                 style={{ borderColor: HAIRLINE }}
               >
                 <Image
@@ -215,34 +235,38 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
+      {/* §4 Fiduciaries — shark */}
       <section
         id="fiduciaries"
-        className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
+        className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="fiduciaries-heading"
       >
         <div className={HOME4_WRAP}>
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+            style={{ color: TEAL_ON_DARK }}
+          >
+            The practice
+          </p>
           <h2
             id="fiduciaries-heading"
-            className="font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+            className="mt-4 font-serif font-semibold tracking-tight text-white"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
           >
             Meet the fiduciaries
           </h2>
-          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
             Two co-founders lead advice. Specialists handle underwriting, medical aid, and claims.
           </p>
 
-          <div className="mt-10 grid gap-px border md:grid-cols-2" style={{ borderColor: HAIRLINE, backgroundColor: HAIRLINE }}>
+          <div className="mt-10 grid gap-px border border-white/10 md:grid-cols-2" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
             {FOUNDERS.map((founder) => (
               <article
                 key={founder.id}
                 id={founder.id}
-                className="grid grid-cols-[5.5rem_1fr] gap-5 bg-[#F7F6F3] p-6 sm:grid-cols-[7rem_1fr] sm:p-8"
+                className="grid grid-cols-[5.5rem_1fr] gap-5 bg-shark p-6 sm:grid-cols-[7rem_1fr] sm:p-8"
               >
-                <div
-                  className="relative aspect-square overflow-hidden border bg-white"
-                  style={{ borderColor: HAIRLINE }}
-                >
+                <div className="relative aspect-square overflow-hidden border border-white/15 bg-white/5">
                   <Image
                     src={founder.photo}
                     alt={getAlt(founder.photo, founder.name)}
@@ -252,53 +276,59 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                   />
                 </div>
                 <div>
-                  <h3 className="font-serif text-xl font-semibold tracking-tight text-shark">
+                  <h3 className="font-serif text-xl font-semibold tracking-tight text-white">
                     {founder.name}
                   </h3>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-stone-500">
+                  <p
+                    className="mt-1 text-xs font-semibold uppercase tracking-[0.14em]"
+                    style={{ color: TEAL_ON_DARK }}
+                  >
                     {founder.role}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-stone-600">{founder.focus}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/65">{founder.focus}</p>
                 </div>
               </article>
             ))}
           </div>
 
-          <ul className="mt-10 border-y" style={{ borderColor: HAIRLINE }}>
+          <ul className="mt-10 border-y border-white/10">
             {SPECIALISTS.map((person) => (
               <li
                 key={person.name}
-                className="grid gap-1 border-b py-4 last:border-b-0 sm:grid-cols-[14rem_1fr] sm:gap-6"
-                style={{ borderColor: HAIRLINE }}
+                className="grid gap-1 border-b border-white/10 py-4 last:border-b-0 sm:grid-cols-[14rem_1fr] sm:gap-6"
               >
-                <span className="text-sm font-semibold text-shark">{person.name}</span>
-                <span className="text-sm text-stone-600">{person.focus}</span>
+                <span className="text-sm font-semibold text-white">{person.name}</span>
+                <span className="text-sm text-white/65">{person.focus}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-xs leading-relaxed text-stone-500">
-            Named desks, not call-centre queues, underwriting, medical onboarding, renewals, and
+          <p className="mt-4 text-xs leading-relaxed text-white/50">
+            Named desks, not call-centre queues — underwriting, medical onboarding, renewals, and
             claims stay with specialists who know the file.
           </p>
         </div>
       </section>
 
-      <VisibleFaqSection
-        faqs={faqItems}
-        id="about-faq"
-        headingId="about-faq-heading"
-        primaryCta={{ href: "/contact?source=about_faq", label: "Book a capital assessment" }}
-      />
-
-      <RelatedContent variant="warm" links={getRelatedLinks("/about")} />
-
-      <section className="pb-16 md:pb-24" aria-labelledby="about-routing-heading">
+      {/* §5 Next steps — light */}
+      <section
+        className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-labelledby="about-routing-heading"
+      >
         <div className={HOME4_WRAP}>
-          <h2 id="about-routing-heading" className="sr-only">
-            Next steps
+          <h2
+            id="about-routing-heading"
+            className="font-serif font-semibold tracking-tight"
+            style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
+          >
+            Education first, advice when you are ready
           </h2>
-          <div className="grid gap-px border md:grid-cols-2" style={{ borderColor: HAIRLINE, backgroundColor: HAIRLINE }}>
-            <div className="bg-[#F7F6F3] p-8 sm:p-10">
+          <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
+            Use the tools to understand the maths. Book a call when you want a licensed needs
+            analysis on your facts.
+          </p>
+          <div className="mt-10 grid gap-px border md:grid-cols-2" style={{ borderColor: HAIRLINE, backgroundColor: HAIRLINE }}>
+            <div className="bg-white p-8 sm:p-10">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
                 Education
               </p>
@@ -307,18 +337,19 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 Seventeen educational calculators for retirement, estate, insurance, and Everest
-                scenarios, illustrative only.
+                scenarios — illustrative only.
               </p>
               <Link
                 href="/calculators"
                 prefetch={false}
-                className="mt-6 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+                className="mt-6 inline-flex items-center gap-2 rounded px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: TEAL }}
               >
                 Open calculators
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
-            <div className="bg-[#F7F6F3] p-8 sm:p-10">
+            <div className="bg-white p-8 sm:p-10">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
                 Advice
               </p>
@@ -327,12 +358,13 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
                 When you are ready for a needs analysis, request a Wealth Engineering Call with an
-                authorised FSP 17273 adviser, not a call centre.
+                authorised FSP 17273 adviser — not a call centre.
               </p>
               <Link
                 href="/contact?source=about_terminal"
                 prefetch={false}
-                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL }}
               >
                 Go to contact
                 <ArrowRight className="h-4 w-4" aria-hidden />
@@ -341,6 +373,17 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </div>
         </div>
       </section>
+
+      {/* §6 FAQ — shark */}
+      <VisibleFaqSection
+        faqs={faqItems}
+        id="about-faq"
+        headingId="about-faq-heading"
+        primaryCta={{ href: "/contact?source=about_faq", label: "Book a capital assessment" }}
+      />
+
+      {/* §7 Related — light */}
+      <RelatedContent variant="warm" links={getRelatedLinks("/about")} />
 
       <Footer />
     </div>

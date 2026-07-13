@@ -31,6 +31,15 @@ export function DeferredRootExtras() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!ready) return;
+    if (document.querySelector('link[rel="manifest"]')) return;
+    const link = document.createElement("link");
+    link.rel = "manifest";
+    link.href = "/manifest.json";
+    document.head.appendChild(link);
+  }, [ready]);
+
   if (!ready) return null;
 
   return (

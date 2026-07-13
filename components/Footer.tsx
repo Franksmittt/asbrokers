@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { SITE_COPYRIGHT_YEAR } from "@/lib/site-meta";
 import { BrandLogo } from "@/components/BrandLogo";
-import { FooterNewsletter, FooterScrollTop } from "@/components/FooterClientIslands";
+import {
+  DeferredFooterNewsletter,
+  DeferredFooterScrollTop,
+} from "@/components/DeferredFooterExtras";
 
 const WHATSAPP = "https://wa.me/27662276044";
 
@@ -24,7 +27,7 @@ const LEGAL_LINKS = [
   { label: "CRM login", href: "/login" },
 ] as const;
 
-/** Server footer shell; newsletter + scroll-top stay as small client islands. */
+/** Server footer shell; newsletter + scroll-top hydrate after idle/pointer. */
 export function Footer() {
   return (
     <>
@@ -71,7 +74,7 @@ export function Footer() {
               ))}
             </nav>
 
-            <FooterNewsletter />
+            <DeferredFooterNewsletter />
           </div>
         </div>
 
@@ -116,8 +119,7 @@ export function Footer() {
           </div>
         </div>
       </footer>
-
-      <FooterScrollTop />
+      <DeferredFooterScrollTop />
     </>
   );
 }

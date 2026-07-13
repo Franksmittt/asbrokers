@@ -16,8 +16,7 @@ import type {
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
 import { HUB_TEAL } from "@/lib/hub-design-tokens";
-
-export const HOME4_WRAP = "mx-auto max-w-7xl px-4 sm:px-6 md:px-8";
+export { HOME4_WRAP } from "@/lib/layout-constants";
 
 const GOAL_CARD_IMAGE_SIZES = "(max-width: 640px) 92vw, (max-width: 1280px) 45vw, 300px";
 

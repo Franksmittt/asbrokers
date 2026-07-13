@@ -229,3 +229,9 @@ a[href]:active {
 .orb-pulse-slower {
   animation: orb-pulse 10s var(--ease-apple) infinite;
 }
+
+/* Skip layout work for offscreen hub chapters until scrolled into view. */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}

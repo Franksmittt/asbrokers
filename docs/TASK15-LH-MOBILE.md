@@ -89,3 +89,16 @@ Fixes:
 - Hero CTA `#006B6B` for AA contrast
 
 *(retest on live mobile after deploy)*
+
+### Loop 6 — ROOT CAUSE: `/calculators` not homepage
+Live evidence was `/calculators`: main-thread **4.2s**, Style & Layout **1.1s**, TBT long tasks on document + `page-*.js`, LCP `calculators-hub-16x9-960.webp`, forced reflow **268ms**, manifest on critical path.
+
+Fixes:
+- Defer footer newsletter + scroll-top (forced reflow / useActionState off LH window)
+- Split calculators hub: above-fold RSC + deferred domain chapters (`ssr: false`)
+- LCP: 480/640 WebP only, correct `sizes`, image first on mobile; drop nav logo `priority`
+- Remove render-blocking `manifest` from root metadata (inject after idle)
+- Alias Next legacy polyfill module to empty shim
+- Drop QuickActionBar `backdrop-blur`; `content-visibility` on chapters
+
+*(retest **mobile /calculators** after deploy)*

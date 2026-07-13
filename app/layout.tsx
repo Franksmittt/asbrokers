@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     "FSP 17273",
     "alternative private equity investments South Africa",
   ],
-  manifest: "/manifest.json",
   verification: {
     google: "zgoH05kyB4lknFvZmobzDyb9Hl9au5byOwC9fNZgyp4",
   },

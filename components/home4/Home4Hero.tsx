@@ -49,7 +49,7 @@ export function Home4Hero() {
             <Link
               href={calculatorPagePath("asset-010-everest-128-income")}
               prefetch={false}
-              className="inline-flex items-center gap-2 rounded-2xl bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#008f8f]"
+              className="inline-flex items-center gap-2 rounded-2xl bg-[#006B6B] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#005858]"
             >
               Calculate 12.8% target income
               <ArrowRight className="h-4 w-4" aria-hidden />

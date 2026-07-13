@@ -184,7 +184,7 @@ class NextSeoAeoAuditor:
 
         project_text = content
         for rel_path in (
-            "components/Providers.tsx",
+            "components/DeferredConsentIsland.tsx",
             "components/analytics/ConditionalAnalytics.tsx",
             "components/analytics/ConsentProvider.tsx",
         ):

@@ -78,3 +78,14 @@ Fixes:
 - Modern `browserslist` to shrink legacy polyfill pressure in shared chunks.
 
 *(retest on live mobile after deploy)*
+
+### Loop 5 — Perf 90, TBT still 400ms (unwrap root client)
+Live Loop 4: Perf **90**, LCP **1.3s**, TBT **400ms**, CLS 0, SI 1.8s. Image waste ~129KB; a11y teal CTA contrast fail.
+
+Fixes:
+- Stop wrapping the app in `ConsentProvider` — `DeferredConsentIsland` + manage-cookies `eager` only
+- SSR `QuickActionBar` / `FloatingWhatsApp` (drop chrome client island)
+- Goal cards at **400w** WebP (~11–17KB); LCP ~27KB
+- Hero CTA `#006B6B` for AA contrast
+
+*(retest on live mobile after deploy)*

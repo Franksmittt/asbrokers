@@ -9,6 +9,12 @@ import {
   type ReactNode,
 } from "react";
 import dynamic from "next/dynamic";
+import {
+  clearStoredConsent,
+  readStoredConsent,
+  writeStoredConsent,
+  type ConsentLevel,
+} from "@/lib/consent-storage";
 
 const CookieConsent = dynamic(
   () => import("@/components/ui/CookieConsent").then((m) => m.CookieConsent),
@@ -19,62 +25,51 @@ const ConditionalAnalytics = dynamic(
   { ssr: false }
 );
 
-const STORAGE_KEY = "asbrokers-cookie-consent";
-
-export type ConsentLevel = "all" | "essential" | null;
-
 type ConsentContextValue = {
   consent: ConsentLevel;
   setConsent: (level: "all" | "essential") => void;
-  /** Clear stored consent so the cookie banner shows again (e.g. from Manage Cookie Preferences page). */
   clearConsent: () => void;
   hasChosen: boolean;
 };
 
 const ConsentContext = createContext<ConsentContextValue | null>(null);
 
-function readStoredConsent(): ConsentLevel {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw === "all" || raw === "essential") return raw;
-  } catch {
-    // ignore
-  }
-  return null;
-}
+type Props = {
+  children?: ReactNode;
+  /** Skip idle delay (manage-cookies page). */
+  eager?: boolean;
+};
 
-export function ConsentProvider({ children }: { children: ReactNode }) {
+/**
+ * Consent context + deferred cookie/analytics mounts.
+ * Do not wrap the whole app — mount via DeferredConsentIsland or eager on manage-cookies only.
+ */
+export function ConsentProvider({ children, eager = false }: Props) {
   const [consent, setConsentState] = useState<ConsentLevel>(null);
-  const [hasHydrated, setHasHydrated] = useState(false);
+  const [hasHydrated, setHasHydrated] = useState(eager);
 
   useEffect(() => {
     setConsentState(readStoredConsent());
+    if (eager) {
+      setHasHydrated(true);
+      return;
+    }
     const showBanner = () => setHasHydrated(true);
-    // No scroll: LH auto-scroll must not load cookie/analytics chunks mid-audit.
     const t = window.setTimeout(showBanner, 12_000);
     window.addEventListener("pointerdown", showBanner, { once: true });
     return () => {
       window.clearTimeout(t);
       window.removeEventListener("pointerdown", showBanner);
     };
-  }, []);
+  }, [eager]);
 
   const setConsent = useCallback((level: "all" | "essential") => {
-    try {
-      localStorage.setItem(STORAGE_KEY, level);
-    } catch {
-      // ignore
-    }
+    writeStoredConsent(level);
     setConsentState(level);
   }, []);
 
   const clearConsent = useCallback(() => {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // ignore
-    }
+    clearStoredConsent();
     setConsentState(null);
   }, []);
 
@@ -86,11 +81,10 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
         consent: hasHydrated ? consent : null,
         setConsent,
         clearConsent,
-        hasChosen: hasChosen ?? false,
+        hasChosen,
       }}
     >
       {children}
-      {/* Both islands wait until post-interaction / 12s so GA/Hotjar never hit TBT. */}
       {hasHydrated && <CookieConsent />}
       {hasHydrated && <ConditionalAnalytics />}
     </ConsentContext.Provider>

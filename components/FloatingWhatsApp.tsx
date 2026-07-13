@@ -1,9 +1,8 @@
-"use client";
-
 import { MessageCircle } from "./icons";
 
 const WHATSAPP_LINK = "https://wa.me/27662276044";
 
+/** Desktop WhatsApp FAB — server component (no hooks). */
 export function FloatingWhatsApp() {
   return (
     <a

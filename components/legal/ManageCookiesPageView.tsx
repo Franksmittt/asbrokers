@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useConsent } from "@/components/analytics/ConsentProvider";
+import { ConsentProvider, useConsent } from "@/components/analytics/ConsentProvider";
 import {
   LegalDocumentLayout,
   LegalSection,
 } from "@/components/legal/LegalDocumentLayout";
 
-export function ManageCookiesPageView() {
+function ManageCookiesInner() {
   const { consent, setConsent, clearConsent, hasChosen } = useConsent();
 
   return (
@@ -70,5 +70,13 @@ export function ManageCookiesPageView() {
         </p>
       </LegalSection>
     </LegalDocumentLayout>
+  );
+}
+
+export function ManageCookiesPageView() {
+  return (
+    <ConsentProvider eager>
+      <ManageCookiesInner />
+    </ConsentProvider>
   );
 }

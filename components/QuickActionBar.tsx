@@ -1,10 +1,9 @@
-"use client";
-
 import Link from "next/link";
 import { MessageCircle, Calendar } from "./icons";
 
 const WHATSAPP_LINK = "https://wa.me/27662276044";
 
+/** Mobile bottom bar — server component (no hooks). */
 export function QuickActionBar() {
   return (
     <div className="md:hidden fixed bottom-0 left-0 w-full bg-warm-canvas/95 backdrop-blur-xl border-t border-stone-200/80 p-4 z-40 flex gap-3 pb-safe" data-visual-ignore>

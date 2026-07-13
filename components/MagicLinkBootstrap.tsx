@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState, type ComponentType } from "react";
-import { ConsentProvider } from "@/components/analytics/ConsentProvider";
 
-/** Only load magic-link handler when the hash actually contains a token. */
-function LazyMagicLinkHashHandler() {
+/** Load magic-link handler only when the URL hash contains an access token. */
+export function MagicLinkBootstrap() {
   const [Handler, setHandler] = useState<ComponentType | null>(null);
 
   useEffect(() => {
@@ -19,13 +18,4 @@ function LazyMagicLinkHashHandler() {
   }, []);
 
   return Handler ? <Handler /> : null;
-}
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <ConsentProvider>
-      <LazyMagicLinkHashHandler />
-      {children}
-    </ConsentProvider>
-  );
 }

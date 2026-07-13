@@ -13,8 +13,8 @@ async function card(src: string, out: string) {
   const absOut = path.join(DIR, out);
   await sharp(absIn)
     .rotate()
-    .resize({ width: 760, withoutEnlargement: true })
-    .webp({ quality: 68 })
+    .resize({ width: 400, withoutEnlargement: true })
+    .webp({ quality: 62 })
     .toFile(absOut);
   console.log(`${out}  ${Math.round(fs.statSync(absOut).size / 1024)}KB`);
 }
@@ -26,8 +26,8 @@ async function lcp() {
   const tmp = `${absOut}.__tmp`;
   await sharp(src)
     .rotate()
-    .resize({ width: 640, withoutEnlargement: true })
-    .webp({ quality: 40 })
+    .resize({ width: 560, withoutEnlargement: true })
+    .webp({ quality: 32 })
     .toFile(tmp);
   fs.renameSync(tmp, absOut);
   console.log(`home-lcp.webp  ${Math.round(fs.statSync(absOut).size / 1024)}KB`);

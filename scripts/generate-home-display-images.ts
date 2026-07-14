@@ -20,14 +20,14 @@ async function card(src: string, out: string) {
 }
 
 async function lcp() {
-  const copper = path.join(DIR, "everest-copper-industrial-4x3.jpg");
+  const patio = path.join(DIR, "home-hero-patio-16x9.jpg");
   const absOut = path.join(DIR, "home-lcp.webp");
-  const src = fs.existsSync(copper) ? copper : absOut;
+  const src = fs.existsSync(patio) ? patio : absOut;
   const tmp = `${absOut}.__tmp`;
   await sharp(src)
     .rotate()
-    .resize({ width: 560, withoutEnlargement: true })
-    .webp({ quality: 32 })
+    .resize({ width: 1600, withoutEnlargement: true })
+    .webp({ quality: 72 })
     .toFile(tmp);
   fs.renameSync(tmp, absOut);
   console.log(`home-lcp.webp  ${Math.round(fs.statSync(absOut).size / 1024)}KB`);

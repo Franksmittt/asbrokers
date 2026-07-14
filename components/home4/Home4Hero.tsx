@@ -19,8 +19,8 @@ export function Home4Hero() {
         <Image
           src="/images/home-lcp.webp"
           alt={getAlt(
-            "/images/everest-copper-industrial-4x3.jpg",
-            "Real-economy industrial assets behind structured income education"
+            "/images/home-lcp.webp",
+            "South African couple on a sunlit patio — calm retirement and lasting capital"
           )}
           fill
           priority

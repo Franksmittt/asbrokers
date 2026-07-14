@@ -10,6 +10,8 @@ export type CrmTeamMember = {
   id: string;
   email: string;
   name: string;
+  /** E.164 or local SA display number for staff directory / WhatsApp. */
+  phone?: string;
   role: CrmRole;
   pin: string;
   canUseAi: boolean;
@@ -26,7 +28,7 @@ export const CRM_TEAM_MEMBERS: Record<CrmTeamMemberKey, CrmTeamMember> = {
     role: "admin",
     pin: process.env.CRM_SUPERUSER_PIN?.trim() || "85879",
     canUseAi: true,
-    focus: "Key Individual · retirement & Everest oversight",
+    focus: "Key Individual · owner oversight",
     serviceLines: ["retirement_everest"],
   },
   johnny: {
@@ -40,16 +42,26 @@ export const CRM_TEAM_MEMBERS: Record<CrmTeamMemberKey, CrmTeamMember> = {
     focus: "Business insurance · estate · life personal",
     serviceLines: ["short_term_business", "estate_business", "life_personal"],
   },
+  /** Manager — full CRM admin access, reports to Albert. PIN via CRM_TEST_PIN_PETRO only. */
   petro: {
     key: "petro",
     id: "c9f5d3b2-7a4e-5b3f-0d2c-8e6f9a3b5d82",
     email: "petro@asbrokers.co.za",
     name: "Petro Vermeulen",
+    phone: "+27833261800",
     role: "admin",
-    pin: process.env.CRM_TEST_PIN_PETRO?.trim() || "63941",
+    pin: process.env.CRM_TEST_PIN_PETRO?.trim() || "",
     canUseAi: false,
-    focus: "Admin · commercial underwriting & operations",
-    serviceLines: ["short_term_business", "claims"],
+    focus: "Manager · operations & team oversight (reports to Albert)",
+    serviceLines: [
+      "retirement_everest",
+      "short_term_business",
+      "short_term_personal",
+      "estate_business",
+      "life_personal",
+      "medical_wellness",
+      "claims",
+    ],
   },
 };
 

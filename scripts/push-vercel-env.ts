@@ -15,9 +15,13 @@ const VARS = [
   "SUPABASE_SERVICE_ROLE_KEY",
   "NEXT_PUBLIC_SITE_URL",
   "CRM_SUPERUSER_PIN",
+  "CRM_TEST_PIN_JOHNNY",
+  "CRM_TEST_PIN_PETRO",
+  "CRM_PIN_SESSION_SECRET",
   "GOOGLE_GENERATIVE_AI_API_KEY",
   "CLIENT_STUDIO_PASSWORD",
   "CLIENT_STUDIO_SESSION_SECRET",
+  "RESEND_API_KEY",
 ] as const;
 
 function setVercelEnv(name: string, value: string, target: "production" | "preview") {

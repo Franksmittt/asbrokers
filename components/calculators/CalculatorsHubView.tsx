@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalculatorsHubRestDeferred } from "@/components/calculators/CalculatorsHubRestDeferred";
+import { CalculatorsHubBelowFold } from "@/components/calculators/CalculatorsHubBelowFold";
 import { Footer } from "@/components/Footer";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { HOME4_WRAP } from "@/lib/layout-constants";
@@ -314,8 +314,7 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
         </div>
       </section>
 
-      {/* Domain chapters load after idle; FAQ/footer stay in RSC for crawl + TBT. */}
-      <CalculatorsHubRestDeferred />
+      <CalculatorsHubBelowFold />
 
       <VisibleFaqSection
         faqs={faqItems}

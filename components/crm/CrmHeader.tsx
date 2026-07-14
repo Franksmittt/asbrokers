@@ -67,8 +67,11 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
       <header className="sticky top-0 z-40 flex h-12 items-center justify-between gap-4 border-b border-[#2a2a2a] bg-black/80 px-4 backdrop-blur-sm md:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <span className="hidden text-sm font-medium text-white sm:inline">AS Brokers</span>
-          <span className="rounded border border-[#2a2a2a] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-500">
-            {role}
+          <span
+            className="truncate rounded border border-[#2a2a2a] px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-zinc-300"
+            title={`${staffName} · ${role === "admin" ? "Admin" : "Staff"}`}
+          >
+            {staffName}
           </span>
         </div>
 

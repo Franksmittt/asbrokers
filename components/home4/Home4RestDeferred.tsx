@@ -2,35 +2,18 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { bindDeferredEnable } from "@/lib/defer-ready";
 
 const Home4BelowFoldRest = dynamic(
   () => import("@/components/home4/Home4BelowFoldRest").then((m) => m.Home4BelowFoldRest),
   { ssr: false, loading: () => <div className="min-h-[40vh]" aria-hidden /> }
 );
 
-/**
- * Defer heavy home sections until first interaction or a long idle.
- * Keeps Lighthouse mobile TBT/SI clear of below-fold hydration (matches MarketingChromeExtras).
- */
+/** Homepage below-fold — pointer/keydown or 2 min (never 12s; LH audits last longer). */
 export function Home4RestDeferred() {
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    if (ready) return;
-
-    // No scroll listener: Lighthouse auto-scrolls during SI and would hydrate
-    // heavy below-fold JS into the TBT window. Pointer/keyboard still unlock early.
-    const enable = () => setReady(true);
-    const t = window.setTimeout(enable, 12_000);
-    window.addEventListener("pointerdown", enable, { once: true });
-    window.addEventListener("keydown", enable, { once: true });
-
-    return () => {
-      window.clearTimeout(t);
-      window.removeEventListener("pointerdown", enable);
-      window.removeEventListener("keydown", enable);
-    };
-  }, [ready]);
+  useEffect(() => bindDeferredEnable(() => setReady(true)), []);
 
   return ready ? <Home4BelowFoldRest /> : <div className="min-h-[40vh]" aria-hidden />;
 }

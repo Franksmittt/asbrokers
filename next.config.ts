@@ -172,9 +172,11 @@ const nextConfig: NextConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       "hoist-non-react-statics": hoistPath,
-      // Drop Next legacy polyfill module (~11KB) — site targets Chrome/Edge/Firefox 111+ / Safari 16.4+.
-      "next/dist/build/polyfills/polyfill-module": path.join(__dirname, "lib/empty-polyfill.js"),
-      "next/dist/build/polyfills/polyfill-module.js": path.join(__dirname, "lib/empty-polyfill.js"),
+      // Strip Next legacy polyfills Lighthouse flags (~11KB). Modern browsers only.
+      "next/dist/build/polyfills/polyfill-module": false,
+      "next/dist/build/polyfills/polyfill-module.js": false,
+      "../build/polyfills/polyfill-module": false,
+      "../build/polyfills/polyfill-module.js": false,
     };
     config.resolve.fallback = {
       ...config.resolve.fallback,

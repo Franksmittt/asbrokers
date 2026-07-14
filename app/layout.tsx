@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { DeferredConsentIsland } from "@/components/DeferredConsentIsland";
-import { DeferredRootExtras } from "@/components/DeferredRootExtras";
-import { MagicLinkBootstrap } from "@/components/MagicLinkBootstrap";
+import { AnalyticsWhenConsented } from "@/components/AnalyticsWhenConsented";
+import { CookieConsentBanner } from "@/components/CookieConsentBanner";
 import { getSiteOrigin } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -52,10 +51,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased bg-warm-canvas text-shark selection:bg-samsung-blue selection:text-white min-h-screen">
-        <DeferredRootExtras />
-        <MagicLinkBootstrap />
         {children}
-        <DeferredConsentIsland />
+        <CookieConsentBanner />
+        <AnalyticsWhenConsented />
       </body>
     </html>
   );

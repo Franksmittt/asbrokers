@@ -39,7 +39,9 @@ export function Home4Hero() {
             Independent · FSP 17273 · Category 1.8 · Education before advice
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.08]">
-            Will this capital last, and what income can it support?
+            Will this capital last, and what
+            <br />
+            income can it support?
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
             Run Albert&apos;s Everest income calculator first. Then contact us and speak with an

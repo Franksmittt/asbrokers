@@ -42,10 +42,10 @@ const GOAL_ICONS: Record<GoalCard["accent"], typeof LineChart> = {
 };
 
 const JOURNEY_IMAGES: Record<string, string> = {
-  "01": "/images/insights-inset-1x1.jpg",
-  "02": "/images/calculators-hub-16x9.jpg",
-  "03": "/images/about-krugersdorp-trust-16x9.jpg",
-  "04": "/images/contact-trust.jpg",
+  "01": "/images/home-journey-01-educate.webp",
+  "02": "/images/home-journey-02-calculate.webp",
+  "03": "/images/home-journey-03-everest.webp",
+  "04": "/images/home-journey-04-contact.webp",
 };
 
 const JOURNEY_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw";

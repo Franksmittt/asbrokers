@@ -1,0 +1,60 @@
+[
+  {
+    "id": "001",
+    "assetCode": "ASSET-001",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "002",
+    "assetCode": "ASSET-002",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [
+      "Doc contains 3 evolving Reality Check copies; authoritative = last copy (includes planning age, income lifespan, today's-money equivalent). Embed matches that copy. Copy 1 is an older shorter calculator (no planning age / lifespan)."
+    ],
+    "layoutIssues": [
+      "Albert note in doc: 'Frank die calculator sit tans as Retirement Readiness Calculator voor' — live naming may differ; embed title correctly follows Albert as Retirement Reality Check."
+    ]
+  },
+  {
+    "id": "003",
+    "assetCode": "ASSET-003",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "004",
+    "assetCode": "ASSET-004",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [
+      "Context note only: app/calculators/CONTEXT.md describes a yearly run-out loop; Albert + embed use monthly compounding/withdrawal with 100-year cap — Albert kept as source of truth."
+    ],
+    "layoutIssues": [
+      "Fixed: label was 'Monthly income needed (net after tax)' in embed; Albert doc uses 'Monthly income needed — net after tax'. Embed updated to match Albert."
+    ]
+  },
+  {
+    "id": "005",
+    "assetCode": "ASSET-005",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "006",
+    "assetCode": "ASSET-006",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [
+      "SARS 2026/27 brackets + rebates in Albert doc and embed match AGENTS.md / CONTEXT.md (245100…1878600; rebates 17820 / 9765 / 3249)."
+    ],
+    "layoutIssues": []
+  }
+]

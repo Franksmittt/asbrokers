@@ -1,0 +1,97 @@
+[
+  {
+    "id": "007",
+    "assetCode": "ASSET-007",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "008",
+    "assetCode": "ASSET-008",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [
+      "Compliance note only: Albert doc + embed use R150k/R300k donation options; AGENTS.md/SARS exemption wording is R100k/R200k — confirm with Albert before changing."
+    ],
+    "layoutIssues": []
+  },
+  {
+    "id": "009",
+    "assetCode": "ASSET-009",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "010",
+    "assetCode": "ASSET-010",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "011",
+    "assetCode": "ASSET-011",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "012",
+    "assetCode": "ASSET-012",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": [
+      "Tax summary uses <strong>/<br> in embed vs plain text in Google Doc export",
+      "Year table rows use proper <td> tags in embed; doc export lost cell markup"
+    ]
+  },
+  {
+    "id": "013",
+    "assetCode": "ASSET-013",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "014",
+    "assetCode": "ASSET-014",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "015",
+    "assetCode": "ASSET-015",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "016",
+    "assetCode": "ASSET-016",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": []
+  },
+  {
+    "id": "017",
+    "assetCode": "ASSET-017",
+    "verdict": "MATCH",
+    "priority": "LOW",
+    "formulaIssues": [],
+    "layoutIssues": [
+      "renderTable uses proper <td> cells in embed; Google Doc export had whitespace-only innerHTML fragments"
+    ]
+  }
+]

@@ -63,7 +63,7 @@ export default async function StudioBlogLoginPage({
           <Link href="/insights" className="text-[#3ecf8e] hover:underline">
             Insights
           </Link>{" "}
-          (separate from the main Sanity CMS).
+          (Blog Studio is the live publishing path for Insights).
         </p>
       </div>
     </div>

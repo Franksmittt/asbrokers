@@ -23,6 +23,11 @@ const LEGAL_LINKS = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
   { label: "Complaints", href: "/complaints" },
+  { label: "Conflict of interest", href: "/conflict-of-interest" },
+  { label: "Chat", href: "/chat" },
+  { label: "Quiz", href: "/quiz" },
+  { label: "Legacy conversations", href: "/legacy-conversations" },
+  { label: "Premium increase calc", href: "/premium-increase-calculator" },
   { label: "Studio login", href: "/studio/blog/login" },
   { label: "CRM login", href: "/login" },
 ] as const;

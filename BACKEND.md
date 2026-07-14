@@ -6,14 +6,15 @@ You’ve only done the frontend so far. This list covers **all backend-related s
 
 ## ⏸ WHERE YOU LEFT OFF (come back here)
 
-- **Contact form** shows “Could not create contact.” → **HubSpot** is rejecting the POST because the **custom contact properties are missing** in HubSpot. Do this when you’re ready:
-  1. HubSpot → **Settings** → **Properties** → **Contact properties** → **Create property** for each:
-     - `platform_lead_score` (Number)
-     - `financial_inquiry_topic` (Single-line text)
-     - `financial_capital_input` (Number, optional)
-  2. Save each, then submit the contact form again. The form will work once these exist.
-- **Trigger.dev + Resend** (PDF after contact): worker runs with `npx trigger.dev@latest dev`; ensure `APP_URL` in Trigger dashboard points to your app so the PDF page loads.
-- **Rest of backend**: see checklist below (OpenAI, Blog Studio / Insights, RAG ingest, etc.).
+**Handover status (Jul 2026):** Marketing site, CRM PIN login, Blog Studio, and form→CRM leads are live when Vercel env is set. See **`docs/HANDOVER.md`** first.
+
+- **Contact / newsletter** write to Postgres CRM via `insertCrmLead` and email Albert via **Resend**. HubSpot sync is optional/non-blocking. If HubSpot sync is desired, create contact properties:
+  - `platform_lead_score` (Number)
+  - `financial_inquiry_topic` (Single-line text)
+  - `financial_capital_input` (Number, optional)
+- **AI chat / RAG** use **`GOOGLE_GENERATIVE_AI_API_KEY`** (Gemini) — not OpenAI.
+- **Trigger.dev + Resend** (PDF after contact): optional; ensure `APP_URL` in Trigger points at production.
+- **Client portal** remains a prototype (mock data).
 
 ---
 

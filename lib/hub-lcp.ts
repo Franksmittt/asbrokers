@@ -1,8 +1,8 @@
 /** LCP hero sources for primary hub pages, keep in sync with PageView HERO_IMAGE constants. */
 export const HUB_LCP_IMAGES: Record<string, string> = {
   "/": "/images/home-lcp.webp",
-  "/retirement": "/images/home4-goal-retire-16x9.jpg",
-  "/retirement-planning": "/images/home4-goal-retire-16x9.jpg",
+  "/retirement": "/images/retirement-planning-hero-16x9.webp",
+  "/retirement-planning": "/images/retirement-planning-hero-16x9.webp",
   "/everest-wealth": "/images/everest-copper-industrial-4x3.jpg",
   "/investments": "/images/everest-suite-hero-16x9.jpg",
   "/insurance": "/images/risk-arch-commercial.jpg",

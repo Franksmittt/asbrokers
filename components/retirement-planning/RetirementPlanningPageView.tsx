@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
@@ -7,7 +8,10 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
-import { CapitalTrajectoryViz } from "@/components/trust/TrustDiagrams";
+import { getAlt } from "@/lib/image-alt";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+
+const HERO_IMAGE = "/images/retirement-planning-hero-16x9.webp";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -131,7 +135,22 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </div>
           </div>
           <div className="min-w-0 lg:col-span-5">
-            <CapitalTrajectoryViz />
+            <figure className="overflow-hidden border border-stone-300/90 bg-white">
+              <div className="relative aspect-[16/10] w-full">
+                <Image
+                  src={HERO_IMAGE}
+                  alt={getAlt(
+                    HERO_IMAGE,
+                    "Couple outdoors — will your capital survive your lifespan?"
+                  )}
+                  fill
+                  priority
+                  unoptimized
+                  className="object-cover"
+                  sizes={HUB_SPLIT_HERO_SIZES}
+                />
+              </div>
+            </figure>
           </div>
         </div>
       </header>

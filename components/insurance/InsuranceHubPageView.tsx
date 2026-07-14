@@ -9,6 +9,7 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -18,6 +19,7 @@ const INSET = "rgba(29,29,31,0.05)";
 /** WCAG AA teal on canvas; lighter teal for shark chapters. */
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
+const HERO_IMAGE = "/images/insurance-hero-16x9.webp";
 const COMMERCIAL_IMAGE = "/images/risk-arch-commercial.jpg";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or insurance advice as defined in the FAIS Act, 2002. Outcomes depend on underwriting, policy wording, and your circumstances.";
@@ -62,42 +64,62 @@ export function InsuranceHubPageView({ faqs }: Props) {
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
       >
         <div className={HOME4_WRAP}>
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
-            style={{ color: TEAL }}
-          >
-            Insurance &amp; risk · FSP 17273 · Category 1.8
-          </p>
-          <h1
-            className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
-          >
-            Commercial and personal risk architecture
-          </h1>
-          <p
-            className="mt-5 max-w-2xl leading-relaxed"
-            style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-          >
-            Most owners discover policy flaws after the fire, Average Clause underinsurance, broken
-            Business Interruption definitions, escalating life premiums. We structure indemnification
-            for your balance sheet, place cover independently across the market, and stay for the
-            claim.
-          </p>
+          <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="min-w-0 lg:col-span-7">
+              <p
+                className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+                style={{ color: TEAL }}
+              >
+                Insurance &amp; risk · FSP 17273 · Category 1.8
+              </p>
+              <h1
+                className="mt-5 font-serif font-semibold tracking-tight"
+                style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
+              >
+                Commercial and personal risk architecture
+              </h1>
+              <p
+                className="mt-5 max-w-xl leading-relaxed"
+                style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
+              >
+                Most owners discover policy flaws after the fire, Average Clause underinsurance, broken
+                Business Interruption definitions, escalating life premiums. We structure indemnification
+                for your balance sheet, place cover independently across the market, and stay for the
+                claim.
+              </p>
 
-          <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-            <a href="#protection-domains" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Protection domains
-            </a>
-            <a href="#average-clause" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Average clause diagnostic
-            </a>
-            <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Independence
-            </a>
-            <a href="#risk-audit" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Book a risk audit
-            </a>
-          </nav>
+              <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+                <a href="#protection-domains" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+                  Protection domains
+                </a>
+                <a href="#average-clause" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+                  Average clause diagnostic
+                </a>
+                <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+                  Independence
+                </a>
+                <a href="#risk-audit" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+                  Book a risk audit
+                </a>
+              </nav>
+            </div>
+            <div className="min-w-0 lg:col-span-5">
+              <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+                <Image
+                  src={HERO_IMAGE}
+                  alt={getAlt(
+                    HERO_IMAGE,
+                    "Healthy family at home — personal protection and medical cover"
+                  )}
+                  fill
+                  priority
+                  unoptimized
+                  className="object-cover object-center"
+                  sizes={HUB_SPLIT_HERO_SIZES}
+                />
+              </figure>
+            </div>
+          </div>
 
           <h2 id="protection-domains" className="sr-only">
             Protecting personal wealth and commercial balance sheets

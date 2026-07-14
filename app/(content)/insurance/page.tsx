@@ -1,5 +1,7 @@
 import { InsuranceHubPageView } from "@/components/insurance/InsuranceHubPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Commercial & Personal Risk Architecture | AS Brokers";
@@ -56,6 +58,7 @@ export const metadata = buildPageMetadata({
 export default function InsuranceHubPage() {
   return (
     <>
+      <HubLcpPreload src={HUB_LCP_IMAGES["/insurance"]} variant="split" />
       <PageJsonLd
         path="/insurance"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}

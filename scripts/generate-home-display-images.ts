@@ -34,10 +34,10 @@ async function lcp() {
 }
 
 async function main() {
-  await card("everest-suite-hero-16x9.jpg", "home-card-investments.webp");
-  await card("calculators-capital-lifespan-4x3.jpg", "home-card-retirement.webp");
-  await card("risk-arch-commercial.jpg", "home-card-insurance.webp");
-  await card("risk-arch-estate.jpg", "home-card-estate.webp");
+  await card("home-card-investments-16x9.jpg", "home-card-investments.webp");
+  await card("home-card-retirement-16x9.jpg", "home-card-retirement.webp");
+  await card("home-card-insurance-16x9.jpg", "home-card-insurance.webp");
+  await card("home-card-estate-16x9.jpg", "home-card-estate.webp");
   await lcp();
 }
 

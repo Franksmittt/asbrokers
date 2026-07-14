@@ -102,14 +102,3 @@ Fixes:
 - Drop QuickActionBar `backdrop-blur`; `content-visibility` on chapters
 
 *(retest **mobile /calculators** after deploy)*
-
-### Loop 7 — zero client JS on /calculators (TBT 840 root cause)
-Live: Perf **80**, TBT **840ms**. 12s defer timers fired mid-Lighthouse; root client islands hydrated React on every marketing page.
-
-Fixes:
-- Remove root `IdleBoot` / consent client islands — cookie banner + analytics are RSC + plain `/api/*` POST forms
-- Footer newsletter is plain HTML POST (no Server Action client runtime)
-- Calculators hub is full RSC again (no `CalculatorsHubRestDeferred` client gate)
-- Drop mobile QuickActionBar; polyfill alias `false`; defer backup 120s for homepage only
-
-*(retest **mobile /calculators** after deploy — target Perf 100 / TBT < 200ms)*

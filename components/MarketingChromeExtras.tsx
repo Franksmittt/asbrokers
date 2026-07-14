@@ -1,6 +1,12 @@
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { QuickActionBar } from "@/components/QuickActionBar";
 
-/** Desktop WhatsApp FAB only — mobile quick-bar removed (Style/Layout + TBT cost on LH mobile). */
+/** SSR marketing chrome — no client hydration (was a deferred React island). */
 export function MarketingChromeExtras() {
-  return <FloatingWhatsApp />;
+  return (
+    <>
+      <QuickActionBar />
+      <FloatingWhatsApp />
+    </>
+  );
 }

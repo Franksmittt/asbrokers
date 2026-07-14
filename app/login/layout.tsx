@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { MagicLinkBootstrap } from "@/components/MagicLinkBootstrap";
 import { MinimalAppShell } from "@/components/MinimalAppShell";
 import { privateRouteMetadata } from "@/lib/seo-metadata";
 
@@ -9,10 +8,5 @@ export const metadata: Metadata = privateRouteMetadata(
 );
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <MinimalAppShell>
-      <MagicLinkBootstrap />
-      {children}
-    </MinimalAppShell>
-  );
+  return <MinimalAppShell>{children}</MinimalAppShell>;
 }

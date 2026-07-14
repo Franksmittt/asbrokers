@@ -58,9 +58,3 @@ export async function subscribeNewsletter(
 
   return { success: true, message: "Subscribed!" };
 }
-
-/** Progressive-enhancement form action (no client JS / useActionState). */
-export async function subscribeNewsletterForm(formData: FormData): Promise<void> {
-  await subscribeNewsletter({ success: false }, formData);
-}
-

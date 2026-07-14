@@ -16,6 +16,7 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
   const { visibleLeads } = useCrm();
   const [query, setQuery] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -30,14 +31,22 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
       .slice(0, 8);
   }, [query, visibleLeads]);
 
+  const newLeadNotifications = useMemo(
+    () => visibleLeads.filter((lead) => lead.status === "new").slice(0, 12),
+    [visibleLeads]
+  );
+  const notificationCount = newLeadNotifications.length;
+
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
+        setNotificationsOpen(false);
         setPaletteOpen(true);
       }
       if (event.key === "Escape") {
         setPaletteOpen(false);
+        setNotificationsOpen(false);
         setQuery("");
       }
     },
@@ -84,10 +93,21 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
           </Link>
           <button
             type="button"
-            className="flex h-8 w-8 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-[#161616] hover:text-zinc-300"
+            className="relative flex h-8 w-8 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-[#161616] hover:text-zinc-300"
             aria-label="Notifications"
+            aria-expanded={notificationsOpen}
+            aria-haspopup="dialog"
+            onClick={() => {
+              setPaletteOpen(false);
+              setNotificationsOpen((open) => !open);
+            }}
           >
             <Bell className="h-4 w-4" />
+            {notificationCount > 0 ? (
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#3ecf8e] px-1 text-[9px] font-semibold text-black">
+                {notificationCount > 9 ? "9+" : notificationCount}
+              </span>
+            ) : null}
           </button>
           <div
             className="flex h-8 w-8 items-center justify-center rounded-full bg-[#3ecf8e]/15 text-[#3ecf8e]"
@@ -97,6 +117,56 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
           </div>
         </div>
       </header>
+
+      {notificationsOpen ? (
+        <div className="fixed inset-0 z-[90]" role="presentation">
+          <button
+            type="button"
+            aria-label="Close notifications"
+            className="absolute inset-0 cursor-default bg-transparent"
+            onClick={() => setNotificationsOpen(false)}
+          />
+          <div
+            className="absolute right-4 top-14 z-[91] w-80 overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-2xl md:right-6"
+            role="dialog"
+            aria-label="New lead notifications"
+          >
+            <div className="flex items-center justify-between border-b border-[#2a2a2a] px-3 py-2.5">
+              <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">New leads</p>
+              <Link
+                href="/crm/leads?status=new"
+                className="text-[11px] text-[#3ecf8e] hover:underline"
+                onClick={() => setNotificationsOpen(false)}
+              >
+                View all
+              </Link>
+            </div>
+            <ul className="max-h-80 overflow-y-auto py-1">
+              {newLeadNotifications.length === 0 ? (
+                <li className="px-4 py-6 text-center text-sm text-zinc-500">No new leads right now.</li>
+              ) : (
+                newLeadNotifications.map((lead) => (
+                  <li key={lead.id}>
+                    <button
+                      type="button"
+                      className="flex w-full flex-col gap-0.5 px-4 py-2.5 text-left transition-colors hover:bg-[#161616]"
+                      onClick={() => {
+                        setNotificationsOpen(false);
+                        router.push(`/crm/leads/${lead.id}`);
+                      }}
+                    >
+                      <span className="text-sm font-medium text-white">{lead.name}</span>
+                      <span className="truncate text-xs text-zinc-500">
+                        {lead.intent || lead.email || "Inbound enquiry"}
+                      </span>
+                    </button>
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
+        </div>
+      ) : null}
 
       {paletteOpen && (
         <div

@@ -20,7 +20,7 @@ QA evidence: `docs/QA-VERIFICATION-SUMMARY.md`. Albert calculator audits: `docs/
 
 | Surface | URL | Auth |
 |---|---|---|
-| CRM | `/login` → `/crm` | 5-digit PIN per person (Albert / Johnny / Petro manager). PINs live in Vercel env, not git. |
+| CRM | `/login` → `/crm` | Unique 5-digit PIN per person: Albert (superuser), Developer (superuser), Petro (manager), Johnny (staff). PINs in Vercel env (Developer default `85879`). |
 | Blog Studio | `/studio/blog/login` | `CLIENT_STUDIO_PASSWORD` |
 | Client portal | `/portal` | **Prototype only** — mock data; “Client portal” nav currently goes to CRM PIN login |
 

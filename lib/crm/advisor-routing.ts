@@ -61,6 +61,7 @@ const KNOWN_ADVISOR_NAMES: Record<string, string> = {
   [CRM_PIN_SUPERUSER_ID]: "Albert Schuurman",
   [CRM_TEAM_MEMBERS.johnny.id]: "Johnny Farinha",
   [CRM_TEAM_MEMBERS.petro.id]: "Petro Vermeulen",
+  [CRM_TEAM_MEMBERS.developer.id]: "Developer",
 };
 
 export function advisorDisplayName(

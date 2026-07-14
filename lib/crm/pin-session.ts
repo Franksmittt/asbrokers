@@ -23,8 +23,14 @@ export {
 export const CRM_PIN_COOKIE = "asb-crm-pin-session";
 const MAX_AGE_SEC = 60 * 60 * 12;
 
+/** Stable secret material for cookie signing (not tied to a single staff PIN). */
 export function getConfiguredCrmPin(): string {
-  return CRM_TEAM_MEMBERS.albert.pin;
+  return (
+    process.env.CRM_PIN_SESSION_SECRET?.trim() ||
+    CRM_TEAM_MEMBERS.albert.pin ||
+    CRM_TEAM_MEMBERS.developer.pin ||
+    "asbrokers-crm-pin-fallback"
+  );
 }
 
 function getSigningSecret(): string {

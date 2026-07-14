@@ -26,9 +26,10 @@ Create `.env.local` (and add the same in your host: Vercel, Trigger.dev, etc.). 
 
 | Variable | Required | Notes |
 |----------|----------|--------|
-| `DATABASE_URL` | For RAG/chat | PostgreSQL connection string (see §3). |
-| `OPENAI_API_KEY` | For chat + RAG | From [OpenAI](https://platform.openai.com/api-keys). |
-| `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN` | For contact form | HubSpot API token (see §4). |
+| `DATABASE_URL` | For CRM, Studio posts, RAG | PostgreSQL connection string (see §3). |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | For chat + RAG | From Google AI Studio (Gemini). |
+| `RESEND_API_KEY` | For lead emails | Contact/newsletter/staff alerts (see §7). |
+| `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN` | Optional sync | HubSpot API token (see §4). |
 | `TRIGGER_SECRET_KEY` | For PDF-after-contact | From Trigger.dev project (see §6). |
 | `NEXT_PUBLIC_APP_URL` or `APP_URL` | For PDF + absolute URLs | Full app URL, e.g. `https://yoursite.com`. |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional, Phase 4 | GA4 measurement ID (only used after consent). |

@@ -1,26 +1,27 @@
 import Link from "next/link";
-import { MessageCircle, Calendar } from "./icons";
+import { Calendar } from "./icons";
+import { WhatsAppLogo } from "@/components/WhatsAppLogo";
 
 const WHATSAPP_LINK = "https://wa.me/27662276044";
 
 /** Mobile bottom bar — server component (no hooks). */
 export function QuickActionBar() {
   return (
-    <div className="md:hidden fixed bottom-0 left-0 w-full bg-warm-canvas border-t border-stone-200/80 p-4 z-40 flex gap-3 pb-safe" data-visual-ignore>
+    <div className="md:hidden fixed bottom-0 left-0 z-40 flex w-full gap-3 border-t border-stone-200/80 bg-warm-canvas p-4 pb-safe" data-visual-ignore>
       <a
         href={WHATSAPP_LINK}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex-1 bg-whatsapp-accessible text-white flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold shadow-lg shadow-green-900/20 active:scale-95 transition-transform"
+        className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-whatsapp-accessible py-3.5 font-semibold text-white shadow-lg shadow-green-900/20 transition-transform active:scale-95"
       >
-        <MessageCircle className="w-5 h-5" /> WhatsApp
+        <WhatsAppLogo className="h-6 w-6" /> WhatsApp
       </a>
       <Link
         href="/contact"
         prefetch={false}
-        className="flex-1 bg-white text-black flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold shadow-lg active:scale-95 transition-transform"
+        className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-semibold text-black shadow-lg transition-transform active:scale-95"
       >
-        <Calendar className="w-5 h-5" /> Consult
+        <Calendar className="h-5 w-5" /> Consult
       </Link>
     </div>
   );

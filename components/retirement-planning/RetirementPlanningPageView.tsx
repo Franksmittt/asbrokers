@@ -92,7 +92,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Orientation hero, continuous canvas */}
       <header className="pb-16 pt-28 md:pb-24 md:pt-36 lg:pb-[7.5rem] lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12`}>
           <div className="min-w-0 lg:col-span-7">
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
               Pre-retirement diagnostics · FSP 17273 · Category 1.8
@@ -135,21 +135,19 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </div>
           </div>
           <div className="min-w-0 lg:col-span-5">
-            <figure className="overflow-hidden border border-stone-300/90 bg-white">
-              <div className="relative aspect-[16/10] w-full">
-                <Image
-                  src={HERO_IMAGE}
-                  alt={getAlt(
-                    HERO_IMAGE,
-                    "Couple outdoors — will your capital survive your lifespan?"
-                  )}
-                  fill
-                  priority
-                  unoptimized
-                  className="object-cover"
-                  sizes={HUB_SPLIT_HERO_SIZES}
-                />
-              </div>
+            <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+              <Image
+                src={HERO_IMAGE}
+                alt={getAlt(
+                  HERO_IMAGE,
+                  "Couple outdoors — will your capital survive your lifespan?"
+                )}
+                fill
+                priority
+                unoptimized
+                className="object-cover object-center"
+                sizes={HUB_SPLIT_HERO_SIZES}
+              />
             </figure>
           </div>
         </div>

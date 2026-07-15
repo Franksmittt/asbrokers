@@ -1,8 +1,7 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { ArrowRight, ArrowUp } from "@/components/icons";
+import { useActionState } from "react";
+import { ArrowRight } from "@/components/icons";
 import { subscribeNewsletter, type NewsletterActionState } from "@/app/actions/newsletter";
 
 const initialNewsletterState: NewsletterActionState = { success: false };
@@ -40,38 +39,5 @@ export function FooterNewsletter() {
         </p>
       ) : null}
     </div>
-  );
-}
-
-export function FooterScrollTop() {
-  const pathname = usePathname();
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  const scrollDockClass =
-    pathname === "/"
-      ? "right-4 max-md:bottom-40 md:bottom-36 md:right-6"
-      : "right-4 max-md:bottom-24 md:bottom-20 md:right-6";
-
-  useEffect(() => {
-    const onScroll = () => setShowScrollTop(window.scrollY > 400);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <button
-      type="button"
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={`fixed z-[55] flex h-10 w-10 items-center justify-center rounded-full bg-samsung-blue text-white shadow-lg shadow-samsung-blue/25 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-cta-glow-blue motion-reduce:transition-none ${scrollDockClass} ${
-        showScrollTop
-          ? "pointer-events-auto scale-100 opacity-100"
-          : "pointer-events-none scale-90 opacity-0"
-      }`}
-      aria-label="Scroll to top"
-      aria-hidden={!showScrollTop}
-      tabIndex={showScrollTop ? 0 : -1}
-    >
-      <ArrowUp className="h-4 w-4" />
-    </button>
   );
 }

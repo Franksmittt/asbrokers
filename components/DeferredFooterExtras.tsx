@@ -8,11 +8,6 @@ const FooterNewsletter = dynamic(
   { ssr: false, loading: () => <div className="h-10 w-full max-w-sm lg:max-w-[17.5rem]" aria-hidden /> }
 );
 
-const FooterScrollTop = dynamic(
-  () => import("@/components/FooterClientIslands").then((m) => m.FooterScrollTop),
-  { ssr: false, loading: () => null }
-);
-
 function useDeferredReady() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -32,11 +27,4 @@ export function DeferredFooterNewsletter() {
   const ready = useDeferredReady();
   if (!ready) return <div className="h-10 w-full max-w-sm lg:max-w-[17.5rem]" aria-hidden />;
   return <FooterNewsletter />;
-}
-
-/** Scroll-top control — deferred (was forcing reflow via scroll listener on hydrate). */
-export function DeferredFooterScrollTop() {
-  const ready = useDeferredReady();
-  if (!ready) return null;
-  return <FooterScrollTop />;
 }

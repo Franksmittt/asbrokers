@@ -31,21 +31,29 @@ const PROTECTION_DOMAINS = [
     title: "Medical aid & gap",
     description: "Scheme structuring and shortfall cover within statutory demarcation.",
     href: "/solutions/medical-aid",
+    image: "/images/insurance-domain-medical-21x9.webp",
+    alt: "Mother and child with a doctor in a calm consulting room",
   },
   {
     title: "Life & income",
     description: "Life, disability, and severe illness cover for dependents and earnings.",
     href: "/solutions/life-insurance",
+    image: "/images/insurance-domain-life-21x9.webp",
+    alt: "Father on a patio watching his child play — protecting dependents and earnings",
   },
   {
     title: "Personal assets",
     description: "Home, motor, and high-value possessions, including underinsurance risk.",
     href: "/solutions/personal-insurance",
+    image: "/images/insurance-domain-personal-21x9.webp",
+    alt: "Couple with their car at home — personal assets and underinsurance risk",
   },
   {
     title: "Business & partners",
     description: "Commercial cover, key person protection, and buy-and-sell continuity.",
     href: "/solutions/business-insurance",
+    image: "/images/insurance-domain-business-21x9.webp",
+    alt: "Business partners outside a commercial warehouse — continuity and cover",
   },
 ] as const;
 
@@ -130,14 +138,26 @@ export function InsuranceHubPageView({ faqs }: Props) {
                 key={domain.href}
                 href={domain.href}
                 prefetch
-                className="group flex flex-col bg-[#F7F6F3] p-6 transition hover:bg-white sm:p-8"
+                className="group flex flex-col bg-[#F7F6F3] transition hover:bg-white"
               >
-                <h3 className="font-serif text-xl font-semibold tracking-tight text-shark">{domain.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{domain.description}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: TEAL }}>
-                  Open domain
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden />
-                </span>
+                <div className="relative aspect-[21/9] w-full overflow-hidden bg-stone-200/60">
+                  <Image
+                    src={domain.image}
+                    alt={getAlt(domain.image, domain.alt)}
+                    fill
+                    unoptimized
+                    className="object-cover object-center motion-safe:transition motion-safe:duration-300 motion-safe:group-hover:scale-[1.02]"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6 sm:p-8">
+                  <h3 className="font-serif text-xl font-semibold tracking-tight text-shark">{domain.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{domain.description}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold" style={{ color: TEAL }}>
+                    Open domain
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

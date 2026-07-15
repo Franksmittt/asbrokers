@@ -189,9 +189,18 @@ export function BusinessRiskReviewTool() {
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="brr-industry">Industry</label>
-                        <select id="brr-industry" className={inputClass} value={lead.industry} onChange={(e) => setLead({ ...lead, industry: e.target.value as LeadForm["industry"] })}>
+                        <select
+                          id="brr-industry"
+                          className={`${inputClass} appearance-auto`}
+                          value={lead.industry}
+                          onChange={(e) =>
+                            setLead({ ...lead, industry: e.target.value as LeadForm["industry"] })
+                          }
+                        >
                           {INDUSTRY_OPTIONS.map((opt) => (
-                            <option key={opt} value={opt} className="bg-zinc-900">{opt}</option>
+                            <option key={opt} value={opt} className="bg-white text-[#1D1D1F]">
+                              {opt}
+                            </option>
                           ))}
                         </select>
                       </div>

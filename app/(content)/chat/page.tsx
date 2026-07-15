@@ -12,11 +12,11 @@ export default function ChatPage() {
       <HubUtilityHero
         kicker="AS Brokers"
         title="Digital Wealth Assistant"
-        description="Ask about Discovery Health medical aid and Gap Cover, estate duty, Everest 12.8% Strategic Income, or Amethyst Living Annuity. Wealth calculations use deterministic SA tax and product rules. Educational only — not financial advice."
+        description="Ask about Discovery Health, Gap Cover, estate duty, or Everest income — or leave your details for a callback. Wealth calculations use deterministic SA tax and product rules. Educational only — not financial advice."
       >
         <p className="mt-2 text-xs text-stone-500">
-          FSP 17273 · Discovery Health education &amp; broker pathway · Everest voluntary products: R100,000
-          minimum · 120-day notice &amp; 15% early exit may apply.
+          FSP 17273 · Optional callback with POPIA consent · Everest voluntary products: R100,000 minimum ·
+          120-day notice &amp; 15% early exit may apply.
         </p>
       </HubUtilityHero>
 

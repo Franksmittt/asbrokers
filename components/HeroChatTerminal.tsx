@@ -6,11 +6,12 @@ import { DefaultChatTransport } from "ai";
 import Link from "next/link";
 import { asbrokersChatFetch } from "@/lib/asbrokers-chat-fetch";
 import { CHAT_DARK_INPUT_TRANSPARENT_CLASS } from "@/lib/chat/input-classes";
+import { ChatToolResultCard } from "@/components/chat/ChatToolResultCard";
 
 const PRE_PROMPTS = [
+  "Please call me back",
   "How does Discovery Health Gap Cover work?",
   "How does the 12.8% Strategic Income work?",
-  "Estimate my estate duty.",
 ];
 
 export type HeroChatTerminalVariant = "hero" | "panel";
@@ -89,6 +90,33 @@ export function HeroChatTerminal({
                   <p key={i} className="text-sm text-zinc-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
                     {(part as { text: string }).text}
                   </p>
+                );
+              }
+              if (
+                typeof part.type === "string" &&
+                part.type.startsWith("tool-") &&
+                "state" in part &&
+                part.state === "output-available" &&
+                "output" in part
+              ) {
+                const toolName = part.type.replace(/^tool-/, "");
+                return (
+                  <div key={i} className="mt-2">
+                    <ChatToolResultCard toolName={toolName} result={(part as { output: unknown }).output} />
+                  </div>
+                );
+              }
+              if (
+                (part as { type?: string }).type === "dynamic-tool" &&
+                "state" in part &&
+                part.state === "output-available" &&
+                "output" in part
+              ) {
+                const p = part as { toolName: string; output: unknown };
+                return (
+                  <div key={i} className="mt-2">
+                    <ChatToolResultCard toolName={p.toolName} result={p.output} />
+                  </div>
                 );
               }
               return null;

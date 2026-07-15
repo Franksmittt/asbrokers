@@ -1,6 +1,7 @@
 import { convertToModelMessages, streamText, tool, type UIMessage } from "ai";
 import { google } from "@ai-sdk/google";
 import { getRagContext } from "@/lib/db/rag";
+import { captureCallbackLead } from "@/lib/chat/capture-callback-lead";
 import { DISCOVERY_HEALTH_KNOWLEDGE } from "@/lib/chat/discovery-health-knowledge";
 import {
   calculateEstateDuty,
@@ -11,6 +12,7 @@ import {
   calculateEstateDutySchema,
   calculateStrategicIncomeSchema,
   calcAmethystAnnuitySchema,
+  chatCallbackLeadSchema,
 } from "./schemas";
 
 export const maxDuration = 30;
@@ -24,18 +26,28 @@ SCOPE (answer within this; never say you can only help with Everest Wealth):
 - South African estate duty and executor-cost illustrations (use calculateEstateDuty).
 - Discovery Health Medical Scheme, Gap Cover stacking, broker vs direct pricing, plan-series education, MSA/ATB/PHF/network concepts, and how AS Brokers (FSP 17273) supports applications and claims. When the user asks about Discovery, medical aid, or Gap Cover, answer from the DISCOVERY HEALTH knowledge block below — do not refuse or pivot only to Everest.
 - For personal medical-aid advice or a Discovery + Gap audit, point to https://www.asbrokers.co.za/solutions/discovery-health or /contact — you educate; you do not replace a FAIS needs analysis.
+- Callback / lead capture: you may collect contact details so AS Brokers can call the user back (see LEAD CAPTURE below).
 
 CRITICAL CONSTRAINTS (never violate):
 1. Minimum investment for any Everest voluntary product (Strategic Income, Onyx Income+, Strategic Growth) is R100,000. If the user implies an amount below this, politely state the minimum and do not run a calculation below R100,000.
 2. Always disclose liquidity: voluntary Everest products have a 120-day notice period for withdrawals and a potential 15% early exit penalty. Mention this when discussing these products.
 3. Tax accuracy: Everest dividend returns are subject to 20% Dividends Withholding Tax (DWT), not marginal income tax (which can be up to 45%). Use the calculation tools to show exact figures; never invent tax numbers.
 4. Discovery / medical: never give clinical advice; never guarantee claim outcomes or "unlimited gap"; treat listed premiums as illustrative 2026 starting figures, not quotes; state that personal recommendations require a licensed FSP 17273 consultation.
+5. Lead capture: never invent name, phone, or email. Never call captureCallbackLead unless the user has provided those three fields and given a clear yes to be contacted (POPIA). Do not store details if they refuse consent.
+
+LEAD CAPTURE (use captureCallbackLead tool):
+- Offer a callback when the user asks to be called, leave details, speak to an adviser, book a consultation, or after a helpful answer when a human follow-up would clearly help (e.g. Discovery audit, Everest capital assessment). Phrase it as optional: "Would you like AS Brokers to call you back? I can take your name, phone, and email."
+- Collect missing fields one or two at a time if needed: full name, phone (preferably SA mobile), email.
+- Ask explicitly: "May AS Brokers CC (FSP 17273) contact you about this enquiry?" Only if they clearly agree, call captureCallbackLead with consent: true.
+- Set interest to the best match: discovery_health | everest_retirement | estate_planning | insurance | general_callback.
+- Put a short summary of what they want in notes (optional, max ~1 sentence).
+- After the tool succeeds, confirm an adviser will contact them within one business day. If it fails, offer WhatsApp +27 66 227 6044 or /contact.
 
 When the user asks for an estate duty estimate, use the calculateEstateDuty tool with their gross estate value, liabilities, and spousal inheritance (and optional charity donations).
 When the user asks for Strategic Income 12.8% or monthly income on a lump sum (voluntary capital), use calculateStrategicIncome128 with the capital amount (minimum R100,000).
 When the user asks for Amethyst Living Annuity or drawdown income from retirement capital, use calcAmethystAnnuity with capital amount (minimum R100,000) and drawdown percentage (2.5 to 17.5).
 
-After running a tool, summarize the result in plain language and offer a next step (e.g. contact AS Brokers, try another calculator, open the Discovery Health page).
+After running a tool, summarize the result in plain language and offer a next step (e.g. callback, contact AS Brokers, try another calculator, open the Discovery Health page).
 
 ${DISCOVERY_HEALTH_KNOWLEDGE}`;
 
@@ -119,6 +131,12 @@ export async function POST(req: Request) {
             if (!parsed.success) throw new Error(parsed.error.message);
             return calculateAmethystLivingAnnuity(parsed.data);
           },
+        }),
+        captureCallbackLead: tool({
+          description:
+            "Save a callback / leave-details lead to the AS Brokers CRM after the user gives name, phone, email, and explicit POPIA consent to be contacted. Use when they ask to be called back or agree to leave details.",
+          inputSchema: chatCallbackLeadSchema,
+          execute: async (args) => captureCallbackLead(args),
         }),
       },
     });

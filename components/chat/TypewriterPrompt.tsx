@@ -7,7 +7,7 @@ const DEFAULT_PROMPTS = [
   "Ask me anything about Everest Wealth",
   "Ask me anything about Discovery Health",
   "Ask me about Gap Cover and medical aid",
-  "Ask me about estate duty in South Africa",
+  "Leave your details for a callback",
 ] as const;
 
 type Props = {

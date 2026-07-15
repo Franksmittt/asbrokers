@@ -5,56 +5,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { asbrokersChatFetch } from "@/lib/asbrokers-chat-fetch";
 import { CHAT_DARK_INPUT_CLASS } from "@/lib/chat/input-classes";
-
-const formatCurrency = (val: number) =>
-  new Intl.NumberFormat("en-ZA", {
-    style: "currency",
-    currency: "ZAR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(val);
-
-function ToolResultCard({
-  toolName,
-  result,
-}: {
-  toolName: string;
-  result: unknown;
-}) {
-  const r = result as Record<string, unknown>;
-  if (toolName === "calculateEstateDuty" && r) {
-    return (
-      <div className="rounded-xl bg-white/5 border border-white/10 p-4 space-y-2 text-sm">
-        <p className="text-zinc-400 font-medium">Estate duty result</p>
-        <p className="text-white">Total estate costs: {formatCurrency((r.totalEstateCosts as number) ?? 0)}</p>
-        <p className="text-zinc-400">Estate duty: {formatCurrency((r.estateDutyPayable as number) ?? 0)} · Executor fees: {formatCurrency((r.executorFees as number) ?? 0)}</p>
-      </div>
-    );
-  }
-  if (toolName === "calculateStrategicIncome128" && r) {
-    return (
-      <div className="rounded-xl bg-white/5 border border-white/10 p-4 space-y-2 text-sm">
-        <p className="text-zinc-400 font-medium">12.8% Strategic Income</p>
-        <p className="text-white">Net monthly income: {formatCurrency((r.netMonthlyIncome as number) ?? 0)}</p>
-        <p className="text-zinc-400">5-year loyalty bonus: {formatCurrency((r.loyaltyBonus as number) ?? 0)}</p>
-      </div>
-    );
-  }
-  if (toolName === "calcAmethystAnnuity" && r) {
-    return (
-      <div className="rounded-xl bg-white/5 border border-white/10 p-4 space-y-2 text-sm">
-        <p className="text-zinc-400 font-medium">Amethyst Living Annuity</p>
-        <p className="text-white">Net monthly income: {formatCurrency((r.netMonthlyIncome as number) ?? 0)}</p>
-        <p className="text-zinc-400">Gross: {formatCurrency((r.grossMonthlyIncome as number) ?? 0)} · Est. tax: {formatCurrency((r.estimatedMonthlyTax as number) ?? 0)}</p>
-      </div>
-    );
-  }
-  return (
-    <pre className="text-xs text-zinc-500 overflow-auto p-2 rounded bg-black/20">
-      {JSON.stringify(result, null, 2)}
-    </pre>
-  );
-}
+import { ChatToolResultCard } from "@/components/chat/ChatToolResultCard";
 
 /** Client island, chat UI only; hero and links are server-rendered (Phase 2.4). */
 export function ChatPageClient() {
@@ -76,7 +27,8 @@ export function ChatPageClient() {
         >
           {messages.length === 0 && (
             <p className="text-zinc-500 text-sm">
-              e.g. &quot;How does Discovery Health Gap Cover work with medical aid?&quot;, &quot;What would my estate duty be on R8 million?&quot;, or &quot;How much monthly income from R1.5m in the 12.8% Strategic Income?&quot;
+              e.g. &quot;Please call me back about Discovery Health&quot;, &quot;How does Gap Cover work?&quot;, or
+              &quot;Estate duty on R8 million?&quot;
             </p>
           )}
           {messages.map((msg) => (
@@ -88,14 +40,14 @@ export function ChatPageClient() {
                 className={
                   msg.role === "user"
                     ? "rounded-2xl bg-blue-500/20 border border-blue-500/30 px-4 py-2 max-w-[min(100%,22rem)]"
-                    : "rounded-2xl bg-white/5 border border-white/10 px-4 py-2 max-w-[min(100%,22rem)] space-y-2"
+                    : "rounded-2xl bg-[#1c1c22] border border-white/12 px-4 py-2 max-w-[min(100%,22rem)] space-y-2"
                 }
               >
                 <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider">{msg.role}</p>
                 {msg.parts?.map((part, i) => {
                   if (part.type === "text") {
                     return (
-                      <p key={i} className="text-sm text-white whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                      <p key={i} className="text-sm text-zinc-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
                         {part.text}
                       </p>
                     );
@@ -110,7 +62,7 @@ export function ChatPageClient() {
                     const toolName = part.type.replace(/^tool-/, "");
                     return (
                       <div key={i} className="mt-2">
-                        <ToolResultCard toolName={toolName} result={(part as { output: unknown }).output} />
+                        <ChatToolResultCard toolName={toolName} result={(part as { output: unknown }).output} />
                       </div>
                     );
                   }
@@ -123,7 +75,7 @@ export function ChatPageClient() {
                     const p = part as { toolName: string; output: unknown };
                     return (
                       <div key={i} className="mt-2">
-                        <ToolResultCard toolName={p.toolName} result={p.output} />
+                        <ChatToolResultCard toolName={p.toolName} result={p.output} />
                       </div>
                     );
                   }
@@ -159,7 +111,7 @@ export function ChatPageClient() {
             type="text"
             enterKeyHint="send"
             autoComplete="off"
-            placeholder="Ask about Discovery Health, estate duty, or Everest income…"
+            placeholder="Ask a question or request a callback…"
             className={CHAT_DARK_INPUT_CLASS}
             disabled={status === "streaming"}
           />

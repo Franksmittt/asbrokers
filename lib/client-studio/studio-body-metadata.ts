@@ -5,7 +5,8 @@ export type StudioBodyMetadata = {
   videoUrls?: Record<string, string>;
 };
 
-const STUDIO_BODY_META_RE = /<!--\s*studio_meta:(\{[\s\S]*?\})\s*-->/i;
+const STUDIO_BODY_META_OPEN = /<!--\s*studio_meta:/i;
+const STUDIO_BODY_META_CLOSE = "-->";
 
 function asStringMap(value: unknown): Record<string, string> {
   if (!value || typeof value !== "object") return {};
@@ -34,15 +35,36 @@ function parseStudioBodyMetadata(json: string): StudioBodyMetadata | null {
   }
 }
 
+/**
+ * Find the studio metadata comment by comment delimiters, not by the first `}`.
+ * Draft HTML often stores CSS/`rawHtml` inside the JSON payload, so a non-greedy
+ * `\{...\}` regex truncates mid-string and drops calculator selections on reload.
+ */
+function findStudioBodyMetadataMarker(
+  html: string
+): { fullMatch: string; json: string; start: number; end: number } | null {
+  const open = html.match(STUDIO_BODY_META_OPEN);
+  if (!open || open.index == null) return null;
+  const jsonStart = open.index + open[0].length;
+  const closeIndex = html.indexOf(STUDIO_BODY_META_CLOSE, jsonStart);
+  if (closeIndex < 0) return null;
+  return {
+    fullMatch: html.slice(open.index, closeIndex + STUDIO_BODY_META_CLOSE.length),
+    json: html.slice(jsonStart, closeIndex).trim(),
+    start: open.index,
+    end: closeIndex + STUDIO_BODY_META_CLOSE.length,
+  };
+}
+
 export function extractStudioBodyMetadata(
   html: string | null | undefined
 ): { cleanHtml: string; metadata: StudioBodyMetadata | null } {
   if (!html) return { cleanHtml: "", metadata: null };
-  const match = html.match(STUDIO_BODY_META_RE);
-  if (!match?.[1]) return { cleanHtml: html, metadata: null };
-  const metadata = parseStudioBodyMetadata(match[1]);
+  const marker = findStudioBodyMetadataMarker(html);
+  if (!marker) return { cleanHtml: html, metadata: null };
+  const metadata = parseStudioBodyMetadata(marker.json);
   return {
-    cleanHtml: html.replace(STUDIO_BODY_META_RE, "").trimEnd(),
+    cleanHtml: `${html.slice(0, marker.start)}${html.slice(marker.end)}`.trimEnd(),
     metadata,
   };
 }
@@ -51,7 +73,7 @@ export function withEmbeddedStudioBodyMetadata(
   html: string,
   metadata: StudioBodyMetadata | null
 ): string {
-  const clean = html.replace(STUDIO_BODY_META_RE, "").trimEnd();
+  const clean = extractStudioBodyMetadata(html).cleanHtml;
   if (!metadata) return clean;
   const hasAnyData =
     Boolean(metadata.rawHtml?.trim()) ||

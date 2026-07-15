@@ -21,6 +21,10 @@ import {
   type InsightCategoryValue,
 } from "@/lib/insights/insightCategories";
 import {
+  hardenCalculatorIframesForPreview,
+  recoverCalculatorSlotsFromHtml,
+} from "@/lib/client-studio/calculator-preview";
+import {
   extractStudioBodyMetadata,
   withEmbeddedStudioBodyMetadata,
 } from "@/lib/client-studio/studio-body-metadata";
@@ -370,8 +374,13 @@ function safeUploadFilename(name: string): string {
   return safe || "studio-image.jpg";
 }
 
-function buildPreviewDoc(html: string): string {
+function buildPreviewDoc(html: string, origin?: string): string {
+  const previewOrigin =
+    origin ||
+    (typeof window !== "undefined" ? window.location.origin : "https://www.asbrokers.co.za");
+  const hardenedHtml = hardenCalculatorIframesForPreview(html, previewOrigin);
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <base href="${previewOrigin}/"/>
   <style>
     *{box-sizing:border-box}
     html{color-scheme:dark}
@@ -400,9 +409,9 @@ function buildPreviewDoc(html: string): string {
     [class~="bg-white/5"]{background:rgba(255,255,255,.07)}[class~="bg-black/30"]{background:rgba(0,0,0,.30)}[class~="bg-teal-500/10"]{background:rgba(20,184,166,.12)}[class~="bg-amber-500/10"]{background:rgba(245,158,11,.12)}
     [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:rgba(255,255,255,.13)}[class~="border-teal-500/30"]{border-color:rgba(20,184,166,.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11,.35)}
     .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(45,212,191,.58);border-radius:1rem;background:rgba(45,212,191,.12);color:#ccfbf1}
-  </style></head><body>${html}<script>
+  </style></head><body>${hardenedHtml}<script>
   (() => {
-    const frames = document.querySelectorAll('iframe[data-asb-calculator-embed="true"],iframe[src^="/embed-calculators/"]');
+    const frames = document.querySelectorAll('iframe[data-asb-calculator-embed="true"],iframe[src*="/embed-calculators/"]');
     frames.forEach((frame) => {
       let resizeObserver;
       let mutationObserver;
@@ -757,7 +766,14 @@ export function BlogStudioClient(props: Props) {
     [rawHtml, imageUrls, calcSelection, videoUrls, snippetById]
   );
   const previewHtml = useMemo(() => buildPreviewHtml(resolvedForPersist), [resolvedForPersist]);
-  const previewSrcDoc = useMemo(() => buildPreviewDoc(previewHtml), [previewHtml]);
+  const previewSrcDoc = useMemo(
+    () =>
+      buildPreviewDoc(
+        previewHtml,
+        typeof window !== "undefined" ? window.location.origin : "https://www.asbrokers.co.za"
+      ),
+    [previewHtml]
+  );
 
   const payloadPreview = useMemo(
     () =>
@@ -867,7 +883,10 @@ export function BlogStudioClient(props: Props) {
     setSelectedCategories(categories);
     const sourceHtml = post.bodyHtml || post.bodyHtmlPublished || SAMPLE_HTML;
     const parsedMeta = extractStudioBodyMetadata(sourceHtml);
-    const restoredRawHtml = parsedMeta.metadata?.rawHtml || parsedMeta.cleanHtml || SAMPLE_HTML;
+    const recovered = recoverCalculatorSlotsFromHtml(
+      parsedMeta.metadata?.rawHtml || parsedMeta.cleanHtml || SAMPLE_HTML
+    );
+    const restoredRawHtml = recovered.html || SAMPLE_HTML;
     setRawHtml(restoredRawHtml);
     setMetaTitle(post.metaTitle ?? "");
     setMetaDescription(post.metaDescription ?? "");
@@ -883,7 +902,7 @@ export function BlogStudioClient(props: Props) {
     if (Object.keys(restoredImages).length > 0) {
       setImageUrls(restoredImages);
     }
-    const restoredCalcs: Record<number, string> = {};
+    const restoredCalcs: Record<number, string> = { ...recovered.calcSelection };
     for (const [key, value] of Object.entries(parsedMeta.metadata?.calcSelection ?? {})) {
       const idx = Number(key);
       if (Number.isInteger(idx) && idx >= 0 && value.trim()) restoredCalcs[idx] = value;

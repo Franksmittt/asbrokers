@@ -1,5 +1,5 @@
 const CALCULATOR_IFRAME_SELECTOR =
-  'iframe[data-asb-calculator-embed="true"], iframe[src^="/embed-calculators/"]';
+  'iframe[data-asb-calculator-embed="true"], iframe[src*="/embed-calculators/"]';
 const MIN_CALCULATOR_IFRAME_HEIGHT = 640;
 
 /**

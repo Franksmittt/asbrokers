@@ -49,6 +49,19 @@ body {
   min-height: 100vh;
 }
 
+/**
+ * Soft 15px corners on marketing content photos (Next/Image + native img).
+ * Skip circular marks; keep nav/footer logos outside `main` on their own radius.
+ */
+main img:not([class*="rounded-full"]) {
+  border-radius: 15px;
+}
+
+/* Fill-image parents use overflow:hidden — share the same radius or corners get clipped square. */
+main :is(figure, div).overflow-hidden:has(img) {
+  border-radius: 15px;
+}
+
 /* Prevent 12-col / long-kicker intrinsic mins from forcing horizontal scroll on phones. */
 #main-content,
 #main-content .grid > * {

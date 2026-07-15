@@ -153,7 +153,10 @@ export function EverestWealthPageView({ faqs }: Props) {
             </p>
           </div>
 
-          <div className="relative min-h-[16rem] min-w-0 overflow-hidden border bg-white lg:col-span-5 lg:min-h-0" style={{ borderColor: HAIRLINE }}>
+          <div
+            className="relative min-h-[16rem] min-w-0 overflow-hidden border bg-white lg:col-span-5 lg:min-h-0"
+            style={{ borderColor: HAIRLINE, borderRadius: 15 }}
+          >
             <Image
               src={HERO_IMAGE}
               alt={getAlt(

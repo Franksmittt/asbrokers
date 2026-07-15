@@ -232,8 +232,24 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
       "Demarcation-honest structuring plus specialist onboarding and claims support, FSP 17273, not a call centre.",
     primaryCta: { label: "Book a health structuring call", href: "/contact?source=medical_terminal" },
     secondaryCta: {
-      label: "Retirement health gap assessment",
-      href: "/healthy-retirement-blueprint",
+      label: "Discovery Health 2026 matrix",
+      href: "/solutions/discovery-health",
+    },
+  },
+  "/solutions/discovery-health": {
+    path: "/solutions/discovery-health",
+    fiveSecondTest:
+      "Independent Discovery Health guidance with Gap stacking and a free FAIS audit — same premium as going direct.",
+    h1: "Stop guessing. Architect your Discovery Health cover.",
+    subhead:
+      "2026 DHMS matrix decoded, specialist shortfall risk explained, and Gap Cover stacked with a POPIA-compliant audit request.",
+    problem: "Self-selecting Discovery plans leaves specialist shortfalls and redundant premiums unaddressed.",
+    promise:
+      "CMS-regulated broker support already in the premium, needs analysis, and claims advocacy from FSP 17273.",
+    primaryCta: { label: "Request Discovery + Gap audit", href: "#discovery-audit-form" },
+    secondaryCta: {
+      label: "Medical aid & gap hub",
+      href: "/solutions/medical-aid",
     },
   },
   "/legacy-readiness-checklist": {

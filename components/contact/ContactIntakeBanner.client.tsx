@@ -14,6 +14,8 @@ const SOURCE_LABELS: Record<string, string> = {
   calculator_terminal: "Continuing after a calculator result",
   everest_terminal: "Continuing from the Everest Wealth hub",
   medical_terminal: "Continuing from medical aid & gap structuring",
+  discovery_health_form: "Continuing from the Discovery Health page",
+  discovery_terminal: "Continuing from Discovery Health",
   home_hero: "Continuing from the homepage",
   home_journey: "Continuing from the homepage journey",
   home_pathways: "Continuing from the homepage",

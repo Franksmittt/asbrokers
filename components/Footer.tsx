@@ -27,6 +27,7 @@ const LEGAL_LINKS = [
   { label: "Chat", href: "/chat" },
   { label: "Quiz", href: "/quiz" },
   { label: "Legacy conversations", href: "/legacy-conversations" },
+  { label: "Discovery Health", href: "/solutions/discovery-health" },
   { label: "Premium increase calc", href: "/premium-increase-calculator" },
   { label: "Studio login", href: "/studio/blog/login" },
   { label: "CRM login", href: "/login" },

@@ -73,6 +73,11 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/solutions/medical-aid": [
     {
+      href: "/solutions/discovery-health",
+      title: "Discovery Health matrix",
+      description: "2026 DHMS plans, MSA/ATB/PHF, and Gap stacking.",
+    },
+    {
       href: "/healthy-retirement-blueprint",
       title: "Healthy retirement blueprint",
       description: "Health pillar assessment for retirement planning.",
@@ -82,10 +87,22 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       title: "Risk architecture hub",
       description: "Personal and commercial cover structured together.",
     },
+  ],
+  "/solutions/discovery-health": [
     {
-      href: "/contact?source=medical_terminal",
-      title: "Health structuring call",
-      description: "Medical aid and gap cover guidance, FSP 17273.",
+      href: "/solutions/medical-aid",
+      title: "Medical aid & gap structuring",
+      description: "Demarcation, shortfalls, and claims advocacy.",
+    },
+    {
+      href: "/insurance",
+      title: "Risk architecture hub",
+      description: "Personal and commercial cover structured together.",
+    },
+    {
+      href: "/healthy-retirement-blueprint",
+      title: "Healthy retirement blueprint",
+      description: "Health pillar assessment for retirement planning.",
     },
   ],
   "/estate-planning": [
@@ -336,14 +353,14 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/insurance": [
     {
-      href: "/solutions/personal-insurance",
-      title: "Personal insurance",
-      description: "Home, motor, and asset protection with independent advice.",
-    },
-    {
       href: "/solutions/medical-aid",
       title: "Medical aid & gap cover",
       description: "Health pillar structuring for families and professionals.",
+    },
+    {
+      href: "/solutions/discovery-health",
+      title: "Discovery Health 2026",
+      description: "Plan matrix, Gap stacking, and a free coverage audit.",
     },
     {
       href: "/solutions/life-insurance",

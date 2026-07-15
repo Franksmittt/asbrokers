@@ -577,6 +577,7 @@ export const SCHEMA_EXPLICIT_PATH_PREFIXES = [
   "/everest-wealth",
   "/everest-wealth/about",
   "/solutions/medical-aid",
+  "/solutions/discovery-health",
   "/regulatory-compliance",
   "/privacy",
   "/terms",

@@ -53,11 +53,11 @@ export function MedicalAidPageView({ faqs }: Props) {
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <Link
-              href="/healthy-retirement-blueprint"
+              href="/solutions/discovery-health"
               prefetch={false}
               className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
             >
-              Retirement health gap assessment
+              Discovery Health 2026 matrix
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>

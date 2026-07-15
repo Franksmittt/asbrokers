@@ -332,15 +332,26 @@ export function InsuranceHubPageView({ faqs }: Props) {
               figure for your policy year with a licensed adviser). We structure household health
               cover across both regimes without conflating them.
             </p>
-            <Link
-              href="/solutions/medical-aid"
-              prefetch
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
-              style={{ color: TEAL_ON_DARK }}
-            >
-              Medical aid &amp; gap domain
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+              <Link
+                href="/solutions/medical-aid"
+                prefetch
+                className="inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
+              >
+                Medical aid &amp; gap domain
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href="/solutions/discovery-health"
+                prefetch
+                className="inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
+              >
+                Discovery Health 2026
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

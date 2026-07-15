@@ -239,10 +239,10 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/solutions/discovery-health": {
     path: "/solutions/discovery-health",
     fiveSecondTest:
-      "Independent Discovery Health guidance with Gap stacking and a free FAIS audit — same premium as going direct.",
-    h1: "Stop guessing. Architect your Discovery Health cover.",
+      "Krugersdorp FSP 17273 helps SA families evaluate Discovery Health Medical Scheme and Gap Cover — same premium as going direct.",
+    h1: "Discovery Health medical aid broker for South African families",
     subhead:
-      "2026 DHMS matrix decoded, specialist shortfall risk explained, and Gap Cover stacked with a POPIA-compliant audit request.",
+      "AS Brokers CC structures Discovery Health plans with Gap Cover stacking, FAIS needs analysis, and claims advocacy from the West Rand.",
     problem: "Self-selecting Discovery plans leaves specialist shortfalls and redundant premiums unaddressed.",
     promise:
       "CMS-regulated broker support already in the premium, needs analysis, and claims advocacy from FSP 17273.",

@@ -67,6 +67,9 @@ export type PageGraphInput = {
   webPage: {
     name: string;
     description: string;
+    /** ISO date — only when page content truly changed. */
+    dateModified?: string;
+    datePublished?: string;
   };
   faqs?: FAQItem[];
   service?: {
@@ -199,6 +202,8 @@ function buildOrganizationNode(origin: string, ids: ReturnType<typeof createSeoI
       "Insurance",
       "Estate Planning",
       "Everest Wealth",
+      "Medical Aid and Gap Cover",
+      "Discovery Health Medical Scheme",
     ],
     isAccessibleForFree: true,
   };
@@ -254,6 +259,7 @@ function buildFinancialServiceNode(origin: string, ids: ReturnType<typeof create
       "Everest Wealth",
       "Alternative Investments",
       "Medical Aid and Gap Cover",
+      "Discovery Health Medical Scheme",
       "Business Continuity Planning",
     ],
   };
@@ -344,6 +350,13 @@ export function buildPageGraph(input: PageGraphInput): JsonLdGraph {
     publisher: { "@id": ids.organization },
     isAccessibleForFree: true,
   };
+
+  if (input.webPage.datePublished) {
+    webPageNode.datePublished = input.webPage.datePublished;
+  }
+  if (input.webPage.dateModified) {
+    webPageNode.dateModified = input.webPage.dateModified;
+  }
 
   if (input.primaryImagePath) {
     webPageNode.primaryImageOfPage = { "@id": ids.primaryImage };

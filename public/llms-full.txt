@@ -11,7 +11,7 @@ AS Brokers CC is an authorised South African financial services provider (FSP 17
 - [Curated calculator hub](https://www.asbrokers.co.za/calculators): retirement readiness, inflation, and wealth building tools.
 - [Estate duty calculator](https://www.asbrokers.co.za/estate-duty-calculator): executor cost illustration for South African estates.
 - [Medical aid](https://www.asbrokers.co.za/solutions/medical-aid): gap cover guidance for South African schemes.
-- [Discovery Health 2026](https://www.asbrokers.co.za/solutions/discovery-health): plan matrix, Gap stacking, and FAIS-compliant audit.
+- [Discovery Health medical aid broker (FSP 17273, Krugersdorp)](https://www.asbrokers.co.za/solutions/discovery-health): 2026 plans, Gap stacking, free audit.
 - [Estate planning](https://www.asbrokers.co.za/estate-planning): wills, trusts, and structuring education.
 - [How we work](https://www.asbrokers.co.za/how-we-work): four-step advice process: diagnose, design, implement, review.
 - [Regulatory compliance](https://www.asbrokers.co.za/regulatory-compliance): FAIS disclosures and client protections.

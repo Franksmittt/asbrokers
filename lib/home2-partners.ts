@@ -44,8 +44,8 @@ export const PARTNER_GROUPS: PartnerGroup[] = [
   {
     id: "health",
     label: "Medical aid, gap cover & wellness",
-    description: "Registered medical schemes, gap shortfall cover, and Vitality-aligned wellness planning.",
-    href: "/solutions/medical-aid",
-    names: ["Discovery Vitality", "Medical schemes", "Gap cover", "Wellness integration"],
+    description: "Discovery Health Medical Scheme guidance, gap shortfall cover, and wellness planning via FSP 17273.",
+    href: "/solutions/discovery-health",
+    names: ["Discovery Health", "Medical schemes", "Gap cover", "Wellness integration"],
   },
 ];

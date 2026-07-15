@@ -54,7 +54,7 @@ const ITEMS = [
     imageKey: "risk-arch-medical",
     title: "Medical Aid & Gap Cover",
     subtitle: "Health",
-    description: "Medical scheme choice, gap cover and wellness integration for your family.",
+    description: "Discovery Health and other schemes, gap cover, and wellness integration for your family.",
     href: "/solutions/medical-aid",
   },
   {

@@ -92,7 +92,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/solutions/medical-aid",
       title: "Medical aid & gap structuring",
-      description: "Demarcation, shortfalls, and claims advocacy.",
+      description: "Demarcation, shortfalls, and claims advocacy across schemes.",
     },
     {
       href: "/insurance",
@@ -100,9 +100,14 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Personal and commercial cover structured together.",
     },
     {
-      href: "/healthy-retirement-blueprint",
-      title: "Healthy retirement blueprint",
-      description: "Health pillar assessment for retirement planning.",
+      href: "/calculators/asset-015-average-clause",
+      title: "Average clause calculator",
+      description: "See how underinsurance can reduce a property claim payout.",
+    },
+    {
+      href: "/contact?source=discovery_terminal",
+      title: "Book a health consultation",
+      description: "Speak with FSP 17273 in Krugersdorp or via WhatsApp.",
     },
   ],
   "/estate-planning": [

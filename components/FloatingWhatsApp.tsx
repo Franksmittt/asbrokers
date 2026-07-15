@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
+import { clsx } from "clsx";
 import { WhatsAppLogo } from "@/components/WhatsAppLogo";
+import { useHideOverFooter } from "@/lib/use-hide-over-footer";
 
 const WHATSAPP_LINK = "https://wa.me/27662276044";
 
 /** Desktop WhatsApp FAB — official mark; gentle Y-flip every 30s for attention. */
 export function FloatingWhatsApp() {
   const reduceMotion = useReducedMotion();
+  const hideOverFooter = useHideOverFooter();
   const [flipTick, setFlipTick] = useState(0);
 
   useEffect(() => {
@@ -22,9 +25,17 @@ export function FloatingWhatsApp() {
       href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      className="group fixed bottom-6 right-6 z-[45] hidden h-14 w-14 items-center justify-center rounded-full shadow-2xl transition-transform hover:scale-110 md:flex [perspective:240px]"
+      className={clsx(
+        "group fixed bottom-6 right-6 z-[45] hidden h-14 w-14 items-center justify-center rounded-full shadow-2xl md:flex [perspective:240px]",
+        "transition-[opacity,transform,visibility] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]",
+        hideOverFooter
+          ? "pointer-events-none invisible translate-y-3 opacity-0"
+          : "visible opacity-100 hover:scale-110"
+      )}
       data-visual-ignore
       aria-label="Chat on WhatsApp"
+      aria-hidden={hideOverFooter}
+      tabIndex={hideOverFooter ? -1 : 0}
     >
       <span
         key={flipTick}

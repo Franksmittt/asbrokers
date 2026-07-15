@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronDown, ChevronUp, ArrowUp } from "./icons";
 import { HeroChatTerminal } from "./HeroChatTerminal";
 import { TypewriterPrompt } from "@/components/chat/TypewriterPrompt";
+import { useHideOverFooter } from "@/lib/use-hide-over-footer";
 import { clsx } from "clsx";
 
 const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
@@ -17,6 +18,7 @@ type PanelMode = "idle" | "open" | "minimized";
  */
 export function FloatingChat() {
   const reduceMotion = useReducedMotion();
+  const hideOverFooter = useHideOverFooter();
   const [mode, setMode] = useState<PanelMode>("idle");
   const [draft, setDraft] = useState("");
   const [seedMessage, setSeedMessage] = useState<string | null>(null);
@@ -61,7 +63,7 @@ export function FloatingChat() {
   return (
     <>
       <AnimatePresence>
-        {mode === "open" && (
+        {mode === "open" && !hideOverFooter && (
           <motion.div
             key="chat-backdrop"
             initial={{ opacity: 0 }}
@@ -82,7 +84,7 @@ export function FloatingChat() {
       </AnimatePresence>
 
       <AnimatePresence>
-        {mode === "minimized" && (
+        {mode === "minimized" && !hideOverFooter && (
           <motion.div
             key="chat-minimized"
             role="status"
@@ -130,14 +132,14 @@ export function FloatingChat() {
       {sessionLive && (
         <motion.div
           role="dialog"
-          aria-modal={mode === "open"}
-          aria-hidden={mode === "minimized"}
+          aria-modal={mode === "open" && !hideOverFooter}
+          aria-hidden={mode === "minimized" || hideOverFooter}
           aria-label="Digital Wealth Assistant"
           initial={false}
           animate={
             reduceMotion
-              ? { opacity: mode === "open" ? 1 : 0 }
-              : mode === "open"
+              ? { opacity: mode === "open" && !hideOverFooter ? 1 : 0 }
+              : mode === "open" && !hideOverFooter
                 ? { opacity: 1, y: 0, x: 0 }
                 : { opacity: 0, y: 0, x: 0 }
           }
@@ -145,6 +147,7 @@ export function FloatingChat() {
           className={clsx(
             /* Solid dark panel — translucent glass over warm canvas made chat text unreadable. */
             "fixed z-[95] flex flex-col overflow-hidden border border-white/12 bg-[#0a0a0c] shadow-2xl",
+            hideOverFooter && "pointer-events-none",
             mode === "open" &&
               "inset-x-0 bottom-0 h-[min(36rem,88dvh)] max-h-[min(36rem,88dvh)] rounded-t-[1.75rem] md:inset-auto md:bottom-24 md:right-24 md:left-auto md:h-[min(36rem,calc(100dvh-7rem))] md:max-h-[min(36rem,calc(100dvh-7rem))] md:w-[min(26rem,calc(100vw-7rem))] md:rounded-[1.75rem]",
             mode === "minimized" &&
@@ -202,7 +205,7 @@ export function FloatingChat() {
       )}
 
       <AnimatePresence>
-        {mode === "idle" && (
+        {mode === "idle" && !hideOverFooter && (
           <motion.div
             key="chat-slim-bar"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}

@@ -19,7 +19,7 @@ export function isEmbedReadyCalculatorSnippet(snippet: CalculatorCodeSnippet): b
 }
 
 function buildCalculatorIframeEmbed(path: string, title: string): string {
-  return `<iframe src="${path}" title="${title}" loading="lazy" style="display:block;width:100%;min-height:640px;border:0;border-radius:12px;background:#0a0a0c;"></iframe>`;
+  return `<iframe src="${path}" title="${title}" loading="eager" data-asb-calculator-embed="true" style="display:block;width:100%;height:640px;min-height:640px;border:0;border-radius:12px;background:#0a0a0c;"></iframe>`;
 }
 
 function toSnippet(entry: CalculatorRegistryEntry): CalculatorCodeSnippet {

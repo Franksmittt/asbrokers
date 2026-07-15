@@ -400,7 +400,40 @@ function buildPreviewDoc(html: string): string {
     [class~="bg-white/5"]{background:rgba(255,255,255,.07)}[class~="bg-black/30"]{background:rgba(0,0,0,.30)}[class~="bg-teal-500/10"]{background:rgba(20,184,166,.12)}[class~="bg-amber-500/10"]{background:rgba(245,158,11,.12)}
     [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:rgba(255,255,255,.13)}[class~="border-teal-500/30"]{border-color:rgba(20,184,166,.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11,.35)}
     .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(45,212,191,.58);border-radius:1rem;background:rgba(45,212,191,.12);color:#ccfbf1}
-  </style></head><body>${html}</body></html>`;
+  </style></head><body>${html}<script>
+  (() => {
+    const frames = document.querySelectorAll('iframe[data-asb-calculator-embed="true"],iframe[src^="/embed-calculators/"]');
+    frames.forEach((frame) => {
+      let resizeObserver;
+      let mutationObserver;
+      const resize = () => {
+        try {
+          const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+          if (!doc || !doc.documentElement) return;
+          const height = Math.ceil(Math.max(640, doc.documentElement.scrollHeight, doc.body ? doc.body.scrollHeight : 0));
+          frame.height = String(height);
+          frame.style.height = height + "px";
+        } catch {}
+      };
+      const bind = () => {
+        resize();
+        try {
+          const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+          if (!doc || !doc.documentElement) return;
+          if (resizeObserver) resizeObserver.disconnect();
+          if (mutationObserver) mutationObserver.disconnect();
+          resizeObserver = new ResizeObserver(resize);
+          resizeObserver.observe(doc.documentElement);
+          if (doc.body) resizeObserver.observe(doc.body);
+          mutationObserver = new MutationObserver(resize);
+          mutationObserver.observe(doc.documentElement, { attributes: true, childList: true, subtree: true, characterData: true });
+        } catch {}
+      };
+      frame.addEventListener("load", bind);
+      if (frame.contentDocument && frame.contentDocument.readyState === "complete") bind();
+    });
+  })();
+  </script></body></html>`;
 }
 
 function countToken(content: string, token: string): number {

@@ -1,12 +1,15 @@
 import { z } from "zod";
-import { chatCallbackLeadSchema } from "@/lib/validations/chat-lead";
+import {
+  chatCallbackLeadSchema,
+  chatCallbackLeadToolSchema,
+} from "@/lib/validations/chat-lead";
 
 /**
  * Zod input schemas for deterministic financial tools.
  * Enforces SA regulatory limits (R100k min, 2.5–17.5% drawdown, non-negative amounts).
  */
 
-export { chatCallbackLeadSchema };
+export { chatCallbackLeadSchema, chatCallbackLeadToolSchema };
 
 export const calculateEstateDutySchema = z.object({
   grossEstateValue: z.number().min(0, "Gross estate value must be ≥ 0"),
@@ -27,4 +30,4 @@ export const calcAmethystAnnuitySchema = z.object({
 export type EstateDutyInput = z.infer<typeof calculateEstateDutySchema>;
 export type StrategicIncomeInput = z.infer<typeof calculateStrategicIncomeSchema>;
 export type AmethystAnnuityInput = z.infer<typeof calcAmethystAnnuitySchema>;
-export type ChatCallbackLeadToolInput = z.infer<typeof chatCallbackLeadSchema>;
+export type ChatCallbackLeadToolInput = z.infer<typeof chatCallbackLeadToolSchema>;

@@ -12,17 +12,30 @@ export const chatLeadInterestSchema = z.enum([
 export type ChatLeadInterest = z.infer<typeof chatLeadInterestSchema>;
 
 /**
- * Digital Wealth Assistant callback / leave-details capture.
- * POPIA: consent must be explicit from the user before the tool runs.
+ * Tool input for Gemini — must stay JSON-Schema friendly.
+ * Do NOT use z.literal(true): Gemini rejects boolean enum values (TYPE_STRING).
  */
-export const chatCallbackLeadSchema = z.object({
-  fullName: z.string().trim().min(2, "Name is required").max(120),
-  phone: z.string().trim().min(9, "Phone is required").max(40),
-  email: z.string().trim().email("Valid email is required").max(160),
+export const chatCallbackLeadToolSchema = z.object({
+  fullName: z.string().min(2, "Name is required").max(120),
+  phone: z.string().min(9, "Phone is required").max(40),
+  email: z.string().email("Valid email is required").max(160),
   interest: chatLeadInterestSchema.optional(),
-  notes: z.string().trim().max(500).optional(),
-  /** Must be true only after the user clearly agrees to be contacted (POPIA). */
-  consent: z.literal(true),
+  notes: z.string().max(500).optional(),
+  /** True only after the user clearly agrees to be contacted (POPIA). */
+  consent: z
+    .boolean()
+    .describe("Set true only if the user explicitly agreed AS Brokers may contact them (POPIA)."),
 });
 
-export type ChatCallbackLeadInput = z.infer<typeof chatCallbackLeadSchema>;
+/** Runtime validation after the model calls the tool. */
+export const chatCallbackLeadSchema = chatCallbackLeadToolSchema.superRefine((data, ctx) => {
+  if (data.consent !== true) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["consent"],
+      message: "User must explicitly consent to be contacted before capturing details",
+    });
+  }
+});
+
+export type ChatCallbackLeadInput = z.infer<typeof chatCallbackLeadToolSchema>;

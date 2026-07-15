@@ -12,7 +12,7 @@ import {
   calculateEstateDutySchema,
   calculateStrategicIncomeSchema,
   calcAmethystAnnuitySchema,
-  chatCallbackLeadSchema,
+  chatCallbackLeadToolSchema,
 } from "./schemas";
 
 export const maxDuration = 30;
@@ -135,7 +135,8 @@ export async function POST(req: Request) {
         captureCallbackLead: tool({
           description:
             "Save a callback / leave-details lead to the AS Brokers CRM after the user gives name, phone, email, and explicit POPIA consent to be contacted. Use when they ask to be called back or agree to leave details.",
-          inputSchema: chatCallbackLeadSchema,
+          /** Gemini-safe schema (boolean, not z.literal(true)). */
+          inputSchema: chatCallbackLeadToolSchema,
           execute: async (args) => captureCallbackLead(args),
         }),
       },
@@ -144,6 +145,7 @@ export async function POST(req: Request) {
     return result.toUIMessageStreamResponse({
       onError: (error) => {
         const message = error instanceof Error ? error.message : String(error);
+        console.error("[chat] stream error:", message);
         if (message.includes("quota") || message.includes("RESOURCE_EXHAUSTED") || message.includes("429")) {
           return "Gemini API quota exceeded for this key. Please enable billing or use a key with available quota.";
         }

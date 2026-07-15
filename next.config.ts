@@ -100,6 +100,15 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: [...SECURITY_HEADERS],
       },
+      /**
+       * ASSET calculators are same-origin iframes of /embed-calculators/*.html.
+       * Global X-Frame-Options: DENY makes the browser show “refused to connect”.
+       * Later matching sources override duplicate header keys in Next.js.
+       */
+      {
+        source: "/embed-calculators/:path*",
+        headers: [{ key: "X-Frame-Options", value: "SAMEORIGIN" }],
+      },
     ];
   },
   async redirects() {

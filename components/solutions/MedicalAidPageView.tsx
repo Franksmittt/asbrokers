@@ -197,7 +197,7 @@ export function MedicalAidPageView({ faqs }: Props) {
       <section className="pb-16 md:pb-24" aria-labelledby="medical-cta-heading">
         <div className={HOME4_WRAP}>
           <div
-            className="mx-auto max-w-[1000px] rounded-xl px-6 py-10 sm:px-10 sm:py-12"
+            className="rounded-xl px-6 py-10 sm:px-10 sm:py-12"
             style={{ backgroundColor: INK }}
           >
             <h2

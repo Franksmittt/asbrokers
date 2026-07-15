@@ -1,6 +1,6 @@
 # AS Brokers CC
 
-> AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content, not personalised financial advice.
+> AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content — not personalised financial advice.
 
 ## Core Services
 - [Home](https://www.asbrokers.co.za/): retirement runway, Everest yield portfolio, and wealth engineering overview.
@@ -11,7 +11,8 @@
 - [Curated calculator hub](https://www.asbrokers.co.za/calculators): retirement readiness, inflation, and wealth building tools.
 - [Estate duty calculator](https://www.asbrokers.co.za/estate-duty-calculator): executor cost illustration for South African estates.
 - [Medical aid](https://www.asbrokers.co.za/solutions/medical-aid): gap cover guidance for South African schemes.
-- [Estate planning](https://www.asbrokers.co.za/solutions/estate-planning): wills, trusts, and structuring education.
+- [Discovery Health 2026](https://www.asbrokers.co.za/solutions/discovery-health): plan matrix, Gap stacking, and FAIS-compliant audit.
+- [Estate planning](https://www.asbrokers.co.za/estate-planning): wills, trusts, and structuring education.
 - [How we work](https://www.asbrokers.co.za/how-we-work): four-step advice process: diagnose, design, implement, review.
 - [Regulatory compliance](https://www.asbrokers.co.za/regulatory-compliance): FAIS disclosures and client protections.
 - [Insights hub](https://www.asbrokers.co.za/insights): education articles on retirement, estate, and markets.

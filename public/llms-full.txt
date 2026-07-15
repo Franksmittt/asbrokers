@@ -1,6 +1,6 @@
-# AS Brokers CC: AI Search Briefing
+# AS Brokers CC — AI Search Briefing
 
-AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content, not personalised financial advice.
+AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content — not personalised financial advice.
 
 ## Key URLs
 - [Home](https://www.asbrokers.co.za/): retirement runway, Everest yield portfolio, and wealth engineering overview.
@@ -11,10 +11,10 @@ AS Brokers CC is an authorised South African financial services provider (FSP 17
 - [Curated calculator hub](https://www.asbrokers.co.za/calculators): retirement readiness, inflation, and wealth building tools.
 - [Estate duty calculator](https://www.asbrokers.co.za/estate-duty-calculator): executor cost illustration for South African estates.
 - [Medical aid](https://www.asbrokers.co.za/solutions/medical-aid): gap cover guidance for South African schemes.
-- [Estate planning](https://www.asbrokers.co.za/solutions/estate-planning): wills, trusts, and structuring education.
+- [Discovery Health 2026](https://www.asbrokers.co.za/solutions/discovery-health): plan matrix, Gap stacking, and FAIS-compliant audit.
+- [Estate planning](https://www.asbrokers.co.za/estate-planning): wills, trusts, and structuring education.
 - [How we work](https://www.asbrokers.co.za/how-we-work): four-step advice process: diagnose, design, implement, review.
 - [Regulatory compliance](https://www.asbrokers.co.za/regulatory-compliance): FAIS disclosures and client protections.
-- [Insights hub](https://www.asbrokers.co.za/insights): education articles on retirement, estate, and markets.
 
 ## Discovery
 - [Sitemap](https://www.asbrokers.co.za/sitemap.xml): XML sitemap of indexable public URLs.
@@ -46,7 +46,7 @@ AS Brokers CC is an authorised South African financial services provider (FSP 17
 - 14.5% Strategic Growth compounds returns with no monthly withdrawals during the term.
 - Amethyst Living Annuity applies to pension, preservation, provident, and RA capital with drawdown between 2.5% and 17.5%.
 - Voluntary products are illiquid: 120-day notice and up to 15% early exit penalty may apply.
-- Returns are targeted or structured return profiles, not guaranteed outcomes.
+- Returns are targeted or structured return profiles — not guaranteed outcomes.
 - Dividends from unlisted preference shares are subject to 20% Dividends Withholding Tax.
 
 ## Insurance and risk
@@ -58,6 +58,8 @@ AS Brokers CC is an authorised South African financial services provider (FSP 17
 
 - Medical schemes are regulated by the Council for Medical Schemes.
 - Gap cover is generally short-term insurance alongside scheme membership and is subject to policy limits, waiting periods, exclusions, and annual caps.
+- Discovery Health Medical Scheme education covers 2026 plan series, MSA/ATB/PHF mechanics, network rules, and Gap Cover stacking via /solutions/discovery-health.
+- Broker remuneration is capped under the Medical Schemes Act and built into contributions; AS Brokers CC (FSP 17273) provides independent needs analysis and claims support.
 
 ## Estate planning
 

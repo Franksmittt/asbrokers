@@ -2,7 +2,7 @@ import { DiscoveryHealthPageView } from "@/components/solutions/DiscoveryHealthP
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Discovery Health Medical Aid & Gap Cover | AS Brokers";
+const PAGE_TITLE = "Discovery Health Medical Aid & Gap Cover";
 const PAGE_DESCRIPTION =
   "Independent Discovery Health Medical Scheme guidance for 2026 plans, MSA/ATB/PHF mechanics, and Gap Cover stacking. FAIS-compliant audit at no extra broker cost. FSP 17273.";
 
@@ -60,6 +60,12 @@ export default function DiscoveryHealthPage() {
         path="/solutions/discovery-health"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={faqs}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Insurance", path: "/insurance" },
+          { name: "Medical aid & gap", path: "/solutions/medical-aid" },
+          { name: "Discovery Health", path: "/solutions/discovery-health" },
+        ]}
         service={{
           name: "Discovery Health medical aid and gap cover structuring",
           description: PAGE_DESCRIPTION,

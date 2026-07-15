@@ -8,8 +8,9 @@ import {
   type DiscoveryHealthSubmitState,
 } from "@/lib/validations/discovery-health";
 
+const TEAL = "#0F766E";
 const inputClass =
-  "w-full border border-stone-300 bg-white px-4 py-3 text-shark placeholder:text-stone-400 transition-colors focus:border-cinematic-teal focus:outline-none focus:ring-1 focus:ring-cinematic-teal disabled:cursor-not-allowed disabled:opacity-60";
+  "w-full border border-stone-300 bg-white px-4 py-3 text-shark placeholder:text-stone-400 transition-colors focus:border-[#0F766E] focus:outline-none focus:ring-1 focus:ring-[#0F766E] disabled:cursor-not-allowed disabled:opacity-60";
 const labelClass = "mb-2 block text-sm font-medium text-stone-700";
 
 const initialState: DiscoveryHealthSubmitState = { success: false };
@@ -33,7 +34,8 @@ export function DiscoveryLeadForm({ id = "discovery-lead-form" }: Props) {
           href="https://wa.me/27662276044"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm font-semibold text-cinematic-teal underline-offset-2 hover:underline"
+          className="text-sm font-semibold underline-offset-2 hover:underline"
+          style={{ color: TEAL }}
         >
           WhatsApp us in the meantime
         </a>
@@ -140,7 +142,7 @@ export function DiscoveryLeadForm({ id = "discovery-lead-form" }: Props) {
           name="consent"
           value="true"
           disabled={isPending}
-          className="mt-1 h-4 w-4 shrink-0 border-stone-300 text-cinematic-teal focus:ring-cinematic-teal"
+          className="mt-1 h-4 w-4 shrink-0 border-stone-300 text-[#0F766E] focus:ring-[#0F766E]"
           aria-invalid={!!state.fieldErrors?.consent}
         />
         <span>
@@ -156,7 +158,8 @@ export function DiscoveryLeadForm({ id = "discovery-lead-form" }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex w-full items-center justify-center rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f] disabled:opacity-60 sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded px-7 py-3.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-60 sm:w-auto"
+        style={{ backgroundColor: TEAL }}
       >
         {isPending ? "Submitting…" : "Request my Discovery + Gap audit"}
       </button>

@@ -113,13 +113,17 @@ export function buildPageMetadata(input: BuildPageMetadataInput): Metadata {
   const canonical = absoluteUrl(path);
   const descriptionSource = input.excerpt ?? input.description;
   const description = clampMetaDescription(descriptionSource);
-  const title = buildPageTitle(input.title, !input.title.includes(BRAND_NAME));
+  // Root layout template appends "| AS Brokers CC" to document titles — keep entity title brand-free.
+  const title = buildPageTitle(input.title, false);
+  const brandedTitle = buildPageTitle(title, true);
   const ogImages = input.ogImagePath
     ? {
-        openGraph: [{ url: absoluteUrl(input.ogImagePath), width: 1200, height: 630, alt: title }] as const,
+        openGraph: [
+          { url: absoluteUrl(input.ogImagePath), width: 1200, height: 630, alt: brandedTitle },
+        ] as const,
         twitter: [absoluteUrl(input.ogImagePath)] as const,
       }
-    : buildOgImageSet(title, description);
+    : buildOgImageSet(brandedTitle, description);
 
   return {
     title,
@@ -132,13 +136,13 @@ export function buildPageMetadata(input: BuildPageMetadataInput): Metadata {
       locale: "en_ZA",
       url: canonical,
       siteName: BRAND_NAME,
-      title,
+      title: brandedTitle,
       description,
       images: [...ogImages.openGraph],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: brandedTitle,
       description,
       images: [...ogImages.twitter],
     },

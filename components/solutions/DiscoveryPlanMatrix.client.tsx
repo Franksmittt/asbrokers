@@ -10,6 +10,8 @@ export type DiscoveryPlanCard = {
   filter: "all" | "premium" | "family" | "budget";
 };
 
+const TEAL = "#0F766E";
+
 const FILTERS = [
   { id: "all" as const, label: "All series" },
   { id: "premium" as const, label: "High cover" },
@@ -37,9 +39,10 @@ export function DiscoveryPlanMatrix({ plans }: Props) {
               onClick={() => setFilter(f.id)}
               className={`rounded px-3 py-1.5 text-sm font-medium transition ${
                 active
-                  ? "bg-cinematic-teal text-white"
-                  : "border border-stone-300 bg-white text-stone-700 hover:border-cinematic-teal/50"
+                  ? "text-white"
+                  : "border border-stone-300 bg-white text-stone-700 hover:border-stone-400"
               }`}
+              style={active ? { backgroundColor: TEAL } : undefined}
               aria-pressed={active}
             >
               {f.label}
@@ -51,7 +54,10 @@ export function DiscoveryPlanMatrix({ plans }: Props) {
       <ul className="mt-8 grid grid-cols-1 gap-px border border-stone-300 bg-stone-300 sm:grid-cols-2">
         {visible.map((plan) => (
           <li key={plan.series} className="flex flex-col bg-[#F7F6F3] p-6 sm:p-7">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+              style={{ color: TEAL }}
+            >
               {plan.series}
             </p>
             <h3 className="mt-3 font-serif text-xl font-semibold tracking-tight text-shark">
@@ -68,7 +74,7 @@ export function DiscoveryPlanMatrix({ plans }: Props) {
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-xs leading-relaxed text-stone-500">
+      <p className="mt-4 text-xs leading-relaxed text-stone-600">
         Illustrative main-member starting contributions from Discovery Health Medical Scheme
         materials for the 2026 benefit year (rates effective 1 April 2026 where applicable). Exact
         premiums depend on dependents, income band (KeyCare), and plan options. Confirm with FSP

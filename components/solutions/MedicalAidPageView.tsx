@@ -23,7 +23,10 @@ export function MedicalAidPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+      <header
+        data-chunk-boundary
+        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+      >
         <div className={HOME4_WRAP}>
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
             Medical aid &amp; gap · FSP 17273 · Claims advocacy
@@ -64,7 +67,7 @@ export function MedicalAidPageView({ faqs }: Props) {
         </div>
       </header>
 
-      <section className="pb-16 md:pb-24" aria-labelledby="shortfall-heading">
+      <section data-chunk-boundary className="pb-16 md:pb-24" aria-labelledby="shortfall-heading">
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">

@@ -16,6 +16,8 @@ const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
 const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
+/** WCAG AA teal on canvas (matches /insurance hub). */
+const TEAL = "#0F766E";
 
 const VALUE_CARDS = [
   {
@@ -131,9 +133,15 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
+      <header
+        data-chunk-boundary
+        className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+      >
         <div className={HOME4_WRAP}>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
+            style={{ color: TEAL }}
+          >
             Discovery Health · Medical aid &amp; gap · FSP 17273
           </p>
           <h1
@@ -154,20 +162,22 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href="#discovery-audit-form"
-              className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
+              className="inline-flex items-center gap-2 rounded px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
+              style={{ backgroundColor: TEAL }}
             >
               Get your free plan audit
               <ArrowRight className="h-4 w-4" aria-hidden />
             </a>
             <a
               href="#discovery-matrix"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+              className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+              style={{ color: TEAL }}
             >
               2026 plan matrix
               <ArrowRight className="h-4 w-4" aria-hidden />
             </a>
           </div>
-          <p className="mt-6 text-xs leading-relaxed text-stone-500">
+          <p className="mt-6 text-xs leading-relaxed text-stone-600">
             Independent Category 1.8 FSP 17273 · Council for Medical Schemes broker remuneration
             framework · POPIA consent on every lead · Educational content, not personal advice until
             consultation.
@@ -175,10 +185,10 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
         </div>
       </header>
 
-      <section className="pb-16 md:pb-24" aria-labelledby="deficit-heading">
+      <section data-chunk-boundary className="pb-16 md:pb-24" aria-labelledby="deficit-heading">
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-600 lg:sticky lg:top-28">
               The specialist deficit
             </p>
           </aside>
@@ -207,6 +217,7 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
       </section>
 
       <section
+        data-chunk-boundary
         className="border-y py-16 md:py-24"
         style={{ borderColor: HAIRLINE }}
         aria-labelledby="broker-value-heading"
@@ -236,10 +247,10 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
         </div>
       </section>
 
-      <section className="py-16 md:py-24" aria-labelledby="jargon-heading">
+      <section data-chunk-boundary className="py-16 md:py-24" aria-labelledby="jargon-heading">
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-600 lg:sticky lg:top-28">
               Jargon decoder
             </p>
           </aside>
@@ -269,6 +280,7 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
 
       <section
         id="discovery-matrix"
+        data-chunk-boundary
         className="scroll-mt-28 border-y py-16 md:scroll-mt-32 md:py-24"
         style={{ borderColor: HAIRLINE, backgroundColor: "rgba(29,29,31,0.03)" }}
         aria-labelledby="matrix-heading"
@@ -291,10 +303,10 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
         </div>
       </section>
 
-      <section className="py-16 md:py-24" aria-labelledby="stack-heading">
+      <section data-chunk-boundary className="py-16 md:py-24" aria-labelledby="stack-heading">
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
           <aside className="min-w-0 lg:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:sticky lg:top-28">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-600 lg:sticky lg:top-28">
               Holistic stack
             </p>
           </aside>
@@ -321,7 +333,8 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
             <Link
               href="/solutions/medical-aid"
               prefetch={false}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+              style={{ color: TEAL }}
             >
               Medical aid vs gap demarcation
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -332,6 +345,7 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
 
       <section
         id="discovery-audit-form"
+        data-chunk-boundary
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="discovery-form-heading"
       >
@@ -368,6 +382,7 @@ export function DiscoveryHealthPageView({ faqs }: Props) {
         faqs={faqItems}
         headingId="discovery-faq-heading"
         primaryCta={{ href: "#discovery-audit-form", label: "Request an audit" }}
+        secondaryCta={{ href: "/solutions/medical-aid", label: "Medical aid & gap hub" }}
       />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/solutions/discovery-health")} />

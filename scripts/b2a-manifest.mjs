@@ -13,6 +13,7 @@ export const B2A_MANIFEST = {
     { url: "/calculators", description: "Curated calculator hub — retirement readiness, inflation, and wealth building tools." },
     { url: "/estate-duty-calculator", description: "Estate duty calculator — executor cost illustration for South African estates." },
     { url: "/solutions/medical-aid", description: "Medical aid — gap cover guidance for South African schemes." },
+    { url: "/solutions/discovery-health", description: "Discovery Health 2026 — plan matrix, Gap stacking, and FAIS-compliant audit." },
     { url: "/estate-planning", description: "Estate planning — wills, trusts, and structuring education." },
     { url: "/how-we-work", description: "How we work — four-step advice process: diagnose, design, implement, review." },
     { url: "/regulatory-compliance", description: "Regulatory compliance — FAIS disclosures and client protections." },
@@ -84,6 +85,8 @@ export const B2A_MANIFEST = {
       body: [
         "Medical schemes are regulated by the Council for Medical Schemes.",
         "Gap cover is generally short-term insurance alongside scheme membership and is subject to policy limits, waiting periods, exclusions, and annual caps.",
+        "Discovery Health Medical Scheme education covers 2026 plan series, MSA/ATB/PHF mechanics, network rules, and Gap Cover stacking via /solutions/discovery-health.",
+        "Broker remuneration is capped under the Medical Schemes Act and built into contributions; AS Brokers CC (FSP 17273) provides independent needs analysis and claims support.",
       ],
     },
     {

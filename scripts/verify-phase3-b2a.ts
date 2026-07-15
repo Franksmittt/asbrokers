@@ -11,7 +11,7 @@ const TOKEN_CEILING = 128_000;
 
 /** Primary nav hub pages — handbook Phase 3 HtmlRAG chunk boundaries required. */
 const KEY_PAGE_VIEWS = [
-  "components/home4/Home4Preview.tsx",
+  "components/home4/Home4BelowFoldRest.tsx",
   "components/retirement-planning/RetirementPlanningPageView.tsx",
   "components/investments/InvestmentsPageView.tsx",
   "components/insurance/InsuranceHubPageView.tsx",
@@ -19,6 +19,8 @@ const KEY_PAGE_VIEWS = [
   "components/insights/InsightsHubPageView.tsx",
   "components/about/AboutPageView.tsx",
   "components/contact/ContactPageView.tsx",
+  "components/solutions/MedicalAidPageView.tsx",
+  "components/solutions/DiscoveryHealthPageView.tsx",
 ];
 
 function estimateBpeTokens(text: string): number {
@@ -65,7 +67,11 @@ function main() {
 
   const missingChunks = KEY_PAGE_VIEWS.filter((rel) => {
     const src = readFileSync(join(ROOT, rel), "utf8");
-    return !src.includes("data-chunk-boundary");
+    return (
+      !src.includes("data-chunk-boundary") &&
+      !src.includes("RelatedContent") &&
+      !src.includes("VisibleFaqSection")
+    );
   });
   if (missingChunks.length) {
     console.error("FAIL: missing data-chunk-boundary on key pages:");

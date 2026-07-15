@@ -80,6 +80,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/insurance",
     links: [
       { label: "Medical aid & gap", href: "/solutions/medical-aid" },
+      { label: "Discovery Health", href: "/solutions/discovery-health" },
       { label: "Risk architecture hub", href: "/insurance" },
       { label: "Average Clause calculator", href: "/calculators/asset-015-average-clause" },
     ],

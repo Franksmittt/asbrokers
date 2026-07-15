@@ -2,7 +2,7 @@ import { MedicalAidPageView } from "@/components/solutions/MedicalAidPageView";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Medical Aid & Gap Cover Structuring | AS Brokers";
+const PAGE_TITLE = "Medical Aid & Gap Cover Structuring";
 const PAGE_DESCRIPTION =
   "Specialist shortfalls can bankrupt a household. We structure medical aid with demarcation-compliant gap cover and human claims advocacy, not the cheapest hospital plan. FSP 17273.";
 
@@ -59,6 +59,11 @@ export default function MedicalAidPage() {
         path="/solutions/medical-aid"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={faqs}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Insurance", path: "/insurance" },
+          { name: "Medical aid & gap", path: "/solutions/medical-aid" },
+        ]}
         service={{
           name: "Medical aid and gap cover structuring",
           description: PAGE_DESCRIPTION,

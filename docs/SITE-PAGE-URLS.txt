@@ -1,0 +1,147 @@
+AS Brokers — full page URL list
+Generated: 2026-07-15
+Origin: https://www.asbrokers.co.za
+
+================================================================================
+A) PUBLIC MARKETING / INDEXABLE (canonical URLs)
+================================================================================
+
+https://www.asbrokers.co.za
+https://www.asbrokers.co.za/about
+https://www.asbrokers.co.za/business-risk-review
+https://www.asbrokers.co.za/calculators
+https://www.asbrokers.co.za/calculators/asset-001-retirement-growth
+https://www.asbrokers.co.za/calculators/asset-002-retirement-reality-check
+https://www.asbrokers.co.za/calculators/asset-003-retirement-premium
+https://www.asbrokers.co.za/calculators/asset-004-life-of-capital
+https://www.asbrokers.co.za/calculators/asset-005-future-value
+https://www.asbrokers.co.za/calculators/asset-006-income-tax
+https://www.asbrokers.co.za/calculators/asset-007-estate-duty
+https://www.asbrokers.co.za/calculators/asset-008-estate-reduction
+https://www.asbrokers.co.za/calculators/asset-009-everest-142-income
+https://www.asbrokers.co.za/calculators/asset-010-everest-128-income
+https://www.asbrokers.co.za/calculators/asset-011-everest-128-vs-142
+https://www.asbrokers.co.za/calculators/asset-012-strategic-growth
+https://www.asbrokers.co.za/calculators/asset-013-everest-income-vs-growth
+https://www.asbrokers.co.za/calculators/asset-014-living-annuity
+https://www.asbrokers.co.za/calculators/asset-015-average-clause
+https://www.asbrokers.co.za/calculators/asset-016-growth-comparison
+https://www.asbrokers.co.za/calculators/asset-017-personal-goal
+https://www.asbrokers.co.za/chat
+https://www.asbrokers.co.za/complaints
+https://www.asbrokers.co.za/conflict-of-interest
+https://www.asbrokers.co.za/contact
+https://www.asbrokers.co.za/estate-planning
+https://www.asbrokers.co.za/everest-wealth
+https://www.asbrokers.co.za/everest-wealth/about
+https://www.asbrokers.co.za/healthy-retirement-blueprint
+https://www.asbrokers.co.za/insights
+https://www.asbrokers.co.za/insights/semigration-retirement
+https://www.asbrokers.co.za/insurance
+https://www.asbrokers.co.za/investments
+https://www.asbrokers.co.za/legacy-conversations
+https://www.asbrokers.co.za/legacy-readiness-checklist
+https://www.asbrokers.co.za/manage-cookies
+https://www.asbrokers.co.za/premium-increase-calculator
+https://www.asbrokers.co.za/privacy
+https://www.asbrokers.co.za/quiz
+https://www.asbrokers.co.za/regulatory-compliance
+https://www.asbrokers.co.za/retirement-planning
+https://www.asbrokers.co.za/retirement-survival-blueprint
+https://www.asbrokers.co.za/sales-funnel-mockup
+https://www.asbrokers.co.za/solutions/discovery-health
+https://www.asbrokers.co.za/solutions/medical-aid
+https://www.asbrokers.co.za/team
+https://www.asbrokers.co.za/terms
+
+================================================================================
+B) LEGACY / ALIAS URLS (still resolve; redirect to calculators or hubs)
+================================================================================
+
+https://www.asbrokers.co.za/annual-estate-reduction-strategy
+https://www.asbrokers.co.za/cost-of-inflation-over-time
+https://www.asbrokers.co.za/estate-duty-calculator
+https://www.asbrokers.co.za/everest-128-product
+https://www.asbrokers.co.za/everest-amethyst-living-annuity
+https://www.asbrokers.co.za/everest-strategic-growth-145
+https://www.asbrokers.co.za/immediate-higher-income-calculator
+https://www.asbrokers.co.za/income-in-retirement
+https://www.asbrokers.co.za/income-tax-calculator
+https://www.asbrokers.co.za/lab
+https://www.asbrokers.co.za/retirement
+https://www.asbrokers.co.za/retirement-readiness
+https://www.asbrokers.co.za/solutions
+https://www.asbrokers.co.za/solutions/life-insurance
+https://www.asbrokers.co.za/solutions/personal-insurance
+https://www.asbrokers.co.za/solutions/business-insurance
+https://www.asbrokers.co.za/solutions/business-life
+https://www.asbrokers.co.za/solutions/estate-planning
+https://www.asbrokers.co.za/how-we-work
+https://www.asbrokers.co.za/wealth-building-calculator
+
+================================================================================
+C) DYNAMIC PUBLIC PATTERNS
+================================================================================
+
+https://www.asbrokers.co.za/insights/{slug}
+  (Blog Studio published posts — count varies; not fixed)
+
+https://www.asbrokers.co.za/business-risk-review/report/{id}
+https://www.asbrokers.co.za/healthy-retirement-blueprint/report/{id}
+https://www.asbrokers.co.za/legacy-readiness-checklist/checklist/{id}
+
+================================================================================
+D) PRIVATE / AUTH / APP (exist; not for marketing SEO)
+================================================================================
+
+https://www.asbrokers.co.za/login
+https://www.asbrokers.co.za/auth/callback
+https://www.asbrokers.co.za/auth/callback/implicit
+
+https://www.asbrokers.co.za/crm
+https://www.asbrokers.co.za/crm/business-risk-reviews
+https://www.asbrokers.co.za/crm/calculator-review
+https://www.asbrokers.co.za/crm/calculators
+https://www.asbrokers.co.za/crm/calculator-session
+https://www.asbrokers.co.za/crm/clients
+https://www.asbrokers.co.za/crm/clients/{id}
+https://www.asbrokers.co.za/crm/executive
+https://www.asbrokers.co.za/crm/healthy-retirement-assessments
+https://www.asbrokers.co.za/crm/kanban
+https://www.asbrokers.co.za/crm/leads
+https://www.asbrokers.co.za/crm/leads/{id}
+https://www.asbrokers.co.za/crm/legacy-checklist-leads
+https://www.asbrokers.co.za/crm/notes
+https://www.asbrokers.co.za/crm/presentation
+https://www.asbrokers.co.za/crm/settings
+https://www.asbrokers.co.za/crm/tasks
+https://www.asbrokers.co.za/crm/whatsapp
+
+https://www.asbrokers.co.za/portal
+https://www.asbrokers.co.za/portal/documents
+https://www.asbrokers.co.za/portal/messages
+
+https://www.asbrokers.co.za/studio/blog
+https://www.asbrokers.co.za/studio/blog/login
+https://www.asbrokers.co.za/studio/blog/workspace
+https://www.asbrokers.co.za/studio/blog/workspace/tutorial
+https://www.asbrokers.co.za/studio/blog/workspace/upgrades
+
+https://www.asbrokers.co.za/internal/pdf-report
+https://www.asbrokers.co.za/embed/calculators/{id}
+
+================================================================================
+E) MACHINE / SEO ENDPOINTS
+================================================================================
+
+https://www.asbrokers.co.za/sitemap.xml
+https://www.asbrokers.co.za/robots.txt
+https://www.asbrokers.co.za/llms.txt
+https://www.asbrokers.co.za/llms-full.txt
+https://www.asbrokers.co.za/opengraph-image
+
+Notes:
+- Section A is the main public page set (plus ASSET calculator routes).
+- Section B URLs redirect or alias to pages in A (still live for old links).
+- Insights article URLs beyond /insights/semigration-retirement come from Blog Studio at runtime.
+- Removed (2026-07-15): /home2, /home3, /home4 — former homepage A/B experiments. No routes or redirects; they 404. Canonical home is https://www.asbrokers.co.za/ only.

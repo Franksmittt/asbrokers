@@ -26,9 +26,10 @@ const RETIRED_REDIRECTS = [
   "/everest-wealth",
   "/solutions",
   "/how-we-work",
-  "/home4",
+  /** Former A/B homepage experiments — removed; must never reappear in sitemap. */
   "/home2",
   "/home3",
+  "/home4",
 ];
 
 function extractStaticPaths() {

@@ -148,9 +148,6 @@ const nextConfig: NextConfig = {
         destination,
         permanent: true,
       })),
-      { source: "/home2", destination: "/", permanent: true },
-      { source: "/home3", destination: "/", permanent: true },
-      { source: "/home4", destination: "/", permanent: true },
       { source: "/favicon.ico", destination: "/images/og-default.jpg", permanent: true },
       { source: "/embed/calculators/:path*", destination: "/calculators", permanent: true },
       ...legacyCalculatorRedirects.map(({ source, destination }) => ({

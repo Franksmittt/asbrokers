@@ -79,14 +79,14 @@ export function HeroChatTerminal({
           <div
             className={
               msg.role === "user"
-                ? "rounded-2xl rounded-br-md px-3 py-2.5 bg-cinematic-teal/20 border border-cinematic-teal/30 max-w-[min(100%,20rem)]"
-                : "rounded-2xl rounded-bl-md px-3 py-2.5 bg-white/5 border border-white/10 max-w-[min(100%,20rem)]"
+                ? "rounded-2xl rounded-br-md px-3 py-2.5 bg-cinematic-teal/30 border border-cinematic-teal/40 max-w-[min(100%,20rem)]"
+                : "rounded-2xl rounded-bl-md px-3 py-2.5 bg-[#1c1c22] border border-white/12 max-w-[min(100%,20rem)]"
             }
           >
             {msg.parts?.map((part, i) => {
               if (part.type === "text" && "text" in part) {
                 return (
-                  <p key={i} className="text-sm text-white whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                  <p key={i} className="text-sm text-zinc-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
                     {(part as { text: string }).text}
                   </p>
                 );
@@ -95,7 +95,7 @@ export function HeroChatTerminal({
             })}
             {(!msg.parts || msg.parts.length === 0) &&
               typeof (msg as unknown as { content?: string }).content === "string" && (
-                <p className="text-sm text-white whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                <p className="text-sm text-zinc-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
                   {(msg as unknown as { content: string }).content}
                 </p>
               )}

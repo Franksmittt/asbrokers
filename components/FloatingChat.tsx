@@ -92,7 +92,7 @@ export function FloatingChat() {
             transition={transition}
             className="fixed left-3 right-3 z-[93] md:left-auto md:right-24 md:w-[min(26rem,calc(100vw-7rem))] bottom-[calc(5.5rem+env(safe-area-inset-bottom))] md:bottom-[5.5rem]"
           >
-            <div className="flex items-stretch gap-1 overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d10]/95 shadow-2xl backdrop-blur-xl">
+            <div className="flex items-stretch gap-1 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0c] shadow-2xl">
               <button
                 type="button"
                 onClick={openPanel}
@@ -143,7 +143,8 @@ export function FloatingChat() {
           }
           transition={transition}
           className={clsx(
-            "fixed z-[95] flex flex-col overflow-hidden border border-white/10 bg-[#0d0d10]/97 shadow-2xl backdrop-blur-xl",
+            /* Solid dark panel — translucent glass over warm canvas made chat text unreadable. */
+            "fixed z-[95] flex flex-col overflow-hidden border border-white/12 bg-[#0a0a0c] shadow-2xl",
             mode === "open" &&
               "inset-x-0 bottom-0 h-[min(36rem,88dvh)] max-h-[min(36rem,88dvh)] rounded-t-[1.75rem] md:inset-auto md:bottom-24 md:right-24 md:left-auto md:h-[min(36rem,calc(100dvh-7rem))] md:max-h-[min(36rem,calc(100dvh-7rem))] md:w-[min(26rem,calc(100vw-7rem))] md:rounded-[1.75rem]",
             mode === "minimized" &&

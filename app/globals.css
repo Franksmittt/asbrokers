@@ -146,6 +146,20 @@ textarea:focus-visible {
   outline-offset: 2px;
   box-shadow: 0 0 20px rgba(0, 87, 184, 0.25);
 }
+
+/* Dark chat composers — defeat browser white autofill / default input paint. */
+.chat-dark-input {
+  color-scheme: dark;
+  caret-color: #fafafa;
+}
+.chat-dark-input:-webkit-autofill,
+.chat-dark-input:-webkit-autofill:hover,
+.chat-dark-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f4f4f5;
+  caret-color: #fafafa;
+  transition: background-color 99999s ease-in-out 0s;
+  box-shadow: 0 0 0 1000px #151518 inset;
+}
 button:active:not(:disabled),
 a[href]:active {
   transform: scale(0.98);

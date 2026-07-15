@@ -5,11 +5,12 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import Link from "next/link";
 import { asbrokersChatFetch } from "@/lib/asbrokers-chat-fetch";
+import { CHAT_DARK_INPUT_TRANSPARENT_CLASS } from "@/lib/chat/input-classes";
 
 const PRE_PROMPTS = [
+  "How does Discovery Health Gap Cover work?",
   "How does the 12.8% Strategic Income work?",
   "Estimate my estate duty.",
-  "Retiree? Ask about Amethyst Annuity.",
 ];
 
 export type HeroChatTerminalVariant = "hero" | "panel";
@@ -20,18 +21,26 @@ type HeroChatTerminalProps = {
    * panel = floating / sheet layout: flex column, messages fill available height (parent must be flex + min-h-0).
    */
   variant?: HeroChatTerminalVariant;
+  /** When set, send once as the first user message (homepage slim bar → panel). */
+  seedMessage?: string | null;
+  onSeedConsumed?: () => void;
 };
 
 /**
  * Embedded AI chat terminal. useChat + tools (estate duty, strategic income).
  * `variant="panel"` is optimized for FloatingChat: one scroll surface (messages only), composer pinned.
  */
-export function HeroChatTerminal({ variant = "hero" }: HeroChatTerminalProps) {
+export function HeroChatTerminal({
+  variant = "hero",
+  seedMessage = null,
+  onSeedConsumed,
+}: HeroChatTerminalProps) {
   const isPanel = variant === "panel";
   const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({ api: "/api/chat", fetch: asbrokersChatFetch }),
   });
   const scrollRef = useRef<HTMLDivElement>(null);
+  const seedSentRef = useRef<string | null>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -39,11 +48,19 @@ export function HeroChatTerminal({ variant = "hero" }: HeroChatTerminalProps) {
     el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [messages, status]);
 
+  useEffect(() => {
+    const text = seedMessage?.trim();
+    if (!text || seedSentRef.current === text) return;
+    seedSentRef.current = text;
+    void sendMessage({ text });
+    onSeedConsumed?.();
+  }, [seedMessage, sendMessage, onSeedConsumed]);
+
   const messageList = (
     <>
       {messages.length === 0 && (
         <p className={isPanel ? "text-zinc-500 text-sm px-1 py-2" : "text-zinc-500 text-sm px-2"}>
-          Ask about 12.8% Strategic Income, estate duty, or Amethyst Annuity.
+          Ask about Discovery Health, Gap Cover, 12.8% Strategic Income, or estate duty.
         </p>
       )}
       {messages.map((msg) => (
@@ -144,8 +161,8 @@ export function HeroChatTerminal({ variant = "hero" }: HeroChatTerminalProps) {
       <div
         className={
           isPanel
-            ? "relative flex items-center gap-2 px-3 py-3 sm:px-4 bg-white/5 border border-white/10 rounded-2xl focus-within:border-samsung-blue/50 focus-within:ring-2 focus-within:ring-samsung-blue/30 transition-all"
-            : "relative flex items-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-2xl focus-within:border-samsung-blue/50 focus-within:ring-2 focus-within:ring-samsung-blue/30 transition-all"
+            ? "relative flex items-center gap-2 px-3 py-3 sm:px-4 rounded-2xl border border-white/15 bg-[#151518] focus-within:border-cinematic-teal/50 focus-within:ring-2 focus-within:ring-cinematic-teal/25 transition-all"
+            : "relative flex items-center gap-2 px-4 py-3 rounded-2xl border border-white/15 bg-[#151518] focus-within:border-cinematic-teal/50 focus-within:ring-2 focus-within:ring-cinematic-teal/25 transition-all"
         }
       >
         <input
@@ -155,7 +172,7 @@ export function HeroChatTerminal({ variant = "hero" }: HeroChatTerminalProps) {
           autoComplete="off"
           placeholder="Ask anything…"
           disabled={status === "streaming"}
-          className="flex-1 min-w-0 bg-transparent text-white placeholder:text-zinc-500 text-base sm:text-sm focus:outline-none touch-manipulation"
+          className={CHAT_DARK_INPUT_TRANSPARENT_CLASS}
           aria-label="Chat message"
         />
         <button

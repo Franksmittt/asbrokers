@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { asbrokersChatFetch } from "@/lib/asbrokers-chat-fetch";
+import { CHAT_DARK_INPUT_CLASS } from "@/lib/chat/input-classes";
 
 const formatCurrency = (val: number) =>
   new Intl.NumberFormat("en-ZA", {
@@ -75,7 +76,7 @@ export function ChatPageClient() {
         >
           {messages.length === 0 && (
             <p className="text-zinc-500 text-sm">
-              e.g. &quot;What would my estate duty be on R8 million?&quot; or &quot;How much monthly income from R1.5m in the 12.8% Strategic Income?&quot;
+              e.g. &quot;How does Discovery Health Gap Cover work with medical aid?&quot;, &quot;What would my estate duty be on R8 million?&quot;, or &quot;How much monthly income from R1.5m in the 12.8% Strategic Income?&quot;
             </p>
           )}
           {messages.map((msg) => (
@@ -141,7 +142,7 @@ export function ChatPageClient() {
         )}
 
         <form
-          className="mt-3 shrink-0 flex gap-2 pt-3 border-t border-white/10 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+          className="mt-3 shrink-0 flex gap-2 rounded-2xl border border-white/10 bg-[#0d0d10] p-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
           onSubmit={(e) => {
             e.preventDefault();
             const form = e.currentTarget;
@@ -158,14 +159,14 @@ export function ChatPageClient() {
             type="text"
             enterKeyHint="send"
             autoComplete="off"
-            placeholder="Ask about estate duty, 12.8% income, or Amethyst annuity…"
-            className="flex-1 min-h-[48px] sm:min-h-0 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 touch-manipulation"
+            placeholder="Ask about Discovery Health, estate duty, or Everest income…"
+            className={CHAT_DARK_INPUT_CLASS}
             disabled={status === "streaming"}
           />
           <button
             type="submit"
             disabled={status === "streaming"}
-            className="shrink-0 min-w-[48px] sm:min-w-0 bg-white text-black font-bold px-5 sm:px-6 py-3 rounded-xl hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+            className="shrink-0 min-w-[48px] sm:min-w-0 bg-zinc-100 text-black font-bold px-5 sm:px-6 py-3 rounded-xl hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
           >
             Send
           </button>

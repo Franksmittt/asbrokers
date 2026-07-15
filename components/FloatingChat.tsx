@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, type FormEvent } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { MessageCircle, X, ChevronDown, ChevronUp } from "./icons";
+import { X, ChevronDown, ChevronUp, ArrowUp } from "./icons";
 import { HeroChatTerminal } from "./HeroChatTerminal";
+import { TypewriterPrompt } from "@/components/chat/TypewriterPrompt";
 import { clsx } from "clsx";
 
 const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
@@ -11,12 +12,15 @@ const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 type PanelMode = "idle" | "open" | "minimized";
 
 /**
- * Digital Wealth Assistant: mobile-first bottom sheet, desktop floating card.
- * Minimize keeps the session mounted (panel moves off-screen); Close ends the session.
+ * Homepage Digital Wealth Assistant: slim dark sticky bar with typewriter prompts.
+ * Enter / Send opens the full chat panel (session stays mounted while minimized).
  */
 export function FloatingChat() {
   const reduceMotion = useReducedMotion();
   const [mode, setMode] = useState<PanelMode>("idle");
+  const [draft, setDraft] = useState("");
+  const [seedMessage, setSeedMessage] = useState<string | null>(null);
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     if (mode !== "open") return;
@@ -27,13 +31,32 @@ export function FloatingChat() {
     return () => window.removeEventListener("keydown", onKey);
   }, [mode]);
 
-  const close = () => setMode("idle");
+  const close = () => {
+    setMode("idle");
+    setSeedMessage(null);
+  };
   const minimize = () => setMode("minimized");
   const openPanel = () => setMode("open");
 
-  const transition = reduceMotion ? { duration: 0 } : { duration: 0.22, ease: APPLE_EASE };
+  const openWithMessage = useCallback((text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) {
+      setMode("open");
+      return;
+    }
+    setSeedMessage(trimmed);
+    setDraft("");
+    setMode("open");
+  }, []);
 
+  const onSlimSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    openWithMessage(draft);
+  };
+
+  const transition = reduceMotion ? { duration: 0 } : { duration: 0.22, ease: APPLE_EASE };
   const sessionLive = mode === "open" || mode === "minimized";
+  const showTypewriter = !focused && draft.length === 0;
 
   return (
     <>
@@ -67,36 +90,36 @@ export function FloatingChat() {
             animate={{ opacity: 1, y: 0 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
             transition={transition}
-            className="fixed left-3 right-3 z-[93] md:left-auto md:right-6 md:w-[min(26rem,calc(100vw-2rem))] bottom-[calc(7rem+env(safe-area-inset-bottom))] md:bottom-[5.75rem]"
+            className="fixed left-3 right-3 z-[93] md:left-auto md:right-24 md:w-[min(26rem,calc(100vw-7rem))] bottom-[calc(5.5rem+env(safe-area-inset-bottom))] md:bottom-[5.5rem]"
           >
-            <div className="rim-light border border-white/10 rounded-2xl flex items-stretch gap-1 shadow-2xl bg-[#0d0d10]/95 backdrop-blur-xl overflow-hidden">
+            <div className="flex items-stretch gap-1 overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d10]/95 shadow-2xl backdrop-blur-xl">
               <button
                 type="button"
                 onClick={openPanel}
-                className="flex-1 min-w-0 text-left pl-4 pr-2 py-3 touch-manipulation active:bg-white/5"
+                className="min-w-0 flex-1 py-3 pl-4 pr-2 text-left touch-manipulation active:bg-white/5"
               >
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 block">
+                <span className="block text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
                   AS Brokers
                 </span>
                 <span className="text-sm font-medium text-white">Wealth Assistant</span>
-                <span className="text-xs text-zinc-400 block mt-0.5">Tap to continue</span>
+                <span className="mt-0.5 block text-xs text-zinc-400">Tap to continue</span>
               </button>
-              <div className="flex items-center pr-1 border-l border-white/10">
+              <div className="flex items-center border-l border-white/10 pr-1">
                 <button
                   type="button"
                   onClick={openPanel}
-                  className="p-3 rounded-xl hover:bg-white/10 text-zinc-200 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl p-3 text-zinc-200 touch-manipulation hover:bg-white/10"
                   aria-label="Expand chat"
                 >
-                  <ChevronUp className="w-5 h-5" />
+                  <ChevronUp className="h-5 w-5" />
                 </button>
                 <button
                   type="button"
                   onClick={close}
-                  className="p-3 rounded-xl hover:bg-white/10 text-zinc-400 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl p-3 text-zinc-400 touch-manipulation hover:bg-white/10"
                   aria-label="Close chat"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
             </div>
@@ -120,73 +143,105 @@ export function FloatingChat() {
           }
           transition={transition}
           className={clsx(
-            "fixed z-[95] flex flex-col rim-light border border-white/10 bg-[#0d0d10]/95 backdrop-blur-xl shadow-2xl overflow-hidden",
+            "fixed z-[95] flex flex-col overflow-hidden border border-white/10 bg-[#0d0d10]/97 shadow-2xl backdrop-blur-xl",
             mode === "open" &&
-              "inset-x-0 bottom-0 rounded-t-[1.75rem] max-h-[min(34rem,88dvh)] h-[min(34rem,88dvh)] md:inset-auto md:bottom-24 md:right-6 md:left-auto md:rounded-[1.75rem] md:w-[min(26rem,calc(100vw-2rem))] md:max-h-[min(34rem,calc(100dvh-6.5rem))] md:h-[min(34rem,calc(100dvh-6.5rem))]",
+              "inset-x-0 bottom-0 h-[min(36rem,88dvh)] max-h-[min(36rem,88dvh)] rounded-t-[1.75rem] md:inset-auto md:bottom-24 md:right-24 md:left-auto md:h-[min(36rem,calc(100dvh-7rem))] md:max-h-[min(36rem,calc(100dvh-7rem))] md:w-[min(26rem,calc(100vw-7rem))] md:rounded-[1.75rem]",
             mode === "minimized" &&
-              "left-[-120vw] top-0 h-[min(34rem,88dvh)] w-[min(26rem,calc(100vw-2rem))] max-w-[100vw] pointer-events-none opacity-0 md:h-[min(34rem,calc(100dvh-6.5rem))]"
+              "pointer-events-none left-[-120vw] top-0 h-[min(36rem,88dvh)] w-[min(26rem,calc(100vw-2rem))] max-w-[100vw] opacity-0 md:h-[min(36rem,calc(100dvh-7rem))]"
           )}
         >
-          <div className={clsx("md:hidden flex justify-center pt-2.5 pb-1 shrink-0", mode === "minimized" && "hidden")} aria-hidden>
+          <div
+            className={clsx("flex shrink-0 justify-center pb-1 pt-2.5 md:hidden", mode === "minimized" && "hidden")}
+            aria-hidden
+          >
             <div className="h-1 w-11 rounded-full bg-white/25" />
           </div>
 
           <header
             className={clsx(
-              "shrink-0 flex items-center gap-1 px-2 sm:px-3 pt-1 pb-2 border-b border-white/10",
+              "flex shrink-0 items-center gap-1 border-b border-white/10 px-2 pb-2 pt-1 sm:px-3",
               mode === "minimized" && "hidden"
             )}
           >
             <div className="min-w-0 flex-1 pl-1">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">AS Brokers</p>
-              <p className="text-sm font-semibold text-white truncate">Wealth Assistant</p>
+              <p className="truncate text-sm font-semibold text-white">Wealth Assistant</p>
             </div>
             <button
               type="button"
               onClick={minimize}
-              className="p-2.5 rounded-xl hover:bg-white/10 text-zinc-300 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl p-2.5 text-zinc-300 touch-manipulation hover:bg-white/10"
               aria-label="Minimize chat"
             >
-              <ChevronDown className="w-5 h-5" />
+              <ChevronDown className="h-5 w-5" />
             </button>
             <button
               type="button"
               onClick={close}
-              className="p-2.5 rounded-xl hover:bg-white/10 text-zinc-300 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl p-2.5 text-zinc-300 touch-manipulation hover:bg-white/10"
               aria-label="Close chat"
             >
-              <X className="w-5 h-5" />
+              <X className="h-5 w-5" />
             </button>
           </header>
 
           <div
             className={clsx(
-              "flex flex-1 flex-col min-h-0 px-3 sm:px-4 pb-1",
+              "flex min-h-0 flex-1 flex-col px-3 pb-1 sm:px-4",
               mode === "minimized" && "invisible"
             )}
           >
-            <HeroChatTerminal variant="panel" />
+            <HeroChatTerminal
+              variant="panel"
+              seedMessage={seedMessage}
+              onSeedConsumed={() => setSeedMessage(null)}
+            />
           </div>
         </motion.div>
       )}
 
       <AnimatePresence>
         {mode === "idle" && (
-          <motion.button
-            key="chat-fab"
-            type="button"
-            onClick={openPanel}
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+          <motion.div
+            key="chat-slim-bar"
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
             transition={transition}
-            className="fixed bottom-[calc(7rem+env(safe-area-inset-bottom))] right-4 z-[94] md:bottom-[5.75rem] md:right-6 w-14 h-14 rounded-full rim-light border border-white/10 flex items-center justify-center text-white shadow-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50 touch-manipulation"
-            aria-label="Open Digital Wealth Assistant"
-            whileHover={reduceMotion ? undefined : { scale: 1.05 }}
-            whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+            className="fixed inset-x-0 bottom-0 z-[94] px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 md:bottom-5 md:px-0 md:pb-0"
           >
-            <MessageCircle className="w-6 h-6" />
-          </motion.button>
+            <form
+              onSubmit={onSlimSubmit}
+              className="mx-auto flex w-full max-w-xl items-center gap-2 rounded-full border border-white/12 bg-[#0d0d10] px-3 py-2 shadow-[0_8px_40px_rgba(0,0,0,0.45)] ring-1 ring-white/5 md:mr-24 md:max-w-lg lg:max-w-xl"
+            >
+              <label className="relative min-w-0 flex-1">
+                <span className="sr-only">Ask the Wealth Assistant</span>
+                {showTypewriter ? (
+                  <span className="pointer-events-none absolute inset-0 flex items-center px-3 text-sm text-zinc-500">
+                    <TypewriterPrompt className="truncate" />
+                  </span>
+                ) : null}
+                <input
+                  type="text"
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  enterKeyHint="send"
+                  autoComplete="off"
+                  className="chat-dark-input w-full rounded-full border-0 bg-transparent px-3 py-2.5 text-sm text-zinc-100 caret-zinc-100 focus:outline-none focus:ring-0"
+                  aria-label="Ask about Everest Wealth, Discovery Health, or estate duty"
+                />
+              </label>
+              <button
+                type="submit"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 text-zinc-100 transition-colors hover:bg-cinematic-teal/30 hover:text-white touch-manipulation"
+                aria-label="Open chat"
+              >
+                <ArrowUp className="h-4 w-4" />
+              </button>
+            </form>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

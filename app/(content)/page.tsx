@@ -1,6 +1,7 @@
 import { Home4Hero } from "@/components/home4/Home4Hero";
 import { Home4GoalCards } from "@/components/home4/Home4GoalCards";
 import { Home4BelowFoldRest } from "@/components/home4/Home4BelowFoldRest";
+import { HomeDeferredFloatingChat } from "@/components/home/HomeDeferredBlocks";
 import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
@@ -32,6 +33,7 @@ export default function HomePage() {
       <Home4GoalCards />
       {/* SSR immediately — do not gate on click/idle (same bug as calculators hub). */}
       <Home4BelowFoldRest />
+      <HomeDeferredFloatingChat />
     </>
   );
 }

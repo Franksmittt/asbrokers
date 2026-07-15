@@ -52,7 +52,7 @@ export const metadata = buildPageMetadata({
     "FSP 17273",
     "independent Everest broker",
   ],
-  ogImagePath: "/images/everest-copper-industrial-4x3.jpg",
+  ogImagePath: "/images/everest-wealth-hero-maize-growth-4x3.jpg",
 });
 
 export default function EverestWealthPage() {

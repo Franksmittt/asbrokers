@@ -23,7 +23,7 @@ const HAIRLINE = "#E5E5E5";
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
 const MUTED = "#57534e";
-const CRAFT_IMAGE = "/images/everest-copper-industrial-4x3.jpg";
+const HERO_IMAGE = "/images/everest-wealth-hero-maize-growth-4x3.jpg";
 
 const CONSTRAINTS = [
   { dt: "Minimum", dd: "R100,000" },
@@ -93,7 +93,7 @@ export function EverestWealthPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* 1. Hero */}
       <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12`}>
+        <div className={`${HOME4_WRAP} grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12`}>
           <div className="min-w-0 lg:col-span-7">
             <p
               className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
@@ -153,28 +153,20 @@ export function EverestWealthPageView({ faqs }: Props) {
             </p>
           </div>
 
-          <div className="min-w-0 lg:col-span-5">
-            <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src={CRAFT_IMAGE}
-                  alt={getAlt(
-                    CRAFT_IMAGE,
-                    "Copper industrial plant illustrating real-economy backing behind structured income"
-                  )}
-                  fill
-                  quality={75}
-                  priority
-                  fetchPriority="high"
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 420px"
-                />
-              </div>
-              <figcaption className="border-t px-5 py-4 text-sm leading-relaxed" style={{ borderColor: HAIRLINE, color: BODY }}>
-                Real-economy illustration, not a yield lifestyle shot. Returns remain{" "}
-                <span className="font-semibold text-shark">targeted, not guaranteed</span>.
-              </figcaption>
-            </figure>
+          <div className="relative min-h-[16rem] min-w-0 overflow-hidden border bg-white lg:col-span-5 lg:min-h-0" style={{ borderColor: HAIRLINE }}>
+            <Image
+              src={HERO_IMAGE}
+              alt={getAlt(
+                HERO_IMAGE,
+                "South African farmer tending young maize shoots — growth that takes patience"
+              )}
+              fill
+              quality={75}
+              priority
+              fetchPriority="high"
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 420px"
+            />
           </div>
         </div>
       </header>

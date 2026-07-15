@@ -129,7 +129,7 @@ export function Home4BelowFoldRest() {
       <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-trust">
         <div className={HOME4_WRAP}>
           <Home4Reveal instant>
-            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+            <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
               <div>
                 <Home4SectionHeader
                   kicker="Why AS Brokers"
@@ -165,21 +165,19 @@ export function Home4BelowFoldRest() {
                   </Link>
                 </div>
               </div>
-              <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/70">
-                <div className="relative aspect-[4/3] w-full">
-                  <Image
-                    src="/images/about-krugersdorp-trust-16x9.jpg"
-                    alt={getAlt(
-                      "/images/about-krugersdorp-trust-16x9.jpg",
-                      "AS Brokers Krugersdorp storefront with FSP 17273 signage"
-                    )}
-                    fill
-                    quality={70}
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    loading="lazy"
-                  />
-                </div>
+              <div className="relative min-h-[16rem] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/70 lg:min-h-0">
+                <Image
+                  src="/images/about-krugersdorp-trust-16x9.jpg"
+                  alt={getAlt(
+                    "/images/about-krugersdorp-trust-16x9.jpg",
+                    "AS Brokers Krugersdorp storefront with FSP 17273 signage"
+                  )}
+                  fill
+                  quality={70}
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  loading="lazy"
+                />
               </div>
             </div>
           </Home4Reveal>

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
+import { bindCalculatorIframeAutoResize } from "@/lib/client-studio/calculator-iframe-resize";
+
 type Props = {
   html: string;
   className?: string;
@@ -125,6 +127,7 @@ export function ExecutableArticleHtml({ html, className }: Props) {
 
     // Fallback binder: keeps known calculator embeds interactive even if inline script is malformed.
     bindEverestIncomeCalculators(root);
+    return bindCalculatorIframeAutoResize(root);
   }, [html]);
 
   return <div ref={containerRef} className={className} dangerouslySetInnerHTML={{ __html: html }} />;

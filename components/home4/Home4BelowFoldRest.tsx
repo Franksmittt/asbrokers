@@ -29,7 +29,11 @@ import {
 export function Home4BelowFoldRest() {
   return (
     <>
-      <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-calculators">
+      <section
+        data-chunk-boundary="true"
+        className="pt-16 pb-6 md:pt-24 md:pb-8"
+        aria-labelledby="home4-calculators"
+      >
         <div className={HOME4_WRAP}>
           <Home4Reveal instant>
             <Home4SectionHeader
@@ -55,7 +59,11 @@ export function Home4BelowFoldRest() {
         </div>
       </section>
 
-      <section data-chunk-boundary="true" className="py-16 md:py-24" aria-labelledby="home4-journey">
+      <section
+        data-chunk-boundary="true"
+        className="pt-6 pb-16 md:pt-8 md:pb-24"
+        aria-labelledby="home4-journey"
+      >
         <div className={HOME4_WRAP}>
           <Home4Reveal instant>
             <Home4SectionHeader

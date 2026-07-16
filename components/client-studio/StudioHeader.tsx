@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 const PAGE_TITLES: Record<string, string> = {
   "/studio/blog/workspace": "Workspace",
   "/studio/blog/workspace/tutorial": "Tutorial",
-  "/studio/blog/workspace/upgrades": "Upgrades",
 };
 
 export function StudioHeader() {

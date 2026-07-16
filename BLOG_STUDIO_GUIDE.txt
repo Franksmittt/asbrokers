@@ -69,8 +69,11 @@ STUDIO ROUTES (all noindex — not for search engines)
 /studio/blog/workspace/tutorial
   In-app owner tutorial (5-step workflow).
 
-/studio/blog/workspace/upgrades
-  Changelog of studio UX and safety improvements.
+/studio/blog/workspace#drafts
+  Jump target in Workspace — list of unpublished drafts.
+
+/studio/blog/workspace#copy-me
+  Jump target — Copy brand guide / AI prompt presets.
 
 AUTH MODEL
 ----------
@@ -377,7 +380,6 @@ SCHEMA
 DOCS IN REPO
   docs/STUDIO_DATABASE.md
   app/studio/blog/workspace/tutorial/page.tsx
-  app/studio/blog/workspace/upgrades/page.tsx
 
 ================================================================================
 12. SECURITY AND CRAWL POLICY

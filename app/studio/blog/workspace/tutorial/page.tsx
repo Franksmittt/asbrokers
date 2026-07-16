@@ -4,68 +4,72 @@ export const dynamic = "force-dynamic";
 
 const steps = [
   {
-    title: "Step 1: Start a post",
+    title: "Step 1: Start or open a post",
     actions: [
-      "Open Workspace.",
-      "Click Start new guided post.",
+      "Open Workspace from the sidebar.",
+      "Click Start new draft, or open an existing post from Blog library / Drafts / Recent posts.",
       "Enter Title and URL slug (lowercase words with hyphens).",
-      "Click Save draft.",
+      "Click Save draft so the post is stored safely.",
     ],
   },
   {
-    title: "Step 2: Add article content",
+    title: "Step 2: Copy the brand guide into AI",
     actions: [
-      "Open current step in Content.",
-      "Paste AI-generated HTML in the editor.",
-      "Use Auto-fix content when offered.",
-      "Click Save draft again.",
+      "In Workspace, scroll to Copy the brand guide and blog rules (or use Brand guide in the sidebar).",
+      "Choose a preset that matches what you need (images, calculator, video).",
+      "Click Copy prompt, paste it into ChatGPT / Claude / Gemini first, then add your topic.",
+      "Copy the HTML the AI returns (no markdown fences).",
     ],
   },
   {
-    title: "Step 3: Add images",
+    title: "Step 3: Paste content and fill slots",
     actions: [
-      "Open Images step.",
-      "Upload image files in visual order.",
-      "Confirm placeholders are replaced.",
-      "Confirm Hero image URL is set (auto or manual).",
+      "Paste the HTML into Step 1: Paste AI Blog Code.",
+      "In Step 2, upload images in order (first image becomes the cover thumbnail).",
+      "Assign any calculator or video slots the HTML requested.",
+      "Click Save draft again after uploads.",
     ],
   },
   {
-    title: "Step 4: Review checks",
+    title: "Step 4: Details and categories",
     actions: [
-      "Look at Publish readiness percentage.",
-      "Read Next fix and resolve it.",
-      "Continue until readiness reaches 100%.",
-      "Open workflow details only if needed.",
+      "Complete title, slug, and short excerpt.",
+      "Tick one or more categories so clients can filter on Insights.",
+      "Optional: fill meta title and meta description for SEO.",
+      "Check the Live Reading Preview on the right — it should look like the warm public Insights pages.",
     ],
   },
   {
     title: "Step 5: Publish",
     actions: [
-      "Click Publish now.",
-      "Confirm in Final publish confirmation.",
-      "Review the Publish report (route and image checks).",
-      "Open This post live to verify the result.",
+      "Confirm the readiness checks are all PASS / READY.",
+      "Click Publish in the top bar.",
+      "Open View live insights (or the post link) to verify on the website.",
+      "To hide a live post later, turn the switch off in Recent posts / Drafts, or edit and Unpublish if shown.",
     ],
   },
 ];
 
 const troubleshooting = [
   {
-    issue: "Readiness is below 100%",
-    fix: "Follow Next fix. Most common causes are missing hero image or unresolved image placeholders.",
+    issue: "Publish stays NOT READY",
+    fix: "Finish missing image uploads, calculator/video assignments, title/slug/excerpt, and at least one category.",
   },
   {
     issue: "Insights thumbnail is missing",
-    fix: "Ensure Hero image URL is populated and post is republished.",
+    fix: "Upload Image Slot #1 (cover thumbnail), save, then publish again.",
   },
   {
-    issue: "Need to hide post quickly",
-    fix: "Use Unpublish, or Recovery mode in the Publish panel.",
+    issue: "Need to hide a post quickly",
+    fix: "In Recent posts or Drafts, flip the On Insights switch to Hidden.",
   },
   {
-    issue: "Need guides/tools",
-    fix: "Use Studio menu for Brand guide, My steps, and Calculator code library.",
+    issue: "Where are unfinished articles?",
+    fix: "Use Drafts in the sidebar — it jumps to every saved draft that is not live yet.",
+  },
+  {
+    issue: "AI output looks wrong on the live site",
+    fix: "Use Brand guide again. Articles publish on the warm canvas Insights layout (shark headings, stone body text) — not a full dark page.",
   },
 ];
 
@@ -110,10 +114,10 @@ export default function StudioTutorialPage() {
           Back to workspace
         </Link>
         <Link
-          href="/studio/blog/workspace/upgrades"
+          href="/studio/blog/workspace#drafts"
           className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:text-white"
         >
-          View upgrades
+          Open drafts
         </Link>
       </div>
     </div>

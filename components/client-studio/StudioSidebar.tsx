@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, LogOut, Presentation, Scroll } from "@/components/icons";
+import { FileText, LogOut, Scroll } from "@/components/icons";
 import { studioLogout } from "@/app/studio/blog/actions";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,16 @@ function PenIcon(props: React.SVGProps<SVGSVGElement>) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" {...props}>
       <path d="M12 20h9" strokeLinecap="round" />
       <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function DraftsIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" {...props}>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" strokeLinejoin="round" />
+      <path d="M14 2v6h6" strokeLinejoin="round" />
+      <path d="M8 13h8M8 17h5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -26,8 +36,8 @@ function ExternalLinkIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const STUDIO_NAV = [
   { href: "/studio/blog/workspace", label: "Workspace", icon: PenIcon, exact: true },
+  { href: "/studio/blog/workspace#drafts", label: "Drafts", icon: DraftsIcon, exact: false },
   { href: "/studio/blog/workspace/tutorial", label: "Tutorial", icon: Scroll, exact: false },
-  { href: "/studio/blog/workspace/upgrades", label: "Upgrades", icon: Presentation, exact: false },
   { href: "/studio/blog/workspace#copy-me", label: "Brand guide", icon: FileText, exact: false },
 ] as const;
 
@@ -72,6 +82,17 @@ function NavItem({
   );
 }
 
+function navItemActive(pathname: string, href: string, exact: boolean) {
+  const pathOnly = href.split("#")[0] ?? href;
+  if (href.includes("#")) {
+    return false;
+  }
+  if (exact) {
+    return pathname === pathOnly;
+  }
+  return pathname === pathOnly || pathname.startsWith(`${pathOnly}/`);
+}
+
 export function StudioSidebar() {
   const pathname = usePathname() ?? "";
 
@@ -97,14 +118,15 @@ export function StudioSidebar() {
         </div>
 
         <nav className="flex-1 space-y-0.5 overflow-y-auto overflow-x-hidden p-2" aria-label="Blog studio">
-          {STUDIO_NAV.map(({ href, label, icon, exact }) => {
-            const active = exact
-              ? pathname === href
-              : pathname === href || pathname.startsWith(`${href}/`);
-            return (
-              <NavItem key={href} href={href} label={label} icon={icon} active={active} />
-            );
-          })}
+          {STUDIO_NAV.map(({ href, label, icon, exact }) => (
+            <NavItem
+              key={href}
+              href={href}
+              label={label}
+              icon={icon}
+              active={navItemActive(pathname, href, exact)}
+            />
+          ))}
           <div className="my-2 border-t border-[#2a2a2a] pt-2">
             <NavItem
               href="/insights"

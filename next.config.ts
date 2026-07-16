@@ -143,6 +143,12 @@ const nextConfig: NextConfig = {
       /** Legacy Sanity Studio URL → Blog Studio (intentional CMS). */
       { source: "/studio", destination: "/studio/blog", permanent: true },
       { source: "/studio/", destination: "/studio/blog", permanent: true },
+      /** Retired Studio changelog page. */
+      {
+        source: "/studio/blog/workspace/upgrades",
+        destination: "/studio/blog/workspace",
+        permanent: true,
+      },
       ...retiredCatalogueRedirects.map(({ source, destination }) => ({
         source,
         destination,

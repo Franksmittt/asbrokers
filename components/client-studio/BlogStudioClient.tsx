@@ -90,37 +90,37 @@ const TARGET_UPLOAD_BYTES = 900 * 1024;
 const MAX_UPLOAD_IMAGE_SIDE = 1600;
 const EDITABLE_IMAGE_SLOT_PATTERN = String.raw`<img\b[^>]*>|\[IMAGE_SLOT\]`;
 
-const SAMPLE_HTML = `<section class="space-y-10" style="color:#e5e7eb;max-width:1040px;margin:0 auto;">
-  <header style="padding:clamp(32px,6vw,64px) 0 24px;border-bottom:1px solid rgba(255,255,255,0.12);">
-    <p style="margin:0 0 14px;color:#5eead4;font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;">AS Brokers insight</p>
-    <h1 style="margin:0;max-width:860px;color:#ffffff;font-size:clamp(38px,7vw,68px);line-height:0.96;letter-spacing:-0.055em;">Your retirement strategy in uncertain markets</h1>
-    <p style="margin:24px 0 0;max-width:760px;color:#d4d4d8;font-size:20px;line-height:1.75;">Start with a clear, resilient plan. This article explains practical actions for long-term investors while keeping risk, liquidity, and advice at the centre.</p>
+const SAMPLE_HTML = `<section class="space-y-10" style="color:#2B2B2E;max-width:1040px;margin:0 auto;">
+  <header style="padding:8px 0 28px;border-bottom:1px solid #E5E5E5;">
+    <p style="margin:0 0 12px;color:#006B6B;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">AS Brokers insight</p>
+    <h2 style="margin:0;max-width:860px;color:#1D1D1F;font-size:clamp(28px,4.5vw,40px);line-height:1.12;letter-spacing:-0.03em;">Your retirement strategy in uncertain markets</h2>
+    <p style="margin:18px 0 0;max-width:720px;color:#52525b;font-size:18px;line-height:1.75;">Start with a clear, resilient plan. This article explains practical actions for long-term investors while keeping risk, liquidity, and advice at the centre.</p>
   </header>
 
   [IMAGE_SLOT]
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(24px,4vw,48px);align-items:start;">
-    <aside style="border-left:3px solid #2dd4bf;padding-left:20px;color:#99f6e4;font-size:18px;line-height:1.7;">
-      A good plan should feel calm, measurable, and easy to review - not like a collection of disconnected products.
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(24px,4vw,40px);align-items:start;">
+    <aside style="border-left:3px solid #006B6B;padding-left:18px;color:#006B6B;font-size:17px;line-height:1.7;">
+      A good plan should feel calm, measurable, and easy to review — not like a collection of disconnected products.
     </aside>
     <div>
-      <h2 style="margin:0 0 14px;color:#ffffff;font-size:clamp(28px,4vw,38px);letter-spacing:-0.035em;">How to structure your capital</h2>
-      <p style="margin:0 0 18px;color:#d4d4d8;font-size:17px;line-height:1.9;">Use advice, evidence, and realistic assumptions to separate short-term noise from long-term decisions.</p>
-      <p style="margin:0;color:#a1a1aa;font-size:17px;line-height:1.9;">The aim is not to predict every market move, but to keep your income, liquidity, tax, and legacy goals working together.</p>
+      <h3 style="margin:0 0 12px;color:#1D1D1F;font-size:clamp(22px,3vw,28px);letter-spacing:-0.02em;">How to structure your capital</h3>
+      <p style="margin:0 0 16px;color:#52525b;font-size:17px;line-height:1.85;">Use advice, evidence, and realistic assumptions to separate short-term noise from long-term decisions.</p>
+      <p style="margin:0;color:#71717a;font-size:17px;line-height:1.85;">The aim is not to predict every market move, but to keep your income, liquidity, tax, and legacy goals working together.</p>
     </div>
   </div>
 
   [CALCULATOR_SLOT]
 
-  <blockquote style="margin:0;border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12);padding:28px 0;color:#fef3c7;font-size:clamp(22px,4vw,34px);line-height:1.35;letter-spacing:-0.03em;">
+  <blockquote style="margin:0;border-top:1px solid #E5E5E5;border-bottom:1px solid #E5E5E5;padding:24px 0;color:#1D1D1F;font-size:clamp(20px,3.5vw,28px);line-height:1.4;letter-spacing:-0.02em;">
     "The best financial plan is one you can understand, review, and adjust before pressure forces a decision."
   </blockquote>
 
   [VIDEO_SLOT]
 
-  <section style="border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.045);border-radius:28px;padding:clamp(24px,4vw,36px);">
-    <h2 style="margin:0 0 14px;color:#ffffff;font-size:30px;letter-spacing:-0.03em;">Final checklist</h2>
-    <ul style="margin:0;padding-left:22px;color:#e5e7eb;line-height:1.9;">
+  <section style="border:1px solid #E5E5E5;background:#ffffff;border-radius:15px;padding:clamp(20px,3vw,32px);">
+    <h3 style="margin:0 0 12px;color:#1D1D1F;font-size:24px;letter-spacing:-0.02em;">Final checklist</h3>
+    <ul style="margin:0;padding-left:22px;color:#52525b;line-height:1.9;">
       <li>Confirm the plan still fits your retirement timeline.</li>
       <li>Review risk, tax, liquidity, and beneficiary considerations.</li>
       <li>Speak to an AS Brokers adviser before implementing major changes.</li>
@@ -131,7 +131,7 @@ const SAMPLE_HTML = `<section class="space-y-10" style="color:#e5e7eb;max-width:
 </section>`;
 
 const SAMPLE_IMAGES_CALCULATOR_HTML = SAMPLE_HTML.replace(`
-  <blockquote style="margin:0;border-top:1px solid rgba(255,255,255,0.12);border-bottom:1px solid rgba(255,255,255,0.12);padding:28px 0;color:#fef3c7;font-size:clamp(22px,4vw,34px);line-height:1.35;letter-spacing:-0.03em;">
+  <blockquote style="margin:0;border-top:1px solid #E5E5E5;border-bottom:1px solid #E5E5E5;padding:24px 0;color:#1D1D1F;font-size:clamp(20px,3.5vw,28px);line-height:1.4;letter-spacing:-0.02em;">
     "The best financial plan is one you can understand, review, and adjust before pressure forces a decision."
   </blockquote>
 
@@ -150,30 +150,28 @@ const SAMPLE_CALCULATOR_VIDEO_HTML = SAMPLE_HTML.replaceAll(`
 `, "");
 
 const BRAND_GUIDE_TEXT = `AS Brokers Blog Brand Guide
-- Brand: AS Brokers CC, FSP 17273. Premium South African financial guidance with a calm, expert, trustworthy voice.
-- Visual direction: luxury dark interface, rim-light glassmorphism, Apple Pro simplicity, Samsung Galaxy-style teal/gold energy.
-- Core colours: void black #050506, shark #1D1D1F, card #121214, white text, zinc supporting text, teal accent #2dd4bf, emerald success, restrained supernova gold.
-- Style: mobile-first, generous spacing, rounded sections, concise paragraphs, confident headings, no clutter.
-- Tone: explain clearly, avoid hype, be practical and reassuring. Speak to clients who want a professional review, not DIY speculation.
-- Trust hallmarks: include responsible language where relevant, such as "speak to an AS Brokers adviser" and avoid guaranteed-return claims.`;
+- Brand: AS Brokers CC, FSP 17273. Independent financial adviser, Krugersdorp / West Rand. Calm, expert, trustworthy South African English.
+- Where articles live: Public Insights pages use the same hub layout as the rest of the marketing site — warm canvas background (#F7F6F3), shark ink headings (#1D1D1F), stone body text (#52525b / #2B2B2E), hairline borders (#E5E5E5), and teal kickers (#006B6B). Links use Samsung blue (#0057B8).
+- Page chrome (already provided by the site): split hero with title/excerpt + photo, then a warm content band. Your HTML is the ARTICLE BODY only inside that band — do not rebuild the site header, nav, or footer.
+- Visual direction: clean editorial / magazine on light canvas. Rounded media at about 15px. Prefer open flowing sections over dark glass cards. Occasional white cards with soft stone borders are fine for checklists or summaries.
+- Do NOT design for a full-bleed dark (#050506) article page. Dark UI is for Studio/CRM only, not published Insights.
+- Style: mobile-first, generous spacing, concise paragraphs, confident H2/H3 headings, no clutter, no pill-chip spam.
+- Tone: explain clearly, avoid hype, be practical. Clients want a professional review, not DIY speculation.
+- Trust / compliance: educational only, not personal advice; no guaranteed or fixed-return claims; use “speak to an AS Brokers adviser” / FSP 17273 where relevant. Everest voluntary products: R100k minimum; liquidity warning when discussing exits.`;
 
 const BLOG_RULES_TEXT = `Universal blog-post rules
 - Return only clean article body HTML that can be pasted into the Blog Studio textarea.
 - Do not return markdown fences, a full <html> document, <script>, <style>, custom JavaScript, iframes, or calculator code.
-- The output must look like the AS Brokers website, not a plain black-and-white article.
-- Aim for an editorial magazine layout, not a stack of rigid pill boxes.
-- Use one strong hero/header, then flowing article sections, side notes, pull quotes, selective callouts, and optional <ul>/<ol> checklists.
-- Use Tailwind-friendly classes when useful, but do not rely on classes alone. Add inline styles for the main visual look because pasted blog HTML is dynamic content.
-- Required visual style: dark background-compatible content, white headings, zinc body text, teal highlights, very restrained gold accents, soft borders, generous spacing, and premium typography.
-- Use gradients sparingly. One subtle hero glow or one CTA/callout is enough. Do not put every section in a gradient box.
-- Keep roughly 60 percent of the article open and flowing, with only 40 percent in cards/callouts.
-- Use cards only for important summaries, checklist areas, calculator/video intros, or key warnings.
-- Style lists so they feel designed, but avoid making every bullet a separate pill.
-- Image placeholders should sit between editorial sections. Do not wrap placeholder tokens inside broken tags.
-- Calculator and video placeholders should have a short restrained intro immediately before them so the inserted component feels intentional.
-- Use the exact placeholders requested below. The studio detects every placeholder and creates the upload/select/link controls.
-- Never invent image URLs, calculator embeds, or video embeds. Leave the placeholder token exactly where that item must appear.
-- Keep the content educational and compliant: no guaranteed outcomes, no personalised advice without a review, and mention that market values can rise or fall.`;
+- Match the live Insights look: warm/light editorial on canvas, NOT a dark night-mode article.
+- Prefer semantic HTML: <section>, <h2>, <h3>, <p>, <ul>, <li>, <aside>, <blockquote>, <strong>, <a href="...">.
+- Do NOT wrap the whole article in max-w-3xl / max-w-2xl / max-w-4xl on the outer shell (the site already sets width). Use space-y-* and w-full instead.
+- Use one short intro block, then flowing sections, one pull quote or side note, selective callouts, and optional checklists.
+- Inline styles are encouraged for colours so dynamic HTML stays readable. Suggested tokens: headings #1D1D1F, body #52525b, muted #71717a, accent/kicker #006B6B, links #0057B8, borders #E5E5E5, soft card background #ffffff, page-compatible canvas #F7F6F3.
+- Images: border-radius around 15px; full width of the content column; clear alt text. Sit image placeholders between sections.
+- Keep roughly 70 percent open prose and 30 percent cards/callouts. Cards only for summaries, warnings, or calculator/video intros.
+- Calculator and video placeholders need a short restrained intro immediately before the token.
+- Use the exact placeholders requested below. Never invent image URLs, calculator embeds, or video embeds.
+- Compliance: no guaranteed outcomes; values can rise or fall; end with a short educational disclaimer mentioning FSP 17273.`;
 
 const COPY_PROMPT_PRESETS = [
   {
@@ -374,19 +372,19 @@ function buildPreviewDoc(html: string): string {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <style>
     *{box-sizing:border-box}
-    html{color-scheme:dark}
-    body{margin:0;padding:clamp(1rem,3vw,2.5rem);background:radial-gradient(circle at 18% 0%,rgba(45,212,191,.20),transparent 28%),radial-gradient(circle at 92% 10%,rgba(245,158,11,.12),transparent 26%),#050506;color:#f4f4f5;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.78}
+    html{color-scheme:light}
+    body{margin:0;padding:clamp(1rem,3vw,2.5rem);background:#F7F6F3;color:#2B2B2E;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.78}
     section,article,div,header,footer,aside,blockquote,figure{max-width:100%}
     body *{opacity:1;filter:none;mix-blend-mode:normal}
-    h1,h2,h3{color:#fff;letter-spacing:-.04em}
-    h1{font-size:clamp(2.55rem,7vw,4.6rem);line-height:.96}
-    h2{font-size:clamp(1.85rem,4vw,2.55rem);line-height:1.08}
-    h3{font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.16}
-    p,li{color:#e4e4e7}
-    a{color:#2dd4bf}
-    blockquote{color:#fef3c7}
-    img{max-width:100%;height:auto;border-radius:24px;border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 60px rgba(0,0,0,.32)}
-    iframe{max-width:100%;border:0;border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,.32)}
+    h1,h2,h3{color:#1D1D1F;letter-spacing:-.03em}
+    h1{font-size:clamp(2rem,5vw,2.75rem);line-height:1.12}
+    h2{font-size:clamp(1.5rem,3.5vw,2rem);line-height:1.16}
+    h3{font-size:clamp(1.2rem,2.5vw,1.5rem);line-height:1.22}
+    p,li{color:#52525b}
+    a{color:#0057B8}
+    blockquote{color:#1D1D1F}
+    img{max-width:100%;height:auto;border-radius:15px;border:1px solid #E5E5E5}
+    iframe{max-width:100%;border:0;border-radius:15px;box-shadow:0 12px 40px rgba(0,0,0,.08)}
     [class~="space-y-4"]>:not([hidden])~:not([hidden]){margin-top:1rem}
     [class~="space-y-6"]>:not([hidden])~:not([hidden]){margin-top:1.5rem}
     [class~="space-y-8"]>:not([hidden])~:not([hidden]){margin-top:2rem}
@@ -395,11 +393,11 @@ function buildPreviewDoc(html: string): string {
     [class~="gap-3"]{gap:.75rem}[class~="gap-4"]{gap:1rem}[class~="gap-6"]{gap:1.5rem}[class~="gap-8"]{gap:2rem}
     [class~="list-disc"]{list-style:disc}[class~="list-none"]{list-style:none}
     [class~="pl-6"]{padding-left:1.5rem}[class~="p-6"]{padding:1.5rem}[class~="rounded-2xl"]{border-radius:1rem}[class~="rounded-3xl"]{border-radius:1.5rem}
-    [class~="text-white"]{color:#fff}[class~="text-zinc-100"]{color:#f4f4f5}[class~="text-zinc-200"]{color:#e4e4e7}[class~="text-zinc-300"]{color:#d4d4d8}[class~="text-zinc-400"]{color:#a1a1aa}
-    [class~="text-teal-200"]{color:#99f6e4}[class~="text-[#3ecf8e]"]{color:#5eead4}[class~="text-[#3ecf8e]/90"]{color:#2dd4bf}[class~="text-emerald-300"]{color:#6ee7b7}[class~="text-amber-200"]{color:#fde68a}[class~="text-amber-300"]{color:#fcd34d}[class~="text-orange-200"]{color:#fed7aa}
-    [class~="bg-white/5"]{background:rgba(255,255,255,.07)}[class~="bg-black/30"]{background:rgba(0,0,0,.30)}[class~="bg-teal-500/10"]{background:rgba(20,184,166,.12)}[class~="bg-amber-500/10"]{background:rgba(245,158,11,.12)}
-    [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:rgba(255,255,255,.13)}[class~="border-teal-500/30"]{border-color:rgba(20,184,166,.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11,.35)}
-    .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(45,212,191,.58);border-radius:1rem;background:rgba(45,212,191,.12);color:#ccfbf1}
+    [class~="text-white"]{color:#1D1D1F}[class~="text-zinc-100"]{color:#1D1D1F}[class~="text-zinc-200"]{color:#2B2B2E}[class~="text-zinc-300"]{color:#52525b}[class~="text-zinc-400"]{color:#71717a}
+    [class~="text-teal-200"]{color:#006B6B}[class~="text-[#3ecf8e]"]{color:#006B6B}[class~="text-[#3ecf8e]/90"]{color:#0F766E}[class~="text-emerald-300"]{color:#0F766E}[class~="text-amber-200"]{color:#92400e}[class~="text-amber-300"]{color:#b45309}[class~="text-orange-200"]{color:#9a3412}
+    [class~="bg-white/5"]{background:#ffffff}[class~="bg-black/30"]{background:#ffffff}[class~="bg-teal-500/10"]{background:rgba(0,107,107,.08)}[class~="bg-amber-500/10"]{background:rgba(245,158,11,.1)}
+    [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:#E5E5E5}[class~="border-teal-500/30"]{border-color:rgba(0,107,107,.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11,.35)}
+    .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(0,107,107,.45);border-radius:15px;background:rgba(0,107,107,.06);color:#006B6B}
   </style></head><body>${html}<script>
   (() => {
     const frames = document.querySelectorAll('iframe[data-asb-calculator-embed="true"],iframe[src^="/embed-calculators/"]');
@@ -638,6 +636,7 @@ export function BlogStudioClient(props: Props) {
   const [banner, setBanner] = useState<string | null>(null);
   const [successBanner, setSuccessBanner] = useState<string | null>(null);
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
+  const [isBrandGuideOpen, setIsBrandGuideOpen] = useState(false);
   const [status, setStatus] = useState("Ready to Edit");
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDescription, setMetaDescription] = useState("");
@@ -663,6 +662,10 @@ export function BlogStudioClient(props: Props) {
   );
   const recentPosts = useMemo(
     () => sortedPosts.slice(0, RECENT_BLOG_POSTS_LIMIT),
+    [sortedPosts]
+  );
+  const draftPosts = useMemo(
+    () => sortedPosts.filter((post) => post.status !== "published"),
     [sortedPosts]
   );
 
@@ -1419,6 +1422,13 @@ export function BlogStudioClient(props: Props) {
           </div>
           <button
             type="button"
+            onClick={() => document.getElementById("studio-preview")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white lg:hidden"
+          >
+            Preview
+          </button>
+          <button
+            type="button"
             onClick={() => saveOrPublish(false)}
             disabled={isPending}
             className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white disabled:opacity-50"
@@ -1483,51 +1493,89 @@ export function BlogStudioClient(props: Props) {
             )}
           </section>
 
-          <section id="copy-me" className="scroll-mt-24 rounded-xl border border-emerald-500/25 bg-emerald-950/10 p-6 shadow-sm">
-            <div className="mb-4">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-300">Copy me</p>
-              <h2 className="mt-1 text-xl font-bold text-white">Copy the brand guide and blog rules</h2>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                Choose what this article needs, copy the preset, then paste it into AI with the blog topic. The AI
-                should return HTML with the exact slot tokens for this studio.
-              </p>
+          <section id="drafts" className="scroll-mt-24 rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Drafts</p>
+                <h2 className="mt-1 text-xl font-bold text-white">Unpublished articles</h2>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  Every saved draft that is not live on Insights yet. Open one to keep editing, or start a new draft above.
+                </p>
+              </div>
+              <span className="rounded-md border border-[#2a2a2a] bg-black/30 px-2.5 py-1 text-xs font-semibold text-zinc-300">
+                {draftPosts.length} draft{draftPosts.length === 1 ? "" : "s"}
+              </span>
             </div>
-            {successBanner && (
-              <div className="mb-4 rounded-lg border border-emerald-400/40 bg-emerald-500/15 px-4 py-3 text-sm font-semibold text-emerald-100">
-                {successBanner}
+            {!databaseConfigured ? (
+              <p className="text-sm text-zinc-500">Connect the database to load drafts here.</p>
+            ) : databaseLoadError ? (
+              <p className="text-sm text-amber-200">{databaseLoadError}</p>
+            ) : draftPosts.length === 0 ? (
+              <p className="text-sm text-zinc-500">No drafts yet. Click Start new draft, then Save draft.</p>
+            ) : (
+              <div className="space-y-2">{draftPosts.map((post) => renderPostPickerButton(post))}</div>
+            )}
+          </section>
+
+          <section id="copy-me" className="scroll-mt-24 rounded-xl border border-emerald-500/25 bg-emerald-950/10 p-6 shadow-sm">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-300">Copy me</p>
+                <h2 className="mt-1 text-xl font-bold text-white">Copy the brand guide and blog rules</h2>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">
+                  Open this when starting a new article. Choose a preset, copy it into AI, then paste the returned HTML below.
+                </p>
+              </div>
+              <button
+                type="button"
+                aria-expanded={isBrandGuideOpen}
+                aria-controls="brand-guide-presets"
+                onClick={() => setIsBrandGuideOpen((open) => !open)}
+                className="rounded-lg border border-emerald-400/35 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100 transition-colors hover:bg-emerald-500/15"
+              >
+                {isBrandGuideOpen ? "Hide brand guide" : "Open brand guide"}
+              </button>
+            </div>
+            {isBrandGuideOpen && (
+              <div id="brand-guide-presets" className="mt-5">
+                {successBanner && (
+                  <div className="mb-4 rounded-lg border border-emerald-400/40 bg-emerald-500/15 px-4 py-3 text-sm font-semibold text-emerald-100">
+                    {successBanner}
+                  </div>
+                )}
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {COPY_PROMPT_PRESETS.map((preset) => (
+                    <div key={preset.id} className="group relative">
+                      <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-64 -translate-x-1/2 rounded-lg border border-white/10 bg-black px-3 py-2 text-xs leading-relaxed text-zinc-200 opacity-0 shadow-xl transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                        {preset.hover}
+                      </div>
+                      <button
+                        type="button"
+                        title={preset.hover}
+                        onClick={() => void copyPromptPreset(preset)}
+                        className="h-full w-full rounded-xl border border-white/10 bg-black/30 p-4 text-left transition hover:border-emerald-400/50 hover:bg-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
+                      >
+                        <span className="block text-sm font-bold text-white">{preset.title}</span>
+                        <span className="mt-1 block text-xs text-zinc-400">{preset.includes}</span>
+                        <span
+                          className={`mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${
+                            copiedPromptId === preset.id
+                              ? "bg-emerald-400 text-emerald-950"
+                              : "bg-white/5 text-emerald-200"
+                          }`}
+                        >
+                          {copiedPromptId === preset.id ? "Copied!" : "Copy prompt"}
+                        </span>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-4 rounded-lg border border-white/10 bg-black/25 p-3 text-xs leading-relaxed text-zinc-400">
+                  Slot reminder: every {IMAGE_TOKEN} becomes an upload field below, every {CALC_TOKEN} becomes a
+                  calculator selector, and every {VIDEO_TOKEN} becomes a video-link field.
+                </p>
               </div>
             )}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {COPY_PROMPT_PRESETS.map((preset) => (
-                <div key={preset.id} className="group relative">
-                  <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-64 -translate-x-1/2 rounded-lg border border-white/10 bg-black px-3 py-2 text-xs leading-relaxed text-zinc-200 opacity-0 shadow-xl transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
-                    {preset.hover}
-                  </div>
-                  <button
-                    type="button"
-                    title={preset.hover}
-                    onClick={() => void copyPromptPreset(preset)}
-                    className="h-full w-full rounded-xl border border-white/10 bg-black/30 p-4 text-left transition hover:border-emerald-400/50 hover:bg-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
-                  >
-                    <span className="block text-sm font-bold text-white">{preset.title}</span>
-                    <span className="mt-1 block text-xs text-zinc-400">{preset.includes}</span>
-                    <span
-                      className={`mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${
-                        copiedPromptId === preset.id
-                          ? "bg-emerald-400 text-emerald-950"
-                          : "bg-white/5 text-emerald-200"
-                      }`}
-                    >
-                      {copiedPromptId === preset.id ? "Copied!" : "Copy prompt"}
-                    </span>
-                  </button>
-                </div>
-              ))}
-            </div>
-            <p className="mt-4 rounded-lg border border-white/10 bg-black/25 p-3 text-xs leading-relaxed text-zinc-400">
-              Slot reminder: every {IMAGE_TOKEN} becomes an upload field below, every {CALC_TOKEN} becomes a
-              calculator selector, and every {VIDEO_TOKEN} becomes a video-link field.
-            </p>
           </section>
 
           <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
@@ -1556,9 +1604,12 @@ export function BlogStudioClient(props: Props) {
               The upload boxes come from {IMAGE_TOKEN} placeholders and existing images in the post. Open a saved post here to
               replace or remove the images without changing any Supabase storage settings.
             </p>
-            <div className="mb-3 rounded-lg border border-white/10 bg-black/25 p-3">
+            <details className="mb-3 rounded-lg border border-white/10 bg-black/25 p-3">
+              <summary className="cursor-pointer text-xs font-semibold text-zinc-400 hover:text-zinc-200">
+                Upload troubleshooting
+              </summary>
               <div className="flex items-center justify-between gap-2">
-                <p className="text-xs text-zinc-400">
+                <p className="mt-3 text-xs text-zinc-400">
                   If uploads fail, run diagnostics to verify session, Supabase keys, and bucket access.
                 </p>
                 <button
@@ -1580,7 +1631,7 @@ export function BlogStudioClient(props: Props) {
                   ))}
                 </ul>
               )}
-            </div>
+            </details>
             {Array.from({ length: imageCount }).map((_, i) => {
               const assignedUrl = imageUrls[i];
               const selectedFile = slotFiles[i];
@@ -1941,7 +1992,7 @@ export function BlogStudioClient(props: Props) {
           </section>
         </div>
 
-        <div className="lg:col-span-7">
+        <div id="studio-preview" className="scroll-mt-24 lg:sticky lg:top-16 lg:col-span-7 lg:self-start">
           <div className="flex h-full flex-col overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-sm">
             <div className="flex items-center justify-between border-b border-white/10 bg-black/30 px-6 py-4">
               <span className="text-lg font-bold text-white">Step 5: Review &amp; Publish</span>
@@ -2001,7 +2052,7 @@ export function BlogStudioClient(props: Props) {
                 <iframe
                   title="Live reading preview"
                   sandbox="allow-same-origin allow-scripts allow-forms"
-                  className="h-[70vh] w-full rounded-lg border border-white/10 bg-[#050506] opacity-100"
+                  className="h-[70vh] w-full rounded-lg border border-white/10 bg-[#F7F6F3] opacity-100"
                   srcDoc={previewSrcDoc}
                 />
               </div>

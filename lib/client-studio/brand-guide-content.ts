@@ -1,59 +1,43 @@
 /**
  * Copy-paste content for the Insights studio: (1) rules for AI tools, (2) simple steps for the site owner.
+ * Kept in sync with the Copy-me presets in BlogStudioClient (warm-canvas Insights layout).
  */
 
 /**
  * Long form, paste into ChatGPT, Claude, Gemini, etc. before asking for an article.
- * Emphasises layout width and images so published pages match the live site.
+ * Emphasises the live light/warm Insights layout (not Studio dark UI).
  */
-export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for the AS Brokers website in South Africa. The owner will paste your output into the “Insights studio” (a text box on the site). They are not a web developer, your HTML must be correct first time.
+export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for the AS Brokers website in South Africa. The owner will paste your output into Blog Studio. They are not a web developer — your HTML must be correct first time.
 
-## CRITICAL, page width (read before you write)
-- The website already provides a wide content area on large screens. You must NOT narrow the whole article with an outer wrapper like max-w-3xl, max-w-2xl, or max-w-4xl on the root <section> or first div. That used to make the page look like a “skinny column” with empty space on the left and right.
-- For the OUTER wrapper of the article fragment, use one of these approaches:
-  (A) One <section> with classes like: class="space-y-6 w-full" (add padding if needed, e.g. py-8 px-4), OR
-  (B) No max-width classes at all on the outermost wrapper, only spacing classes like space-y-6.
-- You MAY still use grids, cards, and inner boxes with their own widths, that is fine. Only avoid shrinking the entire article with max-w-* on the outer shell.
+## CRITICAL — match the live Insights page
+- Published articles sit on a warm canvas (#F7F6F3) with shark headings (#1D1D1F) and stone body text (#52525b). The site already provides a split hero (title, excerpt, photo) and footer.
+- Output the ARTICLE BODY only. Do NOT rebuild nav, footer, or a full dark (#050506) page. Dark UI is Studio-only.
+- Do NOT narrow the whole article with outer max-w-3xl / max-w-2xl / max-w-4xl. Use space-y-6 / w-full (padding ok).
+- Links: #0057B8. Kickers / accents: #006B6B. Borders: #E5E5E5. Soft cards: white with hairline border, ~15px radius on images.
 
 ## Output format
-- Output ONLY the HTML fragment that sits between the site header and footer. Do NOT wrap in <html>, <head>, or <body>.
-- Do NOT use markdown code fences (no triple backticks before or after the HTML).
-- Do NOT put commentary before or after the HTML.
+- Output ONLY the HTML fragment. No <html>/<head>/<body>. No markdown fences. No commentary.
 
 ## Brand
-- Company: AS Brokers CC, independent financial advisor, Krugersdorp. FSP 17273.
-- Voice: Professional, clear, trustworthy, South African English. Avoid hype; be accurate and compliant. Do not promise returns or guarantee outcomes.
+- Company: AS Brokers CC, independent financial adviser, Krugersdorp. FSP 17273.
+- Voice: Professional, clear, trustworthy, South African English. No hype; no guaranteed or fixed-return claims.
 
-## Visual design (match the public site)
-- Background on article pages is very dark (#0a0a0c). Body text: light grey (#e4e4e7). Headings: white.
-- Accent / links: teal (#14b8a6). You may use Tailwind-style classes (e.g. text-teal-400) or inline styles where needed.
-- Prefer clear structure: short paragraphs, H2/H3 sections, lists where helpful.
-- Use semantic HTML: <section>, <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a href="...">.
-- For normal article sections, do not use onclick/onload or random inline JS.
-- Calculator exception: if the user asks to include a calculator, include ONE full calculator embed snippet exactly as provided by the “Calculator code library”, including its <script>. Do not rewrite or "improve" that script.
-- Do not mix or merge calculator scripts. Keep IDs and structure exactly as supplied by the snippet.
+## Structure
+- Semantic HTML: <section>, <h2>, <h3>, <p>, <ul>, <li>, <aside>, <blockquote>, <a>.
+- Prefer flowing editorial sections; cards only for checklists, warnings, or calculator/video intros.
+- Calculator exception: if asked to include a calculator, leave the exact studio placeholder token (do not invent embed scripts unless the owner pastes a Calculator code library snippet).
 
-## Images, Insights studio upload
-- For every image position, set img src to exactly: YOUR_IMAGE_URL_HERE until the owner uploads files in the studio.
-- Example: <img src="YOUR_IMAGE_URL_HERE" alt="Clear description for accessibility" style="width:100%;height:auto;display:block;" loading="lazy" />
-- Multiple images: repeat YOUR_IMAGE_URL_HERE for each image. The owner uploads photos in order from the top of the article downward (first file replaces the first placeholder).
-- Other tokens the studio accepts (prefer the long form): {{IMAGE_URL}}, REPLACE_WITH_IMAGE_URL, YOUR_IMAGE_URL.
-- Do not invent fake image URLs (example.com, picsum, stock URLs). Real URLs are inserted automatically after upload.
-
-## Calculator handling (critical)
-- If a calculator is requested, insert the full embed snippet in the article body exactly once.
-- Keep the calculator HTML and script unchanged so input fields stay interactive on the live site.
-- Do not convert calculator code into pseudo-code or logic-only functions. It must be ready-to-render HTML + script.
+## Images
+- Use the studio image placeholder tokens the owner requested (e.g. [IMAGE_SLOT] or YOUR_IMAGE_URL_HERE). Do not invent stock URLs.
 
 ## Compliance
-- End with a short disclaimer (aside or small paragraph): general information only, not personal advice; consult a licensed financial adviser. Mention FSP 17273 where appropriate.
-- Do not invent regulations, tax rates, or product terms.
+- End with a short educational disclaimer (not personal advice; FSP 17273). Do not invent tax rates or product terms.
 
-## Example outer wrapper (note: wide layout, no max-w-3xl on the root)
-<section class="space-y-6 w-full px-4 py-8">
-  <h2 class="text-2xl font-bold text-white">Your heading</h2>
-  <p class="text-zinc-300 leading-relaxed">Paragraph text…</p>
-  <p class="text-sm text-zinc-500 mt-10">General information only, not financial advice. AS Brokers CC, FSP 17273.</p>
+## Example outer wrapper (wide, light editorial)
+<section class="space-y-6 w-full">
+  <h2 style="color:#1D1D1F;font-size:1.75rem;letter-spacing:-0.02em;">Your heading</h2>
+  <p style="color:#52525b;line-height:1.8;">Paragraph text…</p>
+  <p style="color:#71717a;font-size:0.875rem;margin-top:2.5rem;">General information only, not financial advice. AS Brokers CC, FSP 17273.</p>
 </section>
 
 Output ONLY the HTML fragment, nothing else.
@@ -61,33 +45,25 @@ Output ONLY the HTML fragment, nothing else.
 
 /**
  * Short, plain-language steps for the person publishing (no jargon).
- * Copy from the studio button “Copy my steps”.
  */
-export const INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT = `AS BROKERS, INSIGHTS STUDIO: SIMPLE STEPS FOR YOU
-(Print or save this. Large screens: your article will use the full width, you do not need to fix “narrow columns” yourself.)
+export const INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT = `AS BROKERS — BLOG STUDIO: SIMPLE STEPS FOR YOU
 
 WHEN YOU USE CHATGPT, CLAUDE, OR GEMINI
-1) In this studio, click “Copy brand guide for AI”.
-2) Paste that into the AI chat FIRST.
-3) Then type what you want the article to say (topic, tone, any facts).
+1) In Workspace, open Brand guide (sidebar) or scroll to “Copy the brand guide”.
+2) Choose a preset and click Copy prompt. Paste that into AI FIRST.
+3) Then type the article topic and any facts.
 
 WHEN THE AI GIVES YOU HTML
-4) Copy all of the HTML the AI produced.
-5) Open this studio → HTML panel → paste into the big box.
-6) If you see strange lines with three backticks (\`\`\`) or leftover “paste this” notes, click “Clean pasted HTML” once.
-6b) If your article includes a calculator, confirm the pasted HTML still contains both calculator <div ...> and <script>...</script>.
-
-PICTURES
-7) Your HTML should contain YOUR_IMAGE_URL_HERE wherever a photo belongs.
-8) Open Assist → choose your image files in order (first photo = first picture in the article, top to bottom).
-9) Click “Upload & replace”. Wait until it says it worked.
+4) Copy the HTML (no triple backticks).
+5) Paste into Step 1: Paste AI Blog Code.
+6) Upload images / assign calculator or video slots if requested.
+7) Fill title, slug, excerpt, and categories. Save draft.
 
 SAVE AND GO LIVE
-10) Fill in Title and Slug (the slug is the web address piece, lowercase, use hyphens).
-11) Click Save draft to store safely.
-12) When it looks right in the preview, click Publish.
-13) Open “Website insights” to see it on the live site.
+8) Check Live Reading Preview (warm canvas, like the public site).
+9) When readiness is READY, click Publish.
+10) Unfinished work lives under Drafts in the sidebar.
 
 IF SOMETHING LOOKS WRONG
-- Ask whoever helps you with the website. The rules for the AI were updated so new articles fill the page properly on desktop.
+- Re-copy the brand guide — articles must look light/warm on Insights, not dark like Studio.
 `.trim();

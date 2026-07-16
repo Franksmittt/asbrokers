@@ -125,7 +125,6 @@ https://www.asbrokers.co.za/studio/blog
 https://www.asbrokers.co.za/studio/blog/login
 https://www.asbrokers.co.za/studio/blog/workspace
 https://www.asbrokers.co.za/studio/blog/workspace/tutorial
-https://www.asbrokers.co.za/studio/blog/workspace/upgrades
 
 https://www.asbrokers.co.za/internal/pdf-report
 https://www.asbrokers.co.za/embed/calculators/{id}

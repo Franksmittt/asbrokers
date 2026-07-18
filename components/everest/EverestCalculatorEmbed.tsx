@@ -11,9 +11,9 @@ type Props = {
 const MIN_HEIGHT = 640;
 
 /**
- * Static ASSET HTML calculator embed.
- * Grows to the full document height (same-origin) so desktop users are not trapped
- * in a nested scroll box inside a fixed aspect-ratio frame.
+ * Static ASSET HTML calculator embed (solo / product pages).
+ * ASSET marketing landings use SSR CalculatorToolPanel instead.
+ * Embed HTML / calculator math are untouched.
  */
 export function EverestCalculatorEmbed({ src, title }: Props) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -44,7 +44,13 @@ export function EverestCalculatorEmbed({ src, title }: Props) {
 
     let resizeObserver: ResizeObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
-    let pollId = 0;
+    let raf = 0;
+    const timeouts: number[] = [];
+
+    const schedule = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(resizeToContent);
+    };
 
     const attachObservers = () => {
       resizeToContent();
@@ -55,41 +61,32 @@ export function EverestCalculatorEmbed({ src, title }: Props) {
         resizeObserver?.disconnect();
         mutationObserver?.disconnect();
 
-        resizeObserver = new ResizeObserver(() => resizeToContent());
+        resizeObserver = new ResizeObserver(schedule);
         resizeObserver.observe(doc.documentElement);
-        if (doc.body) resizeObserver.observe(doc.body);
+        resizeObserver.observe(doc.body);
 
-        mutationObserver = new MutationObserver(() => resizeToContent());
+        mutationObserver = new MutationObserver(schedule);
         mutationObserver.observe(doc.documentElement, {
           childList: true,
           subtree: true,
-          attributes: true,
-          characterData: true,
         });
       } catch {
         // Ignore observer attach failures.
       }
+
+      timeouts.push(window.setTimeout(resizeToContent, 120));
+      timeouts.push(window.setTimeout(resizeToContent, 500));
     };
 
-    const onLoad = () => {
-      attachObservers();
-      // Results panels often expand shortly after interaction / first paint.
-      window.setTimeout(resizeToContent, 100);
-      window.setTimeout(resizeToContent, 400);
-      window.setTimeout(resizeToContent, 1000);
-    };
-
-    iframe.addEventListener("load", onLoad);
-    if (iframe.contentDocument?.readyState === "complete") onLoad();
-
-    // Light fallback only — avoid a permanent 1.5s poll eating main-thread time (TBT).
-    pollId = window.setTimeout(resizeToContent, 2000);
+    iframe.addEventListener("load", attachObservers);
+    if (iframe.contentDocument?.readyState === "complete") attachObservers();
 
     return () => {
-      iframe.removeEventListener("load", onLoad);
+      iframe.removeEventListener("load", attachObservers);
       resizeObserver?.disconnect();
       mutationObserver?.disconnect();
-      window.clearTimeout(pollId);
+      if (raf) cancelAnimationFrame(raf);
+      timeouts.forEach((id) => window.clearTimeout(id));
     };
   }, [src, resizeToContent]);
 

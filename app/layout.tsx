@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { DeferredConsentIsland } from "@/components/DeferredConsentIsland";
 import { DeferredRootExtras } from "@/components/DeferredRootExtras";
 import { MagicLinkBootstrap } from "@/components/MagicLinkBootstrap";
 import { fontSans, fontSerif } from "@/lib/fonts";
@@ -56,7 +55,6 @@ export default function RootLayout({
         <DeferredRootExtras />
         <MagicLinkBootstrap />
         {children}
-        <DeferredConsentIsland />
       </body>
     </html>
   );

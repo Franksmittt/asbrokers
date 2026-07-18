@@ -14,7 +14,7 @@ async function card(src: string, out: string) {
   await sharp(absIn)
     .rotate()
     .resize({ width: 400, withoutEnlargement: true })
-    .webp({ quality: 62 })
+    .webp({ quality: 55, effort: 6 })
     .toFile(absOut);
   console.log(`${out}  ${Math.round(fs.statSync(absOut).size / 1024)}KB`);
 }
@@ -24,11 +24,11 @@ async function lcp() {
   const absOut = path.join(DIR, "home-lcp.webp");
   const src = fs.existsSync(patio) ? patio : absOut;
   const tmp = `${absOut}.__tmp`;
-  // Mobile LH LCP is ~390–412 CSS px; 960w @ q62 keeps sharpness without 90KB+ payloads.
+  // Mobile LH ~390 CSS px @ 2x ≈ 780px; 768w @ q45 clears remaining compression hint (~25–30KB).
   await sharp(src)
     .rotate()
-    .resize({ width: 960, withoutEnlargement: true })
-    .webp({ quality: 62, effort: 6 })
+    .resize({ width: 768, withoutEnlargement: true })
+    .webp({ quality: 45, effort: 6 })
     .toFile(tmp);
   fs.renameSync(tmp, absOut);
   console.log(`home-lcp.webp  ${Math.round(fs.statSync(absOut).size / 1024)}KB`);

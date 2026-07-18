@@ -27,12 +27,12 @@ VISION (Rolls-Royce Wealth Concierge)
   - Unified correspondence thread per lead (WhatsApp, email, portal — WhatsApp live)
   - Staff-scoped access (admin sees all; staff sees assigned leads only)
   - Compliance-first: audit trail via correspondence table, no mock CRM at runtime
-  - Future: AI briefs, HubSpot bi-sync, Everest API, executive dashboard
+  - Future: AI briefs, native CRM lead capture, Everest API, executive dashboard
 
 WHAT IT IS NOT (yet)
 --------------------
   - Not a fully RLS-enforced Supabase-native app — access control is in server actions
-  - Not connected to contact form → auto lead creation (Resend/HubSpot only today)
+  - Not connected to contact form → auto lead creation (Resend only today)
   - Portal still uses mock wealth data (lib/mock-portal.ts)
   - No separate clients table — "clients" = won leads in crm_leads
   - lib/mock-crm.ts was deleted; all CRM UI reads real DB when DATABASE_URL is set
@@ -396,7 +396,7 @@ APP URLS
 
 OPTIONAL INTEGRATIONS (not CRM-critical)
 ----------------------------------------
-  HUBSPOT_ACCESS_TOKEN / HUBSPOT_PRIVATE_APP_TOKEN  — contact form sync only
+  (removed)  — contact form sync only
   RESEND_API_KEY, RESEND_FROM, RESEND_NOTIFY_EMAIL  — email alerts
   GOOGLE_GENERATIVE_AI_API_KEY                      — chat/RAG
 
@@ -453,9 +453,9 @@ MOCK / NOT WIRED
 ----------------
   Portal all pages (lib/mock-portal.ts)
   Client detail holdings/charts in CRM (imports mock-portal)
-  Contact form → crm_leads insert (Resend + HubSpot only)
+  Contact form → crm_leads insert (Resend only)
   Manual lead create UI (WhatsApp inbound only today)
-  HubSpot bi-sync to pipeline
+  native CRM lead capture to pipeline
   Executive /crm/executive dashboard
 
 DELETED / OBSOLETE
@@ -562,7 +562,7 @@ DOCS (reference)
 
   Phase 1 (current): Drizzle + Supabase Auth + WhatsApp + Kanban — DONE
   Phase 2: RLS policies, portal real data, contact form → crm_leads
-  Phase 3: HubSpot bi-sync, Everest API, AI meeting briefs
+  Phase 3: native CRM lead capture, Everest API, AI meeting briefs
   Phase 4: Executive dashboard, mobile PWA, compliance audit
 
 Immediate gaps:

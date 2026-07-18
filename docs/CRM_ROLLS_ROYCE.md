@@ -1,7 +1,7 @@
 # AS Brokers CRM Rules: Rolls-Royce Wealth Concierge Implementation
 
 **Version:** 1.0 (March 7, 2026)  
-**Purpose:** Guide Cursor AI in building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 17273, Category 1.8). This is the "Rolls-Royce" vision: luxurious, AI-infused, compliance-first system for seamless client experiences, staff efficiency, and owner oversight. Always align with project tech stack (Next.js App Router, TypeScript, Tailwind with rim-light glassmorphism, Framer Motion, Supabase for auth/DB/Storage/RLS, HubSpot bi-sync, Trigger.dev for automations/PDFs, OpenAI gpt-4o-mini for AI agents, Drizzle ORM + pgvector for RAG, Sanity CMS for content). Build on existing mock (lib/mock-*.ts) by replacing with real backend. Prioritize: Security (POPIA/FAIS), personalization (AI), scalability (1k+ clients), mobile-first (PWA enhancements).
+**Purpose:** Guide Cursor AI in building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 17273, Category 1.8). This is the "Rolls-Royce" vision: luxurious, AI-infused, compliance-first system for seamless client experiences, staff efficiency, and owner oversight. Always align with project tech stack (Next.js App Router, TypeScript, Tailwind with rim-light glassmorphism, Framer Motion, Supabase for auth/DB/Storage/RLS, native CRM lead capture, Trigger.dev for automations/PDFs, OpenAI gpt-4o-mini for AI agents, Drizzle ORM + pgvector for RAG, Sanity CMS for content). Build on existing mock (lib/mock-*.ts) by replacing with real backend. Prioritize: Security (POPIA/FAIS), personalization (AI), scalability (1k+ clients), mobile-first (PWA enhancements).
 
 ---
 
@@ -36,7 +36,7 @@
   - Pipeline/Leads: Enhanced Kanban (drag-drop with persist via Supabase). AI prioritization (score by capital/Fit/Eng, agentic AI routes e.g., commercial to Petro).
   - Client 360: Profiles with household mapping (link family for estates). AI summaries (e.g., "High inflation risk"). Timeline with all interactions.
   - Workflows: Service-specific (e.g., Everest quotes via Trigger.dev PDFs; claims disputes with AI templates). No-code customization (Sanity for workflow templates).
-  - Tools: Task automation (AI-assigned, reminders). Correspondence with sentiment AI. Mobile: Scan docs (device camera integration). Integrations: HubSpot sync, Everest/Santam APIs.
+  - Tools: Task automation (AI-assigned, reminders). Correspondence with sentiment AI. Mobile: Scan docs (device camera integration). Integrations: CRM lead capture, Everest/Santam APIs.
   - Compliance: Auto-audits, red flags (e.g., suitability checks).
 - **Cursor Actions**: For /crm/*, suggest Drizzle queries with RLS. Add agentic AI (e.g., Server Action for AI briefs: streamText with tools like calculateEstateDuty). Refactor mocks to real (e.g., getLeadsForAdvisor → Supabase select).
 
@@ -54,7 +54,7 @@
 
 ## Roadmap & Phasing
 
-- **Phase 1**: Backend Swap (Supabase Auth/Magic Links, RLS, HubSpot bi-sync). Replace all mocks.
+- **Phase 1**: Backend Swap (Supabase Auth/Magic Links, RLS, native CRM lead capture). Replace all mocks.
 - **Phase 2**: AI Agents (integrate OpenAI for autonomous tasks, RAG for compliance grounding).
 - **Phase 3**: Integrations (Everest APIs, mobile PWA). Testing/compliance audit sims.
 - **Phase 4**: Launch Optimizations (performance, SEO for portal).

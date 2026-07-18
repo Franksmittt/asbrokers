@@ -2,7 +2,6 @@
 
 import { contactFormSchema } from "@/lib/validations/schema";
 import type { ContactActionState } from "@/lib/validations/schema";
-import { syncContactToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffContactEnquiry } from "@/lib/email/notifications";
 import { contactLeadScore, serviceCategoryFromContactTopics } from "@/lib/crm/contact-lead";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
@@ -35,8 +34,7 @@ function formDataToObject(formData: FormData): Record<string, unknown> {
 }
 
 /**
- * Server Action for main contact form. Emails Albert immediately via Resend.
- * HubSpot sync and visitor auto-replies are optional / deferred.
+ * Server Action for main contact form. Writes CRM lead and emails Albert via Resend.
  */
 export async function submitContactEnquiry(
   _prevState: ContactActionState,
@@ -93,12 +91,6 @@ export async function submitContactEnquiry(
       return { success: false, message: SUBMIT_ERROR };
     }
   }
-
-  void syncContactToHubSpot(payload).catch((e) => {
-    if (process.env.NODE_ENV === "development") {
-      console.error("[Contact] HubSpot sync failed (non-blocking):", e);
-    }
-  });
 
   const triggerSecret = process.env.TRIGGER_SECRET_KEY;
   if (triggerSecret) {

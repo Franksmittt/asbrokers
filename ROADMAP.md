@@ -64,7 +64,7 @@ Vision: Elevate the site into a top-tier financial services experience for South
   - NextAuth.js: secure login, saved calculator results, document upload
   - Book consultations: Calendly or Zoom integration
 - **CRM & marketing**
-  - Forms → HubSpot or Salesforce (lead scoring)
+  - Forms → the native CRM (lead scoring)
   - Post-calculator email: “Your PDF + tip sheet” automation
 - **External data**
   - Stats SA / inflation proxy for calculators (if available)

@@ -15,7 +15,7 @@ The Contact page has three jobs:
 
   • Capture qualified leads via a structured enquiry form (full name, phone,
     email, topics of interest, consent). Submissions are validated and synced
-    to HubSpot with cumulative lead scoring.
+    to with cumulative lead scoring.
   • Set expectations: trust badges (FSP 17273, 25+ years, zero advice fees)
     styled as Apple-esque secure validation tags; "Client Qualification
     Criteria" copy; and "The Actuarial Review Process" three-step section so
@@ -209,13 +209,12 @@ home page.
                 consent, website). (2) contactFormSchema.safeParse. (3) If
                 validation fails, return flatten() fieldErrors and message.
                 (4) If website non-empty (honeypot), return success without
-                persisting. (5) syncContactToHubSpot(payload) – creates/updates
-                contact in HubSpot, cumulative lead scoring. (6) If HubSpot
-                fails, return error message. (7) Optionally trigger Trigger.dev
+                persisting. (5) insertCrmLead(payload) – creates/updates
+                contact in cumulative lead scoring. (6) If                 fails, return error message. (7) Optionally trigger Trigger.dev
                 task "generate-financial-pdf" with email and fullName (if
                 TRIGGER_SECRET_KEY set). (8) Return success and "Thank you.
                 We'll be in touch."
-  • HubSpot:    lib/hubspot.service – syncContactToHubSpot. Used for CRM and
+  • :    (removed) – insertCrmLead. Used for CRM and
                 lead scoring.
   • Trigger.dev: Optional one-off trigger for PDF generation; failure only
                  logged in development.
@@ -306,7 +305,7 @@ home page.
   • Exit:    WhatsApp 067 242 9946 (external). "Explore solutions" → /#solutions.
              After submit, success card offers "WhatsApp us in the meantime".
   • Role:    Primary lead capture and consultation request. Complements
-             WhatsApp for users who prefer form; supports HubSpot pipeline and
+             WhatsApp for users who prefer form; supports pipeline and
              optional Trigger.dev PDF. Aligns with "personal response, no call
              centre" and FSP 17273 positioning.
 

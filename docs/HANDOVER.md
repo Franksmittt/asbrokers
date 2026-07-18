@@ -38,7 +38,6 @@ Critical:
 
 Optional integrations:
 
-- HubSpot (`HUBSPOT_ACCESS_TOKEN`) — sync is non-blocking if unset
 - WhatsApp Cloud API vars — CRM inbox outbound
 - Trigger.dev — PDF-after-contact
 - GA4 / Hotjar — after cookie consent
@@ -49,7 +48,6 @@ Full names also in `.env.example`. **Ignore stale OpenAI references in older `BA
 
 1. **Client portal** — mock UI; message send / document upload are prototypes.
 2. **Paid R299 planning guides** — “coming soon”, no checkout.
-3. **HubSpot custom properties** — create `platform_lead_score`, `financial_inquiry_topic`, `financial_capital_input` if sync is required.
 4. **Entity `sameAs` social/GBP URLs** — `docs/entity-sameas-todo.md`.
 5. **Rolls-Royce CRM vision** (portal RLS, Everest API, PWA) — `docs/CRM_ROLLS_ROYCE.md` / Phase 2+.
 

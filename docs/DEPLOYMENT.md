@@ -89,10 +89,6 @@ CI job: `master-audit` (aggregates all gates on Ubuntu).
 - [ ] Staff sees assigned clients only; admin sees all
 - [ ] Storage policies match POPIA expectations
 
-### HubSpot sync (when enabled)
-
-- [ ] Bi-sync credentials in production env
-- [ ] Test lead from contact form appears in HubSpot
 
 ### Search Console (launch week)
 

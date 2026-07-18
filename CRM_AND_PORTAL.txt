@@ -21,7 +21,7 @@ extension of the AS Brokers website. They give:
 
 Currently the system runs on **mock data and mock authentication** (cookie-based
 role/staff selection). It is built so that a real backend (Supabase, RLS, Magic
-Links, HubSpot sync) can replace the mocks without changing the flows or UI.
+Links, CRM lead capture) can replace the mocks without changing the flows or UI.
 
 Entry point: from the main site, click **“CRM & Client Portal”** in the nav, or
 go to **/login**. Choose role (Admin / Staff / Client), then sign in.
@@ -196,8 +196,8 @@ Navigation
     correspondence, tasks, notes, documents (metadata + Supabase Storage for
     files). RLS: admin sees all; staff see where assigned_advisor_id = auth;
     client see where client_id = auth.
-  - **HubSpot**: Bi-directional sync so lead/contact updates in the CRM update
-    HubSpot and vice versa; lead scoring (Fit/Engagement) can drive routing.
+  - ****: Bi-directional sync so lead/contact updates in the CRM update
+    and vice versa; lead scoring (Fit/Engagement) can drive routing.
   - **Documents**: Supabase Storage bucket with RLS; audit log for upload/view
     for FAIS/POPIA.
   - **Quoting**: Server Actions (or Trigger.dev jobs) for Everest/Amethyst

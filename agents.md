@@ -4,7 +4,7 @@ Primary long-term memory for Cursor AI and developers.
 
 ## Tech Stack
 - Next.js 15 (App Router), React 19, TypeScript (strict), Tailwind CSS, Framer Motion, Recharts, React Hook Form, Zod.
-- Future: Vercel AI SDK 3.0, HubSpot CRM.
+- Future: Vercel AI SDK 3.0.
 
 ## Business Context
 - AS Brokers CC. FSP 17273. Category 1.8 - Everest Wealth distribution.

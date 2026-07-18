@@ -344,7 +344,7 @@ GOOGLE_GENERATIVE_AI_API_KEY, CRM_SUPERUSER_PIN, Resend — all set on Vercel.
     • Live Everest / portfolio data in client portal
     • WhatsApp two-way inbox fully production-ready
     • Staff magic-link login (replace demo PIN)
-    • HubSpot bi-sync
+    • native CRM lead capture
     • Postgres RLS hardening, full FAIS audit export
     • Mobile PWA for advisors in the field
 

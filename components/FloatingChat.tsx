@@ -12,17 +12,22 @@ const APPLE_EASE = [0.25, 0.1, 0.25, 1] as const;
 
 type PanelMode = "idle" | "open" | "minimized";
 
+type FloatingChatProps = {
+  /** Focus the slim-bar input on mount (used when swapping in from HomeChatBar shell). */
+  autoFocusInput?: boolean;
+};
+
 /**
  * Homepage Digital Wealth Assistant: slim dark sticky bar with typewriter prompts.
  * Enter / Send opens the full chat panel (session stays mounted while minimized).
  */
-export function FloatingChat() {
+export function FloatingChat({ autoFocusInput = false }: FloatingChatProps = {}) {
   const reduceMotion = useReducedMotion();
   const hideOverFooter = useHideOverFooter();
   const [mode, setMode] = useState<PanelMode>("idle");
   const [draft, setDraft] = useState("");
   const [seedMessage, setSeedMessage] = useState<string | null>(null);
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(autoFocusInput);
 
   useEffect(() => {
     if (mode !== "open") return;
@@ -231,6 +236,7 @@ export function FloatingChat() {
                   onChange={(e) => setDraft(e.target.value)}
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}
+                  autoFocus={autoFocusInput}
                   enterKeyHint="send"
                   autoComplete="off"
                   className="chat-dark-input w-full rounded-full border-0 bg-transparent px-3 py-2.5 text-sm text-zinc-100 caret-zinc-100 focus:outline-none focus:ring-0"

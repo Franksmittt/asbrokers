@@ -13,19 +13,15 @@ const FallbackPageJsonLdClient = dynamic(
   { ssr: false }
 );
 
-const HomeFloatingChat = dynamic(
-  () => import("@/components/home/HomeLazyWidgets").then((m) => m.HomeFloatingChat),
-  { ssr: false, loading: () => null }
-);
-
 const ConsentProvider = dynamic(
   () => import("@/components/analytics/ConsentProvider").then((m) => m.ConsentProvider),
   { ssr: false, loading: () => null }
 );
 
 /**
- * Single gated root island: speculation, fallback JSON-LD, consent, floating chat.
- * Mount after pointer/12s so homepage TBT is not wrecked (no scroll unlock — LH auto-scroll).
+ * Gated root island: speculation, fallback JSON-LD, consent.
+ * Homepage chat lives in `HomeChatBar` (visible shell; heavy widget on use).
+ * No scroll unlock — LH auto-scroll must not pull these into TBT.
  */
 export function DeferredRootExtras() {
   const [ready, setReady] = useState(false);
@@ -56,7 +52,6 @@ export function DeferredRootExtras() {
       <FallbackPageJsonLdClient />
       <SpeculationRulesClient />
       <ConsentProvider eager />
-      <HomeFloatingChat />
     </>
   );
 }

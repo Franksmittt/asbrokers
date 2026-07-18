@@ -1,0 +1,66 @@
+AS Brokers — page-by-page handoff review
+========================================
+Updated as we sign off each page. Only mark DONE when Frank says final
+and the change is pushed.
+
+Review checklist per page: content · spacing · layout · images
+
+Status: PENDING | IN PROGRESS | DONE
+------------------------------------
+
+PUBLIC MARKETING (priority)
+  [IN PROGRESS] /                      Home
+  [PENDING] /calculators               Calculators hub
+  [PENDING] /everest-wealth            Everest Wealth
+  [PENDING] /retirement-planning       Retirement planning
+  [PENDING] /insurance                 Insurance hub
+  [PENDING] /estate-planning           Estate planning
+  [PENDING] /about                     About
+  [PENDING] /team                      Team
+  [PENDING] /contact                   Contact
+  [PENDING] /insights                 Insights hub
+  [PENDING] /investments               Investments
+  [PENDING] /solutions/discovery-health
+  [PENDING] /solutions/medical-aid
+  [PENDING] /chat
+  [PENDING] /quiz
+  [PENDING] /business-risk-review
+  [PENDING] /healthy-retirement-blueprint
+  [PENDING] /legacy-readiness-checklist
+  [PENDING] /legacy-conversations
+  [PENDING] /retirement-survival-blueprint
+  [PENDING] /privacy
+  [PENDING] /terms
+  [PENDING] /complaints
+  [PENDING] /conflict-of-interest
+  [PENDING] /regulatory-compliance
+  [PENDING] /manage-cookies
+
+EVEREST PRODUCT PAGES
+  [PENDING] /everest-wealth/about
+  [PENDING] /everest-128-product
+  [PENDING] /everest-strategic-growth-145
+  [PENDING] /everest-amethyst-living-annuity
+
+CALCULATOR LANDINGS (batch later unless flagged)
+  [PENDING] /calculators/[slug] × 17 ASSET tools
+
+DONE LOG (append when signed off)
+---------------------------------
+(none yet)
+
+NOTES — / IN PROGRESS
+---------------------
+Live: https://www.asbrokers.co.za/
+Changes in flight:
+  - Why AS Brokers: fake storefront → home-why-as-brokers-16x9.jpg
+  - Calc tiles: 12.8% + Income vs Growth lifestyle images
+  - Testimonials: letter initials (S/M/J) instead of wrong photos
+Not marked DONE until Frank final OK.
+
+Process
+-------
+1. Frank picks a page.
+2. We review / apply changes.
+3. Frank gives final prompt when happy.
+4. We push, mark DONE here with date + PR/commit.

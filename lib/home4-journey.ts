@@ -36,7 +36,8 @@ export type Testimonial = {
   quote: string;
   who: string;
   where: string;
-  photo: string;
+  /** First letter shown in avatar when no photo is used. */
+  initial: string;
 };
 
 /** Four equal cards: same link count, similar description length, Explore → card.href hub. */
@@ -109,7 +110,7 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
     label: "12.8% Strategic Income",
     description: "Illustrate targeted monthly income from Everest Class A. Educational only.",
     href: "/calculators/asset-010-everest-128-income",
-    image: "/images/everest-suite-hero-16x9.jpg",
+    image: "/images/home-calc-128-income-16x10.jpg",
   },
   {
     label: "Retirement Reality Check",
@@ -121,7 +122,7 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
     label: "Income vs Growth",
     description: "Compare Everest income profiles against compounding growth.",
     href: "/calculators/asset-013-everest-income-vs-growth",
-    image: "/images/everest-copper-industrial-4x3.jpg",
+    image: "/images/home-calc-income-vs-growth-16x10.jpg",
   },
   {
     label: "Estate Duty",
@@ -172,21 +173,21 @@ export const HOME4_TESTIMONIALS: Testimonial[] = [
       "Albert helped us untangle the living annuity properly. First time someone explained the numbers without making me feel stupid.",
     who: "Susan M.",
     where: "Randpark Ridge",
-    photo: "/images/about-krugersdorp-trust-16x9.jpg",
+    initial: "S",
   },
   {
     quote:
       "Retirement felt like a mountain. Albert broke it into small steps. We're actually on track now.",
     who: "Michelle B.",
     where: "Wilropark",
-    photo: "/images/calculators-capital-lifespan-4x3.jpg",
+    initial: "M",
   },
   {
     quote:
       "Local, independent, no call-centre nonsense. Exactly what we wanted from an FSP.",
     who: "Johan & Karen T.",
     where: "Muldersdrift",
-    photo: "/images/about-fiduciary-plaque-4x3.jpg",
+    initial: "J",
   },
 ];
 

@@ -25,7 +25,7 @@ const MUTED = "#57534e";
 
 const HERO_SIZES = "(max-width: 1024px) calc(100vw - 2rem), 420px";
 const HERO_ALT =
-  "Calculator planning sheets for retirement, tax, estate and premiums on a desk";
+  "Couple reviewing financial planning documents at a dining table at home";
 
 type FaqItem = { question: string; answer: string };
 

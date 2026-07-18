@@ -70,10 +70,11 @@ export function AssetCalculatorPageView({
               className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
               style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
             >
-              {kicker} · {assetCode}
+              AS Brokers · {assetCode} · FSP 17273
             </p>
+            <p className="mt-2 text-sm font-medium text-stone-600">{kicker}</p>
             <h1
-              className="mt-4 font-bold tracking-tight"
+              className="mt-3 font-bold tracking-tight"
               style={{
                 fontSize: "clamp(1.875rem, 1.35rem + 2vw, 2.75rem)",
                 lineHeight: 1.12,
@@ -142,7 +143,10 @@ export function AssetCalculatorPageView({
               <li key={step.title} className="flex">
                 <HubReveal delay={index * 0.04} className="flex flex-1">
                   <div className="flex h-full w-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90">
-                    <span className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">
+                    <span
+                      className="text-xs font-bold uppercase tracking-[0.16em]"
+                      style={{ color: TEAL }}
+                    >
                       Step {index + 1}
                     </span>
                     <h3 className="mt-2 font-semibold text-shark">{step.title}</h3>
@@ -188,7 +192,7 @@ export function AssetCalculatorPageView({
                       className="flex items-start gap-2 leading-relaxed text-stone-700"
                       style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
                     >
-                      <span className="mt-0.5 font-bold text-cinematic-teal" aria-hidden>
+                      <span className="mt-0.5 font-bold" style={{ color: TEAL }} aria-hidden>
                         ·
                       </span>
                       {bullet}

@@ -10,7 +10,7 @@ Status: PENDING | IN PROGRESS | DONE
 
 PUBLIC MARKETING (priority)
   [DONE] /                             Home
-  [IN PROGRESS] /calculators           Calculators hub
+  [DONE] /calculators                  Calculators hub
   [PENDING] /everest-wealth            Everest Wealth
   [PENDING] /retirement-planning       Retirement planning
   [PENDING] /insurance                 Insurance hub
@@ -38,12 +38,14 @@ PUBLIC MARKETING (priority)
 
 EVEREST PRODUCT PAGES
   [PENDING] /everest-wealth/about
-  [PENDING] /everest-128-product
-  [PENDING] /everest-strategic-growth-145
-  [PENDING] /everest-amethyst-living-annuity
+  [PENDING] /everest-128-product       (live 308 → ASSET 010 — confirm strategy)
+  [PENDING] /everest-strategic-growth-145  (live 308 → ASSET 012)
+  [PENDING] /everest-amethyst-living-annuity (live 308 → ASSET 014)
 
-CALCULATOR LANDINGS (batch later unless flagged)
-  [PENDING] /calculators/[slug] × 17 ASSET tools
+CALCULATOR LANDINGS (ASSET 001–017)
+  [IN PROGRESS] /calculators/[slug] × 17
+    Audit: docs/ASBROKERS-PERFECT-10-CALCULATOR-PAGES-REAUDIT.md
+    Cohort score ~8.0 — shell fixes only; DO NOT touch embeds.
 
 DONE LOG (append when signed off)
 ---------------------------------
@@ -52,17 +54,21 @@ DONE LOG (append when signed off)
   SEO/a11y, mobile LH perf, Wealth Assistant chat bar restored.
   PRs: #33, #35–#38.
 
-NOTES — /calculators IN PROGRESS
---------------------------------
-Live: https://www.asbrokers.co.za/calculators
-In flight (Perfect-10 hub pass):
-  - Meta ≤160 complete sentence + FSP 17273
-  - Schema WebPage name aligned with title
-  - OG → calculators-hub-og.jpg (~57KB)
-  - Brand kicker: AS Brokers · ASSET · FSP 17273
-  - Drop mobile pill chrome on “On this page”
-  - Body copy #3f3a36; stale idle-hydrate comment removed
-Not marked DONE until Frank final OK.
+2026-07-18  /calculators  Calculators hub
+  Frank final OK after Perfect-10 hub pass (meta, schema, OG, brand kicker).
+  PR: #40.
+
+NOTES — ASSET calculator landings IN PROGRESS
+---------------------------------------------
+Live: https://www.asbrokers.co.za/calculators/asset-001-… through asset-017-…
+Read-only Perfect-10 audit complete (2026-07-18).
+Hard rule: leave public/embed-calculators/*.html and calculator math alone.
+Shell-only backlog (see audit Task 1):
+  - ASSET 001 meta: restore FSP 17273 within ≤160 chars
+  - ASSET 014 shell: state 2.5%–17.5% drawdown band
+  - Shared brand kicker + step-label contrast
+  - Hero compress for heavy LCP images
+Not marked DONE until Frank final OK after shell pass.
 
 Process
 -------

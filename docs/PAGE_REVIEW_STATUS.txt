@@ -9,7 +9,7 @@ Status: PENDING | IN PROGRESS | DONE
 ------------------------------------
 
 PUBLIC MARKETING (priority)
-  [IN PROGRESS] /                      Home
+  [DONE] /                             Home
   [PENDING] /calculators               Calculators hub
   [PENDING] /everest-wealth            Everest Wealth
   [PENDING] /retirement-planning       Retirement planning
@@ -47,16 +47,10 @@ CALCULATOR LANDINGS (batch later unless flagged)
 
 DONE LOG (append when signed off)
 ---------------------------------
-(none yet)
-
-NOTES — / IN PROGRESS
----------------------
-Live: https://www.asbrokers.co.za/
-Changes in flight:
-  - Why AS Brokers: fake storefront → home-why-as-brokers-16x9.jpg
-  - Calc tiles: 12.8% + Income vs Growth lifestyle images
-  - Testimonials: letter initials (S/M/J) instead of wrong photos
-Not marked DONE until Frank final OK.
+2026-07-18  /  Home
+  Signed off by Frank. Brand-in-hero left as-is (nav carries brand).
+  Shipped: lifestyle Why AS Brokers + 12.8%/Income-vs-Growth tiles;
+  testimonial letter avatars. PR #33.
 
 Process
 -------

@@ -36,7 +36,7 @@ export default async function CalculatorAssetPage({ params }: Props) {
 
   return (
     <>
-      <HubLcpPreload src={config.heroImage} variant="split" />
+      <HubLcpPreload src={config.heroImage} variant="calc-split" />
       <PageJsonLd
         path={config.path}
         webPage={{

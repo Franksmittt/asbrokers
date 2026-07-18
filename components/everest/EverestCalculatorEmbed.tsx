@@ -82,13 +82,14 @@ export function EverestCalculatorEmbed({ src, title }: Props) {
     iframe.addEventListener("load", onLoad);
     if (iframe.contentDocument?.readyState === "complete") onLoad();
 
-    pollId = window.setInterval(resizeToContent, 1500);
+    // Light fallback only — avoid a permanent 1.5s poll eating main-thread time (TBT).
+    pollId = window.setTimeout(resizeToContent, 2000);
 
     return () => {
       iframe.removeEventListener("load", onLoad);
       resizeObserver?.disconnect();
       mutationObserver?.disconnect();
-      window.clearInterval(pollId);
+      window.clearTimeout(pollId);
     };
   }, [src, resizeToContent]);
 

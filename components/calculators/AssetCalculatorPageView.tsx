@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { EverestCalculatorEmbed } from "@/components/everest/EverestCalculatorEmbed";
-import { CalculatorLeadCapture } from "@/components/forms/CalculatorLeadCapture";
+import { CalculatorToolDeferred } from "@/components/calculators/CalculatorToolDeferred";
 import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
@@ -17,7 +16,7 @@ import {
   HUB_INK as INK,
   HUB_BODY as BODY,
 } from "@/lib/hub-design-tokens";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { CALC_SPLIT_HERO_QUALITY, CALC_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { WHATSAPP_DISPLAY, whatsappUrl, WHATSAPP_CALCULATOR_MESSAGE } from "@/lib/whatsapp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
@@ -50,73 +49,77 @@ export function AssetCalculatorPageView({
         className="border-b border-stone-200/80 pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
         style={{ backgroundColor: CANVAS }}
       >
-        <div className={GRID}>
-          <HubReveal className="min-w-0 col-span-full">
-            <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1 text-sm text-stone-500">
-              <Link href="/calculators" prefetch={false} className="font-medium hover:text-samsung-blue">
-                Calculators
-              </Link>
-              <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />
-              <Link href={categoryHref} prefetch={false} className="font-medium hover:text-samsung-blue">
-                {categoryLabel}
-              </Link>
-              <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />
-              <span className="text-stone-700">{calculatorTitle}</span>
-            </nav>
-          </HubReveal>
-
-          <HubReveal className="min-w-0 lg:col-span-6">
-            <p
-              className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
-              style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
-            >
-              AS Brokers · {assetCode} · FSP 17273
-            </p>
-            <p className="mt-2 text-sm font-medium text-stone-600">{kicker}</p>
-            <h1
-              className="mt-3 font-bold tracking-tight"
-              style={{
-                fontSize: "clamp(1.875rem, 1.35rem + 2vw, 2.75rem)",
-                lineHeight: 1.12,
-                color: INK,
-              }}
-            >
-              {heroTitle}
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{
-                fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)",
-                lineHeight: 1.65,
-                color: BODY,
-              }}
-            >
-              {heroSubtitle}
-            </p>
-            <Link
-              href="#calculator-tool"
-              prefetch={false}
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-cta-glow-blue transition hover:bg-[#004a9e]"
-            >
-              Use the calculator
-              <ArrowRight className="h-4 w-4" aria-hidden />
+        <div className={HOME4_WRAP}>
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-6 flex flex-wrap items-center gap-1 text-sm text-stone-500"
+          >
+            <Link href="/calculators" prefetch={false} className="font-medium hover:text-samsung-blue">
+              Calculators
             </Link>
-          </HubReveal>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />
+            <Link href={categoryHref} prefetch={false} className="font-medium hover:text-samsung-blue">
+              {categoryLabel}
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />
+            <span className="text-stone-700">{calculatorTitle}</span>
+          </nav>
 
-          <HubReveal delay={0.06} className="min-w-0 lg:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70">
+          {/* Uniform equal-height hero: text column defines height; image stretches to match. */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-10">
+            <div className="flex min-w-0 flex-col justify-center">
+              <p
+                className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
+                style={{ fontSize: "clamp(0.6875rem, 0.62rem + 0.25vw, 0.75rem)", color: TEAL }}
+              >
+                AS Brokers · {assetCode} · FSP 17273
+              </p>
+              <p className="mt-2 text-sm font-medium text-stone-600">{kicker}</p>
+              <h1
+                className="mt-3 font-bold tracking-tight"
+                style={{
+                  fontSize: "clamp(1.875rem, 1.35rem + 2vw, 2.75rem)",
+                  lineHeight: 1.12,
+                  color: INK,
+                }}
+              >
+                {heroTitle}
+              </h1>
+              <p
+                className="mt-5 max-w-xl leading-relaxed"
+                style={{
+                  fontSize: "clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem)",
+                  lineHeight: 1.65,
+                  color: BODY,
+                }}
+              >
+                {heroSubtitle}
+              </p>
+              <div className="mt-8">
+                <Link
+                  href="#calculator-tool"
+                  prefetch={false}
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-cta-glow-blue transition hover:bg-[#004a9e]"
+                >
+                  Use the calculator
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative h-full min-h-[16rem] w-full overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:min-h-[18rem] max-lg:aspect-[4/3] lg:min-h-[22rem]">
               <Image
                 src={heroImage}
                 alt={getAlt(heroImage, heroImageAlt)}
                 fill
-                quality={75}
+                quality={CALC_SPLIT_HERO_QUALITY}
                 priority
                 fetchPriority="high"
                 className="object-cover object-center"
-                sizes={HUB_SPLIT_HERO_SIZES}
+                sizes={CALC_SPLIT_HERO_SIZES}
               />
             </div>
-          </HubReveal>
+          </div>
         </div>
       </header>
 
@@ -126,33 +129,29 @@ export function AssetCalculatorPageView({
         style={{ backgroundColor: "#FDFCFA" }}
       >
         <div className={HOME4_WRAP}>
-          <HubReveal>
-            <h2
-              className="font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
-            >
-              How to use this calculator
-            </h2>
-            <p className="mt-3 max-w-3xl text-base leading-relaxed text-stone-600">
-              Work through the steps below, then scroll to the tool. Results are illustrative. Book FSP 17273 advice
-              when you want numbers tailored to your situation.
-            </p>
-          </HubReveal>
+          <h2
+            className="font-bold tracking-tight"
+            style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+          >
+            How to use this calculator
+          </h2>
+          <p className="mt-3 max-w-3xl text-base leading-relaxed text-stone-600">
+            Work through the steps below, then open the tool. Results are illustrative. Book FSP 17273 advice
+            when you want numbers tailored to your situation.
+          </p>
           <ol className="mt-10 grid list-none gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:items-stretch">
             {howToSteps.map((step, index) => (
               <li key={step.title} className="flex">
-                <HubReveal delay={index * 0.04} className="flex flex-1">
-                  <div className="flex h-full w-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90">
-                    <span
-                      className="text-xs font-bold uppercase tracking-[0.16em]"
-                      style={{ color: TEAL }}
-                    >
-                      Step {index + 1}
-                    </span>
-                    <h3 className="mt-2 font-semibold text-shark">{step.title}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-stone-600">{step.description}</p>
-                  </div>
-                </HubReveal>
+                <div className="flex h-full w-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90">
+                  <span
+                    className="text-xs font-bold uppercase tracking-[0.16em]"
+                    style={{ color: TEAL }}
+                  >
+                    Step {index + 1}
+                  </span>
+                  <h3 className="mt-2 font-semibold text-shark">{step.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-stone-600">{step.description}</p>
+                </div>
               </li>
             ))}
           </ol>
@@ -167,7 +166,7 @@ export function AssetCalculatorPageView({
         aria-labelledby={`${path}-calculator-heading`}
       >
         <div className={GRID}>
-          <HubReveal className="min-w-0 lg:col-span-4">
+          <div className="min-w-0 lg:col-span-4">
             <div className="lg:sticky lg:top-28">
               <h2
                 className="font-bold tracking-tight"
@@ -213,22 +212,20 @@ export function AssetCalculatorPageView({
                 </div>
               ) : null}
             </div>
-          </HubReveal>
+          </div>
 
-          <HubReveal className="min-w-0 lg:col-span-8">
+          <div className="min-w-0 lg:col-span-8">
             <h2 id={`${path}-calculator-heading`} className="text-xl font-bold text-shark sm:text-2xl">
               {calculatorTitle}
             </h2>
             <p className="mt-2 max-w-2xl text-base leading-relaxed text-stone-600">{calculatorLead}</p>
-            <div className="mt-6 rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-stone-200/90 sm:p-6">
-              <EverestCalculatorEmbed src={calculatorSrc} title={calculatorTitle} />
-            </div>
-            <CalculatorLeadCapture
+            <CalculatorToolDeferred
+              calculatorSrc={calculatorSrc}
+              calculatorTitle={calculatorTitle}
               calculatorId={assetCode}
               calculatorPath={path}
-              calculatorTitle={calculatorTitle}
             />
-          </HubReveal>
+          </div>
         </div>
       </section>
 

@@ -60,12 +60,11 @@ DONE LOG (append when signed off)
 
 NOTES — ASSET calculator landings IN PROGRESS
 ---------------------------------------------
-Shell Perfect-10 + hero/perf pass in flight (embeds untouched):
-  - Equal-height uniform hero (text + image stretch)
-  - calc-lcp WebP 720w q82; matched preload sizes/quality
-  - Calculator iframe + lead capture deferred off LH critical path
+Shell Perfect-10 + hero/perf (embeds untouched):
+  - Calculators always visible (SSR iframe — NO click-to-load)
+  - Light height bridge; lead form defers until near viewport
+  - Uniform heroes; calc-lcp WebP 480w for mobile LCP
   - FAB chrome deferred until interaction / 12s
-  - EverestCalculatorEmbed: remove 1.5s resize poll
 Not marked DONE until Frank final OK after deploy LH retest.
 
 Process

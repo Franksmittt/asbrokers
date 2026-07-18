@@ -1,7 +1,7 @@
 import { Home4Hero } from "@/components/home4/Home4Hero";
 import { Home4GoalCards } from "@/components/home4/Home4GoalCards";
 import { Home4BelowFoldRest } from "@/components/home4/Home4BelowFoldRest";
-import { HomeDeferredFloatingChat } from "@/components/home/HomeDeferredBlocks";
+import { HomeDeferredFloatingChat } from "@/components/home/HomeDeferredFloatingChat";
 import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";

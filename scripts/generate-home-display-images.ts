@@ -24,10 +24,11 @@ async function lcp() {
   const absOut = path.join(DIR, "home-lcp.webp");
   const src = fs.existsSync(patio) ? patio : absOut;
   const tmp = `${absOut}.__tmp`;
+  // Mobile LH LCP is ~390–412 CSS px; 960w @ q62 keeps sharpness without 90KB+ payloads.
   await sharp(src)
     .rotate()
-    .resize({ width: 1600, withoutEnlargement: true })
-    .webp({ quality: 72 })
+    .resize({ width: 960, withoutEnlargement: true })
+    .webp({ quality: 62, effort: 6 })
     .toFile(tmp);
   fs.renameSync(tmp, absOut);
   console.log(`home-lcp.webp  ${Math.round(fs.statSync(absOut).size / 1024)}KB`);

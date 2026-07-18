@@ -9,8 +9,8 @@ Status: PENDING | IN PROGRESS | DONE
 ------------------------------------
 
 PUBLIC MARKETING (priority)
-  [IN PROGRESS] /                      Home
-  [PENDING] /calculators               Calculators hub
+  [DONE] /                             Home
+  [IN PROGRESS] /calculators           Calculators hub
   [PENDING] /everest-wealth            Everest Wealth
   [PENDING] /retirement-planning       Retirement planning
   [PENDING] /insurance                 Insurance hub
@@ -47,15 +47,21 @@ CALCULATOR LANDINGS (batch later unless flagged)
 
 DONE LOG (append when signed off)
 ---------------------------------
-(none yet)
+2026-07-18  /  Home
+  Frank final OK. Lifestyle images, letter-avatar testimonials, Perfect-10
+  SEO/a11y, mobile LH perf, Wealth Assistant chat bar restored.
+  PRs: #33, #35–#38.
 
-NOTES — / IN PROGRESS
----------------------
-Live: https://www.asbrokers.co.za/
-Changes in flight:
-  - Why AS Brokers: fake storefront → home-why-as-brokers-16x9.jpg
-  - Calc tiles: 12.8% + Income vs Growth lifestyle images
-  - Testimonials: letter initials (S/M/J) instead of wrong photos
+NOTES — /calculators IN PROGRESS
+--------------------------------
+Live: https://www.asbrokers.co.za/calculators
+In flight (Perfect-10 hub pass):
+  - Meta ≤160 complete sentence + FSP 17273
+  - Schema WebPage name aligned with title
+  - OG → calculators-hub-og.jpg (~57KB)
+  - Brand kicker: AS Brokers · ASSET · FSP 17273
+  - Drop mobile pill chrome on “On this page”
+  - Body copy #3f3a36; stale idle-hydrate comment removed
 Not marked DONE until Frank final OK.
 
 Process

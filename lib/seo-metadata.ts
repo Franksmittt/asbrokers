@@ -21,13 +21,15 @@ export function stripHtml(input: string): string {
     .trim();
 }
 
-/** Remove common nav/footer boilerplate from scraped HTML strings. */
+/**
+ * Remove common nav/footer boilerplate from scraped HTML strings.
+ * Do NOT strip FSP 17273 — that is a trust token for meta/OG and entity copy.
+ */
 export function pruneHtmlRagLite(input: string): string {
   let text = stripHtml(input);
   const boilerplate = [
     /skip to main content/gi,
     /all rights reserved/gi,
-    /fsp 17273/gi,
     /whatsapp \+27/gi,
     /book (a )?private (actuarial )?consultation/gi,
   ];
@@ -45,7 +47,9 @@ export function clampMetaDescription(
   const ideal = options.ideal ?? META_DESCRIPTION_IDEAL;
   const max = options.max ?? 1200;
   const min = options.min ?? META_DESCRIPTION_MIN;
-  const text = pruneHtmlRagLite(raw).replace(/\s+/g, " ").trim();
+  // Intentional meta copy: strip tags only — never run nav/footer boilerplate pruning
+  // (that path previously erased "FSP 17273" from every SERP/OG description).
+  const text = stripHtml(raw).replace(/\s+/g, " ").trim();
   if (!text) return "";
   if (text.length <= ideal) return text;
   const slice = text.slice(0, ideal);

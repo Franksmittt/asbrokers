@@ -923,7 +923,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Hit your personal financial goal on time",
     heroSubtitle:
       "Set a target amount and date. See the illustrative growth rate and contribution path required to get there.",
-    heroImage: "/images/home4-import/card1.png",
+    heroImage: "/images/home4-import/card1.jpg",
     heroImageAlt: "Personal financial goal planning",
     calculatorLead:
       "Enter goal amount, target date, starting capital, and contributions to see required growth and month-by-month illustration.",

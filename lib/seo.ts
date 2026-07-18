@@ -5,8 +5,11 @@ import { getSiteOrigin } from "@/lib/site-url";
 export type FAQItem = { question: string; answer: string };
 export type BreadcrumbItem = { name: string; path: string };
 
-/** Shared fillers so every FAQ block can render a uniform 3×2 grid (exactly 6). */
-const COMMON_SITE_FAQS: FAQItem[] = [
+/**
+ * Optional shared FAQs for pages that intentionally include them in authored lists.
+ * Do not auto-pad UI or JSON-LD with these — GEO requires visible FAQ ≡ schema.
+ */
+export const SHARED_SITE_FAQS: FAQItem[] = [
   {
     question: "Is this personalised financial advice?",
     answer:
@@ -40,24 +43,16 @@ const COMMON_SITE_FAQS: FAQItem[] = [
 ];
 
 /**
- * UI-only: pad or trim FAQs to exactly six for the VisibleFaqSection 3×2 layout.
- * Do not use for JSON-LD — schema must emit only page-authored FAQs (see buildPageGraph).
+/**
+ * Visible FAQ list — page-authored items only (no shared padding).
+ * Must match JSON-LD (`faqsForJsonLd`) so UI and schema stay honest for GEO.
+ * @deprecated Prefer `faqsForJsonLd` — kept for call-site compatibility.
  */
 export function ensureSixFaqs(specific: FAQItem[] = []): FAQItem[] {
-  const seen = new Set(specific.map((item) => item.question.trim().toLowerCase()));
-  const merged = [...specific];
-  for (const item of COMMON_SITE_FAQS) {
-    if (merged.length >= 6) break;
-    const key = item.question.trim().toLowerCase();
-    if (!seen.has(key)) {
-      merged.push(item);
-      seen.add(key);
-    }
-  }
-  return merged.slice(0, 6);
+  return faqsForJsonLd(specific);
 }
 
-/** Authentic FAQ list for JSON-LD: page items only, no COMMON_SITE_FAQS padding. */
+/** Authentic FAQ list for JSON-LD / visible FAQ: page items only, no padding. */
 export function faqsForJsonLd(specific: FAQItem[] = []): FAQItem[] {
   return specific.filter((item) => item.question.trim().length > 0 && item.answer.trim().length > 0);
 }

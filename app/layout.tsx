@@ -3,6 +3,7 @@ import "./globals.css";
 import { DeferredConsentIsland } from "@/components/DeferredConsentIsland";
 import { DeferredRootExtras } from "@/components/DeferredRootExtras";
 import { MagicLinkBootstrap } from "@/components/MagicLinkBootstrap";
+import { fontSans, fontSerif } from "@/lib/fonts";
 import { getSiteOrigin } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${fontSans.variable} ${fontSerif.variable}`}>
       <body className="font-sans antialiased bg-warm-canvas text-shark selection:bg-samsung-blue selection:text-white min-h-screen">
         <DeferredRootExtras />
         <MagicLinkBootstrap />

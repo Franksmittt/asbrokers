@@ -69,7 +69,7 @@ export function Footer() {
                   <Link
                     href={link.href}
                     prefetch={false}
-                    className="text-stone-400 transition-colors duration-300 ease-in-out hover:text-[#5EEAD4]"
+                    className="text-stone-300 transition-colors duration-300 ease-in-out hover:text-[#5EEAD4]"
                   >
                     {link.label}
                   </Link>
@@ -82,7 +82,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs leading-relaxed text-stone-400 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs leading-relaxed text-stone-300 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-8">
             <div className="text-center lg:text-left">
               <nav
                 aria-label="Legal and staff login"
@@ -115,7 +115,7 @@ export function Footer() {
                 </a>
               </p>
             </div>
-            <p className="text-center text-[11px] leading-snug text-stone-400 lg:max-w-xl lg:text-right">
+            <p className="text-center text-[11px] leading-snug text-stone-300 lg:max-w-xl lg:text-right">
               Authorised Financial Services Provider | FSP 17273 | FSCA Regulated | FAIS & POPIA
               Compliant.
             </p>

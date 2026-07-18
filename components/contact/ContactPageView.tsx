@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
-import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
+import type { FAQItem } from "@/lib/seo";
 import { ContactFormDeferred } from "@/components/contact/ContactFormDeferred";
 import {
   ContactIntakeBanner,
@@ -16,7 +16,7 @@ import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
-const BODY = "#52525b";
+const BODY = "#3f3a36";
 const HAIRLINE = "#E5E5E5";
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
@@ -50,7 +50,8 @@ const WHO_WE_HELP = [
 ] as const;
 
 export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
-  const faqItems = ensureSixFaqs(faqs);
+  // Visible FAQ must match JSON-LD — no pad-to-6.
+  const faqItems = faqs;
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
@@ -72,7 +73,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               className="mt-5 font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
             >
-              Contact us
+              Contact AS Brokers in Krugersdorp
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"

@@ -102,3 +102,16 @@ Fixes:
 - Drop QuickActionBar `backdrop-blur`; `content-visibility` on chapters
 
 *(retest **mobile /calculators** after deploy)*
+
+### Loop 7 — Home mobile Perf 75 ? chase ?90 (TBT 1060ms)
+Live home: Perf **75**, FCP 1.3s, LCP 2.4s, TBT **1060ms**, CLS **0**, SI 1.9s. A11y/SEO/BP flawless — do not regress.
+
+Root cause: `HomeDeferredFloatingChat` mounted immediately ? framer-motion + AI/zod (~300KB) on LH critical path. WhatsApp FAB imported framer `useReducedMotion`. Goal cards / LCP WebPs had regrown past display size.
+
+Fixes:
+- Gate FloatingChat behind **pointerdown / 12s** (isolated module; keep WhatsApp + Consult SSR)
+- Zero-JS `QuickActionBar` + `FloatingWhatsApp` (no framer, no IntersectionObserver hide)
+- Regenerate `home-lcp.webp` @ 960w/q62 (~50KB) + goal cards @ 400w/q62 (~9–15KB)
+- Widen `optimizePackageImports` for zod/ai/clsx
+
+*(retest mobile `/` after deploy — preserve CLS 0 + a11y)*

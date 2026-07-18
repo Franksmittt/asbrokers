@@ -28,3 +28,13 @@ export const HUB_HERO_SIZES = "(max-width: 768px) 100vw, 1280px";
 
 /** Grid / split-layout hero band (e.g. retirement header image). */
 export const HUB_SPLIT_HERO_SIZES = "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 640px";
+
+/**
+ * ASSET calculator landing split heroes — match displayed ~half-column width so Next
+ * does not ship ~900px masters into a ~510px slot (LH “Improve image delivery”).
+ */
+export const CALC_SPLIT_HERO_SIZES =
+  "(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1280px) 42vw, 560px";
+
+/** Keep Image + HubLcpPreload quality in lockstep (mismatched quality double-fetches). */
+export const CALC_SPLIT_HERO_QUALITY = 82;

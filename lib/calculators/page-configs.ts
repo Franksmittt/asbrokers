@@ -57,7 +57,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "What growth rate do you need to retire on track?",
     heroSubtitle:
       "Model the illustrative return required to close the gap between where you are today and the capital you want at retirement.",
-    heroImage: "/images/calc-lcp/asset-001.jpg",
+    heroImage: "/images/calc-lcp/asset-001.webp",
     heroImageAlt: "Couple reviewing retirement savings growth with an adviser",
     calculatorLead:
       "Enter current savings, monthly contributions, years to retirement, and your target lump sum. The tool shows an illustrative required growth rate.",
@@ -140,7 +140,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Will your retirement income match your lifestyle?",
     heroSubtitle:
       "Compare the income you want in retirement with the capital you are on track to build. See surplus or shortfall in plain numbers.",
-    heroImage: "/images/calc-lcp/asset-002.jpg",
+    heroImage: "/images/calc-lcp/asset-002.webp",
     heroImageAlt: "Retirement planning review at a kitchen table",
     calculatorLead:
       "Enter desired monthly retirement income, expected capital, growth, and drawdown assumptions to see whether your plan may fund your lifestyle.",
@@ -195,7 +195,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "How much should you save each month to close the gap?",
     heroSubtitle:
       "Turn a retirement capital shortfall into an illustrative monthly funding number over your remaining working years.",
-    heroImage: "/images/calc-lcp/asset-003.jpg",
+    heroImage: "/images/calc-lcp/asset-003.webp",
     heroImageAlt: "Monthly retirement contribution planning",
     calculatorLead:
       "Enter your funding gap, years to retirement, and growth assumption to see an illustrative monthly premium or contribution.",
@@ -251,7 +251,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "How long will your retirement capital last?",
     heroSubtitle:
       "Stress-test sustainable drawdown: see when capital may deplete at your chosen income, growth, and inflation assumptions.",
-    heroImage: "/images/calc-lcp/asset-004.jpg",
+    heroImage: "/images/calc-lcp/asset-004.webp",
     heroImageAlt: "Retiree reviewing how long capital may last",
     calculatorLead:
       "Enter lump sum, monthly income draw, growth rate, and inflation to model capital longevity. Essential for living annuity and voluntary income planning.",
@@ -314,7 +314,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "What will today's money be worth tomorrow?",
     heroSubtitle:
       "Model how inflation erodes purchasing power so retirement, education, and estate plans account for rising living costs.",
-    heroImage: "/images/calc-lcp/asset-005.jpg",
+    heroImage: "/images/calc-lcp/asset-005.webp",
     heroImageAlt: "Purchasing power and inflation planning",
     calculatorLead:
       "Enter a lump sum or future expense and an inflation rate to see illustrative future values and the real cost of waiting.",
@@ -370,7 +370,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Estimate your personal income tax",
     heroSubtitle:
       "Illustrative SARS bracket calculation for salary, bonus, and retirement drawdown conversations. Not a substitute for a full assessment.",
-    heroImage: "/images/calc-lcp/asset-006.jpg",
+    heroImage: "/images/calc-lcp/asset-006.webp",
     heroImageAlt: "Income tax estimation worksheet",
     calculatorLead:
       "Enter taxable income components to see illustrative tax payable, rebates, and net income using 2026/27 table logic in the tool.",
@@ -426,7 +426,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Estimate estate duty and executor costs",
     heroSubtitle:
       "Quantify potential duty above the R3.5 million abatement and executor fees so your family is not caught without liquidity.",
-    heroImage: "/images/calc-lcp/asset-007.jpg",
+    heroImage: "/images/calc-lcp/asset-007.webp",
     heroImageAlt: "Estate planning and duty estimation",
     calculatorLead:
       "Enter net estate value, deductions, and abatement to see illustrative duty at 20% and 25% bands plus executor fees.",
@@ -482,7 +482,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Reduce estate duty with structured giving",
     heroSubtitle:
       "Illustrate how annual donations within SARS limits may transfer wealth during your lifetime and lower eventual duty.",
-    heroImage: "/images/calc-lcp/asset-008.jpg",
+    heroImage: "/images/calc-lcp/asset-008.webp",
     heroImageAlt: "Annual donation and estate reduction planning",
     calculatorLead:
       "Enter estate value, donation amounts, and planning horizon to see illustrative reduction in dutiable estate.",
@@ -538,7 +538,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Model Everest 14.2% Onyx Income+",
     heroSubtitle:
       "See illustrative day-one monthly income from targeted 14.2% p.a. profile after 20% dividend withholding tax on voluntary capital.",
-    heroImage: "/images/calc-lcp/asset-009.jpg",
+    heroImage: "/images/calc-lcp/asset-009.webp",
     heroImageAlt: "Everest Wealth income planning illustration",
     calculatorLead:
       "Enter lump sum (R100,000 minimum) to see gross and net monthly income illustration. Targeted return, not guaranteed.",
@@ -593,7 +593,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Model Everest 12.8% Strategic Income",
     heroSubtitle:
       "Balance monthly dividends with a 10% loyalty bonus at year five. Illustrative net income after dividend withholding tax.",
-    heroImage: "/images/calc-lcp/asset-010.jpg",
+    heroImage: "/images/calc-lcp/asset-010.webp",
     heroImageAlt: "Everest 12.8% Strategic Income illustration",
     calculatorLead:
       "Enter voluntary lump sum to see monthly income illustration and five-year bonus impact. Targeted returns only.",
@@ -648,7 +648,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "12.8% Strategic Income vs 14.2% Onyx Income+",
     heroSubtitle:
       "Side-by-side five-year illustration on identical capital: day-one income, bonus, and total outcome.",
-    heroImage: "/images/calc-lcp/asset-011.jpg",
+    heroImage: "/images/calc-lcp/asset-011.webp",
     heroImageAlt: "Everest income product comparison",
     calculatorLead:
       "Enter the same lump sum for both profiles to compare monthly income and five-year total illustration.",
@@ -704,7 +704,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Model Everest 14.5% Strategic Growth",
     heroSubtitle:
       "Pure compounding with no monthly withdrawals. Returns accumulate over five years and pay at maturity.",
-    heroImage: "/images/calc-lcp/asset-012.jpg",
+    heroImage: "/images/calc-lcp/asset-012.webp",
     heroImageAlt: "Everest Strategic Growth compound illustration",
     calculatorLead:
       "Enter lump sum to see five-year maturity illustration with growth taxed at maturity per tool assumptions.",
@@ -759,7 +759,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Compare income and growth strategies",
     heroSubtitle:
       "Three Everest-style profiles on one screen: monthly income, bonus effects, and growth maturity outcomes.",
-    heroImage: "/images/calc-lcp/asset-013.jpg",
+    heroImage: "/images/calc-lcp/asset-013.webp",
     heroImageAlt: "Everest income versus growth comparison",
     calculatorLead:
       "Enter capital to compare 12.8% income, 14.2% income, and 14.5% growth illustrations together.",
@@ -820,7 +820,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Model living annuity drawdown income",
     heroSubtitle:
       "Estimate income from pension, RA, or preservation capital using illustrative growth and drawdown rates in the regulated 2.5% to 17.5% band.",
-    heroImage: "/images/calc-lcp/asset-014.jpg",
+    heroImage: "/images/calc-lcp/asset-014.webp",
     heroImageAlt: "Living annuity income planning",
     calculatorLead:
       "Enter capital, a drawdown percentage between 2.5% and 17.5%, and growth assumptions to see illustrative monthly income and sustainability notes.",
@@ -888,7 +888,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "How underinsurance cuts your claim",
     heroSubtitle:
       "Illustrate claim reduction when sum insured is below replacement value. Essential for home, contents, and commercial property.",
-    heroImage: "/images/calc-lcp/asset-015.jpg",
+    heroImage: "/images/calc-lcp/asset-015.webp",
     heroImageAlt: "Home insurance underinsurance review",
     calculatorLead:
       "Enter replacement value, sum insured, and claim amount to see illustrative payment after average clause application.",
@@ -944,7 +944,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "See the power of compound growth",
     heroSubtitle:
       "Project how lump sums and monthly contributions may grow over time at an illustrative return rate.",
-    heroImage: "/images/calc-lcp/asset-016.jpg",
+    heroImage: "/images/calc-lcp/asset-016.webp",
     heroImageAlt: "Wealth building and compound growth illustration",
     calculatorLead:
       "Enter starting capital, monthly contributions, growth rate, and years to see illustrative future value.",
@@ -1000,7 +1000,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Hit your personal financial goal on time",
     heroSubtitle:
       "Set a target amount and date. See the illustrative growth rate and contribution path required to get there.",
-    heroImage: "/images/calc-lcp/asset-017.jpg",
+    heroImage: "/images/calc-lcp/asset-017.webp",
     heroImageAlt: "Personal financial goal planning",
     calculatorLead:
       "Enter goal amount, target date, starting capital, and contributions to see required growth and month-by-month illustration.",

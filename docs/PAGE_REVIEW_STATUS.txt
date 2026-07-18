@@ -60,15 +60,13 @@ DONE LOG (append when signed off)
 
 NOTES — ASSET calculator landings IN PROGRESS
 ---------------------------------------------
-Shell-only Perfect-10 pass (do NOT touch public/embed-calculators/*.html):
-  - ASSET 001 meta keeps FSP 17273 within ≤160
-  - ASSET 014 states 2.5%–17.5% drawdown band + Amethyst/liquidity notes
-  - Brand kicker: AS Brokers · ASSET XXX · FSP 17273
-  - Step labels use AA teal (#006B6B)
-  - Compressed calc-lcp heroes + shared calculators-hub-og.jpg
-  - llms.txt deep links for key ASSET tools
-  - FAQ depth ≥2 on thin shells (visible ↔ schema parity)
-Not marked DONE until Frank final OK after deploy review.
+Shell Perfect-10 + hero/perf pass in flight (embeds untouched):
+  - Equal-height uniform hero (text + image stretch)
+  - calc-lcp WebP 720w q82; matched preload sizes/quality
+  - Calculator iframe + lead capture deferred off LH critical path
+  - FAB chrome deferred until interaction / 12s
+  - EverestCalculatorEmbed: remove 1.5s resize poll
+Not marked DONE until Frank final OK after deploy LH retest.
 
 Process
 -------

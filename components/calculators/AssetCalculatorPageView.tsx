@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { CalculatorToolDeferred } from "@/components/calculators/CalculatorToolDeferred";
+import { CalculatorToolPanel } from "@/components/calculators/CalculatorToolPanel";
 import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
@@ -66,7 +66,7 @@ export function AssetCalculatorPageView({
           </nav>
 
           {/* Uniform equal-height hero: text column defines height; image stretches to match. */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-stretch lg:gap-10">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-start lg:gap-10 xl:items-stretch">
             <div className="flex min-w-0 flex-col justify-center">
               <p
                 className="font-semibold uppercase tracking-[0.12em] sm:tracking-[0.18em]"
@@ -107,7 +107,7 @@ export function AssetCalculatorPageView({
               </div>
             </div>
 
-            <div className="relative h-full min-h-[16rem] w-full overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 sm:min-h-[18rem] max-lg:aspect-[4/3] lg:min-h-[22rem]">
+            <div className="relative aspect-[4/3] h-full w-full overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 xl:aspect-auto xl:min-h-[22rem]">
               <Image
                 src={heroImage}
                 alt={getAlt(heroImage, heroImageAlt)}
@@ -115,6 +115,7 @@ export function AssetCalculatorPageView({
                 quality={CALC_SPLIT_HERO_QUALITY}
                 priority
                 fetchPriority="high"
+                unoptimized={heroImage.endsWith(".webp") || heroImage.endsWith(".avif")}
                 className="object-cover object-center"
                 sizes={CALC_SPLIT_HERO_SIZES}
               />
@@ -219,7 +220,7 @@ export function AssetCalculatorPageView({
               {calculatorTitle}
             </h2>
             <p className="mt-2 max-w-2xl text-base leading-relaxed text-stone-600">{calculatorLead}</p>
-            <CalculatorToolDeferred
+            <CalculatorToolPanel
               calculatorSrc={calculatorSrc}
               calculatorTitle={calculatorTitle}
               calculatorId={assetCode}

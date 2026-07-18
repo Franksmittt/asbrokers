@@ -30,11 +30,11 @@ export const HUB_HERO_SIZES = "(max-width: 768px) 100vw, 1280px";
 export const HUB_SPLIT_HERO_SIZES = "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 640px";
 
 /**
- * ASSET calculator landing split heroes — match displayed ~half-column width so Next
- * does not ship ~900px masters into a ~510px slot (LH “Improve image delivery”).
+ * ASSET calculator landing split heroes.
+ * Mobile LH slots are ~380px wide; ship ≤480w sources and sizes that match.
  */
 export const CALC_SPLIT_HERO_SIZES =
-  "(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1280px) 42vw, 560px";
+  "(max-width: 1024px) 100vw, (max-width: 1280px) 42vw, 480px";
 
 /** Keep Image + HubLcpPreload quality in lockstep (mismatched quality double-fetches). */
-export const CALC_SPLIT_HERO_QUALITY = 82;
+export const CALC_SPLIT_HERO_QUALITY = 78;

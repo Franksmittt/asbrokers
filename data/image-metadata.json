@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-21T17:50:25.785Z",
+  "updatedAt": "2026-07-18T15:40:00.000Z",
   "entries": {
     "/images/logo.jpg": {
       "alt": "AS Brokers CC logo with ASB monogram and Authorised Financial Services Provider tagline",
@@ -47,37 +47,37 @@
       "hash": "0a725ba2792cbb56b517ce1f08316f9269544ae47e28084954ff12b439dfd854"
     },
     "/images/everest-wealth-hero-maize-growth-4x3.jpg": {
-      "alt": "South African farmer tending young maize shoots — growth that takes patience"
+      "alt": "South African farmer tending young maize shoots \u2014 growth that takes patience"
     },
     "/images/home-hero-patio-16x9.jpg": {
-      "alt": "South African couple on a sunlit patio — calm retirement and lasting capital"
+      "alt": "South African couple on a sunlit patio \u2014 calm retirement and lasting capital"
     },
     "/images/home-lcp.webp": {
-      "alt": "South African couple on a sunlit patio — calm retirement and lasting capital"
+      "alt": "South African couple on a sunlit patio \u2014 calm retirement and lasting capital"
     },
     "/images/home-card-investments.webp": {
-      "alt": "Man with morning coffee on a patio — structured income and lasting capital"
+      "alt": "Man with morning coffee on a patio \u2014 structured income and lasting capital"
     },
     "/images/home-card-investments-16x9.jpg": {
-      "alt": "Man with morning coffee on a patio — structured income and lasting capital"
+      "alt": "Man with morning coffee on a patio \u2014 structured income and lasting capital"
     },
     "/images/home-card-retirement.webp": {
-      "alt": "Couple walking by a calm dam — retirement years still ahead"
+      "alt": "Couple walking by a calm dam \u2014 retirement years still ahead"
     },
     "/images/home-card-retirement-16x9.jpg": {
-      "alt": "Couple walking by a calm dam — retirement years still ahead"
+      "alt": "Couple walking by a calm dam \u2014 retirement years still ahead"
     },
     "/images/home-card-insurance.webp": {
-      "alt": "Healthy family at home — personal protection and medical cover"
+      "alt": "Healthy family at home \u2014 personal protection and medical cover"
     },
     "/images/home-card-insurance-16x9.jpg": {
-      "alt": "Healthy family at home — personal protection and medical cover"
+      "alt": "Healthy family at home \u2014 personal protection and medical cover"
     },
     "/images/insurance-hero-16x9.webp": {
-      "alt": "Healthy family at home — personal protection and medical cover"
+      "alt": "Healthy family at home \u2014 personal protection and medical cover"
     },
     "/images/insurance-hero-16x9.jpg": {
-      "alt": "Healthy family at home — personal protection and medical cover"
+      "alt": "Healthy family at home \u2014 personal protection and medical cover"
     },
     "/images/insurance-domain-medical-21x9.webp": {
       "alt": "Mother and child with a doctor in a calm consulting room"
@@ -86,46 +86,46 @@
       "alt": "Mother and child with a doctor in a calm consulting room"
     },
     "/images/insurance-domain-life-21x9.webp": {
-      "alt": "Father on a patio watching his child play — protecting dependents and earnings"
+      "alt": "Father on a patio watching his child play \u2014 protecting dependents and earnings"
     },
     "/images/insurance-domain-life-21x9.jpg": {
-      "alt": "Father on a patio watching his child play — protecting dependents and earnings"
+      "alt": "Father on a patio watching his child play \u2014 protecting dependents and earnings"
     },
     "/images/insurance-domain-personal-21x9.webp": {
-      "alt": "Couple with their car at home — personal assets and underinsurance risk"
+      "alt": "Couple with their car at home \u2014 personal assets and underinsurance risk"
     },
     "/images/insurance-domain-personal-21x9.jpg": {
-      "alt": "Couple with their car at home — personal assets and underinsurance risk"
+      "alt": "Couple with their car at home \u2014 personal assets and underinsurance risk"
     },
     "/images/insurance-domain-business-21x9.webp": {
-      "alt": "Business partners outside a commercial warehouse — continuity and cover"
+      "alt": "Business partners outside a commercial warehouse \u2014 continuity and cover"
     },
     "/images/insurance-domain-business-21x9.jpg": {
-      "alt": "Business partners outside a commercial warehouse — continuity and cover"
+      "alt": "Business partners outside a commercial warehouse \u2014 continuity and cover"
     },
     "/images/home-card-estate.webp": {
-      "alt": "Grandparent with grandchild in a tidy garden — legacy and continuity"
+      "alt": "Grandparent with grandchild in a tidy garden \u2014 legacy and continuity"
     },
     "/images/home-card-estate-16x9.jpg": {
-      "alt": "Grandparent with grandchild in a tidy garden — legacy and continuity"
+      "alt": "Grandparent with grandchild in a tidy garden \u2014 legacy and continuity"
     },
     "/images/home-journey-01-educate.webp": {
-      "alt": "Man reading on a garden bench — educate before you buy"
+      "alt": "Man reading on a garden bench \u2014 educate before you buy"
     },
     "/images/home-journey-02-calculate.webp": {
-      "alt": "Man pausing on a patio — calculate before any sales call"
+      "alt": "Man pausing on a patio \u2014 calculate before any sales call"
     },
     "/images/home-journey-03-everest.webp": {
-      "alt": "Man outside an independent office — understand Everest structure first"
+      "alt": "Man outside an independent office \u2014 understand Everest structure first"
     },
     "/images/home-journey-04-contact.webp": {
-      "alt": "Client and adviser in a calm meeting — contact when the numbers say so"
+      "alt": "Client and adviser in a calm meeting \u2014 contact when the numbers say so"
     },
     "/images/retirement-planning-hero-16x9.webp": {
-      "alt": "Couple outdoors — will your capital survive your lifespan?"
+      "alt": "Couple outdoors \u2014 will your capital survive your lifespan?"
     },
     "/images/retirement-planning-hero-16x9.jpg": {
-      "alt": "Couple outdoors — will your capital survive your lifespan?"
+      "alt": "Couple outdoors \u2014 will your capital survive your lifespan?"
     },
     "/images/contact-trust.jpg": {
       "alt": "Financial adviser consultation with clients in a bright meeting room with notebooks",
@@ -325,6 +325,18 @@
     },
     "/images/home4-why-independence-4x3.jpg": {
       "alt": "Independent financial adviser in a Krugersdorp office discussing investment options with a client couple at a consultation table"
+    },
+    "/images/home-why-as-brokers-16x9.jpg": {
+      "alt": "Independent adviser reviewing planning documents in a home study",
+      "hash": "7adcf91e91b62d17d8e72927eca48cb9a5a01507e2b8d779dc3849381d47f46d"
+    },
+    "/images/home-calc-128-income-16x10.jpg": {
+      "alt": "Couple reviewing income planning notes at a kitchen table",
+      "hash": "11c141094bd0d0c6b8e8b0ca51e5c4afacc7f25fa60a49a81332d17c813ca62c"
+    },
+    "/images/home-calc-income-vs-growth-16x10.jpg": {
+      "alt": "Man comparing current income and capital growth folders at a patio table",
+      "hash": "96f8542c12fe6b277ed3dbd90f3ffd42cbe479c1f5dbb3e87b3454defd5d3d50"
     }
   }
 }

@@ -175,10 +175,10 @@ export function Home4BelowFoldRest() {
               </div>
               <div className="relative min-h-[16rem] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/70 lg:min-h-0">
                 <Image
-                  src="/images/about-krugersdorp-trust-16x9.jpg"
+                  src="/images/home-why-as-brokers-16x9.jpg"
                   alt={getAlt(
-                    "/images/about-krugersdorp-trust-16x9.jpg",
-                    "AS Brokers Krugersdorp storefront with FSP 17273 signage"
+                    "/images/home-why-as-brokers-16x9.jpg",
+                    "Independent adviser reviewing planning documents in a home study"
                   )}
                   fill
                   quality={70}

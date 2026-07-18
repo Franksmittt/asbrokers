@@ -199,19 +199,16 @@ export function Home4JourneyFunnel({ stages }: { stages: FunnelStage[] }) {
 export function Home4TestimonialCard({ item }: { item: Testimonial }) {
   return (
     <figure className="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-stone-200/70">
-      <div className="relative h-44 w-full">
-        <Image
-          src={item.photo}
-          alt={getAlt(item.photo, `${item.who}, client story`)}
-          fill
-          quality={70}
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-shark/75 via-shark/15 to-transparent" />
-      </div>
       <blockquote className="flex flex-1 flex-col p-6">
-        <p className="text-sm leading-relaxed text-stone-700 sm:text-[15px]">&ldquo;{item.quote}&rdquo;</p>
+        <div
+          className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#006B6B]/10 text-lg font-bold text-[#006B6B]"
+          aria-hidden
+        >
+          {item.initial}
+        </div>
+        <p className="mt-5 text-sm leading-relaxed text-stone-700 sm:text-[15px]">
+          &ldquo;{item.quote}&rdquo;
+        </p>
         <figcaption className="mt-4 border-t border-stone-100 pt-4 text-sm">
           <span className="font-semibold text-shark">{item.who}</span>
           <span className="text-stone-400"> · </span>

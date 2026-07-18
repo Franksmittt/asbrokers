@@ -8,7 +8,7 @@ You’ve only done the frontend so far. This list covers **all backend-related s
 
 **Handover status (Jul 2026):** Marketing site, CRM PIN login, Blog Studio, and form→CRM leads are live when Vercel env is set. See **`docs/HANDOVER.md`** first.
 
-- **Contact / newsletter** write to Postgres CRM via `insertCrmLead` and email Albert via **Resend**. HubSpot sync is optional/non-blocking. If HubSpot sync is desired, create contact properties:
+- **Contact / newsletter** write to Postgres CRM via `insertCrmLead` and email Albert via **Resend**. CRM lead capture is optional/non-blocking. If CRM lead capture is desired, create contact properties:
   - `platform_lead_score` (Number)
   - `financial_inquiry_topic` (Single-line text)
   - `financial_capital_input` (Number, optional)
@@ -29,7 +29,7 @@ Create `.env.local` (and add the same in your host: Vercel, Trigger.dev, etc.). 
 | `DATABASE_URL` | For CRM, Studio posts, RAG | PostgreSQL connection string (see §3). |
 | `GOOGLE_GENERATIVE_AI_API_KEY` | For chat + RAG | From Google AI Studio (Gemini). |
 | `RESEND_API_KEY` | For lead emails | Contact/newsletter/staff alerts (see §7). |
-| `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN` | Optional sync | HubSpot API token (see §4). |
+| `(removed)` or `(removed)` | Optional sync | API token (see §4). |
 | `TRIGGER_SECRET_KEY` | For PDF-after-contact | From Trigger.dev project (see §6). |
 | `NEXT_PUBLIC_APP_URL` or `APP_URL` | For PDF + absolute URLs | Full app URL, e.g. `https://yoursite.com`. |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional, Phase 4 | GA4 measurement ID (only used after consent). |
@@ -54,7 +54,7 @@ Your `.env.example` currently has analytics and app keys. Consider adding (with 
 
 - `DATABASE_URL`
 - `OPENAI_API_KEY`
-- `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN`
+- `(removed)` or `(removed)`
 - `TRIGGER_SECRET_KEY`
 - `NEXT_PUBLIC_APP_URL` / `APP_URL`
 - `RESEND_API_KEY`, `RESEND_FROM` (document as “Trigger worker”)
@@ -66,7 +66,7 @@ Your `.env.example` currently has analytics and app keys. Consider adding (with 
 No separate backend server is required. These run inside Next.js:
 
 - **Contact form**  
-  `app/actions/contact.ts` and `app/(content)/actions/contact.ts`: validate with Zod → `syncContactToHubSpot()` → optionally trigger Trigger.dev task `generate-financial-pdf`.
+  `app/actions/contact.ts` and `app/(content)/actions/contact.ts`: validate with Zod → `insertCrmLead()` → optionally trigger Trigger.dev task `generate-financial-pdf`.
 - **Chat API**  
   `app/api/chat/route.ts`: uses OpenAI + optional RAG (`getRagContext()` from DB). Works without DB (empty context).
 - **Insights / Blog Studio**  
@@ -125,22 +125,6 @@ The CRM (`/crm`, `/portal`) uses **mock data** by default. To use a **real Supab
 
 ---
 
-## 4. HubSpot
-
-Contact form submissions are synced to HubSpot (search by email, create or patch contact, cumulative lead score by topic).
-
-1. **HubSpot account**  
-   Create or use an existing account.
-
-2. **Private app or access token**
-   - Create a [Private App](https://developers.hubspot.com/docs/api/private-apps) (or use OAuth and get an access token).
-   - Scopes: at least **crm.objects.contacts.read**, **crm.objects.contacts.write**.
-   - Copy the token into `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN` in `.env.local`.
-
-3. **Custom property (optional)**  
-   The code uses `platform_lead_score` (number). Create this in HubSpot if you want lead scoring; otherwise the service may still work with a fallback (check `lib/hubspot.service.ts` for required properties).
-
----
 
 ## 5. Blog Studio (Insights CMS)
 
@@ -234,7 +218,7 @@ No backend code to add; only env and consent wiring (already in place).
 - [ ] PostgreSQL created; `DATABASE_URL` set.
 - [ ] `CREATE EXTENSION vector` run; Drizzle migrations generated and applied.
 - [ ] (Optional) RAG ingestion script/process: populate `resources` + `embeddings`.
-- [ ] HubSpot: private app or token; `HUBSPOT_ACCESS_TOKEN` or `HUBSPOT_PRIVATE_APP_TOKEN` set.
+- [ ] : private app or token; `(removed)` or `(removed)` set.
 - [ ] Blog Studio / Insights: `client_insight_posts` reachable; editors use `/studio/blog`; public feed Studio-only.
 - [ ] Trigger.dev: project created; worker env set (Resend, APP_URL, etc.); worker deployed or run with `trigger dev`.
 - [ ] Resend: API key in Trigger worker env; domain verified for production.
@@ -259,4 +243,4 @@ You may want to add to `package.json`:
 
 ---
 
-Once the above are done, your “backend” is effectively complete for this stack: contact → HubSpot + optional PDF email; chat → OpenAI + optional RAG; Insights → Blog Studio; analytics → GA4/Hotjar after consent.
+Once the above are done, your “backend” is effectively complete for this stack: contact → optional PDF email; chat → OpenAI + optional RAG; Insights → Blog Studio; analytics → GA4/Hotjar after consent.

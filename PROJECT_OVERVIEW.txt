@@ -27,7 +27,7 @@ LIVE NOW
   • Blog Studio, SEO/AEO stack, WhatsApp webhook architecture
 
 COMING NEXT (Phase 3–5)
-  • Everest/portfolio API in portal; HubSpot bi-sync; staff email login (replace PIN)
+  • Everest/portfolio API in portal; native CRM lead capture; staff email login (replace PIN)
   • Postgres RLS; full WhatsApp inbox; morning/executive AI reliability polish
 
 DB SAFETY: CRM AI writes merge into raw_payload only; crm_ai_audit_log is append-only.
@@ -44,7 +44,7 @@ Styling:           Tailwind CSS
 Key libraries:     Framer Motion, React Hook Form, Zod, clsx, tailwind-merge,
                    Recharts (calculator charts), Vercel AI SDK (ai, @ai-sdk/google,
                    @ai-sdk/react), Drizzle ORM, pg, pgvector, @supabase/ssr,
-                   @supabase/supabase-js, server-only (HubSpot), Resend (email);
+                   @supabase/supabase-js, server-only (), Resend (email);
                    Trigger.dev v4 + Puppeteer (background PDF + WhatsApp inbound jobs).
                    Quiz: Zustand (state), nuqs (URL query state for shareable results).
                    Phase 3: next-sanity, sanity (v3), @portabletext/react; Studio deps:
@@ -66,7 +66,7 @@ Purpose:
 
 What this project can do:
   - Full marketing site: home (Reality Check hero, RunOutCalculator, EverestWealthBento, Code18Advantage, RiskArchitectureCarousel, FloatingChat), solutions hub (Phase 1/2 hierarchy), calculators hub (Phase 1/2), team, about, contact.
-  - Contact form → crm_leads (Drizzle/PostgreSQL) + Resend staff alert; optional HubSpot sync.
+  - Contact form → crm_leads (Drizzle/PostgreSQL) + Resend staff alert; optional CRM lead capture.
   - Digital Wealth Assistant (chat) with Gemini 2.5 Flash; deterministic tools (estate duty,
     12.8% income, Amethyst) and RAG (pgvector + gemini-embedding-001).
   - Financial Health Quiz with shareable result URLs (nuqs) and routing to relevant calculators.
@@ -154,7 +154,7 @@ Recent work done (Phases 1–12 + CRM Gemini AI, June 2026):
   - Design system: Apple × Samsung hybrid (bg-[#0a0a0c] void, Bento grids, rounded-[2rem] squircle, cinematic-teal and blue/red accent glows, trust hallmarks FSP 17273 · Category 1.8 · 25+ Years).
   - Home: "Reality Check" hero; RunOutCalculator (#lab); EverestWealthBento; Code18Advantage; RiskArchitectureCarousel; FloatingChat.
   - Solutions hub, Calculators hub, Contact conversion page, Everest product pages, fiduciary calculator framing.
-  - Blog Studio image editing; Sanity CMS + Visual Editing; HubSpot contact sync; Trigger.dev PDF + Resend.
+  - Blog Studio image editing; Sanity CMS + Visual Editing contact sync; Trigger.dev PDF + Resend.
   - CRM & Client Portal production backend (Supabase SSR + Drizzle); portal charts
     remain illustrative (lib/mock-portal.ts) until portfolio API integration.
   - Documentation: docs/calculator-overviews/, docs/DEPLOYMENT.md, docs/CUSTOMER_OVERVIEW.txt, CRM_AND_PORTAL.txt.
@@ -269,7 +269,7 @@ Quick index (all routes):
   "The Actuarial Reality Check" hero; jump nav (Assess Capital Lifespan, Calculate Everest Yields, Secondary Risk Tools). Phase 1: Capital Lifespan & High-Yield Solutions (retirement, income-in-retirement, inflation, Everest Product Quote — featured/glow cards). Phase 2: Secondary Risk Architecture (tax, estate, premium-increase — muted cards). Financial Education, Business Risk, CTA "Stop Guessing Your Capital Lifespan." FAQ schema. See docs/CALCULATORS_PAGE_OVERVIEW.txt.
 
 /contact
-  "Book a Private Actuarial Consultation"; Code 1.8 subhead; Apple-style trust tags (FSP 17273, 25+ Years, Zero Advice Fees); "Client Qualification Criteria" list; Squircle form card (border-blue-500/20 glow); submit "Initiate Wealth Engineering Request". "The Actuarial Review Process" 3 steps (Capital Assessment, Wealth Engineering Call, Implementation & Allocation). Form: fullName, phone, email, topics (Everest first), consent, honeypot. submitContactEnquiry → HubSpot + optional Trigger PDF. See docs/CONTACT_PAGE_OVERVIEW.txt.
+  "Book a Private Actuarial Consultation"; Code 1.8 subhead; Apple-style trust tags (FSP 17273, 25+ Years, Zero Advice Fees); "Client Qualification Criteria" list; Squircle form card (border-blue-500/20 glow); submit "Initiate Wealth Engineering Request". "The Actuarial Review Process" 3 steps (Capital Assessment, Wealth Engineering Call, Implementation & Allocation). Form: fullName, phone, email, topics (Everest first), consent, honeypot. submitContactEnquiry → optional Trigger PDF. See docs/CONTACT_PAGE_OVERVIEW.txt.
 
 /team
   Albert Schuurman and Johnny Farinha: roles, bios, FSP 17273. Metadata: independent financial advisors Krugersdorp.
@@ -488,7 +488,7 @@ HomeDeferredBlocks / DeferUntilVisible – Below-fold lazy loading for charts an
 HomeInsightsTeaserStatic – Static insights teaser on homepage (no Sanity fetch on critical path)
 FloatingChat      – Fixed bottom-right FAB; HeroChatTerminal panel
 RunOutCalculator  – Portfolio + drawdown → capital lifespan; POPIA gate for PDF via Trigger.dev
-ContactEnquiryForm – Server Action submitContactEnquiry; HubSpot sync; honeypot; Zod validation
+ContactEnquiryForm – Server Action submitContactEnquiry; CRM lead capture; honeypot; Zod validation
 ContactEnquiryFormLazy – dynamic import on /contact for smaller initial bundle
 ContactPageView   – Contact page layout wrapper
 PageJsonLd        – Server component: single @graph JSON-LD per page via lib/seo.ts buildPageGraph()
@@ -626,7 +626,7 @@ PWA:  public/manifest.json (name, theme, start_url). Root layout references mani
 Memory bank:
   - ALBERT_CRM_GUIDE.txt  – Staff/owner CRM guide (PIN, demo, AI features) — Albert-facing
   - CRM_10_ROADMAP.txt      – Path from ~8/10 to 10/10 CRM maturity
-  - BACKEND.md              – Backend setup checklist; env vars; Supabase, HubSpot, Trigger.dev, Resend, Sanity, Gemini, RAG
+  - BACKEND.md              – Backend setup checklist; env vars; Supabase, Trigger.dev, Resend, Sanity, Gemini, RAG
   - docs/DEPLOYMENT.md      – CI gates, GSC setup, pre-launch checklist, master-audit, post-deploy monitoring
   - CRM_AND_PORTAL.txt      – CRM & Client Portal architecture reference
   - ROLLS_ROYCE_CRM_VISION.txt – Vision for bespoke CRM (client portal, staff, owner dashboards)
@@ -644,8 +644,8 @@ Cursor rules:
 
 Server Actions:
   - app/actions/contact.ts – submitContactEnquiry(prevState, formData) for useActionState.
-    contactFormSchema (Zod); flatten().fieldErrors for UI; honeypot; syncContactToHubSpot
-    (lib/hubspot.service). After HubSpot success, triggers PDF job via POST to Trigger.dev
+    contactFormSchema (Zod); flatten().fieldErrors for UI; honeypot; insertCrmLead
+    ((removed)). After success, triggers PDF job via POST to Trigger.dev
     API (generate-financial-pdf) so client gets immediate success; PDF generated async.
     Returns ContactActionState (success, message, fieldErrors).
 
@@ -655,13 +655,11 @@ Validations:
   - lib/validations/investmentSchema.ts – investmentLeadSchema with R100,000 minimum
     (EVEREST_MIN_INVESTMENT) for Everest voluntary products; for use on lead forms.
 
-HubSpot CRM (Phase 4):
-  - lib/hubspot.service.ts – "server-only"; getContactByEmail (GET by idProperty=email,
-    returns id + platform_lead_score); syncContactToHubSpot: search-patch (PATCH if
+    returns id + platform_lead_score); insertCrmLead: search-patch (PATCH if
     exists, POST if 404). Cumulative lead score: read existing + add (+20 if
     capitalAmount > R1M, +15 if topic short_business or trust). Properties:
     financial_inquiry_topic (string), financial_capital_input (when capital present),
-    platform_lead_score (string). Env: HUBSPOT_ACCESS_TOKEN or HUBSPOT_PRIVATE_APP_TOKEN.
+    platform_lead_score (string). Env: (removed).
 
 --------------------------------------------------------------------------------
 8. SEO IMPLEMENTATION SOURCE
@@ -962,7 +960,7 @@ Pre-deploy (manual):
   - Production env: NEXT_PUBLIC_SITE_URL=https://www.asbrokers.co.za
   - DATABASE_URL, NEXT_PUBLIC_SUPABASE_*, GOOGLE_GENERATIVE_AI_API_KEY, CRM_SUPERUSER_PIN
   - RESEND_API_KEY for contact form email
-  - HubSpot token when CRM sync enabled (optional — crm_leads is primary pipeline)
+  - token when CRM sync enabled (optional — crm_leads is primary pipeline)
   - GSC domain verification + sitemap submit
 
 Post-deploy:
@@ -1075,7 +1073,7 @@ Nav label: "Planning tools" dropdown lists:
     4. Server Action: submitHealthyRetirementAssessment (app/(content)/healthy-retirement-blueprint/actions.ts)
     5. Scoring: lib/healthy-retirement/scoring.ts → Retirement Health Score™, Gap™, band
     6. Persist: healthy_retirement_assessments table (DATABASE_URL + Drizzle) → UUID reportId
-    7. HubSpot: syncHealthyRetirementToHubSpot (+20 score + +10 newsletter increment)
+    7. : insertCrmLead (+20 score + +10 newsletter increment)
     8. Email: notifyStaffLead("Healthy Retirement Blueprint", ...) → albert@asbrokers.co.za via Resend
     9. Redirect to /healthy-retirement-blueprint/report/{id} (HealthyRetirementReport.tsx)
 
@@ -1117,7 +1115,7 @@ Nav label: "Planning tools" dropdown lists:
     2. Lead form: firstName, surname, email, phone, age, businessOwner (yes/no), honeypot
     3. Server Action: submitLegacyChecklistLead (legacy-readiness-checklist/actions.ts)
     4. Persist: legacy_checklist_leads table → UUID leadId
-    5. HubSpot: syncLegacyChecklistLeadToHubSpot (+25 +10 score); topic estate_planning, legacy_checklist
+    5. : insertCrmLead (+25 +10 score); topic estate_planning, legacy_checklist
     6. Email: notifyStaffLead("Legacy Readiness Checklist", ...)
     7. Redirect to /legacy-readiness-checklist/checklist/{id} (printable 8-area checklist)
 
@@ -1140,7 +1138,7 @@ Nav label: "Planning tools" dropdown lists:
     5. Scoring: lib/business-risk/scoring.ts → protection %, band (strong/moderate/high_risk)
     6. Resend REQUIRED for success (returns error if email fails)
     7. Persist: business_risk_reviews table → UUID reportId
-    8. HubSpot: not wired in actions.ts (email only today)
+    8. : not wired in actions.ts (email only today)
     9. Report page: /business-risk-review/report/{id}
 
   CRM admin: /crm/business-risk-reviews
@@ -1185,7 +1183,7 @@ Formulas & tax: app/(content)/calculators/CONTEXT.md, AGENTS.md (SARS 2026/27, e
 --------------------------------------------------------------------------------
 
 This section documents lead capture paths and the production CRM integration map.
-Marketing forms still use Resend + optional HubSpot; CRM pipeline is Drizzle/PostgreSQL.
+Marketing forms still use Resend + ; CRM pipeline is Drizzle/PostgreSQL.
 
 A. CONTACT FORM (/contact)
   Component:  components/forms/ContactEnquiryForm.tsx (lazy on contact via ContactEnquiryFormLazy)
@@ -1195,16 +1193,16 @@ A. CONTACT FORM (/contact)
     1. Zod contactFormSchema validation
     2. insertCrmLead → crm_leads (pipeline_status: new) + applyAutoAdvisorRoute
     3. notifyStaffContactEnquiry → Resend → RESEND_NOTIFY_EMAIL (albert@asbrokers.co.za)
-    4. syncContactToHubSpot (non-blocking) — search by email, PATCH or POST
+    4. insertCrmLead (non-blocking) — search by email, PATCH or POST
     5. Optional Trigger.dev generate-financial-pdf if TRIGGER_SECRET_KEY set
-  HubSpot properties: email, firstname, lastname, phone, financial_inquiry_topic,
+  properties: email, firstname, lastname, phone, financial_inquiry_topic,
     platform_lead_score (cumulative), financial_capital_input (if capital on calculator leads)
   Lead score increments: +20 if capitalAmount > R1M; +15 if topic short_business or trust
 
 B. NEWSLETTER (footer)
   Action: app/actions/newsletter.ts → subscribeNewsletter
   Fields: email
-  HubSpot: syncNewsletterToHubSpot (+10 platform_lead_score)
+  : insertCrmLead (+10 platform_lead_score)
   Email: notifyStaffNewsletterSignup + sendNewsletterWelcome (when configured)
 
 C. PLANNING TOOL FUNNELS (see §19)
@@ -1229,14 +1227,6 @@ D. PRODUCTION CRM (/crm, /portal) — LIVE (Phases 4–7 + Gemini AI, June 2026)
   Kanban: LeadsKanban → updateLeadStatus + refreshKanbanAiPriorities.
   WhatsApp inbound: see §22. Deploy: npm run db:push (additive migrations only).
 
-E. HUBSPOT (optional CRM sync today)
-  Service: lib/hubspot.service.ts
-  Env: HUBSPOT_ACCESS_TOKEN or HUBSPOT_PRIVATE_APP_TOKEN
-  Required custom contact properties (create in HubSpot Settings):
-    platform_lead_score (Number)
-    financial_inquiry_topic (Single-line text)
-    financial_capital_input (Number or text)
-  Known issue: form fails HubSpot POST if properties missing (BACKEND.md)
 
 F. EMAIL (Resend)
   lib/email/resend.ts, lib/email/notifications.ts
@@ -1253,14 +1243,14 @@ G. PDF GENERATION (Run-out / contact)
 H. REMAINING INTEGRATION GAPS (post Gemini CRM, June 2026)
   1. RunOutCalculator home gate — wire Server Action + store portfolio/drawdown in CRM
   2. Retirement Survival Blueprint — add lead capture at results → crm_leads
-  3. Business Risk Review — add HubSpot sync (other funnels have it)
+  3. Business Risk Review — add CRM lead capture (other funnels have it)
   4. Quiz / LeadFormContext modal — connect to crm_leads pipeline
   5. /chat conversations — store messages; optional lead escalation
   6. Client Portal — replace lib/mock-portal.ts with Everest API + client RLS
   7. Postgres RLS policies — defence in depth (app-layer gates live today)
   8. Staff email login — replace demo PIN for permanent advisor accounts
   9. Morning brief / executive AI report — reliability polish (lead-level AI works)
-  10. HubSpot bi-sync with crm_leads (contact form still optional HubSpot today)
+  10. native CRM lead capture with crm_leads (contact form still today)
   11. Backfill auto-advisor routing on pre-existing test leads (optional script)
 
 I. SERVICE CATEGORY TAGS (for CRM routing)

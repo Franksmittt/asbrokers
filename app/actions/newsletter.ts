@@ -1,7 +1,6 @@
 "use server";
 
 import { newsletterSchema } from "@/lib/validations/schema";
-import { syncNewsletterToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffNewsletterSignup } from "@/lib/email/notifications";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
 
@@ -10,7 +9,7 @@ export type NewsletterActionState = { success: boolean; message?: string; fieldE
 const SUBMIT_ERROR = "Could not subscribe right now. Please try again later.";
 
 /**
- * Footer newsletter signup. Notifies Albert via Resend; HubSpot sync deferred.
+ * Footer newsletter signup. Writes CRM lead and notifies Albert via Resend.
  */
 export async function subscribeNewsletter(
   _prevState: NewsletterActionState,
@@ -49,12 +48,6 @@ export async function subscribeNewsletter(
       return { success: false, message: SUBMIT_ERROR };
     }
   }
-
-  void syncNewsletterToHubSpot(parsed.data).catch((e) => {
-    if (process.env.NODE_ENV === "development") {
-      console.error("[Newsletter] HubSpot sync failed (non-blocking):", e);
-    }
-  });
 
   return { success: true, message: "Subscribed!" };
 }

@@ -42,7 +42,7 @@ Deprecate or remove for MVP:
 
 Keep or simplify:
 
-  • CRM-style lead list (optional): still useful if contact form → HubSpot or DB
+  • CRM-style lead list (optional): still useful if contact form → Postgres CRM
   • Wealth Presentation at /crm/presentation (rename route to /office/... when
     you rebrand the area)
 
@@ -55,7 +55,7 @@ Keep or simplify:
   • /insights and /insights/[slug] — Public blog already wired to Sanity.
   • Next.js 15 App Router — Server Components, Server Actions, good for a
     secure “office” area.
-  • HubSpot + contact form — Lead capture; can remain the pipeline input.
+  • contact form — Lead capture; can remain the pipeline input.
   • Wealth Architecture Timeline — Screen-share ready; extend with “shelves”
     of links and embeds per meeting.
 
@@ -93,7 +93,7 @@ D) BRAINSTORM / NOTES (lightweight)
    • Optional later: simple whiteboard (Excalidraw embed) or link-out to Miro
 
 E) LEADS & FOLLOW-UP (slim CRM)
-   • Table of recent enquiries (from HubSpot API or Supabase sync)
+   • Table of recent enquiries (from the Postgres CRM)
    • No need for Kanban on day one if the client prefers content over pipeline
 
 --------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ Phase 3 — Brainstorm & sessions
   • Optional “Session playlist” linking ordered resources
 
 Phase 4 — Polish & nice-to-haves
-  • HubSpot or DB sync for leads in /office/leads
+  • Postgres CRM sync for leads in /office/leads
   • Export session as PDF/email to client (POPIA consent)
   • Analytics: which articles/videos were opened in present mode (privacy-safe)
 
@@ -174,7 +174,7 @@ Phase 4 — Polish & nice-to-haves
 9. NEXT STEP FOR DEVELOPMENT
 --------------------------------------------------------------------------------
 
-  1) Client confirms: drop client portal MVP? drop staff login? keep HubSpot?
+  1) Client confirms: drop client portal MVP? drop staff login? keep native CRM only?
   2) Choose auth: Supabase Magic Link for two emails is usually fastest
   3) Implement /office shell + auth guard + migrate presentation route
   4) Sanity schema pass for video/embed + optional media document type

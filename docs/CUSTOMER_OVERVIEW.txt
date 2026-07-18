@@ -136,7 +136,7 @@ What was built:    One codebase spanning:
                      optional RAG).
                    • Financial Health Quiz (shareable results, routing to
                      calculators and contact).
-                   • Contact form with HubSpot sync and optional Trigger.dev
+                   • Contact form with CRM lead capture and optional Trigger.dev
                      PDF automation.
                    • CRM (dashboard, Kanban, leads, clients, tasks, executive
                      view) with role-based access.
@@ -243,7 +243,7 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
                        link to each calculator; FAQ schema.
   /contact            — Two-column: intro, trust badges, “We work best with”,
                        CTAs left; contact form right (name, phone, email,
-                       topics, consent, honeypot). Submits to HubSpot + optional
+                       topics, consent, honeypot). Submits to optional
                        Trigger PDF.
   /team               — Albert Schuurman and Johnny Farinha: roles, bios, FSP.
   /regulatory-compliance — Code 1.8 FSP, FSCA Category 1.8, AS Brokers FSP 17273,
@@ -340,9 +340,9 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
   • Location: /contact (and embedded in lead modal where used).
   • Fields: name, phone, email, topic dropdown, consent, honeypot (anti-spam).
   • Validation: Zod schemas; server-side validation in Server Action.
-  • On submit: sync to HubSpot (search by email, create or patch contact,
+  • On submit: sync to (search by email, create or patch contact,
     cumulative lead score by topic). Custom properties (e.g. platform_lead_score,
-    financial_inquiry_topic) must exist in HubSpot for full sync.
+    financial_inquiry_topic) must exist in for full sync.
   • Optional: trigger Trigger.dev task to generate PDF report and email via
     Resend (Puppeteer renders /internal/pdf-report, Resend sends attachment).
 
@@ -532,7 +532,7 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
 
   Integrations
   -----------
-  • HubSpot: contact/lead sync (search-patch, lead scoring); custom properties
+  • : contact/lead sync (search-patch, lead scoring); custom properties
     required for full form sync (see BACKEND.md).
   • Trigger.dev v4: serverless workflows; PDF report generation (Puppeteer +
     Resend). Config: maxDuration, jose/puppeteer external.
@@ -581,7 +581,7 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
   • CRM/Portal data: when Supabase env is not set, lib/crm-data.ts and portal
     pages use mock data (lib/mock-crm.ts, lib/mock-portal.ts). Full UI and
     flows work for presentations and training.
-  • Contact form: requires HubSpot credentials and custom properties for sync;
+  • Contact form: requires credentials and custom properties for sync;
     see BACKEND.md “Where you left off.”
   • Trigger PDF: requires Trigger.dev project and Resend; worker runs with
     npx trigger.dev@latest dev.
@@ -593,8 +593,8 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
   • CRM and Portal then use real Supabase data; Kanban status and future
     mutations persist. Add Supabase Auth (Magic Link, profiles) and RLS for
     full multi-tenant security.
-  • HubSpot: create custom contact properties; set HUBSPOT_ACCESS_TOKEN or
-    HUBSPOT_PRIVATE_APP_TOKEN.
+  • : create custom contact properties; set (removed) or
+    (removed).
   • Trigger.dev: set TRIGGER_SECRET_KEY, RESEND_API_KEY, APP_URL in worker env.
   • Sanity: NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET,
     SANITY_VIEWER_TOKEN for draft.
@@ -606,8 +606,8 @@ Data currency:     Income tax and Amethyst living-annuity tax use SARS 2026/27
 ================================================================================
 
   In-project documentation:
-  • BACKEND.md — Full backend checklist; env vars; Supabase, HubSpot, Trigger.dev,
-    Resend, Sanity, OpenAI, RAG; “Where you left off” (e.g. HubSpot custom
+  • BACKEND.md — Full backend checklist; env vars; Supabase, Trigger.dev,
+    Resend, Sanity, OpenAI, RAG; “Where you left off” (e.g. custom
     properties).
   • docs/CRM_IMPLEMENTATION_PROGRESS.md — CRM/Portal rollout: what is done (data
     layer, schema, seed, presentation polish), what is next (auth, RLS, AI,

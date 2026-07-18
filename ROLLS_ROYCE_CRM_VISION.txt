@@ -12,7 +12,7 @@ Cloud, Altitude CRM, Wealthbox, and InvestGlass), we design a state-of-the-art
 system hyper-tailored to AS Brokers' operations as an independent FSP 17273
 provider in Category 1.8 (Securities and Instruments: Shares). This isn't
 off-the-shelf; it's custom-built on the existing mock foundation (Supabase
-backend with RLS for security, HubSpot sync for leads, Trigger.dev for
+backend with RLS for security, CRM lead capture for leads, Trigger.dev for
 automations like PDF reports).
 
 --------------------------------------------------------------------------------
@@ -179,7 +179,7 @@ Executive features
   - Interactions: Executive alerts (e.g. "High-value lead: R10M capital");
     one-click audits.
 
-  - Growth: Referral analytics; marketing (HubSpot) lead scoring.
+  - Growth: Referral analytics; marketing () lead scoring.
 
 Outcome: Owners see business at a glance, do intervene/forecast, interact with
 AI insights, and feel in command—driving 25%+ efficiency gains.
@@ -189,7 +189,7 @@ AI insights, and feel in command—driving 25%+ efficiency gains.
 ================================================================================
 
   Phase 1 (1–2 months): Replace mocks with Supabase (Auth, DB, Storage); enable
-    HubSpot bi-sync; add basic AI (tools from existing chat).
+    native CRM lead capture; add basic AI (tools from existing chat).
 
   Phase 2 (2–3 months): Integrate service APIs (Everest holdings, SARS proxies);
     AI agents via OpenAI; mobile apps.

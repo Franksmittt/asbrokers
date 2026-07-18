@@ -4,7 +4,6 @@ import {
   calculatorLeadSchema,
   type CalculatorLeadActionState,
 } from "@/lib/validations/schema";
-import { syncContactToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffLead } from "@/lib/email/notifications";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
 import type { ServiceCategory } from "@/lib/crm/types";
@@ -35,7 +34,7 @@ function calculatorLeadScore(capitalAmount?: number): number {
 
 /**
  * Soft lead capture after calculator use. Does not gate results.
- * Writes CRM lead + staff email; HubSpot sync is best-effort.
+ * Writes CRM lead + staff email.
  */
 export async function submitCalculatorLead(
   _prevState: CalculatorLeadActionState,
@@ -111,19 +110,6 @@ export async function submitCalculatorLead(
       return { success: false, message: SUBMIT_ERROR };
     }
   }
-
-  void syncContactToHubSpot({
-    fullName: payload.fullName,
-    email: payload.email,
-    phone: payload.phone,
-    topics: ["everest"],
-    consent: true,
-    capitalAmount: payload.capitalAmount,
-  }).catch((e) => {
-    if (process.env.NODE_ENV === "development") {
-      console.error("[CalculatorLead] HubSpot sync failed (non-blocking):", e);
-    }
-  });
 
   return {
     success: true,

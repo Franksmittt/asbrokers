@@ -1,6 +1,5 @@
 "use server";
 
-import { syncLegacyChecklistLeadToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffLead } from "@/lib/email/notifications";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
 import { insertLegacyChecklistLead } from "@/lib/legacy-checklist/repository";
@@ -66,14 +65,6 @@ export async function submitLegacyChecklistLead(
       },
       legacyChecklistLeadId: leadId,
     },
-  });
-
-  await syncLegacyChecklistLeadToHubSpot({
-    firstName: parsed.data.firstName,
-    surname: parsed.data.surname,
-    email: parsed.data.email,
-    phone: parsed.data.phone,
-    businessOwner: parsed.data.businessOwner,
   });
 
   try {

@@ -7,7 +7,7 @@ alwaysApply: true
 
 **Version 1.0 (March 7, 2026).** Full rules: docs/CRM_ROLLS_ROYCE.md. Vision narrative: ROLLS_ROYCE_CRM_VISION.txt. Success metrics: 90% client satisfaction, 30% faster onboarding, zero compliance breaches; cost band R500k–1M.
 
-Purpose: Guide building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 17273, Category 1.8). Luxurious, AI-infused, compliance-first system for seamless client experiences, staff efficiency, and owner oversight. Build on existing mock (lib/mock-*.ts) by replacing with real backend. Tech: Next.js App Router, TypeScript, Tailwind (rim-light glassmorphism, void/shark, Nightography), Framer Motion, Supabase (auth/DB/Storage/RLS), HubSpot bi-sync, Trigger.dev (automations/PDFs), OpenAI gpt-4o-mini for AI agents, Drizzle ORM + pgvector for RAG, Sanity CMS. Prioritize: Security (POPIA/FAIS), personalization (AI), scalability (1k+ clients), mobile-first (PWA).
+Purpose: Guide building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 17273, Category 1.8). Luxurious, AI-infused, compliance-first system for seamless client experiences, staff efficiency, and owner oversight. Build on existing mock (lib/mock-*.ts) by replacing with real backend. Tech: Next.js App Router, TypeScript, Tailwind (rim-light glassmorphism, void/shark, Nightography), Framer Motion, Supabase (auth/DB/Storage/RLS), Trigger.dev (automations/PDFs), OpenAI gpt-4o-mini for AI agents, Drizzle ORM + pgvector for RAG, Sanity CMS. Prioritize: Security (POPIA/FAIS), personalization (AI), scalability (1k+ clients), mobile-first (PWA).
 
 ## Core Principles
 
@@ -27,18 +27,18 @@ Purpose: Guide building a state-of-the-art, bespoke CRM for AS Brokers CC (FSP 1
 ## Staff Interface (/crm)
 
 - **Goal**: Precision engine—eliminate drudgery, automate compliance, focus on advice. Build on existing /crm mock.
-- **Features**: Enhanced Kanban (persist via Supabase; AI prioritization by Fit/Eng + capital; auto-route by service). Client 360 with household mapping, AI summaries, full timeline. Service workflows: Everest quotes (Trigger.dev PDFs), claims templates, estate donation trackers. Task automation (AI-assigned, reminders); correspondence with sentiment AI; AI pre-meeting briefs (streamText + tools). Mobile: scan docs, notifications. HubSpot sync; Everest/Santam APIs when integrated. Role-based access; auto-audits.
+- **Features**: Enhanced Kanban (persist via Supabase; AI prioritization by Fit/Eng + capital; auto-route by service). Client 360 with household mapping, AI summaries, full timeline. Service workflows: Everest quotes (Trigger.dev PDFs), claims templates, estate donation trackers. Task automation (AI-assigned, reminders); correspondence with sentiment AI; AI pre-meeting briefs (streamText + tools). Mobile: scan docs, notifications. Everest/Santam APIs when integrated. Role-based access; auto-audits.
 - **When editing /crm**: Use Drizzle + RLS. Add agentic AI where useful (e.g. Server Action for AI briefs using calculateEstateDuty etc.). Refactor mocks to Supabase (e.g. getLeadsForAdvisor → select with RLS).
 
 ## Owner Dashboard
 
 - **Goal**: Command center—total control, predictive insights.
-- **Features**: Global visibility (no filters). AI dashboards (Recharts: AUM, conversion, service mix). Predictive AI (e.g. duty savings forecast). Staff performance; reassigns; role/permission management. Executive alerts (high-value leads); one-click audits. Referral and marketing (HubSpot) analytics.
+- **Features**: Global visibility (no filters). AI dashboards (Recharts: AUM, conversion, service mix). Predictive AI (e.g. duty savings forecast). Staff performance; reassigns; role/permission management. Executive alerts (high-value leads); one-click audits. Referral and marketing analytics.
 - **When adding executive views**: Create /crm/executive or similar; admin-only RLS; OpenAI for predictions where appropriate.
 
 ## Roadmap
 
-- **Phase 1**: Backend swap—Supabase Auth (Magic Links), RLS, DB, Storage; HubSpot bi-sync; replace mocks.
+- **Phase 1**: Backend swap—Supabase Auth (Magic Links), RLS, DB, Storage; replace mocks.
 - **Phase 2**: AI agents (OpenAI autonomous tasks, RAG for compliance); service API integrations (Everest, etc.).
 - **Phase 3**: Mobile PWA enhancements; compliance audit; user testing; launch.
 - **Phase 4**: Performance, SEO, optimizations.

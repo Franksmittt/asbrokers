@@ -36,7 +36,7 @@ export const calculatorLeadSchema = z.object({
   calculatorPath: z.string().max(240).optional(),
 });
 
-/** Footer newsletter signup: email only. HubSpot +10 lead score on submit. */
+/** Footer newsletter signup: email only. */
 export const newsletterSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
 });

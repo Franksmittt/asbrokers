@@ -18,7 +18,7 @@ Gemini AI layer: Phase 2 started (see Section 2)
   • WhatsApp two-way inbox fully live
   • Compliance flags automatic (drawdown, suitability, POPIA)
   • Staff email login (not demo PIN) with audit trail
-  • HubSpot + Everest integrations where needed
+  • Everest integrations where needed
   • Mobile-first PWA for advisors in the field
 
 ================================================================================
@@ -61,7 +61,7 @@ Gemini AI layer: Phase 2 started (see Section 2)
   [ ] Replace lib/mock-portal.ts with real Everest/portfolio API
   [ ] Client portal RLS — clients see only own data
   [ ] WhatsApp Meta production webhook + outbound fully wired
-  [ ] HubSpot bi-sync (contact form + CRM leads)
+  [ ] native CRM lead capture (contact form + CRM leads)
   [ ] Trigger.dev PDF quotes for Everest products
   [ ] Santam / short-term API when available
 

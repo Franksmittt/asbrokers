@@ -1,6 +1,5 @@
 "use server";
 
-import { syncHealthyRetirementToHubSpot } from "@/lib/hubspot.service";
 import { notifyStaffLead } from "@/lib/email/notifications";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
 import { insertHealthyRetirementAssessment } from "@/lib/healthy-retirement/repository";
@@ -94,15 +93,6 @@ export async function submitHealthyRetirementAssessment(
       },
       healthyRetirementReportId: reportId,
     },
-  });
-
-  await syncHealthyRetirementToHubSpot({
-    firstName: parsed.data.firstName,
-    email: parsed.data.email,
-    phone: parsed.data.phone,
-    healthScore: result.score,
-    healthGap: result.gap,
-    scoreBand: result.band,
   });
 
   try {

@@ -13,16 +13,25 @@ const FallbackPageJsonLdClient = dynamic(
   { ssr: false }
 );
 
+const HomeFloatingChat = dynamic(
+  () => import("@/components/home/HomeLazyWidgets").then((m) => m.HomeFloatingChat),
+  { ssr: false, loading: () => null }
+);
+
+const ConsentProvider = dynamic(
+  () => import("@/components/analytics/ConsentProvider").then((m) => m.ConsentProvider),
+  { ssr: false, loading: () => null }
+);
+
 /**
- * Root client extras — mount after interaction or 12s so `lib/seo` / speculation
- * never compete with homepage LCP/TBT (homepage already ships PageJsonLd in RSC).
+ * Single gated root island: speculation, fallback JSON-LD, consent, floating chat.
+ * Mount after pointer/12s so homepage TBT is not wrecked (no scroll unlock — LH auto-scroll).
  */
 export function DeferredRootExtras() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const enable = () => setReady(true);
-    // No scroll: LH auto-scroll must not pull seo/speculation chunks into TBT.
     const t = window.setTimeout(enable, 12_000);
     window.addEventListener("pointerdown", enable, { once: true });
     return () => {
@@ -46,6 +55,8 @@ export function DeferredRootExtras() {
     <>
       <FallbackPageJsonLdClient />
       <SpeculationRulesClient />
+      <ConsentProvider eager />
+      <HomeFloatingChat />
     </>
   );
 }

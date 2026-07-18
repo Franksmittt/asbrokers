@@ -115,3 +115,13 @@ Fixes:
 - Widen `optimizePackageImports` for zod/ai/clsx
 
 *(retest mobile `/` after deploy — preserve CLS 0 + a11y)*
+
+### Loop 8 — Perf ~91 ? chase 100 (TBT 360ms, LCP 2.0s)
+Live Loop 7: Perf **~91** (metric weights), FCP 1.3s, LCP 2.0s, TBT **360ms**, CLS 0. A11y/SEO/BP **100**.
+
+Fixes:
+- Zero-JS mobile menu (`<button>` + tiny inline Escape/toggle script) — drop React nav island
+- Merge consent + FloatingChat into single `DeferredRootExtras` gate; remove home chat island
+- Figtree/Source Serif weight subsets; `home-lcp.webp` ~30KB (768w/q45); cards q55
+
+*(retest mobile `/` after deploy — keep a11y 100)*

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
+import { faqsForJsonLd, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 
@@ -22,7 +22,7 @@ export type VisibleFaqSectionProps = {
 
 /**
  * Sitewide FAQ chapter: shark band, sticky intro + CTAs, numbered open answers.
- * Matches /calculators FAQ layout. Pads to six for UI only; JSON-LD uses page FAQs as authored.
+ * Renders page-authored FAQs only — same list as JSON-LD (no pad-to-six).
  */
 export function VisibleFaqSection({
   faqs,
@@ -41,7 +41,7 @@ export function VisibleFaqSection({
   },
   className = "",
 }: VisibleFaqSectionProps) {
-  const items = ensureSixFaqs(faqs);
+  const items = faqsForJsonLd(faqs);
   if (!items.length) return null;
 
   return (

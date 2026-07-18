@@ -14,7 +14,7 @@ export const EVEREST_128_PRODUCT: EverestProductPageProps = {
   heroTitle: "Yield Engineering: 12.8% Strategic Income.",
   heroSubtitle:
     "Targeted monthly dividend income with a 10% loyalty bonus on capital after five years, for investors who can accept slightly lower cash flow now for long-term value.",
-  heroImage: "/images/home4-import/card1.png",
+  heroImage: "/images/home4-import/card1.jpg",
   heroImageAlt: "Premium lifestyle context for Everest 12.8% Strategic Income planning",
   calculatorSrc: "/embed-calculators/asset-010-everest-128-income.html",
   calculatorTitle: "12.8% Strategic Income Calculator",
@@ -63,7 +63,7 @@ export const EVEREST_142_PRODUCT: EverestProductPageProps = {
   heroTitle: "Maximum Liquidity: 14.2% Onyx Income+.",
   heroSubtitle:
     "Higher targeted monthly income from day one, with no five-year loyalty bonus, suited when maximum cash flow now matters more than deferred capital rewards.",
-  heroImage: "/images/home4-import/card1.png",
+  heroImage: "/images/home4-import/card1.jpg",
   heroImageAlt: "Everest Onyx Income+, maximum day-one yield planning",
   calculatorSrc: "/embed-calculators/asset-009-everest-142-income.html",
   calculatorTitle: "14.2% Onyx Income+ Calculator",
@@ -102,7 +102,7 @@ export const EVEREST_145_PRODUCT: EverestProductPageProps = {
   heroTitle: "Pure Compounding: 14.5% Strategic Growth.",
   heroSubtitle:
     "Capital compounding with no monthly withdrawals, returns accumulate over five years and are paid at maturity for investors who do not need interim income.",
-  heroImage: "/images/home4-import/card3.png",
+  heroImage: "/images/home4-import/card3.jpg",
   heroImageAlt: "Strategic growth compounding, Everest 14.5% voluntary capital",
   calculatorSrc: "/embed-calculators/asset-012-strategic-growth.html",
   calculatorTitle: "14.5% Strategic Growth Calculator",

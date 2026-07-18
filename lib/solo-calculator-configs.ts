@@ -36,7 +36,7 @@ export const SOLO_INFLATION: SoloCalculatorPageProps = {
   heroTitle: "Purchasing Power Review",
   heroSubtitle:
     "See how inflation erodes the real value of cash and fixed income over time, and why planning must account for rising living costs.",
-  heroImage: "/images/home4-import/card3.png",
+  heroImage: "/images/home4-import/card3.jpg",
   heroImageAlt: "Financial planning desk, purchasing power and inflation review",
   calculatorSrc: "/embed-calculators/asset-005-future-value.html",
   calculatorTitle: "Future Value / Inflation Calculator",
@@ -60,7 +60,7 @@ export const SOLO_INCOME_TAX: SoloCalculatorPageProps = {
   heroTitle: "Income Tax Fiduciary Diagnostic",
   heroSubtitle:
     "Estimate marginal income tax using SARS 2026/27 illustrative brackets, useful for salary, bonus, and drawdown planning conversations.",
-  heroImage: "/images/home4-import/card1.png",
+  heroImage: "/images/home4-import/card1.jpg",
   heroImageAlt: "Tax planning worksheet and calculator",
   calculatorSrc: "/embed-calculators/asset-006-income-tax.html",
   calculatorTitle: "Income Tax Calculator",

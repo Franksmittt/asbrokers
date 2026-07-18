@@ -10,6 +10,7 @@ export const metadata = buildPageMetadata({
   path: "/manage-cookies",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  noIndex: true,
 });
 
 export default function ManageCookiesPage() {

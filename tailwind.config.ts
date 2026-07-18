@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
-        serif: ["Iowan Old Style", "Palatino Linotype", "Palatino", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       colors: {
         vault: {
@@ -23,12 +23,28 @@ const config: Config = {
         "warm-canvas": "#F7F6F3",
         "cinematic-teal": "#00A3A3",
         "gold-orange": "#FF7F50",
-        "samsung-blue": "#0057B8",
+        // Darker than stock #0057B8 so body links hit WCAG AA on warm-canvas.
+        "samsung-blue": "#004A9E",
         "supernova-gold": "#FF7F50",
         "athens-gray": "#F5F5F7",
         "whatsapp": {
           DEFAULT: "#25D366",
           accessible: "#0F766E",
+        },
+        // Stone overrides: keep 400 light for muted text on dark footer;
+        // darken 500+ so body copy on warm-canvas hits WCAG AA (~4.5:1).
+        stone: {
+          50: "#fafaf9",
+          100: "#f5f5f4",
+          200: "#e7e5e4",
+          300: "#d6d3d1",
+          400: "#a8a29e",
+          500: "#4a4540",
+          600: "#3f3a36",
+          700: "#292524",
+          800: "#1c1917",
+          900: "#0c0a09",
+          950: "#0a0908",
         },
       },
       boxShadow: {
@@ -50,12 +66,13 @@ const config: Config = {
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: "0", transform: "translateY(12px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+          // Transform-only: opacity fades fail WCAG contrast mid-animation / with fill-mode both.
+          "0%": { transform: "translateY(12px)" },
+          "100%": { transform: "translateY(0)" },
         },
         hubReveal: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+          "0%": { transform: "translateY(20px)" },
+          "100%": { transform: "translateY(0)" },
         },
         whatsappFlip: {
           "0%": { transform: "rotateY(0deg)" },

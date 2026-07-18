@@ -1,0 +1,6 @@
+Contact: mailto:albert@asbrokers.co.za
+Contact: https://www.asbrokers.co.za/contact
+Preferred-Languages: en
+Canonical: https://www.asbrokers.co.za/.well-known/security.txt
+Policy: https://www.asbrokers.co.za/privacy
+Expires: 2027-07-18T00:00:00.000Z

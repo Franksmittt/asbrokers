@@ -17,7 +17,7 @@ import {
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
-const BODY = "#52525b";
+const BODY = "#3f3a36";
 const HAIRLINE = "#E5E5E5";
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";

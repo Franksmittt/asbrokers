@@ -3,6 +3,11 @@ import { CalculatorsHubView } from "@/components/calculators/CalculatorsHubView"
 import { HUB_CALCULATORS } from "@/lib/calculators/hub-catalog";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
+const PAGE_TITLE = "Financial Calculators | ASSET Library FSP 17273";
+/** Keep ≤160 chars so clampMetaDescription does not cut mid-sentence. */
+const PAGE_DESCRIPTION =
+  "Run AS Brokers ASSET calculators for retirement, Everest Wealth, estate, tax, and insurance. Educational only. Book FSP 17273 to interpret your numbers.";
+
 const calculatorsFAQs = [
   {
     question: "Do these calculators constitute financial advice?",
@@ -38,9 +43,8 @@ const calculatorsFAQs = [
 
 export const metadata = buildPageMetadata({
   path: "/calculators",
-  title: "Financial Calculators | ASSET Library FSP 17273",
-  description:
-    "Run retirement, Everest Wealth, estate, tax, and insurance scenarios yourself. Ungated educational ASSET tools. Not FAIS advice. Then book FSP 17273 to interpret your numbers.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   keywords: [
     "financial calculators South Africa",
     "retirement calculator",
@@ -51,7 +55,7 @@ export const metadata = buildPageMetadata({
     "ASSET library AS Brokers",
     "FSP 17273",
   ],
-  ogImagePath: "/images/calculators-hub-16x9.jpg",
+  ogImagePath: "/images/calculators-hub-og.jpg",
 });
 
 export default function CalculatorsPage() {
@@ -68,9 +72,8 @@ export default function CalculatorsPage() {
       <PageJsonLd
         path="/calculators"
         webPage={{
-          name: buildPageTitle("Financial Calculators & Actuarial Planning Tools"),
-          description:
-            "Educational planning calculators for retirement, Everest Wealth, estate duty, tax, and insurance.",
+          name: buildPageTitle(PAGE_TITLE),
+          description: PAGE_DESCRIPTION,
         }}
         faqs={calculatorsFAQs}
         breadcrumbs={[

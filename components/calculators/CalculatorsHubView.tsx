@@ -17,7 +17,7 @@ import {
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
-const BODY = "#52525b";
+const BODY = "#3f3a36";
 const HAIRLINE = "#E5E5E5";
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
@@ -108,8 +108,8 @@ function SectionHeader({
 }
 
 /**
- * Above-fold calculators hub (RSC): hero, start-here, how-it-works, FAQ.
- * Domain chapters + footer hydrate after idle to clear mobile TBT/Style cost.
+ * Calculators hub (RSC): hero, start-here, how-it-works, domain chapters, FAQ.
+ * Entire hub stays server-rendered — do not gate chapters behind click/idle.
  */
 export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
   const featured = getHubFeaturedCalculators();
@@ -147,8 +147,10 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
               className="max-w-full text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
               style={{ color: TEAL }}
             >
-              <span className="sm:hidden">ASSET library · FSP 17273 · Ungated</span>
-              <span className="hidden sm:inline">Albert&apos;s ASSET library · FSP 17273 · Ungated</span>
+              <span className="sm:hidden">AS Brokers · ASSET · FSP 17273</span>
+              <span className="hidden sm:inline">
+                AS Brokers · Albert&apos;s ASSET library · FSP 17273 · Ungated
+              </span>
             </p>
             <h1
               className="mt-5 max-w-full text-3xl font-serif font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl"
@@ -195,26 +197,20 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
           >
             On this page
           </p>
-          <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
-            <a
-              href="#start-here"
-              className="shrink-0 whitespace-nowrap rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
-            >
+          <div className="-mx-4 mt-3 flex gap-x-5 gap-y-2 overflow-x-auto px-4 pb-1 text-sm font-medium text-stone-700 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
+            <a href="#start-here" className="shrink-0 whitespace-nowrap hover:text-shark">
               Start here
             </a>
             {HUB_DOMAINS.map((domain) => (
               <a
                 key={domain.id}
                 href={`#${domain.id}`}
-                className="shrink-0 whitespace-nowrap rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
+                className="shrink-0 whitespace-nowrap hover:text-shark"
               >
                 {domain.label}
               </a>
             ))}
-            <a
-              href="#faq"
-              className="shrink-0 whitespace-nowrap rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0"
-            >
+            <a href="#faq" className="shrink-0 whitespace-nowrap hover:text-shark">
               FAQ
             </a>
           </div>

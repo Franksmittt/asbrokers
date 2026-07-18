@@ -66,12 +66,13 @@ const config: Config = {
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: "0", transform: "translateY(12px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+          // Transform-only: opacity fades fail WCAG contrast mid-animation / with fill-mode both.
+          "0%": { transform: "translateY(12px)" },
+          "100%": { transform: "translateY(0)" },
         },
         hubReveal: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+          "0%": { transform: "translateY(20px)" },
+          "100%": { transform: "translateY(0)" },
         },
         whatsappFlip: {
           "0%": { transform: "rotateY(0deg)" },

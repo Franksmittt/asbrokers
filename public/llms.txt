@@ -8,6 +8,14 @@
 - [Everest Wealth](https://www.asbrokers.co.za/everest-wealth): Category 1.8 structured-income profiles (12.8%, 14.2%, 14.5%, Amethyst).
 - [Understanding Everest](https://www.asbrokers.co.za/everest-wealth/about): structure, constraints, and regulation before yield.
 - [Calculators (ASSET library)](https://www.asbrokers.co.za/calculators): ungated retirement, Everest, estate, tax, and insurance tools.
+- [ASSET 001 Retirement Growth](https://www.asbrokers.co.za/calculators/asset-001-retirement-growth): illustrative required growth rate to a capital target.
+- [ASSET 004 Life of Capital](https://www.asbrokers.co.za/calculators/asset-004-life-of-capital): drawdown longevity stress-test.
+- [ASSET 007 Estate Duty](https://www.asbrokers.co.za/calculators/asset-007-estate-duty): duty and executor fee illustration.
+- [ASSET 009 Everest 14.2% Income](https://www.asbrokers.co.za/calculators/asset-009-everest-142-income): Onyx Income+ net income (R100k min; educational).
+- [ASSET 010 Everest 12.8% Income](https://www.asbrokers.co.za/calculators/asset-010-everest-128-income): Strategic Income + loyalty bonus illustration.
+- [ASSET 012 Everest 14.5% Growth](https://www.asbrokers.co.za/calculators/asset-012-strategic-growth): Strategic Growth maturity illustration.
+- [ASSET 014 Living Annuity](https://www.asbrokers.co.za/calculators/asset-014-living-annuity): drawdown income in the 2.5%–17.5% band.
+- [ASSET 015 Average Clause](https://www.asbrokers.co.za/calculators/asset-015-average-clause): underinsurance claim reduction illustration.
 - [Retirement planning](https://www.asbrokers.co.za/retirement-planning): capital longevity and income sustainability education.
 - [Investments](https://www.asbrokers.co.za/investments): investment pathways and Everest education links.
 - [Insurance](https://www.asbrokers.co.za/insurance): personal, business, life, and medical risk architecture.

@@ -51,13 +51,13 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Retirement Growth Rate Calculator",
     seoTitle: "Retirement Growth Rate Calculator South Africa",
     seoDescription:
-      "Free retirement growth rate calculator for South Africans. See what return you may need to reach your retirement capital target from savings and contributions. FSP 17273.",
+      "See the illustrative growth rate you may need to reach a retirement capital target from savings and contributions. Free SA calculator. FSP 17273.",
     keywords: ["retirement growth rate calculator", "retirement calculator South Africa", "retirement savings target"],
     kicker: "Retirement planning",
     heroTitle: "What growth rate do you need to retire on track?",
     heroSubtitle:
       "Model the illustrative return required to close the gap between where you are today and the capital you want at retirement.",
-    heroImage: "/images/home4-goal-retire-16x9.jpg",
+    heroImage: "/images/calc-lcp/asset-001.jpg",
     heroImageAlt: "Couple reviewing retirement savings growth with an adviser",
     calculatorLead:
       "Enter current savings, monthly contributions, years to retirement, and your target lump sum. The tool shows an illustrative required growth rate.",
@@ -140,7 +140,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Will your retirement income match your lifestyle?",
     heroSubtitle:
       "Compare the income you want in retirement with the capital you are on track to build. See surplus or shortfall in plain numbers.",
-    heroImage: "/images/retirement-inset-1x1.jpg",
+    heroImage: "/images/calc-lcp/asset-002.jpg",
     heroImageAlt: "Retirement planning review at a kitchen table",
     calculatorLead:
       "Enter desired monthly retirement income, expected capital, growth, and drawdown assumptions to see whether your plan may fund your lifestyle.",
@@ -195,7 +195,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "How much should you save each month to close the gap?",
     heroSubtitle:
       "Turn a retirement capital shortfall into an illustrative monthly funding number over your remaining working years.",
-    heroImage: "/images/calculators-education-16x9.jpg",
+    heroImage: "/images/calc-lcp/asset-003.jpg",
     heroImageAlt: "Monthly retirement contribution planning",
     calculatorLead:
       "Enter your funding gap, years to retirement, and growth assumption to see an illustrative monthly premium or contribution.",
@@ -232,6 +232,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "It illustrates retirement funding needs. Actual insurance or investment premiums depend on product, age, and underwriting.",
       },
+      {
+        question: "Is this personalised advice?",
+        answer:
+          "No. The monthly figure is an educational illustration. Personal advice requires a needs analysis with AS Brokers CC (FSP 17273).",
+      }
     ],
     ...RETIREMENT,
   },
@@ -246,7 +251,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "How long will your retirement capital last?",
     heroSubtitle:
       "Stress-test sustainable drawdown: see when capital may deplete at your chosen income, growth, and inflation assumptions.",
-    heroImage: "/images/calculators-capital-lifespan-4x3.jpg",
+    heroImage: "/images/calc-lcp/asset-004.jpg",
     heroImageAlt: "Retiree reviewing how long capital may last",
     calculatorLead:
       "Enter lump sum, monthly income draw, growth rate, and inflation to model capital longevity. Essential for living annuity and voluntary income planning.",
@@ -309,7 +314,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "What will today's money be worth tomorrow?",
     heroSubtitle:
       "Model how inflation erodes purchasing power so retirement, education, and estate plans account for rising living costs.",
-    heroImage: "/images/inflation-cost-inset-1x1.jpg",
+    heroImage: "/images/calc-lcp/asset-005.jpg",
     heroImageAlt: "Purchasing power and inflation planning",
     calculatorLead:
       "Enter a lump sum or future expense and an inflation rate to see illustrative future values and the real cost of waiting.",
@@ -346,6 +351,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "Many planners use long-term CPI bands for illustration. Your adviser may stress-test higher rates for conservative planning.",
       },
+      {
+        question: "Is this a forecast of CPI?",
+        answer:
+          "No. You choose an illustrative inflation rate. Outcomes are not guaranteed and are not a SARS or SARB forecast.",
+      }
     ],
     ...TAX,
   },
@@ -360,7 +370,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Estimate your personal income tax",
     heroSubtitle:
       "Illustrative SARS bracket calculation for salary, bonus, and retirement drawdown conversations. Not a substitute for a full assessment.",
-    heroImage: "/images/income-tax-calculator-inset-1x1.jpg",
+    heroImage: "/images/calc-lcp/asset-006.jpg",
     heroImageAlt: "Income tax estimation worksheet",
     calculatorLead:
       "Enter taxable income components to see illustrative tax payable, rebates, and net income using 2026/27 table logic in the tool.",
@@ -397,6 +407,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "The tool implements illustrative 2026/27 logic. Legislation may change. Verify with SARS or your tax practitioner.",
       },
+      {
+        question: "Can I use this for my tax return?",
+        answer:
+          "No. It is an educational estimate only. File via SARS eFiling or your tax practitioner for an official assessment.",
+      }
     ],
     ...TAX,
   },
@@ -411,7 +426,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Estimate estate duty and executor costs",
     heroSubtitle:
       "Quantify potential duty above the R3.5 million abatement and executor fees so your family is not caught without liquidity.",
-    heroImage: "/images/home4-goal-estate-16x9.jpg",
+    heroImage: "/images/calc-lcp/asset-007.jpg",
     heroImageAlt: "Estate planning and duty estimation",
     calculatorLead:
       "Enter net estate value, deductions, and abatement to see illustrative duty at 20% and 25% bands plus executor fees.",
@@ -448,6 +463,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "The tool uses the R3.5 million abatement as implemented. Confirm current SARS rules with your estate planner.",
       },
+      {
+        question: "Is this legal advice?",
+        answer:
+          "No. Estate duty and wills require coordinated legal and tax advice. Use this tool to prepare questions for that review.",
+      }
     ],
     ...ESTATE,
   },
@@ -462,7 +482,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Reduce estate duty with structured giving",
     heroSubtitle:
       "Illustrate how annual donations within SARS limits may transfer wealth during your lifetime and lower eventual duty.",
-    heroImage: "/images/annual-estate-reduction-inset-1x1.jpg",
+    heroImage: "/images/calc-lcp/asset-008.jpg",
     heroImageAlt: "Annual donation and estate reduction planning",
     calculatorLead:
       "Enter estate value, donation amounts, and planning horizon to see illustrative reduction in dutiable estate.",
@@ -499,6 +519,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "The tool illustrates R100k and R200k bands as commonly used in planning. Confirm current SARS limits with your practitioner.",
       },
+      {
+        question: "Should I donate without advice?",
+        answer:
+          "No. Donation strategies must be documented and tax-compliant. Confirm SARS limits and structure with a qualified practitioner.",
+      }
     ],
     ...ESTATE,
   },
@@ -513,7 +538,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Model Everest 14.2% Onyx Income+",
     heroSubtitle:
       "See illustrative day-one monthly income from targeted 14.2% p.a. profile after 20% dividend withholding tax on voluntary capital.",
-    heroImage: "/images/everest-suite-hero-16x9.jpg",
+    heroImage: "/images/calc-lcp/asset-009.jpg",
     heroImageAlt: "Everest Wealth income planning illustration",
     calculatorLead:
       "Enter lump sum (R100,000 minimum) to see gross and net monthly income illustration. Targeted return, not guaranteed.",
@@ -568,7 +593,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Model Everest 12.8% Strategic Income",
     heroSubtitle:
       "Balance monthly dividends with a 10% loyalty bonus at year five. Illustrative net income after dividend withholding tax.",
-    heroImage: "/images/everest-128-inset-1x1.jpg",
+    heroImage: "/images/calc-lcp/asset-010.jpg",
     heroImageAlt: "Everest 12.8% Strategic Income illustration",
     calculatorLead:
       "Enter voluntary lump sum to see monthly income illustration and five-year bonus impact. Targeted returns only.",
@@ -604,6 +629,11 @@ const PAGES: Record<string, PageContent> = {
         question: "How does 12.8% compare to 14.2%?",
         answer: "Use our 12.8% vs 14.2% comparison calculator for a side-by-side five-year illustration.",
       },
+      {
+        question: "Is 12.8% guaranteed?",
+        answer:
+          "No. It is a targeted return profile subject to issuer performance and risk. Liquidity constraints and a suitability review apply.",
+      }
     ],
     ...EVEREST,
   },
@@ -618,7 +648,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "12.8% Strategic Income vs 14.2% Onyx Income+",
     heroSubtitle:
       "Side-by-side five-year illustration on identical capital: day-one income, bonus, and total outcome.",
-    heroImage: "/images/everest-visual.jpg",
+    heroImage: "/images/calc-lcp/asset-011.jpg",
     heroImageAlt: "Everest income product comparison",
     calculatorLead:
       "Enter the same lump sum for both profiles to compare monthly income and five-year total illustration.",
@@ -655,6 +685,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "Neither is universally better. Depends on income timing, tax, liquidity, and risk tolerance. Advice is required.",
       },
+      {
+        question: "What is the R100,000 minimum for?",
+        answer:
+          "Everest voluntary income products typically require a R100,000 minimum lump sum. Confirm current terms in a suitability review.",
+      }
     ],
     ...EVEREST,
   },
@@ -669,7 +704,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Model Everest 14.5% Strategic Growth",
     heroSubtitle:
       "Pure compounding with no monthly withdrawals. Returns accumulate over five years and pay at maturity.",
-    heroImage: "/images/everest-growth-145-inset-1x1.jpg",
+    heroImage: "/images/calc-lcp/asset-012.jpg",
     heroImageAlt: "Everest Strategic Growth compound illustration",
     calculatorLead:
       "Enter lump sum to see five-year maturity illustration with growth taxed at maturity per tool assumptions.",
@@ -705,6 +740,11 @@ const PAGES: Record<string, PageContent> = {
         question: "Can I draw income from Strategic Growth?",
         answer: "This profile is designed for compounding without monthly withdrawals. Income products are separate.",
       },
+      {
+        question: "Is 14.5% guaranteed?",
+        answer:
+          "No. Strategic Growth uses a targeted return profile. Capital is typically committed for five years with liquidity constraints.",
+      }
     ],
     ...EVEREST,
   },
@@ -719,7 +759,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Compare income and growth strategies",
     heroSubtitle:
       "Three Everest-style profiles on one screen: monthly income, bonus effects, and growth maturity outcomes.",
-    heroImage: "/images/everest-copper-industrial-4x3.jpg",
+    heroImage: "/images/calc-lcp/asset-013.jpg",
     heroImageAlt: "Everest income versus growth comparison",
     calculatorLead:
       "Enter capital to compare 12.8% income, 14.2% income, and 14.5% growth illustrations together.",
@@ -756,6 +796,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "No. We are independent Category 1.8 FSP 17273 and survey the market. Everest is one solution where appropriate.",
       },
+      {
+        question: "Are these returns guaranteed?",
+        answer:
+          "No. All figures are targeted structural profiles for education. Suitability, liquidity, and tax review are required before investing.",
+      }
     ],
     ...EVEREST,
   },
@@ -764,31 +809,43 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Living Annuity Income Calculator",
     seoTitle: "Living Annuity Calculator South Africa",
     seoDescription:
-      "Estimate living annuity drawdown income and sustainability. Free South African living annuity calculator. Amethyst-style assumptions. FSP 17273.",
-    keywords: ["living annuity calculator", "retirement annuity drawdown", "Amethyst living annuity calculator"],
+      "Model living annuity income in the 2.5% to 17.5% drawdown band. Free SA calculator with Amethyst-style notes. Educational only. FSP 17273.",
+    keywords: [
+      "living annuity calculator",
+      "retirement annuity drawdown",
+      "Amethyst living annuity calculator",
+      "2.5% to 17.5% drawdown",
+    ],
     kicker: "Living annuity",
     heroTitle: "Model living annuity drawdown income",
     heroSubtitle:
-      "Estimate income from pension, RA, or preservation capital in a living annuity framework with illustrative growth and drawdown rules.",
-    heroImage: "/images/living-annuity-inset-1x1.jpg",
+      "Estimate income from pension, RA, or preservation capital using illustrative growth and drawdown rates in the regulated 2.5% to 17.5% band.",
+    heroImage: "/images/calc-lcp/asset-014.jpg",
     heroImageAlt: "Living annuity income planning",
     calculatorLead:
-      "Enter capital, drawdown percentage, and growth assumptions to see illustrative monthly income and sustainability notes.",
+      "Enter capital, a drawdown percentage between 2.5% and 17.5%, and growth assumptions to see illustrative monthly income and sustainability notes.",
     sidePanelTitle: "Post-retirement capital",
     sidePanelParagraphs: [
       "Retirees with pension, RA, or preservation funds often face living annuity decisions at retirement. Drawdown rate drives income and longevity.",
-      "Pair with Life of Capital calculator to stress-test whether income lasts.",
+      "South African living annuities generally allow annual drawdowns between 2.5% and 17.5%. Pair with Life of Capital to stress-test whether income lasts.",
     ],
     sidePanelBullets: [
-      "Drawdown percentage modelling",
-      "Inflation protection illustration",
+      "2.5% to 17.5% drawdown band",
+      "Inflation and growth stress-tests",
       "Retired client pathway",
       "Not a product quote",
     ],
-    fiduciaryNotes: FIDUCIARY,
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Living annuity drawdowns typically sit between 2.5% and 17.5% a year. Confirm product rules before acting.",
+      "Amethyst and other structured yield ideas may complement a living annuity where suitable — liquidity and suitability rules apply.",
+    ],
     howToSteps: [
       { title: "Enter annuity capital", description: "Lump sum moving into living annuity." },
-      { title: "Set drawdown %", description: "Regulation 28 minimum/maximum bands apply in real products." },
+      {
+        title: "Set drawdown %",
+        description: "Use a rate in the 2.5% to 17.5% band. Real products apply specific annual review rules.",
+      },
       { title: "Add growth assumption", description: "Stress-test conservative and moderate returns." },
       { title: "Review sustainability", description: "Use Life of Capital tool for longevity check." },
     ],
@@ -797,15 +854,25 @@ const PAGES: Record<string, PageContent> = {
         heading: "Drawdown decisions at retirement",
         paragraphs: [
           "Choosing drawdown is choosing how much future income you keep. Too high early on can destroy capital in a bad sequence of returns.",
-          "Amethyst and structured yield solutions may complement living annuities where suitable. Advice is essential.",
+          "Amethyst and structured yield solutions may complement living annuities where suitable. Liquidity constraints and a suitability review apply. Advice is essential.",
         ],
       },
     ],
     faqs: [
       {
-        question: "What drawdown must I use?",
+        question: "What drawdown band applies to living annuities?",
         answer:
-          "Living annuities have regulatory minimum and maximum drawdown bands. This tool illustrates scenarios; products have specific rules.",
+          "South African living annuities generally allow annual drawdowns between 2.5% and 17.5%. This tool illustrates scenarios inside that band; confirm your product’s rules with an adviser.",
+      },
+      {
+        question: "Is Amethyst the same as a living annuity?",
+        answer:
+          "No. Amethyst-style structured yield may complement retirement income where suitable. Living annuities have their own regulatory drawdown band, liquidity, and tax treatment. Suitability review required.",
+      },
+      {
+        question: "Does this replace a product quote?",
+        answer:
+          "No. Results are educational only. Personal advice requires a needs analysis with AS Brokers CC (FSP 17273).",
       },
     ],
     ...RETIREMENT,
@@ -821,7 +888,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "How underinsurance cuts your claim",
     heroSubtitle:
       "Illustrate claim reduction when sum insured is below replacement value. Essential for home, contents, and commercial property.",
-    heroImage: "/images/home4-goal-insure-16x9.jpg",
+    heroImage: "/images/calc-lcp/asset-015.jpg",
     heroImageAlt: "Home insurance underinsurance review",
     calculatorLead:
       "Enter replacement value, sum insured, and claim amount to see illustrative payment after average clause application.",
@@ -858,6 +925,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "Average clause mechanics depend on policy wording. This tool educates on common principles. Review your schedule with your broker.",
       },
+      {
+        question: "Does this assess my claim?",
+        answer:
+          "No. It shows how the average clause can reduce a claim when underinsured. Ask your broker to review sums insured.",
+      }
     ],
     ...INSURANCE,
   },
@@ -872,7 +944,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "See the power of compound growth",
     heroSubtitle:
       "Project how lump sums and monthly contributions may grow over time at an illustrative return rate.",
-    heroImage: "/images/home-actuarial-engine-16x9.jpg",
+    heroImage: "/images/calc-lcp/asset-016.jpg",
     heroImageAlt: "Wealth building and compound growth illustration",
     calculatorLead:
       "Enter starting capital, monthly contributions, growth rate, and years to see illustrative future value.",
@@ -909,6 +981,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "Use conservative bands for planning. Historical returns do not guarantee future performance.",
       },
+      {
+        question: "Are growth rates guaranteed?",
+        answer:
+          "No. You choose an illustrative rate. Markets, fees, and tax change real outcomes. Discuss assumptions with FSP 17273.",
+      }
     ],
     ...WEALTH,
   },
@@ -923,7 +1000,7 @@ const PAGES: Record<string, PageContent> = {
     heroTitle: "Hit your personal financial goal on time",
     heroSubtitle:
       "Set a target amount and date. See the illustrative growth rate and contribution path required to get there.",
-    heroImage: "/images/home4-import/card1.jpg",
+    heroImage: "/images/calc-lcp/asset-017.jpg",
     heroImageAlt: "Personal financial goal planning",
     calculatorLead:
       "Enter goal amount, target date, starting capital, and contributions to see required growth and month-by-month illustration.",
@@ -960,6 +1037,11 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "Yes as an educational step. Pair with Retirement Reality Check and Growth Rate calculators for retirement-specific planning.",
       },
+      {
+        question: "Is this a savings product quote?",
+        answer:
+          "No. It is an educational goal planner. Product selection and contributions need a personal advice process.",
+      }
     ],
     ...WEALTH,
   },
@@ -977,7 +1059,7 @@ function buildConfig(entry: CalculatorRegistryEntry): CalculatorPageConfig {
     assetCode: entry.assetCode,
     calculatorSrc: entry.embedPath,
     calculatorTitle: shortTitle,
-    /** Page-authored FAQs only; VisibleFaqSection pads for UI, PageJsonLd does not. */
+    /** Page-authored FAQs only — VisibleFaqSection and PageJsonLd share this list (no pad-to-6). */
     faqs,
     ...rest,
   };

@@ -10,11 +10,6 @@ const HomeValueProps = dynamic(
   { loading: () => <div className="min-h-[200px]" /> }
 );
 
-const HomeFloatingChat = dynamic(
-  () => import("@/components/home/HomeLazyWidgets").then((m) => m.HomeFloatingChat),
-  { ssr: false, loading: () => null }
-);
-
 const calculatorFallback = (
   <div className="grid min-h-[400px] grid-cols-1 gap-8 rounded-[2rem] border border-white/10 bg-white/[0.03] animate-pulse lg:grid-cols-12" />
 );
@@ -50,8 +45,4 @@ export function HomeDeferredValueProps() {
       <HomeValueProps />
     </DeferUntilVisible>
   );
-}
-
-export function HomeDeferredFloatingChat() {
-  return <HomeFloatingChat />;
 }

@@ -88,7 +88,7 @@ const nextConfig: NextConfig = {
   experimental: {
     authInterrupts: true,
     optimizeCss: true,
-    optimizePackageImports: ["recharts", "framer-motion"],
+    optimizePackageImports: ["recharts", "framer-motion", "zod", "ai", "@ai-sdk/react", "clsx"],
     serverActions: {
       /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */
       bodySizeLimit: "12mb",

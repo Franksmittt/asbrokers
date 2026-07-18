@@ -58,7 +58,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Model the illustrative return required to close the gap between where you are today and the capital you want at retirement.",
     heroImage: "/images/calc-lcp/asset-001.webp",
-    heroImageAlt: "Couple reviewing retirement savings growth with an adviser",
+    heroImageAlt: "Couple reviewing long-term retirement savings notes at a kitchen table",
     calculatorLead:
       "Enter current savings, monthly contributions, years to retirement, and your target lump sum. The tool shows an illustrative required growth rate.",
     sidePanelTitle: "Who this is for",
@@ -141,7 +141,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Compare the income you want in retirement with the capital you are on track to build. See surplus or shortfall in plain numbers.",
     heroImage: "/images/calc-lcp/asset-002.webp",
-    heroImageAlt: "Retirement planning review at a kitchen table",
+    heroImageAlt: "Couple discussing whether retirement income will match their lifestyle",
     calculatorLead:
       "Enter desired monthly retirement income, expected capital, growth, and drawdown assumptions to see whether your plan may fund your lifestyle.",
     sidePanelTitle: "The question most clients ask",
@@ -196,7 +196,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Turn a retirement capital shortfall into an illustrative monthly funding number over your remaining working years.",
     heroImage: "/images/calc-lcp/asset-003.webp",
-    heroImageAlt: "Monthly retirement contribution planning",
+    heroImageAlt: "Professional planning the monthly amount needed to close a retirement gap",
     calculatorLead:
       "Enter your funding gap, years to retirement, and growth assumption to see an illustrative monthly premium or contribution.",
     sidePanelTitle: "After the reality check",
@@ -252,7 +252,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Stress-test sustainable drawdown: see when capital may deplete at your chosen income, growth, and inflation assumptions.",
     heroImage: "/images/calc-lcp/asset-004.webp",
-    heroImageAlt: "Retiree reviewing how long capital may last",
+    heroImageAlt: "Retiree enjoying a secure lifestyle while capital longevity is planned",
     calculatorLead:
       "Enter lump sum, monthly income draw, growth rate, and inflation to model capital longevity. Essential for living annuity and voluntary income planning.",
     sidePanelTitle: "What this test shows",
@@ -315,7 +315,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Model how inflation erodes purchasing power so retirement, education, and estate plans account for rising living costs.",
     heroImage: "/images/calc-lcp/asset-005.webp",
-    heroImageAlt: "Purchasing power and inflation planning",
+    heroImageAlt: "Couple assessing how inflation shrinks what the same money can buy",
     calculatorLead:
       "Enter a lump sum or future expense and an inflation rate to see illustrative future values and the real cost of waiting.",
     sidePanelTitle: "Why purchasing power matters",
@@ -371,7 +371,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Illustrative SARS bracket calculation for salary, bonus, and retirement drawdown conversations. Not a substitute for a full assessment.",
     heroImage: "/images/calc-lcp/asset-006.webp",
-    heroImageAlt: "Income tax estimation worksheet",
+    heroImageAlt: "Professional reviewing take-home pay after personal income tax",
     calculatorLead:
       "Enter taxable income components to see illustrative tax payable, rebates, and net income using 2026/27 table logic in the tool.",
     sidePanelTitle: "How to use this diagnostic",
@@ -427,7 +427,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Quantify potential duty above the R3.5 million abatement and executor fees so your family is not caught without liquidity.",
     heroImage: "/images/calc-lcp/asset-007.webp",
-    heroImageAlt: "Estate planning and duty estimation",
+    heroImageAlt: "Family member facing estate duty, keys, and executor cost decisions",
     calculatorLead:
       "Enter net estate value, deductions, and abatement to see illustrative duty at 20% and 25% bands plus executor fees.",
     sidePanelTitle: "What to enter",

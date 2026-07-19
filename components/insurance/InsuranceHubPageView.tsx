@@ -8,6 +8,9 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
 
@@ -65,34 +68,17 @@ export function InsuranceHubPageView({ faqs }: Props) {
   const faqItems = ensureSixFaqs(faqs);
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Hero — light */}
       <MarketingHubHero
-        kicker={<>Insurance &amp; risk · FSP 17273 · Category 1.8</>}
-        title={<>Commercial and personal risk architecture</>}
-        description={
-          <>
-            Most owners discover policy flaws after the fire, Average Clause underinsurance, broken
-            Business Interruption definitions, escalating life premiums. We structure indemnification
-            for your balance sheet, place cover independently across the market, and stay for the
-            claim.
-          </>
-        }
+        kicker={<HubHeroKicker shortLabel="Insurance" longLabel="Insurance" />}
+        title="Worried the Average Clause will shrink your next insurance claim?"
+        description="AS Brokers CC (FSP 17273) educates you on policy gaps first: Average Clause underinsurance, Business Interruption wording, and life premium traps, before anyone asks you to switch. Run the maths yourself. Then book advice if you want a needs analysis."
         actions={
-          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
-            <a href="#protection-domains" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Protection domains
-            </a>
-            <a href="#average-clause" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Average clause diagnostic
-            </a>
-            <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Independence
-            </a>
-            <a href="#risk-audit" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Book a risk audit
-            </a>
-          </nav>
+          <HubHeroActions
+            primaryLabel="Check your Average Clause gap"
+            primaryHref={CALC_AVERAGE_CLAUSE}
+          />
         }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
@@ -115,6 +101,13 @@ export function InsuranceHubPageView({ faqs }: Props) {
               />
             </picture>
           </figure>
+        }
+        after={
+          <HubHeroAfterLink
+            prompt="Prefer protection domains first?"
+            href="#protection-domains"
+            label="Browse protection domains"
+          />
         }
       />
 

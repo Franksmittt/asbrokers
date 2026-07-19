@@ -8,6 +8,9 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
@@ -49,44 +52,14 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   const faqItems = ensureSixFaqs(faqs);
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Hero — light */}
       <MarketingHubHero
-        kicker={
-          <>
-            <span className="tabular-nums">FSP 17273</span>
-            {" · "}
-            <span className="tabular-nums">Category 1.8</span>
-            {" · Est. 1998 · Krugersdorp"}
-          </>
-        }
-        title={<>Protecting your legacy. Engineering your wealth.</>}
-        description={
-          <>
-            Finding an adviser aligned with <em>you</em>, not a bank&apos;s product quota, is hard.
-            For 25+ years AS Brokers (FSP 17273, Category 1.8) has been an independent fiduciary
-            compass for professionals, families, and business owners in Krugersdorp and beyond:
-            math first, then advice.
-          </>
-        }
+        kicker={<HubHeroKicker shortLabel="About" longLabel="About Us" />}
+        title="Need an independent adviser paid to serve you, not product quotas?"
+        description="AS Brokers CC (FSP 17273) has been an independent Category 1.8 fiduciary in Krugersdorp since 1998: math first, then advice for professionals, families, and owners. Meet the team yourself. Then book advice if you want a needs analysis."
         actions={
-          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
-            <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Independence
-            </a>
-            <a href="#place" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Place &amp; proof
-            </a>
-            <a href="#fiduciaries" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Fiduciaries
-            </a>
-            <a href="#about-faq" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              FAQ
-            </a>
-            <Link href="/calculators" prefetch={false} className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Calculators
-            </Link>
-          </nav>
+          <HubHeroActions primaryLabel="Meet the fiduciary team" primaryHref="#fiduciaries" />
         }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
@@ -106,9 +79,13 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             </picture>
           </figure>
         }
-        textSpan="lg:col-span-6"
-        visualSpan="lg:col-span-6"
-        borderBottom
+        after={
+          <HubHeroAfterLink
+            prompt="Prefer place and proof first?"
+            href="#place"
+            label="Krugersdorp office"
+          />
+        }
       />
 
       {/* §2 Independence — shark */}

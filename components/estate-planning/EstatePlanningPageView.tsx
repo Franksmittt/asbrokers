@@ -10,6 +10,9 @@ import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 
 const HERO_IMAGE = "/images/estate-planning-hero-16x9.webp";
 
@@ -94,12 +97,18 @@ export function EstatePlanningPageView({ faqs }: Props) {
   const faqItems = ensureSixFaqs(faqs);
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Hero — light */}
       <MarketingHubHero
-        kicker="Estate planning · FSP 17273 · Category 1.8"
-        title="Estate liquidity engineering & succession"
-        description="A will is only half the job. Without cash for estate duty and executor fees, heirs can be forced into a fire sale. We engineer liquidity, life cover and capital structure , while partnered attorneys draft the legal instruments."
+        kicker={<HubHeroKicker shortLabel="Estate" longLabel="Estate Planning" />}
+        title="Will estate duty force your heirs into a fire-sale of assets?"
+        description="AS Brokers CC (FSP 17273) educates you on estate liquidity first: duty, executor fees, and cash so heirs avoid a fire sale, before anyone drafts legal instruments. Run the maths yourself. Then book advice if you want a needs analysis."
+        actions={
+          <HubHeroActions
+            primaryLabel="Calculate estate duty first"
+            primaryHref={CALC_ESTATE_DUTY}
+          />
+        }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
             <picture>
@@ -125,24 +134,12 @@ export function EstatePlanningPageView({ faqs }: Props) {
             </picture>
           </figure>
         }
-        textSpan="lg:col-span-6"
-        visualSpan="lg:col-span-6"
-        borderBottom
         after={
-          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
-            <a href="#legacy-checklist" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Legacy checklist
-            </a>
-            <a href="#estate-architecture" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Duty &amp; fees
-            </a>
-            <a href="#estate-calculators" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Calculators
-            </a>
-            <a href="#strategy-call" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Strategy call
-            </a>
-          </nav>
+          <HubHeroAfterLink
+            prompt="Prefer the checklist first?"
+            href="/legacy-readiness-checklist"
+            label="Legacy Readiness Checklist"
+          />
         }
       />
 

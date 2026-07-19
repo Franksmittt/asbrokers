@@ -9,6 +9,9 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 import { getAlt } from "@/lib/image-alt";
 
 const HERO_IMAGE = "/images/investments-hero-16x9.webp";
@@ -28,14 +31,6 @@ const CALC_POWER_OF_GROWTH = calculatorPagePath("asset-016-growth-comparison");
 const CALC_PERSONAL_GOAL = calculatorPagePath("asset-017-personal-goal");
 const CALC_INCOME_VS_GROWTH = calculatorPagePath("asset-013-everest-income-vs-growth");
 const CALC_128_VS_142 = calculatorPagePath("asset-011-everest-128-vs-142");
-
-const PAGE_NAV = [
-  { id: "fiduciary-philosophy", label: "Fiduciary approach" },
-  { id: "phase-accumulation", label: "Growth strategies" },
-  { id: "phase-distribution", label: "Income solutions" },
-  { id: "everest-toolkit", label: "Everest products" },
-  { id: "diagnostic-tools", label: "Diagnostic tools" },
-] as const;
 
 const GROWTH_TOOLS = [
   {
@@ -167,12 +162,18 @@ export function InvestmentsPageView({ faqs }: Props) {
   const faqItems = ensureSixFaqs(faqs);
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Orientation hero */}
       <MarketingHubHero
-        kicker="Investments · FSP 17273 · Category 1.8"
-        title="Independent wealth engineering beyond the standard unit trust"
-        description="High earners lose too much yield to JSE volatility and marginal tax on interest. Where suitable, Category 1.8 lets us discuss targeted private-market profiles and DWT architecture, with liquidity constraints stated upfront. Education before advice."
+        kicker={<HubHeroKicker shortLabel="Investments" longLabel="Investments" />}
+        title="Need private-market income without guessing the next JSE move?"
+        description="AS Brokers CC (FSP 17273) educates you on Category 1.8 wealth engineering first: targeted profiles, DWT architecture, and liquidity limits, before anyone asks you to sign. Run the maths yourself. Then book advice if you want a needs analysis."
+        actions={
+          <HubHeroActions
+            primaryLabel="Compare investment profiles"
+            primaryHref="#diagnostic-tools"
+          />
+        }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
             <picture>
@@ -195,43 +196,12 @@ export function InvestmentsPageView({ faqs }: Props) {
             </picture>
           </figure>
         }
-        actions={
-          <>
-            <a
-              href="#diagnostic-tools"
-              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
-            >
-              Compare investment profiles
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </a>
-            <Link
-              href="/everest-wealth"
-              prefetch={false}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
-            >
-              Explore Everest Wealth
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </>
-        }
         after={
-          <nav aria-label="On this page">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
-              On this page
-            </p>
-            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-              {PAGE_NAV.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <HubHeroAfterLink
+            prompt="Prefer Everest products first?"
+            href="/everest-wealth"
+            label="Explore Everest Wealth"
+          />
         }
       />
 

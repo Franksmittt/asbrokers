@@ -9,7 +9,6 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
-import { EverestRolesTriangle } from "@/components/trust/TrustDiagrams";
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
@@ -24,6 +23,10 @@ const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
 const MUTED = "#57534e";
 const HERO_IMAGE = "/images/everest-wealth-hero-maize-growth-4x3.jpg";
+const COMPARE_IMAGE = "/images/everest-income-vs-growth-4x3.webp";
+const COMPARE_IMAGE_FALLBACK = "/images/everest-income-vs-growth-4x3.jpg";
+const COMPARE_ALT =
+  "Couple comparing day-one income paperwork with a longer-term growth plan at a dining table";
 
 const CONSTRAINTS = [
   { dt: "Minimum", dd: "R100,000" },
@@ -461,7 +464,27 @@ export function EverestWealthPageView({ faqs }: Props) {
           </div>
 
           <div className="min-w-0 lg:col-span-7">
-            <EverestRolesTriangle />
+            <figure className="overflow-hidden border bg-white" style={{ borderColor: HAIRLINE }}>
+              <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[960/717]">
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcSet="/images/everest-income-vs-growth-4x3-640.webp 640w, /images/everest-income-vs-growth-4x3.webp 960w"
+                    sizes="(max-width: 1024px) calc(100vw - 2rem), 640px"
+                  />
+                  {/* eslint-disable-next-line @next/next/no-img-element -- picture/webp srcset; site images.unoptimized */}
+                  <img
+                    src={COMPARE_IMAGE_FALLBACK}
+                    alt={getAlt(COMPARE_IMAGE, COMPARE_ALT)}
+                    width={960}
+                    height={717}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                  />
+                </picture>
+              </div>
+            </figure>
           </div>
         </div>
       </section>

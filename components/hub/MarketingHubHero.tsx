@@ -75,7 +75,9 @@ export function MarketingHubHero({
             </div>
           ) : null}
         </div>
-        {visual ? <div className={`min-w-0 ${visualSpan} ${visualOrder}`}>{visual}</div> : null}
+        {visual ? (
+          <div className={`min-h-0 min-w-0 self-stretch ${visualSpan} ${visualOrder}`}>{visual}</div>
+        ) : null}
       </div>
       {after ? <div className={`${HOME4_WRAP} mt-10 border-t pt-6`} style={{ borderColor: "#E5E5E5" }}>{after}</div> : null}
     </header>

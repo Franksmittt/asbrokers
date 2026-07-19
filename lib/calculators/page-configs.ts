@@ -483,7 +483,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Illustrate how annual donations within SARS limits may transfer wealth during your lifetime and lower eventual duty.",
     heroImage: "/images/calc-lcp/asset-008.webp",
-    heroImageAlt: "Annual donation and estate reduction planning",
+    heroImageAlt: "Grandfather gifting to family — planned giving to reduce estate later",
     calculatorLead:
       "Enter estate value, donation amounts, and planning horizon to see illustrative reduction in dutiable estate.",
     sidePanelTitle: "Planning with donations",
@@ -539,7 +539,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "See illustrative day-one monthly income from targeted 14.2% p.a. profile after 20% dividend withholding tax on voluntary capital.",
     heroImage: "/images/calc-lcp/asset-009.webp",
-    heroImageAlt: "Everest Wealth income planning illustration",
+    heroImageAlt: "Retiree enjoying day-one monthly income lifestyle on a veranda",
     calculatorLead:
       "Enter lump sum (R100,000 minimum) to see gross and net monthly income illustration. Targeted return, not guaranteed.",
     sidePanelTitle: "Who suits 14.2% income?",
@@ -594,7 +594,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Balance monthly dividends with a 10% loyalty bonus at year five. Illustrative net income after dividend withholding tax.",
     heroImage: "/images/calc-lcp/asset-010.webp",
-    heroImageAlt: "Everest 12.8% Strategic Income illustration",
+    heroImageAlt: "Couple walking an estate path — patient income with long-term reward",
     calculatorLead:
       "Enter voluntary lump sum to see monthly income illustration and five-year bonus impact. Targeted returns only.",
     sidePanelTitle: "Strategic Income profile",
@@ -649,7 +649,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Side-by-side five-year illustration on identical capital: day-one income, bonus, and total outcome.",
     heroImage: "/images/calc-lcp/asset-011.webp",
-    heroImageAlt: "Everest income product comparison",
+    heroImageAlt: "Homeowner weighing two income strategy options on a terrace",
     calculatorLead:
       "Enter the same lump sum for both profiles to compare monthly income and five-year total illustration.",
     sidePanelTitle: "Which income product?",
@@ -705,7 +705,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Pure compounding with no monthly withdrawals. Returns accumulate over five years and pay at maturity.",
     heroImage: "/images/calc-lcp/asset-012.webp",
-    heroImageAlt: "Everest Strategic Growth compound illustration",
+    heroImageAlt: "Patient capital growth — waiting for maturity in a thriving field",
     calculatorLead:
       "Enter lump sum to see five-year maturity illustration with growth taxed at maturity per tool assumptions.",
     sidePanelTitle: "Growth without income",
@@ -760,7 +760,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Three Everest-style profiles on one screen: monthly income, bonus effects, and growth maturity outcomes.",
     heroImage: "/images/calc-lcp/asset-013.webp",
-    heroImageAlt: "Everest income versus growth comparison",
+    heroImageAlt: "Couple comparing income-now lifestyle with growth outside the window",
     calculatorLead:
       "Enter capital to compare 12.8% income, 14.2% income, and 14.5% growth illustrations together.",
     sidePanelTitle: "Full strategy selection",
@@ -821,7 +821,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Estimate income from pension, RA, or preservation capital using illustrative growth and drawdown rates in the regulated 2.5% to 17.5% band.",
     heroImage: "/images/calc-lcp/asset-014.webp",
-    heroImageAlt: "Living annuity income planning",
+    heroImageAlt: "Retired couple reviewing living annuity drawdown with an adviser",
     calculatorLead:
       "Enter capital, a drawdown percentage between 2.5% and 17.5%, and growth assumptions to see illustrative monthly income and sustainability notes.",
     sidePanelTitle: "Post-retirement capital",
@@ -889,7 +889,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Illustrate claim reduction when sum insured is below replacement value. Essential for home, contents, and commercial property.",
     heroImage: "/images/calc-lcp/asset-015.webp",
-    heroImageAlt: "Home insurance underinsurance review",
+    heroImageAlt: "Homeowners checking cover — underinsurance can cut a claim",
     calculatorLead:
       "Enter replacement value, sum insured, and claim amount to see illustrative payment after average clause application.",
     sidePanelTitle: "The average clause",
@@ -945,7 +945,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Project how lump sums and monthly contributions may grow over time at an illustrative return rate.",
     heroImage: "/images/calc-lcp/asset-016.webp",
-    heroImageAlt: "Wealth building and compound growth illustration",
+    heroImageAlt: "Father and child watering a young tree — compound growth over time",
     calculatorLead:
       "Enter starting capital, monthly contributions, growth rate, and years to see illustrative future value.",
     sidePanelTitle: "Compound growth education",
@@ -1001,7 +1001,7 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Set a target amount and date. See the illustrative growth rate and contribution path required to get there.",
     heroImage: "/images/calc-lcp/asset-017.webp",
-    heroImageAlt: "Personal financial goal planning",
+    heroImageAlt: "Packing for a funded personal goal reached on time",
     calculatorLead:
       "Enter goal amount, target date, starting capital, and contributions to see required growth and month-by-month illustration.",
     sidePanelTitle: "Goal-based planning",

@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { CalculatorToolPanel } from "@/components/calculators/CalculatorToolPanel";
-import { HubReveal } from "@/components/hub/HubReveal";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
@@ -115,7 +114,8 @@ export function AssetCalculatorPageView({
                 quality={CALC_SPLIT_HERO_QUALITY}
                 priority
                 fetchPriority="high"
-                unoptimized={heroImage.endsWith(".webp") || heroImage.endsWith(".avif")}
+                // Site-wide images.unoptimized — calc-lcp WebPs are pre-sized ~400×300.
+                unoptimized
                 className="object-cover object-center"
                 sizes={CALC_SPLIT_HERO_SIZES}
               />
@@ -238,25 +238,23 @@ export function AssetCalculatorPageView({
           style={index % 2 === 1 ? { backgroundColor: CANVAS } : undefined}
         >
           <div className={HOME4_WRAP}>
-            <HubReveal delay={index * 0.03}>
-              <h2
-                className="max-w-3xl font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
-              >
-                {section.heading}
-              </h2>
-              <div className="mt-6 max-w-4xl space-y-4">
-                {section.paragraphs.map((paragraph) => (
-                  <p
-                    key={paragraph.slice(0, 48)}
-                    className="leading-relaxed"
-                    style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </HubReveal>
+            <h2
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+            >
+              {section.heading}
+            </h2>
+            <div className="mt-6 max-w-4xl space-y-4">
+              {section.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 48)}
+                  className="leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
         </section>
       ))}

@@ -10,7 +10,8 @@ type Props = {
 
 /**
  * Tiny client island: grows a same-origin SSR iframe to content height.
- * No MutationObserver-on-attributes (forced reflow / TBT). Embed HTML untouched.
+ * ResizeObserver only — MutationObserver subtree walks caused Style/Layout TBT.
+ * Embed HTML untouched.
  */
 export function CalculatorIframeHeightBridge({ iframeId }: Props) {
   useEffect(() => {
@@ -18,7 +19,6 @@ export function CalculatorIframeHeightBridge({ iframeId }: Props) {
     if (!iframe) return;
 
     let resizeObserver: ResizeObserver | null = null;
-    let mutationObserver: MutationObserver | null = null;
     let raf = 0;
     const timeouts: number[] = [];
 
@@ -54,18 +54,9 @@ export function CalculatorIframeHeightBridge({ iframeId }: Props) {
         if (!doc?.body) return;
 
         resizeObserver?.disconnect();
-        mutationObserver?.disconnect();
-
         resizeObserver = new ResizeObserver(schedule);
         resizeObserver.observe(doc.documentElement);
         resizeObserver.observe(doc.body);
-
-        // childList only — attribute observation caused main-thread thrash in LH.
-        mutationObserver = new MutationObserver(schedule);
-        mutationObserver.observe(doc.documentElement, {
-          childList: true,
-          subtree: true,
-        });
       } catch {
         // Ignore observer attach failures.
       }
@@ -80,7 +71,6 @@ export function CalculatorIframeHeightBridge({ iframeId }: Props) {
     return () => {
       iframe.removeEventListener("load", attach);
       resizeObserver?.disconnect();
-      mutationObserver?.disconnect();
       if (raf) cancelAnimationFrame(raf);
       timeouts.forEach((id) => window.clearTimeout(id));
     };

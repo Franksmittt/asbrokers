@@ -1,4 +1,4 @@
-import { CalculatorIframeHeightBridge } from "@/components/calculators/CalculatorIframeHeightBridge";
+import { CalculatorHeightBridgeDeferred } from "@/components/calculators/CalculatorHeightBridgeDeferred";
 import { CalculatorLeadDeferred } from "@/components/calculators/CalculatorLeadDeferred";
 
 const MIN_HEIGHT = 640;
@@ -12,7 +12,7 @@ type Props = {
 
 /**
  * Calculator always visible — SSR iframe (works with JS off).
- * Height bridge + lead form are light client islands. Embed HTML untouched.
+ * Height bridge + lead form are deferred client islands. Embed HTML untouched.
  */
 export function CalculatorToolPanel({
   calculatorSrc,
@@ -36,7 +36,7 @@ export function CalculatorToolPanel({
             className="block w-full border-0 bg-white"
             style={{ height: MIN_HEIGHT, overflow: "hidden" }}
           />
-          <CalculatorIframeHeightBridge iframeId={iframeId} />
+          <CalculatorHeightBridgeDeferred iframeId={iframeId} />
         </div>
       </div>
       <CalculatorLeadDeferred

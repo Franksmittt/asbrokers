@@ -87,13 +87,21 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     authInterrupts: true,
+    /** Critters + App Router CSS inlining — eliminates render-blocking stylesheet link tags. */
     optimizeCss: true,
+    inlineCss: true,
+    cssChunking: "strict",
     optimizePackageImports: ["recharts", "framer-motion", "zod", "ai", "@ai-sdk/react", "clsx"],
     serverActions: {
       /** Large HTML + calculator code drafts exceed the default 1MB action body limit. */
       bodySizeLimit: "12mb",
     },
   },
+  /**
+   * Modern browserslist in package.json (Chrome/Edge/Firefox ≥111, Safari ≥16.4).
+   * SWC should not emit legacy polyfills for those targets; webpack alias below
+   * is a hard kill-switch for Next's polyfill-module (~11KB LH waste).
+   */
   async headers() {
     return [
       {
@@ -176,22 +184,29 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  webpack: (config) => {
+  webpack: (config, { webpack: wp }) => {
     const hoistPath = path.join(
       __dirname,
       "node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.min.js"
     );
+    const emptyPolyfill = path.join(__dirname, "lib/empty-polyfill.js");
     config.resolve.alias = {
       ...config.resolve.alias,
       "hoist-non-react-statics": hoistPath,
       // Drop Next legacy polyfill module (~11KB) — site targets Chrome/Edge/Firefox 111+ / Safari 16.4+.
-      "next/dist/build/polyfills/polyfill-module": path.join(__dirname, "lib/empty-polyfill.js"),
-      "next/dist/build/polyfills/polyfill-module.js": path.join(__dirname, "lib/empty-polyfill.js"),
+      "next/dist/build/polyfills/polyfill-module": emptyPolyfill,
+      "next/dist/build/polyfills/polyfill-module.js": emptyPolyfill,
     };
     config.resolve.fallback = {
       ...config.resolve.fallback,
       "hoist-non-react-statics": hoistPath,
     };
+    config.plugins.push(
+      new wp.NormalModuleReplacementPlugin(
+        /next[\\/]dist[\\/]build[\\/]polyfills[\\/]polyfill-module(\.js)?$/,
+        emptyPolyfill
+      )
+    );
     return config;
   },
 };

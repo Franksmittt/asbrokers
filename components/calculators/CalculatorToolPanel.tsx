@@ -1,7 +1,5 @@
-import { CalculatorHeightBridgeDeferred } from "@/components/calculators/CalculatorHeightBridgeDeferred";
+import { CalculatorEmbedLazy } from "@/components/calculators/CalculatorEmbedLazy";
 import { CalculatorLeadDeferred } from "@/components/calculators/CalculatorLeadDeferred";
-
-const MIN_HEIGHT = 640;
 
 type Props = {
   calculatorSrc: string;
@@ -11,8 +9,8 @@ type Props = {
 };
 
 /**
- * Calculator always visible — SSR iframe (works with JS off).
- * Height bridge + lead form are deferred client islands. Embed HTML untouched.
+ * Tool panel shell (RSC): progressive client embed + deferred lead form.
+ * Embed HTML under public/embed-calculators is untouched. No click-gate.
  */
 export function CalculatorToolPanel({
   calculatorSrc,
@@ -24,20 +22,12 @@ export function CalculatorToolPanel({
 
   return (
     <div className="mt-6 space-y-6">
-      <div className="rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-stone-200/90 sm:p-6">
-        <div className="w-full overflow-visible rounded-2xl bg-white ring-1 ring-stone-200/90">
-          <iframe
-            id={iframeId}
-            src={calculatorSrc}
-            title={calculatorTitle}
-            width="100%"
-            height={MIN_HEIGHT}
-            loading="lazy"
-            className="block w-full border-0 bg-white"
-            style={{ height: MIN_HEIGHT, overflow: "hidden" }}
-          />
-          <CalculatorHeightBridgeDeferred iframeId={iframeId} />
-        </div>
+      <div className="rounded-3xl bg-white p-4 ring-1 ring-stone-200/90 sm:p-6">
+        <CalculatorEmbedLazy
+          calculatorSrc={calculatorSrc}
+          calculatorTitle={calculatorTitle}
+          iframeId={iframeId}
+        />
       </div>
       <CalculatorLeadDeferred
         calculatorId={calculatorId}

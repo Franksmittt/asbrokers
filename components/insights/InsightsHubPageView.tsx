@@ -15,6 +15,9 @@ import { ArrowRight } from "@/components/icons";
 import type { InsightFeedItem } from "@/lib/insights/feed";
 import type { InsightCategoryValue } from "@/lib/insights/insightCategories";
 import { getAlt } from "@/lib/image-alt";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+
+const HERO_IMAGE = "/images/insights-hero-16x9.webp";
 
 const InsightsFeedFilter = dynamic(
   () => import("@/components/insights/InsightsFeedFilter").then((m) => m.InsightsFeedFilter),
@@ -179,32 +182,12 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Hero — light */}
-      <header
-        className="border-b pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
-        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
-      >
-        <div className={HOME4_WRAP}>
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
-            style={{ color: TEAL }}
-          >
-            Learn · Insights library · FSP 17273
-          </p>
-          <h1
-            className="mt-5 max-w-3xl font-serif font-semibold tracking-tight text-balance"
-            style={{ fontSize: "clamp(1.875rem, 1.4rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
-          >
-            The AS Brokers insights library
-          </h1>
-          <p
-            className="mt-5 max-w-2xl leading-relaxed"
-            style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-          >
-            Deep reading for people who take South African wealth seriously: Two-Pot, estate duty,
-            underinsurance, tax drag, Everest structuring. Written here so you arrive at advice
-            already educated. Articles are educational only, not personalised advice.
-          </p>
-          <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+      <MarketingHubHero
+        kicker="Learn · Insights library · FSP 17273"
+        title="The AS Brokers insights library"
+        description="Deep reading for people who take South African wealth seriously: Two-Pot, estate duty, underinsurance, tax drag, Everest structuring. Written here so you arrive at advice already educated. Articles are educational only, not personalised advice."
+        actions={
+          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
             <a href="#featured" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
               Featured
             </a>
@@ -218,14 +201,39 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
               Newsletter
             </a>
           </nav>
-          {articles.length > 0 ? (
-            <p className="mt-6 text-sm text-stone-500">
+        }
+        visual={
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <picture>
+              <source
+                media="(min-width: 769px)"
+                type="image/webp"
+                srcSet="/images/insights-hero-16x9-960.webp"
+              />
+              <source type="image/webp" srcSet="/images/insights-hero-16x9-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
+              <img
+                src="/images/insights-hero-16x9-480.webp"
+                alt={getAlt(HERO_IMAGE, "Woman reading in a quiet home library")}
+                width={480}
+                height={359}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
+          </figure>
+        }
+        borderBottom
+        after={
+          articles.length > 0 ? (
+            <p className="text-sm text-stone-500">
               <span className="font-semibold tabular-nums text-shark">{articles.length}</span>
               {" "}published article{articles.length === 1 ? "" : "s"} in the library
             </p>
-          ) : null}
-        </div>
-      </header>
+          ) : null
+        }
+      />
 
       {/* §2 Library — light: topics + featured + archive */}
       <section

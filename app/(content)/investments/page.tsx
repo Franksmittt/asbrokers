@@ -59,6 +59,20 @@ export const metadata = buildPageMetadata({
 export default function InvestmentsPage() {
   return (
     <>
+      <link
+        rel="preload"
+        as="image"
+        href="/images/investments-hero-16x9-480.webp"
+        media="(max-width: 768px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/investments-hero-16x9-960.webp"
+        media="(min-width: 769px)"
+        fetchPriority="high"
+      />
       <PageJsonLd
         path="/investments"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}

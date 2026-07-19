@@ -8,8 +8,10 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
-import { WealthContinuumViz } from "@/components/trust/TrustDiagrams";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { getAlt } from "@/lib/image-alt";
+
+const HERO_IMAGE = "/images/investments-hero-16x9.webp";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -171,7 +173,28 @@ export function InvestmentsPageView({ faqs }: Props) {
         kicker="Investments · FSP 17273 · Category 1.8"
         title="Independent wealth engineering beyond the standard unit trust"
         description="High earners lose too much yield to JSE volatility and marginal tax on interest. Where suitable, Category 1.8 lets us discuss targeted private-market profiles and DWT architecture, with liquidity constraints stated upfront. Education before advice."
-        visual={<WealthContinuumViz />}
+        visual={
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <picture>
+              <source
+                media="(min-width: 769px)"
+                type="image/webp"
+                srcSet="/images/investments-hero-16x9-960.webp"
+              />
+              <source type="image/webp" srcSet="/images/investments-hero-16x9-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
+              <img
+                src="/images/investments-hero-16x9-480.webp"
+                alt={getAlt(HERO_IMAGE, "Adviser reviewing investment charts at a home desk")}
+                width={480}
+                height={359}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
+          </figure>
+        }
         actions={
           <>
             <a

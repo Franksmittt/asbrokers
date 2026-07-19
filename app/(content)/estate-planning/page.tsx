@@ -56,6 +56,20 @@ export const metadata = buildPageMetadata({
 export default function EstatePlanningHubPage() {
   return (
     <>
+      <link
+        rel="preload"
+        as="image"
+        href="/images/estate-planning-hero-16x9-480.webp"
+        media="(max-width: 768px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/estate-planning-hero-16x9-960.webp"
+        media="(min-width: 769px)"
+        fetchPriority="high"
+      />
       <PageJsonLd
         path="/estate-planning"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}

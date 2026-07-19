@@ -68,14 +68,14 @@ export default function EverestWealthPage() {
       <link
         rel="preload"
         as="image"
-        href="/images/everest-wealth-hero-maize-growth-4x3-480.webp"
+        href="/images/everest-wealth-hero-16x9-480.webp"
         media="(max-width: 768px)"
         fetchPriority="high"
       />
       <link
         rel="preload"
         as="image"
-        href="/images/everest-wealth-hero-maize-growth-4x3-960.webp"
+        href="/images/everest-wealth-hero-16x9-960.webp"
         media="(min-width: 769px)"
         fetchPriority="high"
       />

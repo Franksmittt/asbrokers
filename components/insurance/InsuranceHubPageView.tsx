@@ -106,7 +106,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
               <img
                 src="/images/insurance-hero-16x9-480.webp"
-                alt={getAlt(HERO_IMAGE, "Healthy family at home — personal protection and medical cover")}
+                alt={getAlt(HERO_IMAGE, "Adviser reviewing cover documents with a family at a suburban home")}
                 width={480}
                 height={359}
                 fetchPriority="high"

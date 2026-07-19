@@ -17,7 +17,7 @@ const HAIRLINE = "#E5E5E5";
 /** WCAG AA teal on canvas; lighter teal for shark chapters. */
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
-const HERO_IMAGE = "/images/home4-why-independence-4x3.jpg";
+const HERO_IMAGE = "/images/about-hero.webp";
 const PLACE_IMAGE = "/images/about-krugersdorp-trust-16x9.jpg";
 const PLAQUE_IMAGE = "/images/about-fiduciary-plaque-4x3.jpg";
 
@@ -89,22 +89,22 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </nav>
         }
         visual={
-          <div className="relative aspect-[4/3] overflow-hidden border sm:aspect-[5/4]" style={{ borderColor: HAIRLINE }}>
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
             <picture>
               <source media="(min-width: 769px)" type="image/webp" srcSet="/images/about-hero-960.webp" />
               <source type="image/webp" srcSet="/images/about-hero-480.webp" />
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
               <img
                 src="/images/about-hero-480.webp"
-                alt={getAlt(HERO_IMAGE, "AS Brokers Krugersdorp advisory environment")}
+                alt={getAlt(HERO_IMAGE, "Adviser and client in a warm face-to-face consultation")}
                 width={480}
-                height={358}
+                height={359}
                 fetchPriority="high"
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover object-center"
               />
             </picture>
-          </div>
+          </figure>
         }
         textSpan="lg:col-span-6"
         visualSpan="lg:col-span-6"

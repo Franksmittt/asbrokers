@@ -24,9 +24,8 @@ const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
 const MUTED = "#57534e";
 
-const HERO_SIZES = "(max-width: 1024px) calc(100vw - 2rem), 420px";
 const HERO_ALT =
-  "Couple reviewing financial planning documents at a dining table at home";
+  "Couple reviewing finances with a calculator at a dining table at home";
 
 type FaqItem = { question: string; answer: string };
 
@@ -130,25 +129,25 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
         title="Run the numbers before anyone sells you a product"
         description="Seventeen educational calculators for retirement, Everest income, estate duty, tax, and underinsurance. Test assumptions yourself, then contact us if you want advice."
         visual={
-          <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet="/images/calculators-hub-16x9-480.webp 480w, /images/calculators-hub-16x9-640.webp 640w"
-                  sizes={HERO_SIZES}
-                />
-                <img
-                  src="/images/calculators-hub-16x9-480.webp"
-                  alt={HERO_ALT}
-                  width={480}
-                  height={300}
-                  fetchPriority="high"
-                  decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover object-center"
-                />
-              </picture>
-            </div>
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <picture>
+              <source
+                media="(min-width: 769px)"
+                type="image/webp"
+                srcSet="/images/calculators-hub-16x9-960.webp"
+              />
+              <source type="image/webp" srcSet="/images/calculators-hub-16x9-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
+              <img
+                src="/images/calculators-hub-16x9-480.webp"
+                alt={HERO_ALT}
+                width={480}
+                height={359}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
           </figure>
         }
         actions={

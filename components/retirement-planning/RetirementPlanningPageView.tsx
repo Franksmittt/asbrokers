@@ -113,9 +113,9 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
               <img
                 src="/images/retirement-planning-hero-16x9-480.webp"
-                alt={getAlt(HERO_IMAGE, "Couple outdoors — will your capital survive your lifespan?")}
+                alt={getAlt(HERO_IMAGE, "Couple reviewing retirement documents outdoors at a garden table")}
                 width={480}
-                height={358}
+                height={359}
                 fetchPriority="high"
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover object-center"

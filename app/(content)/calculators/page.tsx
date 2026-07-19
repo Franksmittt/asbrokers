@@ -65,8 +65,14 @@ export default function CalculatorsPage() {
         rel="preload"
         as="image"
         href="/images/calculators-hub-16x9-480.webp"
-        imageSrcSet="/images/calculators-hub-16x9-480.webp 480w, /images/calculators-hub-16x9-640.webp 640w"
-        imageSizes="(max-width: 1024px) calc(100vw - 2rem), 420px"
+        media="(max-width: 768px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/calculators-hub-16x9-960.webp"
+        media="(min-width: 769px)"
         fetchPriority="high"
       />
       <PageJsonLd

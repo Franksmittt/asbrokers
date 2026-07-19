@@ -22,8 +22,8 @@ const HAIRLINE = "#E5E5E5";
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
 const MUTED = "#57534e";
-const HERO_IMAGE = "/images/everest-wealth-hero-maize-growth-4x3-480.webp";
-const HERO_ALT = "South African farmer tending young maize shoots — growth that takes patience";
+const HERO_IMAGE = "/images/everest-wealth-hero-16x9-480.webp";
+const HERO_ALT = "Couple walking through a vineyard at golden hour — patient wealth growth";
 const COMPARE_IMAGE = "/images/everest-income-vs-growth-4x3.webp";
 const COMPARE_IMAGE_FALLBACK = "/images/everest-income-vs-growth-4x3.jpg";
 const COMPARE_ALT =
@@ -138,18 +138,15 @@ export function EverestWealthPageView({ faqs }: Props) {
                 <source
                   media="(min-width: 769px)"
                   type="image/webp"
-                  srcSet="/images/everest-wealth-hero-maize-growth-4x3-960.webp"
+                  srcSet="/images/everest-wealth-hero-16x9-960.webp"
                 />
-                <source
-                  type="image/webp"
-                  srcSet="/images/everest-wealth-hero-maize-growth-4x3-480.webp"
-                />
+                <source type="image/webp" srcSet="/images/everest-wealth-hero-16x9-480.webp" />
                 {/* eslint-disable-next-line @next/next/no-img-element -- LCP picture/webp; images.unoptimized */}
                 <img
                   src={HERO_IMAGE}
                   alt={getAlt(HERO_IMAGE, HERO_ALT)}
                   width={480}
-                  height={358}
+                  height={359}
                   fetchPriority="high"
                   decoding="async"
                   className="absolute inset-0 h-full w-full object-cover object-center"

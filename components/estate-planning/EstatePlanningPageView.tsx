@@ -8,9 +8,10 @@ import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
-import { EstateLiquidityWaterfall } from "@/components/trust/TrustDiagrams";
 import { getAlt } from "@/lib/image-alt";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+
+const HERO_IMAGE = "/images/estate-planning-hero-16x9.webp";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -99,7 +100,31 @@ export function EstatePlanningPageView({ faqs }: Props) {
         kicker="Estate planning · FSP 17273 · Category 1.8"
         title="Estate liquidity engineering & succession"
         description="A will is only half the job. Without cash for estate duty and executor fees, heirs can be forced into a fire sale. We engineer liquidity, life cover and capital structure , while partnered attorneys draft the legal instruments."
-        visual={<EstateLiquidityWaterfall />}
+        visual={
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <picture>
+              <source
+                media="(min-width: 769px)"
+                type="image/webp"
+                srcSet="/images/estate-planning-hero-16x9-960.webp"
+              />
+              <source type="image/webp" srcSet="/images/estate-planning-hero-16x9-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
+              <img
+                src="/images/estate-planning-hero-16x9-480.webp"
+                alt={getAlt(
+                  HERO_IMAGE,
+                  "Multi-generational family discussing estate documents at a wooden table"
+                )}
+                width={480}
+                height={359}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
+          </figure>
+        }
         textSpan="lg:col-span-6"
         visualSpan="lg:col-span-6"
         borderBottom

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
@@ -9,6 +8,7 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
+import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
@@ -22,7 +22,8 @@ const HAIRLINE = "#E5E5E5";
 const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
 const MUTED = "#57534e";
-const HERO_IMAGE = "/images/everest-wealth-hero-maize-growth-4x3.jpg";
+const HERO_IMAGE = "/images/everest-wealth-hero-maize-growth-4x3-480.webp";
+const HERO_ALT = "South African farmer tending young maize shoots — growth that takes patience";
 const COMPARE_IMAGE = "/images/everest-income-vs-growth-4x3.webp";
 const COMPARE_IMAGE_FALLBACK = "/images/everest-income-vs-growth-4x3.jpg";
 const COMPARE_ALT =
@@ -102,7 +103,10 @@ export function EverestWealthPageView({ faqs }: Props) {
               className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
               style={{ color: TEAL }}
             >
-              Everest Wealth · Independent Category 1.8 · FSP 17273
+              <span className="sm:hidden">AS Brokers · Everest · FSP 17273</span>
+              <span className="hidden sm:inline">
+                AS Brokers · Everest Wealth · Category 1.8 · FSP 17273
+              </span>
             </p>
             <h1
               className="mt-5 max-w-3xl font-serif font-semibold tracking-tight text-balance"
@@ -118,9 +122,9 @@ export function EverestWealthPageView({ faqs }: Props) {
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              Albert&apos;s Category 1.8 practice educates you on Everest voluntary preference-share
-              profiles first: targeted dividends, illiquidity, and tax, before anyone asks you to
-              sign. Run the maths yourself. Then book FSP 17273 if you want advice.
+              AS Brokers CC (FSP 17273) educates you on Everest voluntary preference-share profiles
+              first: targeted dividends, illiquidity, and tax, before anyone asks you to sign. Run
+              the maths yourself. Then book advice if you want a needs analysis.
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
               <Link
@@ -160,19 +164,26 @@ export function EverestWealthPageView({ faqs }: Props) {
             className="relative min-h-[16rem] min-w-0 overflow-hidden border bg-white lg:col-span-5 lg:min-h-0"
             style={{ borderColor: HAIRLINE, borderRadius: 15 }}
           >
-            <Image
-              src={HERO_IMAGE}
-              alt={getAlt(
-                HERO_IMAGE,
-                "South African farmer tending young maize shoots — growth that takes patience"
-              )}
-              fill
-              quality={75}
-              priority
-              fetchPriority="high"
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 420px"
-            />
+            <div className="relative aspect-[4/3] h-full w-full lg:absolute lg:inset-0 lg:aspect-auto">
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet="/images/everest-wealth-hero-maize-growth-4x3-480.webp 480w, /images/everest-wealth-hero-maize-growth-4x3-640.webp 640w, /images/everest-wealth-hero-maize-growth-4x3-960.webp 960w"
+                  sizes={HUB_SPLIT_HERO_SIZES}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element -- LCP picture/webp; images.unoptimized */}
+                <img
+                  src={HERO_IMAGE}
+                  alt={getAlt(HERO_IMAGE, HERO_ALT)}
+                  width={480}
+                  height={358}
+                  fetchPriority="high"
+                  decoding="async"
+                  sizes={HUB_SPLIT_HERO_SIZES}
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                />
+              </picture>
+            </div>
           </div>
         </div>
       </header>
@@ -207,7 +218,7 @@ export function EverestWealthPageView({ faqs }: Props) {
 
       {/* 3. Problems */}
       <section
-        className="scroll-mt-28 bg-shark py-16 text-white md:py-24"
+        className="content-visibility-auto scroll-mt-28 bg-shark py-16 text-white md:py-24"
         aria-labelledby="everest-problems-heading"
       >
         <div className={HOME4_WRAP}>
@@ -322,6 +333,21 @@ export function EverestWealthPageView({ faqs }: Props) {
                 </div>
               ))}
             </dl>
+            <div
+              className="border-t px-5 py-4 sm:px-6"
+              style={{ borderColor: HAIRLINE, backgroundColor: "#FFFBEB" }}
+              role="note"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-amber-900">
+                Liquidity warning
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-amber-950/80">
+                Unlisted preference shares are illiquid. Expect a typical five-year term,{" "}
+                <strong className="font-semibold">120-day notice</strong>, and up to a{" "}
+                <strong className="font-semibold">15% early-exit penalty</strong>. Only commit
+                capital you can leave for the full term. Educational only under FAIS — not advice.
+              </p>
+            </div>
           </aside>
         </div>
       </section>
@@ -329,7 +355,7 @@ export function EverestWealthPageView({ faqs }: Props) {
       {/* 5. Products — shark chapter */}
       <section
         id="profiles"
-        className="scroll-mt-28 bg-shark py-16 text-white md:py-24"
+        className="content-visibility-auto scroll-mt-28 bg-shark py-16 text-white md:py-24"
         aria-labelledby="suite-heading"
       >
         <div className={HOME4_WRAP}>
@@ -407,9 +433,9 @@ export function EverestWealthPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* 6. Compare + roles */}
+      {/* 6. Compare income vs growth */}
       <section
-        className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
+        className="content-visibility-auto border-b pb-16 pt-14 md:pb-24 md:pt-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="compare-heading"
       >

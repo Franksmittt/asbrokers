@@ -4,6 +4,7 @@ Updated as we sign off each page. Only mark DONE when Frank says final
 and the change is pushed.
 
 Review checklist per page: content · spacing · layout · images
+(+ Perfect-10: meta · schema · brand · FAIS · LCP · a11y)
 
 Status: PENDING | IN PROGRESS | DONE
 ------------------------------------
@@ -11,7 +12,7 @@ Status: PENDING | IN PROGRESS | DONE
 PUBLIC MARKETING (priority)
   [DONE] /                             Home
   [DONE] /calculators                  Calculators hub
-  [PENDING] /everest-wealth            Everest Wealth
+  [IN PROGRESS] /everest-wealth        Everest Wealth  ← CURRENT
   [PENDING] /retirement-planning       Retirement planning
   [PENDING] /insurance                 Insurance hub
   [PENDING] /estate-planning           Estate planning
@@ -43,9 +44,9 @@ EVEREST PRODUCT PAGES
   [PENDING] /everest-amethyst-living-annuity (live 308 → ASSET 014)
 
 CALCULATOR LANDINGS (ASSET 001–017)
-  [IN PROGRESS] /calculators/[slug] × 17
-    Shell Perfect-10 pass in flight (embeds untouched).
-    Audit: docs/ASBROKERS-PERFECT-10-CALCULATOR-PAGES-REAUDIT.md (PR #41)
+  [DONE] /calculators/[slug] × 17
+    Shell Perfect-10, custom heroes, SSR embeds (no click-gate).
+    Frank final OK 2026-07-19.
 
 DONE LOG (append when signed off)
 ---------------------------------
@@ -58,14 +59,20 @@ DONE LOG (append when signed off)
   Frank final OK after Perfect-10 hub pass (meta, schema, OG, brand kicker).
   PR: #40.
 
-NOTES — ASSET calculator landings IN PROGRESS
----------------------------------------------
-Shell Perfect-10 + hero/perf (embeds untouched):
-  - Calculators always visible (SSR iframe — NO click-to-load)
-  - Light height bridge; lead form defers until near viewport
-  - Uniform heroes; calc-lcp WebP 480w for mobile LCP
-  - FAB chrome deferred until interaction / 12s
-Not marked DONE until Frank final OK after deploy LH retest.
+2026-07-19  /calculators/[slug] × 17  ASSET calculator landings
+  Frank final OK. Shell Perfect-10, custom calc-lcp heroes, always-on SSR
+  iframes (embeds untouched). Deferred-embed experiment reverted.
+  PRs: #41–#48, #50.
+
+NOTES — /everest-wealth IN PROGRESS
+-----------------------------------
+Perfect-10 pass (same prompt family as home + calculators):
+  - Fix truncated meta; FSP in SERP snippet
+  - AS Brokers brand kicker + BLUF
+  - WebP LCP 480/640/960 + HubLcpPreload; compressed OG
+  - Liquidity warning band; compare-section photo (PR #52)
+  - Audit: docs/ASBROKERS-PERFECT-10-EVEREST-REAUDIT.md
+Not DONE until Frank final OK after deploy retest.
 
 Process
 -------

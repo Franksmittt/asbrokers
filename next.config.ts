@@ -87,8 +87,9 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     authInterrupts: true,
-    /** Inline critical CSS; split non-critical stylesheets to cut render-blocking bytes. */
+    /** Critters + App Router CSS inlining — eliminates render-blocking stylesheet link tags. */
     optimizeCss: true,
+    inlineCss: true,
     cssChunking: "strict",
     optimizePackageImports: ["recharts", "framer-motion", "zod", "ai", "@ai-sdk/react", "clsx"],
     serverActions: {

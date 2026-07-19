@@ -129,31 +129,26 @@ export function EverestWealthPageView({ faqs }: Props) {
           </>
         }
         visual={
-          <div
-            className="relative min-h-[16rem] min-w-0 overflow-hidden border bg-white lg:min-h-0"
-            style={{ borderColor: HAIRLINE, borderRadius: 15 }}
-          >
-            <div className="relative aspect-[4/3] h-full w-full lg:absolute lg:inset-0 lg:aspect-auto">
-              <picture>
-                <source
-                  media="(min-width: 769px)"
-                  type="image/webp"
-                  srcSet="/images/everest-wealth-hero-16x9-960.webp"
-                />
-                <source type="image/webp" srcSet="/images/everest-wealth-hero-16x9-480.webp" />
-                {/* eslint-disable-next-line @next/next/no-img-element -- LCP picture/webp; images.unoptimized */}
-                <img
-                  src={HERO_IMAGE}
-                  alt={getAlt(HERO_IMAGE, HERO_ALT)}
-                  width={480}
-                  height={359}
-                  fetchPriority="high"
-                  decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover object-center"
-                />
-              </picture>
-            </div>
-          </div>
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <picture>
+              <source
+                media="(min-width: 769px)"
+                type="image/webp"
+                srcSet="/images/everest-wealth-hero-16x9-960.webp"
+              />
+              <source type="image/webp" srcSet="/images/everest-wealth-hero-16x9-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- LCP picture/webp; images.unoptimized */}
+              <img
+                src={HERO_IMAGE}
+                alt={getAlt(HERO_IMAGE, HERO_ALT)}
+                width={480}
+                height={359}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
+          </figure>
         }
         after={
           <p className="text-sm" style={{ color: BODY }}>

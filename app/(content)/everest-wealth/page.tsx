@@ -1,5 +1,4 @@
 import { EverestWealthPageView } from "@/components/everest-wealth/EverestWealthPageView";
-import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
@@ -62,7 +61,24 @@ export const metadata = buildPageMetadata({
 export default function EverestWealthPage() {
   return (
     <>
-      <HubLcpPreload src="/images/everest-wealth-hero-maize-growth-4x3-480.webp" variant="split" />
+      {/*
+        The visual slot is ~380px on Lighthouse mobile. Do not offer 960w
+        there: DPR selection would download it despite the small CSS slot.
+      */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/everest-wealth-hero-maize-growth-4x3-480.webp"
+        media="(max-width: 768px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/images/everest-wealth-hero-maize-growth-4x3-960.webp"
+        media="(min-width: 769px)"
+        fetchPriority="high"
+      />
       <PageJsonLd
         path="/everest-wealth"
         webPage={{

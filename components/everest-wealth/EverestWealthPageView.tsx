@@ -8,7 +8,6 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
@@ -167,9 +166,13 @@ export function EverestWealthPageView({ faqs }: Props) {
             <div className="relative aspect-[4/3] h-full w-full lg:absolute lg:inset-0 lg:aspect-auto">
               <picture>
                 <source
+                  media="(min-width: 769px)"
                   type="image/webp"
-                  srcSet="/images/everest-wealth-hero-maize-growth-4x3-480.webp 480w, /images/everest-wealth-hero-maize-growth-4x3-640.webp 640w, /images/everest-wealth-hero-maize-growth-4x3-960.webp 960w"
-                  sizes={HUB_SPLIT_HERO_SIZES}
+                  srcSet="/images/everest-wealth-hero-maize-growth-4x3-960.webp"
+                />
+                <source
+                  type="image/webp"
+                  srcSet="/images/everest-wealth-hero-maize-growth-4x3-480.webp"
                 />
                 {/* eslint-disable-next-line @next/next/no-img-element -- LCP picture/webp; images.unoptimized */}
                 <img
@@ -179,7 +182,6 @@ export function EverestWealthPageView({ faqs }: Props) {
                   height={358}
                   fetchPriority="high"
                   decoding="async"
-                  sizes={HUB_SPLIT_HERO_SIZES}
                   className="absolute inset-0 h-full w-full object-cover object-center"
                 />
               </picture>
@@ -263,7 +265,7 @@ export function EverestWealthPageView({ faqs }: Props) {
 
       {/* 4. Constraints fact sheet */}
       <section
-        className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
+        className="content-visibility-auto border-b pb-16 pt-14 md:pb-24 md:pt-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-labelledby="everest-constraints-heading"
       >
@@ -515,16 +517,20 @@ export function EverestWealthPageView({ faqs }: Props) {
         </div>
       </section>
 
-      <VisibleFaqSection
-        faqs={faqItems}
-        headingId="everest-faq-heading"
-        primaryCta={{ href: "/contact?source=everest_faq", label: "Contact us" }}
-      />
+      <div className="content-visibility-auto">
+        <VisibleFaqSection
+          faqs={faqItems}
+          headingId="everest-faq-heading"
+          primaryCta={{ href: "/contact?source=everest_faq", label: "Contact us" }}
+        />
+      </div>
 
-      <RelatedContent variant="warm" links={getRelatedLinks("/everest-wealth")} />
+      <div className="content-visibility-auto">
+        <RelatedContent variant="warm" links={getRelatedLinks("/everest-wealth")} />
+      </div>
 
       {/* Terminal */}
-      <section className="pb-16 md:pb-24" aria-labelledby="everest-cta-heading">
+      <section className="content-visibility-auto pb-16 md:pb-24" aria-labelledby="everest-cta-heading">
         <div className={HOME4_WRAP}>
           <div className="rounded-xl bg-shark px-6 py-10 text-white sm:px-10 sm:py-12 md:flex md:items-end md:justify-between md:gap-10">
             <div className="max-w-2xl">
@@ -568,7 +574,9 @@ export function EverestWealthPageView({ faqs }: Props) {
         </div>
       </section>
 
-      <Footer />
+      <div className="content-visibility-auto">
+        <Footer />
+      </div>
     </div>
   );
 }

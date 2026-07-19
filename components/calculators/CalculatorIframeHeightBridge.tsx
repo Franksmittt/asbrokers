@@ -9,13 +9,8 @@ type Props = {
 };
 
 /**
- * Tiny client island: grows a same-origin iframe to content height.
- *
- * Forced-reflow safe:
- * - READ phase collects scrollHeight only
- * - WRITE phase applies height in a later rAF
- * - Never re-reads clientHeight after DOM mutations (cached lastApplied)
- *
+ * Tiny client island: grows a same-origin SSR iframe to content height.
+ * ResizeObserver only — MutationObserver subtree walks caused Style/Layout TBT.
  * Embed HTML untouched.
  */
 export function CalculatorIframeHeightBridge({ iframeId }: Props) {
@@ -24,55 +19,36 @@ export function CalculatorIframeHeightBridge({ iframeId }: Props) {
     if (!iframe) return;
 
     let resizeObserver: ResizeObserver | null = null;
-    let readRaf = 0;
-    let writeRaf = 0;
-    let pendingHeight: number | null = null;
-    let lastApplied = MIN_HEIGHT;
+    let raf = 0;
     const timeouts: number[] = [];
 
-    const applyHeight = (next: number) => {
-      if (Math.abs(lastApplied - next) <= 2) return;
-      lastApplied = next;
-      // style only — avoid setAttribute("height") double-write layout
-      iframe.style.height = `${next}px`;
-    };
-
-    const readHeight = (): number | null => {
+    const measure = () => {
       try {
         const doc = iframe.contentDocument ?? iframe.contentWindow?.document;
-        if (!doc?.documentElement) return null;
-        return Math.ceil(
+        if (!doc?.documentElement) return;
+        const next = Math.ceil(
           Math.max(
             MIN_HEIGHT,
             doc.documentElement.scrollHeight,
             doc.body?.scrollHeight ?? 0
           )
         );
+        if (Math.abs((iframe.clientHeight || 0) - next) > 2) {
+          iframe.style.height = `${next}px`;
+          iframe.setAttribute("height", String(next));
+        }
       } catch {
-        return null;
+        // Cross-origin: keep floor height.
       }
     };
 
     const schedule = () => {
-      if (readRaf) cancelAnimationFrame(readRaf);
-      readRaf = requestAnimationFrame(() => {
-        readRaf = 0;
-        const next = readHeight();
-        if (next == null) return;
-        pendingHeight = next;
-        if (writeRaf) cancelAnimationFrame(writeRaf);
-        // Separate frame: writes never interleave with geometric reads.
-        writeRaf = requestAnimationFrame(() => {
-          writeRaf = 0;
-          if (pendingHeight == null) return;
-          applyHeight(pendingHeight);
-          pendingHeight = null;
-        });
-      });
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(measure);
     };
 
     const attach = () => {
-      schedule();
+      measure();
       try {
         const doc = iframe.contentDocument ?? iframe.contentWindow?.document;
         if (!doc?.body) return;
@@ -85,22 +61,17 @@ export function CalculatorIframeHeightBridge({ iframeId }: Props) {
         // Ignore observer attach failures.
       }
 
-      // Sparse follow-ups only — no tight loops.
-      timeouts.push(window.setTimeout(schedule, 200));
-      timeouts.push(window.setTimeout(schedule, 800));
+      timeouts.push(window.setTimeout(measure, 120));
+      timeouts.push(window.setTimeout(measure, 500));
     };
 
     iframe.addEventListener("load", attach);
-    // If already loaded (cached), attach on next idle tick to avoid mount-time reflow.
-    if (iframe.contentDocument?.readyState === "complete") {
-      timeouts.push(window.setTimeout(attach, 0));
-    }
+    if (iframe.contentDocument?.readyState === "complete") attach();
 
     return () => {
       iframe.removeEventListener("load", attach);
       resizeObserver?.disconnect();
-      if (readRaf) cancelAnimationFrame(readRaf);
-      if (writeRaf) cancelAnimationFrame(writeRaf);
+      if (raf) cancelAnimationFrame(raf);
       timeouts.forEach((id) => window.clearTimeout(id));
     };
   }, [iframeId]);

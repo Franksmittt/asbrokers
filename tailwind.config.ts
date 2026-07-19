@@ -81,22 +81,6 @@ const config: Config = {
       },
     },
   },
-  /**
-   * Drop rarely used core plugins that inject large --tw-* variable blocks.
-   * LH mobile flags ~14KiB unused utility CSS on focused calculator landings.
-   * Do not disable anything the marketing/CRM surfaces still rely on.
-   */
-  corePlugins: {
-    borderSpacing: false,
-    backdropBrightness: false,
-    backdropContrast: false,
-    backdropHueRotate: false,
-    backdropInvert: false,
-    backdropSaturate: false,
-    backdropSepia: false,
-    hueRotate: false,
-    sepia: false,
-  },
   plugins: [],
 };
 

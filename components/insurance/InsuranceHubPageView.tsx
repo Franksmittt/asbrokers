@@ -7,9 +7,9 @@ import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -66,69 +66,64 @@ export function InsuranceHubPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      {/* §1 Hero + domains — light */}
-      <header
-        className="border-b pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
+      {/* §1 Hero — light */}
+      <MarketingHubHero
+        kicker={<>Insurance &amp; risk · FSP 17273 · Category 1.8</>}
+        title={<>Commercial and personal risk architecture</>}
+        description={
+          <>
+            Most owners discover policy flaws after the fire, Average Clause underinsurance, broken
+            Business Interruption definitions, escalating life premiums. We structure indemnification
+            for your balance sheet, place cover independently across the market, and stay for the
+            claim.
+          </>
+        }
+        actions={
+          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="#protection-domains" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Protection domains
+            </a>
+            <a href="#average-clause" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Average clause diagnostic
+            </a>
+            <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Independence
+            </a>
+            <a href="#risk-audit" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Book a risk audit
+            </a>
+          </nav>
+        }
+        visual={
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <picture>
+              <source
+                media="(min-width: 769px)"
+                type="image/webp"
+                srcSet="/images/insurance-hero-16x9-960.webp"
+              />
+              <source type="image/webp" srcSet="/images/insurance-hero-16x9-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
+              <img
+                src="/images/insurance-hero-16x9-480.webp"
+                alt={getAlt(HERO_IMAGE, "Healthy family at home — personal protection and medical cover")}
+                width={480}
+                height={359}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
+          </figure>
+        }
+      />
+
+      {/* §2 Protection domains — route-owned below the shared hero */}
+      <section
+        className="border-b pb-12 md:pb-16 lg:pb-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
       >
         <div className={HOME4_WRAP}>
-          <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12">
-            <div className="min-w-0 lg:col-span-7">
-              <p
-                className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
-                style={{ color: TEAL }}
-              >
-                Insurance &amp; risk · FSP 17273 · Category 1.8
-              </p>
-              <h1
-                className="mt-5 font-serif font-semibold tracking-tight"
-                style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
-              >
-                Commercial and personal risk architecture
-              </h1>
-              <p
-                className="mt-5 max-w-xl leading-relaxed"
-                style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-              >
-                Most owners discover policy flaws after the fire, Average Clause underinsurance, broken
-                Business Interruption definitions, escalating life premiums. We structure indemnification
-                for your balance sheet, place cover independently across the market, and stay for the
-                claim.
-              </p>
-
-              <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-                <a href="#protection-domains" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                  Protection domains
-                </a>
-                <a href="#average-clause" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                  Average clause diagnostic
-                </a>
-                <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                  Independence
-                </a>
-                <a href="#risk-audit" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                  Book a risk audit
-                </a>
-              </nav>
-            </div>
-            <div className="min-w-0 lg:col-span-5">
-              <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
-                <Image
-                  src={HERO_IMAGE}
-                  alt={getAlt(
-                    HERO_IMAGE,
-                    "Healthy family at home — personal protection and medical cover"
-                  )}
-                  fill
-                  priority
-                  unoptimized
-                  className="object-cover object-center"
-                  sizes={HUB_SPLIT_HERO_SIZES}
-                />
-              </figure>
-            </div>
-          </div>
-
           <h2 id="protection-domains" className="sr-only">
             Protecting personal wealth and commercial balance sheets
           </h2>
@@ -162,9 +157,9 @@ export function InsuranceHubPageView({ faqs }: Props) {
             ))}
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* §2 Commercial reality — shark */}
+      {/* §3 Commercial reality — shark */}
       <section
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="commercial-reality-heading"

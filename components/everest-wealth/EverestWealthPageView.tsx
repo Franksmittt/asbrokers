@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
@@ -95,72 +96,41 @@ export function EverestWealthPageView({ faqs }: Props) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* 1. Hero */}
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12`}>
-          <div className="min-w-0 lg:col-span-7">
-            <p
-              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
-              style={{ color: TEAL }}
+      <MarketingHubHero
+        kicker={
+          <>
+            <span className="sm:hidden">AS Brokers · Everest · FSP 17273</span>
+            <span className="hidden sm:inline">
+              AS Brokers · Everest Wealth · Category 1.8 · FSP 17273
+            </span>
+          </>
+        }
+        title="Need monthly income without betting on the next market correction?"
+        description="AS Brokers CC (FSP 17273) educates you on Everest voluntary preference-share profiles first: targeted dividends, illiquidity, and tax, before anyone asks you to sign. Run the maths yourself. Then book advice if you want a needs analysis."
+        actions={
+          <>
+            <Link
+              href={calculatorPagePath("asset-010-everest-128-income")}
+              prefetch={false}
+              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
             >
-              <span className="sm:hidden">AS Brokers · Everest · FSP 17273</span>
-              <span className="hidden sm:inline">
-                AS Brokers · Everest Wealth · Category 1.8 · FSP 17273
-              </span>
-            </p>
-            <h1
-              className="mt-5 max-w-3xl font-serif font-semibold tracking-tight text-balance"
-              style={{
-                fontSize: "clamp(1.875rem, 1.4rem + 2vw, 3rem)",
-                lineHeight: 1.15,
-                color: INK,
-              }}
+              Calculate 12.8% target income
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <a
+              href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
             >
-              Need monthly income without betting on the next market correction?
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-            >
-              AS Brokers CC (FSP 17273) educates you on Everest voluntary preference-share profiles
-              first: targeted dividends, illiquidity, and tax, before anyone asks you to sign. Run
-              the maths yourself. Then book advice if you want a needs analysis.
-            </p>
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
-              <Link
-                href={calculatorPagePath("asset-010-everest-128-income")}
-                prefetch={false}
-                className="inline-flex items-center gap-2 rounded px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
-                style={{ backgroundColor: TEAL }}
-              >
-                Calculate 12.8% target income
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <a
-                href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
-                style={{ color: TEAL }}
-              >
-                WhatsApp {WHATSAPP_DISPLAY}
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </a>
-            </div>
-            <p className="mt-5 text-sm" style={{ color: BODY }}>
-              Prefer the deep brief first?{" "}
-              <Link
-                href="/everest-wealth/about"
-                prefetch={false}
-                className="font-semibold underline-offset-2 hover:underline"
-                style={{ color: TEAL }}
-              >
-                Understanding Everest
-              </Link>
-            </p>
-          </div>
-
+              WhatsApp {WHATSAPP_DISPLAY}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+          </>
+        }
+        visual={
           <div
-            className="relative min-h-[16rem] min-w-0 overflow-hidden border bg-white lg:col-span-5 lg:min-h-0"
+            className="relative min-h-[16rem] min-w-0 overflow-hidden border bg-white lg:min-h-0"
             style={{ borderColor: HAIRLINE, borderRadius: 15 }}
           >
             <div className="relative aspect-[4/3] h-full w-full lg:absolute lg:inset-0 lg:aspect-auto">
@@ -187,8 +157,21 @@ export function EverestWealthPageView({ faqs }: Props) {
               </picture>
             </div>
           </div>
-        </div>
-      </header>
+        }
+        after={
+          <p className="text-sm" style={{ color: BODY }}>
+            Prefer the deep brief first?{" "}
+            <Link
+              href="/everest-wealth/about"
+              prefetch={false}
+              className="font-semibold underline-offset-2 hover:underline"
+              style={{ color: TEAL }}
+            >
+              Understanding Everest
+            </Link>
+          </p>
+        }
+      />
 
       {/* 2. Trust band */}
       <section

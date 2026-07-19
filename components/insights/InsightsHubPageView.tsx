@@ -191,8 +191,8 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             Learn · Insights library · FSP 17273
           </p>
           <h1
-            className="mt-5 max-w-4xl font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(2rem, 1.5rem + 2.2vw, 3.25rem)", lineHeight: 1.12, color: INK }}
+            className="mt-5 max-w-3xl font-serif font-semibold tracking-tight text-balance"
+            style={{ fontSize: "clamp(1.875rem, 1.4rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
           >
             The AS Brokers insights library
           </h1>

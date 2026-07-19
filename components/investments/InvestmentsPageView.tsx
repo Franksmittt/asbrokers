@@ -9,6 +9,7 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { WealthContinuumViz } from "@/components/trust/TrustDiagrams";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -166,75 +167,50 @@ export function InvestmentsPageView({ faqs }: Props) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Orientation hero */}
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
-          <div className="min-w-0 lg:col-span-7">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
-              Investments · FSP 17273 · Category 1.8
-            </p>
-            <h1
-              className="mt-5 font-serif font-semibold tracking-tight"
-              style={{
-                fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)",
-                lineHeight: 1.15,
-                color: INK,
-              }}
+      <MarketingHubHero
+        kicker="Investments · FSP 17273 · Category 1.8"
+        title="Independent wealth engineering beyond the standard unit trust"
+        description="High earners lose too much yield to JSE volatility and marginal tax on interest. Where suitable, Category 1.8 lets us discuss targeted private-market profiles and DWT architecture, with liquidity constraints stated upfront. Education before advice."
+        visual={<WealthContinuumViz />}
+        actions={
+          <>
+            <a
+              href="#diagnostic-tools"
+              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
             >
-              Independent wealth engineering beyond the standard unit trust
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
+              Compare investment profiles
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+            <Link
+              href="/everest-wealth"
+              prefetch={false}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
             >
-              High earners lose too much yield to JSE volatility and marginal tax on interest. Where
-              suitable, Category 1.8 lets us discuss targeted private-market profiles and DWT
-              architecture, with liquidity constraints stated upfront. Education before advice.
+              Explore Everest Wealth
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </>
+        }
+        after={
+          <nav aria-label="On this page">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
+              On this page
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#diagnostic-tools"
-                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
-              >
-                Compare investment profiles
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </a>
-              <Link
-                href="/everest-wealth"
-                prefetch={false}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
-              >
-                Explore Everest Wealth
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
-          </div>
-          <div className="min-w-0 lg:col-span-5">
-            <WealthContinuumViz />
-          </div>
-        </div>
-
-        <nav
-          aria-label="On this page"
-          className={`${HOME4_WRAP} mt-12 border-t pt-6 md:mt-14`}
-          style={{ borderColor: HAIRLINE }}
-        >
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
-            On this page
-          </p>
-          <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-            {PAGE_NAV.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </header>
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+              {PAGE_NAV.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className="text-sm font-medium text-stone-700 transition hover:text-cinematic-teal"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        }
+      />
 
       {/* §2 Fiduciary philosophy — light (pairs with hero) */}
       <section

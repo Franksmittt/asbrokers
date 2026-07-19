@@ -9,7 +9,7 @@ import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
-import { HUB_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 
 const HERO_IMAGE = "/images/retirement-planning-hero-16x9.webp";
 
@@ -91,67 +91,59 @@ export function RetirementPlanningPageView({ faqs }: Props) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Orientation hero, continuous canvas */}
-      <header className="pb-16 pt-28 md:pb-24 md:pt-36 lg:pb-[7.5rem] lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12`}>
-          <div className="min-w-0 lg:col-span-7">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
-              Pre-retirement diagnostics · FSP 17273 · Category 1.8
-            </p>
-            <h1
-              className="mt-5 font-serif font-semibold tracking-tight"
-              style={{
-                fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)",
-                lineHeight: 1.15,
-                color: INK,
-              }}
-            >
-              Will your capital survive your lifespan?
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-            >
-              Most plans are built to <em>reach</em> retirement, then fail to fund life after it.
-              We calculate your capital gap and drawdown trajectory first (education before advice),
-              then decide whether a Wealth Engineering Call with FSP 17273 is needed.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href="#retirement-survival-blueprint"
-                prefetch={false}
-                className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
-              >
-                Start diagnostic
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <Link
-                href={CALC_REALITY}
-                prefetch={false}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
-              >
-                Run Reality Check
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
-          </div>
-          <div className="min-w-0 lg:col-span-5">
-            <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
-              <Image
-                src={HERO_IMAGE}
-                alt={getAlt(
-                  HERO_IMAGE,
-                  "Couple outdoors — will your capital survive your lifespan?"
-                )}
-                fill
-                priority
-                unoptimized
-                className="object-cover object-center"
-                sizes={HUB_SPLIT_HERO_SIZES}
+      <MarketingHubHero
+        kicker="Pre-retirement diagnostics · FSP 17273 · Category 1.8"
+        title="Will your capital survive your lifespan?"
+        description={
+          <>
+            Most plans are built to <em>reach</em> retirement, then fail to fund life after it. We
+            calculate your capital gap and drawdown trajectory first (education before advice), then
+            decide whether a Wealth Engineering Call with FSP 17273 is needed.
+          </>
+        }
+        visual={
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <picture>
+              <source
+                media="(min-width: 769px)"
+                type="image/webp"
+                srcSet="/images/retirement-planning-hero-16x9-960.webp"
               />
-            </figure>
-          </div>
-        </div>
-      </header>
+              <source type="image/webp" srcSet="/images/retirement-planning-hero-16x9-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
+              <img
+                src="/images/retirement-planning-hero-16x9-480.webp"
+                alt={getAlt(HERO_IMAGE, "Couple outdoors — will your capital survive your lifespan?")}
+                width={480}
+                height={358}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </picture>
+          </figure>
+        }
+        actions={
+          <>
+            <Link
+              href="#retirement-survival-blueprint"
+              prefetch={false}
+              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
+            >
+              Start diagnostic
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+            <Link
+              href={CALC_REALITY}
+              prefetch={false}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
+            >
+              Run Reality Check
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </>
+        }
+      />
 
       {/* §2 Inset Blueprint panel, NOT full-bleed dark */}
       <section

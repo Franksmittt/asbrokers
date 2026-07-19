@@ -1,10 +1,12 @@
 import { EverestWealthPageView } from "@/components/everest-wealth/EverestWealthPageView";
+import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Everest Wealth Structured Income | Independent FSP 17273";
+/** Keep ≤160 chars — clampMetaDescription truncates mid-sentence if longer. */
 const PAGE_DESCRIPTION =
-  "Need monthly income without market stress? Independent Category 1.8 education on Everest voluntary preference shares: 12.8%, 14.2%, 14.5% targeted profiles, R100k min, liquidity and DWT upfront. Run calculators, then book AS Brokers.";
+  "AS Brokers FSP 17273: Everest Wealth education on 12.8%, 14.2%, 14.5% targeted profiles. R100k min, liquidity and DWT upfront. Run calculators, then book.";
 
 const faqs = [
   {
@@ -51,17 +53,27 @@ export const metadata = buildPageMetadata({
     "14.2% Onyx Income",
     "FSP 17273",
     "independent Everest broker",
+    "AS Brokers Everest Wealth",
   ],
-  ogImagePath: "/images/everest-wealth-hero-maize-growth-4x3.jpg",
+  /** Compressed social asset — avoid shipping the 160KB hero master to crawlers. */
+  ogImagePath: "/images/everest-wealth-og.jpg",
 });
 
 export default function EverestWealthPage() {
   return (
     <>
+      <HubLcpPreload src="/images/everest-wealth-hero-maize-growth-4x3-480.webp" variant="split" />
       <PageJsonLd
         path="/everest-wealth"
-        webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
+        webPage={{
+          name: buildPageTitle(PAGE_TITLE),
+          description: PAGE_DESCRIPTION,
+        }}
         faqs={faqs}
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Everest Wealth", path: "/everest-wealth" },
+        ]}
         service={{
           name: "Everest Wealth structured income education",
           description: PAGE_DESCRIPTION,

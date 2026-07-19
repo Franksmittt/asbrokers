@@ -3,7 +3,7 @@ export const HUB_LCP_IMAGES: Record<string, string> = {
   "/": "/images/home-lcp.webp",
   "/retirement": "/images/retirement-planning-hero-16x9.webp",
   "/retirement-planning": "/images/retirement-planning-hero-16x9.webp",
-  "/everest-wealth": "/images/everest-wealth-hero-maize-growth-4x3.webp",
+  "/everest-wealth": "/images/everest-wealth-hero-maize-growth-4x3-480.webp",
   "/investments": "/images/everest-suite-hero-16x9.jpg",
   "/insurance": "/images/insurance-hero-16x9.webp",
   "/estate-planning": "/images/risk-arch-estate.jpg",

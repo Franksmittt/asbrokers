@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { CalculatorToolPanel } from "@/components/calculators/CalculatorToolPanel";
@@ -14,7 +15,7 @@ import {
   HUB_INK as INK,
   HUB_BODY as BODY,
 } from "@/lib/hub-design-tokens";
-import { CALC_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
+import { CALC_SPLIT_HERO_QUALITY, CALC_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { WHATSAPP_DISPLAY, whatsappUrl, WHATSAPP_CALCULATOR_MESSAGE } from "@/lib/whatsapp";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
@@ -106,20 +107,17 @@ export function AssetCalculatorPageView({
             </div>
 
             <div className="relative aspect-[4/3] h-full w-full overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(29,29,31,0.1)] ring-1 ring-stone-300/70 xl:aspect-auto xl:min-h-[22rem]">
-              {/*
-                Native img: images.unoptimized means next/image adds hydration JS
-                with zero resize benefit. Pre-sized ~400×300 WebP + HubLcpPreload.
-              */}
-              {/* eslint-disable-next-line @next/next/no-img-element -- intentional: unoptimized next/image only adds client JS */}
-              <img
+              <Image
                 src={heroImage}
                 alt={getAlt(heroImage, heroImageAlt)}
-                width={400}
-                height={300}
+                fill
+                quality={CALC_SPLIT_HERO_QUALITY}
+                priority
                 fetchPriority="high"
-                decoding="async"
+                // Site-wide images.unoptimized — calc-lcp WebPs are pre-sized ~400×300.
+                unoptimized
+                className="object-cover object-center"
                 sizes={CALC_SPLIT_HERO_SIZES}
-                className="absolute inset-0 h-full w-full object-cover object-center"
               />
             </div>
           </div>
@@ -236,7 +234,7 @@ export function AssetCalculatorPageView({
         <section
           key={section.heading}
           data-chunk-boundary="true"
-          className={`content-visibility-auto py-12 md:py-16 ${index % 2 === 0 ? "bg-[#FDFCFA]" : ""}`}
+          className={`py-12 md:py-16 ${index % 2 === 0 ? "bg-[#FDFCFA]" : ""}`}
           style={index % 2 === 1 ? { backgroundColor: CANVAS } : undefined}
         >
           <div className={HOME4_WRAP}>

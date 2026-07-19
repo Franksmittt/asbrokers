@@ -7,6 +7,7 @@ import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
@@ -50,68 +51,65 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Hero — light */}
-      <header
-        className="border-b pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
-        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
-      >
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
-          <div className="min-w-0 lg:col-span-6">
-            <p
-              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
-              style={{ color: TEAL }}
-            >
-              <span className="tabular-nums">FSP 17273</span>
-              {" · "}
-              <span className="tabular-nums">Category 1.8</span>
-              {" · Est. 1998 · Krugersdorp"}
-            </p>
-            <h1
-              className="mt-5 font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
-            >
-              Protecting your legacy. Engineering your wealth.
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-            >
-              Finding an adviser aligned with <em>you</em>, not a bank&apos;s product quota, is
-              hard. For 25+ years AS Brokers (FSP 17273, Category 1.8) has been an independent
-              fiduciary compass for professionals, families, and business owners in Krugersdorp and
-              beyond: math first, then advice.
-            </p>
-            <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-              <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Independence
-              </a>
-              <a href="#place" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Place &amp; proof
-              </a>
-              <a href="#fiduciaries" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Fiduciaries
-              </a>
-              <a href="#about-faq" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                FAQ
-              </a>
-              <Link href="/calculators" prefetch={false} className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Calculators
-              </Link>
-            </nav>
-          </div>
-          <div className="min-w-0 lg:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden border sm:aspect-[5/4]" style={{ borderColor: HAIRLINE }}>
-              <Image
-                src={HERO_IMAGE}
+      <MarketingHubHero
+        kicker={
+          <>
+            <span className="tabular-nums">FSP 17273</span>
+            {" · "}
+            <span className="tabular-nums">Category 1.8</span>
+            {" · Est. 1998 · Krugersdorp"}
+          </>
+        }
+        title={<>Protecting your legacy. Engineering your wealth.</>}
+        description={
+          <>
+            Finding an adviser aligned with <em>you</em>, not a bank&apos;s product quota, is hard.
+            For 25+ years AS Brokers (FSP 17273, Category 1.8) has been an independent fiduciary
+            compass for professionals, families, and business owners in Krugersdorp and beyond:
+            math first, then advice.
+          </>
+        }
+        actions={
+          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="#independence" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Independence
+            </a>
+            <a href="#place" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Place &amp; proof
+            </a>
+            <a href="#fiduciaries" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Fiduciaries
+            </a>
+            <a href="#about-faq" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              FAQ
+            </a>
+            <Link href="/calculators" prefetch={false} className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Calculators
+            </Link>
+          </nav>
+        }
+        visual={
+          <div className="relative aspect-[4/3] overflow-hidden border sm:aspect-[5/4]" style={{ borderColor: HAIRLINE }}>
+            <picture>
+              <source media="(min-width: 769px)" type="image/webp" srcSet="/images/about-hero-960.webp" />
+              <source type="image/webp" srcSet="/images/about-hero-480.webp" />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized public LCP sources */}
+              <img
+                src="/images/about-hero-480.webp"
                 alt={getAlt(HERO_IMAGE, "AS Brokers Krugersdorp advisory environment")}
-                fill
-                priority
-                className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                width={480}
+                height={358}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-center"
               />
-            </div>
+            </picture>
           </div>
-        </div>
-      </header>
+        }
+        textSpan="lg:col-span-6"
+        visualSpan="lg:col-span-6"
+        borderBottom
+      />
 
       {/* §2 Independence — shark */}
       <section

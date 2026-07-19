@@ -55,6 +55,8 @@ export const metadata = buildPageMetadata({
 export default function AboutPage() {
   return (
     <>
+      <link rel="preload" as="image" href="/images/about-hero-480.webp" media="(max-width: 768px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/images/about-hero-960.webp" media="(min-width: 769px)" fetchPriority="high" />
       <PageJsonLd
         path="/about"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}

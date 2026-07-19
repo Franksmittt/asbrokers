@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CalculatorsHubBelowFold } from "@/components/calculators/CalculatorsHubBelowFold";
 import { Footer } from "@/components/Footer";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { HOME4_WRAP } from "@/lib/layout-constants";
 import { ArrowRight } from "@/components/icons";
@@ -116,106 +117,86 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
-      <header className="pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40">
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12`}>
-          {/* Image first on mobile so preloaded LCP wins over H1. */}
-          <div className="order-first min-w-0 lg:order-last lg:col-span-5">
-            <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <picture>
-                  <source
-                    type="image/webp"
-                    srcSet="/images/calculators-hub-16x9-480.webp 480w, /images/calculators-hub-16x9-640.webp 640w"
-                    sizes={HERO_SIZES}
-                  />
-                  <img
-                    src="/images/calculators-hub-16x9-480.webp"
-                    alt={HERO_ALT}
-                    width={480}
-                    height={300}
-                    fetchPriority="high"
-                    decoding="async"
-                    className="absolute inset-0 h-full w-full object-cover object-center"
-                  />
-                </picture>
-              </div>
-            </figure>
-          </div>
-
-          <div className="min-w-0 lg:col-span-7">
+      <MarketingHubHero
+        imageFirstOnMobile
+        kicker={
+          <>
+            <span className="sm:hidden">AS Brokers · ASSET · FSP 17273</span>
+            <span className="hidden sm:inline">
+              AS Brokers · Albert&apos;s ASSET library · FSP 17273 · Ungated
+            </span>
+          </>
+        }
+        title="Run the numbers before anyone sells you a product"
+        description="Seventeen educational calculators for retirement, Everest income, estate duty, tax, and underinsurance. Test assumptions yourself, then contact us if you want advice."
+        visual={
+          <figure className="border bg-white" style={{ borderColor: HAIRLINE }}>
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet="/images/calculators-hub-16x9-480.webp 480w, /images/calculators-hub-16x9-640.webp 640w"
+                  sizes={HERO_SIZES}
+                />
+                <img
+                  src="/images/calculators-hub-16x9-480.webp"
+                  alt={HERO_ALT}
+                  width={480}
+                  height={300}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                />
+              </picture>
+            </div>
+          </figure>
+        }
+        actions={
+          <>
+            <a
+              href="#start-here"
+              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
+            >
+              Start here
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+            <a
+              href="#investments"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
+            >
+              Browse Everest tools
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+          </>
+        }
+        after={
+          <nav aria-label="On this page">
             <p
-              className="max-w-full text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
-              style={{ color: TEAL }}
+              className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+              style={{ color: MUTED }}
             >
-              <span className="sm:hidden">AS Brokers · ASSET · FSP 17273</span>
-              <span className="hidden sm:inline">
-                AS Brokers · Albert&apos;s ASSET library · FSP 17273 · Ungated
-              </span>
+              On this page
             </p>
-            <h1
-              className="mt-5 max-w-full text-3xl font-serif font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl"
-              style={{ lineHeight: 1.15, color: INK }}
-            >
-              Run the numbers before anyone sells you a product
-            </h1>
-            <p
-              className="mt-5 max-w-xl text-[1.0625rem] leading-relaxed"
-              style={{ lineHeight: 1.7, color: BODY }}
-            >
-              Seventeen educational calculators for retirement, Everest income, estate duty, tax, and
-              underinsurance. Test assumptions yourself, then contact us if you want advice.
-            </p>
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
-              <a
-                href="#start-here"
-                className="inline-flex items-center gap-2 rounded px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-                style={{ backgroundColor: TEAL }}
-              >
+            <div className="-mx-4 mt-3 flex gap-x-5 gap-y-2 overflow-x-auto px-4 pb-1 text-sm font-medium text-stone-700 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
+              <a href="#start-here" className="shrink-0 whitespace-nowrap hover:text-shark">
                 Start here
-                <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
-              <a
-                href="#investments"
-                className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
-                style={{ color: TEAL }}
-              >
-                Browse Everest tools
-                <ArrowRight className="h-4 w-4" aria-hidden />
+              {HUB_DOMAINS.map((domain) => (
+                <a
+                  key={domain.id}
+                  href={`#${domain.id}`}
+                  className="shrink-0 whitespace-nowrap hover:text-shark"
+                >
+                  {domain.label}
+                </a>
+              ))}
+              <a href="#faq" className="shrink-0 whitespace-nowrap hover:text-shark">
+                FAQ
               </a>
             </div>
-          </div>
-        </div>
-
-        <nav
-          aria-label="On this page"
-          className={`${HOME4_WRAP} mt-12 border-t pt-6`}
-          style={{ borderColor: HAIRLINE }}
-        >
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.14em]"
-            style={{ color: MUTED }}
-          >
-            On this page
-          </p>
-          <div className="-mx-4 mt-3 flex gap-x-5 gap-y-2 overflow-x-auto px-4 pb-1 text-sm font-medium text-stone-700 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
-            <a href="#start-here" className="shrink-0 whitespace-nowrap hover:text-shark">
-              Start here
-            </a>
-            {HUB_DOMAINS.map((domain) => (
-              <a
-                key={domain.id}
-                href={`#${domain.id}`}
-                className="shrink-0 whitespace-nowrap hover:text-shark"
-              >
-                {domain.label}
-              </a>
-            ))}
-            <a href="#faq" className="shrink-0 whitespace-nowrap hover:text-shark">
-              FAQ
-            </a>
-          </div>
-        </nav>
-      </header>
+          </nav>
+        }
+      />
 
       <section
         id="start-here"

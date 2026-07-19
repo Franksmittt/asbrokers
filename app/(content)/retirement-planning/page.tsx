@@ -1,7 +1,5 @@
 import { RetirementPlanningPageView } from "@/components/retirement-planning/RetirementPlanningPageView";
-import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
-import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Will Your Capital Survive Your Lifespan? | Pre-Retirement Diagnostics";
@@ -61,7 +59,8 @@ export const metadata = buildPageMetadata({
 export default function RetirementPlanningPage() {
   return (
     <>
-      <HubLcpPreload src={HUB_LCP_IMAGES["/retirement-planning"]} variant="split" />
+      <link rel="preload" as="image" href="/images/retirement-planning-hero-16x9-480.webp" media="(max-width: 768px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/images/retirement-planning-hero-16x9-960.webp" media="(min-width: 769px)" fetchPriority="high" />
       <PageJsonLd
         path="/retirement-planning"
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}

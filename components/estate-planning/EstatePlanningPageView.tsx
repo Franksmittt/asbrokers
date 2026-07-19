@@ -10,6 +10,7 @@ import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { EstateLiquidityWaterfall } from "@/components/trust/TrustDiagrams";
 import { getAlt } from "@/lib/image-alt";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -94,53 +95,31 @@ export function EstatePlanningPageView({ faqs }: Props) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
       {/* §1 Hero — light */}
-      <header
-        className="border-b pb-12 pt-28 md:pb-16 md:pt-36 lg:pb-20 lg:pt-40"
-        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
-      >
-        <div className={`${HOME4_WRAP} grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12`}>
-          <div className="min-w-0 lg:col-span-6">
-            <p
-              className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em]"
-              style={{ color: TEAL }}
-            >
-              Estate planning · FSP 17273 · Category 1.8
-            </p>
-            <h1
-              className="mt-5 font-serif font-semibold tracking-tight"
-              style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
-            >
-              Estate liquidity engineering &amp; succession
-            </h1>
-            <p
-              className="mt-5 max-w-xl leading-relaxed"
-              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
-            >
-              A will is only half the job. Without cash for estate duty and executor fees, heirs can
-              be forced into a fire sale. We engineer liquidity, life cover and capital structure , 
-              while partnered attorneys draft the legal instruments.
-            </p>
-            <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-              <a href="#legacy-checklist" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Legacy checklist
-              </a>
-              <a href="#estate-architecture" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Duty &amp; fees
-              </a>
-              <a href="#estate-calculators" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Calculators
-              </a>
-              <a href="#strategy-call" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-                Strategy call
-              </a>
-            </nav>
-          </div>
-
-          <div className="min-w-0 lg:col-span-6">
-            <EstateLiquidityWaterfall />
-          </div>
-        </div>
-      </header>
+      <MarketingHubHero
+        kicker="Estate planning · FSP 17273 · Category 1.8"
+        title="Estate liquidity engineering & succession"
+        description="A will is only half the job. Without cash for estate duty and executor fees, heirs can be forced into a fire sale. We engineer liquidity, life cover and capital structure , while partnered attorneys draft the legal instruments."
+        visual={<EstateLiquidityWaterfall />}
+        textSpan="lg:col-span-6"
+        visualSpan="lg:col-span-6"
+        borderBottom
+        after={
+          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="#legacy-checklist" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Legacy checklist
+            </a>
+            <a href="#estate-architecture" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Duty &amp; fees
+            </a>
+            <a href="#estate-calculators" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Calculators
+            </a>
+            <a href="#strategy-call" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
+              Strategy call
+            </a>
+          </nav>
+        }
+      />
 
       {/* §2 Primary diagnostic — shark */}
       <section

@@ -87,9 +87,12 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     authInterrupts: true,
-    /** Critters + App Router CSS inlining — eliminates render-blocking stylesheet link tags. */
+    /**
+     * Keep CSS external and cacheable. Inline CSS inflated static marketing HTML
+     * (Everest: ~374KB) and increased low-end mobile Style/Layout work.
+     */
     optimizeCss: true,
-    inlineCss: true,
+    inlineCss: false,
     cssChunking: "strict",
     optimizePackageImports: ["recharts", "framer-motion", "zod", "ai", "@ai-sdk/react", "clsx"],
     serverActions: {

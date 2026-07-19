@@ -80,7 +80,7 @@ test.describe("Keyboard & form semantics", () => {
   test("mobile nav menu opens via keyboard", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
-    const toggle = page.getByRole("button", { name: /toggle menu/i });
+    const toggle = page.getByRole("button", { name: /open navigation menu/i });
     await toggle.focus();
     await page.keyboard.press("Enter");
     await expect(page.locator("#mobile-nav-panel")).toBeVisible();

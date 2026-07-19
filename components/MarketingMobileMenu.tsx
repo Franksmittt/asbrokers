@@ -12,12 +12,12 @@ const ICON_CLOSED_ID = "mobile-nav-icon-closed";
  */
 export function MarketingMobileMenu() {
   return (
-    <div className="relative lg:hidden">
+    <div className="relative xl:hidden">
       <button
         id={TOGGLE_ID}
         type="button"
-        className="flex cursor-pointer items-center justify-center p-2 text-shark transition-colors hover:text-[#0057B8]"
-        aria-label="Toggle menu"
+        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl p-0 text-shark transition-colors hover:bg-stone-100 hover:text-[#0057B8]"
+        aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls={PANEL_ID}
       >
@@ -32,7 +32,7 @@ export function MarketingMobileMenu() {
       <div
         id={PANEL_ID}
         hidden
-        className="fixed inset-x-0 top-[4.75rem] z-50 max-h-[85vh] overflow-y-auto border-b border-stone-200 bg-[#F7F6F3] shadow-2xl ring-1 ring-stone-200/90"
+        className="fixed inset-x-0 top-[var(--marketing-nav-height)] z-50 max-h-[85vh] overflow-y-auto border-b border-stone-200 bg-[#F7F6F3] shadow-2xl ring-1 ring-stone-200/90"
       >
         <div className="mx-auto flex max-w-7xl flex-col px-4 py-3 sm:px-6">
           {PRIMARY_NAV.map((item) => (
@@ -57,7 +57,7 @@ export function MarketingMobileMenu() {
 
       <script
         dangerouslySetInnerHTML={{
-          __html: `(function(){var b=document.getElementById(${JSON.stringify(TOGGLE_ID)});var p=document.getElementById(${JSON.stringify(PANEL_ID)});var io=document.getElementById(${JSON.stringify(ICON_OPEN_ID)});var ic=document.getElementById(${JSON.stringify(ICON_CLOSED_ID)});if(!b||!p)return;function setOpen(open){p.hidden=!open;b.setAttribute("aria-expanded",open?"true":"false");if(io&&ic){io.classList.toggle("hidden",!open);io.classList.toggle("inline-flex",open);ic.classList.toggle("hidden",open);ic.classList.toggle("inline-flex",!open);}}b.addEventListener("click",function(){setOpen(p.hidden);});document.addEventListener("keydown",function(e){if(e.key==="Escape")setOpen(false);});})();`,
+          __html: `(function(){var b=document.getElementById(${JSON.stringify(TOGGLE_ID)});var p=document.getElementById(${JSON.stringify(PANEL_ID)});var io=document.getElementById(${JSON.stringify(ICON_OPEN_ID)});var ic=document.getElementById(${JSON.stringify(ICON_CLOSED_ID)});if(!b||!p)return;function setOpen(open,restoreFocus){p.hidden=!open;b.setAttribute("aria-expanded",open?"true":"false");b.setAttribute("aria-label",open?"Close navigation menu":"Open navigation menu");if(io&&ic){io.classList.toggle("hidden",!open);io.classList.toggle("inline-flex",open);ic.classList.toggle("hidden",open);ic.classList.toggle("inline-flex",!open);}if(open){var first=p.querySelector("a");if(first)first.focus();}else if(restoreFocus){b.focus();}}b.addEventListener("click",function(){setOpen(p.hidden,false);});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!p.hidden){setOpen(false,true);}});document.addEventListener("click",function(e){if(!p.hidden&&!p.contains(e.target)&&!b.contains(e.target)){setOpen(false,false);}});})();`,
         }}
       />
     </div>

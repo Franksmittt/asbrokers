@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
@@ -97,36 +100,14 @@ export function EverestWealthPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* 1. Hero */}
       <MarketingHubHero
-        kicker={
-          <>
-            <span className="sm:hidden">AS Brokers · Everest · FSP 17273</span>
-            <span className="hidden sm:inline">
-              AS Brokers · Everest Wealth · Category 1.8 · FSP 17273
-            </span>
-          </>
-        }
+        kicker={<HubHeroKicker shortLabel="Everest" longLabel="Everest Wealth" />}
         title="Need monthly income without betting on the next market correction?"
         description="AS Brokers CC (FSP 17273) educates you on Everest voluntary preference-share profiles first: targeted dividends, illiquidity, and tax, before anyone asks you to sign. Run the maths yourself. Then book advice if you want a needs analysis."
         actions={
-          <>
-            <Link
-              href={calculatorPagePath("asset-010-everest-128-income")}
-              prefetch={false}
-              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
-            >
-              Calculate 12.8% target income
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <a
-              href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
-            >
-              WhatsApp {WHATSAPP_DISPLAY}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </a>
-          </>
+          <HubHeroActions
+            primaryLabel="Calculate 12.8% target income"
+            primaryHref={calculatorPagePath("asset-010-everest-128-income")}
+          />
         }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
@@ -151,17 +132,11 @@ export function EverestWealthPageView({ faqs }: Props) {
           </figure>
         }
         after={
-          <p className="text-sm" style={{ color: BODY }}>
-            Prefer the deep brief first?{" "}
-            <Link
-              href="/everest-wealth/about"
-              prefetch={false}
-              className="font-semibold underline-offset-2 hover:underline"
-              style={{ color: TEAL }}
-            >
-              Understanding Everest
-            </Link>
-          </p>
+          <HubHeroAfterLink
+            prompt="Prefer the deep brief first?"
+            href="/everest-wealth/about"
+            label="Understanding Everest"
+          />
         }
       />
 

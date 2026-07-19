@@ -16,6 +16,9 @@ import type { InsightFeedItem } from "@/lib/insights/feed";
 import type { InsightCategoryValue } from "@/lib/insights/insightCategories";
 import { getAlt } from "@/lib/image-alt";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 
 const HERO_IMAGE = "/images/insights-hero-16x9.webp";
 
@@ -180,27 +183,14 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
   }, []);
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Hero — light */}
       <MarketingHubHero
-        kicker="Learn · Insights library · FSP 17273"
-        title="The AS Brokers insights library"
-        description="Deep reading for people who take South African wealth seriously: Two-Pot, estate duty, underinsurance, tax drag, Everest structuring. Written here so you arrive at advice already educated. Articles are educational only, not personalised advice."
+        kicker={<HubHeroKicker shortLabel="Learn" longLabel="Insights" />}
+        title="Want deep fiduciary reading before you sit down for real advice?"
+        description="AS Brokers CC (FSP 17273) educates you in the insights library first: Two-Pot, estate duty, underinsurance, tax drag, and Everest structuring, before anyone books a meeting. Read the guides yourself. Then book advice if you want a needs analysis."
         actions={
-          <nav aria-label="On this page" className="flex flex-wrap gap-x-6 gap-y-2">
-            <a href="#featured" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Featured
-            </a>
-            <a href="#latest" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              All articles
-            </a>
-            <a href="#why-library" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Why we publish
-            </a>
-            <a href="#newsletter" className="text-sm font-medium text-stone-700 hover:text-cinematic-teal">
-              Newsletter
-            </a>
-          </nav>
+          <HubHeroActions primaryLabel="Browse the latest articles" primaryHref="#latest" />
         }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
@@ -224,14 +214,12 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             </picture>
           </figure>
         }
-        borderBottom
         after={
-          articles.length > 0 ? (
-            <p className="text-sm text-stone-500">
-              <span className="font-semibold tabular-nums text-shark">{articles.length}</span>
-              {" "}published article{articles.length === 1 ? "" : "s"} in the library
-            </p>
-          ) : null
+          <HubHeroAfterLink
+            prompt="Prefer the flagship guide first?"
+            href="/insights/semigration-retirement"
+            label="Semigration & Retirement"
+          />
         }
       />
 

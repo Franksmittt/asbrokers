@@ -10,6 +10,9 @@ import { ArrowRight } from "@/components/icons";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 
 const HERO_IMAGE = "/images/retirement-planning-hero-16x9.webp";
 
@@ -89,17 +92,17 @@ export function RetirementPlanningPageView({ faqs }: Props) {
   const faqItems = ensureSixFaqs(faqs);
 
   return (
-    <div style={{ backgroundColor: CANVAS }} className="text-shark">
+    <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Orientation hero, continuous canvas */}
       <MarketingHubHero
-        kicker="Pre-retirement diagnostics · FSP 17273 · Category 1.8"
-        title="Will your capital survive your lifespan?"
-        description={
-          <>
-            Most plans are built to <em>reach</em> retirement, then fail to fund life after it. We
-            calculate your capital gap and drawdown trajectory first (education before advice), then
-            decide whether a Wealth Engineering Call with FSP 17273 is needed.
-          </>
+        kicker={<HubHeroKicker shortLabel="Retirement" longLabel="Retirement" />}
+        title="Will your retirement capital actually outlast your full lifespan?"
+        description="AS Brokers CC (FSP 17273) educates you on capital gaps and drawdown first: most plans reach retirement, then fail to fund life after it, before anyone asks you to sign. Run the maths yourself. Then book advice if you want a needs analysis."
+        actions={
+          <HubHeroActions
+            primaryLabel="Run Retirement Reality Check"
+            primaryHref={CALC_REALITY}
+          />
         }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
@@ -123,25 +126,12 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </picture>
           </figure>
         }
-        actions={
-          <>
-            <Link
-              href="#retirement-survival-blueprint"
-              prefetch={false}
-              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
-            >
-              Start diagnostic
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <Link
-              href={CALC_REALITY}
-              prefetch={false}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
-            >
-              Run Reality Check
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </>
+        after={
+          <HubHeroAfterLink
+            prompt="Prefer the survival blueprint first?"
+            href="#retirement-survival-blueprint"
+            label="Retirement Survival Blueprint"
+          />
         }
       />
 

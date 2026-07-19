@@ -2,6 +2,9 @@ import Link from "next/link";
 import { CalculatorsHubBelowFold } from "@/components/calculators/CalculatorsHubBelowFold";
 import { Footer } from "@/components/Footer";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
+import { HubHeroActions } from "@/components/hub/HubHeroActions";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { HOME4_WRAP } from "@/lib/layout-constants";
 import { ArrowRight } from "@/components/icons";
@@ -10,6 +13,7 @@ import {
   getHubFeaturedCalculators,
   type HubCalculator,
 } from "@/lib/calculators/hub-catalog";
+import { calculatorPagePath } from "@/lib/calculators/page-path";
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
@@ -117,17 +121,15 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       <MarketingHubHero
-        imageFirstOnMobile
-        kicker={
-          <>
-            <span className="sm:hidden">AS Brokers · ASSET · FSP 17273</span>
-            <span className="hidden sm:inline">
-              AS Brokers · Albert&apos;s ASSET library · FSP 17273 · Ungated
-            </span>
-          </>
+        kicker={<HubHeroKicker shortLabel="Calculators" longLabel="Calculators" />}
+        title="Need hard numbers before anyone sells you another product deal?"
+        description="AS Brokers CC (FSP 17273) educates you with seventeen ungated ASSET calculators first: retirement, Everest income, estate duty, and tax, before anyone asks you to sign. Run the maths yourself. Then book advice if you want a needs analysis."
+        actions={
+          <HubHeroActions
+            primaryLabel="Start Retirement Reality Check"
+            primaryHref={calculatorPagePath("asset-002-retirement-reality-check")}
+          />
         }
-        title="Run the numbers before anyone sells you a product"
-        description="Seventeen educational calculators for retirement, Everest income, estate duty, tax, and underinsurance. Test assumptions yourself, then contact us if you want advice."
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
             <picture>
@@ -150,50 +152,12 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
             </picture>
           </figure>
         }
-        actions={
-          <>
-            <a
-              href="#start-here"
-              className="inline-flex items-center gap-2 rounded bg-samsung-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
-            >
-              Start here
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </a>
-            <a
-              href="#investments"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
-            >
-              Browse Everest tools
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </a>
-          </>
-        }
         after={
-          <nav aria-label="On this page">
-            <p
-              className="text-[11px] font-semibold uppercase tracking-[0.14em]"
-              style={{ color: MUTED }}
-            >
-              On this page
-            </p>
-            <div className="-mx-4 mt-3 flex gap-x-5 gap-y-2 overflow-x-auto px-4 pb-1 text-sm font-medium text-stone-700 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden">
-              <a href="#start-here" className="shrink-0 whitespace-nowrap hover:text-shark">
-                Start here
-              </a>
-              {HUB_DOMAINS.map((domain) => (
-                <a
-                  key={domain.id}
-                  href={`#${domain.id}`}
-                  className="shrink-0 whitespace-nowrap hover:text-shark"
-                >
-                  {domain.label}
-                </a>
-              ))}
-              <a href="#faq" className="shrink-0 whitespace-nowrap hover:text-shark">
-                FAQ
-              </a>
-            </div>
-          </nav>
+          <HubHeroAfterLink
+            prompt="Prefer a guided start first?"
+            href="#start-here"
+            label="Start here"
+          />
         }
       />
 

@@ -51,7 +51,7 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
   "asset-006-income-tax": "Income Tax Calculator",
   "asset-007-estate-duty": "Estate Cost & Liquidity Calculator",
   "asset-008-estate-reduction": "Estate Reduction & Legacy Calculator",
-  "asset-009-everest-142-income": "14.2% Income Calculator",
+  "asset-009-everest-142-income": "14.2% Retirement Income Calculator",
   "asset-010-everest-128-income": "12.8% Income Calculator",
   "asset-011-everest-128-vs-142": "12.8% vs 14.2% Income Comparison",
   "asset-012-strategic-growth": "Strategic Growth Calculator",
@@ -80,7 +80,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-008-estate-reduction":
     "How could lifetime planning improve the legacy your family receives?",
   "asset-009-everest-142-income":
-    "Model targeted monthly income from the 14.2% Everest profile.",
+    "How much after-tax monthly retirement income could a 14.2% distribution produce?",
   "asset-010-everest-128-income":
     "Model targeted monthly income from the 12.8% Everest profile.",
   "asset-011-everest-128-vs-142":

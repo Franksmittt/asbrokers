@@ -2310,58 +2310,332 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-009-everest-142-income": {
-    shortTitle: "Everest 14.2% Income Calculator",
-    seoTitle: "Everest 14.2% Income Calculator South Africa",
+    shortTitle: "14.2% Retirement Income Calculator",
+    seoTitle: "14.2% Retirement Income Calculator South Africa | After-Tax Monthly Income",
     seoDescription:
-      "Illustrate net monthly income from Everest 14.2% Onyx Income+ after dividend withholding tax. R100k minimum. Educational tool. FSP 17273.",
-    keywords: ["Everest 14.2 calculator", "Onyx Income calculator", "high income voluntary investment"],
-    kicker: "Everest Wealth",
-    heroTitle: "Model Everest 14.2% Onyx Income+",
+      "Estimate how much retirement income a 14.2% distribution investment could produce after dividend withholding tax. Educational Retirement Gap Toolkit calculator. FSP 17273.",
+    keywords: [
+      "14.2% income calculator",
+      "retirement income calculator South Africa",
+      "dividend withholding tax income",
+      "Everest 14.2 calculator",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 009",
+    heroTitle: "How much retirement income could your investment produce?",
     heroSubtitle:
-      "See illustrative day-one monthly income from targeted 14.2% p.a. profile after 20% dividend withholding tax on voluntary capital.",
+      "Retirement isn't funded by percentages—it is funded by reliable income. Use this calculator to estimate the monthly and annual income a 14.2% distribution investment could generate, understand the impact of dividend withholding tax, and see how much income may actually be available to support your retirement.",
     heroImage: "/images/calc-lcp/asset-009.webp",
     heroImageAlt: "Retiree enjoying day-one monthly income lifestyle on a veranda",
     calculatorLead:
-      "Enter lump sum (R100,000 minimum) to see gross and net monthly income illustration. Targeted return, not guaranteed.",
-    sidePanelTitle: "Who suits 14.2% income?",
+      "Enter your investment amount (R100,000 minimum for this illustration). Monthly income after tax is the focal result. Distribution rate and dividend withholding tax are adjustable so assumptions stay easy to update.",
+    sidePanelTitle: "Income outcome, not just a percentage",
     sidePanelParagraphs: [
-      "Clients who need maximum cash flow from day one and accept no five-year loyalty bonus may prefer the 14.2% income profile over 12.8% Strategic Income.",
-      "Voluntary Everest capital is illiquid. Early exit may require 120-day notice and up to 15% penalty.",
+      "This calculator sits later in the Retirement Gap journey. Choose an income solution after you understand the retirement problem—Reality Check, Premium and Life of Capital come first.",
+      "A 14.2% distribution is one possible solution inside a diversified plan. Compare it with the 12.8% income illustration and the Income Comparison Calculator before making decisions.",
     ],
     sidePanelBullets: [
-      "R100,000 minimum lump sum",
-      "20% DWT on dividends",
-      "Five-year term commitment",
-      "Compare with 12.8% tool",
+      "Monthly after-tax income prioritised",
+      "Gross vs net yields shown clearly",
+      "DWT and distribution rate configurable",
+      "Educational illustration only",
     ],
-    fiduciaryNotes: [...FIDUCIARY, "Everest voluntary products are illiquid. Suitability review required."],
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Voluntary income investments may be illiquid. Suitability review with FSP 17273 is required before investing.",
+    ],
     howToSteps: [
-      { title: "Enter capital", description: "Minimum R100,000 voluntary lump sum." },
-      { title: "Review gross income", description: "See illustrative monthly dividend profile." },
-      { title: "See net after DWT", description: "20% dividend withholding tax applied in tool." },
-      { title: "Compare strategies", description: "Use 12.8% vs 14.2% comparison before deciding." },
+      { title: "Enter investment amount", description: "Use at least R100,000 for this educational illustration." },
+      { title: "Confirm rate and tax", description: "Adjust the targeted distribution and dividend withholding tax if needed." },
+      { title: "Read monthly income first", description: "Focus on after-tax monthly income—the practical retirement question." },
+      { title: "Continue the Method", description: "Compare with 12.8% income and review liquidity, risk and sustainability." },
     ],
+    heroCta: {
+      primaryLabel: "Calculate My Retirement Income",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Start with the Reality Check",
+      secondaryHref: calculatorPagePath("asset-002-retirement-reality-check"),
+    },
+    contextBox: {
+      heading: "Percentages do not fund retirement. Income does.",
+      paragraphs: [
+        "Asset 009 answers a practical question: if I invested this amount, how much retirement income could I realistically receive after tax?",
+        "It also reinforces that investment income is only one part of a complete retirement strategy inside the Retirement Gap Toolkit™ and Retirement Gap Method™.",
+      ],
+      highlightQuestion: "How much money could I receive every month after tax?",
+    },
+    methodProgress: {
+      heading: "Where this sits in the Retirement Gap journey",
+      steps: [
+        {
+          stepLabel: "Earlier",
+          title: "Retirement Reality Check",
+          description: "Asset 002 — Understand the retirement problem first",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+          completed: true,
+        },
+        {
+          stepLabel: "Earlier",
+          title: "Retirement Premium Calculator",
+          description: "Asset 003 — How much may you need to save?",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+          completed: true,
+        },
+        {
+          stepLabel: "Earlier",
+          title: "Life of Capital Calculator",
+          description: "Asset 004 — Will income last?",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+          completed: true,
+        },
+        {
+          stepLabel: "Compare",
+          title: "12.8% Income Calculator",
+          description: "Asset 010 — Another income illustration",
+          href: calculatorPagePath("asset-010-everest-128-income"),
+        },
+        {
+          stepLabel: "You are here",
+          title: "14.2% Income Calculator",
+          description: "Asset 009 — Estimate after-tax monthly income",
+          current: true,
+        },
+        {
+          stepLabel: "Next",
+          title: "Income Comparison Calculator",
+          description: "Asset 011 — Compare income solutions side by side",
+          href: calculatorPagePath("asset-011-everest-128-vs-142"),
+        },
+      ],
+    },
+    assumptionCallout: {
+      heading: "Understanding liquidity",
+      paragraphs: [
+        "Liquidity means how quickly you can access your capital when you need it. In retirement, unexpected expenses, healthcare costs and changing plans make access important—even when income is the main goal.",
+        "Higher-income investments may offer attractive distributions while having different liquidity characteristics than cash or listed unit trusts. That trade-off between income and access to capital should be understood before investing.",
+        "This illustration currently reflects liquidity after approximately 120 days, subject to the applicable product terms and conditions. Early exit may attract penalties where product rules apply. Confirm the latest terms during advice.",
+      ],
+    },
+    resultGuide: {
+      heading: "Retirement Planning Insight",
+      intro:
+        "Do not stop at the monthly figure. Ask whether this income could cover your expected retirement expenses, whether relying on a single investment is appropriate, what happens if distributions reduce, whether your plan needs income growth as inflation rises, and whether combining multiple income sources would improve sustainability.",
+      metricsListed: [
+        "Monthly Income After Tax (primary)",
+        "Annual Income After Tax",
+        "Gross Monthly Income",
+        "Gross Annual Income",
+        "Dividend Withholding Tax",
+        "Effective Net Yield",
+      ],
+      highlightMetrics: [
+        {
+          label: "Think in rand income",
+          description:
+            "A percentage is only a means to an end. The Retirement Gap Method™ starts with the income you need, then tests whether any solution can support it sustainably.",
+        },
+        {
+          label: "Tax-aware income matters",
+          description:
+            "Dividend withholding tax reduces what you take home. Pair this tool with the Income Tax Calculator when comparing different income structures.",
+        },
+      ],
+      footer:
+        "Use Life of Capital to stress-test longevity, then compare 12.8% and 14.2% illustrations before booking a Retirement Gap Review.",
+    },
+    withdrawalGuide: {
+      heading: "Investment risks",
+      intro:
+        "Separate from calculator assumptions, keep these risks in view whenever you consider a distribution investment as part of retirement income.",
+      levels: [
+        {
+          label: "Distributions are not guaranteed",
+          description: "Targeted rates can change. Future income may increase or decrease depending on product performance and terms.",
+        },
+        {
+          label: "Capital values may fluctuate",
+          description: "The value of invested capital is not assured. Treat illustrations as educational, not promises of capital protection.",
+        },
+        {
+          label: "Future income may rise or fall",
+          description: "Retirement plans that assume a fixed rand income forever can fail when distributions or inflation move against you.",
+        },
+        {
+          label: "Diversification remains important",
+          description: "Relying on one income investment concentrates risk. Multiple sources may improve sustainability.",
+        },
+        {
+          label: "Part of an overall strategy",
+          description:
+            "Investments should form part of an overall retirement strategy rather than being viewed in isolation inside the Retirement Gap Toolkit™.",
+        },
+      ],
+      closing:
+        "Compare alternatives with the 12.8% Income Calculator and Income Comparison Calculator, then return to the Retirement Gap Method™ for the full framework.",
+    },
+    methodSection: {
+      heading: "Choosing income after understanding the problem",
+      paragraphs: [
+        "A successful retirement is not built by chasing the highest percentage. It is built by creating sustainable, tax-aware income that can support your lifestyle over the long term.",
+        "Understanding how investment income fits into your overall Retirement Gap is the next step—after Reality Check, Premium and Life of Capital have framed the need.",
+      ],
+      bullets: [
+        "Measure the Retirement Gap first",
+        "Estimate after-tax income second",
+        "Compare income solutions third",
+        "Review liquidity, tax and risk before committing",
+      ],
+      ctaLabel: "Compare 12.8% vs 14.2% income",
+      ctaHref: calculatorPagePath("asset-011-everest-128-vs-142"),
+      secondaryCtaLabel: "Open the 12.8% Income Calculator",
+      secondaryCtaHref: calculatorPagePath("asset-010-everest-128-income"),
+    },
+    assessmentSection: {
+      heading: "Want help fitting income into your Retirement Gap?",
+      intro:
+        "A Retirement Gap Review can help you test whether this after-tax income, combined with other sources, is realistic for your lifestyle, tax position and liquidity needs.",
+      bullets: [
+        "Required retirement income vs illustrated income",
+        "Tax, DWT and net yield implications",
+        "Liquidity and diversification",
+        "Next steps inside the Retirement Gap Method™",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_009",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Toolkit",
+          assetCode: "ASSET 000",
+          title: "Retirement Gap Toolkit™",
+          description: "Return to the full calculator hub.",
+          href: "/calculators",
+        },
+        {
+          stepLabel: "Earlier",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Understand the retirement problem first.",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Earlier",
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "Estimate the saving required to close the gap.",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          stepLabel: "Earlier",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "Test whether retirement income may last.",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Related",
+          assetCode: "ASSET 006",
+          title: "Income Tax Calculator",
+          description: "See how taxation affects lifetime wealth and income.",
+          href: calculatorPagePath("asset-006-income-tax"),
+        },
+        {
+          stepLabel: "Compare",
+          assetCode: "ASSET 010",
+          title: "12.8% Income Calculator",
+          description: "Estimate income from the alternative illustration.",
+          href: calculatorPagePath("asset-010-everest-128-income"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 011",
+          title: "Income Comparison Calculator",
+          description: "Compare income solutions side by side.",
+          href: calculatorPagePath("asset-011-everest-128-vs-142"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Connect income to the complete framework.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "A successful retirement is not built by chasing the highest percentage.",
+      body: "It is built by creating sustainable, tax-aware income that can support your lifestyle over the long term. Understanding how investment income fits into your overall Retirement Gap is the next step.",
+      primaryLabel: "Learn the Retirement Gap Method™",
+      primaryHref: "/retirement-gap-method",
+      secondaryLabel: "Book a Retirement Gap Review",
+      secondaryHref: "/contact?source=retirement_gap_review_asset_009",
+    },
     readingSections: [
       {
-        heading: "Income now vs bonus later",
+        heading: "Income inside the Retirement Gap Method™",
         paragraphs: [
-          "14.2% Onyx Income+ prioritises higher starting income. The 12.8% Strategic Income profile trades some day-one cash flow for a 10% loyalty bonus at year five.",
-          "Neither is guaranteed. Category 1.8 advice is required before investing.",
+          "Start with the Retirement Reality Check and Retirement Premium Calculator to understand need and contribution. Use Life of Capital to test longevity. Only then compare income illustrations such as this 14.2% page, the 12.8% Income Calculator and the Income Comparison Calculator.",
+          "Return to the Retirement Gap Toolkit™ and Retirement Gap Method™ so any income solution stays connected to tax, liquidity and long-term sustainability—not a standalone product decision.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
+        question: "Is a higher distribution always better?",
+        answer:
+          "Not necessarily. A higher targeted rate may come with different liquidity, risk or opportunity-cost trade-offs. Sustainable after-tax income that fits your Retirement Gap matters more than the headline percentage.",
+      },
+      {
+        question: "How does dividend withholding tax affect my retirement income?",
+        answer:
+          "Dividend withholding tax reduces gross distributions before you receive income. This calculator shows both gross and after-tax figures so you can plan with net income in mind.",
+      },
+      {
+        question: "Why is liquidity important in retirement?",
+        answer:
+          "Retirees often need access to capital for unexpected costs. Investments that pay attractive income may still restrict withdrawals. Understand notice periods and penalties before committing.",
+      },
+      {
+        question: "Should I invest all my retirement savings in one income investment?",
+        answer:
+          "Usually no. Diversification remains important. This page treats the illustration as one possible income source within a broader retirement strategy.",
+      },
+      {
+        question: "How does inflation affect retirement income over time?",
+        answer:
+          "Rising living costs can erode fixed income. Ask whether your plan needs income growth and use Future Value and Life of Capital tools to explore purchasing-power and longevity pressure.",
+      },
+      {
+        question: "How does this compare with other retirement income options?",
+        answer:
+          "Use the 12.8% Income Calculator and Income Comparison Calculator for side-by-side illustrations, then discuss living annuities and other structures in a Retirement Gap Review.",
+      },
+      {
+        question: "Can the distribution rate change?",
+        answer:
+          "Yes. Targeted distributions are not guarantees. Future income may increase or decrease. Stress-test lower rates in the calculator fields.",
+      },
+      {
+        question: "Is this calculator financial advice?",
+        answer:
+          "No. It is an educational illustration only. Personalised advice requires a suitability process with an authorised adviser (FSP 17273).",
+      },
+      {
         question: "Is 14.2% guaranteed?",
-        answer: "No. It is a targeted return profile subject to issuer performance and risk.",
+        answer:
+          "No. It is a targeted return profile subject to issuer performance, product terms and risk. Confirm current terms before investing.",
       },
       {
         question: "Can I withdraw early?",
         answer:
-          "Voluntary products are illiquid. Early exit is subject to issuer discretion, 120-day notice, and possible 15% penalty.",
+          "Voluntary products may be illiquid. This illustration currently reflects access after approximately 120 days subject to product terms, with possible early-exit penalties. Confirm the latest rules during advice.",
       },
     ],
-    ...EVEREST,
+    categoryLabel: "Retirement Income",
+    categoryHref: "/calculators",
   },
 
   "asset-010-everest-128-income": {

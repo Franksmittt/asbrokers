@@ -2,6 +2,97 @@ import type { FAQItem } from "@/lib/seo";
 import { CALCULATOR_REGISTRY, getCalculatorById, type CalculatorRegistryEntry } from "@/lib/calculators/registry";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
+/** Optional educational layers used by the Retirement Gap Toolkit journey (Asset 000→018). */
+export type CalculatorContextBox = {
+  heading: string;
+  paragraphs: string[];
+  highlightQuestion?: string;
+};
+
+export type CalculatorResultBand = {
+  label: string;
+  description: string;
+};
+
+export type CalculatorResultGuide = {
+  heading: string;
+  intro?: string;
+  /** e.g. "If your required annual growth rate is:" or "Retirement Gap Status" */
+  bandsLead?: string;
+  bands: CalculatorResultBand[];
+  /** Metrics the calculator already displays — listed for education only; embed unchanged. */
+  metricsListed?: string[];
+  footer?: string;
+};
+
+export type CalculatorPracticalWays = {
+  heading: string;
+  intro: string;
+  items: string[];
+  closing: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+};
+
+export type CalculatorMethodSection = {
+  heading: string;
+  paragraphs: string[];
+  bullets: string[];
+  ctaLabel: string;
+  ctaHref: string;
+};
+
+export type CalculatorJourneyItem = {
+  assetCode: string;
+  title: string;
+  description: string;
+  href: string;
+  /** e.g. Previous Step / Next Step / Then / Complete the Journey */
+  stepLabel?: string;
+};
+
+export type CalculatorJourney = {
+  heading: string;
+  items: CalculatorJourneyItem[];
+};
+
+export type CalculatorAssessmentSection = {
+  heading: string;
+  intro: string;
+  bullets: string[];
+  ctaLabel: string;
+  ctaHref: string;
+};
+
+export type CalculatorHeroCta = {
+  primaryLabel: string;
+  /** Defaults to #calculator-tool */
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+};
+
+export type CalculatorTerminalOption = {
+  title: string;
+  description: string;
+  ctaLabel: string;
+  ctaHref: string;
+};
+
+export type CalculatorTerminalOptions = {
+  heading: string;
+  options: [CalculatorTerminalOption, CalculatorTerminalOption];
+};
+
+export type CalculatorTerminalCta = {
+  heading: string;
+  body: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel: string;
+  secondaryHref: string;
+};
+
 export type CalculatorPageConfig = {
   id: string;
   path: string;
@@ -26,6 +117,19 @@ export type CalculatorPageConfig = {
   faqs: FAQItem[];
   categoryLabel: string;
   categoryHref: string;
+  /** Shown immediately below the hero, before how-to / calculator. */
+  contextBox?: CalculatorContextBox;
+  heroCta?: CalculatorHeroCta;
+  /** Plain-language interpretation of calculator outcomes (after the tool). */
+  resultGuide?: CalculatorResultGuide;
+  practicalWays?: CalculatorPracticalWays;
+  methodSection?: CalculatorMethodSection;
+  assessmentSection?: CalculatorAssessmentSection;
+  /** Curated next-step calculators; when set, replaces generic RelatedContent. */
+  journey?: CalculatorJourney;
+  terminalCta?: CalculatorTerminalCta;
+  /** Dual decision paths (e.g. Assessment vs Method). Takes precedence over terminalCta. */
+  terminalOptions?: CalculatorTerminalOptions;
 };
 
 const FIDUCIARY: string[] = [
@@ -51,12 +155,18 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Retirement Growth Rate Calculator",
     seoTitle: "Retirement Growth Rate Calculator South Africa",
     seoDescription:
-      "See the illustrative growth rate you may need to reach a retirement capital target from savings and contributions. Free SA calculator. FSP 17273.",
-    keywords: ["retirement growth rate calculator", "retirement calculator South Africa", "retirement savings target"],
-    kicker: "Retirement planning",
-    heroTitle: "What growth rate do you need to retire on track?",
+      "Estimate the annual investment growth rate you may need to reach your retirement capital goal from savings, contributions and time. Educational SA calculator. FSP 17273.",
+    keywords: [
+      "retirement growth rate calculator",
+      "retirement calculator South Africa",
+      "required investment return retirement",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 001",
+    heroTitle:
+      "What annual investment growth rate would you need to reach your retirement goal?",
     heroSubtitle:
-      "Model the illustrative return required to close the gap between where you are today and the capital you want at retirement.",
+      "This calculator estimates the average annual investment return that may be required to achieve your desired retirement capital based on your current retirement savings, future monthly contributions and the time remaining until retirement.",
     heroImage: "/images/calc-lcp/asset-001.webp",
     heroImageAlt: "Couple reviewing long-term retirement savings notes at a kitchen table",
     calculatorLead:
@@ -64,7 +174,7 @@ const PAGES: Record<string, PageContent> = {
     sidePanelTitle: "Who this is for",
     sidePanelParagraphs: [
       "Still working and asking whether your retirement savings are on track? This calculator translates a target capital number into an illustrative growth rate.",
-      "Use it before product conversations so you understand the maths behind compound growth, contributions, and time.",
+      "Use it before product conversations so you understand the maths behind compound growth, contributions, and time. Then explore the Retirement Gap Toolkit™ and Retirement Gap Method™ for the fuller picture.",
     ],
     sidePanelBullets: [
       "Set a retirement capital target",
@@ -79,22 +189,110 @@ const PAGES: Record<string, PageContent> = {
       { title: "Choose your timeline", description: "Set years until retirement to see how time affects the required rate." },
       { title: "Review the result", description: "Compare the illustrative rate with realistic return assumptions before acting." },
     ],
-    readingSections: [
-      {
-        heading: "Why growth assumptions matter in retirement planning",
-        paragraphs: [
-          "Many South Africans focus on products before they understand the return their plan implicitly requires. A modest shortfall today can compound into a large gap at retirement.",
-          "Independent advice helps you align return expectations with risk tolerance, tax wrappers, and liquidity needs rather than chasing a number from a calculator.",
-        ],
-      },
-      {
-        heading: "What to do after you run the numbers",
-        paragraphs: [
-          "If the required rate looks ambitious, explore contribution increases, delayed retirement, or a phased retirement income strategy with an FSP 17273 adviser.",
-          "Pair this tool with our Retirement Reality Check and Personal Goal calculators for a fuller picture.",
-        ],
-      },
-    ],
+    contextBox: {
+      heading: "Why This Matters",
+      paragraphs: [
+        "Many South Africans focus on choosing investment products before understanding what investment return they actually need.",
+        "This calculator works backwards from your retirement goal to estimate the annual investment growth rate required.",
+        "It helps answer one important question:",
+      ],
+      highlightQuestion: "Is my retirement goal realistic?",
+    },
+    resultGuide: {
+      heading: "Understanding Your Result",
+      intro: "Don't simply treat the required percentage as a product promise. Interpret what it generally means.",
+      bandsLead: "If your required annual growth rate is:",
+      bands: [
+        {
+          label: "Below 10%",
+          description:
+            "Generally achievable over long investment periods with a well-diversified investment strategy.",
+        },
+        {
+          label: "10%–15%",
+          description:
+            "Potentially achievable but may require higher investment risk, disciplined investing and sufficient time.",
+        },
+        {
+          label: "Above 15%",
+          description:
+            "Your retirement objective may depend on unusually high long-term investment returns. Consider reviewing your retirement age, monthly retirement savings, desired retirement capital, and retirement income expectations.",
+        },
+      ],
+      footer:
+        "The purpose is to educate rather than predict investment performance. Results are illustrative only.",
+    },
+    practicalWays: {
+      heading: "Practical Ways to Improve the Result",
+      intro:
+        "Most people have four practical ways to improve their retirement outcome. The correct solution depends on each person's financial circumstances.",
+      items: [
+        "Increase monthly retirement contributions.",
+        "Invest for longer by delaying retirement.",
+        "Adjust retirement income expectations.",
+        "Improve long-term investment performance through an appropriate investment strategy.",
+      ],
+      closing:
+        "There is no single answer for everyone. Use these levers as discussion points with an independent adviser before changing products or contribution levels.",
+    },
+    methodSection: {
+      heading: "Your Retirement Gap",
+      paragraphs: [
+        "The investment growth rate is only one part of retirement planning.",
+        "Your retirement outcome is also influenced by retirement income, inflation, investment risk, longevity, tax and estate planning.",
+        "The Retirement Gap Method™ explains how all of these factors work together and how each Retirement Gap Toolkit™ calculator fits into the bigger picture.",
+      ],
+      bullets: [
+        "Retirement income",
+        "Inflation",
+        "Investment risk",
+        "Longevity",
+        "Tax",
+        "Estate planning",
+      ],
+      ctaLabel: "Understand the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+    },
+    journey: {
+      heading: "Continue Your Retirement Journey",
+      items: [
+        {
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Can your retirement savings actually provide the income you will need?",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "How much should you save each month to reach your retirement objective?",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          assetCode: "ASSET 016",
+          title: "Power of Growth Calculator",
+          description:
+            "See how different investment returns can dramatically change long-term retirement outcomes.",
+          href: calculatorPagePath("asset-016-growth-comparison"),
+        },
+        {
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description:
+            "Bring every Retirement Gap Toolkit™ calculator together into one complete retirement planning framework.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "You've calculated the numbers. Now decide what to do next.",
+      body: "Your calculator result is educational. If you'd like a personalised assessment of your retirement savings, investment strategy and retirement income plan, book a consultation with an independent Category I Financial Services Provider.",
+      primaryLabel: "Book a Retirement Gap Review",
+      primaryHref: "/contact?source=retirement_gap_review_asset_001",
+      secondaryLabel: "Explore the Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
+    },
+    readingSections: [],
     faqs: [
       {
         question: "Is the growth rate guaranteed?",
@@ -127,33 +325,40 @@ const PAGES: Record<string, PageContent> = {
           "Rerun when your salary, contributions, or retirement date changes, or at least once a year as part of a retirement review.",
       },
     ],
-    ...RETIREMENT,
+    categoryLabel: "Getting Started",
+    categoryHref: "/calculators#getting-started",
   },
 
   "asset-002-retirement-reality-check": {
-    shortTitle: "Retirement Reality Check Calculator",
-    seoTitle: "Retirement Reality Check Calculator South Africa",
+    shortTitle: "Retirement Reality Check",
+    seoTitle: "Retirement Reality Check | Will Your Retirement Savings Be Enough?",
     seoDescription:
-      "Compare desired retirement income against projected capital. Free retirement reality check for South Africans. See funding gaps before you retire. FSP 17273.",
-    keywords: ["retirement reality check", "will I have enough to retire", "retirement gap calculator"],
-    kicker: "Retirement planning",
-    heroTitle: "Will your retirement income match your lifestyle?",
+      "Use the Retirement Reality Check to estimate whether your retirement savings are likely to provide the income you need. Discover your Retirement Gap and explore the Retirement Gap Method™ for South Africans.",
+    keywords: [
+      "retirement reality check",
+      "will I have enough to retire",
+      "Retirement Gap",
+      "retirement income calculator South Africa",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™",
+    heroTitle: "Will your retirement savings actually fund the retirement you want?",
     heroSubtitle:
-      "Compare the income you want in retirement with the capital you are on track to build. See surplus or shortfall in plain numbers.",
+      "Many South Africans have accumulated retirement savings without knowing whether those savings will actually provide the income they need in retirement. The Retirement Reality Check compares the retirement income your current savings may produce with the income you expect to need. It is often the first step in discovering your Retirement Gap.",
     heroImage: "/images/calc-lcp/asset-002.webp",
     heroImageAlt: "Couple discussing whether retirement income will match their lifestyle",
     calculatorLead:
-      "Enter desired monthly retirement income, expected capital, growth, and drawdown assumptions to see whether your plan may fund your lifestyle.",
-    sidePanelTitle: "The question most clients ask",
+      "Enter your retirement savings, expected income need, and planning assumptions. The tool illustrates whether your savings may fund the retirement you want—educational only, not a guarantee.",
+    sidePanelTitle: "The flagship starting point",
     sidePanelParagraphs: [
-      "Will I have enough? This reality check shows whether projected capital supports your income goal, before you commit to products or drawdown strategies.",
-      "It is a conversation starter, not a quote or guarantee.",
+      "This is the recommended first calculator in the Retirement Gap Toolkit™ because it answers the most important question: will I actually have enough to retire?",
+      "Use it before product conversations. Pair it with the Retirement Growth Rate Calculator, Retirement Premium Calculator, and Life of Capital Calculator for a fuller picture—then the Retirement Gap Method™.",
     ],
     sidePanelBullets: [
       "Income need vs projected capital",
-      "Gap or surplus at a glance",
-      "Use before living annuity decisions",
-      "Pairs with Life of Capital tool",
+      "See your Retirement Gap in plain numbers",
+      "Recommended start for first-time visitors",
+      "Educational illustration only",
     ],
     fiduciaryNotes: FIDUCIARY,
     howToSteps: [
@@ -162,27 +367,195 @@ const PAGES: Record<string, PageContent> = {
       { title: "Set drawdown rules", description: "Use an illustrative drawdown or annuity assumption where prompted." },
       { title: "Read the gap", description: "A shortfall means planning changes; a surplus may allow more flexibility." },
     ],
+    heroCta: {
+      primaryLabel: "Check My Retirement Reality",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Explore the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
+    contextBox: {
+      heading: "Why this calculator matters",
+      paragraphs: [
+        "Many South Africans only discover they have a Retirement Gap a few years before retirement.",
+        "Most people focus on how much money they have accumulated. The more important question is: how much retirement income will those savings actually produce?",
+        "This calculator helps answer one simple question:",
+      ],
+      highlightQuestion: "Will I have enough?",
+    },
+    resultGuide: {
+      heading: "Retirement Gap Status",
+      intro:
+        "Instead of treating the numbers as a final answer, use them to understand your position. The calculator illustrates capital, income, shortfall, replacement ratio, Retirement Gap and readiness—interpret the status below in plain language.",
+      bandsLead: "What your outcome generally means:",
+      bands: [
+        {
+          label: "On Track",
+          description:
+            "Your projected retirement income appears capable of supporting your planned retirement lifestyle. Continue reviewing your retirement plan regularly as your circumstances change.",
+        },
+        {
+          label: "Needs Attention",
+          description:
+            "Your retirement plan may work, but there is little room for unexpected events such as inflation, poor investment returns or living longer than expected. You may wish to review investment strategy, retirement age, contribution levels and retirement income expectations.",
+        },
+        {
+          label: "Retirement Gap Identified",
+          description:
+            "Your projected retirement income appears to be lower than the income you require. The good news is that identifying the gap early gives you time to improve it.",
+        },
+      ],
+      metricsListed: [
+        "Estimated Retirement Capital",
+        "Estimated Monthly Retirement Income",
+        "Estimated Monthly Shortfall",
+        "Income Replacement Ratio",
+        "Retirement Gap",
+        "Retirement Readiness Score",
+      ],
+      footer:
+        "These figures are educational illustrations produced by the calculator. They are not personalised advice or a prediction of future performance.",
+    },
+    practicalWays: {
+      heading: "How can you improve your Retirement Gap?",
+      intro:
+        "A Retirement Gap does not necessarily mean retirement is impossible. Many Retirement Gaps can be improved by adjusting one or more of the following:",
+      items: [
+        "Increasing retirement contributions",
+        "Working for longer",
+        "Improving long-term investment performance",
+        "Reducing unnecessary investment costs",
+        "Reviewing retirement income expectations",
+        "Optimising existing retirement investments",
+      ],
+      closing:
+        "The most appropriate solution depends on your personal circumstances. Learn how the Toolkit calculators fit together before making major changes.",
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+    },
+    assessmentSection: {
+      heading: "Not sure if these assumptions are realistic?",
+      intro:
+        "A Retirement Gap Assessment helps determine whether the assumptions used in this calculator are appropriate for your situation. During the assessment we review:",
+      bullets: [
+        "Your current retirement savings",
+        "Existing retirement investments",
+        "Expected retirement income",
+        "Investment assumptions",
+        "Practical ways to improve your retirement outcome",
+      ],
+      ctaLabel: "Book a Retirement Gap Assessment",
+      ctaHref: "/contact?source=retirement_gap_assessment_asset_002",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Previous Step",
+          assetCode: "ASSET 001",
+          title: "Retirement Growth Rate Calculator",
+          description: "Can your retirement objective realistically be achieved?",
+          href: calculatorPagePath("asset-001-retirement-growth"),
+        },
+        {
+          stepLabel: "Next Step",
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "How much should you save every month?",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          stepLabel: "Then",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "How long is your retirement income likely to last?",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Complete the Journey",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description:
+            "Bring every calculator together into one complete retirement planning framework.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalOptions: {
+      heading: "Your next decision",
+      options: [
+        {
+          title: "Optimise my existing retirement investments",
+          description:
+            "For people who already have retirement savings and want to improve their retirement outcome.",
+          ctaLabel: "Book a Retirement Gap Assessment",
+          ctaHref: "/contact?source=retirement_gap_assessment_asset_002",
+        },
+        {
+          title: "Learn how to close your Retirement Gap",
+          description:
+            "Understand how all of the Retirement Gap Toolkit™ calculators work together through the Retirement Gap Method™ before making important retirement decisions.",
+          ctaLabel: "Explore the Retirement Gap Method™",
+          ctaHref: "/retirement-gap-method",
+        },
+      ],
+    },
     readingSections: [
       {
-        heading: "Income need vs capital on paper",
+        heading: "What your results mean",
         paragraphs: [
-          "Retirement planning fails when lifestyle expectations and capital bases are never reconciled. This calculator makes that reconciliation visible.",
-          "Medical costs, travel, and family support often rise in early retirement. Build margin into your income target before you treat a surplus as certainty.",
+          "A Retirement Gap usually appears when the income your savings may produce is lower than the income you expect to need. It can come from saving too little, starting too late, assuming growth that is too high, underestimating longevity, or spending assumptions that do not match real life.",
+          "Investment growth matters because compound returns over decades can change the capital available to generate income. Inflation matters because the same rand buys less each year—so an income that looks fine today may feel tight later.",
+          "Retirement planning is an ongoing process, not a once-off calculation. Your salary, contributions, markets, health and family needs change. Revisit this Reality Check when your circumstances change.",
+          "The encouraging news: many Retirement Gaps can still be improved. Tools in the Retirement Gap Toolkit™—including the Retirement Growth Rate Calculator, Retirement Premium Calculator and Life of Capital Calculator—help you explore different levers. The Retirement Gap Method™ explains how those pieces fit together.",
+        ],
+      },
+      {
+        heading: "Why retirement planning often goes wrong",
+        paragraphs: [
+          "Many people believe retirement begins when they reach a certain age. In reality, retirement begins when your investments are capable of generating sufficient sustainable income.",
+          "Understanding the difference between retirement capital and retirement income is one of the foundations of the Retirement Gap Method™. Capital is what you have accumulated. Income is what that capital can responsibly produce over time.",
         ],
       },
     ],
     faqs: [
       {
-        question: "What if I have a shortfall?",
+        question: "What is a Retirement Gap?",
         answer:
-          "Consider higher contributions, later retirement, lower income targets, or a structured advice review with FSP 17273.",
+          "A Retirement Gap is the shortfall between the retirement income your savings may produce and the income you expect to need. This Reality Check helps you see that gap in educational, illustrative terms.",
       },
       {
-        question: "Does this replace a living annuity quote?",
-        answer: "No. It is educational. Product quotes and suitability reviews require adviser-led analysis.",
+        question: "How accurate is this calculator?",
+        answer:
+          "It is an educational illustration based on the assumptions you enter. Markets, fees, tax, inflation and longevity can change real outcomes. Treat results as a starting point for learning, not a guarantee.",
+      },
+      {
+        question: "What if my projected retirement income is too low?",
+        answer:
+          "That usually means a Retirement Gap has been identified. You can explore higher contributions, working longer, adjusting income expectations, or improving investment strategy—often through the Premium, Growth Rate and Life of Capital calculators, then the Retirement Gap Method™.",
+      },
+      {
+        question: "Should I increase my savings or delay retirement?",
+        answer:
+          "Both can improve a Retirement Gap, and the better choice depends on your circumstances, health, career and income needs. This page educates; a Retirement Gap Assessment with FSP 17273 can help you weigh the options personally.",
+      },
+      {
+        question: "Can better investment returns eliminate my Retirement Gap?",
+        answer:
+          "Higher long-term returns can help, but chasing returns also increases risk. Many gaps improve through a mix of contributions, time, costs, expectations and suitable strategy—not returns alone.",
+      },
+      {
+        question: "How often should I update this calculation?",
+        answer:
+          "Update when your salary, contributions, retirement date or income needs change, or at least once a year as part of a retirement review.",
+      },
+      {
+        question: "Is this financial advice?",
+        answer:
+          "No. The Retirement Reality Check is an educational tool in the Retirement Gap Toolkit™. Personalised financial advice requires a needs analysis with an authorised provider such as AS Brokers CC (FSP 17273).",
       },
     ],
-    ...RETIREMENT,
+    categoryLabel: "Getting Started",
+    categoryHref: "/calculators#getting-started",
   },
 
   "asset-003-retirement-premium": {

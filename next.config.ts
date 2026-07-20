@@ -126,6 +126,7 @@ const nextConfig: NextConfig = {
     /** Retired React calculator routes → ASSET hub anchors or service hubs. */
     const legacyCalculatorRedirects = [
       { source: "/wealth-building-calculator", destination: "/calculators/asset-001-retirement-growth" },
+      { source: "/calculators/retirement-reality-check", destination: "/calculators/asset-002-retirement-reality-check" },
       { source: "/cost-of-inflation-over-time", destination: "/calculators/asset-005-future-value" },
       { source: "/retirement-readiness", destination: "/retirement-planning", permanent: true },
       { source: "/annual-estate-reduction-strategy", destination: "/calculators/asset-008-estate-reduction" },

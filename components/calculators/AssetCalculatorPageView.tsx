@@ -11,7 +11,7 @@ import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
 import { MetricsListedSection } from "@/components/calculators/MetricsListedSection";
 import { PracticalWaysSection } from "@/components/calculators/PracticalWaysSection";
-import { WithdrawalGuideCompare } from "@/components/calculators/WithdrawalGuideCompare";
+import { WithdrawalGuideSection } from "@/components/calculators/WithdrawalGuideSection";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -781,7 +781,7 @@ export function AssetCalculatorPageView({
 
       {withdrawalGuide ? (
         <>
-          <WithdrawalGuideCompare path={path} withdrawalGuide={withdrawalGuide} />
+          <WithdrawalGuideSection path={path} withdrawalGuide={withdrawalGuide} />
           {lightSurface.afterDark()}
         </>
       ) : null}

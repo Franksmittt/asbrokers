@@ -2,7 +2,6 @@ import type { CalculatorResultGuide } from "@/lib/calculators/page-configs";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import {
   HUB_TEAL as TEAL,
-  HUB_INK as INK,
   HUB_BODY as BODY,
 } from "@/lib/hub-design-tokens";
 
@@ -14,21 +13,21 @@ type Props = {
   footer?: string;
 };
 
-/** Winner: editorial split, label + footer left, metrics right with hairline rules. */
+/** Winner: spotlight cards, lead left, dark serif metric cards right. */
 export function MetricsListedSection({ path, metrics, footer }: Props) {
   return (
     <section
       data-chunk-boundary="true"
-      className="border-b border-stone-200/80 py-12 md:py-16"
+      className="border-b border-stone-200/80 py-14 md:py-20"
       style={{ backgroundColor: CREAM }}
       aria-labelledby={`${path}-metrics-heading`}
     >
       <div className={HOME4_WRAP}>
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
             <p
               id={`${path}-metrics-heading`}
-              className="text-sm font-semibold uppercase tracking-[0.12em]"
+              className="text-sm font-semibold uppercase tracking-[0.14em]"
               style={{ color: TEAL }}
             >
               What the calculator illustrates
@@ -36,20 +35,28 @@ export function MetricsListedSection({ path, metrics, footer }: Props) {
             {footer ? (
               <p
                 className="mt-5 leading-relaxed"
-                style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
+                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
               >
                 {footer}
               </p>
             ) : null}
           </div>
-          <ul className="grid list-none grid-cols-1 gap-0 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3 lg:gap-x-8">
-            {metrics.map((metric) => (
+          <ul
+            className={`grid list-none gap-4 lg:col-span-8 ${
+              metrics.length === 3 ? "md:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3"
+            }`}
+          >
+            {metrics.map((metric, index) => (
               <li
                 key={metric}
-                className="border-t border-stone-300/80 py-4 text-sm font-medium leading-snug sm:text-[0.9375rem]"
-                style={{ color: INK }}
+                className="flex h-full flex-col rounded-2xl bg-[#1D1D1F] px-5 py-6 text-white sm:px-6"
               >
-                {metric}
+                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5EEAD4]">
+                  Point {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-4 flex-1 font-serif text-lg font-semibold leading-snug tracking-tight sm:text-xl">
+                  {metric}
+                </p>
               </li>
             ))}
           </ul>

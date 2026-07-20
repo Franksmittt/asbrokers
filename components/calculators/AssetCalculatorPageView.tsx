@@ -9,7 +9,7 @@ import { getRelatedLinks } from "@/lib/related-content";
 import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
-import { MetricsListedCompare } from "@/components/calculators/MetricsListedCompare";
+import { MetricsListedSection } from "@/components/calculators/MetricsListedSection";
 import { PracticalWaysSection } from "@/components/calculators/PracticalWaysSection";
 import { WithdrawalGuideSection } from "@/components/calculators/WithdrawalGuideSection";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
@@ -689,14 +689,11 @@ export function AssetCalculatorPageView({
       ) : null}
 
       {resultGuide?.metricsListed && resultGuide.metricsListed.length > 0 ? (
-        <>
-          <MetricsListedCompare
-            path={path}
-            metrics={resultGuide.metricsListed}
-            footer={resultGuide.footer}
-          />
-          {lightSurface.afterDark()}
-        </>
+        <MetricsListedSection
+          path={path}
+          metrics={resultGuide.metricsListed}
+          footer={resultGuide.footer}
+        />
       ) : null}
 
       {decisionComparison ? (

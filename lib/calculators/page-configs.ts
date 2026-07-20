@@ -1,6 +1,6 @@
 import type { FAQItem } from "@/lib/seo";
 import { CALCULATOR_REGISTRY, getCalculatorById, type CalculatorRegistryEntry } from "@/lib/calculators/registry";
-import { calculatorPagePath } from "@/lib/calculators/page-path";
+import { calculatorPagePath, resolveCalculatorSlug } from "@/lib/calculators/page-path";
 
 /** Optional educational layers used by the Retirement Gap Toolkit journey (Asset 000→018). */
 export type CalculatorContextBox = {
@@ -1781,56 +1781,260 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Estate Duty Calculator",
     seoTitle: "Estate Duty Calculator South Africa",
     seoDescription:
-      "Estimate estate duty, executor fees, and liquidity needs using current abatement rules. Free South African estate duty calculator. FSP 17273.",
-    keywords: ["estate duty calculator South Africa", "executor fees calculator", "estate planning calculator"],
-    kicker: "Estate planning",
-    heroTitle: "Estimate estate duty and executor costs",
+      "Estate Cost & Liquidity Calculator for South Africa. Estimate estate duty, executor's fees and whether your family will have enough cash to wind up your estate. Free educational tool. FSP 17273.",
+    keywords: [
+      "Estate Duty Calculator",
+      "estate duty calculator South Africa",
+      "estate liquidity calculator",
+      "executor fees calculator",
+      "estate planning calculator",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 007",
+    heroTitle: "Will your family have enough cash to wind up your estate?",
     heroSubtitle:
-      "Quantify potential duty above the R3.5 million abatement and executor fees so your family is not caught without liquidity.",
+      "Many South African estates are asset-rich but cash-poor. Estimate your estate duty, executor's fees and the cash your estate may need after your death. Discover whether your family could face a liquidity shortfall that may force the sale of assets or delay the administration of your estate.",
     heroImage: "/images/calc-lcp/asset-007.webp",
     heroImageAlt: "Family member facing estate duty, keys, and executor cost decisions",
     calculatorLead:
-      "Enter net estate value, deductions, and abatement to see illustrative duty at 20% and 25% bands plus executor fees.",
-    sidePanelTitle: "What to enter",
+      "Enter your gross estate, liabilities, spouse bequests and immediately available liquidity. The primary insight is your Estimated Estate Liquidity Gap—not estate duty alone.",
+    sidePanelTitle: "Estate Cost & Liquidity Calculator",
     sidePanelParagraphs: [
-      "Estate duty applies to dutiable estate above the abatement. Executor fees and liquidity shortfalls are often underestimated until it is too late.",
-      "Use this diagnostic before wills, trusts, and donation strategies with a qualified adviser.",
+      "Clients rarely lose sleep over estate duty percentages. They worry whether children will have enough cash, whether the house must be sold, and whether the estate becomes a burden.",
+      "This flagship Toolkit calculator estimates duty and executor costs, then compares them with available liquidity so you can see the cash shortfall risk clearly.",
     ],
     sidePanelBullets: [
-      "R3.5m abatement illustration",
-      "20% and 25% duty bands",
-      "Executor fee at 3.5% plus VAT",
-      "Not legal advice",
+      "Liquidity gap as the primary result",
+      "R3.5m Section 4A abatement",
+      "20% / 25% estate duty bands",
+      "Executor's fees at 3.5% plus VAT shown separately",
     ],
-    fiduciaryNotes: [...FIDUCIARY, "Estate planning requires qualified legal and tax advice alongside financial planning."],
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Estate planning requires qualified legal and tax advice alongside financial planning. All figures are estimates.",
+    ],
     howToSteps: [
-      { title: "List assets", description: "Enter total estate value including property, investments, and policies." },
-      { title: "Apply deductions", description: "Include liabilities and allowable deductions where relevant." },
-      { title: "Review duty estimate", description: "See illustrative duty and executor fees." },
-      { title: "Plan liquidity", description: "Discuss trusts, donations, and life cover with FSP 17273." },
+      { title: "Enter estate values", description: "Gross estate, liabilities and bequests to a surviving spouse." },
+      { title: "Add available liquidity", description: "Cash, money market, immediate-access savings, life cover payable to the estate and other liquid amounts." },
+      { title: "Review the liquidity gap", description: "See whether estimated estate costs exceed available cash." },
+      { title: "Plan the next step", description: "Use Estate Reduction, Reality Check and a Retirement Gap Review to close gaps." },
     ],
+    heroCta: {
+      primaryLabel: "Estimate My Estate Liquidity Gap",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Explore the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
+    contextBox: {
+      heading: "Will my family have enough cash?",
+      paragraphs: [
+        "This is the conversation very few advisers have well. Property, businesses and portfolios can look impressive on paper—yet estates still struggle when cash is short.",
+        "Asset 007 is a flagship Retirement Gap Toolkit™ calculator because it exposes a hidden problem most families only discover too late.",
+      ],
+      highlightQuestion:
+        "Will my family have enough cash to settle my estate without being forced to sell assets?",
+    },
+    audienceGuide: {
+      heading: "Who should use this calculator?",
+      intro: "Especially useful if you own property, run a business, hold investments, or want to protect your family from forced sales and administration delays.",
+      items: [
+        "Parents concerned about estate cash for children",
+        "Homeowners and business owners",
+        "Anyone with life cover payable to the estate",
+        "Families reviewing wills and executor appointments",
+        "People comparing estate duty with real liquidity risk",
+      ],
+    },
+    assumptionCallout: {
+      heading: "Calculator assumptions",
+      paragraphs: [
+        "Calculations use the current South African estate duty framework illustrated in this tool: Section 4A abatement of R3.5 million, estate duty at 20% on dutiable estate up to R30 million and 25% thereafter, and executor's remuneration at 3.5% of gross estate plus 15% VAT.",
+        "Results are estimates only. Master's fees, conveyancing, valuations, CGT, income tax in the estate and other costs are not fully modelled.",
+        "Confirm all figures during professional legal, tax and financial planning. This is not legal advice.",
+      ],
+    },
+    resultGuide: {
+      heading: "How to read your estate results",
+      intro:
+        "The headline number is your Estimated Estate Liquidity Gap. Estate duty still matters—but cash shortfall is what forces asset sales and delays. The calculator also walks through gross estate, liabilities, abatement, dutiable estate, duty, executor's fees (with VAT shown separately), total costs, available liquidity and what may remain for beneficiaries.",
+      metricsListed: [
+        "Estimated Estate Liquidity Gap (primary)",
+        "Gross Estate",
+        "Less Liabilities",
+        "Net Estate Before Abatement",
+        "Abatement Applied",
+        "Dutiable Estate",
+        "Estimated Estate Duty",
+        "Estimated Executor's Fees (before VAT and incl. VAT)",
+        "Total Estimated Estate Costs",
+        "Available Estate Liquidity",
+        "Estimated Estate Available for Beneficiaries",
+      ],
+      highlightMetrics: [
+        {
+          label: "Total estate costs",
+          description:
+            "Estate duty plus executor's fees including VAT. This is the cash demand the estate may need to settle early in administration.",
+        },
+        {
+          label: "Available estate liquidity vs liquidity gap",
+          description:
+            "Liquidity is what can pay costs quickly. The gap is what may still be missing—and why property or investments might need to be sold.",
+        },
+      ],
+      footer:
+        "If the gap is material, review life cover ownership, cash reserves and estate reduction strategies before your family has to make decisions under pressure.",
+    },
+    methodSection: {
+      heading: "Why estate liquidity matters",
+      paragraphs: [
+        "Many South African families inherit valuable assets such as property, businesses or investment portfolios. However, those assets cannot always be converted into cash quickly.",
+        "Without sufficient liquidity, estates may need to sell assets at an unfavourable time simply to pay estate costs. Good estate planning therefore focuses on both reducing unnecessary costs and ensuring sufficient liquidity.",
+        "Connect this insight to the Retirement Gap Toolkit™, Income Tax planning, Estate Reduction strategies and the Retirement Gap Method™ so legacy planning is not left as an afterthought.",
+      ],
+      bullets: [
+        "Reduce unnecessary estate costs where appropriate",
+        "Ensure enough cash and life cover liquidity",
+        "Coordinate wills, trusts and beneficiary nominations",
+        "Review regularly as assets and family needs change",
+      ],
+      ctaLabel: "Open the Estate Reduction Calculator",
+      ctaHref: calculatorPagePath("asset-008-estate-reduction"),
+      secondaryCtaLabel: "Learn the Retirement Gap Method™",
+      secondaryCtaHref: "/retirement-gap-method",
+    },
+    assessmentSection: {
+      heading: "Want help closing an estate liquidity gap?",
+      intro:
+        "A Retirement Gap Review can help you test whether life cover, cash reserves, wills and donation strategies are enough to protect your family from forced sales and administration delays.",
+      bullets: [
+        "Current estate cost and liquidity estimate",
+        "Life cover payable to the estate vs beneficiaries",
+        "Wills, spouses and abatement planning",
+        "Links to retirement and legacy goals",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_007",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Toolkit",
+          assetCode: "ASSET 000",
+          title: "Retirement Gap Toolkit™",
+          description: "Return to the full calculator hub.",
+          href: "/calculators",
+        },
+        {
+          stepLabel: "Related",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "See how retirement capital and estate thinking connect.",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Related",
+          assetCode: "ASSET 006",
+          title: "Income Tax Calculator",
+          description: "Understand lifetime tax alongside estate costs.",
+          href: calculatorPagePath("asset-006-income-tax"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 008",
+          title: "Estate Reduction Strategy Calculator",
+          description: "Explore structured giving that may reduce dutiable estate.",
+          href: calculatorPagePath("asset-008-estate-reduction"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Connect estate liquidity to the full Method.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Protect your family from a cash-poor estate.",
+      body: "If this calculator raises concern, do not wait until administration begins. Book a Retirement Gap Review to discuss liquidity, life cover and legacy planning within the Retirement Gap Method™.",
+      primaryLabel: "Book a Retirement Gap Review",
+      primaryHref: "/contact?source=retirement_gap_review_asset_007",
+      secondaryLabel: "Continue with the Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
+    },
     readingSections: [
       {
-        heading: "Liquidity at death",
+        heading: "What this means for your family",
         paragraphs: [
-          "Families often have paper wealth but insufficient cash to pay duty, executor fees, and maintenance costs while the estate is wound up.",
-          "Life cover, trust structuring, and annual donations may form part of a coordinated estate plan.",
+          "Your estate may require substantial cash for estate duty and executor's fees even when the family balance sheet looks strong. If sufficient cash is unavailable, assets such as property or investments may need to be sold, or beneficiaries could experience delays while the estate is administered.",
+          "Many South African estates are asset-rich but cash-poor. Planning for estate liquidity is often just as important as reducing estate duty. Explore the Retirement Gap Toolkit™, compare scenarios in the Estate Reduction Calculator, and use a Retirement Gap Review when you want personalised guidance.",
+        ],
+      },
+      {
+        heading: "Estate costs inside the Retirement Gap Method™",
+        paragraphs: [
+          "Asset 007 answers a practical family question first, then leads into broader retirement and legacy planning. Pair it with the Retirement Reality Check for overall readiness, the Income Tax Calculator for lifetime tax context, and the Estate Reduction Strategy Calculator for possible cost-reduction levers.",
+          "The Retirement Gap Method™ brings these tools into one educational framework so estate planning is not treated as a standalone tax exercise.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "What is the estate duty abatement?",
+        question: "What is estate duty?",
         answer:
-          "The tool uses the R3.5 million abatement as implemented. Confirm current SARS rules with your estate planner.",
+          "Estate duty is a tax that may apply to the dutiable value of a deceased estate above the available abatement, at rates illustrated in this calculator (currently 20% and 25% bands).",
+      },
+      {
+        question: "What assets form part of my estate?",
+        answer:
+          "Typically property, investments, business interests, cash and other assets owned at death, subject to exclusions and structuring. Ownership and beneficiary nominations matter—confirm with a legal adviser.",
+      },
+      {
+        question: "How much is the estate duty abatement?",
+        answer:
+          "This tool uses the Section 4A abatement of R3.5 million. Confirm current legislation with your estate planner because rules can change.",
+      },
+      {
+        question: "What happens if my spouse dies first?",
+        answer:
+          "Spousal planning, bequests and abatement usage can change the duty and liquidity picture for the surviving spouse's later estate. Model both scenarios and take advice.",
+      },
+      {
+        question: "How are trusts treated for estate planning?",
+        answer:
+          "Trusts can form part of broader estate and legacy planning, but treatment depends on structure, funding and law. This calculator does not model trusts in detail—seek professional advice.",
+      },
+      {
+        question: "What are executor's fees?",
+        answer:
+          "Executor's remuneration is commonly illustrated at 3.5% of the gross estate plus VAT. This calculator shows the fee before VAT and VAT as separate line items before total costs.",
+      },
+      {
+        question: "Does life insurance form part of my estate?",
+        answer:
+          "It depends on ownership and who the policy is payable to. Cover payable to the estate can increase liquidity available to pay estate costs; cover payable to nominated beneficiaries may sit outside the estate. Structure carefully with advice.",
+      },
+      {
+        question: "How long does it take to wind up an estate?",
+        answer:
+          "Timing varies widely based on complexity, documentation, Master's Office processes and whether assets must be sold. Liquidity shortfalls often lengthen delays.",
+      },
+      {
+        question: "What is an estate liquidity gap?",
+        answer:
+          "It is the estimated shortfall between total estate costs (such as duty and executor's fees) and immediately available cash or liquid assets. A gap raises the risk of forced sales or delayed administration.",
       },
       {
         question: "Is this legal advice?",
         answer:
-          "No. Estate duty and wills require coordinated legal and tax advice. Use this tool to prepare questions for that review.",
-      }
+          "No. All calculations are educational estimates. Confirm figures during professional legal, tax and financial planning with qualified advisers, including FSP 17273 where financial advice is required.",
+      },
     ],
-    ...ESTATE,
+    categoryLabel: "Estate Cost & Liquidity",
+    categoryHref: "/estate-planning",
   },
 
   "asset-008-estate-reduction": {
@@ -2427,7 +2631,8 @@ function buildConfig(entry: CalculatorRegistryEntry): CalculatorPageConfig {
 }
 
 export function getCalculatorPageConfig(id: string): CalculatorPageConfig | undefined {
-  const entry = getCalculatorById(id);
+  const resolved = resolveCalculatorSlug(id);
+  const entry = getCalculatorById(resolved);
   if (!entry) return undefined;
   if (!PAGES[entry.id]) return undefined;
   return buildConfig(entry);
@@ -2437,4 +2642,10 @@ export function getAllCalculatorPageConfigs(): CalculatorPageConfig[] {
   return CALCULATOR_REGISTRY.map(buildConfig);
 }
 
-export const CALCULATOR_PAGE_SLUGS = CALCULATOR_REGISTRY.map((e) => e.id);
+const SLUG_ALIASES_FOR_STATIC = ["estate-duty-calculator"] as const;
+
+/** Registry ids plus SEO-friendly aliases used by /calculators/[slug]. */
+export const CALCULATOR_PAGE_SLUGS = [
+  ...CALCULATOR_REGISTRY.map((e) => e.id),
+  ...SLUG_ALIASES_FOR_STATIC,
+];

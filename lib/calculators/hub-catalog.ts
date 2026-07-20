@@ -49,7 +49,7 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
   "asset-004-life-of-capital": "Life of Capital Calculator",
   "asset-005-future-value": "Future Value Calculator",
   "asset-006-income-tax": "Income Tax Calculator",
-  "asset-007-estate-duty": "Estate Duty Calculator",
+  "asset-007-estate-duty": "Estate Cost & Liquidity Calculator",
   "asset-008-estate-reduction": "Estate Reduction Calculator",
   "asset-009-everest-142-income": "14.2% Income Calculator",
   "asset-010-everest-128-income": "12.8% Income Calculator",
@@ -76,7 +76,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
     "What is inflation doing to future purchasing power?",
   "asset-006-income-tax": "Estimate SARS income tax on your figures (illustrative).",
   "asset-007-estate-duty":
-    "What estate duty and executor fees may apply to an estate?",
+    "Will your family have enough cash to wind up your estate without selling assets?",
   "asset-008-estate-reduction":
     "How donation strategies can ease estate pressure within SARS limits.",
   "asset-009-everest-142-income":

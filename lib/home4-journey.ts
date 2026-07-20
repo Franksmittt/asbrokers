@@ -97,7 +97,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/estate-planning",
     links: [
       { label: "Legacy Readiness Checklist", href: "/legacy-readiness-checklist" },
-      { label: "Estate duty calculator", href: "/calculators/asset-007-estate-duty" },
+      { label: "Estate duty calculator", href: "/calculators/estate-duty-calculator" },
       { label: "Estate planning hub", href: "/estate-planning" },
     ],
     accent: "gold",
@@ -127,7 +127,7 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   {
     label: "Estate Duty",
     description: "Estimate duty and executor pressure, then engineer liquidity.",
-    href: "/calculators/asset-007-estate-duty",
+    href: "/calculators/estate-duty-calculator",
     image: "/images/risk-arch-estate.jpg",
   },
 ];

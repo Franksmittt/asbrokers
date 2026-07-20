@@ -26,6 +26,13 @@ line-height: 1.5;
 }
 
 
+#asb-estate-duty-calculator h3.asb-section-title {
+margin: 22px 0 12px;
+font-size: 16px;
+color: #111827;
+}
+
+
 .asb-grid {
 display: grid;
 grid-template-columns: 1fr 1fr;
@@ -91,6 +98,20 @@ color: #ffffff;
 }
 
 
+.asb-result-box.gap {
+background: #7f1d1d;
+color: #ffffff;
+border-color: #7f1d1d;
+}
+
+
+.asb-result-box.surplus {
+background: #0f766e;
+color: #ffffff;
+border-color: #0f766e;
+}
+
+
 .asb-label {
 font-size: 13px;
 text-transform: uppercase;
@@ -113,7 +134,9 @@ line-height: 1.5;
 }
 
 
-.asb-result-box.main .asb-small {
+.asb-result-box.main .asb-small,
+.asb-result-box.gap .asb-small,
+.asb-result-box.surplus .asb-small {
 color: #d1d5db;
 }
 
@@ -151,18 +174,6 @@ font-size: 14px;
 }
 
 
-.asb-disabled-button {
-display: inline-block;
-padding: 12px 16px;
-border-radius: 10px;
-background: #111827;
-color: #ffffff;
-font-weight: 700;
-font-size: 14px;
-cursor: default;
-}
-
-
 @media (max-width: 640px) {
 .asb-grid {
 grid-template-columns: 1fr;
@@ -171,14 +182,15 @@ grid-template-columns: 1fr;
 </style>
 
 
-<h2>AS Brokers Estate Duty & Executor Fee Calculator</h2>
+<h2>AS Brokers Estate Cost & Liquidity Calculator</h2>
 
 
 <p class="intro">
-Estimate estate duty, executor fees and the cash your estate may need at death.
+Estimate estate duty, executor fees and whether your family may have enough cash to wind up your estate without being forced to sell assets.
 </p>
 
 
+<h3 class="asb-section-title">Estate values</h3>
 <div class="asb-grid">
 <div class="asb-field">
 <label>Gross estate value</label>
@@ -199,31 +211,62 @@ Estimate estate duty, executor fees and the cash your estate may need at death.
 </div>
 
 
-<button class="asb-button" onclick="calculateEstateDuty()">Calculate estate costs</button>
+<h3 class="asb-section-title">Available estate liquidity</h3>
+<div class="asb-grid">
+<div class="asb-field">
+<label>Cash available</label>
+<input id="estateCash" type="number" value="100000">
+</div>
+
+
+<div class="asb-field">
+<label>Money market investments</label>
+<input id="estateMoneyMarket" type="number" value="50000">
+</div>
+
+
+<div class="asb-field">
+<label>Immediate-access savings</label>
+<input id="estateSavings" type="number" value="50000">
+</div>
+
+
+<div class="asb-field">
+<label>Life insurance payable to the estate</label>
+<input id="estateLifeCover" type="number" value="0">
+</div>
+
+
+<div class="asb-field">
+<label>Other immediately available liquidity</label>
+<input id="estateOtherLiquidity" type="number" value="0">
+</div>
+</div>
+
+
+<button class="asb-button" onclick="calculateEstateDuty()">Calculate estate liquidity</button>
 
 
 <div id="estateError" class="asb-error"></div>
 
 
 <div id="estateResults" class="asb-results">
-<div class="asb-result-box main">
-<div class="asb-label">Total estate costs</div>
-<div id="estateTotalCosts" class="asb-value"></div>
-<div class="asb-small">Estimated cash the estate may need for estate duty and executor fees.</div>
+<div id="estateLiquidityGapBox" class="asb-result-box gap">
+<div class="asb-label">Estimated Estate Liquidity Gap</div>
+<div id="estateLiquidityGap" class="asb-value"></div>
+<div id="estateLiquidityGapNote" class="asb-small"></div>
 </div>
 
 
-<div class="asb-result-box main">
-<div class="asb-label">Estate duty payable</div>
-<div id="estateDutyPayable" class="asb-value"></div>
-<div class="asb-small">Estimated estate duty after liabilities, spouse deduction and abatement.</div>
+<div class="asb-result-box">
+<div class="asb-label">Gross estate</div>
+<div id="estateGrossDisplay" class="asb-value"></div>
 </div>
 
 
-<div class="asb-result-box main">
-<div class="asb-label">Executor fees</div>
-<div id="estateExecutorFees" class="asb-value"></div>
-<div class="asb-small">Estimated executor fee at 3.5% of gross estate value plus 15% VAT.</div>
+<div class="asb-result-box">
+<div class="asb-label">Less liabilities</div>
+<div id="estateLiabilitiesDisplay" class="asb-value"></div>
 </div>
 
 
@@ -234,19 +277,63 @@ Estimate estate duty, executor fees and the cash your estate may need at death.
 
 
 <div class="asb-result-box">
-<div class="asb-label">Section 4A abatement used</div>
+<div class="asb-label">Abatement applied</div>
 <div id="estateAbatementUsed" class="asb-value"></div>
 </div>
 
 
 <div class="asb-result-box">
-<div class="asb-label">Dutiable estate value</div>
+<div class="asb-label">Dutiable estate</div>
 <div id="estateDutiableValue" class="asb-value"></div>
 </div>
 
 
 <div class="asb-result-box">
-<div class="asb-label">What this means for you</div>
+<div class="asb-label">Estimated estate duty</div>
+<div id="estateDutyPayable" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Estimated executor's fees (before VAT)</div>
+<div id="estateExecutorFeeBeforeVat" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">VAT on executor's fees</div>
+<div id="estateExecutorVat" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Estimated executor's fees (incl. VAT)</div>
+<div id="estateExecutorFees" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Total estimated estate costs</div>
+<div id="estateTotalCosts" class="asb-value"></div>
+<div class="asb-small">Estate duty plus executor's fees including VAT. Other administration costs may still apply.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Available estate liquidity</div>
+<div id="estateAvailableLiquidity" class="asb-value"></div>
+<div class="asb-small">Cash, money market, immediate-access savings, life cover payable to the estate and other liquid amounts entered above.</div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Estimated estate available for beneficiaries</div>
+<div id="estateForBeneficiaries" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">What this means</div>
 <div id="estateSummaryText" class="asb-small"></div>
 </div>
 </div>
@@ -255,23 +342,13 @@ Estimate estate duty, executor fees and the cash your estate may need at death.
 <div class="asb-cta">
 <h3>Educational note</h3>
 <p>
-This calculator provides a simplified estimate of South African estate duty and executor fees.
+This calculator provides a simplified estimate of South African estate duty, executor's fees and estate liquidity.
+It uses the current Section 4A abatement (R3.5 million) and estate duty rates of 20% / 25%.
 It does not include Master's fees, conveyancing costs, valuation costs, capital gains tax,
 income tax in the estate, funeral expenses or other administration costs.
-It is an educational planning tool and does not constitute legal, tax or financial advice.
+Results are educational estimates only and do not constitute legal, tax or financial advice.
+Confirm figures during professional legal, tax and financial planning.
 </p>
-
-
-<h3>Next step</h3>
-<p>
-Your calculator result is only the first step. Learn what this result means and how estate duty,
-estate liquidity, executor fees and proper estate planning work together.
-</p>
-
-
-<div class="asb-disabled-button">
-Learn what this result means by following the link below
-</div>
 </div>
 
 
@@ -282,7 +359,11 @@ return "R " + Math.round(value).toLocaleString("en-ZA");
 
 
 function estateGetNumber(id) {
-return parseFloat(document.getElementById(id).value);
+const raw = document.getElementById(id).value;
+if (raw === "" || raw === null) {
+return 0;
+}
+return parseFloat(raw);
 }
 
 
@@ -305,10 +386,16 @@ function calculateEstateDuty() {
 const grossEstateValue = estateGetNumber("estateGrossValue");
 const liabilities = estateGetNumber("estateLiabilities");
 const spouseBequest = estateGetNumber("estateSpouseBequest");
+const cash = estateGetNumber("estateCash");
+const moneyMarket = estateGetNumber("estateMoneyMarket");
+const savings = estateGetNumber("estateSavings");
+const lifeCover = estateGetNumber("estateLifeCover");
+const otherLiquidity = estateGetNumber("estateOtherLiquidity");
 
 
 const errorBox = document.getElementById("estateError");
 const resultsBox = document.getElementById("estateResults");
+const gapBox = document.getElementById("estateLiquidityGapBox");
 
 
 errorBox.style.display = "none"
@@ -318,15 +405,29 @@ resultsBox.style.display = "none"
 if (
 isNaN(grossEstateValue) ||
 isNaN(liabilities) ||
-isNaN(spouseBequest)
+isNaN(spouseBequest) ||
+isNaN(cash) ||
+isNaN(moneyMarket) ||
+isNaN(savings) ||
+isNaN(lifeCover) ||
+isNaN(otherLiquidity)
 ) {
-errorBox.innerText = "Please complete all fields."
+errorBox.innerText = "Please complete all fields with valid numbers."
 errorBox.style.display = "block"
 return;
 }
 
 
-if (grossEstateValue < 0 || liabilities < 0 || spouseBequest < 0) {
+if (
+grossEstateValue < 0 ||
+liabilities < 0 ||
+spouseBequest < 0 ||
+cash < 0 ||
+moneyMarket < 0 ||
+savings < 0 ||
+lifeCover < 0 ||
+otherLiquidity < 0
+) {
 errorBox.innerText = "Values cannot be negative."
 errorBox.style.display = "block"
 return;
@@ -355,29 +456,52 @@ const executorFees = executorFeeBeforeVat + executorVat;
 
 
 const totalEstateCosts = estateDutyPayable + executorFees;
+const availableLiquidity = cash + moneyMarket + savings + lifeCover + otherLiquidity;
+const liquidityGap = Math.max(0, totalEstateCosts - availableLiquidity);
+const liquiditySurplus = Math.max(0, availableLiquidity - totalEstateCosts);
+const estateForBeneficiaries = Math.max(0, netEstateBeforeAbatement - totalEstateCosts);
 
 
-document.getElementById("estateTotalCosts").innerText = estateFormatRand(totalEstateCosts);
-document.getElementById("estateDutyPayable").innerText = estateFormatRand(estateDutyPayable);
-document.getElementById("estateExecutorFees").innerText = estateFormatRand(executorFees);
+document.getElementById("estateGrossDisplay").innerText = estateFormatRand(grossEstateValue);
+document.getElementById("estateLiabilitiesDisplay").innerText = estateFormatRand(liabilities);
 document.getElementById("estateNetBeforeAbatement").innerText = estateFormatRand(netEstateBeforeAbatement);
 document.getElementById("estateAbatementUsed").innerText = estateFormatRand(abatementUsed);
 document.getElementById("estateDutiableValue").innerText = estateFormatRand(dutiableEstateValue);
+document.getElementById("estateDutyPayable").innerText = estateFormatRand(estateDutyPayable);
+document.getElementById("estateExecutorFeeBeforeVat").innerText = estateFormatRand(executorFeeBeforeVat);
+document.getElementById("estateExecutorVat").innerText = estateFormatRand(executorVat);
+document.getElementById("estateExecutorFees").innerText = estateFormatRand(executorFees);
+document.getElementById("estateTotalCosts").innerText = estateFormatRand(totalEstateCosts);
+document.getElementById("estateAvailableLiquidity").innerText = estateFormatRand(availableLiquidity);
+document.getElementById("estateForBeneficiaries").innerText = estateFormatRand(estateForBeneficiaries);
+
+
+if (liquidityGap > 0) {
+gapBox.className = "asb-result-box gap";
+document.getElementById("estateLiquidityGap").innerText = estateFormatRand(liquidityGap);
+document.getElementById("estateLiquidityGapNote").innerText =
+"This represents the estimated additional cash your estate may require to settle estate duty, executor's fees and related administration costs after allowing for available liquidity. If sufficient cash is unavailable, assets may need to be sold or beneficiaries could experience delays while the estate is administered.";
+} else {
+gapBox.className = "asb-result-box surplus";
+document.getElementById("estateLiquidityGap").innerText = estateFormatRand(0);
+document.getElementById("estateLiquidityGapNote").innerText =
+"Under these assumptions, available liquidity appears sufficient to cover the estimated estate duty and executor's fees shown below" +
+(liquiditySurplus > 0 ? ", with an illustrative surplus of about " + estateFormatRand(liquiditySurplus) + "." : ".") +
+" Other estate administration costs may still apply.";
+}
 
 
 document.getElementById("estateSummaryText").innerText =
-"Based on a gross estate value of " + estateFormatRand(grossEstateValue) +
-", liabilities of " + estateFormatRand(liabilities) +
-" and spouse bequests of " + estateFormatRand(spouseBequest) +
-", the estimated net estate before abatement is " +
-estateFormatRand(netEstateBeforeAbatement) +
-". After applying the Section 4A abatement, the estimated dutiable estate value is " +
-estateFormatRand(dutiableEstateValue) +
-". Estimated estate duty is " + estateFormatRand(estateDutyPayable) +
-". Estimated executor fees are " + estateFormatRand(executorFees) +
-". This means the estate may need approximately " +
-estateFormatRand(totalEstateCosts) +
-" in cash for these two estate costs alone. Other estate costs may still apply."
+"Your estate is estimated to require approximately " + estateFormatRand(totalEstateCosts) +
+" in estate costs, including estate duty of " + estateFormatRand(estateDutyPayable) +
+" and executor's fees of " + estateFormatRand(executorFees) +
+" (including VAT). Available estate liquidity is estimated at " +
+estateFormatRand(availableLiquidity) +
+". " +
+(liquidityGap > 0
+? "If sufficient cash is unavailable, assets such as property or investments may need to be sold, or your beneficiaries could experience delays while your estate is administered. "
+: "Under these figures, cash liquidity appears able to cover the estimated duty and executor costs shown. ") +
+"Many South African estates are asset-rich but cash-poor. Planning for estate liquidity is often just as important as reducing estate duty.";
 
 
 resultsBox.style.display = "block"

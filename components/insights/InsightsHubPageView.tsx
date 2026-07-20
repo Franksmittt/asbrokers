@@ -84,7 +84,7 @@ export const INSIGHTS_TOPIC_NAV = [
 
 const CALC_HANDOFFS = [
   { label: "Retirement reality check", href: "/calculators/asset-002-retirement-reality-check" },
-  { label: "Estate duty & executor fees", href: "/calculators/asset-007-estate-duty" },
+  { label: "Estate duty & executor fees", href: "/calculators/estate-duty-calculator" },
   { label: "Average clause underinsurance", href: "/calculators/asset-015-average-clause" },
   { label: "Full calculator library", href: "/calculators" },
 ] as const;

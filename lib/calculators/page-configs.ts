@@ -126,6 +126,14 @@ export type CalculatorIncomeFlow = {
   footer?: string;
 };
 
+/** Educational comparison of which Toolkit tool suits which goal. */
+export type CalculatorDecisionComparison = {
+  heading: string;
+  intro?: string;
+  rows: { objective: string; toolLabel: string; href?: string; current?: boolean }[];
+  footer?: string;
+};
+
 export type CalculatorJourneyItem = {
   assetCode: string;
   title: string;
@@ -222,6 +230,8 @@ export type CalculatorPageConfig = {
   lifestyleExample?: CalculatorLifestyleExample;
   /** Simple gross → tax → net income flow diagram. */
   incomeFlow?: CalculatorIncomeFlow;
+  /** Which Toolkit tool to explore for different retirement goals. */
+  decisionComparison?: CalculatorDecisionComparison;
   practicalWays?: CalculatorPracticalWays;
   methodSection?: CalculatorMethodSection;
   assessmentSection?: CalculatorAssessmentSection;
@@ -2639,58 +2649,330 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-010-everest-128-income": {
-    shortTitle: "Everest 12.8% Income Calculator",
-    seoTitle: "Everest 12.8% Strategic Income Calculator",
+    shortTitle: "12.8% Retirement Income Calculator",
+    seoTitle: "12.8% Retirement Income Calculator | Income Today vs Long-Term Value",
     seoDescription:
-      "Illustrate Everest 12.8% Strategic Income including 10% loyalty bonus at year five. Net income after DWT. R100k minimum. FSP 17273.",
-    keywords: ["Everest 12.8 calculator", "Strategic Income calculator", "Everest Wealth calculator"],
-    kicker: "Everest Wealth",
-    heroTitle: "Model Everest 12.8% Strategic Income",
+      "Would you accept slightly lower retirement income today for potentially greater long-term value? Estimate 12.8% distribution income and five-year loyalty bonus trade-offs. Educational Toolkit tool. FSP 17273.",
+    keywords: [
+      "12.8% income calculator",
+      "retirement income trade-off",
+      "loyalty bonus calculator",
+      "Everest 12.8 calculator",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 010",
+    heroTitle: "Would you accept slightly lower income today for potentially greater long-term value?",
     heroSubtitle:
-      "Balance monthly dividends with a 10% loyalty bonus at year five. Illustrative net income after dividend withholding tax.",
+      "Not every retirement income investment is designed to maximise today's income. Some investors choose a slightly lower annual distribution in exchange for additional long-term benefits. This calculator estimates your monthly income from a 12.8% distribution and illustrates how a loyalty bonus after five years may affect your overall return.",
     heroImage: "/images/calc-lcp/asset-010.webp",
     heroImageAlt: "Couple walking an estate path — patient income with long-term reward",
     calculatorLead:
-      "Enter voluntary lump sum to see monthly income illustration and five-year bonus impact. Targeted returns only.",
-    sidePanelTitle: "Strategic Income profile",
+      "Enter investment amount and period. Monthly after-tax income is prioritised. The loyalty bonus is included only when your selected period is five years or longer.",
+    sidePanelTitle: "A retirement decision, not a product pitch",
     sidePanelParagraphs: [
-      "12.8% Strategic Income suits clients who can accept slightly lower day-one income for long-term bonus value at maturity.",
-      "Discuss liquidity, tax, and suitability with FSP 17273 before committing voluntary capital.",
+      "Asset 009 asks whether you want the highest income available today. This page asks whether you are prepared to accept lower income today for potential long-term value. Asset 011 helps you compare both objectively.",
+      "Use this illustration after you understand your Retirement Gap—not as a standalone product page.",
     ],
     sidePanelBullets: [
-      "10% loyalty bonus at year 5",
-      "Monthly dividend income",
-      "R100,000 minimum",
-      "120-day liquidity notice may apply",
+      "Income today vs long-term value trade-off",
+      "Bonus included only at 5+ years",
+      "Tax-aware monthly income focus",
+      "Educational illustration only",
     ],
-    fiduciaryNotes: [...FIDUCIARY, "Show liquidity warning on voluntary Everest products."],
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Voluntary income investments may be illiquid. Suitability review with FSP 17273 is required before investing.",
+    ],
     howToSteps: [
-      { title: "Enter lump sum", description: "R100,000 minimum voluntary investment." },
-      { title: "View monthly income", description: "Illustrative gross and net dividends." },
-      { title: "See bonus at year 5", description: "10% loyalty bonus on capital illustration." },
-      { title: "Book suitability review", description: "Confirm fit with independent Category 1.8 advice." },
+      { title: "Enter capital and period", description: "Use at least R100,000 and set how many years you may stay invested." },
+      { title: "Confirm rate, tax and bonus", description: "Adjust assumptions if you want to stress-test the trade-off." },
+      { title: "Read the Retirement Insight", description: "See whether the loyalty bonus is included for your period." },
+      { title: "Compare strategies", description: "Open the 14.2% calculator or the Income Comparison tool next." },
     ],
+    heroCta: {
+      primaryLabel: "Calculate My Income Trade-off",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Compare higher immediate income",
+      secondaryHref: calculatorPagePath("asset-009-everest-142-income"),
+    },
+    contextBox: {
+      heading: "Higher income today is not always the better retirement outcome",
+      paragraphs: [
+        "Some retirees prioritise higher immediate income. Others prioritise higher long-term value, greater certainty over a holding period, or different liquidity needs.",
+        "This calculator helps illustrate one possible trade-off inside the Retirement Gap Toolkit™—then points you to compare both strategies objectively.",
+      ],
+      highlightQuestion:
+        "Would I prefer higher income today, or am I willing to accept slightly lower income now for the possibility of greater long-term value?",
+    },
+    methodProgress: {
+      heading: "Connected income journey",
+      steps: [
+        {
+          stepLabel: "Option A",
+          title: "14.2% Income Calculator",
+          description: "Asset 009 — Highest income available today",
+          href: calculatorPagePath("asset-009-everest-142-income"),
+        },
+        {
+          stepLabel: "You are here",
+          title: "12.8% Income Calculator",
+          description: "Asset 010 — Lower income today for potential long-term value",
+          current: true,
+        },
+        {
+          stepLabel: "Next",
+          title: "Income Comparison Calculator",
+          description: "Asset 011 — Compare both strategies objectively",
+          href: calculatorPagePath("asset-011-everest-128-vs-142"),
+        },
+      ],
+    },
+    assumptionCallout: {
+      heading: "Before you calculate",
+      paragraphs: [
+        "Illustrative purposes only. Distribution rates are assumptions and may change. Loyalty bonuses remain subject to the investment's terms and conditions. Capital values may rise or fall. Past performance does not guarantee future returns.",
+        "Set your investment period carefully: the loyalty bonus illustration is included only when the period is five years or longer.",
+      ],
+    },
+    resultGuide: {
+      heading: "Retirement Gap Insight",
+      intro:
+        "A higher distribution does not automatically lead to a better retirement outcome. The right strategy depends on your income needs, investment horizon, tax position, liquidity requirements and overall retirement plan. This calculator illustrates one possible income strategy. It should always be considered alongside your broader Retirement Gap.",
+      metricsListed: [
+        "Monthly Income After Tax",
+        "Annual Income After Tax",
+        "Loyalty bonus (included only at 5+ years)",
+        "Total net income over selected period",
+        "Effective net yield",
+      ],
+      highlightMetrics: [
+        {
+          label: "Interpret the period first",
+          description:
+            "If your period is under five years, the loyalty bonus is excluded. At five years or longer, the estimated bonus is included—still subject to terms, conditions and performance.",
+        },
+        {
+          label: "Decide with the Method in mind",
+          description:
+            "Compare higher immediate income, then use the Income Comparison Calculator. Living Annuity and income-vs-growth tools help place the choice in a full retirement plan.",
+        },
+      ],
+      footer:
+        "Remember that future distributions and bonuses remain subject to the investment's terms, conditions and performance.",
+    },
+    decisionComparison: {
+      heading: "Which approach may suit different retirement goals?",
+      intro: "These calculators work together rather than competing with one another.",
+      rows: [
+        {
+          objective: "Maximise income today",
+          toolLabel: "Asset 009 — 14.2% Income Calculator",
+          href: calculatorPagePath("asset-009-everest-142-income"),
+        },
+        {
+          objective: "Balance income with potential long-term value",
+          toolLabel: "Asset 010 — 12.8% Income Calculator",
+          current: true,
+        },
+        {
+          objective: "Compare both options side by side",
+          toolLabel: "Asset 011 — Income Comparison Calculator",
+          href: calculatorPagePath("asset-011-everest-128-vs-142"),
+        },
+      ],
+      footer:
+        "Also compare income and growth strategies with Asset 013, and estimate retirement income needs with the Living Annuity Calculator.",
+    },
+    withdrawalGuide: {
+      heading: "Why some investors choose lower income today",
+      intro:
+        "Retirees do not all optimise for the same outcome. Priorities may include higher immediate income, higher long-term value, greater certainty over a planned holding period, or different liquidity needs. This calculator illustrates one possible trade-off—not a recommendation.",
+      levels: [
+        {
+          label: "Sustainability of income",
+          description: "Can the income support your lifestyle if distributions change?",
+        },
+        {
+          label: "Inflation",
+          description: "Will tomorrow's living costs still fit today's income illustration?",
+        },
+        {
+          label: "Taxation",
+          description: "Dividend withholding tax and other tax rules affect what you keep.",
+        },
+        {
+          label: "Investment risk",
+          description: "Targeted rates are not guarantees; capital values may rise or fall.",
+        },
+        {
+          label: "Liquidity requirements",
+          description: "Access to capital may be restricted; confirm notice periods and penalties.",
+        },
+        {
+          label: "Diversification",
+          description: "One income illustration should not be your entire retirement strategy.",
+        },
+        {
+          label: "Capital preservation",
+          description: "Decide how much risk to capital you can accept for income today.",
+        },
+        {
+          label: "Estate planning objectives",
+          description: "Income timing can interact with legacy and liquidity planning for heirs.",
+        },
+      ],
+      closing:
+        "These considerations naturally lead into the Retirement Gap Method™—where retirement, tax and estate planning work together.",
+    },
+    methodSection: {
+      heading: "Education first. Product second.",
+      paragraphs: [
+        "This page must not feel like a product brochure. It exists to help you answer a retirement planning question about income timing versus long-term value.",
+        "Compare higher immediate income, compare both strategies side by side, then place the decision inside the Retirement Gap Method™ and a Retirement Gap Review when you want personalised advice.",
+      ],
+      bullets: [
+        "Asset 009 — highest income today",
+        "Asset 010 — income/long-term value trade-off",
+        "Asset 011 — objective comparison",
+        "Method + Review — personalised next step",
+      ],
+      ctaLabel: "Compare both strategies",
+      ctaHref: calculatorPagePath("asset-011-everest-128-vs-142"),
+      secondaryCtaLabel: "Compare higher immediate income",
+      secondaryCtaHref: calculatorPagePath("asset-009-everest-142-income"),
+    },
+    assessmentSection: {
+      heading: "Need help choosing an income trade-off?",
+      intro:
+        "A Retirement Gap Review can help you test whether higher income today or potential long-term value better fits your horizon, tax position, liquidity needs and overall plan.",
+      bullets: [
+        "Income need vs illustrated monthly income",
+        "Holding period and bonus eligibility",
+        "Liquidity, tax and diversification",
+        "Links to living annuity and growth comparisons",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_010",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Toolkit",
+          assetCode: "ASSET 000",
+          title: "Retirement Gap Toolkit™",
+          description: "Return to the full calculator hub.",
+          href: "/calculators",
+        },
+        {
+          stepLabel: "Compare",
+          assetCode: "ASSET 009",
+          title: "14.2% Income Calculator",
+          description: "Compare higher immediate income.",
+          href: calculatorPagePath("asset-009-everest-142-income"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 011",
+          title: "Income Comparison Calculator",
+          description: "Compare both strategies objectively.",
+          href: calculatorPagePath("asset-011-everest-128-vs-142"),
+        },
+        {
+          stepLabel: "Also",
+          assetCode: "ASSET 013",
+          title: "Income vs Growth Comparison",
+          description: "Compare income and growth strategies.",
+          href: calculatorPagePath("asset-013-everest-income-vs-growth"),
+        },
+        {
+          stepLabel: "Also",
+          assetCode: "ASSET 014",
+          title: "Living Annuity Calculator",
+          description: "Estimate retirement income needs and drawdown.",
+          href: calculatorPagePath("asset-014-living-annuity"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Connect income choices to the full Method.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Choose the trade-off that fits your Retirement Gap—not the highest percentage.",
+      body: "Asset 009, Asset 010 and Asset 011 form a connected educational journey: highest income today, income for potential long-term value, then an objective comparison. Continue with the Retirement Gap Method™ or book a Retirement Gap Review for personalised advice.",
+      primaryLabel: "Learn the Retirement Gap Method™",
+      primaryHref: "/retirement-gap-method",
+      secondaryLabel: "Book a Retirement Gap Review",
+      secondaryHref: "/contact?source=retirement_gap_review_asset_010",
+    },
     readingSections: [
       {
-        heading: "Understanding the loyalty bonus",
+        heading: "Place this trade-off inside a complete plan",
         paragraphs: [
-          "The bonus rewards five-year commitment. Clients who may need capital earlier should stress-test liquidity rules before investing.",
-          "Dividends are taxed at 20% DWT, which may differ from your marginal income tax rate.",
+          "Retirement income decisions should also consider sustainability, inflation, taxation, investment risk, liquidity, diversification, capital preservation and estate planning objectives.",
+          "Compare income and growth strategies, estimate living annuity income needs, and return to the Retirement Gap Toolkit™ so any illustration stays connected to your broader Retirement Gap—not a one-product decision.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "How does 12.8% compare to 14.2%?",
-        answer: "Use our 12.8% vs 14.2% comparison calculator for a side-by-side five-year illustration.",
+        question: "Why would someone choose a lower distribution?",
+        answer:
+          "Some people accept slightly lower income today for potential long-term benefits such as a loyalty bonus, a preferred holding-period structure, or a better fit with their overall retirement plan. Suitability depends on personal circumstances.",
+      },
+      {
+        question: "What happens if I withdraw before five years?",
+        answer:
+          "In this illustration the loyalty bonus is not included when the investment period is under five years. Early exit may also be subject to liquidity rules, notice periods and penalties. Confirm actual product terms during advice.",
+      },
+      {
+        question: "Is the loyalty bonus guaranteed?",
+        answer:
+          "No. Loyalty bonuses remain subject to the investment's terms, conditions and performance. Treat calculator outputs as educational estimates only.",
+      },
+      {
+        question: "Can the distribution rate change?",
+        answer:
+          "Yes. Distribution rates are assumptions and may change. Stress-test different rates in the calculator fields.",
+      },
+      {
+        question: "Is this investment suitable for retirees?",
+        answer:
+          "It may be suitable for some retirees and unsuitable for others. Suitability depends on income needs, horizon, liquidity, tax, risk tolerance and the rest of your Retirement Gap. Advice is required.",
+      },
+      {
+        question: "How does this compare with the 14.2% Income Calculator?",
+        answer:
+          "Asset 009 illustrates higher immediate income. This page illustrates lower income today with potential long-term value. Use the Income Comparison Calculator for a side-by-side view.",
+      },
+      {
+        question: "Should I compare income only, or total return?",
+        answer:
+          "Compare both. Monthly income matters for lifestyle funding; total return over your holding period matters for long-term value. Asset 011 helps compare strategies objectively.",
+      },
+      {
+        question: "Does this calculator include tax?",
+        answer:
+          "Yes. It applies an adjustable dividend withholding tax assumption to income and to the loyalty bonus when included.",
+      },
+      {
+        question: "Is this financial advice?",
+        answer:
+          "No. It is an educational illustration only. Personalised advice requires a suitability process with an authorised adviser (FSP 17273).",
       },
       {
         question: "Is 12.8% guaranteed?",
         answer:
           "No. It is a targeted return profile subject to issuer performance and risk. Liquidity constraints and a suitability review apply.",
-      }
+      },
     ],
-    ...EVEREST,
+    categoryLabel: "Retirement Income",
+    categoryHref: "/calculators",
   },
 
   "asset-011-everest-128-vs-142": {

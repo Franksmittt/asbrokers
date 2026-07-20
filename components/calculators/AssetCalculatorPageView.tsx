@@ -51,6 +51,7 @@ export function AssetCalculatorPageView({
   valueProgress,
   lifestyleExample,
   incomeFlow,
+  decisionComparison,
   practicalWays,
   methodSection,
   assessmentSection,
@@ -593,6 +594,89 @@ export function AssetCalculatorPageView({
             ) : null}
             {resultGuide.footer ? (
               <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{resultGuide.footer}</p>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {decisionComparison ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-12 md:py-16"
+          style={{ backgroundColor: "#FDFCFA" }}
+          aria-labelledby={`${path}-decision-comparison-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-decision-comparison-heading`}
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+            >
+              {decisionComparison.heading}
+            </h2>
+            {decisionComparison.intro ? (
+              <p
+                className="mt-4 max-w-3xl leading-relaxed"
+                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+              >
+                {decisionComparison.intro}
+              </p>
+            ) : null}
+            <div className="mt-8 overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200/90">
+              <div className="grid grid-cols-1 gap-0 sm:grid-cols-2">
+                <div className="border-b border-stone-200/80 bg-stone-50 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-stone-500 sm:border-r">
+                  Retirement objective
+                </div>
+                <div className="hidden border-b border-stone-200/80 bg-stone-50 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-stone-500 sm:block">
+                  Calculator to explore
+                </div>
+                {decisionComparison.rows.map((row) => {
+                  const tool = row.href && !row.current ? (
+                    <Link
+                      href={row.href}
+                      prefetch={false}
+                      className="font-semibold hover:underline"
+                      style={{ color: TEAL }}
+                    >
+                      {row.toolLabel}
+                    </Link>
+                  ) : (
+                    <span className="font-semibold text-shark">{row.toolLabel}</span>
+                  );
+                  return (
+                    <div key={row.objective} className="contents">
+                      <div
+                        className={`border-b border-stone-200/80 px-5 py-4 text-sm leading-relaxed text-stone-700 sm:border-r ${
+                          row.current ? "bg-teal-50/60" : ""
+                        }`}
+                      >
+                        <p className="sm:hidden text-[11px] font-semibold uppercase tracking-[0.12em] text-stone-500">
+                          Retirement objective
+                        </p>
+                        <p className="sm:mt-0 mt-1">{row.objective}</p>
+                      </div>
+                      <div
+                        className={`border-b border-stone-200/80 px-5 py-4 text-sm leading-relaxed ${
+                          row.current ? "bg-teal-50/60" : ""
+                        }`}
+                      >
+                        <p className="sm:hidden text-[11px] font-semibold uppercase tracking-[0.12em] text-stone-500">
+                          Calculator to explore
+                        </p>
+                        <p className="sm:mt-0 mt-1">
+                          {row.current ? "This calculator — " : null}
+                          {tool}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            {decisionComparison.footer ? (
+              <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">
+                {decisionComparison.footer}
+              </p>
             ) : null}
           </div>
         </section>

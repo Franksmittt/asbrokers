@@ -8,6 +8,7 @@ import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
+import { ContextBoxCompare } from "@/components/calculators/ContextBoxCompare";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -274,66 +275,7 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
-      {contextBox ? (
-        <>
-          <section
-            data-chunk-boundary="true"
-            className="border-b border-stone-200/80 bg-shark py-14 text-white md:py-20"
-            aria-labelledby={`${path}-context-heading`}
-          >
-            <div className={HOME4_WRAP}>
-              <div className="mx-auto max-w-3xl text-center">
-                <h2
-                  id={`${path}-context-heading`}
-                  className="font-bold tracking-tight text-white"
-                  style={{ fontSize: "clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem)" }}
-                >
-                  {contextBox.heading}
-                </h2>
-                <div className="mt-6 space-y-4">
-                  {contextBox.paragraphs.map((paragraph) => (
-                    <p
-                      key={paragraph.slice(0, 48)}
-                      className="leading-relaxed text-white/70"
-                      style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-                {contextBox.highlightQuestion ? (
-                  <p
-                    className="mt-8 font-serif font-semibold tracking-tight text-white"
-                    style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", lineHeight: 1.25 }}
-                  >
-                    {contextBox.highlightQuestion}
-                  </p>
-                ) : null}
-                <p className="mt-10 text-sm leading-relaxed text-white/55">
-                  Part of the{" "}
-                  <Link
-                    href="/calculators"
-                    prefetch={false}
-                    className="font-semibold text-[#5EEAD4] hover:opacity-80"
-                  >
-                    Retirement Gap Toolkit™
-                  </Link>
-                  . After you run the numbers, continue with the{" "}
-                  <Link
-                    href="/retirement-gap-method"
-                    prefetch={false}
-                    className="font-semibold text-[#5EEAD4] hover:opacity-80"
-                  >
-                    Retirement Gap Method™
-                  </Link>
-                  .
-                </p>
-              </div>
-            </div>
-          </section>
-          {lightSurface.afterDark()}
-        </>
-      ) : null}
+      {contextBox ? <ContextBoxCompare path={path} contextBox={contextBox} /> : null}
 
       {audienceGuide ? (
         <section

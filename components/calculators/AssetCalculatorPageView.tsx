@@ -8,7 +8,8 @@ import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
-import { ContextBoxCompare } from "@/components/calculators/ContextBoxCompare";
+import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
+import { PracticalWaysCompare } from "@/components/calculators/PracticalWaysCompare";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -275,7 +276,7 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
-      {contextBox ? <ContextBoxCompare path={path} contextBox={contextBox} /> : null}
+      {contextBox ? <ContextBoxSection path={path} contextBox={contextBox} /> : null}
 
       {audienceGuide ? (
         <section
@@ -1037,69 +1038,7 @@ export function AssetCalculatorPageView({
 
       {readingSectionsPlacement === "after-results" ? renderReadingBlock() : null}
 
-      {practicalWays ? (
-        <section
-          data-chunk-boundary="true"
-          className="border-b border-stone-200/80 py-12 md:py-16"
-          style={lightSurface.next()}
-          aria-labelledby={`${path}-practical-heading`}
-        >
-          <div className={HOME4_WRAP}>
-            <h2
-              id={`${path}-practical-heading`}
-              className="max-w-3xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
-            >
-              {practicalWays.heading}
-            </h2>
-            <p
-              className="mt-4 max-w-3xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              {practicalWays.intro}
-            </p>
-            <ol className="mt-8 max-w-3xl list-decimal space-y-3 pl-5">
-              {practicalWays.items.map((item) => {
-                const label = typeof item === "string" ? item : item.label;
-                const href = typeof item === "string" ? undefined : item.href;
-                return (
-                  <li
-                    key={label}
-                    className="leading-relaxed"
-                    style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-                  >
-                    {href ? (
-                      <Link href={href} prefetch={false} className="font-semibold hover:underline" style={{ color: TEAL }}>
-                        {label}
-                      </Link>
-                    ) : (
-                      label
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-            <p
-              className="mt-6 max-w-3xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              {practicalWays.closing}
-            </p>
-            {practicalWays.ctaLabel && practicalWays.ctaHref ? (
-              <p className="mt-8">
-                <Link
-                  href={practicalWays.ctaHref}
-                  prefetch={false}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
-                >
-                  {practicalWays.ctaLabel}
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-              </p>
-            ) : null}
-          </div>
-        </section>
-      ) : null}
+      {practicalWays ? <PracticalWaysCompare path={path} practicalWays={practicalWays} /> : null}
 
       {readingSectionsPlacement === "after-practical" ? renderReadingBlock() : null}
 

@@ -86,7 +86,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-011-everest-128-vs-142":
     "Which income strategy best fits your voluntary capital objectives?",
   "asset-012-strategic-growth":
-    "Illustrate Everest strategic growth portfolio maths over time.",
+    "Can you leave capital untouched for five years to maximise growth?",
   "asset-013-everest-income-vs-growth":
     "Income profiles versus compounding growth, educational only.",
   "asset-014-living-annuity":

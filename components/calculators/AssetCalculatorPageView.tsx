@@ -40,6 +40,7 @@ export function AssetCalculatorPageView({
   faqs,
   categoryLabel,
   categoryHref,
+  decisionQuestion,
   contextBox,
   audienceGuide,
   assumptionCallout,
@@ -186,6 +187,36 @@ export function AssetCalculatorPageView({
         </div>
       </header>
 
+      {decisionQuestion ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-8 md:py-10"
+          style={{ backgroundColor: CANVAS }}
+          aria-labelledby={`${path}-decision-question-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <div
+              className="max-w-3xl rounded-2xl px-6 py-6 ring-1 ring-stone-200/90 sm:px-8 sm:py-7"
+              style={{ backgroundColor: "#FDFCFA" }}
+            >
+              <p
+                id={`${path}-decision-question-heading`}
+                className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                style={{ color: TEAL }}
+              >
+                {decisionQuestion.label ?? "Decision Question"}
+              </p>
+              <p
+                className="mt-3 font-serif text-xl font-semibold tracking-tight sm:text-2xl"
+                style={{ color: INK }}
+              >
+                {decisionQuestion.question}
+              </p>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {contextBox ? (
         <section
           data-chunk-boundary="true"
@@ -283,6 +314,31 @@ export function AssetCalculatorPageView({
                 </li>
               ))}
             </ul>
+            {audienceGuide.examples && audienceGuide.examples.length > 0 ? (
+              <div className="mt-10 max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: TEAL }}>
+                  {audienceGuide.examplesHeading ?? "Examples include"}
+                </p>
+                <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {audienceGuide.examples.map((example) => (
+                    <li key={example} className="flex items-start gap-2 text-sm leading-relaxed text-stone-600">
+                      <span className="mt-0.5 font-bold" style={{ color: TEAL }} aria-hidden>
+                        ·
+                      </span>
+                      {example}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+            {audienceGuide.exclusionNote ? (
+              <p
+                className="mt-8 max-w-3xl leading-relaxed"
+                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+              >
+                {audienceGuide.exclusionNote}
+              </p>
+            ) : null}
           </div>
         </section>
       ) : null}
@@ -290,7 +346,7 @@ export function AssetCalculatorPageView({
       <section
         data-chunk-boundary="true"
         className="border-b border-stone-200/80 py-12 md:py-16"
-        style={{ backgroundColor: contextBox || audienceGuide ? "#FDFCFA" : CANVAS }}
+        style={{ backgroundColor: decisionQuestion || contextBox || audienceGuide ? "#FDFCFA" : CANVAS }}
       >
         <div className={HOME4_WRAP}>
           <h2

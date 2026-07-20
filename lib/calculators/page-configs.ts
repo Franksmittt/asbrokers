@@ -9,6 +9,16 @@ export type CalculatorContextBox = {
   highlightQuestion?: string;
 };
 
+/**
+ * Standard Toolkit decision prompt shown immediately below the hero.
+ * Frames the page as a planning decision, not merely a calculator.
+ */
+export type CalculatorDecisionQuestion = {
+  /** Defaults to "Decision Question" */
+  label?: string;
+  question: string;
+};
+
 export type CalculatorResultBand = {
   label: string;
   description: string;
@@ -110,6 +120,11 @@ export type CalculatorAudienceGuide = {
   heading: string;
   intro?: string;
   items: string[];
+  /** Optional capital-source examples (e.g. inheritance, property sale). */
+  examplesHeading?: string;
+  examples?: string[];
+  /** Who this tool is not intended for. */
+  exclusionNote?: string;
 };
 
 /** Short assumptions / disclaimer callout immediately before the tool. */
@@ -209,7 +224,12 @@ export type CalculatorPageConfig = {
   faqs: FAQItem[];
   categoryLabel: string;
   categoryHref: string;
-  /** Shown immediately below the hero, before how-to / calculator. */
+  /**
+   * Decision Question — standard Toolkit component immediately below the hero.
+   * Mirrors a financial-planning meeting question before the visitor uses the tool.
+   */
+  decisionQuestion?: CalculatorDecisionQuestion;
+  /** Shown immediately below the hero (or Decision Question), before how-to / calculator. */
   contextBox?: CalculatorContextBox;
   /** Audience suitability list before how-to / calculator. */
   audienceGuide?: CalculatorAudienceGuide;
@@ -3268,56 +3288,283 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-012-strategic-growth": {
-    shortTitle: "Everest 14.5% Strategic Growth Calculator",
-    seoTitle: "Everest 14.5% Strategic Growth Calculator",
+    shortTitle: "Strategic Growth Calculator",
+    seoTitle: "Strategic Growth Decision Tool | Leave Capital Untouched for Five Years?",
     seoDescription:
-      "Project five-year maturity value for Everest 14.5% Strategic Growth. Compound growth illustration after tax. R100k minimum. FSP 17273.",
-    keywords: ["Everest 14.5 calculator", "Strategic Growth calculator", "Everest compound growth"],
-    kicker: "Everest Wealth",
-    heroTitle: "Model Everest 14.5% Strategic Growth",
+      "Can you leave capital untouched for five years to maximise growth, or will you need income sooner? Educational compound-growth decision tool. FSP 17273.",
+    keywords: [
+      "strategic growth calculator",
+      "compound growth retirement",
+      "five year growth investment",
+      "growth vs income decision",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 012",
+    heroTitle: "Should you preserve capital for long-term growth?",
     heroSubtitle:
-      "Pure compounding with no monthly withdrawals. Returns accumulate over five years and pay at maturity.",
+      "This decision-support tool illustrates the effect of compound growth over a fixed investment term when no monthly income is withdrawn. It is designed to support investment decisions—not to recommend or promote any investment product.",
     heroImage: "/images/calc-lcp/asset-012.webp",
     heroImageAlt: "Patient capital growth — waiting for maturity in a thriving field",
     calculatorLead:
-      "Enter lump sum to see five-year maturity illustration with growth taxed at maturity per tool assumptions.",
-    sidePanelTitle: "Growth without income",
+      "Enter your voluntary lump sum. Review the growth journey card and projected maturity value. Then decide whether leaving capital untouched for growth fits your circumstances—or whether you need income instead.",
+    sidePanelTitle: "A growth decision—not a product pitch",
     sidePanelParagraphs: [
-      "Strategic Growth suits clients who do not need monthly income and want capital working until maturity.",
-      "Illiquid five-year commitment. Early exit subject to issuer rules.",
+      "Asset 012 asks whether you can leave capital invested for growth. Asset 011 helps if you need income instead. Asset 013 compares growth versus income based on your circumstances.",
+      "This mirrors a professional financial planning conversation inside the Retirement Gap Method™.",
     ],
     sidePanelBullets: [
-      "14.5% targeted compound p.a.",
-      "No monthly withdrawals",
-      "Tax on growth at maturity",
-      "R100,000 minimum",
+      "Capital remains fully invested",
+      "No monthly income withdrawn",
+      "Compounding over a fixed term",
+      "Educational illustration only",
     ],
-    fiduciaryNotes: [...FIDUCIARY, "Five-year illiquid commitment. Early exit penalties may apply."],
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Fixed-term growth illustrations may be illiquid. Early exit may attract penalties. Suitability review with FSP 17273 is required before investing.",
+    ],
     howToSteps: [
-      { title: "Enter capital", description: "R100,000 minimum voluntary lump sum." },
-      { title: "Review compound path", description: "See illustrative growth to maturity." },
-      { title: "Note tax at maturity", description: "20% DWT on growth per tool logic." },
-      { title: "Compare income products", description: "Use Income vs Growth comparison if you need cash flow." },
+      { title: "Answer the Decision Question", description: "Can you leave capital untouched for five years, or will you need income sooner?" },
+      { title: "Enter capital and assumptions", description: "Use at least R100,000 voluntary capital and review rate, term and tax." },
+      { title: "Read the growth journey", description: "See starting capital → investment term → projected value." },
+      { title: "Compare if you need income", description: "Open Growth vs Income Comparison before booking a Review." },
     ],
+    decisionQuestion: {
+      question:
+        "Can you leave your capital untouched for five years to maximise growth, or will you need income before then?",
+    },
+    heroCta: {
+      primaryLabel: "Illustrate My Growth Outcome",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Compare growth vs income",
+      secondaryHref: calculatorPagePath("asset-013-everest-income-vs-growth"),
+    },
+    contextBox: {
+      heading: "Decision support for voluntary capital",
+      paragraphs: [
+        "This page helps you answer a fundamental retirement planning question: should I preserve my capital for long-term growth, or do I need it to generate an income today?",
+        "It illustrates compound growth over a fixed term so you can understand the opportunity of leaving capital untouched—before comparing income strategies or booking advice.",
+      ],
+      highlightQuestion:
+        "Should I preserve my capital for long-term growth, or do I need it to generate an income today?",
+    },
+    audienceGuide: {
+      heading: "Who this calculator is for",
+      intro: "This calculator is intended for investors who:",
+      items: [
+        "Have voluntary investment capital",
+        "Do not require regular monthly income",
+        "Are comfortable leaving their investment untouched for five years",
+        "Want to maximise long-term capital growth through compounding",
+      ],
+      examplesHeading: "Examples include",
+      examples: [
+        "Sale of a business",
+        "Sale of a property",
+        "Inheritance",
+        "Cash savings",
+        "Discretionary investments",
+        "Company surplus cash",
+        "Trust investments",
+      ],
+      exclusionNote:
+        "This calculator is not intended for retirement funds such as retirement annuities, pension funds, provident funds, preservation funds or living annuities.",
+    },
+    methodProgress: {
+      heading: "Connected capital journey",
+      steps: [
+        {
+          stepLabel: "You are here",
+          title: "Strategic Growth",
+          description: "Asset 012 — Can I leave capital invested for growth?",
+          current: true,
+        },
+        {
+          stepLabel: "If you need income",
+          title: "Income Strategy Comparison",
+          description: "Asset 011 — Which income strategy is more suitable?",
+          href: calculatorPagePath("asset-011-everest-128-vs-142"),
+        },
+        {
+          stepLabel: "Next",
+          title: "Growth vs Income Comparison",
+          description: "Asset 013 — Choose based on your circumstances",
+          href: calculatorPagePath("asset-013-everest-income-vs-growth"),
+        },
+      ],
+    },
+    assumptionCallout: {
+      heading: "Before you calculate",
+      paragraphs: [
+        "Illustrative purposes only. Assumed rates and tax treatment may change. Capital values may rise or fall. Past performance does not guarantee future returns.",
+        "This tool supports investment decisions by illustrating compound growth over a fixed term. It does not recommend or promote any investment product.",
+      ],
+    },
+    resultGuide: {
+      heading: "Why projected value can grow significantly",
+      intro:
+        "Your capital remains fully invested for the entire five-year investment term. Because no monthly income is withdrawn, all investment growth remains invested and continues compounding over time.",
+      metricsListed: [
+        "Projected value at maturity",
+        "Capital invested",
+        "Net growth after dividends tax",
+        "Gross value before tax",
+        "Net return over term",
+      ],
+      highlightMetrics: [
+        {
+          label: "Compounding needs patience",
+          description:
+            "The growth journey card shows capital → term → projected value so compounding is easy to understand at a glance.",
+        },
+        {
+          label: "Growth or income?",
+          description:
+            "If you cannot leave capital untouched, compare approaches with the Growth vs Income Comparison Calculator before deciding.",
+        },
+      ],
+      footer:
+        "Use Retirement Premium and Life of Capital tools if you still need to measure contribution need or income longevity inside your Retirement Gap.",
+    },
+    valueProgress: {
+      heading: "A simple growth journey",
+      intro:
+        "Compounding is easier to grasp when you see the path. This educational example uses R1,000,000 at a 14.5% annual assumption over five years with 20% dividends tax on growth.",
+      assumptionNote:
+        "Figures match the default illustration in the tool. Change your inputs above to recalculate your own journey.",
+      steps: [
+        { label: "Starting capital", value: "R1,000,000" },
+        { label: "Investment term", value: "Five years" },
+        { label: "Projected value", value: "R1,774,408" },
+      ],
+      footer:
+        "No monthly income is withdrawn, so growth stays invested and compounds. Confirm actual product terms, tax and liquidity during advice.",
+    },
+    methodSection: {
+      heading: "Need monthly income instead?",
+      paragraphs: [
+        "This calculator assumes your capital remains invested for the full five years.",
+        "If your objective is to generate an income rather than maximise growth, compare the two approaches before making a decision.",
+      ],
+      bullets: [
+        "Asset 012 — leave capital for growth?",
+        "Asset 011 — which income strategy fits?",
+        "Asset 013 — growth or income for my circumstances?",
+        "Then contact AS Brokers for a Retirement Gap Review",
+      ],
+      ctaLabel: "Compare Growth vs Income Investments",
+      ctaHref: calculatorPagePath("asset-013-everest-income-vs-growth"),
+      secondaryCtaLabel: "Compare income strategies",
+      secondaryCtaHref: calculatorPagePath("asset-011-everest-128-vs-142"),
+    },
+    assessmentSection: {
+      heading: "Ready for a personalised growth-versus-income decision?",
+      intro:
+        "A Retirement Gap Review can help you test whether leaving capital untouched for growth—or generating income today—better fits your horizon, liquidity and overall plan.",
+      bullets: [
+        "Voluntary capital and emergency savings buffer",
+        "Five-year commitment vs income need",
+        "Links to Retirement Premium and Life of Capital",
+        "Next steps inside the Retirement Gap Method™",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_012",
+    },
+    journey: {
+      heading: "Next Steps",
+      items: [
+        {
+          stepLabel: "Toolkit",
+          assetCode: "ASSET 000",
+          title: "Retirement Gap Toolkit™",
+          description: "Return to the full calculator hub.",
+          href: "/calculators",
+        },
+        {
+          stepLabel: "Earlier",
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "Estimate the saving required to close your gap.",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          stepLabel: "Earlier",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "Test whether retirement income may last.",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Related",
+          assetCode: "ASSET 011",
+          title: "Voluntary Capital Income Comparison",
+          description: "If you need income, compare income strategies.",
+          href: calculatorPagePath("asset-011-everest-128-vs-142"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 013",
+          title: "Growth vs Income Comparison",
+          description: "Choose growth or income based on your circumstances.",
+          href: calculatorPagePath("asset-013-everest-income-vs-growth"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Connect this decision to the full Method.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Growth first only if you can leave capital untouched.",
+      body: "Asset 012, Asset 011 and Asset 013 form a structured digital advice journey: can I leave capital for growth, which income strategy fits if I cannot, and should I choose growth or income overall? Continue with the Retirement Gap Method™ or book a Retirement Gap Review.",
+      primaryLabel: "Compare Growth vs Income Investments",
+      primaryHref: calculatorPagePath("asset-013-everest-income-vs-growth"),
+      secondaryLabel: "Book a Retirement Gap Review",
+      secondaryHref: "/contact?source=retirement_gap_review_asset_012",
+    },
     readingSections: [
       {
-        heading: "When growth beats income",
+        heading: "Place growth inside your Retirement Gap",
         paragraphs: [
-          "Clients still earning employment income may not need dividends today. Compounding can be tax-efficient relative to frequent drawdowns.",
-          "Match product choice to your income timeline and emergency liquidity needs.",
+          "If you still need to know how much to save, use the Retirement Premium Calculator. If you need to know how long capital may last when drawing income, use Life of Capital. If income is required, compare strategies with the Voluntary Capital Income Comparison tool, then decide growth versus income with Asset 013.",
+          "Return to the Retirement Gap Method™ so any growth illustration stays connected to tax, liquidity and long-term sustainability—not a standalone product decision.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "Can I draw income from Strategic Growth?",
-        answer: "This profile is designed for compounding without monthly withdrawals. Income products are separate.",
+        question: "What happens if I need my money before the five years have ended?",
+        answer:
+          "The investment is designed as a fixed five-year investment. Early withdrawals may be restricted. Penalties or reduced returns may apply depending on the product rules. Investors should ensure they have sufficient emergency savings before investing. Clients should seek financial advice before committing capital.",
       },
       {
-        question: "Is 14.5% guaranteed?",
+        question: "Can I draw monthly income from this growth strategy?",
         answer:
-          "No. Strategic Growth uses a targeted return profile. Capital is typically committed for five years with liquidity constraints.",
-      }
+          "This illustration assumes no monthly income is withdrawn so growth can compound. If you need income, use the Income Strategy Comparison and Growth vs Income Comparison tools, then discuss suitability with an adviser.",
+      },
+      {
+        question: "Is the illustrated return guaranteed?",
+        answer:
+          "No. Rates are assumptions for education. Capital values may rise or fall. Confirm current terms, risk and liquidity during a suitability review with FSP 17273.",
+      },
+      {
+        question: "Who is this tool for?",
+        answer:
+          "Investors with voluntary capital who do not need regular monthly income and can leave capital untouched for about five years. It is not intended for retirement funds such as RAs, pension, provident, preservation funds or living annuities.",
+      },
+      {
+        question: "How does this relate to my Retirement Gap?",
+        answer:
+          "Use Retirement Premium and Life of Capital to measure contribution need and income longevity. Use this page to test whether growth-without-income fits, then compare with income strategies and the Retirement Gap Method™.",
+      },
+      {
+        question: "Is this calculator financial advice?",
+        answer:
+          "No. It is an educational decision-support tool inside the Retirement Gap Toolkit™. Personalised advice requires a suitability process with an authorised adviser (FSP 17273).",
+      },
     ],
     ...EVEREST,
   },

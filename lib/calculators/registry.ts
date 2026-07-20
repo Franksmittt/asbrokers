@@ -109,7 +109,7 @@ export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
   ),
   staticHtml(
     "asset-012-strategic-growth.html",
-    "AS Brokers Strategic Growth Portfolio Calculator",
+    "Strategic Growth Decision Tool",
     "ASSET 012",
     "asset-012-strategic-growth"
   ),

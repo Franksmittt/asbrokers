@@ -118,6 +118,41 @@ color: #d1d5db;
 }
 
 
+.asb-journey {
+margin-bottom: 18px;
+padding: 22px 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+text-align: center;
+}
+
+
+.asb-journey-step {
+font-size: 22px;
+font-weight: 800;
+color: #111827;
+line-height: 1.3;
+}
+
+
+.asb-journey-arrow {
+margin: 10px 0;
+font-size: 20px;
+font-weight: 700;
+color: #6b7280;
+}
+
+
+.asb-journey-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #6b7280;
+margin-bottom: 6px;
+}
+
+
 .asb-table-wrap {
 overflow-x: auto;
 margin-top: 16px;
@@ -199,12 +234,12 @@ grid-template-columns: 1fr;
 </style>
 
 
-<h2>AS Brokers Strategic Growth Portfolio Calculator</h2>
+<h2>Strategic Growth Decision Tool</h2>
 
 
 <p class="intro">
-Estimate what your investment could be worth after five years if returns are accumulated instead of paid out as monthly income.
-This calculator uses a 14.5% annual return assumption, a five-year term, and 20% dividends tax on accumulated growth.
+This educational tool illustrates how compound growth can build capital when no monthly income is withdrawn over a fixed investment term.
+It supports a planning decision—not a product recommendation.
 </p>
 
 
@@ -234,18 +269,30 @@ This calculator uses a 14.5% annual return assumption, a five-year term, and 20%
 </div>
 
 
-<button class="asb-button" onclick="calculateStrategicGrowth()">Calculate my 5-year growth</button>
+<button class="asb-button" onclick="calculateStrategicGrowth()">Illustrate five-year growth</button>
 
 
 <div id="growthError" class="asb-error"></div>
 
 
 <div id="growthResults" class="asb-results">
+<div class="asb-journey" id="growthJourneyCard" aria-label="Growth journey summary">
+<div class="asb-journey-label">Starting capital</div>
+<div id="growthJourneyCapital" class="asb-journey-step"></div>
+<div class="asb-journey-arrow" aria-hidden="true">↓</div>
+<div class="asb-journey-label">Investment term</div>
+<div id="growthJourneyTerm" class="asb-journey-step"></div>
+<div class="asb-journey-arrow" aria-hidden="true">↓</div>
+<div class="asb-journey-label">Projected value</div>
+<div id="growthJourneyProjected" class="asb-journey-step"></div>
+</div>
+
+
 <div class="asb-result-box main">
 <div class="asb-label">Projected value at maturity</div>
 <div id="growthProjectedValue" class="asb-value"></div>
 <div class="asb-small">
-Estimated value after accumulated growth and dividends tax on growth.
+Your capital remains fully invested for the entire investment term. Because no monthly income is withdrawn, all investment growth remains invested and continues compounding over time.
 </div>
 </div>
 
@@ -306,21 +353,19 @@ Estimated value after accumulated growth and dividends tax on growth.
 <div class="asb-cta">
 <h3>Who this calculator is for</h3>
 <p>
-This calculator is most relevant for investors who do not need monthly income now and want to understand the potential
-five-year maturity value of an accumulated-return strategy.
+Investors with voluntary capital who do not need regular monthly income, are comfortable leaving capital untouched for five years, and want to understand how compounding can grow long-term capital. Not intended for retirement funds such as RAs, pension, provident, preservation funds or living annuities.
 </p>
 
 
 <h3>Important liquidity note</h3>
 <p>
-Unlisted preference share investments may be illiquid. Early redemption may be restricted, subject to issuer discretion,
-notice periods, penalties, product rules and market conditions.
+Growth strategies illustrated here are typically designed as fixed-term investments. Early withdrawals may be restricted. Penalties or reduced returns may apply depending on product rules. Ensure you have sufficient emergency savings before committing capital, and seek financial advice first.
 </p>
 
 
 <h3>Educational note</h3>
 <p>
-This calculator is for illustration only. It is not a quote, guarantee, recommendation or offer to invest.
+This tool illustrates the effect of compound growth over a fixed investment term to support investment decisions. It is not a quote, guarantee, recommendation or offer to invest.
 Returns, tax treatment, liquidity, suitability, fees and product terms must be confirmed before any investment decision is made.
 </p>
 
@@ -393,6 +438,12 @@ const projectedValue = investmentAmount + netGrowth;
 const netReturnPercent = (netGrowth / investmentAmount) * 100;
 
 
+document.getElementById("growthJourneyCapital").innerText = growthFormatRand(investmentAmount);
+document.getElementById("growthJourneyTerm").innerText =
+years === 1 ? "One-year investment term" : years + "-year investment term";
+document.getElementById("growthJourneyProjected").innerText = growthFormatRand(projectedValue);
+
+
 document.getElementById("growthProjectedValue").innerText = growthFormatRand(projectedValue);
 document.getElementById("growthCapitalInvested").innerText = growthFormatRand(investmentAmount);
 document.getElementById("growthNetGrowth").innerText = growthFormatRand(netGrowth);
@@ -423,12 +474,12 @@ yearTable.appendChild(row);
 
 
 document.getElementById("growthSummaryText").innerText =
-"Based on an investment of " + growthFormatRand(investmentAmount) +
-", an annual accumulated return assumption of " + (annualReturn * 100).toFixed(1) +
-"% over " + years + " years would produce a gross maturity value of " +
-growthFormatRand(grossValue) + ". After applying dividends tax of " +
-(dividendTaxRate * 100).toFixed(1) + "% to the accumulated growth, the projected value at maturity is " +
-growthFormatRand(projectedValue) + ". This strategy is designed for investors who want capital growth rather than monthly income, subject to product risk, liquidity, tax and suitability."
+"Your capital remains fully invested for the entire " + years +
+"-year term. Because no monthly income is withdrawn, all investment growth remains invested and continues compounding. Based on " +
+growthFormatRand(investmentAmount) + " at " + (annualReturn * 100).toFixed(1) +
+"% p.a., the illustrative projected value after dividends tax on growth is " +
+growthFormatRand(projectedValue) +
+". This supports a planning decision about whether you can leave capital untouched for growth—or whether you need income sooner. It is educational only and not a product recommendation."
 
 
 resultsBox.style.display = "block"

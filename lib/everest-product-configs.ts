@@ -147,10 +147,10 @@ export const EVEREST_AMETHYST_PRODUCT: EverestProductPageProps = {
     "Compulsory retirement capital in a regulated living annuity wrapper, targeted ~10.2% net yield, flexible drawdown, and Section 14 transfer approved.",
   heroImage: "/images/home4-goal-retire-16x9.jpg",
   heroImageAlt: "Retired couple reviewing Amethyst living annuity income planning",
-  calculatorSrc: "/embed-calculators/asset-014-living-annuity.html",
-  calculatorTitle: "Amethyst Living Annuity Calculator",
+  calculatorSrc: "/embed-calculators/amethyst-living-annuity-illustration.html",
+  calculatorTitle: "Amethyst Living Annuity Illustration",
   calculatorLead:
-    "Model drawdown between 2.5% and 17.5%, estimated net yield (~10.2% p.a. targeted), and tax on income using SARS 2026/27 illustrative brackets.",
+    "Product illustration only: targeted gross and net return after disclosed charges, selected drawdown, estimated income, remaining portfolio return, and five-year inflation-protection benefit where disclosed. Confirm latest Amethyst disclosure. For a generic sustainability check, use the Living Annuity Income & Sustainability Calculator.",
   pillTags: ["Section 14 Transfer Approved", "Drawdown 2.5% – 17.5%"],
   featureCards: [
     {

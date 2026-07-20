@@ -1,5 +1,6 @@
+<div id="asb-living-annuity-sustainability-calculator">
 <style>
-#asb-everest-living-annuity-calculator {
+#asb-living-annuity-sustainability-calculator {
 max-width: 760px;
 margin: 24px auto;
 padding: 24px;
@@ -9,12 +10,12 @@ box-shadow: 0 8px 28px rgba(0,0,0,0.08);
 font-family: Arial, sans-serif;
 color: #1f2937;
 }
-#asb-everest-living-annuity-calculator h2 {
+#asb-living-annuity-sustainability-calculator h2 {
 margin-top: 0;
 font-size: 26px;
 color: #111827;
 }
-#asb-everest-living-annuity-calculator p.intro {
+#asb-living-annuity-sustainability-calculator p.intro {
 color: #4b5563;
 margin-bottom: 22px;
 line-height: 1.5;
@@ -41,6 +42,56 @@ border-radius: 10px;
 font-size: 16px;
 background: #2f3336;
 color: #ffffff;
+}
+.asb-drawdown-guide {
+margin-top: 18px;
+padding: 16px;
+border-radius: 12px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+}
+.asb-drawdown-guide h3 {
+margin: 0 0 10px 0;
+font-size: 15px;
+color: #111827;
+}
+.asb-drawdown-guide ul {
+margin: 0;
+padding-left: 18px;
+color: #4b5563;
+font-size: 13px;
+line-height: 1.55;
+}
+.asb-risk-bands {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 10px;
+margin-top: 14px;
+}
+.asb-risk-band {
+padding: 12px;
+border-radius: 10px;
+font-size: 13px;
+line-height: 1.4;
+}
+.asb-risk-band strong {
+display: block;
+margin-bottom: 4px;
+}
+.asb-risk-band.green {
+background: #ecfdf5;
+border: 1px solid #a7f3d0;
+color: #065f46;
+}
+.asb-risk-band.amber {
+background: #fffbeb;
+border: 1px solid #fde68a;
+color: #92400e;
+}
+.asb-risk-band.red {
+background: #fef2f2;
+border: 1px solid #fecaca;
+color: #991b1b;
 }
 .asb-button {
 width: 100%;
@@ -69,6 +120,18 @@ margin-bottom: 14px;
 background: #111827;
 color: #ffffff;
 }
+.asb-result-box.sustain-excellent {
+background: #ecfdf5;
+border-color: #a7f3d0;
+}
+.asb-result-box.sustain-moderate {
+background: #fffbeb;
+border-color: #fde68a;
+}
+.asb-result-box.sustain-high {
+background: #fef2f2;
+border-color: #fecaca;
+}
 .asb-label {
 font-size: 13px;
 text-transform: uppercase;
@@ -87,6 +150,12 @@ line-height: 1.5;
 }
 .asb-result-box.main .asb-small {
 color: #d1d5db;
+}
+.asb-result-box.sustain-excellent .asb-small,
+.asb-result-box.sustain-moderate .asb-small,
+.asb-result-box.sustain-high .asb-small {
+color: inherit;
+opacity: 0.85;
 }
 .asb-error {
 margin-top: 16px;
@@ -124,220 +193,379 @@ font-size: 14px;
 cursor: default;
 }
 @media (max-width: 640px) {
-.asb-grid {
+.asb-grid,
+.asb-risk-bands {
 grid-template-columns: 1fr;
 }
 }
 </style>
 
-<div id="asb-everest-living-annuity-calculator">
-
-<h2>AS Brokers Living Annuity Income Calculator</h2>
+<h2>Living Annuity Income &amp; Sustainability Calculator</h2>
 <p class="intro">
-Estimate the monthly income, reinvested surplus and five-year inflation protection value from a living annuity using a targeted 12.80% annual return assumption.
+Answer one question: is your current retirement income sustainable? This educational tool models
+gross and net income, capital longevity and sustainability risk using realistic planning assumptions—
+not a product recommendation.
 </p>
+
 <div class="asb-grid">
 <div class="asb-field">
-<label>Living annuity capital</label>
-<input id="everestLaCapital" type="number" value="2000000">
+<label for="laCapital">Living annuity capital</label>
+<input id="laCapital" type="number" value="2000000" min="1" step="1000">
 </div>
 <div class="asb-field">
-<label>Annual drawdown rate (%)</label>
-<select id="everestLaDrawdown">
-<option value="2.5">2.5%</option>
-<option value="3">3%</option>
-<option value="4">4%</option>
-<option value="5">5%</option>
-<option value="6">6%</option>
-<option value="7">7%</option>
-<option value="8">8%</option>
-<option value="9" selected>9%</option>
-<option value="10">10%</option>
-<option value="11">11%</option>
-<option value="12">12%</option>
-<option value="13">13%</option>
-<option value="14">14%</option>
-<option value="15">15%</option>
-<option value="16">16%</option>
-<option value="17">17%</option>
-<option value="17.5">17.5%</option>
+<label for="laCurrentAge">Current age</label>
+<input id="laCurrentAge" type="number" value="65" min="55" max="100" step="1">
+</div>
+<div class="asb-field">
+<label for="laDrawdown">Drawdown rate</label>
+<select id="laDrawdown">
+<option value="2.5">2.5% — Statutory minimum</option>
+<option value="4">4.0% — Conservative starting point</option>
+<option value="5" selected>5.0% — Retirement planning assumption (default)</option>
+<option value="5.6">5.6% — Current South African industry average</option>
+<option value="7.5">7.5% — Elevated sustainability risk</option>
+<option value="10">10.0% — High drawdown</option>
+<option value="17.5">17.5% — Statutory maximum</option>
 </select>
 </div>
 <div class="asb-field">
-<label>Targeted annual return (%)</label>
-<input id="everestLaReturn" type="number" step="0.01" value="12.8">
+<label for="laReturn">Expected annual return (%)</label>
+<input id="laReturn" type="number" step="0.1" value="8">
 </div>
 <div class="asb-field">
-<label>Inflation protection dividend (%)</label>
-<input id="everestLaInflationDividend" type="number" step="0.1" value="9">
+<label for="laFees">Total annual fees (%)</label>
+<input id="laFees" type="number" step="0.1" value="1.5">
+</div>
+<div class="asb-field">
+<label for="laEscalation">Income escalation (%)</label>
+<input id="laEscalation" type="number" step="0.1" value="5">
+</div>
+<div class="asb-field">
+<label for="laPlanningAge">Planning age</label>
+<input id="laPlanningAge" type="number" value="90" min="60" max="120" step="1">
 </div>
 </div>
-<button class="asb-button" onclick="calculateEverestLivingAnnuity()">Calculate living annuity income</button>
-<div id="everestLaError" class="asb-error"></div>
-<div id="everestLaResults" class="asb-results">
+
+<div class="asb-drawdown-guide">
+<h3>Drawdown reference points</h3>
+<ul>
+<li>2.5% — Statutory minimum</li>
+<li>4.0% — Conservative starting point</li>
+<li>5.0% — Retirement planning assumption (default)</li>
+<li>5.6% — Current South African industry average</li>
+<li>7.5% — Elevated sustainability risk</li>
+<li>10.0% — High drawdown</li>
+<li>17.5% — Statutory maximum</li>
+</ul>
+<div class="asb-risk-bands">
+<div class="asb-risk-band green"><strong>Green</strong>Generally sustainable.</div>
+<div class="asb-risk-band amber"><strong>Amber</strong>Requires regular review.</div>
+<div class="asb-risk-band red"><strong>Red</strong>High risk of reducing long-term retirement income.</div>
+</div>
+</div>
+
+<button class="asb-button" type="button" onclick="calculateLivingAnnuitySustainability()">
+Assess income sustainability
+</button>
+
+<div id="laError" class="asb-error"></div>
+
+<div id="laResults" class="asb-results">
 <div class="asb-result-box main">
 <div class="asb-label">Gross monthly income</div>
-<div id="everestLaMonthlyIncome" class="asb-value"></div>
+<div id="laGrossMonthly" class="asb-value"></div>
 <div class="asb-small">Estimated monthly living annuity income before personal income tax.</div>
 </div>
+<div class="asb-result-box">
+<div class="asb-label">Estimated income tax (year 1)</div>
+<div id="laAnnualTax" class="asb-value"></div>
+<div class="asb-small">Illustrative SARS 2026/27 tax on living annuity income only (age rebates applied).</div>
+</div>
 <div class="asb-result-box main">
-<div class="asb-label">Annual income drawn</div>
-<div id="everestLaAnnualIncome" class="asb-value"></div>
-<div class="asb-small">The annual rand income selected from your living annuity capital.</div>
-</div>
-<div class="asb-result-box main">
-<div class="asb-label">Estimated annual surplus return</div>
-<div id="everestLaSurplus" class="asb-value"></div>
-<div class="asb-small">Targeted return remaining after the selected drawdown, before fees and product rules.</div>
+<div class="asb-label">Estimated net monthly income</div>
+<div id="laNetMonthly" class="asb-value"></div>
+<div class="asb-small">Gross monthly income less estimated monthly tax.</div>
 </div>
 <div class="asb-result-box">
-<div class="asb-label">Targeted annual return amount</div>
-<div id="everestLaAnnualReturnAmount" class="asb-value"></div>
+<div class="asb-label">Current drawdown percentage</div>
+<div id="laDrawdownPct" class="asb-value"></div>
+<div id="laDrawdownBand" class="asb-small"></div>
 </div>
 <div class="asb-result-box">
-<div class="asb-label">Targeted monthly return amount</div>
-<div id="everestLaMonthlyReturnAmount" class="asb-value"></div>
+<div class="asb-label">Projected capital at age 75</div>
+<div id="laCapital75" class="asb-value"></div>
 </div>
 <div class="asb-result-box">
-<div class="asb-label">Surplus return percentage</div>
-<div id="everestLaSurplusPercent" class="asb-value"></div>
+<div class="asb-label">Projected capital at age 85</div>
+<div id="laCapital85" class="asb-value"></div>
 </div>
 <div class="asb-result-box">
-<div class="asb-label">Five-year inflation protection dividend</div>
-<div id="everestLaInflationDividendAmount" class="asb-value"></div>
-<div class="asb-small">Illustrative special dividend based on original capital.</div>
+<div class="asb-label">Projected capital at age 90</div>
+<div id="laCapital90" class="asb-value"></div>
 </div>
 <div class="asb-result-box">
-<div class="asb-label">Five-year income drawn</div>
-<div id="everestLaFiveYearIncome" class="asb-value"></div>
+<div class="asb-label">Estimated depletion age</div>
+<div id="laDepletionAge" class="asb-value"></div>
+<div class="asb-small">Age at which capital may be exhausted under these assumptions (where applicable).</div>
 </div>
-<div class="asb-result-box">
-<div class="asb-label">Five-year income plus inflation protection</div>
-<div id="everestLaFiveYearTotal" class="asb-value"></div>
+<div id="laSustainBox" class="asb-result-box">
+<div class="asb-label">Sustainability assessment</div>
+<div id="laSustainLabel" class="asb-value"></div>
+<div id="laSustainText" class="asb-small"></div>
 </div>
 <div class="asb-result-box">
 <div class="asb-label">What this means for you</div>
-<div id="everestLaSummaryText" class="asb-small"></div>
+<div id="laSummaryText" class="asb-small"></div>
 </div>
 </div>
+
 <div class="asb-cta">
 <h3>Educational note</h3>
 <p>
-This calculator illustrates how a living annuity income may look when compared with a targeted annual return. The selected drawdown determines the income paid to you. Any return above the drawdown may help preserve or grow capital, but this depends on product rules, fees, tax, investment performance and annual review terms.
+This calculator helps retirees evaluate whether current retirement income may be sustainable.
+It does not recommend an investment product. Outcomes depend on returns, fees, inflation,
+tax, sequence of returns and future drawdown choices.
 </p>
 <h3>Important living annuity note</h3>
 <p>
-A living annuity does not guarantee that your capital will last for life. Drawdown rates are normally selected between 2.5% and 17.5% per year. A higher drawdown creates higher income now but increases long-term sustainability risk.
-</p>
-<h3>Product and compliance note</h3>
-<p>
-This is an educational illustration only. It is not a quote, guarantee, recommendation or offer to invest. The product provider, investment terms, liquidity rules, return assumptions, fees, tax treatment and suitability must be confirmed before advice or implementation.
+South African living annuities generally allow annual drawdowns between 2.5% and 17.5%.
+A higher drawdown creates higher income now but increases long-term sustainability risk.
+Capital is not guaranteed to last for life.
 </p>
 <div class="asb-disabled-button">
-Learn what this result means by following the link below
+Request a Free Living Annuity Review via the page below
 </div>
 </div>
+
 <script>
-function everestLaFormatRand(value) {
+function laFormatRand(value) {
+if (value == null || isNaN(value)) return "—";
+if (value <= 0) return "R 0";
 return "R " + Math.round(value).toLocaleString("en-ZA");
 }
-function everestLaGetNumber(id) {
+
+function laGetNumber(id) {
 return parseFloat(document.getElementById(id).value);
 }
-function calculateEverestLivingAnnuity() {
-const capital = everestLaGetNumber("everestLaCapital");
-const drawdownRate = everestLaGetNumber("everestLaDrawdown") / 100;
-const returnRate = everestLaGetNumber("everestLaReturn") / 100;
-const inflationDividendRate = everestLaGetNumber("everestLaInflationDividend") / 100;
-const errorBox = document.getElementById("everestLaError");
-const resultsBox = document.getElementById("everestLaResults");
-errorBox.style.display = "none"
-resultsBox.style.display = "none"
+
+function laTaxBeforeRebate(taxableIncome) {
+if (taxableIncome <= 0) return 0;
+if (taxableIncome <= 245100) return taxableIncome * 0.18;
+if (taxableIncome <= 383100) return 44118 + (taxableIncome - 245100) * 0.26;
+if (taxableIncome <= 530200) return 79998 + (taxableIncome - 383100) * 0.31;
+if (taxableIncome <= 695800) return 125599 + (taxableIncome - 530200) * 0.36;
+if (taxableIncome <= 887000) return 185215 + (taxableIncome - 695800) * 0.39;
+if (taxableIncome <= 1878600) return 259783 + (taxableIncome - 887000) * 0.41;
+return 666339 + (taxableIncome - 1878600) * 0.45;
+}
+
+function laRebate(age) {
+var rebate = 17820;
+if (age >= 65) rebate += 9765;
+if (age >= 75) rebate += 3249;
+return rebate;
+}
+
+function laDrawdownBandText(pct) {
+if (pct <= 4) {
+return "Green band — generally sustainable under typical planning assumptions.";
+}
+if (pct <= 5.6) {
+return "Amber band — often workable, but requires regular review.";
+}
+return "Red band — high risk of reducing long-term retirement income.";
+}
+
+function laCapitalAtOrBefore(snapshots, targetAge, depletedAge) {
+if (depletedAge != null && depletedAge < targetAge) return 0;
+if (snapshots[targetAge] != null) return snapshots[targetAge];
+var ages = Object.keys(snapshots).map(Number).sort(function (a, b) { return a - b; });
+var last = null;
+for (var i = 0; i < ages.length; i++) {
+if (ages[i] <= targetAge) last = snapshots[ages[i]];
+}
+return last;
+}
+
+function calculateLivingAnnuitySustainability() {
+var capital = laGetNumber("laCapital");
+var currentAge = laGetNumber("laCurrentAge");
+var drawdownPct = laGetNumber("laDrawdown");
+var returnPct = laGetNumber("laReturn");
+var feesPct = laGetNumber("laFees");
+var escalationPct = laGetNumber("laEscalation");
+var planningAge = laGetNumber("laPlanningAge");
+
+var errorBox = document.getElementById("laError");
+var resultsBox = document.getElementById("laResults");
+errorBox.style.display = "none";
+resultsBox.style.display = "none";
+
 if (
 isNaN(capital) ||
-isNaN(drawdownRate) ||
-isNaN(returnRate) ||
-isNaN(inflationDividendRate)
+isNaN(currentAge) ||
+isNaN(drawdownPct) ||
+isNaN(returnPct) ||
+isNaN(feesPct) ||
+isNaN(escalationPct) ||
+isNaN(planningAge)
 ) {
-errorBox.innerText = "Please complete all fields."
-errorBox.style.display = "block"
+errorBox.innerText = "Please complete all fields.";
+errorBox.style.display = "block";
 return;
 }
+
 if (capital <= 0) {
-errorBox.innerText = "Living annuity capital must be greater than zero."
-errorBox.style.display = "block"
+errorBox.innerText = "Living annuity capital must be greater than zero.";
+errorBox.style.display = "block";
 return;
 }
-if (drawdownRate < 0.025 || drawdownRate > 0.175) {
-errorBox.innerText = "Living annuity drawdown must be between 2.5% and 17.5%."
-errorBox.style.display = "block"
+
+if (drawdownPct < 2.5 || drawdownPct > 17.5) {
+errorBox.innerText = "Living annuity drawdown must be between 2.5% and 17.5%.";
+errorBox.style.display = "block";
 return;
 }
-if (returnRate < 0) {
-errorBox.innerText = "Targeted annual return cannot be negative."
-errorBox.style.display = "block"
+
+if (feesPct < 0 || feesPct >= 100) {
+errorBox.innerText = "Total annual fees must be between 0% and 99%.";
+errorBox.style.display = "block";
 return;
 }
-if (inflationDividendRate < 0) {
-errorBox.innerText = "Inflation protection dividend cannot be negative."
-errorBox.style.display = "block"
+
+if (planningAge <= currentAge) {
+errorBox.innerText = "Planning age must be greater than current age.";
+errorBox.style.display = "block";
 return;
 }
-const annualIncome = capital * drawdownRate;
-const monthlyIncome = annualIncome / 12;
-const annualReturnAmount = capital * returnRate;
-const monthlyReturnAmount = annualReturnAmount / 12;
-const annualSurplus = annualReturnAmount - annualIncome;
-const surplusPercent = returnRate - drawdownRate;
-const inflationDividendAmount = capital * inflationDividendRate;
-const fiveYearIncome = annualIncome * 5;
-const fiveYearTotal = fiveYearIncome + inflationDividendAmount;
-document.getElementById("everestLaMonthlyIncome").innerText =
-everestLaFormatRand(monthlyIncome);
-document.getElementById("everestLaAnnualIncome").innerText =
-everestLaFormatRand(annualIncome);
-document.getElementById("everestLaSurplus").innerText =
-everestLaFormatRand(annualSurplus);
-document.getElementById("everestLaAnnualReturnAmount").innerText =
-everestLaFormatRand(annualReturnAmount);
-document.getElementById("everestLaMonthlyReturnAmount").innerText =
-everestLaFormatRand(monthlyReturnAmount);
-document.getElementById("everestLaSurplusPercent").innerText =
-(surplusPercent * 100).toFixed(2) + "%"
-document.getElementById("everestLaInflationDividendAmount").innerText =
-everestLaFormatRand(inflationDividendAmount);
-document.getElementById("everestLaFiveYearIncome").innerText =
-everestLaFormatRand(fiveYearIncome);
-document.getElementById("everestLaFiveYearTotal").innerText =
-everestLaFormatRand(fiveYearTotal);
-let surplusMessage = ""
-if (annualSurplus > 0) {
-surplusMessage =
-"The targeted annual return is higher than the selected drawdown, leaving an illustrative surplus of " +
-everestLaFormatRand(annualSurplus) +
-" per year before fees, tax, product rules and annual review conditions."
-} else if (annualSurplus === 0) {
-surplusMessage =
-"The selected drawdown is equal to the targeted annual return. This leaves no illustrative surplus before fees, tax, product rules and annual review conditions."
+
+var drawdownRate = drawdownPct / 100;
+var netReturn = (returnPct - feesPct) / 100;
+var escalation = escalationPct / 100;
+
+var annualIncome = capital * drawdownRate;
+var monthlyIncome = annualIncome / 12;
+var annualTax = Math.max(0, laTaxBeforeRebate(annualIncome) - laRebate(currentAge));
+var monthlyTax = annualTax / 12;
+var netMonthly = monthlyIncome - monthlyTax;
+
+var balance = capital;
+var income = annualIncome;
+var age = currentAge;
+var snapshots = {};
+snapshots[currentAge] = balance;
+var depletedAge = null;
+var maxAge = Math.max(planningAge, 100);
+
+while (age < maxAge) {
+balance = balance * (1 + netReturn) - income;
+age += 1;
+
+if (balance <= 0) {
+balance = 0;
+depletedAge = age;
+snapshots[age] = 0;
+break;
+}
+
+snapshots[age] = balance;
+income = income * (1 + escalation);
+}
+
+var capital75 = laCapitalAtOrBefore(snapshots, 75, depletedAge);
+var capital85 = laCapitalAtOrBefore(snapshots, 85, depletedAge);
+var capital90 = laCapitalAtOrBefore(snapshots, 90, depletedAge);
+
+var capitalAtPlanning =
+depletedAge != null && depletedAge <= planningAge
+? 0
+: snapshots[planningAge] != null
+? snapshots[planningAge]
+: balance;
+
+var sustainBox = document.getElementById("laSustainBox");
+var sustainLabel = "";
+var sustainText = "";
+var sustainClass = "";
+
+var lastsToPlanning = depletedAge == null || depletedAge > planningAge;
+var strongBuffer = lastsToPlanning && capitalAtPlanning >= capital * 0.4;
+
+if (drawdownPct >= 10 || (!lastsToPlanning && drawdownPct >= 7.5)) {
+sustainLabel = "High Risk";
+sustainText =
+"Your current drawdown may not be sustainable over the long term.";
+sustainClass = "sustain-high";
+} else if (!lastsToPlanning || drawdownPct >= 7.5) {
+sustainLabel = "High Risk";
+sustainText =
+"Your current drawdown may not be sustainable over the long term.";
+sustainClass = "sustain-high";
+} else if (strongBuffer && drawdownPct <= 5) {
+sustainLabel = "Excellent";
+sustainText = "Likely sustainable.";
+sustainClass = "sustain-excellent";
 } else {
-surplusMessage =
-"The selected drawdown is higher than the targeted annual return. This creates an illustrative shortfall of " +
-everestLaFormatRand(Math.abs(annualSurplus)) +
-" per year before fees, tax, product rules and annual review conditions."
+sustainLabel = "Moderate";
+sustainText = "Requires periodic review.";
+sustainClass = "sustain-moderate";
 }
-document.getElementById("everestLaSummaryText").innerText =
-"Based on living annuity capital of " + everestLaFormatRand(capital) +
-", a selected drawdown rate of " + (drawdownRate * 100).toFixed(1) +
-"% produces estimated gross income of " + everestLaFormatRand(monthlyIncome) +
-" per month, or " + everestLaFormatRand(annualIncome) +
-" per year. At a targeted annual return of " + (returnRate * 100).toFixed(2) +
-"%, the illustrative annual return amount is " + everestLaFormatRand(annualReturnAmount) +
-". " + surplusMessage +
-" The illustrative five-year inflation protection dividend is " +
-everestLaFormatRand(inflationDividendAmount) +
-", based on " + (inflationDividendRate * 100).toFixed(1) +
-"% of original capital. This calculator does not calculate personal income tax and does not confirm suitability."
-resultsBox.style.display = "block"
+
+sustainBox.className = "asb-result-box " + sustainClass;
+
+document.getElementById("laGrossMonthly").innerText = laFormatRand(monthlyIncome);
+document.getElementById("laAnnualTax").innerText = laFormatRand(annualTax);
+document.getElementById("laNetMonthly").innerText = laFormatRand(netMonthly);
+document.getElementById("laDrawdownPct").innerText = drawdownPct.toFixed(1) + "%";
+document.getElementById("laDrawdownBand").innerText = laDrawdownBandText(drawdownPct);
+document.getElementById("laCapital75").innerText =
+currentAge >= 75 ? "Already past age 75" : laFormatRand(capital75);
+document.getElementById("laCapital85").innerText =
+currentAge >= 85 ? "Already past age 85" : laFormatRand(capital85);
+document.getElementById("laCapital90").innerText =
+currentAge >= 90 ? "Already past age 90" : laFormatRand(capital90);
+
+if (depletedAge == null) {
+document.getElementById("laDepletionAge").innerText =
+"Beyond age " + maxAge + " (under these assumptions)";
+} else {
+document.getElementById("laDepletionAge").innerText = "About age " + depletedAge;
+}
+
+document.getElementById("laSustainLabel").innerText = sustainLabel;
+document.getElementById("laSustainText").innerText = sustainText;
+
+var depletionSentence =
+depletedAge == null
+? "Under these assumptions, capital may last beyond age " + maxAge + "."
+: "Under these assumptions, capital may be depleted around age " + depletedAge + ".";
+
+document.getElementById("laSummaryText").innerText =
+"With living annuity capital of " +
+laFormatRand(capital) +
+" and a " +
+drawdownPct.toFixed(1) +
+"% drawdown, estimated gross income is " +
+laFormatRand(monthlyIncome) +
+" per month (" +
+laFormatRand(netMonthly) +
+" net after illustrative tax). Expected return of " +
+returnPct.toFixed(1) +
+"% less fees of " +
+feesPct.toFixed(1) +
+"% implies a net growth assumption of " +
+(returnPct - feesPct).toFixed(1) +
+"%, with income escalating at " +
+escalationPct.toFixed(1) +
+"% per year. " +
+depletionSentence +
+" Sustainability assessment: " +
+sustainLabel +
+" — " +
+sustainText +
+" This is an educational illustration only and is not financial advice.";
+
+resultsBox.style.display = "block";
 }
 </script>
 </div>

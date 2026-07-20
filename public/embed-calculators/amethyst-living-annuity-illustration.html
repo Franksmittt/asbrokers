@@ -1,0 +1,382 @@
+<div id="asb-amethyst-living-annuity-illustration">
+<style>
+#asb-amethyst-living-annuity-illustration {
+max-width: 760px;
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
+color: #1f2937;
+}
+#asb-amethyst-living-annuity-illustration h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
+}
+#asb-amethyst-living-annuity-illustration p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+.asb-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+}
+.asb-field {
+display: flex;
+flex-direction: column;
+}
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+.asb-field input,
+.asb-field select {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+.asb-label {
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
+}
+.asb-value {
+font-size: 28px;
+font-weight: 800;
+}
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+.asb-result-box.main .asb-small {
+color: #d1d5db;
+}
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+.asb-warning {
+margin-top: 14px;
+padding: 14px;
+border-radius: 12px;
+background: #fff7ed;
+border: 1px solid #fed7aa;
+color: #9a3412;
+font-size: 13px;
+line-height: 1.5;
+}
+.asb-disabled-button {
+display: inline-block;
+padding: 12px 16px;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-weight: 700;
+font-size: 14px;
+cursor: default;
+}
+@media (max-width: 640px) {
+.asb-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+
+<h2>Amethyst Living Annuity Illustration</h2>
+<p class="intro">
+Product illustration for the Everest Wealth Amethyst Living Annuity using currently disclosed
+assumptions. Targeted returns are not guaranteed. Confirm the latest product disclosure before
+acting. For a generic sustainability check first, use the Living Annuity Income &amp; Sustainability Calculator.
+</p>
+
+<div class="asb-grid">
+<div class="asb-field">
+<label for="amCapital">Living annuity capital</label>
+<input id="amCapital" type="number" value="2000000" min="1" step="1000">
+</div>
+<div class="asb-field">
+<label for="amAge">Current age</label>
+<input id="amAge" type="number" value="65" min="55" max="100" step="1">
+</div>
+<div class="asb-field">
+<label for="amDrawdown">Selected drawdown (%)</label>
+<select id="amDrawdown">
+<option value="2.5">2.5%</option>
+<option value="4">4.0%</option>
+<option value="5" selected>5.0%</option>
+<option value="5.6">5.6%</option>
+<option value="7.5">7.5%</option>
+<option value="10">10.0%</option>
+<option value="17.5">17.5%</option>
+</select>
+</div>
+<div class="asb-field">
+<label for="amGrossReturn">Targeted gross portfolio return (%)</label>
+<input id="amGrossReturn" type="number" step="0.1" value="12.0">
+</div>
+<div class="asb-field">
+<label for="amCharges">Disclosed charges / fees (% p.a.)</label>
+<input id="amCharges" type="number" step="0.1" value="1.8">
+</div>
+<div class="asb-field">
+<label for="amInflationBenefit">Inflation-protection benefit (% of capital at year 5)</label>
+<input id="amInflationBenefit" type="number" step="0.1" value="9">
+</div>
+</div>
+
+<button class="asb-button" type="button" onclick="calculateAmethystIllustration()">
+Illustrate Amethyst income
+</button>
+
+<div id="amError" class="asb-error"></div>
+
+<div id="amResults" class="asb-results">
+<div class="asb-result-box main">
+<div class="asb-label">Estimated net portfolio return after charges</div>
+<div id="amNetReturn" class="asb-value"></div>
+<div class="asb-small">Targeted gross return less disclosed charges. Not guaranteed.</div>
+</div>
+<div class="asb-result-box main">
+<div class="asb-label">Estimated gross monthly income</div>
+<div id="amGrossMonthly" class="asb-value"></div>
+<div class="asb-small">Capital × selected drawdown ÷ 12, before personal income tax.</div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Estimated income tax (year 1)</div>
+<div id="amAnnualTax" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Estimated net monthly income</div>
+<div id="amNetMonthly" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Selected drawdown</div>
+<div id="amDrawdownOut" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Estimated remaining portfolio return</div>
+<div id="amRemainingReturn" class="asb-value"></div>
+<div class="asb-small">Net portfolio return assumption minus selected drawdown. Not a guarantee of capital growth.</div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Inflation-protection benefit (if disclosed / applicable)</div>
+<div id="amInflationAmount" class="asb-value"></div>
+<div class="asb-small">Illustrative benefit based on original capital at the five-year point, only where currently disclosed in product terms.</div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Five-year income drawn (illustrative)</div>
+<div id="amFiveYearIncome" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Five-year illustration summary</div>
+<div id="amSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+<div class="asb-cta">
+<h3>Required product warnings</h3>
+<p>
+This is an educational product illustration only. It is not a quote, guarantee, recommendation
+or offer to invest. Targeted returns, fees, liquidity, insurer acceptance and suitability must
+be confirmed against the latest approved Amethyst disclosure before advice or implementation.
+</p>
+<p>
+Returns are not guaranteed. Past or targeted performance is not a reliable indicator of future
+results. Capital values may rise or fall. Concentration risk may apply where portfolio exposure
+is not broadly diversified across traditional listed markets.
+</p>
+<p>
+Living annuity drawdowns must remain between 2.5% and 17.5% per year. Growth inside the annuity
+is generally tax-sheltered; income drawn is taxed at your marginal rate. Compulsory retirement
+capital and Section 14 transfer rules apply.
+</p>
+<div class="asb-warning">
+Do not use voluntary-product assumptions (for example 12.8% Strategic Income, 14.2% Onyx or
+14.5% Growth) inside this illustration. Use only current Amethyst product disclosure.
+</div>
+<div class="asb-disabled-button">
+Request a formal quotation via the page below
+</div>
+</div>
+
+<script>
+function amFormatRand(value) {
+return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+function amGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+function amTaxBeforeRebate(taxableIncome) {
+if (taxableIncome <= 0) return 0;
+if (taxableIncome <= 245100) return taxableIncome * 0.18;
+if (taxableIncome <= 383100) return 44118 + (taxableIncome - 245100) * 0.26;
+if (taxableIncome <= 530200) return 79998 + (taxableIncome - 383100) * 0.31;
+if (taxableIncome <= 695800) return 125599 + (taxableIncome - 530200) * 0.36;
+if (taxableIncome <= 887000) return 185215 + (taxableIncome - 695800) * 0.39;
+if (taxableIncome <= 1878600) return 259783 + (taxableIncome - 887000) * 0.41;
+return 666339 + (taxableIncome - 1878600) * 0.45;
+}
+
+function amRebate(age) {
+var rebate = 17820;
+if (age >= 65) rebate += 9765;
+if (age >= 75) rebate += 3249;
+return rebate;
+}
+
+function calculateAmethystIllustration() {
+var capital = amGetNumber("amCapital");
+var age = amGetNumber("amAge");
+var drawdownPct = amGetNumber("amDrawdown");
+var grossReturnPct = amGetNumber("amGrossReturn");
+var chargesPct = amGetNumber("amCharges");
+var inflationBenefitPct = amGetNumber("amInflationBenefit");
+
+var errorBox = document.getElementById("amError");
+var resultsBox = document.getElementById("amResults");
+errorBox.style.display = "none";
+resultsBox.style.display = "none";
+
+if (
+isNaN(capital) ||
+isNaN(age) ||
+isNaN(drawdownPct) ||
+isNaN(grossReturnPct) ||
+isNaN(chargesPct) ||
+isNaN(inflationBenefitPct)
+) {
+errorBox.innerText = "Please complete all fields.";
+errorBox.style.display = "block";
+return;
+}
+
+if (capital <= 0) {
+errorBox.innerText = "Living annuity capital must be greater than zero.";
+errorBox.style.display = "block";
+return;
+}
+
+if (drawdownPct < 2.5 || drawdownPct > 17.5) {
+errorBox.innerText = "Drawdown must be between 2.5% and 17.5%.";
+errorBox.style.display = "block";
+return;
+}
+
+if (chargesPct < 0 || chargesPct >= 100) {
+errorBox.innerText = "Disclosed charges must be between 0% and 99%.";
+errorBox.style.display = "block";
+return;
+}
+
+if (inflationBenefitPct < 0) {
+errorBox.innerText = "Inflation-protection benefit cannot be negative.";
+errorBox.style.display = "block";
+return;
+}
+
+var netReturnPct = grossReturnPct - chargesPct;
+var annualIncome = capital * (drawdownPct / 100);
+var monthlyIncome = annualIncome / 12;
+var annualTax = Math.max(0, amTaxBeforeRebate(annualIncome) - amRebate(age));
+var netMonthly = monthlyIncome - annualTax / 12;
+var remainingReturnPct = netReturnPct - drawdownPct;
+var inflationAmount = capital * (inflationBenefitPct / 100);
+var fiveYearIncome = annualIncome * 5;
+
+document.getElementById("amNetReturn").innerText = netReturnPct.toFixed(1) + "%";
+document.getElementById("amGrossMonthly").innerText = amFormatRand(monthlyIncome);
+document.getElementById("amAnnualTax").innerText = amFormatRand(annualTax);
+document.getElementById("amNetMonthly").innerText = amFormatRand(netMonthly);
+document.getElementById("amDrawdownOut").innerText = drawdownPct.toFixed(1) + "%";
+document.getElementById("amRemainingReturn").innerText = remainingReturnPct.toFixed(1) + "%";
+document.getElementById("amInflationAmount").innerText = amFormatRand(inflationAmount);
+document.getElementById("amFiveYearIncome").innerText = amFormatRand(fiveYearIncome);
+
+document.getElementById("amSummaryText").innerText =
+"Based on capital of " +
+amFormatRand(capital) +
+", a " +
+drawdownPct.toFixed(1) +
+"% drawdown produces estimated gross income of " +
+amFormatRand(monthlyIncome) +
+" per month (" +
+amFormatRand(netMonthly) +
+" net after illustrative tax). A targeted gross portfolio return of " +
+grossReturnPct.toFixed(1) +
+"% less disclosed charges of " +
+chargesPct.toFixed(1) +
+"% implies an estimated net portfolio return of " +
+netReturnPct.toFixed(1) +
+"%. Remaining portfolio return after drawdown is an illustration only (" +
+remainingReturnPct.toFixed(1) +
+"%) and does not guarantee capital growth. The illustrative inflation-protection benefit at year five is " +
+amFormatRand(inflationAmount) +
+" where product terms currently disclose this benefit. Five-year income drawn (flat, before escalation) is " +
+amFormatRand(fiveYearIncome) +
+". Confirm all figures against the latest approved Amethyst disclosure.";
+
+resultsBox.style.display = "block";
+}
+</script>
+</div>

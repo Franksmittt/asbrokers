@@ -56,7 +56,7 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
   "asset-011-everest-128-vs-142": "Income Strategy Comparison Calculator",
   "asset-012-strategic-growth": "Strategic Growth Calculator",
   "asset-013-everest-income-vs-growth": "Income vs Growth Strategy Comparison",
-  "asset-014-living-annuity": "Living Annuity Calculator",
+  "asset-014-living-annuity": "Living Annuity Income & Sustainability Calculator",
   "asset-015-average-clause": "Average Clause Calculator",
   "asset-016-growth-comparison": "Growth Comparison Calculator",
   "asset-017-personal-goal": "Personal Goal Calculator",
@@ -90,7 +90,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-013-everest-income-vs-growth":
     "Which retirement investment strategy suits your goals—income or growth?",
   "asset-014-living-annuity":
-    "Model living annuity income within the 2.5% to 17.5% drawdown band.",
+    "Is your current retirement income sustainable? Test drawdown, tax and capital longevity.",
   "asset-015-average-clause":
     "How underinsurance can reduce a claim when the average clause applies.",
   "asset-016-growth-comparison":
@@ -140,7 +140,7 @@ export const HUB_DOMAINS: readonly HubDomain[] = [
   {
     id: "retirement-income",
     label: "Retirement Income",
-    lead: "Explore how long capital may last, living annuity drawdowns, and the effect of inflation on future purchasing power.",
+    lead: "Explore how long capital may last, living annuity income sustainability, and the effect of inflation on future purchasing power.",
     ids: [
       "asset-014-living-annuity",
       "asset-004-life-of-capital",

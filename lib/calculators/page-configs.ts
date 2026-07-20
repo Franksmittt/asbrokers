@@ -988,13 +988,13 @@ const PAGES: Record<string, PageContent> = {
     sidePanelTitle: "From saving to living off savings",
     sidePanelParagraphs: [
       "This calculator marks the transition from accumulating retirement savings to living off them. After measuring your gap and estimating monthly savings, ask the question that keeps many retirees awake: will I outlive my money?",
-      "Next, structure sustainable income with the Living Annuity Calculator, then explore the full Retirement Gap Method™.",
+      "Next, structure sustainable income with the Living Annuity Income & Sustainability Calculator, then explore the full Retirement Gap Method™.",
     ],
     sidePanelBullets: [
       "Stress-test drawdown sustainability",
       "See inflation and growth sensitivity",
       "Pairs with Reality Check and Premium tools",
-      "Primary next step: Living Annuity (Asset 014)",
+      "Primary next step: Living Annuity Sustainability (Asset 014)",
     ],
     fiduciaryNotes: FIDUCIARY,
     howToSteps: [
@@ -1042,8 +1042,8 @@ const PAGES: Record<string, PageContent> = {
         },
         {
           stepLabel: "Next Step",
-          title: "Living Annuity Calculator",
-          description: "Asset 014 — Structure income so it lasts",
+          title: "Living Annuity Income & Sustainability Calculator",
+          description: "Asset 014 — Is income sustainable?",
           href: calculatorPagePath("asset-014-living-annuity"),
         },
       ],
@@ -1108,7 +1108,7 @@ const PAGES: Record<string, PageContent> = {
         },
       ],
       closing:
-        "The right withdrawal rate is personal. Pair this illustration with the Living Annuity Calculator and a Retirement Gap Review before changing income.",
+        "The right withdrawal rate is personal. Pair this illustration with the Living Annuity Income & Sustainability Calculator and a Retirement Gap Review before changing income.",
     },
     timelineExample: {
       heading: "How to read a capital exhaustion timeline",
@@ -1143,13 +1143,13 @@ const PAGES: Record<string, PageContent> = {
       ],
       closing:
         "Related Toolkit tools and Method guidance help you explore these levers. Educational articles will deepen each theme as they are published.",
-      ctaLabel: "Continue to the Living Annuity Calculator",
+      ctaLabel: "Continue to the Living Annuity Income & Sustainability Calculator",
       ctaHref: calculatorPagePath("asset-014-living-annuity"),
     },
     methodSection: {
       heading: "Structure income so it lasts",
       paragraphs: [
-        "If Asset 004 creates concern, the next practical step is learning how to structure retirement income. The Living Annuity Calculator (Asset 014) explores drawdown within regulated bands.",
+        "If Asset 004 creates concern, the next practical step is testing whether living annuity income may be sustainable. Asset 014 explores drawdown, tax and capital longevity—education before products.",
         "The Retirement Gap Method™ then brings Reality Check, Premium, Life of Capital, Future Value and Living Annuity tools into one framework.",
       ],
       bullets: [
@@ -1158,7 +1158,7 @@ const PAGES: Record<string, PageContent> = {
         "Tax and sustainability trade-offs",
         "Review cadence after retirement",
       ],
-      ctaLabel: "Open the Living Annuity Calculator",
+      ctaLabel: "Open the Living Annuity Income & Sustainability Calculator",
       ctaHref: calculatorPagePath("asset-014-living-annuity"),
       secondaryCtaLabel: "Learn the Retirement Gap Method™",
       secondaryCtaHref: "/retirement-gap-method",
@@ -1196,7 +1196,7 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Next",
           assetCode: "ASSET 014",
-          title: "Living Annuity Calculator",
+          title: "Living Annuity Income & Sustainability Calculator",
           description: "How do I structure retirement income so it lasts?",
           href: calculatorPagePath("asset-014-living-annuity"),
         },
@@ -1240,7 +1240,7 @@ const PAGES: Record<string, PageContent> = {
         heading: "Why retirement capital runs out",
         paragraphs: [
           "Retirement savings are usually exhausted because one or more of the following occur: withdrawals are too high; inflation is higher than expected; investment returns disappoint; retirement lasts longer than planned; tax reduces available retirement income; or unexpected expenses arise.",
-          "The good news is that many of these factors can still be managed through good retirement planning. Revisit your Reality Check and Premium results, explore Future Value for inflation pressure, then structure income with the Living Annuity Calculator.",
+          "The good news is that many of these factors can still be managed through good retirement planning. Revisit your Reality Check and Premium results, explore Future Value for inflation pressure, then structure income with the Living Annuity Income & Sustainability Calculator.",
         ],
       },
     ],
@@ -1254,7 +1254,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Does this model living annuities?",
         answer:
-          "It illustrates capital longevity. For living annuity income mechanics, use our Living Annuity calculator as well.",
+          "It illustrates capital longevity. For living annuity income mechanics, use our Living Annuity Income & Sustainability Calculator as well.",
       },
       {
         question: "How much can I safely withdraw each year?",
@@ -1713,7 +1713,7 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Next",
           assetCode: "ASSET 014",
-          title: "Living Annuity Calculator",
+          title: "Living Annuity Income & Sustainability Calculator",
           description: "Understand how retirement income withdrawals are taxed.",
           href: calculatorPagePath("asset-014-living-annuity"),
         },
@@ -1798,7 +1798,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "How are living annuity withdrawals taxed?",
         answer:
-          "Living annuity income is generally taxed as income at your marginal rates. Use the Living Annuity Calculator (Asset 014) alongside this tool when planning retirement income.",
+          "Living annuity income is generally taxed as income at your marginal rates. Use the Living Annuity Income & Sustainability Calculator (Asset 014) alongside this tool when planning retirement income.",
       },
       {
         question: "What tax year does this calculator use?",
@@ -2239,7 +2239,7 @@ const PAGES: Record<string, PageContent> = {
         },
       ],
       closing:
-        "Understand how taxation affects lifetime wealth with the Income Tax Calculator, how retirement assets are treated with the Living Annuity Calculator, and how the pieces fit in the Retirement Gap Method™.",
+        "Understand how taxation affects lifetime wealth with the Income Tax Calculator, how retirement assets are treated with the Living Annuity Income & Sustainability Calculator, and how the pieces fit in the Retirement Gap Method™.",
     },
     methodSection: {
       heading: "Giving while you can see the difference",
@@ -2291,7 +2291,7 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Related",
           assetCode: "ASSET 014",
-          title: "Living Annuity Calculator",
+          title: "Living Annuity Income & Sustainability Calculator",
           description: "See how retirement assets are treated differently for estate planning.",
           href: calculatorPagePath("asset-014-living-annuity"),
         },
@@ -2317,7 +2317,7 @@ const PAGES: Record<string, PageContent> = {
         heading: "From estate duty to legacy timing",
         paragraphs: [
           "Start with a clear picture of estate costs and liquidity using the Estate Duty Calculator—estimate what your estate could currently owe. Then use this page to explore whether lifetime timing could change what your family receives.",
-          "Understand how taxation affects lifetime wealth with the Income Tax Calculator, and see how retirement assets are treated differently for estate planning with the Living Annuity Calculator. The Retirement Gap Method™ connects retirement, tax and estate planning into one framework.",
+          "Understand how taxation affects lifetime wealth with the Income Tax Calculator, and see how retirement assets are treated differently for estate planning with the Living Annuity Income & Sustainability Calculator. The Retirement Gap Method™ connects retirement, tax and estate planning into one framework.",
         ],
       },
     ],
@@ -2820,7 +2820,7 @@ const PAGES: Record<string, PageContent> = {
         },
       ],
       footer:
-        "Also compare income and growth strategies with Asset 013, and estimate retirement income needs with the Living Annuity Calculator.",
+        "Also compare income and growth strategies with Asset 013, and estimate retirement income needs with the Living Annuity Income & Sustainability Calculator.",
     },
     withdrawalGuide: {
       heading: "Why some investors choose lower income today",
@@ -2927,7 +2927,7 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Also",
           assetCode: "ASSET 014",
-          title: "Living Annuity Calculator",
+          title: "Living Annuity Income & Sustainability Calculator",
           description: "Estimate retirement income needs and drawdown.",
           href: calculatorPagePath("asset-014-living-annuity"),
         },
@@ -3906,76 +3906,320 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-014-living-annuity": {
-    shortTitle: "Living Annuity Income Calculator",
-    seoTitle: "Living Annuity Calculator South Africa",
+    shortTitle: "Living Annuity Income & Sustainability Calculator",
+    seoTitle: "Living Annuity Income & Sustainability Calculator | Toolkit",
     seoDescription:
-      "Model living annuity income in the 2.5% to 17.5% drawdown band. Free SA calculator with Amethyst-style notes. Educational only. FSP 17273.",
+      "Is your retirement income sustainable? Educational Living Annuity Income & Sustainability Calculator for drawdown, tax, capital longevity and sustainability risk. Retirement Gap Toolkit™. FSP 17273.",
     keywords: [
-      "living annuity calculator",
-      "retirement annuity drawdown",
-      "Amethyst living annuity calculator",
-      "2.5% to 17.5% drawdown",
+      "Living Annuity Income & Sustainability Calculator South Africa",
+      "living annuity sustainability",
+      "retirement income sustainability",
+      "drawdown rate calculator",
+      "Retirement Gap Toolkit",
     ],
-    kicker: "Living annuity",
-    heroTitle: "Model living annuity drawdown income",
+    kicker: "Retirement Gap Toolkit™ · Retirement Income",
+    heroTitle: "Is your current retirement income sustainable?",
     heroSubtitle:
-      "Estimate income from pension, RA, or preservation capital using illustrative growth and drawdown rates in the regulated 2.5% to 17.5% band.",
+      "This calculator helps retirees evaluate living annuity income sustainability. It educates first and analyses second. No investment product is promoted inside the tool—product discussions belong after a Living Annuity Review.",
     heroImage: "/images/calc-lcp/asset-014.webp",
-    heroImageAlt: "Retired couple reviewing living annuity drawdown with an adviser",
+    heroImageAlt: "Retiree reviewing whether living annuity income can last through later life",
     calculatorLead:
-      "Enter capital, a drawdown percentage between 2.5% and 17.5%, and growth assumptions to see illustrative monthly income and sustainability notes.",
-    sidePanelTitle: "Post-retirement capital",
+      "Enter capital, age, drawdown, expected return, fees, income escalation and planning age. See gross and net income, projected capital at key ages, depletion age and a sustainability assessment.",
+    sidePanelTitle: "Education before product selection",
     sidePanelParagraphs: [
-      "Retirees with pension, RA, or preservation funds often face living annuity decisions at retirement. Drawdown rate drives income and longevity.",
-      "South African living annuities generally allow annual drawdowns between 2.5% and 17.5%. Pair with Life of Capital to stress-test whether income lasts.",
+      "Asset 014 is a core educational calculator in the Retirement Gap Toolkit™. The question is sustainability—not which product to buy.",
+      "After you understand your situation, request a Free Living Annuity Review. Only then should any product recommendation be discussed.",
     ],
     sidePanelBullets: [
-      "2.5% to 17.5% drawdown band",
-      "Inflation and growth stress-tests",
-      "Retired client pathway",
-      "Not a product quote",
+      "Sustainability-first framing",
+      "Statutory 2.5%–17.5% drawdown band",
+      "Colour-coded risk education",
+      "No product promotion in the tool",
     ],
     fiduciaryNotes: [
       ...FIDUCIARY,
       "Living annuity drawdowns typically sit between 2.5% and 17.5% a year. Confirm product rules before acting.",
-      "Amethyst and other structured yield ideas may complement a living annuity where suitable — liquidity and suitability rules apply.",
+      "This page does not promote a specific living annuity product. Product illustrations, where appropriate, follow a suitability-led advice process.",
     ],
     howToSteps: [
-      { title: "Enter annuity capital", description: "Lump sum moving into living annuity." },
+      { title: "Answer the Decision Question", description: "Is my current retirement income sustainable?" },
       {
-        title: "Set drawdown %",
-        description: "Use a rate in the 2.5% to 17.5% band. Real products apply specific annual review rules.",
+        title: "Enter planning assumptions",
+        description: "Capital, age, drawdown, return, fees, escalation and planning age.",
       },
-      { title: "Add growth assumption", description: "Stress-test conservative and moderate returns." },
-      { title: "Review sustainability", description: "Use Life of Capital tool for longevity check." },
+      {
+        title: "Read the sustainability assessment",
+        description: "Excellent, Moderate or High Risk—plus projected capital and depletion age.",
+      },
+      {
+        title: "Continue the journey",
+        description: "Use Toolkit links, then request a Free Living Annuity Review before any product discussion.",
+      },
     ],
+    decisionQuestion: {
+      placement: "before-calculator",
+      question: "Is my current retirement income sustainable?",
+    },
+    heroCta: {
+      primaryLabel: "Assess My Income Sustainability",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Learn the Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
+    },
+    contextBox: {
+      heading: "Sustainability before products",
+      paragraphs: [
+        "Retirement planning starts with lifestyle objectives, required income, available assets and the retirement gap—not with selecting an investment product.",
+        "Use this calculator to understand whether your drawdown strategy may support the income you need over a realistic planning horizon.",
+      ],
+      highlightQuestion: "Is my current retirement income sustainable?",
+    },
+    audienceGuide: {
+      heading: "Who this calculator is for",
+      intro: "Suitable for visitors who:",
+      items: [
+        "Are retired or approaching retirement",
+        "Have living annuity or compulsory retirement capital",
+        "Want to test whether current income may last",
+        "Need drawdown education before speaking to an adviser",
+        "Prefer an education-first path before product discussions",
+      ],
+    },
+    methodProgress: {
+      heading: "Where you are in the Retirement Gap journey",
+      steps: [
+        {
+          stepLabel: "Earlier",
+          title: "Retirement Reality Check",
+          description: "Asset 002 — Understand the retirement problem",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Earlier",
+          title: "Life of Capital",
+          description: "Asset 004 — Test income longevity",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "You are here",
+          title: "Living Annuity Sustainability",
+          description: "Asset 014 — Is income sustainable?",
+          current: true,
+        },
+        {
+          stepLabel: "Next",
+          title: "Retirement Gap Method™",
+          description: "Asset 018 — Framework before advice",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    assumptionCallout: {
+      heading: "Before you calculate",
+      paragraphs: [
+        "Defaults use realistic retirement planning assumptions: R2m capital, age 65, 5% drawdown, 8% expected return, 1.5% fees, 5% income escalation and planning age 90.",
+        "This is a generic educational calculator. It does not use Everest voluntary-product rates or imply that return minus drawdown equals guaranteed capital growth.",
+      ],
+    },
+    resultGuide: {
+      heading: "How to read your results",
+      intro:
+        "The calculator reports income, tax, projected capital and a sustainability assessment. Treat the assessment as an educational signal—not a personalised recommendation.",
+      bandsLead: "Sustainability assessment examples:",
+      bands: [
+        {
+          label: "Excellent",
+          tone: "excellent",
+          description: "Likely sustainable under the assumptions you entered.",
+        },
+        {
+          label: "Moderate",
+          tone: "caution",
+          description: "Requires periodic review as markets, fees, inflation and needs change.",
+        },
+        {
+          label: "High Risk",
+          tone: "high-risk",
+          description: "Your current drawdown may not be sustainable over the long term.",
+        },
+      ],
+      metricsListed: [
+        "Gross monthly income",
+        "Estimated income tax",
+        "Estimated net monthly income",
+        "Current drawdown percentage",
+        "Projected capital at ages 75, 85 and 90",
+        "Estimated depletion age (where applicable)",
+        "Sustainability assessment",
+      ],
+      footer:
+        "Green / amber / red drawdown bands educate on relative risk. They are not guarantees and do not replace advice.",
+    },
+    withdrawalGuide: {
+      heading: "Drawdown reference points",
+      intro:
+        "Rather than choosing any percentage in isolation, use these educational reference points inside the statutory 2.5%–17.5% band.",
+      levels: [
+        { label: "2.5% — Statutory minimum", description: "Lowest permitted annual drawdown." },
+        { label: "4.0% — Conservative starting point", description: "Often associated with a greener sustainability band." },
+        {
+          label: "5.0% — Retirement planning assumption",
+          description: "Default planning starting point used in this calculator.",
+        },
+        {
+          label: "5.6% — Current SA industry average",
+          description: "Useful benchmark; still requires personal review.",
+        },
+        {
+          label: "7.5% — Elevated sustainability risk",
+          description: "Higher income today; greater long-term pressure on capital.",
+        },
+        { label: "10.0% — High drawdown", description: "Material sustainability risk for many retirees." },
+        { label: "17.5% — Statutory maximum", description: "Highest permitted annual drawdown." },
+      ],
+      closing:
+        "Green: generally sustainable. Amber: requires regular review. Red: high risk of reducing long-term retirement income.",
+    },
+    methodSection: {
+      heading: "Why sustainable income matters",
+      paragraphs: [
+        "The Retirement Gap Method™ starts with lifestyle objectives rather than investment products. Desired lifestyle drives required income; required income is tested against available assets; the difference is the retirement gap; then a sustainable withdrawal strategy is designed.",
+        "Products are one possible outcome of a disciplined advice process—not the starting point.",
+      ],
+      bullets: [
+        "Desired lifestyle → required income",
+        "Available assets → retirement gap",
+        "Sustainable withdrawal strategy next",
+        "Product recommendation only where appropriate after advice",
+      ],
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+      secondaryCtaLabel: "Request a Free Living Annuity Review",
+      secondaryCtaHref: "/contact?source=living_annuity_review_asset_014",
+    },
+    assessmentSection: {
+      heading: "Request a Free Living Annuity Review",
+      intro:
+        "Do not treat the calculator as a product decision. A Living Annuity Review assesses sustainability and suitability before any product recommendation.",
+      bullets: [
+        "Current drawdown rate",
+        "Income sustainability",
+        "Investment strategy",
+        "Fees",
+        "Tax efficiency",
+        "Estate planning implications",
+        "Retirement Gap assessment",
+        "Alternative strategies where appropriate",
+      ],
+      ctaLabel: "Request a Free Living Annuity Review",
+      ctaHref: "/contact?source=living_annuity_review_asset_014",
+    },
+    journey: {
+      heading: "Continue the Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Problem",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Understand the retirement problem first.",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Longevity",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "Test whether retirement income may last.",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Inflation",
+          assetCode: "ASSET 005",
+          title: "Inflation Calculator",
+          description: "See how inflation erodes purchasing power.",
+          href: calculatorPagePath("asset-005-future-value"),
+        },
+        {
+          stepLabel: "Tax",
+          assetCode: "ASSET 006",
+          title: "Income Tax Calculator",
+          description: "Estimate tax on retirement income.",
+          href: calculatorPagePath("asset-006-income-tax"),
+        },
+        {
+          stepLabel: "Method",
+          assetCode: "ASSET 018",
+          title: "The Retirement Gap Method™",
+          description: "Framework before personalised advice.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Education → Calculator → Advice → Possible solutions",
+      body: "Asset 014 is an educational sustainability tool inside the Retirement Gap Toolkit™. Understand your income position first. Request a Free Living Annuity Review next. Product recommendations, where appropriate, come only after that advice process.",
+      primaryLabel: "Request a Free Living Annuity Review",
+      primaryHref: "/contact?source=living_annuity_review_asset_014",
+      secondaryLabel: "Learn the Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
+    },
     readingSections: [
       {
-        heading: "Drawdown decisions at retirement",
+        heading: "What is a Living Annuity?",
         paragraphs: [
-          "Choosing drawdown is choosing how much future income you keep. Too high early on can destroy capital in a bad sequence of returns.",
-          "Amethyst and structured yield solutions may complement living annuities where suitable. Liquidity constraints and a suitability review apply. Advice is essential.",
+          "A living annuity is a post-retirement income vehicle where you generally retain ownership of the underlying capital (subject to product and regulatory rules). Investment strategy can usually be adjusted within the available options, and you select an annual drawdown within the statutory band.",
+          "Income drawn is typically taxed as income. Remaining capital may form part of your estate planning picture, which is one reason living annuities are often compared with life annuities. Confirm ownership, beneficiary and liquidity rules with an authorised adviser.",
+        ],
+      },
+      {
+        heading: "How much should I draw?",
+        paragraphs: [
+          "Higher income today may reduce future income if capital depletes faster than it can recover. Longevity risk, inflation, investment returns, fees and sequence-of-returns risk all affect sustainability.",
+          "The educational reference points in the calculator—from statutory minimum to statutory maximum—exist to make that trade-off visible before you lock in a lifestyle income assumption.",
+        ],
+      },
+      {
+        heading: "Why sustainable income matters",
+        paragraphs: [
+          "The Retirement Gap Method™ focuses on lifestyle objectives, required income, available assets, the retirement gap and a sustainable withdrawal strategy.",
+          "Visitors should spend time understanding retirement decisions before discovering that AS Brokers also provides regulated financial advice. Education strengthens compliance, credibility and long-term trust.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "What drawdown band applies to living annuities?",
+        question: "Can I transfer my living annuity?",
         answer:
-          "South African living annuities generally allow annual drawdowns between 2.5% and 17.5%. This tool illustrates scenarios inside that band; confirm your product’s rules with an adviser.",
+          "South African legislation generally allows transfers between providers, subject to product and regulatory rules. The decision should consider sustainability, fees, investment strategy, taxation, liquidity and estate planning—not performance alone.",
       },
       {
-        question: "Is Amethyst the same as a living annuity?",
+        question: "How much should I withdraw each year?",
         answer:
-          "No. Amethyst-style structured yield may complement retirement income where suitable. Living annuities have their own regulatory drawdown band, liquidity, and tax treatment. Suitability review required.",
+          "There is a trade-off between current income and preserving future purchasing power. Lower drawdowns generally improve longevity; higher drawdowns raise income now and increase depletion risk. Use this calculator as education, then review personally.",
       },
       {
-        question: "Does this replace a product quote?",
+        question: "Does a higher investment return guarantee my capital will grow?",
         answer:
-          "No. Results are educational only. Personal advice requires a needs analysis with AS Brokers CC (FSP 17273).",
+          "No. Sequence-of-returns risk, fees, inflation, market volatility and changing drawdown requirements can all prevent capital growth even when a targeted return looks higher than your drawdown. Never treat return minus drawdown as guaranteed growth.",
+      },
+      {
+        question: "Should I reduce my drawdown after retirement?",
+        answer:
+          "Reviewing drawdown rates regularly may improve long-term sustainability depending on markets, health, spending needs and other income sources. A Living Annuity Review can help stress-test alternatives.",
+      },
+      {
+        question: "Does this calculator recommend a product?",
+        answer:
+          "No. Asset 014 is an educational sustainability tool. Product illustrations and recommendations, where appropriate, follow a Free Living Annuity Review and suitability process with AS Brokers CC (FSP 17273).",
+      },
+      {
+        question: "What assumptions does the calculator use?",
+        answer:
+          "Defaults include R2,000,000 capital, age 65, 5.0% drawdown, 8.0% expected return, 1.5% fees, 5.0% income escalation and planning age 90. Tax uses illustrative SARS 2026/27 brackets with age rebates. Change any field to stress-test alternatives.",
       },
     ],
-    ...RETIREMENT,
+    categoryLabel: "Retirement Income",
+    categoryHref: "/calculators#retirement-income",
   },
 
   "asset-015-average-clause": {

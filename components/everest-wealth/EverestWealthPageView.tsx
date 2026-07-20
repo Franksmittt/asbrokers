@@ -377,7 +377,16 @@ export function EverestWealthPageView({ faqs }: Props) {
                 className="font-semibold hover:opacity-80"
                 style={{ color: TEAL_ON_DARK }}
               >
-                Model living annuity income
+                Assess living annuity income sustainability
+              </Link>
+              {" · "}
+              <Link
+                href="/everest-amethyst-living-annuity"
+                prefetch={false}
+                className="font-semibold hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
+              >
+                Amethyst product illustration
               </Link>
               .
             </p>

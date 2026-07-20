@@ -59,7 +59,7 @@ export const CALCULATOR_REVIEW_META: Record<string, CalculatorReviewMeta> = {
   },
   "asset-014-living-annuity": {
     group: "Living annuity",
-    note: "Drawdown, surplus and inflation protection illustration",
+    note: "Educational income & sustainability (no product promotion)",
   },
   "asset-015-average-clause": {
     group: "Insurance",

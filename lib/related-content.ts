@@ -166,8 +166,8 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     },
     {
       href: "/calculators#asset-014-living-annuity",
-      title: "Living Annuity Calculator",
-      description: "Model drawdowns, income, and sustainability for Amethyst.",
+      title: "Living Annuity Income & Sustainability Calculator",
+      description: "Is your retirement income sustainable? Educational drawdown and longevity tool.",
     },
     {
       href: "/everest-wealth",

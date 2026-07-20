@@ -137,7 +137,8 @@ const nextConfig: NextConfig = {
       { source: "/immediate-higher-income-calculator", destination: "/calculators/asset-009-everest-142-income" },
       { source: "/everest-128-product", destination: "/calculators/asset-010-everest-128-income" },
       { source: "/everest-strategic-growth-145", destination: "/calculators/asset-012-strategic-growth" },
-      { source: "/everest-amethyst-living-annuity", destination: "/calculators/asset-014-living-annuity" },
+      // Amethyst product page is live at /everest-amethyst-living-annuity (separate illustration).
+      // Educational sustainability tool remains /calculators/asset-014-living-annuity.
       { source: "/lab", destination: "/calculators" },
     ] as const;
 

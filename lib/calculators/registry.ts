@@ -121,7 +121,7 @@ export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
   ),
   staticHtml(
     "asset-014-living-annuity.html",
-    "AS Brokers Living Annuity Income Calculator",
+    "Living Annuity Income & Sustainability Calculator",
     "ASSET 014",
     "asset-014-living-annuity"
   ),

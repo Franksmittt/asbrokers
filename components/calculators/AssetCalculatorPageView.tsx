@@ -42,6 +42,7 @@ export function AssetCalculatorPageView({
   categoryHref,
   contextBox,
   heroCta,
+  methodProgress,
   resultGuide,
   practicalWays,
   methodSection,
@@ -49,10 +50,39 @@ export function AssetCalculatorPageView({
   journey,
   terminalCta,
   terminalOptions,
+  readingSectionsPlacement = "after-results",
 }: CalculatorPageConfig) {
   const relatedLinks = getRelatedLinks(path);
   const heroPrimaryHref = heroCta?.primaryHref ?? "#calculator-tool";
   const heroPrimaryLabel = heroCta?.primaryLabel ?? "Use the calculator";
+  const readingBlock = readingSections.map((section, index) => (
+    <section
+      key={section.heading}
+      data-chunk-boundary="true"
+      className={`border-b border-stone-200/80 py-12 md:py-16 ${index % 2 === 0 ? "bg-[#FDFCFA]" : ""}`}
+      style={index % 2 === 1 ? { backgroundColor: CANVAS } : undefined}
+    >
+      <div className={HOME4_WRAP}>
+        <h2
+          className="max-w-3xl font-bold tracking-tight"
+          style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+        >
+          {section.heading}
+        </h2>
+        <div className="mt-6 max-w-4xl space-y-4">
+          {section.paragraphs.map((paragraph) => (
+            <p
+              key={paragraph.slice(0, 48)}
+              className="leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
+  ));
 
   return (
     <>
@@ -239,6 +269,70 @@ export function AssetCalculatorPageView({
         </div>
       </section>
 
+      {methodProgress ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-10 md:py-12"
+          style={{ backgroundColor: "#FDFCFA" }}
+          aria-labelledby={`${path}-method-progress-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-method-progress-heading`}
+              className="font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem)", color: INK }}
+            >
+              {methodProgress.heading ?? "Where you are in the Retirement Gap Method™"}
+            </h2>
+            <ol className="mt-8 grid list-none gap-4 md:grid-cols-3 md:items-stretch">
+              {methodProgress.steps.map((step) => {
+                const card = (
+                  <div
+                    className={`flex h-full flex-col rounded-2xl p-5 ring-1 sm:p-6 ${
+                      step.current
+                        ? "bg-shark text-white ring-shark"
+                        : "bg-white ring-stone-200/90"
+                    }`}
+                  >
+                    <p
+                      className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                      style={{ color: step.current ? "#5EEAD4" : TEAL }}
+                    >
+                      {step.stepLabel}
+                    </p>
+                    <p
+                      className={`mt-2 font-serif text-lg font-semibold tracking-tight ${
+                        step.current ? "text-white" : "text-shark"
+                      }`}
+                    >
+                      {step.title}
+                    </p>
+                    <p
+                      className={`mt-2 text-sm leading-relaxed ${
+                        step.current ? "text-white/70" : "text-stone-600"
+                      }`}
+                    >
+                      {step.description}
+                    </p>
+                  </div>
+                );
+                return (
+                  <li key={step.stepLabel + step.title} className="flex">
+                    {step.href && !step.current ? (
+                      <Link href={step.href} prefetch={false} className="flex w-full min-w-0">
+                        {card}
+                      </Link>
+                    ) : (
+                      card
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </section>
+      ) : null}
+
       <section
         id="calculator-tool"
         data-chunk-boundary="true"
@@ -374,34 +468,7 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
-      {readingSections.map((section, index) => (
-        <section
-          key={section.heading}
-          data-chunk-boundary="true"
-          className={`border-b border-stone-200/80 py-12 md:py-16 ${index % 2 === 0 ? "bg-[#FDFCFA]" : ""}`}
-          style={index % 2 === 1 ? { backgroundColor: CANVAS } : undefined}
-        >
-          <div className={HOME4_WRAP}>
-            <h2
-              className="max-w-3xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
-            >
-              {section.heading}
-            </h2>
-            <div className="mt-6 max-w-4xl space-y-4">
-              {section.paragraphs.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 48)}
-                  className="leading-relaxed"
-                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
+      {readingSectionsPlacement === "after-results" ? readingBlock : null}
 
       {practicalWays ? (
         <section
@@ -457,6 +524,79 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
+      {readingSectionsPlacement === "after-practical" ? readingBlock : null}
+
+      {methodSection ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 bg-shark py-12 text-white md:py-16"
+          aria-labelledby={`${path}-method-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-method-heading`}
+              className="max-w-3xl font-bold tracking-tight text-white"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)" }}
+            >
+              {methodSection.heading}
+            </h2>
+            <div className="mt-6 max-w-3xl space-y-4 text-white/75">
+              {methodSection.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 48)}
+                  className="leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+            {methodSection.bullets.length > 0 ? (
+              <ul className="mt-6 grid max-w-3xl grid-cols-1 gap-2 sm:grid-cols-2">
+                {methodSection.bullets.map((bullet) => (
+                  <li key={bullet} className="flex items-start gap-2 text-sm text-white/80 sm:text-base">
+                    <span className="mt-0.5 font-bold text-[#5EEAD4]" aria-hidden>
+                      ·
+                    </span>
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+              <Link
+                href={methodSection.ctaHref}
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: TEAL }}
+              >
+                {methodSection.ctaLabel}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              {methodSection.secondaryCtaLabel && methodSection.secondaryCtaHref ? (
+                <Link
+                  href={methodSection.secondaryCtaHref}
+                  prefetch={false}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
+                >
+                  {methodSection.secondaryCtaLabel}
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              ) : (
+                <Link
+                  href="/calculators"
+                  prefetch={false}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
+                >
+                  Back to the Retirement Gap Toolkit™
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              )}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {assessmentSection ? (
         <section
           data-chunk-boundary="true"
@@ -503,66 +643,6 @@ export function AssetCalculatorPageView({
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </p>
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      {methodSection ? (
-        <section
-          data-chunk-boundary="true"
-          className="border-b border-stone-200/80 bg-shark py-12 text-white md:py-16"
-          aria-labelledby={`${path}-method-heading`}
-        >
-          <div className={HOME4_WRAP}>
-            <h2
-              id={`${path}-method-heading`}
-              className="max-w-3xl font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)" }}
-            >
-              {methodSection.heading}
-            </h2>
-            <div className="mt-6 max-w-3xl space-y-4 text-white/75">
-              {methodSection.paragraphs.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 48)}
-                  className="leading-relaxed"
-                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-            {methodSection.bullets.length > 0 ? (
-              <ul className="mt-6 grid max-w-3xl grid-cols-1 gap-2 sm:grid-cols-2">
-                {methodSection.bullets.map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-2 text-sm text-white/80 sm:text-base">
-                    <span className="mt-0.5 font-bold text-[#5EEAD4]" aria-hidden>
-                      ·
-                    </span>
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href={methodSection.ctaHref}
-                prefetch={false}
-                className="inline-flex items-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
-                style={{ backgroundColor: TEAL }}
-              >
-                {methodSection.ctaLabel}
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <Link
-                href="/calculators"
-                prefetch={false}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
-              >
-                Back to the Retirement Gap Toolkit™
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
             </div>
           </div>
         </section>

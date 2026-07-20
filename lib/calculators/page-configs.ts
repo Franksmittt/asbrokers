@@ -40,6 +40,21 @@ export type CalculatorMethodSection = {
   bullets: string[];
   ctaLabel: string;
   ctaHref: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+};
+
+export type CalculatorMethodProgressStep = {
+  stepLabel: string;
+  title: string;
+  description: string;
+  href?: string;
+  current?: boolean;
+};
+
+export type CalculatorMethodProgress = {
+  heading?: string;
+  steps: CalculatorMethodProgressStep[];
 };
 
 export type CalculatorJourneyItem = {
@@ -120,6 +135,8 @@ export type CalculatorPageConfig = {
   /** Shown immediately below the hero, before how-to / calculator. */
   contextBox?: CalculatorContextBox;
   heroCta?: CalculatorHeroCta;
+  /** Visual Method journey steps shown immediately before the calculator. */
+  methodProgress?: CalculatorMethodProgress;
   /** Plain-language interpretation of calculator outcomes (after the tool). */
   resultGuide?: CalculatorResultGuide;
   practicalWays?: CalculatorPracticalWays;
@@ -130,6 +147,12 @@ export type CalculatorPageConfig = {
   terminalCta?: CalculatorTerminalCta;
   /** Dual decision paths (e.g. Assessment vs Method). Takes precedence over terminalCta. */
   terminalOptions?: CalculatorTerminalOptions;
+  /**
+   * Where readingSections render after the calculator.
+   * Default: after results (before practical ways).
+   * Use after-practical when the action plan should come first (e.g. Asset 003).
+   */
+  readingSectionsPlacement?: "after-results" | "after-practical";
 };
 
 const FIDUCIARY: string[] = [
@@ -560,42 +583,213 @@ const PAGES: Record<string, PageContent> = {
 
   "asset-003-retirement-premium": {
     shortTitle: "Retirement Premium Calculator",
-    seoTitle: "Retirement Premium Calculator South Africa",
+    seoTitle: "Retirement Premium Calculator | Close Your Retirement Gap",
     seoDescription:
-      "Estimate monthly contributions or premiums needed to close a retirement funding gap over time. Illustrative retirement premium calculator. FSP 17273.",
-    keywords: ["retirement premium calculator", "retirement contribution calculator", "monthly retirement savings"],
-    kicker: "Retirement planning",
-    heroTitle: "How much should you save each month to close the gap?",
+      "Estimate the monthly savings that may help close your Retirement Gap. Educational contribution calculator in the Retirement Gap Toolkit™ for South Africans. FSP 17273.",
+    keywords: [
+      "retirement premium calculator",
+      "retirement contribution calculator",
+      "monthly retirement savings",
+      "close Retirement Gap",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Solution Calculator",
+    heroTitle: "What monthly savings could help close your Retirement Gap?",
     heroSubtitle:
-      "Turn a retirement capital shortfall into an illustrative monthly funding number over your remaining working years.",
+      "You've measured your Retirement Gap. Now it's time to build a plan. This calculator estimates the monthly contribution that may be required to achieve your retirement objective based on your current savings, investment period and expected investment growth. It provides an educational estimate to help you understand the actions that could improve your retirement outcome.",
     heroImage: "/images/calc-lcp/asset-003.webp",
     heroImageAlt: "Professional planning the monthly amount needed to close a retirement gap",
     calculatorLead:
-      "Enter your funding gap, years to retirement, and growth assumption to see an illustrative monthly premium or contribution.",
-    sidePanelTitle: "After the reality check",
+      "Enter your funding gap, years to retirement, and growth assumption to see an illustrative monthly premium or contribution. Educational only—not a product quote.",
+    sidePanelTitle: "From awareness to action",
     sidePanelParagraphs: [
-      "Once you know you have a gap, the next question is practical: what monthly number closes it? This tool gives an illustrative answer.",
-      "Risk products, RA contributions, and voluntary investments may all play a role. An adviser helps you choose structures tax-efficiently.",
+      "After the Retirement Reality Check, the next question is practical: what monthly number may help close the gap? This is the Solution Calculator in the Retirement Gap Method™.",
+      "Use it alongside the Retirement Growth Rate Calculator and Life of Capital Calculator, then explore the Retirement Gap Method™ for the full framework.",
     ],
     sidePanelBullets: [
-      "Gap-to-monthly contribution illustration",
-      "Time horizon sensitivity",
-      "Use after Reality Check",
-      "Not a policy quote",
+      "Converts your Retirement Gap into a monthly plan",
+      "Stress-test time and growth assumptions",
+      "Pairs with Reality Check and Life of Capital",
+      "Not a policy quote or personalised advice",
     ],
     fiduciaryNotes: FIDUCIARY,
     howToSteps: [
-      { title: "Enter the shortfall", description: "Use your gap from a reality check or your own capital target." },
+      { title: "Enter the shortfall", description: "Use your gap from a Reality Check or your own capital target." },
       { title: "Set years remaining", description: "How long you can still contribute before retirement." },
       { title: "Add growth assumption", description: "Use a conservative illustrative return for stress-testing." },
       { title: "Review monthly result", description: "Treat the output as a planning benchmark, not a product premium." },
     ],
+    heroCta: {
+      primaryLabel: "Calculate My Monthly Saving",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Explore the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
+    contextBox: {
+      heading: "Most Retirement Gaps are not solved overnight",
+      paragraphs: [
+        "They are closed gradually through disciplined saving, investment growth and time.",
+        "This calculator estimates the monthly contribution required to help bridge the gap before retirement.",
+        "Small changes made consistently over many years often have a greater impact than large changes made too late.",
+      ],
+      highlightQuestion: "What do I need to do to close my Retirement Gap?",
+    },
+    methodProgress: {
+      heading: "Where you are in the Retirement Gap Method™",
+      steps: [
+        {
+          stepLabel: "Step 1",
+          title: "Measure your Retirement Gap",
+          description: "Retirement Reality Check (Asset 002)",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Step 2 — Current Page",
+          title: "Calculate the monthly saving required",
+          description: "Retirement Premium Calculator (Asset 003)",
+          current: true,
+        },
+        {
+          stepLabel: "Step 3",
+          title: "Test how long your retirement income may last",
+          description: "Life of Capital Calculator (Asset 004)",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+      ],
+    },
+    resultGuide: {
+      heading: "How achievable is this goal?",
+      intro:
+        "Do not treat the monthly figure as a single impossible target. Interpret how achievable it looks, then explore multiple levers in your action plan.",
+      bandsLead: "If the required contribution looks:",
+      bands: [
+        {
+          label: "Relatively achievable",
+          description:
+            "Your retirement objective appears achievable if you maintain consistent contributions and regularly review your progress.",
+        },
+        {
+          label: "Moderately challenging",
+          description:
+            "Your retirement objective appears achievable but may require increasing contributions over time or making adjustments to your retirement strategy.",
+        },
+        {
+          label: "Very challenging",
+          description:
+            "The required monthly contribution is substantial. Most people improve their outcome by combining several strategies rather than relying on one large increase in monthly savings.",
+        },
+      ],
+      footer:
+        "These interpretations are educational only. The calculator figures are illustrations based on your inputs—not guarantees or personalised advice.",
+    },
+    practicalWays: {
+      heading: "Your Retirement Gap Action Plan",
+      intro:
+        "Improving retirement outcomes usually involves adjusting several variables—not only one large monthly saving. Possible improvements include:",
+      items: [
+        "Increasing monthly contributions",
+        "Starting earlier",
+        "Working for longer",
+        "Reviewing retirement income expectations",
+        "Improving long-term investment performance",
+        "Reducing unnecessary investment costs",
+        "Using more tax-efficient retirement structures",
+        "Reviewing existing retirement products",
+      ],
+      closing:
+        "The emphasis is on multiple practical levers you can control. A sustainable combination of changes is usually more successful than one unaffordable jump in monthly savings. Compare approaches with the Retirement Growth Rate Calculator and Life of Capital Calculator in the Toolkit.",
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+    },
+    methodSection: {
+      heading: "Saving enough each month is only one part of retirement planning",
+      paragraphs: [
+        "You also need to understand whether your retirement income will last, inflation, sustainable drawdown rates, taxation and investment strategy.",
+        "Continue to the Life of Capital Calculator next, or explore how every Retirement Gap Toolkit™ calculator fits together in the Retirement Gap Method™.",
+      ],
+      bullets: [
+        "Whether your retirement income will last",
+        "Inflation",
+        "Sustainable drawdown rates",
+        "Taxation",
+        "Investment strategy",
+      ],
+      ctaLabel: "Continue to the Life of Capital Calculator",
+      ctaHref: calculatorPagePath("asset-004-life-of-capital"),
+      secondaryCtaLabel: "Learn the Retirement Gap Method™",
+      secondaryCtaHref: "/retirement-gap-method",
+    },
+    assessmentSection: {
+      heading: "Unsure whether this monthly saving is realistic?",
+      intro:
+        "A Retirement Gap Assessment helps determine whether your retirement objective is achievable and identifies practical alternatives where necessary. We can review contributions, time horizon, growth assumptions and other levers alongside your Reality Check results.",
+      bullets: [
+        "Whether the monthly figure is sustainable for your cash flow",
+        "Alternative combinations of saving, time and expectations",
+        "Tax-efficient structures and existing product reviews",
+        "How this step fits with Life of Capital and the Method™",
+      ],
+      ctaLabel: "Book a Retirement Gap Assessment",
+      ctaHref: "/contact?source=retirement_gap_assessment_asset_003",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Previous",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Measure your Retirement Gap",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Current",
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "Calculate the monthly saving required",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "Will your retirement income last?",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Complete Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Bring every Toolkit calculator into one complete retirement planning framework.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalOptions: {
+      heading: "Every Retirement Gap has a solution.",
+      options: [
+        {
+          title: "Which change could have the greatest impact on your retirement future?",
+          description:
+            "The question isn't whether your current plan is perfect. Book a Retirement Gap Assessment for a personalised review of contributions, time and strategy.",
+          ctaLabel: "Book a Retirement Gap Assessment",
+          ctaHref: "/contact?source=retirement_gap_assessment_asset_003",
+        },
+        {
+          title: "Continue the Retirement Gap Method™",
+          description:
+            "Understand how the Reality Check, Premium Calculator, Life of Capital and the rest of the Retirement Gap Toolkit™ work together before you decide.",
+          ctaLabel: "Continue the Retirement Gap Method™",
+          ctaHref: "/retirement-gap-method",
+        },
+      ],
+    },
     readingSections: [
       {
-        heading: "Premiums, contributions, and affordability",
+        heading: "Closing the Retirement Gap is about consistency",
         paragraphs: [
-          "A theoretical monthly number means little if it is not sustainable through salary changes, business cycles, and family commitments.",
-          "Build plans you can keep when markets are volatile. FSP 17273 advisers help align funding with cash flow and tax wrappers.",
+          "Long-term retirement success is rarely achieved by finding the perfect investment. It is usually driven by saving consistently, increasing contributions over time, staying invested, reviewing progress regularly, and giving compound growth sufficient time to work.",
+          "A retirement plan you can maintain is usually more successful than a perfect plan you cannot sustain. Revisit this calculator when your income or goals change, and compare outcomes with the Retirement Reality Check and Retirement Growth Rate Calculator in the Toolkit.",
         ],
       },
     ],
@@ -609,9 +803,36 @@ const PAGES: Record<string, PageContent> = {
         question: "Is this personalised advice?",
         answer:
           "No. The monthly figure is an educational illustration. Personal advice requires a needs analysis with AS Brokers CC (FSP 17273).",
-      }
+      },
+      {
+        question: "Why is my required monthly saving so high?",
+        answer:
+          "A high figure often means the gap is large relative to the time left, or growth assumptions are conservative. Many people improve the outcome by combining higher contributions with more time, adjusted expectations, or other levers—not only one large monthly increase.",
+      },
+      {
+        question: "Can I close my Retirement Gap by working longer?",
+        answer:
+          "Working longer can help because you contribute for more years and delay drawdown. Whether it is the best lever depends on your health, career and income needs. Explore scenarios here, then discuss them in a Retirement Gap Assessment.",
+      },
+      {
+        question: "Should I save through a Retirement Annuity or discretionary investments?",
+        answer:
+          "Both can play a role. RAs may offer tax advantages with contribution and access rules; discretionary investments can be more flexible. The right mix is personal—this calculator does not choose a product for you.",
+      },
+      {
+        question: "Should I change my investment strategy?",
+        answer:
+          "Strategy can affect long-term growth, but higher returns usually mean higher risk. Closing a gap often needs a balance of saving, time, costs and suitable risk—not returns alone. Pair this tool with the Retirement Growth Rate Calculator for perspective.",
+      },
+      {
+        question: "Can increasing my monthly saving by a small amount really make a difference?",
+        answer:
+          "Yes. Small, consistent increases over many years can compound significantly. That is why this page emphasises sustainable plans you can maintain rather than a single unaffordable jump.",
+      },
     ],
-    ...RETIREMENT,
+    categoryLabel: "Getting Started",
+    categoryHref: "/calculators#getting-started",
+    readingSectionsPlacement: "after-practical",
   },
 
   "asset-004-life-of-capital": {

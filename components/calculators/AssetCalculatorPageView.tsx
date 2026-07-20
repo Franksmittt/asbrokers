@@ -41,6 +41,8 @@ export function AssetCalculatorPageView({
   categoryLabel,
   categoryHref,
   contextBox,
+  audienceGuide,
+  assumptionCallout,
   heroCta,
   methodProgress,
   resultGuide,
@@ -48,6 +50,7 @@ export function AssetCalculatorPageView({
   timelineExample,
   valueProgress,
   lifestyleExample,
+  incomeFlow,
   practicalWays,
   methodSection,
   assessmentSection,
@@ -238,10 +241,55 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
+      {audienceGuide ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-12 md:py-16"
+          style={{ backgroundColor: CANVAS }}
+          aria-labelledby={`${path}-audience-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-audience-heading`}
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
+            >
+              {audienceGuide.heading}
+            </h2>
+            {audienceGuide.intro ? (
+              <p
+                className="mt-4 max-w-3xl leading-relaxed"
+                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+              >
+                {audienceGuide.intro}
+              </p>
+            ) : null}
+            <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {audienceGuide.items.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 rounded-2xl bg-white p-4 ring-1 ring-stone-200/90 sm:p-5"
+                >
+                  <span className="mt-0.5 font-bold" style={{ color: TEAL }} aria-hidden>
+                    ✓
+                  </span>
+                  <span
+                    className="leading-relaxed"
+                    style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)", color: BODY }}
+                  >
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
       <section
         data-chunk-boundary="true"
         className="border-b border-stone-200/80 py-12 md:py-16"
-        style={{ backgroundColor: contextBox ? CANVAS : "#FDFCFA" }}
+        style={{ backgroundColor: contextBox || audienceGuide ? "#FDFCFA" : CANVAS }}
       >
         <div className={HOME4_WRAP}>
           <h2
@@ -346,11 +394,39 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
+      {assumptionCallout ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-10 md:py-12"
+          style={{ backgroundColor: CANVAS }}
+          aria-labelledby={`${path}-assumptions-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <div className="max-w-3xl rounded-2xl bg-stone-50 p-6 ring-1 ring-stone-200/90 sm:p-7">
+              <h2
+                id={`${path}-assumptions-heading`}
+                className="text-sm font-semibold uppercase tracking-[0.12em]"
+                style={{ color: TEAL }}
+              >
+                {assumptionCallout.heading}
+              </h2>
+              <div className="mt-4 space-y-3">
+                {assumptionCallout.paragraphs.map((paragraph) => (
+                  <p key={paragraph.slice(0, 48)} className="text-sm leading-relaxed text-stone-600">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section
         id="calculator-tool"
         data-chunk-boundary="true"
         className="scroll-mt-28 border-b border-stone-200/80 py-12 md:py-16 md:scroll-mt-32"
-        style={{ backgroundColor: CANVAS }}
+        style={{ backgroundColor: assumptionCallout ? "#FDFCFA" : CANVAS }}
         aria-labelledby={`${path}-calculator-heading`}
       >
         <div className={GRID}>
@@ -495,6 +571,24 @@ export function AssetCalculatorPageView({
                     </li>
                   ))}
                 </ul>
+              </div>
+            ) : null}
+            {resultGuide.highlightMetrics && resultGuide.highlightMetrics.length > 0 ? (
+              <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+                {resultGuide.highlightMetrics.map((metric) => (
+                  <article
+                    key={metric.label}
+                    className="rounded-2xl bg-shark p-5 text-white ring-1 ring-shark sm:p-6"
+                  >
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-teal-300">
+                      Highlight
+                    </p>
+                    <h3 className="mt-2 font-serif text-xl font-semibold tracking-tight text-white">
+                      {metric.label}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-white/75">{metric.description}</p>
+                  </article>
+                ))}
               </div>
             ) : null}
             {resultGuide.footer ? (
@@ -705,6 +799,50 @@ export function AssetCalculatorPageView({
             </div>
             {lifestyleExample.footer ? (
               <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{lifestyleExample.footer}</p>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {incomeFlow ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-12 md:py-16"
+          style={{ backgroundColor: CANVAS }}
+          aria-labelledby={`${path}-income-flow-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-income-flow-heading`}
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+            >
+              {incomeFlow.heading}
+            </h2>
+            {incomeFlow.intro ? (
+              <p
+                className="mt-4 max-w-3xl leading-relaxed"
+                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+              >
+                {incomeFlow.intro}
+              </p>
+            ) : null}
+            <ol className="mt-8 mx-auto flex max-w-md list-none flex-col items-center gap-0">
+              {incomeFlow.steps.map((step, index) => (
+                <li key={step} className="flex w-full flex-col items-center">
+                  <div className="w-full rounded-2xl bg-white px-5 py-4 text-center ring-1 ring-stone-200/90 sm:px-6">
+                    <p className="font-semibold text-shark">{step}</p>
+                  </div>
+                  {index < incomeFlow.steps.length - 1 ? (
+                    <span className="py-2 text-lg font-semibold" style={{ color: TEAL }} aria-hidden>
+                      ↓
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+            {incomeFlow.footer ? (
+              <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{incomeFlow.footer}</p>
             ) : null}
           </div>
         </section>

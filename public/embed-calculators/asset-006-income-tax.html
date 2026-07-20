@@ -175,7 +175,7 @@ grid-template-columns: 1fr;
 
 
 <p class="intro">
-Estimate your South African income tax, monthly PAYE and net monthly pay using the 2026/27 individual tax tables.
+Estimate your South African income tax, monthly PAYE, net income, effective tax rate and marginal tax rate using the latest SARS individual tax tables (currently 2026/27).
 </p>
 
 
@@ -201,28 +201,42 @@ Estimate your South African income tax, monthly PAYE and net monthly pay using t
 
 <div id="taxResults" class="asb-results">
 <div class="asb-result-box main">
-<div class="asb-label">Annual tax payable</div>
+<div class="asb-label">Annual tax</div>
 <div id="taxAnnualPayable" class="asb-value"></div>
 <div class="asb-small">Estimated annual income tax after age-based rebates.</div>
 </div>
 
 
 <div class="asb-result-box main">
-<div class="asb-label">Monthly PAYE</div>
+<div class="asb-label">Monthly tax (PAYE)</div>
 <div id="taxMonthlyPAYE" class="asb-value"></div>
 <div class="asb-small">Estimated monthly tax deduction before other payroll deductions.</div>
 </div>
 
 
 <div class="asb-result-box">
-<div class="asb-label">Net monthly pay</div>
-<div id="taxNetMonthlyPay" class="asb-value"></div>
+<div class="asb-label">Net annual income</div>
+<div id="taxNetAnnualIncome" class="asb-value"></div>
 </div>
 
 
 <div class="asb-result-box">
+<div class="asb-label">Net monthly income</div>
+<div id="taxNetMonthlyPay" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box main">
 <div class="asb-label">Effective tax rate</div>
 <div id="taxEffectiveRate" class="asb-value"></div>
+<div class="asb-small">Overall share of your income that goes to income tax.</div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">Marginal tax rate</div>
+<div id="taxMarginalRate" class="asb-value"></div>
+<div class="asb-small">The rate that may apply to your next rand of taxable income.</div>
 </div>
 
 
@@ -239,7 +253,7 @@ Estimate your South African income tax, monthly PAYE and net monthly pay using t
 
 
 <div class="asb-result-box">
-<div class="asb-label">What this means for you</div>
+<div class="asb-label">What this means for retirement planning</div>
 <div id="taxSummaryText" class="asb-small"></div>
 </div>
 </div>
@@ -320,6 +334,25 @@ return rebate;
 }
 
 
+function calculateMarginalTaxRate(taxableIncome) {
+if (taxableIncome <= 245100) {
+return 18;
+} else if (taxableIncome <= 383100) {
+return 26;
+} else if (taxableIncome <= 530200) {
+return 31;
+} else if (taxableIncome <= 695800) {
+return 36;
+} else if (taxableIncome <= 887000) {
+return 39;
+} else if (taxableIncome <= 1878600) {
+return 41;
+} else {
+return 45;
+}
+}
+
+
 function calculateIncomeTax() {
 const monthlyIncome = taxGetNumber("taxMonthlyIncome");
 const age = taxGetNumber("taxAge");
@@ -360,26 +393,27 @@ const rebateApplied = calculateRebate(age);
 const annualTaxPayable = Math.max(0, taxBeforeRebate - rebateApplied);
 const monthlyPAYE = annualTaxPayable / 12;
 const netMonthlyPay = monthlyIncome - monthlyPAYE;
+const netAnnualIncome = annualIncome - annualTaxPayable;
 const effectiveTaxRate = annualIncome > 0 ? (annualTaxPayable / annualIncome) * 100 : 0;
+const marginalTaxRate = calculateMarginalTaxRate(annualIncome);
+const centsPerRand = Math.round(effectiveTaxRate);
 
 
 document.getElementById("taxAnnualPayable").innerText = taxFormatRand(annualTaxPayable);
 document.getElementById("taxMonthlyPAYE").innerText = taxFormatRand(monthlyPAYE);
+document.getElementById("taxNetAnnualIncome").innerText = taxFormatRand(netAnnualIncome);
 document.getElementById("taxNetMonthlyPay").innerText = taxFormatRand(netMonthlyPay);
 document.getElementById("taxEffectiveRate").innerText = effectiveTaxRate.toFixed(1) + "%"
+document.getElementById("taxMarginalRate").innerText = marginalTaxRate.toFixed(0) + "%"
 document.getElementById("taxAnnualIncome").innerText = taxFormatRand(annualIncome);
 document.getElementById("taxRebateApplied").innerText = taxFormatRand(rebateApplied);
 
 
 document.getElementById("taxSummaryText").innerText =
-"Based on a gross monthly income of " + taxFormatRand(monthlyIncome) +
-", your annual gross income is approximately " + taxFormatRand(annualIncome) +
-". After applying the 2026/27 individual income tax tables and an age-based rebate of " +
-taxFormatRand(rebateApplied) +
-", your estimated annual tax payable is " + taxFormatRand(annualTaxPayable) +
-". This equals estimated monthly PAYE of " + taxFormatRand(monthlyPAYE) +
-", leaving an estimated net monthly pay of " + taxFormatRand(netMonthlyPay) +
-". Your estimated effective tax rate is " + effectiveTaxRate.toFixed(1) + "%."
+"Based on your income, your effective tax rate is " + effectiveTaxRate.toFixed(1) + "%. " +
+"This means approximately " + centsPerRand + " cents of every rand you earn goes towards income tax. " +
+"Any additional income may be taxed at your marginal rate of " + marginalTaxRate.toFixed(0) + "%. " +
+"Contributions to qualifying retirement funds may reduce your taxable income while helping you build additional retirement capital."
 
 
 resultsBox.style.display = "block"

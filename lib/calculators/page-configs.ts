@@ -25,6 +25,8 @@ export type CalculatorResultGuide = {
   bands?: CalculatorResultBand[];
   /** Metrics the calculator already displays — listed for education only; embed unchanged. */
   metricsListed?: string[];
+  /** Metrics to emphasise visually (e.g. effective vs marginal tax rate). */
+  highlightMetrics?: { label: string; description: string }[];
   footer?: string;
 };
 
@@ -100,6 +102,27 @@ export type CalculatorLifestyleExample = {
   todayItems: string[];
   laterHeading: string;
   laterBody: string;
+  footer?: string;
+};
+
+/** “Who should use this” audience list shown before the calculator. */
+export type CalculatorAudienceGuide = {
+  heading: string;
+  intro?: string;
+  items: string[];
+};
+
+/** Short assumptions / disclaimer callout immediately before the tool. */
+export type CalculatorAssumptionCallout = {
+  heading: string;
+  paragraphs: string[];
+};
+
+/** Simple vertical income / money-flow diagram. */
+export type CalculatorIncomeFlow = {
+  heading: string;
+  intro?: string;
+  steps: string[];
   footer?: string;
 };
 
@@ -180,6 +203,10 @@ export type CalculatorPageConfig = {
   categoryHref: string;
   /** Shown immediately below the hero, before how-to / calculator. */
   contextBox?: CalculatorContextBox;
+  /** Audience suitability list before how-to / calculator. */
+  audienceGuide?: CalculatorAudienceGuide;
+  /** Assumptions shown immediately before the calculator tool. */
+  assumptionCallout?: CalculatorAssumptionCallout;
   heroCta?: CalculatorHeroCta;
   /** Visual Method journey steps shown immediately before the calculator. */
   methodProgress?: CalculatorMethodProgress;
@@ -193,6 +220,8 @@ export type CalculatorPageConfig = {
   valueProgress?: CalculatorValueProgress;
   /** Tangible lifestyle cost comparison for inflation education. */
   lifestyleExample?: CalculatorLifestyleExample;
+  /** Simple gross → tax → net income flow diagram. */
+  incomeFlow?: CalculatorIncomeFlow;
   practicalWays?: CalculatorPracticalWays;
   methodSection?: CalculatorMethodSection;
   assessmentSection?: CalculatorAssessmentSection;
@@ -225,7 +254,6 @@ const ESTATE = { categoryLabel: "Estate planning", categoryHref: "/estate-planni
 const EVEREST = { categoryLabel: "Everest Wealth", categoryHref: "/investments" };
 const INSURANCE = { categoryLabel: "Insurance & risk", categoryHref: "/insurance" };
 const WEALTH = { categoryLabel: "Wealth building", categoryHref: "/investments" };
-const TAX = { categoryLabel: "Tax planning", categoryHref: "/calculators" };
 
 const PAGES: Record<string, PageContent> = {
   "asset-001-retirement-growth": {
@@ -1481,59 +1509,272 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-006-income-tax": {
-    shortTitle: "Income Tax Calculator",
-    seoTitle: "Income Tax Calculator South Africa 2026/27",
+    shortTitle: "South African Income Tax Calculator",
+    seoTitle: "South African Income Tax Calculator 2026/27 | PAYE & SARS Tax",
     seoDescription:
-      "Estimate personal income tax, rebates, and net pay using SARS 2026/27 illustrative brackets. Free South African income tax calculator. FSP 17273.",
-    keywords: ["income tax calculator South Africa", "PAYE calculator", "SARS tax calculator 2026"],
-    kicker: "Tax planning",
-    heroTitle: "Estimate your personal income tax",
+      "Calculate income tax South Africa with the latest SARS 2026/27 tax brackets. Free PAYE calculator showing annual tax, effective rate, marginal rate and retirement planning insight. FSP 17273.",
+    keywords: [
+      "South African Income Tax Calculator",
+      "Income Tax Calculator South Africa",
+      "PAYE Calculator",
+      "SARS Tax Calculator",
+      "Income Tax 2026/27",
+      "South African Tax Brackets",
+      "Calculate Income Tax South Africa",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 006",
+    heroTitle: "Calculate Your South African Income Tax",
     heroSubtitle:
-      "Illustrative SARS bracket calculation for salary, bonus, and retirement drawdown conversations. Not a substitute for a full assessment.",
+      "Understand how much of your income goes to SARS. Estimate your annual income tax, monthly tax, effective tax rate and marginal tax rate using the latest South African SARS tax tables. Then discover how tax affects your retirement planning and long-term financial freedom.",
     heroImage: "/images/calc-lcp/asset-006.webp",
     heroImageAlt: "Professional reviewing take-home pay after personal income tax",
     calculatorLead:
-      "Enter taxable income components to see illustrative tax payable, rebates, and net income using 2026/27 table logic in the tool.",
-    sidePanelTitle: "How to use this diagnostic",
+      "Enter your gross monthly income and age. The tool uses the latest SARS individual tax tables (currently 2026/27) to estimate tax payable, net income, and your effective and marginal rates.",
+    sidePanelTitle: "Tax & retirement insight",
     sidePanelParagraphs: [
-      "Marginal tax brackets affect RA contributions, voluntary investments, and drawdown decisions. Know your bracket before you optimise.",
-      "Confirm final positions with your tax practitioner. This tool does not replace SARS eFiling or a formal assessment.",
+      "This is the Tax & Retirement Calculator inside the Retirement Gap Toolkit™. It answers how much income tax you will probably pay—then points to what that means for retirement.",
+      "Knowing your bracket helps you discuss retirement contributions, living annuity withdrawals and lifetime tax efficiency with clearer numbers.",
     ],
     sidePanelBullets: [
-      "SARS 2026/27 bracket illustration",
-      "Rebates and medical credits where applicable",
-      "Compare interest vs dividend tax in advice sessions",
+      "Latest SARS tax year tables",
+      "Effective vs marginal rate clarity",
+      "Retirement contribution context",
       "Educational estimate only",
     ],
     fiduciaryNotes: FIDUCIARY,
     howToSteps: [
-      { title: "Enter taxable income", description: "Salary, bonus, rental, or other taxable components." },
-      { title: "Add deductions if prompted", description: "Include RA or other fields the tool supports." },
-      { title: "Review tax payable", description: "See marginal rate and net income illustration." },
-      { title: "Plan with an adviser", description: "Use results to discuss retirement and investment structuring." },
+      { title: "Enter gross monthly income", description: "Use salary or typical monthly earnings before tax." },
+      { title: "Add your age", description: "Age rebates can change the estimate for older taxpayers." },
+      { title: "Review tax and net income", description: "See annual tax, monthly PAYE, net income and both tax rates." },
+      { title: "Connect to retirement", description: "Read the insight, then continue into the Retirement Gap Method™ tools." },
     ],
+    heroCta: {
+      primaryLabel: "Calculate My Income Tax",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Explore the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
+    contextBox: {
+      heading: "How much income tax will I probably pay?",
+      paragraphs: [
+        "There are many South African tax calculators online. This one is different because it sits inside the Retirement Gap Toolkit™—connecting SARS estimates to retirement planning.",
+        "First understand what you pay. Then ask the more important question: how does tax affect my retirement over decades?",
+      ],
+      highlightQuestion: "Tax is not only a payroll issue. It is a lifetime retirement planning variable.",
+    },
+    audienceGuide: {
+      heading: "Who should use this calculator?",
+      intro: "Suitable for anyone who wants a clear, educational estimate of South African income tax before connecting the numbers to retirement planning.",
+      items: [
+        "Employees paying PAYE",
+        "Self-employed taxpayers",
+        "Individuals wanting to estimate annual tax",
+        "People planning for retirement",
+        "Anyone comparing salary increases or retirement contributions",
+      ],
+    },
+    assumptionCallout: {
+      heading: "Calculator assumptions",
+      paragraphs: [
+        "Calculations use the latest SARS individual income tax tables available in this tool (currently the 2026/27 tax year). When SARS updates brackets, only the tax tables in the calculator need to change.",
+        "Results are estimates. Individual tax circumstances may differ because of deductions, medical tax credits, allowances, bonuses and other factors not fully modelled here.",
+        "Professional tax advice may be appropriate for complex situations. This page is educational and is not a SARS assessment or personalised tax advice.",
+      ],
+    },
+    resultGuide: {
+      heading: "How to read your tax results",
+      intro:
+        "After you calculate, the tool shows Annual Tax, Monthly Tax, Net Annual Income, Net Monthly Income, Effective Tax Rate and Marginal Tax Rate. The summary inside the calculator interprets your own figures in plain language—including how many cents of every rand go to tax, and what your marginal rate means for additional income.",
+      metricsListed: [
+        "Annual Tax",
+        "Monthly Tax (PAYE)",
+        "Net Annual Income",
+        "Net Monthly Income",
+        "Effective Tax Rate",
+        "Marginal Tax Rate",
+      ],
+      highlightMetrics: [
+        {
+          label: "Effective tax rate",
+          description:
+            "Your overall average. If it is 22%, roughly 22 cents of every rand you earn goes to income tax across your whole income.",
+        },
+        {
+          label: "Marginal tax rate",
+          description:
+            "The rate that may apply to your next rand of taxable income. Extra salary, bonuses or taxable investment income can be taxed at this rate—not at your effective rate.",
+        },
+      ],
+      footer:
+        "Many South Africans confuse these two rates. Your effective rate describes the overall burden; your marginal rate describes the tax on the next rand. Both matter for retirement contribution and income decisions.",
+    },
+    incomeFlow: {
+      heading: "Where your income goes",
+      intro: "A simple flow helps you visualise the path from gross pay to what you can actually use—or save for retirement.",
+      steps: [
+        "Gross Income",
+        "Income Tax (PAYE)",
+        "Net Income",
+        "Retirement Savings (optional)",
+        "Disposable Income",
+      ],
+      footer:
+        "Qualifying retirement contributions can reduce taxable income while building capital for later. That is one reason tax and retirement planning belong together.",
+    },
+    methodSection: {
+      heading: "Income tax should never be viewed in isolation",
+      paragraphs: [
+        "Retirement contributions, investment structures, estate planning and retirement income all influence your lifetime tax position.",
+        "Good retirement planning is often about legally reducing tax over decades rather than simply reducing tax in a single year. The goal is lifetime tax efficiency—not tax avoidance.",
+      ],
+      bullets: [
+        "How brackets affect contribution decisions",
+        "Living annuity withdrawals and taxable income",
+        "Estate duty and liquidity alongside income tax",
+        "Connecting tax insight to the Retirement Gap Method™",
+      ],
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+      secondaryCtaLabel: "Open the Retirement Gap Toolkit™",
+      secondaryCtaHref: "/calculators",
+    },
+    assessmentSection: {
+      heading: "Want Personalised Retirement Tax Planning?",
+      intro:
+        "If you would like professional guidance on reducing lifetime tax, improving retirement income and building a more tax-efficient retirement strategy, book a Retirement Gap Review with AS Brokers.",
+      bullets: [
+        "Current income tax and PAYE position",
+        "Retirement contribution opportunities",
+        "Retirement income and living annuity tax",
+        "Lifetime tax efficiency aligned to your goals",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_006",
+    },
+    journey: {
+      heading: "Continue Your Retirement Planning",
+      items: [
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "See how tax and savings fit your Retirement Gap.",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 014",
+          title: "Living Annuity Calculator",
+          description: "Understand how retirement income withdrawals are taxed.",
+          href: calculatorPagePath("asset-014-living-annuity"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 007",
+          title: "Estate Duty Calculator",
+          description: "Connect income tax thinking to estate liquidity.",
+          href: calculatorPagePath("asset-007-estate-duty"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "See how tax supports the full retirement framework.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Want Personalised Retirement Tax Planning?",
+      body: "If you would like professional guidance on reducing lifetime tax, improving retirement income and building a more tax-efficient retirement strategy, book a Retirement Gap Review with AS Brokers. The focus remains educational, compliant and aligned with the Retirement Gap Method™.",
+      primaryLabel: "Book a Retirement Gap Review",
+      primaryHref: "/contact?source=retirement_gap_review_asset_006",
+      secondaryLabel: "Continue with the Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
+    },
     readingSections: [
       {
-        heading: "Tax-aware retirement planning",
+        heading: "South African income tax in plain English",
         paragraphs: [
-          "Drawdown from living annuities, voluntary products, and interest income are taxed differently. Bracket management can extend portfolio longevity.",
-          "Independent advisers integrate tax, estate, and investment decisions rather than optimising one line in isolation.",
+          "South Africa uses progressive taxation: as taxable income rises, higher portions of income can fall into higher tax brackets. That does not mean your whole income is taxed at the top rate.",
+          "Your effective tax rate is the overall average across your income. Your marginal tax rate is the rate that may apply to the next rand. Tax rebates reduce tax payable and can depend on age. Medical tax credits and qualifying retirement fund deductions can also change what you ultimately owe.",
+          "Two people earning similar incomes may pay different amounts of tax because of age rebates, retirement contributions, medical credits, deductions and the mix of income types. That is why this calculator is an estimate—and why advice still matters for complex cases.",
+        ],
+      },
+      {
+        heading: "Why tax belongs in the Retirement Gap Method™",
+        paragraphs: [
+          "Asset 006 answers: how much income tax will I probably pay? The Method then asks the deeper question: how does tax affect my retirement?",
+          "Use this supporting calculator for clarity and authority, then return to Reality Check, Living Annuity, Estate Duty and the Retirement Gap Method™ so tax never sits in isolation.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
+      {
+        question: "What is PAYE?",
+        answer:
+          "PAYE means Pay As You Earn. It is income tax usually deducted from an employee's salary each month and paid over to SARS. This calculator estimates a simplified PAYE-style monthly tax figure.",
+      },
+      {
+        question: "What is income tax?",
+        answer:
+          "Income tax is tax charged on taxable income according to SARS rules and tables for the tax year. Individuals may also qualify for rebates and certain deductions or credits.",
+      },
+      {
+        question: "What is my marginal tax rate?",
+        answer:
+          "It is the tax rate that may apply to your next rand of taxable income based on the SARS bracket your income reaches. Extra earnings can be taxed at this rate.",
+      },
+      {
+        question: "What is my effective tax rate?",
+        answer:
+          "It is your overall average: total income tax divided by total income. It is usually lower than your marginal rate because not all of your income is taxed at the top bracket.",
+      },
+      {
+        question: "Why are they different?",
+        answer:
+          "Progressive brackets and rebates mean your average (effective) rate across all income differs from the rate on the next rand (marginal). Confusing them can lead to poor salary, bonus and retirement contribution decisions.",
+      },
+      {
+        question: "How can retirement fund contributions reduce tax?",
+        answer:
+          "Qualifying contributions to retirement funds can reduce taxable income within SARS limits, which may lower tax payable while building retirement capital. Limits and eligibility depend on your circumstances.",
+      },
+      {
+        question: "Do pensioners pay income tax?",
+        answer:
+          "Often yes, depending on total taxable income. Older taxpayers may qualify for higher age rebates, which can reduce tax payable. Living annuity and other retirement income can still be taxable.",
+      },
+      {
+        question: "How are living annuity withdrawals taxed?",
+        answer:
+          "Living annuity income is generally taxed as income at your marginal rates. Use the Living Annuity Calculator (Asset 014) alongside this tool when planning retirement income.",
+      },
+      {
+        question: "What tax year does this calculator use?",
+        answer:
+          "It uses the latest SARS individual tax tables built into the tool—currently the 2026/27 tax year. When SARS updates tables, the calculator tables are updated so the page stays current.",
+      },
+      {
+        question: "How often are SARS tax tables updated?",
+        answer:
+          "SARS tax tables are typically reviewed annually with the national Budget. Always confirm the current year if you need an official assessment.",
+      },
       {
         question: "Are these the official SARS rates?",
         answer:
-          "The tool implements illustrative 2026/27 logic. Legislation may change. Verify with SARS or your tax practitioner.",
+          "The tool implements the illustrative latest tables available in this calculator. Legislation may change. Verify with SARS or your tax practitioner for filing.",
       },
       {
         question: "Can I use this for my tax return?",
         answer:
           "No. It is an educational estimate only. File via SARS eFiling or your tax practitioner for an official assessment.",
-      }
+      },
     ],
-    ...TAX,
+    categoryLabel: "Tax & Retirement",
+    categoryHref: "/calculators",
   },
 
   "asset-007-estate-duty": {

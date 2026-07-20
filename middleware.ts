@@ -7,6 +7,10 @@ import {
   CRM_PIN_COOKIE,
   hasCrmPinSessionFromCookieValue,
 } from "@/lib/crm/pin-session";
+import {
+  GOAL_ENGINEERING_EMBED_PATH,
+  hasActiveFinancialFreedomMembership,
+} from "@/lib/membership/access";
 import { normalizeRequestUrl } from "@/lib/url-normalize";
 
 const GONE_CACHE = "public, max-age=86400";
@@ -101,6 +105,21 @@ export async function middleware(request: NextRequest) {
 
   const isCrmRoute = pathname === "/crm" || pathname.startsWith("/crm/");
 
+  /** Members-only planner embed — block direct public access to the HTML engine. */
+  if (pathname === GOAL_ENGINEERING_EMBED_PATH) {
+    const allowed = hasActiveFinancialFreedomMembership(user) || pinSession;
+    if (!allowed) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = "/login";
+      loginUrl.searchParams.set("next", "/calculators/goal-engineering-planner");
+      const redirectResponse = NextResponse.redirect(loginUrl);
+      response.cookies.getAll().forEach((cookie) => {
+        redirectResponse.cookies.set(cookie);
+      });
+      return redirectResponse;
+    }
+  }
+
   if (isProtectedAppRoute(pathname)) {
     const crmPinAllowed = isCrmRoute && pinSession;
     if (!user && !crmPinAllowed) {
@@ -116,9 +135,17 @@ export async function middleware(request: NextRequest) {
   }
 
   if (pathname === "/login" && (user || pinSession)) {
+    const nextParam = request.nextUrl.searchParams.get("next");
+    const safeNext =
+      nextParam &&
+      nextParam.startsWith("/") &&
+      !nextParam.startsWith("//") &&
+      !nextParam.startsWith("/login")
+        ? nextParam
+        : null;
     const destination = pinSession
       ? "/crm"
-      : defaultRedirectForRole(roleFromAppMetadata(user!));
+      : safeNext ?? defaultRedirectForRole(roleFromAppMetadata(user!));
     const redirectResponse = NextResponse.redirect(new URL(destination, request.url));
     response.cookies.getAll().forEach((cookie) => {
       redirectResponse.cookies.set(cookie);

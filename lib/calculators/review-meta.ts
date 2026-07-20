@@ -70,8 +70,8 @@ export const CALCULATOR_REVIEW_META: Record<string, CalculatorReviewMeta> = {
     note: "Decision Cost / cost of waiting (compound growth education)",
   },
   "asset-017-personal-goal": {
-    group: "Wealth building",
-    note: "Personal goal setting and monthly spread",
+    group: "Financial Freedom Community",
+    note: "Members-only Goal Engineering Planner™ (locked publicly)",
   },
 };
 

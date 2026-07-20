@@ -41,8 +41,8 @@ const GROWTH_TOOLS = [
   },
   {
     code: "ASSET 017",
-    title: "Personal Goal Growth",
-    description: "Find the return profile needed to hit a target capital on your date.",
+    title: "Goal Engineering Planner™",
+    description: "Members only — reverse-engineer the growth required to achieve a financial goal.",
     href: CALC_PERSONAL_GOAL,
   },
 ] as const;

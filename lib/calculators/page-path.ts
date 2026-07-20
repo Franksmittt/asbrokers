@@ -4,11 +4,14 @@ const PUBLIC_PATH_BY_ID: Record<string, string> = {
   "asset-007-estate-duty": "/calculators/estate-duty-calculator",
   /** Problem-first underinsurance URL (Average Clause Calculator). */
   "asset-015-average-clause": "/calculators/underinsurance-calculator",
+  /** Members-only Goal Engineering Planner™ (public education page). */
+  "asset-017-personal-goal": "/calculators/goal-engineering-planner",
 };
 
 const SLUG_TO_REGISTRY_ID: Record<string, string> = {
   "estate-duty-calculator": "asset-007-estate-duty",
   "underinsurance-calculator": "asset-015-average-clause",
+  "goal-engineering-planner": "asset-017-personal-goal",
 };
 
 export function calculatorPagePath(id: string): string {

@@ -41,8 +41,8 @@ const CALCULATORS = [
   },
   {
     code: "ASSET 017",
-    title: "Personal Goal Projections",
-    description: "Project future lump sums from your monthly contributions and assumed growth.",
+    title: "Goal Engineering Planner™",
+    description: "Members only — reverse-engineer the growth required to achieve a financial goal.",
     href: CALC_GOAL,
   },
 ] as const;

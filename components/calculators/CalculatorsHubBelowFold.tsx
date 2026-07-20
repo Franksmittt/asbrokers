@@ -2,7 +2,7 @@ import Link from "next/link";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getRelatedLinks } from "@/lib/related-content";
 import { HOME4_WRAP } from "@/lib/layout-constants";
-import { ArrowRight } from "@/components/icons";
+import { ArrowRight, Lock } from "@/components/icons";
 import {
   HUB_DOMAINS,
   getHubDomainCalculators,
@@ -47,6 +47,12 @@ function CalculatorCard({ tool, anchor = false }: { tool: HubCalculator; anchor?
         >
           {tool.assetCode}
         </p>
+        {tool.membersOnly ? (
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#1D1D1F] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#D4AF37]">
+            <Lock className="h-3 w-3" aria-hidden />
+            Members
+          </span>
+        ) : null}
         <span className="text-[11px] text-stone-400" aria-hidden>
           ·
         </span>
@@ -73,7 +79,7 @@ function CalculatorCard({ tool, anchor = false }: { tool: HubCalculator; anchor?
         className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
         style={{ color: TEAL }}
       >
-        Open Calculator
+        {tool.membersOnly ? "View members page" : "Open Calculator"}
         <ArrowRight className="h-4 w-4" aria-hidden />
       </Link>
     </article>

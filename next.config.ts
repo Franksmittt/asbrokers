@@ -137,6 +137,8 @@ const nextConfig: NextConfig = {
       { source: "/underinsurance-calculator", destination: "/calculators/underinsurance-calculator" },
       { source: "/how-underinsurance-reduces-your-claim", destination: "/calculators/underinsurance-calculator" },
       { source: "/calculators/asset-015-average-clause", destination: "/calculators/underinsurance-calculator" },
+      { source: "/calculators/asset-017-personal-goal", destination: "/calculators/goal-engineering-planner" },
+      { source: "/goal-engineering-planner", destination: "/calculators/goal-engineering-planner" },
       { source: "/immediate-higher-income-calculator", destination: "/calculators/asset-009-everest-142-income" },
       { source: "/everest-128-product", destination: "/calculators/asset-010-everest-128-income" },
       { source: "/everest-strategic-growth-145", destination: "/calculators/asset-012-strategic-growth" },

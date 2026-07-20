@@ -139,7 +139,7 @@ export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
   ),
   staticHtml(
     "asset-017-personal-goal.html",
-    "AS Brokers Personal Goal Growth Calculator",
+    "Goal Engineering Planner™",
     "ASSET 017",
     "asset-017-personal-goal"
   ),

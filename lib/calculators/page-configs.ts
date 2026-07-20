@@ -285,6 +285,12 @@ export type CalculatorPageConfig = {
    * Use after-practical when the action plan should come first (e.g. Asset 003).
    */
   readingSectionsPlacement?: "after-results" | "after-practical";
+  /**
+   * Members-only planners (e.g. Goal Engineering Planner™).
+   * Public page stays educational; the calculator iframe is locked behind
+   * Financial Freedom Community™ membership (signup → payment → access).
+   */
+  membersOnly?: boolean;
 };
 
 const FIDUCIARY: string[] = [
@@ -4725,59 +4731,217 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-017-personal-goal": {
-    shortTitle: "Personal Goal Growth Calculator",
-    seoTitle: "Personal Financial Goal Calculator South Africa",
+    shortTitle: "Goal Engineering Planner™",
+    seoTitle: "Goal Engineering Planner™ | Financial Freedom Community™ Members",
     seoDescription:
-      "Set a financial goal, target date, and see required growth and contributions month by month. Free personal goal calculator. FSP 17273.",
-    keywords: ["financial goal calculator", "savings goal calculator", "personal goal growth rate"],
-    kicker: "Wealth building",
-    heroTitle: "Hit your personal financial goal on time",
+      "Can your financial goals realistically be achieved? The Goal Engineering Planner™ is a members-only Retirement Gap Method™ tool. Join the Financial Freedom Community™ to unlock it. FSP 17273.",
+    keywords: [
+      "Goal Engineering Planner",
+      "Financial Freedom Community",
+      "Retirement Gap Method members",
+      "financial goal roadmap",
+      "required growth rate planner",
+    ],
+    kicker: "Financial Freedom Community™",
+    heroTitle: "Can your financial goals realistically be achieved?",
     heroSubtitle:
-      "Set a target amount and date. See the illustrative growth rate and contribution path required to get there.",
+      "Most people know what they want. Very few know what rate of growth, level of saving or time horizon is actually required to get there. The Goal Engineering Planner™ forms part of the Retirement Gap Method™ and is available exclusively to members of the Financial Freedom Community. It helps members build realistic financial roadmaps rather than relying on guesswork.",
     heroImage: "/images/calc-lcp/asset-017.webp",
-    heroImageAlt: "Packing for a funded personal goal reached on time",
+    heroImageAlt: "Member building a financial roadmap by working backwards from a clear goal",
     calculatorLead:
-      "Enter goal amount, target date, starting capital, and contributions to see required growth and month-by-month illustration.",
-    sidePanelTitle: "Goal-based planning",
+      "Members unlock the full Goal Engineering Planner™ after registration and programme payment. Public visitors see education only—the planning engine stays locked.",
+    sidePanelTitle: "Members planning tool",
     sidePanelParagraphs: [
-      "Goals like education, property deposits, or retirement capital are easier to fund when you know the required return and contribution discipline.",
-      "This tool produces a planning spreadsheet mindset before product selection.",
+      "Unlike public Toolkit calculators, this planner teaches a planning methodology: what must happen to reach a goal—not a product prediction.",
+      "Access requires an active Financial Freedom Community™ membership (signup → payment → unlock).",
     ],
     sidePanelBullets: [
-      "Target date planning",
-      "Required return illustration",
-      "Contribution schedule view",
-      "Pairs with Retirement Growth tool",
+      "Members only — lock icon on public site",
+      "Reverse-engineer required growth",
+      "Month-by-month roadmap",
+      "Financial Blueprint™ ready",
     ],
-    fiduciaryNotes: FIDUCIARY,
+    fiduciaryNotes: [
+      "Educational Planning Tool — part of the Retirement Gap Method™ educational programme.",
+      "Intended to assist members in understanding financial planning concepts. Not financial, investment, tax or legal advice.",
+      "Calculations are illustrative and based on assumptions entered by the member.",
+      "FSP 17273 · Category 1.8 independent adviser · Krugersdorp.",
+    ],
     howToSteps: [
-      { title: "Name your goal", description: "Enter target capital and deadline." },
-      { title: "Add what you have", description: "Current savings and monthly contributions." },
-      { title: "See required rate", description: "Illustrative growth needed to hit the goal." },
-      { title: "Adjust inputs", description: "Extend date or raise contributions if rate looks unrealistic." },
+      { title: "Understand why goals fail", description: "Read the education below before expecting a calculator." },
+      { title: "Join the community", description: "Register for the 12-week Financial Freedom Community™." },
+      { title: "Complete payment", description: "Active membership unlocks the planner and learning centre." },
+      { title: "Engineer your goal", description: "Members work backwards from target, time and contributions." },
     ],
+    membersOnly: true,
+    decisionQuestion: {
+      question: "What must happen for your financial goal to become achievable?",
+    },
+    heroCta: {
+      primaryLabel: "Join the Financial Freedom Community",
+      primaryHref: "/financial-freedom-community/register",
+      secondaryLabel: "Book a Retirement Planning Session",
+      secondaryHref: "/contact?source=retirement_planning_session_asset_017",
+    },
+    contextBox: {
+      heading: "From prediction to planning",
+      paragraphs: [
+        "Public calculators ask “what will happen?” This members planner asks “what must happen?” That change turns guesswork into a structured roadmap.",
+        "Because it teaches proprietary Retirement Gap Method™ methodology, it is not available to the general public.",
+      ],
+      highlightQuestion: "Can your financial goals realistically be achieved?",
+    },
+    audienceGuide: {
+      heading: "Who this is for",
+      intro: "Built for Financial Freedom Community™ members who want to:",
+      items: [
+        "Reverse-engineer major financial goals",
+        "Understand required growth versus available time",
+        "Trade off savings, timeframe and target size",
+        "Build a living Financial Blueprint™ during the programme",
+      ],
+      exclusionNote:
+        "Not a public marketing calculator. Guests can learn the principle here, then join to unlock the planner.",
+    },
+    assumptionCallout: {
+      heading: "Educational Planning Tool",
+      paragraphs: [
+        "The Goal Engineering Planner™ forms part of the Retirement Gap Method™ educational programme. It should not be interpreted as financial, investment, tax or legal advice.",
+        "Calculations are illustrative and based on the assumptions entered by the user.",
+      ],
+    },
+    resultGuide: {
+      heading: "What members see after unlock",
+      intro:
+        "Once membership is active, the planner emphasises Required Annual Growth Rate as the primary result—then time, capital difference, milestones and a month-by-month table.",
+      metricsListed: [
+        "Required annual growth rate (primary)",
+        "Required monthly growth",
+        "Total time / starting / target capital",
+        "Capital difference",
+        "Month-by-month roadmap table",
+        "CSV export for members",
+      ],
+      footer:
+        "Guidance stays educational: if the required return looks unrealistic, members explore more time, higher savings, a lower target—or a combination—not product picks.",
+    },
+    withdrawalGuide: {
+      heading: "Coaching prompts (members)",
+      intro: "Reflective questions used in programme discussions—not advice:",
+      levels: [
+        { label: "Is your timeframe realistic?", description: "Would extending time reduce the return required?" },
+        {
+          label: "Would increasing monthly savings help?",
+          description: "Higher contributions often lower the growth rate needed.",
+        },
+        {
+          label: "Could delaying retirement improve the outcome?",
+          description: "More years of compounding and contributions change the maths.",
+        },
+        {
+          label: "Is your target aligned with the lifestyle you want?",
+          description: "Goals should match lifestyle objectives—not arbitrary round numbers.",
+        },
+      ],
+      closing: "These prompts support coaching sessions inside the 12-week programme.",
+    },
+    methodSection: {
+      heading: "Join the Financial Freedom Community",
+      paragraphs: [
+        "Complete the 12-week educational programme and unlock advanced planning tools including the Goal Engineering Planner™.",
+        "Prefer personalised advice instead? Meet with an AS Brokers adviser and build your own financial roadmap.",
+      ],
+      bullets: [
+        "12-week Financial Freedom Community™",
+        "Members learning centre access",
+        "Goal Engineering Planner™ unlock",
+        "Optional adviser planning session",
+      ],
+      ctaLabel: "Join the Financial Freedom Community",
+      ctaHref: "/financial-freedom-community/register",
+      secondaryCtaLabel: "Book a Retirement Planning Session",
+      secondaryCtaHref: "/contact?source=retirement_planning_session_asset_017",
+    },
+    assessmentSection: {
+      heading: "Book a Retirement Planning Session",
+      intro:
+        "Prefer a one-to-one roadmap with an authorised adviser? Request a planning session with AS Brokers CC (FSP 17273).",
+      bullets: [
+        "Clarify lifestyle and capital goals",
+        "Review time horizon and savings capacity",
+        "Discuss whether community membership fits",
+        "Independent advice — education first",
+      ],
+      ctaLabel: "Book a Retirement Planning Session",
+      ctaHref: "/contact?source=retirement_planning_session_asset_017",
+    },
+    terminalOptions: {
+      heading: "Choose your next step",
+      options: [
+        {
+          title: "Join the Financial Freedom Community",
+          description:
+            "Complete the 12-week educational programme and unlock advanced planning tools including the Goal Engineering Planner™.",
+          ctaLabel: "Start registration",
+          ctaHref: "/financial-freedom-community/register",
+        },
+        {
+          title: "Book a Retirement Planning Session",
+          description:
+            "Prefer personalised advice? Meet with an AS Brokers adviser and build your own financial roadmap.",
+          ctaLabel: "Request a session",
+          ctaHref: "/contact?source=retirement_planning_session_asset_017",
+        },
+      ],
+    },
     readingSections: [
       {
-        heading: "Goals before products",
+        heading: "Why most goals fail",
         paragraphs: [
-          "Product-led advice often fails because the goal was never defined. Start with the outcome, then choose wrappers tax-efficiently.",
-          "FSP 17273 advisers help align goals across retirement, estate, and risk cover.",
+          "Goals fail when they are wishes without maths. People name a target without knowing the growth, savings rate or time required—then feel surprised when progress stalls.",
+          "Examples only: wanting R5 million without a contribution plan; planning a home deposit with no timeline; aiming to retire early while still funding lifestyle spend that fights the goal.",
+        ],
+      },
+      {
+        heading: "Why people underestimate time",
+        paragraphs: [
+          "Compounding needs years. Delaying by one or two years can change the required growth dramatically—the Power of Growth Calculator on the public Toolkit demonstrates that cost of waiting.",
+          "Underestimating time leads people to chase unrealistic returns instead of adjusting savings or the target.",
+        ],
+      },
+      {
+        heading: "Why growth and regular reviews matter",
+        paragraphs: [
+          "Growth assumptions shape whether a goal is achievable. Reviews matter because life changes: income, expenses, markets and priorities shift. A living Financial Blueprint™ is reviewed—not set once and forgotten.",
+          "Public education stops here. The interactive Goal Engineering Planner™ remains members-only so the methodology stays proprietary to the programme.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "Can this plan my retirement?",
+        question: "Why is this planner members only?",
         answer:
-          "Yes as an educational step. Pair with Retirement Reality Check and Growth Rate calculators for retirement-specific planning.",
+          "It teaches proprietary Retirement Gap Method™ planning methodology rather than a simple public illustration. Membership protects that intellectual property and increases the value of the Financial Freedom Community™.",
       },
       {
-        question: "Is this a savings product quote?",
+        question: "How do I unlock the Goal Engineering Planner™?",
         answer:
-          "No. It is an educational goal planner. Product selection and contributions need a personal advice process.",
-      }
+          "Register for the Financial Freedom Community™, complete programme payment, then sign in. Active membership unlocks this planner and other members-area learning tools.",
+      },
+      {
+        question: "Is this financial advice?",
+        answer:
+          "No. It is an educational planning tool. Calculations are illustrative. Personalised advice requires a suitability process with AS Brokers CC (FSP 17273).",
+      },
+      {
+        question: "What is My Financial Blueprint™?",
+        answer:
+          "Members can save goal assumptions—target, time, contributions and required return—into a living blueprint reviewed during the programme. Blueprint save/sync ships with the members area after registration and payment are live.",
+      },
     ],
-    ...WEALTH,
+    categoryLabel: "Financial Freedom Community™",
+    categoryHref: "/financial-freedom-community",
   },
 };
 
@@ -4811,7 +4975,11 @@ export function getAllCalculatorPageConfigs(): CalculatorPageConfig[] {
   return CALCULATOR_REGISTRY.map(buildConfig);
 }
 
-const SLUG_ALIASES_FOR_STATIC = ["estate-duty-calculator", "underinsurance-calculator"] as const;
+const SLUG_ALIASES_FOR_STATIC = [
+  "estate-duty-calculator",
+  "underinsurance-calculator",
+  "goal-engineering-planner",
+] as const;
 
 /** Registry ids plus SEO-friendly aliases used by /calculators/[slug]. */
 export const CALCULATOR_PAGE_SLUGS = [

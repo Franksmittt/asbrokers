@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { CalculatorToolPanel } from "@/components/calculators/CalculatorToolPanel";
+import { MembersOnlyCalculatorGate } from "@/components/membership/MembersOnlyCalculatorGate";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { ArrowRight, ChevronRight } from "@/components/icons";
+import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import {
   HUB_TEAL as TEAL,
@@ -61,11 +62,13 @@ export function AssetCalculatorPageView({
   terminalCta,
   terminalOptions,
   readingSectionsPlacement = "after-results",
+  membersOnly = false,
 }: CalculatorPageConfig) {
   const relatedLinks = getRelatedLinks(path);
-  const heroPrimaryHref = heroCta?.primaryHref ?? "#calculator-tool";
-  const heroPrimaryLabel = heroCta?.primaryLabel ?? "Use the calculator";
+  const heroPrimaryHref = heroCta?.primaryHref ?? (membersOnly ? "#members-planner" : "#calculator-tool");
+  const heroPrimaryLabel = heroCta?.primaryLabel ?? (membersOnly ? "See how to unlock" : "Use the calculator");
   const decisionQuestionPlacement = decisionQuestion?.placement ?? "after-hero";
+  const toolSectionId = membersOnly ? "members-planner" : "calculator-tool";
   const decisionQuestionBlock = decisionQuestion ? (
     <div
       className="max-w-3xl rounded-2xl px-6 py-6 ring-1 ring-stone-200/90 sm:px-8 sm:py-7"
@@ -176,7 +179,15 @@ export function AssetCalculatorPageView({
               >
                 AS Brokers · {assetCode} · FSP 17273
               </p>
-              <p className="mt-2 text-sm font-medium text-stone-600">{kicker}</p>
+              <p className="mt-2 flex flex-wrap items-center gap-2 text-sm font-medium text-stone-600">
+                {membersOnly ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#1D1D1F] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#D4AF37]">
+                    <Lock className="h-3 w-3" aria-hidden />
+                    Members only
+                  </span>
+                ) : null}
+                <span>{kicker}</span>
+              </p>
               <h1
                 className="mt-3 font-bold tracking-tight"
                 style={{
@@ -545,7 +556,7 @@ export function AssetCalculatorPageView({
       ) : null}
 
       <section
-        id="calculator-tool"
+        id={toolSectionId}
         data-chunk-boundary="true"
         className="scroll-mt-28 border-b border-stone-200/80 py-12 md:py-16 md:scroll-mt-32"
         style={{ backgroundColor: assumptionCallout ? "#FDFCFA" : CANVAS }}
@@ -605,13 +616,21 @@ export function AssetCalculatorPageView({
               {calculatorTitle}
             </h2>
             <p className="mt-2 max-w-2xl text-base leading-relaxed text-stone-600">{calculatorLead}</p>
-            {/* Calculator engine: iframe embed only — do not alter CalculatorToolPanel or embed HTML. */}
-            <CalculatorToolPanel
-              calculatorSrc={calculatorSrc}
-              calculatorTitle={calculatorTitle}
-              calculatorId={assetCode}
-              calculatorPath={path}
-            />
+            {membersOnly ? (
+              <MembersOnlyCalculatorGate
+                calculatorSrc={calculatorSrc}
+                calculatorTitle={calculatorTitle}
+                calculatorId={assetCode}
+                calculatorPath={path}
+              />
+            ) : (
+              <CalculatorToolPanel
+                calculatorSrc={calculatorSrc}
+                calculatorTitle={calculatorTitle}
+                calculatorId={assetCode}
+                calculatorPath={path}
+              />
+            )}
           </div>
         </div>
       </section>

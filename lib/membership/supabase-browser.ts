@@ -1,0 +1,7 @@
+/** Safe browser check without throwing when env is missing on marketing deploys. */
+export function isSupabaseBrowserConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim()
+  );
+}

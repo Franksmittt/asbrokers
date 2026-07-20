@@ -7,6 +7,7 @@ import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
 import { getRelatedLinks } from "@/lib/related-content";
 import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
+import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -69,24 +70,34 @@ export function AssetCalculatorPageView({
   const heroPrimaryLabel = heroCta?.primaryLabel ?? (membersOnly ? "See how to unlock" : "Use the calculator");
   const decisionQuestionPlacement = decisionQuestion?.placement ?? "after-hero";
   const toolSectionId = membersOnly ? "members-planner" : "calculator-tool";
+  /** Light banding after the hero (canvas). Prefer cream ↔ canvas; double-light OK after dark chapters. */
+  const lightSurface = createLightSurfaceAssigner("cream");
   const decisionQuestionBlock = decisionQuestion ? (
-    <div
-      className="max-w-3xl rounded-2xl px-6 py-6 ring-1 ring-stone-200/90 sm:px-8 sm:py-7"
-      style={{ backgroundColor: "#FDFCFA" }}
-    >
-      <p
-        id={`${path}-decision-question-heading`}
-        className="text-[11px] font-semibold uppercase tracking-[0.14em]"
-        style={{ color: TEAL }}
-      >
-        {decisionQuestion.label ?? "Decision Question"}
-      </p>
-      <p
-        className="mt-3 font-serif text-xl font-semibold tracking-tight sm:text-2xl"
-        style={{ color: INK }}
-      >
-        {decisionQuestion.question}
-      </p>
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-stretch lg:gap-8">
+      <div className="rounded-3xl bg-white px-6 py-6 ring-1 ring-stone-200/90 sm:px-8 sm:py-8 lg:col-span-5">
+        <p
+          id={`${path}-decision-question-heading`}
+          className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+          style={{ color: TEAL }}
+        >
+          {decisionQuestion.label ?? "Decision Question"}
+        </p>
+        <p
+          className="mt-4 font-serif text-xl font-semibold tracking-tight sm:text-2xl"
+          style={{ color: INK }}
+        >
+          {decisionQuestion.question}
+        </p>
+      </div>
+      <div className="flex flex-col justify-center rounded-3xl bg-[#1D1D1F] px-6 py-6 text-white sm:px-8 sm:py-8 lg:col-span-7">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#D4AF37]">
+          Use this before you calculate
+        </p>
+        <p className="mt-3 text-base leading-relaxed text-white/75 sm:text-lg">
+          Answer the question honestly first. The calculator then helps you measure the consequence—
+          not choose a product.
+        </p>
+      </div>
     </div>
   ) : null;
   const strategyDiagramBlock = strategyDiagram ? (
@@ -118,34 +129,37 @@ export function AssetCalculatorPageView({
       </div>
     </div>
   ) : null;
-  const readingBlock = readingSections.map((section, index) => (
-    <section
-      key={section.heading}
-      data-chunk-boundary="true"
-      className={`border-b border-stone-200/80 py-12 md:py-16 ${index % 2 === 0 ? "bg-[#FDFCFA]" : ""}`}
-      style={index % 2 === 1 ? { backgroundColor: CANVAS } : undefined}
-    >
-      <div className={HOME4_WRAP}>
-        <h2
-          className="max-w-3xl font-bold tracking-tight"
-          style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
-        >
-          {section.heading}
-        </h2>
-        <div className="mt-6 max-w-4xl space-y-4">
-          {section.paragraphs.map((paragraph) => (
-            <p
-              key={paragraph.slice(0, 48)}
-              className="leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+  const renderReadingBlock = () =>
+    readingSections.map((section) => (
+      <section
+        key={section.heading}
+        data-chunk-boundary="true"
+        className="border-b border-stone-200/80 py-12 md:py-16"
+        style={lightSurface.next()}
+      >
+        <div className={HOME4_WRAP}>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+            <h2
+              className="font-bold tracking-tight lg:col-span-4"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
             >
-              {paragraph}
-            </p>
-          ))}
+              {section.heading}
+            </h2>
+            <div className="space-y-4 lg:col-span-8">
+              {section.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 48)}
+                  className="leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
-  ));
+      </section>
+    ));
 
   return (
     <>
@@ -253,7 +267,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-8 md:py-10"
-          style={{ backgroundColor: CANVAS }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-decision-question-heading`}
         >
           <div className={HOME4_WRAP}>{decisionQuestionBlock}</div>
@@ -264,53 +278,64 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-context-heading`}
         >
           <div className={HOME4_WRAP}>
-            <div className="max-w-3xl rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-8">
-              <h2
-                id={`${path}-context-heading`}
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
-              >
-                {contextBox.heading}
-              </h2>
-              <div className="mt-4 space-y-4">
-                {contextBox.paragraphs.map((paragraph) => (
-                  <p
-                    key={paragraph.slice(0, 48)}
-                    className="leading-relaxed"
-                    style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-10">
+              <div className={contextBox.highlightQuestion ? "lg:col-span-7" : "lg:col-span-12"}>
+                <h2
+                  id={`${path}-context-heading`}
+                  className="font-bold tracking-tight"
+                  style={{ fontSize: "clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem)", color: INK }}
+                >
+                  {contextBox.heading}
+                </h2>
+                <div className="mt-5 max-w-3xl space-y-4">
+                  {contextBox.paragraphs.map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 48)}
+                      className="leading-relaxed"
+                      style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+                <p className="mt-8 max-w-3xl text-sm leading-relaxed text-stone-600">
+                  Part of the{" "}
+                  <Link
+                    href="/calculators"
+                    prefetch={false}
+                    className="font-semibold hover:underline"
+                    style={{ color: TEAL }}
                   >
-                    {paragraph}
-                  </p>
-                ))}
+                    Retirement Gap Toolkit™
+                  </Link>
+                  . After you run the numbers, continue with the{" "}
+                  <Link
+                    href="/retirement-gap-method"
+                    prefetch={false}
+                    className="font-semibold hover:underline"
+                    style={{ color: TEAL }}
+                  >
+                    Retirement Gap Method™
+                  </Link>
+                  .
+                </p>
               </div>
               {contextBox.highlightQuestion ? (
-                <p
-                  className="mt-5 font-serif text-lg font-semibold tracking-tight sm:text-xl"
-                  style={{ color: TEAL }}
-                >
-                  {contextBox.highlightQuestion}
-                </p>
+                <aside className="flex lg:col-span-5">
+                  <div className="flex w-full flex-col justify-center rounded-3xl bg-[#1D1D1F] px-6 py-7 text-white sm:px-8 sm:py-9">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5EEAD4]">
+                      The question that matters
+                    </p>
+                    <p className="mt-4 font-serif text-xl font-semibold tracking-tight text-white sm:text-2xl sm:leading-snug">
+                      {contextBox.highlightQuestion}
+                    </p>
+                  </div>
+                </aside>
               ) : null}
-              <p className="mt-6 text-sm leading-relaxed text-stone-600">
-                Part of the{" "}
-                <Link href="/calculators" prefetch={false} className="font-semibold hover:underline" style={{ color: TEAL }}>
-                  Retirement Gap Toolkit™
-                </Link>
-                . After you run the numbers, continue with the{" "}
-                <Link
-                  href="/retirement-gap-method"
-                  prefetch={false}
-                  className="font-semibold hover:underline"
-                  style={{ color: TEAL }}
-                >
-                  Retirement Gap Method™
-                </Link>
-                .
-              </p>
             </div>
           </div>
         </section>
@@ -320,7 +345,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: CANVAS }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-audience-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -389,7 +414,7 @@ export function AssetCalculatorPageView({
       <section
         data-chunk-boundary="true"
         className="border-b border-stone-200/80 py-12 md:py-16"
-        style={{ backgroundColor: decisionQuestion || contextBox || audienceGuide ? "#FDFCFA" : CANVAS }}
+        style={lightSurface.next()}
       >
         <div className={HOME4_WRAP}>
           <h2
@@ -425,7 +450,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-10 md:py-12"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-method-progress-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -498,19 +523,21 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-10 md:py-12"
-          style={{ backgroundColor: CANVAS }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-assumptions-heading`}
         >
           <div className={HOME4_WRAP}>
-            <div className="max-w-3xl rounded-2xl bg-stone-50 p-6 ring-1 ring-stone-200/90 sm:p-7">
-              <h2
-                id={`${path}-assumptions-heading`}
-                className="text-sm font-semibold uppercase tracking-[0.12em]"
-                style={{ color: TEAL }}
-              >
-                {assumptionCallout.heading}
-              </h2>
-              <div className="mt-4 space-y-3">
+            <div className="grid grid-cols-1 gap-6 rounded-3xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-8 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-4">
+                <h2
+                  id={`${path}-assumptions-heading`}
+                  className="text-sm font-semibold uppercase tracking-[0.12em]"
+                  style={{ color: TEAL }}
+                >
+                  {assumptionCallout.heading}
+                </h2>
+              </div>
+              <div className="space-y-3 lg:col-span-8">
                 {assumptionCallout.paragraphs.map((paragraph) => (
                   <p key={paragraph.slice(0, 48)} className="text-sm leading-relaxed text-stone-600">
                     {paragraph}
@@ -526,7 +553,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-10 md:py-12"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={
             decisionQuestionPlacement === "before-calculator" && decisionQuestion
               ? `${path}-decision-question-heading`
@@ -559,7 +586,7 @@ export function AssetCalculatorPageView({
         id={toolSectionId}
         data-chunk-boundary="true"
         className="scroll-mt-28 border-b border-stone-200/80 py-12 md:py-16 md:scroll-mt-32"
-        style={{ backgroundColor: assumptionCallout ? "#FDFCFA" : CANVAS }}
+        style={lightSurface.next()}
         aria-labelledby={`${path}-calculator-heading`}
       >
         <div className={GRID}>
@@ -639,7 +666,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-result-guide-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -743,7 +770,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-decision-comparison-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -826,7 +853,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: CANVAS }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-withdrawal-guide-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -878,7 +905,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-timeline-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -923,7 +950,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: CANVAS }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-value-progress-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -986,7 +1013,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-lifestyle-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -1032,7 +1059,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: CANVAS }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-income-flow-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -1072,13 +1099,13 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
-      {readingSectionsPlacement === "after-results" ? readingBlock : null}
+      {readingSectionsPlacement === "after-results" ? renderReadingBlock() : null}
 
       {practicalWays ? (
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: CANVAS }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-practical-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -1138,7 +1165,7 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
-      {readingSectionsPlacement === "after-practical" ? readingBlock : null}
+      {readingSectionsPlacement === "after-practical" ? renderReadingBlock() : null}
 
       {methodSection ? (
         <section
@@ -1147,116 +1174,127 @@ export function AssetCalculatorPageView({
           aria-labelledby={`${path}-method-heading`}
         >
           <div className={HOME4_WRAP}>
-            <h2
-              id={`${path}-method-heading`}
-              className="max-w-3xl font-bold tracking-tight text-white"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)" }}
-            >
-              {methodSection.heading}
-            </h2>
-            <div className="mt-6 max-w-3xl space-y-4 text-white/75">
-              {methodSection.paragraphs.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 48)}
-                  className="leading-relaxed"
-                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-7">
+                <h2
+                  id={`${path}-method-heading`}
+                  className="font-bold tracking-tight text-white"
+                  style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)" }}
                 >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-            {methodSection.bullets.length > 0 ? (
-              <ul className="mt-6 grid max-w-3xl grid-cols-1 gap-2 sm:grid-cols-2">
-                {methodSection.bullets.map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-2 text-sm text-white/80 sm:text-base">
-                    <span className="mt-0.5 font-bold text-[#5EEAD4]" aria-hidden>
-                      ·
-                    </span>
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
-              <Link
-                href={methodSection.ctaHref}
-                prefetch={false}
-                className="inline-flex items-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
-                style={{ backgroundColor: TEAL }}
-              >
-                {methodSection.ctaLabel}
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              {methodSection.secondaryCtaLabel && methodSection.secondaryCtaHref ? (
-                <Link
-                  href={methodSection.secondaryCtaHref}
-                  prefetch={false}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
-                >
-                  {methodSection.secondaryCtaLabel}
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-              ) : (
-                <Link
-                  href="/calculators"
-                  prefetch={false}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
-                >
-                  Back to the Retirement Gap Toolkit™
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-              )}
+                  {methodSection.heading}
+                </h2>
+                <div className="mt-6 space-y-4 text-white/75">
+                  {methodSection.paragraphs.map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 48)}
+                      className="leading-relaxed"
+                      style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col justify-between gap-8 lg:col-span-5">
+                {methodSection.bullets.length > 0 ? (
+                  <ul className="space-y-3">
+                    {methodSection.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-2 text-sm text-white/80 sm:text-base">
+                        <span className="mt-0.5 font-bold text-[#5EEAD4]" aria-hidden>
+                          ·
+                        </span>
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                <div className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+                  <Link
+                    href={methodSection.ctaHref}
+                    prefetch={false}
+                    className="inline-flex items-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
+                    style={{ backgroundColor: TEAL }}
+                  >
+                    {methodSection.ctaLabel}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                  {methodSection.secondaryCtaLabel && methodSection.secondaryCtaHref ? (
+                    <Link
+                      href={methodSection.secondaryCtaHref}
+                      prefetch={false}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
+                    >
+                      {methodSection.secondaryCtaLabel}
+                      <ArrowRight className="h-4 w-4" aria-hidden />
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/calculators"
+                      prefetch={false}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
+                    >
+                      Back to the Retirement Gap Toolkit™
+                      <ArrowRight className="h-4 w-4" aria-hidden />
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </section>
       ) : null}
+      {methodSection ? lightSurface.afterDark() : null}
 
       {assessmentSection ? (
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-assessment-heading`}
         >
           <div className={HOME4_WRAP}>
-            <div className="max-w-3xl rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-8">
-              <h2
-                id={`${path}-assessment-heading`}
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
-              >
-                {assessmentSection.heading}
-              </h2>
-              <p
-                className="mt-4 leading-relaxed"
-                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-              >
-                {assessmentSection.intro}
-              </p>
-              <ul className="mt-5 space-y-2">
-                {assessmentSection.bullets.map((bullet) => (
-                  <li
-                    key={bullet}
-                    className="flex items-start gap-2 leading-relaxed text-stone-700"
-                    style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
-                  >
-                    <span className="mt-0.5 font-bold" style={{ color: TEAL }} aria-hidden>
-                      ·
-                    </span>
-                    {bullet}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-8">
-                <Link
-                  href={assessmentSection.ctaHref}
-                  prefetch={false}
-                  className="inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-10">
+              <div className="flex flex-col lg:col-span-6">
+                <h2
+                  id={`${path}-assessment-heading`}
+                  className="font-bold tracking-tight"
+                  style={{ fontSize: "clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem)", color: INK }}
                 >
-                  {assessmentSection.ctaLabel}
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </Link>
-              </p>
+                  {assessmentSection.heading}
+                </h2>
+                <p
+                  className="mt-5 leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                >
+                  {assessmentSection.intro}
+                </p>
+                <p className="mt-8">
+                  <Link
+                    href={assessmentSection.ctaHref}
+                    prefetch={false}
+                    className="inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
+                  >
+                    {assessmentSection.ctaLabel}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </p>
+              </div>
+              <aside className="flex lg:col-span-6">
+                <ul className="flex w-full flex-col justify-center gap-3 rounded-3xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-8">
+                  {assessmentSection.bullets.map((bullet) => (
+                    <li
+                      key={bullet}
+                      className="flex items-start gap-2 leading-relaxed text-stone-700"
+                      style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
+                    >
+                      <span className="mt-0.5 font-bold" style={{ color: TEAL }} aria-hidden>
+                        ·
+                      </span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </aside>
             </div>
           </div>
         </section>
@@ -1266,7 +1304,7 @@ export function AssetCalculatorPageView({
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-12 md:py-16"
-          style={{ backgroundColor: "#FDFCFA" }}
+          style={lightSurface.next()}
           aria-labelledby={`${path}-journey-heading`}
         >
           <div className={HOME4_WRAP}>
@@ -1352,9 +1390,10 @@ export function AssetCalculatorPageView({
             "Retirement Gap Method™",
         }}
       />
+      {lightSurface.afterDark()}
 
       {terminalOptions ? (
-        <section className="border-t border-stone-200/80 py-12 md:py-14" style={{ backgroundColor: CANVAS }}>
+        <section className="border-t border-stone-200/80 py-12 md:py-14" style={lightSurface.next()}>
           <div className={HOME4_WRAP}>
             <h2
               className="text-center font-bold tracking-tight"
@@ -1396,7 +1435,7 @@ export function AssetCalculatorPageView({
           </div>
         </section>
       ) : (
-        <section className="border-t border-stone-200/80 py-12 md:py-14" style={{ backgroundColor: CANVAS }}>
+        <section className="border-t border-stone-200/80 py-12 md:py-14" style={lightSurface.next()}>
           <div className={`${HOME4_WRAP} text-center`}>
             <h2
               className="font-bold tracking-tight"

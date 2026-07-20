@@ -9,6 +9,7 @@ import { getRelatedLinks } from "@/lib/related-content";
 import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
+import { MetricsListedCompare } from "@/components/calculators/MetricsListedCompare";
 import { PracticalWaysSection } from "@/components/calculators/PracticalWaysSection";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
@@ -661,23 +662,6 @@ export function AssetCalculatorPageView({
                 </div>
               </>
             ) : null}
-            {resultGuide.metricsListed && resultGuide.metricsListed.length > 0 ? (
-              <div className="mt-8 max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: TEAL }}>
-                  What the calculator illustrates
-                </p>
-                <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {resultGuide.metricsListed.map((metric) => (
-                    <li key={metric} className="flex items-start gap-2 text-sm leading-relaxed text-stone-600">
-                      <span className="mt-0.5 font-bold" style={{ color: TEAL }} aria-hidden>
-                        ·
-                      </span>
-                      {metric}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
             {resultGuide.highlightMetrics && resultGuide.highlightMetrics.length > 0 ? (
               <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
                 {resultGuide.highlightMetrics.map((metric) => (
@@ -696,11 +680,22 @@ export function AssetCalculatorPageView({
                 ))}
               </div>
             ) : null}
-            {resultGuide.footer ? (
+            {resultGuide.footer && !(resultGuide.metricsListed && resultGuide.metricsListed.length > 0) ? (
               <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{resultGuide.footer}</p>
             ) : null}
           </div>
         </section>
+      ) : null}
+
+      {resultGuide?.metricsListed && resultGuide.metricsListed.length > 0 ? (
+        <>
+          <MetricsListedCompare
+            path={path}
+            metrics={resultGuide.metricsListed}
+            footer={resultGuide.footer}
+          />
+          {lightSurface.afterDark()}
+        </>
       ) : null}
 
       {decisionComparison ? (

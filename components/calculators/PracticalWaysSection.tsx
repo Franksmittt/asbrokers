@@ -39,7 +39,11 @@ export function PracticalWaysSection({ path, practicalWays }: Props) {
         >
           {practicalWays.intro}
         </p>
-        <ol className="mt-10 grid list-none gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <ol
+          className={`mt-10 grid list-none gap-6 sm:grid-cols-2 ${
+            practicalWays.items.length >= 5 ? "lg:grid-cols-3" : "xl:grid-cols-4"
+          }`}
+        >
           {practicalWays.items.map((item, index) => {
             const label = itemLabel(item);
             const href = itemHref(item);

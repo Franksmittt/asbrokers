@@ -29,6 +29,7 @@ const STATIC_PATHS = [
   "/privacy",
   "/quiz",
   "/regulatory-compliance",
+  "/retirement-gap-method",
   "/retirement-planning",
   "/retirement-survival-blueprint",
   "/business-risk-review",

@@ -170,7 +170,7 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
     problem: "You cannot plan a 30-year retirement or a corporate risk structure on guesswork.",
     promise:
       "Model retirement longevity, estate liquidity, underinsurance, and yield trade-offs in real time with ungated ASSET tools.",
-    primaryCta: { label: "Browse tools by domain", href: "#retirement" },
+    primaryCta: { label: "Browse tools by domain", href: "#getting-started" },
     secondaryCta: {
       label: "Book a review of your numbers",
       href: "/contact?source=calculators_terminal",

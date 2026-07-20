@@ -3,41 +3,37 @@ import { CalculatorsHubView } from "@/components/calculators/CalculatorsHubView"
 import { HUB_CALCULATORS } from "@/lib/calculators/hub-catalog";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Financial Calculators | ASSET Library FSP 17273";
+const PAGE_TITLE =
+  "The Retirement Gap Toolkit™ | Retirement Planning Calculators for South Africans";
 /** Keep ≤160 chars so clampMetaDescription does not cut mid-sentence. */
 const PAGE_DESCRIPTION =
-  "Run AS Brokers ASSET calculators for retirement, Everest Wealth, estate, tax, and insurance. Educational only. Book FSP 17273 to interpret your numbers.";
+  "Explore the Retirement Gap Toolkit™—retirement planning calculators for South Africans to understand, measure and improve your retirement position.";
 
 const calculatorsFAQs = [
   {
-    question: "Do these calculators constitute financial advice?",
+    question: "Why are there so many calculators?",
     answer:
-      "No. Every tool on this page is an educational illustration only. They do not constitute financial, tax, or investment advice under the FAIS Act, 2002. Personal advice requires a needs analysis with AS Brokers CC (FSP 17273).",
+      "Because retirement planning involves many different financial decisions. Each calculator answers one specific question. Together they provide a much more complete understanding of your retirement position.",
   },
   {
-    question: "What does a targeted return profile mean?",
+    question: "Which calculator should I start with?",
     answer:
-      "Figures such as 12.8%, 14.2%, or 14.5% on Everest voluntary products are targeted structural profiles, not guaranteed rates. Liquidity constraints apply (including notice periods and possible early-exit penalties). Read Understanding Everest before you compare product tools.",
+      "Begin with the Retirement Reality Check. It provides an excellent starting point before exploring the more specialised calculators.",
   },
   {
-    question: "Which calculator should I use for a retirement shortfall?",
+    question: "Do I need to complete every calculator?",
     answer:
-      "Start with ASSET 002 (Retirement Reality Check) to see whether capital lasts, then ASSET 001 (Retirement Growth) for the illustrative rate you may need. Living annuity drawdowns sit in ASSET 014 (2.5% to 17.5% band).",
+      "No. Each calculator is designed to answer a different question. Use those most relevant to your current stage of retirement planning.",
   },
   {
-    question: "Which tool shows estate duty and executor fees?",
+    question: "What is the Retirement Gap Method™?",
     answer:
-      "ASSET 007 illustrates estate duty and executor fee pressure. ASSET 008 models donation-based reduction strategies within SARS annual limits. Both are educational only, not estate planning advice.",
+      "The Retirement Gap Method™ is the educational framework that explains how all of the calculators work together and helps you understand how to improve your retirement position.",
   },
   {
-    question: "What is the Average Clause calculator for?",
+    question: "Are these calculators financial advice?",
     answer:
-      "ASSET 015 shows how underinsurance can reduce a property claim when the average clause applies. It is not a claim assessment and does not replace a broker review of your sums insured.",
-  },
-  {
-    question: "Are the tools free to use?",
-    answer:
-      "Yes. The ASSET library is open access. We do not gate the index behind an email wall. Optional lead capture sits after a calculator if you want an adviser to walk through your numbers.",
+      "No. They are educational tools designed to improve understanding. Personal financial advice should always consider your own circumstances. AS Brokers CC (FSP 17273) provides advice only after a needs analysis.",
   },
 ];
 
@@ -46,14 +42,14 @@ export const metadata = buildPageMetadata({
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   keywords: [
-    "financial calculators South Africa",
+    "Retirement Gap Toolkit",
+    "retirement planning calculators South Africa",
+    "Retirement Gap Method",
     "retirement calculator",
     "estate duty calculator",
     "Everest Wealth calculator",
     "living annuity drawdown calculator",
-    "average clause calculator",
-    "ASSET library AS Brokers",
-    "FSP 17273",
+    "AS Brokers FSP 17273",
   ],
   ogImagePath: "/images/calculators-hub-og.jpg",
 });
@@ -84,12 +80,12 @@ export default function CalculatorsPage() {
         faqs={calculatorsFAQs}
         breadcrumbs={[
           { name: "Home", path: "/" },
-          { name: "Calculators", path: "/calculators" },
+          { name: "The Retirement Gap Toolkit™", path: "/calculators" },
         ]}
         itemList={{
-          name: "AS Brokers ASSET calculator library",
+          name: "The Retirement Gap Toolkit™",
           description:
-            "Seventeen ungated educational calculators for retirement, Everest Wealth, estate, tax, and insurance.",
+            "Educational retirement planning calculators organised by the Retirement Gap Method™.",
           items: HUB_CALCULATORS.map((tool) => ({
             name: `${tool.assetCode} ${tool.title}`,
             path: tool.href,

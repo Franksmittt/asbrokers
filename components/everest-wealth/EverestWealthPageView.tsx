@@ -430,7 +430,7 @@ export function EverestWealthPageView({ faqs }: Props) {
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <Link
-                href="/calculators#investments"
+                href="/calculators#investment-decisions"
                 prefetch={false}
                 className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
                 style={{ color: TEAL }}

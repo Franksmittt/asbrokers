@@ -145,11 +145,11 @@ async function main() {
   }
   if (!failed) console.log("PASS: indexable calculator pages use buildPageMetadata");
 
-  if (!read("app/(content)/calculators/page.tsx").includes("CALCULATOR_REGISTRY")) {
-    console.error("FAIL: /calculators hub missing registry listing");
+  if (!read("app/(content)/calculators/page.tsx").includes("HUB_CALCULATORS")) {
+    console.error("FAIL: /calculators hub missing HUB_CALCULATORS listing");
     failed = true;
   } else {
-    console.log("PASS: /calculators lists calculators from registry");
+    console.log("PASS: /calculators lists calculators from hub catalog");
   }
 
   if (!existsSync(join(ROOT, ".next"))) {

@@ -446,6 +446,11 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/calculators": [
     {
+      href: "/retirement-gap-method",
+      title: "The Retirement Gap Method™",
+      description: "How the Toolkit calculators fit together—and what to do next.",
+    },
+    {
       href: "/retirement-planning",
       title: "Planning for retirement",
       description: "Pre-retirement clarity on capital, timeline, and growth needed.",
@@ -456,14 +461,9 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Everest yields and wealth-building tools by life stage.",
     },
     {
-      href: "/estate-planning",
-      title: "Estate planning hub",
-      description: "Wills, duty, liquidity, and legacy readiness.",
-    },
-    {
-      href: "/contact",
-      title: "Book an actuarial consultation",
-      description: "Run your numbers live with FSP 17273.",
+      href: "/contact?source=retirement_gap_review",
+      title: "Book a Retirement Gap Review",
+      description: "Talk through your Toolkit results with FSP 17273.",
     },
   ],
 };
@@ -476,8 +476,13 @@ export function getRelatedLinks(path: string): RelatedLink[] {
       return [
         {
           href: "/calculators",
-          title: "All calculators",
-          description: "Seventeen planning tools for retirement, Everest, estate, tax, and insurance.",
+          title: "The Retirement Gap Toolkit™",
+          description: "Every Retirement Gap calculator in one educational hub.",
+        },
+        {
+          href: "/retirement-gap-method",
+          title: "The Retirement Gap Method™",
+          description: "How Toolkit results fit together—and what to do next.",
         },
         {
           href: config.categoryHref,
@@ -485,8 +490,8 @@ export function getRelatedLinks(path: string): RelatedLink[] {
           description: "Explore related advice and resources on AS Brokers.",
         },
         {
-          href: "/contact",
-          title: "Book a consultation",
+          href: "/contact?source=retirement_gap_review",
+          title: "Book a Retirement Gap Review",
           description: "Independent FSP 17273 advice in Krugersdorp.",
         },
       ];

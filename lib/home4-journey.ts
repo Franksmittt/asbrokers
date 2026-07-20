@@ -66,7 +66,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/retirement-planning",
     links: [
       { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
-      { label: "Retirement calculators", href: "/calculators#retirement" },
+      { label: "Retirement calculators", href: "/calculators#getting-started" },
       { label: "Retirement planning hub", href: "/retirement-planning" },
     ],
     accent: "teal",

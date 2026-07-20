@@ -1,6 +1,6 @@
 /**
- * Public /calculators hub catalog: domains, problem blurbs, featured starters.
- * Single source for the grid hub (ASSET 001–017).
+ * Public /calculators hub catalog: Retirement Gap Toolkit™ (ASSET 000).
+ * Categories, start-here prompts, difficulty, and completion time for ASSET 001–017.
  */
 
 import {
@@ -10,6 +10,8 @@ import {
 } from "@/lib/calculators/registry";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 
+export type HubDifficulty = "Beginner" | "Intermediate" | "Advanced";
+
 export type HubCalculator = {
   id: string;
   assetCode: string;
@@ -17,6 +19,8 @@ export type HubCalculator = {
   href: string;
   /** One-line problem the tool answers (client-facing). */
   problem: string;
+  estimatedTime: string;
+  difficulty: HubDifficulty;
 };
 
 export type HubDomain = {
@@ -26,6 +30,36 @@ export type HubDomain = {
   lead: string;
   ids: readonly string[];
   everestDisclosure?: boolean;
+};
+
+export type HubStartHereItem = {
+  question: string;
+  /** Calculator registry id, or omit when linking to a category. */
+  calculatorId?: string;
+  /** Category anchor when the answer is a group of tools. */
+  categoryHref?: string;
+  categoryLabel?: string;
+};
+
+/** Client-facing titles for the Toolkit hub (brief Asset 000 naming). */
+export const HUB_DISPLAY_TITLES: Record<string, string> = {
+  "asset-001-retirement-growth": "Retirement Growth Rate Calculator",
+  "asset-002-retirement-reality-check": "Retirement Reality Check",
+  "asset-003-retirement-premium": "Retirement Premium Calculator",
+  "asset-004-life-of-capital": "Life of Capital Calculator",
+  "asset-005-future-value": "Future Value Calculator",
+  "asset-006-income-tax": "Income Tax Calculator",
+  "asset-007-estate-duty": "Estate Duty Calculator",
+  "asset-008-estate-reduction": "Estate Reduction Calculator",
+  "asset-009-everest-142-income": "14.2% Income Calculator",
+  "asset-010-everest-128-income": "12.8% Income Calculator",
+  "asset-011-everest-128-vs-142": "12.8% vs 14.2% Income Comparison",
+  "asset-012-strategic-growth": "Strategic Growth Calculator",
+  "asset-013-everest-income-vs-growth": "Income vs Growth Comparison",
+  "asset-014-living-annuity": "Living Annuity Calculator",
+  "asset-015-average-clause": "Average Clause Calculator",
+  "asset-016-growth-comparison": "Growth Comparison Calculator",
+  "asset-017-personal-goal": "Personal Goal Calculator",
 };
 
 /** Problem-led blurbs keyed by registry id. */
@@ -65,64 +99,119 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
     "Map a personal capital goal to time, contributions, and growth.",
 };
 
+export const HUB_CALCULATOR_META: Record<
+  string,
+  { estimatedTime: string; difficulty: HubDifficulty }
+> = {
+  "asset-001-retirement-growth": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+  "asset-002-retirement-reality-check": { estimatedTime: "3–5 min", difficulty: "Beginner" },
+  "asset-003-retirement-premium": { estimatedTime: "3–5 min", difficulty: "Beginner" },
+  "asset-004-life-of-capital": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+  "asset-005-future-value": { estimatedTime: "3–5 min", difficulty: "Beginner" },
+  "asset-006-income-tax": { estimatedTime: "3–5 min", difficulty: "Beginner" },
+  "asset-007-estate-duty": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+  "asset-008-estate-reduction": { estimatedTime: "8–12 min", difficulty: "Advanced" },
+  "asset-009-everest-142-income": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+  "asset-010-everest-128-income": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+  "asset-011-everest-128-vs-142": { estimatedTime: "8–12 min", difficulty: "Advanced" },
+  "asset-012-strategic-growth": { estimatedTime: "8–12 min", difficulty: "Advanced" },
+  "asset-013-everest-income-vs-growth": { estimatedTime: "8–12 min", difficulty: "Advanced" },
+  "asset-014-living-annuity": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+  "asset-015-average-clause": { estimatedTime: "3–5 min", difficulty: "Beginner" },
+  "asset-016-growth-comparison": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+  "asset-017-personal-goal": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
+};
+
 /**
- * Domain order: Everest/investments first (growth engine), then the problems
- * clients most often bring (retirement, estate, tax, insurance).
+ * Asset 000 category order (Albert brief).
+ * Remaining ASSET tools sit in Investment Decisions / Insurance so all 001–017 remain visible.
  */
 export const HUB_DOMAINS: readonly HubDomain[] = [
   {
-    id: "investments",
-    label: "Investments & Everest",
-    lead: "Structured income and growth maths for Everest Wealth preference-share profiles, plus general growth and inflation tools.",
+    id: "getting-started",
+    label: "Getting Started",
+    lead: "Begin with the questions most people ask first: affordability, saving, and the growth rate you may need.",
+    ids: [
+      "asset-002-retirement-reality-check",
+      "asset-003-retirement-premium",
+      "asset-001-retirement-growth",
+    ],
+  },
+  {
+    id: "retirement-income",
+    label: "Retirement Income",
+    lead: "Explore how long capital may last, living annuity drawdowns, and the effect of inflation on future purchasing power.",
+    ids: [
+      "asset-014-living-annuity",
+      "asset-004-life-of-capital",
+      "asset-005-future-value",
+    ],
+  },
+  {
+    id: "investment-decisions",
+    label: "Investment Decisions",
+    lead: "Compare structured income and growth profiles, and see how different rates change long-term outcomes.",
     ids: [
       "asset-010-everest-128-income",
       "asset-009-everest-142-income",
-      "asset-011-everest-128-vs-142",
       "asset-012-strategic-growth",
       "asset-013-everest-income-vs-growth",
+      "asset-011-everest-128-vs-142",
       "asset-016-growth-comparison",
       "asset-017-personal-goal",
-      "asset-005-future-value",
     ],
     everestDisclosure: true,
   },
   {
-    id: "retirement",
-    label: "Retirement",
-    lead: "Longevity, shortfall, contribution, and living annuity tools so you test assumptions before product talk.",
-    ids: [
-      "asset-002-retirement-reality-check",
-      "asset-001-retirement-growth",
-      "asset-003-retirement-premium",
-      "asset-004-life-of-capital",
-      "asset-014-living-annuity",
-    ],
-  },
-  {
-    id: "estate",
-    label: "Estate & legacy",
-    lead: "Duty, executor fees, and donation-based reduction illustrations within SARS annual limits.",
+    id: "estate-planning",
+    label: "Estate Planning",
+    lead: "Illustrate estate duty, executor fees, and donation-based reduction strategies within SARS annual limits.",
     ids: ["asset-007-estate-duty", "asset-008-estate-reduction"],
   },
   {
-    id: "tax",
-    label: "Tax",
-    lead: "Illustrative income tax estimates using current SARS brackets.",
+    id: "tax-planning",
+    label: "Tax Planning",
+    lead: "Estimate illustrative SARS income tax using current brackets.",
     ids: ["asset-006-income-tax"],
   },
   {
     id: "insurance",
     label: "Insurance",
-    lead: "Underinsurance risk when the average clause applies to a property claim.",
+    lead: "See how underinsurance can reduce a property claim when the average clause applies.",
     ids: ["asset-015-average-clause"],
   },
 ] as const;
 
-/** Featured “start here” strip, conversion-critical starters. */
+/** “I want to know…” starter prompts for new visitors. */
+export const HUB_START_HERE: readonly HubStartHereItem[] = [
+  {
+    question: "Can I afford to retire?",
+    calculatorId: "asset-002-retirement-reality-check",
+  },
+  {
+    question: "How much should I save?",
+    calculatorId: "asset-003-retirement-premium",
+  },
+  {
+    question: "How fast must my investments grow?",
+    calculatorId: "asset-001-retirement-growth",
+  },
+  {
+    question: "How long will my retirement income last?",
+    calculatorId: "asset-004-life-of-capital",
+  },
+  {
+    question: "How much income can my investments provide?",
+    categoryHref: "#retirement-income",
+    categoryLabel: "Retirement Income Calculators",
+  },
+] as const;
+
+/** @deprecated Prefer HUB_START_HERE — kept for any legacy imports. */
 export const HUB_FEATURED_IDS = [
-  "asset-010-everest-128-income",
   "asset-002-retirement-reality-check",
-  "asset-007-estate-duty",
+  "asset-003-retirement-premium",
+  "asset-001-retirement-growth",
 ] as const;
 
 function stripBrand(title: string): string {
@@ -130,14 +219,22 @@ function stripBrand(title: string): string {
 }
 
 function toHubCalculator(entry: CalculatorRegistryEntry): HubCalculator {
+  const meta = HUB_CALCULATOR_META[entry.id] ?? {
+    estimatedTime: "5–8 min",
+    difficulty: "Intermediate" as HubDifficulty,
+  };
   return {
     id: entry.id,
     assetCode: entry.assetCode,
-    title: stripBrand(formatPublicCalculatorTitle(entry)),
+    title:
+      HUB_DISPLAY_TITLES[entry.id] ??
+      stripBrand(formatPublicCalculatorTitle(entry)),
     href: calculatorPagePath(entry.id),
     problem:
       HUB_CALCULATOR_PROBLEMS[entry.id] ??
       "Illustrative educational calculator. Not personalised advice.",
+    estimatedTime: meta.estimatedTime,
+    difficulty: meta.difficulty,
   };
 }
 

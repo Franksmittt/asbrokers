@@ -50,7 +50,7 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
   "asset-005-future-value": "Future Value Calculator",
   "asset-006-income-tax": "Income Tax Calculator",
   "asset-007-estate-duty": "Estate Cost & Liquidity Calculator",
-  "asset-008-estate-reduction": "Estate Reduction Calculator",
+  "asset-008-estate-reduction": "Estate Reduction & Legacy Calculator",
   "asset-009-everest-142-income": "14.2% Income Calculator",
   "asset-010-everest-128-income": "12.8% Income Calculator",
   "asset-011-everest-128-vs-142": "12.8% vs 14.2% Income Comparison",
@@ -78,7 +78,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-007-estate-duty":
     "Will your family have enough cash to wind up your estate without selling assets?",
   "asset-008-estate-reduction":
-    "How donation strategies can ease estate pressure within SARS limits.",
+    "How could lifetime planning improve the legacy your family receives?",
   "asset-009-everest-142-income":
     "Model targeted monthly income from the 14.2% Everest profile.",
   "asset-010-everest-128-income":

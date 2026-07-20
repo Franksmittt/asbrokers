@@ -82,6 +82,14 @@ display: none;
 }
 
 
+.asb-compare {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 14px;
+margin-bottom: 14px;
+}
+
+
 .asb-result-box {
 padding: 18px;
 border-radius: 14px;
@@ -94,6 +102,24 @@ margin-bottom: 14px;
 .asb-result-box.main {
 background: #111827;
 color: #ffffff;
+}
+
+
+.asb-result-box.highlight {
+background: #0f766e;
+color: #ffffff;
+border-color: #0f766e;
+}
+
+
+.asb-result-box.compare-left {
+background: #f3f4f6;
+}
+
+
+.asb-result-box.compare-right {
+background: #ecfdf5;
+border-color: #99f6e4;
 }
 
 
@@ -112,6 +138,15 @@ font-weight: 800;
 }
 
 
+.asb-pct {
+display: inline-block;
+margin-top: 8px;
+font-size: 13px;
+font-weight: 700;
+opacity: 0.9;
+}
+
+
 .asb-small {
 font-size: 14px;
 color: #6b7280;
@@ -119,7 +154,8 @@ line-height: 1.5;
 }
 
 
-.asb-result-box.main .asb-small {
+.asb-result-box.main .asb-small,
+.asb-result-box.highlight .asb-small {
 color: #d1d5db;
 }
 
@@ -150,47 +186,42 @@ color: #111827;
 
 
 .asb-cta p {
-margin: 0 0 14px 0;
+margin: 0 0 12px 0;
 color: #4b5563;
 line-height: 1.5;
 font-size: 14px;
 }
 
 
-.asb-disabled-button {
-display: inline-block;
-padding: 12px 16px;
-border-radius: 10px;
-background: #111827;
-color: #ffffff;
-font-weight: 700;
-font-size: 14px;
-cursor: default;
-}
-
-
 @media (max-width: 640px) {
-.asb-grid {
+.asb-grid,
+.asb-compare {
 grid-template-columns: 1fr;
 }
 }
 </style>
 
 
-<h2>AS Brokers Estate Reduction Strategy Calculator</h2>
+<h2>AS Brokers Estate Reduction & Legacy Planning Calculator</h2>
 
 
 <p class="intro">
-Estimate how annual tax-free donations may reduce your estate over time and potentially lower future estate duty.
+Estimate how planned lifetime wealth transfers could change your future estate, estate costs and the value that may reach your family.
 </p>
 
 
 <div class="asb-grid">
 <div class="asb-field">
+<label>Current estate value (illustrative)</label>
+<input id="reductionEstateValue" type="number" value="5000000">
+</div>
+
+
+<div class="asb-field">
 <label>Donation type</label>
 <select id="reductionDonationType">
-<option value="150000">Single person: R150,000 per year</option>
-<option value="300000">Couple: R300,000 per year</option>
+<option value="100000">Single person: R100,000 per year</option>
+<option value="200000">Couple: R200,000 per year</option>
 </select>
 </div>
 
@@ -214,37 +245,66 @@ Estimate how annual tax-free donations may reduce your estate over time and pote
 </div>
 
 
-<button class="asb-button" onclick="calculateEstateReduction()">Calculate estate reduction strategy</button>
+<button class="asb-button" onclick="calculateEstateReduction()">Calculate estate planning projection</button>
 
 
 <div id="reductionError" class="asb-error"></div>
 
 
 <div id="reductionResults" class="asb-results">
+<h3 style="margin:0 0 14px;font-size:18px;color:#111827;">Your Estate Planning Projection</h3>
+
+
+<div class="asb-compare">
+<div class="asb-result-box compare-left" style="margin-bottom:0;">
+<div class="asb-label">Estate value without planning</div>
+<div id="reductionEstateWithout" class="asb-value"></div>
+<div class="asb-small">Illustrative estate if no planned reductions are made over the period.</div>
+</div>
+
+
+<div class="asb-result-box compare-right" style="margin-bottom:0;">
+<div class="asb-label">Estate value with planned reductions</div>
+<div id="reductionEstateWith" class="asb-value"></div>
+<div id="reductionEstateWithPct" class="asb-pct"></div>
+<div class="asb-small">Illustrative estate after annual planned transfers leave the estate.</div>
+</div>
+</div>
+
+
 <div class="asb-result-box main">
-<div class="asb-label">Estimated estate duty saving</div>
+<div class="asb-label">Estimated estate duty saved</div>
 <div id="reductionEstateDutySaving" class="asb-value"></div>
-<div class="asb-small">Illustrative saving based on 20% estate duty on the capital moved out of the estate.</div>
+<div id="reductionEstateDutySavingPct" class="asb-pct"></div>
+<div class="asb-small">Illustrative difference in estate duty between the two scenarios.</div>
 </div>
 
 
 <div class="asb-result-box main">
-<div class="asb-label">Total donations made</div>
-<div id="reductionTotalDonations" class="asb-value"></div>
-<div class="asb-small">Total amount donated over the planning period.</div>
+<div class="asb-label">Estimated executor's fee reduction</div>
+<div id="reductionExecutorSaving" class="asb-value"></div>
+<div id="reductionExecutorSavingPct" class="asb-pct"></div>
+<div class="asb-small">Illustrative difference in executor's fees (3.5% plus VAT) on the smaller estate.</div>
 </div>
 
 
-<div class="asb-result-box main">
-<div class="asb-label">Estimated investment value at planned age</div>
-<div id="reductionTrustValue" class="asb-value"></div>
-<div class="asb-small">Illustrative value if the annual donations are invested and grow at the selected rate.</div>
+<div class="asb-result-box highlight">
+<div class="asb-label">Estimated additional wealth passed to beneficiaries</div>
+<div id="reductionAdditionalWealth" class="asb-value"></div>
+<div id="reductionAdditionalWealthPct" class="asb-pct"></div>
+<div class="asb-small">Combines the illustrative invested gift value with estimated estate cost savings that may stay with the family.</div>
 </div>
 
 
 <div class="asb-result-box">
-<div class="asb-label">Annual donation amount</div>
-<div id="reductionAnnualDonation" class="asb-value"></div>
+<div class="asb-label">Total planned transfers</div>
+<div id="reductionTotalDonations" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Illustrative invested gift value at planned age</div>
+<div id="reductionTrustValue" class="asb-value"></div>
 </div>
 
 
@@ -255,38 +315,49 @@ Estimate how annual tax-free donations may reduce your estate over time and pote
 
 
 <div class="asb-result-box">
-<div class="asb-label">What this means for you</div>
+<div class="asb-label">Legacy Planning Insight</div>
 <div id="reductionSummaryText" class="asb-small"></div>
 </div>
 </div>
 
 
 <div class="asb-cta">
-<h3>Educational note</h3>
+<h3>Assumptions &amp; disclaimer</h3>
 <p>
-This calculator illustrates how annual tax-free donations may reduce the value of a future estate.
-It assumes the annual donations are made consistently and that the estate duty saving is calculated at 20%.
-It does not account for attribution rules, trust tax, CGT, loan accounts, administration costs, changing legislation or personal estate planning needs.
-It is an educational planning tool and does not constitute legal, tax or financial advice.
+This educational projection uses updateable South African estate parameters currently set to: Section 4A abatement R3.5 million; estate duty 20% up to R30 million dutiable and 25% thereafter; executor's remuneration 3.5% of estate value plus 15% VAT.
 </p>
-
-
-<h3>Next step</h3>
 <p>
-Your calculator result is only the first step. Learn what this result means and how donations,
-trusts, estate duty and long-term estate liquidity planning work together.
+It assumes annual transfers are made consistently within the selected illustration band, that transferred amounts leave the estate, and that gifted capital may be invested at the growth rate you enter. It does not model attribution rules, donations tax beyond the selected band, trust tax, CGT, loan accounts, inflation separately from growth, changing legislation or your personal legal position.
 </p>
-
-
-<div class="asb-disabled-button">
-Learn what this result means by following the link below
-</div>
+<p>
+Results are estimates only and do not constitute legal, tax or financial advice. Confirm every strategy with qualified advisers before acting.
+</p>
 </div>
 
 
 <script>
+/** Updateable South African estate parameters — change here when legislation updates. */
+var REDUCTION_TAX = {
+abatement: 3500000,
+dutyBandThreshold: 30000000,
+dutyRateLower: 0.20,
+dutyRateUpper: 0.25,
+executorFeeRate: 0.035,
+executorVatRate: 0.15
+};
+
+
 function reductionFormatRand(value) {
 return "R " + Math.round(value).toLocaleString("en-ZA");
+}
+
+
+function reductionFormatPct(value) {
+if (!isFinite(value) || value === 0) {
+return "0%";
+}
+var sign = value > 0 ? "+" : "";
+return sign + value.toFixed(1) + "%";
 }
 
 
@@ -295,15 +366,35 @@ return parseFloat(document.getElementById(id).value);
 }
 
 
+function reductionEstateDuty(estateValue) {
+var dutiable = Math.max(0, estateValue - REDUCTION_TAX.abatement);
+if (dutiable <= 0) {
+return 0;
+}
+if (dutiable <= REDUCTION_TAX.dutyBandThreshold) {
+return dutiable * REDUCTION_TAX.dutyRateLower;
+}
+return (REDUCTION_TAX.dutyBandThreshold * REDUCTION_TAX.dutyRateLower) +
+((dutiable - REDUCTION_TAX.dutyBandThreshold) * REDUCTION_TAX.dutyRateUpper);
+}
+
+
+function reductionExecutorFees(estateValue) {
+var fee = Math.max(0, estateValue) * REDUCTION_TAX.executorFeeRate;
+return fee * (1 + REDUCTION_TAX.executorVatRate);
+}
+
+
 function calculateEstateReduction() {
-const annualDonation = reductionGetNumber("reductionDonationType");
-const currentAge = reductionGetNumber("reductionCurrentAge");
-const plannedAge = reductionGetNumber("reductionPlannedAge");
-const growthRate = reductionGetNumber("reductionGrowthRate") / 100;
+var startingEstate = reductionGetNumber("reductionEstateValue");
+var annualDonation = reductionGetNumber("reductionDonationType");
+var currentAge = reductionGetNumber("reductionCurrentAge");
+var plannedAge = reductionGetNumber("reductionPlannedAge");
+var growthRate = reductionGetNumber("reductionGrowthRate") / 100;
 
 
-const errorBox = document.getElementById("reductionError");
-const resultsBox = document.getElementById("reductionResults");
+var errorBox = document.getElementById("reductionError");
+var resultsBox = document.getElementById("reductionResults");
 
 
 errorBox.style.display = "none"
@@ -311,12 +402,20 @@ resultsBox.style.display = "none"
 
 
 if (
+isNaN(startingEstate) ||
 isNaN(annualDonation) ||
 isNaN(currentAge) ||
 isNaN(plannedAge) ||
 isNaN(growthRate)
 ) {
 errorBox.innerText = "Please complete all fields."
+errorBox.style.display = "block"
+return;
+}
+
+
+if (startingEstate < 0) {
+errorBox.innerText = "Estate value cannot be negative."
 errorBox.style.display = "block"
 return;
 }
@@ -336,59 +435,87 @@ return;
 }
 
 
-const donationPeriod = plannedAge - currentAge;
-const totalDonations = annualDonation * donationPeriod;
-const estimatedEstateDutySaving = totalDonations * 0.20;
+var donationPeriod = plannedAge - currentAge;
+var totalDonations = annualDonation * donationPeriod;
 
 
-let estimatedTrustValue = 0;
-
-
-for (let year = 1; year <= donationPeriod; year++) {
-estimatedTrustValue = estimatedTrustValue * (1 + growthRate);
-estimatedTrustValue += annualDonation;
+var estateWithout = startingEstate;
+for (var y = 1; y <= donationPeriod; y++) {
+estateWithout = estateWithout * (1 + growthRate);
 }
 
 
-const donorTypeText = annualDonation === 300000 ? "a couple" : "a single person"
+var estateWith = startingEstate;
+var estimatedGiftValue = 0;
+for (var year = 1; year <= donationPeriod; year++) {
+estateWith = Math.max(0, estateWith - annualDonation);
+estateWith = estateWith * (1 + growthRate);
+estimatedGiftValue = estimatedGiftValue * (1 + growthRate);
+estimatedGiftValue += annualDonation;
+}
 
 
-document.getElementById("reductionEstateDutySaving").innerText =
-reductionFormatRand(estimatedEstateDutySaving);
+var dutyWithout = reductionEstateDuty(estateWithout);
+var dutyWith = reductionEstateDuty(estateWith);
+var dutySaved = Math.max(0, dutyWithout - dutyWith);
 
 
-document.getElementById("reductionTotalDonations").innerText =
-reductionFormatRand(totalDonations);
+var executorWithout = reductionExecutorFees(estateWithout);
+var executorWith = reductionExecutorFees(estateWith);
+var executorSaved = Math.max(0, executorWithout - executorWith);
 
 
-document.getElementById("reductionTrustValue").innerText =
-reductionFormatRand(estimatedTrustValue);
+var netFamilyWithout = Math.max(0, estateWithout - dutyWithout - executorWithout);
+var netFamilyWith = Math.max(0, estateWith - dutyWith - executorWith) + estimatedGiftValue;
+var additionalWealth = Math.max(0, netFamilyWith - netFamilyWithout);
 
 
-document.getElementById("reductionAnnualDonation").innerText =
-reductionFormatRand(annualDonation);
+var estateReductionPct = estateWithout > 0 ? ((estateWithout - estateWith) / estateWithout) * 100 : 0;
+var dutySavedPct = dutyWithout > 0 ? (dutySaved / dutyWithout) * 100 : 0;
+var executorSavedPct = executorWithout > 0 ? (executorSaved / executorWithout) * 100 : 0;
+var additionalPct = netFamilyWithout > 0 ? (additionalWealth / netFamilyWithout) * 100 : 0;
 
 
-document.getElementById("reductionDonationPeriod").innerText =
-donationPeriod + " years"
+var donorTypeText = annualDonation === 200000 ? "a couple" : "a single person";
+
+
+document.getElementById("reductionEstateWithout").innerText = reductionFormatRand(estateWithout);
+document.getElementById("reductionEstateWith").innerText = reductionFormatRand(estateWith);
+document.getElementById("reductionEstateWithPct").innerText =
+estateReductionPct > 0 ? reductionFormatPct(-estateReductionPct) + " vs without planning" : "";
+
+
+document.getElementById("reductionEstateDutySaving").innerText = reductionFormatRand(dutySaved);
+document.getElementById("reductionEstateDutySavingPct").innerText =
+dutySaved > 0 ? reductionFormatPct(dutySavedPct) + " lower duty vs no planning" : "No illustrative duty saving under these inputs";
+
+
+document.getElementById("reductionExecutorSaving").innerText = reductionFormatRand(executorSaved);
+document.getElementById("reductionExecutorSavingPct").innerText =
+executorSaved > 0 ? reductionFormatPct(executorSavedPct) + " lower executor fees vs no planning" : "";
+
+
+document.getElementById("reductionAdditionalWealth").innerText = reductionFormatRand(additionalWealth);
+document.getElementById("reductionAdditionalWealthPct").innerText =
+additionalWealth > 0 ? reductionFormatPct(additionalPct) + " more reaching the family vs no planning" : "";
+
+
+document.getElementById("reductionTotalDonations").innerText = reductionFormatRand(totalDonations);
+document.getElementById("reductionTrustValue").innerText = reductionFormatRand(estimatedGiftValue);
+document.getElementById("reductionDonationPeriod").innerText = donationPeriod + " years";
 
 
 document.getElementById("reductionSummaryText").innerText =
-"Based on " + donorTypeText +
-" donating " + reductionFormatRand(annualDonation) +
-" per year from age " + currentAge +
-" to age " + plannedAge +
-", the total donations made would be approximately " +
-reductionFormatRand(totalDonations) +
-". If those donations reduce the taxable estate, the illustrative estate duty saving at 20% could be about " +
-reductionFormatRand(estimatedEstateDutySaving) +
-". If the donated money is invested and grows at " +
+"What changed: over " + donationPeriod +
+" years, planned annual transfers of " + reductionFormatRand(annualDonation) +
+" (" + donorTypeText +
+") reduce the illustrative estate from " + reductionFormatRand(estateWithout) +
+" without planning to " + reductionFormatRand(estateWith) +
+" with planning. Why it changed: capital leaves the estate earlier, so estate duty and executor's fees may fall, while the transferred amounts may grow outside the estate. Assumptions creating the difference include your starting estate, ages, annual transfer band, growth rate of " +
 (growthRate * 100).toFixed(1) +
-"% per year, the illustrative investment value at age " +
-plannedAge +
-" could be approximately " +
-reductionFormatRand(estimatedTrustValue) +
-"."
+"% p.a., and current duty/executor parameters. Estimated additional wealth reaching beneficiaries is about " +
+reductionFormatRand(additionalWealth) +
+". Regular reviews matter because legislation, family needs, asset values and liquidity change over time. This does not recommend making gifts—it only illustrates how timing can influence long-term estate outcomes.";
 
 
 resultsBox.style.display = "block"

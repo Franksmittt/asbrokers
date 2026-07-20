@@ -250,7 +250,6 @@ type PageContent = Omit<
 > & { shortTitle: string };
 
 const RETIREMENT = { categoryLabel: "Retirement planning", categoryHref: "/retirement-planning" };
-const ESTATE = { categoryLabel: "Estate planning", categoryHref: "/estate-planning" };
 const EVEREST = { categoryLabel: "Everest Wealth", categoryHref: "/investments" };
 const INSURANCE = { categoryLabel: "Insurance & risk", categoryHref: "/insurance" };
 const WEALTH = { categoryLabel: "Wealth building", categoryHref: "/investments" };
@@ -2041,56 +2040,273 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Estate Reduction Strategy Calculator",
     seoTitle: "Estate Reduction Calculator | Annual Donations South Africa",
     seoDescription:
-      "Model how R100k and R200k annual donations may reduce dutiable estate over time. Free estate reduction calculator. FSP 17273.",
-    keywords: ["estate reduction calculator", "donation tax calculator South Africa", "annual donation limit"],
-    kicker: "Estate planning",
-    heroTitle: "Reduce estate duty with structured giving",
+      "Legacy planning calculator: see how planned lifetime wealth transfers may change your future estate, estate costs and what your family receives. Educational SA tool. FSP 17273.",
+    keywords: [
+      "estate reduction calculator",
+      "donation tax calculator South Africa",
+      "annual donation limit",
+      "legacy planning calculator",
+      "estate planning during lifetime",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 008",
+    heroTitle: "Could your family benefit more from their inheritance while you're still alive?",
     heroSubtitle:
-      "Illustrate how annual donations within SARS limits may transfer wealth during your lifetime and lower eventual duty.",
+      "Most estate planning happens too late. By gradually reducing the size of your estate during your lifetime, you may improve estate liquidity, reduce future estate costs and help your family when they need it most. This calculator estimates how planned wealth transfers could affect your future estate and the value ultimately passed to your beneficiaries.",
     heroImage: "/images/calc-lcp/asset-008.webp",
     heroImageAlt: "Grandfather gifting to family — planned giving to reduce estate later",
     calculatorLead:
-      "Enter estate value, donation amounts, and planning horizon to see illustrative reduction in dutiable estate.",
-    sidePanelTitle: "Planning with donations",
+      "Enter an illustrative estate value, annual transfer band, ages and growth rate. The projection compares estate value without planning versus with planned reductions—then estimates duty saved, executor's fee reduction and additional wealth that may reach beneficiaries.",
+    sidePanelTitle: "Legacy planning during life",
     sidePanelParagraphs: [
-      "Annual donations within SARS limits can transfer wealth while reducing eventual estate duty when structured correctly.",
-      "Donations must align with wills, trusts, and liquidity. Professional estate planning advice is essential.",
+      "This is the legacy planning calculator in the Retirement Gap Toolkit™. It completes the educational journey from retirement readiness and tax to estate duty—and then asks what you can still influence while you are alive.",
+      "Use it after the Estate Duty Calculator to explore timing. It does not recommend gifts or transfers; it shows how timing can change long-term outcomes.",
     ],
     sidePanelBullets: [
-      "R100k and R200k donation bands",
-      "Long-horizon estate reduction",
-      "Pairs with duty calculator",
-      "Requires professional advice",
+      "Side-by-side estate projection",
+      "Duty and executor fee differences",
+      "Additional wealth to beneficiaries highlighted",
+      "Educational illustration only",
     ],
-    fiduciaryNotes: [...FIDUCIARY, "Donation strategies must be documented and tax-compliant."],
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Donation and trust strategies must be documented and tax-compliant. Confirm SARS limits and structure with qualified legal and tax advisers.",
+    ],
     howToSteps: [
-      { title: "Enter estate value", description: "Start with current net estate estimate." },
-      { title: "Set annual donations", description: "Use allowable donation amounts per beneficiary." },
-      { title: "Choose horizon", description: "Years you plan to continue structured giving." },
-      { title: "Review reduction", description: "See illustrative dutiable estate change, then formalise with advisers." },
+      { title: "Set an estate starting point", description: "Enter an illustrative current estate value for the projection." },
+      { title: "Choose a transfer illustration", description: "Select a single-person or couple annual band used for education." },
+      { title: "Set the time horizon", description: "Current age, planned age and an assumed growth rate." },
+      { title: "Read the legacy insight", description: "Compare with vs without planning, then continue into the Method." },
     ],
+    heroCta: {
+      primaryLabel: "Run My Estate Planning Projection",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Estimate current estate costs first",
+      secondaryHref: calculatorPagePath("asset-007-estate-duty"),
+    },
+    contextBox: {
+      heading: "Legacy planning begins during life, not at death",
+      paragraphs: [
+        "Retirement asks whether you will have enough. Tax asks how much SARS may receive. Estate duty asks what happens when you die. This calculator asks what you can still do while you are alive to improve the outcome for your family.",
+        "Estimate what your estate could currently owe with the Estate Duty Calculator, then return here to explore timing—always within professional advice.",
+      ],
+      highlightQuestion:
+        "How could thoughtful estate planning during my lifetime improve the financial legacy I leave to my family?",
+    },
+    audienceGuide: {
+      heading: "Who should explore this calculator?",
+      intro: "Useful if you want to understand lifetime planning concepts before speaking to advisers about family wealth, liquidity or succession.",
+      items: [
+        "Parents wanting to assist children earlier in life",
+        "Families concerned about estate liquidity and delays",
+        "People comparing estate duty with legacy timing",
+        "Business owners thinking about succession",
+        "Anyone reviewing wills, trusts and beneficiary nominations",
+      ],
+    },
+    assumptionCallout: {
+      heading: "Before you calculate",
+      paragraphs: [
+        "This tool does not recommend making gifts or transferring assets. Its purpose is to demonstrate how timing can influence long-term estate outcomes.",
+        "Tax parameters (abatement, duty bands, executor fee and VAT) are centralised in the calculator so they can be updated when legislation changes. Confirm current SARS and fiduciary rules before acting.",
+        "Every solution depends on individual legal, tax and financial circumstances.",
+      ],
+    },
+    resultGuide: {
+      heading: "Your Estate Planning Projection",
+      intro:
+        "After you calculate, read the side-by-side estate values first, then the estimated estate duty saved, executor's fee reduction and the highlighted additional wealth that may reach beneficiaries. The Legacy Planning Insight inside the tool explains what changed, why it changed, which assumptions created the difference, and why regular reviews matter.",
+      metricsListed: [
+        "Estate Value Without Planning",
+        "Estate Value With Planned Reductions",
+        "Estimated Estate Duty Saved",
+        "Estimated Executor's Fee Reduction",
+        "Estimated Additional Wealth Passed to Beneficiaries",
+      ],
+      highlightMetrics: [
+        {
+          label: "Focus on legacy, not only tax",
+          description:
+            "Duty savings matter, but the educational goal is whether more value may reach your family—with better timing and potentially less administration friction.",
+        },
+        {
+          label: "Pair with estate liquidity",
+          description:
+            "Reducing estate size can help, yet families still need cash to wind up an estate. Revisit the Estate Duty & Liquidity Calculator alongside any timing discussion.",
+        },
+      ],
+      footer:
+        "Assumptions and disclaimers appear directly under the calculator results. Treat every figure as an estimate for education—not a recommendation to gift or restructure.",
+    },
+    withdrawalGuide: {
+      heading: "Estate reduction concepts to understand",
+      intro:
+        "These ideas are educational only. This page does not recommend any strategy. Suitability depends on your legal, tax and financial circumstances.",
+      levels: [
+        {
+          label: "Annual tax exemptions",
+          description:
+            "South African donations tax rules include annual exemption bands that advisers often use in illustrations. Limits and eligibility must be confirmed for your situation.",
+        },
+        {
+          label: "Lifetime donations",
+          description:
+            "Transfers during life may assist family earlier and change the size of a future estate. They also create legal, tax and liquidity consequences that need advice.",
+        },
+        {
+          label: "Trust planning (where appropriate)",
+          description:
+            "Trusts can form part of broader legacy planning for some families. Structure, funding and tax treatment vary widely and require specialist advice.",
+        },
+        {
+          label: "Life insurance for estate liquidity",
+          description:
+            "Cover payable in the right way can help families settle estate costs without forced sales. Ownership and beneficiary design matter.",
+        },
+        {
+          label: "Ownership structures",
+          description:
+            "How assets are owned—individually, jointly, via companies or other vehicles—affects what falls into an estate and how easily value can be transferred.",
+        },
+        {
+          label: "Business succession planning",
+          description:
+            "Business interests often need a written succession path so value and control do not freeze when an owner dies.",
+        },
+        {
+          label: "Reviewing beneficiary nominations",
+          description:
+            "Retirement funds and policies may pay according to nominations rather than a will. Out-of-date nominations can undo careful planning.",
+        },
+        {
+          label: "Keeping your Will current",
+          description:
+            "A current will supports clearer administration. It should align with ownership, nominations and liquidity planning.",
+        },
+        {
+          label: "Regular estate reviews",
+          description:
+            "Asset values, family needs, legislation and retirement income all change. Reviews keep legacy planning connected to the Retirement Gap Method™.",
+        },
+      ],
+      closing:
+        "Understand how taxation affects lifetime wealth with the Income Tax Calculator, how retirement assets are treated with the Living Annuity Calculator, and how the pieces fit in the Retirement Gap Method™.",
+    },
+    methodSection: {
+      heading: "Giving while you can see the difference",
+      paragraphs: [
+        "Many people assume wealth should only transfer after death. In reality, appropriate lifetime planning may allow families to assist children earlier in life, improve estate liquidity, reduce administration delays, simplify the eventual estate and create intergenerational wealth.",
+        "This calculator does not recommend making gifts or transferring assets. Its purpose is to demonstrate how timing can influence long-term estate outcomes—then point you toward professional advice inside the Retirement Gap Method™.",
+      ],
+      bullets: [
+        "Assist family when support may matter most",
+        "Improve liquidity and reduce administration friction",
+        "Coordinate with wills, trusts and nominations",
+        "Review regularly as life and law change",
+      ],
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+      secondaryCtaLabel: "Book a Retirement Gap Review",
+      secondaryCtaHref: "/contact?source=retirement_gap_review_asset_008",
+    },
+    assessmentSection: {
+      heading: "Ready for a personalised legacy discussion?",
+      intro:
+        "If this projection raises questions about trusts, donations, estate liquidity or succession, a Retirement Gap Review can help you explore options without treating any calculator output as advice.",
+      bullets: [
+        "Current estate cost and liquidity picture",
+        "Lifetime versus death-timed transfers",
+        "Retirement assets and living annuity treatment",
+        "Family goals and review cadence",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_008",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Estimate",
+          assetCode: "ASSET 007",
+          title: "Estate Duty Calculator",
+          description: "Estimate what your estate could currently owe.",
+          href: calculatorPagePath("asset-007-estate-duty"),
+        },
+        {
+          stepLabel: "Related",
+          assetCode: "ASSET 006",
+          title: "Income Tax Calculator",
+          description: "Understand how taxation affects lifetime wealth.",
+          href: calculatorPagePath("asset-006-income-tax"),
+        },
+        {
+          stepLabel: "Related",
+          assetCode: "ASSET 014",
+          title: "Living Annuity Calculator",
+          description: "See how retirement assets are treated differently for estate planning.",
+          href: calculatorPagePath("asset-014-living-annuity"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Understand how retirement, tax and estate planning work together.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Building wealth is only one part of financial freedom.",
+      body: "Deciding how that wealth will support your retirement, your family and your legacy is equally important. The Retirement Gap Method™ brings retirement planning, taxation and estate planning together into one complete financial framework.",
+      primaryLabel: "Learn the Retirement Gap Method™",
+      primaryHref: "/retirement-gap-method",
+      secondaryLabel: "Book a Retirement Gap Review",
+      secondaryHref: "/contact?source=retirement_gap_review_asset_008",
+    },
     readingSections: [
       {
-        heading: "Donations vs waiting for death",
+        heading: "From estate duty to legacy timing",
         paragraphs: [
-          "Transferring wealth while you are alive can help children and grandchildren when they need capital, not only when an estate is frozen.",
-          "Donation tax, accrual, and trust law interact. Never implement donation plans without coordinated legal and tax review.",
+          "Start with a clear picture of estate costs and liquidity using the Estate Duty Calculator—estimate what your estate could currently owe. Then use this page to explore whether lifetime timing could change what your family receives.",
+          "Understand how taxation affects lifetime wealth with the Income Tax Calculator, and see how retirement assets are treated differently for estate planning with the Living Annuity Calculator. The Retirement Gap Method™ connects retirement, tax and estate planning into one framework.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
         question: "What are the annual donation limits?",
         answer:
-          "The tool illustrates R100k and R200k bands as commonly used in planning. Confirm current SARS limits with your practitioner.",
+          "This tool illustrates commonly discussed annual bands for education (currently R100,000 for a single-person illustration and R200,000 for a couple illustration). Confirm current SARS donations tax exemptions and limits with your practitioner before acting.",
       },
       {
         question: "Should I donate without advice?",
         answer:
-          "No. Donation strategies must be documented and tax-compliant. Confirm SARS limits and structure with a qualified practitioner.",
-      }
+          "No. This calculator does not recommend gifts or transfers. Donation and trust strategies must be documented and tax-compliant. Confirm structure with qualified legal, tax and financial advisers.",
+      },
+      {
+        question: "Why would someone reduce their estate while they are still alive?",
+        answer:
+          "Some people choose to transfer wealth during their lifetime to assist family members when support may matter most, improve estate liquidity, reduce future estate costs or simplify future estate administration. Whether that is appropriate depends entirely on personal circumstances and advice.",
+      },
+      {
+        question: "Does this calculator consider inflation?",
+        answer:
+          "You can reflect inflation thinking through the growth-rate assumption (for example by using a lower real rate). Future inflation, investment returns and legislation cannot be predicted, so treat every projection as illustrative only.",
+      },
+      {
+        question: "Does this replace the Estate Duty Calculator?",
+        answer:
+          "No. Asset 007 estimates current estate costs and liquidity risk. Asset 008 explores how planned lifetime reductions might change future outcomes. Use them together.",
+      },
+      {
+        question: "Is this legal or tax advice?",
+        answer:
+          "No. All figures are educational estimates. Confirm legislation, exemptions and structuring during professional legal, tax and financial planning.",
+      },
     ],
-    ...ESTATE,
+    categoryLabel: "Legacy Planning",
+    categoryHref: "/estate-planning",
   },
 
   "asset-009-everest-142-income": {

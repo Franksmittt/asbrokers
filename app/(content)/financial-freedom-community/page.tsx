@@ -41,6 +41,7 @@ export default function FinancialFreedomCommunityPage() {
         }}
         breadcrumbs={[
           { name: "Home", path: "/" },
+          { name: "The Retirement Gap Method™", path: "/retirement-gap-method" },
           { name: "Financial Freedom Community™", path: "/financial-freedom-community" },
         ]}
       />
@@ -68,6 +69,12 @@ export default function FinancialFreedomCommunityPage() {
               >
                 Start registration
                 <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href="/retirement-gap-method"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3.5 text-sm font-semibold text-white ring-1 ring-white/20"
+              >
+                The Retirement Gap Method™
               </Link>
               <Link
                 href={plannerHref}
@@ -104,7 +111,11 @@ export default function FinancialFreedomCommunityPage() {
               <Link href="/contact?source=retirement_planning_session_ffc" className="font-semibold" style={{ color: TEAL }}>
                 Book a Retirement Planning Session
               </Link>
-              .
+              . Start with the{" "}
+              <Link href="/retirement-gap-method" className="font-semibold" style={{ color: TEAL }}>
+                Retirement Gap Method™
+              </Link>{" "}
+              if you want the full educational framework first.
             </p>
           </div>
         </section>

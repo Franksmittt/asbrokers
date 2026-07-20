@@ -1,6 +1,6 @@
 import type { RelatedLink } from "@/components/seo/RelatedContent";
 import { getCalculatorPageConfig } from "@/lib/calculators/page-configs";
-import { calculatorPagePath } from "@/lib/calculators/page-path";
+import { calculatorPagePath, resolveCalculatorSlug } from "@/lib/calculators/page-path";
 
 export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   "/solutions/personal-insurance": [
@@ -466,12 +466,56 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Talk through your Toolkit results with FSP 17273.",
     },
   ],
+  "/retirement-gap-method": [
+    {
+      href: "/calculators",
+      title: "The Retirement Gap Toolkit™",
+      description: "Every educational calculator in one hub.",
+    },
+    {
+      href: "/financial-freedom-community",
+      title: "Financial Freedom Community™",
+      description: "12-week programme after the workshop—members planning tools.",
+    },
+    {
+      href: "/contact?source=retirement_gap_workshop",
+      title: "Reserve a Workshop Seat",
+      description: "Complimentary educational session on the Method.",
+    },
+    {
+      href: "/contact?source=retirement_gap_review",
+      title: "Book a Retirement Gap Review",
+      description: "Personalised advice with FSP 17273.",
+    },
+  ],
+  "/financial-freedom-community": [
+    {
+      href: "/retirement-gap-method",
+      title: "The Retirement Gap Method™",
+      description: "The cornerstone framework behind the Community.",
+    },
+    {
+      href: "/calculators/goal-engineering-planner",
+      title: "Goal Engineering Planner™",
+      description: "Members-only planning tool unlocked after payment.",
+    },
+    {
+      href: "/calculators",
+      title: "Retirement Gap Toolkit™",
+      description: "Public educational calculators before membership.",
+    },
+    {
+      href: "/contact?source=retirement_gap_review",
+      title: "Book a Retirement Gap Review",
+      description: "Prefer one-to-one advice instead.",
+    },
+  ],
 };
 
 export function getRelatedLinks(path: string): RelatedLink[] {
-  if (path.startsWith("/calculators/asset-")) {
+  if (path.startsWith("/calculators/")) {
     const slug = path.replace("/calculators/", "");
-    const config = getCalculatorPageConfig(slug);
+    const config = getCalculatorPageConfig(resolveCalculatorSlug(slug));
     if (config) {
       return [
         {

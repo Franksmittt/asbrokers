@@ -4363,8 +4363,8 @@ const PAGES: Record<string, PageContent> = {
       ],
       ctaLabel: "Request an Insurance Review",
       ctaHref: "/contact?source=insurance_review_asset_015",
-      secondaryCtaLabel: "Explore insurance education",
-      secondaryCtaHref: "/insurance",
+      secondaryCtaLabel: "Learn the Retirement Gap Method™",
+      secondaryCtaHref: "/retirement-gap-method",
     },
     assessmentSection: {
       heading: "Request an Insurance Review",
@@ -4388,6 +4388,13 @@ const PAGES: Record<string, PageContent> = {
           title: "Insurance Education",
           description: "Policy gaps, claims education and short-term risk overview.",
           href: "/insurance",
+        },
+        {
+          stepLabel: "Method",
+          assetCode: "ASSET 018",
+          title: "The Retirement Gap Method™",
+          description: "Cornerstone framework for Toolkit, workshop and reviews.",
+          href: "/retirement-gap-method",
         },
         {
           stepLabel: "Estate",
@@ -4417,8 +4424,8 @@ const PAGES: Record<string, PageContent> = {
       body: "Asset 015 is a blueprint for insurance education on this site: answer a real financial question first, demonstrate the principle second, and invite a review—not a product sale—third.",
       primaryLabel: "Request an Insurance Review",
       primaryHref: "/contact?source=insurance_review_asset_015",
-      secondaryLabel: "Browse the Financial Decision Library",
-      secondaryHref: "/calculators",
+      secondaryLabel: "The Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
     },
     readingSections: [
       {
@@ -4859,8 +4866,8 @@ const PAGES: Record<string, PageContent> = {
       ],
       ctaLabel: "Join the Financial Freedom Community",
       ctaHref: "/financial-freedom-community/register",
-      secondaryCtaLabel: "Book a Retirement Planning Session",
-      secondaryCtaHref: "/contact?source=retirement_planning_session_asset_017",
+      secondaryCtaLabel: "Learn the Retirement Gap Method™",
+      secondaryCtaHref: "/retirement-gap-method",
     },
     assessmentSection: {
       heading: "Book a Retirement Planning Session",
@@ -4875,6 +4882,39 @@ const PAGES: Record<string, PageContent> = {
       ctaLabel: "Book a Retirement Planning Session",
       ctaHref: "/contact?source=retirement_planning_session_asset_017",
     },
+    journey: {
+      heading: "Continue the Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Method",
+          assetCode: "ASSET 018",
+          title: "The Retirement Gap Method™",
+          description: "Cornerstone framework for Toolkit, workshop and Community.",
+          href: "/retirement-gap-method",
+        },
+        {
+          stepLabel: "Toolkit",
+          assetCode: "ASSET 000",
+          title: "Retirement Gap Toolkit™",
+          description: "Public educational calculators before membership.",
+          href: "/calculators",
+        },
+        {
+          stepLabel: "Community",
+          assetCode: "FFC",
+          title: "Financial Freedom Community™",
+          description: "12-week programme that unlocks this planner.",
+          href: "/financial-freedom-community",
+        },
+        {
+          stepLabel: "Decision cost",
+          assetCode: "ASSET 016",
+          title: "Power of Growth Calculator",
+          description: "Measure the financial cost of waiting.",
+          href: calculatorPagePath("asset-016-growth-comparison"),
+        },
+      ],
+    },
     terminalOptions: {
       heading: "Choose your next step",
       options: [
@@ -4886,11 +4926,11 @@ const PAGES: Record<string, PageContent> = {
           ctaHref: "/financial-freedom-community/register",
         },
         {
-          title: "Book a Retirement Planning Session",
+          title: "Learn the Retirement Gap Method™",
           description:
-            "Prefer personalised advice? Meet with an AS Brokers adviser and build your own financial roadmap.",
-          ctaLabel: "Request a session",
-          ctaHref: "/contact?source=retirement_planning_session_asset_017",
+            "Understand how the Toolkit, workshop, Community and reviews fit together before you decide.",
+          ctaLabel: "Open the Method page",
+          ctaHref: "/retirement-gap-method",
         },
       ],
     },

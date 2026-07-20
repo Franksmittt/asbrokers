@@ -583,6 +583,7 @@ export const SCHEMA_EXPLICIT_PATH_PREFIXES = [
   "/investments",
   "/retirement-planning",
   "/retirement-gap-method",
+  "/financial-freedom-community",
   "/everest-wealth",
   "/everest-wealth/about",
   "/solutions/medical-aid",

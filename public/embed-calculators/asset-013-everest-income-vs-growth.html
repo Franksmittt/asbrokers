@@ -76,8 +76,9 @@ opacity: 0.75;
 margin-bottom: 6px;
 }
 .asb-value {
-font-size: 28px;
+font-size: 24px;
 font-weight: 800;
+line-height: 1.25;
 }
 .asb-small {
 font-size: 14px;
@@ -148,17 +149,17 @@ cursor: default;
 grid-template-columns: 1fr;
 }
 .asb-value {
-font-size: 24px;
+font-size: 20px;
 }
 }
 </style>
 
 <div id="asb-everest-strategy-comparison-calculator">
 
-<h2>AS Brokers Everest Income vs Growth Comparison Calculator</h2>
+<h2>Income vs Growth Strategy Comparison</h2>
 <p class="intro">
-Compare three Everest-style strategies side by side: 12.8% income with a five-year loyalty bonus,
-14.2% higher income from day one, and 14.5% accumulated growth paid at maturity.
+Compare three retirement investment strategies side by side—education before product selection.
+See the trade-offs between current income, loyalty benefits and long-term capital growth on the same voluntary capital.
 </p>
 <div class="asb-grid">
 <div class="asb-field">
@@ -174,7 +175,7 @@ Compare three Everest-style strategies side by side: 12.8% income with a five-ye
 <input id="evYears" type="number" value="5">
 </div>
 <div class="asb-field">
-<label>12.8% income option (%)</label>
+<label>12.8% Income Strategy (%)</label>
 <input id="evRate128" type="number" step="0.1" value="12.8">
 </div>
 <div class="asb-field">
@@ -182,15 +183,15 @@ Compare three Everest-style strategies side by side: 12.8% income with a five-ye
 <input id="evBonus128" type="number" step="0.1" value="10">
 </div>
 <div class="asb-field">
-<label>14.2% income option (%)</label>
+<label>14.2% Income Strategy (%)</label>
 <input id="evRate142" type="number" step="0.1" value="14.2">
 </div>
 <div class="asb-field">
-<label>14.5% growth option (%)</label>
+<label>14.5% Growth Strategy (%)</label>
 <input id="evRate145" type="number" step="0.1" value="14.5">
 </div>
 </div>
-<button class="asb-button" onclick="calculateEverestStrategyComparison()">Compare the three strategies</button>
+<button class="asb-button" onclick="calculateEverestStrategyComparison()">Compare investment strategies</button>
 <div id="evError" class="asb-error"></div>
 <div id="evResults" class="asb-results">
 <div class="asb-result-box main">
@@ -208,9 +209,9 @@ Compare three Everest-style strategies side by side: 12.8% income with a five-ye
 <thead>
 <tr>
 <th>Metric</th>
-<th>12.8% Income + Bonus</th>
-<th>14.2% Income</th>
-<th>14.5% Growth</th>
+<th>12.8% Income Strategy</th>
+<th>14.2% Income Strategy</th>
+<th>14.5% Growth Strategy</th>
 </tr>
 </thead>
 <tbody>
@@ -260,33 +261,33 @@ Compare three Everest-style strategies side by side: 12.8% income with a five-ye
 </table>
 </div>
 <div class="asb-result-box">
-<div class="asb-label">Decision explanation</div>
+<div class="asb-label">Which strategy suits which investor?</div>
 <div id="evSummaryText" class="asb-small"></div>
 </div>
 <div class="asb-result-box">
-<div class="asb-label">Strategic interpretation</div>
+<div class="asb-label">Strategy interpretation (education only)</div>
 <div class="asb-small">
-<strong>12.8% income + bonus:</strong> lower monthly income, but stronger five-year income outcome because of the loyalty bonus.<br><br>
-<strong>14.2% income:</strong> strongest income from day one, but no loyalty bonus.<br><br>
-<strong>14.5% growth:</strong> no monthly income, but strongest maturity value if the investor can leave the capital untouched.
+<strong>12.8% Income Strategy:</strong> Suitable for investors seeking dependable income together with additional long-term value through the five-year loyalty bonus.<br><br>
+<strong>14.2% Income Strategy:</strong> Suitable for investors whose highest priority is maximising current income, even if long-term capital growth is not the primary objective.<br><br>
+<strong>14.5% Growth Strategy:</strong> Suitable for investors who do not require current income and are comfortable leaving their investment untouched for the full five-year term to maximise capital growth.
 </div>
 </div>
 </div>
 <div class="asb-cta">
-<h3>Important note</h3>
+<h3>Education before product selection</h3>
 <p>
-This calculator compares income and growth strategies for educational purposes only.
+This tool compares retirement income approaches and income versus growth trade-offs for educational purposes only.
 It does not constitute advice, a quote, a recommendation, a guarantee, or an offer to invest.
 </p>
 <h3>Liquidity warning</h3>
 <p>
-Unlisted preference share investments may be illiquid. Withdrawals may be restricted, subject to notice periods,
+Voluntary income and growth structures may be illiquid. Withdrawals may be restricted, subject to notice periods,
 issuer discretion, penalties, product terms and market conditions.
 </p>
 <h3>Next step</h3>
 <p>
-The correct option depends on whether the investor needs income now, wants higher total income over five years,
-or wants to maximise capital growth at maturity.
+The better fit depends on whether you need income now, want stronger total income over five years,
+or want to maximise capital growth at maturity—then continue with the Retirement Gap Method™ and personalised advice.
 </p>
 <div class="asb-disabled-button">
 Learn what this result means by following the link below
@@ -342,7 +343,7 @@ errorBox.innerText = "Please check the tax, return and term assumptions."
 errorBox.style.display = "block"
 return;
 }
-/* 12.8% income option */
+/* 12.8% income strategy */
 const grossAnnual128 = investmentAmount * rate128;
 const taxAnnual128 = grossAnnual128 * dividendTaxRate;
 const netAnnual128 = grossAnnual128 - taxAnnual128;
@@ -353,7 +354,7 @@ const bonusTax128 = grossBonus128 * dividendTaxRate;
 const netBonus128 = grossBonus128 - bonusTax128;
 const capital128 = investmentAmount;
 const totalOutcome128 = capital128 + totalIncome128 + netBonus128;
-/* 14.2% income option */
+/* 14.2% income strategy */
 const grossAnnual142 = investmentAmount * rate142;
 const taxAnnual142 = grossAnnual142 * dividendTaxRate;
 const netAnnual142 = grossAnnual142 - taxAnnual142;
@@ -361,7 +362,7 @@ const netMonthly142 = netAnnual142 / 12;
 const totalIncome142 = netAnnual142 * years;
 const capital142 = investmentAmount;
 const totalOutcome142 = capital142 + totalIncome142;
-/* 14.5% growth option */
+/* 14.5% growth strategy */
 const grossValue145 = investmentAmount * Math.pow(1 + rate145, years);
 const grossGrowth145 = grossValue145 - investmentAmount;
 const taxGrowth145 = grossGrowth145 * dividendTaxRate;
@@ -373,14 +374,14 @@ const totalIncome145 = 0;
 const totalOutcome145 = maturityValue145;
 /* Winners */
 const monthlyOptions = [
-{ name: "12.8% Income + Bonus", value: netMonthly128 },
-{ name: "14.2% Income", value: netMonthly142 },
-{ name: "14.5% Growth", value: netMonthly145 }
+{ name: "14.2% Income Strategy", value: netMonthly142 },
+{ name: "12.8% Income Strategy", value: netMonthly128 },
+{ name: "14.5% Growth Strategy", value: netMonthly145 }
 ];
 const totalOptions = [
-{ name: "12.8% Income + Bonus", value: totalOutcome128 },
-{ name: "14.2% Income", value: totalOutcome142 },
-{ name: "14.5% Growth", value: totalOutcome145 }
+{ name: "12.8% Income Strategy", value: totalOutcome128 },
+{ name: "14.2% Income Strategy", value: totalOutcome142 },
+{ name: "14.5% Growth Strategy", value: totalOutcome145 }
 ];
 monthlyOptions.sort((a, b) => b.value - a.value);
 totalOptions.sort((a, b) => b.value - a.value);
@@ -389,12 +390,12 @@ const totalWinner = totalOptions[0];
 document.getElementById("evMonthlyWinner").innerText = monthlyWinner.name;
 document.getElementById("evMonthlyWinnerText").innerText =
 monthlyWinner.name + " provides the highest monthly income at approximately " +
-evFormatRand(monthlyWinner.value) + " per month."
+evFormatRand(monthlyWinner.value) + " per month. Facts only—not a recommendation."
 document.getElementById("evTotalWinner").innerText = totalWinner.name;
 document.getElementById("evTotalWinnerText").innerText =
 totalWinner.name + " produces the highest projected total outcome over " +
 years + " years at approximately " + evFormatRand(totalWinner.value) +
-", including capital where applicable."
+", including capital where applicable. Facts only—not a recommendation."
 /* Fill table */
 document.getElementById("evGrossRate128").innerText = (rate128 * 100).toFixed(1) + "%"
 document.getElementById("evGrossRate142").innerText = (rate142 * 100).toFixed(1) + "%"
@@ -417,11 +418,11 @@ document.getElementById("evTotal128").innerText = evFormatRand(totalOutcome128);
 document.getElementById("evTotal142").innerText = evFormatRand(totalOutcome142);
 document.getElementById("evTotal145").innerText = evFormatRand(totalOutcome145);
 document.getElementById("evSummaryText").innerText =
-"If the investor needs monthly income, the 14.2% income option produces the highest income from day one. " +
-"If the investor wants income but is willing to accept lower monthly cash flow in exchange for a five-year bonus, " +
-"the 12.8% option may produce a stronger total income result over five years. " +
-"If the investor does not need income and wants to maximise the projected maturity value, the 14.5% growth option is designed for capital accumulation. " +
-"The correct strategy depends on income need, time horizon, liquidity requirement, tax position, product risk and suitability."
+"If you need monthly income today, the 14.2% Income Strategy typically produces the highest income from day one. " +
+"If you want income but can accept lower monthly cash flow for a five-year loyalty benefit, " +
+"the 12.8% Income Strategy may produce a stronger total income result over five years. " +
+"If you do not need income and want to maximise projected maturity value, the 14.5% Growth Strategy is designed for capital accumulation. " +
+"The better fit depends on your objectives, income need, time horizon, liquidity, tax position and suitability—not the highest percentage alone."
 resultsBox.style.display = "block"
 }
 </script>

@@ -10,13 +10,29 @@ export type CalculatorContextBox = {
 };
 
 /**
- * Standard Toolkit decision prompt shown immediately below the hero.
+ * Standard Toolkit decision prompt.
  * Frames the page as a planning decision, not merely a calculator.
  */
 export type CalculatorDecisionQuestion = {
   /** Defaults to "Decision Question" */
   label?: string;
   question: string;
+  /**
+   * after-hero (default): immediately below the hero.
+   * before-calculator: immediately above the calculator tool (with optional strategy diagram).
+   */
+  placement?: "after-hero" | "before-calculator";
+};
+
+/** Simple strategy fork diagram (e.g. income now vs wait for growth). */
+export type CalculatorStrategyDiagram = {
+  heading?: string;
+  /** Eyebrow above the fork, e.g. "TODAY" */
+  eyebrow?: string;
+  branches: {
+    question: string;
+    outcomes: string[];
+  }[];
 };
 
 export type CalculatorResultBand = {
@@ -225,10 +241,13 @@ export type CalculatorPageConfig = {
   categoryLabel: string;
   categoryHref: string;
   /**
-   * Decision Question — standard Toolkit component immediately below the hero.
-   * Mirrors a financial-planning meeting question before the visitor uses the tool.
+   * Decision Question — standard Toolkit component.
+   * Default placement is immediately below the hero; use before-calculator when the brief
+   * places the prompt just above the tool.
    */
   decisionQuestion?: CalculatorDecisionQuestion;
+  /** Visual strategy fork shown with the Decision Question (typically before the calculator). */
+  strategyDiagram?: CalculatorStrategyDiagram;
   /** Shown immediately below the hero (or Decision Question), before how-to / calculator. */
   contextBox?: CalculatorContextBox;
   /** Audience suitability list before how-to / calculator. */
@@ -3570,57 +3589,318 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-013-everest-income-vs-growth": {
-    shortTitle: "Everest Income vs Growth Comparison",
-    seoTitle: "Everest Income vs Growth Calculator Comparison",
+    shortTitle: "Income vs Growth Strategy Comparison",
+    seoTitle: "Which Retirement Investment Strategy Suits Your Goals? | Toolkit",
     seoDescription:
-      "Compare Everest 12.8% income, 14.2% income, and 14.5% growth strategies side by side. Free three-way calculator. FSP 17273.",
-    keywords: ["Everest income vs growth", "Everest comparison calculator", "Everest Wealth strategies"],
-    kicker: "Everest Wealth",
-    heroTitle: "Compare income and growth strategies",
+      "Compare income versus growth investment strategies side by side. Educational decision engine for voluntary capital—before product selection. FSP 17273.",
+    keywords: [
+      "income vs growth calculator",
+      "retirement investment strategy",
+      "compare income and growth",
+      "Retirement Gap Toolkit",
+      "education before product selection",
+    ],
+    kicker: "Retirement Gap Toolkit™",
+    heroTitle: "Which retirement investment strategy suits your goals?",
     heroSubtitle:
-      "Three Everest-style profiles on one screen: monthly income, bonus effects, and growth maturity outcomes.",
+      "Choosing an investment is not simply about selecting the product with the highest return. Some investors need reliable monthly income today. Others can leave their capital invested to maximise long-term growth. This calculator compares three different investment strategies side by side, helping you understand the trade-offs before making an informed decision.",
     heroImage: "/images/calc-lcp/asset-013.webp",
-    heroImageAlt: "Couple comparing income-now lifestyle with growth outside the window",
+    heroImageAlt:
+      "Three paths diverge at a countryside crossroads with wooden signposts labelled Income, Higher Income and Growth",
     calculatorLead:
-      "Enter capital to compare 12.8% income, 14.2% income, and 14.5% growth illustrations together.",
-    sidePanelTitle: "Full strategy selection",
+      "Enter the same voluntary capital once. Compare monthly income, five-year outcomes and growth maturity—strategy first, products second.",
+    sidePanelTitle: "Compare investment strategies",
     sidePanelParagraphs: [
-      "Most clients need to see income now, bonus trade-offs, and pure growth in one view before they can choose.",
-      "This is the education step before a suitability call with FSP 17273.",
+      "This page is the strategic decision engine for income versus growth—not a product catalogue. It completes the educational journey before the Retirement Gap Method™ and personalised advice.",
+      "AS Brokers remains independent: education before product selection.",
     ],
     sidePanelBullets: [
-      "Three strategies compared",
-      "Income and maturity outcomes",
-      "Educational illustration",
-      "Liquidity warnings apply",
+      "Three strategies, one capital base",
+      "Income versus growth trade-offs",
+      "Education before product selection",
+      "Not a recommendation",
     ],
-    fiduciaryNotes: FIDUCIARY,
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Voluntary strategies may be illiquid. Confirm notice periods, penalties and suitability with FSP 17273 before investing.",
+    ],
     howToSteps: [
-      { title: "Enter lump sum", description: "Same capital across all three strategies." },
-      { title: "Compare income lines", description: "12.8% and 14.2% monthly illustrations." },
-      { title: "Review growth maturity", description: "14.5% compound outcome at five years." },
-      { title: "Book advice", description: "Confirm suitability and liquidity with an adviser." },
+      { title: "Answer the Decision Question", description: "Income today, or growth over five years?" },
+      { title: "Enter one capital amount", description: "Compare all three strategies on the same voluntary lump sum." },
+      { title: "Read which strategy suits whom", description: "Use the interpretation cards as education—not recommendations." },
+      { title: "Continue the journey", description: "Open the Retirement Gap Method™ or book a Retirement Gap Review." },
     ],
+    decisionQuestion: {
+      placement: "before-calculator",
+      question:
+        "Would you benefit more from receiving income today, or from allowing your capital to grow over the next five years?",
+    },
+    strategyDiagram: {
+      heading: "Two strategic paths",
+      eyebrow: "TODAY",
+      branches: [
+        {
+          question: "Need regular income?",
+          outcomes: ["12.8% Income Strategy", "or", "14.2% Income Strategy"],
+        },
+        {
+          question: "Can wait five years?",
+          outcomes: ["14.5% Growth Strategy"],
+        },
+      ],
+    },
+    heroCta: {
+      primaryLabel: "Compare Investment Strategies",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Learn the Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
+    },
+    contextBox: {
+      heading: "The final comparison stage before advice",
+      paragraphs: [
+        "Before comparing strategies, measure need with the Retirement Reality Check and Life of Capital tools. Estimate each approach alone with the 12.8% Income, 14.2% Income and Strategic Growth calculators—then return here to decide.",
+        "Which investment strategy best matches my retirement objective? That is the only question this page exists to illuminate.",
+      ],
+      highlightQuestion: "Which investment strategy best matches my retirement objective?",
+    },
+    audienceGuide: {
+      heading: "Who this calculator is for",
+      intro: "Suitable for visitors who:",
+      items: [
+        "Have discretionary investment capital",
+        "Are comparing income and growth strategies",
+        "Want to understand different investment objectives",
+        "Are approaching retirement",
+        "Want to make informed decisions before speaking to an adviser",
+      ],
+    },
+    methodProgress: {
+      heading: "Where you are in the Retirement Gap journey",
+      steps: [
+        {
+          stepLabel: "Earlier",
+          title: "Retirement Reality Check",
+          description: "Asset 002 — Understand the retirement problem",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Earlier",
+          title: "Life of Capital",
+          description: "Asset 004 — Test income longevity",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "You are here",
+          title: "Income vs Growth Comparison",
+          description: "Asset 013 — Strategy decision engine",
+          current: true,
+        },
+        {
+          stepLabel: "Next",
+          title: "Retirement Gap Method™",
+          description: "Asset 018 — Framework before advice",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    assumptionCallout: {
+      heading: "Before you compare",
+      paragraphs: [
+        "Illustrative purposes only. Rates, tax and loyalty benefits are assumptions and may change. Capital values may rise or fall.",
+        "This tool compares retirement income approaches and income versus growth—it does not identify a best product or provide financial advice.",
+      ],
+    },
+    resultGuide: {
+      heading: "Retirement Planning Insight",
+      intro:
+        "Higher income today often means sacrificing future growth. Investors who do not currently need income may benefit from allowing capital to compound. Retirement planning is about balancing income needs, liquidity requirements and long-term sustainability. The best strategy depends on your objectives—not simply the highest percentage.",
+      metricsListed: [
+        "Highest monthly income (factual)",
+        "Highest total five-year outcome (factual)",
+        "Net monthly and annual income by strategy",
+        "Loyalty bonus / accumulated growth",
+        "Projected capital or maturity value",
+      ],
+      highlightMetrics: [
+        {
+          label: "12.8% Income Strategy",
+          description:
+            "Suitable for investors seeking dependable income together with additional long-term value through the five-year loyalty bonus.",
+        },
+        {
+          label: "14.2% Income Strategy",
+          description:
+            "Suitable for investors whose highest priority is maximising current income, even if long-term capital growth is not the primary objective.",
+        },
+        {
+          label: "14.5% Growth Strategy",
+          description:
+            "Suitable for investors who do not require current income and are comfortable leaving their investment untouched for the full five-year term to maximise capital growth.",
+        },
+      ],
+      footer: "These descriptions educate—they do not recommend. Suitability requires personalised advice.",
+    },
+    withdrawalGuide: {
+      heading: "Which strategy suits which investor?",
+      intro:
+        "Use this as educational guidance only. The same strategy may be ideal for one person and entirely inappropriate for another.",
+      levels: [
+        {
+          label: "Need income + long-term value",
+          description: "Explore the 12.8% Income Strategy illustration and the dedicated 12.8% Income Calculator.",
+        },
+        {
+          label: "Maximise income today",
+          description: "Explore the 14.2% Income Strategy illustration and the dedicated 14.2% Income Calculator.",
+        },
+        {
+          label: "Can leave capital untouched",
+          description: "Explore the 14.5% Growth Strategy illustration and the Strategic Growth Calculator.",
+        },
+        {
+          label: "Still unsure overall",
+          description: "Continue to the Retirement Gap Method™, then book a Retirement Gap Review with AS Brokers.",
+        },
+      ],
+      closing:
+        "Individual strategy calculators deepen each path; this page keeps the trade-offs visible in one view.",
+    },
+    methodSection: {
+      heading: "Education Before Product Selection",
+      paragraphs: [
+        "Selecting an investment should begin with understanding your financial objective—not choosing the product with the highest advertised return.",
+        "The same investment may be ideal for one person and entirely inappropriate for another. By comparing different strategies first, you can better understand the trade-offs between current income, future growth and capital preservation before discussing the most suitable solution with a financial adviser.",
+      ],
+      bullets: [
+        "Compare retirement income approaches first",
+        "Understand income versus growth trade-offs",
+        "Then discuss product solutions with an adviser",
+        "Independent advice — FSP 17273",
+      ],
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+      secondaryCtaLabel: "Contact AS Brokers",
+      secondaryCtaHref: "/contact?source=retirement_gap_review_asset_013",
+    },
+    assessmentSection: {
+      heading: "Ready for personalised financial advice?",
+      intro:
+        "A Retirement Gap Review translates this educational comparison into a suitability-led plan that fits your income need, horizon, liquidity and overall retirement objectives.",
+      bullets: [
+        "Income need vs growth capacity",
+        "Liquidity and five-year commitment",
+        "Links to Reality Check and Life of Capital",
+        "Independent product selection after strategy clarity",
+      ],
+      ctaLabel: "Contact AS Brokers",
+      ctaHref: "/contact?source=retirement_gap_review_asset_013",
+    },
+    journey: {
+      heading: "Continue the Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Before",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Understand the retirement problem first.",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Before",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "Test whether retirement income may last.",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Strategy",
+          assetCode: "ASSET 010",
+          title: "12.8% Income Calculator",
+          description: "Deepen the income + loyalty-bonus path.",
+          href: calculatorPagePath("asset-010-everest-128-income"),
+        },
+        {
+          stepLabel: "Strategy",
+          assetCode: "ASSET 009",
+          title: "14.2% Income Calculator",
+          description: "Deepen the highest-income-today path.",
+          href: calculatorPagePath("asset-009-everest-142-income"),
+        },
+        {
+          stepLabel: "Strategy",
+          assetCode: "ASSET 012",
+          title: "Strategic Growth Calculator",
+          description: "Deepen the leave-capital-for-growth path.",
+          href: calculatorPagePath("asset-012-strategic-growth"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Framework before personalised advice.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Strategy clarity first. Product selection second.",
+      body: "Asset 013 is the decision engine of the Retirement Gap Toolkit™. It educates on income versus growth trade-offs so you can identify which approach aligns with your objectives—then continue with the Retirement Gap Method™ and a personalised advice conversation.",
+      primaryLabel: "Learn the Retirement Gap Method™",
+      primaryHref: "/retirement-gap-method",
+      secondaryLabel: "Contact AS Brokers",
+      secondaryHref: "/contact?source=retirement_gap_review_asset_013",
+    },
     readingSections: [
       {
-        heading: "Education before product selection",
+        heading: "Roadmap: a future Strategy Selector",
         paragraphs: [
-          "Everest voluntary products are unlisted preference share structures with targeted returns, not bank deposits.",
-          "Independent advisers explain risk, liquidity, and tax before any application is submitted.",
+          "Once the calculator library is complete, a Strategy Selector can ask a few guided questions—Are you retired? Do you need monthly income? Can you leave capital invested for five years?—and route visitors to the most appropriate Toolkit tool.",
+          "Until then, this Income vs Growth comparison remains the culmination of the educational journey: Reality Check → Life of Capital → individual strategy tools → this decision engine → Retirement Gap Method™ → personal advice.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "Does AS Brokers only recommend Everest?",
+        question: "Which strategy provides the highest monthly income?",
         answer:
-          "No. We are independent Category 1.8 FSP 17273 and survey the market. Everest is one solution where appropriate.",
+          "In this illustration, the 14.2% Income Strategy typically provides the highest net monthly income from day one. Confirm with your own capital and tax assumptions in the calculator.",
       },
       {
-        question: "Are these returns guaranteed?",
+        question: "Which strategy produces the highest value after five years?",
         answer:
-          "No. All figures are targeted structural profiles for education. Suitability, liquidity, and tax review are required before investing.",
-      }
+          "It depends on your inputs. The calculator highlights the highest total five-year outcome factually. Growth often wins on maturity value when no income is taken; income strategies can compete when loyalty benefits and paid income are included.",
+      },
+      {
+        question: "Should I choose income or growth?",
+        answer:
+          "Neither is universally better. Choose based on whether you need income today, can leave capital untouched, and how you balance liquidity with long-term sustainability. This page educates; advice is required for a recommendation.",
+      },
+      {
+        question: "Can I switch strategies later?",
+        answer:
+          "Switching depends on product rules, liquidity, notice periods, costs and tax. Do not assume free movement between strategies. Confirm options during a suitability review.",
+      },
+      {
+        question: "Is one strategy safer than another?",
+        answer:
+          "Safety is not determined by the headline percentage. Risk, liquidity, issuer terms and diversification matter. Treat all illustrations as educational and discuss risk with an authorised adviser.",
+      },
+      {
+        question: "What type of investor typically chooses each strategy?",
+        answer:
+          "12.8% Income: dependable income plus potential loyalty value. 14.2% Income: maximise current income. 14.5% Growth: no current income need and a five-year growth horizon. These are educational profiles only.",
+      },
+      {
+        question: "Does this calculator provide financial advice?",
+        answer:
+          "No. It is an educational decision-support tool inside the Retirement Gap Toolkit™. Personalised advice requires a suitability process with an authorised adviser (FSP 17273).",
+      },
+      {
+        question: "What assumptions are used in the comparison?",
+        answer:
+          "Default assumptions include targeted distribution or growth rates, an illustrative five-year loyalty benefit on the 12.8% path when the period is five years or longer, and dividends tax on income or growth as modelled in the tool. Change the fields to stress-test alternatives.",
+      },
     ],
     ...EVEREST,
   },

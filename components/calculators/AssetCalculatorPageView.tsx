@@ -41,6 +41,7 @@ export function AssetCalculatorPageView({
   categoryLabel,
   categoryHref,
   decisionQuestion,
+  strategyDiagram,
   contextBox,
   audienceGuide,
   assumptionCallout,
@@ -64,6 +65,56 @@ export function AssetCalculatorPageView({
   const relatedLinks = getRelatedLinks(path);
   const heroPrimaryHref = heroCta?.primaryHref ?? "#calculator-tool";
   const heroPrimaryLabel = heroCta?.primaryLabel ?? "Use the calculator";
+  const decisionQuestionPlacement = decisionQuestion?.placement ?? "after-hero";
+  const decisionQuestionBlock = decisionQuestion ? (
+    <div
+      className="max-w-3xl rounded-2xl px-6 py-6 ring-1 ring-stone-200/90 sm:px-8 sm:py-7"
+      style={{ backgroundColor: "#FDFCFA" }}
+    >
+      <p
+        id={`${path}-decision-question-heading`}
+        className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+        style={{ color: TEAL }}
+      >
+        {decisionQuestion.label ?? "Decision Question"}
+      </p>
+      <p
+        className="mt-3 font-serif text-xl font-semibold tracking-tight sm:text-2xl"
+        style={{ color: INK }}
+      >
+        {decisionQuestion.question}
+      </p>
+    </div>
+  ) : null;
+  const strategyDiagramBlock = strategyDiagram ? (
+    <div className="mt-8 max-w-3xl">
+      {strategyDiagram.eyebrow ? (
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: TEAL }}>
+          {strategyDiagram.eyebrow}
+        </p>
+      ) : null}
+      <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${strategyDiagram.eyebrow ? "mt-4" : ""}`}>
+        {strategyDiagram.branches.map((branch) => (
+          <article
+            key={branch.question}
+            className="rounded-2xl bg-white p-5 text-center ring-1 ring-stone-200/90 sm:p-6"
+          >
+            <p className="font-semibold text-shark">{branch.question}</p>
+            <p className="mt-3 text-lg font-semibold" style={{ color: TEAL }} aria-hidden>
+              ↓
+            </p>
+            <ul className="mt-3 space-y-2">
+              {branch.outcomes.map((outcome) => (
+                <li key={outcome} className="text-sm leading-relaxed text-stone-600">
+                  {outcome}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  ) : null;
   const readingBlock = readingSections.map((section, index) => (
     <section
       key={section.heading}
@@ -187,33 +238,14 @@ export function AssetCalculatorPageView({
         </div>
       </header>
 
-      {decisionQuestion ? (
+      {decisionQuestion && decisionQuestionPlacement === "after-hero" ? (
         <section
           data-chunk-boundary="true"
           className="border-b border-stone-200/80 py-8 md:py-10"
           style={{ backgroundColor: CANVAS }}
           aria-labelledby={`${path}-decision-question-heading`}
         >
-          <div className={HOME4_WRAP}>
-            <div
-              className="max-w-3xl rounded-2xl px-6 py-6 ring-1 ring-stone-200/90 sm:px-8 sm:py-7"
-              style={{ backgroundColor: "#FDFCFA" }}
-            >
-              <p
-                id={`${path}-decision-question-heading`}
-                className="text-[11px] font-semibold uppercase tracking-[0.14em]"
-                style={{ color: TEAL }}
-              >
-                {decisionQuestion.label ?? "Decision Question"}
-              </p>
-              <p
-                className="mt-3 font-serif text-xl font-semibold tracking-tight sm:text-2xl"
-                style={{ color: INK }}
-              >
-                {decisionQuestion.question}
-              </p>
-            </div>
-          </div>
+          <div className={HOME4_WRAP}>{decisionQuestionBlock}</div>
         </section>
       ) : null}
 
@@ -475,6 +507,39 @@ export function AssetCalculatorPageView({
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+      ) : null}
+
+      {(decisionQuestionPlacement === "before-calculator" && decisionQuestion) || strategyDiagram ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-10 md:py-12"
+          style={{ backgroundColor: "#FDFCFA" }}
+          aria-labelledby={
+            decisionQuestionPlacement === "before-calculator" && decisionQuestion
+              ? `${path}-decision-question-heading`
+              : `${path}-strategy-diagram-heading`
+          }
+        >
+          <div className={HOME4_WRAP}>
+            {decisionQuestionPlacement === "before-calculator" ? decisionQuestionBlock : null}
+            {strategyDiagram?.heading ? (
+              <h2
+                id={`${path}-strategy-diagram-heading`}
+                className={`font-bold tracking-tight ${
+                  decisionQuestionPlacement === "before-calculator" && decisionQuestion ? "mt-8" : ""
+                }`}
+                style={{ fontSize: "clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem)", color: INK }}
+              >
+                {strategyDiagram.heading}
+              </h2>
+            ) : strategyDiagram ? (
+              <h2 id={`${path}-strategy-diagram-heading`} className="sr-only">
+                Strategy overview
+              </h2>
+            ) : null}
+            {strategyDiagramBlock}
           </div>
         </section>
       ) : null}

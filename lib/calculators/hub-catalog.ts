@@ -55,7 +55,7 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
   "asset-010-everest-128-income": "12.8% Retirement Income Calculator",
   "asset-011-everest-128-vs-142": "Income Strategy Comparison Calculator",
   "asset-012-strategic-growth": "Strategic Growth Calculator",
-  "asset-013-everest-income-vs-growth": "Income vs Growth Comparison",
+  "asset-013-everest-income-vs-growth": "Income vs Growth Strategy Comparison",
   "asset-014-living-annuity": "Living Annuity Calculator",
   "asset-015-average-clause": "Average Clause Calculator",
   "asset-016-growth-comparison": "Growth Comparison Calculator",
@@ -88,7 +88,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-012-strategic-growth":
     "Can you leave capital untouched for five years to maximise growth?",
   "asset-013-everest-income-vs-growth":
-    "Income profiles versus compounding growth, educational only.",
+    "Which retirement investment strategy suits your goals—income or growth?",
   "asset-014-living-annuity":
     "Model living annuity income within the 2.5% to 17.5% drawdown band.",
   "asset-015-average-clause":

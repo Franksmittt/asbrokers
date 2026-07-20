@@ -115,7 +115,7 @@ export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
   ),
   staticHtml(
     "asset-013-everest-income-vs-growth.html",
-    "AS Brokers Everest Income vs Growth Comparison Calculator",
+    "Income vs Growth Strategy Comparison",
     "ASSET 013",
     "asset-013-everest-income-vs-growth"
   ),

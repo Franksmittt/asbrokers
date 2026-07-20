@@ -46,6 +46,8 @@ export function AssetCalculatorPageView({
   resultGuide,
   withdrawalGuide,
   timelineExample,
+  valueProgress,
+  lifestyleExample,
   practicalWays,
   methodSection,
   assessmentSection,
@@ -288,7 +290,11 @@ export function AssetCalculatorPageView({
             </h2>
             <ol
               className={`mt-8 grid list-none gap-4 md:items-stretch ${
-                methodProgress.steps.length >= 4 ? "md:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"
+                methodProgress.steps.length >= 6
+                  ? "md:grid-cols-2 xl:grid-cols-3"
+                  : methodProgress.steps.length >= 4
+                    ? "md:grid-cols-2 xl:grid-cols-4"
+                    : "md:grid-cols-3"
               }`}
             >
               {methodProgress.steps.map((step) => {
@@ -435,41 +441,45 @@ export function AssetCalculatorPageView({
                 {resultGuide.intro}
               </p>
             ) : null}
-            <p className="mt-6 text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: TEAL }}>
-              {resultGuide.bandsLead ?? "If your required annual growth rate is:"}
-            </p>
-            <div
-              className={`mt-4 grid grid-cols-1 gap-4 ${
-                resultGuide.bands.length >= 4 ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"
-              }`}
-            >
-              {resultGuide.bands.map((band) => {
-                const toneColor =
-                  band.tone === "excellent"
-                    ? "#0F766E"
-                    : band.tone === "reasonable"
-                      ? "#A16207"
-                      : band.tone === "caution"
-                        ? "#C2410C"
-                        : band.tone === "high-risk"
-                          ? "#B91C1C"
-                          : INK;
-                return (
-                  <article
-                    key={band.label}
-                    className="flex h-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6"
-                  >
-                    <h3
-                      className="font-serif text-xl font-semibold tracking-tight"
-                      style={{ color: toneColor }}
-                    >
-                      {band.label}
-                    </h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{band.description}</p>
-                  </article>
-                );
-              })}
-            </div>
+            {resultGuide.bands && resultGuide.bands.length > 0 ? (
+              <>
+                <p className="mt-6 text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: TEAL }}>
+                  {resultGuide.bandsLead ?? "If your required annual growth rate is:"}
+                </p>
+                <div
+                  className={`mt-4 grid grid-cols-1 gap-4 ${
+                    resultGuide.bands.length >= 4 ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"
+                  }`}
+                >
+                  {resultGuide.bands.map((band) => {
+                    const toneColor =
+                      band.tone === "excellent"
+                        ? "#0F766E"
+                        : band.tone === "reasonable"
+                          ? "#A16207"
+                          : band.tone === "caution"
+                            ? "#C2410C"
+                            : band.tone === "high-risk"
+                              ? "#B91C1C"
+                              : INK;
+                    return (
+                      <article
+                        key={band.label}
+                        className="flex h-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6"
+                      >
+                        <h3
+                          className="font-serif text-xl font-semibold tracking-tight"
+                          style={{ color: toneColor }}
+                        >
+                          {band.label}
+                        </h3>
+                        <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{band.description}</p>
+                      </article>
+                    );
+                  })}
+                </div>
+              </>
+            ) : null}
             {resultGuide.metricsListed && resultGuide.metricsListed.length > 0 ? (
               <div className="mt-8 max-w-3xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: TEAL }}>
@@ -587,6 +597,115 @@ export function AssetCalculatorPageView({
               </p>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">{timelineExample.footer}</p>
             </div>
+          </div>
+        </section>
+      ) : null}
+
+      {valueProgress ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-12 md:py-16"
+          style={{ backgroundColor: CANVAS }}
+          aria-labelledby={`${path}-value-progress-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-value-progress-heading`}
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+            >
+              {valueProgress.heading}
+            </h2>
+            <p
+              className="mt-4 max-w-3xl leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            >
+              {valueProgress.intro}
+            </p>
+            {valueProgress.assumptionNote ? (
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-stone-600">
+                {valueProgress.assumptionNote}
+              </p>
+            ) : null}
+            <ol className="mt-8 flex list-none flex-col gap-0 sm:flex-row sm:flex-wrap sm:items-stretch sm:gap-0">
+              {valueProgress.steps.map((step, index) => (
+                <li key={step.label} className="flex min-w-0 flex-1 flex-col sm:flex-row sm:items-stretch">
+                  <div className="flex flex-1 flex-col rounded-2xl bg-white p-5 text-center ring-1 ring-stone-200/90 sm:p-6">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: TEAL }}>
+                      {step.label}
+                    </p>
+                    <p
+                      className="mt-3 font-serif text-2xl font-semibold tracking-tight sm:text-3xl"
+                      style={{ color: INK }}
+                    >
+                      {step.value}
+                    </p>
+                  </div>
+                  {index < valueProgress.steps.length - 1 ? (
+                    <div
+                      className="flex items-center justify-center py-2 sm:px-2 sm:py-0"
+                      aria-hidden
+                    >
+                      <span className="text-lg font-semibold sm:hidden" style={{ color: TEAL }}>
+                        ↓
+                      </span>
+                      <span className="hidden text-lg font-semibold sm:inline" style={{ color: TEAL }}>
+                        →
+                      </span>
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+            {valueProgress.footer ? (
+              <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{valueProgress.footer}</p>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {lifestyleExample ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-12 md:py-16"
+          style={{ backgroundColor: "#FDFCFA" }}
+          aria-labelledby={`${path}-lifestyle-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-lifestyle-heading`}
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+            >
+              {lifestyleExample.heading}
+            </h2>
+            <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <article className="rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-8">
+                <h3 className="font-semibold text-shark">{lifestyleExample.todayHeading}</h3>
+                <ul className="mt-4 space-y-2">
+                  {lifestyleExample.todayItems.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm leading-relaxed text-stone-600">
+                      <span className="mt-0.5 font-bold" style={{ color: TEAL }} aria-hidden>
+                        ·
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+              <article className="rounded-2xl bg-white p-6 ring-1 ring-stone-200/90 sm:p-8">
+                <h3 className="font-semibold text-shark">{lifestyleExample.laterHeading}</h3>
+                <p
+                  className="mt-4 leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                >
+                  {lifestyleExample.laterBody}
+                </p>
+              </article>
+            </div>
+            {lifestyleExample.footer ? (
+              <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{lifestyleExample.footer}</p>
+            ) : null}
           </div>
         </section>
       ) : null}

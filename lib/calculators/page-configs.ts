@@ -21,7 +21,8 @@ export type CalculatorResultGuide = {
   intro?: string;
   /** e.g. "If your required annual growth rate is:" or "Retirement Gap Status" */
   bandsLead?: string;
-  bands: CalculatorResultBand[];
+  /** Optional outcome cards; omit when the intro alone carries the interpretation. */
+  bands?: CalculatorResultBand[];
   /** Metrics the calculator already displays — listed for education only; embed unchanged. */
   metricsListed?: string[];
   footer?: string;
@@ -81,6 +82,25 @@ export type CalculatorTimelineExample = {
   barPercent: number;
   exhaustedLabel: string;
   footer: string;
+};
+
+/** Educational amount progression (e.g. purchasing power over decades). */
+export type CalculatorValueProgress = {
+  heading: string;
+  intro: string;
+  assumptionNote?: string;
+  steps: { label: string; value: string }[];
+  footer?: string;
+};
+
+/** Real-world comparison of what the same lifestyle costs later. */
+export type CalculatorLifestyleExample = {
+  heading: string;
+  todayHeading: string;
+  todayItems: string[];
+  laterHeading: string;
+  laterBody: string;
+  footer?: string;
 };
 
 export type CalculatorJourneyItem = {
@@ -169,6 +189,10 @@ export type CalculatorPageConfig = {
   withdrawalGuide?: CalculatorWithdrawalGuide;
   /** Static illustrative capital-exhaustion timeline (educational example only). */
   timelineExample?: CalculatorTimelineExample;
+  /** Static purchasing-power / future-value progression (educational example only). */
+  valueProgress?: CalculatorValueProgress;
+  /** Tangible lifestyle cost comparison for inflation education. */
+  lifestyleExample?: CalculatorLifestyleExample;
   practicalWays?: CalculatorPracticalWays;
   methodSection?: CalculatorMethodSection;
   assessmentSection?: CalculatorAssessmentSection;
@@ -1192,59 +1216,268 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-005-future-value": {
-    shortTitle: "Future Value & Inflation Calculator",
-    seoTitle: "Inflation Calculator South Africa | Future Value Calculator",
+    shortTitle: "Future Value Calculator",
+    seoTitle: "Purchasing Power & Inflation Calculator South Africa | Future Value",
     seoDescription:
-      "See how inflation erodes purchasing power over time. Free future value and inflation calculator for South African financial planning. FSP 17273.",
-    keywords: ["inflation calculator South Africa", "future value calculator", "purchasing power calculator"],
-    kicker: "Inflation & tax",
-    heroTitle: "What will today's money be worth tomorrow?",
+      "See how inflation quietly reduces purchasing power and how much more you may need to keep the same lifestyle. Educational Future Value calculator. FSP 17273.",
+    keywords: [
+      "purchasing power calculator South Africa",
+      "inflation calculator South Africa",
+      "future value calculator",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 005",
+    heroTitle: "How much more money will you need because of inflation?",
     heroSubtitle:
-      "Model how inflation erodes purchasing power so retirement, education, and estate plans account for rising living costs.",
+      "Inflation quietly reduces what your money can buy every year. This calculator estimates how much more you'll need in the future simply to maintain the same lifestyle.",
     heroImage: "/images/calc-lcp/asset-005.webp",
     heroImageAlt: "Couple assessing how inflation shrinks what the same money can buy",
     calculatorLead:
-      "Enter a lump sum or future expense and an inflation rate to see illustrative future values and the real cost of waiting.",
-    sidePanelTitle: "Why purchasing power matters",
+      "Enter today's amount, an illustrative inflation rate and your time horizon. The tool shows how much more you may need in future rands to buy the same lifestyle.",
+    sidePanelTitle: "Purchasing power, not just inflation",
     sidePanelParagraphs: [
-      "A rand today buys less tomorrow. Plans that ignore inflation often look adequate on paper but fail in real life.",
-      "Use this before retirement contributions, education funding, or estate liquidity conversations.",
+      "Retirement isn't about how much money you have. It's about what your money will still be able to buy.",
+      "Inflation is the cause. Purchasing power is what you feel. Use this calculator to see that difference clearly before setting retirement targets.",
     ],
     sidePanelBullets: [
-      "CPI impact on long-term goals",
-      "Nominal vs real outcomes",
-      "Education and retirement planning",
-      "Not a forecast guarantee",
+      "Lifestyle cost in future rands",
+      "Why retirement targets must grow",
+      "Personal inflation vs headline CPI",
+      "Educational illustration only",
     ],
     fiduciaryNotes: FIDUCIARY,
     howToSteps: [
-      { title: "Choose amount", description: "Enter today's lump sum or annual expense." },
-      { title: "Set inflation rate", description: "Use long-term CPI assumptions for illustration." },
-      { title: "Pick time horizon", description: "Years until you need the money." },
-      { title: "Compare results", description: "See how much more you may need in future rands." },
+      { title: "Enter today's amount", description: "A lump sum, annual expense or lifestyle cost you want to protect." },
+      { title: "Choose an inflation rate", description: "Use a long-term CPI assumption, then stress-test higher rates." },
+      { title: "Set your time horizon", description: "Years until retirement or until you need the money." },
+      { title: "Read purchasing power", description: "See how much more you may need for the same goods and services." },
     ],
+    heroCta: {
+      primaryLabel: "See My Purchasing Power",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Explore the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
+    contextBox: {
+      heading: "The Hidden Cost of Waiting",
+      paragraphs: [
+        "Inflation is largely invisible in the short term, yet extremely powerful over decades. A few percent a year compounds quietly while life feels unchanged.",
+        "Retirement plans often fail because people underestimate how much prices increase over time—and how much more capital is needed simply to stand still.",
+      ],
+      highlightQuestion:
+        "Retirement isn't about how much money you have. It's about what your money will still be able to buy.",
+    },
+    methodProgress: {
+      heading: "Where this sits in the Retirement Gap Method™",
+      steps: [
+        {
+          stepLabel: "Earlier",
+          title: "Retirement Reality Check",
+          description: "Asset 002 — Do I have enough to retire?",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+          completed: true,
+        },
+        {
+          stepLabel: "Earlier",
+          title: "Retirement Premium Calculator",
+          description: "Asset 003 — How much do I need to save?",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+          completed: true,
+        },
+        {
+          stepLabel: "You are here",
+          title: "Future Value Calculator",
+          description: "Asset 005 — What will your money still buy?",
+          current: true,
+        },
+        {
+          stepLabel: "Also explore",
+          title: "Retirement Growth Rate",
+          description: "Asset 001 — What growth rate may you need?",
+          href: calculatorPagePath("asset-001-retirement-growth"),
+        },
+        {
+          stepLabel: "Also explore",
+          title: "Life of Capital Calculator",
+          description: "Asset 004 — Will your income last?",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Framework",
+          title: "Retirement Gap Method™",
+          description: "Asset 018 — The complete educational path",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    resultGuide: {
+      heading: "What your results really mean",
+      intro:
+        "If inflation averages 6% per year, R50,000 today may require more than R160,000 in twenty years to buy exactly the same goods and services. Nothing became more luxurious. Money simply became worth less.",
+      metricsListed: [
+        "Future value needed for the same lifestyle",
+        "How purchasing power changes over your chosen years",
+        "The compounding effect of even “moderate” inflation",
+      ],
+      footer:
+        "Use the numbers from the calculator as an illustration. The educational examples below show the same idea as a timeline and a lifestyle comparison—so the “aha” moment is clear.",
+    },
+    valueProgress: {
+      heading: "Purchasing power over time",
+      intro:
+        "People understand progression much faster than isolated numbers. Here is an illustrative path for R50,000 at about 6% inflation a year:",
+      assumptionNote: "Educational example only — not a forecast. Your calculator inputs may show a different path.",
+      steps: [
+        { label: "Today", value: "R50,000" },
+        { label: "10 Years", value: "R89,500" },
+        { label: "20 Years", value: "R160,000" },
+        { label: "30 Years", value: "R287,000" },
+      ],
+      footer:
+        "The lifestyle did not upgrade. The same basket of goods and services simply costs more in future rands.",
+    },
+    lifestyleExample: {
+      heading: "Make inflation tangible",
+      todayHeading: "What R50,000 buys today",
+      todayItems: [
+        "Vehicle deposit",
+        "One year's university fees",
+        "Kitchen renovation",
+        "Approximately six months of groceries",
+      ],
+      laterHeading: "Twenty years later",
+      laterBody:
+        "You may need approximately R160,000 to purchase exactly the same things—same deposit, same fees, same renovation, same grocery basket. That is purchasing power at work.",
+      footer:
+        "Compare this with your calculator result. Then revisit retirement targets in the Reality Check and Premium tools so goals grow with living costs.",
+    },
+    methodSection: {
+      heading: "Purchasing power inside the Retirement Gap Method™",
+      paragraphs: [
+        "Asset 005 explains why retirement targets need to grow over time. Without that understanding, a plan that looks adequate today can quietly fall short.",
+        "Use Growth Rate and Life of Capital next to see whether your savings path and income longevity keep pace with rising living costs—then connect everything through the Retirement Gap Method™.",
+      ],
+      bullets: [
+        "Inflation as the cause; purchasing power as the outcome",
+        "Why medical and municipal costs often rise faster than CPI",
+        "Growing targets before choosing products",
+        "Linking Future Value to Reality Check, Premium and longevity tools",
+      ],
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+      secondaryCtaLabel: "Open the Retirement Gap Toolkit™",
+      secondaryCtaHref: "/calculators",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Start",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Do I have enough to retire?",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Then",
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "How much do I need to save?",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          stepLabel: "You are here",
+          assetCode: "ASSET 005",
+          title: "Future Value Calculator",
+          description: "What will my money still buy?",
+          href: calculatorPagePath("asset-005-future-value"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 001",
+          title: "Retirement Growth Rate Calculator",
+          description: "What growth rate may close the gap?",
+          href: calculatorPagePath("asset-001-retirement-growth"),
+        },
+        {
+          stepLabel: "Then",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "Will my retirement income last?",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "The complete educational framework.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "I never realised inflation could matter this much.",
+      body: "That understanding is the point of Asset 005. When purchasing power is clear, retirement targets, savings rates and longevity plans become far more realistic—and the Retirement Gap Method™ shows how the pieces fit together.",
+      primaryLabel: "Continue with the Retirement Gap Method™",
+      primaryHref: "/retirement-gap-method",
+      secondaryLabel: "Explore the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
     readingSections: [
       {
-        heading: "Inflation and retirement income",
+        heading: "Your personal inflation rate may be higher than CPI",
         paragraphs: [
-          "Fixed incomes lose purchasing power every year inflation runs above zero. Living annuities, pensions, and voluntary income must be reviewed with inflation in mind.",
-          "South African investors often underestimate medical and municipal cost inflation relative to headline CPI.",
+          "Everyone's personal inflation rate is different. Official CPI is a useful national average—but it may not match the costs that dominate your retirement.",
+          "Retirement expenses such as medical costs, municipal charges, healthcare and insurance often increase faster than headline CPI. Planning with only the official rate can understate how much purchasing power you need to protect.",
+          "In the Retirement Gap Method™, inflation is not an abstract macro topic. It is the reason lifestyle targets must grow—and why Future Value belongs beside Reality Check, Premium and Life of Capital.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
         question: "What inflation rate should I use?",
         answer:
-          "Many planners use long-term CPI bands for illustration. Your adviser may stress-test higher rates for conservative planning.",
+          "Many planners use long-term CPI bands for illustration. Your adviser may stress-test higher rates—especially for medical and municipal costs—when protecting purchasing power.",
       },
       {
         question: "Is this a forecast of CPI?",
         answer:
-          "No. You choose an illustrative inflation rate. Outcomes are not guaranteed and are not a SARS or SARB forecast.",
-      }
+          "No. You choose an illustrative inflation rate. Outcomes are not guaranteed and are not a SARS or SARB forecast. The goal is understanding purchasing power, not predicting next year’s CPI print.",
+      },
+      {
+        question: "Why is inflation dangerous during retirement?",
+        answer:
+          "In retirement you often rely more on capital and fixed or semi-fixed income. Rising prices quietly reduce what that income can buy—so a plan that looked adequate at retirement can feel tight years later.",
+      },
+      {
+        question: "Is CPI the same as my personal inflation rate?",
+        answer:
+          "Not necessarily. CPI is a broad basket. Your personal rate depends on what you actually spend—housing, medical care, insurance, rates and taxes may move differently from the official average.",
+      },
+      {
+        question: "Why do retirees often experience higher inflation?",
+        answer:
+          "Retirees typically spend a larger share of income on healthcare, medical aid, municipal services and insurance—categories that often rise faster than headline CPI.",
+      },
+      {
+        question: "How much should retirement income increase each year?",
+        answer:
+          "There is no single correct increase. Many people aim to grow income at least in line with their personal cost of living. Use this calculator to see how large those increases become over decades, then discuss a sustainable plan with an adviser.",
+      },
+      {
+        question: "Should my investments outperform inflation?",
+        answer:
+          "Over long periods, investments generally need real (after-inflation) growth to protect and grow purchasing power—especially while you are still accumulating. Required returns depend on your goals, time and risk capacity.",
+      },
+      {
+        question: "Why do healthcare costs usually increase faster than inflation?",
+        answer:
+          "Medical inflation is often driven by technology, specialised care, demographics and medical-scheme dynamics. That is why retiree budgets can feel the squeeze even when headline CPI looks moderate.",
+      },
     ],
-    ...TAX,
+    categoryLabel: "Purchasing Power",
+    categoryHref: "/calculators",
   },
 
   "asset-006-income-tax": {

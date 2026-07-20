@@ -275,40 +275,46 @@ export function AssetCalculatorPageView({
       ) : null}
 
       {contextBox ? (
-        <section
-          data-chunk-boundary="true"
-          className="border-b border-stone-200/80 py-12 md:py-16"
-          style={lightSurface.next()}
-          aria-labelledby={`${path}-context-heading`}
-        >
-          <div className={HOME4_WRAP}>
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-10">
-              <div className={contextBox.highlightQuestion ? "lg:col-span-7" : "lg:col-span-12"}>
+        <>
+          <section
+            data-chunk-boundary="true"
+            className="border-b border-stone-200/80 bg-shark py-14 text-white md:py-20"
+            aria-labelledby={`${path}-context-heading`}
+          >
+            <div className={HOME4_WRAP}>
+              <div className="mx-auto max-w-3xl text-center">
                 <h2
                   id={`${path}-context-heading`}
-                  className="font-bold tracking-tight"
-                  style={{ fontSize: "clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem)", color: INK }}
+                  className="font-bold tracking-tight text-white"
+                  style={{ fontSize: "clamp(1.35rem, 1.15rem + 0.7vw, 1.75rem)" }}
                 >
                   {contextBox.heading}
                 </h2>
-                <div className="mt-5 max-w-3xl space-y-4">
+                <div className="mt-6 space-y-4">
                   {contextBox.paragraphs.map((paragraph) => (
                     <p
                       key={paragraph.slice(0, 48)}
-                      className="leading-relaxed"
-                      style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                      className="leading-relaxed text-white/70"
+                      style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)" }}
                     >
                       {paragraph}
                     </p>
                   ))}
                 </div>
-                <p className="mt-8 max-w-3xl text-sm leading-relaxed text-stone-600">
+                {contextBox.highlightQuestion ? (
+                  <p
+                    className="mt-8 font-serif font-semibold tracking-tight text-white"
+                    style={{ fontSize: "clamp(1.5rem, 1.2rem + 1vw, 2.25rem)", lineHeight: 1.25 }}
+                  >
+                    {contextBox.highlightQuestion}
+                  </p>
+                ) : null}
+                <p className="mt-10 text-sm leading-relaxed text-white/55">
                   Part of the{" "}
                   <Link
                     href="/calculators"
                     prefetch={false}
-                    className="font-semibold hover:underline"
-                    style={{ color: TEAL }}
+                    className="font-semibold text-[#5EEAD4] hover:opacity-80"
                   >
                     Retirement Gap Toolkit™
                   </Link>
@@ -316,29 +322,17 @@ export function AssetCalculatorPageView({
                   <Link
                     href="/retirement-gap-method"
                     prefetch={false}
-                    className="font-semibold hover:underline"
-                    style={{ color: TEAL }}
+                    className="font-semibold text-[#5EEAD4] hover:opacity-80"
                   >
                     Retirement Gap Method™
                   </Link>
                   .
                 </p>
               </div>
-              {contextBox.highlightQuestion ? (
-                <aside className="flex lg:col-span-5">
-                  <div className="flex w-full flex-col justify-center rounded-3xl bg-[#1D1D1F] px-6 py-7 text-white sm:px-8 sm:py-9">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5EEAD4]">
-                      The question that matters
-                    </p>
-                    <p className="mt-4 font-serif text-xl font-semibold tracking-tight text-white sm:text-2xl sm:leading-snug">
-                      {contextBox.highlightQuestion}
-                    </p>
-                  </div>
-                </aside>
-              ) : null}
             </div>
-          </div>
-        </section>
+          </section>
+          {lightSurface.afterDark()}
+        </>
       ) : null}
 
       {audienceGuide ? (

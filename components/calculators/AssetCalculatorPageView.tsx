@@ -10,7 +10,7 @@ import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
 import { MetricsListedSection } from "@/components/calculators/MetricsListedSection";
-import { IncomeFlowCompare } from "@/components/calculators/IncomeFlowCompare";
+import { IncomeFlowSection } from "@/components/calculators/IncomeFlowSection";
 import { PracticalWaysSection } from "@/components/calculators/PracticalWaysSection";
 import { WithdrawalGuideSection } from "@/components/calculators/WithdrawalGuideSection";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
@@ -947,12 +947,7 @@ export function AssetCalculatorPageView({
         </section>
       ) : null}
 
-      {incomeFlow ? (
-        <>
-          <IncomeFlowCompare path={path} incomeFlow={incomeFlow} />
-          {lightSurface.afterDark()}
-        </>
-      ) : null}
+      {incomeFlow ? <IncomeFlowSection path={path} incomeFlow={incomeFlow} /> : null}
 
       {readingSectionsPlacement === "after-results" ? renderReadingBlock() : null}
 

@@ -41,7 +41,11 @@ export function PracticalWaysSection({ path, practicalWays }: Props) {
         </p>
         <ol
           className={`mt-10 grid list-none gap-6 sm:grid-cols-2 ${
-            practicalWays.items.length >= 5 ? "lg:grid-cols-3" : "xl:grid-cols-4"
+            practicalWays.items.length >= 8
+              ? "lg:grid-cols-4"
+              : practicalWays.items.length >= 5
+                ? "lg:grid-cols-3"
+                : "xl:grid-cols-4"
           }`}
         >
           {practicalWays.items.map((item, index) => {

@@ -411,7 +411,7 @@ export function AssetCalculatorPageView({
               {methodProgress.steps.map((step) => {
                 const card = (
                   <div
-                    className={`flex h-full flex-col rounded-2xl p-5 ring-1 sm:p-6 ${
+                    className={`flex h-full w-full flex-col rounded-2xl p-5 ring-1 sm:p-6 ${
                       step.current
                         ? "bg-shark text-white ring-shark"
                         : "bg-white ring-stone-200/90"
@@ -432,7 +432,7 @@ export function AssetCalculatorPageView({
                       {step.title}
                     </p>
                     <p
-                      className={`mt-2 text-sm leading-relaxed ${
+                      className={`mt-2 flex-1 text-sm leading-relaxed ${
                         step.current ? "text-white/70" : "text-stone-600"
                       }`}
                     >
@@ -441,13 +441,13 @@ export function AssetCalculatorPageView({
                   </div>
                 );
                 return (
-                  <li key={step.stepLabel + step.title} className="flex">
+                  <li key={step.stepLabel + step.title} className="flex min-w-0">
                     {step.href && !step.current ? (
-                      <Link href={step.href} prefetch={false} className="flex w-full min-w-0">
+                      <Link href={step.href} prefetch={false} className="flex h-full w-full min-w-0">
                         {card}
                       </Link>
                     ) : (
-                      card
+                      <div className="flex h-full w-full min-w-0">{card}</div>
                     )}
                   </li>
                 );

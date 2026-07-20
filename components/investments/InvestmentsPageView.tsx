@@ -35,8 +35,8 @@ const CALC_128_VS_142 = calculatorPagePath("asset-011-everest-128-vs-142");
 const GROWTH_TOOLS = [
   {
     code: "ASSET 016",
-    title: "The Power of Growth",
-    description: "Project future lump sums from monthly contributions and assumed growth.",
+    title: "Power of Growth Calculator",
+    description: "Measure the financial cost of waiting—start today vs delay the same decision.",
     href: CALC_POWER_OF_GROWTH,
   },
   {

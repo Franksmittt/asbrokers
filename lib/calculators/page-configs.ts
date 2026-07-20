@@ -4469,58 +4469,259 @@ const PAGES: Record<string, PageContent> = {
 
   "asset-016-growth-comparison": {
     shortTitle: "Power of Growth Calculator",
-    seoTitle: "Investment Growth Calculator South Africa | Power of Growth",
+    seoTitle: "Power of Growth Calculator | Cost of Waiting | Retirement Gap Toolkit™",
     seoDescription:
-      "Project future value of lump sum plus monthly contributions at your chosen growth rate. Free compound growth calculator. FSP 17273.",
-    keywords: ["investment growth calculator", "compound growth calculator South Africa", "wealth calculator"],
-    kicker: "Wealth building",
-    heroTitle: "See the power of compound growth",
+      "What is the financial cost of waiting to make a good decision? Measure the opportunity cost of delaying investing, saving or reviewing your plan. Educational Decision Cost Calculator. FSP 17273.",
+    keywords: [
+      "power of growth calculator",
+      "cost of waiting calculator",
+      "compound growth calculator South Africa",
+      "decision cost calculator",
+      "Retirement Gap Toolkit",
+      "opportunity cost of delaying investing",
+    ],
+    kicker: "Retirement Gap Toolkit™",
+    heroTitle: "Power of Growth Calculator",
     heroSubtitle:
-      "Project how lump sums and monthly contributions may grow over time at an illustrative return rate.",
+      "Every important financial decision has a cost. Sometimes the biggest cost isn't making a bad decision. It's waiting too long to make a good one. This calculator demonstrates how compound growth works and helps you estimate the potential financial cost of delaying important decisions such as investing, saving for retirement, reviewing your financial plan or improving your financial knowledge.",
     heroImage: "/images/calc-lcp/asset-016.webp",
-    heroImageAlt: "Father and child watering a young tree — compound growth over time",
+    heroImageAlt: "Visual comparison of starting today versus delaying a long-term financial decision",
     calculatorLead:
-      "Enter starting capital, monthly contributions, growth rate, and years to see illustrative future value.",
-    sidePanelTitle: "Compound growth education",
+      "Compare Start Today with Delay Starting. The primary result is the Cost of Waiting—then review future value, contributions, growth and a side-by-side growth-rate comparison.",
+    sidePanelTitle: "A Decision Cost Calculator",
     sidePanelParagraphs: [
-      "Small contribution increases early in a career often matter more than large lump sums late in life because of compounding time.",
-      "Use realistic return assumptions and discuss tax wrappers with an adviser.",
+      "This is one of the cornerstone calculators of the Retirement Gap Method™. It is not primarily a growth calculator—it measures the financial consequence of delaying a good decision.",
+      "The recurring principle: time is often more valuable than return. Educational only—not financial, investment or tax advice.",
     ],
     sidePanelBullets: [
-      "Lump sum plus contributions",
-      "Multi-year projection",
-      "Life stage wealth building",
-      "Not a performance guarantee",
+      "Cost of waiting first",
+      "Start today vs start later",
+      "Growth-rate comparison",
+      "Toolkit cornerstone tool",
     ],
-    fiduciaryNotes: FIDUCIARY,
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Illustrations depend on the assumptions you enter. Actual investment performance will differ and cannot be guaranteed.",
+      "Do not interpret mathematical outcomes as investment recommendations or predictions of future returns.",
+    ],
     howToSteps: [
-      { title: "Enter starting amount", description: "Current investments or lump sum." },
-      { title: "Add monthly contributions", description: "Regular savings into the plan." },
-      { title: "Set growth and years", description: "Illustrative return and time horizon." },
-      { title: "Review projection", description: "Use as motivation, not a promise of returns." },
+      { title: "Enter Scenario A", description: "Initial investment, years, monthly contribution, annual increase and growth rate." },
+      { title: "Choose a delay", description: "Compare start today with delaying 1, 2, 3 or 5 years." },
+      { title: "Read the Cost of Waiting", description: "The largest figure is what delay may cost under your assumptions." },
+      { title: "Compare growth rates", description: "See mathematical outcomes at 8%, 10%, 12%, 15% and 20%—not product advice." },
     ],
+    decisionQuestion: {
+      question: "What is the financial cost of waiting to make a good decision?",
+    },
+    heroCta: {
+      primaryLabel: "Calculate the Cost of Waiting",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Learn the Retirement Gap Method™",
+      secondaryHref: "/retirement-gap-method",
+    },
+    contextBox: {
+      heading: "The Cost of Waiting",
+      paragraphs: [
+        "Many people believe delaying a financial decision by one or two years has only a small impact. Compound growth shows the opposite.",
+        "Every year that money is not invested—or a good decision is delayed—reduces the time available for growth. The lost opportunity often becomes surprisingly large over long periods. This calculator helps you visualise that difference.",
+      ],
+      highlightQuestion: "What is the financial cost of waiting to make a good decision?",
+    },
+    audienceGuide: {
+      heading: "Who this calculator is for",
+      intro:
+        "This calculator is suitable for anyone who wants to understand how the timing of financial decisions can affect long-term outcomes. It is particularly useful for people considering:",
+      items: [
+        "Retirement planning",
+        "Long-term investing",
+        "Monthly savings",
+        "Financial education",
+        "Estate planning",
+        "Business investment decisions",
+        "Reviewing existing financial strategies",
+      ],
+    },
+    assumptionCallout: {
+      heading: "Before you calculate",
+      paragraphs: [
+        "Scenario A starts today. Scenario B delays the same plan by the years you select; both share the same end date, so the delayed plan has fewer years of compounding and contributions.",
+        "Results are mathematical illustrations only. They should not be interpreted as investment advice or predictions of future returns.",
+      ],
+    },
+    resultGuide: {
+      heading: "How to read your results",
+      intro:
+        "The hero result is the Cost of Waiting—not future value alone. People remember what they may lose by delaying. Secondary metrics explain how the gap is formed.",
+      metricsListed: [
+        "Cost of Waiting (primary)",
+        "Future value — started today vs started later",
+        "Total contributions",
+        "Investment growth",
+        "Years lost",
+        "Monthly contribution total",
+        "Percentage difference",
+      ],
+      footer:
+        "The growth-rate table uses the same capital and period at 8%, 10%, 12%, 15% and 20%. It demonstrates mathematics only—it does not recommend investments.",
+    },
+    withdrawalGuide: {
+      heading: "What this calculator teaches",
+      intro: "This Decision Cost edition demonstrates that:",
+      levels: [
+        { label: "Time matters", description: "Compound growth rewards earlier action." },
+        {
+          label: "Delay has a measurable cost",
+          description: "Waiting to make a good financial decision permanently reduces compounding time.",
+        },
+        {
+          label: "Small differences become large",
+          description: "Over decades, one or two years can change outcomes dramatically.",
+        },
+        {
+          label: "Knowledge compounds too",
+          description: "Financial education acquired earlier can influence hundreds of later decisions.",
+        },
+      ],
+      closing:
+        "One of the biggest causes of a retirement gap is not laziness. Many people were simply never taught the financial principles that compound over decades.",
+    },
+    methodSection: {
+      heading: "Retirement Gap Method™",
+      paragraphs: [
+        "This calculator demonstrates one stage of the Retirement Gap Method™. Every financial decision follows the same process: understand the principle, measure the impact, quantify the cost of action or inaction, review whether your strategy remains appropriate, then seek personalised advice where necessary.",
+        "When visitors understand that every important financial decision has a cost, they become better prepared for the broader Toolkit and for informed advice.",
+      ],
+      bullets: [
+        "Understand the financial principle",
+        "Measure the impact using a calculator",
+        "Quantify the cost of action or inaction",
+        "Review whether your strategy remains appropriate",
+        "Seek personalised advice where necessary",
+      ],
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+      secondaryCtaLabel: "Open the Retirement Reality Check",
+      secondaryCtaHref: calculatorPagePath("asset-002-retirement-reality-check"),
+    },
+    assessmentSection: {
+      heading: "Ready to review your strategy?",
+      intro:
+        "If the Cost of Waiting is material under your assumptions, treat it as a signal to review timing—not as a product purchase prompt.",
+      bullets: [
+        "Retirement contribution timing",
+        "Investment start dates",
+        "Drawdown and living annuity reviews",
+        "Estate and insurance decision delays",
+      ],
+      ctaLabel: "Request a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_016",
+    },
+    journey: {
+      heading: "Continue the Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Problem",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Measure the Retirement Gap first.",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Action",
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "Estimate the monthly saving required.",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          stepLabel: "Inflation",
+          assetCode: "ASSET 005",
+          title: "Future Value Calculator",
+          description: "See purchasing-power pressure over time.",
+          href: calculatorPagePath("asset-005-future-value"),
+        },
+        {
+          stepLabel: "Longevity",
+          assetCode: "ASSET 004",
+          title: "Life of Capital Calculator",
+          description: "Test whether retirement income may last.",
+          href: calculatorPagePath("asset-004-life-of-capital"),
+        },
+        {
+          stepLabel: "Strategy",
+          assetCode: "ASSET 013",
+          title: "Income vs Growth Comparison",
+          description: "Compare income and growth approaches.",
+          href: calculatorPagePath("asset-013-everest-income-vs-growth"),
+        },
+        {
+          stepLabel: "Income",
+          assetCode: "ASSET 014",
+          title: "Living Annuity Sustainability",
+          description: "Is retirement income sustainable?",
+          href: calculatorPagePath("asset-014-living-annuity"),
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Every important financial decision has a cost.",
+      body: "This calculator helps you measure the cost of waiting. When that principle is clear, continue into the Retirement Gap Method™ and a personalised review—education first, advice second.",
+      primaryLabel: "Learn the Retirement Gap Method™",
+      primaryHref: "/retirement-gap-method",
+      secondaryLabel: "Request a Retirement Gap Review",
+      secondaryHref: "/contact?source=retirement_gap_review_asset_016",
+    },
     readingSections: [
       {
-        heading: "Time beats timing",
+        heading: "Real-world examples of the cost of waiting",
         paragraphs: [
-          "Consistent contributions through volatile markets often outperform waiting for the perfect entry point.",
-          "Tax-free savings, retirement annuities, and voluntary products each have different tax and liquidity rules.",
+          "Retirement: “I’ll start saving next year.” See the potential long-term cost. Investing: “I’ll invest later.” Estimate the value of lost compounding. Living annuities: “I’ll review my drawdown later.” Delayed reviews can affect long-term retirement outcomes.",
+          "Estate planning: “I’ll update my estate plan next year.” Delay can create avoidable financial and family consequences. Insurance: “I’ll increase my cover at renewal.” Waiting can leave a period of underinsurance. Business: “I’ll start later.” Lost time is lost compounding. Financial education: “I’ll learn this next year.” Knowledge acquired earlier can influence hundreds of future decisions.",
+        ],
+      },
+      {
+        heading: "Educational insight",
+        paragraphs: [
+          "One of the biggest causes of a retirement gap is not laziness. Many people were simply never taught the financial principles that compound over decades.",
+          "Learning earlier allows better decisions to compound for the rest of your life. That is why this Decision Cost Calculator sits at the centre of the Retirement Gap Toolkit™.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "What growth rate should I assume?",
+        question: "Is this mainly a growth-rate calculator?",
         answer:
-          "Use conservative bands for planning. Historical returns do not guarantee future performance.",
+          "No. It is a Decision Cost Calculator. Growth maths are used to answer a deeper question: what is the financial cost of waiting to make a good decision?",
       },
       {
-        question: "Are growth rates guaranteed?",
+        question: "What does Cost of Waiting mean?",
         answer:
-          "No. You choose an illustrative rate. Markets, fees, and tax change real outcomes. Discuss assumptions with FSP 17273.",
-      }
+          "It is the illustrative difference between starting today and delaying the same plan by the years you select, while keeping the same end date. The delayed plan has fewer years of compounding and contributions.",
+      },
+      {
+        question: "Why compare different growth rates?",
+        answer:
+          "To show how mathematics changes when long-term growth assumptions change—using the same capital and period. It does not recommend any investment product.",
+      },
+      {
+        question: "Are the results guaranteed?",
+        answer:
+          "No. Results are mathematical illustrations based on your assumptions. Actual investment performance will differ and cannot be guaranteed.",
+      },
+      {
+        question: "Does this provide investment advice?",
+        answer:
+          "No. It is educational only and does not constitute financial, investment or tax advice. Personalised advice requires a suitability process with AS Brokers CC (FSP 17273).",
+      },
+      {
+        question: "How does this fit the Retirement Gap Method™?",
+        answer:
+          "Understand the principle, measure the impact, quantify the cost of action or inaction, review your strategy, then seek advice where necessary. This sequence appears throughout the Toolkit.",
+      },
     ],
-    ...WEALTH,
+    categoryLabel: "Retirement Gap Toolkit™",
+    categoryHref: "/calculators",
   },
 
   "asset-017-personal-goal": {

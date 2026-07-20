@@ -133,7 +133,7 @@ export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
   ),
   staticHtml(
     "asset-016-growth-comparison.html",
-    "AS Brokers The Power of Growth Calculator",
+    "Power of Growth Calculator",
     "ASSET 016",
     "asset-016-growth-comparison"
   ),

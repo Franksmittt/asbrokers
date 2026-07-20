@@ -58,7 +58,7 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
   "asset-013-everest-income-vs-growth": "Income vs Growth Strategy Comparison",
   "asset-014-living-annuity": "Living Annuity Income & Sustainability Calculator",
   "asset-015-average-clause": "Average Clause Calculator",
-  "asset-016-growth-comparison": "Growth Comparison Calculator",
+  "asset-016-growth-comparison": "Power of Growth Calculator",
   "asset-017-personal-goal": "Personal Goal Calculator",
 };
 
@@ -94,7 +94,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-015-average-clause":
     "How much could underinsurance reduce your insurance claim?",
   "asset-016-growth-comparison":
-    "See how different growth rates change long-term capital outcomes.",
+    "What is the financial cost of waiting to make a good decision?",
   "asset-017-personal-goal":
     "Map a personal capital goal to time, contributions, and growth.",
 };

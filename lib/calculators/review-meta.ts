@@ -66,8 +66,8 @@ export const CALCULATOR_REVIEW_META: Record<string, CalculatorReviewMeta> = {
     note: "Underinsurance / Average Clause education (problem-first)",
   },
   "asset-016-growth-comparison": {
-    group: "Wealth building",
-    note: "Growth rate and contribution future value",
+    group: "Retirement Gap Toolkit",
+    note: "Decision Cost / cost of waiting (compound growth education)",
   },
   "asset-017-personal-goal": {
     group: "Wealth building",

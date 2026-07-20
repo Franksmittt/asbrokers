@@ -1,229 +1,505 @@
+<div id="asb-power-of-growth-calculator">
 <style>
-.asb-growth-calculator {
+#asb-power-of-growth-calculator {
 max-width: 760px;
-margin: 0 auto;
-font-family: Inter, Arial, sans-serif;
-}
-.asb-growth-card {
-overflow: hidden;
-border-radius: 22px;
-background: #f8f7ef;
-box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+margin: 24px auto;
+padding: 24px;
+border-radius: 18px;
+background: #ffffff;
+box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+font-family: Arial, sans-serif;
 color: #1f2937;
 }
-.asb-header {
-padding: 32px;
-background: linear-gradient(135deg, #0057d9, #008cff);
-color: white;
+#asb-power-of-growth-calculator h2 {
+margin-top: 0;
+font-size: 26px;
+color: #111827;
 }
-.asb-kicker {
-letter-spacing: 0.35em;
-font-size: 13px;
+#asb-power-of-growth-calculator p.intro {
+color: #4b5563;
+margin-bottom: 22px;
+line-height: 1.5;
+}
+.asb-section-title {
+margin: 22px 0 12px;
+font-size: 16px;
 font-weight: 800;
-margin-bottom: 10px;
+color: #111827;
 }
-.asb-header h2 {
-margin: 0 0 10px;
-font-size: 34px;
-line-height: 1.1;
-}
-.asb-header p {
-margin: 0;
-font-size: 17px;
-line-height: 1.45;
-}
-.asb-body {
-padding: 32px;
-}
-.asb-body label {
-display: block;
-margin: 18px 0 8px;
-color: #29497c;
-font-weight: 800;
-}
-.asb-body input,
-.asb-body select {
-width: 100%;
-box-sizing: border-box;
-border: 1px solid #d4d7dc;
-border-radius: 14px;
-padding: 16px 18px;
-font-size: 18px;
-background: #fbfaf5;
-color: #1f2937;
-}
-.asb-body small {
-display: block;
-margin-top: 7px;
-color: #6b7280;
-font-size: 13px;
-line-height: 1.35;
-}
-.asb-body button {
-width: 100%;
-margin-top: 28px;
-padding: 17px 22px;
-border: none;
-border-radius: 14px;
-background: linear-gradient(135deg, #0066e6, #008cff);
-color: white;
-font-size: 18px;
-font-weight: 800;
-cursor: pointer;
-}
-.asb-results {
-margin-top: 28px;
-}
-.asb-result-main,
-.asb-result-grid div {
-border: 1px solid #d9dde3;
-border-radius: 16px;
-background: #fbfaf5;
-padding: 20px;
-}
-.asb-result-main span,
-.asb-result-grid span {
-display: block;
-text-transform: uppercase;
-letter-spacing: 0.12em;
-color: #29497c;
-font-size: 12px;
-font-weight: 900;
-margin-bottom: 8px;
-}
-.asb-result-main strong {
-display: block;
-font-size: 32px;
-font-weight: 500;
-}
-.asb-result-main p {
-margin: 8px 0 0;
-color: #6b7280;
-}
-.asb-result-grid {
+.asb-grid {
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 16px;
-margin-top: 16px;
 }
-.asb-result-grid strong {
-font-size: 24px;
-font-weight: 500;
+.asb-field {
+display: flex;
+flex-direction: column;
 }
-.asb-disclaimer {
-margin: 22px 0 0;
+.asb-field label {
+font-weight: 700;
+margin-bottom: 6px;
+font-size: 14px;
+}
+.asb-field input,
+.asb-field select {
+padding: 12px;
+border: 1px solid #d1d5db;
+border-radius: 10px;
+font-size: 16px;
+background: #2f3336;
+color: #ffffff;
+}
+.asb-field small {
+margin-top: 6px;
 color: #6b7280;
+font-size: 12px;
+line-height: 1.4;
+}
+.asb-button {
+width: 100%;
+margin-top: 22px;
+padding: 14px 18px;
+border: none;
+border-radius: 12px;
+background: #111827;
+color: #ffffff;
+font-size: 17px;
+font-weight: 700;
+cursor: pointer;
+}
+.asb-results {
+margin-top: 26px;
+display: none;
+}
+.asb-result-box {
+padding: 18px;
+border-radius: 14px;
+background: #f9fafb;
+border: 1px solid #e5e7eb;
+margin-bottom: 14px;
+}
+.asb-result-box.main {
+background: #111827;
+color: #ffffff;
+}
+.asb-result-box.cost {
+background: #111827;
+color: #ffffff;
+border: 2px solid #111827;
+}
+.asb-result-box.cost .asb-value {
+font-size: 34px;
+}
+.asb-label {
 font-size: 13px;
-line-height: 1.45;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+opacity: 0.75;
+margin-bottom: 6px;
 }
-@media (max-width: 650px) {
-.asb-header,
-.asb-body {
-padding: 24px;
-}
-.asb-header h2 {
+.asb-value {
 font-size: 28px;
+font-weight: 800;
 }
-.asb-result-grid {
+.asb-small {
+font-size: 14px;
+color: #6b7280;
+line-height: 1.5;
+}
+.asb-result-box.main .asb-small,
+.asb-result-box.cost .asb-small {
+color: #d1d5db;
+}
+.asb-compare-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+margin-bottom: 14px;
+}
+.asb-bar-wrap {
+margin-top: 10px;
+}
+.asb-bar-track {
+height: 14px;
+border-radius: 999px;
+background: #e5e7eb;
+overflow: hidden;
+}
+.asb-bar-fill {
+height: 100%;
+border-radius: 999px;
+background: #111827;
+width: 0%;
+}
+.asb-bar-fill.later {
+background: #6b7280;
+}
+.asb-rate-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 10px;
+font-size: 14px;
+}
+.asb-rate-table th,
+.asb-rate-table td {
+text-align: left;
+padding: 10px 8px;
+border-bottom: 1px solid #e5e7eb;
+}
+.asb-rate-table th {
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #6b7280;
+}
+.asb-rate-table tr.highlight td {
+font-weight: 700;
+background: #f3f4f6;
+}
+.asb-error {
+margin-top: 16px;
+color: #b91c1c;
+font-weight: 700;
+display: none;
+}
+.asb-cta {
+margin-top: 18px;
+padding: 18px;
+border-radius: 14px;
+background: #f3f4f6;
+border: 1px solid #e5e7eb;
+}
+.asb-cta h3 {
+margin-top: 0;
+margin-bottom: 8px;
+font-size: 18px;
+color: #111827;
+}
+.asb-cta p {
+margin: 0 0 14px 0;
+color: #4b5563;
+line-height: 1.5;
+font-size: 14px;
+}
+@media (max-width: 640px) {
+.asb-grid,
+.asb-compare-grid {
 grid-template-columns: 1fr;
+}
+.asb-result-box.cost .asb-value {
+font-size: 28px;
 }
 }
 </style>
 
-<section class="asb-growth-calculator">
-<div class="asb-growth-card">
-<div class="asb-header">
-<div class="asb-kicker">AS BROKERS</div>
-<h2>The Power of Growth Calculator</h2>
-<p>See how different growth rates change the future value of your capital and monthly contributions over time.</p>
-</div>
-<div class="asb-body">
-<label>Currency</label>
-<select id="currency">
+<h2>Power of Growth Calculator</h2>
+<p class="intro">
+Measure the financial cost of waiting. Compare starting today with delaying the same decision—
+then see how different long-term growth rates change the mathematical outcome.
+</p>
+
+<div class="asb-section-title">Scenario A — Start today</div>
+<div class="asb-grid">
+<div class="asb-field">
+<label for="pogCurrency">Currency</label>
+<select id="pogCurrency">
 <option value="R" selected>South African Rand (R)</option>
 <option value="$">US Dollar ($)</option>
-<option value="&euro;">Euro (&euro;)</option>
-<option value="&pound;">British Pound (&pound;)</option>
-<option value="&yen;">Japanese Yen (&yen;)</option>
-<option value="">No Currency</option>
+<option value="€">Euro (€)</option>
+<option value="£">British Pound (£)</option>
 </select>
-<label>Initial Investment / Starting Value</label>
-<input id="initialInvestment" type="number" value="100000" min="0" step="1000">
-<small>The amount you are starting with today.</small>
-<label>Years</label>
-<input id="years" type="number" value="10" min="1" step="1">
-<small>Number of years the investment will continue.</small>
-<label>Monthly Contribution</label>
-<input id="monthlyContribution" type="number" value="500" min="0" step="100">
-<small>Amount added each month.</small>
-<label>Annual Increase (%)</label>
-<input id="annualIncrease" type="number" value="10" step="0.1">
-<small>Increase your monthly contribution each year.</small>
-<label>Annual Growth Rate (%)</label>
-<input id="growthRate" type="number" value="10" step="0.1">
-<small><strong>Change this number to see how growth affects the future value.</strong></small>
-<button onclick="calculateGrowth()">Calculate future value</button>
-<div class="asb-results">
-<div class="asb-result-main">
-<span>Estimated Future Value</span>
-<strong id="futureValue">R 0</strong>
-<p>Final value after growth and contributions.</p>
 </div>
-<div class="asb-result-grid">
-<div>
-<span>Total Invested</span>
-<strong id="totalInvested">R 0</strong>
+<div class="asb-field">
+<label for="pogInitial">Initial investment</label>
+<input id="pogInitial" type="number" value="100000" min="0" step="1000">
 </div>
-<div>
-<span>Growth Earned</span>
-<strong id="growthEarned">R 0</strong>
+<div class="asb-field">
+<label for="pogYears">Investment period (years)</label>
+<input id="pogYears" type="number" value="30" min="1" max="60" step="1">
+</div>
+<div class="asb-field">
+<label for="pogMonthly">Monthly contribution</label>
+<input id="pogMonthly" type="number" value="5000" min="0" step="100">
+</div>
+<div class="asb-field">
+<label for="pogAnnualIncrease">Annual increase (%)</label>
+<input id="pogAnnualIncrease" type="number" value="5" step="0.1">
+<small>How much the monthly contribution rises each year.</small>
+</div>
+<div class="asb-field">
+<label for="pogGrowth">Annual growth rate (%)</label>
+<input id="pogGrowth" type="number" value="10" step="0.1">
 </div>
 </div>
+
+<div class="asb-section-title">Scenario B — Delay starting</div>
+<div class="asb-grid">
+<div class="asb-field">
+<label for="pogDelay">Start later</label>
+<select id="pogDelay">
+<option value="0">Start today</option>
+<option value="1" selected>Delay 1 year</option>
+<option value="2">Delay 2 years</option>
+<option value="3">Delay 3 years</option>
+<option value="5">Delay 5 years</option>
+</select>
+<small>Everything else stays identical. The delayed scenario invests for fewer years before the same end date.</small>
 </div>
-<p class="asb-disclaimer">
-This calculator is for educational and illustrative purposes only. Actual investment returns and business growth outcomes may differ. AS Brokers CC &middot; FSP 17273.
+</div>
+
+<button class="asb-button" type="button" onclick="calculatePowerOfGrowth()">
+Calculate the cost of waiting
+</button>
+
+<div id="pogError" class="asb-error"></div>
+
+<div id="pogResults" class="asb-results">
+<div class="asb-result-box cost">
+<div class="asb-label">Cost of waiting</div>
+<div id="pogCostOfWaiting" class="asb-value"></div>
+<div class="asb-small">The illustrative difference between starting today and starting later under your assumptions.</div>
+</div>
+
+<div class="asb-compare-grid">
+<div class="asb-result-box main">
+<div class="asb-label">Started today</div>
+<div id="pogTodayValue" class="asb-value"></div>
+<div class="asb-bar-wrap">
+<div class="asb-bar-track"><div id="pogBarToday" class="asb-bar-fill"></div></div>
+</div>
+</div>
+<div class="asb-result-box main">
+<div class="asb-label" id="pogLaterLabel">Started later</div>
+<div id="pogLaterValue" class="asb-value"></div>
+<div class="asb-bar-wrap">
+<div class="asb-bar-track"><div id="pogBarLater" class="asb-bar-fill later"></div></div>
+</div>
+</div>
+</div>
+
+<div class="asb-result-box">
+<div class="asb-label">Future value (start today)</div>
+<div id="pogFvToday" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Future value (start later)</div>
+<div id="pogFvLater" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Total contributions (start today)</div>
+<div id="pogContribToday" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Investment growth (start today)</div>
+<div id="pogGrowthToday" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Years lost</div>
+<div id="pogYearsLost" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Monthly contribution total (start today)</div>
+<div id="pogMonthlyTotal" class="asb-value"></div>
+</div>
+<div class="asb-result-box">
+<div class="asb-label">Percentage difference</div>
+<div id="pogPctDiff" class="asb-value"></div>
+<div class="asb-small">How much lower the delayed outcome is versus starting today.</div>
+</div>
+
+<div class="asb-result-box">
+<div class="asb-label">Compare different growth rates</div>
+<p class="asb-small" style="margin-top:0">
+Same capital. Same investment period. Different annual returns. Mathematical outcomes only—not investment recommendations.
+</p>
+<table class="asb-rate-table">
+<thead>
+<tr><th>Growth rate</th><th>Future value (start today)</th><th>Extra vs 8%</th></tr>
+</thead>
+<tbody id="pogRateRows"></tbody>
+</table>
+</div>
+
+<div class="asb-result-box">
+<div class="asb-label">What this means for you</div>
+<div id="pogSummaryText" class="asb-small"></div>
+</div>
+</div>
+
+<div class="asb-cta">
+<h3>Results disclaimer</h3>
+<p>
+This calculator provides mathematical illustrations based on the assumptions entered.
+Actual investment performance will differ and cannot be guaranteed. The examples demonstrate
+compound growth and the potential financial impact of delaying decisions. They should not be
+interpreted as investment advice or as a prediction of future returns.
 </p>
 </div>
-</div>
-</section>
 
 <script>
-function formatMoney(value, symbol) {
-const formatted = Number(value).toLocaleString("en-ZA", {
-minimumFractionDigits: 2,
-maximumFractionDigits: 2
-});
+function pogFormatMoney(value, symbol) {
+var formatted = Math.round(value).toLocaleString("en-ZA");
 return symbol ? symbol + " " + formatted : formatted;
 }
-function calculateGrowth() {
-const symbol = document.getElementById("currency").value;
-const initial = Number(document.getElementById("initialInvestment").value) || 0;
-const years = Math.max(Number(document.getElementById("years").value) || 0, 0);
-const monthlyContributionStart = Number(document.getElementById("monthlyContribution").value) || 0;
-const annualIncrease = (Number(document.getElementById("annualIncrease").value) || 0) / 100;
-const annualGrowth = (Number(document.getElementById("growthRate").value) || 0) / 100;
-let balance = initial;
-let totalInvested = initial;
-let monthlyContribution = monthlyContributionStart;
-const monthlyGrowthRate = Math.pow(1 + annualGrowth, 1 / 12) - 1;
-for (let year = 1; year <= years; year++) {
-for (let month = 1; month <= 12; month++) {
+
+function pogGetNumber(id) {
+return parseFloat(document.getElementById(id).value);
+}
+
+function pogProject(initial, years, monthlyStart, annualIncrease, annualGrowth) {
+if (years <= 0) {
+return { balance: initial, totalInvested: initial, monthlyContribTotal: 0 };
+}
+var balance = initial;
+var totalInvested = initial;
+var monthlyContribution = monthlyStart;
+var monthlyContribTotal = 0;
+var monthlyGrowthRate = Math.pow(1 + annualGrowth, 1 / 12) - 1;
+for (var year = 1; year <= years; year++) {
+for (var month = 1; month <= 12; month++) {
 balance = balance * (1 + monthlyGrowthRate);
 balance += monthlyContribution;
 totalInvested += monthlyContribution;
+monthlyContribTotal += monthlyContribution;
 }
 monthlyContribution = monthlyContribution * (1 + annualIncrease);
 }
-const growthEarned = balance - totalInvested;
-document.getElementById("futureValue").textContent = formatMoney(balance, symbol);
-document.getElementById("totalInvested").textContent = formatMoney(totalInvested, symbol);
-document.getElementById("growthEarned").textContent = formatMoney(growthEarned, symbol);
+return {
+balance: balance,
+totalInvested: totalInvested,
+monthlyContribTotal: monthlyContribTotal
+};
 }
+
+function calculatePowerOfGrowth() {
+var symbol = document.getElementById("pogCurrency").value;
+var initial = pogGetNumber("pogInitial");
+var years = pogGetNumber("pogYears");
+var monthly = pogGetNumber("pogMonthly");
+var annualIncrease = pogGetNumber("pogAnnualIncrease") / 100;
+var annualGrowth = pogGetNumber("pogGrowth") / 100;
+var delay = pogGetNumber("pogDelay");
+
+var errorBox = document.getElementById("pogError");
+var resultsBox = document.getElementById("pogResults");
+errorBox.style.display = "none";
+resultsBox.style.display = "none";
+
+if (
+isNaN(initial) ||
+isNaN(years) ||
+isNaN(monthly) ||
+isNaN(annualIncrease) ||
+isNaN(annualGrowth) ||
+isNaN(delay)
+) {
+errorBox.innerText = "Please complete all fields.";
+errorBox.style.display = "block";
+return;
+}
+
+if (years < 1) {
+errorBox.innerText = "Investment period must be at least 1 year.";
+errorBox.style.display = "block";
+return;
+}
+
+if (delay >= years) {
+errorBox.innerText = "Delay must be shorter than the investment period.";
+errorBox.style.display = "block";
+return;
+}
+
+if (initial < 0 || monthly < 0) {
+errorBox.innerText = "Investment amounts cannot be negative.";
+errorBox.style.display = "block";
+return;
+}
+
+var today = pogProject(initial, years, monthly, annualIncrease, annualGrowth);
+var laterYears = years - delay;
+var later = pogProject(initial, laterYears, monthly, annualIncrease, annualGrowth);
+var cost = Math.max(0, today.balance - later.balance);
+var pctDiff = today.balance > 0 ? (cost / today.balance) * 100 : 0;
+var growthToday = today.balance - today.totalInvested;
+
+var delayLabel =
+delay === 0
+? "Started today (same scenario)"
+: delay === 1
+? "Started one year later"
+: "Started " + delay + " years later";
+
+document.getElementById("pogCostOfWaiting").innerText =
+delay === 0 ? pogFormatMoney(0, symbol) : pogFormatMoney(cost, symbol);
+document.getElementById("pogTodayValue").innerText = pogFormatMoney(today.balance, symbol);
+document.getElementById("pogLaterValue").innerText = pogFormatMoney(later.balance, symbol);
+document.getElementById("pogLaterLabel").innerText = delayLabel;
+document.getElementById("pogFvToday").innerText = pogFormatMoney(today.balance, symbol);
+document.getElementById("pogFvLater").innerText = pogFormatMoney(later.balance, symbol);
+document.getElementById("pogContribToday").innerText = pogFormatMoney(today.totalInvested, symbol);
+document.getElementById("pogGrowthToday").innerText = pogFormatMoney(growthToday, symbol);
+document.getElementById("pogYearsLost").innerText = delay === 0 ? "0 years" : delay + (delay === 1 ? " year" : " years");
+document.getElementById("pogMonthlyTotal").innerText = pogFormatMoney(today.monthlyContribTotal, symbol);
+document.getElementById("pogPctDiff").innerText =
+delay === 0 ? "0.0%" : pctDiff.toFixed(1) + "% lower if you wait";
+
+var maxBal = Math.max(today.balance, later.balance, 1);
+document.getElementById("pogBarToday").style.width = Math.min(100, (today.balance / maxBal) * 100) + "%";
+document.getElementById("pogBarLater").style.width = Math.min(100, (later.balance / maxBal) * 100) + "%";
+
+var rates = [8, 10, 12, 15, 20];
+var baseAt8 = pogProject(initial, years, monthly, annualIncrease, 0.08).balance;
+var rowsHtml = "";
+for (var i = 0; i < rates.length; i++) {
+var rate = rates[i];
+var fv = pogProject(initial, years, monthly, annualIncrease, rate / 100).balance;
+var extra = fv - baseAt8;
+var isSelected = Math.abs(rate - annualGrowth * 100) < 0.05;
+rowsHtml +=
+"<tr class='" +
+(isSelected ? "highlight" : "") +
+"'><td>" +
+rate.toFixed(0) +
+"%</td><td>" +
+pogFormatMoney(fv, symbol) +
+"</td><td>" +
+(rate === 8 ? "—" : "+" + pogFormatMoney(extra, symbol)) +
+"</td></tr>";
+}
+document.getElementById("pogRateRows").innerHTML = rowsHtml;
+
+if (delay === 0) {
+document.getElementById("pogSummaryText").innerText =
+"You selected start today for both scenarios, so the cost of waiting is zero under these assumptions. Choose a delay to measure the opportunity cost of waiting.";
+} else {
+document.getElementById("pogSummaryText").innerText =
+"Starting today produces an illustrative future value of " +
+pogFormatMoney(today.balance, symbol) +
+". Waiting " +
+delay +
+(delay === 1 ? " year" : " years") +
+" and then investing for the remaining " +
+laterYears +
+" years produces " +
+pogFormatMoney(later.balance, symbol) +
+". The illustrative cost of waiting is " +
+pogFormatMoney(cost, symbol) +
+" (" +
+pctDiff.toFixed(1) +
+"% lower). Time is often more valuable than return—this is a mathematical illustration only, not investment advice.";
+}
+
+resultsBox.style.display = "block";
+}
+
 document.querySelectorAll(
-"#currency, #initialInvestment, #years, #monthlyContribution, #annualIncrease, #growthRate"
-).forEach(function(input) {
-input.addEventListener("input", calculateGrowth);
-input.addEventListener("change", calculateGrowth);
+"#pogCurrency, #pogInitial, #pogYears, #pogMonthly, #pogAnnualIncrease, #pogGrowth, #pogDelay"
+).forEach(function (input) {
+input.addEventListener("change", calculatePowerOfGrowth);
+input.addEventListener("input", calculatePowerOfGrowth);
 });
-calculateGrowth();
+
+calculatePowerOfGrowth();
 </script>
+</div>

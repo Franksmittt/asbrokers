@@ -2976,57 +2976,293 @@ const PAGES: Record<string, PageContent> = {
   },
 
   "asset-011-everest-128-vs-142": {
-    shortTitle: "Everest 12.8% vs 14.2% Comparison",
-    seoTitle: "Everest 12.8% vs 14.2% Calculator Comparison",
+    shortTitle: "Income Strategy Comparison Calculator",
+    seoTitle: "Which Income Strategy Fits Your Investment? | Retirement Gap Toolkit™",
     seoDescription:
-      "Compare Everest 12.8% Strategic Income with 14.2% Onyx Income+ over five years on the same capital. Free comparison calculator. FSP 17273.",
-    keywords: ["Everest 12.8 vs 14.2", "Everest income comparison", "which Everest product"],
-    kicker: "Everest Wealth",
-    heroTitle: "12.8% Strategic Income vs 14.2% Onyx Income+",
+      "Compare income, tax, liquidity trade-offs and five-year benefits of 12.8% and 14.2% income strategies. Educational decision tool—not a product pitch. FSP 17273.",
+    keywords: [
+      "income strategy comparison",
+      "12.8 vs 14.2 income",
+      "retirement income trade-off",
+      "voluntary investment capital",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Asset 011",
+    heroTitle: "Which Income Strategy Fits Your Investment?",
     heroSubtitle:
-      "Side-by-side five-year illustration on identical capital: day-one income, bonus, and total outcome.",
+      "If you have voluntary investment capital, choosing between income investments involves more than comparing yields. This calculator estimates the income, tax implications, liquidity and total five-year benefits of two different income strategies so you can better understand the trade-offs before making a financial decision.",
     heroImage: "/images/calc-lcp/asset-011.webp",
     heroImageAlt: "Homeowner weighing two income strategy options on a terrace",
     calculatorLead:
-      "Enter the same lump sum for both profiles to compare monthly income and five-year total illustration.",
-    sidePanelTitle: "Which income product?",
+      "Enter the same lump sum once. Review the comparison table, then the two factual summary cards—Higher Monthly Income and More Total Value After Five Years. No recommendation is made.",
+    sidePanelTitle: "Outcomes first. Products second.",
     sidePanelParagraphs: [
-      "The trade-off is cash flow now versus bonus value later. This comparison makes that trade-off visible on the same capital base.",
-      "Product selection requires suitability review, liquidity planning, and tax analysis.",
+      "This is a cornerstone decision tool inside the Retirement Gap Toolkit™. It helps you compare financial outcomes—not branded investments.",
+      "Option A is a 12.8% Income Strategy. Option B is a 14.2% Income Strategy. Underlying product names may appear in assumptions only.",
     ],
     sidePanelBullets: [
-      "Same capital, two profiles",
-      "Five-year horizon",
-      "Bonus vs higher day-one income",
-      "Not a recommendation",
+      "Same capital, two strategies",
+      "Income, tax and five-year benefit",
+      "Loyalty benefit on Option A where illustrated",
+      "Educational comparison only",
     ],
-    fiduciaryNotes: FIDUCIARY,
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Voluntary income investments may be illiquid. Confirm notice periods, penalties and suitability with FSP 17273 before investing.",
+    ],
     howToSteps: [
-      { title: "Enter capital once", description: "Use the same lump sum for both columns." },
-      { title: "Compare monthly income", description: "See day-one cash flow difference." },
-      { title: "Review five-year totals", description: "Include bonus effects where applicable." },
-      { title: "Discuss with adviser", description: "Choose structure based on income need and liquidity." },
+      { title: "Enter capital and tax", description: "Use one voluntary lump sum and an assumed dividends tax rate." },
+      { title: "Review the comparison table", description: "Compare income, tax and total five-year benefit side by side." },
+      { title: "Read the summary cards", description: "See which option shows higher monthly income and which shows more total five-year value." },
+      { title: "Interpret, then plan", description: "Use What This Means for You, then book a Retirement Gap Review if you want personalised advice." },
     ],
+    heroCta: {
+      primaryLabel: "Compare Income Strategies",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Open the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
+    contextBox: {
+      heading: "A decision point—not a product page",
+      paragraphs: [
+        "The journey is: Can I afford to retire? How much income can my capital generate? Which income strategy best fits my objectives? Then develop a personalised strategy in a Retirement Gap Review.",
+        "Estimate income with the 14.2% and 12.8% Income Calculators first if you have not already, then return here to compare outcomes objectively.",
+      ],
+      highlightQuestion:
+        "I have voluntary capital to invest for income over the next five years. Which income strategy best aligns with my objectives?",
+    },
+    methodProgress: {
+      heading: "Connected income journey",
+      steps: [
+        {
+          stepLabel: "Earlier",
+          title: "14.2% Income Calculator",
+          description: "Asset 009 — Highest income available today",
+          href: calculatorPagePath("asset-009-everest-142-income"),
+        },
+        {
+          stepLabel: "Earlier",
+          title: "12.8% Income Calculator",
+          description: "Asset 010 — Income today vs long-term value",
+          href: calculatorPagePath("asset-010-everest-128-income"),
+        },
+        {
+          stepLabel: "You are here",
+          title: "Income Strategy Comparison",
+          description: "Asset 011 — Which strategy fits your objectives?",
+          current: true,
+        },
+      ],
+    },
+    assumptionCallout: {
+      heading: "Assumptions (product names secondary)",
+      paragraphs: [
+        "Option A – 12.8% Income Strategy may illustrate a Strategic Income–style structure with an illustrative five-year loyalty benefit. Option B – 14.2% Income Strategy may illustrate an Onyx Income+–style structure with higher day-one income and no loyalty benefit in this model.",
+        "Rates, tax and bonuses are assumptions and may change. Capital values may rise or fall. This tool does not model reinvestment, capital growth, compound growth, withdrawals or variable periods.",
+      ],
+    },
+    resultGuide: {
+      heading: "What This Means for You",
+      intro:
+        "Investors often face a trade-off between higher income today and greater overall value after remaining invested. The better option depends on your objectives, income needs, liquidity requirements and investment horizon. This section educates—it does not persuade or recommend either strategy.",
+      metricsListed: [
+        "Net monthly income (both options)",
+        "Annual dividends tax",
+        "Five-year net income",
+        "Loyalty benefit (Option A illustration)",
+        "Total five-year benefit",
+      ],
+      highlightMetrics: [
+        {
+          label: "Higher income today",
+          description:
+            "If immediate cash flow is your priority, the summary card labelled Higher Monthly Income shows which strategy pays more from day one.",
+        },
+        {
+          label: "Greater overall value later",
+          description:
+            "If remaining invested for five years is realistic, More Total Value After Five Years shows which strategy illustrates the larger five-year benefit after loyalty benefits where applicable.",
+        },
+      ],
+      footer:
+        "Neither card is a recommendation. Use them as facts, then decide which outcome aligns with your Retirement Gap.",
+    },
+    withdrawalGuide: {
+      heading: "Choosing Between Income Strategies",
+      intro:
+        "Present this as educational guidance only. Do not treat either option as superior. Suitability depends on personal circumstances and advice.",
+      levels: [
+        {
+          label: "14.2% Income Strategy — highest income immediately",
+          description: "Choose this illustration path if you require the highest possible income immediately.",
+        },
+        {
+          label: "14.2% Income Strategy — shorter horizon",
+          description: "Choose this path if you may not remain invested for the full five years.",
+        },
+        {
+          label: "14.2% Income Strategy — cash flow first",
+          description: "Choose this path if immediate cash flow is your primary objective.",
+        },
+        {
+          label: "12.8% Income Strategy — accept lower income today",
+          description: "Choose this illustration path if you can accept slightly lower income today.",
+        },
+        {
+          label: "12.8% Income Strategy — five-year horizon",
+          description: "Choose this path if you expect to remain invested for five years.",
+        },
+        {
+          label: "12.8% Income Strategy — total benefit focus",
+          description:
+            "Choose this path if maximising your total benefit over the investment term is more important than maximising immediate income.",
+        },
+      ],
+      closing:
+        "After comparing strategies, explore Strategic Growth and Income vs Growth tools, then place the decision inside the Retirement Gap Method™.",
+    },
+    methodSection: {
+      heading: "Retirement Planning Insight",
+      paragraphs: [
+        "Retirement success is not determined solely by investment returns. Selecting an investment should support an overall retirement strategy rather than maximise a single performance measure.",
+        "Connect this comparison back to the Retirement Gap Toolkit™ and the Retirement Gap Method™ so income strategy choice stays aligned with sustainable income, tax efficiency, liquidity, flexibility and long-term objectives.",
+      ],
+      bullets: [
+        "Sustainable income",
+        "Tax efficiency",
+        "Liquidity",
+        "Investment flexibility",
+        "Long-term financial objectives",
+      ],
+      ctaLabel: "Learn the Retirement Gap Method™",
+      ctaHref: "/retirement-gap-method",
+      secondaryCtaLabel: "Open the 12.8% Income Calculator",
+      secondaryCtaHref: calculatorPagePath("asset-010-everest-128-income"),
+    },
+    assessmentSection: {
+      heading: "Develop a personalised retirement income strategy",
+      intro:
+        "A Retirement Gap Review can help you translate this educational comparison into a suitability-led plan that fits your income need, horizon, tax position and liquidity requirements.",
+      bullets: [
+        "Voluntary capital and income objectives",
+        "Trade-off between income today and five-year value",
+        "Tax, liquidity and diversification",
+        "Next steps inside the Retirement Gap Method™",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_011",
+    },
+    journey: {
+      heading: "Related Calculators",
+      items: [
+        {
+          stepLabel: "Toolkit",
+          assetCode: "ASSET 000",
+          title: "Retirement Gap Toolkit™",
+          description: "Return to the full calculator hub.",
+          href: "/calculators",
+        },
+        {
+          stepLabel: "Earlier",
+          assetCode: "ASSET 009",
+          title: "14.2% Income Calculator",
+          description: "Estimate higher immediate income.",
+          href: calculatorPagePath("asset-009-everest-142-income"),
+        },
+        {
+          stepLabel: "Earlier",
+          assetCode: "ASSET 010",
+          title: "12.8% Income Calculator",
+          description: "Estimate income with long-term value trade-off.",
+          href: calculatorPagePath("asset-010-everest-128-income"),
+        },
+        {
+          stepLabel: "Also",
+          assetCode: "ASSET 012",
+          title: "Strategic Growth Calculator",
+          description: "Illustrate compounding when income is not required.",
+          href: calculatorPagePath("asset-012-strategic-growth"),
+        },
+        {
+          stepLabel: "Also",
+          assetCode: "ASSET 013",
+          title: "Income vs Growth Comparison",
+          description: "Compare income and growth strategies.",
+          href: calculatorPagePath("asset-013-everest-income-vs-growth"),
+        },
+        {
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "Connect strategy choice to the full Method.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Compare outcomes. Then build a personalised strategy.",
+      body: "This calculator is the decision point within the Retirement Gap Method™: after you know your gap and can estimate income, choose which income strategy best fits your objectives—then book a Retirement Gap Review for advice.",
+      primaryLabel: "Learn the Retirement Gap Method™",
+      primaryHref: "/retirement-gap-method",
+      secondaryLabel: "Book a Retirement Gap Review",
+      secondaryHref: "/contact?source=retirement_gap_review_asset_011",
+    },
     readingSections: [
       {
-        heading: "Choosing between income profiles",
+        heading: "Keep the journey connected",
         paragraphs: [
-          "Clients near retirement with high immediate income needs may lean toward 14.2%. Those with flexibility and five-year certainty may prefer 12.8% with bonus.",
-          "Everest is one solution among many. AS Brokers remains independent and surveys the market.",
+          "Start with Retirement Gap tools if you have not yet measured need. Use the 14.2% Income Calculator and 12.8% Income Calculator to estimate each strategy alone, then return here to compare outcomes. Strategic Growth and Income vs Growth help when capital growth is also in scope.",
+          "When you are ready for personalised advice, book a Retirement Gap Review so strategy choice supports your overall retirement plan—not a single yield figure.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "Which is better?",
+        question: "What is voluntary investment capital?",
         answer:
-          "Neither is universally better. Depends on income timing, tax, liquidity, and risk tolerance. Advice is required.",
+          "Voluntary investment capital is money you can invest outside compulsory retirement funds—for example savings, proceeds from a sale, or other discretionary capital. This calculator is designed for that context.",
       },
       {
-        question: "What is the R100,000 minimum for?",
+        question: "Why doesn't this calculator apply to retirement funds?",
         answer:
-          "Everest voluntary income products typically require a R100,000 minimum lump sum. Confirm current terms in a suitability review.",
-      }
+          "Retirement fund rules, tax treatment, preservation requirements and product structures differ from voluntary income investments. Use Living Annuity and other Toolkit tools for fund-related illustrations, and seek advice for fund decisions.",
+      },
+      {
+        question: "Why do two investments with different income rates produce different long-term outcomes?",
+        answer:
+          "A higher day-one rate can produce more monthly income immediately. A lower rate with a loyalty benefit after five years can produce a larger total five-year benefit if you remain invested. Timing of cash flows changes the five-year picture even when capital is the same.",
+      },
+      {
+        question: "What is the five-year loyalty benefit?",
+        answer:
+          "In this illustration, Option A includes an assumed loyalty benefit after five years (default 10% of capital before dividends tax). It is educational only and remains subject to investment terms, conditions and performance.",
+      },
+      {
+        question: "How is dividend withholding tax treated?",
+        answer:
+          "The calculator applies your assumed dividends tax rate to gross annual income and to Option A's illustrated loyalty benefit. Defaults use 20% DWT. Confirm your actual tax treatment with an adviser or tax professional.",
+      },
+      {
+        question: "Why does liquidity matter?",
+        answer:
+          "Liquidity is how quickly you can access capital. Income strategies may restrict withdrawals with notice periods or penalties. A higher yield is less useful if you cannot access funds when you need them. Confirm liquidity terms before investing.",
+      },
+      {
+        question: "Which investment is better for retirement income?",
+        answer:
+          "Neither is universally better. The better fit depends on income needs, horizon, liquidity, tax and overall retirement objectives. This tool presents facts only; personalised advice is required for a recommendation.",
+      },
+      {
+        question: "Can I switch between income strategies later?",
+        answer:
+          "Switching depends on product rules, liquidity, notice periods, costs and tax consequences. Do not assume you can move freely between strategies. Confirm switching options during a suitability review.",
+      },
+      {
+        question: "Is this calculator financial advice?",
+        answer:
+          "No. It is an educational illustration inside the Retirement Gap Toolkit™. Personalised advice requires a suitability process with an authorised adviser (FSP 17273).",
+      },
     ],
     ...EVEREST,
   },

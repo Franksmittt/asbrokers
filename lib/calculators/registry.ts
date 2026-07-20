@@ -103,7 +103,7 @@ export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
   ),
   staticHtml(
     "asset-011-everest-128-vs-142.html",
-    "AS Brokers 12.8% vs 14.2% Income Comparison Calculator",
+    "Which Income Strategy Fits Your Investment?",
     "ASSET 011",
     "asset-011-everest-128-vs-142"
   ),

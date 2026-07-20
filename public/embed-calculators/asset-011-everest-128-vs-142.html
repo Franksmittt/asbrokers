@@ -101,8 +101,9 @@ margin-bottom: 6px;
 
 
 .asb-value {
-font-size: 28px;
+font-size: 22px;
 font-weight: 800;
+line-height: 1.25;
 }
 
 
@@ -120,7 +121,8 @@ color: #d1d5db;
 
 .asb-table-wrap {
 overflow-x: auto;
-margin-top: 16px;
+margin-top: 8px;
+margin-bottom: 16px;
 }
 
 
@@ -199,11 +201,11 @@ grid-template-columns: 1fr;
 </style>
 
 
-<h2>AS Brokers 12.8% vs 14.2% Income Comparison Calculator</h2>
+<h2>Which Income Strategy Fits Your Investment?</h2>
 
 
 <p class="intro">
-Compare two income options side by side. The 14.2% option gives higher income from day one, while the 12.8% option may produce a better five-year total when the loyalty bonus is included.
+Compare financial outcomes—not products. Estimate income, tax, and total five-year benefits for two income strategies so you can understand the trade-offs before making a decision.
 </p>
 
 
@@ -239,40 +241,20 @@ Compare two income options side by side. The 14.2% option gives higher income fr
 </div>
 
 
-<button class="asb-button" onclick="calculateIncomeComparison()">Compare income options</button>
+<button class="asb-button" onclick="calculateIncomeComparison()">Compare income strategies</button>
 
 
 <div id="compareError" class="asb-error"></div>
 
 
 <div id="compareResults" class="asb-results">
-<div class="asb-result-box main">
-<div class="asb-label">Higher monthly income from day one</div>
-<div id="compareMonthlyWinner" class="asb-value"></div>
-<div id="compareMonthlyWinnerText" class="asb-small"></div>
-</div>
-
-
-<div class="asb-result-box main">
-<div class="asb-label">Higher total over five years</div>
-<div id="compareFiveYearWinner" class="asb-value"></div>
-<div id="compareFiveYearWinnerText" class="asb-small"></div>
-</div>
-
-
-<div class="asb-result-box">
-<div class="asb-label">Five-year difference</div>
-<div id="compareFiveYearDifference" class="asb-value"></div>
-</div>
-
-
 <div class="asb-table-wrap">
 <table class="asb-table">
 <thead>
 <tr>
 <th>Metric</th>
-<th>Option A: 12.8%</th>
-<th>Option B: 14.2%</th>
+<th>Option A – 12.8% Income Strategy</th>
+<th>Option B – 14.2% Income Strategy</th>
 </tr>
 </thead>
 <tbody>
@@ -322,7 +304,7 @@ Compare two income options side by side. The 14.2% option gives higher income fr
 <td>R 0</td>
 </tr>
 <tr>
-<td>Total five-year income</td>
+<td>Total five-year benefit</td>
 <td id="compareTotalFiveYearA"></td>
 <td id="compareTotalFiveYearB"></td>
 </tr>
@@ -331,30 +313,50 @@ Compare two income options side by side. The 14.2% option gives higher income fr
 </div>
 
 
+<div class="asb-result-box main">
+<div class="asb-label">Higher Monthly Income</div>
+<div id="compareMonthlyWinner" class="asb-value"></div>
+<div id="compareMonthlyWinnerText" class="asb-small"></div>
+</div>
+
+
+<div class="asb-result-box main">
+<div class="asb-label">More Total Value After Five Years</div>
+<div id="compareFiveYearWinner" class="asb-value"></div>
+<div id="compareFiveYearWinnerText" class="asb-small"></div>
+</div>
+
+
 <div class="asb-result-box">
-<div class="asb-label">What this means for you</div>
+<div class="asb-label">Five-year difference</div>
+<div id="compareFiveYearDifference" class="asb-value"></div>
+</div>
+
+
+<div class="asb-result-box">
+<div class="asb-label">Facts only — no recommendation</div>
 <div id="compareSummaryText" class="asb-small"></div>
 </div>
 </div>
 
 
 <div class="asb-cta">
-<h3>Educational note</h3>
+<h3>Assumptions &amp; notes</h3>
 <p>
-This calculator is an educational comparison of two targeted income structures using assumed dividends tax and an illustrative five-year loyalty bonus on Option A.
-It is not a quote, guarantee, recommendation or offer to invest. Product terms, risk, liquidity, fees, return profile and tax treatment must be confirmed before any investment decision is made.
+Illustrative comparison of two income strategies using assumed dividends tax and an illustrative five-year loyalty benefit on Option A. Underlying product structures may be described elsewhere as Strategic Income (12.8%) and Onyx Income+ (14.2%); product names are secondary—this tool compares outcomes.
+It is not a quote, guarantee, recommendation or offer to invest. Confirm product terms, risk, liquidity, fees, return profile and tax treatment before any decision.
 </p>
 
 
 <h3>Important liquidity note</h3>
 <p>
-Some income investments, including unlisted preference share structures, may be illiquid. Withdrawals may be restricted, subject to notice periods, penalties, product rules and market conditions.
+Some income investments, including unlisted preference share structures, may be illiquid. Withdrawals may be restricted, subject to notice periods, penalties, product rules and market conditions. Liquidity differences can matter as much as yield differences.
 </p>
 
 
 <h3>Next step</h3>
 <p>
-Your calculator result is only the first step. Learn what this result means and how income, tax, loyalty bonuses, liquidity and investment suitability work together.
+Your calculator result is only the first step. Decide which outcome aligns with your objectives, then place the choice inside a broader retirement income strategy.
 </p>
 
 
@@ -458,20 +460,23 @@ const monthlyDifference = Math.abs(netMonthlyB - netMonthlyA);
 const fiveYearDifference = Math.abs(totalFiveYearA - totalFiveYearB);
 
 
-const monthlyWinner = netMonthlyA > netMonthlyB ? "Option A" : "Option B"
-const fiveYearWinner = totalFiveYearA > totalFiveYearB ? "Option A" : "Option B"
+const labelA = "Option A – 12.8% Income Strategy";
+const labelB = "Option B – 14.2% Income Strategy";
+const monthlyWinner = netMonthlyA > netMonthlyB ? labelA : labelB;
+const fiveYearWinner = totalFiveYearA > totalFiveYearB ? labelA : labelB;
+const fiveYearWinnerShort = totalFiveYearA > totalFiveYearB ? "Option A" : "Option B";
 
 
 document.getElementById("compareMonthlyWinner").innerText = monthlyWinner;
 document.getElementById("compareMonthlyWinnerText").innerText =
 monthlyWinner + " provides approximately " + compareFormatRand(monthlyDifference) +
-" more net monthly income from day one."
+" more net monthly income. This is a factual comparison only—not a recommendation."
 
 
 document.getElementById("compareFiveYearWinner").innerText = fiveYearWinner;
 document.getElementById("compareFiveYearWinnerText").innerText =
 fiveYearWinner + " provides approximately " + compareFormatRand(fiveYearDifference) +
-" more total net income over five years."
+" more total five-year benefit after loyalty benefits where applicable. Facts only—not advice."
 
 
 document.getElementById("compareFiveYearDifference").innerText =
@@ -513,17 +518,17 @@ document.getElementById("compareTotalFiveYearB").innerText = compareFormatRand(t
 
 document.getElementById("compareSummaryText").innerText =
 "Option B at " + (rateB * 100).toFixed(1) +
-"% provides the higher net monthly income from day one by approximately " +
+"% typically provides higher net monthly income from day one by approximately " +
 compareFormatRand(monthlyDifference) +
 " per month. Option A at " + (rateA * 100).toFixed(1) +
-"% provides lower monthly income, but includes an illustrative five-year loyalty bonus of " +
+"% provides lower monthly income, but includes an illustrative five-year loyalty benefit of " +
 compareFormatRand(grossBonusA) +
 " before dividends tax and " + compareFormatRand(netBonusA) +
-" after dividends tax. Over five years, Option " +
-(fiveYearWinner === "Option A" ? "A" : "B") +
-" produces the higher total net income by approximately " +
+" after dividends tax. Over five years, " +
+fiveYearWinnerShort +
+" produces the higher total benefit by approximately " +
 compareFormatRand(fiveYearDifference) +
-". The better option depends on whether the client values higher monthly cash flow from day one or a stronger total five-year outcome, subject to product risk, liquidity, tax and suitability."
+". The better fit depends on whether you prioritise higher income today or greater overall value after remaining invested—subject to risk, liquidity, tax and suitability."
 
 
 resultsBox.style.display = "block"

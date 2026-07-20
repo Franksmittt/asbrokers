@@ -63,7 +63,7 @@ export const CALCULATOR_REVIEW_META: Record<string, CalculatorReviewMeta> = {
   },
   "asset-015-average-clause": {
     group: "Insurance",
-    note: "Underinsurance claim reduction",
+    note: "Underinsurance / Average Clause education (problem-first)",
   },
   "asset-016-growth-comparison": {
     group: "Wealth building",

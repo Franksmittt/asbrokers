@@ -115,8 +115,8 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
       "We structure precise indemnification matched to turnover, capex, and continuity, including Average Clause and Business Interruption realities.",
     primaryCta: { label: "Book a commercial risk audit", href: "#risk-audit" },
     secondaryCta: {
-      label: "Run Average Clause calculator",
-      href: "/calculators/asset-015-average-clause",
+      label: "Run underinsurance calculator",
+      href: "/calculators/underinsurance-calculator",
     },
   },
   "/estate-planning": {

@@ -83,7 +83,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Medical aid & gap", href: "/solutions/medical-aid" },
       { label: "Discovery Health", href: "/solutions/discovery-health" },
       { label: "Risk architecture hub", href: "/insurance" },
-      { label: "Average Clause calculator", href: "/calculators/asset-015-average-clause" },
+      { label: "Underinsurance calculator", href: "/calculators/underinsurance-calculator" },
     ],
     accent: "orange",
     image: "/images/home-card-insurance.webp",

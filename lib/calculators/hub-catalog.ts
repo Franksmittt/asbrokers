@@ -92,7 +92,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-014-living-annuity":
     "Is your current retirement income sustainable? Test drawdown, tax and capital longevity.",
   "asset-015-average-clause":
-    "How underinsurance can reduce a claim when the average clause applies.",
+    "How much could underinsurance reduce your insurance claim?",
   "asset-016-growth-comparison":
     "See how different growth rates change long-term capital outcomes.",
   "asset-017-personal-goal":
@@ -177,7 +177,7 @@ export const HUB_DOMAINS: readonly HubDomain[] = [
   {
     id: "insurance",
     label: "Insurance",
-    lead: "See how underinsurance can reduce a property claim when the average clause applies.",
+    lead: "How much could underinsurance reduce your claim? Learn the Average Clause principle before renewal.",
     ids: ["asset-015-average-clause"],
   },
 ] as const;

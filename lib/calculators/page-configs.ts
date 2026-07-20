@@ -4224,58 +4224,247 @@ const PAGES: Record<string, PageContent> = {
 
   "asset-015-average-clause": {
     shortTitle: "Average Clause Calculator",
-    seoTitle: "Average Clause Calculator South Africa | Underinsurance",
+    seoTitle: "How Much Could Underinsurance Reduce Your Insurance Claim?",
     seoDescription:
-      "See how underinsurance reduces insurance claims when the average clause applies. Free average clause calculator for home and business assets. FSP 17273.",
-    keywords: ["average clause calculator", "underinsurance calculator", "insurance claim reduction"],
-    kicker: "Insurance & risk",
-    heroTitle: "How underinsurance cuts your claim",
+      "See how underinsurance and the average clause can reduce an insurance claim payout. Free educational underinsurance calculator for homes, contents and commercial property. FSP 17273.",
+    keywords: [
+      "underinsurance calculator",
+      "why was my insurance claim reduced",
+      "average clause calculator",
+      "underinsured claim payout",
+      "how much will insurance pay if underinsured",
+      "replacement value vs sum insured",
+    ],
+    kicker: "Financial Decision Library · Insurance education",
+    heroTitle: "How much could underinsurance reduce your insurance claim?",
     heroSubtitle:
-      "Illustrate claim reduction when sum insured is below replacement value. Essential for home, contents, and commercial property.",
+      "Most people assume that if they insure their property, their claim will be paid in full. Unfortunately, that is not always the case. If your building or contents are insured for less than their true replacement value, the Average Clause may reduce every claim—even relatively small ones. This calculator shows how underinsurance could affect your payout.",
     heroImage: "/images/calc-lcp/asset-015.webp",
-    heroImageAlt: "Homeowners checking cover — underinsurance can cut a claim",
+    heroImageAlt: "Homeowners reviewing sum insured against replacement value after a claim shock",
     calculatorLead:
-      "Enter replacement value, sum insured, and claim amount to see illustrative payment after average clause application.",
-    sidePanelTitle: "The average clause",
+      "Enter replacement value, sum insured and claim amount. The Average Clause Calculator shows the illustrative insurance percentage, claim payable and uninsured portion.",
+    sidePanelTitle: "Problem-first insurance education",
     sidePanelParagraphs: [
-      "Insurers may reduce claims proportionally when you are underinsured. The average clause catches families and businesses off guard after a loss.",
-      "Use this before renewing property cover with your broker.",
+      "This page is about underinsurance—the problem people search for—not about selling a policy. The Average Clause Calculator demonstrates the principle so you can understand the risk before renewal.",
+      "AS Brokers approaches insurance as education, analysis and ongoing review—not product-first selling.",
     ],
     sidePanelBullets: [
-      "Home and contents education",
-      "Commercial property risk",
-      "Sum insured vs replacement value",
-      "Book a risk review",
+      "Underinsurance explained plainly",
+      "Average Clause demonstration",
+      "Home, contents and commercial relevance",
+      "Review-oriented next step",
     ],
-    fiduciaryNotes: FIDUCIARY,
+    fiduciaryNotes: [
+      ...FIDUCIARY,
+      "Replacement value is not the same as market value. Land value is normally excluded from building replacement calculations.",
+      "Accurate replacement values should be professionally determined where appropriate. Policy wording and insurer assessment decide actual claim outcomes.",
+    ],
     howToSteps: [
-      { title: "Enter replacement value", description: "True cost to replace the asset today." },
-      { title: "Enter sum insured", description: "What your policy schedule shows." },
-      { title: "Add claim amount", description: "Loss value you are claiming for." },
-      { title: "See reduced payout", description: "Illustrative payment after average clause." },
+      { title: "Enter replacement value", description: "What it would cost to replace the building or contents today (not market value)." },
+      { title: "Enter sum insured", description: "The amount shown on your policy schedule." },
+      { title: "Add claim amount", description: "The loss you are illustrating—full or partial." },
+      { title: "Read the reduced payout", description: "See the insurance percentage, claim payable and uninsured portion." },
     ],
+    decisionQuestion: {
+      question: "If my property is underinsured, how much of my claim might I actually receive?",
+    },
+    heroCta: {
+      primaryLabel: "Calculate My Claim Reduction",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Explore insurance education",
+      secondaryHref: "/insurance",
+    },
+    contextBox: {
+      heading: "Underinsurance is the problem. The Average Clause is the mechanism.",
+      paragraphs: [
+        "Very few people search for “Average Clause.” They search for why a claim was reduced, why the insurer did not pay in full, or how much insurance will pay if they are underinsured.",
+        "This page educates about underinsurance. The calculator demonstrates the Average Clause principle.",
+      ],
+      highlightQuestion: "How much could underinsurance reduce your insurance claim?",
+    },
+    audienceGuide: {
+      heading: "Who should use this calculator?",
+      intro: "This calculator is useful for:",
+      items: [
+        "Homeowners",
+        "Sectional title owners",
+        "Landlords",
+        "Commercial property owners",
+        "Business owners",
+        "Anyone reviewing their short-term insurance",
+      ],
+    },
+    assumptionCallout: {
+      heading: "Replacement value disclaimer",
+      paragraphs: [
+        "Replacement value is not the same as market value. Land is normally excluded from building replacement calculations.",
+        "Accurate replacement values should be professionally determined where appropriate. This tool is an educational illustration only—it is not a claim assessment, quotation or advice to change cover.",
+      ],
+    },
+    resultGuide: {
+      heading: "How to read your result",
+      intro:
+        "The calculator shows the insurance percentage (sum insured ÷ replacement value), the illustrative claim payable after average, and the uninsured portion you may carry yourself.",
+      metricsListed: [
+        "Average / insurance percentage",
+        "Claim payable",
+        "Uninsured portion",
+      ],
+      footer:
+        "If the insurance percentage is below 100%, every claim—even a small one—may be reduced by the same proportion under typical average clause wording.",
+    },
+    valueProgress: {
+      heading: "Why does underinsurance reduce my claim?",
+      intro:
+        "Insurance is based on the assumption that your property is insured for its full replacement value. If you insure only part of its value, the insurer assumes you have chosen to carry part of the risk yourself. As a result, the same percentage is applied to every claim—even when your claim is much smaller than the total value of the property.",
+      assumptionNote: "Simple educational example (50% insured):",
+      steps: [
+        { label: "Replacement value", value: "R2 000 000" },
+        { label: "Sum insured", value: "R1 000 000" },
+        { label: "Insurance percentage", value: "50%" },
+        { label: "Claim", value: "R1 000 000" },
+        { label: "Claim paid", value: "R500 000" },
+      ],
+      footer:
+        "In this example, half the claim may be unpaid—not because the claim exceeded the sum insured, but because the property was only 50% insured relative to replacement value.",
+    },
+    withdrawalGuide: {
+      heading: "Common causes of underinsurance",
+      intro: "Underinsurance rarely happens overnight. These are among the most common reasons sums insured fall behind reality:",
+      levels: [
+        { label: "Rising building costs", description: "Construction and materials inflation lift replacement cost every year." },
+        { label: "Renovations not added to the policy", description: "Extensions, kitchens and security upgrades change replacement value." },
+        { label: "Inflation", description: "Contents and building costs rise while schedules stay static." },
+        { label: "Incorrect replacement values", description: "Guessing or using purchase price instead of rebuild cost." },
+        { label: "Outdated annual reviews", description: "Skipping reviews lets drift compound year after year." },
+        { label: "Guessing replacement costs", description: "Estimates without professional input are often too low." },
+        { label: "Improvements to the property", description: "Solar, pools, outbuildings and fittings add replacement cost." },
+      ],
+      closing:
+        "An annual insurance review is the practical way to keep buildings and contents aligned with replacement value.",
+    },
+    methodSection: {
+      heading: "Annual insurance reviews help prevent underinsurance",
+      paragraphs: [
+        "Replacement values change over time. An annual insurance review helps ensure your buildings and contents remain insured for their correct replacement value, reducing the risk of unexpected claim reductions.",
+        "The goal is not “buy insurance.” The goal is “review my insurance” so cover matches the risk you actually carry.",
+      ],
+      bullets: [
+        "Check building replacement value",
+        "Update contents after renovations",
+        "Review commercial sums insured",
+        "Confirm average clause exposure",
+      ],
+      ctaLabel: "Request an Insurance Review",
+      ctaHref: "/contact?source=insurance_review_asset_015",
+      secondaryCtaLabel: "Explore insurance education",
+      secondaryCtaHref: "/insurance",
+    },
+    assessmentSection: {
+      heading: "Request an Insurance Review",
+      intro:
+        "If the calculator shows a material uninsured portion, treat it as a signal to review—not as a product purchase prompt. A review checks whether your sums insured still match replacement reality.",
+      bullets: [
+        "Buildings and contents replacement values",
+        "Commercial property and stock exposures",
+        "Recent renovations or improvements",
+        "Average clause and related policy wording",
+      ],
+      ctaLabel: "Request an Insurance Review",
+      ctaHref: "/contact?source=insurance_review_asset_015",
+    },
+    journey: {
+      heading: "Continue learning across the Financial Decision Library",
+      items: [
+        {
+          stepLabel: "Insurance",
+          assetCode: "LEARN",
+          title: "Insurance Education",
+          description: "Policy gaps, claims education and short-term risk overview.",
+          href: "/insurance",
+        },
+        {
+          stepLabel: "Estate",
+          assetCode: "ASSET 007",
+          title: "Estate Duty Calculator",
+          description: "Measure estate cost and liquidity risk.",
+          href: calculatorPagePath("asset-007-estate-duty"),
+        },
+        {
+          stepLabel: "Retirement",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Measure the Retirement Gap before product talks.",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Library",
+          assetCode: "ASSET 000",
+          title: "Financial Decision Library",
+          description: "All educational calculators in one hub.",
+          href: "/calculators",
+        },
+      ],
+    },
+    terminalCta: {
+      heading: "Learn → Measure → Review",
+      body: "Asset 015 is a blueprint for insurance education on this site: answer a real financial question first, demonstrate the principle second, and invite a review—not a product sale—third.",
+      primaryLabel: "Request an Insurance Review",
+      primaryHref: "/contact?source=insurance_review_asset_015",
+      secondaryLabel: "Browse the Financial Decision Library",
+      secondaryHref: "/calculators",
+    },
     readingSections: [
       {
-        heading: "Why sums insured drift",
+        heading: "Why does underinsurance reduce my claim?",
         paragraphs: [
-          "Building costs, contents inflation, and renovations push replacement values up while policies stay static. Annual reviews prevent average clause shocks.",
-          "AS Brokers reviews short-term and commercial cover across multiple insurers including Santam, Old Mutual, and Bryte.",
+          "Insurance is based on the assumption that your property is insured for its full replacement value. If you insure only part of its value, the insurer assumes you have chosen to carry part of the risk yourself.",
+          "As a result, the same percentage is often applied to every claim. This can apply even when your claim is much smaller than the total value of the property—which is why underinsurance surprises so many people after a partial loss.",
+        ],
+      },
+      {
+        heading: "Future insurance education tools",
+        paragraphs: [
+          "This Average Clause / underinsurance calculator is the template for future insurance tools in the Financial Decision Library—each answering one practical question before any product discussion.",
+          "Planned education themes include building replacement value, home contents value, storm damage and burst-pipe guides, excess and write-off calculators, credit shortfall, business interruption, stock, fire, liability, cyber risk, rental loss and tenant liability. The objective is to help people understand insurance decisions before they need to make them.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
-        question: "Does this apply to all policies?",
+        question: "What is underinsurance?",
         answer:
-          "Average clause mechanics depend on policy wording. This tool educates on common principles. Review your schedule with your broker.",
+          "Underinsurance happens when the sum insured is lower than the true replacement value of the building, contents or other insured property. In that situation, many policies apply an average clause that reduces claims proportionally.",
       },
       {
-        question: "Does this assess my claim?",
+        question: "What is the Average Clause?",
         answer:
-          "No. It shows how the average clause can reduce a claim when underinsured. Ask your broker to review sums insured.",
-      }
+          "The Average Clause is the policy mechanism that reduces a claim when you are underinsured. A common educational illustration is: (Sum Insured ÷ Replacement Value) × Claim = Illustrative payout. Exact wording varies by insurer and policy.",
+      },
+      {
+        question: "Why was my insurance claim reduced?",
+        answer:
+          "One common reason is underinsurance. If your sum insured is below replacement value, the insurer may pay only the insured percentage of the claim—even for a relatively small loss. Other policy conditions can also affect outcomes; this tool focuses on the average principle.",
+      },
+      {
+        question: "Is replacement value the same as market value?",
+        answer:
+          "No. Replacement value is generally what it would cost to rebuild or replace, often excluding land. Market value is what a buyer might pay. Using market value as a proxy for sum insured can create underinsurance.",
+      },
+      {
+        question: "Does this calculator assess my real claim?",
+        answer:
+          "No. It is an educational illustration only. Actual claim outcomes depend on policy wording, endorsements, excesses, insurer assessment and professional valuation where required.",
+      },
+      {
+        question: "How do I reduce the risk of underinsurance?",
+        answer:
+          "Keep replacement values current, update the policy after renovations or improvements, avoid guessing rebuild costs, and request an annual insurance review so sums insured track reality.",
+      },
     ],
-    ...INSURANCE,
+    categoryLabel: "Insurance & Risk",
+    categoryHref: "/calculators#insurance-risk",
   },
 
   "asset-016-growth-comparison": {
@@ -4421,7 +4610,7 @@ export function getAllCalculatorPageConfigs(): CalculatorPageConfig[] {
   return CALCULATOR_REGISTRY.map(buildConfig);
 }
 
-const SLUG_ALIASES_FOR_STATIC = ["estate-duty-calculator"] as const;
+const SLUG_ALIASES_FOR_STATIC = ["estate-duty-calculator", "underinsurance-calculator"] as const;
 
 /** Registry ids plus SEO-friendly aliases used by /calculators/[slug]. */
 export const CALCULATOR_PAGE_SLUGS = [

@@ -44,9 +44,9 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Home, motor, and personal asset protection.",
     },
     {
-      href: "/calculators#asset-015-average-clause",
-      title: "Average clause calculator",
-      description: "See how underinsurance affects a claim payout.",
+      href: "/calculators/underinsurance-calculator",
+      title: "Underinsurance calculator",
+      description: "How much could underinsurance reduce your claim?",
     },
     {
       href: "/calculators#asset-004-life-of-capital",
@@ -100,9 +100,9 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Personal and commercial cover structured together.",
     },
     {
-      href: "/calculators/asset-015-average-clause",
-      title: "Average clause calculator",
-      description: "See how underinsurance can reduce a property claim payout.",
+      href: "/calculators/underinsurance-calculator",
+      title: "Underinsurance calculator",
+      description: "How much could underinsurance reduce your property claim payout?",
     },
     {
       href: "/contact?source=discovery_terminal",

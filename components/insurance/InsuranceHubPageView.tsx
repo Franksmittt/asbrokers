@@ -72,11 +72,11 @@ export function InsuranceHubPageView({ faqs }: Props) {
       {/* §1 Hero — light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Insurance" longLabel="Insurance" />}
-        title="Worried the Average Clause will shrink your next insurance claim?"
-        description="AS Brokers CC (FSP 17273) educates you on policy gaps first: Average Clause underinsurance, Business Interruption wording, and life premium traps, before anyone asks you to switch. Run the maths yourself. Then book advice if you want a needs analysis."
+        title="Worried underinsurance will shrink your next insurance claim?"
+        description="AS Brokers CC (FSP 17273) educates you on policy gaps first: underinsurance and the Average Clause, Business Interruption wording, and life premium traps—before anyone asks you to switch. Run the maths yourself. Then request a review if you want a needs analysis."
         actions={
           <HubHeroActions
-            primaryLabel="Check your Average Clause gap"
+            primaryLabel="Check your underinsurance risk"
             primaryHref={CALC_AVERAGE_CLAUSE}
           />
         }

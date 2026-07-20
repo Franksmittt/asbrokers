@@ -10,6 +10,7 @@ import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
 import { MetricsListedSection } from "@/components/calculators/MetricsListedSection";
+import { IncomeFlowCompare } from "@/components/calculators/IncomeFlowCompare";
 import { PracticalWaysSection } from "@/components/calculators/PracticalWaysSection";
 import { WithdrawalGuideSection } from "@/components/calculators/WithdrawalGuideSection";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
@@ -947,47 +948,10 @@ export function AssetCalculatorPageView({
       ) : null}
 
       {incomeFlow ? (
-        <section
-          data-chunk-boundary="true"
-          className="border-b border-stone-200/80 py-12 md:py-16"
-          style={lightSurface.next()}
-          aria-labelledby={`${path}-income-flow-heading`}
-        >
-          <div className={HOME4_WRAP}>
-            <h2
-              id={`${path}-income-flow-heading`}
-              className="max-w-3xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
-            >
-              {incomeFlow.heading}
-            </h2>
-            {incomeFlow.intro ? (
-              <p
-                className="mt-4 max-w-3xl leading-relaxed"
-                style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-              >
-                {incomeFlow.intro}
-              </p>
-            ) : null}
-            <ol className="mt-8 mx-auto flex max-w-md list-none flex-col items-center gap-0">
-              {incomeFlow.steps.map((step, index) => (
-                <li key={step} className="flex w-full flex-col items-center">
-                  <div className="w-full rounded-2xl bg-white px-5 py-4 text-center ring-1 ring-stone-200/90 sm:px-6">
-                    <p className="font-semibold text-shark">{step}</p>
-                  </div>
-                  {index < incomeFlow.steps.length - 1 ? (
-                    <span className="py-2 text-lg font-semibold" style={{ color: TEAL }} aria-hidden>
-                      ↓
-                    </span>
-                  ) : null}
-                </li>
-              ))}
-            </ol>
-            {incomeFlow.footer ? (
-              <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{incomeFlow.footer}</p>
-            ) : null}
-          </div>
-        </section>
+        <>
+          <IncomeFlowCompare path={path} incomeFlow={incomeFlow} />
+          {lightSurface.afterDark()}
+        </>
       ) : null}
 
       {readingSectionsPlacement === "after-results" ? renderReadingBlock() : null}

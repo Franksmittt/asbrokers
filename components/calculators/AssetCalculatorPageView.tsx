@@ -9,7 +9,7 @@ import { getRelatedLinks } from "@/lib/related-content";
 import type { CalculatorPageConfig } from "@/lib/calculators/page-configs";
 import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
-import { PracticalWaysCompare } from "@/components/calculators/PracticalWaysCompare";
+import { PracticalWaysSection } from "@/components/calculators/PracticalWaysSection";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -1038,7 +1038,8 @@ export function AssetCalculatorPageView({
 
       {readingSectionsPlacement === "after-results" ? renderReadingBlock() : null}
 
-      {practicalWays ? <PracticalWaysCompare path={path} practicalWays={practicalWays} /> : null}
+      {practicalWays ? <PracticalWaysSection path={path} practicalWays={practicalWays} /> : null}
+      {practicalWays ? lightSurface.afterDark() : null}
 
       {readingSectionsPlacement === "after-practical" ? renderReadingBlock() : null}
 

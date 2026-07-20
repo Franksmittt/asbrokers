@@ -44,6 +44,8 @@ export function AssetCalculatorPageView({
   heroCta,
   methodProgress,
   resultGuide,
+  withdrawalGuide,
+  timelineExample,
   practicalWays,
   methodSection,
   assessmentSection,
@@ -284,7 +286,11 @@ export function AssetCalculatorPageView({
             >
               {methodProgress.heading ?? "Where you are in the Retirement Gap Method™"}
             </h2>
-            <ol className="mt-8 grid list-none gap-4 md:grid-cols-3 md:items-stretch">
+            <ol
+              className={`mt-8 grid list-none gap-4 md:items-stretch ${
+                methodProgress.steps.length >= 4 ? "md:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"
+              }`}
+            >
               {methodProgress.steps.map((step) => {
                 const card = (
                   <div
@@ -298,6 +304,7 @@ export function AssetCalculatorPageView({
                       className="text-[11px] font-semibold uppercase tracking-[0.14em]"
                       style={{ color: step.current ? "#5EEAD4" : TEAL }}
                     >
+                      {step.completed && !step.current ? "✓ " : ""}
                       {step.stepLabel}
                     </p>
                     <p
@@ -431,18 +438,37 @@ export function AssetCalculatorPageView({
             <p className="mt-6 text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: TEAL }}>
               {resultGuide.bandsLead ?? "If your required annual growth rate is:"}
             </p>
-            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-              {resultGuide.bands.map((band) => (
-                <article
-                  key={band.label}
-                  className="flex h-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6"
-                >
-                  <h3 className="font-serif text-xl font-semibold tracking-tight" style={{ color: INK }}>
-                    {band.label}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{band.description}</p>
-                </article>
-              ))}
+            <div
+              className={`mt-4 grid grid-cols-1 gap-4 ${
+                resultGuide.bands.length >= 4 ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"
+              }`}
+            >
+              {resultGuide.bands.map((band) => {
+                const toneColor =
+                  band.tone === "excellent"
+                    ? "#0F766E"
+                    : band.tone === "reasonable"
+                      ? "#A16207"
+                      : band.tone === "caution"
+                        ? "#C2410C"
+                        : band.tone === "high-risk"
+                          ? "#B91C1C"
+                          : INK;
+                return (
+                  <article
+                    key={band.label}
+                    className="flex h-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6"
+                  >
+                    <h3
+                      className="font-serif text-xl font-semibold tracking-tight"
+                      style={{ color: toneColor }}
+                    >
+                      {band.label}
+                    </h3>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{band.description}</p>
+                  </article>
+                );
+              })}
             </div>
             {resultGuide.metricsListed && resultGuide.metricsListed.length > 0 ? (
               <div className="mt-8 max-w-3xl">
@@ -464,6 +490,103 @@ export function AssetCalculatorPageView({
             {resultGuide.footer ? (
               <p className="mt-6 max-w-3xl text-sm leading-relaxed text-stone-600">{resultGuide.footer}</p>
             ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {withdrawalGuide ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-12 md:py-16"
+          style={{ backgroundColor: CANVAS }}
+          aria-labelledby={`${path}-withdrawal-guide-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-withdrawal-guide-heading`}
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+            >
+              {withdrawalGuide.heading}
+            </h2>
+            <p
+              className="mt-4 max-w-3xl leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            >
+              {withdrawalGuide.intro}
+            </p>
+            {withdrawalGuide.exampleRateLabel ? (
+              <div className="mt-6 max-w-xl rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: TEAL }}>
+                  {withdrawalGuide.exampleRateLabel}
+                </p>
+                {withdrawalGuide.exampleRateNote ? (
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{withdrawalGuide.exampleRateNote}</p>
+                ) : null}
+              </div>
+            ) : null}
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {withdrawalGuide.levels.map((level) => (
+                <article
+                  key={level.label}
+                  className="rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6"
+                >
+                  <h3 className="font-semibold text-shark">{level.label}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{level.description}</p>
+                </article>
+              ))}
+            </div>
+            <p
+              className="mt-6 max-w-3xl leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            >
+              {withdrawalGuide.closing}
+            </p>
+          </div>
+        </section>
+      ) : null}
+
+      {timelineExample ? (
+        <section
+          data-chunk-boundary="true"
+          className="border-b border-stone-200/80 py-12 md:py-16"
+          style={{ backgroundColor: "#FDFCFA" }}
+          aria-labelledby={`${path}-timeline-heading`}
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id={`${path}-timeline-heading`}
+              className="max-w-3xl font-bold tracking-tight"
+              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+            >
+              {timelineExample.heading}
+            </h2>
+            <p
+              className="mt-4 max-w-3xl leading-relaxed"
+              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+            >
+              {timelineExample.intro}
+            </p>
+            <div className="mt-8 max-w-4xl rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-8">
+              <div className="flex justify-between gap-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-stone-500 sm:text-xs">
+                {timelineExample.ages.map((age) => (
+                  <span key={age}>Age {age}</span>
+                ))}
+              </div>
+              <div className="mt-4 h-4 overflow-hidden rounded-full bg-stone-100 ring-1 ring-stone-200/80">
+                <div
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${Math.min(100, Math.max(0, timelineExample.barPercent))}%`,
+                    backgroundColor: TEAL,
+                  }}
+                />
+              </div>
+              <p className="mt-4 text-sm font-semibold" style={{ color: INK }}>
+                {timelineExample.exhaustedLabel}
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-stone-600">{timelineExample.footer}</p>
+            </div>
           </div>
         </section>
       ) : null}
@@ -492,15 +615,25 @@ export function AssetCalculatorPageView({
               {practicalWays.intro}
             </p>
             <ol className="mt-8 max-w-3xl list-decimal space-y-3 pl-5">
-              {practicalWays.items.map((item) => (
-                <li
-                  key={item}
-                  className="leading-relaxed"
-                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-                >
-                  {item}
-                </li>
-              ))}
+              {practicalWays.items.map((item) => {
+                const label = typeof item === "string" ? item : item.label;
+                const href = typeof item === "string" ? undefined : item.href;
+                return (
+                  <li
+                    key={label}
+                    className="leading-relaxed"
+                    style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                  >
+                    {href ? (
+                      <Link href={href} prefetch={false} className="font-semibold hover:underline" style={{ color: TEAL }}>
+                        {label}
+                      </Link>
+                    ) : (
+                      label
+                    )}
+                  </li>
+                );
+              })}
             </ol>
             <p
               className="mt-6 max-w-3xl leading-relaxed"

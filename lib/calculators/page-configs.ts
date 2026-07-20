@@ -12,6 +12,8 @@ export type CalculatorContextBox = {
 export type CalculatorResultBand = {
   label: string;
   description: string;
+  /** Optional tone for 4-level sustainability scales (e.g. Excellent / High Risk). */
+  tone?: "excellent" | "reasonable" | "caution" | "high-risk" | "default";
 };
 
 export type CalculatorResultGuide = {
@@ -25,10 +27,12 @@ export type CalculatorResultGuide = {
   footer?: string;
 };
 
+export type CalculatorPracticalItem = string | { label: string; href?: string };
+
 export type CalculatorPracticalWays = {
   heading: string;
   intro: string;
-  items: string[];
+  items: CalculatorPracticalItem[];
   closing: string;
   ctaLabel?: string;
   ctaHref?: string;
@@ -50,11 +54,33 @@ export type CalculatorMethodProgressStep = {
   description: string;
   href?: string;
   current?: boolean;
+  /** Prior completed step in the Method journey (shows a check affordance). */
+  completed?: boolean;
 };
 
 export type CalculatorMethodProgress = {
   heading?: string;
   steps: CalculatorMethodProgressStep[];
+};
+
+export type CalculatorWithdrawalGuide = {
+  heading: string;
+  intro: string;
+  /** Educational example only — not live calculator output. */
+  exampleRateLabel?: string;
+  exampleRateNote?: string;
+  levels: { label: string; description: string }[];
+  closing: string;
+};
+
+export type CalculatorTimelineExample = {
+  heading: string;
+  intro: string;
+  ages: number[];
+  /** How far the bar fills (0–100), e.g. ~55 ≈ mid-to-late 70s on a 65–90 scale. */
+  barPercent: number;
+  exhaustedLabel: string;
+  footer: string;
 };
 
 export type CalculatorJourneyItem = {
@@ -139,6 +165,10 @@ export type CalculatorPageConfig = {
   methodProgress?: CalculatorMethodProgress;
   /** Plain-language interpretation of calculator outcomes (after the tool). */
   resultGuide?: CalculatorResultGuide;
+  /** Educational withdrawal-rate risk framing (does not alter the embed). */
+  withdrawalGuide?: CalculatorWithdrawalGuide;
+  /** Static illustrative capital-exhaustion timeline (educational example only). */
+  timelineExample?: CalculatorTimelineExample;
   practicalWays?: CalculatorPracticalWays;
   methodSection?: CalculatorMethodSection;
   assessmentSection?: CalculatorAssessmentSection;
@@ -837,28 +867,34 @@ const PAGES: Record<string, PageContent> = {
 
   "asset-004-life-of-capital": {
     shortTitle: "Life of Capital Calculator",
-    seoTitle: "Life of Capital Calculator | Retirement Drawdown South Africa",
+    seoTitle: "Life of Capital Calculator | Will Your Retirement Income Last?",
     seoDescription:
-      "Model how long retirement capital may last at your drawdown rate. Free life of capital calculator for retirees and pre-retirees. FSP 17273.",
-    keywords: ["life of capital calculator", "retirement drawdown calculator", "will my money last in retirement"],
-    kicker: "Retirement income",
-    heroTitle: "How long will your retirement capital last?",
+      "Estimate how long your retirement savings may last based on withdrawals, growth and inflation. Educational Life of Capital calculator in the Retirement Gap Toolkit™. FSP 17273.",
+    keywords: [
+      "life of capital calculator",
+      "will my money last in retirement",
+      "retirement drawdown calculator",
+      "retirement income sustainability",
+      "Retirement Gap Toolkit",
+    ],
+    kicker: "Retirement Gap Toolkit™ · Income sustainability",
+    heroTitle: "Will your retirement income last for the rest of your life?",
     heroSubtitle:
-      "Stress-test sustainable drawdown: see when capital may deplete at your chosen income, growth, and inflation assumptions.",
+      "Retirement isn't simply about how much money you have. It's about whether your retirement income can remain sustainable throughout your lifetime. This calculator estimates how long your retirement savings may last based on your withdrawals, investment growth and inflation.",
     heroImage: "/images/calc-lcp/asset-004.webp",
     heroImageAlt: "Retiree enjoying a secure lifestyle while capital longevity is planned",
     calculatorLead:
-      "Enter lump sum, monthly income draw, growth rate, and inflation to model capital longevity. Essential for living annuity and voluntary income planning.",
-    sidePanelTitle: "What this test shows",
+      "Enter lump sum, monthly income draw, growth rate, and inflation to model capital longevity. Educational illustration only—essential before living annuity and voluntary income decisions.",
+    sidePanelTitle: "From saving to living off savings",
     sidePanelParagraphs: [
-      "Retirement income is not only about yield. It is about how long capital sustains your lifestyle when markets, inflation, and drawdowns interact.",
-      "Already retired or within five years of retirement? This is often the first diagnostic we run.",
+      "This calculator marks the transition from accumulating retirement savings to living off them. After measuring your gap and estimating monthly savings, ask the question that keeps many retirees awake: will I outlive my money?",
+      "Next, structure sustainable income with the Living Annuity Calculator, then explore the full Retirement Gap Method™.",
     ],
     sidePanelBullets: [
-      "Drawdown sustainability stress-test",
-      "Inflation and growth sensitivity",
-      "Identify gaps before irreversible choices",
-      "Pairs with Living Annuity calculator",
+      "Stress-test drawdown sustainability",
+      "See inflation and growth sensitivity",
+      "Pairs with Reality Check and Premium tools",
+      "Primary next step: Living Annuity (Asset 014)",
     ],
     fiduciaryNotes: FIDUCIARY,
     howToSteps: [
@@ -867,22 +903,248 @@ const PAGES: Record<string, PageContent> = {
       { title: "Add growth and inflation", description: "Use conservative assumptions for stress-testing." },
       { title: "Read depletion timeline", description: "If capital runs out too soon, adjust income or strategy with an adviser." },
     ],
+    heroCta: {
+      primaryLabel: "Test My Retirement Longevity",
+      primaryHref: "#calculator-tool",
+      secondaryLabel: "Explore the Retirement Gap Toolkit™",
+      secondaryHref: "/calculators",
+    },
+    contextBox: {
+      heading: "Will I outlive my money?",
+      paragraphs: [
+        "Asset 002 asked whether you have enough to retire. Asset 003 asked how much you may need to save. Asset 004 asks the harder question: even if you retire, will your income last?",
+        "This page is the emotional centrepiece of the Retirement Gap Toolkit™—the bridge from accumulation to living off capital.",
+      ],
+      highlightQuestion: "Even if I retire… will my money actually last?",
+    },
+    methodProgress: {
+      heading: "Retirement Gap Journey",
+      steps: [
+        {
+          stepLabel: "Completed",
+          title: "Retirement Reality Check",
+          description: "Asset 002 — Measure your Retirement Gap",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+          completed: true,
+        },
+        {
+          stepLabel: "Completed",
+          title: "Retirement Premium Calculator",
+          description: "Asset 003 — Calculate the monthly saving required",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+          completed: true,
+        },
+        {
+          stepLabel: "You are here",
+          title: "Life of Capital Calculator",
+          description: "Asset 004 — Will your retirement income last?",
+          current: true,
+        },
+        {
+          stepLabel: "Next Step",
+          title: "Living Annuity Calculator",
+          description: "Asset 014 — Structure income so it lasts",
+          href: calculatorPagePath("asset-014-living-annuity"),
+        },
+      ],
+    },
+    resultGuide: {
+      heading: "Retirement sustainability outcomes",
+      intro:
+        "Do not treat the longevity numbers as a final verdict. Classify what the result generally suggests about sustainability under your assumptions.",
+      bandsLead: "Interpret your result as one of these outcomes:",
+      bands: [
+        {
+          label: "Excellent",
+          tone: "excellent",
+          description:
+            "Your assumptions suggest your retirement income appears sustainable. Continue reviewing your retirement plan regularly.",
+        },
+        {
+          label: "Reasonable",
+          tone: "reasonable",
+          description:
+            "Your retirement plan appears workable, but regular reviews remain important as markets, inflation and personal circumstances change.",
+        },
+        {
+          label: "Caution",
+          tone: "caution",
+          description:
+            "Your retirement capital may not support your desired retirement income throughout your expected retirement. Small adjustments today could significantly improve long-term sustainability.",
+        },
+        {
+          label: "High Risk",
+          tone: "high-risk",
+          description:
+            "Your assumptions indicate a significant probability of exhausting your retirement savings earlier than expected. Reviewing your withdrawal strategy and retirement income plan is recommended.",
+        },
+      ],
+      footer:
+        "These outcomes are educational interpretations only. Calculator results are illustrations based on your inputs—not guarantees or personalised advice.",
+    },
+    withdrawalGuide: {
+      heading: "Understanding your Starting Withdrawal Rate",
+      intro:
+        "When the calculator shows a starting withdrawal rate, treat it as a sustainability signal—not a product quote. Lower starting withdrawal rates generally improve long-term sustainability, although the appropriate rate depends on individual circumstances.",
+      exampleRateLabel: "Starting Withdrawal Rate",
+      exampleRateNote:
+        "Read the rate the tool produces for your inputs, then compare it with the risk framing below.",
+      levels: [
+        {
+          label: "Green — Lower risk band",
+          description: "A more conservative starting rate generally leaves more room for inflation, market shocks and longevity.",
+        },
+        {
+          label: "Yellow — Moderate risk band",
+          description: "May be workable with disciplined reviews, but there is less margin for unexpected costs or poor returns.",
+        },
+        {
+          label: "Orange — Elevated risk band",
+          description: "Sustainability may be under pressure. Consider reducing withdrawals, delaying retirement, or adjusting expectations.",
+        },
+        {
+          label: "Red — High risk band",
+          description: "A high starting rate often signals a material chance of exhausting capital earlier than hoped. Review strategy promptly.",
+        },
+      ],
+      closing:
+        "The right withdrawal rate is personal. Pair this illustration with the Living Annuity Calculator and a Retirement Gap Review before changing income.",
+    },
+    timelineExample: {
+      heading: "How to read a capital exhaustion timeline",
+      intro:
+        "A simple timeline communicates longevity faster than paragraphs alone. The example below is educational—use your calculator result to estimate where capital may run out under your own assumptions.",
+      ages: [65, 70, 75, 80, 85, 90],
+      barPercent: 53,
+      exhaustedLabel: "Capital exhausted here · example Age 78 years 4 months",
+      footer:
+        "Illustrative example only. Your calculator output may show a different depletion point based on withdrawals, growth and inflation.",
+    },
+    practicalWays: {
+      heading: "Four ways to help your retirement savings last longer",
+      intro: "If longevity looks tight, focus on levers you can still influence:",
+      items: [
+        {
+          label: "Reduce annual withdrawals.",
+          href: calculatorPagePath("asset-014-living-annuity"),
+        },
+        {
+          label: "Improve long-term investment growth.",
+          href: calculatorPagePath("asset-001-retirement-growth"),
+        },
+        {
+          label: "Delay retirement where practical.",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          label: "Reduce future living expenses.",
+          href: calculatorPagePath("asset-005-future-value"),
+        },
+      ],
+      closing:
+        "Related Toolkit tools and Method guidance help you explore these levers. Educational articles will deepen each theme as they are published.",
+      ctaLabel: "Continue to the Living Annuity Calculator",
+      ctaHref: calculatorPagePath("asset-014-living-annuity"),
+    },
+    methodSection: {
+      heading: "Structure income so it lasts",
+      paragraphs: [
+        "If Asset 004 creates concern, the next practical step is learning how to structure retirement income. The Living Annuity Calculator (Asset 014) explores drawdown within regulated bands.",
+        "The Retirement Gap Method™ then brings Reality Check, Premium, Life of Capital, Future Value and Living Annuity tools into one framework.",
+      ],
+      bullets: [
+        "Living annuity drawdown bands",
+        "Inflation-aware income planning",
+        "Tax and sustainability trade-offs",
+        "Review cadence after retirement",
+      ],
+      ctaLabel: "Open the Living Annuity Calculator",
+      ctaHref: calculatorPagePath("asset-014-living-annuity"),
+      secondaryCtaLabel: "Learn the Retirement Gap Method™",
+      secondaryCtaHref: "/retirement-gap-method",
+    },
+    assessmentSection: {
+      heading: "Need help interpreting longevity risk?",
+      intro:
+        "A Retirement Gap Review helps test whether your withdrawal assumptions, growth outlook and lifestyle needs are realistic—and which changes could improve sustainability.",
+      bullets: [
+        "Current capital and income needs",
+        "Withdrawal rate and longevity assumptions",
+        "Inflation and sequence-of-returns sensitivity",
+        "Practical next steps including living annuity structure",
+      ],
+      ctaLabel: "Book a Retirement Gap Review",
+      ctaHref: "/contact?source=retirement_gap_review_asset_004",
+    },
+    journey: {
+      heading: "Continue Your Retirement Gap Journey",
+      items: [
+        {
+          stepLabel: "Previous",
+          assetCode: "ASSET 002",
+          title: "Retirement Reality Check",
+          description: "Do I have enough to retire?",
+          href: calculatorPagePath("asset-002-retirement-reality-check"),
+        },
+        {
+          stepLabel: "Previous",
+          assetCode: "ASSET 003",
+          title: "Retirement Premium Calculator",
+          description: "How much do I need to save?",
+          href: calculatorPagePath("asset-003-retirement-premium"),
+        },
+        {
+          stepLabel: "Next",
+          assetCode: "ASSET 014",
+          title: "Living Annuity Calculator",
+          description: "How do I structure retirement income so it lasts?",
+          href: calculatorPagePath("asset-014-living-annuity"),
+        },
+        {
+          stepLabel: "Also explore",
+          assetCode: "ASSET 005",
+          title: "Future Value Calculator",
+          description: "See how inflation erodes purchasing power over time.",
+          href: calculatorPagePath("asset-005-future-value"),
+        },
+        {
+          stepLabel: "Complete Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "The full educational framework connecting every Toolkit calculator.",
+          href: "/retirement-gap-method",
+        },
+      ],
+    },
+    terminalOptions: {
+      heading: "Your retirement plan should survive your retirement.",
+      options: [
+        {
+          title: "The objective isn't simply generating retirement income.",
+          description:
+            "It's making sure that income lasts for as long as you do. Book a Retirement Gap Review for a personalised sustainability discussion.",
+          ctaLabel: "Book a Retirement Gap Review",
+          ctaHref: "/contact?source=retirement_gap_review_asset_004",
+        },
+        {
+          title: "Continue with the Retirement Gap Method™",
+          description:
+            "See how Life of Capital connects to Living Annuity, Reality Check, Premium and the rest of the Retirement Gap Toolkit™.",
+          ctaLabel: "Continue with the Retirement Gap Method™",
+          ctaHref: "/retirement-gap-method",
+        },
+      ],
+    },
     readingSections: [
       {
-        heading: "Drawdown risk in South African retirement",
+        heading: "Why retirement capital runs out",
         paragraphs: [
-          "Living annuities and voluntary income products give flexibility, but drawdowns that look fine in year one can fail in year fifteen when sequences of returns and inflation compound.",
-          "Regulation 28, tax on income, and medical inflation all affect real outcomes. Use this tool to prepare questions for a fiduciary review.",
-        ],
-      },
-      {
-        heading: "Amethyst and alternative yield strategies",
-        paragraphs: [
-          "Some clients pair living annuity capital with structured yield solutions where suitable. Liquidity, minimums, and suitability rules apply.",
-          "Everest voluntary products carry R100k minimums and liquidity constraints. Discuss fit with FSP 17273 before committing capital.",
+          "Retirement savings are usually exhausted because one or more of the following occur: withdrawals are too high; inflation is higher than expected; investment returns disappoint; retirement lasts longer than planned; tax reduces available retirement income; or unexpected expenses arise.",
+          "The good news is that many of these factors can still be managed through good retirement planning. Revisit your Reality Check and Premium results, explore Future Value for inflation pressure, then structure income with the Living Annuity Calculator.",
         ],
       },
     ],
+    readingSectionsPlacement: "after-results",
     faqs: [
       {
         question: "What drawdown rate is safe?",
@@ -894,8 +1156,39 @@ const PAGES: Record<string, PageContent> = {
         answer:
           "It illustrates capital longevity. For living annuity income mechanics, use our Living Annuity calculator as well.",
       },
+      {
+        question: "How much can I safely withdraw each year?",
+        answer:
+          "Safe withdrawal depends on your age, capital, investment mix, fees, inflation and longevity. This calculator helps you stress-test assumptions; a Retirement Gap Review can personalise the answer.",
+      },
+      {
+        question: "Why can retirement savings run out even when investments perform well?",
+        answer:
+          "Strong long-term averages can still fail if early withdrawals are high, inflation spikes, or a poor sequence of returns hits early in retirement. Longevity and tax also matter.",
+      },
+      {
+        question: "What is sequence-of-returns risk?",
+        answer:
+          "It is the risk that poor investment returns early in retirement—while you are withdrawing—permanently damage capital, even if later returns recover. Timing matters as much as average return.",
+      },
+      {
+        question: "Does inflation really make that much difference?",
+        answer:
+          "Yes. Even moderate inflation compounds over a multi-decade retirement and can quietly turn an adequate income into a shortfall. Pair this tool with the Future Value Calculator.",
+      },
+      {
+        question: "Should I reduce my spending or change my investments?",
+        answer:
+          "Both can help, and the better mix depends on your circumstances and risk tolerance. Many people improve sustainability by adjusting withdrawals first, then reviewing strategy with an adviser.",
+      },
+      {
+        question: "Can working two more years significantly improve retirement outcomes?",
+        answer:
+          "Often yes. Extra contribution years, delayed drawdown and a shorter funded retirement can materially improve longevity—though health and career reality still matter.",
+      },
     ],
-    ...RETIREMENT,
+    categoryLabel: "Retirement Income",
+    categoryHref: "/calculators#retirement-income",
   },
 
   "asset-005-future-value": {

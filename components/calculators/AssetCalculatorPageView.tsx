@@ -11,6 +11,7 @@ import { createLightSurfaceAssigner } from "@/lib/calculators/section-surface";
 import { ContextBoxSection } from "@/components/calculators/ContextBoxSection";
 import { MetricsListedSection } from "@/components/calculators/MetricsListedSection";
 import { PracticalWaysSection } from "@/components/calculators/PracticalWaysSection";
+import { WithdrawalGuideCompare } from "@/components/calculators/WithdrawalGuideCompare";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight, ChevronRight, Lock } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
@@ -779,55 +780,10 @@ export function AssetCalculatorPageView({
       ) : null}
 
       {withdrawalGuide ? (
-        <section
-          data-chunk-boundary="true"
-          className="border-b border-stone-200/80 py-12 md:py-16"
-          style={lightSurface.next()}
-          aria-labelledby={`${path}-withdrawal-guide-heading`}
-        >
-          <div className={HOME4_WRAP}>
-            <h2
-              id={`${path}-withdrawal-guide-heading`}
-              className="max-w-3xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
-            >
-              {withdrawalGuide.heading}
-            </h2>
-            <p
-              className="mt-4 max-w-3xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              {withdrawalGuide.intro}
-            </p>
-            {withdrawalGuide.exampleRateLabel ? (
-              <div className="mt-6 max-w-xl rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: TEAL }}>
-                  {withdrawalGuide.exampleRateLabel}
-                </p>
-                {withdrawalGuide.exampleRateNote ? (
-                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{withdrawalGuide.exampleRateNote}</p>
-                ) : null}
-              </div>
-            ) : null}
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {withdrawalGuide.levels.map((level) => (
-                <article
-                  key={level.label}
-                  className="rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-6"
-                >
-                  <h3 className="font-semibold text-shark">{level.label}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{level.description}</p>
-                </article>
-              ))}
-            </div>
-            <p
-              className="mt-6 max-w-3xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              {withdrawalGuide.closing}
-            </p>
-          </div>
-        </section>
+        <>
+          <WithdrawalGuideCompare path={path} withdrawalGuide={withdrawalGuide} />
+          {lightSurface.afterDark()}
+        </>
       ) : null}
 
       {timelineExample ? (
@@ -838,38 +794,44 @@ export function AssetCalculatorPageView({
           aria-labelledby={`${path}-timeline-heading`}
         >
           <div className={HOME4_WRAP}>
-            <h2
-              id={`${path}-timeline-heading`}
-              className="max-w-3xl font-bold tracking-tight"
-              style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
-            >
-              {timelineExample.heading}
-            </h2>
-            <p
-              className="mt-4 max-w-3xl leading-relaxed"
-              style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
-            >
-              {timelineExample.intro}
-            </p>
-            <div className="mt-8 max-w-4xl rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-8">
-              <div className="flex justify-between gap-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-stone-500 sm:text-xs">
-                {timelineExample.ages.map((age) => (
-                  <span key={age}>Age {age}</span>
-                ))}
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
+              <div className="lg:col-span-4">
+                <h2
+                  id={`${path}-timeline-heading`}
+                  className="font-bold tracking-tight"
+                  style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem)", color: INK }}
+                >
+                  {timelineExample.heading}
+                </h2>
+                <p
+                  className="mt-4 leading-relaxed"
+                  style={{ fontSize: "clamp(1rem, 0.95rem + 0.15vw, 1.0625rem)", color: BODY }}
+                >
+                  {timelineExample.intro}
+                </p>
               </div>
-              <div className="mt-4 h-4 overflow-hidden rounded-full bg-stone-100 ring-1 ring-stone-200/80">
-                <div
-                  className="h-full rounded-full"
-                  style={{
-                    width: `${Math.min(100, Math.max(0, timelineExample.barPercent))}%`,
-                    backgroundColor: TEAL,
-                  }}
-                />
+              <div className="lg:col-span-8">
+                <div className="rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 sm:p-8">
+                  <div className="flex justify-between gap-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-stone-500 sm:text-xs">
+                    {timelineExample.ages.map((age) => (
+                      <span key={age}>Age {age}</span>
+                    ))}
+                  </div>
+                  <div className="mt-4 h-4 overflow-hidden rounded-full bg-stone-100 ring-1 ring-stone-200/80">
+                    <div
+                      className="h-full rounded-full"
+                      style={{
+                        width: `${Math.min(100, Math.max(0, timelineExample.barPercent))}%`,
+                        backgroundColor: TEAL,
+                      }}
+                    />
+                  </div>
+                  <p className="mt-4 text-sm font-semibold sm:text-base" style={{ color: INK }}>
+                    {timelineExample.exhaustedLabel}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-stone-600">{timelineExample.footer}</p>
+                </div>
               </div>
-              <p className="mt-4 text-sm font-semibold" style={{ color: INK }}>
-                {timelineExample.exhaustedLabel}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-stone-600">{timelineExample.footer}</p>
             </div>
           </div>
         </section>

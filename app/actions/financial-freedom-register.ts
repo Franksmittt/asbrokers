@@ -52,6 +52,6 @@ export async function submitFinancialFreedomRegistration(
   return {
     success: true,
     message:
-      "Registration captured. Payment checkout is the next step — once payment is confirmed, membership activates and unlocks the Goal Engineering Planner™.",
+      "Registration captured. Payment checkout is the next step, once payment is confirmed, membership activates and unlocks the Goal Engineering Planner™.",
   };
 }

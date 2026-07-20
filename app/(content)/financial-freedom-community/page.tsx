@@ -17,7 +17,7 @@ export const metadata = buildPageMetadata({
   path: "/financial-freedom-community",
   title: "Financial Freedom Community™ | 12-Week Programme",
   description:
-    "Join the Financial Freedom Community™ — a 12-week educational programme that unlocks members-only planning tools including the Goal Engineering Planner™. FSP 17273.",
+    "Join the Financial Freedom Community™, a 12-week educational programme that unlocks members-only planning tools including the Goal Engineering Planner™. FSP 17273.",
   keywords: [
     "Financial Freedom Community",
     "12-week financial freedom programme",
@@ -59,7 +59,7 @@ export default function FinancialFreedomCommunityPage() {
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
               The 12-week programme builds financial literacy and unlocks proprietary members-area
-              tools — including the Goal Engineering Planner™ — after registration and payment.
+              tools, including the Goal Engineering Planner™, after registration and payment.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -94,15 +94,15 @@ export default function FinancialFreedomCommunityPage() {
             </h2>
             <ol className="mt-6 space-y-4 text-base leading-relaxed" style={{ color: BODY }}>
               <li>
-                <strong style={{ color: INK }}>1. Register</strong> — name, surname, email, mobile,
+                <strong style={{ color: INK }}>1. Register</strong>, name, surname, email, mobile,
                 location and goal context.
               </li>
               <li>
-                <strong style={{ color: INK }}>2. Pay</strong> — complete programme payment to
+                <strong style={{ color: INK }}>2. Pay</strong>, complete programme payment to
                 activate membership.
               </li>
               <li>
-                <strong style={{ color: INK }}>3. Unlock</strong> — access the Goal Engineering
+                <strong style={{ color: INK }}>3. Unlock</strong>, access the Goal Engineering
                 Planner™ and members learning centre tools.
               </li>
             </ol>

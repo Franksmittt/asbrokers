@@ -182,7 +182,7 @@ font-size: 32px;
 
 
 <p class="intro">
-Estimate how much monthly and annual retirement income a distribution investment could produce after dividend withholding tax. The percentage is one possible solution—the outcome that matters is usable income.
+Estimate how much monthly and annual retirement income a distribution investment could produce after dividend withholding tax. The percentage is one possible solution, the outcome that matters is usable income.
 </p>
 
 
@@ -272,7 +272,7 @@ This calculator is an educational illustration only. It is not a quote, guarante
 
 
 <script>
-/** Product / illustration parameters — update here if the investment or tax treatment changes. */
+/** Product / illustration parameters, update here if the investment or tax treatment changes. */
 var INCOME_142_PARAMS = {
 defaultDistributionRatePct: 14.2,
 defaultDwtPct: 20,
@@ -412,11 +412,11 @@ document.getElementById("income142NetRate").innerText =
 
 document.getElementById("income142SummaryText").innerText =
 "Could about " + income142FormatRand(netMonthlyIncome) +
-" per month cover your expected retirement expenses—or only part of them? Is relying on a single investment appropriate for your Retirement Gap, or would combining income sources improve sustainability? What happens if distributions reduce, and does your plan need income growth as inflation rises? Use the Retirement Reality Check, Life of Capital and Income Comparison tools to pressure-test these questions. This illustration uses a targeted " +
+" per month cover your expected retirement expenses, or only part of them? Is relying on a single investment appropriate for your Retirement Gap, or would combining income sources improve sustainability? What happens if distributions reduce, and does your plan need income growth as inflation rises? Use the Retirement Reality Check, Life of Capital and Income Comparison tools to pressure-test these questions. This illustration uses a targeted " +
 (returnRate * 100).toFixed(1) +
 "% distribution and " +
 (dividendTaxRate * 100).toFixed(1) +
-"% dividend withholding tax—it is not a guarantee of income.";
+"% dividend withholding tax, it is not a guarantee of income.";
 
 
 resultsBox.style.display = "block"

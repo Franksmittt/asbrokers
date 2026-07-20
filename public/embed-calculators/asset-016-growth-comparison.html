@@ -194,11 +194,11 @@ font-size: 28px;
 
 <h2>Power of Growth Calculator</h2>
 <p class="intro">
-Measure the financial cost of waiting. Compare starting today with delaying the same decision—
+Measure the financial cost of waiting. Compare starting today with delaying the same decision, 
 then see how different long-term growth rates change the mathematical outcome.
 </p>
 
-<div class="asb-section-title">Scenario A — Start today</div>
+<div class="asb-section-title">Scenario A, Start today</div>
 <div class="asb-grid">
 <div class="asb-field">
 <label for="pogCurrency">Currency</label>
@@ -232,7 +232,7 @@ then see how different long-term growth rates change the mathematical outcome.
 </div>
 </div>
 
-<div class="asb-section-title">Scenario B — Delay starting</div>
+<div class="asb-section-title">Scenario B, Delay starting</div>
 <div class="asb-grid">
 <div class="asb-field">
 <label for="pogDelay">Start later</label>
@@ -310,7 +310,7 @@ Calculate the cost of waiting
 <div class="asb-result-box">
 <div class="asb-label">Compare different growth rates</div>
 <p class="asb-small" style="margin-top:0">
-Same capital. Same investment period. Different annual returns. Mathematical outcomes only—not investment recommendations.
+Same capital. Same investment period. Different annual returns. Mathematical outcomes only, not investment recommendations.
 </p>
 <table class="asb-rate-table">
 <thead>
@@ -464,7 +464,7 @@ rate.toFixed(0) +
 "%</td><td>" +
 pogFormatMoney(fv, symbol) +
 "</td><td>" +
-(rate === 8 ? "—" : "+" + pogFormatMoney(extra, symbol)) +
+(rate === 8 ? ", " : "+" + pogFormatMoney(extra, symbol)) +
 "</td></tr>";
 }
 document.getElementById("pogRateRows").innerHTML = rowsHtml;
@@ -487,7 +487,7 @@ pogFormatMoney(later.balance, symbol) +
 pogFormatMoney(cost, symbol) +
 " (" +
 pctDiff.toFixed(1) +
-"% lower). Time is often more valuable than return—this is a mathematical illustration only, not investment advice.";
+"% lower). Time is often more valuable than return, this is a mathematical illustration only, not investment advice.";
 }
 
 resultsBox.style.display = "block";

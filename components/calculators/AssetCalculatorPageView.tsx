@@ -97,7 +97,7 @@ export function AssetCalculatorPageView({
           Use this before you calculate
         </p>
         <p className="mt-3 text-base leading-relaxed text-white/75 sm:text-lg">
-          Answer the question honestly first. The calculator then helps you measure the consequence—
+          Answer the question honestly first. The calculator then helps you measure the consequence, 
           not choose a product.
         </p>
       </div>
@@ -256,7 +256,7 @@ export function AssetCalculatorPageView({
                 quality={CALC_SPLIT_HERO_QUALITY}
                 priority
                 fetchPriority="high"
-                // Site-wide images.unoptimized — calc-lcp WebPs are pre-sized ~400×300.
+                // Site-wide images.unoptimized, calc-lcp WebPs are pre-sized ~400×300.
                 unoptimized
                 className="object-cover object-center"
                 sizes={CALC_SPLIT_HERO_SIZES}
@@ -760,7 +760,7 @@ export function AssetCalculatorPageView({
                           Calculator to explore
                         </p>
                         <p className="sm:mt-0 mt-1">
-                          {row.current ? "This calculator — " : null}
+                          {row.current ? "This calculator, " : null}
                           {tool}
                         </p>
                       </div>

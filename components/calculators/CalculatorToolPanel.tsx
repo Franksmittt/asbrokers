@@ -11,7 +11,7 @@ type Props = {
 };
 
 /**
- * Calculator always visible — SSR iframe (works with JS off).
+ * Calculator always visible, SSR iframe (works with JS off).
  * Height bridge + lead form are deferred client islands. Embed HTML untouched.
  */
 export function CalculatorToolPanel({

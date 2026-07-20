@@ -150,7 +150,7 @@ export function FloatingChat({ autoFocusInput = false }: FloatingChatProps = {})
           }
           transition={transition}
           className={clsx(
-            /* Solid dark panel — translucent glass over warm canvas made chat text unreadable. */
+            /* Solid dark panel, translucent glass over warm canvas made chat text unreadable. */
             "fixed z-[95] flex flex-col overflow-hidden border border-white/12 bg-[#0a0a0c] shadow-2xl",
             hideOverFooter && "pointer-events-none",
             mode === "open" &&

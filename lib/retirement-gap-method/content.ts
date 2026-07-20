@@ -1,5 +1,5 @@
 /**
- * Editable content for Asset 018 — The Retirement Gap Method™ cornerstone page.
+ * Editable content for Asset 018: The Retirement Gap Method™ cornerstone page.
  * Workshop fields stay soft (no hard-coded session dates). Update here when Albert supplies schedules.
  */
 
@@ -12,7 +12,7 @@ export const REVIEW_HREF = "/contact?source=retirement_gap_review";
 export const FFC_PATH = "/financial-freedom-community";
 export const FFC_REGISTER_PATH = "/financial-freedom-community/register";
 
-/** Workshop block — keep dates editable / TBA; never hard-code a stale calendar. */
+/** Workshop block, keep dates editable / TBA; never hard-code a stale calendar. */
 export const RETIREMENT_GAP_WORKSHOP = {
   eyebrow: "Complimentary educational workshop",
   title: "Retirement Gap Method™ Workshop",
@@ -20,12 +20,12 @@ export const RETIREMENT_GAP_WORKSHOP = {
     "Learn how the Toolkit calculators, education and advice pathways fit together in one practical session.",
   bullets: [
     "How to understand and measure your Retirement Gap",
-    "How the Toolkit calculators work as a journey—not isolated tools",
+    "How the Toolkit calculators work as a journey, not isolated tools",
     "Common retirement planning mistakes to avoid",
     "Where the Financial Freedom Community™ fits after the workshop",
     "When a personalised Retirement Gap Review may help",
   ],
-  /** Soft status copy — replace when a live session is confirmed. */
+  /** Soft status copy, replace when a live session is confirmed. */
   scheduleNote: "Upcoming session dates are announced periodically. Reserve your interest to be notified.",
   formatNote: "Complimentary educational workshop. No product pitch. Educational purposes only.",
   primaryCtaLabel: "Reserve My Workshop Seat",
@@ -48,7 +48,7 @@ export const METHOD_JOURNEY_STEPS = [
   {
     step: "03",
     title: "Understand",
-    description: "Interpret results through the Method—what the numbers mean for decisions that matter.",
+    description: "Interpret results through the Method, what the numbers mean for decisions that matter.",
   },
   {
     step: "04",
@@ -58,7 +58,7 @@ export const METHOD_JOURNEY_STEPS = [
   {
     step: "05",
     title: "Review",
-    description: "Revisit progress regularly—and book personalised advice when you are ready.",
+    description: "Revisit progress regularly, and book personalised advice when you are ready.",
   },
 ] as const;
 
@@ -66,10 +66,10 @@ export const GAP_CAUSE_CARDS = [
   { title: "Started saving too late", description: "Fewer years of compounding leave a larger shortfall to close." },
   { title: "Saved too little", description: "Contribution rates that feel manageable today may not fund tomorrow’s lifestyle." },
   { title: "Inflation", description: "Rising living costs quietly raise the income you will need in retirement." },
-  { title: "Investment fees", description: "Costs compound against you—small percentages matter over decades." },
+  { title: "Investment fees", description: "Costs compound against you, small percentages matter over decades." },
   { title: "Poor investment decisions", description: "Chasing returns or reacting to markets can derail long-term plans." },
   { title: "Early withdrawals", description: "Accessing retirement capital early reduces what remains for later life." },
-  { title: "Living longer than expected", description: "Longevity is a gift—and a funding challenge for sustainable income." },
+  { title: "Living longer than expected", description: "Longevity is a gift, and a funding challenge for sustainable income." },
   { title: "Rising retirement expenses", description: "Healthcare, housing and lifestyle costs can outpace early assumptions." },
 ] as const;
 
@@ -98,7 +98,7 @@ export const LEARN_PATH_CARDS = [
 export const METHOD_TOOLKIT_LINKS = [
   {
     title: "Retirement Reality Check",
-    description: "Have I saved enough—and how big is the gap?",
+    description: "Have I saved enough, and how big is the gap?",
     href: calculatorPagePath("asset-002-retirement-reality-check"),
     assetCode: "ASSET 002",
   },
@@ -138,7 +138,7 @@ export const METHOD_FAQS = [
   {
     question: "What is the Retirement Gap Method™?",
     answer:
-      "It is a practical educational framework that helps South Africans understand, measure and progressively close their Retirement Gap through better financial decisions—using calculators, education, workshops, community learning and personalised advice where appropriate.",
+      "It is a practical educational framework that helps South Africans understand, measure and progressively close their Retirement Gap through better financial decisions, using calculators, education, workshops, community learning and personalised advice where appropriate.",
   },
   {
     question: "Is this financial advice?",
@@ -178,6 +178,6 @@ export const METHOD_FAQS = [
   {
     question: "Can I book an appointment instead?",
     answer:
-      "Yes. You can book a Retirement Gap Review at any time if you prefer personalised advice rather than—or in addition to—self-guided learning.",
+      "Yes. You can book a Retirement Gap Review at any time if you prefer personalised advice rather than, or in addition to, self-guided learning.",
   },
 ] as const;

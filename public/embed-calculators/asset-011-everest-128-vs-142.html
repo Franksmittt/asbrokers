@@ -205,7 +205,7 @@ grid-template-columns: 1fr;
 
 
 <p class="intro">
-Compare financial outcomes—not products. Estimate income, tax, and total five-year benefits for two income strategies so you can understand the trade-offs before making a decision.
+Compare financial outcomes, not products. Estimate income, tax, and total five-year benefits for two income strategies so you can understand the trade-offs before making a decision.
 </p>
 
 
@@ -334,7 +334,7 @@ Compare financial outcomes—not products. Estimate income, tax, and total five-
 
 
 <div class="asb-result-box">
-<div class="asb-label">Facts only — no recommendation</div>
+<div class="asb-label">Facts only, no recommendation</div>
 <div id="compareSummaryText" class="asb-small"></div>
 </div>
 </div>
@@ -343,7 +343,7 @@ Compare financial outcomes—not products. Estimate income, tax, and total five-
 <div class="asb-cta">
 <h3>Assumptions &amp; notes</h3>
 <p>
-Illustrative comparison of two income strategies using assumed dividends tax and an illustrative five-year loyalty benefit on Option A. Underlying product structures may be described elsewhere as Strategic Income (12.8%) and Onyx Income+ (14.2%); product names are secondary—this tool compares outcomes.
+Illustrative comparison of two income strategies using assumed dividends tax and an illustrative five-year loyalty benefit on Option A. Underlying product structures may be described elsewhere as Strategic Income (12.8%) and Onyx Income+ (14.2%); product names are secondary, this tool compares outcomes.
 It is not a quote, guarantee, recommendation or offer to invest. Confirm product terms, risk, liquidity, fees, return profile and tax treatment before any decision.
 </p>
 
@@ -470,13 +470,13 @@ const fiveYearWinnerShort = totalFiveYearA > totalFiveYearB ? "Option A" : "Opti
 document.getElementById("compareMonthlyWinner").innerText = monthlyWinner;
 document.getElementById("compareMonthlyWinnerText").innerText =
 monthlyWinner + " provides approximately " + compareFormatRand(monthlyDifference) +
-" more net monthly income. This is a factual comparison only—not a recommendation."
+" more net monthly income. This is a factual comparison only, not a recommendation."
 
 
 document.getElementById("compareFiveYearWinner").innerText = fiveYearWinner;
 document.getElementById("compareFiveYearWinnerText").innerText =
 fiveYearWinner + " provides approximately " + compareFormatRand(fiveYearDifference) +
-" more total five-year benefit after loyalty benefits where applicable. Facts only—not advice."
+" more total five-year benefit after loyalty benefits where applicable. Facts only, not advice."
 
 
 document.getElementById("compareFiveYearDifference").innerText =
@@ -528,7 +528,7 @@ compareFormatRand(grossBonusA) +
 fiveYearWinnerShort +
 " produces the higher total benefit by approximately " +
 compareFormatRand(fiveYearDifference) +
-". The better fit depends on whether you prioritise higher income today or greater overall value after remaining invested—subject to risk, liquidity, tax and suitability."
+". The better fit depends on whether you prioritise higher income today or greater overall value after remaining invested, subject to risk, liquidity, tax and suitability."
 
 
 resultsBox.style.display = "block"

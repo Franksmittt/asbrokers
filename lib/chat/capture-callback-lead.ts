@@ -57,8 +57,8 @@ export async function captureCallbackLead(
   const serviceCategory = INTEREST_TO_SERVICE[interest];
   const interestLabel = INTEREST_LABEL[interest];
   const intent = data.notes?.trim()
-    ? `Chat callback — ${interestLabel}: ${data.notes.trim()}`
-    : `Chat callback — ${interestLabel}`;
+    ? `Chat callback: ${interestLabel}: ${data.notes.trim()}`
+    : `Chat callback: ${interestLabel}`;
 
   const leadId = await insertCrmLead({
     sourceFunnel: "chat_callback",
@@ -95,7 +95,7 @@ export async function captureCallbackLead(
       Email: data.email,
       Phone: data.phone,
       Interest: interestLabel,
-      Notes: data.notes?.trim() || "—",
+      Notes: data.notes?.trim() || "(none)",
       Source: "Digital Wealth Assistant (/chat)",
       ...(leadId ? { "CRM Lead ID": leadId } : {}),
     });

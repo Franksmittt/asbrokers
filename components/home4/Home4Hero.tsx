@@ -20,7 +20,7 @@ export function Home4Hero() {
           src="/images/home-lcp.webp"
           alt={getAlt(
             "/images/home-lcp.webp",
-            "South African couple on a sunlit patio — calm retirement and lasting capital"
+            "South African couple on a sunlit patio, calm retirement and lasting capital"
           )}
           fill
           priority

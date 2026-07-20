@@ -21,7 +21,7 @@ export type HubCalculator = {
   problem: string;
   estimatedTime: string;
   difficulty: HubDifficulty;
-  /** Show lock badge — Financial Freedom Community™ members only. */
+  /** Show lock badge, Financial Freedom Community™ members only. */
   membersOnly?: boolean;
 };
 
@@ -90,7 +90,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-012-strategic-growth":
     "Can you leave capital untouched for five years to maximise growth?",
   "asset-013-everest-income-vs-growth":
-    "Which retirement investment strategy suits your goals—income or growth?",
+    "Which retirement investment strategy suits your goals, income or growth?",
   "asset-014-living-annuity":
     "Is your current retirement income sustainable? Test drawdown, tax and capital longevity.",
   "asset-015-average-clause":
@@ -98,7 +98,7 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-016-growth-comparison":
     "What is the financial cost of waiting to make a good decision?",
   "asset-017-personal-goal":
-    "Members only — reverse-engineer the growth required to achieve a financial goal.",
+    "Members only, reverse-engineer the growth required to achieve a financial goal.",
 };
 
 export const HUB_CALCULATOR_META: Record<
@@ -214,7 +214,7 @@ export const HUB_START_HERE: readonly HubStartHereItem[] = [
   },
 ] as const;
 
-/** @deprecated Prefer HUB_START_HERE — kept for any legacy imports. */
+/** @deprecated Prefer HUB_START_HERE, kept for any legacy imports. */
 export const HUB_FEATURED_IDS = [
   "asset-002-retirement-reality-check",
   "asset-003-retirement-premium",

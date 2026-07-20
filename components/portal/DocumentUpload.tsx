@@ -29,7 +29,7 @@ export function DocumentUpload() {
       <input
         id="portal-doc-upload"
         type="file"
-        accept=".pdf,.doc,.docx,image/*"
+        accept=".pdf.doc.docx,image/*"
         className="sr-only"
         onChange={() => {
           /* prototype, no upload wiring */

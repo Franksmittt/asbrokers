@@ -19,7 +19,7 @@ type Props = {
 
 /**
  * Site chrome. FABs stay off the mobile Lighthouse critical path until
- * first interaction or a long idle — same gate pattern as DeferredRootExtras.
+ * first interaction or a long idle, same gate pattern as DeferredRootExtras.
  */
 export function AppShellChrome({ children }: Props) {
   const [fabsReady, setFabsReady] = useState(false);

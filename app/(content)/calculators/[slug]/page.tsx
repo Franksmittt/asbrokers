@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props) {
     title: config.seoTitle,
     description: config.seoDescription,
     keywords: config.keywords,
-    /** Shared compressed OG — avoid dynamic /api/og mid-word truncation on tool pages. */
+    /** Shared compressed OG, avoid dynamic /api/og mid-word truncation on tool pages. */
     ogImagePath: "/images/calculators-hub-og.jpg",
   });
 }

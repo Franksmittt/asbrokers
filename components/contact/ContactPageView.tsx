@@ -50,12 +50,12 @@ const WHO_WE_HELP = [
 ] as const;
 
 export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
-  // Visible FAQ must match JSON-LD — no pad-to-6.
+  // Visible FAQ must match JSON-LD, no pad-to-6.
   const faqItems = faqs;
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="text-shark">
-      {/* §1 Hero — light */}
+      {/* §1 Hero, light */}
       <header
         className="border-b pb-12 pt-28 md:pb-14 md:pt-36 lg:pb-16 lg:pt-40"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -108,7 +108,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </header>
 
-      {/* §2 Form + channels — light */}
+      {/* §2 Form + channels, light */}
       <section
         className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -172,7 +172,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §3 What happens next — shark */}
+      {/* §3 What happens next, shark */}
       <section
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="next-steps-heading"
@@ -241,7 +241,7 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §4 FAIS / POPIA — light */}
+      {/* §4 FAIS / POPIA, light */}
       <section
         className="border-b py-12 md:py-14"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -264,14 +264,14 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §5 FAQ — shark */}
+      {/* §5 FAQ, shark */}
       <VisibleFaqSection
         faqs={faqItems}
         headingId="contact-faq-heading"
         primaryCta={{ href: "#intake-form-heading", label: "Send an enquiry" }}
       />
 
-      {/* §6 Related — light */}
+      {/* §6 Related, light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/contact")} />
       <Footer />
     </div>

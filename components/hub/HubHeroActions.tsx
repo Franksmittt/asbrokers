@@ -7,7 +7,7 @@ import {
 } from "@/lib/whatsapp";
 
 type Props = {
-  /** Primary CTA label — keep near 29 characters to match Everest. */
+  /** Primary CTA label, keep near 29 characters to match Everest. */
   primaryLabel: string;
   /** Internal path, hash, or absolute URL. */
   primaryHref: string;

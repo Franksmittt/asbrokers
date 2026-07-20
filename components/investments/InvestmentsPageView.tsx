@@ -36,13 +36,13 @@ const GROWTH_TOOLS = [
   {
     code: "ASSET 016",
     title: "Power of Growth Calculator",
-    description: "Measure the financial cost of waiting—start today vs delay the same decision.",
+    description: "Measure the financial cost of waiting, start today vs delay the same decision.",
     href: CALC_POWER_OF_GROWTH,
   },
   {
     code: "ASSET 017",
     title: "Goal Engineering Planner™",
-    description: "Members only — reverse-engineer the growth required to achieve a financial goal.",
+    description: "Members only, reverse-engineer the growth required to achieve a financial goal.",
     href: CALC_PERSONAL_GOAL,
   },
 ] as const;
@@ -205,7 +205,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         }
       />
 
-      {/* §2 Fiduciary philosophy — light (pairs with hero) */}
+      {/* §2 Fiduciary philosophy, light (pairs with hero) */}
       <section
         id="fiduciary-philosophy"
         className="scroll-mt-28 border-b pb-16 md:scroll-mt-32 md:pb-24"
@@ -247,7 +247,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §3 Phase I: Accumulation — shark */}
+      {/* §3 Phase I: Accumulation, shark */}
       <section
         id="phase-accumulation"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
@@ -338,7 +338,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §4 Growth tools — light (white cards) */}
+      {/* §4 Growth tools, light (white cards) */}
       <section
         id="growth-tools"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -371,7 +371,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §5 Phase II: Distribution — shark */}
+      {/* §5 Phase II: Distribution, shark */}
       <section
         id="phase-distribution"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
@@ -436,7 +436,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §6 Everest toolkit — light (comparison table stays readable) */}
+      {/* §6 Everest toolkit, light (comparison table stays readable) */}
       <section
         id="everest-toolkit"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -578,7 +578,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §7 Income vs growth — shark (white tool card) */}
+      {/* §7 Income vs growth, shark (white tool card) */}
       <section
         id="diagnostic-tools"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
@@ -610,7 +610,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §8 Amethyst distinction — light */}
+      {/* §8 Amethyst distinction, light */}
       <section
         id="amethyst-distinction"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -654,7 +654,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* Credential strip — light, quiet */}
+      {/* Credential strip, light, quiet */}
       <section
         className="border-b py-8"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -681,7 +681,7 @@ export function InvestmentsPageView({ faqs }: Props) {
 
       <RelatedContent variant="warm" links={getRelatedLinks("/investments")} />
 
-      {/* §10 Terminal conversion — full Related-content width */}
+      {/* §10 Terminal conversion, full Related-content width */}
       <section
         id="book-strategy"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"

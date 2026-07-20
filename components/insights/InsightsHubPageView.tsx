@@ -185,7 +185,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
-      {/* §1 Hero — light */}
+      {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Learn" longLabel="Insights" />}
         title="Want deep fiduciary reading before you sit down for real advice?"
@@ -224,7 +224,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
         }
       />
 
-      {/* §2 Library — light: topics + featured + archive */}
+      {/* §2 Library, light: topics + featured + archive */}
       <section
         className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -357,7 +357,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
         </div>
       </section>
 
-      {/* §3 Why we publish — shark */}
+      {/* §3 Why we publish, shark */}
       <section
         id="why-library"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
@@ -413,7 +413,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
         </div>
       </section>
 
-      {/* §4 Newsletter + tools — light */}
+      {/* §4 Newsletter + tools, light */}
       <section
         id="newsletter"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -457,17 +457,17 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
         </div>
       </section>
 
-      {/* §5 FAQ — shark */}
+      {/* §5 FAQ, shark */}
       <VisibleFaqSection
         faqs={faqItems}
         headingId="insights-faq-heading"
         primaryCta={{ href: "/contact?source=insights_faq", label: "Contact us" }}
       />
 
-      {/* §6 Related — light */}
+      {/* §6 Related, light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/insights")} />
 
-      {/* §7 Terminal — dark panel */}
+      {/* §7 Terminal, dark panel */}
       <section
         className="scroll-mt-28 pb-16 pt-4 md:scroll-mt-32 md:pb-24"
         style={{ backgroundColor: CANVAS }}

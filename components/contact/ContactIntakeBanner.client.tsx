@@ -23,7 +23,7 @@ const SOURCE_LABELS: Record<string, string> = {
 };
 
 /**
- * Source-context line from ?source= — client-only (useSearchParams).
+ * Source-context line from ?source=, client-only (useSearchParams).
  * Renders null when no known source (matches prior ContactPageView behavior).
  */
 export function ContactIntakeBanner() {

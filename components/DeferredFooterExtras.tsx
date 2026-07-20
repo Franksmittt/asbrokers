@@ -22,7 +22,7 @@ function useDeferredReady() {
   return ready;
 }
 
-/** Newsletter form — deferred so useActionState stays off the LH TBT window. */
+/** Newsletter form, deferred so useActionState stays off the LH TBT window. */
 export function DeferredFooterNewsletter() {
   const ready = useDeferredReady();
   if (!ready) return <div className="h-10 w-full max-w-sm lg:max-w-[17.5rem]" aria-hidden />;

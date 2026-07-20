@@ -33,7 +33,7 @@ export const financialFreedomRegistrationSchema = z.object({
     ],
     { errorMap: () => ({ message: "Please select a province" }) }
   ),
-  /** Why they are joining — coaching context */
+  /** Why they are joining, coaching context */
   primaryGoal: z
     .string()
     .min(3, "Please share your primary financial goal")

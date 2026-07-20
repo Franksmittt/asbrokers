@@ -47,7 +47,7 @@ const FIT_ROWS = [
   {
     fit: "for",
     title: "Households joining or switching Discovery Health",
-    body: "You want an independent broker to map dependents, chronics, hospital preferences, and budget before you pick a series — not a brochure-only decision.",
+    body: "You want an independent broker to map dependents, chronics, hospital preferences, and budget before you pick a series, not a brochure-only decision.",
   },
   {
     fit: "for",
@@ -72,7 +72,7 @@ const FIT_ROWS = [
   {
     fit: "not",
     title: "Clients who only want the cheapest brochure plan",
-    body: "If the sole criterion is lowest contribution with no shortfall analysis, a comparison site quote race may feel faster — and riskier at claim time.",
+    body: "If the sole criterion is lowest contribution with no shortfall analysis, a comparison site quote race may feel faster, and riskier at claim time.",
   },
 ] as const;
 
@@ -85,12 +85,12 @@ const PROCESS_STEPS = [
   {
     step: "02",
     title: "Needs analysis",
-    body: "An authorised representative of FSP 17273 documents dependents, chronics, budget, network tolerance, and existing cover — FAIS Record of Advice pathway.",
+    body: "An authorised representative of FSP 17273 documents dependents, chronics, budget, network tolerance, and existing cover, FAIS Record of Advice pathway.",
   },
   {
     step: "03",
     title: "Option shortlist",
-    body: "We shortlist Discovery Health Medical Scheme series (and Gap Cover where appropriate) that match the analysis — not a one-size product push.",
+    body: "We shortlist Discovery Health Medical Scheme series (and Gap Cover where appropriate) that match the analysis, not a one-size product push.",
   },
   {
     step: "04",
@@ -108,17 +108,17 @@ const JARGON = [
   {
     term: "MSA",
     definition:
-      "Medical Savings Account — a yearly day-to-day wallet funded from part of your Discovery Health premium for GP visits, acute medicine, and basic dentistry. Unused funds typically roll over.",
+      "Medical Savings Account, a yearly day-to-day wallet funded from part of your Discovery Health premium for GP visits, acute medicine, and basic dentistry. Unused funds typically roll over.",
   },
   {
     term: "ATB",
     definition:
-      "Above Threshold Benefit — once day-to-day claims deplete the MSA and reach an annual threshold, further out-of-hospital claims may be covered at the Discovery Health Rate on qualifying plans.",
+      "Above Threshold Benefit, once day-to-day claims deplete the MSA and reach an annual threshold, further out-of-hospital claims may be covered at the Discovery Health Rate on qualifying plans.",
   },
   {
     term: "PHF",
     definition:
-      "Personal Health Fund — behaviour-linked day-to-day funding via the Discovery Health app (steps, sleep, health checks). 2026 materials describe advances and earnable top-ups; confirm current limits for your plan.",
+      "Personal Health Fund, behaviour-linked day-to-day funding via the Discovery Health app (steps, sleep, health checks). 2026 materials describe advances and earnable top-ups; confirm current limits for your plan.",
   },
   {
     term: "Networks",
@@ -140,14 +140,14 @@ const PLANS: DiscoveryPlanCard[] = [
     series: "Comprehensive",
     avatar: "High-risk / heavy day-to-day",
     mechanism:
-      "Strong hospital cover with high MSA and limited ATB — suited where chronic or specialist utilisation is expected.",
+      "Strong hospital cover with high MSA and limited ATB, suited where chronic or specialist utilisation is expected.",
     premiums: ["Classic Smart from ~R8,576", "Classic from ~R10,037"],
     filter: "premium",
   },
   {
     series: "Priority",
     avatar: "ATB without Comprehensive cost",
-    mechanism: "Hospital cover with moderate MSA and limited ATB — pragmatic middle path.",
+    mechanism: "Hospital cover with moderate MSA and limited ATB, pragmatic middle path.",
     premiums: ["Essential from ~R5,327", "Classic from ~R6,198"],
     filter: "family",
   },
@@ -228,7 +228,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
             >
               AS Brokers CC (FSP 17273) in Krugersdorp, West Rand, helps South African households
               evaluate Discovery Health Medical Scheme plans, stack demarcation-compliant Gap Cover,
-              and keep a human broker for claims — at no extra monthly premium versus joining
+              and keep a human broker for claims, at no extra monthly premium versus joining
               Discovery direct.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -290,7 +290,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
           </h2>
           <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
             Honest fit beats brochure theatre. AS Brokers CC will say when Discovery Health Medical
-            Scheme is a strong candidate — and when Gap Cover, another scheme path, or more homework
+            Scheme is a strong candidate, and when Gap Cover, another scheme path, or more homework
             is the better next step.
           </p>
           <ul className="mt-10 grid grid-cols-1 gap-px border sm:grid-cols-2" style={{ borderColor: HAIRLINE, backgroundColor: HAIRLINE }}>
@@ -326,7 +326,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
             How AS Brokers works with Discovery Health
           </h2>
           <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            This is the real process at AS Brokers CC — not a product advert. Advice only follows a
+            This is the real process at AS Brokers CC, not a product advert. Advice only follows a
             documented needs analysis by a licensed representative of FSP 17273.
           </p>
           <ol className="mt-10 grid grid-cols-1 gap-px border md:grid-cols-5" style={{ borderColor: HAIRLINE, backgroundColor: HAIRLINE }}>
@@ -370,7 +370,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
               For the 2026 benefit year, Discovery Health announced a weighted average contribution
               increase of 7.2% (plan bands vary; Active Smart held at 0% in scheme materials), with
               increases deferred to 1 April 2026 for members. AS Brokers CC translates that matrix
-              into the plan that fits your risk — after a needs analysis, not a loudest-brochure race.
+              into the plan that fits your risk, after a needs analysis, not a loudest-brochure race.
             </p>
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
               <Link
@@ -441,7 +441,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
               className="font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
             >
-              Discovery Health MSA, ATB, PHF, and networks — plain English
+              Discovery Health MSA, ATB, PHF, and networks, plain English
             </h2>
             <dl className="mt-8 border-y" style={{ borderColor: HAIRLINE }}>
               {JARGON.map((row) => (
@@ -476,7 +476,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
           </h2>
           <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
             Find the avatar closest to your household. AS Brokers CC then builds the exact Discovery
-            Health + Gap architecture around it — education first, advice after consultation. This is
+            Health + Gap architecture around it, education first, advice after consultation. This is
             not a full inventory of every sub-option; it is a decision map for the series we commonly
             analyse.
           </p>
@@ -504,7 +504,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
             <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
               A standalone medical aid is often financially incomplete. By pairing a network-efficient
               Discovery Health Medical Scheme tier (for example Smart Saver where appropriate) with a
-              targeted Gap Cover product, we aim to close in-hospital specialist shortfalls — scheme
+              targeted Gap Cover product, we aim to close in-hospital specialist shortfalls, scheme
               materials for Discovery Gap Comprehensive describe additional specialist cover layers,
               oncology co-payment support, and defined out-of-hospital scan benefits subject to annual
               limits.
@@ -539,14 +539,14 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            Who, how, and why — in plain terms
+            Who, how, and why, in plain terms
           </h2>
           <dl className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
             <div>
               <dt className="text-sm font-semibold text-shark">Who</dt>
               <dd className="mt-2 text-sm leading-relaxed text-stone-600">
                 AS Brokers CC (FSP 17273), an independent Category 1.8 financial services provider in
-                Krugersdorp, West Rand, South Africa — not Discovery Limited and not a call centre.
+                Krugersdorp, West Rand, South Africa, not Discovery Limited and not a call centre.
               </dd>
             </div>
             <div>
@@ -604,7 +604,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
               </h2>
               <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/75">
                 Submit your details. An authorised adviser at AS Brokers CC will contact you within
-                one business day for a zero-cost, FAIS-compliant review of your current coverage —
+                one business day for a zero-cost, FAIS-compliant review of your current coverage,
                 Krugersdorp, West Rand, or remote across South Africa.
               </p>
               <p className="mt-4 text-xs leading-relaxed text-white/50">

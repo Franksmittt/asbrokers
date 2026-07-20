@@ -20,7 +20,7 @@ export function HubLcpPreload({ src, variant = "full" }: Props) {
         ? HUB_SPLIT_HERO_SIZES
         : HUB_HERO_SIZES;
   const quality = variant === "calc-split" ? CALC_SPLIT_HERO_QUALITY : 65;
-  // calc-split WebPs are already sized for the slot — preload the file as-is.
+  // calc-split WebPs are already sized for the slot, preload the file as-is.
   // Other hubs may still use next/image optimisation for JPG masters.
   const unoptimized =
     variant === "calc-split"

@@ -152,7 +152,7 @@ line-height: 1.5;
 <h2>Goal Engineering Planner™</h2>
 <p class="intro">
 Reverse engineer your financial goals and build a realistic roadmap to achieve them.
-Members planning tool — educational only, not investment advice.
+Members planning tool. Educational only, not investment advice.
 </p>
 
 <div class="asb-grid">
@@ -192,32 +192,32 @@ Calculate required growth
 <div id="gepResults" class="asb-results">
 <div class="asb-result-box main">
 <div class="asb-label">Required annual growth rate</div>
-<div id="gepAnnualRate" class="asb-value">—</div>
-<div class="asb-small">Primary planning result — what must happen mathematically under your assumptions.</div>
+<div id="gepAnnualRate" class="asb-value">, </div>
+<div class="asb-small">Primary planning result, what must happen mathematically under your assumptions.</div>
 </div>
 <div class="asb-result-box">
 <div class="asb-label">Required monthly growth</div>
-<div id="gepMonthlyRate" class="asb-value">—</div>
+<div id="gepMonthlyRate" class="asb-value">, </div>
 </div>
 <div class="asb-result-box">
 <div class="asb-label">Required daily equivalent (approx.)</div>
-<div id="gepDailyRate" class="asb-value">—</div>
+<div id="gepDailyRate" class="asb-value">, </div>
 </div>
 <div class="asb-result-box">
 <div class="asb-label">Total time</div>
-<div id="gepTime" class="asb-value">—</div>
+<div id="gepTime" class="asb-value">, </div>
 </div>
 <div class="asb-result-box">
 <div class="asb-label">Starting capital</div>
-<div id="gepStartOut" class="asb-value">—</div>
+<div id="gepStartOut" class="asb-value">, </div>
 </div>
 <div class="asb-result-box">
 <div class="asb-label">Target capital</div>
-<div id="gepTargetOut" class="asb-value">—</div>
+<div id="gepTargetOut" class="asb-value">, </div>
 </div>
 <div class="asb-result-box">
 <div class="asb-label">Capital difference</div>
-<div id="gepDiff" class="asb-value">—</div>
+<div id="gepDiff" class="asb-value">, </div>
 </div>
 
 <div class="asb-result-box">
@@ -229,7 +229,7 @@ Calculate required growth
 <div class="asb-roadmap-arrow">→</div>
 <div class="asb-roadmap-step" id="gepRoadTarget">Target</div>
 </div>
-<p class="asb-small" style="margin-top:12px">This is planning—not a product illustration. Adjust inputs to explore trade-offs.</p>
+<p class="asb-small" style="margin-top:12px">This is planning, not a product illustration. Adjust inputs to explore trade-offs.</p>
 </div>
 
 <div class="asb-insight" id="gepInsight"></div>
@@ -335,7 +335,7 @@ document.getElementById("gepRoadTarget").innerText = gepMoney(target);
 var insight = "";
 if (annualRate > 0.2) {
 insight =
-"If the required return looks unrealistic, the target may need more time, higher monthly savings, a lower target—or a combination of all three. Avoid chasing exceptional returns as the only lever.";
+"If the required return looks unrealistic, the target may need more time, higher monthly savings, a lower target, or a combination of all three. Avoid chasing exceptional returns as the only lever.";
 } else if (annualRate > 0.12) {
 insight =
 "This required growth is ambitious. Consistency of contributions and timeframe often matter more than chasing a higher return. Review the coaching prompts with your programme coach.";

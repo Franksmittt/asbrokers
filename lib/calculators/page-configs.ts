@@ -49,7 +49,7 @@ export type CalculatorResultGuide = {
   bandsLead?: string;
   /** Optional outcome cards; omit when the intro alone carries the interpretation. */
   bands?: CalculatorResultBand[];
-  /** Metrics the calculator already displays — listed for education only; embed unchanged. */
+  /** Metrics the calculator already displays, listed for education only; embed unchanged. */
   metricsListed?: string[];
   /** Metrics to emphasise visually (e.g. effective vs marginal tax rate). */
   highlightMetrics?: { label: string; description: string }[];
@@ -95,7 +95,7 @@ export type CalculatorMethodProgress = {
 export type CalculatorWithdrawalGuide = {
   heading: string;
   intro: string;
-  /** Educational example only — not live calculator output. */
+  /** Educational example only, not live calculator output. */
   exampleRateLabel?: string;
   exampleRateNote?: string;
   levels: { label: string; description: string }[];
@@ -241,7 +241,7 @@ export type CalculatorPageConfig = {
   categoryLabel: string;
   categoryHref: string;
   /**
-   * Decision Question — standard Toolkit component.
+   * Decision Question, standard Toolkit component.
    * Default placement is immediately below the hero; use before-calculator when the brief
    * places the prompt just above the tool.
    */
@@ -507,11 +507,11 @@ const PAGES: Record<string, PageContent> = {
     heroImage: "/images/calc-lcp/asset-002.webp",
     heroImageAlt: "Couple discussing whether retirement income will match their lifestyle",
     calculatorLead:
-      "Enter your retirement savings, expected income need, and planning assumptions. The tool illustrates whether your savings may fund the retirement you want—educational only, not a guarantee.",
+      "Enter your retirement savings, expected income need, and planning assumptions. The tool illustrates whether your savings may fund the retirement you want. Educational only, not a guarantee.",
     sidePanelTitle: "The flagship starting point",
     sidePanelParagraphs: [
       "This is the recommended first calculator in the Retirement Gap Toolkit™ because it answers the most important question: will I actually have enough to retire?",
-      "Use it before product conversations. Pair it with the Retirement Growth Rate Calculator, Retirement Premium Calculator, and Life of Capital Calculator for a fuller picture—then the Retirement Gap Method™.",
+      "Use it before product conversations. Pair it with the Retirement Growth Rate Calculator, Retirement Premium Calculator, and Life of Capital Calculator for a fuller picture, then the Retirement Gap Method™.",
     ],
     sidePanelBullets: [
       "Income need vs projected capital",
@@ -544,7 +544,7 @@ const PAGES: Record<string, PageContent> = {
     resultGuide: {
       heading: "Retirement Gap Status",
       intro:
-        "Instead of treating the numbers as a final answer, use them to understand your position. The calculator illustrates capital, income, shortfall, replacement ratio, Retirement Gap and readiness—interpret the status below in plain language.",
+        "Instead of treating the numbers as a final answer, use them to understand your position. The calculator illustrates capital, income, shortfall, replacement ratio, Retirement Gap and readiness, interpret the status below in plain language.",
       bandsLead: "What your outcome generally means:",
       bands: [
         {
@@ -663,9 +663,9 @@ const PAGES: Record<string, PageContent> = {
         heading: "What your results mean",
         paragraphs: [
           "A Retirement Gap usually appears when the income your savings may produce is lower than the income you expect to need. It can come from saving too little, starting too late, assuming growth that is too high, underestimating longevity, or spending assumptions that do not match real life.",
-          "Investment growth matters because compound returns over decades can change the capital available to generate income. Inflation matters because the same rand buys less each year—so an income that looks fine today may feel tight later.",
+          "Investment growth matters because compound returns over decades can change the capital available to generate income. Inflation matters because the same rand buys less each year, so an income that looks fine today may feel tight later.",
           "Retirement planning is an ongoing process, not a once-off calculation. Your salary, contributions, markets, health and family needs change. Revisit this Reality Check when your circumstances change.",
-          "The encouraging news: many Retirement Gaps can still be improved. Tools in the Retirement Gap Toolkit™—including the Retirement Growth Rate Calculator, Retirement Premium Calculator and Life of Capital Calculator—help you explore different levers. The Retirement Gap Method™ explains how those pieces fit together.",
+          "The encouraging news: many Retirement Gaps can still be improved. Tools in the Retirement Gap Toolkit™, including the Retirement Growth Rate Calculator, Retirement Premium Calculator and Life of Capital Calculator, help you explore different levers. The Retirement Gap Method™ explains how those pieces fit together.",
         ],
       },
       {
@@ -690,7 +690,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "What if my projected retirement income is too low?",
         answer:
-          "That usually means a Retirement Gap has been identified. You can explore higher contributions, working longer, adjusting income expectations, or improving investment strategy—often through the Premium, Growth Rate and Life of Capital calculators, then the Retirement Gap Method™.",
+          "That usually means a Retirement Gap has been identified. You can explore higher contributions, working longer, adjusting income expectations, or improving investment strategy, often through the Premium, Growth Rate and Life of Capital calculators, then the Retirement Gap Method™.",
       },
       {
         question: "Should I increase my savings or delay retirement?",
@@ -700,7 +700,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Can better investment returns eliminate my Retirement Gap?",
         answer:
-          "Higher long-term returns can help, but chasing returns also increases risk. Many gaps improve through a mix of contributions, time, costs, expectations and suitable strategy—not returns alone.",
+          "Higher long-term returns can help, but chasing returns also increases risk. Many gaps improve through a mix of contributions, time, costs, expectations and suitable strategy, not returns alone.",
       },
       {
         question: "How often should I update this calculation?",
@@ -736,7 +736,7 @@ const PAGES: Record<string, PageContent> = {
     heroImage: "/images/calc-lcp/asset-003.webp",
     heroImageAlt: "Professional planning the monthly amount needed to close a retirement gap",
     calculatorLead:
-      "Enter your funding gap, years to retirement, and growth assumption to see an illustrative monthly premium or contribution. Educational only—not a product quote.",
+      "Enter your funding gap, years to retirement, and growth assumption to see an illustrative monthly premium or contribution. Educational only, not a product quote.",
     sidePanelTitle: "From awareness to action",
     sidePanelParagraphs: [
       "After the Retirement Reality Check, the next question is practical: what monthly number may help close the gap? This is the Solution Calculator in the Retirement Gap Method™.",
@@ -780,7 +780,7 @@ const PAGES: Record<string, PageContent> = {
           href: calculatorPagePath("asset-002-retirement-reality-check"),
         },
         {
-          stepLabel: "Step 2 — Current Page",
+          stepLabel: "Step 2 (current)",
           title: "Calculate the monthly saving required",
           description: "Retirement Premium Calculator (Asset 003)",
           current: true,
@@ -816,12 +816,12 @@ const PAGES: Record<string, PageContent> = {
         },
       ],
       footer:
-        "These interpretations are educational only. The calculator figures are illustrations based on your inputs—not guarantees or personalised advice.",
+        "These interpretations are educational only. The calculator figures are illustrations based on your inputs, not guarantees or personalised advice.",
     },
     practicalWays: {
       heading: "Your Retirement Gap Action Plan",
       intro:
-        "Improving retirement outcomes usually involves adjusting several variables—not only one large monthly saving. Possible improvements include:",
+        "Improving retirement outcomes usually involves adjusting several variables, not only one large monthly saving. Possible improvements include:",
       items: [
         "Increasing monthly contributions",
         "Starting earlier",
@@ -943,7 +943,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Why is my required monthly saving so high?",
         answer:
-          "A high figure often means the gap is large relative to the time left, or growth assumptions are conservative. Many people improve the outcome by combining higher contributions with more time, adjusted expectations, or other levers—not only one large monthly increase.",
+          "A high figure often means the gap is large relative to the time left, or growth assumptions are conservative. Many people improve the outcome by combining higher contributions with more time, adjusted expectations, or other levers, not only one large monthly increase.",
       },
       {
         question: "Can I close my Retirement Gap by working longer?",
@@ -953,12 +953,12 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Should I save through a Retirement Annuity or discretionary investments?",
         answer:
-          "Both can play a role. RAs may offer tax advantages with contribution and access rules; discretionary investments can be more flexible. The right mix is personal—this calculator does not choose a product for you.",
+          "Both can play a role. RAs may offer tax advantages with contribution and access rules; discretionary investments can be more flexible. The right mix is personal, this calculator does not choose a product for you.",
       },
       {
         question: "Should I change my investment strategy?",
         answer:
-          "Strategy can affect long-term growth, but higher returns usually mean higher risk. Closing a gap often needs a balance of saving, time, costs and suitable risk—not returns alone. Pair this tool with the Retirement Growth Rate Calculator for perspective.",
+          "Strategy can affect long-term growth, but higher returns usually mean higher risk. Closing a gap often needs a balance of saving, time, costs and suitable risk, not returns alone. Pair this tool with the Retirement Growth Rate Calculator for perspective.",
       },
       {
         question: "Can increasing my monthly saving by a small amount really make a difference?",
@@ -990,7 +990,7 @@ const PAGES: Record<string, PageContent> = {
     heroImage: "/images/calc-lcp/asset-004.webp",
     heroImageAlt: "Retiree enjoying a secure lifestyle while capital longevity is planned",
     calculatorLead:
-      "Enter lump sum, monthly income draw, growth rate, and inflation to model capital longevity. Educational illustration only—essential before living annuity and voluntary income decisions.",
+      "Enter lump sum, monthly income draw, growth rate, and inflation to model capital longevity. Educational illustration only, essential before living annuity and voluntary income decisions.",
     sidePanelTitle: "From saving to living off savings",
     sidePanelParagraphs: [
       "This calculator marks the transition from accumulating retirement savings to living off them. After measuring your gap and estimating monthly savings, ask the question that keeps many retirees awake: will I outlive my money?",
@@ -1019,7 +1019,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Will I outlive my money?",
       paragraphs: [
         "Asset 002 asked whether you have enough to retire. Asset 003 asked how much you may need to save. Asset 004 asks the harder question: even if you retire, will your income last?",
-        "This page is the emotional centrepiece of the Retirement Gap Toolkit™—the bridge from accumulation to living off capital.",
+        "This page is the emotional centrepiece of the Retirement Gap Toolkit™, the bridge from accumulation to living off capital.",
       ],
       highlightQuestion: "Even if I retire… will my money actually last?",
     },
@@ -1029,27 +1029,27 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Completed",
           title: "Retirement Reality Check",
-          description: "Asset 002 — Measure your Retirement Gap",
+          description: "Asset 002: Measure your Retirement Gap",
           href: calculatorPagePath("asset-002-retirement-reality-check"),
           completed: true,
         },
         {
           stepLabel: "Completed",
           title: "Retirement Premium Calculator",
-          description: "Asset 003 — Calculate the monthly saving required",
+          description: "Asset 003: Calculate the monthly saving required",
           href: calculatorPagePath("asset-003-retirement-premium"),
           completed: true,
         },
         {
           stepLabel: "You are here",
           title: "Life of Capital Calculator",
-          description: "Asset 004 — Will your retirement income last?",
+          description: "Asset 004: Will your retirement income last?",
           current: true,
         },
         {
           stepLabel: "Next Step",
           title: "Living Annuity Income & Sustainability Calculator",
-          description: "Asset 014 — Is income sustainable?",
+          description: "Asset 014: Is income sustainable?",
           href: calculatorPagePath("asset-014-living-annuity"),
         },
       ],
@@ -1086,30 +1086,30 @@ const PAGES: Record<string, PageContent> = {
         },
       ],
       footer:
-        "These outcomes are educational interpretations only. Calculator results are illustrations based on your inputs—not guarantees or personalised advice.",
+        "These outcomes are educational interpretations only. Calculator results are illustrations based on your inputs, not guarantees or personalised advice.",
     },
     withdrawalGuide: {
       heading: "Understanding your Starting Withdrawal Rate",
       intro:
-        "When the calculator shows a starting withdrawal rate, treat it as a sustainability signal—not a product quote. Lower starting withdrawal rates generally improve long-term sustainability, although the appropriate rate depends on individual circumstances.",
+        "When the calculator shows a starting withdrawal rate, treat it as a sustainability signal, not a product quote. Lower starting withdrawal rates generally improve long-term sustainability, although the appropriate rate depends on individual circumstances.",
       exampleRateLabel: "Starting Withdrawal Rate",
       exampleRateNote:
         "Read the rate the tool produces for your inputs, then compare it with the risk framing below.",
       levels: [
         {
-          label: "Green — Lower risk band",
+          label: "Green: Lower risk band",
           description: "A more conservative starting rate generally leaves more room for inflation, market shocks and longevity.",
         },
         {
-          label: "Yellow — Moderate risk band",
+          label: "Yellow: Moderate risk band",
           description: "May be workable with disciplined reviews, but there is less margin for unexpected costs or poor returns.",
         },
         {
-          label: "Orange — Elevated risk band",
+          label: "Orange: Elevated risk band",
           description: "Sustainability may be under pressure. Consider reducing withdrawals, delaying retirement, or adjusting expectations.",
         },
         {
-          label: "Red — High risk band",
+          label: "Red: High risk band",
           description: "A high starting rate often signals a material chance of exhausting capital earlier than hoped. Review strategy promptly.",
         },
       ],
@@ -1119,7 +1119,7 @@ const PAGES: Record<string, PageContent> = {
     timelineExample: {
       heading: "How to read a capital exhaustion timeline",
       intro:
-        "A simple timeline communicates longevity faster than paragraphs alone. The example below is educational—use your calculator result to estimate where capital may run out under your own assumptions.",
+        "A simple timeline communicates longevity faster than paragraphs alone. The example below is educational, use your calculator result to estimate where capital may run out under your own assumptions.",
       ages: [65, 70, 75, 80, 85, 90],
       barPercent: 53,
       exhaustedLabel: "Capital exhausted here · example Age 78 years 4 months",
@@ -1155,7 +1155,7 @@ const PAGES: Record<string, PageContent> = {
     methodSection: {
       heading: "Structure income so it lasts",
       paragraphs: [
-        "If Asset 004 creates concern, the next practical step is testing whether living annuity income may be sustainable. Asset 014 explores drawdown, tax and capital longevity—education before products.",
+        "If Asset 004 creates concern, the next practical step is testing whether living annuity income may be sustainable. Asset 014 explores drawdown, tax and capital longevity, education before products.",
         "The Retirement Gap Method™ then brings Reality Check, Premium, Life of Capital, Future Value and Living Annuity tools into one framework.",
       ],
       bullets: [
@@ -1172,7 +1172,7 @@ const PAGES: Record<string, PageContent> = {
     assessmentSection: {
       heading: "Need help interpreting longevity risk?",
       intro:
-        "A Retirement Gap Review helps test whether your withdrawal assumptions, growth outlook and lifestyle needs are realistic—and which changes could improve sustainability.",
+        "A Retirement Gap Review helps test whether your withdrawal assumptions, growth outlook and lifestyle needs are realistic, and which changes could improve sustainability.",
       bullets: [
         "Current capital and income needs",
         "Withdrawal rate and longevity assumptions",
@@ -1275,7 +1275,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "What is sequence-of-returns risk?",
         answer:
-          "It is the risk that poor investment returns early in retirement—while you are withdrawing—permanently damage capital, even if later returns recover. Timing matters as much as average return.",
+          "It is the risk that poor investment returns early in retirement, while you are withdrawing, permanently damage capital, even if later returns recover. Timing matters as much as average return.",
       },
       {
         question: "Does inflation really make that much difference?",
@@ -1290,7 +1290,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Can working two more years significantly improve retirement outcomes?",
         answer:
-          "Often yes. Extra contribution years, delayed drawdown and a shorter funded retirement can materially improve longevity—though health and career reality still matter.",
+          "Often yes. Extra contribution years, delayed drawdown and a shorter funded retirement can materially improve longevity, though health and career reality still matter.",
       },
     ],
     categoryLabel: "Retirement Income",
@@ -1344,7 +1344,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "The Hidden Cost of Waiting",
       paragraphs: [
         "Inflation is largely invisible in the short term, yet extremely powerful over decades. A few percent a year compounds quietly while life feels unchanged.",
-        "Retirement plans often fail because people underestimate how much prices increase over time—and how much more capital is needed simply to stand still.",
+        "Retirement plans often fail because people underestimate how much prices increase over time, and how much more capital is needed simply to stand still.",
       ],
       highlightQuestion:
         "Retirement isn't about how much money you have. It's about what your money will still be able to buy.",
@@ -1355,39 +1355,39 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Earlier",
           title: "Retirement Reality Check",
-          description: "Asset 002 — Do I have enough to retire?",
+          description: "Asset 002: Do I have enough to retire?",
           href: calculatorPagePath("asset-002-retirement-reality-check"),
           completed: true,
         },
         {
           stepLabel: "Earlier",
           title: "Retirement Premium Calculator",
-          description: "Asset 003 — How much do I need to save?",
+          description: "Asset 003: How much do I need to save?",
           href: calculatorPagePath("asset-003-retirement-premium"),
           completed: true,
         },
         {
           stepLabel: "You are here",
           title: "Future Value Calculator",
-          description: "Asset 005 — What will your money still buy?",
+          description: "Asset 005: What will your money still buy?",
           current: true,
         },
         {
           stepLabel: "Also explore",
           title: "Retirement Growth Rate",
-          description: "Asset 001 — What growth rate may you need?",
+          description: "Asset 001: What growth rate may you need?",
           href: calculatorPagePath("asset-001-retirement-growth"),
         },
         {
           stepLabel: "Also explore",
           title: "Life of Capital Calculator",
-          description: "Asset 004 — Will your income last?",
+          description: "Asset 004: Will your income last?",
           href: calculatorPagePath("asset-004-life-of-capital"),
         },
         {
           stepLabel: "Framework",
           title: "Retirement Gap Method™",
-          description: "Asset 018 — The complete educational path",
+          description: "Asset 018: The complete educational path",
           href: "/retirement-gap-method",
         },
       ],
@@ -1402,13 +1402,13 @@ const PAGES: Record<string, PageContent> = {
         "The compounding effect of even “moderate” inflation",
       ],
       footer:
-        "Use the numbers from the calculator as an illustration. The educational examples below show the same idea as a timeline and a lifestyle comparison—so the “aha” moment is clear.",
+        "Use the numbers from the calculator as an illustration. The educational examples below show the same idea as a timeline and a lifestyle comparison, so the “aha” moment is clear.",
     },
     valueProgress: {
       heading: "Purchasing power over time",
       intro:
         "People understand progression much faster than isolated numbers. Here is an illustrative path for R50,000 at about 6% inflation a year:",
-      assumptionNote: "Educational example only — not a forecast. Your calculator inputs may show a different path.",
+      assumptionNote: "Educational example only, not a forecast. Your calculator inputs may show a different path.",
       steps: [
         { label: "Today", value: "R50,000" },
         { label: "10 Years", value: "R89,500" },
@@ -1429,7 +1429,7 @@ const PAGES: Record<string, PageContent> = {
       ],
       laterHeading: "Twenty years later",
       laterBody:
-        "You may need approximately R160,000 to purchase exactly the same things—same deposit, same fees, same renovation, same grocery basket. That is purchasing power at work.",
+        "You may need approximately R160,000 to purchase exactly the same things, same deposit, same fees, same renovation, same grocery basket. That is purchasing power at work.",
       footer:
         "Compare this with your calculator result. Then revisit retirement targets in the Reality Check and Premium tools so goals grow with living costs.",
     },
@@ -1437,7 +1437,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Purchasing power inside the Retirement Gap Method™",
       paragraphs: [
         "Asset 005 explains why retirement targets need to grow over time. Without that understanding, a plan that looks adequate today can quietly fall short.",
-        "Use Growth Rate and Life of Capital next to see whether your savings path and income longevity keep pace with rising living costs—then connect everything through the Retirement Gap Method™.",
+        "Use Growth Rate and Life of Capital next to see whether your savings path and income longevity keep pace with rising living costs, then connect everything through the Retirement Gap Method™.",
       ],
       bullets: [
         "Inflation as the cause; purchasing power as the outcome",
@@ -1499,7 +1499,7 @@ const PAGES: Record<string, PageContent> = {
     },
     terminalCta: {
       heading: "I never realised inflation could matter this much.",
-      body: "That understanding is the point of Asset 005. When purchasing power is clear, retirement targets, savings rates and longevity plans become far more realistic—and the Retirement Gap Method™ shows how the pieces fit together.",
+      body: "That understanding is the point of Asset 005. When purchasing power is clear, retirement targets, savings rates and longevity plans become far more realistic, and the Retirement Gap Method™ shows how the pieces fit together.",
       primaryLabel: "Continue with the Retirement Gap Method™",
       primaryHref: "/retirement-gap-method",
       secondaryLabel: "Explore the Retirement Gap Toolkit™",
@@ -1509,9 +1509,9 @@ const PAGES: Record<string, PageContent> = {
       {
         heading: "Your personal inflation rate may be higher than CPI",
         paragraphs: [
-          "Everyone's personal inflation rate is different. Official CPI is a useful national average—but it may not match the costs that dominate your retirement.",
+          "Everyone's personal inflation rate is different. Official CPI is a useful national average, but it may not match the costs that dominate your retirement.",
           "Retirement expenses such as medical costs, municipal charges, healthcare and insurance often increase faster than headline CPI. Planning with only the official rate can understate how much purchasing power you need to protect.",
-          "In the Retirement Gap Method™, inflation is not an abstract macro topic. It is the reason lifestyle targets must grow—and why Future Value belongs beside Reality Check, Premium and Life of Capital.",
+          "In the Retirement Gap Method™, inflation is not an abstract macro topic. It is the reason lifestyle targets must grow, and why Future Value belongs beside Reality Check, Premium and Life of Capital.",
         ],
       },
     ],
@@ -1520,7 +1520,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "What inflation rate should I use?",
         answer:
-          "Many planners use long-term CPI bands for illustration. Your adviser may stress-test higher rates—especially for medical and municipal costs—when protecting purchasing power.",
+          "Many planners use long-term CPI bands for illustration. Your adviser may stress-test higher rates, especially for medical and municipal costs, when protecting purchasing power.",
       },
       {
         question: "Is this a forecast of CPI?",
@@ -1530,17 +1530,17 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Why is inflation dangerous during retirement?",
         answer:
-          "In retirement you often rely more on capital and fixed or semi-fixed income. Rising prices quietly reduce what that income can buy—so a plan that looked adequate at retirement can feel tight years later.",
+          "In retirement you often rely more on capital and fixed or semi-fixed income. Rising prices quietly reduce what that income can buy, so a plan that looked adequate at retirement can feel tight years later.",
       },
       {
         question: "Is CPI the same as my personal inflation rate?",
         answer:
-          "Not necessarily. CPI is a broad basket. Your personal rate depends on what you actually spend—housing, medical care, insurance, rates and taxes may move differently from the official average.",
+          "Not necessarily. CPI is a broad basket. Your personal rate depends on what you actually spend, housing, medical care, insurance, rates and taxes may move differently from the official average.",
       },
       {
         question: "Why do retirees often experience higher inflation?",
         answer:
-          "Retirees typically spend a larger share of income on healthcare, medical aid, municipal services and insurance—categories that often rise faster than headline CPI.",
+          "Retirees typically spend a larger share of income on healthcare, medical aid, municipal services and insurance, categories that often rise faster than headline CPI.",
       },
       {
         question: "How much should retirement income increase each year?",
@@ -1550,7 +1550,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Should my investments outperform inflation?",
         answer:
-          "Over long periods, investments generally need real (after-inflation) growth to protect and grow purchasing power—especially while you are still accumulating. Required returns depend on your goals, time and risk capacity.",
+          "Over long periods, investments generally need real (after-inflation) growth to protect and grow purchasing power, especially while you are still accumulating. Required returns depend on your goals, time and risk capacity.",
       },
       {
         question: "Why do healthcare costs usually increase faster than inflation?",
@@ -1587,7 +1587,7 @@ const PAGES: Record<string, PageContent> = {
       "Enter your gross monthly income and age. The tool uses the latest SARS individual tax tables (currently 2026/27) to estimate tax payable, net income, and your effective and marginal rates.",
     sidePanelTitle: "Tax & retirement insight",
     sidePanelParagraphs: [
-      "This is the Tax & Retirement Calculator inside the Retirement Gap Toolkit™. It answers how much income tax you will probably pay—then points to what that means for retirement.",
+      "This is the Tax & Retirement Calculator inside the Retirement Gap Toolkit™. It answers how much income tax you will probably pay, then points to what that means for retirement.",
       "Knowing your bracket helps you discuss retirement contributions, living annuity withdrawals and lifetime tax efficiency with clearer numbers.",
     ],
     sidePanelBullets: [
@@ -1612,7 +1612,7 @@ const PAGES: Record<string, PageContent> = {
     contextBox: {
       heading: "How much income tax will I probably pay?",
       paragraphs: [
-        "There are many South African tax calculators online. This one is different because it sits inside the Retirement Gap Toolkit™—connecting SARS estimates to retirement planning.",
+        "There are many South African tax calculators online. This one is different because it sits inside the Retirement Gap Toolkit™, connecting SARS estimates to retirement planning.",
         "First understand what you pay. Then ask the more important question: how does tax affect my retirement over decades?",
       ],
       highlightQuestion: "Tax is not only a payroll issue. It is a lifetime retirement planning variable.",
@@ -1639,7 +1639,7 @@ const PAGES: Record<string, PageContent> = {
     resultGuide: {
       heading: "How to read your tax results",
       intro:
-        "After you calculate, the tool shows Annual Tax, Monthly Tax, Net Annual Income, Net Monthly Income, Effective Tax Rate and Marginal Tax Rate. The summary inside the calculator interprets your own figures in plain language—including how many cents of every rand go to tax, and what your marginal rate means for additional income.",
+        "After you calculate, the tool shows Annual Tax, Monthly Tax, Net Annual Income, Net Monthly Income, Effective Tax Rate and Marginal Tax Rate. The summary inside the calculator interprets your own figures in plain language, including how many cents of every rand go to tax, and what your marginal rate means for additional income.",
       metricsListed: [
         "Annual Tax",
         "Monthly Tax (PAYE)",
@@ -1657,7 +1657,7 @@ const PAGES: Record<string, PageContent> = {
         {
           label: "Marginal tax rate",
           description:
-            "The rate that may apply to your next rand of taxable income. Extra salary, bonuses or taxable investment income can be taxed at this rate—not at your effective rate.",
+            "The rate that may apply to your next rand of taxable income. Extra salary, bonuses or taxable investment income can be taxed at this rate, not at your effective rate.",
         },
       ],
       footer:
@@ -1665,7 +1665,7 @@ const PAGES: Record<string, PageContent> = {
     },
     incomeFlow: {
       heading: "Where your income goes",
-      intro: "A simple flow helps you visualise the path from gross pay to what you can actually use—or save for retirement.",
+      intro: "A simple flow helps you visualise the path from gross pay to what you can actually use, or save for retirement.",
       steps: [
         "Gross Income",
         "Income Tax (PAYE)",
@@ -1680,7 +1680,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Income tax should never be viewed in isolation",
       paragraphs: [
         "Retirement contributions, investment structures, estate planning and retirement income all influence your lifetime tax position.",
-        "Good retirement planning is often about legally reducing tax over decades rather than simply reducing tax in a single year. The goal is lifetime tax efficiency—not tax avoidance.",
+        "Good retirement planning is often about legally reducing tax over decades rather than simply reducing tax in a single year. The goal is lifetime tax efficiency, not tax avoidance.",
       ],
       bullets: [
         "How brackets affect contribution decisions",
@@ -1753,7 +1753,7 @@ const PAGES: Record<string, PageContent> = {
         paragraphs: [
           "South Africa uses progressive taxation: as taxable income rises, higher portions of income can fall into higher tax brackets. That does not mean your whole income is taxed at the top rate.",
           "Your effective tax rate is the overall average across your income. Your marginal tax rate is the rate that may apply to the next rand. Tax rebates reduce tax payable and can depend on age. Medical tax credits and qualifying retirement fund deductions can also change what you ultimately owe.",
-          "Two people earning similar incomes may pay different amounts of tax because of age rebates, retirement contributions, medical credits, deductions and the mix of income types. That is why this calculator is an estimate—and why advice still matters for complex cases.",
+          "Two people earning similar incomes may pay different amounts of tax because of age rebates, retirement contributions, medical credits, deductions and the mix of income types. That is why this calculator is an estimate, and why advice still matters for complex cases.",
         ],
       },
       {
@@ -1809,7 +1809,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "What tax year does this calculator use?",
         answer:
-          "It uses the latest SARS individual tax tables built into the tool—currently the 2026/27 tax year. When SARS updates tables, the calculator tables are updated so the page stays current.",
+          "It uses the latest SARS individual tax tables built into the tool, currently the 2026/27 tax year. When SARS updates tables, the calculator tables are updated so the page stays current.",
       },
       {
         question: "How often are SARS tax tables updated?",
@@ -1851,7 +1851,7 @@ const PAGES: Record<string, PageContent> = {
     heroImage: "/images/calc-lcp/asset-007.webp",
     heroImageAlt: "Family member facing estate duty, keys, and executor cost decisions",
     calculatorLead:
-      "Enter your gross estate, liabilities, spouse bequests and immediately available liquidity. The primary insight is your Estimated Estate Liquidity Gap—not estate duty alone.",
+      "Enter your gross estate, liabilities, spouse bequests and immediately available liquidity. The primary insight is your Estimated Estate Liquidity Gap, not estate duty alone.",
     sidePanelTitle: "Estate Cost & Liquidity Calculator",
     sidePanelParagraphs: [
       "Clients rarely lose sleep over estate duty percentages. They worry whether children will have enough cash, whether the house must be sold, and whether the estate becomes a burden.",
@@ -1882,7 +1882,7 @@ const PAGES: Record<string, PageContent> = {
     contextBox: {
       heading: "Will my family have enough cash?",
       paragraphs: [
-        "This is the conversation very few advisers have well. Property, businesses and portfolios can look impressive on paper—yet estates still struggle when cash is short.",
+        "This is the conversation very few advisers have well. Property, businesses and portfolios can look impressive on paper, yet estates still struggle when cash is short.",
         "Asset 007 is a flagship Retirement Gap Toolkit™ calculator because it exposes a hidden problem most families only discover too late.",
       ],
       highlightQuestion:
@@ -1910,7 +1910,7 @@ const PAGES: Record<string, PageContent> = {
     resultGuide: {
       heading: "How to read your estate results",
       intro:
-        "The headline number is your Estimated Estate Liquidity Gap. Estate duty still matters—but cash shortfall is what forces asset sales and delays. The calculator also walks through gross estate, liabilities, abatement, dutiable estate, duty, executor's fees (with VAT shown separately), total costs, available liquidity and what may remain for beneficiaries.",
+        "The headline number is your Estimated Estate Liquidity Gap. Estate duty still matters, but cash shortfall is what forces asset sales and delays. The calculator also walks through gross estate, liabilities, abatement, dutiable estate, duty, executor's fees (with VAT shown separately), total costs, available liquidity and what may remain for beneficiaries.",
       metricsListed: [
         "Estimated Estate Liquidity Gap (primary)",
         "Gross Estate",
@@ -1933,7 +1933,7 @@ const PAGES: Record<string, PageContent> = {
         {
           label: "Available estate liquidity vs liquidity gap",
           description:
-            "Liquidity is what can pay costs quickly. The gap is what may still be missing—and why property or investments might need to be sold.",
+            "Liquidity is what can pay costs quickly. The gap is what may still be missing, and why property or investments might need to be sold.",
         },
       ],
       footer:
@@ -2044,7 +2044,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "What assets form part of my estate?",
         answer:
-          "Typically property, investments, business interests, cash and other assets owned at death, subject to exclusions and structuring. Ownership and beneficiary nominations matter—confirm with a legal adviser.",
+          "Typically property, investments, business interests, cash and other assets owned at death, subject to exclusions and structuring. Ownership and beneficiary nominations matter, confirm with a legal adviser.",
       },
       {
         question: "How much is the estate duty abatement?",
@@ -2059,7 +2059,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "How are trusts treated for estate planning?",
         answer:
-          "Trusts can form part of broader estate and legacy planning, but treatment depends on structure, funding and law. This calculator does not model trusts in detail—seek professional advice.",
+          "Trusts can form part of broader estate and legacy planning, but treatment depends on structure, funding and law. This calculator does not model trusts in detail, seek professional advice.",
       },
       {
         question: "What are executor's fees?",
@@ -2109,12 +2109,12 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Most estate planning happens too late. By gradually reducing the size of your estate during your lifetime, you may improve estate liquidity, reduce future estate costs and help your family when they need it most. This calculator estimates how planned wealth transfers could affect your future estate and the value ultimately passed to your beneficiaries.",
     heroImage: "/images/calc-lcp/asset-008.webp",
-    heroImageAlt: "Grandfather gifting to family — planned giving to reduce estate later",
+    heroImageAlt: "Grandfather gifting to family, planned giving to reduce estate later",
     calculatorLead:
-      "Enter an illustrative estate value, annual transfer band, ages and growth rate. The projection compares estate value without planning versus with planned reductions—then estimates duty saved, executor's fee reduction and additional wealth that may reach beneficiaries.",
+      "Enter an illustrative estate value, annual transfer band, ages and growth rate. The projection compares estate value without planning versus with planned reductions, then estimates duty saved, executor's fee reduction and additional wealth that may reach beneficiaries.",
     sidePanelTitle: "Legacy planning during life",
     sidePanelParagraphs: [
-      "This is the legacy planning calculator in the Retirement Gap Toolkit™. It completes the educational journey from retirement readiness and tax to estate duty—and then asks what you can still influence while you are alive.",
+      "This is the legacy planning calculator in the Retirement Gap Toolkit™. It completes the educational journey from retirement readiness and tax to estate duty, and then asks what you can still influence while you are alive.",
       "Use it after the Estate Duty Calculator to explore timing. It does not recommend gifts or transfers; it shows how timing can change long-term outcomes.",
     ],
     sidePanelBullets: [
@@ -2143,7 +2143,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Legacy planning begins during life, not at death",
       paragraphs: [
         "Retirement asks whether you will have enough. Tax asks how much SARS may receive. Estate duty asks what happens when you die. This calculator asks what you can still do while you are alive to improve the outcome for your family.",
-        "Estimate what your estate could currently owe with the Estate Duty Calculator, then return here to explore timing—always within professional advice.",
+        "Estimate what your estate could currently owe with the Estate Duty Calculator, then return here to explore timing, always within professional advice.",
       ],
       highlightQuestion:
         "How could thoughtful estate planning during my lifetime improve the financial legacy I leave to my family?",
@@ -2182,7 +2182,7 @@ const PAGES: Record<string, PageContent> = {
         {
           label: "Focus on legacy, not only tax",
           description:
-            "Duty savings matter, but the educational goal is whether more value may reach your family—with better timing and potentially less administration friction.",
+            "Duty savings matter, but the educational goal is whether more value may reach your family, with better timing and potentially less administration friction.",
         },
         {
           label: "Pair with estate liquidity",
@@ -2191,7 +2191,7 @@ const PAGES: Record<string, PageContent> = {
         },
       ],
       footer:
-        "Assumptions and disclaimers appear directly under the calculator results. Treat every figure as an estimate for education—not a recommendation to gift or restructure.",
+        "Assumptions and disclaimers appear directly under the calculator results. Treat every figure as an estimate for education, not a recommendation to gift or restructure.",
     },
     withdrawalGuide: {
       heading: "Estate reduction concepts to understand",
@@ -2221,7 +2221,7 @@ const PAGES: Record<string, PageContent> = {
         {
           label: "Ownership structures",
           description:
-            "How assets are owned—individually, jointly, via companies or other vehicles—affects what falls into an estate and how easily value can be transferred.",
+            "How assets are owned, individually, jointly, via companies or other vehicles, affects what falls into an estate and how easily value can be transferred.",
         },
         {
           label: "Business succession planning",
@@ -2251,7 +2251,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Giving while you can see the difference",
       paragraphs: [
         "Many people assume wealth should only transfer after death. In reality, appropriate lifetime planning may allow families to assist children earlier in life, improve estate liquidity, reduce administration delays, simplify the eventual estate and create intergenerational wealth.",
-        "This calculator does not recommend making gifts or transferring assets. Its purpose is to demonstrate how timing can influence long-term estate outcomes—then point you toward professional advice inside the Retirement Gap Method™.",
+        "This calculator does not recommend making gifts or transferring assets. Its purpose is to demonstrate how timing can influence long-term estate outcomes, then point you toward professional advice inside the Retirement Gap Method™.",
       ],
       bullets: [
         "Assist family when support may matter most",
@@ -2322,7 +2322,7 @@ const PAGES: Record<string, PageContent> = {
       {
         heading: "From estate duty to legacy timing",
         paragraphs: [
-          "Start with a clear picture of estate costs and liquidity using the Estate Duty Calculator—estimate what your estate could currently owe. Then use this page to explore whether lifetime timing could change what your family receives.",
+          "Start with a clear picture of estate costs and liquidity using the Estate Duty Calculator, estimate what your estate could currently owe. Then use this page to explore whether lifetime timing could change what your family receives.",
           "Understand how taxation affects lifetime wealth with the Income Tax Calculator, and see how retirement assets are treated differently for estate planning with the Living Annuity Income & Sustainability Calculator. The Retirement Gap Method™ connects retirement, tax and estate planning into one framework.",
         ],
       },
@@ -2379,14 +2379,14 @@ const PAGES: Record<string, PageContent> = {
     kicker: "Retirement Gap Toolkit™ · Asset 009",
     heroTitle: "How much retirement income could your investment produce?",
     heroSubtitle:
-      "Retirement isn't funded by percentages—it is funded by reliable income. Use this calculator to estimate the monthly and annual income a 14.2% distribution investment could generate, understand the impact of dividend withholding tax, and see how much income may actually be available to support your retirement.",
+      "Retirement isn't funded by percentages, it is funded by reliable income. Use this calculator to estimate the monthly and annual income a 14.2% distribution investment could generate, understand the impact of dividend withholding tax, and see how much income may actually be available to support your retirement.",
     heroImage: "/images/calc-lcp/asset-009.webp",
     heroImageAlt: "Retiree enjoying day-one monthly income lifestyle on a veranda",
     calculatorLead:
       "Enter your investment amount (R100,000 minimum for this illustration). Monthly income after tax is the focal result. Distribution rate and dividend withholding tax are adjustable so assumptions stay easy to update.",
     sidePanelTitle: "Income outcome, not just a percentage",
     sidePanelParagraphs: [
-      "This calculator sits later in the Retirement Gap journey. Choose an income solution after you understand the retirement problem—Reality Check, Premium and Life of Capital come first.",
+      "This calculator sits later in the Retirement Gap journey. Choose an income solution after you understand the retirement problem, Reality Check, Premium and Life of Capital come first.",
       "A 14.2% distribution is one possible solution inside a diversified plan. Compare it with the 12.8% income illustration and the Income Comparison Calculator before making decisions.",
     ],
     sidePanelBullets: [
@@ -2402,7 +2402,7 @@ const PAGES: Record<string, PageContent> = {
     howToSteps: [
       { title: "Enter investment amount", description: "Use at least R100,000 for this educational illustration." },
       { title: "Confirm rate and tax", description: "Adjust the targeted distribution and dividend withholding tax if needed." },
-      { title: "Read monthly income first", description: "Focus on after-tax monthly income—the practical retirement question." },
+      { title: "Read monthly income first", description: "Focus on after-tax monthly income, the practical retirement question." },
       { title: "Continue the Method", description: "Compare with 12.8% income and review liquidity, risk and sustainability." },
     ],
     heroCta: {
@@ -2425,40 +2425,40 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Earlier",
           title: "Retirement Reality Check",
-          description: "Asset 002 — Understand the retirement problem first",
+          description: "Asset 002: Understand the retirement problem first",
           href: calculatorPagePath("asset-002-retirement-reality-check"),
           completed: true,
         },
         {
           stepLabel: "Earlier",
           title: "Retirement Premium Calculator",
-          description: "Asset 003 — How much may you need to save?",
+          description: "Asset 003: How much may you need to save?",
           href: calculatorPagePath("asset-003-retirement-premium"),
           completed: true,
         },
         {
           stepLabel: "Earlier",
           title: "Life of Capital Calculator",
-          description: "Asset 004 — Will income last?",
+          description: "Asset 004: Will income last?",
           href: calculatorPagePath("asset-004-life-of-capital"),
           completed: true,
         },
         {
           stepLabel: "Compare",
           title: "12.8% Income Calculator",
-          description: "Asset 010 — Another income illustration",
+          description: "Asset 010: Another income illustration",
           href: calculatorPagePath("asset-010-everest-128-income"),
         },
         {
           stepLabel: "You are here",
           title: "14.2% Income Calculator",
-          description: "Asset 009 — Estimate after-tax monthly income",
+          description: "Asset 009: Estimate after-tax monthly income",
           current: true,
         },
         {
           stepLabel: "Next",
           title: "Income Comparison Calculator",
-          description: "Asset 011 — Compare income solutions side by side",
+          description: "Asset 011: Compare income solutions side by side",
           href: calculatorPagePath("asset-011-everest-128-vs-142"),
         },
       ],
@@ -2466,7 +2466,7 @@ const PAGES: Record<string, PageContent> = {
     assumptionCallout: {
       heading: "Understanding liquidity",
       paragraphs: [
-        "Liquidity means how quickly you can access your capital when you need it. In retirement, unexpected expenses, healthcare costs and changing plans make access important—even when income is the main goal.",
+        "Liquidity means how quickly you can access your capital when you need it. In retirement, unexpected expenses, healthcare costs and changing plans make access important, even when income is the main goal.",
         "Higher-income investments may offer attractive distributions while having different liquidity characteristics than cash or listed unit trusts. That trade-off between income and access to capital should be understood before investing.",
         "This illustration currently reflects liquidity after approximately 120 days, subject to the applicable product terms and conditions. Early exit may attract penalties where product rules apply. Confirm the latest terms during advice.",
       ],
@@ -2532,7 +2532,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Choosing income after understanding the problem",
       paragraphs: [
         "A successful retirement is not built by chasing the highest percentage. It is built by creating sustainable, tax-aware income that can support your lifestyle over the long term.",
-        "Understanding how investment income fits into your overall Retirement Gap is the next step—after Reality Check, Premium and Life of Capital have framed the need.",
+        "Understanding how investment income fits into your overall Retirement Gap is the next step, after Reality Check, Premium and Life of Capital have framed the need.",
       ],
       bullets: [
         "Measure the Retirement Gap first",
@@ -2632,7 +2632,7 @@ const PAGES: Record<string, PageContent> = {
         heading: "Income inside the Retirement Gap Method™",
         paragraphs: [
           "Start with the Retirement Reality Check and Retirement Premium Calculator to understand need and contribution. Use Life of Capital to test longevity. Only then compare income illustrations such as this 14.2% page, the 12.8% Income Calculator and the Income Comparison Calculator.",
-          "Return to the Retirement Gap Toolkit™ and Retirement Gap Method™ so any income solution stays connected to tax, liquidity and long-term sustainability—not a standalone product decision.",
+          "Return to the Retirement Gap Toolkit™ and Retirement Gap Method™ so any income solution stays connected to tax, liquidity and long-term sustainability, not a standalone product decision.",
         ],
       },
     ],
@@ -2710,13 +2710,13 @@ const PAGES: Record<string, PageContent> = {
     heroSubtitle:
       "Not every retirement income investment is designed to maximise today's income. Some investors choose a slightly lower annual distribution in exchange for additional long-term benefits. This calculator estimates your monthly income from a 12.8% distribution and illustrates how a loyalty bonus after five years may affect your overall return.",
     heroImage: "/images/calc-lcp/asset-010.webp",
-    heroImageAlt: "Couple walking an estate path — patient income with long-term reward",
+    heroImageAlt: "Couple walking an estate path, patient income with long-term reward",
     calculatorLead:
       "Enter investment amount and period. Monthly after-tax income is prioritised. The loyalty bonus is included only when your selected period is five years or longer.",
     sidePanelTitle: "A retirement decision, not a product pitch",
     sidePanelParagraphs: [
       "Asset 009 asks whether you want the highest income available today. This page asks whether you are prepared to accept lower income today for potential long-term value. Asset 011 helps you compare both objectively.",
-      "Use this illustration after you understand your Retirement Gap—not as a standalone product page.",
+      "Use this illustration after you understand your Retirement Gap, not as a standalone product page.",
     ],
     sidePanelBullets: [
       "Income today vs long-term value trade-off",
@@ -2744,7 +2744,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Higher income today is not always the better retirement outcome",
       paragraphs: [
         "Some retirees prioritise higher immediate income. Others prioritise higher long-term value, greater certainty over a holding period, or different liquidity needs.",
-        "This calculator helps illustrate one possible trade-off inside the Retirement Gap Toolkit™—then points you to compare both strategies objectively.",
+        "This calculator helps illustrate one possible trade-off inside the Retirement Gap Toolkit™, then points you to compare both strategies objectively.",
       ],
       highlightQuestion:
         "Would I prefer higher income today, or am I willing to accept slightly lower income now for the possibility of greater long-term value?",
@@ -2755,19 +2755,19 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Option A",
           title: "14.2% Income Calculator",
-          description: "Asset 009 — Highest income available today",
+          description: "Asset 009: Highest income available today",
           href: calculatorPagePath("asset-009-everest-142-income"),
         },
         {
           stepLabel: "You are here",
           title: "12.8% Income Calculator",
-          description: "Asset 010 — Lower income today for potential long-term value",
+          description: "Asset 010: Lower income today for potential long-term value",
           current: true,
         },
         {
           stepLabel: "Next",
           title: "Income Comparison Calculator",
-          description: "Asset 011 — Compare both strategies objectively",
+          description: "Asset 011: Compare both strategies objectively",
           href: calculatorPagePath("asset-011-everest-128-vs-142"),
         },
       ],
@@ -2794,7 +2794,7 @@ const PAGES: Record<string, PageContent> = {
         {
           label: "Interpret the period first",
           description:
-            "If your period is under five years, the loyalty bonus is excluded. At five years or longer, the estimated bonus is included—still subject to terms, conditions and performance.",
+            "If your period is under five years, the loyalty bonus is excluded. At five years or longer, the estimated bonus is included, still subject to terms, conditions and performance.",
         },
         {
           label: "Decide with the Method in mind",
@@ -2811,27 +2811,27 @@ const PAGES: Record<string, PageContent> = {
       rows: [
         {
           objective: "Maximise income today",
-          toolLabel: "Asset 009 — 14.2% Income Calculator",
+          toolLabel: "Asset 009: 14.2% Income Calculator",
           href: calculatorPagePath("asset-009-everest-142-income"),
         },
         {
           objective: "Balance income with potential long-term value",
-          toolLabel: "Asset 010 — 12.8% Income Calculator",
+          toolLabel: "Asset 010: 12.8% Income Calculator",
           current: true,
         },
         {
           objective: "Compare both options side by side",
-          toolLabel: "Asset 011 — Income Comparison Calculator",
+          toolLabel: "Asset 011: Income Comparison Calculator",
           href: calculatorPagePath("asset-011-everest-128-vs-142"),
         },
       ],
       footer:
-        "Also compare income and growth strategies with Asset 013, and estimate retirement income needs with the Living Annuity Income & Sustainability Calculator.",
+        "Also compare income and growth strategies with Asset 013: and estimate retirement income needs with the Living Annuity Income & Sustainability Calculator.",
     },
     withdrawalGuide: {
       heading: "Why some investors choose lower income today",
       intro:
-        "Retirees do not all optimise for the same outcome. Priorities may include higher immediate income, higher long-term value, greater certainty over a planned holding period, or different liquidity needs. This calculator illustrates one possible trade-off—not a recommendation.",
+        "Retirees do not all optimise for the same outcome. Priorities may include higher immediate income, higher long-term value, greater certainty over a planned holding period, or different liquidity needs. This calculator illustrates one possible trade-off, not a recommendation.",
       levels: [
         {
           label: "Sustainability of income",
@@ -2867,7 +2867,7 @@ const PAGES: Record<string, PageContent> = {
         },
       ],
       closing:
-        "These considerations naturally lead into the Retirement Gap Method™—where retirement, tax and estate planning work together.",
+        "These considerations naturally lead into the Retirement Gap Method™, where retirement, tax and estate planning work together.",
     },
     methodSection: {
       heading: "Education first. Product second.",
@@ -2876,10 +2876,10 @@ const PAGES: Record<string, PageContent> = {
         "Compare higher immediate income, compare both strategies side by side, then place the decision inside the Retirement Gap Method™ and a Retirement Gap Review when you want personalised advice.",
       ],
       bullets: [
-        "Asset 009 — highest income today",
-        "Asset 010 — income/long-term value trade-off",
-        "Asset 011 — objective comparison",
-        "Method + Review — personalised next step",
+        "Asset 009: highest income today",
+        "Asset 010: income/long-term value trade-off",
+        "Asset 011: objective comparison",
+        "Method + Review, personalised next step",
       ],
       ctaLabel: "Compare both strategies",
       ctaHref: calculatorPagePath("asset-011-everest-128-vs-142"),
@@ -2947,8 +2947,8 @@ const PAGES: Record<string, PageContent> = {
       ],
     },
     terminalCta: {
-      heading: "Choose the trade-off that fits your Retirement Gap—not the highest percentage.",
-      body: "Asset 009, Asset 010 and Asset 011 form a connected educational journey: highest income today, income for potential long-term value, then an objective comparison. Continue with the Retirement Gap Method™ or book a Retirement Gap Review for personalised advice.",
+      heading: "Choose the trade-off that fits your Retirement Gap, not the highest percentage.",
+      body: "Assets 009, 010 and 011 form a connected educational journey: highest income today, income for potential long-term value, then an objective comparison. Continue with the Retirement Gap Method™ or book a Retirement Gap Review for personalised advice.",
       primaryLabel: "Learn the Retirement Gap Method™",
       primaryHref: "/retirement-gap-method",
       secondaryLabel: "Book a Retirement Gap Review",
@@ -2959,7 +2959,7 @@ const PAGES: Record<string, PageContent> = {
         heading: "Place this trade-off inside a complete plan",
         paragraphs: [
           "Retirement income decisions should also consider sustainability, inflation, taxation, investment risk, liquidity, diversification, capital preservation and estate planning objectives.",
-          "Compare income and growth strategies, estimate living annuity income needs, and return to the Retirement Gap Toolkit™ so any illustration stays connected to your broader Retirement Gap—not a one-product decision.",
+          "Compare income and growth strategies, estimate living annuity income needs, and return to the Retirement Gap Toolkit™ so any illustration stays connected to your broader Retirement Gap, not a one-product decision.",
         ],
       },
     ],
@@ -3024,7 +3024,7 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Income Strategy Comparison Calculator",
     seoTitle: "Which Income Strategy Fits Your Investment? | Retirement Gap Toolkit™",
     seoDescription:
-      "Compare income, tax, liquidity trade-offs and five-year benefits of 12.8% and 14.2% income strategies. Educational decision tool—not a product pitch. FSP 17273.",
+      "Compare income, tax, liquidity trade-offs and five-year benefits of 12.8% and 14.2% income strategies. Educational decision tool, not a product pitch. FSP 17273.",
     keywords: [
       "income strategy comparison",
       "12.8 vs 14.2 income",
@@ -3039,10 +3039,10 @@ const PAGES: Record<string, PageContent> = {
     heroImage: "/images/calc-lcp/asset-011.webp",
     heroImageAlt: "Homeowner weighing two income strategy options on a terrace",
     calculatorLead:
-      "Enter the same lump sum once. Review the comparison table, then the two factual summary cards—Higher Monthly Income and More Total Value After Five Years. No recommendation is made.",
+      "Enter the same lump sum once. Review the comparison table, then the two factual summary cards, Higher Monthly Income and More Total Value After Five Years. No recommendation is made.",
     sidePanelTitle: "Outcomes first. Products second.",
     sidePanelParagraphs: [
-      "This is a cornerstone decision tool inside the Retirement Gap Toolkit™. It helps you compare financial outcomes—not branded investments.",
+      "This is a cornerstone decision tool inside the Retirement Gap Toolkit™. It helps you compare financial outcomes, not branded investments.",
       "Option A is a 12.8% Income Strategy. Option B is a 14.2% Income Strategy. Underlying product names may appear in assumptions only.",
     ],
     sidePanelBullets: [
@@ -3068,7 +3068,7 @@ const PAGES: Record<string, PageContent> = {
       secondaryHref: "/calculators",
     },
     contextBox: {
-      heading: "A decision point—not a product page",
+      heading: "A decision point, not a product page",
       paragraphs: [
         "The journey is: Can I afford to retire? How much income can my capital generate? Which income strategy best fits my objectives? Then develop a personalised strategy in a Retirement Gap Review.",
         "Estimate income with the 14.2% and 12.8% Income Calculators first if you have not already, then return here to compare outcomes objectively.",
@@ -3082,19 +3082,19 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Earlier",
           title: "14.2% Income Calculator",
-          description: "Asset 009 — Highest income available today",
+          description: "Asset 009: Highest income available today",
           href: calculatorPagePath("asset-009-everest-142-income"),
         },
         {
           stepLabel: "Earlier",
           title: "12.8% Income Calculator",
-          description: "Asset 010 — Income today vs long-term value",
+          description: "Asset 010: Income today vs long-term value",
           href: calculatorPagePath("asset-010-everest-128-income"),
         },
         {
           stepLabel: "You are here",
           title: "Income Strategy Comparison",
-          description: "Asset 011 — Which strategy fits your objectives?",
+          description: "Asset 011: Which strategy fits your objectives?",
           current: true,
         },
       ],
@@ -3109,7 +3109,7 @@ const PAGES: Record<string, PageContent> = {
     resultGuide: {
       heading: "What This Means for You",
       intro:
-        "Investors often face a trade-off between higher income today and greater overall value after remaining invested. The better option depends on your objectives, income needs, liquidity requirements and investment horizon. This section educates—it does not persuade or recommend either strategy.",
+        "Investors often face a trade-off between higher income today and greater overall value after remaining invested. The better option depends on your objectives, income needs, liquidity requirements and investment horizon. This section educates, it does not persuade or recommend either strategy.",
       metricsListed: [
         "Net monthly income (both options)",
         "Annual dividends tax",
@@ -3138,27 +3138,27 @@ const PAGES: Record<string, PageContent> = {
         "Present this as educational guidance only. Do not treat either option as superior. Suitability depends on personal circumstances and advice.",
       levels: [
         {
-          label: "14.2% Income Strategy — highest income immediately",
+          label: "14.2% Income Strategy, highest income immediately",
           description: "Choose this illustration path if you require the highest possible income immediately.",
         },
         {
-          label: "14.2% Income Strategy — shorter horizon",
+          label: "14.2% Income Strategy, shorter horizon",
           description: "Choose this path if you may not remain invested for the full five years.",
         },
         {
-          label: "14.2% Income Strategy — cash flow first",
+          label: "14.2% Income Strategy, cash flow first",
           description: "Choose this path if immediate cash flow is your primary objective.",
         },
         {
-          label: "12.8% Income Strategy — accept lower income today",
+          label: "12.8% Income Strategy, accept lower income today",
           description: "Choose this illustration path if you can accept slightly lower income today.",
         },
         {
-          label: "12.8% Income Strategy — five-year horizon",
+          label: "12.8% Income Strategy, five-year horizon",
           description: "Choose this path if you expect to remain invested for five years.",
         },
         {
-          label: "12.8% Income Strategy — total benefit focus",
+          label: "12.8% Income Strategy, total benefit focus",
           description:
             "Choose this path if maximising your total benefit over the investment term is more important than maximising immediate income.",
         },
@@ -3246,7 +3246,7 @@ const PAGES: Record<string, PageContent> = {
     },
     terminalCta: {
       heading: "Compare outcomes. Then build a personalised strategy.",
-      body: "This calculator is the decision point within the Retirement Gap Method™: after you know your gap and can estimate income, choose which income strategy best fits your objectives—then book a Retirement Gap Review for advice.",
+      body: "This calculator is the decision point within the Retirement Gap Method™: after you know your gap and can estimate income, choose which income strategy best fits your objectives, then book a Retirement Gap Review for advice.",
       primaryLabel: "Learn the Retirement Gap Method™",
       primaryHref: "/retirement-gap-method",
       secondaryLabel: "Book a Retirement Gap Review",
@@ -3257,7 +3257,7 @@ const PAGES: Record<string, PageContent> = {
         heading: "Keep the journey connected",
         paragraphs: [
           "Start with Retirement Gap tools if you have not yet measured need. Use the 14.2% Income Calculator and 12.8% Income Calculator to estimate each strategy alone, then return here to compare outcomes. Strategic Growth and Income vs Growth help when capital growth is also in scope.",
-          "When you are ready for personalised advice, book a Retirement Gap Review so strategy choice supports your overall retirement plan—not a single yield figure.",
+          "When you are ready for personalised advice, book a Retirement Gap Review so strategy choice supports your overall retirement plan, not a single yield figure.",
         ],
       },
     ],
@@ -3266,7 +3266,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "What is voluntary investment capital?",
         answer:
-          "Voluntary investment capital is money you can invest outside compulsory retirement funds—for example savings, proceeds from a sale, or other discretionary capital. This calculator is designed for that context.",
+          "Voluntary investment capital is money you can invest outside compulsory retirement funds, for example savings, proceeds from a sale, or other discretionary capital. This calculator is designed for that context.",
       },
       {
         question: "Why doesn't this calculator apply to retirement funds?",
@@ -3327,12 +3327,12 @@ const PAGES: Record<string, PageContent> = {
     kicker: "Retirement Gap Toolkit™ · Asset 012",
     heroTitle: "Should you preserve capital for long-term growth?",
     heroSubtitle:
-      "This decision-support tool illustrates the effect of compound growth over a fixed investment term when no monthly income is withdrawn. It is designed to support investment decisions—not to recommend or promote any investment product.",
+      "This decision-support tool illustrates the effect of compound growth over a fixed investment term when no monthly income is withdrawn. It is designed to support investment decisions, not to recommend or promote any investment product.",
     heroImage: "/images/calc-lcp/asset-012.webp",
-    heroImageAlt: "Patient capital growth — waiting for maturity in a thriving field",
+    heroImageAlt: "Patient capital growth, waiting for maturity in a thriving field",
     calculatorLead:
-      "Enter your voluntary lump sum. Review the growth journey card and projected maturity value. Then decide whether leaving capital untouched for growth fits your circumstances—or whether you need income instead.",
-    sidePanelTitle: "A growth decision—not a product pitch",
+      "Enter your voluntary lump sum. Review the growth journey card and projected maturity value. Then decide whether leaving capital untouched for growth fits your circumstances, or whether you need income instead.",
+    sidePanelTitle: "A growth decision, not a product pitch",
     sidePanelParagraphs: [
       "Asset 012 asks whether you can leave capital invested for growth. Asset 011 helps if you need income instead. Asset 013 compares growth versus income based on your circumstances.",
       "This mirrors a professional financial planning conversation inside the Retirement Gap Method™.",
@@ -3367,7 +3367,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Decision support for voluntary capital",
       paragraphs: [
         "This page helps you answer a fundamental retirement planning question: should I preserve my capital for long-term growth, or do I need it to generate an income today?",
-        "It illustrates compound growth over a fixed term so you can understand the opportunity of leaving capital untouched—before comparing income strategies or booking advice.",
+        "It illustrates compound growth over a fixed term so you can understand the opportunity of leaving capital untouched, before comparing income strategies or booking advice.",
       ],
       highlightQuestion:
         "Should I preserve my capital for long-term growth, or do I need it to generate an income today?",
@@ -3400,19 +3400,19 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "You are here",
           title: "Strategic Growth",
-          description: "Asset 012 — Can I leave capital invested for growth?",
+          description: "Asset 012: Can I leave capital invested for growth?",
           current: true,
         },
         {
           stepLabel: "If you need income",
           title: "Income Strategy Comparison",
-          description: "Asset 011 — Which income strategy is more suitable?",
+          description: "Asset 011: Which income strategy is more suitable?",
           href: calculatorPagePath("asset-011-everest-128-vs-142"),
         },
         {
           stepLabel: "Next",
           title: "Growth vs Income Comparison",
-          description: "Asset 013 — Choose based on your circumstances",
+          description: "Asset 013: Choose based on your circumstances",
           href: calculatorPagePath("asset-013-everest-income-vs-growth"),
         },
       ],
@@ -3471,9 +3471,9 @@ const PAGES: Record<string, PageContent> = {
         "If your objective is to generate an income rather than maximise growth, compare the two approaches before making a decision.",
       ],
       bullets: [
-        "Asset 012 — leave capital for growth?",
-        "Asset 011 — which income strategy fits?",
-        "Asset 013 — growth or income for my circumstances?",
+        "Asset 012: leave capital for growth?",
+        "Asset 011: which income strategy fits?",
+        "Asset 013: growth or income for my circumstances?",
         "Then contact AS Brokers for a Retirement Gap Review",
       ],
       ctaLabel: "Compare Growth vs Income Investments",
@@ -3484,7 +3484,7 @@ const PAGES: Record<string, PageContent> = {
     assessmentSection: {
       heading: "Ready for a personalised growth-versus-income decision?",
       intro:
-        "A Retirement Gap Review can help you test whether leaving capital untouched for growth—or generating income today—better fits your horizon, liquidity and overall plan.",
+        "A Retirement Gap Review can help you test whether leaving capital untouched for growth, or generating income today, better fits your horizon, liquidity and overall plan.",
       bullets: [
         "Voluntary capital and emergency savings buffer",
         "Five-year commitment vs income need",
@@ -3543,7 +3543,7 @@ const PAGES: Record<string, PageContent> = {
     },
     terminalCta: {
       heading: "Growth first only if you can leave capital untouched.",
-      body: "Asset 012, Asset 011 and Asset 013 form a structured digital advice journey: can I leave capital for growth, which income strategy fits if I cannot, and should I choose growth or income overall? Continue with the Retirement Gap Method™ or book a Retirement Gap Review.",
+      body: "Assets 012, 011 and 013 form a structured digital advice journey: can I leave capital for growth, which income strategy fits if I cannot, and should I choose growth or income overall? Continue with the Retirement Gap Method™ or book a Retirement Gap Review.",
       primaryLabel: "Compare Growth vs Income Investments",
       primaryHref: calculatorPagePath("asset-013-everest-income-vs-growth"),
       secondaryLabel: "Book a Retirement Gap Review",
@@ -3554,7 +3554,7 @@ const PAGES: Record<string, PageContent> = {
         heading: "Place growth inside your Retirement Gap",
         paragraphs: [
           "If you still need to know how much to save, use the Retirement Premium Calculator. If you need to know how long capital may last when drawing income, use Life of Capital. If income is required, compare strategies with the Voluntary Capital Income Comparison tool, then decide growth versus income with Asset 013.",
-          "Return to the Retirement Gap Method™ so any growth illustration stays connected to tax, liquidity and long-term sustainability—not a standalone product decision.",
+          "Return to the Retirement Gap Method™ so any growth illustration stays connected to tax, liquidity and long-term sustainability, not a standalone product decision.",
         ],
       },
     ],
@@ -3598,7 +3598,7 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Income vs Growth Strategy Comparison",
     seoTitle: "Which Retirement Investment Strategy Suits Your Goals? | Toolkit",
     seoDescription:
-      "Compare income versus growth investment strategies side by side. Educational decision engine for voluntary capital—before product selection. FSP 17273.",
+      "Compare income versus growth investment strategies side by side. Educational decision engine for voluntary capital, before product selection. FSP 17273.",
     keywords: [
       "income vs growth calculator",
       "retirement investment strategy",
@@ -3614,10 +3614,10 @@ const PAGES: Record<string, PageContent> = {
     heroImageAlt:
       "Three paths diverge at a countryside crossroads with wooden signposts labelled Income, Higher Income and Growth",
     calculatorLead:
-      "Enter the same voluntary capital once. Compare monthly income, five-year outcomes and growth maturity—strategy first, products second.",
+      "Enter the same voluntary capital once. Compare monthly income, five-year outcomes and growth maturity, strategy first, products second.",
     sidePanelTitle: "Compare investment strategies",
     sidePanelParagraphs: [
-      "This page is the strategic decision engine for income versus growth—not a product catalogue. It completes the educational journey before the Retirement Gap Method™ and personalised advice.",
+      "This page is the strategic decision engine for income versus growth, not a product catalogue. It completes the educational journey before the Retirement Gap Method™ and personalised advice.",
       "AS Brokers remains independent: education before product selection.",
     ],
     sidePanelBullets: [
@@ -3633,7 +3633,7 @@ const PAGES: Record<string, PageContent> = {
     howToSteps: [
       { title: "Answer the Decision Question", description: "Income today, or growth over five years?" },
       { title: "Enter one capital amount", description: "Compare all three strategies on the same voluntary lump sum." },
-      { title: "Read which strategy suits whom", description: "Use the interpretation cards as education—not recommendations." },
+      { title: "Read which strategy suits whom", description: "Use the interpretation cards as education, not recommendations." },
       { title: "Continue the journey", description: "Open the Retirement Gap Method™ or book a Retirement Gap Review." },
     ],
     decisionQuestion: {
@@ -3664,7 +3664,7 @@ const PAGES: Record<string, PageContent> = {
     contextBox: {
       heading: "The final comparison stage before advice",
       paragraphs: [
-        "Before comparing strategies, measure need with the Retirement Reality Check and Life of Capital tools. Estimate each approach alone with the 12.8% Income, 14.2% Income and Strategic Growth calculators—then return here to decide.",
+        "Before comparing strategies, measure need with the Retirement Reality Check and Life of Capital tools. Estimate each approach alone with the 12.8% Income, 14.2% Income and Strategic Growth calculators, then return here to decide.",
         "Which investment strategy best matches my retirement objective? That is the only question this page exists to illuminate.",
       ],
       highlightQuestion: "Which investment strategy best matches my retirement objective?",
@@ -3686,25 +3686,25 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Earlier",
           title: "Retirement Reality Check",
-          description: "Asset 002 — Understand the retirement problem",
+          description: "Asset 002: Understand the retirement problem",
           href: calculatorPagePath("asset-002-retirement-reality-check"),
         },
         {
           stepLabel: "Earlier",
           title: "Life of Capital",
-          description: "Asset 004 — Test income longevity",
+          description: "Asset 004: Test income longevity",
           href: calculatorPagePath("asset-004-life-of-capital"),
         },
         {
           stepLabel: "You are here",
           title: "Income vs Growth Comparison",
-          description: "Asset 013 — Strategy decision engine",
+          description: "Asset 013: Strategy decision engine",
           current: true,
         },
         {
           stepLabel: "Next",
           title: "Retirement Gap Method™",
-          description: "Asset 018 — Framework before advice",
+          description: "Asset 018: Framework before advice",
           href: "/retirement-gap-method",
         },
       ],
@@ -3713,13 +3713,13 @@ const PAGES: Record<string, PageContent> = {
       heading: "Before you compare",
       paragraphs: [
         "Illustrative purposes only. Rates, tax and loyalty benefits are assumptions and may change. Capital values may rise or fall.",
-        "This tool compares retirement income approaches and income versus growth—it does not identify a best product or provide financial advice.",
+        "This tool compares retirement income approaches and income versus growth, it does not identify a best product or provide financial advice.",
       ],
     },
     resultGuide: {
       heading: "Retirement Planning Insight",
       intro:
-        "Higher income today often means sacrificing future growth. Investors who do not currently need income may benefit from allowing capital to compound. Retirement planning is about balancing income needs, liquidity requirements and long-term sustainability. The best strategy depends on your objectives—not simply the highest percentage.",
+        "Higher income today often means sacrificing future growth. Investors who do not currently need income may benefit from allowing capital to compound. Retirement planning is about balancing income needs, liquidity requirements and long-term sustainability. The best strategy depends on your objectives, not simply the highest percentage.",
       metricsListed: [
         "Highest monthly income (factual)",
         "Highest total five-year outcome (factual)",
@@ -3744,7 +3744,7 @@ const PAGES: Record<string, PageContent> = {
             "Suitable for investors who do not require current income and are comfortable leaving their investment untouched for the full five-year term to maximise capital growth.",
         },
       ],
-      footer: "These descriptions educate—they do not recommend. Suitability requires personalised advice.",
+      footer: "These descriptions educate, they do not recommend. Suitability requires personalised advice.",
     },
     withdrawalGuide: {
       heading: "Which strategy suits which investor?",
@@ -3774,14 +3774,14 @@ const PAGES: Record<string, PageContent> = {
     methodSection: {
       heading: "Education Before Product Selection",
       paragraphs: [
-        "Selecting an investment should begin with understanding your financial objective—not choosing the product with the highest advertised return.",
+        "Selecting an investment should begin with understanding your financial objective, not choosing the product with the highest advertised return.",
         "The same investment may be ideal for one person and entirely inappropriate for another. By comparing different strategies first, you can better understand the trade-offs between current income, future growth and capital preservation before discussing the most suitable solution with a financial adviser.",
       ],
       bullets: [
         "Compare retirement income approaches first",
         "Understand income versus growth trade-offs",
         "Then discuss product solutions with an adviser",
-        "Independent advice — FSP 17273",
+        "Independent advice, FSP 17273",
       ],
       ctaLabel: "Learn the Retirement Gap Method™",
       ctaHref: "/retirement-gap-method",
@@ -3850,7 +3850,7 @@ const PAGES: Record<string, PageContent> = {
     },
     terminalCta: {
       heading: "Strategy clarity first. Product selection second.",
-      body: "Asset 013 is the decision engine of the Retirement Gap Toolkit™. It educates on income versus growth trade-offs so you can identify which approach aligns with your objectives—then continue with the Retirement Gap Method™ and a personalised advice conversation.",
+      body: "Asset 013 is the decision engine of the Retirement Gap Toolkit™. It educates on income versus growth trade-offs so you can identify which approach aligns with your objectives, then continue with the Retirement Gap Method™ and a personalised advice conversation.",
       primaryLabel: "Learn the Retirement Gap Method™",
       primaryHref: "/retirement-gap-method",
       secondaryLabel: "Contact AS Brokers",
@@ -3860,7 +3860,7 @@ const PAGES: Record<string, PageContent> = {
       {
         heading: "Roadmap: a future Strategy Selector",
         paragraphs: [
-          "Once the calculator library is complete, a Strategy Selector can ask a few guided questions—Are you retired? Do you need monthly income? Can you leave capital invested for five years?—and route visitors to the most appropriate Toolkit tool.",
+          "Once the calculator library is complete, a Strategy Selector can ask a few guided questions, Are you retired? Do you need monthly income? Can you leave capital invested for five years?, and route visitors to the most appropriate Toolkit tool.",
           "Until then, this Income vs Growth comparison remains the culmination of the educational journey: Reality Check → Life of Capital → individual strategy tools → this decision engine → Retirement Gap Method™ → personal advice.",
         ],
       },
@@ -3926,14 +3926,14 @@ const PAGES: Record<string, PageContent> = {
     kicker: "Retirement Gap Toolkit™ · Retirement Income",
     heroTitle: "Is your current retirement income sustainable?",
     heroSubtitle:
-      "This calculator helps retirees evaluate living annuity income sustainability. It educates first and analyses second. No investment product is promoted inside the tool—product discussions belong after a Living Annuity Review.",
+      "This calculator helps retirees evaluate living annuity income sustainability. It educates first and analyses second. No investment product is promoted inside the tool, product discussions belong after a Living Annuity Review.",
     heroImage: "/images/calc-lcp/asset-014.webp",
     heroImageAlt: "Retiree reviewing whether living annuity income can last through later life",
     calculatorLead:
       "Enter capital, age, drawdown, expected return, fees, income escalation and planning age. See gross and net income, projected capital at key ages, depletion age and a sustainability assessment.",
     sidePanelTitle: "Education before product selection",
     sidePanelParagraphs: [
-      "Asset 014 is a core educational calculator in the Retirement Gap Toolkit™. The question is sustainability—not which product to buy.",
+      "Asset 014 is a core educational calculator in the Retirement Gap Toolkit™. The question is sustainability, not which product to buy.",
       "After you understand your situation, request a Free Living Annuity Review. Only then should any product recommendation be discussed.",
     ],
     sidePanelBullets: [
@@ -3955,7 +3955,7 @@ const PAGES: Record<string, PageContent> = {
       },
       {
         title: "Read the sustainability assessment",
-        description: "Excellent, Moderate or High Risk—plus projected capital and depletion age.",
+        description: "Excellent, Moderate or High Risk, plus projected capital and depletion age.",
       },
       {
         title: "Continue the journey",
@@ -3975,7 +3975,7 @@ const PAGES: Record<string, PageContent> = {
     contextBox: {
       heading: "Sustainability before products",
       paragraphs: [
-        "Retirement planning starts with lifestyle objectives, required income, available assets and the retirement gap—not with selecting an investment product.",
+        "Retirement planning starts with lifestyle objectives, required income, available assets and the retirement gap, not with selecting an investment product.",
         "Use this calculator to understand whether your drawdown strategy may support the income you need over a realistic planning horizon.",
       ],
       highlightQuestion: "Is my current retirement income sustainable?",
@@ -3997,25 +3997,25 @@ const PAGES: Record<string, PageContent> = {
         {
           stepLabel: "Earlier",
           title: "Retirement Reality Check",
-          description: "Asset 002 — Understand the retirement problem",
+          description: "Asset 002: Understand the retirement problem",
           href: calculatorPagePath("asset-002-retirement-reality-check"),
         },
         {
           stepLabel: "Earlier",
           title: "Life of Capital",
-          description: "Asset 004 — Test income longevity",
+          description: "Asset 004: Test income longevity",
           href: calculatorPagePath("asset-004-life-of-capital"),
         },
         {
           stepLabel: "You are here",
           title: "Living Annuity Sustainability",
-          description: "Asset 014 — Is income sustainable?",
+          description: "Asset 014: Is income sustainable?",
           current: true,
         },
         {
           stepLabel: "Next",
           title: "Retirement Gap Method™",
-          description: "Asset 018 — Framework before advice",
+          description: "Asset 018: Framework before advice",
           href: "/retirement-gap-method",
         },
       ],
@@ -4030,7 +4030,7 @@ const PAGES: Record<string, PageContent> = {
     resultGuide: {
       heading: "How to read your results",
       intro:
-        "The calculator reports income, tax, projected capital and a sustainability assessment. Treat the assessment as an educational signal—not a personalised recommendation.",
+        "The calculator reports income, tax, projected capital and a sustainability assessment. Treat the assessment as an educational signal, not a personalised recommendation.",
       bandsLead: "Sustainability assessment examples:",
       bands: [
         {
@@ -4066,22 +4066,22 @@ const PAGES: Record<string, PageContent> = {
       intro:
         "Rather than choosing any percentage in isolation, use these educational reference points inside the statutory 2.5%–17.5% band.",
       levels: [
-        { label: "2.5% — Statutory minimum", description: "Lowest permitted annual drawdown." },
-        { label: "4.0% — Conservative starting point", description: "Often associated with a greener sustainability band." },
+        { label: "2.5%, Statutory minimum", description: "Lowest permitted annual drawdown." },
+        { label: "4.0%, Conservative starting point", description: "Often associated with a greener sustainability band." },
         {
-          label: "5.0% — Retirement planning assumption",
+          label: "5.0%, Retirement planning assumption",
           description: "Default planning starting point used in this calculator.",
         },
         {
-          label: "5.6% — Current SA industry average",
+          label: "5.6%, Current SA industry average",
           description: "Useful benchmark; still requires personal review.",
         },
         {
-          label: "7.5% — Elevated sustainability risk",
+          label: "7.5%, Elevated sustainability risk",
           description: "Higher income today; greater long-term pressure on capital.",
         },
-        { label: "10.0% — High drawdown", description: "Material sustainability risk for many retirees." },
-        { label: "17.5% — Statutory maximum", description: "Highest permitted annual drawdown." },
+        { label: "10.0%, High drawdown", description: "Material sustainability risk for many retirees." },
+        { label: "17.5%, Statutory maximum", description: "Highest permitted annual drawdown." },
       ],
       closing:
         "Green: generally sustainable. Amber: requires regular review. Red: high risk of reducing long-term retirement income.",
@@ -4090,7 +4090,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Why sustainable income matters",
       paragraphs: [
         "The Retirement Gap Method™ starts with lifestyle objectives rather than investment products. Desired lifestyle drives required income; required income is tested against available assets; the difference is the retirement gap; then a sustainable withdrawal strategy is designed.",
-        "Products are one possible outcome of a disciplined advice process—not the starting point.",
+        "Products are one possible outcome of a disciplined advice process, not the starting point.",
       ],
       bullets: [
         "Desired lifestyle → required income",
@@ -4180,7 +4180,7 @@ const PAGES: Record<string, PageContent> = {
         heading: "How much should I draw?",
         paragraphs: [
           "Higher income today may reduce future income if capital depletes faster than it can recover. Longevity risk, inflation, investment returns, fees and sequence-of-returns risk all affect sustainability.",
-          "The educational reference points in the calculator—from statutory minimum to statutory maximum—exist to make that trade-off visible before you lock in a lifestyle income assumption.",
+          "The educational reference points in the calculator, from statutory minimum to statutory maximum, exist to make that trade-off visible before you lock in a lifestyle income assumption.",
         ],
       },
       {
@@ -4196,7 +4196,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Can I transfer my living annuity?",
         answer:
-          "South African legislation generally allows transfers between providers, subject to product and regulatory rules. The decision should consider sustainability, fees, investment strategy, taxation, liquidity and estate planning—not performance alone.",
+          "South African legislation generally allows transfers between providers, subject to product and regulatory rules. The decision should consider sustainability, fees, investment strategy, taxation, liquidity and estate planning, not performance alone.",
       },
       {
         question: "How much should I withdraw each year?",
@@ -4244,15 +4244,15 @@ const PAGES: Record<string, PageContent> = {
     kicker: "Financial Decision Library · Insurance education",
     heroTitle: "How much could underinsurance reduce your insurance claim?",
     heroSubtitle:
-      "Most people assume that if they insure their property, their claim will be paid in full. Unfortunately, that is not always the case. If your building or contents are insured for less than their true replacement value, the Average Clause may reduce every claim—even relatively small ones. This calculator shows how underinsurance could affect your payout.",
+      "Most people assume that if they insure their property, their claim will be paid in full. Unfortunately, that is not always the case. If your building or contents are insured for less than their true replacement value, the Average Clause may reduce every claim, even relatively small ones. This calculator shows how underinsurance could affect your payout.",
     heroImage: "/images/calc-lcp/asset-015.webp",
     heroImageAlt: "Homeowners reviewing sum insured against replacement value after a claim shock",
     calculatorLead:
       "Enter replacement value, sum insured and claim amount. The Average Clause Calculator shows the illustrative insurance percentage, claim payable and uninsured portion.",
     sidePanelTitle: "Problem-first insurance education",
     sidePanelParagraphs: [
-      "This page is about underinsurance—the problem people search for—not about selling a policy. The Average Clause Calculator demonstrates the principle so you can understand the risk before renewal.",
-      "AS Brokers approaches insurance as education, analysis and ongoing review—not product-first selling.",
+      "This page is about underinsurance, the problem people search for, not about selling a policy. The Average Clause Calculator demonstrates the principle so you can understand the risk before renewal.",
+      "AS Brokers approaches insurance as education, analysis and ongoing review, not product-first selling.",
     ],
     sidePanelBullets: [
       "Underinsurance explained plainly",
@@ -4268,7 +4268,7 @@ const PAGES: Record<string, PageContent> = {
     howToSteps: [
       { title: "Enter replacement value", description: "What it would cost to replace the building or contents today (not market value)." },
       { title: "Enter sum insured", description: "The amount shown on your policy schedule." },
-      { title: "Add claim amount", description: "The loss you are illustrating—full or partial." },
+      { title: "Add claim amount", description: "The loss you are illustrating, full or partial." },
       { title: "Read the reduced payout", description: "See the insurance percentage, claim payable and uninsured portion." },
     ],
     decisionQuestion: {
@@ -4304,7 +4304,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "Replacement value disclaimer",
       paragraphs: [
         "Replacement value is not the same as market value. Land is normally excluded from building replacement calculations.",
-        "Accurate replacement values should be professionally determined where appropriate. This tool is an educational illustration only—it is not a claim assessment, quotation or advice to change cover.",
+        "Accurate replacement values should be professionally determined where appropriate. This tool is an educational illustration only, it is not a claim assessment, quotation or advice to change cover.",
       ],
     },
     resultGuide: {
@@ -4317,12 +4317,12 @@ const PAGES: Record<string, PageContent> = {
         "Uninsured portion",
       ],
       footer:
-        "If the insurance percentage is below 100%, every claim—even a small one—may be reduced by the same proportion under typical average clause wording.",
+        "If the insurance percentage is below 100%, every claim, even a small one, may be reduced by the same proportion under typical average clause wording.",
     },
     valueProgress: {
       heading: "Why does underinsurance reduce my claim?",
       intro:
-        "Insurance is based on the assumption that your property is insured for its full replacement value. If you insure only part of its value, the insurer assumes you have chosen to carry part of the risk yourself. As a result, the same percentage is applied to every claim—even when your claim is much smaller than the total value of the property.",
+        "Insurance is based on the assumption that your property is insured for its full replacement value. If you insure only part of its value, the insurer assumes you have chosen to carry part of the risk yourself. As a result, the same percentage is applied to every claim, even when your claim is much smaller than the total value of the property.",
       assumptionNote: "Simple educational example (50% insured):",
       steps: [
         { label: "Replacement value", value: "R2 000 000" },
@@ -4332,7 +4332,7 @@ const PAGES: Record<string, PageContent> = {
         { label: "Claim paid", value: "R500 000" },
       ],
       footer:
-        "In this example, half the claim may be unpaid—not because the claim exceeded the sum insured, but because the property was only 50% insured relative to replacement value.",
+        "In this example, half the claim may be unpaid, not because the claim exceeded the sum insured, but because the property was only 50% insured relative to replacement value.",
     },
     withdrawalGuide: {
       heading: "Common causes of underinsurance",
@@ -4369,7 +4369,7 @@ const PAGES: Record<string, PageContent> = {
     assessmentSection: {
       heading: "Request an Insurance Review",
       intro:
-        "If the calculator shows a material uninsured portion, treat it as a signal to review—not as a product purchase prompt. A review checks whether your sums insured still match replacement reality.",
+        "If the calculator shows a material uninsured portion, treat it as a signal to review, not as a product purchase prompt. A review checks whether your sums insured still match replacement reality.",
       bullets: [
         "Buildings and contents replacement values",
         "Commercial property and stock exposures",
@@ -4421,7 +4421,7 @@ const PAGES: Record<string, PageContent> = {
     },
     terminalCta: {
       heading: "Learn → Measure → Review",
-      body: "Asset 015 is a blueprint for insurance education on this site: answer a real financial question first, demonstrate the principle second, and invite a review—not a product sale—third.",
+      body: "Asset 015 is a blueprint for insurance education on this site: answer a real financial question first, demonstrate the principle second, and invite a review, not a product sale, third.",
       primaryLabel: "Request an Insurance Review",
       primaryHref: "/contact?source=insurance_review_asset_015",
       secondaryLabel: "The Retirement Gap Method™",
@@ -4432,13 +4432,13 @@ const PAGES: Record<string, PageContent> = {
         heading: "Why does underinsurance reduce my claim?",
         paragraphs: [
           "Insurance is based on the assumption that your property is insured for its full replacement value. If you insure only part of its value, the insurer assumes you have chosen to carry part of the risk yourself.",
-          "As a result, the same percentage is often applied to every claim. This can apply even when your claim is much smaller than the total value of the property—which is why underinsurance surprises so many people after a partial loss.",
+          "As a result, the same percentage is often applied to every claim. This can apply even when your claim is much smaller than the total value of the property, which is why underinsurance surprises so many people after a partial loss.",
         ],
       },
       {
         heading: "Future insurance education tools",
         paragraphs: [
-          "This Average Clause / underinsurance calculator is the template for future insurance tools in the Financial Decision Library—each answering one practical question before any product discussion.",
+          "This Average Clause / underinsurance calculator is the template for future insurance tools in the Financial Decision Library, each answering one practical question before any product discussion.",
           "Planned education themes include building replacement value, home contents value, storm damage and burst-pipe guides, excess and write-off calculators, credit shortfall, business interruption, stock, fire, liability, cyber risk, rental loss and tenant liability. The objective is to help people understand insurance decisions before they need to make them.",
         ],
       },
@@ -4458,7 +4458,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Why was my insurance claim reduced?",
         answer:
-          "One common reason is underinsurance. If your sum insured is below replacement value, the insurer may pay only the insured percentage of the claim—even for a relatively small loss. Other policy conditions can also affect outcomes; this tool focuses on the average principle.",
+          "One common reason is underinsurance. If your sum insured is below replacement value, the insurer may pay only the insured percentage of the claim, even for a relatively small loss. Other policy conditions can also affect outcomes; this tool focuses on the average principle.",
       },
       {
         question: "Is replacement value the same as market value?",
@@ -4500,11 +4500,11 @@ const PAGES: Record<string, PageContent> = {
     heroImage: "/images/calc-lcp/asset-016.webp",
     heroImageAlt: "Visual comparison of starting today versus delaying a long-term financial decision",
     calculatorLead:
-      "Compare Start Today with Delay Starting. The primary result is the Cost of Waiting—then review future value, contributions, growth and a side-by-side growth-rate comparison.",
+      "Compare Start Today with Delay Starting. The primary result is the Cost of Waiting, then review future value, contributions, growth and a side-by-side growth-rate comparison.",
     sidePanelTitle: "A Decision Cost Calculator",
     sidePanelParagraphs: [
-      "This is one of the cornerstone calculators of the Retirement Gap Method™. It is not primarily a growth calculator—it measures the financial consequence of delaying a good decision.",
-      "The recurring principle: time is often more valuable than return. Educational only—not financial, investment or tax advice.",
+      "This is one of the cornerstone calculators of the Retirement Gap Method™. It is not primarily a growth calculator, it measures the financial consequence of delaying a good decision.",
+      "The recurring principle: time is often more valuable than return. Educational only, not financial, investment or tax advice.",
     ],
     sidePanelBullets: [
       "Cost of waiting first",
@@ -4521,7 +4521,7 @@ const PAGES: Record<string, PageContent> = {
       { title: "Enter Scenario A", description: "Initial investment, years, monthly contribution, annual increase and growth rate." },
       { title: "Choose a delay", description: "Compare start today with delaying 1, 2, 3 or 5 years." },
       { title: "Read the Cost of Waiting", description: "The largest figure is what delay may cost under your assumptions." },
-      { title: "Compare growth rates", description: "See mathematical outcomes at 8%, 10%, 12%, 15% and 20%—not product advice." },
+      { title: "Compare growth rates", description: "See mathematical outcomes at 8%, 10%, 12%, 15% and 20%, not product advice." },
     ],
     decisionQuestion: {
       question: "What is the financial cost of waiting to make a good decision?",
@@ -4536,7 +4536,7 @@ const PAGES: Record<string, PageContent> = {
       heading: "The Cost of Waiting",
       paragraphs: [
         "Many people believe delaying a financial decision by one or two years has only a small impact. Compound growth shows the opposite.",
-        "Every year that money is not invested—or a good decision is delayed—reduces the time available for growth. The lost opportunity often becomes surprisingly large over long periods. This calculator helps you visualise that difference.",
+        "Every year that money is not invested, or a good decision is delayed, reduces the time available for growth. The lost opportunity often becomes surprisingly large over long periods. This calculator helps you visualise that difference.",
       ],
       highlightQuestion: "What is the financial cost of waiting to make a good decision?",
     },
@@ -4564,10 +4564,10 @@ const PAGES: Record<string, PageContent> = {
     resultGuide: {
       heading: "How to read your results",
       intro:
-        "The hero result is the Cost of Waiting—not future value alone. People remember what they may lose by delaying. Secondary metrics explain how the gap is formed.",
+        "The hero result is the Cost of Waiting, not future value alone. People remember what they may lose by delaying. Secondary metrics explain how the gap is formed.",
       metricsListed: [
         "Cost of Waiting (primary)",
-        "Future value — started today vs started later",
+        "Future value, started today vs started later",
         "Total contributions",
         "Investment growth",
         "Years lost",
@@ -4575,7 +4575,7 @@ const PAGES: Record<string, PageContent> = {
         "Percentage difference",
       ],
       footer:
-        "The growth-rate table uses the same capital and period at 8%, 10%, 12%, 15% and 20%. It demonstrates mathematics only—it does not recommend investments.",
+        "The growth-rate table uses the same capital and period at 8%, 10%, 12%, 15% and 20%. It demonstrates mathematics only, it does not recommend investments.",
     },
     withdrawalGuide: {
       heading: "What this calculator teaches",
@@ -4619,7 +4619,7 @@ const PAGES: Record<string, PageContent> = {
     assessmentSection: {
       heading: "Ready to review your strategy?",
       intro:
-        "If the Cost of Waiting is material under your assumptions, treat it as a signal to review timing—not as a product purchase prompt.",
+        "If the Cost of Waiting is material under your assumptions, treat it as a signal to review timing, not as a product purchase prompt.",
       bullets: [
         "Retirement contribution timing",
         "Investment start dates",
@@ -4678,7 +4678,7 @@ const PAGES: Record<string, PageContent> = {
     },
     terminalCta: {
       heading: "Every important financial decision has a cost.",
-      body: "This calculator helps you measure the cost of waiting. When that principle is clear, continue into the Retirement Gap Method™ and a personalised review—education first, advice second.",
+      body: "This calculator helps you measure the cost of waiting. When that principle is clear, continue into the Retirement Gap Method™ and a personalised review, education first, advice second.",
       primaryLabel: "Learn the Retirement Gap Method™",
       primaryHref: "/retirement-gap-method",
       secondaryLabel: "Request a Retirement Gap Review",
@@ -4715,7 +4715,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Why compare different growth rates?",
         answer:
-          "To show how mathematics changes when long-term growth assumptions change—using the same capital and period. It does not recommend any investment product.",
+          "To show how mathematics changes when long-term growth assumptions change, using the same capital and period. It does not recommend any investment product.",
       },
       {
         question: "Are the results guaranteed?",
@@ -4756,20 +4756,20 @@ const PAGES: Record<string, PageContent> = {
     heroImage: "/images/calc-lcp/asset-017.webp",
     heroImageAlt: "Member building a financial roadmap by working backwards from a clear goal",
     calculatorLead:
-      "Members unlock the full Goal Engineering Planner™ after registration and programme payment. Public visitors see education only—the planning engine stays locked.",
+      "Members unlock the full Goal Engineering Planner™ after registration and programme payment. Public visitors see education only, the planning engine stays locked.",
     sidePanelTitle: "Members planning tool",
     sidePanelParagraphs: [
-      "Unlike public Toolkit calculators, this planner teaches a planning methodology: what must happen to reach a goal—not a product prediction.",
+      "Unlike public Toolkit calculators, this planner teaches a planning methodology: what must happen to reach a goal, not a product prediction.",
       "Access requires an active Financial Freedom Community™ membership (signup → payment → unlock).",
     ],
     sidePanelBullets: [
-      "Members only — lock icon on public site",
+      "Members only, lock icon on public site",
       "Reverse-engineer required growth",
       "Month-by-month roadmap",
       "Financial Blueprint™ ready",
     ],
     fiduciaryNotes: [
-      "Educational Planning Tool — part of the Retirement Gap Method™ educational programme.",
+      "Educational Planning Tool, part of the Retirement Gap Method™ educational programme.",
       "Intended to assist members in understanding financial planning concepts. Not financial, investment, tax or legal advice.",
       "Calculations are illustrative and based on assumptions entered by the member.",
       "FSP 17273 · Category 1.8 independent adviser · Krugersdorp.",
@@ -4820,7 +4820,7 @@ const PAGES: Record<string, PageContent> = {
     resultGuide: {
       heading: "What members see after unlock",
       intro:
-        "Once membership is active, the planner emphasises Required Annual Growth Rate as the primary result—then time, capital difference, milestones and a month-by-month table.",
+        "Once membership is active, the planner emphasises Required Annual Growth Rate as the primary result, then time, capital difference, milestones and a month-by-month table.",
       metricsListed: [
         "Required annual growth rate (primary)",
         "Required monthly growth",
@@ -4830,11 +4830,11 @@ const PAGES: Record<string, PageContent> = {
         "CSV export for members",
       ],
       footer:
-        "Guidance stays educational: if the required return looks unrealistic, members explore more time, higher savings, a lower target—or a combination—not product picks.",
+        "Guidance stays educational: if the required return looks unrealistic, members explore more time, higher savings, a lower target, or a combination, not product picks.",
     },
     withdrawalGuide: {
       heading: "Coaching prompts (members)",
-      intro: "Reflective questions used in programme discussions—not advice:",
+      intro: "Reflective questions used in programme discussions, not advice:",
       levels: [
         { label: "Is your timeframe realistic?", description: "Would extending time reduce the return required?" },
         {
@@ -4847,7 +4847,7 @@ const PAGES: Record<string, PageContent> = {
         },
         {
           label: "Is your target aligned with the lifestyle you want?",
-          description: "Goals should match lifestyle objectives—not arbitrary round numbers.",
+          description: "Goals should match lifestyle objectives, not arbitrary round numbers.",
         },
       ],
       closing: "These prompts support coaching sessions inside the 12-week programme.",
@@ -4877,7 +4877,7 @@ const PAGES: Record<string, PageContent> = {
         "Clarify lifestyle and capital goals",
         "Review time horizon and savings capacity",
         "Discuss whether community membership fits",
-        "Independent advice — education first",
+        "Independent advice, education first",
       ],
       ctaLabel: "Book a Retirement Planning Session",
       ctaHref: "/contact?source=retirement_planning_session_asset_017",
@@ -4938,21 +4938,21 @@ const PAGES: Record<string, PageContent> = {
       {
         heading: "Why most goals fail",
         paragraphs: [
-          "Goals fail when they are wishes without maths. People name a target without knowing the growth, savings rate or time required—then feel surprised when progress stalls.",
+          "Goals fail when they are wishes without maths. People name a target without knowing the growth, savings rate or time required, then feel surprised when progress stalls.",
           "Examples only: wanting R5 million without a contribution plan; planning a home deposit with no timeline; aiming to retire early while still funding lifestyle spend that fights the goal.",
         ],
       },
       {
         heading: "Why people underestimate time",
         paragraphs: [
-          "Compounding needs years. Delaying by one or two years can change the required growth dramatically—the Power of Growth Calculator on the public Toolkit demonstrates that cost of waiting.",
+          "Compounding needs years. Delaying by one or two years can change the required growth dramatically, the Power of Growth Calculator on the public Toolkit demonstrates that cost of waiting.",
           "Underestimating time leads people to chase unrealistic returns instead of adjusting savings or the target.",
         ],
       },
       {
         heading: "Why growth and regular reviews matter",
         paragraphs: [
-          "Growth assumptions shape whether a goal is achievable. Reviews matter because life changes: income, expenses, markets and priorities shift. A living Financial Blueprint™ is reviewed—not set once and forgotten.",
+          "Growth assumptions shape whether a goal is achievable. Reviews matter because life changes: income, expenses, markets and priorities shift. A living Financial Blueprint™ is reviewed, not set once and forgotten.",
           "Public education stops here. The interactive Goal Engineering Planner™ remains members-only so the methodology stays proprietary to the programme.",
         ],
       },
@@ -4977,7 +4977,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "What is My Financial Blueprint™?",
         answer:
-          "Members can save goal assumptions—target, time, contributions and required return—into a living blueprint reviewed during the programme. Blueprint save/sync ships with the members area after registration and payment are live.",
+          "Members can save goal assumptions, target, time, contributions and required return, into a living blueprint reviewed during the programme. Blueprint save/sync ships with the members area after registration and payment are live.",
       },
     ],
     categoryLabel: "Financial Freedom Community™",
@@ -4997,7 +4997,7 @@ function buildConfig(entry: CalculatorRegistryEntry): CalculatorPageConfig {
     assetCode: entry.assetCode,
     calculatorSrc: entry.embedPath,
     calculatorTitle: shortTitle,
-    /** Page-authored FAQs only — VisibleFaqSection and PageJsonLd share this list (no pad-to-6). */
+    /** Page-authored FAQs only, VisibleFaqSection and PageJsonLd share this list (no pad-to-6). */
     faqs,
     ...rest,
   };

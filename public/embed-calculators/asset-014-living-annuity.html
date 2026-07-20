@@ -203,7 +203,7 @@ grid-template-columns: 1fr;
 <h2>Living Annuity Income &amp; Sustainability Calculator</h2>
 <p class="intro">
 Answer one question: is your current retirement income sustainable? This educational tool models
-gross and net income, capital longevity and sustainability risk using realistic planning assumptions—
+gross and net income, capital longevity and sustainability risk using realistic planning assumptions, 
 not a product recommendation.
 </p>
 
@@ -219,13 +219,13 @@ not a product recommendation.
 <div class="asb-field">
 <label for="laDrawdown">Drawdown rate</label>
 <select id="laDrawdown">
-<option value="2.5">2.5% — Statutory minimum</option>
-<option value="4">4.0% — Conservative starting point</option>
-<option value="5" selected>5.0% — Retirement planning assumption (default)</option>
-<option value="5.6">5.6% — Current South African industry average</option>
-<option value="7.5">7.5% — Elevated sustainability risk</option>
-<option value="10">10.0% — High drawdown</option>
-<option value="17.5">17.5% — Statutory maximum</option>
+<option value="2.5">2.5%, Statutory minimum</option>
+<option value="4">4.0%, Conservative starting point</option>
+<option value="5" selected>5.0%, Retirement planning assumption (default)</option>
+<option value="5.6">5.6%, Current South African industry average</option>
+<option value="7.5">7.5%, Elevated sustainability risk</option>
+<option value="10">10.0%, High drawdown</option>
+<option value="17.5">17.5%, Statutory maximum</option>
 </select>
 </div>
 <div class="asb-field">
@@ -249,13 +249,13 @@ not a product recommendation.
 <div class="asb-drawdown-guide">
 <h3>Drawdown reference points</h3>
 <ul>
-<li>2.5% — Statutory minimum</li>
-<li>4.0% — Conservative starting point</li>
-<li>5.0% — Retirement planning assumption (default)</li>
-<li>5.6% — Current South African industry average</li>
-<li>7.5% — Elevated sustainability risk</li>
-<li>10.0% — High drawdown</li>
-<li>17.5% — Statutory maximum</li>
+<li>2.5%, Statutory minimum</li>
+<li>4.0%, Conservative starting point</li>
+<li>5.0%, Retirement planning assumption (default)</li>
+<li>5.6%, Current South African industry average</li>
+<li>7.5%, Elevated sustainability risk</li>
+<li>10.0%, High drawdown</li>
+<li>17.5%, Statutory maximum</li>
 </ul>
 <div class="asb-risk-bands">
 <div class="asb-risk-band green"><strong>Green</strong>Generally sustainable.</div>
@@ -339,7 +339,7 @@ Request a Free Living Annuity Review via the page below
 
 <script>
 function laFormatRand(value) {
-if (value == null || isNaN(value)) return "—";
+if (value == null || isNaN(value)) return ", ";
 if (value <= 0) return "R 0";
 return "R " + Math.round(value).toLocaleString("en-ZA");
 }
@@ -368,12 +368,12 @@ return rebate;
 
 function laDrawdownBandText(pct) {
 if (pct <= 4) {
-return "Green band — generally sustainable under typical planning assumptions.";
+return "Green band, generally sustainable under typical planning assumptions.";
 }
 if (pct <= 5.6) {
-return "Amber band — often workable, but requires regular review.";
+return "Amber band, often workable, but requires regular review.";
 }
-return "Red band — high risk of reducing long-term retirement income.";
+return "Red band, high risk of reducing long-term retirement income.";
 }
 
 function laCapitalAtOrBefore(snapshots, targetAge, depletedAge) {
@@ -561,7 +561,7 @@ escalationPct.toFixed(1) +
 depletionSentence +
 " Sustainability assessment: " +
 sustainLabel +
-" — " +
+", " +
 sustainText +
 " This is an educational illustration only and is not financial advice.";
 

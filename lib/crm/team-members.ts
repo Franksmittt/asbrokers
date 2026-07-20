@@ -42,7 +42,7 @@ export const CRM_TEAM_MEMBERS: Record<CrmTeamMemberKey, CrmTeamMember> = {
     focus: "Business insurance · estate · life personal",
     serviceLines: ["short_term_business", "estate_business", "life_personal"],
   },
-  /** Manager — full CRM admin access, reports to Albert. */
+  /** Manager, full CRM admin access, reports to Albert. */
   petro: {
     key: "petro",
     id: "c9f5d3b2-7a4e-5b3f-0d2c-8e6f9a3b5d82",
@@ -63,7 +63,7 @@ export const CRM_TEAM_MEMBERS: Record<CrmTeamMemberKey, CrmTeamMember> = {
       "claims",
     ],
   },
-  /** Endpoint / build superuser — PIN fixed at 85879 (also overridable via env). */
+  /** Endpoint / build superuser, PIN fixed at 85879 (also overridable via env). */
   developer: {
     key: "developer",
     id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
@@ -122,7 +122,7 @@ export function isAlbertTeamMember(userId: string): boolean {
   return userId === CRM_TEAM_MEMBERS.albert.id;
 }
 
-/** Albert + Developer — full AI / owner-level CRM tools. */
+/** Albert + Developer, full AI / owner-level CRM tools. */
 export function isCrmSuperuser(userId: string): boolean {
   return CRM_TEAM_MEMBER_LIST.some((m) => m.id === userId && m.canUseAi);
 }

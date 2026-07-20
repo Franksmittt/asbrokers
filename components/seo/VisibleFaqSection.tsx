@@ -22,7 +22,7 @@ export type VisibleFaqSectionProps = {
 
 /**
  * Sitewide FAQ chapter: shark band, sticky intro + CTAs, numbered open answers.
- * Renders page-authored FAQs only — same list as JSON-LD (no pad-to-six).
+ * Renders page-authored FAQs only, same list as JSON-LD (no pad-to-six).
  */
 export function VisibleFaqSection({
   faqs,

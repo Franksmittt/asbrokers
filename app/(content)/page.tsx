@@ -31,7 +31,7 @@ export default function HomePage() {
       />
       <Home4Hero />
       <Home4GoalCards />
-      {/* SSR immediately — do not gate on click/idle (same bug as calculators hub). */}
+      {/* SSR immediately, do not gate on click/idle (same bug as calculators hub). */}
       <Home4BelowFoldRest />
       {/* Visible chat shell; heavy FloatingChat loads on focus/submit only. */}
       <HomeChatBar />

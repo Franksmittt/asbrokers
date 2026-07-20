@@ -101,7 +101,7 @@ const SAMPLE_HTML = `<section class="space-y-10" style="color:#2B2B2E;max-width:
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(24px,4vw,40px);align-items:start;">
     <aside style="border-left:3px solid #006B6B;padding-left:18px;color:#006B6B;font-size:17px;line-height:1.7;">
-      A good plan should feel calm, measurable, and easy to review — not like a collection of disconnected products.
+      A good plan should feel calm, measurable, and easy to review, not like a collection of disconnected products.
     </aside>
     <div>
       <h3 style="margin:0 0 12px;color:#1D1D1F;font-size:clamp(22px,3vw,28px);letter-spacing:-0.02em;">How to structure your capital</h3>
@@ -151,8 +151,8 @@ const SAMPLE_CALCULATOR_VIDEO_HTML = SAMPLE_HTML.replaceAll(`
 
 const BRAND_GUIDE_TEXT = `AS Brokers Blog Brand Guide
 - Brand: AS Brokers CC, FSP 17273. Independent financial adviser, Krugersdorp / West Rand. Calm, expert, trustworthy South African English.
-- Where articles live: Public Insights pages use the same hub layout as the rest of the marketing site — warm canvas background (#F7F6F3), shark ink headings (#1D1D1F), stone body text (#52525b / #2B2B2E), hairline borders (#E5E5E5), and teal kickers (#006B6B). Links use Samsung blue (#0057B8).
-- Page chrome (already provided by the site): split hero with title/excerpt + photo, then a warm content band. Your HTML is the ARTICLE BODY only inside that band — do not rebuild the site header, nav, or footer.
+- Where articles live: Public Insights pages use the same hub layout as the rest of the marketing site, warm canvas background (#F7F6F3), shark ink headings (#1D1D1F), stone body text (#52525b / #2B2B2E), hairline borders (#E5E5E5), and teal kickers (#006B6B). Links use Samsung blue (#0057B8).
+- Page chrome (already provided by the site): split hero with title/excerpt + photo, then a warm content band. Your HTML is the ARTICLE BODY only inside that band, do not rebuild the site header, nav, or footer.
 - Visual direction: clean editorial / magazine on light canvas. Rounded media at about 15px. Prefer open flowing sections over dark glass cards. Occasional white cards with soft stone borders are fine for checklists or summaries.
 - Do NOT design for a full-bleed dark (#050506) article page. Dark UI is for Studio/CRM only, not published Insights.
 - Style: mobile-first, generous spacing, concise paragraphs, confident H2/H3 headings, no clutter, no pill-chip spam.
@@ -384,7 +384,7 @@ function buildPreviewDoc(html: string): string {
     a{color:#0057B8}
     blockquote{color:#1D1D1F}
     img{max-width:100%;height:auto;border-radius:15px;border:1px solid #E5E5E5}
-    iframe{max-width:100%;border:0;border-radius:15px;box-shadow:0 12px 40px rgba(0,0,0,.08)}
+    iframe{max-width:100%;border:0;border-radius:15px;box-shadow:0 12px 40px rgba(0,0,0.08)}
     [class~="space-y-4"]>:not([hidden])~:not([hidden]){margin-top:1rem}
     [class~="space-y-6"]>:not([hidden])~:not([hidden]){margin-top:1.5rem}
     [class~="space-y-8"]>:not([hidden])~:not([hidden]){margin-top:2rem}
@@ -395,9 +395,9 @@ function buildPreviewDoc(html: string): string {
     [class~="pl-6"]{padding-left:1.5rem}[class~="p-6"]{padding:1.5rem}[class~="rounded-2xl"]{border-radius:1rem}[class~="rounded-3xl"]{border-radius:1.5rem}
     [class~="text-white"]{color:#1D1D1F}[class~="text-zinc-100"]{color:#1D1D1F}[class~="text-zinc-200"]{color:#2B2B2E}[class~="text-zinc-300"]{color:#52525b}[class~="text-zinc-400"]{color:#71717a}
     [class~="text-teal-200"]{color:#006B6B}[class~="text-[#3ecf8e]"]{color:#006B6B}[class~="text-[#3ecf8e]/90"]{color:#0F766E}[class~="text-emerald-300"]{color:#0F766E}[class~="text-amber-200"]{color:#92400e}[class~="text-amber-300"]{color:#b45309}[class~="text-orange-200"]{color:#9a3412}
-    [class~="bg-white/5"]{background:#ffffff}[class~="bg-black/30"]{background:#ffffff}[class~="bg-teal-500/10"]{background:rgba(0,107,107,.08)}[class~="bg-amber-500/10"]{background:rgba(245,158,11,.1)}
-    [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:#E5E5E5}[class~="border-teal-500/30"]{border-color:rgba(0,107,107,.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11,.35)}
-    .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(0,107,107,.45);border-radius:15px;background:rgba(0,107,107,.06);color:#006B6B}
+    [class~="bg-white/5"]{background:#ffffff}[class~="bg-black/30"]{background:#ffffff}[class~="bg-teal-500/10"]{background:rgba(0,107,107.08)}[class~="bg-amber-500/10"]{background:rgba(245,158,11.1)}
+    [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:#E5E5E5}[class~="border-teal-500/30"]{border-color:rgba(0,107,107.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11.35)}
+    .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(0,107,107.45);border-radius:15px;background:rgba(0,107,107.06);color:#006B6B}
   </style></head><body>${html}<script>
   (() => {
     const frames = document.querySelectorAll('iframe[data-asb-calculator-embed="true"],iframe[src^="/embed-calculators/"]');

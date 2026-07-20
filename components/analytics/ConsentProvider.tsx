@@ -42,7 +42,7 @@ type Props = {
 
 /**
  * Consent context + deferred cookie/analytics mounts.
- * Do not wrap the whole app — mount via DeferredConsentIsland or eager on manage-cookies only.
+ * Do not wrap the whole app, mount via DeferredConsentIsland or eager on manage-cookies only.
  */
 export function ConsentProvider({ children, eager = false }: Props) {
   const [consent, setConsentState] = useState<ConsentLevel>(null);

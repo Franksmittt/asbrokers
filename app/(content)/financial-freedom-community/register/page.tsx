@@ -37,7 +37,7 @@ export default function FinancialFreedomRegisterPage() {
         <section className="border-b border-stone-200 bg-[#1D1D1F] py-12 text-white md:py-16">
           <div className={HOME4_WRAP}>
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: GOLD }}>
-              Step 1 of 2 — Registration
+              Step 1 of 2, Registration
             </p>
             <h1 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
               Create your community registration

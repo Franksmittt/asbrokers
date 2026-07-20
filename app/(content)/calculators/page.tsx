@@ -7,7 +7,7 @@ const PAGE_TITLE =
   "The Retirement Gap Toolkit™ | Retirement Planning Calculators for South Africans";
 /** Keep ≤160 chars so clampMetaDescription does not cut mid-sentence. */
 const PAGE_DESCRIPTION =
-  "Explore the Retirement Gap Toolkit™—retirement planning calculators for South Africans to understand, measure and improve your retirement position.";
+  "Explore the Retirement Gap Toolkit™, retirement planning calculators for South Africans to understand, measure and improve your retirement position.";
 
 const calculatorsFAQs = [
   {

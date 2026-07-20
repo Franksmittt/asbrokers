@@ -36,7 +36,7 @@ const steps = [
       "Complete title, slug, and short excerpt.",
       "Tick one or more categories so clients can filter on Insights.",
       "Optional: fill meta title and meta description for SEO.",
-      "Check the Live Reading Preview on the right — it should look like the warm public Insights pages.",
+      "Check the Live Reading Preview on the right, it should look like the warm public Insights pages.",
     ],
   },
   {
@@ -65,11 +65,11 @@ const troubleshooting = [
   },
   {
     issue: "Where are unfinished articles?",
-    fix: "Use Drafts in the sidebar — it jumps to every saved draft that is not live yet.",
+    fix: "Use Drafts in the sidebar, it jumps to every saved draft that is not live yet.",
   },
   {
     issue: "AI output looks wrong on the live site",
-    fix: "Use Brand guide again. Articles publish on the warm canvas Insights layout (shark headings, stone body text) — not a full dark page.",
+    fix: "Use Brand guide again. Articles publish on the warm canvas Insights layout (shark headings, stone body text), not a full dark page.",
   },
 ];
 

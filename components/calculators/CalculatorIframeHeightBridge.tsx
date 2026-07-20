@@ -10,7 +10,7 @@ type Props = {
 
 /**
  * Tiny client island: grows a same-origin SSR iframe to content height.
- * ResizeObserver only — MutationObserver subtree walks caused Style/Layout TBT.
+ * ResizeObserver only, MutationObserver subtree walks caused Style/Layout TBT.
  * Embed HTML untouched.
  */
 export function CalculatorIframeHeightBridge({ iframeId }: Props) {

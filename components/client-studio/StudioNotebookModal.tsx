@@ -19,7 +19,7 @@ function formatWhen(iso: string) {
 
 function preview(body: string) {
   const t = body.trim().replace(/\s+/g, " ");
-  return t.length > 72 ? `${t.slice(0, 72)}…` : t || ", ";
+  return t.length > 72 ? `${t.slice(0, 72)}…` : t || "(none)";
 }
 
 type Props = {

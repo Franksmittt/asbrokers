@@ -107,15 +107,15 @@ function StartHereRow({ item }: { item: HubStartHereItem }) {
 
 /**
  * Calculators hub (RSC): Retirement Gap Toolkit™ (ASSET 000).
- * Entire hub stays server-rendered — do not gate chapters behind click/idle.
+ * Entire hub stays server-rendered, do not gate chapters behind click/idle.
  */
 export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       <MarketingHubHero
         kicker="The Retirement Gap Toolkit™"
-        title="Understand your Retirement Gap—one calculation at a time."
-        description="Every retirement decision answers a different question. How much should you save? Can you afford to retire? How long will your money last? What income can your investments provide? No single calculator can answer every retirement question. The Retirement Gap Toolkit™ brings together educational calculators designed to help South Africans understand, measure and improve their retirement position—one calculation at a time."
+        title="Understand your Retirement Gap, one calculation at a time."
+        description="Every retirement decision answers a different question. How much should you save? Can you afford to retire? How long will your money last? What income can your investments provide? No single calculator can answer every retirement question. The Retirement Gap Toolkit™ brings together educational calculators designed to help South Africans understand, measure and improve their retirement position, one calculation at a time."
         actions={
           <>
             <a href="#toolkit" className={PRIMARY_CLASS}>
@@ -301,7 +301,7 @@ export function CalculatorsHubView({ faqItems }: { faqItems: FaqItem[] }) {
               Whether you are beginning to save, approaching retirement or already retired,
               understanding your Retirement Gap is one of the most valuable financial decisions you
               can make. The Retirement Gap Toolkit™ gives you the numbers. The Retirement Gap
-              Method™ helps you understand what those numbers mean—and what to do next.
+              Method™ helps you understand what those numbers mean, and what to do next.
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
               <Link

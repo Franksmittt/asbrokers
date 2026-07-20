@@ -5,7 +5,7 @@ import { WhatsAppLogo } from "@/components/WhatsAppLogo";
 const WHATSAPP_LINK = "https://wa.me/27662276044";
 
 /**
- * Mobile bottom bar — zero client JS (SSR only).
+ * Mobile bottom bar, zero client JS (SSR only).
  * Page shells already reserve bottom padding (`pb-24`) so CLS stays 0.
  */
 export function QuickActionBar() {

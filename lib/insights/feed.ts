@@ -44,7 +44,7 @@ function firstImageSrcFromHtml(html: string | null | undefined): string | null {
 }
 
 /**
- * Public Insights feed — Blog Studio / Postgres only.
+ * Public Insights feed, Blog Studio / Postgres only.
  * Legacy Sanity insights fallback removed (Task 12); Studio is the intentional CMS.
  */
 export async function getInsightFeed(): Promise<InsightFeedItem[]> {

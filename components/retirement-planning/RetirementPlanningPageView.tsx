@@ -42,7 +42,7 @@ const CALCULATORS = [
   {
     code: "ASSET 017",
     title: "Goal Engineering Planner™",
-    description: "Members only — reverse-engineer the growth required to achieve a financial goal.",
+    description: "Members only, reverse-engineer the growth required to achieve a financial goal.",
     href: CALC_GOAL,
   },
 ] as const;

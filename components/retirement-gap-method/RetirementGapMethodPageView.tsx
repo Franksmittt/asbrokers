@@ -39,7 +39,7 @@ const LIGHT_SECONDARY =
   "inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-[#1D1D1F] ring-1 ring-stone-300 transition hover:bg-white";
 
 /**
- * Asset 018 — Retirement Gap Method™ cornerstone landing page (no calculator).
+ * Asset 018: Retirement Gap Method™ cornerstone landing page (no calculator).
  */
 export function RetirementGapMethodPageView() {
   const related = getRelatedLinks(METHOD_PATH);
@@ -266,7 +266,7 @@ export function RetirementGapMethodPageView() {
             </h2>
             <p className="mt-4 text-base leading-relaxed" style={{ color: BODY }}>
               Every calculator answers a different retirement question. Together they provide a
-              complete picture of a person&apos;s Retirement Gap—before product conversations begin.
+              complete picture of a person&apos;s Retirement Gap, before product conversations begin.
             </p>
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -415,7 +415,7 @@ export function RetirementGapMethodPageView() {
             Financial Freedom Community™
           </h2>
           <p className="mt-4 text-base leading-relaxed" style={{ color: BODY }}>
-            After the workshop, the Financial Freedom Community™ is the deeper educational pathway—
+            After the workshop, the Financial Freedom Community™ is the deeper educational pathway, 
             a 12-week programme that unlocks proprietary members planning tools, including the Goal
             Engineering Planner™, once registration and payment are complete.
           </p>

@@ -23,7 +23,7 @@ export function stripHtml(input: string): string {
 
 /**
  * Remove common nav/footer boilerplate from scraped HTML strings.
- * Do NOT strip FSP 17273 — that is a trust token for meta/OG and entity copy.
+ * Do NOT strip FSP 17273, that is a trust token for meta/OG and entity copy.
  */
 export function pruneHtmlRagLite(input: string): string {
   let text = stripHtml(input);
@@ -47,7 +47,7 @@ export function clampMetaDescription(
   const ideal = options.ideal ?? META_DESCRIPTION_IDEAL;
   const max = options.max ?? 1200;
   const min = options.min ?? META_DESCRIPTION_MIN;
-  // Intentional meta copy: strip tags only — never run nav/footer boilerplate pruning
+  // Intentional meta copy: strip tags only, never run nav/footer boilerplate pruning
   // (that path previously erased "FSP 17273" from every SERP/OG description).
   const text = stripHtml(raw).replace(/\s+/g, " ").trim();
   if (!text) return "";
@@ -117,7 +117,7 @@ export function buildPageMetadata(input: BuildPageMetadataInput): Metadata {
   const canonical = absoluteUrl(path);
   const descriptionSource = input.excerpt ?? input.description;
   const description = clampMetaDescription(descriptionSource);
-  // Root layout template appends "| AS Brokers CC" to document titles — keep entity title brand-free.
+  // Root layout template appends "| AS Brokers CC" to document titles, keep entity title brand-free.
   const title = buildPageTitle(input.title, false);
   const brandedTitle = buildPageTitle(title, true);
   const ogImages = input.ogImagePath

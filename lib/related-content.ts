@@ -448,7 +448,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/retirement-gap-method",
       title: "The Retirement Gap Method™",
-      description: "How the Toolkit calculators fit together—and what to do next.",
+      description: "How the Toolkit calculators fit together, and what to do next.",
     },
     {
       href: "/retirement-planning",
@@ -475,7 +475,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/financial-freedom-community",
       title: "Financial Freedom Community™",
-      description: "12-week programme after the workshop—members planning tools.",
+      description: "12-week programme after the workshop, members planning tools.",
     },
     {
       href: "/contact?source=retirement_gap_workshop",
@@ -526,7 +526,7 @@ export function getRelatedLinks(path: string): RelatedLink[] {
         {
           href: "/retirement-gap-method",
           title: "The Retirement Gap Method™",
-          description: "How Toolkit results fit together—and what to do next.",
+          description: "How Toolkit results fit together, and what to do next.",
         },
         {
           href: config.categoryHref,

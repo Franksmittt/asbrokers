@@ -10,7 +10,7 @@ const FloatingChat = dynamic(
 );
 
 /**
- * Homepage Wealth Assistant bar — visible immediately (SSR shell).
+ * Homepage Wealth Assistant bar, visible immediately (SSR shell).
  * Full FloatingChat (framer + AI) loads only when the user focuses/submits the bar,
  * so Lighthouse TBT stays clean until real interaction with chat.
  */

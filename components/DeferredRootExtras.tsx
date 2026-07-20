@@ -21,7 +21,7 @@ const ConsentProvider = dynamic(
 /**
  * Gated root island: speculation, fallback JSON-LD, consent.
  * Homepage chat lives in `HomeChatBar` (visible shell; heavy widget on use).
- * No scroll unlock — LH auto-scroll must not pull these into TBT.
+ * No scroll unlock, LH auto-scroll must not pull these into TBT.
  */
 export function DeferredRootExtras() {
   const [ready, setReady] = useState(false);

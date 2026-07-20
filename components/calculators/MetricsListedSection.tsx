@@ -14,7 +14,7 @@ type Props = {
   footer?: string;
 };
 
-/** Winner: editorial split — label + footer left, metrics right with hairline rules. */
+/** Winner: editorial split, label + footer left, metrics right with hairline rules. */
 export function MetricsListedSection({ path, metrics, footer }: Props) {
   return (
     <section

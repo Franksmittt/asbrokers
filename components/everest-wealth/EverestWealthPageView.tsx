@@ -26,7 +26,7 @@ const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
 const MUTED = "#57534e";
 const HERO_IMAGE = "/images/everest-wealth-hero-16x9-480.webp";
-const HERO_ALT = "Couple walking through a vineyard at golden hour — patient wealth growth";
+const HERO_ALT = "Couple walking through a vineyard at golden hour, patient wealth growth";
 const COMPARE_IMAGE = "/images/everest-income-vs-growth-4x3.webp";
 const COMPARE_IMAGE_FALLBACK = "/images/everest-income-vs-growth-4x3.jpg";
 const COMPARE_ALT =
@@ -297,14 +297,14 @@ export function EverestWealthPageView({ faqs }: Props) {
                 Unlisted preference shares are illiquid. Expect a typical five-year term,{" "}
                 <strong className="font-semibold">120-day notice</strong>, and up to a{" "}
                 <strong className="font-semibold">15% early-exit penalty</strong>. Only commit
-                capital you can leave for the full term. Educational only under FAIS — not advice.
+                capital you can leave for the full term. Educational only under FAIS, not advice.
               </p>
             </div>
           </aside>
         </div>
       </section>
 
-      {/* 5. Products — shark chapter */}
+      {/* 5. Products, shark chapter */}
       <section
         id="profiles"
         className="content-visibility-auto scroll-mt-28 bg-shark py-16 text-white md:py-24"

@@ -3,7 +3,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { MarketingMobileMenu } from "@/components/MarketingMobileMenu";
 import { PRIMARY_NAV } from "@/lib/site-navigation";
 
-/** Server-rendered marketing nav — mobile menu is zero-JS details/summary. */
+/** Server-rendered marketing nav, mobile menu is zero-JS details/summary. */
 export function MarketingNav() {
   return (
     <nav

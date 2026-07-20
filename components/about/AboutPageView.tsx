@@ -53,7 +53,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
-      {/* §1 Hero — light */}
+      {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="About" longLabel="About Us" />}
         title="Need an independent adviser paid to serve you, not product quotas?"
@@ -88,7 +88,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         }
       />
 
-      {/* §2 Independence — shark */}
+      {/* §2 Independence, shark */}
       <section
         id="independence"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
@@ -150,7 +150,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §3 Place & proof — light */}
+      {/* §3 Place & proof, light */}
       <section
         id="place"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -210,7 +210,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §4 Fiduciaries — shark */}
+      {/* §4 Fiduciaries, shark */}
       <section
         id="fiduciaries"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
@@ -284,7 +284,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §5 Next steps — light */}
+      {/* §5 Next steps, light */}
       <section
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -349,7 +349,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §6 FAQ — shark */}
+      {/* §6 FAQ, shark */}
       <VisibleFaqSection
         faqs={faqItems}
         id="about-faq"
@@ -357,7 +357,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         primaryCta={{ href: "/contact?source=about_faq", label: "Contact us" }}
       />
 
-      {/* §7 Related — light */}
+      {/* §7 Related, light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/about")} />
 
       <Footer />

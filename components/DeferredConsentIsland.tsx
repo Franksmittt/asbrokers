@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ConsentProvider } from "@/components/analytics/ConsentProvider";
 
 /**
- * Cookie banner + analytics — mount after pointer/12s so consent never wraps
+ * Cookie banner + analytics, mount after pointer/12s so consent never wraps
  * the RSC tree or hydrates on the Lighthouse critical path.
  */
 export function DeferredConsentIsland() {

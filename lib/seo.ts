@@ -7,7 +7,7 @@ export type BreadcrumbItem = { name: string; path: string };
 
 /**
  * Optional shared FAQs for pages that intentionally include them in authored lists.
- * Do not auto-pad UI or JSON-LD with these — GEO requires visible FAQ ≡ schema.
+ * Do not auto-pad UI or JSON-LD with these, GEO requires visible FAQ ≡ schema.
  */
 export const SHARED_SITE_FAQS: FAQItem[] = [
   {
@@ -44,9 +44,9 @@ export const SHARED_SITE_FAQS: FAQItem[] = [
 
 /**
 /**
- * Visible FAQ list — page-authored items only (no shared padding).
+ * Visible FAQ list, page-authored items only (no shared padding).
  * Must match JSON-LD (`faqsForJsonLd`) so UI and schema stay honest for GEO.
- * @deprecated Prefer `faqsForJsonLd` — kept for call-site compatibility.
+ * @deprecated Prefer `faqsForJsonLd`, kept for call-site compatibility.
  */
 export function ensureSixFaqs(specific: FAQItem[] = []): FAQItem[] {
   return faqsForJsonLd(specific);
@@ -62,7 +62,7 @@ export type PageGraphInput = {
   webPage: {
     name: string;
     description: string;
-    /** ISO date — only when page content truly changed. */
+    /** ISO date, only when page content truly changed. */
     dateModified?: string;
     datePublished?: string;
   };

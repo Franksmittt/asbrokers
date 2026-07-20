@@ -3,7 +3,7 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Everest Wealth Structured Income | Independent FSP 17273";
-/** Keep ≤160 chars — clampMetaDescription truncates mid-sentence if longer. */
+/** Keep ≤160 chars, clampMetaDescription truncates mid-sentence if longer. */
 const PAGE_DESCRIPTION =
   "AS Brokers FSP 17273: Everest Wealth education on 12.8%, 14.2%, 14.5% targeted profiles. R100k min, liquidity and DWT upfront. Run calculators, then book.";
 
@@ -54,7 +54,7 @@ export const metadata = buildPageMetadata({
     "independent Everest broker",
     "AS Brokers Everest Wealth",
   ],
-  /** Compressed social asset — avoid shipping the 160KB hero master to crawlers. */
+  /** Compressed social asset, avoid shipping the 160KB hero master to crawlers. */
   ogImagePath: "/images/everest-wealth-og.jpg",
 });
 

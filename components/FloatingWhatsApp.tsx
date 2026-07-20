@@ -3,7 +3,7 @@ import { WhatsAppLogo } from "@/components/WhatsAppLogo";
 const WHATSAPP_LINK = "https://wa.me/27662276044";
 
 /**
- * Desktop WhatsApp FAB — zero client JS / no framer-motion.
+ * Desktop WhatsApp FAB, zero client JS / no framer-motion.
  * Flip uses CSS `animate-whatsapp-flip` + motion-safe so prefers-reduced-motion is respected.
  */
 export function FloatingWhatsApp() {

@@ -166,7 +166,7 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
       "I can run tax, retirement, and estate numbers myself without speaking to a salesperson first.",
     h1: "The mathematical reality check",
     subhead:
-      "Intuition fails in complex finance. Use our fiduciary calculator library to test assumptions before you decide, educational only, not advice.",
+      "Intuition fails in complex finance. Use our fiduciary calculator library to test assumptions before you decide. Educational only, not advice.",
     problem: "You cannot plan a 30-year retirement or a corporate risk structure on guesswork.",
     promise:
       "Model retirement longevity, estate liquidity, underinsurance, and yield trade-offs in real time with ungated ASSET tools.",
@@ -239,7 +239,7 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
   "/solutions/discovery-health": {
     path: "/solutions/discovery-health",
     fiveSecondTest:
-      "Krugersdorp FSP 17273 helps SA families evaluate Discovery Health Medical Scheme and Gap Cover — same premium as going direct.",
+      "Krugersdorp FSP 17273 helps SA families evaluate Discovery Health Medical Scheme and Gap Cover, same premium as going direct.",
     h1: "Discovery Health medical aid broker for South African families",
     subhead:
       "AS Brokers CC structures Discovery Health plans with Gap Cover stacking, FAIS needs analysis, and claims advocacy from the West Rand.",

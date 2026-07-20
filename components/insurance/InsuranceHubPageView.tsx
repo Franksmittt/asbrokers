@@ -42,21 +42,21 @@ const PROTECTION_DOMAINS = [
     description: "Life, disability, and severe illness cover for dependents and earnings.",
     href: "/solutions/life-insurance",
     image: "/images/insurance-domain-life-21x9.webp",
-    alt: "Father on a patio watching his child play — protecting dependents and earnings",
+    alt: "Father on a patio watching his child play, protecting dependents and earnings",
   },
   {
     title: "Personal assets",
     description: "Home, motor, and high-value possessions, including underinsurance risk.",
     href: "/solutions/personal-insurance",
     image: "/images/insurance-domain-personal-21x9.webp",
-    alt: "Couple with their car at home — personal assets and underinsurance risk",
+    alt: "Couple with their car at home, personal assets and underinsurance risk",
   },
   {
     title: "Business & partners",
     description: "Commercial cover, key person protection, and buy-and-sell continuity.",
     href: "/solutions/business-insurance",
     image: "/images/insurance-domain-business-21x9.webp",
-    alt: "Business partners outside a commercial warehouse — continuity and cover",
+    alt: "Business partners outside a commercial warehouse, continuity and cover",
   },
 ] as const;
 
@@ -69,11 +69,11 @@ export function InsuranceHubPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
-      {/* §1 Hero — light */}
+      {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Insurance" longLabel="Insurance" />}
         title="Worried underinsurance will shrink your next insurance claim?"
-        description="AS Brokers CC (FSP 17273) educates you on policy gaps first: underinsurance and the Average Clause, Business Interruption wording, and life premium traps—before anyone asks you to switch. Run the maths yourself. Then request a review if you want a needs analysis."
+        description="AS Brokers CC (FSP 17273) educates you on policy gaps first: underinsurance and the Average Clause, Business Interruption wording, and life premium traps, before anyone asks you to switch. Run the maths yourself. Then request a review if you want a needs analysis."
         actions={
           <HubHeroActions
             primaryLabel="Check your underinsurance risk"
@@ -111,7 +111,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
         }
       />
 
-      {/* §2 Protection domains — route-owned below the shared hero */}
+      {/* §2 Protection domains, route-owned below the shared hero */}
       <section
         className="border-b pb-12 md:pb-16 lg:pb-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -152,7 +152,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §3 Commercial reality — shark */}
+      {/* §3 Commercial reality, shark */}
       <section
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="commercial-reality-heading"
@@ -201,7 +201,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §3 Average clause + tools — light */}
+      {/* §3 Average clause + tools, light */}
       <section
         id="average-clause"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -287,7 +287,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §4 Medical / gap demarcation — shark */}
+      {/* §4 Medical / gap demarcation, shark */}
       <section
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="medical-gap-heading"
@@ -344,7 +344,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §5 Independence — light */}
+      {/* §5 Independence, light */}
       <section
         id="independence"
         className="scroll-mt-28 border-b py-12 md:py-16"
@@ -381,17 +381,17 @@ export function InsuranceHubPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §6 FAQ — shark (component default) */}
+      {/* §6 FAQ, shark (component default) */}
       <VisibleFaqSection
         faqs={faqItems}
         headingId="insurance-faq-heading"
         primaryCta={{ href: "/contact?source=insurance_faq", label: "Contact us" }}
       />
 
-      {/* §7 Related — light */}
+      {/* §7 Related, light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/insurance")} />
 
-      {/* §8 Terminal — dark panel (kept) */}
+      {/* §8 Terminal, dark panel (kept) */}
       <section
         id="risk-audit"
         className="scroll-mt-28 pb-16 pt-4 md:scroll-mt-32 md:pb-24"

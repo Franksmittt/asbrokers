@@ -12,7 +12,7 @@ export const chatLeadInterestSchema = z.enum([
 export type ChatLeadInterest = z.infer<typeof chatLeadInterestSchema>;
 
 /**
- * Tool input for Gemini — must stay JSON-Schema friendly.
+ * Tool input for Gemini, must stay JSON-Schema friendly.
  * Do NOT use z.literal(true): Gemini rejects boolean enum values (TYPE_STRING).
  */
 export const chatCallbackLeadToolSchema = z.object({

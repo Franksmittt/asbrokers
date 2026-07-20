@@ -14,7 +14,7 @@ type Props = {
   contextBox: CalculatorContextBox;
 };
 
-/** Winner: split panes — dark intent + cream explanation. */
+/** Winner: split panes, dark intent + cream explanation. */
 export function ContextBoxSection({ path, contextBox }: Props) {
   return (
     <section

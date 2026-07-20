@@ -98,7 +98,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
 
   return (
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
-      {/* §1 Hero — light */}
+      {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Estate" longLabel="Estate Planning" />}
         title="Will estate duty force your heirs into a fire-sale of assets?"
@@ -143,7 +143,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
         }
       />
 
-      {/* §2 Primary diagnostic — shark */}
+      {/* §2 Primary diagnostic, shark */}
       <section
         id="legacy-checklist"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
@@ -179,7 +179,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §3 Architecture — light */}
+      {/* §3 Architecture, light */}
       <section
         id="estate-architecture"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -234,7 +234,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §4 Scope boundary — shark */}
+      {/* §4 Scope boundary, shark */}
       <section
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
         aria-labelledby="scope-heading"
@@ -275,7 +275,7 @@ export function EstatePlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §5 Calculators + credentials — light */}
+      {/* §5 Calculators + credentials, light */}
       <section
         id="estate-calculators"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -324,17 +324,17 @@ export function EstatePlanningPageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §6 FAQ — shark (component default) */}
+      {/* §6 FAQ, shark (component default) */}
       <VisibleFaqSection
         faqs={faqItems}
         headingId="estate-faq-heading"
         primaryCta={{ href: "/contact?source=estate_faq", label: "Contact us" }}
       />
 
-      {/* §7 Related — light */}
+      {/* §7 Related, light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/estate-planning")} />
 
-      {/* §8 Terminal — dark panel (kept) */}
+      {/* §8 Terminal, dark panel (kept) */}
       <section
         id="strategy-call"
         className="scroll-mt-28 pb-16 pt-4 md:scroll-mt-32 md:pb-24"

@@ -6,6 +6,13 @@ import {
   CONTAINMENT_HOLDING_PATH,
   isContainmentRestrictedPath,
 } from "@/lib/compliance/containment";
+import {
+  SOFT_LOCK_PATH,
+  SOFT_LOCK_PREVIEW_COOKIE,
+  getSoftLockPreviewToken,
+  isSoftLockEnabled,
+  isSoftLockExemptPath,
+} from "@/lib/compliance/soft-lock";
 import { isBlockedTrainingBot, isPrivateRoute } from "@/lib/crawler-policy";
 import {
   CRM_PIN_COOKIE,
@@ -92,6 +99,58 @@ export async function middleware(request: NextRequest) {
   }
 
   const pathname = request.nextUrl.pathname;
+
+  /**
+   * Temporary site soft-lock: public visitors see /site-hold.
+   * Review bypass: add ?preview=<token> once (sets cookie). Clear with ?preview=off.
+   * Internal routes (/login, /crm, /portal, /api, /studio) remain available.
+   */
+  if (isSoftLockEnabled()) {
+    const previewParam = request.nextUrl.searchParams.get("preview");
+    const previewToken = getSoftLockPreviewToken();
+    const hasPreviewCookie =
+      request.cookies.get(SOFT_LOCK_PREVIEW_COOKIE)?.value === "1";
+
+    if (previewParam === "off") {
+      const clean = request.nextUrl.clone();
+      clean.searchParams.delete("preview");
+      const res = NextResponse.redirect(clean, 302);
+      res.cookies.set(SOFT_LOCK_PREVIEW_COOKIE, "", {
+        path: "/",
+        maxAge: 0,
+        httpOnly: true,
+        sameSite: "lax",
+        secure: true,
+      });
+      return res;
+    }
+
+    if (previewParam && previewParam === previewToken) {
+      const clean = request.nextUrl.clone();
+      clean.searchParams.delete("preview");
+      const res = NextResponse.redirect(clean, 302);
+      res.cookies.set(SOFT_LOCK_PREVIEW_COOKIE, "1", {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+        httpOnly: true,
+        sameSite: "lax",
+        secure: true,
+      });
+      res.headers.set("Cache-Control", "no-store");
+      return res;
+    }
+
+    const unlocked = hasPreviewCookie || previewParam === previewToken;
+    if (!unlocked && !isSoftLockExemptPath(pathname)) {
+      const hold = request.nextUrl.clone();
+      hold.pathname = SOFT_LOCK_PATH;
+      hold.search = "";
+      const res = NextResponse.redirect(hold, 302);
+      res.headers.set("X-Robots-Tag", "noindex, nofollow");
+      res.headers.set("Cache-Control", "no-store");
+      return res;
+    }
+  }
 
   /**
    * Compliance containment (2026-07-22): temporary 302 only.

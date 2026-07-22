@@ -13,5 +13,6 @@
 | 2026-07-22 | Sitemap | Included restricted URLs | Educational set only | |
 | 2026-07-22 | Footer resources / FAQ / hubs | Product deep-links | Frozen to `/calculators` or `/investments` | Additional promo surfaces |
 | 2026-07-22 | `llms.txt` / public AI discovery | Listed product calcs + Everest | Educational-only URLs | Indexing containment |
+| 2026-07-22 | Full public marketing site | Public | Soft-locked → `/site-hold` | Temporary hold for Albert review meeting; bypass `?preview=albert-review` |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

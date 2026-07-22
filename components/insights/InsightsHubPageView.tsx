@@ -85,8 +85,8 @@ export const INSIGHTS_TOPIC_NAV = [
 const CALC_HANDOFFS = [
   { label: "Retirement Gap Method™", href: "/retirement-gap-method" },
   { label: "Retirement reality check", href: "/calculators/asset-002-retirement-reality-check" },
-  { label: "Estate duty & executor fees", href: "/calculators/estate-duty-calculator" },
-  { label: "Average clause underinsurance", href: "/calculators/underinsurance-calculator" },
+  // CONTAINMENT 2026-07-22: estate duty + underinsurance frozen
+  { label: "Educational calculators", href: "/calculators" },
   { label: "Full calculator library", href: "/calculators" },
 ] as const;
 

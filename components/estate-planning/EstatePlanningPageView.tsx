@@ -7,7 +7,6 @@ import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
-import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { HubHeroActions } from "@/components/hub/HubHeroActions";
@@ -27,8 +26,10 @@ const ESTATE_CRAFT = "/images/risk-arch-estate.jpg";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or legal advice as defined in the FAIS Act, 2002. Estate duty, executor fees, and donations rules change, verify current SARS and statutory positions with qualified professionals.";
 
-const CALC_ESTATE_DUTY = calculatorPagePath("asset-007-estate-duty");
-const CALC_ESTATE_REDUCTION = calculatorPagePath("asset-008-estate-reduction");
+// CONTAINMENT 2026-07-22: legislation-dependent calculators frozen.
+// Restore: calculatorPagePath("asset-007-estate-duty") / calculatorPagePath("asset-008-estate-reduction")
+const CALC_ESTATE_DUTY = "/calculators";
+const CALC_ESTATE_REDUCTION = "/calculators";
 
 const PILLARS = [
   {

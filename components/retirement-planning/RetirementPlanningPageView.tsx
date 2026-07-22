@@ -324,7 +324,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               </p>
               <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
                 Targeted return profiles are not guarantees. Read{" "}
-                <Link href="/everest-wealth/about" prefetch={false} className="font-semibold text-cinematic-teal hover:opacity-80">
+                <Link href="/investments" prefetch={false} className="font-semibold text-cinematic-teal hover:opacity-80">
                   Understanding Everest
                 </Link>{" "}
                 before comparing any voluntary product to liquid market funds.

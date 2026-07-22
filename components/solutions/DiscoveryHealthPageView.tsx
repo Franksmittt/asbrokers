@@ -12,7 +12,6 @@ import {
   DiscoveryPlanMatrix,
   type DiscoveryPlanCard,
 } from "@/components/solutions/DiscoveryPlanMatrix.client";
-import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
@@ -22,7 +21,8 @@ const HAIRLINE = "#E5E5E5";
 /** WCAG AA teal on canvas (matches /insurance hub). */
 const TEAL = "#0F766E";
 const HERO_IMAGE = "/images/risk-arch-medical.webp";
-const CALC_AVERAGE = calculatorPagePath("asset-015-average-clause");
+// CONTAINMENT 2026-07-22: Asset 015 frozen. Restore: calculatorPagePath("asset-015-average-clause")
+const CALC_AVERAGE = "/calculators";
 
 const VALUE_CARDS = [
   {

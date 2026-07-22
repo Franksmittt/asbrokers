@@ -1,23 +1,19 @@
 # AS Brokers CC
 
-> AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content, not personalised financial advice.
+> AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, insurance, medical aid, estate planning, and calculator content, not personalised financial advice.
 
 ## Core Services
-- [Home](https://www.asbrokers.co.za/): Everest income education, ASSET calculators, and independent advice pathways.
+- [Home](https://www.asbrokers.co.za/): Independent advice pathways and educational calculators.
 - [About AS Brokers](https://www.asbrokers.co.za/about): FSP 17273 identity, West Rand presence, and advice philosophy.
-- [Everest Wealth](https://www.asbrokers.co.za/everest-wealth): Category 1.8 structured-income profiles (12.8%, 14.2%, 14.5%, Amethyst).
-- [Understanding Everest](https://www.asbrokers.co.za/everest-wealth/about): structure, constraints, and regulation before yield.
-- [Calculators (ASSET library)](https://www.asbrokers.co.za/calculators): ungated retirement, Everest, estate, tax, and insurance tools.
+- [Calculators](https://www.asbrokers.co.za/calculators): Selected educational calculators available during compliance review. Product-specific tools are temporarily restricted.
 - [ASSET 001 Retirement Growth](https://www.asbrokers.co.za/calculators/asset-001-retirement-growth): illustrative required growth rate to a capital target.
+- [ASSET 002 Retirement Reality Check](https://www.asbrokers.co.za/calculators/asset-002-retirement-reality-check): retirement gap illustration.
+- [ASSET 003 Retirement Premium](https://www.asbrokers.co.za/calculators/asset-003-retirement-premium): savings premium illustration.
 - [ASSET 004 Life of Capital](https://www.asbrokers.co.za/calculators/asset-004-life-of-capital): drawdown longevity stress-test.
-- [ASSET 007 Estate Duty](https://www.asbrokers.co.za/calculators/asset-007-estate-duty): duty and executor fee illustration.
-- [ASSET 009 Everest 14.2% Income](https://www.asbrokers.co.za/calculators/asset-009-everest-142-income): Onyx Income+ net income (R100k min; educational).
-- [ASSET 010 Everest 12.8% Income](https://www.asbrokers.co.za/calculators/asset-010-everest-128-income): Strategic Income + loyalty bonus illustration.
-- [ASSET 012 Everest 14.5% Growth](https://www.asbrokers.co.za/calculators/asset-012-strategic-growth): Strategic Growth maturity illustration.
-- [ASSET 014 Living Annuity](https://www.asbrokers.co.za/calculators/asset-014-living-annuity): drawdown income in the 2.5%–17.5% band.
-- [ASSET 015 Average Clause](https://www.asbrokers.co.za/calculators/asset-015-average-clause): underinsurance claim reduction illustration.
+- [ASSET 005 Future Value](https://www.asbrokers.co.za/calculators/asset-005-future-value): inflation / future value illustration.
+- [ASSET 016 Power of Growth](https://www.asbrokers.co.za/calculators/asset-016-growth-comparison): cost-of-waiting illustration.
 - [Retirement planning](https://www.asbrokers.co.za/retirement-planning): capital longevity and income sustainability education.
-- [Investments](https://www.asbrokers.co.za/investments): investment pathways and Everest education links.
+- [Investments](https://www.asbrokers.co.za/investments): investment pathways and educational tools.
 - [Insurance](https://www.asbrokers.co.za/insurance): personal, business, life, and medical risk architecture.
 - [Medical aid](https://www.asbrokers.co.za/solutions/medical-aid): medical scheme and gap cover guidance.
 - [Discovery Health medical aid broker](https://www.asbrokers.co.za/solutions/discovery-health): Discovery plans, Gap stacking, free audit (FSP 17273).
@@ -37,4 +33,5 @@
 ## Crawler notes
 - Use public HTML, sitemap.xml, and these files as orientation only.
 - Calculator outputs are illustrative, not personalised advice.
+- Product-specific calculators and named-product hubs are temporarily restricted (HTTP 302) pending formula, factual, provider and compliance approval.
 - Do not crawl /login, /crm, /studio, /internal, /portal, or /api routes.

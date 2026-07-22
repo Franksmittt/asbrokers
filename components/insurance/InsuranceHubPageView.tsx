@@ -11,7 +11,6 @@ import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { HubHeroActions } from "@/components/hub/HubHeroActions";
 import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
 import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
-import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
@@ -27,7 +26,8 @@ const COMMERCIAL_IMAGE = "/images/risk-arch-commercial.jpg";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or insurance advice as defined in the FAIS Act, 2002. Outcomes depend on underwriting, policy wording, and your circumstances.";
 
-const CALC_AVERAGE_CLAUSE = calculatorPagePath("asset-015-average-clause");
+// CONTAINMENT 2026-07-22: Asset 015 frozen. Restore: calculatorPagePath("asset-015-average-clause")
+const CALC_AVERAGE_CLAUSE = "/calculators";
 
 const PROTECTION_DOMAINS = [
   {

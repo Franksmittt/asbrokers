@@ -44,16 +44,16 @@ export function Home4Hero() {
             income can it support?
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
-            Run Albert&apos;s Everest income calculator first. Then contact us and speak with an
+            Start with an educational retirement calculator, then contact us to speak with an
             independent Category 1.8 adviser in Krugersdorp, not a call centre.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
-              href={calculatorPagePath("asset-010-everest-128-income")}
+              href={calculatorPagePath("asset-002-retirement-reality-check")}
               prefetch={false}
               className="inline-flex items-center gap-2 rounded-2xl bg-[#006B6B] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#005858]"
             >
-              Calculate 12.8% target income
+              Open Retirement Reality Check
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <a

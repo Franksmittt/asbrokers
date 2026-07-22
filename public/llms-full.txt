@@ -3,13 +3,11 @@
 AS Brokers CC is an authorised South African financial services provider (FSP 17273, FSCA Category 1.8) based in Krugersdorp, Gauteng. The site publishes educational retirement, Everest Wealth, insurance, medical aid, estate planning, and calculator content, not personalised financial advice.
 
 ## Key URLs
-- [Home](https://www.asbrokers.co.za/): Everest income education, ASSET calculators, independent advice pathways.
+- [Home](https://www.asbrokers.co.za/): Independent advice pathways and educational calculators.
 - [About AS Brokers](https://www.asbrokers.co.za/about): FSP 17273 identity, West Rand presence, and advice philosophy.
-- [Everest Wealth](https://www.asbrokers.co.za/everest-wealth): 12.8%, 14.2%, 14.5%, and Amethyst living annuity education.
-- [Understanding Everest](https://www.asbrokers.co.za/everest-wealth/about): structure, constraints, and Category 1.8 regulation.
-- [Calculators (ASSET library)](https://www.asbrokers.co.za/calculators): ungated retirement, Everest, estate, tax, and insurance tools.
+- [Calculators](https://www.asbrokers.co.za/calculators): Selected educational calculators available during compliance review. Product-specific tools temporarily restricted.
 - [Retirement planning](https://www.asbrokers.co.za/retirement-planning): capital longevity and income sustainability.
-- [Investments](https://www.asbrokers.co.za/investments): investment pathways linked to Everest education.
+- [Investments](https://www.asbrokers.co.za/investments): investment pathways and educational tools.
 - [Insurance](https://www.asbrokers.co.za/insurance): personal, business, life, and medical risk architecture.
 - [Medical aid](https://www.asbrokers.co.za/solutions/medical-aid): medical scheme and gap cover guidance.
 - [Discovery Health medical aid broker](https://www.asbrokers.co.za/solutions/discovery-health): Discovery plans, Gap stacking, free audit.

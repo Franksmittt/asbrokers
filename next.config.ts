@@ -124,28 +124,31 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     /** Retired React calculator routes → ASSET hub anchors or service hubs. */
-    const legacyCalculatorRedirects = [
+    const legacyCalculatorRedirects: Array<{
+      source: string;
+      destination: string;
+      permanent?: boolean;
+    }> = [
       { source: "/wealth-building-calculator", destination: "/calculators/asset-001-retirement-growth" },
       { source: "/calculators/retirement-reality-check", destination: "/calculators/asset-002-retirement-reality-check" },
       { source: "/cost-of-inflation-over-time", destination: "/calculators/asset-005-future-value" },
       { source: "/retirement-readiness", destination: "/retirement-planning", permanent: true },
-      { source: "/annual-estate-reduction-strategy", destination: "/calculators/asset-008-estate-reduction" },
+      // CONTAINMENT 2026-07-22: restricted destinations → temporary holding page (not 301 to product calcs)
+      { source: "/annual-estate-reduction-strategy", destination: "/calculators", permanent: false },
       { source: "/income-in-retirement", destination: "/calculators/asset-004-life-of-capital" },
-      { source: "/income-tax-calculator", destination: "/calculators/asset-006-income-tax" },
-      { source: "/estate-duty-calculator", destination: "/calculators/estate-duty-calculator" },
-      { source: "/calculators/asset-007-estate-duty", destination: "/calculators/estate-duty-calculator" },
-      { source: "/underinsurance-calculator", destination: "/calculators/underinsurance-calculator" },
-      { source: "/how-underinsurance-reduces-your-claim", destination: "/calculators/underinsurance-calculator" },
-      { source: "/calculators/asset-015-average-clause", destination: "/calculators/underinsurance-calculator" },
+      { source: "/income-tax-calculator", destination: "/calculators", permanent: false },
+      { source: "/estate-duty-calculator", destination: "/calculators", permanent: false },
+      { source: "/calculators/asset-007-estate-duty", destination: "/calculators", permanent: false },
+      { source: "/underinsurance-calculator", destination: "/calculators", permanent: false },
+      { source: "/how-underinsurance-reduces-your-claim", destination: "/calculators", permanent: false },
+      { source: "/calculators/asset-015-average-clause", destination: "/calculators", permanent: false },
       { source: "/calculators/asset-017-personal-goal", destination: "/calculators/goal-engineering-planner" },
       { source: "/goal-engineering-planner", destination: "/calculators/goal-engineering-planner" },
-      { source: "/immediate-higher-income-calculator", destination: "/calculators/asset-009-everest-142-income" },
-      { source: "/everest-128-product", destination: "/calculators/asset-010-everest-128-income" },
-      { source: "/everest-strategic-growth-145", destination: "/calculators/asset-012-strategic-growth" },
-      // Amethyst product page is live at /everest-amethyst-living-annuity (separate illustration).
-      // Educational sustainability tool remains /calculators/asset-014-living-annuity.
+      { source: "/immediate-higher-income-calculator", destination: "/calculators", permanent: false },
+      { source: "/everest-128-product", destination: "/calculators", permanent: false },
+      { source: "/everest-strategic-growth-145", destination: "/calculators", permanent: false },
       { source: "/lab", destination: "/calculators" },
-    ] as const;
+    ];
 
     const retiredCatalogueRedirects = [
       { source: "/retirement", destination: "/retirement-planning" },
@@ -175,10 +178,10 @@ const nextConfig: NextConfig = {
       })),
       { source: "/favicon.ico", destination: "/images/og-default.jpg", permanent: true },
       { source: "/embed/calculators/:path*", destination: "/calculators", permanent: true },
-      ...legacyCalculatorRedirects.map(({ source, destination }) => ({
+      ...legacyCalculatorRedirects.map(({ source, destination, permanent }) => ({
         source,
         destination,
-        permanent: true,
+        permanent: permanent ?? true,
       })),
       /** Consolidate alternate hosts onto GSC canonical origin (HTTPS + www). */
       {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { containmentSafePublicHref } from "@/lib/compliance/containment";
 
 export type RelatedLink = {
   href: string;
@@ -44,10 +45,12 @@ export function RelatedContent({
         {heading}
       </h2>
       <ul className={gridClass}>
-        {links.map((link) => (
-          <li key={link.href}>
+        {links.map((link) => {
+          const href = containmentSafePublicHref(link.href);
+          return (
+          <li key={`${href}-${link.title}`}>
             <Link
-              href={link.href}
+              href={href}
               prefetch={false}
               className={
                 warm
@@ -61,7 +64,8 @@ export function RelatedContent({
               </p>
             </Link>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </>
   );

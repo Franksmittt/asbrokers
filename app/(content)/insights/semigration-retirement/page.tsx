@@ -55,12 +55,13 @@ export default function SemigrationRetirementPage() {
             >
               Retirement planning hub
             </Link>
+            {/* CONTAINMENT 2026-07-22: Living annuity / Amethyst CTA frozen. Restore href: "/everest-amethyst-living-annuity" */}
             <Link
-              href="/everest-amethyst-living-annuity"
+              href="/calculators"
               prefetch={false}
               className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-stone-800 ring-1 ring-stone-200/90 hover:bg-stone-50"
             >
-              Living Annuity Calculator
+              View financial calculators
             </Link>
             <Link
               href="/contact"

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import "server-only";
-import { CALCULATOR_PAGE_SLUGS } from "@/lib/calculators/page-configs";
+import { CONTAINMENT_ALLOWED_CALCULATOR_IDS } from "@/lib/compliance/containment";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
 import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
@@ -8,7 +8,7 @@ import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 /** Always resolve CMS posts at request time, avoids stale build-time sitemap cache. */
 export const dynamic = "force-dynamic";
 
-/** Public marketing/site pages, no auth, CRM, Studio, APIs, internal tools, or noindex routes. */
+/** Public marketing/site pages during containment (Everest hubs excluded). */
 const STATIC_PATHS = [
   "/",
   "/about",
@@ -17,8 +17,7 @@ const STATIC_PATHS = [
   "/complaints",
   "/conflict-of-interest",
   "/contact",
-  "/everest-wealth",
-  "/everest-wealth/about",
+  // CONTAINMENT 2026-07-22: /everest-wealth and /everest-wealth/about removed from sitemap
   "/solutions/medical-aid",
   "/solutions/discovery-health",
   "/premium-increase-calculator",
@@ -64,7 +63,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const path of STATIC_PATHS) push(path);
 
-  for (const slug of CALCULATOR_PAGE_SLUGS) push(calculatorPagePath(slug));
+  /** Containment: only educational calculators remain in the public sitemap. */
+  for (const id of CONTAINMENT_ALLOWED_CALCULATOR_IDS) push(calculatorPagePath(id));
 
   /** Insights URLs from Blog Studio only (legacy Sanity sitemap rows retired). */
   const studio = await listPublishedStudioPosts();

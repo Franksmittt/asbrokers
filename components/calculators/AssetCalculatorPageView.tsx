@@ -24,6 +24,7 @@ import {
 } from "@/lib/hub-design-tokens";
 import { CALC_SPLIT_HERO_QUALITY, CALC_SPLIT_HERO_SIZES } from "@/lib/hub-lcp";
 import { WHATSAPP_DISPLAY, whatsappUrl, WHATSAPP_CALCULATOR_MESSAGE } from "@/lib/whatsapp";
+import { containmentSafePublicHref } from "@/lib/compliance/containment";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
@@ -182,7 +183,7 @@ export function AssetCalculatorPageView({
               Retirement Gap Toolkit™
             </Link>
             <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />
-            <Link href={categoryHref} prefetch={false} className="font-medium hover:text-samsung-blue">
+            <Link href={containmentSafePublicHref(categoryHref)} prefetch={false} className="font-medium hover:text-samsung-blue">
               {categoryLabel}
             </Link>
             <ChevronRight className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />
@@ -229,7 +230,7 @@ export function AssetCalculatorPageView({
               </p>
               <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
                 <Link
-                  href={heroPrimaryHref}
+                  href={containmentSafePublicHref(heroPrimaryHref)}
                   prefetch={false}
                   className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-cta-glow-blue transition hover:bg-[#004a9e]"
                 >
@@ -238,7 +239,7 @@ export function AssetCalculatorPageView({
                 </Link>
                 {heroCta?.secondaryLabel && heroCta.secondaryHref ? (
                   <Link
-                    href={heroCta.secondaryHref}
+                    href={containmentSafePublicHref(heroCta.secondaryHref)}
                     prefetch={false}
                     className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
                     style={{ color: TEAL }}
@@ -445,7 +446,7 @@ export function AssetCalculatorPageView({
                 return (
                   <li key={step.stepLabel + step.title} className="flex min-w-0">
                     {step.href && !step.current ? (
-                      <Link href={step.href} prefetch={false} className="flex h-full w-full min-w-0">
+                      <Link href={containmentSafePublicHref(step.href)} prefetch={false} className="flex h-full w-full min-w-0">
                         {card}
                       </Link>
                     ) : (
@@ -731,7 +732,7 @@ export function AssetCalculatorPageView({
                 {decisionComparison.rows.map((row) => {
                   const tool = row.href && !row.current ? (
                     <Link
-                      href={row.href}
+                      href={containmentSafePublicHref(row.href)}
                       prefetch={false}
                       className="font-semibold hover:underline"
                       style={{ color: TEAL }}
@@ -999,7 +1000,7 @@ export function AssetCalculatorPageView({
                 ) : null}
                 <div className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
                   <Link
-                    href={methodSection.ctaHref}
+                    href={containmentSafePublicHref(methodSection.ctaHref)}
                     prefetch={false}
                     className="inline-flex items-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
                     style={{ backgroundColor: TEAL }}
@@ -1009,7 +1010,7 @@ export function AssetCalculatorPageView({
                   </Link>
                   {methodSection.secondaryCtaLabel && methodSection.secondaryCtaHref ? (
                     <Link
-                      href={methodSection.secondaryCtaHref}
+                      href={containmentSafePublicHref(methodSection.secondaryCtaHref)}
                       prefetch={false}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-[#5EEAD4] hover:opacity-80"
                     >
@@ -1059,7 +1060,7 @@ export function AssetCalculatorPageView({
                 </p>
                 <p className="mt-8">
                   <Link
-                    href={assessmentSection.ctaHref}
+                    href={containmentSafePublicHref(assessmentSection.ctaHref)}
                     prefetch={false}
                     className="inline-flex items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
                   >
@@ -1124,7 +1125,7 @@ export function AssetCalculatorPageView({
               {journey.items.map((item) => (
                 <li key={item.href + item.assetCode}>
                   <Link
-                    href={item.href}
+                    href={containmentSafePublicHref(item.href)}
                     prefetch={false}
                     className="group flex h-full flex-col rounded-2xl bg-white p-5 ring-1 ring-stone-200/90 transition hover:ring-stone-300 sm:p-6"
                   >
@@ -1205,7 +1206,7 @@ export function AssetCalculatorPageView({
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-stone-600">{option.description}</p>
                   <p className="mt-6">
                     <Link
-                      href={option.ctaHref}
+                      href={containmentSafePublicHref(option.ctaHref)}
                       prefetch={false}
                       className={
                         index === 0
@@ -1241,7 +1242,7 @@ export function AssetCalculatorPageView({
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Link
-                href={terminalCta?.primaryHref ?? "/contact?source=calculator_terminal"}
+                href={containmentSafePublicHref(terminalCta?.primaryHref ?? "/contact?source=calculator_terminal")}
                 prefetch={false}
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-samsung-blue px-7 py-3.5 font-semibold text-white shadow-md shadow-cta-glow-blue transition hover:bg-[#004a9e]"
                 style={{ fontSize: "clamp(0.9375rem, 0.9rem + 0.12vw, 1rem)" }}
@@ -1251,7 +1252,7 @@ export function AssetCalculatorPageView({
               </Link>
               {terminalCta ? (
                 <Link
-                  href={terminalCta.secondaryHref}
+                  href={containmentSafePublicHref(terminalCta.secondaryHref)}
                   prefetch={false}
                   className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold ring-1 ring-stone-200 transition hover:bg-stone-50"
                   style={{ color: INK }}
@@ -1269,13 +1270,14 @@ export function AssetCalculatorPageView({
                   >
                     WhatsApp {WHATSAPP_DISPLAY}
                   </a>
+                  {/* CONTAINMENT 2026-07-22: Everest hub CTA frozen. Restore href: "/everest-wealth" */}
                   <Link
-                    href="/everest-wealth"
+                    href="/investments"
                     prefetch={false}
                     className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold ring-1 ring-stone-200 transition hover:bg-stone-50"
                     style={{ color: INK }}
                   >
-                    Everest Wealth hub
+                    Explore investments
                   </Link>
                 </>
               )}

@@ -44,9 +44,10 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Home, motor, and personal asset protection.",
     },
     {
-      href: "/calculators/underinsurance-calculator",
-      title: "Underinsurance calculator",
-      description: "How much could underinsurance reduce your claim?",
+      // CONTAINMENT 2026-07-22: underinsurance calculator frozen. Restore: /calculators/underinsurance-calculator
+      href: "/calculators",
+      title: "Financial calculators",
+      description: "Educational planning tools currently available for review.",
     },
     {
       href: "/calculators#asset-004-life-of-capital",

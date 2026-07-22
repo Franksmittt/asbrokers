@@ -29,8 +29,9 @@ const FAIS_DISCLAIMER =
 
 const CALC_POWER_OF_GROWTH = calculatorPagePath("asset-016-growth-comparison");
 const CALC_PERSONAL_GOAL = calculatorPagePath("asset-017-personal-goal");
-const CALC_INCOME_VS_GROWTH = calculatorPagePath("asset-013-everest-income-vs-growth");
-const CALC_128_VS_142 = calculatorPagePath("asset-011-everest-128-vs-142");
+// CONTAINMENT 2026-07-22: product calculators frozen → holding page
+const CALC_INCOME_VS_GROWTH = "/calculators";
+const CALC_128_VS_142 = "/calculators";
 
 const GROWTH_TOOLS = [
   {
@@ -77,7 +78,7 @@ const EVEREST_ROWS = [
       "120-day notice may apply on approved early exit",
       "Up to 15% early exit penalty may apply",
     ],
-    href: calculatorPagePath("asset-010-everest-128-income"),
+    href: "/calculators",
   },
   {
     name: "14.2% Onyx Income+",
@@ -89,7 +90,7 @@ const EVEREST_ROWS = [
       "120-day notice may apply on approved early exit",
       "Up to 15% early exit penalty may apply",
     ],
-    href: calculatorPagePath("asset-009-everest-142-income"),
+    href: "/calculators",
   },
   {
     name: "14.5% Strategic Growth",
@@ -101,7 +102,7 @@ const EVEREST_ROWS = [
       "Five-year term commitment",
       "Illiquid; early exit subject to issuer discretion",
     ],
-    href: calculatorPagePath("asset-012-strategic-growth"),
+    href: "/calculators",
   },
 ] as const;
 
@@ -199,7 +200,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         after={
           <HubHeroAfterLink
             prompt="Prefer Everest products first?"
-            href="/everest-wealth"
+            href="/investments"
             label="Explore Everest Wealth"
           />
         }
@@ -558,7 +559,7 @@ export function InvestmentsPageView({ faqs }: Props) {
             <p className="mt-6 text-sm leading-relaxed" style={{ color: BODY }}>
               Corporate structure, risks, and product mechanics:{" "}
               <Link
-                href="/everest-wealth"
+                href="/investments"
                 prefetch={false}
                 className="font-semibold text-cinematic-teal hover:opacity-80"
               >
@@ -566,7 +567,7 @@ export function InvestmentsPageView({ faqs }: Props) {
               </Link>{" "}
               ·{" "}
               <Link
-                href="/everest-wealth/about"
+                href="/investments"
                 prefetch={false}
                 className="font-semibold text-cinematic-teal hover:opacity-80"
               >

@@ -61,7 +61,8 @@ export const PILLAR_HUB: NavLink = {
 /** Primary header links (Contact is a separate CTA button). */
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Calculators", href: "/calculators" },
-  { label: "Everest Wealth", href: "/everest-wealth" },
+  // CONTAINMENT 2026-07-22: Everest Wealth nav frozen. Restore href: "/everest-wealth"
+  // { label: "Everest Wealth", href: "/everest-wealth" },
   { label: "Investments", href: "/investments" },
   { label: "Retirement", href: "/retirement-planning" },
   { label: "Insurance", href: "/insurance" },
@@ -72,7 +73,8 @@ export const PRIMARY_NAV: NavLink[] = [
 
 /** Mega-footer: goal-led service links. */
 export const FOOTER_HOW_WE_HELP: NavLink[] = [
-  { label: "Everest Wealth", href: "/everest-wealth" },
+  // CONTAINMENT 2026-07-22: Everest Wealth footer frozen. Restore href: "/everest-wealth"
+  // { label: "Everest Wealth", href: "/everest-wealth" },
   { label: "Investments", href: "/investments" },
   { label: "Retirement planning", href: "/retirement-planning" },
   { label: "Insurance & Risk", href: "/insurance" },
@@ -84,8 +86,9 @@ export const FOOTER_RESOURCES: NavLink[] = [
   { label: "Insights", href: "/insights" },
   { label: "Calculators", href: "/calculators" },
   { label: "Financial Health Quiz", href: "/quiz" },
-  { label: "Everest Wealth", href: "/everest-wealth" },
-  { label: "Understanding Everest", href: "/everest-wealth/about" },
+  // CONTAINMENT 2026-07-22: Everest footer resources frozen.
+  // Restore: { label: "Everest Wealth", href: "/everest-wealth" },
+  // Restore: { label: "Understanding Everest", href: "/everest-wealth/about" },
   { label: "Digital Wealth Assistant", href: "/chat" },
 ];
 

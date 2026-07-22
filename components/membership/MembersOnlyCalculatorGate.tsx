@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CalculatorToolPanel } from "@/components/calculators/CalculatorToolPanel";
+import { CalculatorReviewNoticeAbove } from "@/components/calculators/CalculatorReviewNotices";
 import { Lock } from "@/components/icons";
 import {
   FINANCIAL_FREEDOM_COMMUNITY_PATH,
@@ -78,8 +79,10 @@ export function MembersOnlyCalculatorGate({
   }
 
   return (
+    <div className="mt-6 space-y-6">
+      <CalculatorReviewNoticeAbove />
     <div
-      className="relative mt-6 overflow-hidden rounded-3xl bg-[#1D1D1F] p-6 text-white shadow-2xl ring-1 ring-white/10 sm:p-8"
+      className="relative overflow-hidden rounded-3xl bg-[#1D1D1F] p-6 text-white shadow-2xl ring-1 ring-white/10 sm:p-8"
       role="region"
       aria-label="Members only planner"
     >
@@ -154,6 +157,7 @@ export function MembersOnlyCalculatorGate({
           requires an active programme membership after signup and payment.
         </p>
       </div>
+    </div>
     </div>
   );
 }

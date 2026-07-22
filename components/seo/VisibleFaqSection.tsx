@@ -35,9 +35,10 @@ export function VisibleFaqSection({
     href: "/contact?source=faq",
     label: "Contact us",
   },
+  // CONTAINMENT 2026-07-22: Everest FAQ CTA frozen. Restore href: "/everest-wealth/about"
   secondaryCta = {
-    href: "/everest-wealth/about",
-    label: "Understanding Everest",
+    href: "/investments",
+    label: "Explore investments",
   },
   className = "",
 }: VisibleFaqSectionProps) {

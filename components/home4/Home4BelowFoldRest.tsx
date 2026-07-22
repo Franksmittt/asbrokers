@@ -40,7 +40,7 @@ export function Home4BelowFoldRest() {
               headingId="home4-calculators"
               kicker="Albert's ASSET tools"
               title="Run the numbers before you speak to anyone"
-              description="Ungated educational calculators, Everest income, retirement longevity, estate duty. Illustrative only under FAIS; then bring results when you contact us."
+              description="Ungated educational calculators for retirement capital, longevity and purchasing power. Illustrative only under FAIS; then bring results when you contact us."
             />
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {HOME4_CALCULATOR_TILES.map((tile) => (
@@ -52,7 +52,7 @@ export function Home4BelowFoldRest() {
               prefetch={false}
               className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue hover:text-[#006B6B]"
             >
-              View all calculators
+              View available educational calculators
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </Home4Reveal>
@@ -69,7 +69,7 @@ export function Home4BelowFoldRest() {
             <Home4SectionHeader
               headingId="home4-journey"
               kicker="Your journey"
-              title="Educate → calculate → Everest clarity → assessment"
+              title="Educate → calculate → assessment"
               description="The path that turns curiosity into a high-quality conversation, without a product pitch on day one."
             />
             <Home4JourneyFunnel stages={HOME4_JOURNEY_STAGES} />
@@ -85,19 +85,19 @@ export function Home4BelowFoldRest() {
         <div className={`${HOME4_WRAP} grid gap-6 lg:grid-cols-2`}>
           <Home4Reveal instant>
             <Link
-              href="/everest-wealth"
+              href="/calculators"
               prefetch={false}
               className="group flex h-full flex-col rounded-3xl bg-gradient-to-br from-stone-50 to-white p-8 shadow-xl ring-1 ring-stone-200/70 transition-shadow hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
             >
               <h2 id="home4-pathways" className="text-2xl font-bold tracking-tight text-shark">
-                Start with Everest education
+                Start with educational calculators
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
-                Structure, constraints, and calculators first, so you arrive at advice already clear
-                on suitability.
+                Selected educational calculators remain available while product-specific tools
+                complete review.
               </p>
               <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-stone-100 px-6 py-3 text-sm font-semibold text-shark transition-colors group-hover:bg-stone-200">
-                Open Everest hub
+                Open calculators
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </span>
             </Link>
@@ -109,7 +109,7 @@ export function Home4BelowFoldRest() {
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
                 Speak with a licensed independent fiduciary (FSP 17273). Bring calculator results if
-                you have them, Everest, retirement, insurance, or estate.
+                you have them for retirement, insurance, or estate discussions.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
@@ -142,7 +142,7 @@ export function Home4BelowFoldRest() {
                 <Home4SectionHeader
                   kicker="Why AS Brokers"
                   title="Category 1.8 access, education before advice"
-                  description="We can discuss Everest Wealth structured-income profiles where suitable, while remaining fully independent. Insurance, medical, and estate built this firm, they stay available when your problem needs them. 25+ years on the West Rand, no call centre."
+                  description="Independent Category 1.8 advice with education before product discussions. Insurance, medical, and estate services remain available. 25+ years on the West Rand, no call centre."
                 />
                 <div className="mt-6 flex flex-wrap gap-2">
                   {HOME4_TRUST_BADGES.map((badge) => (
@@ -156,11 +156,11 @@ export function Home4BelowFoldRest() {
                 </div>
                 <div className="mt-6 flex flex-wrap gap-4">
                   <Link
-                    href="/everest-wealth"
+                    href="/investments"
                     prefetch={false}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-samsung-blue hover:text-[#006B6B]"
                   >
-                    Everest Wealth hub
+                    Investments hub
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                   <Link

@@ -44,15 +44,16 @@ export type Testimonial = {
 export const HOME4_GOAL_CARDS: GoalCard[] = [
   {
     id: "investments",
-    title: "Structured income & Everest",
-    badge: "Invest · Everest",
+    // CONTAINMENT 2026-07-22: Everest hub/product links frozen. Original href: /everest-wealth
+    title: "Investments & retirement capital",
+    badge: "Invest",
     description:
-      "Category 1.8 education on targeted preference-share profiles, with calculators and constraints first.",
-    href: "/everest-wealth",
+      "Educational tools and Category 1.8 advice pathways. Product-specific calculators are under review.",
+    href: "/investments",
     links: [
-      { label: "12.8% income calculator", href: "/calculators/asset-010-everest-128-income" },
-      { label: "Everest Wealth hub", href: "/everest-wealth" },
-      { label: "Understanding Everest", href: "/everest-wealth/about" },
+      { label: "Investments hub", href: "/investments" },
+      { label: "Educational calculators", href: "/calculators" },
+      { label: "Contact an adviser", href: "/contact?source=home_investments" },
     ],
     accent: "blue",
     image: "/images/home-card-investments.webp",
@@ -66,7 +67,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/retirement-planning",
     links: [
       { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
-      { label: "Retirement calculators", href: "/calculators#getting-started" },
+      { label: "Educational calculators", href: "/calculators" },
       { label: "Retirement planning hub", href: "/retirement-planning" },
     ],
     accent: "teal",
@@ -83,7 +84,8 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
       { label: "Medical aid & gap", href: "/solutions/medical-aid" },
       { label: "Discovery Health", href: "/solutions/discovery-health" },
       { label: "Risk architecture hub", href: "/insurance" },
-      { label: "Underinsurance calculator", href: "/calculators/underinsurance-calculator" },
+      // CONTAINMENT 2026-07-22: underinsurance calculator frozen
+      // { label: "Underinsurance calculator", href: "/calculators/underinsurance-calculator" },
     ],
     accent: "orange",
     image: "/images/home-card-insurance.webp",
@@ -97,7 +99,8 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     href: "/estate-planning",
     links: [
       { label: "Legacy Readiness Checklist", href: "/legacy-readiness-checklist" },
-      { label: "Estate duty calculator", href: "/calculators/estate-duty-calculator" },
+      // CONTAINMENT 2026-07-22: estate duty calculator frozen
+      // { label: "Estate duty calculator", href: "/calculators/estate-duty-calculator" },
       { label: "Estate planning hub", href: "/estate-planning" },
     ],
     accent: "gold",
@@ -106,12 +109,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
 ];
 
 export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
-  {
-    label: "12.8% Strategic Income",
-    description: "Illustrate targeted monthly income from Everest Class A. Educational only.",
-    href: "/calculators/asset-010-everest-128-income",
-    image: "/images/home-calc-128-income-16x10.jpg",
-  },
+  // CONTAINMENT 2026-07-22: product calculators frozen. Restore asset-010 / asset-013 / estate-duty after approval.
   {
     label: "Retirement Reality Check",
     description: "See where you stand today and what capital gap remains.",
@@ -119,15 +117,21 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
     image: "/images/home-actuarial-engine-16x9.jpg",
   },
   {
-    label: "Income vs Growth",
-    description: "Compare Everest income profiles against compounding growth.",
-    href: "/calculators/asset-013-everest-income-vs-growth",
+    label: "Retirement Growth Rate",
+    description: "Illustrate the growth rate that may be required for a capital goal.",
+    href: "/calculators/asset-001-retirement-growth",
+    image: "/images/home-calc-128-income-16x10.jpg",
+  },
+  {
+    label: "Life of Capital",
+    description: "Illustrate how long capital may last under chosen assumptions.",
+    href: "/calculators/asset-004-life-of-capital",
     image: "/images/home-calc-income-vs-growth-16x10.jpg",
   },
   {
-    label: "Estate Duty",
-    description: "Estimate duty and executor pressure, then engineer liquidity.",
-    href: "/calculators/estate-duty-calculator",
+    label: "Future Value",
+    description: "Illustrate how inflation can change purchasing power over time.",
+    href: "/calculators/asset-005-future-value",
     image: "/images/risk-arch-estate.jpg",
   },
 ];
@@ -136,7 +140,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "01",
     title: "Educate",
-    description: "Everest, retirement maths, tax, and risk explained in plain English.",
+    description: "Retirement maths, tax concepts, and risk explained in plain English.",
     href: "/insights",
     cta: "Read insights",
     accent: "teal",
@@ -144,17 +148,18 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "02",
     title: "Calculate",
-    description: "Albert's ASSET tools for income, longevity, and estate before any sales call.",
+    description: "Educational ASSET tools for capital, longevity, and growth assumptions before advice.",
     href: "/calculators",
     cta: "Open calculators",
     accent: "blue",
   },
   {
+    // CONTAINMENT 2026-07-22: Everest stage frozen. Original href: /everest-wealth
     step: "03",
-    title: "Understand Everest",
-    description: "Structure, constraints, and Category 1.8. Regulation before yield.",
-    href: "/everest-wealth",
-    cta: "Everest hub",
+    title: "Review options",
+    description: "Speak with a licensed adviser when you want personalised guidance.",
+    href: "/contact?source=home_journey_review",
+    cta: "Contact us",
     accent: "gold",
   },
   {

@@ -2,6 +2,10 @@ import { createServerClient } from "@supabase/ssr";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
+import {
+  CONTAINMENT_HOLDING_PATH,
+  isContainmentRestrictedPath,
+} from "@/lib/compliance/containment";
 import { isBlockedTrainingBot, isPrivateRoute } from "@/lib/crawler-policy";
 import {
   CRM_PIN_COOKIE,
@@ -65,7 +69,7 @@ function createSupabaseMiddlewareClient(request: NextRequest) {
 }
 
 /**
- * Edge layer: SEO/crawler policy + Supabase SSR auth for /crm and /portal.
+ * Edge layer: compliance containment + SEO/crawler policy + Supabase SSR auth for /crm and /portal.
  */
 export async function middleware(request: NextRequest) {
   const ua = request.headers.get("user-agent") ?? "";
@@ -88,6 +92,22 @@ export async function middleware(request: NextRequest) {
   }
 
   const pathname = request.nextUrl.pathname;
+
+  /**
+   * Compliance containment (2026-07-22): temporary 302 only.
+   * Restricted product / high-risk calculator / embed URLs → holding page.
+   * Do not use 301 while containment is active.
+   */
+  if (isContainmentRestrictedPath(pathname)) {
+    const holding = request.nextUrl.clone();
+    holding.pathname = CONTAINMENT_HOLDING_PATH;
+    holding.search = "";
+    const redirectResponse = NextResponse.redirect(holding, 302);
+    redirectResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
+    redirectResponse.headers.set("Cache-Control", "no-store");
+    return redirectResponse;
+  }
+
   const pinSession = await hasCrmPinSessionFromCookieValue(
     request.cookies.get(CRM_PIN_COOKIE)?.value
   );
@@ -105,7 +125,7 @@ export async function middleware(request: NextRequest) {
 
   const isCrmRoute = pathname === "/crm" || pathname.startsWith("/crm/");
 
-  /** Members-only planner embed — block direct public access to the HTML engine. */
+  /** Members-only planner embed, block direct public access to the HTML engine. */
   if (pathname === GOAL_ENGINEERING_EMBED_PATH) {
     const allowed = hasActiveFinancialFreedomMembership(user) || pinSession;
     if (!allowed) {

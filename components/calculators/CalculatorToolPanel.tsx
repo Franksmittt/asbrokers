@@ -1,5 +1,9 @@
 import { CalculatorHeightBridgeDeferred } from "@/components/calculators/CalculatorHeightBridgeDeferred";
 import { CalculatorLeadDeferred } from "@/components/calculators/CalculatorLeadDeferred";
+import {
+  CalculatorReviewNoticeAbove,
+  CalculatorReviewNoticeBelowResult,
+} from "@/components/calculators/CalculatorReviewNotices";
 
 const MIN_HEIGHT = 640;
 
@@ -13,6 +17,7 @@ type Props = {
 /**
  * Calculator always visible, SSR iframe (works with JS off).
  * Height bridge + lead form are deferred client islands. Embed HTML untouched.
+ * Containment notices are always visible (not in tooltips/footers).
  */
 export function CalculatorToolPanel({
   calculatorSrc,
@@ -24,6 +29,7 @@ export function CalculatorToolPanel({
 
   return (
     <div className="mt-6 space-y-6">
+      <CalculatorReviewNoticeAbove />
       <div className="rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-stone-200/90 sm:p-6">
         <div className="w-full overflow-visible rounded-2xl bg-white ring-1 ring-stone-200/90">
           <iframe
@@ -39,6 +45,7 @@ export function CalculatorToolPanel({
           <CalculatorHeightBridgeDeferred iframeId={iframeId} />
         </div>
       </div>
+      <CalculatorReviewNoticeBelowResult />
       <CalculatorLeadDeferred
         calculatorId={calculatorId}
         calculatorPath={calculatorPath}

@@ -3,7 +3,8 @@
 
 **Effective at:** 2026-07-22T06:43:00+02:00 (Africa/Johannesburg)  
 **Instruction type:** Regulatory containment (not visual redesign)  
-**Holding page:** `/calculators` (temporary 302 target)
+**Holding page:** `/calculators` (temporary 302 target)  
+**Site soft-lock:** Removed 2026-07-23 (public marketing site live again). Soft-lock is OFF unless `SITE_SOFT_LOCK=1`. Calculator/product containment remains active.
 
 ### Backup retention
 

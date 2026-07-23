@@ -14,5 +14,6 @@
 | 2026-07-22 | Footer resources / FAQ / hubs | Product deep-links | Frozen to `/calculators` or `/investments` | Additional promo surfaces |
 | 2026-07-22 | `llms.txt` / public AI discovery | Listed product calcs + Everest | Educational-only URLs | Indexing containment |
 | 2026-07-22 | Full public marketing site | Public | Soft-locked → `/site-hold` | Temporary hold for Albert review meeting; bypass `?preview=albert-review` |
+| 2026-07-23 | Full public marketing site | Soft-locked → `/site-hold` | Soft-lock removed (public site live again) | Soft-lock default OFF. Calculator/product containment (302 → `/calculators`) remains active until approvals |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

@@ -101,9 +101,11 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   /**
-   * Temporary site soft-lock: public visitors see /site-hold.
+   * Optional site soft-lock (OFF unless SITE_SOFT_LOCK=1/true/on).
+   * When enabled: public visitors see /site-hold.
    * Review bypass: add ?preview=<token> once (sets cookie). Clear with ?preview=off.
-   * Internal routes (/login, /crm, /portal, /api, /studio) remain available.
+   * Internal routes (/login, /crm, /portal, /api) remain available.
+   * Does not replace calculator/product containment below.
    */
   if (isSoftLockEnabled()) {
     const previewParam = request.nextUrl.searchParams.get("preview");

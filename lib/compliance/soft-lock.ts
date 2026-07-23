@@ -1,8 +1,10 @@
 /**
- * Temporary public soft-lock (2026-07-22).
- * Enables a site-wide under-review hold while Frank and Albert decide what stays public.
- * Bypass for review: visit any URL with ?preview=<token> (sets a cookie).
- * Turn off: set SITE_SOFT_LOCK=0 in Vercel, or set SOFT_LOCK_ENABLED false below.
+ * Optional public soft-lock (was active 2026-07-22 for Albert review).
+ * Soft-lock is OFF unless SITE_SOFT_LOCK is explicitly "1", "true", or "on".
+ * Bypass when enabled: visit any URL with ?preview=<token> (sets a cookie).
+ *
+ * Calculator / product containment remains separate in `containment.ts`
+ * and must stay active until Albert records approvals.
  */
 
 export const SOFT_LOCK_PATH = "/site-hold";
@@ -13,13 +15,12 @@ export const SOFT_LOCK_PREVIEW_COOKIE = "asb_site_preview";
 export const SOFT_LOCK_DEFAULT_PREVIEW_TOKEN = "albert-review";
 
 /**
- * Soft-lock is ON unless SITE_SOFT_LOCK is explicitly "0" or "false".
- * Flip off in Vercel after Albert's review meeting.
+ * Soft-lock is OFF by default.
+ * Only enable temporarily with SITE_SOFT_LOCK=1 (or true/on).
  */
 export function isSoftLockEnabled(): boolean {
   const raw = process.env.SITE_SOFT_LOCK?.trim().toLowerCase();
-  if (raw === "0" || raw === "false" || raw === "off") return false;
-  return true;
+  return raw === "1" || raw === "true" || raw === "on";
 }
 
 export function getSoftLockPreviewToken(): string {

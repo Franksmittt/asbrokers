@@ -104,8 +104,9 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             The information on this page is provided for general informational purposes only and
             constitutes factual information as contemplated in Section 1(3)(a) of the Financial
             Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute
-            financial, investment, legal, tax, or other professional advice. Personal advice is
-            provided only after a Financial Needs Analysis by an authorised representative of AS
+            financial, investment, legal, tax, or other professional advice. No recommendation is
+            made regarding the suitability of any financial product for any individual. Personal
+            advice requires a Financial Needs Analysis with an authorised representative of AS
             Brokers CC (FSP 17273).
           </p>
         </div>
@@ -356,8 +357,8 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                 Book a consultation
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                When you are ready for a needs analysis, request a Wealth Engineering Call with an
-                authorised FSP 17273 adviser, not a call centre.
+                When you are ready for personal recommendations, request a needs analysis with an
+                authorised FSP 17273 representative.
               </p>
               <Link
                 href="/contact?source=about_terminal"

@@ -15,7 +15,7 @@ const planningFAQs = [
   {
     question: "What is the Retirement Survival Blueprint?",
     answer:
-      "A guided 5-step educational diagnostic that helps you explore a Financial Freedom Score™ and identify planning questions. It is not a substitute for regulated advice from FSP 17273.",
+      "A guided 5-step educational walkthrough that introduces the Financial Freedom Score™ concept and common planning questions. It is illustrative only and is not a substitute for regulated advice from FSP 17273.",
   },
   {
     question: "How does the Two-Pot system affect my retirement planning?",

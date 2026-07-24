@@ -53,7 +53,7 @@ const CALCULATORS = [
 const EDUCATION_NAV = [
   { id: "two-pot", label: "Two-Pot system" },
   { id: "ra-limits", label: "2026 RA tax limits" },
-  { id: "cat-18", label: "Category 1.8 alternatives" },
+  { id: "cat-18", label: "Category 1.8 scope" },
 ] as const;
 
 type Props = { faqs: FAQItem[] };
@@ -168,7 +168,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             style={{ backgroundColor: INK }}
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
-              Primary diagnostic
+              Educational framework
             </p>
             <h2
               id="blueprint-heading"
@@ -178,15 +178,16 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               The Retirement Survival Blueprint
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
-              A guided 5-step diagnostic that surfaces your Financial Freedom Score™ and the gaps
-              in your current trajectory, before you stop working.
+              A guided 5-step educational walkthrough that introduces the Financial Freedom Score™
+              concept and common planning questions before retirement. It is illustrative only and
+              does not assess suitability or recommend any product.
             </p>
             <Link
               href="/retirement-survival-blueprint"
               prefetch={false}
               className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
             >
-              Get my score
+              Open the educational blueprint
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>

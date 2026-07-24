@@ -31,6 +31,14 @@ export default function ConflictOfInterestPage() {
           { href: "/", label: "Home" },
         ]}
       >
+        <LegalSection title="Section 1(3)(a) general information notice">
+          <p>
+            The information on this page constitutes factual information as contemplated in Section 1(3)(a) of
+            the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute
+            financial, investment, or legal advice. No product recommendation is made on this page.
+          </p>
+        </LegalSection>
+
         <LegalSection title="Our approach">
           <p>
             We are an independent financial services provider and are not tied to a single product house. Our advice

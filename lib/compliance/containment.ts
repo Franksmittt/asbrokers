@@ -48,6 +48,8 @@ export const CONTAINMENT_RESTRICTED_PRODUCT_PATHS = [
   "/everest-128-product",
   "/everest-strategic-growth-145",
   "/immediate-higher-income-calculator",
+  /** Product yield funnel mock — not for public access during containment. */
+  "/sales-funnel-mockup",
 ] as const;
 
 /** Holding page for restricted calculator / product URLs (temporary redirect target). */

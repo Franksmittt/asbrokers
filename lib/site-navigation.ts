@@ -89,7 +89,7 @@ export const FOOTER_RESOURCES: NavLink[] = [
   // CONTAINMENT 2026-07-22: Everest footer resources frozen.
   // Restore: { label: "Everest Wealth", href: "/everest-wealth" },
   // Restore: { label: "Understanding Everest", href: "/everest-wealth/about" },
-  { label: "Digital Wealth Assistant", href: "/chat" },
+  { label: "Educational assistant", href: "/chat" },
 ];
 
 /** Mega-footer: company and legal. */

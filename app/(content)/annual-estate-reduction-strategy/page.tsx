@@ -4,9 +4,9 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { SOLO_ESTATE_REDUCTION } from "@/lib/solo-calculator-configs";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Annual Estate Reduction Diagnostic | AS Brokers";
+const PAGE_TITLE = "Annual Estate Reduction Illustrator | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Model how structured annual donations may reduce dutiable estate over time, aligned to SARS R100k/R200k limits.";
+  "Model how annual donations may affect dutiable estate over time under SARS R100k/R200k limits. Educational only.";
 
 export const metadata = buildPageMetadata({
   path: "/annual-estate-reduction-strategy",

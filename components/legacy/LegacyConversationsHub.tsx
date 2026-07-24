@@ -38,10 +38,10 @@ const FRAMEWORK = [
 const JOURNEY_STEPS = [
   "Article or video",
   "Calculator or assessment",
-  "Lead magnet download",
-  "Email sequence",
-  "Appointment",
-  "Client relationship",
+  "Educational resource",
+  "Learning sequence",
+  "Advisory conversation",
+  "Ongoing client relationship",
 ];
 
 export function LegacyConversationsHub() {
@@ -121,8 +121,8 @@ export function LegacyConversationsHub() {
         <section className={funnel.card}>
           <FunnelSectionHeader
             compact
-            title="The system"
-            subtitle="Article → calculator → lead magnet → email → appointment → client."
+            title="The learning journey"
+            subtitle="Build understanding first, then explore personalised advice when you are ready."
           />
           <ol className="mt-4 flex flex-wrap gap-2">
             {JOURNEY_STEPS.map((step, i) => (
@@ -159,10 +159,15 @@ export function LegacyConversationsHub() {
         </section>
 
         <p className={`text-center ${funnel.meta}`}>
-          Educational tools only · FSP 17273 ·{" "}
+          Educational tools only · Not financial or legal advice · FSP 17273 ·{" "}
           <Link href="/calculators" className="text-[#00549F] hover:underline">
             Calculators hub
           </Link>
+        </p>
+        <p className="px-4 pb-4 text-center text-[10px] leading-relaxed text-zinc-600 sm:px-6">
+          All tools and content on this page constitute factual information under Section&nbsp;1(3)(a) of the
+          Financial Advisory and Intermediary Services Act, 37 of 2002. No product recommendation or personalised
+          financial advice is provided. Advice requires a Financial Needs Analysis with AS Brokers CC (FSP 17273).
         </p>
       </div>
 

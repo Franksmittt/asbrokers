@@ -24,6 +24,9 @@ const TRUST_IMAGE = "/images/contact-trust.jpg";
 const FAIS_POPIA =
   "Submitting this form does not constitute financial advice under the FAIS Act, 2002. Advice is only rendered after a documented needs analysis by a licensed representative of FSP 17273. Personal information is processed to respond to your enquiry and arrange a consultation, in line with POPIA. See our Privacy Policy.";
 
+const GENERAL_ADVICE_DISCLAIMER =
+  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+
 const STEPS = [
   {
     number: "01",
@@ -80,8 +83,8 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
               Tell us what you need help with. An authorised AS Brokers adviser will respond
-              personally about retirement, Everest, insurance, medical, or estate. Submitting an enquiry
-              is not financial advice under FAIS.
+              personally about retirement planning, insurance, medical aid, or estate planning.
+              Submitting an enquiry is not financial advice under FAIS.
             </p>
             <Suspense fallback={null}>
               <ContactIntakeBanner />
@@ -107,6 +110,25 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </div>
         </div>
       </header>
+
+      {/* §1(3)(a) General information disclaimer, amber */}
+      <section
+        id="contact-general-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+        aria-labelledby="contact-disclaimer-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="contact-disclaimer-heading"
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       {/* §2 Form + channels, light */}
       <section

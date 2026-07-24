@@ -455,6 +455,21 @@ export function RetirementGapMethodPageView() {
         </div>
       </section>
 
+      {/* §10b FAIS Section 1(3)(a) disclaimer */}
+      <section className="border-b py-8 md:py-10" style={{ borderColor: HAIRLINE, backgroundColor: "#FDFCFA" }}>
+        <div className={`${HOME4_WRAP} max-w-3xl`}>
+          <p className="text-xs leading-relaxed text-stone-500">
+            <strong className="text-stone-600">General information notice (FAIS Act, Section 1(3)(a)):</strong>{" "}
+            The Retirement Gap Method™, its calculators, workshop, and all educational content on this page
+            constitute factual information as contemplated in Section 1(3)(a) of the Financial Advisory and
+            Intermediary Services Act, 37 of 2002. None of this material constitutes financial, investment,
+            legal, or tax advice. No recommendation is made regarding the suitability of any financial product
+            for any individual. Personal financial advice requires a Financial Needs Analysis conducted by an
+            authorised representative of AS Brokers CC (FSP 17273).
+          </p>
+        </div>
+      </section>
+
       {/* §11 FAQs */}
       <VisibleFaqSection heading="Frequently asked questions" faqs={[...METHOD_FAQS]} />
 

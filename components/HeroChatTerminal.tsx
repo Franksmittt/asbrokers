@@ -11,7 +11,7 @@ import { ChatToolResultCard } from "@/components/chat/ChatToolResultCard";
 const PRE_PROMPTS = [
   "Please call me back",
   "How does Discovery Health Gap Cover work?",
-  "How does the 12.8% Strategic Income work?",
+  "How does estate duty work in South Africa?",
 ];
 
 export type HeroChatTerminalVariant = "hero" | "panel";
@@ -28,7 +28,8 @@ type HeroChatTerminalProps = {
 };
 
 /**
- * Embedded AI chat terminal. useChat + tools (estate duty, strategic income).
+ * Embedded AI chat terminal. useChat + educational tools (estate duty illustration).
+ * Product yield tools removed under containment 2026-07-24.
  * `variant="panel"` is optimized for FloatingChat: one scroll surface (messages only), composer pinned.
  */
 export function HeroChatTerminal({
@@ -61,7 +62,7 @@ export function HeroChatTerminal({
     <>
       {messages.length === 0 && (
         <p className={isPanel ? "text-zinc-500 text-sm px-1 py-2" : "text-zinc-500 text-sm px-2"}>
-          Ask about Discovery Health, Gap Cover, 12.8% Strategic Income, or estate duty.
+          Ask about Discovery Health, Gap Cover, estate duty illustrations, or request a callback.
         </p>
       )}
       {messages.map((msg) => (
@@ -229,7 +230,7 @@ export function HeroChatTerminal({
 
   if (isPanel) {
     return (
-      <div className="flex flex-col flex-1 min-h-0" role="region" aria-label="Digital Wealth Assistant">
+      <div className="flex flex-col flex-1 min-h-0" role="region" aria-label="Educational assistant">
         <div
           ref={scrollRef}
           className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-y-contain py-2 space-y-2 scroll-pb-4"
@@ -249,13 +250,13 @@ export function HeroChatTerminal({
   }
 
   return (
-    <div className="mt-6 rim-light p-4 rounded-[2rem] overflow-hidden" role="region" aria-label="Digital Wealth Assistant">
+    <div className="mt-6 rim-light p-4 rounded-[2rem] overflow-hidden" role="region" aria-label="Educational assistant">
       <div className="flex items-center gap-2 px-2 py-2 border-b border-white/10 shrink-0">
         <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" aria-hidden />
         <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" aria-hidden />
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" aria-hidden />
         <span className="ml-2 text-[10px] font-medium text-gray-500 uppercase tracking-widest">
-          Digital Wealth Assistant
+          Educational assistant
         </span>
       </div>
 

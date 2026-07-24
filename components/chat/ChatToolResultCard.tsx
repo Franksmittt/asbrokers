@@ -44,7 +44,7 @@ export function ChatToolResultCard({
   if (toolName === "calculateEstateDuty" && r) {
     return (
       <div className="rounded-xl border border-white/10 bg-[#1c1c22] p-3 space-y-1 text-sm">
-        <p className="font-medium text-zinc-400">Estate duty result</p>
+        <p className="font-medium text-zinc-400">Estate duty illustration</p>
         <p className="text-zinc-100">
           Total estate costs: {formatCurrency((r.totalEstateCosts as number) ?? 0)}
         </p>
@@ -52,34 +52,21 @@ export function ChatToolResultCard({
           Estate duty: {formatCurrency((r.estateDutyPayable as number) ?? 0)} · Executor fees:{" "}
           {formatCurrency((r.executorFees as number) ?? 0)}
         </p>
-      </div>
-    );
-  }
-
-  if (toolName === "calculateStrategicIncome128" && r) {
-    return (
-      <div className="rounded-xl border border-white/10 bg-[#1c1c22] p-3 space-y-1 text-sm">
-        <p className="font-medium text-zinc-400">12.8% Strategic Income</p>
-        <p className="text-zinc-100">
-          Net monthly income: {formatCurrency((r.netMonthlyIncome as number) ?? 0)}
-        </p>
-        <p className="text-xs text-zinc-400">
-          5-year loyalty bonus: {formatCurrency((r.loyaltyBonus as number) ?? 0)}
+        <p className="text-[11px] leading-relaxed text-zinc-500">
+          Illustrative only. Not legal or financial advice.
         </p>
       </div>
     );
   }
 
-  if (toolName === "calcAmethystAnnuity" && r) {
+  // CONTAINMENT 2026-07-24: product tools removed from /api/chat. Keep graceful fallback if stale clients send old tool names.
+  if (toolName === "calculateStrategicIncome128" || toolName === "calcAmethystAnnuity") {
     return (
-      <div className="rounded-xl border border-white/10 bg-[#1c1c22] p-3 space-y-1 text-sm">
-        <p className="font-medium text-zinc-400">Amethyst Living Annuity</p>
-        <p className="text-zinc-100">
-          Net monthly income: {formatCurrency((r.netMonthlyIncome as number) ?? 0)}
-        </p>
-        <p className="text-xs text-zinc-400">
-          Gross: {formatCurrency((r.grossMonthlyIncome as number) ?? 0)} · Est. tax:{" "}
-          {formatCurrency((r.estimatedMonthlyTax as number) ?? 0)}
+      <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 space-y-1 text-sm">
+        <p className="font-medium text-amber-300">Product calculator unavailable</p>
+        <p className="text-zinc-200">
+          Named investment product illustrations are temporarily unavailable pending compliance
+          review. Browse educational calculators or request a needs analysis.
         </p>
       </div>
     );

@@ -44,7 +44,18 @@ export default function SemigrationRetirementPage() {
           <div className="rounded-3xl bg-white p-6 shadow-xl ring-1 ring-stone-200/90 sm:p-8">
             <h2 className="text-xl font-bold tracking-tight text-[#1D1D1F]">Planning for the transition</h2>
             <p className="mt-4 leading-relaxed text-[#2B2B2E]">
-              Whether you are considering semigration or already relocating, aligning your retirement capital, estate plan, and income needs with your new lifestyle is essential. We help clients structure drawdown rates, assess targeted-return and living annuity options, and ensure liquidity and tax efficiency through the transition.
+              Whether you are considering semigration or already relocating, aligning your retirement capital,
+              estate plan, and income needs with your new lifestyle is an important step. Understanding drawdown
+              strategies, living annuity structures, and liquidity planning are areas where informed conversations
+              with a qualified adviser can add clarity.
+            </p>
+          </div>
+          <div className="rounded-3xl bg-stone-50 p-5 ring-1 ring-stone-200/90 sm:p-6">
+            <p className="text-xs leading-relaxed text-stone-500">
+              <strong className="text-stone-600">General information notice (FAIS Act, Section 1(3)(a)):</strong>{" "}
+              This page constitutes factual information only. It does not constitute financial, investment, legal,
+              or tax advice, and no product recommendation is made. Personal advice requires a Financial Needs
+              Analysis with an authorised representative of AS Brokers CC (FSP 17273).
             </p>
           </div>
           <div className="flex flex-wrap gap-4">

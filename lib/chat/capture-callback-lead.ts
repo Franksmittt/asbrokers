@@ -19,7 +19,8 @@ const INTEREST_TO_SERVICE: Record<ChatLeadInterest, ServiceCategory> = {
 
 const INTEREST_LABEL: Record<ChatLeadInterest, string> = {
   discovery_health: "Discovery Health / medical aid",
-  everest_retirement: "Everest Wealth / retirement",
+  // CONTAINMENT 2026-07-24: keep enum for schema/CRM compat; do not surface product brand.
+  everest_retirement: "Retirement / investment enquiry",
   estate_planning: "Estate planning",
   insurance: "Insurance",
   general_callback: "General callback",
@@ -96,7 +97,7 @@ export async function captureCallbackLead(
       Phone: data.phone,
       Interest: interestLabel,
       Notes: data.notes?.trim() || "(none)",
-      Source: "Digital Wealth Assistant (/chat)",
+      Source: "Educational assistant (/chat)",
       ...(leadId ? { "CRM Lead ID": leadId } : {}),
     });
   } catch {

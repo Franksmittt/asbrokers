@@ -6,9 +6,9 @@ import { ArrowRight } from "@/components/icons";
 import { SOLO_PREMIUM_INCREASE } from "@/lib/solo-calculator-configs";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Premium Escalation Fiduciary Diagnostic | Life Insurance";
+const PAGE_TITLE = "Premium Escalation Illustrator | Life Insurance";
 const PAGE_DESCRIPTION =
-  "Understand how escalating life insurance premiums may compound over 10–20 years, and when a fiduciary policy review is appropriate.";
+  "Educational illustration of how escalating life insurance premiums may compound over 10–20 years. General information only — not financial or insurance advice. FSP 17273.";
 
 const premiumFallback = (
   <div className="flex min-h-[320px] flex-col items-center justify-center rounded-2xl bg-stone-50 px-6 py-10 text-center ring-1 ring-stone-200/90">
@@ -19,8 +19,9 @@ const premiumFallback = (
       Year-by-year premium comparison requires your policy schedule
     </h3>
     <p className="mt-3 max-w-md text-sm leading-relaxed text-stone-600">
-      Enter actual premiums from your policy or quote during a fiduciary review, we compare escalating,
-      level, and behaviour-linked structures using your real numbers.
+      Enter actual premiums from your policy or quote to compare escalating,
+      level, and behaviour-linked structures using your real numbers. This is an educational illustration only
+      and does not constitute insurance or financial advice.
     </p>
     <Link
       href="/contact"

@@ -4,7 +4,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Contact Us | AS Brokers CC | FSP 17273";
 const PAGE_DESCRIPTION =
-  "Contact AS Brokers in Krugersdorp. An authorised FSP 17273 adviser responds personally about retirement, Everest, insurance, medical, or estate. Enquiry is not FAIS advice. POPIA compliant.";
+  "Contact AS Brokers in Krugersdorp. An authorised FSP 17273 adviser responds personally about retirement planning, insurance, medical aid, or estate planning. Enquiry is not FAIS advice. POPIA compliant.";
 
 const contactFAQs = [
   {
@@ -20,7 +20,7 @@ const contactFAQs = [
   {
     question: "What should I prepare before our first meeting?",
     answer:
-      "Bring goals, existing policies or investments, and questions about retirement income, Everest Wealth, insurance, or estate planning. Calculators on our site can help you prepare illustrative numbers in advance.",
+      "Bring goals, existing policies or investments, and questions about retirement income, insurance, or estate planning. Calculators on our site can help you prepare illustrative numbers in advance.",
   },
   {
     question: "Does AS Brokers charge for an initial conversation?",

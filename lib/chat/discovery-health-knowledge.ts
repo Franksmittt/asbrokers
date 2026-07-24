@@ -1,5 +1,5 @@
 /**
- * Grounded Discovery Health context for the Digital Wealth Assistant.
+ * Grounded Discovery Health context for the educational assistant.
  * Keep aligned with /solutions/discovery-health page facts (illustrative 2026).
  */
 

@@ -6,14 +6,15 @@ const TEAL = "#0F766E";
 
 const SOURCE_LABELS: Record<string, string> = {
   investments_terminal: "Continuing from the Investments hub",
-  insurance_terminal: "Continuing from the Insurance risk audit",
+  insurance_terminal: "Continuing from the Insurance hub",
   estate_terminal: "Continuing from Estate planning",
   insights_terminal: "Continuing from the Insights library",
   about_terminal: "Continuing from About AS Brokers",
   calculators_terminal: "Continuing after the calculator library",
   calculator_terminal: "Continuing after a calculator result",
-  everest_terminal: "Continuing from the Everest Wealth hub",
-  medical_terminal: "Continuing from medical aid & gap structuring",
+  // CONTAINMENT 2026-07-24: Everest hub restricted; keep key for legacy query strings.
+  everest_terminal: "Continuing from an investment enquiry",
+  medical_terminal: "Continuing from medical aid education",
   discovery_health_form: "Continuing from the Discovery Health page",
   discovery_terminal: "Continuing from Discovery Health",
   home_hero: "Continuing from the homepage",

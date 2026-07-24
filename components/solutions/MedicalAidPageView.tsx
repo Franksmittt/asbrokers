@@ -16,6 +16,9 @@ const BODY = "#52525b";
 const HAIRLINE = "#E5E5E5";
 const MEDICAL_CRAFT = "/images/risk-arch-medical.jpg";
 
+const GENERAL_ADVICE_DISCLAIMER =
+  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+
 type Props = { faqs: FAQItem[] };
 
 export function MedicalAidPageView({ faqs }: Props) {
@@ -41,10 +44,10 @@ export function MedicalAidPageView({ faqs }: Props) {
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            Schemes pay a base tariff. Private specialists often charge far more, leaving
-            catastrophic in-hospital shortfalls. We structure medical aid with demarcation-compliant
-            gap cover, then stay for authorisations and claims advocacy, not the cheapest plan on a
-            comparison site.
+            AS Brokers CC (FSP 17273) provides factual education on medical scheme vs gap cover
+            under Demarcation Regulations, and advocates for clients when authorisations stall or
+            specialist bills arrive. Educational content only — personal recommendations follow a
+            FAIS needs analysis.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
@@ -52,7 +55,7 @@ export function MedicalAidPageView({ faqs }: Props) {
               prefetch={false}
               className="inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
             >
-              Book a health structuring call
+              Request a health needs analysis
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <Link
@@ -66,6 +69,25 @@ export function MedicalAidPageView({ faqs }: Props) {
           </div>
         </div>
       </header>
+
+      {/* §1(3)(a) General information disclaimer, amber */}
+      <section
+        id="medical-general-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+        aria-labelledby="medical-disclaimer-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="medical-disclaimer-heading"
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       <section data-chunk-boundary className="pb-16 md:pb-24" aria-labelledby="shortfall-heading">
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
@@ -208,18 +230,19 @@ export function MedicalAidPageView({ faqs }: Props) {
               className="font-serif font-semibold tracking-tight text-white"
               style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
             >
-              Ready to structure scheme + gap properly?
+              Ready for a health needs analysis?
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
               Bring current membership, dependents, chronic conditions, and recent co-payment
-              shocks. An authorised adviser will map options without a “cheapest plan” pitch.
+              shocks. An authorised adviser will review your circumstances and provide
+              personal recommendations where appropriate.
             </p>
             <Link
               href="/contact?source=medical_terminal"
               prefetch={false}
               className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
             >
-              Book a health structuring call
+              Request a health needs analysis
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>

@@ -101,9 +101,9 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Personal and commercial cover structured together.",
     },
     {
-      href: "/calculators/underinsurance-calculator",
-      title: "Underinsurance calculator",
-      description: "How much could underinsurance reduce your property claim payout?",
+      href: "/calculators",
+      title: "Educational planning tools",
+      description: "Illustrative insurance and wealth-structuring tools available for review.",
     },
     {
       href: "/contact?source=discovery_terminal",
@@ -113,14 +113,14 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/estate-planning": [
     {
-      href: "/calculators#asset-007-estate-duty",
-      title: "Estate duty calculator",
-      description: "Estimate duty and executor fees on your estate.",
+      href: "/calculators",
+      title: "Estate duty & executor fee tools",
+      description: "Illustrative duty and executor fee estimation tools available for review.",
     },
     {
-      href: "/calculators#asset-008-estate-reduction",
-      title: "Annual estate reduction",
-      description: "Use R100k/R200k donation allowances over time.",
+      href: "/calculators",
+      title: "Estate reduction education",
+      description: "Educational tools on donation strategies and multi-year estate planning maths.",
     },
     {
       href: "/legacy-readiness-checklist",
@@ -158,22 +158,18 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/retirement-planning",
       title: "Planning for retirement",
-      description: "Pre-retirement clarity on capital, timeline, and growth needed.",
+      description: "Educational framing on capital, timeline, and retirement planning questions.",
     },
     {
       href: "/calculators#asset-002-retirement-reality-check",
       title: "Retirement Reality Check",
-      description: "See where you stand today and what gap remains.",
+      description: "Illustrative capital versus income gap education.",
     },
+    // CONTAINMENT 2026-07-24: Asset 014 + Everest related links frozen.
     {
-      href: "/calculators#asset-014-living-annuity",
-      title: "Living Annuity Income & Sustainability Calculator",
-      description: "Is your retirement income sustainable? Educational drawdown and longevity tool.",
-    },
-    {
-      href: "/everest-wealth",
-      title: "Everest Wealth investments",
-      description: "Voluntary capital and living annuity structures for retirement.",
+      href: "/calculators",
+      title: "Educational calculators",
+      description: "Illustrative tools available while product calculators complete review.",
     },
     {
       href: "/insights",
@@ -434,7 +430,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/investments",
       title: "Investments",
-      description: "Wealth building, Everest yields, and life-stage investment guidance.",
+      description: "Wealth building and life-stage investment guidance.",
     },
     {
       href: "/insurance",

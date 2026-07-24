@@ -24,6 +24,9 @@ const HERO_IMAGE = "/images/risk-arch-medical.webp";
 // CONTAINMENT 2026-07-22: Asset 015 frozen. Restore: calculatorPagePath("asset-015-average-clause")
 const CALC_AVERAGE = "/calculators";
 
+const GENERAL_ADVICE_DISCLAIMER =
+  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+
 const VALUE_CARDS = [
   {
     title: "Embedded broker pricing",
@@ -237,7 +240,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
                 className="inline-flex items-center gap-2 rounded px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
                 style={{ backgroundColor: TEAL }}
               >
-                Request a free Discovery audit
+                Request a Discovery + Gap needs analysis
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </a>
               <a
@@ -272,6 +275,25 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
           </div>
         </div>
       </header>
+
+      {/* §1(3)(a) General information disclaimer, amber */}
+      <section
+        id="discovery-general-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+        aria-labelledby="discovery-disclaimer-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="discovery-disclaimer-heading"
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       <section
         id="who-this-is-for"
@@ -388,7 +410,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
                 className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
                 style={{ color: TEAL }}
               >
-                Average clause calculator
+                View educational calculators
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
@@ -553,7 +575,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
               <dt className="text-sm font-semibold text-shark">How</dt>
               <dd className="mt-2 text-sm leading-relaxed text-stone-600">
                 FAIS needs analysis, Discovery Health Medical Scheme option shortlisting, Gap Cover
-                stacking where suitable, application support, and claims advocacy after you become a
+                stacking concepts, application support, and claims advocacy after you become a
                 client.
               </dd>
             </div>
@@ -600,11 +622,11 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
                 className="font-serif font-semibold tracking-tight text-white"
                 style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
               >
-                Request a Discovery Health + Gap audit
+                Request a Discovery Health + Gap needs analysis
               </h2>
               <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/75">
                 Submit your details. An authorised adviser at AS Brokers CC will contact you within
-                one business day for a zero-cost, FAIS-compliant review of your current coverage,
+                one business day for a FAIS-compliant needs analysis of your current coverage,
                 Krugersdorp, West Rand, or remote across South Africa.
               </p>
               <p className="mt-4 text-xs leading-relaxed text-white/50">
@@ -633,7 +655,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
         headingId="discovery-faq-heading"
         heading="Discovery Health broker questions, answered straight"
         lead="Education first. Personal financial advice only after a needs analysis with AS Brokers CC, FSP 17273, Krugersdorp."
-        primaryCta={{ href: "#discovery-audit-form", label: "Request an audit" }}
+        primaryCta={{ href: "#discovery-audit-form", label: "Request a needs analysis" }}
         secondaryCta={{ href: "/solutions/medical-aid", label: "Medical aid & gap hub" }}
       />
 

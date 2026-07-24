@@ -64,9 +64,9 @@ function leadFirstName(fullName: string) {
 
 const QUICK_REPLY_TEMPLATES = [
   {
-    label: "Send Everest 14.5% Brochure",
+    label: "Send investment education pack",
     build: (name: string) =>
-      `Hi ${name}, please find attached the Everest 14.5% Strategic Growth term sheet as requested. It outlines the targeted return profile, 120-day liquidity terms, and the voluntary product minimum of R100k. Let me know if you'd like to walk through the illustration together.`,
+      `Hi ${name}, thank you for your enquiry. I can share educational product documentation for discussion during advice. Personal recommendations require a Financial Needs Analysis. Let me know if you'd like to book a consultation.`,
   },
   {
     label: "Request FICA Documents",
@@ -74,9 +74,9 @@ const QUICK_REPLY_TEMPLATES = [
       `Hi ${name}, to proceed with your application we require certified FICA documentation (ID, proof of residence, and proof of bank account). You may upload these securely via the client portal or reply to this message with scanned copies.`,
   },
   {
-    label: "Schedule Wealth Audit",
+    label: "Schedule needs analysis",
     build: (name: string) =>
-      `Hi ${name}, I'd like to schedule a structured wealth audit to review your retirement readiness, estate exposure, and Everest allocation options. Please share two suitable times this week for a 45-minute consultation at our Krugersdorp office or via video.`,
+      `Hi ${name}, I'd like to schedule a needs analysis to review your retirement, estate, and investment questions. Please share two suitable times this week for a 45-minute consultation at our Krugersdorp office or via video.`,
   },
 ] as const;
 

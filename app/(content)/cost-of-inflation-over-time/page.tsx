@@ -4,9 +4,9 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { SOLO_INFLATION } from "@/lib/solo-calculator-configs";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Purchasing Power Review | Cost of Inflation";
+const PAGE_TITLE = "Purchasing Power Illustration | Cost of Inflation";
 const PAGE_DESCRIPTION =
-  "See how inflation erodes purchasing power over time, an educational fiduciary diagnostic for long-term planning.";
+  "See how inflation can erode purchasing power over time. Educational illustration only — not personal financial advice.";
 
 export const metadata = buildPageMetadata({
   path: "/cost-of-inflation-over-time",

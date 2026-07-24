@@ -74,13 +74,13 @@ export function Home4BelowFold() {
               prefetch={false}
               className="group flex h-full flex-col rounded-3xl bg-gradient-to-br from-samsung-blue/10 via-white to-cinematic-teal/10 p-8 shadow-xl ring-1 ring-samsung-blue/15 transition-shadow hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-samsung-blue focus-visible:ring-offset-2"
             >
-              <h2 className="text-2xl font-bold tracking-tight text-shark">Need personalized guidance?</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-shark">Need personal advice?</h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
-                Speak with a licensed independent fiduciary who can tailor retirement, investment, and estate
-                advice to your situation.
+                Speak with an authorised representative of AS Brokers CC (FSP 17273) for a Financial
+                Needs Analysis covering retirement, investment, or estate questions.
               </p>
               <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition-all group-hover:bg-[#004a9e] group-hover:shadow-xl">
-                Book an actuarial consultation
+                Request a needs analysis
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </span>
             </Link>
@@ -95,8 +95,8 @@ export function Home4BelowFold() {
               <div>
                 <Home4SectionHeader
                   kicker="Why AS Brokers"
-                  title="Access investments many advisers cannot offer"
-                  description="As a Category 1.8 authorised financial services provider, we can guide suitable clients toward traditional and selected alternative investments, including Everest Wealth solutions, while remaining fully independent. For more than 25 years we have served families and business owners across the West Rand without tying advice to a single product house."
+                  title="Authorised FSP 17273, education before advice"
+                  description="AS Brokers CC is an Authorised Financial Services Provider with Category 1.8 authorisation. We provide factual education first. Personal product recommendations are made only after a needs analysis. For more than 25 years we have served families and business owners across the West Rand."
                 />
                 <div className="mt-6 flex flex-wrap gap-2">
                   {HOME4_TRUST_BADGES.map((badge) => (
@@ -141,8 +141,8 @@ export function Home4BelowFold() {
                 Stories from clients we serve
               </h3>
               <p className="mt-2 max-w-2xl text-stone-600">
-                Real feedback from families and business owners: retirement clarity, insurance that makes sense,
-                and advice without the hard sell.
+                Authentic client comments about clarity and service. Individual experiences are not
+                typical results and are not guarantees of future outcomes.
               </p>
             </Home4Reveal>
             <div className="mt-8 grid gap-6 md:grid-cols-3">

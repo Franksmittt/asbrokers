@@ -6,11 +6,13 @@ Links were **not permanently deleted**. Restore markers use `CONTAINMENT 2026-07
 |---------|------|-----------------|--------|
 | Primary nav | `lib/site-navigation.ts` | `/everest-wealth` | Removed from PRIMARY_NAV |
 | Footer how-we-help | `lib/site-navigation.ts` | `/everest-wealth` | Removed from FOOTER_HOW_WE_HELP |
-| Home hero CTA | `components/home4/Home4Hero.tsx` | Asset 010 Everest income | Changed to Asset 002 Reality Check |
+| Home hero CTA | `components/home4/Home4Hero.tsx` | Asset 010 Everest income | Changed to Asset 002 Reality Check; 2026-07-24 factual hero + FAIS notice |
 | Home goal card investments | `lib/home4-journey.ts` | `/everest-wealth` + product calcs | Pointed to `/investments` + `/calculators` |
 | Home calculator tiles | `lib/home4-journey.ts` | 010, 013, estate duty | Replaced with 002, 001, 004, 005 |
-| Home journey stage 03 | `lib/home4-journey.ts` | `/everest-wealth` | Pointed to contact |
-| Home pathways / trust | `components/home4/Home4BelowFoldRest.tsx` | Everest hub CTAs | Pointed to `/calculators` / `/investments` |
+| Home journey stage 03 | `lib/home4-journey.ts` | `/everest-wealth` | Pointed to contact / needs analysis |
+| Home pathways / trust | `components/home4/Home4BelowFoldRest.tsx` | Everest hub CTAs | Pointed to `/calculators` / `/regulatory-compliance`; disclaimer band added |
+| Home chat prompts | `components/home/HomeChatBar.tsx`, `components/chat/TypewriterPrompt.tsx` | Ask about Everest… | Neutral education prompts (2026-07-24) |
+| Home related content | `lib/related-content.ts` | Everest yield education | Frozen to factual investments / educational calculators / needs analysis |
 | Investments tools | `components/investments/InvestmentsPageView.tsx` | 009–013, Everest hub, Amethyst section, yield shelf | Removed from live page (2026-07-24); educational 016/017 + `/calculators` only |
 | Investments related content | `lib/related-content.ts` | Everest about + Asset 013 | Frozen to retirement-planning / calculators / regulatory-compliance / contact |
 | Insights handoffs | `components/insights/InsightsHubPageView.tsx` | estate duty, underinsurance | Pointed to `/calculators` |

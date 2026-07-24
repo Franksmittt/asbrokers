@@ -240,7 +240,7 @@ export function FloatingChat({ autoFocusInput = false }: FloatingChatProps = {})
                   enterKeyHint="send"
                   autoComplete="off"
                   className="chat-dark-input w-full rounded-full border-0 bg-transparent px-3 py-2.5 text-sm text-zinc-100 caret-zinc-100 focus:outline-none focus:ring-0"
-                  aria-label="Ask about Everest Wealth, Discovery Health, or estate duty"
+                  aria-label="Ask about retirement education, insurance, or how advice works"
                 />
               </label>
               <button

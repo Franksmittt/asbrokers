@@ -17,5 +17,6 @@
 | 2026-07-23 | Full public marketing site | Soft-locked → `/site-hold` | Soft-lock removed (public site live again) | Soft-lock default OFF. Calculator/product containment (302 → `/calculators`) remains active until approvals |
 | 2026-07-24 | `/investments` hub | Product shelf + suitability/sales framing | Factual FAIS Section 1(3)(a) education page | Removed Everest/Amethyst shelf, Asset 011/013 promo, suitability language; educational calcs 016/017 only; related links frozen to non-product surfaces |
 | 2026-07-24 | `/investments/compliance-draft` | n/a | Internal noindex reference draft | Kept for review history alongside live cut-over |
+| 2026-07-24 | Homepage `/` | Everest-led metadata, product chat prompts, weak advice boundary | Factual FAIS education homepage | Removed Everest title/chat prompts; added Section 1(3)(a) disclaimer; educational calcs + needs-analysis CTAs only |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

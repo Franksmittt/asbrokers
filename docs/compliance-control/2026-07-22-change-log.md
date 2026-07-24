@@ -15,5 +15,7 @@
 | 2026-07-22 | `llms.txt` / public AI discovery | Listed product calcs + Everest | Educational-only URLs | Indexing containment |
 | 2026-07-22 | Full public marketing site | Public | Soft-locked → `/site-hold` | Temporary hold for Albert review meeting; bypass `?preview=albert-review` |
 | 2026-07-23 | Full public marketing site | Soft-locked → `/site-hold` | Soft-lock removed (public site live again) | Soft-lock default OFF. Calculator/product containment (302 → `/calculators`) remains active until approvals |
+| 2026-07-24 | `/investments` hub | Product shelf + suitability/sales framing | Factual FAIS Section 1(3)(a) education page | Removed Everest/Amethyst shelf, Asset 011/013 promo, suitability language; educational calcs 016/017 only; related links frozen to non-product surfaces |
+| 2026-07-24 | `/investments/compliance-draft` | n/a | Internal noindex reference draft | Kept for review history alongside live cut-over |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

@@ -204,25 +204,27 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     },
   ],
   "/investments": [
-    {
-      href: "/everest-wealth/about",
-      title: "Understanding Everest",
-      description: "Regulatory briefing on structure, tax, fees, and liquidity.",
-    },
+    // CONTAINMENT 2026-07-22 / compliance 2026-07-24: Everest + product-calc related links frozen.
+    // Restore after approval: /everest-wealth/about · /calculators#asset-013-everest-income-vs-growth
     {
       href: "/retirement-planning",
       title: "Planning for retirement",
       description: "Pre-retirement accumulation and gap analysis tools.",
     },
     {
-      href: "/calculators#asset-013-everest-income-vs-growth",
-      title: "Income vs Growth comparison",
-      description: "Compare Everest yield strategies side by side.",
+      href: "/calculators",
+      title: "Educational calculators",
+      description: "Illustrative tools available while product calculators complete review.",
+    },
+    {
+      href: "/regulatory-compliance",
+      title: "Regulatory and compliance",
+      description: "FSP 17273 disclosures, FAIS framing, and statutory information.",
     },
     {
       href: "/contact",
-      title: "Book a strategy call",
-      description: "Independent Category 1.8 investment advice, FSP 17273.",
+      title: "Request a needs analysis",
+      description: "Personal recommendations only after advice with FSP 17273.",
     },
   ],
   "/everest-wealth": [

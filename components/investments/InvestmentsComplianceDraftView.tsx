@@ -149,12 +149,12 @@ export function InvestmentsComplianceDraftView({ faqs }: Props) {
             Internal compliance draft · Not for public indexing
           </p>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            This page is a proposed compliant rewrite of{" "}
+            Reference draft kept for review history. The live{" "}
             <Link href="/investments" prefetch={false} className="font-semibold underline underline-offset-2">
               /investments
-            </Link>
-            . The live page is unchanged. Review the content below against the FAIS / GCOC research
-            and the 2026-07-22 containment rules before any public cut-over.
+            </Link>{" "}
+            page was updated on 2026-07-24 to the compliant factual-information model below
+            (without this internal banner or gap table).
           </p>
         </div>
       </div>

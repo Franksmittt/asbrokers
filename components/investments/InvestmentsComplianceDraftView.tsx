@@ -538,9 +538,16 @@ export function InvestmentsComplianceDraftView({ faqs }: Props) {
       <VisibleFaqSection
         faqs={faqItems}
         headingId="investments-compliance-draft-faq-heading"
+        kicker="Before you contact us"
+        heading="Straight answers about website information versus advice"
+        lead="Education first. Personal financial advice only after a needs analysis with AS Brokers CC, FSP 17273."
         primaryCta={{
           href: "/contact?source=investments_compliance_draft_faq",
           label: "Request a needs analysis",
+        }}
+        secondaryCta={{
+          href: "/calculators",
+          label: "View educational calculators",
         }}
       />
 

@@ -9,10 +9,10 @@ const MOCK_INSIGHTS: { title: string; excerpt: string; publishedAt: string; slug
     slug: "semigration-retirement-villages",
   },
   {
-    title: "Everest Targeted Returns: Navigating Volatility",
-    excerpt: "Why targeted 12.8–14.5% return profiles are gaining attention among investors who want clearer terms in uncertain markets.",
+    title: "Investment education: framing return expectations",
+    excerpt: "Why clear product terms, liquidity rules, and tax treatment matter when comparing investment options in uncertain markets.",
     publishedAt: "2025-02-08",
-    slug: "everest-fixed-returns-volatility",
+    slug: "investment-education-return-expectations",
   },
   {
     title: "Estate Duty Reduction Strategies",

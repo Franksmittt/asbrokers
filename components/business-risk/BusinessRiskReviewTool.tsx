@@ -299,7 +299,9 @@ export function BusinessRiskReviewTool() {
       )}
 
       <p className={`${funnel.shell} pb-6 text-center ${funnel.meta}`}>
-        Educational only, not insurance advice · AS Brokers CC · FSP 17273
+        This review produces illustrative gap-awareness results only and constitutes factual information under
+        Section&nbsp;1(3)(a) of the FAIS Act, 37 of 2002. It does not constitute insurance or financial advice.
+        AS Brokers CC · FSP 17273.
       </p>
 
       {activeInfo && (
@@ -362,11 +364,14 @@ function ResultsPanel({
         </div>
       </div>
       <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700">
-        <p className="font-semibold text-amber-100">Recommendations</p>
+        <p className="font-semibold text-amber-800">Educational findings — areas to consider further</p>
+        <p className="mt-1 text-xs text-stone-500">
+          These observations are for educational purposes only and do not constitute insurance or financial advice.
+        </p>
         <ul className="mt-2 list-disc space-y-1 pl-5">
-          <li>Request a professional insurance and risk review with AS Brokers.</li>
-          <li>Prioritise potential gaps in liability, interruption, and crime cover.</li>
-          <li>Align business assurance (key person, buy &amp; sell) with ownership structure.</li>
+          <li>Consider requesting a professional insurance and risk review with AS Brokers to explore coverage options.</li>
+          <li>Potential gaps in liability, business interruption, and crime cover are common areas to examine.</li>
+          <li>Business assurance structures (key person, buy &amp; sell) are worth aligning with your ownership structure.</li>
         </ul>
       </div>
       {reportId && (

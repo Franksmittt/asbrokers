@@ -329,6 +329,21 @@ export function HealthyRetirementBlueprint() {
         </FunnelToolShell>
       )}
 
+      <section className="border-t border-amber-200/80 bg-amber-50 px-4 py-8 sm:px-6">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900">
+            General information disclaimer
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-amber-950/90">
+            This Retirement Health Score™ tool provides general informational education only and
+            constitutes factual information as contemplated in Section 1(3)(a) of the FAIS Act, 37 of
+            2002. It does not assess medical or financial suitability, recommend any product, or
+            constitute personal financial or medical advice. Personal advice requires a Financial
+            Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).
+          </p>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

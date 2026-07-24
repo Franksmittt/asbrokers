@@ -4,7 +4,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Medical Aid & Gap Cover Structuring";
 const PAGE_DESCRIPTION =
-  "Specialist shortfalls can bankrupt a household. We structure medical aid with demarcation-compliant gap cover and human claims advocacy, not the cheapest hospital plan. FSP 17273.";
+  "AS Brokers CC (FSP 17273) educates South African households on medical scheme structuring, demarcation-compliant gap cover, and what to do when authorisations stall. Educational content — personal advice follows a FAIS needs analysis.";
 
 const faqs = [
   {

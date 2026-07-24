@@ -117,6 +117,14 @@ export default function FinancialFreedomCommunityPage() {
               </Link>{" "}
               if you want the full educational framework first.
             </p>
+            <div className="mt-8 rounded-2xl border border-stone-200 bg-stone-50 p-5 text-xs leading-relaxed text-stone-500">
+              <strong className="text-stone-600">General information notice (FAIS Act, Section 1(3)(a)):</strong>{" "}
+              The Financial Freedom Community™ is an educational programme. Content, calculators, and tools
+              provided within the programme constitute factual information under Section 1(3)(a) of the Financial
+              Advisory and Intermediary Services Act, 37 of 2002. Participation does not constitute or replace
+              personalised financial advice. No financial product recommendation is made. Personal advice requires a
+              Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).
+            </div>
           </div>
         </section>
       </main>

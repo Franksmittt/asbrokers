@@ -122,7 +122,7 @@ export const METHOD_TOOLKIT_LINKS = [
   },
   {
     title: "Living Annuity Income & Sustainability",
-    description: "Is my retirement income sustainable?",
+    description: "Educational overview of drawdown sustainability concepts. Full calculator under review.",
     // CONTAINMENT 2026-07-22: Asset 014 frozen pending product/wording review
     href: "/calculators",
     assetCode: "ASSET 014",

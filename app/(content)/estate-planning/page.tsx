@@ -2,15 +2,15 @@ import { EstatePlanningPageView } from "@/components/estate-planning/EstatePlann
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Estate Liquidity Engineering & Succession | AS Brokers";
+const PAGE_TITLE = "Estate planning education | AS Brokers";
 const PAGE_DESCRIPTION =
-  "A will is only half the job. Engineer cash for estate duty and executor fees so heirs are not forced into a fire sale. Legacy checklist + duty calculators. FSP 17273, attorneys draft legal instruments.";
+  "Educational overview of estate duty, executor fees, and liquidity concepts from AS Brokers CC (FSP 17273). General information only under FAIS Section 1(3)(a). Personal advice follows a needs analysis.";
 
 const estateFAQs = [
   {
     question: "Why does liquidity matter as much as having a will?",
     answer:
-      "A will directs who receives what, but the estate must still settle duty, executor fees, and debts in cash. Without liquidity, assets may need to be sold under pressure. Life cover and liquid investments can improve cash availability, educational framing only.",
+      "A will directs who receives what, but the estate must still settle duty, executor fees, and debts in cash. Without liquidity, assets may need to be sold under pressure. Life cover and liquid investments can improve cash availability. This is educational framing only.",
   },
   {
     question: "How does the R3.5 million estate duty abatement work?",
@@ -23,19 +23,19 @@ const estateFAQs = [
       "Section 4(q) mechanisms can allow a surviving spouse to benefit from unused abatement capacity, often discussed as a combined R7 million shield across two estates. Application depends on facts and current law, not a guarantee on this website.",
   },
   {
-    question: "What does the Estate Duty Calculator show?",
+    question: "Are estate calculators on this site available?",
     answer:
-      "ASSET 007 illustrates duty, executor fees, and liquidity stress from inputs you provide. It is an awareness aid, not a SARS assessment or personalised advice.",
+      "Some estate calculators are temporarily restricted pending compliance review. Available educational calculators are listed on /calculators. Illustrations are awareness aids only, not SARS assessments or personalised advice.",
   },
   {
     question: "Can AS Brokers draft my will or trust deed?",
     answer:
-      "No. We coordinate the financial and risk side, liquidity, cover, and succession funding. Admitted attorneys draft binding legal instruments. We do not provide legal drafting on this website.",
+      "No. We coordinate the financial and risk side—liquidity, cover, and succession funding. Admitted attorneys draft binding legal instruments. We do not provide legal drafting on this website.",
   },
   {
     question: "Do online estate calculators constitute advice?",
     answer:
-      "No. Calculators and hub content are illustrative and educational only under the FAIS Act, 2002. Book a strategy call with FSP 17273 for advice tailored to your circumstances.",
+      "No. Calculators and hub content are illustrative and educational only under the FAIS Act, 2002. Request a needs analysis with FSP 17273 for advice tailored to your circumstances.",
   },
 ];
 
@@ -48,12 +48,12 @@ export const metadata = buildPageMetadata({
     "estate duty abatement R3.5 million",
     "executor fees South Africa",
     "legacy readiness checklist",
-    "Section 7C trusts",
+    "FAIS Section 1(3)(a)",
     "FSP 17273",
   ],
 });
 
-export default function EstatePlanningHubPage() {
+export default function EstatePlanningPage() {
   return (
     <>
       <link
@@ -75,9 +75,9 @@ export default function EstatePlanningHubPage() {
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={estateFAQs}
         service={{
-          name: "Estate liquidity & legacy engineering",
+          name: "Estate planning education and advice services",
           description: PAGE_DESCRIPTION,
-          serviceType: "Estate Planning, Wills Coordination, Estate Duty Awareness, Succession Planning",
+          serviceType: "Estate planning",
         }}
       />
       <EstatePlanningPageView faqs={estateFAQs} />

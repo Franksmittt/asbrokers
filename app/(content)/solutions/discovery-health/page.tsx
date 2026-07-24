@@ -37,7 +37,7 @@ const faqs = [
   {
     question: "Is this page affiliated with Discovery Limited?",
     answer:
-      "No. This is an independent educational page from AS Brokers CC (FSP 17273). Discovery Health Medical Scheme and Discovery Gap products are third-party offerings. We place cover across the market where suitable; Discovery is one option we help clients evaluate.",
+      "No. This is an independent educational page from AS Brokers CC (FSP 17273). Discovery Health Medical Scheme and Discovery Gap products are third-party offerings. Personal recommendations require a needs analysis; Discovery is one market option that may be discussed during advice.",
   },
 ];
 

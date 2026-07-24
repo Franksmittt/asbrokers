@@ -4,9 +4,9 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { SOLO_INCOME_IN_RETIREMENT } from "@/lib/solo-calculator-configs";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Capital Sustainability Test | Income in Retirement";
+const PAGE_TITLE = "Capital Sustainability Illustration | Income in Retirement";
 const PAGE_DESCRIPTION =
-  "Model how long retirement capital may last at your chosen drawdown, a fiduciary diagnostic for sustainable retirement income.";
+  "Model how long retirement capital may last at a chosen drawdown. Educational illustration only — not personal financial advice.";
 
 export const metadata = buildPageMetadata({
   path: "/income-in-retirement",

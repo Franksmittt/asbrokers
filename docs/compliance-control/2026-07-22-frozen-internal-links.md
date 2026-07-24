@@ -27,6 +27,12 @@ Links were **not permanently deleted**. Restore markers use `CONTAINMENT 2026-07
 | Insurance related content | `lib/related-content.ts` (`/insurance`) | free coverage audit CTA | Softened Discovery copy; contact needs-analysis |
 | Insights related content | `lib/related-content.ts` (`/insights`) | Amethyst mention | Softened to educational retirement / calculators framing |
 | Quiz results | `components/quiz/QuizPageClient.tsx` | Everest / Amethyst / product Assets | Educational hubs + live educational calcs + contact only |
+| Chat API product tools | `app/api/chat/route.ts` | Strategic Income 12.8 + Amethyst tools | Removed; restore only after approval |
+| Chat / hero prompts | `components/HeroChatTerminal.tsx`, `/chat` | 12.8% Strategic Income prompts | Neutral Discovery / estate / callback prompts |
+| Sales funnel mockup | `lib/compliance/containment.ts` | `/sales-funnel-mockup` public | Restricted 302 → `/calculators` |
+| Footer legal strip | `components/Footer.tsx` | `/chat`, `/premium-increase-calculator` | Removed deep-links (hubs/calculators remain in nav) |
+| Contact related content | `lib/related-content.ts` (`/contact`) | Everest yields blurb | Softened to investments education |
+| Retirement related content | `lib/related-content.ts` (`/retirement`) | Everest + Asset 014 | Frozen to educational calculators / insights |
 | Discovery Health tool | `components/solutions/DiscoveryHealthPageView.tsx` | 015 | Pointed to `/calculators` |
 | Related content (life) | `lib/related-content.ts` | underinsurance calculator | Pointed to `/calculators` |
 | RelatedContent render | `components/seo/RelatedContent.tsx` | any restricted href | Sanitized via `containmentSafePublicHref` |

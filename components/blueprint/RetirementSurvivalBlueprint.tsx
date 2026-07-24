@@ -420,20 +420,20 @@ export function RetirementSurvivalBlueprint() {
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cinematic-teal">Step 2</p>
                       <h2 className="mt-1 text-2xl font-bold text-[#1D1D1F]">What will it cost?</h2>
                     </div>
-                    <CoachMessage>
-                      <p>
-                        You have <strong>{readyResults.yearsToFreedom} years</strong> until work becomes optional at age{" "}
-                        <strong>{answers.freedomAge}</strong>.
-                      </p>
-                      <p className="mt-3">
-                        {formatBlueprintRand(answers.desiredMonthlyIncomeToday)} per month in today&apos;s buying power
-                        could mean about <strong>{formatBlueprintRand(readyResults.futureMonthlyIncome)}</strong> per
-                        month by then, after inflation (assumed 6% p.a.).
-                      </p>
-                      <p className="mt-3">
-                        Using a 5% income yield, that lifestyle requires approximately:
-                      </p>
-                    </CoachMessage>
+                      <CoachMessage>
+                        <p>
+                          You have <strong>{readyResults.yearsToFreedom} years</strong> until work becomes optional at age{" "}
+                          <strong>{answers.freedomAge}</strong>.
+                        </p>
+                        <p className="mt-3">
+                          {formatBlueprintRand(answers.desiredMonthlyIncomeToday)} per month in today&apos;s buying power
+                          could mean about <strong>{formatBlueprintRand(readyResults.futureMonthlyIncome)}</strong> per
+                          month by then, after inflation (assumed 6% p.a. for illustration only).
+                        </p>
+                        <p className="mt-3">
+                          Using a 5% illustrative income yield, that lifestyle may require approximately:
+                        </p>
+                      </CoachMessage>
                     <MetricCard
                       label="Required Financial Freedom Capital"
                       value={formatBlueprintRand(readyResults.capitalRequired)}
@@ -502,8 +502,8 @@ export function RetirementSurvivalBlueprint() {
                     </div>
                     <CoachMessage>
                       <p>
-                        On your current path, assuming 10% annual growth on existing and future savings, you are
-                        projected to reach about{" "}
+                        On your current path, assuming 10% annual growth on existing and future savings
+                        (illustrative; actual returns vary), you are projected to reach about{" "}
                         <strong>{formatBlueprintRand(readyResults.projectedCapital)}</strong> by age {answers.freedomAge}.
                       </p>
                       <p className="mt-3">
@@ -564,8 +564,8 @@ export function RetirementSurvivalBlueprint() {
                     </div>
                     <CoachMessage>
                       <p>
-                        You asked: <em>Am I going to be okay financially?</em> Here is your personalised diagnostic,
-                        three numbers that tell the story of where you are and what progress would require.
+                        You asked: <em>Am I going to be okay financially?</em> Here is your illustrative retirement
+                        picture, three numbers that help show where you are and what progress may require.
                       </p>
                     </CoachMessage>
                     <div className="grid gap-4 sm:grid-cols-3">
@@ -660,7 +660,9 @@ export function RetirementSurvivalBlueprint() {
       )}
 
       <p className={`${funnel.shell} pb-6 text-center ${funnel.meta}`}>
-        Educational only, not financial advice · AS Brokers CC · FSP 17273
+        This tool produces illustrative estimates only and constitutes factual information under Section&nbsp;1(3)(a)
+        of the FAIS Act, 37 of 2002. It does not constitute financial advice or a product recommendation.
+        AS Brokers CC · FSP 17273.
       </p>
       <Footer />
     </div>

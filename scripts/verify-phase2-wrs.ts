@@ -56,7 +56,7 @@ function auditPageShells(): string[] {
   const issues: string[] = [];
   const checks: { file: string; mustInclude: string }[] = [
     { file: "app/(content)/contact/page.tsx", mustInclude: "ContactPageView" },
-    { file: "app/(content)/chat/page.tsx", mustInclude: "Digital Wealth Assistant" },
+    { file: "app/(content)/chat/page.tsx", mustInclude: "Educational assistant" },
     { file: "app/(content)/quiz/page.tsx", mustInclude: "Quick Financial Health Check" },
   ];
 

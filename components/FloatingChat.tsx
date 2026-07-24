@@ -18,7 +18,7 @@ type FloatingChatProps = {
 };
 
 /**
- * Homepage Digital Wealth Assistant: slim dark sticky bar with typewriter prompts.
+ * Homepage educational assistant: slim dark sticky bar with typewriter prompts.
  * Enter / Send opens the full chat panel (session stays mounted while minimized).
  */
 export function FloatingChat({ autoFocusInput = false }: FloatingChatProps = {}) {
@@ -139,7 +139,7 @@ export function FloatingChat({ autoFocusInput = false }: FloatingChatProps = {})
           role="dialog"
           aria-modal={mode === "open" && !hideOverFooter}
           aria-hidden={mode === "minimized" || hideOverFooter}
-          aria-label="Digital Wealth Assistant"
+          aria-label="Educational assistant"
           initial={false}
           animate={
             reduceMotion

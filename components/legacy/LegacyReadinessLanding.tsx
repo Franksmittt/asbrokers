@@ -236,10 +236,16 @@ export function LegacyReadinessLanding() {
         </section>
 
         <p className={`text-center ${funnel.meta}`}>
-          Educational only, not legal advice ·{" "}
+          Educational only, not legal or financial advice ·{" "}
           <Link href="/contact" className="text-samsung-blue hover:text-cinematic-teal">
             Speak to AS Brokers
           </Link>
+        </p>
+        <p className="px-4 pb-4 text-center text-[10px] leading-relaxed text-zinc-600 sm:px-6">
+          This checklist constitutes factual information under Section&nbsp;1(3)(a) of the Financial Advisory and
+          Intermediary Services Act, 37 of 2002. It does not constitute legal, estate planning, or financial advice.
+          No product recommendation is made. Formal estate planning advice requires an engagement with AS Brokers CC
+          (FSP 17273) or a qualified legal practitioner.
         </p>
       </div>
 

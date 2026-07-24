@@ -15,7 +15,6 @@ export const metadata = buildPageMetadata({
     "Category 1.8",
     "Code 1.8 FSP",
     "FSCA",
-    "Everest FSP 795",
     "authorised financial services provider",
   ],
 });
@@ -28,21 +27,30 @@ export default function RegulatoryCompliancePage() {
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
       />
       <LegalDocumentLayout
-        kicker="Fiduciary briefing · Compliance"
+        kicker="Compliance disclosure · FAIS"
         title="Regulatory Compliance & Licensing"
         description="AS Brokers CC operates under the Financial Sector Conduct Authority (FSCA) as an independent authorised financial services provider."
         lastUpdated="July 2026"
         pillTags={[
           "AS Brokers FSP 17273",
           "Category 1.8 · Shares",
-          "Everest FSP 795",
         ]}
         footerLinks={[
-          { href: "/everest-wealth/about", label: "Understanding Everest" },
           { href: "/investments", label: "Investments hub" },
           { href: "/contact", label: "Contact us" },
+          { href: "/conflict-of-interest", label: "Conflict of interest" },
         ]}
       >
+        <LegalSection title="Section 1(3)(a) factual information notice">
+          <p>
+            The information on this page is provided for general informational purposes only and constitutes factual
+            information as contemplated in <strong>Section 1(3)(a) of the Financial Advisory and Intermediary Services
+            Act, 37 of 2002 (FAIS Act)</strong>. It does not constitute financial, investment, legal, or tax advice.
+            No recommendation is made regarding the suitability of any financial product for any individual. Personal
+            advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).
+          </p>
+        </LegalSection>
+
         <LegalSection title="Category 1.8 (Securities and Instruments: Shares)">
           <p>
             The FSCA designates <strong>Category 1.8</strong> for &quot;Securities and Instruments: Shares&quot;.
@@ -51,9 +59,10 @@ export default function RegulatoryCompliancePage() {
             products.
           </p>
           <p>
-            AS Brokers CC holds Category 1.8 authority, a capability many standard Category I or II brokers do not
-            hold. This is central to our Everest Wealth distribution: structured return profiles and living annuity
-            solutions that fall outside traditional unit trust or life assurance wrappers.
+            AS Brokers CC holds Category 1.8 authority. This authorisation is subject to the applicable conduct
+            standards and suitability requirements under FAIS and FSCA regulations. Holding this category does not
+            mean all clients are eligible for products in this category; suitability is determined through a formal
+            Financial Needs Analysis.
           </p>
         </LegalSection>
 
@@ -65,13 +74,14 @@ export default function RegulatoryCompliancePage() {
             </li>
             <li>
               <strong>Everest Wealth Management</strong>, FSP <strong>795</strong> · Category I, II &amp; IIA
-              (product provider and structurer)
+              (product provider and structurer) — disclosed as a product provider relationship for conflict of
+              interest purposes.
             </li>
           </ul>
           <p>
-            Everest designs and structures investment products; AS Brokers is authorised to advise on and distribute
-            them to qualifying clients through compliant, audited channels, never via unsolicited social media or
-            unverified offers.
+            Where AS Brokers distributes products from specific providers, that relationship is disclosed in our
+            conflict of interest policy and FAIS disclosure packs before you commit to any product. Distribution
+            occurs through compliant, audited channels only.
           </p>
         </LegalSection>
 
@@ -82,8 +92,10 @@ export default function RegulatoryCompliancePage() {
             and privacy policies are published on this site and available on request.
           </p>
           <p>
-            All illustrations, calculators, and educational content are for general information only and do not
-            constitute personalised financial advice until you engage us through a formal advisory process.
+            All illustrations, calculators, and educational content on this website are for general information only
+            and constitute factual information under Section 1(3)(a) of the FAIS Act. They do not constitute
+            personalised financial advice. A formal advisory process is required before any product recommendation
+            is made.
           </p>
         </LegalSection>
 

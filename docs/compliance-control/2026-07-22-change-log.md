@@ -25,5 +25,9 @@
 | 2026-07-24 | `/about` | Everest shelf; suitability/competitor puffery; fiduciary overclaim | Factual practice page | Section 1(3)(a) disclaimer; Category 1.8 framing; practice-team section |
 | 2026-07-24 | `/quiz` | Product recommendations (Everest/Amethyst/Assets) | Educational topic routing only | No suitability scores or product picks; Section 1(3)(a) disclaimer |
 | 2026-07-24 | `/insights` hub | Everest hero; fiduciary meta; Amethyst related links | Factual FAIS education library | Section 1(3)(a) disclaimer; educational newsletter/related copy |
+| 2026-07-24 | `/chat` + `/api/chat` | Live Everest 12.8% + Amethyst tools / prompts | Educational assistant only | Product tools removed; estate-duty illustration + callback retained; Section 1(3)(a) band |
+| 2026-07-24 | `/sales-funnel-mockup` | Public Everest yield funnel | Restricted (302 → `/calculators`) | Added to CONTAINMENT_RESTRICTED_PRODUCT_PATHS |
+| 2026-07-24 | Remaining public hubs | Contact/estate/medical/Discovery/regulatory/premium/funnels | Factual FAIS education pass | Disclaimers + softened CTAs; footer chat/premium deep-links removed |
+| 2026-07-24 | Solo calculator configs | “Fiduciary Diagnostic” overclaim | Educational illustrator framing | Includes premium-increase (public) + redirected solo shells |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

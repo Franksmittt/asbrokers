@@ -19,7 +19,10 @@ import {
 
 const PAGE_TITLE = "AS Brokers Financial Calculators";
 const PAGE_DESCRIPTION =
-  "Selected educational calculators from AS Brokers CC (FSP 17273) are available while product-specific tools complete compliance review. Illustrative only.";
+  "Selected educational calculators from AS Brokers CC (FSP 17273). Illustrative mathematics only under the FAIS Act. Product-specific tools remain under compliance review.";
+
+const GENERAL_ADVICE_DISCLAIMER =
+  "The information and calculators on this page are provided for general informational purposes only and constitute factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). They do not constitute financial, investment, legal, tax, or other professional advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice is provided only after a Financial Needs Analysis by an authorised representative of AS Brokers CC (FSP 17273).";
 
 export const metadata = buildPageMetadata({
   path: "/calculators",
@@ -27,9 +30,9 @@ export const metadata = buildPageMetadata({
   description: PAGE_DESCRIPTION,
   keywords: [
     "financial calculators South Africa",
-    "retirement planning calculators",
+    "educational retirement calculators",
     "AS Brokers FSP 17273",
-    "educational calculators",
+    "FAIS illustrative calculators",
   ],
 });
 
@@ -41,7 +44,7 @@ const available = CONTAINMENT_ALLOWED_CALCULATOR_IDS.map((id) => ({
 }));
 
 /**
- * Temporary compliance holding page (containment 2026-07-22).
+ * Temporary compliance holding page (containment 2026-07-22 / FAIS rewrite 2026-07-24).
  * Neutral wording only. No product providers. No urgency or promotional language.
  */
 export default function CalculatorsPage() {
@@ -64,7 +67,7 @@ export default function CalculatorsPage() {
               className="text-[11px] font-semibold uppercase tracking-[0.14em]"
               style={{ color: TEAL }}
             >
-              AS Brokers CC · FSP 17273
+              AS Brokers CC · Authorised FSP 17273
             </p>
             <h1
               className="mt-4 max-w-3xl font-bold tracking-tight"
@@ -123,6 +126,30 @@ export default function CalculatorsPage() {
         </header>
 
         <section
+          id="general-advice-disclaimer"
+          className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+          aria-labelledby="calculators-disclaimer-heading"
+        >
+          <div className={HOME4_WRAP}>
+            <h2
+              id="calculators-disclaimer-heading"
+              className="font-serif text-lg font-semibold tracking-tight sm:text-xl"
+              style={{ color: INK }}
+            >
+              General information disclaimer
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-stone-700">
+              {GENERAL_ADVICE_DISCLAIMER}
+            </p>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-stone-700">
+              Calculator outputs are illustrative only. Actual outcomes may differ because of
+              investment performance, fees, taxation, inflation, withdrawals, and legislative change.
+              Past performance is not necessarily indicative of future results.
+            </p>
+          </div>
+        </section>
+
+        <section
           id="available-educational-calculators"
           className="scroll-mt-28 border-b border-stone-200/80 py-12 md:py-16"
           style={{ backgroundColor: "#FDFCFA" }}
@@ -136,7 +163,8 @@ export default function CalculatorsPage() {
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600">
               These tools remain available for general illustration while the broader review
-              continues. Each page displays a calculator review notice.
+              continues. Each calculator page displays a visible review notice above the inputs and
+              beneath the results.
             </p>
             <ul className="mt-8 grid list-none grid-cols-1 gap-4 md:grid-cols-2">
               {available.map((item) => (
@@ -154,7 +182,7 @@ export default function CalculatorsPage() {
                       className="mt-4 inline-flex items-center gap-2 text-sm font-semibold"
                       style={{ color: TEAL }}
                     >
-                      Open calculator
+                      Open educational calculator
                       <ArrowRight className="h-4 w-4" aria-hidden />
                     </span>
                   </Link>

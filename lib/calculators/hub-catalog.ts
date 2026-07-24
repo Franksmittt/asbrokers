@@ -67,38 +67,38 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
 /** Problem-led blurbs keyed by registry id. */
 export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
   "asset-001-retirement-growth":
-    "What growth rate do you need to hit your retirement capital target?",
+    "Illustrate an average annual growth rate that may be required for a retirement capital target under your assumptions.",
   "asset-002-retirement-reality-check":
-    "Will your capital last, and how big is the shortfall today?",
+    "Illustrate whether entered savings may fund an entered income need, and the size of any shortfall under your assumptions.",
   "asset-003-retirement-premium":
-    "What monthly contribution closes the retirement gap?",
+    "Illustrate a monthly contribution that may help close an entered retirement funding gap under your assumptions.",
   "asset-004-life-of-capital":
-    "How long will a capital pot last at your chosen drawdown?",
+    "Illustrate how long a capital pot may last at a chosen drawdown under your assumptions.",
   "asset-005-future-value":
-    "What is inflation doing to future purchasing power?",
+    "Illustrate how inflation assumptions can change future purchasing power over time.",
   "asset-006-income-tax": "Estimate SARS income tax on your figures (illustrative).",
   "asset-007-estate-duty":
-    "Will your family have enough cash to wind up your estate without selling assets?",
+    "Illustrate estate cash needs using entered estate figures (restricted pending review).",
   "asset-008-estate-reduction":
-    "How could lifetime planning improve the legacy your family receives?",
+    "Illustrate lifetime donation concepts within stated assumptions (restricted pending review).",
   "asset-009-everest-142-income":
-    "How much after-tax monthly retirement income could a 14.2% distribution produce?",
+    "Product-specific income illustration (restricted pending review).",
   "asset-010-everest-128-income":
-    "Would you accept slightly lower income today for potentially greater long-term value?",
+    "Product-specific income illustration (restricted pending review).",
   "asset-011-everest-128-vs-142":
-    "Which income strategy best fits your voluntary capital objectives?",
+    "Product comparison illustration (restricted pending review).",
   "asset-012-strategic-growth":
-    "Can you leave capital untouched for five years to maximise growth?",
+    "Product-specific growth illustration (restricted pending review).",
   "asset-013-everest-income-vs-growth":
-    "Which retirement investment strategy suits your goals, income or growth?",
+    "Product comparison illustration (restricted pending review).",
   "asset-014-living-annuity":
-    "Is your current retirement income sustainable? Test drawdown, tax and capital longevity.",
+    "Living annuity illustration (restricted pending review).",
   "asset-015-average-clause":
-    "How much could underinsurance reduce your insurance claim?",
+    "Underinsurance illustration (restricted pending review).",
   "asset-016-growth-comparison":
-    "What is the financial cost of waiting to make a good decision?",
+    "Illustrate the mathematical cost of delaying the same growth plan under your assumptions.",
   "asset-017-personal-goal":
-    "Members only, reverse-engineer the growth required to achieve a financial goal.",
+    "Members only: reverse-engineer a growth rate required for an entered financial goal under your assumptions.",
 };
 
 export const HUB_CALCULATOR_META: Record<

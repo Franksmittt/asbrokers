@@ -451,22 +451,22 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/retirement-gap-method",
       title: "The Retirement Gap Method™",
-      description: "How the Toolkit calculators fit together, and what to do next.",
+      description: "How the educational calculators fit together before advice.",
     },
     {
       href: "/retirement-planning",
       title: "Planning for retirement",
-      description: "Pre-retirement clarity on capital, timeline, and growth needed.",
+      description: "Educational framing on capital, timeline, and retirement planning questions.",
     },
     {
       href: "/investments",
       title: "Investments hub",
-      description: "Everest yields and wealth-building tools by life stage.",
+      description: "Factual investment information and Category 1.8 advice services.",
     },
     {
       href: "/contact?source=retirement_gap_review",
-      title: "Book a Retirement Gap Review",
-      description: "Talk through your Toolkit results with FSP 17273.",
+      title: "Request a needs analysis",
+      description: "Talk through Toolkit results with an authorised representative, FSP 17273.",
     },
   ],
   "/retirement-gap-method": [

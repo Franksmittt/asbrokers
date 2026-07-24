@@ -22,8 +22,8 @@ Approval columns: blank = **not approved** (development alone is not approval).
 | 013 | Income vs Growth | /calculators/asset-013-everest-income-vs-growth | restricted | product_specific | critical | pending | pending | pending | pending | 2026-07-22 | TBD | frozen |
 | 014 | Living Annuity | /calculators/asset-014-living-annuity | restricted | product_adjacent | high | pending | pending | pending | pending | 2026-07-22 | TBD | frozen |
 | 015 | Underinsurance | /calculators/underinsurance-calculator | restricted | legislation_dependent | high | pending | pending | n/a | pending | 2026-07-22 | TBD | frozen |
-| 016 | Power of Growth | /calculators/asset-016-growth-comparison | educational_public | generic | medium | pending | pending | n/a | pending | | | live+notice |
-| 017 | Goal Engineering Planner | /calculators/goal-engineering-planner | educational_public (members) | generic / IP | medium | pending | pending | n/a | pending | | | live+notice |
+| 016 | Power of Growth | /calculators/asset-016-growth-comparison | educational_public | generic | medium | pending | pending | n/a | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
+| 017 | Goal Engineering Planner | /calculators/goal-engineering-planner | educational_public (members) | generic / IP | medium | pending | pending | n/a | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
 | 018 | Retirement Gap Method | /retirement-gap-method | public | framework | medium | n/a | pending | n/a | pending | | | live |
 | HOME | Homepage | / | public (factual rewrite 2026-07-24) | marketing / educational | medium | n/a | FAIS research + containment | n/a (no named product shelf) | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
 | EVEREST | Everest Wealth hub | /everest-wealth | restricted | product_specific | critical | n/a | pending | pending | pending | 2026-07-22 | TBD | frozen |

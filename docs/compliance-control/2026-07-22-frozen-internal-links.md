@@ -27,7 +27,9 @@ Links were **not permanently deleted**. Restore markers use `CONTAINMENT 2026-07
 | Discovery Health tool | `components/solutions/DiscoveryHealthPageView.tsx` | 015 | Pointed to `/calculators` |
 | Related content (life) | `lib/related-content.ts` | underinsurance calculator | Pointed to `/calculators` |
 | RelatedContent render | `components/seo/RelatedContent.tsx` | any restricted href | Sanitized via `containmentSafePublicHref` |
-| Calculator journey links | `components/calculators/AssetCalculatorPageView.tsx` | 013/014 etc. | Sanitized via `containmentSafePublicHref` |
+| Calculator journey links | `components/calculators/AssetCalculatorPageView.tsx` | 013/014 etc. | Sanitized via `containmentSafePublicHref`; 2026-07-24 live journeys rewritten off restricted product calcs |
+| Calculator page disclaimer | `components/calculators/AssetCalculatorPageView.tsx` | n/a | Added Section 1(3)(a) band on every educational calculator page (2026-07-24) |
+| Calculators hub | `app/(content)/calculators/page.tsx` | Toolkit catalogue | Holding page + FAIS disclaimer (2026-07-24) |
 | llms.txt | `public/llms.txt` | Everest + 007–015 product URLs | Removed; educational only |
 | Sitemap | `app/sitemap.ts` | All restricted calc + Everest hubs | Excluded |
 | Legacy redirects | `next.config.ts` | Product/legislation calcs | Temporary `permanent: false` → `/calculators` |

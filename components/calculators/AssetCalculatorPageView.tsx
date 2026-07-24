@@ -28,6 +28,9 @@ import { containmentSafePublicHref } from "@/lib/compliance/containment";
 
 const GRID = `${HOME4_WRAP} grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8`;
 
+const GENERAL_ADVICE_DISCLAIMER =
+  "This page provides factual information and illustrative mathematics only as contemplated in Section 1(3)(a) of the FAIS Act, 37 of 2002. It does not constitute financial, investment, legal, or tax advice, and does not assess product suitability for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+
 export function AssetCalculatorPageView({
   path,
   assetCode,
@@ -268,6 +271,24 @@ export function AssetCalculatorPageView({
           </div>
         </div>
       </header>
+
+      <section
+        id="calculator-general-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-6 md:py-8"
+        aria-labelledby={`${path}-general-disclaimer-heading`}
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id={`${path}-general-disclaimer-heading`}
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       {decisionQuestion && decisionQuestionPlacement === "after-hero" ? (
         <section

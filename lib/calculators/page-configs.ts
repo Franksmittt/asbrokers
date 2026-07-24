@@ -700,7 +700,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Can better investment returns eliminate my Retirement Gap?",
         answer:
-          "Higher long-term returns can help, but chasing returns also increases risk. Many gaps improve through a mix of contributions, time, costs, expectations and suitable strategy, not returns alone.",
+          "Higher long-term returns can help, but chasing returns also increases risk. Many gaps improve through a mix of contributions, time, costs, expectations and strategy choices discussed in advice, not returns alone.",
       },
       {
         question: "How often should I update this calculation?",
@@ -907,7 +907,7 @@ const PAGES: Record<string, PageContent> = {
         {
           title: "Which change could have the greatest impact on your retirement future?",
           description:
-            "The question isn't whether your current plan is perfect. Book a Retirement Gap Assessment for a personalised review of contributions, time and strategy.",
+            "The question is whether your current plan remains workable under your assumptions. Book a Retirement Gap Assessment for a personalised review of contributions, time and strategy.",
           ctaLabel: "Book a Retirement Gap Assessment",
           ctaHref: "/contact?source=retirement_gap_assessment_asset_003",
         },
@@ -924,8 +924,8 @@ const PAGES: Record<string, PageContent> = {
       {
         heading: "Closing the Retirement Gap is about consistency",
         paragraphs: [
-          "Long-term retirement success is rarely achieved by finding the perfect investment. It is usually driven by saving consistently, increasing contributions over time, staying invested, reviewing progress regularly, and giving compound growth sufficient time to work.",
-          "A retirement plan you can maintain is usually more successful than a perfect plan you cannot sustain. Revisit this calculator when your income or goals change, and compare outcomes with the Retirement Reality Check and Retirement Growth Rate Calculator in the Toolkit.",
+          "Long-term retirement outcomes are rarely driven by finding one investment label. They are usually influenced by saving consistently, increasing contributions over time, staying invested, reviewing progress regularly, and giving compound growth sufficient time to work.",
+          "A retirement plan you can maintain is usually more useful than an ambitious plan you cannot sustain. Revisit this calculator when your income or goals change, and compare outcomes with the Retirement Reality Check and Retirement Growth Rate Calculator in the Toolkit.",
         ],
       },
     ],
@@ -948,17 +948,17 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Can I close my Retirement Gap by working longer?",
         answer:
-          "Working longer can help because you contribute for more years and delay drawdown. Whether it is the best lever depends on your health, career and income needs. Explore scenarios here, then discuss them in a Retirement Gap Assessment.",
+          "Working longer can help because you contribute for more years and delay drawdown. Whether it is a useful lever depends on your health, career and income needs. Explore scenarios here, then discuss them in a Retirement Gap Assessment.",
       },
       {
         question: "Should I save through a Retirement Annuity or discretionary investments?",
         answer:
-          "Both can play a role. RAs may offer tax advantages with contribution and access rules; discretionary investments can be more flexible. The right mix is personal, this calculator does not choose a product for you.",
+          "Both can play a role. RAs may offer tax advantages with contribution and access rules; discretionary investments can be more flexible. The mix is personal; this calculator does not choose a product for you.",
       },
       {
         question: "Should I change my investment strategy?",
         answer:
-          "Strategy can affect long-term growth, but higher returns usually mean higher risk. Closing a gap often needs a balance of saving, time, costs and suitable risk, not returns alone. Pair this tool with the Retirement Growth Rate Calculator for perspective.",
+          "Strategy can affect long-term growth, but higher returns usually mean higher risk. Closing a gap often needs a balance of saving, time, costs and risk capacity, not returns alone. Pair this tool with the Retirement Growth Rate Calculator for perspective.",
       },
       {
         question: "Can increasing my monthly saving by a small amount really make a difference?",
@@ -1048,9 +1048,9 @@ const PAGES: Record<string, PageContent> = {
         },
         {
           stepLabel: "Next Step",
-          title: "Living Annuity Income & Sustainability Calculator",
-          description: "Asset 014: Is income sustainable?",
-          href: calculatorPagePath("asset-014-living-annuity"),
+          title: "Future Value Calculator",
+          description: "Asset 005: Illustrate inflation and purchasing power",
+          href: calculatorPagePath("asset-005-future-value"),
         },
       ],
     },
@@ -1064,13 +1064,13 @@ const PAGES: Record<string, PageContent> = {
           label: "Excellent",
           tone: "excellent",
           description:
-            "Your assumptions suggest your retirement income appears sustainable. Continue reviewing your retirement plan regularly.",
+            "Your assumptions suggest retirement income may appear sustainable in this illustration. Continue reviewing your plan regularly.",
         },
         {
           label: "Reasonable",
           tone: "reasonable",
           description:
-            "Your retirement plan appears workable, but regular reviews remain important as markets, inflation and personal circumstances change.",
+            "Your illustration appears workable under the entered assumptions, but regular reviews remain important as markets, inflation and personal circumstances change.",
         },
         {
           label: "Caution",
@@ -1132,7 +1132,7 @@ const PAGES: Record<string, PageContent> = {
       items: [
         {
           label: "Reduce annual withdrawals.",
-          href: calculatorPagePath("asset-014-living-annuity"),
+          href: calculatorPagePath("asset-004-life-of-capital"),
         },
         {
           label: "Improve long-term investment growth.",
@@ -1149,23 +1149,23 @@ const PAGES: Record<string, PageContent> = {
       ],
       closing:
         "Related Toolkit tools and Method guidance help you explore these levers. Educational articles will deepen each theme as they are published.",
-      ctaLabel: "Continue to the Living Annuity Income & Sustainability Calculator",
-      ctaHref: calculatorPagePath("asset-014-living-annuity"),
+      ctaLabel: "Open the Future Value Calculator",
+      ctaHref: calculatorPagePath("asset-005-future-value"),
     },
     methodSection: {
       heading: "Structure income so it lasts",
       paragraphs: [
-        "If Asset 004 creates concern, the next practical step is testing whether living annuity income may be sustainable. Asset 014 explores drawdown, tax and capital longevity, education before products.",
-        "The Retirement Gap Method™ then brings Reality Check, Premium, Life of Capital, Future Value and Living Annuity tools into one framework.",
+        "If Asset 004 creates concern, continue with educational tools on inflation and contribution planning while product-specific living annuity calculators complete compliance review.",
+        "The Retirement Gap Method™ then brings Reality Check, Premium, Life of Capital and Future Value tools into one educational framework before advice.",
       ],
       bullets: [
-        "Living annuity drawdown bands",
+        "Withdrawal rate assumptions",
         "Inflation-aware income planning",
-        "Tax and sustainability trade-offs",
+        "Contribution and time trade-offs",
         "Review cadence after retirement",
       ],
-      ctaLabel: "Open the Living Annuity Income & Sustainability Calculator",
-      ctaHref: calculatorPagePath("asset-014-living-annuity"),
+      ctaLabel: "Open the Future Value Calculator",
+      ctaHref: calculatorPagePath("asset-005-future-value"),
       secondaryCtaLabel: "Learn the Retirement Gap Method™",
       secondaryCtaHref: "/retirement-gap-method",
     },
@@ -1201,17 +1201,17 @@ const PAGES: Record<string, PageContent> = {
         },
         {
           stepLabel: "Next",
-          assetCode: "ASSET 014",
-          title: "Living Annuity Income & Sustainability Calculator",
-          description: "How do I structure retirement income so it lasts?",
-          href: calculatorPagePath("asset-014-living-annuity"),
+          assetCode: "ASSET 005",
+          title: "Future Value Calculator",
+          description: "See how inflation can change purchasing power over time.",
+          href: calculatorPagePath("asset-005-future-value"),
         },
         {
           stepLabel: "Also explore",
-          assetCode: "ASSET 005",
-          title: "Future Value Calculator",
-          description: "See how inflation erodes purchasing power over time.",
-          href: calculatorPagePath("asset-005-future-value"),
+          assetCode: "ASSET 001",
+          title: "Retirement Growth Rate Calculator",
+          description: "Illustrate a growth rate that may be required under your assumptions.",
+          href: calculatorPagePath("asset-001-retirement-growth"),
         },
         {
           stepLabel: "Complete Framework",
@@ -4484,7 +4484,7 @@ const PAGES: Record<string, PageContent> = {
     shortTitle: "Power of Growth Calculator",
     seoTitle: "Power of Growth Calculator | Cost of Waiting | Retirement Gap Toolkit™",
     seoDescription:
-      "What is the financial cost of waiting to make a good decision? Measure the opportunity cost of delaying investing, saving or reviewing your plan. Educational Decision Cost Calculator. FSP 17273.",
+      "Illustrate the mathematical cost of delaying the same growth plan under your assumptions. Educational Decision Cost Calculator. FSP 17273.",
     keywords: [
       "power of growth calculator",
       "cost of waiting calculator",
@@ -4503,7 +4503,7 @@ const PAGES: Record<string, PageContent> = {
       "Compare Start Today with Delay Starting. The primary result is the Cost of Waiting, then review future value, contributions, growth and a side-by-side growth-rate comparison.",
     sidePanelTitle: "A Decision Cost Calculator",
     sidePanelParagraphs: [
-      "This is one of the cornerstone calculators of the Retirement Gap Method™. It is not primarily a growth calculator, it measures the financial consequence of delaying a good decision.",
+      "This is one of the cornerstone calculators of the Retirement Gap Method™. It is not primarily a growth calculator; it measures the mathematical consequence of delaying the same plan under identical assumptions.",
       "The recurring principle: time is often more valuable than return. Educational only, not financial, investment or tax advice.",
     ],
     sidePanelBullets: [
@@ -4524,7 +4524,7 @@ const PAGES: Record<string, PageContent> = {
       { title: "Compare growth rates", description: "See mathematical outcomes at 8%, 10%, 12%, 15% and 20%, not product advice." },
     ],
     decisionQuestion: {
-      question: "What is the financial cost of waiting to make a good decision?",
+      question: "What is the illustrative financial cost of delaying the same plan?",
     },
     heroCta: {
       primaryLabel: "Calculate the Cost of Waiting",
@@ -4535,23 +4535,23 @@ const PAGES: Record<string, PageContent> = {
     contextBox: {
       heading: "The Cost of Waiting",
       paragraphs: [
-        "Many people believe delaying a financial decision by one or two years has only a small impact. Compound growth shows the opposite.",
-        "Every year that money is not invested, or a good decision is delayed, reduces the time available for growth. The lost opportunity often becomes surprisingly large over long periods. This calculator helps you visualise that difference.",
+        "Many people believe delaying a financial decision by one or two years has only a small impact. Compound growth mathematics can show a larger difference.",
+        "Every year that money is not invested, or a plan is delayed, reduces the time available for growth under the same assumptions. This calculator helps you visualise that difference.",
       ],
-      highlightQuestion: "What is the financial cost of waiting to make a good decision?",
+      highlightQuestion: "What is the illustrative financial cost of delaying the same plan?",
     },
     audienceGuide: {
       heading: "Who this calculator is for",
       intro:
-        "This calculator is suitable for anyone who wants to understand how the timing of financial decisions can affect long-term outcomes. It is particularly useful for people considering:",
+        "This educational calculator is for visitors who want to understand how the timing of financial decisions can affect long-term mathematical outcomes. It is commonly used when considering:",
       items: [
-        "Retirement planning",
-        "Long-term investing",
-        "Monthly savings",
+        "Retirement planning education",
+        "Long-term investing concepts",
+        "Monthly savings illustrations",
         "Financial education",
-        "Estate planning",
-        "Business investment decisions",
-        "Reviewing existing financial strategies",
+        "Estate planning education",
+        "Business investment timing concepts",
+        "Reviewing existing financial strategies in preparation for advice",
       ],
     },
     assumptionCallout: {
@@ -4584,7 +4584,7 @@ const PAGES: Record<string, PageContent> = {
         { label: "Time matters", description: "Compound growth rewards earlier action." },
         {
           label: "Delay has a measurable cost",
-          description: "Waiting to make a good financial decision permanently reduces compounding time.",
+          description: "Waiting to start the same plan permanently reduces compounding time under identical assumptions.",
         },
         {
           label: "Small differences become large",
@@ -4661,18 +4661,18 @@ const PAGES: Record<string, PageContent> = {
           href: calculatorPagePath("asset-004-life-of-capital"),
         },
         {
-          stepLabel: "Strategy",
-          assetCode: "ASSET 013",
-          title: "Income vs Growth Comparison",
-          description: "Compare income and growth approaches.",
-          href: calculatorPagePath("asset-013-everest-income-vs-growth"),
+          stepLabel: "Growth",
+          assetCode: "ASSET 001",
+          title: "Retirement Growth Rate Calculator",
+          description: "Illustrate a growth rate that may be required under your assumptions.",
+          href: calculatorPagePath("asset-001-retirement-growth"),
         },
         {
-          stepLabel: "Income",
-          assetCode: "ASSET 014",
-          title: "Living Annuity Sustainability",
-          description: "Is retirement income sustainable?",
-          href: calculatorPagePath("asset-014-living-annuity"),
+          stepLabel: "Framework",
+          assetCode: "ASSET 018",
+          title: "Retirement Gap Method™",
+          description: "See how the educational tools fit together before advice.",
+          href: "/retirement-gap-method",
         },
       ],
     },
@@ -4705,7 +4705,7 @@ const PAGES: Record<string, PageContent> = {
       {
         question: "Is this mainly a growth-rate calculator?",
         answer:
-          "No. It is a Decision Cost Calculator. Growth maths are used to answer a deeper question: what is the financial cost of waiting to make a good decision?",
+          "No. It is a Decision Cost Calculator. Growth maths are used to answer a deeper question: what is the illustrative financial cost of delaying the same plan under your assumptions?",
       },
       {
         question: "What does Cost of Waiting mean?",

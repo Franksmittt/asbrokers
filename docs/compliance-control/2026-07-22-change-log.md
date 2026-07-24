@@ -18,5 +18,7 @@
 | 2026-07-24 | `/investments` hub | Product shelf + suitability/sales framing | Factual FAIS Section 1(3)(a) education page | Removed Everest/Amethyst shelf, Asset 011/013 promo, suitability language; educational calcs 016/017 only; related links frozen to non-product surfaces |
 | 2026-07-24 | `/investments/compliance-draft` | n/a | Internal noindex reference draft | Kept for review history alongside live cut-over |
 | 2026-07-24 | Homepage `/` | Everest-led metadata, product chat prompts, weak advice boundary | Factual FAIS education homepage | Removed Everest title/chat prompts; added Section 1(3)(a) disclaimer; educational calcs + needs-analysis CTAs only |
+| 2026-07-24 | `/calculators` hub | Holding page without full FAIS disclaimer | Holding page + Section 1(3)(a) disclaimer | Softened educational blurbs; no product promotion |
+| 2026-07-24 | Live educational calcs 001–005, 016, 017 | Suitability language + product journey CTAs | Factual educational pages | Shared page disclaimer; removed Asset 011/013/014 promo CTAs from live journeys; softened FAQ/audience copy |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

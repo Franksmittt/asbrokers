@@ -35,7 +35,7 @@ export function HomeChatBar() {
         <label className="relative min-w-0 flex-1">
           <span className="sr-only">Ask the Wealth Assistant</span>
           <span className="pointer-events-none absolute inset-0 flex items-center px-3 text-sm text-zinc-400">
-            Ask about Everest, retirement income, or Discovery…
+            Ask about retirement education, insurance, or how advice works…
           </span>
           <input
             type="text"
@@ -43,7 +43,7 @@ export function HomeChatBar() {
             enterKeyHint="send"
             autoComplete="off"
             className="chat-dark-input w-full cursor-text rounded-full border-0 bg-transparent px-3 py-2.5 text-sm text-zinc-100 caret-zinc-100 focus:outline-none focus:ring-0"
-            aria-label="Ask about Everest Wealth, Discovery Health, or estate duty"
+            aria-label="Ask about retirement education, insurance, or how advice works"
           />
         </label>
         <button

@@ -25,7 +25,7 @@ Approval columns: blank = **not approved** (development alone is not approval).
 | 016 | Power of Growth | /calculators/asset-016-growth-comparison | educational_public | generic | medium | pending | pending | n/a | pending | | | live+notice |
 | 017 | Goal Engineering Planner | /calculators/goal-engineering-planner | educational_public (members) | generic / IP | medium | pending | pending | n/a | pending | | | live+notice |
 | 018 | Retirement Gap Method | /retirement-gap-method | public | framework | medium | n/a | pending | n/a | pending | | | live |
-| HOME | Homepage | / | public | marketing | medium | n/a | pending | n/a | pending | 2026-07-22 | TBD | containment-1 |
+| HOME | Homepage | / | public (factual rewrite 2026-07-24) | marketing / educational | medium | n/a | FAIS research + containment | n/a (no named product shelf) | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
 | EVEREST | Everest Wealth hub | /everest-wealth | restricted | product_specific | critical | n/a | pending | pending | pending | 2026-07-22 | TBD | frozen |
 | EVEREST-ABOUT | Understanding Everest | /everest-wealth/about | restricted | product_specific | critical | n/a | pending | pending | pending | 2026-07-22 | TBD | frozen |
 | AMETHYST | Amethyst product page | /everest-amethyst-living-annuity | restricted | product_specific | critical | n/a | pending | pending | pending | 2026-07-22 | TBD | frozen |

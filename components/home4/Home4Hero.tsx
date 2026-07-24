@@ -11,7 +11,7 @@ import {
   WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
 } from "@/lib/whatsapp";
 
-/** Above-fold home hero: one problem, one primary CTA, WhatsApp as same-day path. */
+/** Above-fold home hero: brand + factual education path + contact. */
 export function Home4Hero() {
   return (
     <section data-chunk-boundary="true" className="relative overflow-hidden">
@@ -36,16 +36,17 @@ export function Home4Hero() {
       <div className="relative pt-32 pb-40 sm:pt-36 sm:pb-48 md:pt-40 md:pb-56">
         <div className={`${HOME4_WRAP} max-w-3xl`}>
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/80 sm:text-sm sm:tracking-[0.18em]">
-            Independent · FSP 17273 · Category 1.8 · Education before advice
+            AS Brokers CC · Authorised FSP 17273 · Category 1.8
           </p>
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.08]">
-            Will this capital last, and what
+            Independent financial education
             <br />
-            income can it support?
+            and advice services
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
-            Start with an educational retirement calculator, then contact us to speak with an
-            independent Category 1.8 adviser in Krugersdorp, not a call centre.
+            Use educational calculators to explore retirement and capital questions, then contact an
+            authorised representative of AS Brokers CC in Krugersdorp when you want a personal needs
+            analysis. Website content is factual information, not a product recommendation.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -71,12 +72,12 @@ export function Home4Hero() {
               prefetch={false}
               className="text-sm font-semibold text-white/85 underline-offset-4 hover:text-white hover:underline"
             >
-              Or contact us online
+              Or request a needs analysis online
             </Link>
           </p>
           <p className="mt-5 text-xs leading-relaxed text-white/70">
-            Targeted returns are not guarantees. R100k min · liquidity and DWT constraints apply ·
-            educational only under FAIS.
+            Calculators and page content are illustrative and educational only under the FAIS Act.
+            They do not assess your full circumstances or constitute personal financial advice.
           </p>
         </div>
       </div>

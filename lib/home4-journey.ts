@@ -1,6 +1,6 @@
 /**
  * Warm, public-facing homepage data.
- * Conversion priority: Everest + education/calculators first; other pillars remain visible.
+ * Compliance 2026-07-24: education + contact first; no named-product promotion.
  */
 
 export type JourneyLink = { label: string; href: string };
@@ -48,12 +48,12 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     title: "Investments & retirement capital",
     badge: "Invest",
     description:
-      "Educational tools and Category 1.8 advice pathways. Product-specific calculators are under review.",
+      "Factual investment information and Category 1.8 advice services. Product-specific calculators remain under review.",
     href: "/investments",
     links: [
       { label: "Investments hub", href: "/investments" },
       { label: "Educational calculators", href: "/calculators" },
-      { label: "Contact an adviser", href: "/contact?source=home_investments" },
+      { label: "Request a needs analysis", href: "/contact?source=home_investments" },
     ],
     accent: "blue",
     image: "/images/home-card-investments.webp",
@@ -63,7 +63,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     title: "Retirement planning",
     badge: "Retire",
     description:
-      "Clarity on capital, income longevity, and whether your savings can fund the years ahead.",
+      "Educational framing on capital, income longevity, and retirement planning questions before advice.",
     href: "/retirement-planning",
     links: [
       { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
@@ -78,12 +78,12 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     title: "Insurance & medical",
     badge: "Insure",
     description:
-      "Personal protection, medical aid and gap, assets, and commercial risk for the balance sheet.",
+      "Information on personal protection, medical schemes, gap cover, and commercial risk concepts.",
     href: "/insurance",
     links: [
       { label: "Medical aid & gap", href: "/solutions/medical-aid" },
       { label: "Discovery Health", href: "/solutions/discovery-health" },
-      { label: "Risk architecture hub", href: "/insurance" },
+      { label: "Insurance hub", href: "/insurance" },
       // CONTAINMENT 2026-07-22: underinsurance calculator frozen
       // { label: "Underinsurance calculator", href: "/calculators/underinsurance-calculator" },
     ],
@@ -95,7 +95,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     title: "Estate planning",
     badge: "Estate",
     description:
-      "Wills, trusts, duty, and estate liquidity so heirs are not forced into a fire sale.",
+      "Educational information on wills, trusts, estate duty concepts, and estate liquidity planning.",
     href: "/estate-planning",
     links: [
       { label: "Legacy Readiness Checklist", href: "/legacy-readiness-checklist" },
@@ -112,13 +112,13 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
   // CONTAINMENT 2026-07-22: product calculators frozen. Restore asset-010 / asset-013 / estate-duty after approval.
   {
     label: "Retirement Reality Check",
-    description: "See where you stand today and what capital gap remains.",
+    description: "Illustrative view of a capital gap based on assumptions you enter.",
     href: "/calculators/asset-002-retirement-reality-check",
     image: "/images/home-actuarial-engine-16x9.jpg",
   },
   {
     label: "Retirement Growth Rate",
-    description: "Illustrate the growth rate that may be required for a capital goal.",
+    description: "Illustrate a growth rate required for a capital goal under your inputs.",
     href: "/calculators/asset-001-retirement-growth",
     image: "/images/home-calc-128-income-16x10.jpg",
   },
@@ -140,7 +140,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "01",
     title: "Educate",
-    description: "Retirement maths, tax concepts, and risk explained in plain English.",
+    description: "Read factual articles on retirement maths, tax concepts, and risk in plain English.",
     href: "/insights",
     cta: "Read insights",
     accent: "teal",
@@ -148,7 +148,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "02",
     title: "Calculate",
-    description: "Educational ASSET tools for capital, longevity, and growth assumptions before advice.",
+    description: "Use educational calculators for capital, longevity, and growth assumptions before advice.",
     href: "/calculators",
     cta: "Open calculators",
     accent: "blue",
@@ -156,18 +156,18 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     // CONTAINMENT 2026-07-22: Everest stage frozen. Original href: /everest-wealth
     step: "03",
-    title: "Review options",
-    description: "Speak with a licensed adviser when you want personalised guidance.",
+    title: "Prepare questions",
+    description: "Gather your figures and questions before speaking with an authorised representative.",
     href: "/contact?source=home_journey_review",
     cta: "Contact us",
     accent: "gold",
   },
   {
     step: "04",
-    title: "Contact us",
-    description: "Licensed FSP 17273 review when your numbers say it is time.",
+    title: "Needs analysis",
+    description: "Request a Financial Needs Analysis with AS Brokers CC, FSP 17273, for personal advice.",
     href: "/contact?source=home_journey",
-    cta: "Book assessment",
+    cta: "Request assessment",
     accent: "advice",
   },
 ];
@@ -175,21 +175,21 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
 export const HOME4_TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "Albert helped us untangle the living annuity properly. First time someone explained the numbers without making me feel stupid.",
+      "Albert helped us understand the living annuity numbers clearly. First time someone explained them without making me feel lost.",
     who: "Susan M.",
     where: "Randpark Ridge",
     initial: "S",
   },
   {
     quote:
-      "Retirement felt like a mountain. Albert broke it into small steps. We're actually on track now.",
+      "Retirement felt overwhelming. Albert broke the questions into smaller steps we could work through.",
     who: "Michelle B.",
     where: "Wilropark",
     initial: "M",
   },
   {
     quote:
-      "Local, independent, no call-centre nonsense. Exactly what we wanted from an FSP.",
+      "Local and independent. We wanted an authorised FSP we could speak to directly, not a call centre.",
     who: "Johan & Karen T.",
     where: "Muldersdrift",
     initial: "J",

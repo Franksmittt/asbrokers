@@ -7,14 +7,21 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Everest Wealth Education & Independent Advice | AS Brokers";
+const PAGE_TITLE = "Independent Financial Advice | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Run ASSET calculators, learn Everest Wealth structured-income profiles (Category 1.8), and contact independent FSP 17273, Krugersdorp. Retirement, insurance, and estate when you need them.";
+  "AS Brokers CC (FSP 17273) provides factual financial education and Category 1.8 advice services in Krugersdorp. Educational calculators are illustrative only. Personal recommendations follow a needs analysis.";
 
 export const metadata = buildPageMetadata({
   path: "/",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  keywords: [
+    "independent financial adviser Krugersdorp",
+    "AS Brokers FSP 17273",
+    "Category 1.8 FSP",
+    "retirement planning education South Africa",
+    "FAIS factual information",
+  ],
 });
 
 export default function HomePage() {

@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
 const DEFAULT_PROMPTS = [
-  "Ask me anything about Everest Wealth",
-  "Ask me anything about Discovery Health",
-  "Ask me about Gap Cover and medical aid",
+  "Ask about retirement planning education",
+  "Ask about medical schemes and gap cover",
+  "Ask how advice and needs analysis work",
   "Leave your details for a callback",
 ] as const;
 

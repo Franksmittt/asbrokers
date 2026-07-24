@@ -136,22 +136,22 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/retirement-planning",
       title: "Retirement planning",
-      description: "Capital, income, living annuities, and clarity on whether your money will last.",
+      description: "Educational framing on capital, income, and retirement planning questions.",
     },
     {
       href: "/investments",
       title: "Investments hub",
-      description: "Wealth building, life-stage guidance, and Everest yield education.",
+      description: "Factual investment information and Category 1.8 advice services.",
     },
     {
       href: "/calculators",
-      title: "Planning calculators",
-      description: "Illustrative retirement, estate, tax, and insurance tools.",
+      title: "Educational calculators",
+      description: "Illustrative tools available while product calculators complete review.",
     },
     {
       href: "/contact",
-      title: "Book a consultation",
-      description: "Independent FSP 17273 advice in Krugersdorp and the West Rand.",
+      title: "Request a needs analysis",
+      description: "Personal recommendations only after advice with FSP 17273.",
     },
   ],
   "/retirement": [

@@ -2,20 +2,20 @@ import { RetirementPlanningPageView } from "@/components/retirement-planning/Ret
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Will Your Capital Survive Your Lifespan? | Pre-Retirement Diagnostics";
+const PAGE_TITLE = "Retirement Planning Education | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Most plans reach retirement then fail to fund life after it. Pre-retirement diagnostics for South Africans: capital gap maths, Two-Pot context, and FSP 17273 Wealth Engineering, education before advice.";
+  "Educational pre-retirement planning information from AS Brokers CC (FSP 17273): capital gap concepts, Two-Pot context, and illustrative calculators. Personal advice follows a needs analysis.";
 
 const planningFAQs = [
   {
     question: "Who is this retirement planning page for?",
     answer:
-      "South African professionals still in the accumulation phase who need a mathematical reality check on capital, timeline, and growth, before they stop working. Content is educational, not personalised advice.",
+      "South African professionals still in the accumulation phase who want educational information on capital, timeline, and growth concepts before they stop working. Content is factual information only, not personalised advice.",
   },
   {
     question: "What is the Retirement Survival Blueprint?",
     answer:
-      "A guided 5-step diagnostic that helps you discover your Financial Freedom Score™ and identify gaps in your retirement trajectory. It is a lead diagnostic, not a substitute for regulated advice from FSP 17273.",
+      "A guided 5-step educational walkthrough that introduces the Financial Freedom Score™ concept and common planning questions. It is illustrative only and is not a substitute for regulated advice from FSP 17273.",
   },
   {
     question: "How does the Two-Pot system affect my retirement planning?",
@@ -30,12 +30,12 @@ const planningFAQs = [
   {
     question: "What does Category 1.8 mean for AS Brokers clients?",
     answer:
-      "Category 1.8 authorisation includes advice on certain unlisted instruments beyond a standard unit-trust shelf. AS Brokers CC (FSP 17273) can discuss structured yield strategies where liquidity, term, and tax treatment must be understood clearly, including Everest Wealth voluntary products where appropriate.",
+      "Category 1.8 authorisation includes advice on certain securities and instruments, which may include unlisted instruments beyond a standard unit-trust shelf. AS Brokers CC (FSP 17273) discusses liquidity, term, tax treatment, and risks during advice. Licence category does not mean every product is appropriate for every client.",
   },
   {
     question: "Do the online calculators constitute financial advice?",
     answer:
-      "No. Calculators on asbrokers.co.za are illustrative and educational only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Book FSP 17273 for advice tailored to your circumstances.",
+      "No. Calculators on asbrokers.co.za are illustrative and educational only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Personal advice requires a needs analysis with FSP 17273.",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function RetirementPlanningPage() {
         webPage={{ name: buildPageTitle(PAGE_TITLE), description: PAGE_DESCRIPTION }}
         faqs={planningFAQs}
         service={{
-          name: "Pre-retirement wealth engineering & diagnostics",
+          name: "Retirement planning education and advice services",
           description: PAGE_DESCRIPTION,
           serviceType: "Retirement planning",
         }}

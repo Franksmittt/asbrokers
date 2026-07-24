@@ -26,8 +26,8 @@ const COMMERCIAL_IMAGE = "/images/risk-arch-commercial.jpg";
 const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or insurance advice as defined in the FAIS Act, 2002. Outcomes depend on underwriting, policy wording, and your circumstances.";
 
-// CONTAINMENT 2026-07-22: Asset 015 frozen. Restore: calculatorPagePath("asset-015-average-clause")
-const CALC_AVERAGE_CLAUSE = "/calculators";
+const GENERAL_ADVICE_DISCLAIMER =
+  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 const PROTECTION_DOMAINS = [
   {
@@ -72,12 +72,12 @@ export function InsuranceHubPageView({ faqs }: Props) {
       {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Insurance" longLabel="Insurance" />}
-        title="Worried underinsurance will shrink your next insurance claim?"
-        description="AS Brokers CC (FSP 17273) educates you on policy gaps first: underinsurance and the Average Clause, Business Interruption wording, and life premium traps, before anyone asks you to switch. Run the maths yourself. Then request a review if you want a needs analysis."
+        title="Insurance and risk education from AS Brokers CC"
+        description="AS Brokers CC (FSP 17273) provides factual education on underinsurance concepts, medical scheme versus gap cover demarcation, Business Interruption wording, and life premium structures. Request a needs analysis if you want personal recommendations."
         actions={
           <HubHeroActions
-            primaryLabel="Check your underinsurance risk"
-            primaryHref={CALC_AVERAGE_CLAUSE}
+            primaryLabel="Learn about underinsurance"
+            primaryHref="#average-clause"
           />
         }
         visual={
@@ -110,6 +110,24 @@ export function InsuranceHubPageView({ faqs }: Props) {
           />
         }
       />
+
+      <section
+        id="insurance-general-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+        aria-labelledby="insurance-disclaimer-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="insurance-disclaimer-heading"
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       {/* §2 Protection domains, route-owned below the shared hero */}
       <section
@@ -211,7 +229,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
         <div className={HOME4_WRAP}>
           <div className="rounded-lg px-6 py-10 sm:px-10 sm:py-12" style={{ backgroundColor: INSET }}>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500">
-              Diagnostic · ASSET 015
+              Educational concept
             </p>
             <h2
               id="average-clause-heading"
@@ -226,15 +244,17 @@ export function InsuranceHubPageView({ faqs }: Props) {
               <span className="font-semibold tabular-nums text-shark">
                 (Amount Insured ÷ Market Value) × Damages = Payout
               </span>
-              . That is underwriting maths, not a scare tactic.
+              . This is an educational explanation of underwriting mathematics, not a claim
+              assessment or product recommendation. The interactive underinsurance calculator is
+              currently restricted pending compliance review.
             </p>
             <Link
-              href={CALC_AVERAGE_CLAUSE}
+              href="/calculators"
               prefetch={false}
               className="mt-8 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
               style={{ color: TEAL }}
             >
-              Run the Average Clause calculator
+              View available educational calculators
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-stone-500">{FAIS_DISCLAIMER}</p>
@@ -357,12 +377,12 @@ export function InsuranceHubPageView({ faqs }: Props) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            The independence advantage: unrestricted market access
+            Independent intermediary placement capability
           </h2>
           <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            As an independent Category 1.8 FSP we survey the market and place cover where it fits , 
-            without quotas that force a single insurer&apos;s shelf. Market access includes
-            institutions such as:
+            As an independent Category 1.8 FSP we survey the market and place cover according to a
+            client&apos;s needs analysis, without quotas that force a single insurer&apos;s shelf.
+            Placement capability includes institutions such as:
           </p>
           <ul className="mt-8 grid gap-0 border-y md:grid-cols-3" style={{ borderColor: HAIRLINE }}>
             {PARTNERS.map((name) => (
@@ -396,7 +416,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
         id="risk-audit"
         className="scroll-mt-28 pb-16 pt-4 md:scroll-mt-32 md:pb-24"
         style={{ backgroundColor: CANVAS }}
-        aria-labelledby="risk-audit-heading"
+        aria-labelledby="needs-analysis-heading"
       >
         <div className={HOME4_WRAP}>
           <div
@@ -410,15 +430,16 @@ export function InsuranceHubPageView({ faqs }: Props) {
               FSP 17273 · Category 1.8
             </p>
             <h2
-              id="risk-audit-heading"
+              id="needs-analysis-heading"
               className="mt-4 font-serif font-semibold tracking-tight text-white"
               style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", lineHeight: 1.2 }}
             >
-              Ready for a structured risk audit?
+              Ready for a needs analysis?
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
-              Bring policies, sums insured, and business continuity questions. An independent
-              adviser will review cover architecture without product pressure.
+              Bring policies, sums insured, and business continuity questions. An authorised
+              representative can review your circumstances and provide personal recommendations
+              where appropriate.
             </p>
             <Link
               href="/contact?source=insurance_terminal"
@@ -426,7 +447,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
               className="mt-8 inline-flex items-center gap-2 rounded px-7 py-3.5 text-sm font-semibold text-white transition hover:opacity-90"
               style={{ backgroundColor: TEAL }}
             >
-              Book a risk audit
+              Request a needs analysis
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-white/50">{FAIS_DISCLAIMER}</p>

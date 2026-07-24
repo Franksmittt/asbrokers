@@ -20,5 +20,10 @@
 | 2026-07-24 | Homepage `/` | Everest-led metadata, product chat prompts, weak advice boundary | Factual FAIS education homepage | Removed Everest title/chat prompts; added Section 1(3)(a) disclaimer; educational calcs + needs-analysis CTAs only |
 | 2026-07-24 | `/calculators` hub | Holding page without full FAIS disclaimer | Holding page + Section 1(3)(a) disclaimer | Softened educational blurbs; no product promotion |
 | 2026-07-24 | Live educational calcs 001–005, 016, 017 | Suitability language + product journey CTAs | Factual educational pages | Shared page disclaimer; removed Asset 011/013/014 promo CTAs from live journeys; softened FAQ/audience copy |
+| 2026-07-24 | `/insurance` hub | Weak disclaimer; ASSET 015 branding; salesy audit CTAs | Factual FAIS Section 1(3)(a) education page | Average Clause educational only; needs-analysis CTAs; related links de-salesified |
+| 2026-07-24 | `/retirement-planning` hub | Everest body/FAQ; actuarial/fiduciary framing | Factual FAIS education page | Section 1(3)(a) disclaimer; investments hub handoff; educational calculator framing |
+| 2026-07-24 | `/about` | Everest shelf; suitability/competitor puffery; fiduciary overclaim | Factual practice page | Section 1(3)(a) disclaimer; Category 1.8 framing; practice-team section |
+| 2026-07-24 | `/quiz` | Product recommendations (Everest/Amethyst/Assets) | Educational topic routing only | No suitability scores or product picks; Section 1(3)(a) disclaimer |
+| 2026-07-24 | `/insights` hub | Everest hero; fiduciary meta; Amethyst related links | Factual FAIS education library | Section 1(3)(a) disclaimer; educational newsletter/related copy |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

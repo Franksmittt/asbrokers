@@ -3,9 +3,9 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getInsightFeed } from "@/lib/insights/feed";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Insights Library | Fiduciary Education | AS Brokers";
+const PAGE_TITLE = "Insights library | Educational guides | AS Brokers";
 const PAGE_DESCRIPTION =
-  "The AS Brokers insights library: deep guides on Two-Pot, estate duty, tax drag, and risk, written by fiduciaries for people who take wealth seriously. Education before advice. FSP 17273.";
+  "Educational guides from AS Brokers CC (FSP 17273) on Two-Pot, estate duty, tax drag, and risk concepts. General information only under FAIS Section 1(3)(a). Education before advice.";
 
 const insightsFAQs = [
   {
@@ -21,12 +21,12 @@ const insightsFAQs = [
   {
     question: "How do topics relate to the service hubs?",
     answer:
-      "Topic filters help you find articles on retirement, investments, insurance, or estate planning. For structured diagnostics and conversion paths, use the dedicated hubs (/retirement-planning, /investments, /insurance, /estate-planning).",
+      "Topic filters help you find articles on retirement, investments, insurance, or estate planning. For structured educational hubs, use /retirement-planning, /investments, /insurance, and /estate-planning.",
   },
   {
     question: "What is the newsletter for?",
     answer:
-      "A soft subscription for occasional fiduciary insights. It is separate from booking advice and does not enrol you in a sales sequence disguised as education.",
+      "A soft subscription for occasional educational notes. It is separate from booking advice and does not enrol you in a sales sequence disguised as education.",
   },
   {
     question: "Where are the calculators?",
@@ -46,9 +46,10 @@ export const metadata = buildPageMetadata({
   description: PAGE_DESCRIPTION,
   keywords: [
     "financial education South Africa",
-    "fiduciary insights",
+    "educational insights",
     "retirement planning articles",
     "estate planning guides",
+    "FAIS Section 1(3)(a)",
     "FSP 17273",
   ],
 });

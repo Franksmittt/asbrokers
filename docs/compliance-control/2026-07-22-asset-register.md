@@ -32,7 +32,11 @@ Approval columns: blank = **not approved** (development alone is not approval).
 | INVEST | Investments hub | /investments | public (factual rewrite 2026-07-24) | service / educational | medium | n/a | FAIS research + containment | n/a (no named product shelf) | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
 | CONTACT | Contact / booking | /contact | public | service | low | n/a | n/a | n/a | pending | | | live |
 | LEGAL | Privacy / terms / complaints / COI / regulatory | /privacy etc. | public | legal | low | n/a | n/a | n/a | pending | | | live |
-| INSIGHTS | Insights hub + studio posts | /insights | public | educational | medium | n/a | pending | n/a | pending | | | review_links |
+| INSIGHTS | Insights hub + studio posts | /insights | public (factual rewrite 2026-07-24) | educational | medium | n/a | FAIS research + containment | n/a | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
+| INSURANCE | Insurance hub | /insurance | public (factual rewrite 2026-07-24) | service / educational | medium | n/a | FAIS research + containment | n/a (015 tool frozen) | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
+| RET-PLAN | Retirement planning hub | /retirement-planning | public (factual rewrite 2026-07-24) | service / educational | medium | n/a | FAIS research + containment | n/a (no named product shelf) | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
+| ABOUT | About AS Brokers | /about | public (factual rewrite 2026-07-24) | marketing / educational | medium | n/a | FAIS research + containment | n/a | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
+| QUIZ | Topic quiz | /quiz | public (factual rewrite 2026-07-24) | educational routing | high | n/a | FAIS research + containment | n/a (no product picks) | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
 | EMAIL | Result / notification emails | Resend templates | internal | operational | medium | n/a | pending | n/a | pending | | | no_product_urls_found |
 | WA | WhatsApp helpers | lib/whatsapp.ts | live helper | operational | medium | n/a | pending | n/a | pending | | | no_product_urls_found |
 | ADS | Ads / remarketing / YT / social | external | ops freeze required | marketing | high | n/a | pending | n/a | pending | 2026-07-22 | TBD | manual |

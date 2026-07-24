@@ -19,7 +19,6 @@ import {
   AGE_BRACKETS,
   PRIMARY_CONCERNS,
   CAPITAL_RANGES,
-  hasCapitalOver100k,
   type AgeBracket,
   type PrimaryConcern,
   type CapitalRangeId,
@@ -57,6 +56,9 @@ const slideInFromRight: MotionTransition = { x: 100, opacity: 0 };
 const slideInAnimate: MotionTransition = { x: 0, opacity: 1 };
 const opacityOnly: MotionTransition = { opacity: 0 };
 const opacityOnlyAnimate: MotionTransition = { opacity: 1 };
+
+const QUIZ_DISCLAIMER =
+  "This quiz provides general informational routing only and constitutes factual information as contemplated in Section 1(3)(a) of the FAIS Act, 37 of 2002. It does not assess your circumstances, recommend any financial product, or constitute personal financial advice. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 export function QuizPageLoading() {
   return (
@@ -122,6 +124,16 @@ function QuizPageContent() {
   return (
     <section id="quiz-content" className="pb-24">
       <div className={`${WARM_WRAP} max-w-2xl`}>
+        <aside
+          className="mb-4 rounded-2xl border border-amber-200/90 bg-amber-50 px-4 py-4"
+          role="note"
+          aria-label="Quiz information disclaimer"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900">
+            Educational routing only
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-amber-950/90">{QUIZ_DISCLAIMER}</p>
+        </aside>
         <div className={`${WARM_CARD} relative min-h-[320px] overflow-hidden`}>
           <AnimatePresence mode="wait">
             {currentStep === "concern" && (
@@ -135,7 +147,9 @@ function QuizPageContent() {
                 <h2 className={`${WARM_H3} mb-2`}>
                   What&apos;s your biggest financial concern right now?
                 </h2>
-                <p className="mb-6 text-sm text-stone-500">Choose the one that matters most to you.</p>
+                <p className="mb-6 text-sm text-stone-500">
+                  Choose one topic so we can point you to educational resources.
+                </p>
                 <div className="space-y-3">
                   {PRIMARY_CONCERNS.map((c) => (
                     <button
@@ -161,7 +175,9 @@ function QuizPageContent() {
                 onBack={() => useQuizStore.getState().setPrimaryConcern(null as unknown as PrimaryConcern)}
               >
                 <h2 className={`${WARM_H3} mb-2`}>Roughly, which age group are you in?</h2>
-                <p className="mb-6 text-sm text-stone-500">This helps us tailor recommendations.</p>
+                <p className="mb-6 text-sm text-stone-500">
+                  This helps us point you to relevant educational topics.
+                </p>
                 <div className="space-y-3">
                   {AGE_BRACKETS.map((a) => (
                     <button
@@ -190,7 +206,8 @@ function QuizPageContent() {
                   Roughly how much capital do you have available to invest?
                 </h2>
                 <p className="mb-6 text-sm text-stone-500">
-                  This helps us recommend suitable options (e.g. Everest products from R100k).
+                  Used only to route you to educational pages. It does not select or recommend a
+                  product.
                 </p>
                 <div className="space-y-3">
                   {CAPITAL_RANGES.map((r) => (
@@ -218,10 +235,7 @@ function QuizPageContent() {
               >
                 <QuizResults
                   concernSlug={concernParam || (primaryConcern ? CONCERN_TO_SLUG[primaryConcern] : "")}
-                  ageSlug={ageParam || (ageBracket ? AGE_TO_SLUG[ageBracket] : "")}
-                  capitalSlug={capitalParam || availableCapital || ""}
                   slugToConcern={SLUG_TO_CONCERN}
-                  slugToAge={SLUG_TO_AGE}
                 />
               </StepPanel>
             )}
@@ -276,113 +290,84 @@ function StepPanel({
 
 type QuizResultsProps = {
   concernSlug: string;
-  ageSlug: string;
-  capitalSlug: string;
   slugToConcern: Record<string, PrimaryConcern>;
-  slugToAge: Record<string, AgeBracket>;
 };
 
-function QuizResults({ concernSlug, ageSlug, capitalSlug, slugToConcern, slugToAge }: QuizResultsProps) {
-  const concern = concernSlug ? slugToConcern[concernSlug] : null;
-  const age = ageSlug ? slugToAge[ageSlug] : null;
-  const capitalOver100k = hasCapitalOver100k(capitalSlug as CapitalRangeId | null);
-
-  const primaryRecommendation = (() => {
-    if (concern === "Low Investment Yields" && capitalOver100k)
-      return {
-        title: "Everest Wealth 12.8% Strategic Income",
-        href: "/everest-wealth",
-        description:
-          "Targeted income option for capital from R100,000. Ideal when your main concern is low investment yields.",
-      };
-    if (concern === "Retirement Shortfall" && age === "55+")
-      return {
-        title: "Amethyst Living Annuity",
-        href: "/calculators#asset-014-living-annuity",
-        description:
-          "Structure pension/retirement capital with flexible drawdown (2.5%–17.5%). Suited to retirement shortfall and 55+.",
-      };
-    if (concern === "Estate Taxes")
-      return {
-        title: "Annual Estate Reduction Strategy",
-        href: "/calculators#asset-008-estate-reduction",
-        description: "Use R100k/R200k annual donation allowances to reduce estate duty over time.",
-      };
-    return null;
-  })();
-
-  const fallbackLinks = (() => {
-    if (concern === "Business Risk")
-      return [
-        { label: "Business Life & Key Person", href: "/solutions/business-life" },
-        { label: "Business Insurance", href: "/solutions/business-insurance" },
-        { label: "Insights", href: "/insights" },
-      ];
-    if (concern === "Retirement Shortfall")
-      return [
-        { label: "Retirement Reality Calculator", href: "/retirement" },
-        { label: "Life of capital calculator", href: "/calculators#asset-004-life-of-capital" },
-        { label: "Everest Wealth", href: "/everest-wealth" },
-      ];
-    if (concern === "Estate Taxes")
-      return [
-        { label: "Planning tools", href: "/calculators" },
-        { label: "Estate reduction calculator", href: "/calculators#asset-008-estate-reduction" },
-      ];
-    if (concern === "Low Investment Yields")
-      return [
-        { label: "Everest Wealth", href: "/everest-wealth" },
-        { label: "12.8% Strategic Income", href: "/calculators#asset-010-everest-128-income" },
-        { label: "Retirement planning", href: "/retirement" },
-      ];
+/** Educational routing only. No product recommendations or suitability scores. */
+function educationalLinksForConcern(concern: PrimaryConcern | null) {
+  if (concern === "Business Risk") {
     return [
-      { label: "Insights", href: "/insights" },
-      { label: "Everest Wealth", href: "/everest-wealth" },
-      { label: "Contact us", href: "/contact" },
+      { label: "Insurance hub", href: "/insurance" },
+      { label: "Business risk review", href: "/business-risk-review" },
+      { label: "Insights library", href: "/insights" },
+      { label: "Request a needs analysis", href: "/contact?source=quiz_business" },
     ];
-  })();
+  }
+  if (concern === "Retirement Shortfall") {
+    return [
+      { label: "Retirement planning hub", href: "/retirement-planning" },
+      {
+        label: "Retirement Reality Check calculator",
+        href: "/calculators/asset-002-retirement-reality-check",
+      },
+      { label: "Educational calculators", href: "/calculators" },
+      { label: "Request a needs analysis", href: "/contact?source=quiz_retirement" },
+    ];
+  }
+  if (concern === "Estate Taxes") {
+    return [
+      { label: "Estate planning hub", href: "/estate-planning" },
+      { label: "Educational calculators", href: "/calculators" },
+      { label: "Insights library", href: "/insights" },
+      { label: "Request a needs analysis", href: "/contact?source=quiz_estate" },
+    ];
+  }
+  if (concern === "Low Investment Yields") {
+    return [
+      { label: "Investments hub", href: "/investments" },
+      { label: "Educational calculators", href: "/calculators" },
+      { label: "Retirement planning hub", href: "/retirement-planning" },
+      { label: "Request a needs analysis", href: "/contact?source=quiz_investments" },
+    ];
+  }
+  return [
+    { label: "Educational calculators", href: "/calculators" },
+    { label: "Insights library", href: "/insights" },
+    { label: "Request a needs analysis", href: "/contact?source=quiz_general" },
+  ];
+}
+
+function QuizResults({ concernSlug, slugToConcern }: QuizResultsProps) {
+  const concern = concernSlug ? slugToConcern[concernSlug] : null;
+  const links = educationalLinksForConcern(concern);
 
   return (
     <>
       <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-samsung-blue/10">
         <ArrowRight className="h-7 w-7 text-samsung-blue" />
       </div>
-      <h2 className={`${WARM_H3} mb-2`}>Here&apos;s where to go next</h2>
+      <h2 className={`${WARM_H3} mb-2`}>Educational next steps</h2>
       <p className={`mb-6 text-sm ${WARM_BODY}`}>
-        Based on your answers, we recommend the following. Share this page to keep your results.
+        Based on the topic you selected, here are educational pages you can review. This is not a
+        product recommendation or a suitability assessment.
       </p>
 
-      {primaryRecommendation && (
-        <div className="mb-6 rounded-xl border border-samsung-blue/25 bg-samsung-blue/5 p-4">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-samsung-blue">Top recommendation</p>
-          <Link
-            href={primaryRecommendation.href}
-            prefetch={false}
-            className="inline-flex items-center gap-2 font-semibold text-shark hover:text-samsung-blue"
-          >
-            {primaryRecommendation.title}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <p className={`mt-2 text-sm ${WARM_BODY}`}>{primaryRecommendation.description}</p>
-        </div>
-      )}
-
       <ul className="mb-8 space-y-3">
-        {(primaryRecommendation ? fallbackLinks.filter((l) => l.href !== primaryRecommendation.href) : fallbackLinks)
-          .slice(0, 4)
-          .map(({ label, href }) => (
-            <li key={href}>
-              <Link href={href} prefetch={false} className={`inline-flex items-center gap-2 font-medium ${WARM_LINK}`}>
-                {label}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </li>
-          ))}
+        {links.map(({ label, href }) => (
+          <li key={href}>
+            <Link href={href} prefetch={false} className={`inline-flex items-center gap-2 font-medium ${WARM_LINK}`}>
+              {label}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </li>
+        ))}
       </ul>
 
+      <p className={`mb-6 text-xs leading-relaxed ${WARM_BODY}`}>{QUIZ_DISCLAIMER}</p>
+
       <div className="flex flex-wrap gap-3">
-        <Link href="/contact" prefetch={false} className={WARM_BTN_PRIMARY}>
-          Get a personalised plan
+        <Link href="/contact?source=quiz_terminal" prefetch={false} className={WARM_BTN_PRIMARY}>
+          Request a needs analysis
         </Link>
         <Link href="/insights" prefetch={false} className={WARM_BTN_SECONDARY}>
           Read insights

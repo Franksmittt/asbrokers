@@ -29,7 +29,7 @@ const FOUNDERS = [
     id: "person-albert-schuurman",
     name: "Albert Schuurman",
     role: "Co-founder & Key Individual",
-    focus: "Retirement engineering, Everest Wealth, and living annuities.",
+    focus: "Retirement planning education and investment advice services.",
     photo: "/images/team-albert.jpg",
   },
   {
@@ -56,10 +56,10 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
       {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="About" longLabel="About Us" />}
-        title="Need an independent adviser paid to serve you, not product quotas?"
-        description="AS Brokers CC (FSP 17273) has been an independent Category 1.8 fiduciary in Krugersdorp since 1998: math first, then advice for professionals, families, and owners. Meet the team yourself. Then book advice if you want a needs analysis."
+        title="Independent advice from AS Brokers CC"
+        description="AS Brokers CC (FSP 17273) has been an independent Category 1.8 practice in Krugersdorp since 1998: education first, then advice for professionals, families, and owners after a needs analysis."
         actions={
-          <HubHeroActions primaryLabel="Meet the fiduciary team" primaryHref="#fiduciaries" />
+          <HubHeroActions primaryLabel="Meet the practice team" primaryHref="#practice-team" />
         }
         visual={
           <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
@@ -88,6 +88,30 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         }
       />
 
+      <section
+        id="about-general-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+        aria-labelledby="about-disclaimer-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="about-disclaimer-heading"
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            The information on this page is provided for general informational purposes only and
+            constitutes factual information as contemplated in Section 1(3)(a) of the Financial
+            Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute
+            financial, investment, legal, tax, or other professional advice. No recommendation is
+            made regarding the suitability of any financial product for any individual. Personal
+            advice requires a Financial Needs Analysis with an authorised representative of AS
+            Brokers CC (FSP 17273).
+          </p>
+        </div>
+      </section>
+
       {/* §2 Independence, shark */}
       <section
         id="independence"
@@ -106,26 +130,27 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             className="mt-4 max-w-3xl font-serif font-semibold tracking-tight text-white"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
           >
-            The independence advantage: FSCA Category 1.8
+            Authorised Financial Services Provider, FSP 17273
           </h2>
           <div className="mt-10 grid gap-0 border-y border-white/10 md:grid-cols-3">
             <div className="border-b border-white/10 py-8 md:border-b-0 md:border-r md:pr-8 md:py-10">
               <h3 className="font-serif text-lg font-semibold tracking-tight text-white">
-                We work for you, not product houses
+                Independent intermediary
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/65">
-                As a fully independent intermediary, we survey the market to engineer risk and wealth
-                architecture around your goals, without institutional sales quotas.
+                As an independent intermediary, we survey the market and structure advice around a
+                client&apos;s circumstances after a needs analysis, without institutional sales quotas.
               </p>
             </div>
             <div className="border-b border-white/10 py-8 md:border-b-0 md:border-r md:px-8 md:py-10">
               <h3 className="font-serif text-lg font-semibold tracking-tight text-white">
-                Access to unlisted securities and Everest Wealth
+                Category 1.8 authorisation
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/65">
-                Category 1.8 (Securities and Instruments: Shares) authorisation allows advice on
-                certain unlisted instruments and structured return profiles that many tied advisers
-                cannot distribute, including Everest Wealth where appropriate.
+                Category 1.8 (Securities and Instruments: Shares) authorisation includes advice on
+                certain securities and instruments, which may include unlisted instruments outside a
+                standard retail unit-trust shelf. Licence category does not mean every product is
+                appropriate for every client.
               </p>
               <Link
                 href="/investments"
@@ -210,11 +235,11 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         </div>
       </section>
 
-      {/* §4 Fiduciaries, shark */}
+      {/* §4 Practice team, shark */}
       <section
-        id="fiduciaries"
+        id="practice-team"
         className="scroll-mt-28 bg-shark py-16 text-white md:scroll-mt-32 md:py-24"
-        aria-labelledby="fiduciaries-heading"
+        aria-labelledby="practice-team-heading"
       >
         <div className={HOME4_WRAP}>
           <p
@@ -224,11 +249,11 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             The practice
           </p>
           <h2
-            id="fiduciaries-heading"
+            id="practice-team-heading"
             className="mt-4 font-serif font-semibold tracking-tight text-white"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
           >
-            Meet the fiduciaries
+            Meet the practice team
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
             Two co-founders lead advice. Specialists handle underwriting, medical aid, and claims.
@@ -311,7 +336,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                 Run the numbers first
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                Seventeen educational calculators for retirement, estate, insurance, and Everest
+                Educational calculators for retirement, estate, insurance, and investment
                 scenarios, illustrative only.
               </p>
               <Link
@@ -332,8 +357,8 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                 Book a consultation
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                When you are ready for a needs analysis, request a Wealth Engineering Call with an
-                authorised FSP 17273 adviser, not a call centre.
+                When you are ready for personal recommendations, request a needs analysis with an
+                authorised FSP 17273 representative.
               </p>
               <Link
                 href="/contact?source=about_terminal"

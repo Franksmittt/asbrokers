@@ -11,7 +11,8 @@ Links were **not permanently deleted**. Restore markers use `CONTAINMENT 2026-07
 | Home calculator tiles | `lib/home4-journey.ts` | 010, 013, estate duty | Replaced with 002, 001, 004, 005 |
 | Home journey stage 03 | `lib/home4-journey.ts` | `/everest-wealth` | Pointed to contact |
 | Home pathways / trust | `components/home4/Home4BelowFoldRest.tsx` | Everest hub CTAs | Pointed to `/calculators` / `/investments` |
-| Investments tools | `components/investments/InvestmentsPageView.tsx` | 009–013, Everest hub | Pointed to `/calculators` / `/investments` |
+| Investments tools | `components/investments/InvestmentsPageView.tsx` | 009–013, Everest hub, Amethyst section, yield shelf | Removed from live page (2026-07-24); educational 016/017 + `/calculators` only |
+| Investments related content | `lib/related-content.ts` | Everest about + Asset 013 | Frozen to retirement-planning / calculators / regulatory-compliance / contact |
 | Insights handoffs | `components/insights/InsightsHubPageView.tsx` | estate duty, underinsurance | Pointed to `/calculators` |
 | Retirement planning | `components/retirement-planning/RetirementPlanningPageView.tsx` | `/everest-wealth/about` | Pointed to `/investments` |
 | Method toolkit list | `lib/retirement-gap-method/content.ts` | Asset 014 | Pointed to `/calculators` |

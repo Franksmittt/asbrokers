@@ -183,14 +183,14 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/retirement-planning": [
     {
-      href: "/retirement-survival-blueprint",
-      title: "Retirement Survival Blueprint",
-      description: "5-step diagnostic and Financial Freedom Score™.",
+      href: "/retirement-gap-method",
+      title: "Retirement Gap Method™",
+      description: "Educational framing for how the calculator toolkit fits together.",
     },
     {
       href: calculatorPagePath("asset-002-retirement-reality-check"),
       title: "Retirement Reality Check",
-      description: "Compare desired income against projected capital.",
+      description: "Compare desired income against projected capital (illustrative).",
     },
     {
       href: "/about",
@@ -199,8 +199,8 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     },
     {
       href: "/contact",
-      title: "Book a strategy call",
-      description: "Independent Category 1.8 advice, FSP 17273.",
+      title: "Request a needs analysis",
+      description: "Personal recommendations only after advice with FSP 17273.",
     },
   ],
   "/investments": [
@@ -363,12 +363,12 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/solutions/medical-aid",
       title: "Medical aid & gap cover",
-      description: "Health pillar structuring for families and professionals.",
+      description: "Educational framing on schemes, gap cover, and demarcation.",
     },
     {
       href: "/solutions/discovery-health",
       title: "Discovery Health 2026",
-      description: "Plan matrix, Gap stacking, and a free coverage audit.",
+      description: "Plan matrix education and gap-cover concepts for the year ahead.",
     },
     {
       href: "/solutions/life-insurance",
@@ -376,31 +376,31 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Escalating vs level life premiums and expiring guarantees.",
     },
     {
-      href: "/business-risk-review",
-      title: "Business risk review",
-      description: "Gap analysis for commercial and key-person cover.",
+      href: "/contact?source=insurance_related",
+      title: "Request a needs analysis",
+      description: "Personal cover recommendations only after advice with FSP 17273.",
     },
   ],
   "/insights": [
     {
       href: "/retirement-planning",
       title: "Retirement planning",
-      description: "Hub for calculators, Amethyst, and retirement clarity.",
+      description: "Educational hub on capital gaps and retirement planning questions.",
     },
     {
       href: "/estate-planning",
       title: "Estate planning",
-      description: "Liquidity engineering, duty framing, and succession.",
+      description: "Liquidity concepts, duty framing, and succession education.",
     },
     {
       href: "/investments",
       title: "Investments",
-      description: "Accumulation, distribution, and structured capital.",
+      description: "Factual investment information and Category 1.8 advice services.",
     },
     {
       href: "/calculators",
-      title: "Calculators",
-      description: "Run the numbers before your next conversation.",
+      title: "Educational calculators",
+      description: "Illustrative tools available while product calculators complete review.",
     },
   ],
   "/about": [
@@ -412,7 +412,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/how-we-work",
       title: "How we work",
-      description: "Independent, education-led advice without product-house bias.",
+      description: "Independent, education-led Category 1.8 process.",
     },
     {
       href: "/regulatory-compliance",

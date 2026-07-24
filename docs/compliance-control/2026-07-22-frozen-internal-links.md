@@ -24,6 +24,9 @@ Links were **not permanently deleted**. Restore markers use `CONTAINMENT 2026-07
 | Semigration insight | `app/(content)/insights/semigration-retirement/page.tsx` | Amethyst / living annuity | Pointed to `/calculators` |
 | Estate hub tools | `components/estate-planning/EstatePlanningPageView.tsx` | 007, 008 | Pointed to `/calculators` |
 | Insurance hub tool | `components/insurance/InsuranceHubPageView.tsx` | 015 | Pointed to `/calculators` |
+| Insurance related content | `lib/related-content.ts` (`/insurance`) | free coverage audit CTA | Softened Discovery copy; contact needs-analysis |
+| Insights related content | `lib/related-content.ts` (`/insights`) | Amethyst mention | Softened to educational retirement / calculators framing |
+| Quiz results | `components/quiz/QuizPageClient.tsx` | Everest / Amethyst / product Assets | Educational hubs + live educational calcs + contact only |
 | Discovery Health tool | `components/solutions/DiscoveryHealthPageView.tsx` | 015 | Pointed to `/calculators` |
 | Related content (life) | `lib/related-content.ts` | underinsurance calculator | Pointed to `/calculators` |
 | RelatedContent render | `components/seo/RelatedContent.tsx` | any restricted href | Sanitized via `containmentSafePublicHref` |

@@ -37,6 +37,9 @@ const TEAL_ON_DARK = "#5EEAD4";
 const FAIS_DISCLAIMER =
   "Articles and guides on this page are educational only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Personalised advice requires a needs analysis with a licensed representative of FSP 17273.";
 
+const GENERAL_ADVICE_DISCLAIMER =
+  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+
 /** Flagship static guide when the CMS feed has no featured candidate yet. */
 const FLAGSHIP_FALLBACK = {
   title: "Semigration & Retirement Villages Western Cape",
@@ -109,7 +112,7 @@ function InsightsNewsletterSignup() {
         Stay ahead of the legislation
       </h3>
       <p className="mt-3 text-sm leading-relaxed text-stone-600">
-        Occasional fiduciary notes on retirement, estate duty, and wealth engineering. No spam, no
+        Occasional educational notes on retirement, estate duty, and planning frameworks. No spam, no
         product push.
       </p>
       <form action={formAction} className="mt-5 flex flex-col gap-3 sm:flex-row">
@@ -164,7 +167,7 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
       title: latest.title,
       description:
         latest.excerpt?.trim() ||
-        "A fiduciary deep-dive from the AS Brokers insights library: education before advice.",
+        "An educational deep-dive from the AS Brokers insights library: education before advice.",
       href: `/insights/${latest.slug}?locale=${latest.locale}`,
       thumbnailUrl: latest.thumbnailUrl,
       publishedAt: latest.publishedAt,
@@ -188,8 +191,8 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
       {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Learn" longLabel="Insights" />}
-        title="Want deep fiduciary reading before you sit down for real advice?"
-        description="AS Brokers CC (FSP 17273) educates you in the insights library first: Two-Pot, estate duty, underinsurance, tax drag, and Everest structuring, before anyone books a meeting. Read the guides yourself. Then book advice if you want a needs analysis."
+        title="Educational insights from AS Brokers CC"
+        description="AS Brokers CC (FSP 17273) publishes factual guides on Two-Pot, estate duty, underinsurance concepts, and tax drag. Read first; request a needs analysis only if you want personal recommendations."
         actions={
           <HubHeroActions primaryLabel="Browse the latest articles" primaryHref="#latest" />
         }
@@ -223,6 +226,24 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
           />
         }
       />
+
+      <section
+        id="insights-general-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+        aria-labelledby="insights-disclaimer-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="insights-disclaimer-heading"
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       {/* §2 Library, light: topics + featured + archive */}
       <section
@@ -378,12 +399,12 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
               className="font-serif font-semibold tracking-tight text-white"
               style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)" }}
             >
-              Written for people who refuse thin advice
+              Written for people who want substance before advice
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/70">
-              This library is where AS Brokers publishes the thinking behind the practice:
-              legislation, liquidity, risk architecture, and the questions clients actually ask.
-              It is not content marketing filler. It is the reading room before a strategy call.
+              This library is where AS Brokers publishes educational framing used in the practice:
+              legislation, liquidity, risk concepts, and the questions clients actually ask.
+              It is not product marketing. It is the reading room before a consultation.
             </p>
             <dl className="mt-10 space-y-0 border-y border-white/10">
               {[

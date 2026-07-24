@@ -22,6 +22,9 @@ const BODY = "#52525b";
 const FAIS_DISCLAIMER =
   "Calculators are provided for illustrative and educational purposes only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes may differ due to market conditions, fees, and legislative changes.";
 
+const GENERAL_ADVICE_DISCLAIMER =
+  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or other professional advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+
 const CALC_REALITY = calculatorPagePath("asset-002-retirement-reality-check");
 const CALC_GROWTH = calculatorPagePath("asset-001-retirement-growth");
 const CALC_GOAL = calculatorPagePath("asset-017-personal-goal");
@@ -96,11 +99,11 @@ export function RetirementPlanningPageView({ faqs }: Props) {
       {/* §1 Orientation hero, continuous canvas */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Retirement" longLabel="Retirement" />}
-        title="Will your retirement capital actually outlast your full lifespan?"
-        description="AS Brokers CC (FSP 17273) educates you on capital gaps and drawdown first: most plans reach retirement, then fail to fund life after it, before anyone asks you to sign. Run the maths yourself. Then book advice if you want a needs analysis."
+        title="Retirement planning education from AS Brokers CC"
+        description="AS Brokers CC (FSP 17273) provides factual education on capital gaps, contribution concepts, and drawdown questions before advice. Use educational calculators to prepare figures, then request a needs analysis if you want personal recommendations."
         actions={
           <HubHeroActions
-            primaryLabel="Run Retirement Reality Check"
+            primaryLabel="Open Retirement Reality Check"
             primaryHref={CALC_REALITY}
           />
         }
@@ -134,6 +137,24 @@ export function RetirementPlanningPageView({ faqs }: Props) {
           />
         }
       />
+
+      <section
+        id="retirement-planning-disclaimer"
+        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
+        aria-labelledby="retirement-planning-disclaimer-heading"
+      >
+        <div className={HOME4_WRAP}>
+          <h2
+            id="retirement-planning-disclaimer-heading"
+            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
+          >
+            General information disclaimer
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       {/* §2 Inset Blueprint panel, NOT full-bleed dark */}
       <section
@@ -174,7 +195,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
 
       {/* §3 Toolkit, flat white cards on canvas */}
       <section
-        id="fiduciary-calculators"
+        id="educational-calculators"
         className="scroll-mt-28 pb-16 md:scroll-mt-32 md:pb-24"
         aria-labelledby="calculators-heading"
       >
@@ -184,7 +205,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            Fiduciary calculators &amp; reality checks
+            Educational calculators and reality checks
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
             Ungated educational tools. Use them to see the raw numbers, then bring the output to a
@@ -284,16 +305,16 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 className="font-serif font-semibold tracking-tight"
                 style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
               >
-                Maximising the 2026 retirement annuity tax deduction limits
+                2026 retirement annuity tax deduction limits (educational)
               </h3>
               <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
                 Contributions to pension, provident, and retirement annuity funds are deductible at
                 27.5% of the greater of remuneration or taxable income, subject to an annual cap.
                 From March 2026 that annual ceiling rises to{" "}
                 <span className="font-semibold tabular-nums text-shark">R430,000</span> (from
-                R350,000). High earners in the final accumulation years should model whether they
-                are using the allowance, and what that means for cash flow, before assuming “max
-                RA” is automatically optimal.
+                R350,000). High earners in the final accumulation years can model whether they are
+                using the allowance and what that means for cash flow. This page does not decide
+                whether maximising contributions is appropriate for any individual.
               </p>
               <aside className="mt-6 border border-stone-300/90 bg-white px-5 py-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-cinematic-teal">
@@ -312,22 +333,21 @@ export function RetirementPlanningPageView({ faqs }: Props) {
                 className="font-serif font-semibold tracking-tight"
                 style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
               >
-                Category 1.8 alternative yield strategies
+                Category 1.8 advice scope (educational)
               </h3>
               <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
                 AS Brokers holds Category 1.8 authorisation, which includes advice on certain
-                unlisted instruments that sit outside a standard unit-trust shelf. Structured yield
-                products (including Everest Wealth voluntary offerings with targeted return
-                profiles) can form part of a pre-retirement conversation where liquidity, term, and
-                tax treatment must be understood clearly, including 20% dividends tax on relevant
-                returns, R100,000 minimums on voluntary products, and early-exit constraints.
+                securities and instruments that may sit outside a standard unit-trust shelf. Where
+                unlisted instruments are discussed in advice, liquidity, term, valuation difficulty,
+                fees, and tax treatment must be confirmed against current provider documentation.
+                Targeted or illustrative return profiles are not guarantees.
               </p>
               <p className="mt-4 text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-                Targeted return profiles are not guarantees. Read{" "}
+                For factual investment education without a product catalogue, continue to the{" "}
                 <Link href="/investments" prefetch={false} className="font-semibold text-cinematic-teal hover:opacity-80">
-                  Understanding Everest
-                </Link>{" "}
-                before comparing any voluntary product to liquid market funds.
+                  investments hub
+                </Link>
+                .
               </p>
             </article>
           </div>
@@ -337,7 +357,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
       {/* §5 Minimal credential strip */}
       <section
         className="border-y border-stone-300/80 py-8"
-        aria-label="Fiduciary credentials"
+        aria-label="Practice credentials"
       >
         <div
           className={`${HOME4_WRAP} grid gap-6 md:grid-cols-3 md:gap-8`}
@@ -345,7 +365,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
           {[
             { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
             { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },
-            { title: "Fiduciary tone", body: "Education before advice · no product quotas" },
+            { title: "Education first", body: "Education before advice · needs analysis for recommendations" },
           ].map((item) => (
             <div key={item.title}>
               <p className="font-serif text-lg font-semibold tracking-tight text-shark">{item.title}</p>
@@ -386,7 +406,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             prefetch={false}
             className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
           >
-            Book an actuarial consultation
+            Request a needs analysis
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>

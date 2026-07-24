@@ -29,7 +29,7 @@ Approval columns: blank = **not approved** (development alone is not approval).
 | EVEREST | Everest Wealth hub | /everest-wealth | restricted | product_specific | critical | n/a | pending | pending | pending | 2026-07-22 | TBD | frozen |
 | EVEREST-ABOUT | Understanding Everest | /everest-wealth/about | restricted | product_specific | critical | n/a | pending | pending | pending | 2026-07-22 | TBD | frozen |
 | AMETHYST | Amethyst product page | /everest-amethyst-living-annuity | restricted | product_specific | critical | n/a | pending | pending | pending | 2026-07-22 | TBD | frozen |
-| INVEST | Investments hub | /investments | public | service | medium | n/a | pending | n/a | pending | 2026-07-22 | TBD | link-frozen |
+| INVEST | Investments hub | /investments | public (factual rewrite 2026-07-24) | service / educational | medium | n/a | FAIS research + containment | n/a (no named product shelf) | pending Albert sign-off | 2026-07-24 | TBD | compliance-rewrite-1 |
 | CONTACT | Contact / booking | /contact | public | service | low | n/a | n/a | n/a | pending | | | live |
 | LEGAL | Privacy / terms / complaints / COI / regulatory | /privacy etc. | public | legal | low | n/a | n/a | n/a | pending | | | live |
 | INSIGHTS | Insights hub + studio posts | /insights | public | educational | medium | n/a | pending | n/a | pending | | | review_links |

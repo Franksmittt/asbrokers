@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
+import { CallbackForm } from "@/components/forms/CallbackForm";
 import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
@@ -455,6 +456,21 @@ export function InvestmentsPageView({ faqs }: Props) {
               <p className="mt-1 text-sm text-stone-600">{item.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section
+        className="pb-14 pt-2 md:pb-20"
+        style={{ backgroundColor: CANVAS }}
+        aria-label="Request a callback"
+      >
+        <div className={HOME4_WRAP}>
+          <CallbackForm
+            source="investments"
+            heading="Want an independent second opinion on your capital?"
+            description="Leave your name and number. An authorised Category 1.8 adviser phones you back within one business day — no product push, recommendations only after a needs analysis."
+            whatsappMessage="Hi AS Brokers, please call me back about investment advice."
+          />
         </div>
       </section>
 

@@ -11,6 +11,7 @@ import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { HubHeroActions } from "@/components/hub/HubHeroActions";
 import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
 import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
+import { CallbackForm } from "@/components/forms/CallbackForm";
 import { getAlt } from "@/lib/image-alt";
 
 const CANVAS = "#F7F6F3";
@@ -381,6 +382,23 @@ export function InsuranceHubPageView({ faqs }: Props) {
           <p className="mt-6 text-sm text-stone-600">
             Names indicate placement capability, not endorsement exclusivity or tied agency.
           </p>
+        </div>
+      </section>
+
+      {/* §5b Callback capture, light */}
+      <section
+        className="border-b pb-14 pt-2 md:pb-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-label="Request a callback"
+      >
+        <div className={HOME4_WRAP}>
+          <CallbackForm
+            source="insurance_hub"
+            heading="Rather talk to a person?"
+            description="Leave your name and number. An authorised adviser phones you back within one business day about cover, renewals, or a claim."
+            showNote
+            whatsappMessage="Hi AS Brokers, please call me back about my insurance."
+          />
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { VisibleFaqSection } from "@/components/seo/VisibleFaqSection";
+import { CallbackForm } from "@/components/forms/CallbackForm";
 import { getRelatedLinks } from "@/lib/related-content";
 import { ensureSixFaqs, type FAQItem } from "@/lib/seo";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
@@ -189,6 +190,21 @@ export function MedicalAidPageView({ faqs }: Props) {
             Full risk architecture hub
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
+        </div>
+      </section>
+
+      <section
+        className="pb-14 pt-2 md:pb-20"
+        style={{ backgroundColor: CANVAS }}
+        aria-label="Request a callback"
+      >
+        <div className={HOME4_WRAP}>
+          <CallbackForm
+            source="medical_aid"
+            heading="Not sure if your scheme and gap cover line up?"
+            description="Leave your name and number. An authorised adviser phones you back within one business day — for your family or your staff."
+            whatsappMessage="Hi AS Brokers, please call me back about medical aid and gap cover."
+          />
         </div>
       </section>
 

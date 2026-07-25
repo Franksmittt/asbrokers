@@ -19,6 +19,7 @@ import {
   HOME4_TRUST_BADGES,
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
+import { CallbackForm } from "@/components/forms/CallbackForm";
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
@@ -133,6 +134,24 @@ export function Home4BelowFoldRest() {
                 </a>
               </div>
             </div>
+          </Home4Reveal>
+        </div>
+      </section>
+
+      <section
+        data-chunk-boundary="true"
+        className="py-14 md:py-20"
+        aria-label="Request a callback"
+      >
+        <div className={HOME4_WRAP}>
+          <Home4Reveal instant>
+            <CallbackForm
+              source="home"
+              heading="Easiest option: we call you"
+              description="Two fields and a tick box. An authorised adviser phones you back within one business day about business cover, personal insurance, or planning."
+              showNote
+              whatsappMessage="Hi AS Brokers, please call me back."
+            />
           </Home4Reveal>
         </div>
       </section>

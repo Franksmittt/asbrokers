@@ -13,6 +13,7 @@ import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { HubHeroActions } from "@/components/hub/HubHeroActions";
 import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
 import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
+import { CallbackForm } from "@/components/forms/CallbackForm";
 
 const HERO_IMAGE = "/images/retirement-planning-hero-16x9.webp";
 
@@ -356,6 +357,21 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               <p className="mt-1 text-sm text-stone-600">{item.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section
+        className="pb-14 pt-2 md:pb-20"
+        style={{ backgroundColor: CANVAS }}
+        aria-label="Request a callback"
+      >
+        <div className={HOME4_WRAP}>
+          <CallbackForm
+            source="retirement_planning"
+            heading="Want to talk through your retirement numbers?"
+            description="Leave your name and number. An authorised adviser phones you back within one business day — bring your calculator results if you've run them."
+            whatsappMessage="Hi AS Brokers, please call me back about my retirement planning."
+          />
         </div>
       </section>
 

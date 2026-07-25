@@ -10,6 +10,7 @@ import { ArrowRight } from "@/components/icons";
 import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 import { getAlt } from "@/lib/image-alt";
+import { CallbackForm } from "@/components/forms/CallbackForm";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -399,6 +400,24 @@ export function BusinessInsurancePageView({ faqs }: Props) {
           <p className="mt-4 text-sm text-stone-600">
             Names indicate placement capability, not endorsement exclusivity or tied agency.
           </p>
+        </div>
+      </section>
+
+      {/* §5b Callback capture — light */}
+      <section
+        className="border-b pb-14 pt-2 md:pb-20"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-label="Request a callback"
+      >
+        <div className={HOME4_WRAP}>
+          <CallbackForm
+            source="business_insurance"
+            heading="Rather talk it through?"
+            description="Leave your name and number. An adviser who works with business owners phones you back within one business day — bring a renewal, a claim, or a gap you're unsure about."
+            buttonLabel="Request a callback"
+            showNote
+            whatsappMessage="Hi AS Brokers, please call me back about my business insurance."
+          />
         </div>
       </section>
 

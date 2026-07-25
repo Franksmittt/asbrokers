@@ -28,7 +28,7 @@ const FAIS_CALCULATOR_DISCLAIMER =
   "Calculators are provided for illustrative and educational purposes only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes may differ due to market conditions, fees, taxation, inflation, and legislative changes.";
 
 const GENERAL_ADVICE_DISCLAIMER =
-  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or other professional advice. No recommendation, guidance, or proposal is made regarding the appropriateness or suitability of any financial product or service for any individual. Before making any financial decision, consult an authorised representative of AS Brokers CC (FSP 17273) for a Financial Needs Analysis and a formal Record of Advice.";
+  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 const EDUCATIONAL_TOOLS = [
   {
@@ -109,8 +109,8 @@ export function InvestmentsPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Investments" longLabel="Investments" />}
-        title="Investment information from AS Brokers CC"
-        description="AS Brokers CC (FSP 17273) provides factual information about investment wrappers, tax treatment concepts, and Category 1.8 advice services. Personal recommendations are given only after a Financial Needs Analysis with an authorised representative."
+        title="Cash erodes — the question is who you trust to help stop it"
+        description="Inflation quietly reduces real returns while money sits idle or in the wrong wrapper. AS Brokers CC (FSP 17273) is an independent Category 1.8 adviser — no tied products, no commission-led shelf. Personal recommendations come only after a needs analysis with an authorised representative."
         actions={
           <HubHeroActions
             primaryLabel="Request a needs analysis"
@@ -141,44 +141,18 @@ export function InvestmentsPageView({ faqs }: Props) {
         }
         after={
           <p className="max-w-3xl text-sm leading-relaxed" style={{ color: BODY }}>
-            Prefer educational calculators first?{" "}
+            Want to run the numbers first?{" "}
             <Link
               href="/calculators"
               prefetch={false}
               className="font-semibold text-cinematic-teal hover:opacity-80"
             >
-              View available educational calculators
+              Open the illustrative calculators
             </Link>
             .
           </p>
         }
       />
-
-      <section
-        id="general-advice-disclaimer"
-        className="scroll-mt-28 border-b pb-12 md:scroll-mt-32 md:pb-16"
-        style={{ borderColor: HAIRLINE, backgroundColor: "#FFFBEB" }}
-        aria-labelledby="disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="disclaimer-heading"
-            className="font-serif font-semibold tracking-tight"
-            style={{ fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)", color: INK }}
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed" style={{ color: BODY }}>
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed" style={{ color: BODY }}>
-            Any reference to past performance, historical averages, or illustrative projections is
-            not necessarily indicative of future results. Figures shown in tools on this website are
-            not guaranteed and depend on assumptions you enter, as well as market conditions, fees,
-            taxation, and legislative change.
-          </p>
-        </div>
-      </section>
 
       <section
         id="licence-and-scope"
@@ -491,7 +465,7 @@ export function InvestmentsPageView({ faqs }: Props) {
         heading="Straight answers about website information versus advice"
         lead="Education first. Personal financial advice only after a needs analysis with AS Brokers CC, FSP 17273."
         primaryCta={{ href: "/contact?source=investments_faq", label: "Request a needs analysis" }}
-        secondaryCta={{ href: "/calculators", label: "View educational calculators" }}
+        secondaryCta={{ href: "/calculators", label: "Open illustrative calculators" }}
       />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/investments")} />
@@ -534,6 +508,14 @@ export function InvestmentsPageView({ faqs }: Props) {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section aria-label="General information disclaimer" className="pb-10">
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
         </div>
       </section>
 

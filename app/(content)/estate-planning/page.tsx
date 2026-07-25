@@ -2,9 +2,9 @@ import { EstatePlanningPageView } from "@/components/estate-planning/EstatePlann
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Estate planning education | AS Brokers";
+const PAGE_TITLE = "Estate Planning — Liquidity & Succession | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Educational overview of estate duty, executor fees, and liquidity concepts from AS Brokers CC (FSP 17273). General information only under FAIS Section 1(3)(a). Personal advice follows a needs analysis.";
+  "Estate duty and executor fees must be paid in cash. AS Brokers CC (FSP 17273) structures liquidity and life cover to protect your family from forced asset sales, and coordinates with attorneys on the capital architecture.";
 
 const estateFAQs = [
   {

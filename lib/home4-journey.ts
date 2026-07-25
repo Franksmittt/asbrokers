@@ -40,30 +40,29 @@ export type Testimonial = {
   initial: string;
 };
 
-/** Four equal cards: same link count, similar description length, Explore → card.href hub. */
+/** Four equal cards: insurance first (business-owner priority), then retirement, investments, estate. */
 export const HOME4_GOAL_CARDS: GoalCard[] = [
   {
-    id: "investments",
-    // CONTAINMENT 2026-07-22: Everest hub/product links frozen. Original href: /everest-wealth
-    title: "Investments & retirement capital",
-    badge: "Invest",
+    id: "insurance",
+    title: "Business & personal insurance",
+    badge: "Insure",
     description:
-      "Factual investment information and Category 1.8 advice services. Product-specific calculators remain under review.",
-    href: "/investments",
+      "One uninsured event — a fire, a lawsuit, the death of a key partner — can end a business. We review, place, and manage commercial and personal cover across the market on your behalf.",
+    href: "/insurance",
     links: [
-      { label: "Investments hub", href: "/investments" },
-      { label: "Educational calculators", href: "/calculators" },
-      { label: "Request a needs analysis", href: "/contact?source=home_investments" },
+      { label: "Business insurance", href: "/solutions/business-insurance" },
+      { label: "Business life & key person", href: "/solutions/business-life" },
+      { label: "Start a Business Risk Review", href: "/business-risk-review" },
     ],
-    accent: "blue",
-    image: "/images/home-card-investments.webp",
+    accent: "orange",
+    image: "/images/home-card-insurance.webp",
   },
   {
     id: "retirement",
     title: "Retirement planning",
     badge: "Retire",
     description:
-      "Educational framing on capital, income longevity, and retirement planning questions before advice.",
+      "Capital that runs out before you do is a risk most people discover too late. We help you understand the gap, build a plan, and review it annually so the numbers keep working.",
     href: "/retirement-planning",
     links: [
       { label: "Retirement Survival Blueprint", href: "/retirement-survival-blueprint" },
@@ -74,28 +73,27 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     image: "/images/home-card-retirement.webp",
   },
   {
-    id: "insurance",
-    title: "Insurance & medical",
-    badge: "Insure",
+    id: "investments",
+    // CONTAINMENT 2026-07-22: Everest hub/product links frozen. Original href: /everest-wealth
+    title: "Investments & capital",
+    badge: "Invest",
     description:
-      "Information on personal protection, medical schemes, gap cover, and commercial risk concepts.",
-    href: "/insurance",
+      "Growing capital and protecting purchasing power require clear thinking, not guesswork. We provide independent Category 1.8 advice matched to your actual circumstances.",
+    href: "/investments",
     links: [
-      { label: "Medical aid & gap", href: "/solutions/medical-aid" },
-      { label: "Discovery Health", href: "/solutions/discovery-health" },
-      { label: "Insurance hub", href: "/insurance" },
-      // CONTAINMENT 2026-07-22: underinsurance calculator frozen
-      // { label: "Underinsurance calculator", href: "/calculators/underinsurance-calculator" },
+      { label: "Investments hub", href: "/investments" },
+      { label: "Educational calculators", href: "/calculators" },
+      { label: "Request a needs analysis", href: "/contact?source=home_investments" },
     ],
-    accent: "orange",
-    image: "/images/home-card-insurance.webp",
+    accent: "blue",
+    image: "/images/home-card-investments.webp",
   },
   {
     id: "estate",
     title: "Estate planning",
     badge: "Estate",
     description:
-      "Educational information on wills, trusts, estate duty concepts, and estate liquidity planning.",
+      "An estate without a clear structure becomes a burden for the people you leave behind. We help you understand your obligations, structure your affairs, and put the right cover in place.",
     href: "/estate-planning",
     links: [
       { label: "Legacy Readiness Checklist", href: "/legacy-readiness-checklist" },
@@ -139,35 +137,38 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
 export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
   {
     step: "01",
-    title: "Educate",
-    description: "Read factual articles on retirement maths, tax concepts, and risk in plain English.",
-    href: "/insights",
-    cta: "Read insights",
+    title: "Tell us about your situation",
+    description:
+      "Share the shape of your business, your existing cover, and the risks that keep you up at night. No forms, no jargon — just a conversation.",
+    href: "/contact?source=home_journey_start",
+    cta: "Start the conversation",
     accent: "teal",
   },
   {
     step: "02",
-    title: "Calculate",
-    description: "Use educational calculators for capital, longevity, and growth assumptions before advice.",
-    href: "/calculators",
-    cta: "Open calculators",
+    title: "We survey the market",
+    description:
+      "We run a proper needs analysis and compare offerings across the commercial market — Santam, Old Mutual, Bryte, and others — to find the right structure at the right price.",
+    href: "/business-risk-review",
+    cta: "See how it works",
     accent: "blue",
   },
   {
-    // CONTAINMENT 2026-07-22: Everest stage frozen. Original href: /everest-wealth
     step: "03",
-    title: "Prepare questions",
-    description: "Gather your figures and questions before speaking with an authorised representative.",
+    title: "Structured cover, placed",
+    description:
+      "After the needs analysis we recommend, place, and document your cover — so you know exactly what is covered, what is excluded, and what it costs.",
     href: "/contact?source=home_journey_review",
-    cta: "Contact us",
+    cta: "Get a risk review",
     accent: "gold",
   },
   {
     step: "04",
-    title: "Needs analysis",
-    description: "Request a Financial Needs Analysis with AS Brokers CC, FSP 17273, for personal advice.",
+    title: "Annual review & claims advocacy",
+    description:
+      "We review your cover every year, adjust for business changes, and stand with you when a claim arises — not just at inception.",
     href: "/contact?source=home_journey",
-    cta: "Request assessment",
+    cta: "Request a review",
     accent: "advice",
   },
 ];
@@ -175,14 +176,14 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
 export const HOME4_TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "Albert helped us understand the living annuity numbers clearly. First time someone explained them without making me feel lost.",
-    who: "Susan M.",
-    where: "Randpark Ridge",
-    initial: "S",
+      "Albert reviewed our commercial portfolio and identified gaps we didn't know existed. We restructured the cover and saved significantly at renewal.",
+    who: "Pieter V.",
+    where: "Roodepoort",
+    initial: "P",
   },
   {
     quote:
-      "Retirement felt overwhelming. Albert broke the questions into smaller steps we could work through.",
+      "We needed buy-and-sell cover after taking on a business partner. Albert sorted the structure quickly and made sure it matched our shareholder agreement.",
     who: "Michelle B.",
     where: "Wilropark",
     initial: "M",

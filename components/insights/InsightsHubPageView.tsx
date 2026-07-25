@@ -227,24 +227,6 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
         }
       />
 
-      <section
-        id="insights-general-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="insights-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="insights-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-        </div>
-      </section>
-
       {/* §2 Library, light: topics + featured + archive */}
       <section
         className="border-b pb-16 pt-14 md:pb-24 md:pt-20"
@@ -527,6 +509,12 @@ export function InsightsHubPageView({ articles, faqs = [] }: Props) {
             </Link>
             <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-white/50">{FAIS_DISCLAIMER}</p>
           </div>
+        </div>
+      </section>
+
+      <section aria-label="General information disclaimer" className="pb-10" style={{ backgroundColor: CANVAS }}>
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">{GENERAL_ADVICE_DISCLAIMER}</p>
         </div>
       </section>
 

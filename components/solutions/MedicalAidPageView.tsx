@@ -17,7 +17,7 @@ const HAIRLINE = "#E5E5E5";
 const MEDICAL_CRAFT = "/images/risk-arch-medical.jpg";
 
 const GENERAL_ADVICE_DISCLAIMER =
-  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 type Props = { faqs: FAQItem[] };
 
@@ -32,22 +32,22 @@ export function MedicalAidPageView({ faqs }: Props) {
       >
         <div className={HOME4_WRAP}>
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
-            Medical aid &amp; gap · FSP 17273 · Claims advocacy
+            Medical aid &amp; gap cover · FSP 17273 · Claims advocacy
           </p>
           <h1
             className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
           >
-            Health integration: defending against the medical inflation gap
+            Medical scheme shortfalls arrive in hospital — not when you have time to plan
           </h1>
           <p
             className="mt-5 max-w-2xl leading-relaxed"
             style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
           >
-            AS Brokers CC (FSP 17273) provides factual education on medical scheme vs gap cover
-            under Demarcation Regulations, and advocates for clients when authorisations stall or
-            specialist bills arrive. Educational content only — personal recommendations follow a
-            FAIS needs analysis.
+            Most families discover the gap between scheme cover and specialist billing at the worst
+            possible moment. AS Brokers CC (FSP 17273) structures medical scheme and gap cover
+            together — for individuals, business owners, and staff — and provides operational
+            support when authorisations stall or claims need escalation.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
@@ -69,25 +69,6 @@ export function MedicalAidPageView({ faqs }: Props) {
           </div>
         </div>
       </header>
-
-      {/* §1(3)(a) General information disclaimer, amber */}
-      <section
-        id="medical-general-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="medical-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="medical-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-        </div>
-      </section>
 
       <section data-chunk-boundary className="pb-16 md:pb-24" aria-labelledby="shortfall-heading">
         <div className={`${HOME4_WRAP} grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14`}>
@@ -246,6 +227,14 @@ export function MedicalAidPageView({ faqs }: Props) {
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section aria-label="General information disclaimer" className="pb-10">
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
         </div>
       </section>
 

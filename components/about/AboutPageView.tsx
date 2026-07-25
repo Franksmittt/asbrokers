@@ -55,9 +55,9 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Hero, light */}
       <MarketingHubHero
-        kicker={<HubHeroKicker shortLabel="About" longLabel="About Us" />}
-        title="Independent advice from AS Brokers CC"
-        description="AS Brokers CC (FSP 17273) has been an independent Category 1.8 practice in Krugersdorp since 1998: education first, then advice for professionals, families, and owners after a needs analysis."
+        kicker={<HubHeroKicker shortLabel="About" longLabel="About AS Brokers" />}
+        title="Since 1998, we've fought the claims, structured the cover, and planned the retirements"
+        description="Business owners and families on the West Rand have trusted AS Brokers CC (FSP 17273) since 1998 — not for brochures, but because when a claim stalled, a renewal doubled, or retirement looked precarious, an authorised adviser answered personally."
         actions={
           <HubHeroActions primaryLabel="Meet the practice team" primaryHref="#practice-team" />
         }
@@ -87,30 +87,6 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           />
         }
       />
-
-      <section
-        id="about-general-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="about-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="about-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            The information on this page is provided for general informational purposes only and
-            constitutes factual information as contemplated in Section 1(3)(a) of the Financial
-            Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute
-            financial, investment, legal, tax, or other professional advice. No recommendation is
-            made regarding the suitability of any financial product for any individual. Personal
-            advice requires a Financial Needs Analysis with an authorised representative of AS
-            Brokers CC (FSP 17273).
-          </p>
-        </div>
-      </section>
 
       {/* §2 Independence, shark */}
       <section
@@ -321,11 +297,12 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            Education first, advice when you are ready
+            Tell us the problem — we&apos;ll tell you what we can do about it
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Use the tools to understand the maths. Book a call when you want a licensed needs
-            analysis on your facts.
+            A renewal that jumped, a claim that stalled, a retirement that needs a second opinion,
+            or a business that needs continuity cover. Run the numbers first if you want context,
+            then book a call for a licensed needs analysis.
           </p>
           <div className="mt-10 grid gap-px border md:grid-cols-2" style={{ borderColor: HAIRLINE, backgroundColor: HAIRLINE }}>
             <div className="bg-white p-8 sm:p-10">
@@ -363,10 +340,10 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               <Link
                 href="/contact?source=about_terminal"
                 prefetch={false}
-                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
-                style={{ color: TEAL }}
+                className="mt-6 inline-flex items-center gap-2 rounded px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: TEAL }}
               >
-                Go to contact
+                Book a consultation
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
@@ -384,6 +361,14 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
 
       {/* §7 Related, light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/about")} />
+
+      <section aria-label="General information disclaimer" className="pb-10">
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">
+            The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).
+          </p>
+        </div>
+      </section>
 
       <Footer />
     </div>

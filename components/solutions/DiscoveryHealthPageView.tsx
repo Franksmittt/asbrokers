@@ -25,7 +25,7 @@ const HERO_IMAGE = "/images/risk-arch-medical.webp";
 const CALC_AVERAGE = "/calculators";
 
 const GENERAL_ADVICE_DISCLAIMER =
-  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 const VALUE_CARDS = [
   {
@@ -276,25 +276,6 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
         </div>
       </header>
 
-      {/* §1(3)(a) General information disclaimer, amber */}
-      <section
-        id="discovery-general-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="discovery-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="discovery-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-        </div>
-      </section>
-
       <section
         id="who-this-is-for"
         data-chunk-boundary
@@ -410,7 +391,7 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
                 className="inline-flex items-center gap-2 text-sm font-semibold hover:opacity-80"
                 style={{ color: TEAL }}
               >
-                View educational calculators
+                Open illustrative calculators
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </div>
@@ -660,6 +641,14 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
       />
 
       <RelatedContent variant="warm" links={getRelatedLinks("/solutions/discovery-health")} />
+
+      <section aria-label="General information disclaimer" className="pb-10">
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
 
       <Footer />
     </div>

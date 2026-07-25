@@ -2,25 +2,25 @@ import { InsuranceHubPageView } from "@/components/insurance/InsuranceHubPageVie
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Insurance & risk education | AS Brokers";
+const PAGE_TITLE = "Independent Insurance Brokers | Business & Personal | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Educational overview of Average Clause underinsurance, Business Interruption, medical aid versus gap cover, and life premium structures from AS Brokers CC (FSP 17273). General information only under FAIS Section 1(3)(a).";
+  "Independent insurance broker for business owners and families: commercial cover, business interruption, key person, personal assets, life, and medical aid — surveyed across the market and backed at claim stage. FSP 17273, Krugersdorp.";
 
 const insuranceFAQs = [
   {
+    question: "Can AS Brokers review our existing business or personal cover?",
+    answer:
+      "Yes. Start with the free Business Risk Review workbook or bring your policy schedules to a needs analysis. We check sums insured, exclusions, overlaps, and premium levels across the market, then place or restructure cover where the analysis supports it.",
+  },
+  {
     question: "What is the Average Clause and how does it reduce a claim?",
     answer:
-      "If the sum insured is below the property’s replacement or market value, many policies reduce the claim proportionally: (Amount Insured ÷ Market Value) × Damages = Payout. Illustrative tools on this site are educational only and are not a claim assessment or underwriting decision.",
+      "If the sum insured is below the property’s replacement or market value, many policies reduce the claim proportionally: (Amount Insured ÷ Market Value) × Damages = Payout. A broker review checks whether your buildings, plant, and stock values are keeping up — before a claim tests them.",
   },
   {
     question: "What is the difference between medical aid and gap cover?",
     answer:
-      "Medical schemes are governed by the Medical Schemes Act and must provide Prescribed Minimum Benefits. Gap cover is a short-term insurance product under Demarcation Regulations, designed to fund certain in-hospital specialist shortfalls, not to replace a medical scheme. Annual gap benefit caps adjust under those regulations; verify current figures for your policy year.",
-  },
-  {
-    question: "What is the Premium Liability Test?",
-    answer:
-      "It highlights how escalating life premiums can become unaffordable when introductory guarantees expire, compared with level-premium designs. Use it as education before comparing quotes on starting price alone. Request a needs analysis with FSP 17273 if you want a personalised comparison.",
+      "Medical schemes are governed by the Medical Schemes Act and must provide Prescribed Minimum Benefits. Gap cover is a short-term insurance product under Demarcation Regulations, designed to fund certain in-hospital specialist shortfalls, not to replace a medical scheme. We structure both for owners, families, and staff after a needs analysis.",
   },
   {
     question: "Are AS Brokers tied to one insurer?",
@@ -28,14 +28,14 @@ const insuranceFAQs = [
       "No. We are an independent Category 1.8 FSP (17273) and survey the market. Naming institutions such as Santam, Old Mutual, or Bryte indicates placement capability, not exclusivity or tied agency.",
   },
   {
-    question: "Why start with a protection domain instead of a product list?",
+    question: "Do you help when a claim is rejected or short-paid?",
     answer:
-      "Many visitors already know what they are protecting—health, income, assets, or the business—before they need a quote form. Domain routing keeps education aligned to that need before any personal recommendation.",
+      "Yes. Claims advocacy is part of the broker role: we manage the process with the insurer, challenge unreasonable outcomes, and make sure policy wording is applied correctly. That is often where independent broking earns its keep.",
   },
   {
     question: "Do online insurance calculators constitute advice?",
     answer:
-      "No. Calculators and hub content are illustrative and educational only and do not constitute financial or insurance advice under the FAIS Act, 2002. Book a consultation with FSP 17273 for advice on your circumstances.",
+      "No. Calculators and hub content are illustrative and educational only and do not constitute financial or insurance advice under the FAIS Act, 2002. Personal recommendations follow a needs analysis with FSP 17273.",
   },
 ];
 

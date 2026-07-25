@@ -18,6 +18,7 @@ const STATIC_PATHS = [
   "/conflict-of-interest",
   "/contact",
   // CONTAINMENT 2026-07-22: /everest-wealth and /everest-wealth/about removed from sitemap
+  "/solutions/business-insurance",
   "/solutions/medical-aid",
   "/solutions/discovery-health",
   "/premium-increase-calculator",

@@ -155,7 +155,6 @@ const nextConfig: NextConfig = {
       { source: "/solutions", destination: "/insurance" },
       { source: "/solutions/life-insurance", destination: "/insurance" },
       { source: "/solutions/personal-insurance", destination: "/insurance" },
-      { source: "/solutions/business-insurance", destination: "/insurance" },
       { source: "/solutions/business-life", destination: "/insurance" },
       { source: "/how-we-work", destination: "/about" },
     ] as const;

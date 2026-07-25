@@ -2,9 +2,9 @@ import { AboutPageView } from "@/components/about/AboutPageView";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "About AS Brokers CC | Independent FSP 17273";
+const PAGE_TITLE = "About AS Brokers CC | Independent FSP 17273 Since 1998";
 const PAGE_DESCRIPTION =
-  "AS Brokers CC is an Authorised Financial Services Provider (FSP 17273) in Krugersdorp since 1998. Category 1.8 advice services with education before personal recommendations.";
+  "Since 1998, AS Brokers CC (FSP 17273) has fought the claims, structured the cover, and planned the retirements for business owners and families in Krugersdorp and the West Rand.";
 
 const aboutFAQs = [
   {

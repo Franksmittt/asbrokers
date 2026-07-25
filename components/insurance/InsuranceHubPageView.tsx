@@ -31,6 +31,14 @@ const GENERAL_ADVICE_DISCLAIMER =
 
 const PROTECTION_DOMAINS = [
   {
+    title: "Business & partners",
+    description:
+      "Commercial property, liability, interruption, key person, and buy-and-sell continuity — reviewed and placed across the market.",
+    href: "/solutions/business-insurance",
+    image: "/images/insurance-domain-business-21x9.webp",
+    alt: "Business partners outside a commercial warehouse, continuity and cover",
+  },
+  {
     title: "Medical aid & gap",
     description: "Scheme structuring and shortfall cover within statutory demarcation.",
     href: "/solutions/medical-aid",
@@ -51,13 +59,6 @@ const PROTECTION_DOMAINS = [
     image: "/images/insurance-domain-personal-21x9.webp",
     alt: "Couple with their car at home, personal assets and underinsurance risk",
   },
-  {
-    title: "Business & partners",
-    description: "Commercial cover, key person protection, and buy-and-sell continuity.",
-    href: "/solutions/business-insurance",
-    image: "/images/insurance-domain-business-21x9.webp",
-    alt: "Business partners outside a commercial warehouse, continuity and cover",
-  },
 ] as const;
 
 const PARTNERS = ["Santam", "Old Mutual", "Bryte"] as const;
@@ -72,12 +73,12 @@ export function InsuranceHubPageView({ faqs }: Props) {
       {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Insurance" longLabel="Insurance" />}
-        title="Insurance and risk education from AS Brokers CC"
-        description="AS Brokers CC (FSP 17273) provides factual education on underinsurance concepts, medical scheme versus gap cover demarcation, Business Interruption wording, and life premium structures. Request a needs analysis if you want personal recommendations."
+        title="Insurance gaps don't announce themselves. A claim does."
+        description="AS Brokers CC (FSP 17273) is an independent broker for business owners and families: commercial cover, personal assets, life, and medical — surveyed across the market, structured after a needs analysis, and backed at claim stage."
         actions={
           <HubHeroActions
-            primaryLabel="Learn about underinsurance"
-            primaryHref="#average-clause"
+            primaryLabel="Start a free Business Risk Review"
+            primaryHref="/business-risk-review"
           />
         }
         visual={
@@ -110,24 +111,6 @@ export function InsuranceHubPageView({ faqs }: Props) {
           />
         }
       />
-
-      <section
-        id="insurance-general-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="insurance-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="insurance-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-        </div>
-      </section>
 
       {/* §2 Protection domains, route-owned below the shared hero */}
       <section
@@ -452,6 +435,12 @@ export function InsuranceHubPageView({ faqs }: Props) {
             </Link>
             <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-white/50">{FAIS_DISCLAIMER}</p>
           </div>
+        </div>
+      </section>
+
+      <section aria-label="General information disclaimer" className="pb-10" style={{ backgroundColor: CANVAS }}>
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">{GENERAL_ADVICE_DISCLAIMER}</p>
         </div>
       </section>
 

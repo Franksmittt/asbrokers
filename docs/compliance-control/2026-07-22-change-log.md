@@ -29,5 +29,6 @@
 | 2026-07-24 | `/sales-funnel-mockup` | Public Everest yield funnel | Restricted (302 → `/calculators`) | Added to CONTAINMENT_RESTRICTED_PRODUCT_PATHS |
 | 2026-07-24 | Remaining public hubs | Contact/estate/medical/Discovery/regulatory/premium/funnels | Factual FAIS education pass | Disclaimers + softened CTAs; footer chat/premium deep-links removed |
 | 2026-07-24 | Solo calculator configs | “Fiduciary Diagnostic” overclaim | Educational illustrator framing | Includes premium-increase (public) + redirected solo shells |
+| 2026-07-25 | Site messaging reposition | Compliance-first copy sitewide | Problem→broker-solution copy; business insurance core focus | New `/solutions/business-insurance` page; homepage + insurance hub lead with business owners; Section 1(3)(a) disclaimers kept but relocated to quiet bottom strips (one per page); no Everest/product promotion introduced |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

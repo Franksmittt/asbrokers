@@ -23,7 +23,7 @@ const FAIS_DISCLAIMER =
   "Calculators are provided for illustrative and educational purposes only and do not constitute financial, tax, or investment advice as defined in the FAIS Act, 2002. Actual outcomes may differ due to market conditions, fees, and legislative changes.";
 
 const GENERAL_ADVICE_DISCLAIMER =
-  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or other professional advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 const CALC_REALITY = calculatorPagePath("asset-002-retirement-reality-check");
 const CALC_GROWTH = calculatorPagePath("asset-001-retirement-growth");
@@ -98,13 +98,13 @@ export function RetirementPlanningPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       {/* §1 Orientation hero, continuous canvas */}
       <MarketingHubHero
-        kicker={<HubHeroKicker shortLabel="Retirement" longLabel="Retirement" />}
-        title="Retirement planning education from AS Brokers CC"
-        description="AS Brokers CC (FSP 17273) provides factual education on capital gaps, contribution concepts, and drawdown questions before advice. Use educational calculators to prepare figures, then request a needs analysis if you want personal recommendations."
+        kicker={<HubHeroKicker shortLabel="Retirement" longLabel="Retirement Planning" />}
+        title="Will your capital still pay you at 80?"
+        description="Most people discover the retirement gap too late — when switching strategies is expensive. AS Brokers CC (FSP 17273) helps you quantify the gap, stress-test your timeline, and structure a plan after a needs analysis. Run the numbers first, then let's talk."
         actions={
           <HubHeroActions
-            primaryLabel="Open Retirement Reality Check"
-            primaryHref={CALC_REALITY}
+            primaryLabel="Request a needs analysis"
+            primaryHref="/contact?source=retirement_hero"
           />
         }
         visual={
@@ -138,24 +138,6 @@ export function RetirementPlanningPageView({ faqs }: Props) {
         }
       />
 
-      <section
-        id="retirement-planning-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="retirement-planning-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="retirement-planning-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-        </div>
-      </section>
-
       {/* §2 Inset Blueprint panel, NOT full-bleed dark */}
       <section
         id="retirement-survival-blueprint"
@@ -168,7 +150,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             style={{ backgroundColor: INK }}
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] sm:text-xs sm:tracking-[0.18em] text-cinematic-teal">
-              Educational framework
+              Start here
             </p>
             <h2
               id="blueprint-heading"
@@ -178,16 +160,16 @@ export function RetirementPlanningPageView({ faqs }: Props) {
               The Retirement Survival Blueprint
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
-              A guided 5-step educational walkthrough that introduces the Financial Freedom Score™
-              concept and common planning questions before retirement. It is illustrative only and
-              does not assess suitability or recommend any product.
+              A guided 5-step walkthrough that surfaces your Financial Freedom Score™ and common
+              planning gaps — capital longevity, drawdown sequencing, and contribution timing —
+              before your first conversation with an adviser.
             </p>
             <Link
               href="/retirement-survival-blueprint"
               prefetch={false}
               className="mt-8 inline-flex items-center gap-2 rounded bg-cinematic-teal px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#008f8f]"
             >
-              Open the educational blueprint
+              Start the blueprint
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
@@ -206,11 +188,12 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            Educational calculators and reality checks
+            Run your numbers first, then let&apos;s talk
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Ungated educational tools. Use them to see the raw numbers, then bring the output to a
-            strategy call if you want advice on your facts.
+            These tools make the gap visible. See the raw figures, then bring the output to a
+            strategy call — an authorised adviser will assess your facts and what actually needs to
+            change.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
             {CALCULATORS.map((calc) => (
@@ -366,7 +349,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
           {[
             { title: "25+ years", body: "Est. 1998 · Krugersdorp, West Rand" },
             { title: "FSP 17273", body: "Independent Category 1.8 · FSCA" },
-            { title: "Education first", body: "Education before advice · needs analysis for recommendations" },
+            { title: "Needs analysis first", body: "Personal recommendations only after a documented needs analysis" },
           ].map((item) => (
             <div key={item.title}>
               <p className="font-serif text-lg font-semibold tracking-tight text-shark">{item.title}</p>
@@ -410,6 +393,14 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             Request a needs analysis
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
+        </div>
+      </section>
+
+      <section aria-label="General information disclaimer" className="pb-10">
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
         </div>
       </section>
 

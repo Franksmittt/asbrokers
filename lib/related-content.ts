@@ -22,19 +22,24 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/solutions/business-insurance": [
     {
-      href: "/solutions/business-life",
-      title: "Business life & key person",
-      description: "Buy-and-sell, key person, and loan account cover.",
-    },
-    {
       href: "/business-risk-review",
-      title: "Business risk review",
-      description: "Free gap analysis for commercial insurance.",
+      title: "Free Business Risk Review",
+      description: "A workbook to capture assets, turnover, and cover gaps before we meet.",
     },
     {
-      href: "/contact",
-      title: "Commercial review",
-      description: "Structured risk architecture for Gauteng businesses.",
+      href: "/insurance",
+      title: "Insurance & risk hub",
+      description: "Personal and commercial cover domains — medical, life, business, and assets.",
+    },
+    {
+      href: "/solutions/medical-aid",
+      title: "Medical aid for owner & staff",
+      description: "Scheme structuring and gap cover for owner households and employee groups.",
+    },
+    {
+      href: "/contact?source=business_insurance",
+      title: "Request a needs analysis",
+      description: "Personal advice only after a documented needs analysis with FSP 17273.",
     },
   ],
   "/solutions/life-insurance": [
@@ -134,24 +139,27 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
 export const HUB_RELATED: Record<string, RelatedLink[]> = {
   "/": [
     {
-      href: "/retirement-planning",
-      title: "Retirement planning",
-      description: "Educational framing on capital, income, and retirement planning questions.",
+      href: "/solutions/business-insurance",
+      title: "Business insurance",
+      description:
+        "Commercial property, liability, business interruption, fleet, and risk architecture for Gauteng businesses.",
     },
     {
-      href: "/investments",
-      title: "Investments hub",
-      description: "Factual investment information and Category 1.8 advice services.",
+      href: "/business-risk-review",
+      title: "Free Business Risk Review",
+      description:
+        "Independent gap analysis for your commercial cover — survey the market, no obligation.",
     },
     {
-      href: "/calculators",
-      title: "Educational calculators",
-      description: "Illustrative tools available while product calculators complete review.",
+      href: "/insurance",
+      title: "Insurance hub",
+      description:
+        "Personal, medical, and business cover structured by an independent Category 1.8 broker.",
     },
     {
       href: "/contact",
       title: "Request a needs analysis",
-      description: "Personal recommendations only after advice with FSP 17273.",
+      description: "Personal recommendations only after advice with an authorised FSP 17273 representative.",
     },
   ],
   "/retirement": [
@@ -357,24 +365,24 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/insurance": [
     {
+      href: "/solutions/business-insurance",
+      title: "Business insurance",
+      description: "Commercial property, liability, interruption, and continuity cover.",
+    },
+    {
+      href: "/business-risk-review",
+      title: "Free Business Risk Review",
+      description: "Find the gaps in your commercial cover before a claim does.",
+    },
+    {
       href: "/solutions/medical-aid",
       title: "Medical aid & gap cover",
-      description: "Educational framing on schemes, gap cover, and demarcation.",
-    },
-    {
-      href: "/solutions/discovery-health",
-      title: "Discovery Health 2026",
-      description: "Plan matrix education and gap-cover concepts for the year ahead.",
-    },
-    {
-      href: "/solutions/life-insurance",
-      title: "Premium Liability Test",
-      description: "Escalating vs level life premiums and expiring guarantees.",
+      description: "Scheme and shortfall cover for owners, families, and staff.",
     },
     {
       href: "/contact?source=insurance_related",
       title: "Request a needs analysis",
-      description: "Personal cover recommendations only after advice with FSP 17273.",
+      description: "Personal cover recommendations after advice with FSP 17273.",
     },
   ],
   "/insights": [

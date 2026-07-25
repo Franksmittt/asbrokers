@@ -60,24 +60,28 @@ export const PILLAR_HUB: NavLink = {
 
 /** Primary header links (Contact is a separate CTA button). */
 export const PRIMARY_NAV: NavLink[] = [
-  { label: "Calculators", href: "/calculators" },
+  // Core focus 2026-07-25: business insurance leads the site.
+  { label: "Business Insurance", href: "/solutions/business-insurance" },
+  { label: "Insurance", href: "/insurance" },
   // CONTAINMENT 2026-07-22: Everest Wealth nav frozen. Restore href: "/everest-wealth"
   // { label: "Everest Wealth", href: "/everest-wealth" },
-  { label: "Investments", href: "/investments" },
   { label: "Retirement", href: "/retirement-planning" },
-  { label: "Insurance", href: "/insurance" },
+  { label: "Investments", href: "/investments" },
   { label: "Estate", href: "/estate-planning" },
-  { label: "Learn", href: "/insights" },
+  { label: "Calculators", href: "/calculators" },
   { label: "About", href: "/about" },
 ];
 
 /** Mega-footer: goal-led service links. */
 export const FOOTER_HOW_WE_HELP: NavLink[] = [
+  // Core focus 2026-07-25: business insurance leads the site.
+  { label: "Business Insurance", href: "/solutions/business-insurance" },
+  { label: "Business Risk Review", href: "/business-risk-review" },
+  { label: "Insurance & Risk", href: "/insurance" },
   // CONTAINMENT 2026-07-22: Everest Wealth footer frozen. Restore href: "/everest-wealth"
   // { label: "Everest Wealth", href: "/everest-wealth" },
   { label: "Investments", href: "/investments" },
   { label: "Retirement planning", href: "/retirement-planning" },
-  { label: "Insurance & Risk", href: "/insurance" },
   { label: "Estate Planning", href: "/estate-planning" },
 ];
 

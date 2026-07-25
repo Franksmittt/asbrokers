@@ -27,7 +27,7 @@ const FAIS_DISCLAIMER =
   "Content and calculators on this page are illustrative and educational only and do not constitute financial, tax, or legal advice as defined in the FAIS Act, 2002. Estate duty, executor fees, and donations rules change, verify current SARS and statutory positions with qualified professionals.";
 
 const GENERAL_ADVICE_DISCLAIMER =
-  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 // CONTAINMENT 2026-07-22: legislation-dependent calculators frozen.
 // Restore: calculatorPagePath("asset-007-estate-duty") / calculatorPagePath("asset-008-estate-reduction")
@@ -87,7 +87,7 @@ function ToolCard({
         className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
         style={{ color: TEAL }}
       >
-        View educational calculators
+        Run the calculation
         <ArrowRight className="h-4 w-4" aria-hidden />
       </Link>
       <p className="mt-5 border-t pt-4 text-[11px] leading-relaxed text-stone-500" style={{ borderColor: HAIRLINE }}>
@@ -105,12 +105,12 @@ export function EstatePlanningPageView({ faqs }: Props) {
       {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Estate" longLabel="Estate Planning" />}
-        title="Estate planning education from AS Brokers CC"
-        description="AS Brokers CC (FSP 17273) provides factual education on estate duty, executor fees, and liquidity concepts before legal instruments are drafted. Review educational calculators, then request a needs analysis if you want personal recommendations."
+        title="Estate duty and executor fees are paid in cash — or your family sells assets"
+        description="Without liquidity, SARS and the executor queue first; heirs inherit what's left. AS Brokers CC (FSP 17273) structures the liquidity and life cover needed to settle duty and fees, and coordinates with your attorneys on the capital architecture — before a crisis forces the decision."
         actions={
           <HubHeroActions
-            primaryLabel="Browse educational calculators"
-            primaryHref={CALC_ESTATE_DUTY}
+            primaryLabel="Book a strategy call"
+            primaryHref="/contact?source=estate_hero"
           />
         }
         visual={
@@ -146,25 +146,6 @@ export function EstatePlanningPageView({ faqs }: Props) {
           />
         }
       />
-
-      {/* §1(3)(a) General information disclaimer, amber */}
-      <section
-        id="estate-general-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="estate-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="estate-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-        </div>
-      </section>
 
       {/* §2 Primary diagnostic, shark */}
       <section
@@ -286,12 +267,12 @@ export function EstatePlanningPageView({ faqs }: Props) {
               we do not practise as a law firm on this website.
             </p>
             <Link
-              href="/solutions/business-life"
+              href="/solutions/business-insurance"
               prefetch
               className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
               style={{ color: TEAL_ON_DARK }}
             >
-              Business succession domain
+              Business insurance &amp; succession
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
@@ -397,6 +378,14 @@ export function EstatePlanningPageView({ faqs }: Props) {
             </Link>
             <p className="mt-6 max-w-2xl text-[11px] leading-relaxed text-white/50">{FAIS_DISCLAIMER}</p>
           </div>
+        </div>
+      </section>
+
+      <section aria-label="General information disclaimer" className="pb-10">
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
         </div>
       </section>
 

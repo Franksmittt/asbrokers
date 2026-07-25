@@ -25,7 +25,7 @@ const FAIS_POPIA =
   "Submitting this form does not constitute financial advice under the FAIS Act, 2002. Advice is only rendered after a documented needs analysis by a licensed representative of FSP 17273. Personal information is processed to respond to your enquiry and arrange a consultation, in line with POPIA. See our Privacy Policy.";
 
 const GENERAL_ADVICE_DISCLAIMER =
-  "The information on this page is provided for general informational purposes only and constitutes factual information as contemplated in Section 1(3)(a) of the Financial Advisory and Intermediary Services Act, 37 of 2002 (FAIS Act). It does not constitute financial, investment, legal, tax, or insurance advice. No recommendation is made regarding the suitability of any financial product for any individual. Personal advice requires a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 const STEPS = [
   {
@@ -76,15 +76,15 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               className="mt-5 font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
             >
-              Contact AS Brokers in Krugersdorp
+              Tell us the problem — an authorised adviser responds personally
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              Tell us what you need help with. An authorised AS Brokers adviser will respond
-              personally about retirement planning, insurance, medical aid, or estate planning.
-              Submitting an enquiry is not financial advice under FAIS.
+              A renewal, a claim, a gap in cover, a retirement that needs a second opinion — whatever
+              the situation, an authorised representative of AS Brokers CC (FSP 17273) will read your
+              message and respond directly. No rotating call-centre queue.
             </p>
             <Suspense fallback={null}>
               <ContactIntakeBanner />
@@ -110,25 +110,6 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </div>
         </div>
       </header>
-
-      {/* §1(3)(a) General information disclaimer, amber */}
-      <section
-        id="contact-general-disclaimer"
-        className="border-b border-amber-200/80 bg-amber-50 py-8 md:py-10"
-        aria-labelledby="contact-disclaimer-heading"
-      >
-        <div className={HOME4_WRAP}>
-          <h2
-            id="contact-disclaimer-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-900"
-          >
-            General information disclaimer
-          </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-amber-950/90">
-            {GENERAL_ADVICE_DISCLAIMER}
-          </p>
-        </div>
-      </section>
 
       {/* §2 Form + channels, light */}
       <section
@@ -295,6 +276,15 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
 
       {/* §6 Related, light */}
       <RelatedContent variant="warm" links={getRelatedLinks("/contact")} />
+
+      <section aria-label="General information disclaimer" className="pb-10">
+        <div className={HOME4_WRAP}>
+          <p className="max-w-3xl text-xs leading-relaxed text-stone-500">
+            {GENERAL_ADVICE_DISCLAIMER}
+          </p>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

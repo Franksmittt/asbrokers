@@ -54,6 +54,12 @@ export const CALLBACK_SOURCES = {
     leadScore: 28,
     label: "About page",
   },
+  providers: {
+    serviceCategory: "short_term_business" satisfies ServiceCategory,
+    intent: "Callback request — provider panel page",
+    leadScore: 32,
+    label: "Provider panel page",
+  },
 } as const;
 
 export type CallbackSource = keyof typeof CALLBACK_SOURCES;

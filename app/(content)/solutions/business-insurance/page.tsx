@@ -4,7 +4,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Business Insurance for South African Business Owners";
 const PAGE_DESCRIPTION =
-  "AS Brokers CC (FSP 17273) helps South African business owners identify cover gaps — underinsurance, business interruption, liability, key person risk — and places commercial insurance across Santam, Old Mutual, and Bryte. Educational content; personal advice follows a FAIS needs analysis.";
+  "AS Brokers CC (FSP 17273) helps South African business owners identify cover gaps — underinsurance, business interruption, liability, key person risk — and places commercial insurance across a contracted panel including Santam, Bryte, King Price, and specialist underwriters. Educational content; personal advice follows a FAIS needs analysis.";
 
 const faqs = [
   {

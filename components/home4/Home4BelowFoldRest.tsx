@@ -98,7 +98,7 @@ export function Home4BelowFoldRest() {
               </h2>
               <p className="mt-3 flex-1 text-stone-600 leading-relaxed">
                 We review your existing commercial cover, identify gaps, and compare the market —
-                Santam, Old Mutual, Bryte, and others — at no obligation.
+                Santam, Bryte, King Price, and others — at no obligation.
               </p>
               <span className="mt-6 inline-flex w-fit items-center gap-2 rounded-2xl bg-stone-100 px-6 py-3 text-sm font-semibold text-shark transition-colors group-hover:bg-stone-200">
                 Get my risk review

@@ -30,5 +30,6 @@
 | 2026-07-24 | Remaining public hubs | Contact/estate/medical/Discovery/regulatory/premium/funnels | Factual FAIS education pass | Disclaimers + softened CTAs; footer chat/premium deep-links removed |
 | 2026-07-24 | Solo calculator configs | “Fiduciary Diagnostic” overclaim | Educational illustrator framing | Includes premium-increase (public) + redirected solo shells |
 | 2026-07-25 | Site messaging reposition | Compliance-first copy sitewide | Problem→broker-solution copy; business insurance core focus | New `/solutions/business-insurance` page; homepage + insurance hub lead with business owners; Section 1(3)(a) disclaimers kept but relocated to quiet bottom strips (one per page); no Everest/product promotion introduced |
+| 2026-07-26 | `/providers` provider panel | n/a (new) | Factual panel disclosure by service | Name-only provider lists, alphabetical, placement-capability framing; **no yields/product terms**; Everest/Aluma name-only under Cat 1.8 with liquidity risk note; Old Mutual references replaced with actual panel names sitewide |
 
 Reason for restriction (all restricted rows): formula, factual, provider and compliance verification incomplete.

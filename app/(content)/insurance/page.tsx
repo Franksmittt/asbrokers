@@ -25,7 +25,7 @@ const insuranceFAQs = [
   {
     question: "Are AS Brokers tied to one insurer?",
     answer:
-      "No. We are an independent Category 1.8 FSP (17273) and survey the market. Naming institutions such as Santam, Old Mutual, or Bryte indicates placement capability, not exclusivity or tied agency.",
+      "No. We are an independent Category 1.8 FSP (17273) and survey the market across a contracted panel — see our providers page. Naming institutions such as Santam, Bryte, or King Price indicates placement capability, not exclusivity or tied agency.",
   },
   {
     question: "Do you help when a claim is rejected or short-paid?",

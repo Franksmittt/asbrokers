@@ -98,7 +98,14 @@ const HOW_WE_WORK_STEPS = [
   },
 ] as const;
 
-const PARTNERS = ["Santam", "Old Mutual", "Bryte"] as const;
+const PARTNERS = [
+  "Albatros",
+  "Bryte",
+  "King Price",
+  "Momentum",
+  "Santam",
+  "Strategic Insurance Solutions (SIS)",
+] as const;
 
 type Props = { faqs: FAQItem[] };
 
@@ -383,14 +390,11 @@ export function BusinessInsurancePageView({ faqs }: Props) {
             As an independent Category 1.8 FSP, AS Brokers CC surveys the market and places cover
             according to a documented needs analysis. Placement capability includes:
           </p>
-          <ul
-            className="mt-6 grid gap-0 border-y md:grid-cols-3"
-            style={{ borderColor: HAIRLINE }}
-          >
+          <ul className="mt-6 flex flex-wrap gap-2.5">
             {PARTNERS.map((name) => (
               <li
                 key={name}
-                className="border-b px-4 py-5 font-serif text-lg font-semibold tracking-tight text-stone-700 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0"
+                className="rounded-full border bg-white px-4 py-2 font-serif text-base font-semibold tracking-tight text-stone-700"
                 style={{ borderColor: HAIRLINE }}
               >
                 {name}
@@ -398,7 +402,10 @@ export function BusinessInsurancePageView({ faqs }: Props) {
             ))}
           </ul>
           <p className="mt-4 text-sm text-stone-600">
-            Names indicate placement capability, not endorsement exclusivity or tied agency.
+            Names indicate placement capability, not endorsement exclusivity or tied agency.{" "}
+            <Link href="/providers" prefetch={false} className="font-semibold" style={{ color: TEAL }}>
+              See the full provider panel by service →
+            </Link>
           </p>
         </div>
       </section>

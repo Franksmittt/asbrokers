@@ -27,9 +27,9 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "A workbook to capture assets, turnover, and cover gaps before we meet.",
     },
     {
-      href: "/insurance",
-      title: "Insurance & risk hub",
-      description: "Personal and commercial cover domains — medical, life, business, and assets.",
+      href: "/providers",
+      title: "Our provider panel",
+      description: "The insurers and underwriters we survey and place cover with.",
     },
     {
       href: "/solutions/medical-aid",
@@ -40,6 +40,28 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       href: "/contact?source=business_insurance",
       title: "Request a needs analysis",
       description: "Personal advice only after a documented needs analysis with FSP 17273.",
+    },
+  ],
+  "/providers": [
+    {
+      href: "/solutions/business-insurance",
+      title: "Business insurance",
+      description: "Commercial property, liability, interruption, and continuity cover.",
+    },
+    {
+      href: "/business-risk-review",
+      title: "Free Business Risk Review",
+      description: "Find the gaps in your commercial cover before a claim does.",
+    },
+    {
+      href: "/insurance",
+      title: "Insurance & risk hub",
+      description: "Personal and commercial cover domains — medical, life, business, and assets.",
+    },
+    {
+      href: "/contact?source=providers",
+      title: "Request a needs analysis",
+      description: "Personal recommendations after advice with FSP 17273.",
     },
   ],
   "/solutions/life-insurance": [
@@ -375,9 +397,9 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "Find the gaps in your commercial cover before a claim does.",
     },
     {
-      href: "/solutions/medical-aid",
-      title: "Medical aid & gap cover",
-      description: "Scheme and shortfall cover for owners, families, and staff.",
+      href: "/providers",
+      title: "Our provider panel",
+      description: "The insurers, schemes, and platforms we work with — by service.",
     },
     {
       href: "/contact?source=insurance_related",

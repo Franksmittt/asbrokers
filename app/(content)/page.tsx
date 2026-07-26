@@ -16,7 +16,7 @@ const HOME_FAQS: FAQItem[] = [
   {
     question: "What does a business insurance broker actually do?",
     answer:
-      "An independent business insurance broker surveys the commercial market on your behalf — comparing insurers like Santam, Old Mutual, and Bryte — to find cover that fits your specific risks and budget. AS Brokers (FSP 17273) runs a needs analysis, recommends and places the cover, handles documentation, and stands with you at every annual review and claim. Unlike a direct insurer, we are not tied to any single product house.",
+      "An independent business insurance broker surveys the commercial market on your behalf — comparing insurers like Santam, Bryte, and King Price — to find cover that fits your specific risks and budget. AS Brokers (FSP 17273) runs a needs analysis, recommends and places the cover, handles documentation, and stands with you at every annual review and claim. Unlike a direct insurer, we are not tied to any single product house.",
   },
   {
     question: "Can you review our existing commercial cover?",

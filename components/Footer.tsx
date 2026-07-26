@@ -8,6 +8,7 @@ const WHATSAPP = "https://wa.me/27662276044";
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
   { label: "Business Insurance", href: "/solutions/business-insurance" },
+  { label: "Providers", href: "/providers" },
   { label: "Insurance", href: "/insurance" },
   { label: "Retirement", href: "/retirement-planning" },
   { label: "Investments", href: "/investments" },

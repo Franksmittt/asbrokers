@@ -62,7 +62,7 @@ const PROTECTION_DOMAINS = [
   },
 ] as const;
 
-const PARTNERS = ["Santam", "Old Mutual", "Bryte"] as const;
+const PARTNERS = ["Bryte", "Discovery", "King Price", "Momentum", "Santam", "Strategic Insurance Solutions (SIS)"] as const;
 
 type Props = { faqs: FAQItem[] };
 
@@ -368,11 +368,11 @@ export function InsuranceHubPageView({ faqs }: Props) {
             client&apos;s needs analysis, without quotas that force a single insurer&apos;s shelf.
             Placement capability includes institutions such as:
           </p>
-          <ul className="mt-8 grid gap-0 border-y md:grid-cols-3" style={{ borderColor: HAIRLINE }}>
+          <ul className="mt-8 flex flex-wrap gap-2.5">
             {PARTNERS.map((name) => (
               <li
                 key={name}
-                className="border-b px-4 py-5 font-serif text-lg font-semibold tracking-tight text-stone-700 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
+                className="rounded-full border bg-white px-4 py-2 font-serif text-base font-semibold tracking-tight text-stone-700"
                 style={{ borderColor: HAIRLINE }}
               >
                 {name}
@@ -380,7 +380,10 @@ export function InsuranceHubPageView({ faqs }: Props) {
             ))}
           </ul>
           <p className="mt-6 text-sm text-stone-600">
-            Names indicate placement capability, not endorsement exclusivity or tied agency.
+            Names indicate placement capability, not endorsement exclusivity or tied agency.{" "}
+            <Link href="/providers" prefetch={false} className="font-semibold" style={{ color: TEAL }}>
+              See the full provider panel by service →
+            </Link>
           </p>
         </div>
       </section>

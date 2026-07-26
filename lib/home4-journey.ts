@@ -148,7 +148,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
     step: "02",
     title: "We survey the market",
     description:
-      "We run a proper needs analysis and compare offerings across the commercial market — Santam, Old Mutual, Bryte, and others — to find the right structure at the right price.",
+      "We run a proper needs analysis and compare offerings across the commercial market — Santam, Bryte, King Price, and others — to find the right structure at the right price.",
     href: "/business-risk-review",
     cta: "See how it works",
     accent: "blue",

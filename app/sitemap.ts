@@ -19,6 +19,7 @@ const STATIC_PATHS = [
   "/contact",
   // CONTAINMENT 2026-07-22: /everest-wealth and /everest-wealth/about removed from sitemap
   "/solutions/business-insurance",
+  "/providers",
   "/solutions/medical-aid",
   "/solutions/discovery-health",
   "/premium-increase-calculator",

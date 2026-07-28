@@ -20,6 +20,7 @@ module.exports = {
         : undefined,
       startServerReadyPattern: LIGHTHOUSE_BASE.startsWith("http://127.0.0.1") ? "Ready" : undefined,
       startServerReadyTimeout: 120_000,
+      chromeFlags: "--no-sandbox --disable-dev-shm-usage --disable-gpu --headless=new",
       settings: {
         formFactor: "mobile",
         screenEmulation: { mobile: true },
@@ -27,6 +28,10 @@ module.exports = {
           cpuSlowdownMultiplier: CPU_SLOWDOWN,
         },
         onlyCategories: ["performance", "accessibility", "best-practices", "seo"],
+        // Full-page screenshots OOM/crash some constrained Chromium sandboxes.
+        disableFullPageScreenshot: true,
+        // Headless Chrome always reports bf-cache issues; gatherer can crash the tab.
+        skipAudits: ["bf-cache"],
       },
     },
     assert: {

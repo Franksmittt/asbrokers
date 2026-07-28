@@ -11,6 +11,57 @@ const initialState: CallbackActionState = { success: false };
 
 type Variant = "light" | "dark";
 
+type FormCopy = {
+  nameLabel: string;
+  namePlaceholder: string;
+  phoneLabel: string;
+  emailLabel: string;
+  optional: string;
+  noteLabel: string;
+  notePlaceholder: string;
+  consentText: string;
+  submitPending: string;
+  whatsappButton: string;
+  successHeading: string;
+  successBody: string;
+  successWhatsapp: string;
+};
+
+const COPY: Record<"en" | "af", FormCopy> = {
+  en: {
+    nameLabel: "Full name *",
+    namePlaceholder: "Your full name",
+    phoneLabel: "Phone / WhatsApp *",
+    emailLabel: "Email",
+    optional: "(optional)",
+    noteLabel: "What do you need help with?",
+    notePlaceholder: "e.g. My commercial premium jumped at renewal",
+    consentText:
+      "I agree that AS Brokers CC (FSP 17273) may contact me about this enquiry. POPIA applies.",
+    submitPending: "Sending…",
+    whatsappButton: "WhatsApp instead",
+    successHeading: "Callback requested",
+    successBody: "Thank you. An authorised adviser will phone you within one business day.",
+    successWhatsapp: "Prefer same-day? WhatsApp",
+  },
+  af: {
+    nameLabel: "Volle naam *",
+    namePlaceholder: "Jou volle naam",
+    phoneLabel: "Selfoon / WhatsApp *",
+    emailLabel: "E-pos",
+    optional: "(opsioneel)",
+    noteLabel: "Waarmee kan ons help?",
+    notePlaceholder: "bv. My besigheidspremie het skerp gestyg met hernuwing",
+    consentText:
+      "Ek stem in dat AS Brokers CC (FSP 17273) my oor hierdie navraag mag kontak. POPIA geld.",
+    submitPending: "Stuur…",
+    whatsappButton: "WhatsApp eerder",
+    successHeading: "Terugbelversoek ontvang",
+    successBody: "Dankie. 'n Gemagtigde adviseur skakel jou binne een werksdag.",
+    successWhatsapp: "Verkies vandag nog? WhatsApp",
+  },
+};
+
 type Props = {
   /** Allowlisted page key: resolves service category and intent server-side. */
   source: CallbackSource;
@@ -19,6 +70,10 @@ type Props = {
   buttonLabel?: string;
   /** Optional free-text note field ("What do you need help with?"). */
   showNote?: boolean;
+  /** Hide the optional email field for 3-field ad landing pages. */
+  showEmail?: boolean;
+  /** Field labels / microcopy language. */
+  lang?: "en" | "af";
   variant?: Variant;
   className?: string;
   whatsappMessage?: string;
@@ -60,6 +115,7 @@ const styles = {
 /**
  * Compact embeddable callback form: name + phone (+ optional email/note).
  * One per marketing page; the source key maps to CRM routing server-side.
+ * Supports Afrikaans microcopy and a 3-field mode for ad landing pages.
  */
 export function CallbackForm({
   source,
@@ -67,12 +123,15 @@ export function CallbackForm({
   description = "Leave your name and number. An authorised adviser phones you back within one business day, no call centre, no obligation.",
   buttonLabel = "Request a callback",
   showNote = false,
+  showEmail = true,
+  lang = "en",
   variant = "light",
   className = "",
   whatsappMessage = "Hi AS Brokers, please call me back about my insurance and planning questions.",
 }: Props) {
   const [state, formAction, isPending] = useActionState(requestCallback, initialState);
   const s = styles[variant];
+  const t = COPY[lang];
   const waHref = whatsappUrl(whatsappMessage);
 
   useEffect(() => {
@@ -82,17 +141,15 @@ export function CallbackForm({
   if (state.success) {
     return (
       <div className={`${s.card} ${className}`}>
-        <h3 className={s.heading}>Callback requested</h3>
-        <p className={`mt-2 max-w-md ${s.body}`}>
-          Thank you. An authorised adviser will phone you within one business day.
-        </p>
+        <h3 className={s.heading}>{t.successHeading}</h3>
+        <p className={`mt-2 max-w-md ${s.body}`}>{t.successBody}</p>
         <a
           href={waHref}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-flex text-sm font-semibold text-cinematic-teal underline-offset-2 hover:underline"
         >
-          Prefer same-day? WhatsApp {WHATSAPP_DISPLAY}
+          {t.successWhatsapp} {WHATSAPP_DISPLAY}
         </a>
       </div>
     );
@@ -117,7 +174,7 @@ export function CallbackForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor={`cb-${source}-name`} className={s.label}>
-              Full name *
+              {t.nameLabel}
             </label>
             <input
               id={`cb-${source}-name`}
@@ -127,7 +184,7 @@ export function CallbackForm({
               autoComplete="name"
               disabled={isPending}
               className={s.input}
-              placeholder="Your full name"
+              placeholder={t.namePlaceholder}
             />
             {state.fieldErrors?.fullName?.[0] ? (
               <p className={`mt-1 ${s.error}`}>{state.fieldErrors.fullName[0]}</p>
@@ -135,7 +192,7 @@ export function CallbackForm({
           </div>
           <div>
             <label htmlFor={`cb-${source}-phone`} className={s.label}>
-              Phone / WhatsApp *
+              {t.phoneLabel}
             </label>
             <input
               id={`cb-${source}-phone`}
@@ -151,27 +208,29 @@ export function CallbackForm({
               <p className={`mt-1 ${s.error}`}>{state.fieldErrors.phone[0]}</p>
             ) : null}
           </div>
-          <div className="sm:col-span-2">
-            <label htmlFor={`cb-${source}-email`} className={s.label}>
-              Email <span className="font-normal opacity-70">(optional)</span>
-            </label>
-            <input
-              id={`cb-${source}-email`}
-              name="email"
-              type="email"
-              autoComplete="email"
-              disabled={isPending}
-              className={s.input}
-              placeholder="you@example.com"
-            />
-            {state.fieldErrors?.email?.[0] ? (
-              <p className={`mt-1 ${s.error}`}>{state.fieldErrors.email[0]}</p>
-            ) : null}
-          </div>
+          {showEmail ? (
+            <div className="sm:col-span-2">
+              <label htmlFor={`cb-${source}-email`} className={s.label}>
+                {t.emailLabel} <span className="font-normal opacity-70">{t.optional}</span>
+              </label>
+              <input
+                id={`cb-${source}-email`}
+                name="email"
+                type="email"
+                autoComplete="email"
+                disabled={isPending}
+                className={s.input}
+                placeholder="you@example.com"
+              />
+              {state.fieldErrors?.email?.[0] ? (
+                <p className={`mt-1 ${s.error}`}>{state.fieldErrors.email[0]}</p>
+              ) : null}
+            </div>
+          ) : null}
           {showNote ? (
             <div className="sm:col-span-2">
               <label htmlFor={`cb-${source}-note`} className={s.label}>
-                What do you need help with? <span className="font-normal opacity-70">(optional)</span>
+                {t.noteLabel} <span className="font-normal opacity-70">{t.optional}</span>
               </label>
               <input
                 id={`cb-${source}-note`}
@@ -180,7 +239,7 @@ export function CallbackForm({
                 maxLength={400}
                 disabled={isPending}
                 className={s.input}
-                placeholder="e.g. My commercial premium jumped at renewal"
+                placeholder={t.notePlaceholder}
               />
               {state.fieldErrors?.note?.[0] ? (
                 <p className={`mt-1 ${s.error}`}>{state.fieldErrors.note[0]}</p>
@@ -197,26 +256,27 @@ export function CallbackForm({
             disabled={isPending}
             className={s.checkbox}
           />
-          <span>
-            I agree that AS Brokers CC (FSP 17273) may contact me about this enquiry. POPIA applies.
-          </span>
+          <span>{t.consentText}</span>
         </label>
         {state.fieldErrors?.consent?.[0] ? (
           <p className={s.error}>{state.fieldErrors.consent[0]}</p>
         ) : null}
 
         {state.message && !state.success ? (
-          <p className={`text-sm ${variant === "dark" ? "text-amber-400" : "text-red-600"}`} role="alert">
+          <p
+            className={`text-sm ${variant === "dark" ? "text-amber-400" : "text-red-600"}`}
+            role="alert"
+          >
             {state.message}
           </p>
         ) : null}
 
         <div className="flex flex-wrap items-center gap-3 pt-1">
           <button type="submit" disabled={isPending} className={s.button}>
-            {isPending ? "Sending…" : buttonLabel}
+            {isPending ? t.submitPending : buttonLabel}
           </button>
           <a href={waHref} target="_blank" rel="noopener noreferrer" className={s.whatsapp}>
-            WhatsApp instead
+            {t.whatsappButton}
           </a>
         </div>
       </form>

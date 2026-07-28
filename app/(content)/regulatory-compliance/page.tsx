@@ -74,7 +74,7 @@ export default function RegulatoryCompliancePage() {
             </li>
             <li>
               <strong>Everest Wealth Management</strong>, FSP <strong>795</strong> · Category I, II &amp; IIA
-              (product provider and structurer) — disclosed as a product provider relationship for conflict of
+              (product provider and structurer), disclosed as a product provider relationship for conflict of
               interest purposes.
             </li>
           </ul>

@@ -2,7 +2,7 @@ import { RetirementPlanningPageView } from "@/components/retirement-planning/Ret
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Retirement Planning — Close the Capital Gap | AS Brokers";
+const PAGE_TITLE = "Retirement Planning: Close the Capital Gap | AS Brokers";
 const PAGE_DESCRIPTION =
   "Most people discover the retirement gap too late. AS Brokers CC (FSP 17273) helps you quantify the gap, stress-test your timeline, and structure a plan after a needs analysis. Run the numbers first, then let's talk.";
 

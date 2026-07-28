@@ -101,7 +101,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Retirement" longLabel="Retirement Planning" />}
         title="Will your capital still pay you at 80?"
-        description="Most people discover the retirement gap too late — when switching strategies is expensive. AS Brokers CC (FSP 17273) helps you quantify the gap, stress-test your timeline, and structure a plan after a needs analysis. Run the numbers first, then let's talk."
+        description="Most people discover the retirement gap too late, when switching strategies is expensive. AS Brokers CC (FSP 17273) helps you quantify the gap, stress-test your timeline, and structure a plan after a needs analysis. Run the numbers first, then let's talk."
         actions={
           <HubHeroActions
             primaryLabel="Request a needs analysis"
@@ -162,8 +162,8 @@ export function RetirementPlanningPageView({ faqs }: Props) {
             </h2>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
               A guided 5-step walkthrough that surfaces your Financial Freedom Score™ and common
-              planning gaps — capital longevity, drawdown sequencing, and contribution timing —
-              before your first conversation with an adviser.
+              planning gaps, including capital longevity, drawdown sequencing, and contribution
+              timing, before your first conversation with an adviser.
             </p>
             <Link
               href="/retirement-survival-blueprint"
@@ -193,7 +193,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
             These tools make the gap visible. See the raw figures, then bring the output to a
-            strategy call — an authorised adviser will assess your facts and what actually needs to
+            strategy call. An authorised adviser will assess your facts and what actually needs to
             change.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3 md:gap-6">
@@ -369,7 +369,7 @@ export function RetirementPlanningPageView({ faqs }: Props) {
           <CallbackForm
             source="retirement_planning"
             heading="Want to talk through your retirement numbers?"
-            description="Leave your name and number. An authorised adviser phones you back within one business day — bring your calculator results if you've run them."
+            description="Leave your name and number. An authorised adviser phones you back within one business day. Bring your calculator results if you've run them."
             whatsappMessage="Hi AS Brokers, please call me back about my retirement planning."
           />
         </div>

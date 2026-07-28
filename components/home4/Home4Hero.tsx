@@ -46,9 +46,9 @@ export function Home4Hero() {
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
             AS Brokers is an independent Category 1.8 broker serving business owners across Gauteng.
-            We survey the commercial market — Santam, Bryte, King Price, and others — run a proper
-            needs analysis, place structured cover, and stand with you at every claim and annual
-            review.
+            We survey the commercial market, including Santam, Bryte, King Price, and others, run a
+            proper needs analysis, place structured cover, and stand with you at every claim and
+            annual review.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link

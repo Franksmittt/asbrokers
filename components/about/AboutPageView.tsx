@@ -58,7 +58,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="About" longLabel="About AS Brokers" />}
         title="Since 1998, we've fought the claims, structured the cover, and planned the retirements"
-        description="Business owners and families on the West Rand have trusted AS Brokers CC (FSP 17273) since 1998 — not for brochures, but because when a claim stalled, a renewal doubled, or retirement looked precarious, an authorised adviser answered personally."
+        description="Business owners and families on the West Rand have trusted AS Brokers CC (FSP 17273) since 1998, not for brochures, but because when a claim stalled, a renewal doubled, or retirement looked precarious, an authorised adviser answered personally."
         actions={
           <HubHeroActions primaryLabel="Meet the practice team" primaryHref="#practice-team" />
         }
@@ -298,7 +298,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             className="font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)", color: INK }}
           >
-            Tell us the problem — we&apos;ll tell you what we can do about it
+              Tell us the problem, and we&apos;ll tell you what we can do about it
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
             A renewal that jumped, a claim that stalled, a retirement that needs a second opinion,
@@ -360,7 +360,7 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
         <div className={HOME4_WRAP}>
           <CallbackForm
             source="about"
-            heading="Skip the forms — just ask for a call"
+            heading="Skip the forms. Just ask for a call."
             description="Leave your name and number. An authorised adviser phones you back within one business day."
             showNote
             whatsappMessage="Hi AS Brokers, please call me back."

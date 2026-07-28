@@ -4,7 +4,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Independent Investment Advice | AS Brokers FSP 17273";
 const PAGE_DESCRIPTION =
-  "Cash loses to inflation over time. AS Brokers CC (FSP 17273) provides independent Category 1.8 investment advice — no tied products, no commission-led shelf. Personal recommendations follow a Financial Needs Analysis.";
+  "Cash loses to inflation over time. AS Brokers CC (FSP 17273) provides independent Category 1.8 investment advice, no tied products, no commission-led shelf. Personal recommendations follow a Financial Needs Analysis.";
 
 const investmentsFAQs = [
   {

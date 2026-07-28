@@ -1,9 +1,9 @@
 /**
- * AS Brokers provider panel — factual disclosure of product suppliers and
+ * AS Brokers provider panel: factual disclosure of product suppliers and
  * partners per service category. FAIS Section 1(3)(a): names indicate
  * contractual / placement capability only, never endorsement, ranking, or
  * product recommendation. Providers are listed alphabetically within each
- * category (objective sorting — no suitability logic).
+ * category (objective sorting, no suitability logic).
  *
  * COMPLIANCE: never add yields, targeted returns, premiums, or product-tier
  * tables to this file. Product specifics are discussed only during advice
@@ -18,7 +18,7 @@ export type ProviderCategory = {
   group: "business" | "personal" | "wealth" | "fiduciary";
   /** Plain-language description of the client problem this category addresses. */
   problem: string;
-  /** How AS Brokers helps (broker role — factual, no product claims). */
+  /** How AS Brokers helps (broker role, factual, no product claims). */
   brokerRole: string;
   /** Alphabetically sorted provider names. */
   providers: string[];
@@ -40,7 +40,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Short-term business insurance",
     group: "business",
     problem:
-      "Commercial property, liability, interruption, fleet, and crime risks — where one uninsured event can close the business.",
+      "Commercial property, liability, interruption, fleet, and crime risks, where one uninsured event can close the business.",
     brokerRole:
       "We survey the commercial market, review sums insured and policy wording, place cover, and manage renewals and claims.",
     providers: ["Albatros", "Bryte", "King Price", "Momentum", "Santam", "Strategic Insurance Solutions (SIS)"],
@@ -92,7 +92,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Renewable electricity for business",
     group: "business",
     problem:
-      "Rising utility costs, grid instability, and ESG reporting pressure — without capital for on-site solar.",
+      "Rising utility costs, grid instability, and ESG reporting pressure, without capital for on-site solar.",
     brokerRole:
       "We facilitate access to renewable energy procurement platforms that wheel green power via the national grid.",
     providers: ["Discovery"],
@@ -104,7 +104,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Short-term personal insurance",
     group: "personal",
     problem:
-      "Home, vehicles, and possessions — where underinsurance quietly reduces claim payouts through the Average Clause.",
+      "Home, vehicles, and possessions, where underinsurance quietly reduces claim payouts through the Average Clause.",
     brokerRole:
       "We review declared values against replacement costs, compare the market, and manage claims when they happen.",
     providers: ["Bryte", "Discovery", "King Price", "Momentum", "Strategic Insurance Solutions (SIS)"],
@@ -114,7 +114,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Personal life assurance",
     group: "personal",
     problem:
-      "If your income stops — through death, disability, or severe illness — the bond, school fees, and household costs do not.",
+      "If your income stops (through death, disability, or severe illness), the bond, school fees, and household costs do not.",
     brokerRole:
       "We compare life, disability, severe illness, and income protection structures across the market after a needs analysis.",
     providers: ["Bidvest Life", "Brightrock", "Discovery", "Liberty", "Momentum", "Sanlam"],
@@ -135,7 +135,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Gap cover",
     group: "personal",
     problem:
-      "Specialists can charge multiples of the scheme rate — the shortfall lands on the family, usually mid-treatment.",
+      "Specialists can charge multiples of the scheme rate; the shortfall lands on the family, usually mid-treatment.",
     brokerRole:
       "We align gap cover to your existing medical scheme option so shortfall cover is in place before it is needed.",
     providers: ["Turnberry"],
@@ -167,7 +167,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Retirement planning",
     group: "wealth",
     problem:
-      "Outliving capital, Two-Pot decisions, and tax on contributions and drawdowns — discovered too late to fix cheaply.",
+      "Outliving capital, Two-Pot decisions, and tax on contributions and drawdowns, discovered too late to fix cheaply.",
     brokerRole:
       "We quantify the retirement gap, then structure retirement annuities, preservation funds, and living annuities across our platform panel after a needs analysis.",
     providers: ["Discovery", "Everest", "Momentum", "Twenty Seven Four (27four)"],
@@ -179,7 +179,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     problem:
       "Cash loses to inflation, but picking funds and wrappers without structure is guesswork.",
     brokerRole:
-      "We construct portfolios across platforms and asset managers within regulated wrappers — unit trusts, endowments, retirement funds.",
+      "We construct portfolios across platforms and asset managers within regulated wrappers: unit trusts, endowments, retirement funds.",
     providers: ["Discovery", "Momentum", "nReach", "The Cycle (LifeCycle)", "Twenty Seven Four (27four)"],
   },
   {
@@ -187,7 +187,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Unlisted investments (Category 1.8)",
     group: "wealth",
     problem:
-      "Some investors want alternatives beyond listed markets — but unlisted instruments carry liquidity and valuation risks that must be understood first.",
+      "Some investors want alternatives beyond listed markets, but unlisted instruments carry liquidity and valuation risks that must be understood first.",
     brokerRole:
       "Our Category 1.8 licence permits advice on certain unlisted securities. Product terms, liquidity constraints, fees, and risks are discussed only during a documented needs analysis.",
     providers: ["Aluma Capital", "Everest Wealth"],
@@ -210,7 +210,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     title: "Winding up estates",
     group: "fiduciary",
     problem:
-      "Deceased estates must be wound up through the Master of the High Court — a technical legal process most families face unprepared.",
+      "Deceased estates must be wound up through the Master of the High Court, a technical legal process most families face unprepared.",
     brokerRole:
       "Together with Electus Trust we administer the winding-up of deceased estates and keep families informed through the process.",
     providers: ["AS Brokers & Electus Trust"],
@@ -222,7 +222,7 @@ export const PROVIDER_PANEL: ProviderCategory[] = [
     problem:
       "Financial decisions made without understanding compound into expensive mistakes.",
     brokerRole:
-      "Albert Schuurman and Johnny Farinha lead structured financial education — before any advice conversation.",
+      "Albert Schuurman and Johnny Farinha lead structured financial education, held before any advice conversation.",
     providers: ["AS Brokers", "Financial Freedom Community™", "Wealth Creators University"],
     note: "Educational programmes and calculators are factual information under FAIS Section 1(3)(a); they do not assess suitability or replace personal advice.",
   },

@@ -34,7 +34,7 @@ const PROTECTION_DOMAINS = [
   {
     title: "Business & partners",
     description:
-      "Commercial property, liability, interruption, key person, and buy-and-sell continuity — reviewed and placed across the market.",
+      "Commercial property, liability, interruption, key person, and buy-and-sell continuity, reviewed and placed across the market.",
     href: "/solutions/business-insurance",
     image: "/images/insurance-domain-business-21x9.webp",
     alt: "Business partners outside a commercial warehouse, continuity and cover",
@@ -75,7 +75,7 @@ export function InsuranceHubPageView({ faqs }: Props) {
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Insurance" longLabel="Insurance" />}
         title="Insurance gaps don't announce themselves. A claim does."
-        description="AS Brokers CC (FSP 17273) is an independent broker for business owners and families: commercial cover, personal assets, life, and medical — surveyed across the market, structured after a needs analysis, and backed at claim stage."
+        description="AS Brokers CC (FSP 17273) is an independent broker for business owners and families: commercial cover, personal assets, life, and medical. Surveyed across the market, structured after a needs analysis, and backed at claim stage."
         actions={
           <HubHeroActions
             primaryLabel="Start a free Business Risk Review"

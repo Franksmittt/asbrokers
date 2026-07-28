@@ -47,7 +47,7 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     title: "Business & personal insurance",
     badge: "Insure",
     description:
-      "One uninsured event — a fire, a lawsuit, the death of a key partner — can end a business. We review, place, and manage commercial and personal cover across the market on your behalf.",
+      "One uninsured event, such as a fire, a lawsuit, or the death of a key partner, can end a business. We review, place, and manage commercial and personal cover across the market on your behalf.",
     href: "/insurance",
     links: [
       { label: "Business insurance", href: "/solutions/business-insurance" },
@@ -139,7 +139,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
     step: "01",
     title: "Tell us about your situation",
     description:
-      "Share the shape of your business, your existing cover, and the risks that keep you up at night. No forms, no jargon — just a conversation.",
+      "Share the shape of your business, your existing cover, and the risks that keep you up at night. No forms, no jargon, just a conversation.",
     href: "/contact?source=home_journey_start",
     cta: "Start the conversation",
     accent: "teal",
@@ -148,7 +148,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
     step: "02",
     title: "We survey the market",
     description:
-      "We run a proper needs analysis and compare offerings across the commercial market — Santam, Bryte, King Price, and others — to find the right structure at the right price.",
+      "We run a proper needs analysis and compare offerings across the commercial market, including Santam, Bryte, King Price, and others, to find the right structure at the right price.",
     href: "/business-risk-review",
     cta: "See how it works",
     accent: "blue",
@@ -157,7 +157,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
     step: "03",
     title: "Structured cover, placed",
     description:
-      "After the needs analysis we recommend, place, and document your cover — so you know exactly what is covered, what is excluded, and what it costs.",
+      "After the needs analysis we recommend, place, and document your cover, so you know exactly what is covered, what is excluded, and what it costs.",
     href: "/contact?source=home_journey_review",
     cta: "Get a risk review",
     accent: "gold",
@@ -166,7 +166,7 @@ export const HOME4_JOURNEY_STAGES: FunnelStage[] = [
     step: "04",
     title: "Annual review & claims advocacy",
     description:
-      "We review your cover every year, adjust for business changes, and stand with you when a claim arises — not just at inception.",
+      "We review your cover every year, adjust for business changes, and stand with you when a claim arises, not just at inception.",
     href: "/contact?source=home_journey",
     cta: "Request a review",
     accent: "advice",

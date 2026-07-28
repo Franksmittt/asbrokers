@@ -4,13 +4,13 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Our Services & Provider Panel | AS Brokers | FSP 17273";
 const PAGE_DESCRIPTION =
-  "The insurers, medical schemes, investment platforms, and fiduciary partners AS Brokers CC (FSP 17273) works with — business insurance, personal cover, retirement, investments, wills, and estates. Factual panel disclosure; personal advice after a needs analysis.";
+  "The insurers, medical schemes, investment platforms, and fiduciary partners AS Brokers CC (FSP 17273) works with: business insurance, personal cover, retirement, investments, wills, and estates. Factual panel disclosure; personal advice after a needs analysis.";
 
 const providerFAQs = [
   {
     question: "Does listing a provider mean you recommend it?",
     answer:
-      "No. Provider names indicate contractual or placement capability only. Under the FAIS Act, a website cannot recommend a product for you — which provider and product fits your situation is determined during a documented needs analysis with an authorised representative of FSP 17273.",
+      "No. Provider names indicate contractual or placement capability only. Under the FAIS Act, a website cannot recommend a product for you; which provider and product fits your situation is determined during a documented needs analysis with an authorised representative of FSP 17273.",
   },
   {
     question: "Why do you work with so many providers?",
@@ -20,12 +20,12 @@ const providerFAQs = [
   {
     question: "Can you move my existing policies or investments to a provider on this panel?",
     answer:
-      "Often, yes — after reviewing what you have. We compare your existing cover or portfolio against alternatives and only recommend a change where the needs analysis supports it. Cancelling cover before replacement cover is confirmed is something we specifically help clients avoid.",
+      "Often, yes, after reviewing what you have. We compare your existing cover or portfolio against alternatives and only recommend a change where the needs analysis supports it. Cancelling cover before replacement cover is confirmed is something we specifically help clients avoid.",
   },
   {
     question: "What does Category 1.8 mean on this page?",
     answer:
-      "FSCA Category 1.8 (Securities and Instruments: Shares) authorisation includes advice on certain unlisted securities. Unlisted instruments carry significant liquidity and valuation risks, so product terms are discussed only during advice — we do not publish return targets on this website.",
+      "FSCA Category 1.8 (Securities and Instruments: Shares) authorisation includes advice on certain unlisted securities. Unlisted instruments carry significant liquidity and valuation risks, so product terms are discussed only during advice; we do not publish return targets on this website.",
   },
   {
     question: "Is gap cover the same as medical aid?",

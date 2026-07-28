@@ -11,7 +11,7 @@ export const SOLO_INCOME_IN_RETIREMENT: SoloCalculatorPageProps = {
   kicker: "Educational illustration · Retirement income",
   heroTitle: "Capital Sustainability Illustration",
   heroSubtitle:
-    "Model how long retirement capital may last at a chosen drawdown. Illustrative only — not a personal recommendation.",
+    "Model how long retirement capital may last at a chosen drawdown. Illustrative only, not a personal recommendation.",
   heroImage: "/images/home4-goal-retire-16x9.jpg",
   heroImageAlt: "Retiree reviewing sustainable drawdown and capital longevity",
   calculatorSrc: "/embed-calculators/asset-004-life-of-capital.html",
@@ -59,7 +59,7 @@ export const SOLO_INCOME_TAX: SoloCalculatorPageProps = {
   kicker: "Educational illustration · Income tax",
   heroTitle: "Income Tax Illustrator",
   heroSubtitle:
-    "Estimate marginal income tax using SARS 2026/27 illustrative brackets. Educational only — not a SARS assessment.",
+    "Estimate marginal income tax using SARS 2026/27 illustrative brackets. Educational only, not a SARS assessment.",
   heroImage: "/images/home4-import/card1.jpg",
   heroImageAlt: "Tax planning worksheet and calculator",
   calculatorSrc: "/embed-calculators/asset-006-income-tax.html",
@@ -83,7 +83,7 @@ export const SOLO_ESTATE_DUTY: SoloCalculatorPageProps = {
   kicker: "Educational illustration · Estate duty",
   heroTitle: "Estate Duty Illustrator",
   heroSubtitle:
-    "Estimate estate duty and executor fees using illustrative abatement and rate structures. Educational only — not legal advice.",
+    "Estimate estate duty and executor fees using illustrative abatement and rate structures. Educational only, not legal advice.",
   heroImage: "/images/home4-goal-estate-16x9.jpg",
   heroImageAlt: "Estate planning documents and duty estimation",
   calculatorSrc: "/embed-calculators/asset-007-estate-duty.html",

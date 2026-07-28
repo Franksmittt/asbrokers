@@ -2,7 +2,7 @@ import { EstatePlanningPageView } from "@/components/estate-planning/EstatePlann
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
-const PAGE_TITLE = "Estate Planning — Liquidity & Succession | AS Brokers";
+const PAGE_TITLE = "Estate Planning: Liquidity & Succession | AS Brokers";
 const PAGE_DESCRIPTION =
   "Estate duty and executor fees must be paid in cash. AS Brokers CC (FSP 17273) structures liquidity and life cover to protect your family from forced asset sales, and coordinates with attorneys on the capital architecture.";
 
@@ -30,7 +30,7 @@ const estateFAQs = [
   {
     question: "Can AS Brokers draft my will or trust deed?",
     answer:
-      "No. We coordinate the financial and risk side—liquidity, cover, and succession funding. Admitted attorneys draft binding legal instruments. We do not provide legal drafting on this website.",
+      "No. We coordinate the financial and risk side: liquidity, cover, and succession funding. Admitted attorneys draft binding legal instruments. We do not provide legal drafting on this website.",
   },
   {
     question: "Do online estate calculators constitute advice?",

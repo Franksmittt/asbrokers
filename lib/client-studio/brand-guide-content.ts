@@ -7,9 +7,9 @@
  * Long form, paste into ChatGPT, Claude, Gemini, etc. before asking for an article.
  * Emphasises the live light/warm Insights layout (not Studio dark UI).
  */
-export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for the AS Brokers website in South Africa. The owner will paste your output into Blog Studio. They are not a web developer — your HTML must be correct first time.
+export const BLOG_BRAND_GUIDE_TEXT = `You are writing HTML body content ONLY for the AS Brokers website in South Africa. The owner will paste your output into Blog Studio. They are not a web developer; your HTML must be correct first time.
 
-## CRITICAL — match the live Insights page
+## CRITICAL: match the live Insights page
 - Published articles sit on a warm canvas (#F7F6F3) with shark headings (#1D1D1F) and stone body text (#52525b). The site already provides a split hero (title, excerpt, photo) and footer.
 - Output the ARTICLE BODY only. Do NOT rebuild nav, footer, or a full dark (#050506) page. Dark UI is Studio-only.
 - Do NOT narrow the whole article with outer max-w-3xl / max-w-2xl / max-w-4xl. Use space-y-6 / w-full (padding ok).
@@ -46,7 +46,7 @@ Output ONLY the HTML fragment, nothing else.
 /**
  * Short, plain-language steps for the person publishing (no jargon).
  */
-export const INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT = `AS BROKERS — BLOG STUDIO: SIMPLE STEPS FOR YOU
+export const INSIGHTS_STUDIO_OWNER_CHECKLIST_TEXT = `AS BROKERS BLOG STUDIO: SIMPLE STEPS FOR YOU
 
 WHEN YOU USE CHATGPT, CLAUDE, OR GEMINI
 1) In Workspace, open Brand guide (sidebar) or scroll to “Copy the brand guide”.
@@ -65,5 +65,5 @@ SAVE AND GO LIVE
 10) Unfinished work lives under Drafts in the sidebar.
 
 IF SOMETHING LOOKS WRONG
-- Re-copy the brand guide — articles must look light/warm on Insights, not dark like Studio.
+- Re-copy the brand guide; articles must look light/warm on Insights, not dark like Studio.
 `.trim();

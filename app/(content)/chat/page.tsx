@@ -15,7 +15,7 @@ export default function ChatPage() {
       <HubUtilityHero
         kicker="AS Brokers"
         title="Educational assistant"
-        description="Ask about Discovery Health, Gap Cover, estate duty illustrations, or general planning concepts — or leave your details for a callback. Educational only. Not personal financial advice."
+        description="Ask about Discovery Health, Gap Cover, estate duty illustrations, or general planning concepts, or leave your details for a callback. Educational only. Not personal financial advice."
       >
         <p className="mt-2 text-xs text-stone-500">
           FSP 17273 · Optional callback with POPIA consent · No product recommendations or yield

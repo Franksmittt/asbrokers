@@ -366,7 +366,7 @@ function ResultsPanel({
         </div>
       </div>
       <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700">
-        <p className="font-semibold text-amber-800">Educational findings — areas to consider further</p>
+        <p className="font-semibold text-amber-800">Educational findings: areas to consider further</p>
         <p className="mt-1 text-xs text-stone-500">
           These observations are for educational purposes only and do not constitute insurance or financial advice.
         </p>

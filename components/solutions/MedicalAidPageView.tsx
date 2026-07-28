@@ -39,7 +39,7 @@ export function MedicalAidPageView({ faqs }: Props) {
             className="mt-5 max-w-3xl font-serif font-semibold tracking-tight"
             style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
           >
-            Medical scheme shortfalls arrive in hospital — not when you have time to plan
+            Medical scheme shortfalls arrive in hospital, not when you have time to plan
           </h1>
           <p
             className="mt-5 max-w-2xl leading-relaxed"
@@ -47,7 +47,7 @@ export function MedicalAidPageView({ faqs }: Props) {
           >
             Most families discover the gap between scheme cover and specialist billing at the worst
             possible moment. AS Brokers CC (FSP 17273) structures medical scheme and gap cover
-            together — for individuals, business owners, and staff — and provides operational
+            together, for individuals, business owners, and staff, and provides operational
             support when authorisations stall or claims need escalation.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -202,7 +202,7 @@ export function MedicalAidPageView({ faqs }: Props) {
           <CallbackForm
             source="medical_aid"
             heading="Not sure if your scheme and gap cover line up?"
-            description="Leave your name and number. An authorised adviser phones you back within one business day — for your family or your staff."
+            description="Leave your name and number. An authorised adviser phones you back within one business day, for your family or your staff."
             whatsappMessage="Hi AS Brokers, please call me back about medical aid and gap cover."
           />
         </div>

@@ -37,11 +37,12 @@ export function Home4Hero() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/80 sm:text-sm sm:tracking-[0.18em]">
             Independent insurance broking for business owners · FSP 17273 · Since 1998
           </p>
+          {/* Keep whitespace before <br/> so textContent matches SSR text (WRS h1 parity test). */}
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.08]">
-            Your business carries risks
-            <br />
-            you can&rsquo;t see. We find them
-            <br />
+            Your business carries risks{" "}
+            <br className="hidden sm:block" />
+            you can&rsquo;t see. We find them{" "}
+            <br className="hidden sm:block" />
             before a claim does.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">

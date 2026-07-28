@@ -1,7 +1,7 @@
 import { Home4Hero } from "@/components/home4/Home4Hero";
 import { Home4GoalCards } from "@/components/home4/Home4GoalCards";
 import { Home4BelowFoldRest } from "@/components/home4/Home4BelowFoldRest";
-import { HomeChatBar } from "@/components/home/HomeChatBar";
+import { DeferredHomeChatBar } from "@/components/home/DeferredHomeChatBar";
 import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HUB_LCP_IMAGES } from "@/lib/hub-lcp";
@@ -62,8 +62,8 @@ export default function HomePage() {
       <Home4GoalCards />
       {/* SSR immediately, do not gate on click/idle (same bug as calculators hub). */}
       <Home4BelowFoldRest />
-      {/* Visible chat shell; heavy FloatingChat loads on focus/submit only. */}
-      <HomeChatBar />
+      {/* Chat shell mounts after idle/interaction so lab TBT stays clean. */}
+      <DeferredHomeChatBar />
     </>
   );
 }

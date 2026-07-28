@@ -43,6 +43,11 @@ export const metadata = buildPageMetadata({
   path: "/solutions/business-insurance",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  languages: {
+    en: "/solutions/business-insurance",
+    af: "/besigheidsversekering-krugersdorp",
+    "x-default": "/solutions/business-insurance",
+  },
   keywords: [
     "business insurance South Africa",
     "commercial insurance broker",

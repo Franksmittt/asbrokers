@@ -39,15 +39,19 @@ const steps: Step[] = [
     name: "test:lighthouse",
     cmd: "npm",
     args: ["run", "test:lighthouse"],
-    skip: !IS_CI,
-    skipReason: "Lighthouse gated on Linux CI only (skip on local Windows)",
+    skip: IS_WINDOWS || IS_CI,
+    skipReason: IS_CI
+      ? "covered by lighthouse CI job (fresh runner, avoids master-audit load contention)"
+      : "Lighthouse gated on Linux CI only (skip on local Windows)",
   },
   {
     name: "phase9-perf-verify",
     cmd: "npx",
     args: ["tsx", "scripts/verify-phase9-performance.ts"],
-    skip: !IS_CI,
-    skipReason: "Lighthouse manifest required (Linux CI)",
+    skip: IS_WINDOWS || IS_CI,
+    skipReason: IS_CI
+      ? "covered by lighthouse CI job Phase 9 step"
+      : "Lighthouse manifest required (Linux CI)",
   },
 ];
 
@@ -120,8 +124,8 @@ function main() {
   }
 
   const lighthouseNote = IS_CI
-    ? "Lighthouse verified on CI."
-    : "Lighthouse skipped locally — verify Linux CI master-audit job.";
+    ? "Lighthouse verified by dedicated lighthouse CI job."
+    : "Lighthouse skipped locally — verify the lighthouse CI job on Linux.";
 
   console.log(`\nPhase 12 master verification passed. ${lighthouseNote}`);
 }

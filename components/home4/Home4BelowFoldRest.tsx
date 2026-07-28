@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { HomeCallbackFormDeferred } from "@/components/home/HomeCallbackFormDeferred";
 import { RelatedContent } from "@/components/seo/RelatedContent";
 import { getRelatedLinks } from "@/lib/related-content";
 import {
@@ -19,7 +20,6 @@ import {
   HOME4_TRUST_BADGES,
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
-import { CallbackForm } from "@/components/forms/CallbackForm";
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
@@ -145,7 +145,7 @@ export function Home4BelowFoldRest() {
       >
         <div className={HOME4_WRAP}>
           <Home4Reveal instant>
-            <CallbackForm
+            <HomeCallbackFormDeferred
               source="home"
               heading="Easiest option: we call you"
               description="Two fields and a tick box. An authorised adviser phones you back within one business day about business cover, personal insurance, or planning."
@@ -197,13 +197,13 @@ export function Home4BelowFoldRest() {
               </div>
               <div className="relative min-h-[16rem] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-stone-200/70 lg:min-h-0">
                 <Image
-                  src="/images/home-why-as-brokers-16x9.jpg"
+                  src="/images/home-why-as-brokers-16x9.webp"
                   alt={getAlt(
-                    "/images/home-why-as-brokers-16x9.jpg",
+                    "/images/home-why-as-brokers-16x9.webp",
                     "Independent adviser reviewing planning documents in a home study"
                   )}
                   fill
-                  quality={70}
+                  unoptimized
                   className="object-cover object-center"
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   loading="lazy"

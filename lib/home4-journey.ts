@@ -112,25 +112,25 @@ export const HOME4_CALCULATOR_TILES: CalculatorTile[] = [
     label: "Retirement Reality Check",
     description: "Illustrative view of a capital gap based on assumptions you enter.",
     href: "/calculators/asset-002-retirement-reality-check",
-    image: "/images/home-actuarial-engine-16x9.jpg",
+    image: "/images/home-tile-reality-check-640.webp",
   },
   {
     label: "Retirement Growth Rate",
     description: "Illustrate a growth rate required for a capital goal under your inputs.",
     href: "/calculators/asset-001-retirement-growth",
-    image: "/images/home-calc-128-income-16x10.jpg",
+    image: "/images/home-tile-growth-rate-640.webp",
   },
   {
     label: "Life of Capital",
     description: "Illustrate how long capital may last under chosen assumptions.",
     href: "/calculators/asset-004-life-of-capital",
-    image: "/images/home-calc-income-vs-growth-16x10.jpg",
+    image: "/images/home-tile-life-of-capital-640.webp",
   },
   {
     label: "Future Value",
     description: "Illustrate how inflation can change purchasing power over time.",
     href: "/calculators/asset-005-future-value",
-    image: "/images/risk-arch-estate.jpg",
+    image: "/images/home-tile-future-value-640.webp",
   },
 ];
 

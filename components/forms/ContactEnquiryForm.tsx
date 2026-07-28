@@ -91,7 +91,7 @@ export function ContactEnquiryForm() {
           href="https://wa.me/27662276044"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm font-semibold text-cinematic-teal underline-offset-2 hover:underline"
+          className="text-sm font-semibold text-[#0F766E] underline-offset-2 hover:underline"
         >
           WhatsApp us in the meantime
         </a>
@@ -250,7 +250,7 @@ export function ContactEnquiryForm() {
             I consent to AS Brokers CC (FSP 17273) processing my personal information to respond to
             this enquiry and arrange a consultation, and to send related transactional
             messages. This is voluntary. See the{" "}
-            <a href="/privacy" className="font-semibold text-cinematic-teal hover:opacity-80">
+            <a href="/privacy" className="font-semibold text-[#0F766E] hover:opacity-80">
               Privacy Policy
             </a>
             . Reply STOP to opt out of messages.
@@ -271,7 +271,7 @@ export function ContactEnquiryForm() {
         type="submit"
         disabled={isPending}
         aria-label={isPending ? "Sending enquiry" : "Send enquiry"}
-        className="mt-2 w-full rounded bg-cinematic-teal py-4 text-sm font-semibold text-white transition hover:bg-[#008f8f] disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-2 w-full rounded bg-[#0F766E] py-4 text-sm font-semibold text-white transition hover:bg-[#0c5f59] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isPending ? "Sending…" : "Send enquiry"}
       </button>

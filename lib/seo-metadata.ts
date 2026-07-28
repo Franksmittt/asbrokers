@@ -95,6 +95,10 @@ export type BuildPageMetadataInput = {
   ogImagePath?: string;
   noIndex?: boolean;
   keywords?: string[];
+  /** hreflang alternates, e.g. { en: "/solutions/business-insurance", af: "/besigheidsversekering-krugersdorp" }. */
+  languages?: Record<string, string>;
+  /** Open Graph locale override (defaults to en_ZA). */
+  ogLocale?: string;
 };
 
 /** Robots directive for CRM, portal, studio, auth, internal, and dynamic report routes. */
@@ -129,15 +133,21 @@ export function buildPageMetadata(input: BuildPageMetadataInput): Metadata {
       }
     : buildOgImageSet(brandedTitle, description);
 
+  const languages = input.languages
+    ? Object.fromEntries(
+        Object.entries(input.languages).map(([lang, langPath]) => [lang, absoluteUrl(langPath)])
+      )
+    : undefined;
+
   return {
     title,
     description,
     keywords: input.keywords,
-    alternates: { canonical },
+    alternates: { canonical, ...(languages ? { languages } : {}) },
     robots: input.noIndex ? PRIVATE_ROUTE_ROBOTS : undefined,
     openGraph: {
       type: "website",
-      locale: "en_ZA",
+      locale: input.ogLocale ?? "en_ZA",
       url: canonical,
       siteName: BRAND_NAME,
       title: brandedTitle,

@@ -60,6 +60,24 @@ export const CALLBACK_SOURCES = {
     leadScore: 32,
     label: "Provider panel page",
   },
+  business_insurance_af: {
+    serviceCategory: "short_term_business" satisfies ServiceCategory,
+    intent: "Besigheidsversekering terugbelversoek (Afrikaans landing page)",
+    leadScore: 42,
+    label: "Afrikaans business insurance page",
+  },
+  farm_insurance: {
+    serviceCategory: "short_term_business" satisfies ServiceCategory,
+    intent: "Farm / agricultural insurance callback",
+    leadScore: 42,
+    label: "Farm insurance page",
+  },
+  business_continuity: {
+    serviceCategory: "estate_business" satisfies ServiceCategory,
+    intent: "Key person / buy-and-sell callback",
+    leadScore: 40,
+    label: "Business continuity page",
+  },
 } as const;
 
 export type CallbackSource = keyof typeof CALLBACK_SOURCES;

@@ -42,6 +42,28 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Personal advice only after a documented needs analysis with FSP 17273.",
     },
   ],
+  "/farm-insurance": [
+    {
+      href: "/business-risk-review",
+      title: "Free Business Risk Review",
+      description: "A workbook to capture assets, equipment, and cover gaps before we meet.",
+    },
+    {
+      href: "/solutions/business-insurance",
+      title: "Business insurance",
+      description: "Commercial property, liability, interruption, and continuity cover.",
+    },
+    {
+      href: "/providers",
+      title: "Our provider panel",
+      description: "The insurers and underwriters we survey and place cover with.",
+    },
+    {
+      href: "/contact?source=farm_insurance",
+      title: "Request a needs analysis",
+      description: "Personal advice only after a documented needs analysis with FSP 17273.",
+    },
+  ],
   "/providers": [
     {
       href: "/solutions/business-insurance",
@@ -80,6 +102,28 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       href: "/calculators#asset-004-life-of-capital",
       title: "Life of capital",
       description: "How long retirement capital may last with drawdowns.",
+    },
+  ],
+  "/business-continuity": [
+    {
+      href: "/solutions/business-insurance",
+      title: "Business insurance",
+      description: "Commercial property, liability, business interruption, and fleet cover.",
+    },
+    {
+      href: "/business-risk-review",
+      title: "Free Business Risk Review",
+      description: "A workbook to capture assets, turnover, and cover gaps before we meet.",
+    },
+    {
+      href: "/estate-planning",
+      title: "Estate and succession planning",
+      description: "Wills, trusts, and business continuity structuring.",
+    },
+    {
+      href: "/contact?source=business_continuity",
+      title: "Request a needs analysis",
+      description: "Personal advice only after a documented needs analysis with FSP 17273.",
     },
   ],
   "/solutions/business-life": [

@@ -182,7 +182,7 @@ const nextConfig: NextConfig = {
         destination,
         permanent: true,
       })),
-      { source: "/favicon.ico", destination: "/images/og-default.jpg", permanent: true },
+      { source: "/favicon.ico", destination: "/icon.svg", permanent: false },
       { source: "/embed/calculators/:path*", destination: "/calculators", permanent: true },
       ...legacyCalculatorRedirects.map(({ source, destination, permanent }) => ({
         source,

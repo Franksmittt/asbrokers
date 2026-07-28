@@ -475,14 +475,14 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/about": [
     {
-      href: "/team",
-      title: "Meet the team",
-      description: "Albert, Johnny, and the specialists behind AS Brokers.",
+      href: "/solutions/business-insurance",
+      title: "Business insurance",
+      description: "Commercial cover reviewed and placed across the market.",
     },
     {
-      href: "/how-we-work",
-      title: "How we work",
-      description: "Independent, education-led Category 1.8 process.",
+      href: "/providers",
+      title: "Our provider panel",
+      description: "The insurers, schemes, and platforms we work with, by service.",
     },
     {
       href: "/regulatory-compliance",

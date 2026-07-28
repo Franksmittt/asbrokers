@@ -170,7 +170,7 @@ function buildOrganizationNode(origin: string, ids: ReturnType<typeof createSeoI
     logo: { "@type": "ImageObject", "@id": `${origin}/#logo`, url: logoUrl(origin) },
     image: { "@id": `${origin}/#logo` },
     description:
-      "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Retirement planning, insurance, estate structuring, and Everest Wealth education. Krugersdorp, West Rand, Gauteng.",
+      "Independent Authorised Financial Services Provider. FSP 17273. Category 1.8 (Securities and Instruments: Shares). Business insurance, personal cover, retirement planning, and estate structuring. Krugersdorp, West Rand, Gauteng.",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Unit 2, The Bridge, 47 Commissioner Street",
@@ -284,11 +284,11 @@ function buildLocalBusinessNode(origin: string, ids: ReturnType<typeof createSeo
     },
     contactPoint: buildContactPoints(),
     knowsAbout: [
+      "Business Insurance",
       "Retirement Planning",
       "Investments",
       "Insurance",
       "Estate Planning",
-      "Everest Wealth",
     ],
     parentOrganization: { "@id": ids.organization },
     areaServed: { "@type": "Country", name: "South Africa" },

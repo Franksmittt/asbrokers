@@ -102,6 +102,12 @@ export const metadata = buildPageMetadata({
   path: "/besigheidsversekering-krugersdorp",
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
+  ogLocale: "af_ZA",
+  languages: {
+    af: "/besigheidsversekering-krugersdorp",
+    en: "/solutions/business-insurance",
+    "x-default": "/solutions/business-insurance",
+  },
   keywords: [
     "besigheidsversekering krugersdorp",
     "kommersiële versekering makelaar",

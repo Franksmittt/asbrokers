@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: ["/opengraph-image"],
   },
+  /* app/icon.svg is auto-served by the App Router; apple touch falls back to it. */
   icons: {
-    icon: [{ url: "/images/og-default.jpg", type: "image/jpeg" }],
-    apple: [{ url: "/images/og-default.jpg", type: "image/jpeg" }],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
 };
 

@@ -8,5 +8,6 @@ export const metadata: Metadata = privateRouteMetadata(
 );
 
 export default function TeamPage() {
-  redirect("/how-we-work");
+  /* Direct to final destination; /how-we-work itself 301s to /about (avoid redirect chain). */
+  redirect("/about");
 }

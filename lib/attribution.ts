@@ -1,12 +1,12 @@
 /**
  * Ad-click attribution capture. Middleware strips utm_ params, gclid, and
- * fbclid from URLs for SEO normalization — this module preserves them in a
+ * fbclid from URLs for SEO normalization; this module preserves them in a
  * first-party cookie before the strip so lead server actions can attach them
  * to CRM payloads.
  */
 
 export const ATTRIBUTION_COOKIE = "asb_attribution";
-/** 90 days — Google Ads click-to-conversion windows max out at 90 days. */
+/** 90 days: Google Ads click-to-conversion windows max out at 90 days. */
 export const ATTRIBUTION_MAX_AGE_SECONDS = 60 * 60 * 24 * 90;
 
 export type LeadAttribution = {

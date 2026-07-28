@@ -21,7 +21,7 @@ const TEAL = "#0F766E";
 const TEAL_ON_DARK = "#5EEAD4";
 
 const GENERAL_ADVICE_DISCLAIMER =
-  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Provider names indicate contractual or placement capability only — not endorsement, ranking, or suitability. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
+  "The information on this page is general information under Section 1(3)(a) of the FAIS Act, 37 of 2002, and is not financial advice or a product recommendation. Provider names indicate contractual or placement capability only, not endorsement, ranking, or suitability. Personal recommendations follow a Financial Needs Analysis with an authorised representative of AS Brokers CC (FSP 17273).";
 
 const GROUP_ORDER = ["business", "personal", "wealth", "fiduciary"] as const;
 
@@ -85,8 +85,8 @@ export function ProviderPanelPageView({ faqs }: Props) {
             One broker. A full panel of providers behind you.
           </h1>
           <p className="mt-5 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-            Whatever the problem — a business that needs cover, a family that needs protection, a
-            retirement that needs structure — we work across a contracted panel of insurers,
+            Whatever the problem (a business that needs cover, a family that needs protection, or a
+            retirement that needs structure), we work across a contracted panel of insurers,
             schemes, platforms, and fiduciary partners. Listed here factually, by service, in
             alphabetical order. Which of them fits <em>you</em> is decided in advice, not on a
             webpage.
@@ -112,7 +112,7 @@ export function ProviderPanelPageView({ faqs }: Props) {
             </Link>
           </div>
           <p className="mt-6 max-w-2xl text-xs leading-relaxed text-stone-500">
-            Provider names indicate placement capability or contractual relationships — not
+            Provider names indicate placement capability or contractual relationships, not
             endorsement, exclusivity, or a recommendation of any product.
           </p>
         </div>
@@ -179,7 +179,7 @@ export function ProviderPanelPageView({ faqs }: Props) {
             This page is the menu, not the meal. The route from a provider name to a policy or
             portfolio in your name always runs through the same steps: tell us the problem, sit a
             documented needs analysis with an authorised representative, then we survey this panel
-            and place what the analysis supports — and review it every year.
+            and place what the analysis supports, reviewing it every year.
           </p>
           <div className="mt-8">
             <CallbackForm
@@ -187,7 +187,7 @@ export function ProviderPanelPageView({ faqs }: Props) {
               heading="Not sure which category your problem fits?"
               description="Leave your name and number. An authorised adviser phones you back within one business day and points you in the right direction."
               showNote
-              whatsappMessage="Hi AS Brokers, please call me back — I want to know which of your providers can help with my situation."
+              whatsappMessage="Hi AS Brokers, please call me back. I want to know which of your providers can help with my situation."
             />
           </div>
         </div>

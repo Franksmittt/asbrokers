@@ -12,7 +12,7 @@ const initialState: CallbackActionState = { success: false };
 type Variant = "light" | "dark";
 
 type Props = {
-  /** Allowlisted page key — resolves service category and intent server-side. */
+  /** Allowlisted page key: resolves service category and intent server-side. */
   source: CallbackSource;
   heading?: string;
   description?: string;
@@ -64,7 +64,7 @@ const styles = {
 export function CallbackForm({
   source,
   heading = "Prefer us to call you?",
-  description = "Leave your name and number. An authorised adviser phones you back within one business day — no call centre, no obligation.",
+  description = "Leave your name and number. An authorised adviser phones you back within one business day, no call centre, no obligation.",
   buttonLabel = "Request a callback",
   showNote = false,
   variant = "light",
@@ -84,7 +84,7 @@ export function CallbackForm({
       <div className={`${s.card} ${className}`}>
         <h3 className={s.heading}>Callback requested</h3>
         <p className={`mt-2 max-w-md ${s.body}`}>
-          Thank you — an authorised adviser will phone you within one business day.
+          Thank you. An authorised adviser will phone you within one business day.
         </p>
         <a
           href={waHref}

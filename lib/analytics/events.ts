@@ -3,7 +3,7 @@
 /**
  * Safe client-side analytics event helpers. All calls no-op when the user has
  * not accepted analytics cookies (gtag never loads) or when IDs are not
- * configured — forms keep working regardless.
+ * configured; forms keep working regardless.
  */
 
 const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;

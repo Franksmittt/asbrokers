@@ -8,7 +8,7 @@ import type { ServiceCategory } from "@/lib/crm/types";
 export const CALLBACK_SOURCES = {
   home: {
     serviceCategory: "short_term_business" satisfies ServiceCategory,
-    intent: "Callback request — homepage",
+    intent: "Callback request: homepage",
     leadScore: 34,
     label: "Homepage",
   },
@@ -50,13 +50,13 @@ export const CALLBACK_SOURCES = {
   },
   about: {
     serviceCategory: "short_term_personal" satisfies ServiceCategory,
-    intent: "Callback request — about page",
+    intent: "Callback request: about page",
     leadScore: 28,
     label: "About page",
   },
   providers: {
     serviceCategory: "short_term_business" satisfies ServiceCategory,
-    intent: "Callback request — provider panel page",
+    intent: "Callback request: provider panel page",
     leadScore: 32,
     label: "Provider panel page",
   },
@@ -88,7 +88,7 @@ export const callbackLeadSchema = z.object({
     errorMap: () => ({ message: "Please confirm we may contact you (POPIA)." }),
   }),
   source: z.enum(Object.keys(CALLBACK_SOURCES) as [CallbackSource, ...CallbackSource[]]),
-  /** Honeypot — must stay empty. */
+  /** Honeypot: must stay empty. */
   website: z.string().max(0).optional().or(z.literal("")),
 });
 

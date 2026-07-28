@@ -20,7 +20,7 @@ export const CONTAINMENT_ALLOWED_CALCULATOR_IDS = [
 export type ContainmentAllowedCalculatorId =
   (typeof CONTAINMENT_ALLOWED_CALCULATOR_IDS)[number];
 
-/** High-risk / legislation-dependent / product-specific calculators — not publicly accessible. */
+/** High-risk / legislation-dependent / product-specific calculators: not publicly accessible. */
 export const CONTAINMENT_RESTRICTED_CALCULATOR_IDS = [
   "asset-006-income-tax",
   "asset-007-estate-duty",
@@ -40,7 +40,7 @@ export const CONTAINMENT_RESTRICTED_CALCULATOR_ALIASES = [
   "underinsurance-calculator",
 ] as const;
 
-/** Product / Everest surfaces — temporary 302 to holding page. */
+/** Product / Everest surfaces: temporary 302 to holding page. */
 export const CONTAINMENT_RESTRICTED_PRODUCT_PATHS = [
   "/everest-wealth",
   "/everest-wealth/about",
@@ -48,7 +48,7 @@ export const CONTAINMENT_RESTRICTED_PRODUCT_PATHS = [
   "/everest-128-product",
   "/everest-strategic-growth-145",
   "/immediate-higher-income-calculator",
-  /** Product yield funnel mock — not for public access during containment. */
+  /** Product yield funnel mock: not for public access during containment. */
   "/sales-funnel-mockup",
 ] as const;
 

@@ -4,7 +4,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Independent Insurance Brokers | Business & Personal | AS Brokers";
 const PAGE_DESCRIPTION =
-  "Independent insurance broker for business owners and families: commercial cover, business interruption, key person, personal assets, life, and medical aid — surveyed across the market and backed at claim stage. FSP 17273, Krugersdorp.";
+  "Independent insurance broker for business owners and families: commercial cover, business interruption, key person, personal assets, life, and medical aid, surveyed across the market and backed at claim stage. FSP 17273, Krugersdorp.";
 
 const insuranceFAQs = [
   {
@@ -15,7 +15,7 @@ const insuranceFAQs = [
   {
     question: "What is the Average Clause and how does it reduce a claim?",
     answer:
-      "If the sum insured is below the property’s replacement or market value, many policies reduce the claim proportionally: (Amount Insured ÷ Market Value) × Damages = Payout. A broker review checks whether your buildings, plant, and stock values are keeping up — before a claim tests them.",
+      "If the sum insured is below the property’s replacement or market value, many policies reduce the claim proportionally: (Amount Insured ÷ Market Value) × Damages = Payout. A broker review checks whether your buildings, plant, and stock values are keeping up, before a claim tests them.",
   },
   {
     question: "What is the difference between medical aid and gap cover?",
@@ -25,7 +25,7 @@ const insuranceFAQs = [
   {
     question: "Are AS Brokers tied to one insurer?",
     answer:
-      "No. We are an independent Category 1.8 FSP (17273) and survey the market across a contracted panel — see our providers page. Naming institutions such as Santam, Bryte, or King Price indicates placement capability, not exclusivity or tied agency.",
+      "No. We are an independent Category 1.8 FSP (17273) and survey the market across a contracted panel; see our providers page. Naming institutions such as Santam, Bryte, or King Price indicates placement capability, not exclusivity or tied agency.",
   },
   {
     question: "Do you help when a claim is rejected or short-paid?",

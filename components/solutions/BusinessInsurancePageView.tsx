@@ -29,7 +29,7 @@ const RISK_CARDS = [
     id: "underinsurance",
     title: "Underinsurance & the Average Clause",
     problem:
-      "If buildings, stock, or equipment are insured for less than replacement value, many policies reduce the claim proportionally: (Sum Insured ÷ Replacement Value) × Claim = Payout. One fire on under-declared stock can wipe out years of margin — even if the damage is only partial.",
+      "If buildings, stock, or equipment are insured for less than replacement value, many policies reduce the claim proportionally: (Sum Insured ÷ Replacement Value) × Claim = Payout. One fire on under-declared stock can wipe out years of margin, even if the damage is only partial.",
     solution:
       "We review sums insured and escalation clauses at inception and every renewal so declared values keep pace with actual replacement costs.",
   },
@@ -37,7 +37,7 @@ const RISK_CARDS = [
     id: "bi",
     title: "Business Interruption",
     problem:
-      "Revenue stops; salaries, rent, and fixed costs don't. A BI policy with the wrong indemnity period or basis — turnover versus gross profit — can exhaust its cover months before the business reopens.",
+      "Revenue stops; salaries, rent, and fixed costs don't. A BI policy with the wrong indemnity period or basis, whether turnover or gross profit, can exhaust its cover months before the business reopens.",
     solution:
       "We structure BI cover to match your break-even position and realistic recovery timeline, not a standard-product template.",
   },
@@ -47,7 +47,7 @@ const RISK_CARDS = [
     problem:
       "One personal-injury or property-damage claim from a client, visitor, or product defect can exceed the net worth of a small business. Generic policy limits and poorly defined covered activities are common causes of declined or reduced liability claims.",
     solution:
-      "We establish appropriate liability limits with wording that reflects your actual operating activity — on-site, off-site, and product-related.",
+      "We establish appropriate liability limits with wording that reflects your actual operating activity: on-site, off-site, and product-related.",
   },
   {
     id: "keyperson",
@@ -71,7 +71,7 @@ const RISK_CARDS = [
     problem:
       "Unlicensed drivers, mixed private and commercial use, and outdated declared values are common causes of declined or reduced fleet claims. A single serious accident can expose the business balance sheet.",
     solution:
-      "We review driver schedules, cover bases, and declared values annually — and clarify the business-use wording before a claim makes it relevant.",
+      "We review driver schedules, cover bases, and declared values annually, and clarify the business-use wording before a claim makes it relevant.",
   },
 ] as const;
 
@@ -89,7 +89,7 @@ const HOW_WE_WORK_STEPS = [
   {
     step: "03",
     title: "Market survey & placement",
-    body: "As an independent Category 1.8 FSP, we survey the market and place cover that fits the documented needs — without quotas that tie us to one insurer's shelf.",
+    body: "As an independent Category 1.8 FSP, we survey the market and place cover that fits the documented needs, without quotas that tie us to one insurer's shelf.",
   },
   {
     step: "04",
@@ -118,7 +118,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Business Insurance" longLabel="Business Insurance" />}
         title="Insurance built around how your business actually operates"
-        description="One uninsured gap — a fire, a liability claim, the death of a partner — can end a business that took decades to build. An independent broker finds the gaps first."
+        description="One uninsured gap (a fire, a liability claim, the death of a partner) can end a business that took decades to build. An independent broker finds the gaps first."
         actions={
           <>
             <Link
@@ -178,7 +178,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
               </h2>
               <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
                 Most commercial losses come from predictable causes. What makes them catastrophic is
-                a cover gap that existed before the event — not during it.
+                a cover gap that existed before the event, not during it.
               </p>
             </div>
           </div>
@@ -227,7 +227,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §3 The owner is part of the business — shark */}
+      {/* §3 The owner is part of the business: shark */}
       <section
         className="bg-shark py-16 text-white md:py-24"
         aria-labelledby="owner-heading"
@@ -257,13 +257,13 @@ export function BusinessInsurancePageView({ faqs }: Props) {
             </p>
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
               An authorised representative who understands the commercial picture can structure
-              personal cover in context — not in isolation from what the business depends on.
+              personal cover in context, not in isolation from what the business depends on.
             </p>
             <dl className="mt-8 border-y border-white/15">
               {[
                 {
                   dt: "Home & motor",
-                  dd: "Personal property and vehicle cover reviewed alongside the business portfolio — shared assets and dual-use vehicles handled correctly.",
+                  dd: "Personal property and vehicle cover reviewed alongside the business portfolio; shared assets and dual-use vehicles handled correctly.",
                 },
                 {
                   dt: "Life & income protection",
@@ -271,7 +271,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
                 },
                 {
                   dt: "Medical aid for owner and staff",
-                  dd: "Scheme structuring for the owner and, where appropriate, group schemes for staff — coordinated through the same adviser relationship.",
+                  dd: "Scheme structuring for the owner and, where appropriate, group schemes for staff, coordinated through the same adviser relationship.",
                 },
                 {
                   dt: "Estate continuity",
@@ -301,14 +301,14 @@ export function BusinessInsurancePageView({ faqs }: Props) {
                 />
               </div>
               <figcaption className="mt-3 text-xs leading-relaxed text-white/50">
-                Personal and commercial cover reviewed together — not as separate product sales.
+                Personal and commercial cover reviewed together, not as separate product sales.
               </figcaption>
             </figure>
           </div>
         </div>
       </section>
 
-      {/* §4 How we work — CANVAS */}
+      {/* §4 How we work: CANVAS */}
       <section
         id="how-we-work"
         className="scroll-mt-28 border-b pb-16 pt-14 md:scroll-mt-32 md:pb-24 md:pt-20"
@@ -331,7 +331,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
                 How we work
               </h2>
               <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
-                Independent advice follows a structured process — not a price comparison. Here is
+                Independent advice follows a structured process, not a price comparison. Here is
                 what to expect from introduction to annual review.
               </p>
 
@@ -371,7 +371,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §5 Independence note — CANVAS light band */}
+      {/* §5 Independence note: CANVAS light band */}
       <section
         id="independence"
         className="scroll-mt-28 border-b py-12 md:py-16"
@@ -410,7 +410,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §5b Callback capture — light */}
+      {/* §5b Callback capture: light */}
       <section
         className="border-b pb-14 pt-2 md:pb-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
@@ -420,7 +420,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
           <CallbackForm
             source="business_insurance"
             heading="Rather talk it through?"
-            description="Leave your name and number. An adviser who works with business owners phones you back within one business day — bring a renewal, a claim, or a gap you're unsure about."
+            description="Leave your name and number. An adviser who works with business owners phones you back within one business day; bring a renewal, a claim, or a gap you're unsure about."
             buttonLabel="Request a callback"
             showNote
             whatsappMessage="Hi AS Brokers, please call me back about my business insurance."
@@ -428,7 +428,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §6 FAQ — shark (component default) */}
+      {/* §6 FAQ: shark (component default) */}
       <VisibleFaqSection
         faqs={faqItems}
         id="business-insurance-faq"
@@ -440,10 +440,10 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         secondaryCta={{ href: "/business-risk-review", label: "Start the Risk Review" }}
       />
 
-      {/* §7 Related — warm */}
+      {/* §7 Related: warm */}
       <RelatedContent variant="warm" links={getRelatedLinks("/solutions/business-insurance")} />
 
-      {/* §8 Terminal CTA — dark panel */}
+      {/* §8 Terminal CTA: dark panel */}
       <section
         className="pb-16 pt-4 md:pb-24"
         style={{ backgroundColor: CANVAS }}
@@ -470,7 +470,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
             <p className="mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-white/75">
               Bring policy schedules, asset values, and turnover figures. An authorised
               representative will review your circumstances and provide personal recommendations
-              where appropriate — after a documented needs analysis.
+              where appropriate, after a documented needs analysis.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
               <Link
@@ -496,7 +496,7 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §9 Quiet Section 1(3)(a) disclaimer — above footer */}
+      {/* §9 Quiet Section 1(3)(a) disclaimer: above footer */}
       <section
         className="border-t pb-10 pt-8"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}

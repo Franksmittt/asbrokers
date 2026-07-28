@@ -32,7 +32,7 @@ export const HUB_SPLIT_HERO_SIZES = "(max-width: 768px) 100vw, (max-width: 1280p
 
 /**
  * ASSET calculator landing split heroes.
- * Sources are ~400×300 WebP (images.unoptimized: true — no on-the-fly resize).
+ * Sources are ~400×300 WebP (images.unoptimized: true; no on-the-fly resize).
  * Desktop column ~381px; mobile stacks to full content width.
  */
 export const CALC_SPLIT_HERO_SIZES = "(max-width: 768px) 100vw, 381px";

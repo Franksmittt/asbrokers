@@ -100,7 +100,7 @@ function EditorialLabel({ children, invert = false }: { children: ReactNode; inv
 }
 
 /**
- * Investments hub — FAIS factual-information framing (compliance update 2026-07-24).
+ * Investments hub: FAIS factual-information framing (compliance update 2026-07-24).
  * No named-product shelf, no suitability language, educational calculators only.
  */
 export function InvestmentsPageView({ faqs }: Props) {
@@ -110,8 +110,8 @@ export function InvestmentsPageView({ faqs }: Props) {
     <div style={{ backgroundColor: CANVAS }} className="overflow-x-clip text-shark">
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Investments" longLabel="Investments" />}
-        title="Cash erodes — the question is who you trust to help stop it"
-        description="Inflation quietly reduces real returns while money sits idle or in the wrong wrapper. AS Brokers CC (FSP 17273) is an independent Category 1.8 adviser — no tied products, no commission-led shelf. Personal recommendations come only after a needs analysis with an authorised representative."
+        title="Cash erodes. The question is who you trust to help stop it."
+        description="Inflation quietly reduces real returns while money sits idle or in the wrong wrapper. AS Brokers CC (FSP 17273) is an independent Category 1.8 adviser, no tied products, no commission-led shelf. Personal recommendations come only after a needs analysis with an authorised representative."
         actions={
           <HubHeroActions
             primaryLabel="Request a needs analysis"
@@ -468,7 +468,7 @@ export function InvestmentsPageView({ faqs }: Props) {
           <CallbackForm
             source="investments"
             heading="Want an independent second opinion on your capital?"
-            description="Leave your name and number. An authorised Category 1.8 adviser phones you back within one business day — no product push, recommendations only after a needs analysis."
+            description="Leave your name and number. An authorised Category 1.8 adviser phones you back within one business day, no product push, recommendations only after a needs analysis."
             whatsappMessage="Hi AS Brokers, please call me back about investment advice."
           />
         </div>

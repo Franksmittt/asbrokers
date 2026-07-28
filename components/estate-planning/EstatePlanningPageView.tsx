@@ -106,8 +106,8 @@ export function EstatePlanningPageView({ faqs }: Props) {
       {/* §1 Hero, light */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Estate" longLabel="Estate Planning" />}
-        title="Estate duty and executor fees are paid in cash — or your family sells assets"
-        description="Without liquidity, SARS and the executor queue first; heirs inherit what's left. AS Brokers CC (FSP 17273) structures the liquidity and life cover needed to settle duty and fees, and coordinates with your attorneys on the capital architecture — before a crisis forces the decision."
+        title="Estate duty and executor fees are paid in cash, or your family sells assets"
+        description="Without liquidity, SARS and the executor queue first; heirs inherit what's left. AS Brokers CC (FSP 17273) structures the liquidity and life cover needed to settle duty and fees, and coordinates with your attorneys on the capital architecture, before a crisis forces the decision."
         actions={
           <HubHeroActions
             primaryLabel="Book a strategy call"

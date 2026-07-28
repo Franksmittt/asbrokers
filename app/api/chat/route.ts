@@ -109,7 +109,7 @@ export async function POST(req: Request) {
       tools: {
         calculateEstateDuty: tool({
           description:
-            "Illustrative South African estate duty, executor fees, and total estate costs. Educational only — not legal or financial advice. Use when the user asks about estate duty, cost of dying, or estate liquidity.",
+            "Illustrative South African estate duty, executor fees, and total estate costs. Educational only, not legal or financial advice. Use when the user asks about estate duty, cost of dying, or estate liquidity.",
           inputSchema: calculateEstateDutySchema,
           execute: async (args) => {
             const parsed = calculateEstateDutySchema.safeParse(args);

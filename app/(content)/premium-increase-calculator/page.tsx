@@ -8,7 +8,7 @@ import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Premium Escalation Illustrator | Life Insurance";
 const PAGE_DESCRIPTION =
-  "Educational illustration of how escalating life insurance premiums may compound over 10–20 years. General information only — not financial or insurance advice. FSP 17273.";
+  "Educational illustration of how escalating life insurance premiums may compound over 10–20 years. General information only, not financial or insurance advice. FSP 17273.";
 
 const premiumFallback = (
   <div className="flex min-h-[320px] flex-col items-center justify-center rounded-2xl bg-stone-50 px-6 py-10 text-center ring-1 ring-stone-200/90">

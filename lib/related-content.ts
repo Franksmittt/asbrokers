@@ -56,7 +56,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/insurance",
       title: "Insurance & risk hub",
-      description: "Personal and commercial cover domains — medical, life, business, and assets.",
+      description: "Personal and commercial cover domains: medical, life, business, and assets.",
     },
     {
       href: "/contact?source=providers",
@@ -170,7 +170,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       href: "/business-risk-review",
       title: "Free Business Risk Review",
       description:
-        "Independent gap analysis for your commercial cover — survey the market, no obligation.",
+        "Independent gap analysis for your commercial cover. Survey the market, no obligation.",
     },
     {
       href: "/insurance",
@@ -399,7 +399,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/providers",
       title: "Our provider panel",
-      description: "The insurers, schemes, and platforms we work with — by service.",
+      description: "The insurers, schemes, and platforms we work with, by service.",
     },
     {
       href: "/contact?source=insurance_related",

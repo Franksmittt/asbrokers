@@ -76,13 +76,13 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
               className="mt-5 font-serif font-semibold tracking-tight"
               style={{ fontSize: "clamp(2rem, 1.5rem + 2vw, 3rem)", lineHeight: 1.15, color: INK }}
             >
-              Tell us the problem — an authorised adviser responds personally
+              Tell us the problem; an authorised adviser responds personally
             </h1>
             <p
               className="mt-5 max-w-xl leading-relaxed"
               style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: BODY }}
             >
-              A renewal, a claim, a gap in cover, a retirement that needs a second opinion — whatever
+              A renewal, a claim, a gap in cover, a retirement that needs a second opinion. Whatever
               the situation, an authorised representative of AS Brokers CC (FSP 17273) will read your
               message and respond directly. No rotating call-centre queue.
             </p>

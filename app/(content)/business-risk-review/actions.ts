@@ -4,6 +4,7 @@ import { calculateBusinessRiskScore } from "@/lib/business-risk/scoring";
 import { insertBusinessRiskReview } from "@/lib/business-risk/repository";
 import { notifyStaffLead } from "@/lib/email/notifications";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
+import { getLeadAttribution } from "@/lib/crm/lead-attribution";
 import { businessRiskLeadSchema } from "@/lib/validations/business-risk";
 
 export type BusinessRiskSubmitState = {
@@ -57,6 +58,8 @@ export async function submitBusinessRiskReview(
     missingCoverIds: score.missingIds,
   });
 
+  const attribution = await getLeadAttribution();
+
   const crmLeadId = await insertCrmLead({
     sourceFunnel: "business_risk_review",
     serviceCategory: "short_term_business",
@@ -74,6 +77,7 @@ export async function submitBusinessRiskReview(
         capital: ", ",
       },
       businessRiskReportId: reportId,
+      ...(attribution ? { attribution } : {}),
     },
   });
 

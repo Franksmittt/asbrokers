@@ -4,9 +4,11 @@ import { useActionState, useState, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "@/components/icons";
 import { submitContactEnquiry, type ContactActionState } from "@/app/actions/contact";
+import { trackLeadConversion } from "@/lib/analytics/events";
 
 const serviceOptions = [
-  { id: "everest", label: "Investment Review / Everest Wealth Quote" },
+  // COMPLIANCE 2026-07-28: label softened; no Everest promotion on public form.
+  { id: "everest", label: "Investment & Retirement Capital Review" },
   { id: "medical_gap", label: "Company Medical & Gap Review" },
   { id: "medical", label: "Medical Aid" },
   { id: "gap", label: "Gap Cover" },
@@ -31,6 +33,10 @@ export function ContactEnquiryForm() {
   const searchParams = useSearchParams();
   const source = searchParams.get("source") ?? "";
   const [state, formAction, isPending] = useActionState(submitContactEnquiry, initialState);
+
+  useEffect(() => {
+    if (state.success) trackLeadConversion("contact_form");
+  }, [state.success]);
 
   const [selectedTopics, setSelectedTopics] = useState<string[]>(() => {
     if (

@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { requestCallback } from "@/app/actions/callback";
+import { trackLeadConversion } from "@/lib/analytics/events";
 import type { CallbackActionState } from "@/lib/validations/callback-lead";
 import type { CallbackSource } from "@/lib/validations/callback-lead";
 import { WHATSAPP_DISPLAY, whatsappUrl } from "@/lib/whatsapp";
@@ -73,6 +74,10 @@ export function CallbackForm({
   const [state, formAction, isPending] = useActionState(requestCallback, initialState);
   const s = styles[variant];
   const waHref = whatsappUrl(whatsappMessage);
+
+  useEffect(() => {
+    if (state.success) trackLeadConversion(`callback_${source}`);
+  }, [state.success, source]);
 
   if (state.success) {
     return (

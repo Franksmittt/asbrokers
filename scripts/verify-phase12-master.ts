@@ -39,15 +39,19 @@ const steps: Step[] = [
     name: "test:lighthouse",
     cmd: "npm",
     args: ["run", "test:lighthouse"],
-    skip: !IS_CI,
-    skipReason: "Lighthouse gated on Linux CI only (skip on local Windows)",
+    skip: IS_WINDOWS || IS_CI,
+    skipReason: IS_CI
+      ? "covered by lighthouse CI job (fresh runner, avoids master-audit load contention)"
+      : "Lighthouse gated on Linux CI only (skip on local Windows)",
   },
   {
     name: "phase9-perf-verify",
     cmd: "npx",
     args: ["tsx", "scripts/verify-phase9-performance.ts"],
-    skip: !IS_CI,
-    skipReason: "Lighthouse manifest required (Linux CI)",
+    skip: IS_WINDOWS || IS_CI,
+    skipReason: IS_CI
+      ? "covered by lighthouse CI job Phase 9 step"
+      : "Lighthouse manifest required (Linux CI)",
   },
 ];
 

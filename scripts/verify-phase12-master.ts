@@ -124,8 +124,8 @@ function main() {
   }
 
   const lighthouseNote = IS_CI
-    ? "Lighthouse verified on CI."
-    : "Lighthouse skipped locally — verify Linux CI master-audit job.";
+    ? "Lighthouse verified by dedicated lighthouse CI job."
+    : "Lighthouse skipped locally — verify the lighthouse CI job on Linux.";
 
   console.log(`\nPhase 12 master verification passed. ${lighthouseNote}`);
 }

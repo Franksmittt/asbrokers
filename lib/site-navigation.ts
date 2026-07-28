@@ -69,6 +69,7 @@ export const PRIMARY_NAV: NavLink[] = [
   { label: "Investments", href: "/investments" },
   { label: "Estate", href: "/estate-planning" },
   { label: "Calculators", href: "/calculators" },
+  { label: "Insights", href: "/insights" },
   { label: "About", href: "/about" },
 ];
 

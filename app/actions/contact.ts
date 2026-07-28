@@ -5,6 +5,7 @@ import type { ContactActionState } from "@/lib/validations/schema";
 import { notifyStaffContactEnquiry } from "@/lib/email/notifications";
 import { contactLeadScore, serviceCategoryFromContactTopics } from "@/lib/crm/contact-lead";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
+import { getLeadAttribution } from "@/lib/crm/lead-attribution";
 
 const SUBMIT_ERROR =
   "We could not send your enquiry right now. Please try again or WhatsApp us on +27 66 227 6044.";
@@ -62,6 +63,8 @@ export async function submitContactEnquiry(
     return { success: true, message: "Thank you. We'll be in touch." };
   }
 
+  const attribution = await getLeadAttribution();
+
   const crmLeadId = await insertCrmLead({
     sourceFunnel: "contact_form",
     serviceCategory: serviceCategoryFromContactTopics(payload.topics),
@@ -73,6 +76,7 @@ export async function submitContactEnquiry(
       intent: payload.topics.length ? payload.topics.join(", ") : "General enquiry",
       topics: payload.topics,
       ...(sourceAttr ? { source: sourceAttr } : {}),
+      ...(attribution ? { attribution } : {}),
     },
   });
 

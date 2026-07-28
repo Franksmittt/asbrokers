@@ -2,6 +2,7 @@
 
 import { notifyStaffLead } from "@/lib/email/notifications";
 import { insertCrmLead } from "@/lib/crm/insert-lead";
+import { getLeadAttribution } from "@/lib/crm/lead-attribution";
 import {
   discoveryHealthLeadSchema,
   discoveryStatusLabels,
@@ -38,6 +39,7 @@ export async function submitDiscoveryHealthLead(
   }
 
   const statusLabel = discoveryStatusLabels[parsed.data.currentStatus];
+  const attribution = await getLeadAttribution();
 
   const crmLeadId = await insertCrmLead({
     sourceFunnel: "discovery_health",
@@ -52,6 +54,7 @@ export async function submitDiscoveryHealthLead(
       currentStatus: parsed.data.currentStatus,
       currentStatusLabel: statusLabel,
       topics: ["medical_gap", "medical"],
+      ...(attribution ? { attribution } : {}),
     },
   });
 

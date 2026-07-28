@@ -25,6 +25,7 @@ import {
   type BusinessRiskScore,
 } from "@/lib/business-risk/scoring";
 import { submitBusinessRiskReview } from "@/app/(content)/business-risk-review/actions";
+import { trackLeadConversion } from "@/lib/analytics/events";
 
 type Phase = "landing" | "lead" | "covers" | "results";
 
@@ -107,6 +108,7 @@ export function BusinessRiskReviewTool() {
         return;
       }
       setReportId(result.reportId ?? null);
+      trackLeadConversion("business_risk_review");
       setPhase("results");
     });
   }

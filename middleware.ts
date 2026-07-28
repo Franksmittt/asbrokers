@@ -23,6 +23,11 @@ import {
   hasActiveFinancialFreedomMembership,
 } from "@/lib/membership/access";
 import { normalizeRequestUrl } from "@/lib/url-normalize";
+import {
+  ATTRIBUTION_COOKIE,
+  ATTRIBUTION_MAX_AGE_SECONDS,
+  extractAttribution,
+} from "@/lib/attribution";
 
 const GONE_CACHE = "public, max-age=86400";
 
@@ -95,7 +100,29 @@ export async function middleware(request: NextRequest) {
   }
 
   if (normalized.action === "redirect") {
-    return NextResponse.redirect(normalized.url, 301);
+    const redirectResponse = NextResponse.redirect(normalized.url, 301);
+    /**
+     * Preserve ad-click attribution (gclid/utm_*) in a first-party cookie
+     * before the tracking params are stripped, so lead forms can attach it.
+     */
+    const attribution = extractAttribution(
+      request.nextUrl,
+      request.headers.get("referer")
+    );
+    if (attribution) {
+      redirectResponse.cookies.set(
+        ATTRIBUTION_COOKIE,
+        JSON.stringify(attribution),
+        {
+          path: "/",
+          maxAge: ATTRIBUTION_MAX_AGE_SECONDS,
+          httpOnly: true,
+          sameSite: "lax",
+          secure: true,
+        }
+      );
+    }
+    return redirectResponse;
   }
 
   const pathname = request.nextUrl.pathname;

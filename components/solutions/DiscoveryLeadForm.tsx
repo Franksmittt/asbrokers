@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { submitDiscoveryHealthLead } from "@/app/(content)/solutions/discovery-health/actions";
+import { trackLeadConversion } from "@/lib/analytics/events";
 import {
   discoveryStatusLabels,
   discoveryStatusOptions,
@@ -21,6 +22,10 @@ type Props = {
 
 export function DiscoveryLeadForm({ id = "discovery-lead-form" }: Props) {
   const [state, formAction, isPending] = useActionState(submitDiscoveryHealthLead, initialState);
+
+  useEffect(() => {
+    if (state.success) trackLeadConversion("discovery_health_form");
+  }, [state.success]);
 
   if (state.success) {
     return (

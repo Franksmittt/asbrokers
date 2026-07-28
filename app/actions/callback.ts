@@ -1,6 +1,7 @@
 "use server";
 
 import { insertCrmLead } from "@/lib/crm/insert-lead";
+import { getLeadAttribution } from "@/lib/crm/lead-attribution";
 import { notifyStaffLead } from "@/lib/email/notifications";
 import {
   CALLBACK_SOURCES,
@@ -43,6 +44,7 @@ export async function requestCallback(
   const intent = parsed.data.note?.trim()
     ? `${config.intent}: ${parsed.data.note.trim()}`
     : config.intent;
+  const attribution = await getLeadAttribution();
 
   const crmLeadId = await insertCrmLead({
     sourceFunnel: "callback_form",
@@ -57,6 +59,7 @@ export async function requestCallback(
       notes: parsed.data.note?.trim() || undefined,
       consent: true,
       consentChannel: "callback_form",
+      ...(attribution ? { attribution } : {}),
     },
   });
 

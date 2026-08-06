@@ -10,14 +10,14 @@ const FOUNDERS = [
   {
     name: "Albert Schuurman",
     slug: "team-albert",
-    role: "Co-founder",
+    role: "Founder & Key Individual",
     bio: "Short Term Business and Investment Specialist.",
   },
   {
     name: "Johnny Farinha",
     slug: "team-johnny",
-    role: "Co-founder",
-    bio: "Short term business Insurance Specialist.",
+    role: "Business Insurance Expert · Brits Region",
+    bio: "Commercial cover and business risk for owners across Brits and surrounding areas.",
   },
 ];
 

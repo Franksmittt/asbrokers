@@ -7,7 +7,7 @@ INSERT INTO public.staff (id, name, role, routing_intent, whats_app) VALUES
   ('s2', 'Elize Schuurman', 'Director & Head of Negotiations', ARRAY['Corporate claim disputes', 'Underwriter negotiation'], NULL),
   ('s3', 'Corne Schuurman', 'IT, Systems & Accounts', ARRAY['System alerts', 'API integration', 'Commission tracking'], NULL),
   ('s4', 'Monique Schuurman', 'Operations Manager', ARRAY['Risk assessments', 'Short-term insurance', 'Renewals'], NULL),
-  ('s5', 'Johnny Farinha', 'Financial Advisor', ARRAY['Business development', 'Domestic/commercial/life'], '0672429946'),
+  ('s5', 'Johnny Farinha', 'Business Insurance Expert · Brits Region', ARRAY['Business insurance', 'Commercial short-term', 'Brits region'], '0672429946'),
   ('s6', 'Petro Vermeulen', 'Technical Underwriter', ARRAY['Commercial underwriting', 'Risk assessment'], NULL),
   ('s7', 'Shanel van Niekerk', 'Specialized Claims Consultant', ARRAY['Domestic/commercial claims'], NULL)
 ON CONFLICT (id) DO NOTHING;

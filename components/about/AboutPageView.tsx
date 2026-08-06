@@ -25,19 +25,19 @@ const HERO_IMAGE = "/images/about-hero.webp";
 const PLACE_IMAGE = "/images/about-krugersdorp-trust-16x9.jpg";
 const PLAQUE_IMAGE = "/images/about-fiduciary-plaque-4x3.jpg";
 
-const FOUNDERS = [
+const PRACTICE_LEADERS = [
   {
     id: "person-albert-schuurman",
     name: "Albert Schuurman",
-    role: "Co-founder & Key Individual",
+    role: "Founder & Key Individual",
     focus: "Retirement planning education and investment advice services.",
     photo: "/images/team-albert.jpg",
   },
   {
     id: "person-johnny-farinha",
     name: "Johnny Farinha",
-    role: "Co-founder",
-    focus: "Estate structuring, business continuity, and personal life risk.",
+    role: "Business Insurance Expert · Brits Region",
+    focus: "Commercial cover and business risk for owners across Brits and surrounding areas.",
     photo: "/images/team-johnny.jpg",
   },
 ] as const;
@@ -232,20 +232,20 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             Meet the practice team
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-white/70">
-            Two co-founders lead advice. Specialists handle underwriting, medical aid, and claims.
+            Albert leads the practice as Key Individual. Johnny is the business insurance expert for the Brits region. Specialists handle underwriting, renewals, and claims.
           </p>
 
           <div className="mt-10 grid gap-px border border-white/10 md:grid-cols-2" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
-            {FOUNDERS.map((founder) => (
+            {PRACTICE_LEADERS.map((leader) => (
               <article
-                key={founder.id}
-                id={founder.id}
+                key={leader.id}
+                id={leader.id}
                 className="grid grid-cols-[5.5rem_1fr] gap-5 bg-shark p-6 sm:grid-cols-[7rem_1fr] sm:p-8"
               >
                 <div className="relative aspect-square overflow-hidden border border-white/15 bg-white/5">
                   <Image
-                    src={founder.photo}
-                    alt={getAlt(founder.photo, founder.name)}
+                    src={leader.photo}
+                    alt={getAlt(leader.photo, leader.name)}
                     fill
                     className="object-cover object-top"
                     sizes="112px"
@@ -253,15 +253,15 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
                 </div>
                 <div>
                   <h3 className="font-serif text-xl font-semibold tracking-tight text-white">
-                    {founder.name}
+                    {leader.name}
                   </h3>
                   <p
                     className="mt-1 text-xs font-semibold uppercase tracking-[0.14em]"
                     style={{ color: TEAL_ON_DARK }}
                   >
-                    {founder.role}
+                    {leader.role}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-white/65">{founder.focus}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/65">{leader.focus}</p>
                 </div>
               </article>
             ))}

@@ -25,7 +25,7 @@ const aboutFAQs = [
   {
     question: "Who leads advice at AS Brokers?",
     answer:
-      "Co-founders Albert Schuurman (Key Individual; retirement and investment advice services) and Johnny Farinha (estate structuring and business continuity) lead the practice, supported by specialists in commercial underwriting, medical aid, and claims.",
+      "Albert Schuurman (Founder and Key Individual) leads retirement and investment advice services. Johnny Farinha is the business insurance expert for the Brits region. Specialists support commercial underwriting, renewals, and claims.",
   },
   {
     question: "Where does education fit before advice?",

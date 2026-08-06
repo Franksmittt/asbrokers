@@ -39,7 +39,7 @@ export const CRM_TEAM_MEMBERS: Record<CrmTeamMemberKey, CrmTeamMember> = {
     role: "staff",
     pin: process.env.CRM_TEST_PIN_JOHNNY?.trim() || "",
     canUseAi: false,
-    focus: "Business insurance · estate · life personal",
+    focus: "Business insurance expert · Brits region",
     serviceLines: ["short_term_business", "estate_business", "life_personal"],
   },
   /** Manager, full CRM admin access, reports to Albert. */

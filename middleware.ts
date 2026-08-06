@@ -204,11 +204,17 @@ export async function middleware(request: NextRequest) {
   let user: { app_metadata?: Record<string, unknown> } | null = null;
 
   if (supabaseCtx) {
-    const {
-      data: { user: authUser },
-    } = await supabaseCtx.supabase.auth.getUser();
-    user = authUser;
-    response = supabaseCtx.getResponse();
+    try {
+      const {
+        data: { user: authUser },
+      } = await supabaseCtx.supabase.auth.getUser();
+      user = authUser;
+      response = supabaseCtx.getResponse();
+    } catch (error) {
+      // Supabase Auth outage must not 500 protected routes; PIN sessions still work.
+      console.error("[middleware] supabase getUser failed:", error);
+      response = supabaseCtx.getResponse();
+    }
   }
 
   const isCrmRoute = pathname === "/crm" || pathname.startsWith("/crm/");

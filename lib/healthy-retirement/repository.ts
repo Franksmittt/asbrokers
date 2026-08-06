@@ -82,12 +82,17 @@ export async function listHealthyRetirementAssessments(
   }
 
   const where = conditions.length ? and(...conditions) : undefined;
-  return db
-    .select()
-    .from(healthyRetirementAssessments)
-    .where(where)
-    .orderBy(desc(healthyRetirementAssessments.createdAt))
-    .limit(500);
+  try {
+    return await db
+      .select()
+      .from(healthyRetirementAssessments)
+      .where(where)
+      .orderBy(desc(healthyRetirementAssessments.createdAt))
+      .limit(500);
+  } catch (error) {
+    console.error("[CRM] listHealthyRetirementAssessments failed:", error);
+    return [];
+  }
 }
 
 export function healthyRetirementAssessmentsToCsv(rows: HealthyRetirementAssessment[]): string {

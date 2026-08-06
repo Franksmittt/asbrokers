@@ -40,7 +40,16 @@ export async function getLegacyChecklistLeadById(id: string): Promise<LegacyChec
 export async function listLegacyChecklistLeads(): Promise<LegacyChecklistLead[]> {
   const db = getDb();
   if (!db) return [];
-  return db.select().from(legacyChecklistLeads).orderBy(desc(legacyChecklistLeads.createdAt)).limit(500);
+  try {
+    return await db
+      .select()
+      .from(legacyChecklistLeads)
+      .orderBy(desc(legacyChecklistLeads.createdAt))
+      .limit(500);
+  } catch (error) {
+    console.error("[CRM] listLegacyChecklistLeads failed:", error);
+    return [];
+  }
 }
 
 export type LegacyChecklistLeadFilters = {
@@ -80,12 +89,17 @@ export async function listLegacyChecklistLeadsFiltered(
   }
 
   const where = conditions.length ? and(...conditions) : undefined;
-  return db
-    .select()
-    .from(legacyChecklistLeads)
-    .where(where)
-    .orderBy(desc(legacyChecklistLeads.createdAt))
-    .limit(500);
+  try {
+    return await db
+      .select()
+      .from(legacyChecklistLeads)
+      .where(where)
+      .orderBy(desc(legacyChecklistLeads.createdAt))
+      .limit(500);
+  } catch (error) {
+    console.error("[CRM] listLegacyChecklistLeadsFiltered failed:", error);
+    return [];
+  }
 }
 
 export function legacyChecklistLeadsToCsv(rows: LegacyChecklistLead[]): string {

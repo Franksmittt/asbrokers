@@ -24,11 +24,28 @@ export default async function CrmLayout({ children }: { children: React.ReactNod
   try {
     const access = await requireCrmAccess();
     showFunnelAdmin = access.role === "admin" || access.permissions.viewFunnelExports;
-  } catch {
+  } catch (error) {
+    // forbidden()/redirect digests must propagate; everything else → re-login.
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "digest" in error &&
+      typeof (error as { digest?: unknown }).digest === "string" &&
+      String((error as { digest: string }).digest).startsWith("NEXT_REDIRECT")
+    ) {
+      throw error;
+    }
+    console.error("[CRM] layout access check failed:", error);
     redirect("/login?next=/crm&error=access_revoked");
   }
 
-  const initialLeads = await getLeads();
+  let initialLeads: Awaited<ReturnType<typeof getLeads>> = [];
+  try {
+    initialLeads = await getLeads();
+  } catch (error) {
+    console.error("[CRM] layout getLeads failed:", error);
+  }
+
   const pinMemberKey = identity.viaPin ? await getCrmPinSessionMemberKey() : null;
   const displayName =
     identity.viaPin && pinMemberKey

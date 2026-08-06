@@ -391,12 +391,16 @@ export async function addGlobalNote(content: string): Promise<MutationResult> {
     return { ok: false, error: "Database is not configured." };
   }
 
-  await db.insert(globalNotes).values({
-    content: trimmed,
-    authorId: user.id,
-  });
-
-  return { ok: true };
+  try {
+    await db.insert(globalNotes).values({
+      content: trimmed,
+      authorId: user.id,
+    });
+    return { ok: true };
+  } catch (error) {
+    console.error("[CRM] addGlobalNote failed:", error);
+    return { ok: false, error: "Could not save note. Try again." };
+  }
 }
 
 export async function addReminder(
@@ -429,13 +433,17 @@ export async function addReminder(
     return { ok: false, error: "Database is not configured." };
   }
 
-  await db.insert(leadReminders).values({
-    leadId,
-    title: trimmedTitle,
-    dueDate: due,
-  });
-
-  return { ok: true };
+  try {
+    await db.insert(leadReminders).values({
+      leadId,
+      title: trimmedTitle,
+      dueDate: due,
+    });
+    return { ok: true };
+  } catch (error) {
+    console.error("[CRM] addReminder failed:", error);
+    return { ok: false, error: "Could not save reminder. Try again." };
+  }
 }
 
 export async function addTask(
@@ -470,15 +478,19 @@ export async function addTask(
     return { ok: false, error: "Database is not configured." };
   }
 
-  await db.insert(crmTasks).values({
-    leadId,
-    title: trimmedTitle,
-    dueDate: due,
-    assigneeId,
-    status: "open",
-  });
-
-  return { ok: true };
+  try {
+    await db.insert(crmTasks).values({
+      leadId,
+      title: trimmedTitle,
+      dueDate: due,
+      assigneeId,
+      status: "open",
+    });
+    return { ok: true };
+  } catch (error) {
+    console.error("[CRM] addTask failed:", error);
+    return { ok: false, error: "Could not save task. Try again." };
+  }
 }
 
 export type UpdateLeadStatusResult = MutationResult;
@@ -514,17 +526,22 @@ export async function updateLeadStatus(
       )
     : eq(crmLeads.id, leadId);
 
-  const updated = await db
-    .update(crmLeads)
-    .set({ pipelineStatus: statusParsed.data })
-    .where(where)
-    .returning({ id: crmLeads.id });
+  try {
+    const updated = await db
+      .update(crmLeads)
+      .set({ pipelineStatus: statusParsed.data })
+      .where(where)
+      .returning({ id: crmLeads.id });
 
-  if (updated.length === 0) {
-    return { ok: false, error: "Lead not found or access denied." };
+    if (updated.length === 0) {
+      return { ok: false, error: "Lead not found or access denied." };
+    }
+
+    return { ok: true };
+  } catch (error) {
+    console.error("[CRM] updateLeadStatus failed:", error);
+    return { ok: false, error: "Could not update status. Try again." };
   }
-
-  return { ok: true };
 }
 
 export async function completeTask(taskId: string): Promise<MutationResult> {
@@ -543,15 +560,20 @@ export async function completeTask(taskId: string): Promise<MutationResult> {
     ? and(eq(crmTasks.id, taskId), eq(crmTasks.assigneeId, user.id))
     : eq(crmTasks.id, taskId);
 
-  const updated = await db
-    .update(crmTasks)
-    .set({ status: "completed" })
-    .where(where)
-    .returning({ id: crmTasks.id });
+  try {
+    const updated = await db
+      .update(crmTasks)
+      .set({ status: "completed" })
+      .where(where)
+      .returning({ id: crmTasks.id });
 
-  if (updated.length === 0) {
-    return { ok: false, error: "Task not found or access denied." };
+    if (updated.length === 0) {
+      return { ok: false, error: "Task not found or access denied." };
+    }
+
+    return { ok: true };
+  } catch (error) {
+    console.error("[CRM] completeTask failed:", error);
+    return { ok: false, error: "Could not complete task. Try again." };
   }
-
-  return { ok: true };
 }

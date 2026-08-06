@@ -93,12 +93,17 @@ export async function listBusinessRiskReviews(filters: BusinessRiskReviewFilters
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
 
-  return db
-    .select()
-    .from(businessRiskReviews)
-    .where(whereClause)
-    .orderBy(desc(businessRiskReviews.createdAt))
-    .limit(500);
+  try {
+    return await db
+      .select()
+      .from(businessRiskReviews)
+      .where(whereClause)
+      .orderBy(desc(businessRiskReviews.createdAt))
+      .limit(500);
+  } catch (error) {
+    console.error("[CRM] listBusinessRiskReviews failed:", error);
+    return [];
+  }
 }
 
 export function businessRiskReviewsToCsv(rows: BusinessRiskReview[]): string {

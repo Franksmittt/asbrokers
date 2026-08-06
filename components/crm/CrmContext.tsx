@@ -61,15 +61,24 @@ export function CrmProvider({
         return prev;
       }
 
-      void persistLeadStatus(leadId, status).then((result) => {
-        if (!result.ok) {
+      void persistLeadStatus(leadId, status)
+        .then((result) => {
+          if (!result.ok) {
+            setLeads((current) =>
+              current.map((lead) =>
+                lead.id === leadId ? { ...lead, status: previous.status } : lead
+              )
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("[CRM] persistLeadStatus failed:", error);
           setLeads((current) =>
             current.map((lead) =>
               lead.id === leadId ? { ...lead, status: previous.status } : lead
             )
           );
-        }
-      });
+        });
 
       return prev.map((lead) => (lead.id === leadId ? { ...lead, status } : lead));
     });

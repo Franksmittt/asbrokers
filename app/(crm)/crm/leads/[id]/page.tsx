@@ -22,11 +22,19 @@ export default async function CrmLeadDetailPage({
 }) {
   const { id } = await params;
   const details = await getLeadDetails(id);
-  const supabase = await createServerSupabaseClient();
-  const {
-    data: { user },
-  } = (await supabase?.auth.getUser()) ?? { data: { user: null } };
-  const staffName = user ? staffDisplayName(user) : "Advisor";
+
+  let staffName = "Advisor";
+  try {
+    const supabase = await createServerSupabaseClient();
+    if (supabase) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) staffName = staffDisplayName(user);
+    }
+  } catch (error) {
+    console.error("[CRM] lead detail getUser failed:", error);
+  }
 
   return <LeadDetailPageClient details={details} staffName={staffName} />;
 }

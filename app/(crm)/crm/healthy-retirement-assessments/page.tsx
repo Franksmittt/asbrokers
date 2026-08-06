@@ -11,7 +11,10 @@ export default async function HealthyRetirementAssessmentsAdminPage() {
   const rows = await listHealthyRetirementAssessments();
   const serialized = rows.map((row) => ({
     ...row,
-    createdAt: row.createdAt.toISOString(),
+    createdAt:
+      row.createdAt instanceof Date
+        ? row.createdAt.toISOString()
+        : new Date(row.createdAt as string | number).toISOString(),
   }));
   return <HealthyRetirementAssessmentsAdmin initialRows={serialized} />;
 }

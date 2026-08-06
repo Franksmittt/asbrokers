@@ -120,10 +120,16 @@ export function Home4BelowFoldRest() {
                 commercial cover, personal insurance, life cover, retirement, or estate planning.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href={OFFICE_PHONE_TEL_HREF}
+                  className="inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition hover:bg-[#004a9e]"
+                >
+                  Call {OFFICE_PHONE_DISPLAY}
+                </a>
                 <Link
                   href="/contact?source=home_pathways"
                   prefetch={false}
-                  className="inline-flex w-fit items-center gap-2 rounded-2xl bg-samsung-blue px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-samsung-blue/25 transition hover:bg-[#004a9e]"
+                  className="inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-shark ring-1 ring-stone-200 transition hover:bg-stone-50"
                 >
                   Contact us online
                   <ArrowRight className="h-4 w-4" aria-hidden />

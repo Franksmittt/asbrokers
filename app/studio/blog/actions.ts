@@ -656,3 +656,41 @@ export async function deleteAllStudioPosts(
     return { ok: false, error: "Could not delete studio posts." };
   }
 }
+
+/**
+ * Manual cache clear for Albert after publish: refreshes Next.js cached HTML for
+ * home, insights feed, and every published article so the live site shows updates.
+ */
+export async function clearWebsiteCache(): Promise<
+  { ok: true; refreshed: number } | { ok: false; error: string }
+> {
+  try {
+    await requireStudioSession();
+  } catch {
+    return { ok: false, error: "Session expired — sign in again." };
+  }
+
+  try {
+    const { listPublishedStudioPosts } = await import("@/lib/client-studio/posts");
+    const published = await listPublishedStudioPosts();
+
+    revalidatePath("/", "layout");
+    revalidatePath("/insights", "layout");
+    revalidatePath("/insights", "page");
+    revalidatePath("/sitemap.xml");
+    revalidatePath("/studio/blog/workspace");
+
+    const seen = new Set<string>();
+    for (const post of published) {
+      const slug = post.slug?.trim();
+      if (!slug || seen.has(slug)) continue;
+      seen.add(slug);
+      revalidatePath(`/insights/${slug}`, "page");
+    }
+
+    return { ok: true, refreshed: seen.size + 3 };
+  } catch (error) {
+    console.error("[studio] clearWebsiteCache failed:", error);
+    return { ok: false, error: "Could not clear website cache. Try again in a moment." };
+  }
+}

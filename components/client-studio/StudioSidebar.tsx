@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText, LogOut, Scroll } from "@/components/icons";
 import { studioLogout } from "@/app/studio/blog/actions";
+import { StudioClearCacheButton } from "@/components/client-studio/StudioClearCacheButton";
 import { cn } from "@/lib/utils";
 
 function PenIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -142,6 +143,7 @@ export function StudioSidebar() {
           <p className="truncate px-2 py-1 text-[11px] text-zinc-500 opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
             Blog Studio
           </p>
+          <StudioClearCacheButton variant="sidebar" />
           <form action={studioLogout}>
             <button
               type="submit"
@@ -165,11 +167,11 @@ export function StudioSidebar() {
         </div>
       </aside>
 
-      <div className="fixed left-0 right-0 top-0 z-50 flex h-12 items-center justify-between border-b border-[#2a2a2a] bg-[#0a0a0a] px-4 md:hidden">
-        <Link href="/studio/blog/workspace" className="text-sm font-semibold text-white">
+      <div className="fixed left-0 right-0 top-0 z-50 flex h-12 items-center justify-between gap-2 border-b border-[#2a2a2a] bg-[#0a0a0a] px-3 md:hidden">
+        <Link href="/studio/blog/workspace" className="shrink-0 text-sm font-semibold text-white">
           Insights Studio
         </Link>
-        <div className="flex max-w-[70vw] gap-1 overflow-x-auto">
+        <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
           {STUDIO_NAV.map(({ href, label }) => (
             <Link
               key={href}
@@ -179,6 +181,7 @@ export function StudioSidebar() {
               {label.split(" ")[0]}
             </Link>
           ))}
+          <StudioClearCacheButton variant="header" className="shrink-0" />
         </div>
       </div>
     </>

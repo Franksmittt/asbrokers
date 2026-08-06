@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { StudioClearCacheButton } from "@/components/client-studio/StudioClearCacheButton";
 
 const PAGE_TITLES: Record<string, string> = {
   "/studio/blog/workspace": "Workspace",
@@ -29,14 +30,17 @@ export function StudioHeader() {
           Back to workspace
         </Link>
       ) : (
-        <Link
-          href="/insights"
-          target="_blank"
-          rel="noreferrer"
-          className="text-[12px] text-zinc-500 transition-colors hover:text-[#3ecf8e]"
-        >
-          View live insights ↗
-        </Link>
+        <div className="flex items-center gap-3">
+          <StudioClearCacheButton variant="header" />
+          <Link
+            href="/insights"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[12px] text-zinc-500 transition-colors hover:text-[#3ecf8e]"
+          >
+            View live insights ↗
+          </Link>
+        </div>
       )}
     </header>
   );

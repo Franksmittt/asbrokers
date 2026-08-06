@@ -5,6 +5,10 @@ import { ArrowRight } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
 import { HUB_HERO_SIZES } from "@/lib/hub-lcp";
 import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
+import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
   WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
@@ -69,11 +73,17 @@ export function Home4Hero() {
               WhatsApp {WHATSAPP_DISPLAY}
             </a>
           </div>
-          <p className="mt-4">
+          <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-semibold text-white/85">
+            <a
+              href={OFFICE_PHONE_TEL_HREF}
+              className="underline-offset-4 hover:text-white hover:underline"
+            >
+              Office {OFFICE_PHONE_DISPLAY}
+            </a>
             <Link
               href="/contact?source=home_hero"
               prefetch={false}
-              className="text-sm font-semibold text-white/85 underline-offset-4 hover:text-white hover:underline"
+              className="underline-offset-4 hover:text-white hover:underline"
             >
               Or request a needs analysis online
             </Link>

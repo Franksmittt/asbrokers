@@ -21,6 +21,10 @@ import {
 } from "@/lib/home4-journey";
 import { getAlt } from "@/lib/image-alt";
 import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
+import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
   WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,

@@ -211,7 +211,6 @@ Founders / team (CRM auto-routing):
   - Johnny Farinha    – Co-founder; estate structuring, life personal, business continuity
   - Petro Vermeulen   – Commercial short-term insurance
   - Monique Schuurman – Personal short-term insurance & renewals
-  - Sharine van Vollenstee – Medical aid & wellness
   - Shanel van Niekerk  – Claims consultant
 
 Services offered:
@@ -842,7 +841,7 @@ Gemini CRM AI (app/actions/crm-ai.ts, lib/crm/ai/*):
 
 Auto-advisor routing (lib/crm/advisor-routing.ts):
   retirement_everest → Albert; estate_business → Johnny; short_term_business → Petro;
-  short_term_personal → Monique; medical_wellness → Sharine; claims → Shanel.
+  short_term_personal → Monique; medical_wellness → Petro; claims → Shanel.
   Applied on insert via applyAutoAdvisorRoute in lib/crm/insert-lead.ts.
 
 Client Portal (client role):

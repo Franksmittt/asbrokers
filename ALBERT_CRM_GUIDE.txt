@@ -159,7 +159,7 @@ to them directly.
   Short-term business             Petro Vermeulen
   Short-term personal             Monique Schuurman
   Life personal                   Johnny Farinha
-  Medical & wellness              Sharine van Vollenstee
+  Medical & wellness              Petro Vermeulen
   Claims                          Shanel van Niekerk
   Unclassified                    Albert Schuurman (default oversight)
 

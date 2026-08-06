@@ -111,7 +111,7 @@ Services (data model)
     (Personal), Life (Business), Medical & Wellness, Estate & Business, Claims.
   - Used in lists and Kanban; ready for filtering and intent-based routing
     when the backend is connected (e.g. commercial liability → Petro, life
-    onboarding → Sharine).
+    onboarding → Johnny).
 
 --------------------------------------------------------------------------------
 4. CLIENT PORTAL — FEATURES & BENEFITS

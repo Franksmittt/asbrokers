@@ -45,7 +45,6 @@ const FOUNDERS = [
 const SPECIALISTS = [
   { name: "Petro Vermeulen", focus: "Commercial underwriting" },
   { name: "Monique Schuurman", focus: "Personal short-term & renewals" },
-  { name: "Sharine van Vollenstee", focus: "Medical aid & life onboarding" },
   { name: "Shanel van Niekerk", focus: "Claims" },
 ] as const;
 

@@ -36,8 +36,9 @@ const ROUTES: Record<ServiceCategory, AdvisorRoute> = {
     reason: "Life personal onboarding",
   },
   medical_wellness: {
-    advisorName: "Sharine van Vollenstee",
-    reason: "Medical aid & wellness",
+    advisorName: "Petro Vermeulen",
+    authUserId: CRM_TEAM_MEMBERS.petro.id,
+    reason: "Medical aid & wellness (operations oversight)",
   },
   claims: {
     advisorName: "Shanel van Niekerk",

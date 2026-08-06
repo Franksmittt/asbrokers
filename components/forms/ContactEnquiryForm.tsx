@@ -5,6 +5,11 @@ import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "@/components/icons";
 import { submitContactEnquiry, type ContactActionState } from "@/app/actions/contact";
 import { trackLeadConversion } from "@/lib/analytics/events";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
+import { WHATSAPP_BASE_URL } from "@/lib/whatsapp";
 
 const serviceOptions = [
   // COMPLIANCE 2026-07-28: label softened; no Everest promotion on public form.
@@ -87,14 +92,22 @@ export function ContactEnquiryForm() {
           We&apos;ll review your enquiry personally and get back to you by phone or WhatsApp. Not a call
           centre.
         </p>
-        <a
-          href="https://wa.me/27662276044"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm font-semibold text-[#0F766E] underline-offset-2 hover:underline"
-        >
-          WhatsApp us in the meantime
-        </a>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <a
+            href={OFFICE_PHONE_TEL_HREF}
+            className="text-sm font-semibold text-[#0F766E] underline-offset-2 hover:underline"
+          >
+            Call {OFFICE_PHONE_DISPLAY}
+          </a>
+          <a
+            href={WHATSAPP_BASE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-semibold text-[#0F766E] underline-offset-2 hover:underline"
+          >
+            WhatsApp us in the meantime
+          </a>
+        </div>
       </div>
     );
   }

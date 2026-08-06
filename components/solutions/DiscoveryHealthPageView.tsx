@@ -13,6 +13,10 @@ import {
   type DiscoveryPlanCard,
 } from "@/components/solutions/DiscoveryPlanMatrix.client";
 import { getAlt } from "@/lib/image-alt";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -571,8 +575,12 @@ export function DiscoveryHealthPageView({ faqs, contentRevised }: Props) {
           </dl>
           <p className="mt-8 text-sm leading-relaxed text-stone-600">
             Unit 2, The Bridge, 47 Commissioner Street, Krugersdorp, Gauteng ·{" "}
-            <a href="tel:+27116601445" className="font-semibold underline-offset-2 hover:underline" style={{ color: TEAL }}>
-              +27 11 660 1445
+            <a
+              href={OFFICE_PHONE_TEL_HREF}
+              className="font-semibold underline-offset-2 hover:underline"
+              style={{ color: TEAL }}
+            >
+              {OFFICE_PHONE_DISPLAY}
             </a>
             {" · "}
             <Link href="/contact?source=discovery_terminal" prefetch={false} className="font-semibold underline-offset-2 hover:underline" style={{ color: TEAL }}>

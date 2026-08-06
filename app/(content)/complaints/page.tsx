@@ -1,6 +1,11 @@
 import { LegalDocumentLayout, LegalSection } from "@/components/legal/LegalDocumentLayout";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
+import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 const PAGE_TITLE = "Complaints Procedure";
 const PAGE_DESCRIPTION =
@@ -38,8 +43,10 @@ export default function ComplaintsPage() {
             complaint and provide a reference number.
           </p>
           <p>
-            <strong>Contact:</strong> Use our contact form, or WhatsApp +27 66 227 6044. Our compliance officer will
-            respond in line with our internal complaints policy and regulatory timeframes.
+            <strong>Contact:</strong> Call the office on{" "}
+            <a href={OFFICE_PHONE_TEL_HREF}>{OFFICE_PHONE_DISPLAY}</a>, use our contact form, or WhatsApp{" "}
+            {WHATSAPP_DISPLAY}. Our compliance officer will respond in line with our internal complaints policy and
+            regulatory timeframes.
           </p>
         </LegalSection>
 

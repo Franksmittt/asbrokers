@@ -1,16 +1,18 @@
 import { ContactPageView } from "@/components/contact/ContactPageView";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { OFFICE_PHONE_DISPLAY } from "@/lib/office-phone";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
+import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 const PAGE_TITLE = "Contact Us | AS Brokers CC | FSP 17273";
 const PAGE_DESCRIPTION =
-  "Contact AS Brokers in Krugersdorp. An authorised FSP 17273 adviser responds personally about retirement planning, insurance, medical aid, or estate planning. Enquiry is not FAIS advice. POPIA compliant.";
+  "Contact AS Brokers in Krugersdorp. Call 011 954 6641, WhatsApp, or send an enquiry. An authorised FSP 17273 adviser responds personally. Enquiry is not FAIS advice. POPIA compliant.";
 
 const contactFAQs = [
   {
     question: "How do I contact AS Brokers?",
     answer:
-      "Complete the enquiry form on this page, WhatsApp +27 66 227 6044, or email albert@asbrokers.co.za. An authorised FSP 17273 adviser will respond personally, not via a call centre.",
+      `Complete the enquiry form on this page, call the Krugersdorp office on ${OFFICE_PHONE_DISPLAY}, WhatsApp ${WHATSAPP_DISPLAY}, or email albert@asbrokers.co.za. An authorised FSP 17273 adviser will respond personally, not via a call centre.`,
   },
   {
     question: "Does submitting the form constitute financial advice?",

@@ -1,6 +1,8 @@
 import { escapeJsonLd } from "@/lib/json-ld";
 import { getAlt, getImageSchemaDimensions } from "@/lib/image-alt";
+import { OFFICE_PHONE_DISPLAY, OFFICE_PHONE_E164 } from "@/lib/office-phone";
 import { getSiteOrigin } from "@/lib/site-url";
+import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 export type FAQItem = { question: string; answer: string };
 export type BreadcrumbItem = { name: string; path: string };
@@ -18,7 +20,7 @@ export const SHARED_SITE_FAQS: FAQItem[] = [
   {
     question: "How do I book a consultation?",
     answer:
-      "Visit our contact page, WhatsApp +27 66 227 6044, or email albert@asbrokers.co.za. An independent adviser in Krugersdorp will respond personally.",
+      `Visit our contact page, call the Krugersdorp office on ${OFFICE_PHONE_DISPLAY}, WhatsApp ${WHATSAPP_DISPLAY}, or email albert@asbrokers.co.za. An independent adviser will respond personally.`,
   },
   {
     question: "Who is AS Brokers?",
@@ -144,7 +146,7 @@ function buildContactPoints(): Record<string, unknown>[] {
   return [
     {
       "@type": "ContactPoint",
-      telephone: "+27116601445",
+      telephone: `+${OFFICE_PHONE_E164}`,
       email: "albert@asbrokers.co.za",
       contactType: "customer service",
       areaServed: contactAreaServed(),
@@ -189,7 +191,7 @@ function buildOrganizationNode(origin: string, ids: ReturnType<typeof createSeoI
     identifier: { "@type": "PropertyValue", name: "FSP Number", value: "17273" },
     sameAs: [] as string[],
     email: "albert@asbrokers.co.za",
-    telephone: "+27116601445",
+    telephone: `+${OFFICE_PHONE_E164}`,
     contactPoint: buildContactPoints(),
     knowsAbout: [
       "Retirement Planning",
@@ -268,7 +270,7 @@ function buildLocalBusinessNode(origin: string, ids: ReturnType<typeof createSeo
     name: "AS Brokers CC",
     url: origin,
     image: { "@id": `${origin}/#logo` },
-    telephone: "+27116601445",
+    telephone: `+${OFFICE_PHONE_E164}`,
     email: "albert@asbrokers.co.za",
     address: {
       "@type": "PostalAddress",

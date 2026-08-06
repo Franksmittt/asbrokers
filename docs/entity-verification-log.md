@@ -11,7 +11,7 @@ Pre-filled from `lib/seo.ts` / site constants. Update rows when owner verifies l
 | FSP number | 17273 | | |
 | Category | 1.8 (Securities and Instruments: Shares) | | |
 | Domain | https://www.asbrokers.co.za | | |
-| Phone | +27 11 660 1445 (`+27116601445` in schema) | | |
+| Phone | 011 954 6641 (`+27119546641` in schema) | | |
 | Street | Unit 2, The Bridge, 47 Commissioner Street | | |
 | Locality | Krugersdorp | | |
 | Region | Gauteng | | |
@@ -25,7 +25,7 @@ Pre-filled from `lib/seo.ts` / site constants. Update rows when owner verifies l
 
 | Channel | Value | In JSON-LD ContactPoint? | Public on marketing site? |
 | --- | --- | --- | --- |
-| Office phone | +27 11 660 1445 (`+27116601445`) | Yes — `customer service` | Yes (schema + contact surfaces) |
+| Office phone | 011 954 6641 (`+27119546641`) | Yes — `customer service` | Yes (schema + contact surfaces) |
 | Email (Albert) | albert@asbrokers.co.za | Yes — with office phone | Yes (`/contact` mailto + FAQ copy) |
 | WhatsApp | +27 66 227 6044 (`+27662276044`) | Yes — `contactType: WhatsApp` | Yes (`/contact` + FAQ copy) |
 | Email (Johnny) | johnny@asbrokers.co.za | **Skipped** | No — CRM-only (`lib/crm/team-members.ts`), not shown on public marketing pages |

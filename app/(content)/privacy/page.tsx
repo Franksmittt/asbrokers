@@ -1,5 +1,9 @@
 import { LegalDocumentLayout, LegalSection } from "@/components/legal/LegalDocumentLayout";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Privacy Policy | AS Brokers CC";
@@ -58,7 +62,9 @@ export default function PrivacyPage() {
         <LegalSection title="Your rights">
           <p>
             You have the right to access, correct, or delete your personal information, and to object to or restrict
-            certain processing. To exercise these rights or for any privacy-related queries, please contact us.
+            certain processing. To exercise these rights or for any privacy-related queries, please contact us on{" "}
+            <a href={OFFICE_PHONE_TEL_HREF}>{OFFICE_PHONE_DISPLAY}</a>, via our contact form, or email
+            albert@asbrokers.co.za.
           </p>
         </LegalSection>
       </LegalDocumentLayout>

@@ -1,4 +1,9 @@
 import Link from "next/link";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
+import { WHATSAPP_BASE_URL, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 export function HomeCtaStrip() {
   return (
@@ -8,22 +13,28 @@ export function HomeCtaStrip() {
           Ready for a conversation?
         </h2>
         <p className="text-gray-400 mb-8 tracking-[0.01em]">
-          Book a consultation or reach us on WhatsApp. We respond personally.
+          Call the office, book a consultation, or reach us on WhatsApp. We respond personally.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={OFFICE_PHONE_TEL_HREF}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-8 py-4 rounded-[2rem] hover:bg-zinc-200 hover:scale-[1.03] hover:shadow-cta-glow-gold transition-all duration-500"
+          >
+            Call {OFFICE_PHONE_DISPLAY}
+          </a>
           <Link
             href="/contact"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black font-bold px-8 py-4 rounded-[2rem] hover:bg-zinc-200 hover:scale-[1.03] hover:shadow-cta-glow-gold transition-all duration-500"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/25 bg-white/5 text-white font-bold px-8 py-4 rounded-[2rem] hover:bg-white/10 hover:scale-[1.03] transition-all duration-500"
           >
             Book a consultation
           </Link>
           <a
-            href="https://wa.me/27662276044"
+            href={WHATSAPP_BASE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-green-700 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-[2rem] hover:scale-[1.03] transition-all duration-500"
           >
-            WhatsApp +27 66 227 6044
+            WhatsApp {WHATSAPP_DISPLAY}
           </a>
         </div>
       </div>

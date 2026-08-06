@@ -13,6 +13,11 @@ import {
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
 import { ArrowRight } from "@/components/icons";
 import { getAlt } from "@/lib/image-alt";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
+import { WHATSAPP_BASE_URL, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -147,13 +152,23 @@ export function ContactPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
             <ul className="mt-5 space-y-0 border-y" style={{ borderColor: HAIRLINE }}>
               <li className="border-b py-4" style={{ borderColor: HAIRLINE }}>
                 <a
-                  href="https://wa.me/27662276044"
+                  href={OFFICE_PHONE_TEL_HREF}
+                  className="inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                  style={{ color: TEAL }}
+                >
+                  Office · {OFFICE_PHONE_DISPLAY}
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </a>
+              </li>
+              <li className="border-b py-4" style={{ borderColor: HAIRLINE }}>
+                <a
+                  href={WHATSAPP_BASE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
                   style={{ color: TEAL }}
                 >
-                  WhatsApp · +27 66 227 6044
+                  WhatsApp · {WHATSAPP_DISPLAY}
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </a>
               </li>

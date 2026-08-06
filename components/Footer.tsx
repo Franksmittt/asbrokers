@@ -1,9 +1,12 @@
 import Link from "next/link";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
 import { SITE_COPYRIGHT_YEAR } from "@/lib/site-meta";
+import { WHATSAPP_BASE_URL, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { BrandLogo } from "@/components/BrandLogo";
 import { DeferredFooterNewsletter } from "@/components/DeferredFooterExtras";
-
-const WHATSAPP = "https://wa.me/27662276044";
 
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
@@ -45,14 +48,22 @@ export function Footer() {
                 <BrandLogo height={32} className="h-8 w-auto rounded-lg object-contain" />
                 <span className="text-base font-semibold tracking-tight text-white">AS Brokers</span>
               </Link>
-              <a
-                href={WHATSAPP}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-whatsapp-accessible px-4 py-1.5 text-xs font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#0d655e]"
-              >
-                WhatsApp · +27 66 227 6044
-              </a>
+              <div className="flex flex-col items-center gap-2 lg:items-start">
+                <a
+                  href={OFFICE_PHONE_TEL_HREF}
+                  className="inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-white ring-1 ring-white/15 transition-colors duration-300 ease-in-out hover:bg-white/15"
+                >
+                  Office · {OFFICE_PHONE_DISPLAY}
+                </a>
+                <a
+                  href={WHATSAPP_BASE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-whatsapp-accessible px-4 py-1.5 text-xs font-semibold text-white transition-colors duration-300 ease-in-out hover:bg-[#0d655e]"
+                >
+                  WhatsApp · {WHATSAPP_DISPLAY}
+                </a>
+              </div>
             </div>
 
             <nav

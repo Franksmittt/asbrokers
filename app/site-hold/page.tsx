@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
 import { WHATSAPP_DISPLAY, whatsappUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -41,12 +45,18 @@ export default function SiteHoldPage() {
 
         <div className="mt-10 space-y-3">
           <a
+            href={OFFICE_PHONE_TEL_HREF}
+            className="inline-flex w-full items-center justify-center rounded-2xl bg-[#1D1D1F] px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90 sm:w-auto sm:min-w-[16rem]"
+          >
+            Call {OFFICE_PHONE_DISPLAY}
+          </a>
+          <a
             href={whatsappUrl(
               "Hi AS Brokers, I visited the website and would like to speak with an adviser."
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center rounded-2xl bg-[#1D1D1F] px-6 py-3.5 text-sm font-semibold text-white transition hover:opacity-90 sm:w-auto sm:min-w-[16rem]"
+            className="inline-flex w-full items-center justify-center rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-[#1D1D1F] ring-1 ring-stone-300 transition hover:bg-stone-50 sm:w-auto sm:min-w-[16rem]"
           >
             WhatsApp {WHATSAPP_DISPLAY}
           </a>

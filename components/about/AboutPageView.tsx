@@ -13,6 +13,10 @@ import { HubHeroActions } from "@/components/hub/HubHeroActions";
 import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
 import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
 import { getAlt } from "@/lib/image-alt";
+import {
+  OFFICE_PHONE_DISPLAY,
+  OFFICE_PHONE_TEL_HREF,
+} from "@/lib/office-phone";
 
 const CANVAS = "#F7F6F3";
 const INK = "#1D1D1F";
@@ -168,7 +172,15 @@ export function AboutPageView({ faqs = [] }: { faqs?: FAQItem[] }) {
           </h2>
           <p className="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed" style={{ color: BODY }}>
             Local presence and visible compliance are trust cues you can verify. We are independent
-            intermediaries you can meet, not a national script queue.
+            intermediaries you can meet, not a national script queue. Call the Krugersdorp office on{" "}
+            <a
+              href={OFFICE_PHONE_TEL_HREF}
+              className="font-semibold tabular-nums underline-offset-2 hover:underline"
+              style={{ color: TEAL }}
+            >
+              {OFFICE_PHONE_DISPLAY}
+            </a>
+            .
           </p>
           <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6 lg:items-stretch">
             <figure className="min-w-0 lg:col-span-8">

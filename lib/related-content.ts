@@ -179,7 +179,7 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/contact?source=discovery_terminal",
       title: "Book a health consultation",
-      description: "Speak with FSP 17273 in Krugersdorp or via WhatsApp.",
+      description: "Call 011 954 6641, or reach FSP 17273 in Krugersdorp via WhatsApp.",
     },
   ],
   "/estate-planning": [
@@ -492,7 +492,7 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
     {
       href: "/contact",
       title: "Contact us",
-      description: "Book a consultation in Krugersdorp or via WhatsApp.",
+      description: "Call 011 954 6641 or book a consultation in Krugersdorp.",
     },
   ],
   "/contact": [

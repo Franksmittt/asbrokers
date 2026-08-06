@@ -6,8 +6,7 @@
  * configured; forms keep working regardless.
  */
 
-const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-const ADS_LEAD_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL;
+import { getGoogleAdsId, getGoogleAdsLeadLabel } from "@/lib/analytics/env";
 
 type GtagArgs = [string, ...unknown[]];
 
@@ -38,9 +37,11 @@ export function trackLeadConversion(formId: string, extra?: Record<string, unkno
     form_id: formId,
     ...extra,
   });
-  if (ADS_ID && ADS_LEAD_LABEL) {
+  const adsId = getGoogleAdsId();
+  const adsLeadLabel = getGoogleAdsLeadLabel();
+  if (adsId && adsLeadLabel) {
     gtagSafe("event", "conversion", {
-      send_to: `${ADS_ID}/${ADS_LEAD_LABEL}`,
+      send_to: `${adsId}/${adsLeadLabel}`,
     });
   }
 }

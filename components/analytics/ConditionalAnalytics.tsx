@@ -2,10 +2,9 @@
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { useConsent } from "@/components/analytics/ConsentProvider";
+import { getGaMeasurementId } from "@/lib/analytics/env";
 import { HotjarAnalytics } from "./HotjarAnalytics";
 import { GoogleAdsTag } from "./GoogleAdsTag";
-
-const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 /**
  * Renders GA4, Google Ads, and Hotjar only when the user has chosen
@@ -14,12 +13,13 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
  */
 export function ConditionalAnalytics() {
   const { consent } = useConsent();
+  const gaId = getGaMeasurementId();
 
   if (consent !== "all") return null;
 
   return (
     <>
-      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
+      {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
       <GoogleAdsTag />
       <HotjarAnalytics />
     </>

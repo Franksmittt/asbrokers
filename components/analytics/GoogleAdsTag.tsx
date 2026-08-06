@@ -1,9 +1,7 @@
 "use client";
 
 import Script from "next/script";
-
-const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+import { getGaMeasurementId, getGoogleAdsId } from "@/lib/analytics/env";
 
 /**
  * Google Ads (AW-) tag. Rendered only inside ConditionalAnalytics, i.e. after
@@ -12,24 +10,32 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
  * the Ads ID directly.
  */
 export function GoogleAdsTag() {
-  if (!ADS_ID) return null;
+  const adsId = getGoogleAdsId();
+  const gaId = getGaMeasurementId();
+  if (!adsId) return null;
+
+  const adsIdLiteral = JSON.stringify(adsId);
 
   return (
     <>
-      {!GA_ID && (
+      {!gaId && (
         <Script
           id="google-ads-loader"
-          src={`https://www.googletagmanager.com/gtag/js?id=${ADS_ID}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(adsId)}`}
           strategy="afterInteractive"
         />
       )}
-      <Script id="google-ads-config" strategy="afterInteractive">
-        {`window.dataLayer = window.dataLayer || [];
+      <Script
+        id="google-ads-config"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 window.gtag = window.gtag || gtag;
 gtag('js', new Date());
-gtag('config', '${ADS_ID}');`}
-      </Script>
+gtag('config', ${adsIdLiteral});`,
+        }}
+      />
     </>
   );
 }

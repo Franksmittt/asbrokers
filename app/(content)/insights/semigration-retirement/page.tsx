@@ -19,11 +19,16 @@ export const metadata = buildPageMetadata({
 });
 
 export default function SemigrationRetirementPage() {
-  const heroImage = getPrimaryPageImage("/insights/semigration-retirement") ?? "/images/home4-why-independence-4x3.jpg";
+  const heroImage =
+    getPrimaryPageImage("/insights/semigration-retirement") ?? "/images/home4-why-independence-4x3.jpg";
 
   return (
     <PageWithFooter>
-      <PageJsonLd path="/insights/semigration-retirement" webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }} />
+      <PageJsonLd
+        path="/insights/semigration-retirement"
+        primaryImagePath={heroImage}
+        webPage={{ name: PAGE_TITLE, description: PAGE_DESCRIPTION }}
+      />
       <HubSplitHero
         kicker="Insights"
         title="Semigration & Retirement Villages Western Cape"

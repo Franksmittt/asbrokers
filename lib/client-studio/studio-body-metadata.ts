@@ -63,10 +63,37 @@ export function withEmbeddedStudioBodyMetadata(
   return `${clean}\n${marker}`;
 }
 
+const INVALID_IMAGE_SRC_TOKENS = [
+  "YOUR_IMAGE_URL_HERE",
+  "{{IMAGE_URL}}",
+  "REPLACE_WITH_IMAGE_URL",
+  "YOUR_IMAGE_URL",
+];
+
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">");
+}
+
 export function firstImageSrcFromHtml(html: string | null | undefined): string | null {
   if (!html) return null;
   const { cleanHtml } = extractStudioBodyMetadata(html);
-  const match = cleanHtml.match(/<img\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/i);
-  const src = match?.[1]?.trim();
-  return src || null;
+  const imgTagRegex = /<img\b[^>]*>/gi;
+
+  for (const match of cleanHtml.matchAll(imgTagRegex)) {
+    const tag = match[0];
+    const srcMatch = tag.match(/\bsrc\s*=\s*["']([^"']*)["']/i) ?? tag.match(/\bsrc\s*=\s*([^\s>]+)/i);
+    const src = decodeHtmlEntities((srcMatch?.[1] ?? "").trim());
+    if (!src) continue;
+    if (src === "#") continue;
+    if (src.toLowerCase().startsWith("javascript:")) continue;
+    if (src.startsWith("blob:")) continue;
+    if (INVALID_IMAGE_SRC_TOKENS.some((token) => src.includes(token))) continue;
+    return src;
+  }
+  return null;
 }

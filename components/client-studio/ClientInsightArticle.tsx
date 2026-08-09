@@ -6,7 +6,7 @@ import {
 } from "@/components/hub/HubContentShell";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { insightUrlPath } from "@/lib/site-url";
-import { getPrimaryPageImage } from "@/lib/primary-page-images";
+import { resolveStudioInsightCoverImage } from "@/lib/insights/cover-image";
 import type { StudioPostRow } from "@/lib/client-studio/posts";
 
 function formatDate(iso: string) {
@@ -25,12 +25,17 @@ export function ClientInsightArticle({ post }: Props) {
   const published = post.publishedAt?.toISOString() ?? post.updatedAt.toISOString();
   const html = post.bodyHtmlPublished ?? "";
   const path = insightUrlPath(post.slug, post.locale ?? "en");
-  const heroImage = getPrimaryPageImage(path) ?? "/images/home4-why-independence-4x3.jpg";
+  const heroImage = resolveStudioInsightCoverImage({
+    heroImageUrl: post.heroImageUrl,
+    bodyHtmlPublished: post.bodyHtmlPublished,
+    bodyHtml: post.bodyHtml,
+  });
 
   return (
     <PageWithFooter>
       <PageJsonLd
         path={path}
+        primaryImagePath={heroImage}
         webPage={{
           name: `${post.metaTitle ?? post.title} | AS Brokers`,
           description: post.metaDescription ?? post.excerpt ?? "",

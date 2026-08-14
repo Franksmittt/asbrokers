@@ -7,6 +7,13 @@ import {
   isContainmentRestrictedPath,
 } from "@/lib/compliance/containment";
 import {
+  EVEREST_SOFT_LOCK_COOKIE,
+  EVEREST_SOFT_LOCK_PATH,
+  hasEverestSoftLockFromCookieValue,
+  isEverestSoftLockEmbedPath,
+  isEverestSoftLockRedirectPath,
+} from "@/lib/compliance/everest-soft-lock";
+import {
   SOFT_LOCK_PATH,
   SOFT_LOCK_PREVIEW_COOKIE,
   getSoftLockPreviewToken,
@@ -182,11 +189,37 @@ export async function middleware(request: NextRequest) {
   }
 
   /**
+   * Everest soft-lock: unlocked cookie may load calculator embeds iframes on
+   * the consolidated /everest-wealth page. Legacy Everest product URLs 302 here.
+   */
+  const everestUnlocked = await hasEverestSoftLockFromCookieValue(
+    request.cookies.get(EVEREST_SOFT_LOCK_COOKIE)?.value
+  );
+
+  if (isEverestSoftLockRedirectPath(pathname)) {
+    const everest = request.nextUrl.clone();
+    everest.pathname = EVEREST_SOFT_LOCK_PATH;
+    everest.search = "";
+    const redirectResponse = NextResponse.redirect(everest, 302);
+    redirectResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
+    redirectResponse.headers.set("Cache-Control", "no-store");
+    return redirectResponse;
+  }
+
+  /**
    * Compliance containment (2026-07-22): temporary 302 only.
    * Restricted product / high-risk calculator / embed URLs → holding page.
    * Do not use 301 while containment is active.
+   * Exception: Everest embeds when the Everest soft-lock cookie is valid.
    */
   if (isContainmentRestrictedPath(pathname)) {
+    if (everestUnlocked && isEverestSoftLockEmbedPath(pathname)) {
+      const allow = NextResponse.next({ request });
+      allow.headers.set("X-Robots-Tag", "noindex, nofollow");
+      allow.headers.set("Cache-Control", "no-store");
+      allow.headers.set("x-pathname", pathname);
+      return allow;
+    }
     const holding = request.nextUrl.clone();
     holding.pathname = CONTAINMENT_HOLDING_PATH;
     holding.search = "";
@@ -194,6 +227,20 @@ export async function middleware(request: NextRequest) {
     redirectResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
     redirectResponse.headers.set("Cache-Control", "no-store");
     return redirectResponse;
+  }
+
+  if (pathname === EVEREST_SOFT_LOCK_PATH || pathname.startsWith(`${EVEREST_SOFT_LOCK_PATH}/`)) {
+    // Exact /everest-wealth is soft-locked in the page; still noindex while gated.
+    const response = NextResponse.next({ request });
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    response.headers.set("Cache-Control", "no-store");
+    response.headers.set("x-pathname", pathname);
+    // Fall through to auth logic below would lose these headers if we return early
+    // only for the soft-lock path when it is exact. Continue with tagged response
+    // for the public soft-lock page (not /crm).
+    if (pathname === EVEREST_SOFT_LOCK_PATH) {
+      return response;
+    }
   }
 
   const pinSession = await hasCrmPinSessionFromCookieValue(

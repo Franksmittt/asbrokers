@@ -151,9 +151,11 @@ const nextConfig: NextConfig = {
       { source: "/calculators/asset-015-average-clause", destination: "/calculators", permanent: false },
       { source: "/calculators/asset-017-personal-goal", destination: "/calculators/goal-engineering-planner" },
       { source: "/goal-engineering-planner", destination: "/calculators/goal-engineering-planner" },
-      { source: "/immediate-higher-income-calculator", destination: "/calculators", permanent: false },
-      { source: "/everest-128-product", destination: "/calculators", permanent: false },
-      { source: "/everest-strategic-growth-145", destination: "/calculators", permanent: false },
+      { source: "/immediate-higher-income-calculator", destination: "/everest-wealth", permanent: false },
+      { source: "/everest-128-product", destination: "/everest-wealth", permanent: false },
+      { source: "/everest-strategic-growth-145", destination: "/everest-wealth", permanent: false },
+      { source: "/everest-amethyst-living-annuity", destination: "/everest-wealth", permanent: false },
+      { source: "/everest-wealth/about", destination: "/everest-wealth", permanent: false },
       { source: "/lab", destination: "/calculators" },
     ];
 

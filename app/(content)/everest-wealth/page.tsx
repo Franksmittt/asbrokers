@@ -1,5 +1,12 @@
+import { cookies } from "next/headers";
+
+import { EverestSoftLockGate } from "@/components/everest-wealth/EverestSoftLockGate";
 import { EverestWealthPageView } from "@/components/everest-wealth/EverestWealthPageView";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import {
+  EVEREST_SOFT_LOCK_COOKIE,
+  hasEverestSoftLockFromCookieValue,
+} from "@/lib/compliance/everest-soft-lock";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const PAGE_TITLE = "Everest Wealth Structured Income | Independent FSP 17273";
@@ -40,31 +47,45 @@ const faqs = [
   },
 ];
 
-export const metadata = buildPageMetadata({
-  path: "/everest-wealth",
-  title: PAGE_TITLE,
-  description: PAGE_DESCRIPTION,
-  keywords: [
-    "Everest Wealth South Africa",
-    "structured monthly income",
-    "Category 1.8 preference shares",
-    "12.8% Strategic Income",
-    "14.2% Onyx Income",
-    "FSP 17273",
-    "independent Everest broker",
-    "AS Brokers Everest Wealth",
-  ],
-  /** Compressed social asset, avoid shipping the 160KB hero master to crawlers. */
-  ogImagePath: "/images/everest-wealth-og.jpg",
-});
+export const metadata = {
+  ...buildPageMetadata({
+    path: "/everest-wealth",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    keywords: [
+      "Everest Wealth South Africa",
+      "structured monthly income",
+      "Category 1.8 preference shares",
+      "12.8% Strategic Income",
+      "14.2% Onyx Income",
+      "FSP 17273",
+      "independent Everest broker",
+      "AS Brokers Everest Wealth",
+    ],
+    /** Compressed social asset, avoid shipping the 160KB hero master to crawlers. */
+    ogImagePath: "/images/everest-wealth-og.jpg",
+  }),
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
+};
 
-export default function EverestWealthPage() {
+export const dynamic = "force-dynamic";
+
+export default async function EverestWealthPage() {
+  const cookieStore = await cookies();
+  const unlocked = await hasEverestSoftLockFromCookieValue(
+    cookieStore.get(EVEREST_SOFT_LOCK_COOKIE)?.value
+  );
+
+  if (!unlocked) {
+    return <EverestSoftLockGate />;
+  }
+
   return (
     <>
-      {/*
-        The visual slot is ~380px on Lighthouse mobile. Do not offer 960w
-        there: DPR selection would download it despite the small CSS slot.
-      */}
       <link
         rel="preload"
         as="image"

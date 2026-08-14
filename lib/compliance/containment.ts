@@ -3,8 +3,11 @@
  * Effective: 2026-07-22
  *
  * Temporary regulatory containment. Do not treat as permanent IA redesign.
- * Restricted paths return HTTP 302 to /calculators (temporary holding page).
+ * Restricted paths return HTTP 302 to /calculators (temporary holding page),
+ * except Everest product family URLs which soft-lock at /everest-wealth.
  */
+
+import { isEverestSoftLockRedirectPath } from "@/lib/compliance/everest-soft-lock";
 
 /** Educational calculators that may remain public during review (with notices). */
 export const CONTAINMENT_ALLOWED_CALCULATOR_IDS = [
@@ -40,9 +43,12 @@ export const CONTAINMENT_RESTRICTED_CALCULATOR_ALIASES = [
   "underinsurance-calculator",
 ] as const;
 
-/** Product / Everest surfaces: temporary 302 to holding page. */
+/**
+ * Product / Everest surfaces: temporary 302.
+ * `/everest-wealth` itself is soft-locked (password) instead of contained —
+ * see `everest-soft-lock.ts`. Legacy product URLs still redirect there.
+ */
 export const CONTAINMENT_RESTRICTED_PRODUCT_PATHS = [
-  "/everest-wealth",
   "/everest-wealth/about",
   "/everest-amethyst-living-annuity",
   "/everest-128-product",
@@ -157,6 +163,10 @@ export function containmentSafePublicHref(href: string): string {
   pathname = pathname.replace(/\/$/, "") || "/";
 
   if (isContainmentRestrictedPath(pathname)) {
+    // Soft-locked Everest single page is the holding target for Everest family URLs.
+    if (isEverestSoftLockRedirectPath(pathname)) {
+      return "/everest-wealth";
+    }
     return CONTAINMENT_HOLDING_PATH;
   }
 

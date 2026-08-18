@@ -52,11 +52,32 @@ function BlockView({ block }: { block: LessonBlock }) {
       const parsed = parseVideoUrl(block.url);
       if (!parsed.embedUrl) {
         return (
-          <div className="flex aspect-video items-center justify-center rounded-3xl bg-stone-100 ring-1 ring-stone-200">
-            <p className="max-w-sm px-6 text-center text-sm text-stone-500">
-              {block.caption || "Add a YouTube or Vimeo URL in Course Studio to show a video here."}
-            </p>
-          </div>
+          <figure className="space-y-2">
+            <div className="relative aspect-video overflow-hidden rounded-3xl bg-shark ring-1 ring-stone-200">
+              {block.posterUrl ? (
+                block.posterUrl.startsWith("/") ? (
+                  <Image
+                    src={block.posterUrl}
+                    alt={block.caption || "Lesson video"}
+                    fill
+                    className="object-cover opacity-80"
+                    sizes="(max-width: 768px) 100vw, 768px"
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={block.posterUrl} alt={block.caption || "Lesson video"} className="h-full w-full object-cover opacity-80" />
+                )
+              ) : null}
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/35 px-6 text-center">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-shark shadow-lg" aria-hidden>
+                  ▶
+                </span>
+                <p className="mt-4 max-w-md text-sm font-medium text-white">
+                  {block.caption || "Lesson video"}
+                </p>
+              </div>
+            </div>
+          </figure>
         );
       }
       return (

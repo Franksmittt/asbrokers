@@ -27,7 +27,7 @@ Student database: `/studio/courses/students`
 
 ## What Albert still writes
 
-Lesson copy, videos, questions, and the final offer. The seed course is **sample layout only**.
+The seed course is a **demo walkthrough** of “Retirement vs Financial Freedom” with teaching copy, calculators, callouts and sample students. Albert can replace any of it in Course Studio. A second course sits in Draft so the studio list is not a single-item screen.
 
 ## Persistence
 

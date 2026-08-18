@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import {
   HubContentSection,
+  HubSplitHero,
   HubUtilityHero,
   PageWithFooter,
 } from "@/components/hub/HubContentShell";
@@ -59,11 +60,21 @@ export default async function CourseOverviewPage({ params }: Props) {
           { name: course.title, path: coursePath(course.slug) },
         ]}
       />
-      <HubUtilityHero
-        kicker="Free educational course"
-        title={course.title}
-        description={progressLabel(course, state)}
-      />
+      {course.featuredImageUrl ? (
+        <HubSplitHero
+          kicker="Free educational course"
+          title={course.title}
+          description={progressLabel(course, state)}
+          imageSrc={course.featuredImageUrl}
+          imageAlt={course.title}
+        />
+      ) : (
+        <HubUtilityHero
+          kicker="Free educational course"
+          title={course.title}
+          description={progressLabel(course, state)}
+        />
+      )}
       <HubContentSection className="pt-0">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div>

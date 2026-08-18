@@ -49,6 +49,7 @@ export const videoBlockSchema = z.object({
   type: z.literal("video"),
   url: z.string().trim().max(500).default(""),
   caption: z.string().trim().max(200).optional().default(""),
+  posterUrl: z.string().trim().max(2000).optional().default(""),
 });
 
 export const calculatorBlockSchema = z.object({

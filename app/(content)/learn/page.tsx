@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -11,7 +12,7 @@ import { listPublishedCourses } from "@/lib/courses/store";
 import { publishedLessons } from "@/lib/courses/progress";
 import { coursePath } from "@/lib/courses/paths";
 import { buildPageMetadata } from "@/lib/seo-metadata";
-import { WARM_BTN_PRIMARY, WARM_CARD } from "@/lib/warm-theme";
+import { WARM_BTN_PRIMARY } from "@/lib/warm-theme";
 
 export const dynamic = "force-dynamic";
 
@@ -53,19 +54,32 @@ export default function LearnCatalogPage() {
             {courses.map((course) => {
               const total = publishedLessons(course).length;
               return (
-                <li key={course.id} className={WARM_CARD}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#006B6B]">Free course</p>
-                  <h2 className="mt-3 text-2xl font-bold tracking-tight text-shark">{course.title}</h2>
-                  <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-stone-600">
-                    {course.introduction.split("\n")[0]}
-                  </p>
-                  <p className="mt-4 text-xs text-stone-500">
-                    {total} {total === 1 ? "lesson" : "lessons"}
-                    {course.sequentialLocking ? " · sequential" : " · open access"}
-                  </p>
-                  <Link href={coursePath(course.slug)} prefetch={false} className={`${WARM_BTN_PRIMARY} mt-6`}>
-                    View course
-                  </Link>
+                <li key={course.id} className="overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80">
+                  {course.featuredImageUrl ? (
+                    <div className="relative aspect-[16/9] bg-stone-100">
+                      <Image
+                        src={course.featuredImageUrl}
+                        alt={course.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="p-6 md:p-8">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#006B6B]">Free course</p>
+                    <h2 className="mt-3 text-2xl font-bold tracking-tight text-shark">{course.title}</h2>
+                    <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-stone-600">
+                      {course.introduction.split("\n")[0]}
+                    </p>
+                    <p className="mt-4 text-xs text-stone-500">
+                      {total} {total === 1 ? "lesson" : "lessons"}
+                      {course.sequentialLocking ? " · sequential" : " · open access"}
+                    </p>
+                    <Link href={coursePath(course.slug)} prefetch={false} className={`${WARM_BTN_PRIMARY} mt-6`}>
+                      View course
+                    </Link>
+                  </div>
                 </li>
               );
             })}

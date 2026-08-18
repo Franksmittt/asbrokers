@@ -19,7 +19,7 @@ export function createBlock(type: BlockType, sortOrder: number): LessonBlock {
     case "text":
       return { id, type, sortOrder, body: "" };
     case "video":
-      return { id, type, sortOrder, url: "", caption: "" };
+      return { id, type, sortOrder, url: "", caption: "", posterUrl: "" };
     case "calculator":
       return { id, type, sortOrder, calculatorId: "asset-017-personal-goal" };
     case "image":

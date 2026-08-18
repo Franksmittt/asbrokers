@@ -211,7 +211,12 @@ function blockPatchFromForm(type: BlockType, formData: FormData): Partial<Lesson
     case "text":
       return { type, body: formString(formData, "body") };
     case "video":
-      return { type, url: formString(formData, "url"), caption: formString(formData, "caption") };
+      return {
+        type,
+        url: formString(formData, "url"),
+        caption: formString(formData, "caption"),
+        posterUrl: formString(formData, "posterUrl"),
+      };
     case "calculator":
       return { type, calculatorId: formString(formData, "calculatorId") };
     case "image":

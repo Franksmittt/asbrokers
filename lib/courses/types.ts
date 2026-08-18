@@ -62,6 +62,8 @@ export type VideoBlock = {
   sortOrder: number;
   url: string;
   caption?: string;
+  /** Still image shown until a YouTube or Vimeo URL is added. */
+  posterUrl?: string;
 };
 
 export type CalculatorBlock = {

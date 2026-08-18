@@ -1,6 +1,6 @@
 import { newId, nowIso } from "./ids";
 import { createBlock, emptyLesson, sortBlocks } from "./blocks";
-import { createSeedCourse, createSeedStudent } from "./seed";
+import { createDemoClassroom, createSeedCourses } from "./seed";
 import { getLessonAccess, isLessonComplete, publishedLessons } from "./progress";
 import type {
   CourseEnrollment,
@@ -28,34 +28,14 @@ type CourseStore = {
 };
 
 function emptyStore(): CourseStore {
-  const course = createSeedCourse();
-  const student = createSeedStudent();
-  const enrollment: CourseEnrollment = {
-    id: "enr_sample_preview",
-    studentId: student.id,
-    courseId: course.id,
-    startedAt: nowIso(),
-    completedAt: null,
-    currentLessonId: course.lessons[0]?.id ?? null,
-    offerClickedAt: null,
-  };
+  const classroom = createDemoClassroom();
   return {
-    courses: [course],
-    students: [student],
-    enrollments: [enrollment],
-    progress: [],
-    responses: [],
-    events: [
-      {
-        id: "evt_sample_start",
-        studentId: student.id,
-        courseId: course.id,
-        lessonId: course.lessons[0]?.id ?? null,
-        enrollmentId: enrollment.id,
-        type: "course_started",
-        createdAt: nowIso(),
-      },
-    ],
+    courses: createSeedCourses(),
+    students: classroom.students,
+    enrollments: classroom.enrollments,
+    progress: classroom.progress,
+    responses: classroom.responses,
+    events: classroom.events,
   };
 }
 

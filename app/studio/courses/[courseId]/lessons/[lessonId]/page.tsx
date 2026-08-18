@@ -234,7 +234,8 @@ function BlockFields({
       return (
         <>
           <input name="url" defaultValue={block.url} className={field} placeholder="YouTube or Vimeo URL" />
-          <input name="caption" defaultValue={block.caption ?? ""} className={field} placeholder="Optional caption" />
+          <input name="caption" defaultValue={block.caption ?? ""} className={field} placeholder="Video title" />
+          <input name="posterUrl" defaultValue={block.posterUrl ?? ""} className={field} placeholder="Poster image URL (used until a video is added)" />
         </>
       );
     case "calculator":

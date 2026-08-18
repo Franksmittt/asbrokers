@@ -89,6 +89,7 @@ export const FOOTER_HOW_WE_HELP: NavLink[] = [
 /** Mega-footer: education and tools. */
 export const FOOTER_RESOURCES: NavLink[] = [
   { label: "Insights", href: "/insights" },
+  { label: "Courses", href: "/learn" },
   { label: "Calculators", href: "/calculators" },
   { label: "Financial Health Quiz", href: "/quiz" },
   // CONTAINMENT 2026-07-22: Everest footer resources frozen.

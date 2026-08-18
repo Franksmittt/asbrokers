@@ -201,7 +201,10 @@ export async function studioLogin(
 ): Promise<{ ok: true; next: string } | { ok: false; error: string }> {
   const password = String(formData.get("password") ?? "");
   const nextRaw = String(formData.get("next") ?? "/studio/blog/workspace");
-  const next = nextRaw.startsWith("/studio/blog") ? nextRaw : "/studio/blog/workspace";
+  const next =
+    nextRaw.startsWith("/studio/") && !nextRaw.includes("://") && !nextRaw.startsWith("//")
+      ? nextRaw
+      : "/studio/blog/workspace";
 
   if (!isClientStudioConfigured()) {
     return { ok: false, error: "Insights studio is not configured yet (missing password on server)." };

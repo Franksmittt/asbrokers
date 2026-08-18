@@ -7,12 +7,17 @@ import { StudioClearCacheButton } from "@/components/client-studio/StudioClearCa
 const PAGE_TITLES: Record<string, string> = {
   "/studio/blog/workspace": "Workspace",
   "/studio/blog/workspace/tutorial": "Tutorial",
+  "/studio/courses": "Courses",
+  "/studio/courses/students": "Students",
 };
 
 export function StudioHeader() {
   const pathname = usePathname() ?? "";
-  const title = PAGE_TITLES[pathname] ?? "Insights Studio";
+  const title =
+    PAGE_TITLES[pathname] ??
+    (pathname.startsWith("/studio/courses") ? "Course Studio" : "Studio");
   const isWorkspace = pathname === "/studio/blog/workspace";
+  const isCourses = pathname.startsWith("/studio/courses");
 
   return (
     <header className="sticky top-0 z-40 hidden h-12 items-center justify-between gap-4 border-b border-[#2a2a2a] bg-black/80 px-4 backdrop-blur-sm md:flex md:px-6">
@@ -22,14 +27,7 @@ export function StudioHeader() {
           studio
         </span>
       </div>
-      {!isWorkspace ? (
-        <Link
-          href="/studio/blog/workspace"
-          className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1.5 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white"
-        >
-          Back to workspace
-        </Link>
-      ) : (
+      {isWorkspace ? (
         <div className="flex items-center gap-3">
           <StudioClearCacheButton variant="header" />
           <Link
@@ -41,6 +39,13 @@ export function StudioHeader() {
             View live insights ↗
           </Link>
         </div>
+      ) : (
+        <Link
+          href={isCourses ? "/studio/courses" : "/studio/blog/workspace"}
+          className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1.5 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white"
+        >
+          {isCourses ? "All courses" : "Back to workspace"}
+        </Link>
       )}
     </header>
   );

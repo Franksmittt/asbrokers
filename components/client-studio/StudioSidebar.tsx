@@ -35,9 +35,31 @@ function ExternalLinkIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function CoursesIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" {...props}>
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" strokeLinecap="round" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" strokeLinejoin="round" />
+      <path d="M8 7h8M8 11h5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PeopleIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" {...props}>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" strokeLinecap="round" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 const STUDIO_NAV = [
-  { href: "/studio/blog/workspace", label: "Workspace", icon: PenIcon, exact: true },
+  { href: "/studio/blog/workspace", label: "Articles", icon: PenIcon, exact: true },
   { href: "/studio/blog/workspace#drafts", label: "Drafts", icon: DraftsIcon, exact: false },
+  { href: "/studio/courses", label: "Courses", icon: CoursesIcon, exact: false },
+  { href: "/studio/courses/students", label: "Students", icon: PeopleIcon, exact: false },
   { href: "/studio/blog/workspace/tutorial", label: "Tutorial", icon: Scroll, exact: false },
   { href: "/studio/blog/workspace#copy-me", label: "Brand guide", icon: FileText, exact: false },
 ] as const;
@@ -113,12 +135,12 @@ export function StudioSidebar() {
               <PenIcon className="h-4 w-4" />
             </span>
             <span className="truncate text-sm font-semibold text-white opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-              Insights Studio
+              ASB Studio
             </span>
           </Link>
         </div>
 
-        <nav className="flex-1 space-y-0.5 overflow-y-auto overflow-x-hidden p-2" aria-label="Blog studio">
+        <nav className="flex-1 space-y-0.5 overflow-y-auto overflow-x-hidden p-2" aria-label="Studio">
           {STUDIO_NAV.map(({ href, label, icon, exact }) => (
             <NavItem
               key={href}
@@ -136,12 +158,13 @@ export function StudioSidebar() {
               active={false}
               external
             />
+            <NavItem href="/learn" label="View courses" icon={ExternalLinkIcon} active={false} external />
           </div>
         </nav>
 
         <div className="space-y-1 border-t border-[#2a2a2a] p-2">
           <p className="truncate px-2 py-1 text-[11px] text-zinc-500 opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-            Blog Studio
+            Studio
           </p>
           <StudioClearCacheButton variant="sidebar" />
           <form action={studioLogout}>
@@ -169,7 +192,7 @@ export function StudioSidebar() {
 
       <div className="fixed left-0 right-0 top-0 z-50 flex h-12 items-center justify-between gap-2 border-b border-[#2a2a2a] bg-[#0a0a0a] px-3 md:hidden">
         <Link href="/studio/blog/workspace" className="shrink-0 text-sm font-semibold text-white">
-          Insights Studio
+          Studio
         </Link>
         <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
           {STUDIO_NAV.map(({ href, label }) => (

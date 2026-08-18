@@ -18,6 +18,7 @@ const FOOTER_NAV = [
   { label: "Estate", href: "/estate-planning" },
   { label: "Calculators", href: "/calculators" },
   { label: "Insights", href: "/insights" },
+  { label: "Courses", href: "/learn" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

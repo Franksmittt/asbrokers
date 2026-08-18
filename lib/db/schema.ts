@@ -380,3 +380,167 @@ export const crmAiAuditLog = pgTable(
 
 export type CrmAiAuditLog = typeof crmAiAuditLog.$inferSelect;
 export type NewCrmAiAuditLog = typeof crmAiAuditLog.$inferInsert;
+
+/**
+ * Educational course CMS. Content is owner-authored in /studio/courses.
+ * v1 app reads/writes an in-memory store; these tables are the production shape.
+ */
+export const courses = pgTable(
+  "courses",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    title: text("title").notNull(),
+    slug: varchar("slug", { length: 80 }).notNull(),
+    introduction: text("introduction").notNull().default(""),
+    featuredImageUrl: text("featured_image_url"),
+    status: varchar("status", { length: 20 }).notNull().default("draft"),
+    sortOrder: integer("sort_order").notNull().default(0),
+    registrationRequired: boolean("registration_required").notNull().default(true),
+    sequentialLocking: boolean("sequential_locking").notNull().default(true),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("courses_slug_uid").on(table.slug),
+    index("courses_status_sort_idx").on(table.status, table.sortOrder),
+  ]
+);
+
+export const courseLessons = pgTable(
+  "course_lessons",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    courseId: uuid("course_id")
+      .notNull()
+      .references(() => courses.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    slug: varchar("slug", { length: 80 }).notNull(),
+    sortOrder: integer("sort_order").notNull().default(0),
+    status: varchar("status", { length: 20 }).notNull().default("draft"),
+    isFinal: boolean("is_final").notNull().default(false),
+    responseRequired: boolean("response_required").notNull().default(false),
+    responsePrompt: text("response_prompt").notNull().default(""),
+    offer: jsonb("offer"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("course_lessons_course_slug_uid").on(table.courseId, table.slug),
+    index("course_lessons_course_sort_idx").on(table.courseId, table.sortOrder),
+  ]
+);
+
+export const courseLessonBlocks = pgTable(
+  "course_lesson_blocks",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    lessonId: uuid("lesson_id")
+      .notNull()
+      .references(() => courseLessons.id, { onDelete: "cascade" }),
+    type: varchar("type", { length: 32 }).notNull(),
+    sortOrder: integer("sort_order").notNull().default(0),
+    payload: jsonb("payload").notNull().default({}),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [index("course_lesson_blocks_lesson_sort_idx").on(table.lessonId, table.sortOrder)]
+);
+
+export const courseStudents = pgTable(
+  "course_students",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    firstName: text("first_name").notNull(),
+    surname: text("surname").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone"),
+    marketingConsent: boolean("marketing_consent").notNull().default(false),
+    privacyConsent: boolean("privacy_consent").notNull().default(false),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("course_students_email_uid").on(table.email),
+    index("course_students_created_idx").on(table.createdAt),
+  ]
+);
+
+export const courseEnrollments = pgTable(
+  "course_enrollments",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    studentId: uuid("student_id")
+      .notNull()
+      .references(() => courseStudents.id, { onDelete: "cascade" }),
+    courseId: uuid("course_id")
+      .notNull()
+      .references(() => courses.id, { onDelete: "cascade" }),
+    startedAt: timestamp("started_at", { withTimezone: true }).defaultNow().notNull(),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    currentLessonId: uuid("current_lesson_id").references(() => courseLessons.id, { onDelete: "set null" }),
+    offerClickedAt: timestamp("offer_clicked_at", { withTimezone: true }),
+  },
+  (table) => [
+    uniqueIndex("course_enrollments_student_course_uid").on(table.studentId, table.courseId),
+    index("course_enrollments_course_idx").on(table.courseId),
+  ]
+);
+
+export const courseLessonProgress = pgTable(
+  "course_lesson_progress",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    enrollmentId: uuid("enrollment_id")
+      .notNull()
+      .references(() => courseEnrollments.id, { onDelete: "cascade" }),
+    lessonId: uuid("lesson_id")
+      .notNull()
+      .references(() => courseLessons.id, { onDelete: "cascade" }),
+    openedAt: timestamp("opened_at", { withTimezone: true }).defaultNow().notNull(),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+  },
+  (table) => [
+    uniqueIndex("course_lesson_progress_enroll_lesson_uid").on(table.enrollmentId, table.lessonId),
+    index("course_lesson_progress_lesson_idx").on(table.lessonId),
+  ]
+);
+
+export const courseLessonResponses = pgTable(
+  "course_lesson_responses",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    enrollmentId: uuid("enrollment_id")
+      .notNull()
+      .references(() => courseEnrollments.id, { onDelete: "cascade" }),
+    lessonId: uuid("lesson_id")
+      .notNull()
+      .references(() => courseLessons.id, { onDelete: "cascade" }),
+    answer: text("answer").notNull(),
+    submittedAt: timestamp("submitted_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("course_lesson_responses_enroll_lesson_uid").on(table.enrollmentId, table.lessonId),
+    index("course_lesson_responses_lesson_idx").on(table.lessonId),
+  ]
+);
+
+export const courseEvents = pgTable(
+  "course_events",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    studentId: uuid("student_id").references(() => courseStudents.id, { onDelete: "set null" }),
+    courseId: uuid("course_id").references(() => courses.id, { onDelete: "set null" }),
+    lessonId: uuid("lesson_id").references(() => courseLessons.id, { onDelete: "set null" }),
+    enrollmentId: uuid("enrollment_id").references(() => courseEnrollments.id, { onDelete: "set null" }),
+    type: varchar("type", { length: 40 }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("course_events_created_idx").on(table.createdAt),
+    index("course_events_student_idx").on(table.studentId),
+    index("course_events_course_type_idx").on(table.courseId, table.type),
+  ]
+);
+
+export type CourseRow = typeof courses.$inferSelect;
+export type CourseLessonRow = typeof courseLessons.$inferSelect;
+export type CourseStudentRow = typeof courseStudents.$inferSelect;

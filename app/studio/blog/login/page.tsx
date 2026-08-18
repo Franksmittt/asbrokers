@@ -22,7 +22,8 @@ export default async function StudioBlogLoginPage({
   }
 
   const { next } = await searchParams;
-  const nextPath = next?.startsWith("/studio/blog") ? next : "/studio/blog/workspace";
+  const nextPath =
+    next?.startsWith("/studio/") && !next.includes("://") ? next : "/studio/blog/workspace";
   const configured = isClientStudioConfigured();
 
   return (

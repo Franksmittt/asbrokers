@@ -3,6 +3,8 @@ import "server-only";
 import { CONTAINMENT_ALLOWED_CALCULATOR_IDS } from "@/lib/compliance/containment";
 import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { listPublishedStudioPosts } from "@/lib/client-studio/posts";
+import { listPublishedCourses } from "@/lib/courses/store";
+import { coursePath } from "@/lib/courses/paths";
 import { absoluteUrl, insightUrlPath } from "@/lib/site-url";
 
 /** Always resolve CMS posts at request time, avoids stale build-time sitemap cache. */
@@ -42,6 +44,7 @@ const STATIC_PATHS = [
   "/legacy-readiness-checklist",
   "/healthy-retirement-blueprint",
   "/estate-planning",
+  "/learn",
   "/terms",
 ] as const;
 
@@ -78,6 +81,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const lastMod = maxModified(row.publishedAt ?? row.updatedAt, row.updatedAt);
     push(insightUrlPath(row.slug, row.locale || "en"), lastMod);
     if (entries.length >= 49500) break;
+  }
+
+  for (const course of listPublishedCourses()) {
+    push(coursePath(course.slug), course.updatedAt ? new Date(course.updatedAt) : undefined);
   }
 
   entries.sort((a, b) => a.url.localeCompare(b.url));

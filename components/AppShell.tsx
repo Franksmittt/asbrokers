@@ -8,7 +8,7 @@ type Props = {
 };
 
 function isMarketingRoute(pathname: string): boolean {
-  if (pathname.startsWith("/studio/blog")) return false;
+  if (pathname.startsWith("/studio")) return false;
   if (pathname.startsWith("/embed")) return false;
   if (pathname.startsWith("/crm")) return false;
   if (pathname.startsWith("/portal")) return false;

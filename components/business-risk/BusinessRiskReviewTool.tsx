@@ -25,6 +25,7 @@ import {
   type BusinessRiskScore,
 } from "@/lib/business-risk/scoring";
 import { submitBusinessRiskReview } from "@/app/(content)/business-risk-review/actions";
+import { trackLeadConversion } from "@/lib/analytics/events";
 import { KRUGERSDORP_AREA_OPTIONS } from "@/lib/crm/area";
 
 type Phase = "landing" | "lead" | "covers" | "results";

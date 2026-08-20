@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "@/components/icons";
 import { submitContactEnquiry, type ContactActionState } from "@/app/actions/contact";
 import { trackLeadConversion } from "@/lib/analytics/events";
+import { KRUGERSDORP_AREA_OPTIONS } from "@/lib/crm/area";
+import { defaultContactTopicsFromSource } from "@/lib/crm/contact-lead";
 import {
   OFFICE_PHONE_DISPLAY,
   OFFICE_PHONE_TEL_HREF,
@@ -43,26 +45,9 @@ export function ContactEnquiryForm() {
     if (state.success) trackLeadConversion("contact_form");
   }, [state.success]);
 
-  const [selectedTopics, setSelectedTopics] = useState<string[]>(() => {
-    if (
-      source.includes("everest") ||
-      source === "home_hero" ||
-      source === "home_journey" ||
-      source === "home_pathways" ||
-      source === "nav_cta" ||
-      source === "calculator_terminal" ||
-      source === "calculator_lead" ||
-      source === "calculators_terminal" ||
-      source === "calculators_faq" ||
-      source.endsWith("_faq")
-    ) {
-      return ["everest"];
-    }
-    if (source.includes("medical")) return ["medical_gap"];
-    if (source.includes("estate") || source.includes("legacy")) return ["estate"];
-    if (source.includes("insurance")) return ["short_business"];
-    return [];
-  });
+  const [selectedTopics, setSelectedTopics] = useState<string[]>(() =>
+    defaultContactTopicsFromSource(source)
+  );
   const [topicsOpen, setTopicsOpen] = useState(false);
   const topicsRef = useRef<HTMLDivElement>(null);
 
@@ -248,6 +233,28 @@ export function ContactEnquiryForm() {
           <p className="mt-1 text-sm text-amber-700">{state.fieldErrors.topics[0]}</p>
         )}
       </div>
+
+      {selectedTopics.includes("short_business") ? (
+        <div>
+          <label htmlFor="area" className={labelClass}>
+            Where is the business?
+          </label>
+          <select
+            id="area"
+            name="area"
+            defaultValue="Krugersdorp"
+            disabled={isPending}
+            className={`${inputClass} appearance-auto`}
+          >
+            {KRUGERSDORP_AREA_OPTIONS.map((area) => (
+              <option key={area} value={area}>
+                {area}
+              </option>
+            ))}
+            <option value="Other Gauteng">Other Gauteng</option>
+          </select>
+        </div>
+      ) : null}
 
       <div>
         <label htmlFor="consent" className="group flex cursor-pointer items-start gap-3">

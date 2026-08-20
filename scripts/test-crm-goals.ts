@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 
 import { isKrugersdorpCatchment, looksLikeKrugersdorpLead } from "../lib/crm/area";
 import { inferCampaignStamp } from "../lib/crm/campaign-stamp";
+import { defaultContactTopicsFromSource } from "../lib/crm/contact-lead";
 import {
   ALBERT_KRUGERSDORP_BIZ_CAMPAIGN,
   mondayOfWeek,
@@ -55,6 +56,30 @@ describe("campaign stamp", () => {
       rawPayload: { source: "callback_business_insurance" },
     });
     assert.equal(stamp.isKrugersdorpCommercial, false);
+  });
+
+  it("tags homepage commercial callbacks as Krugersdorp", () => {
+    const stamp = inferCampaignStamp({
+      serviceCategory: "short_term_business",
+      sourceFunnel: "callback_form",
+      rawPayload: { source: "callback_home" },
+    });
+    assert.equal(stamp.isKrugersdorpCommercial, true);
+    assert.equal(stamp.area, "Krugersdorp");
+  });
+});
+
+describe("contact form topic defaults", () => {
+  it("sends homepage and nav traffic to business insurance, not Everest", () => {
+    assert.deepEqual(defaultContactTopicsFromSource("home_hero"), ["short_business"]);
+    assert.deepEqual(defaultContactTopicsFromSource("nav_cta"), ["short_business"]);
+    assert.deepEqual(defaultContactTopicsFromSource(""), ["short_business"]);
+    assert.deepEqual(defaultContactTopicsFromSource("business_insurance_faq"), ["short_business"]);
+  });
+
+  it("keeps calculators and retirement on capital review", () => {
+    assert.deepEqual(defaultContactTopicsFromSource("calculator_lead"), ["everest"]);
+    assert.deepEqual(defaultContactTopicsFromSource("retirement_faq"), ["everest"]);
   });
 });
 

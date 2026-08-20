@@ -25,7 +25,7 @@ import {
   type BusinessRiskScore,
 } from "@/lib/business-risk/scoring";
 import { submitBusinessRiskReview } from "@/app/(content)/business-risk-review/actions";
-import { trackLeadConversion } from "@/lib/analytics/events";
+import { KRUGERSDORP_AREA_OPTIONS } from "@/lib/crm/area";
 
 type Phase = "landing" | "lead" | "covers" | "results";
 
@@ -37,6 +37,7 @@ type LeadForm = {
   phone: string;
   company: string;
   industry: (typeof INDUSTRY_OPTIONS)[number];
+  area: string;
 };
 
 const inputClass = funnelForm.input;
@@ -51,6 +52,7 @@ export function BusinessRiskReviewTool() {
     phone: "",
     company: "",
     industry: "Other",
+    area: "Krugersdorp",
   });
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [activeInfo, setActiveInfo] = useState<RiskCoverItem | null>(null);
@@ -99,6 +101,7 @@ export function BusinessRiskReviewTool() {
     fd.set("phone", lead.phone);
     fd.set("company", lead.company);
     fd.set("industry", lead.industry);
+    fd.set("area", lead.area);
     for (const id of selected) fd.append("selectedCoverIds", id);
 
     startTransition(async () => {
@@ -188,6 +191,24 @@ export function BusinessRiskReviewTool() {
                       <div>
                         <label className={labelClass} htmlFor="brr-company">Company name</label>
                         <input id="brr-company" className={inputClass} value={lead.company} onChange={(e) => setLead({ ...lead, company: e.target.value })} />
+                      </div>
+                      <div>
+                        <label className={labelClass} htmlFor="brr-area">Area</label>
+                        <select
+                          id="brr-area"
+                          className={`${inputClass} appearance-auto`}
+                          value={lead.area}
+                          onChange={(e) => setLead({ ...lead, area: e.target.value })}
+                        >
+                          {KRUGERSDORP_AREA_OPTIONS.map((opt) => (
+                            <option key={opt} value={opt} className="bg-white text-[#1D1D1F]">
+                              {opt}
+                            </option>
+                          ))}
+                          <option value="Other Gauteng" className="bg-white text-[#1D1D1F]">
+                            Other Gauteng
+                          </option>
+                        </select>
                       </div>
                       <div>
                         <label className={labelClass} htmlFor="brr-industry">Industry</label>

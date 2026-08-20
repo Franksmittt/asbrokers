@@ -41,7 +41,7 @@ const COPY: Record<"en" | "af", FormCopy> = {
     submitPending: "Sending…",
     whatsappButton: "WhatsApp instead",
     successHeading: "Callback requested",
-    successBody: "Thank you. An authorised adviser will phone you within one business day.",
+    successBody: "Thank you. An authorised adviser will phone you the same business day.",
     successWhatsapp: "Prefer same-day? WhatsApp",
   },
   af: {
@@ -57,7 +57,7 @@ const COPY: Record<"en" | "af", FormCopy> = {
     submitPending: "Stuur…",
     whatsappButton: "WhatsApp eerder",
     successHeading: "Terugbelversoek ontvang",
-    successBody: "Dankie. 'n Gemagtigde adviseur skakel jou binne een werksdag.",
+    successBody: "Dankie. 'n Gemagtigde adviseur skakel jou dieselfde werksdag.",
     successWhatsapp: "Verkies vandag nog? WhatsApp",
   },
 };

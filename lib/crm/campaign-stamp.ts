@@ -5,6 +5,14 @@ import type { ServiceCategory } from "@/lib/crm/types";
 const KRUGERSDORP_CALLBACK_SOURCES = new Set([
   "business_insurance_af",
   "callback_business_insurance_af",
+  "home",
+  "callback_home",
+  "home_hero",
+  "home_pathways",
+  "home_journey",
+  "home_journey_start",
+  "home_journey_review",
+  "nav_cta",
 ]);
 
 export type CampaignStamp = {
@@ -40,18 +48,19 @@ export function inferCampaignStamp(input: {
     typeof payload.intent === "string" ? payload.intent : "",
   ]);
 
-  const fromAfrikaansLanding =
+  const fromLocalCommercial =
     KRUGERSDORP_CALLBACK_SOURCES.has(source) ||
     source.includes("business_insurance_af") ||
     landing.includes("besigheidsversekering-krugersdorp") ||
     (input.sourceFunnel ?? "").includes("besigheidsversekering");
 
   const isKrugersdorpCommercial =
-    input.serviceCategory === "short_term_business" && (krugersdorpSignal || fromAfrikaansLanding);
+    input.serviceCategory === "short_term_business" &&
+    (krugersdorpSignal || fromLocalCommercial);
 
   const area =
     explicitArea ||
-    (fromAfrikaansLanding || isKrugersdorpCommercial ? "Krugersdorp" : undefined);
+    (fromLocalCommercial || isKrugersdorpCommercial ? "Krugersdorp" : undefined);
 
   return {
     area,

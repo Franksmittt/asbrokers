@@ -24,6 +24,7 @@ export async function submitBusinessRiskReview(
     phone: String(formData.get("phone") ?? ""),
     company: String(formData.get("company") ?? ""),
     industry: String(formData.get("industry") ?? ""),
+    area: String(formData.get("area") ?? "").trim() || undefined,
     selectedCoverIds: formData.getAll("selectedCoverIds").map(String),
     website: String(formData.get("website") ?? ""),
   };
@@ -69,6 +70,7 @@ export async function submitBusinessRiskReview(
       email: parsed.data.email,
       phone: parsed.data.phone,
       company: parsed.data.company,
+      ...(parsed.data.area ? { area: parsed.data.area } : {}),
       intent: "Business Risk Review",
       funnelData: {
         assessment: "Business Risk Review",
@@ -87,6 +89,7 @@ export async function submitBusinessRiskReview(
     Phone: parsed.data.phone,
     Company: parsed.data.company,
     Industry: parsed.data.industry,
+    ...(parsed.data.area ? { Area: parsed.data.area } : {}),
     "Protection %": String(score.protectionPercent),
   }).catch((e) => {
     if (process.env.NODE_ENV === "development") {

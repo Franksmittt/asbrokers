@@ -7,7 +7,7 @@ const offer = PLANNING_TOOL_OFFERS["business-risk"];
 
 const PAGE_TITLE = "Business Risk Review™";
 const PAGE_DESCRIPTION =
-  "Free business insurance gap analysis for South African business owners. Identify potential cover gaps and request a professional review.";
+  "Free business insurance gap analysis for Krugersdorp and West Rand business owners. Identify cover gaps and request a professional review with AS Brokers CC (FSP 17273).";
 
 const faqs = [
   { question: offer.coreQuestion, answer: offer.problem },

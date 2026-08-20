@@ -150,14 +150,14 @@ function buildContactPoints(): Record<string, unknown>[] {
       email: "albert@asbrokers.co.za",
       contactType: "customer service",
       areaServed: contactAreaServed(),
-      availableLanguage: ["English"],
+      availableLanguage: ["English", "Afrikaans"],
     },
     {
       "@type": "ContactPoint",
       telephone: "+27662276044",
       contactType: "WhatsApp",
       areaServed: contactAreaServed(),
-      availableLanguage: ["English"],
+      availableLanguage: ["English", "Afrikaans"],
     },
   ];
 }

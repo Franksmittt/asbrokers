@@ -22,6 +22,11 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/solutions/business-insurance": [
     {
+      href: "/besigheidsversekering-krugersdorp",
+      title: "Besigheidsversekering Krugersdorp",
+      description: "Afrikaans landing page for West Rand business owners.",
+    },
+    {
       href: "/business-risk-review",
       title: "Free Business Risk Review",
       description: "A workbook to capture assets, turnover, and cover gaps before we meet.",

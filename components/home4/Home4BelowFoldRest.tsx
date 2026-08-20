@@ -27,7 +27,7 @@ import {
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
-  WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
+  WHATSAPP_BUSINESS_INSURANCE_MESSAGE,
 } from "@/lib/whatsapp";
 
 const GENERAL_ADVICE_DISCLAIMER =
@@ -135,7 +135,7 @@ export function Home4BelowFoldRest() {
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
                 <a
-                  href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+                  href={whatsappUrl(WHATSAPP_BUSINESS_INSURANCE_MESSAGE)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex w-fit items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-shark ring-1 ring-stone-200 transition hover:bg-stone-50"
@@ -149,18 +149,19 @@ export function Home4BelowFoldRest() {
       </section>
 
       <section
+        id="home-callback"
         data-chunk-boundary="true"
-        className="py-14 md:py-20"
+        className="scroll-mt-28 py-14 md:scroll-mt-32 md:py-20"
         aria-label="Request a callback"
       >
         <div className={HOME4_WRAP}>
           <Home4Reveal instant>
             <HomeCallbackFormDeferred
               source="home"
-              heading="Easiest option: we call you"
-              description="Two fields and a tick box. An authorised adviser phones you back within one business day about business cover, personal insurance, or planning."
+              heading="Easiest option: we call you the same business day"
+              description="Name, number, and a tick box. A Krugersdorp adviser phones you back about commercial cover, a renewal, or a claim."
               showNote
-              whatsappMessage="Hi AS Brokers, please call me back."
+              whatsappMessage={WHATSAPP_BUSINESS_INSURANCE_MESSAGE}
             />
           </Home4Reveal>
         </div>
@@ -174,7 +175,7 @@ export function Home4BelowFoldRest() {
                 <Home4SectionHeader
                   kicker="Why AS Brokers"
                   title="Independent broker for business owners · FSP 17273 · Est. 1998"
-                  description="AS Brokers CC is an Authorised Financial Services Provider (Category 1.8) serving business owners and professionals across Gauteng since 1998. We survey the commercial market, run a proper needs analysis, place structured cover, and review it annually. Retirement, estate, and medical advice is available alongside commercial broking."
+                  description="AS Brokers CC is an Authorised Financial Services Provider (Category 1.8) based in Krugersdorp since 1998. We survey the commercial market, run a proper needs analysis, place structured cover, and review it annually. We serve Chamdor, Factoria, the CBD, and the wider West Rand — in English and Afrikaans."
                 />
                 <div className="mt-6 flex flex-wrap gap-2">
                   {HOME4_TRUST_BADGES.map((badge) => (

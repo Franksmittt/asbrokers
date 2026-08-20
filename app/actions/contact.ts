@@ -29,6 +29,7 @@ function formDataToObject(formData: FormData): Record<string, unknown> {
     phone: formData.get("phone") ?? "",
     email: formData.get("email") ?? "",
     topics,
+    area: String(formData.get("area") ?? "").trim() || undefined,
     consent: consent === "true" || consent === "on",
     website: formData.get("website") ?? "",
   };
@@ -75,6 +76,7 @@ export async function submitContactEnquiry(
       phone: payload.phone,
       intent: payload.topics.length ? payload.topics.join(", ") : "General enquiry",
       topics: payload.topics,
+      ...(payload.area ? { area: payload.area } : {}),
       ...(sourceAttr ? { source: sourceAttr } : {}),
       ...(attribution ? { attribution } : {}),
     },

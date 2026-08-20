@@ -5,8 +5,10 @@ import { useEffect, useMemo, useState, useTransition } from "react";
 
 import { fetchExecutiveAiReport } from "@/app/actions/crm-ai";
 import { CrmAiActivityFeed } from "@/components/crm/CrmAiActivityFeed";
+import { CrmCampaignBanner } from "@/components/crm/CrmCampaignBanner";
 import { useCrm } from "@/components/crm/CrmContext";
 import type { ExecutiveAiReport } from "@/lib/crm/ai/schemas";
+import { ALBERT_KRUGERSDORP_BIZ_CAMPAIGN, scoreCampaignProgress } from "@/lib/crm/goals";
 import { SERVICE_LABELS } from "@/lib/crm/types";
 import { computeConversionRate, getCrmStatsFromLeads } from "@/lib/crm/utils";
 
@@ -22,6 +24,11 @@ export function CrmExecutiveDashboard() {
   }, [visibleLeads]);
 
   const conversionRate = useMemo(() => computeConversionRate(visibleLeads), [visibleLeads]);
+
+  const campaignProgress = useMemo(
+    () => scoreCampaignProgress(ALBERT_KRUGERSDORP_BIZ_CAMPAIGN, visibleLeads),
+    [visibleLeads]
+  );
 
   const serviceMix = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -58,6 +65,7 @@ export function CrmExecutiveDashboard() {
         </p>
       </header>
 
+      <CrmCampaignBanner progress={campaignProgress} />
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { label: "Total leads", value: stats.totalLeads },

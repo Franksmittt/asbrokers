@@ -527,10 +527,28 @@ export async function updateLeadStatus(
     : eq(crmLeads.id, leadId);
 
   try {
+    const [current] = await db
+      .select({ rawPayload: crmLeads.rawPayload, id: crmLeads.id })
+      .from(crmLeads)
+      .where(where)
+      .limit(1);
+
+    if (!current) {
+      return { ok: false, error: "Lead not found or access denied." };
+    }
+
+    const payload =
+      current.rawPayload && typeof current.rawPayload === "object" && !Array.isArray(current.rawPayload)
+        ? { ...(current.rawPayload as Record<string, unknown>) }
+        : {};
+    if (statusParsed.data === "won" && typeof payload.wonAt !== "string") {
+      payload.wonAt = new Date().toISOString();
+    }
+
     const updated = await db
       .update(crmLeads)
-      .set({ pipelineStatus: statusParsed.data })
-      .where(where)
+      .set({ pipelineStatus: statusParsed.data, rawPayload: payload })
+      .where(eq(crmLeads.id, current.id))
       .returning({ id: crmLeads.id });
 
     if (updated.length === 0) {

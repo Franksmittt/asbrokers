@@ -57,6 +57,11 @@ export type CrmLead = {
     capturedAt?: string;
     notes?: string;
   };
+  /** Local area / suburb (e.g. Krugersdorp) stored in raw_payload.area. */
+  area?: string;
+  createdAt?: string;
+  wonAt?: string;
+  campaignId?: string;
 };
 
 export type CrmGlobalNote = {

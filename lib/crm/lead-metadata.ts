@@ -43,12 +43,13 @@ export async function mergeLeadRawPayload(
 /** Auto-route new lead to the right advisor team member (non-destructive metadata + optional UUID). */
 export async function applyAutoAdvisorRoute(
   leadId: string,
-  serviceCategory: ServiceCategory | string
+  serviceCategory: ServiceCategory | string,
+  options?: { area?: string; krugersdorpCommercial?: boolean }
 ): Promise<void> {
   const db = getDb();
   if (!db) return;
 
-  const route = resolveAdvisorRoute(serviceCategory);
+  const route = resolveAdvisorRoute(serviceCategory, options);
 
   try {
     const [row] = await db

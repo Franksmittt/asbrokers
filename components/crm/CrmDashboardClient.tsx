@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import { CrmAiMorningBrief } from "@/components/crm/CrmAiMorningBrief";
 import { CrmLeadAdvisorChat } from "@/components/crm/CrmLeadAdvisorChat";
 import { useCrm } from "@/components/crm/CrmContext";
@@ -95,11 +95,13 @@ export function CrmDashboardClient({
   clientCount,
   tasksDueToday,
   recentCorrespondence,
+  campaignBanner,
 }: {
   openTasks: number;
   clientCount: number;
   tasksDueToday: CrmTask[];
   recentCorrespondence: CrmCorrespondence[];
+  campaignBanner?: ReactNode;
 }) {
   const { role, visibleLeads, canUseAi } = useCrm();
 
@@ -118,6 +120,7 @@ export function CrmDashboardClient({
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-8">
+      {campaignBanner}
       <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-wider text-zinc-600">FSP 17273</p>

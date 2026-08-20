@@ -37,6 +37,7 @@
     "test:lighthouse": "lhci autorun",
     "test:perf:verify": "tsx scripts/verify-phase9-performance.ts",
     "test:crm-goals": "tsx --test scripts/test-crm-goals.ts",
+    "test:master": "tsx scripts/verify-phase12-master.ts",
     "gsc:canonical": "node scripts/gsc-canonical-check.mjs",
     "sitemap:verify": "node scripts/verify-sitemap.mjs",
     "audit:hub:gsc": "tsx scripts/verify-hub-gsc.ts",

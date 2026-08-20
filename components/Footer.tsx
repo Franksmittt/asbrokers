@@ -11,6 +11,7 @@ import { DeferredFooterNewsletter } from "@/components/DeferredFooterExtras";
 const FOOTER_NAV = [
   { label: "Home", href: "/" },
   { label: "Business Insurance", href: "/solutions/business-insurance" },
+  { label: "Besigheidsversekering Krugersdorp", href: "/besigheidsversekering-krugersdorp" },
   { label: "Providers", href: "/providers" },
   { label: "Insurance", href: "/insurance" },
   { label: "Retirement", href: "/retirement-planning" },

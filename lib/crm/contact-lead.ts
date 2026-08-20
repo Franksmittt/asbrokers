@@ -13,7 +13,7 @@ const TOPIC_TO_SERVICE: Record<string, ServiceCategory> = {
   will: "estate_business",
   trust: "estate_business",
   estate: "estate_business",
-  general: "retirement_everest",
+  general: "short_term_business",
 };
 
 export function serviceCategoryFromContactTopics(topics: string[]): ServiceCategory {
@@ -21,7 +21,7 @@ export function serviceCategoryFromContactTopics(topics: string[]): ServiceCateg
     const mapped = TOPIC_TO_SERVICE[topic];
     if (mapped) return mapped;
   }
-  return "retirement_everest";
+  return "short_term_business";
 }
 
 export function contactLeadScore(topics: string[], capitalAmount?: number): number {
@@ -29,4 +29,26 @@ export function contactLeadScore(topics: string[], capitalAmount?: number): numb
   if (capitalAmount && capitalAmount > 1_000_000) score += 20;
   if (topics.some((t) => t === "short_business" || t === "trust")) score += 15;
   return score;
+}
+
+/**
+ * Pre-select contact topics from ?source=. The public site leads with business
+ * insurance, so homepage and nav CTAs must not default to Everest/retirement.
+ */
+export function defaultContactTopicsFromSource(source: string): string[] {
+  const s = source.trim().toLowerCase();
+  if (!s) return ["short_business"];
+  if (s.includes("medical") || s.includes("discovery") || s.includes("gap")) return ["medical_gap"];
+  if (s.includes("estate") || s.includes("legacy") || s.includes("will") || s.includes("trust")) {
+    return ["estate"];
+  }
+  if (
+    s.includes("everest") ||
+    s.includes("calculator") ||
+    s.includes("retirement") ||
+    s.includes("invest")
+  ) {
+    return ["everest"];
+  }
+  return ["short_business"];
 }

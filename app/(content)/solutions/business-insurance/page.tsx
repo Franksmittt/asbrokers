@@ -49,7 +49,8 @@ export const metadata = buildPageMetadata({
     "x-default": "/solutions/business-insurance",
   },
   keywords: [
-    "business insurance South Africa",
+    "business insurance broker Krugersdorp",
+    "commercial insurance West Rand",
     "commercial insurance broker",
     "business interruption cover",
     "key person insurance",

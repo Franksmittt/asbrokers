@@ -275,7 +275,7 @@ export default function BesigheidsversekeringPage() {
               showEmail={false}
               showNote
               heading="Los jou nommer. Ons skakel jou."
-              description="Twee velde en 'n regmerkie. 'n Gemagtigde adviseur skakel jou binne een werksdag oor jou besigheidsdekking, hernuwing, of eis."
+              description="Twee velde en 'n regmerkie. 'n Gemagtigde adviseur in Krugersdorp skakel jou dieselfde werksdag oor jou besigheidsdekking, hernuwing, of eis."
               buttonLabel="Skakel my terug"
               whatsappMessage={WHATSAPP_MESSAGE}
             />

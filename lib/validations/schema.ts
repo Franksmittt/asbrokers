@@ -6,6 +6,7 @@ export const contactFormSchema = z.object({
   phone: z.string().min(9, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email"),
   topics: z.array(z.string()).min(1, "Please select at least one topic"),
+  area: z.string().trim().max(80).optional(),
   consent: z.literal(true, { errorMap: () => ({ message: "Please accept to continue" }) }),
   website: z.string().max(0).optional(),
 });
@@ -55,6 +56,7 @@ export interface ContactActionState {
     phone?: string[];
     email?: string[];
     topics?: string[];
+    area?: string[];
     consent?: string[];
     capitalAmount?: string[];
     website?: string[];

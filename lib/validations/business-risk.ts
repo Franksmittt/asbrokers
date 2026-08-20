@@ -10,6 +10,7 @@ export const businessRiskLeadSchema = z.object({
   phone: z.string().min(9, "Please enter a valid mobile number"),
   company: z.string().min(2, "Please enter your company name"),
   industry: z.enum(INDUSTRY_OPTIONS),
+  area: z.string().trim().min(2).max(80).optional(),
   selectedCoverIds: z
     .array(z.string())
     .refine((ids) => ids.every((id) => coverIdSet.has(id)), "Invalid cover selection"),

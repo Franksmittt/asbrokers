@@ -117,24 +117,23 @@ export function BusinessInsurancePageView({ faqs }: Props) {
       {/* §1 Hero */}
       <MarketingHubHero
         kicker={<HubHeroKicker shortLabel="Business Insurance" longLabel="Business Insurance" />}
-        title="Insurance built around how your business actually operates"
-        description="One uninsured gap (a fire, a liability claim, the death of a partner) can end a business that took decades to build. An independent broker finds the gaps first."
+        title="Insurance built around how your Krugersdorp business actually operates"
+        description="Independent brokers on Commissioner Street since 1998. One uninsured gap (a fire, a liability claim, the death of a partner) can end a business that took decades to build. We find the gaps first."
         actions={
           <>
-            <Link
-              href="/business-risk-review"
-              prefetch={false}
+            <a
+              href="#business-callback"
               className="inline-flex items-center gap-2 rounded bg-samsung-blue px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#004a9e]"
             >
-              Start a free Business Risk Review
+              Request a same-day callback
               <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            </a>
             <Link
-              href="/contact?source=business_insurance"
+              href="/besigheidsversekering-krugersdorp"
               prefetch={false}
               className="inline-flex items-center gap-2 text-sm font-semibold text-[#006B6B] hover:opacity-80"
             >
-              Request a needs analysis
+              Afrikaans · Krugersdorp
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </>
@@ -153,6 +152,21 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         }
         borderBottom
       />
+
+      <section
+        className="border-b py-8"
+        style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
+        aria-label="Krugersdorp service area"
+      >
+        <div className={`${HOME4_WRAP} flex flex-wrap gap-x-8 gap-y-2 text-sm`} style={{ color: BODY }}>
+          <span>Office: Unit 2, The Bridge, 47 Commissioner Street, Krugersdorp</span>
+          <span>West Rand: Chamdor, Factoria, CBD, Muldersdrift</span>
+          <span>English &amp; Afrikaans</span>
+          <Link href="/business-risk-review" prefetch={false} className="font-semibold" style={{ color: TEAL }}>
+            Free cover review →
+          </Link>
+        </div>
+      </section>
 
       {/* §2 The risks that close businesses */}
       <section
@@ -410,9 +424,9 @@ export function BusinessInsurancePageView({ faqs }: Props) {
         </div>
       </section>
 
-      {/* §5b Callback capture: light */}
       <section
-        className="border-b pb-14 pt-2 md:pb-20"
+        id="business-callback"
+        className="scroll-mt-28 border-b pb-14 pt-2 md:scroll-mt-32 md:pb-20"
         style={{ borderColor: HAIRLINE, backgroundColor: CANVAS }}
         aria-label="Request a callback"
       >
@@ -420,10 +434,10 @@ export function BusinessInsurancePageView({ faqs }: Props) {
           <CallbackForm
             source="business_insurance"
             heading="Rather talk it through?"
-            description="Leave your name and number. An adviser who works with business owners phones you back within one business day; bring a renewal, a claim, or a gap you're unsure about."
+            description="Leave your name and number. A Krugersdorp adviser who works with business owners phones you the same business day; bring a renewal, a claim, or a gap you're unsure about."
             buttonLabel="Request a callback"
             showNote
-            whatsappMessage="Hi AS Brokers, please call me back about my business insurance."
+            whatsappMessage="Hi AS Brokers, please call me back about my business insurance in Krugersdorp."
           />
         </div>
       </section>

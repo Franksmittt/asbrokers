@@ -48,10 +48,10 @@ export const HOME4_GOAL_CARDS: GoalCard[] = [
     badge: "Insure",
     description:
       "One uninsured event, such as a fire, a lawsuit, or the death of a key partner, can end a business. We review, place, and manage commercial and personal cover across the market on your behalf.",
-    href: "/insurance",
+    href: "/solutions/business-insurance",
     links: [
       { label: "Business insurance", href: "/solutions/business-insurance" },
-      { label: "Business life & key person", href: "/solutions/business-life" },
+      { label: "Besigheidsversekering Krugersdorp", href: "/besigheidsversekering-krugersdorp" },
       { label: "Start a Business Risk Review", href: "/business-risk-review" },
     ],
     accent: "orange",

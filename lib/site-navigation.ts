@@ -77,6 +77,7 @@ export const PRIMARY_NAV: NavLink[] = [
 export const FOOTER_HOW_WE_HELP: NavLink[] = [
   // Core focus 2026-07-25: business insurance leads the site.
   { label: "Business Insurance", href: "/solutions/business-insurance" },
+  { label: "Besigheidsversekering Krugersdorp", href: "/besigheidsversekering-krugersdorp" },
   { label: "Business Risk Review", href: "/business-risk-review" },
   { label: "Insurance & Risk", href: "/insurance" },
   // CONTAINMENT 2026-07-22: Everest Wealth footer frozen. Restore href: "/everest-wealth"

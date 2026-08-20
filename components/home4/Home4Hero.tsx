@@ -11,7 +11,7 @@ import {
 import {
   WHATSAPP_DISPLAY,
   whatsappUrl,
-  WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE,
+  WHATSAPP_BUSINESS_INSURANCE_MESSAGE,
 } from "@/lib/whatsapp";
 
 /** Above-fold home hero: business-owner positioning + contact. */
@@ -39,7 +39,7 @@ export function Home4Hero() {
       <div className="relative pt-32 pb-40 sm:pt-36 sm:pb-48 md:pt-40 md:pb-56">
         <div className={`${HOME4_WRAP} max-w-3xl`}>
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/80 sm:text-sm sm:tracking-[0.18em]">
-            Independent insurance broking for business owners · FSP 17273 · Since 1998
+            Independent business insurance brokers in Krugersdorp · FSP 17273 · Since 1998
           </p>
           {/* Keep whitespace before <br/> so textContent matches SSR text (WRS h1 parity test). */}
           <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl leading-[1.08]">
@@ -50,22 +50,21 @@ export function Home4Hero() {
             before a claim does.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
-            AS Brokers is an independent Category 1.8 broker serving business owners across Gauteng.
-            We survey the commercial market, including Santam, Bryte, King Price, and others, run a
-            proper needs analysis, place structured cover, and stand with you at every claim and
-            annual review.
+            AS Brokers is an independent Category 1.8 broker based on Commissioner Street,
+            Krugersdorp. We survey the commercial market, including Santam, Bryte, King Price, and
+            others, run a proper needs analysis, place structured cover, and stand with you at every
+            claim and annual review.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/business-risk-review"
-              prefetch={false}
+            <a
+              href="#home-callback"
               className="inline-flex items-center gap-2 rounded-2xl bg-[#006B6B] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#005858]"
             >
-              Start a free Business Risk Review
+              Request a same-day callback
               <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            </a>
             <a
-              href={whatsappUrl(WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE)}
+              href={whatsappUrl(WHATSAPP_BUSINESS_INSURANCE_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-6 py-3.5 text-sm font-semibold text-shark transition hover:bg-white"
@@ -81,11 +80,18 @@ export function Home4Hero() {
               Office {OFFICE_PHONE_DISPLAY}
             </a>
             <Link
-              href="/contact?source=home_hero"
+              href="/business-risk-review"
               prefetch={false}
               className="underline-offset-4 hover:text-white hover:underline"
             >
-              Or request a needs analysis online
+              Or start a free cover review
+            </Link>
+            <Link
+              href="/besigheidsversekering-krugersdorp"
+              prefetch={false}
+              className="underline-offset-4 hover:text-white hover:underline"
+            >
+              Afrikaans · Krugersdorp
             </Link>
           </p>
         </div>

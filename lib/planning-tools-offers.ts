@@ -180,10 +180,10 @@ export const PLANNING_TOOL_OFFERS: Record<string, PlanningToolOffer> = {
     navDescription: "Business insurance gap analysis",
     coreQuestion: "Could your business survive a major disruption?",
     problem:
-      "Business owners insure what they remember, but gaps in liability, interruption, key person, and cyber cover often surface only after a claim.",
+      "Krugersdorp and West Rand owners often insure what they remember, but gaps in liability, interruption, key person, and cyber cover surface only after a claim.",
     freeLabel: "Free workbook review",
     freeSummary:
-      "Interactive gap analysis across commercial, liability, crime, and business assurance categories with your Business Risk Score™.",
+      "Interactive gap analysis for West Rand businesses across commercial, liability, crime, and business assurance categories, with your Business Risk Score™.",
     paid: {
       label: "Business Survival Blueprint™ PDF",
       priceZar: TRIPWIRE_LAUNCH_ZAR,

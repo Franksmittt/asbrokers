@@ -14,3 +14,9 @@ export const WHATSAPP_CAPITAL_ASSESSMENT_MESSAGE =
 
 export const WHATSAPP_CALCULATOR_MESSAGE =
   "Hi AS Brokers, I just used a calculator on your site and would like to talk through the numbers.";
+
+export const WHATSAPP_BUSINESS_INSURANCE_MESSAGE =
+  "Hi AS Brokers, I want to talk about business insurance for my Krugersdorp / West Rand business. Please call me back.";
+
+export const WHATSAPP_BUSINESS_INSURANCE_MESSAGE_AF =
+  "Goeiedag AS Brokers, ek wil graag oor my besigheidsversekering in Krugersdorp / Wes-Rand gesels. Skakel my asseblief terug.";

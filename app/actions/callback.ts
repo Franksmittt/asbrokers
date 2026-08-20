@@ -59,6 +59,7 @@ export async function requestCallback(
       notes: parsed.data.note?.trim() || undefined,
       consent: true,
       consentChannel: "callback_form",
+      ...(parsed.data.source === "business_insurance_af" ? { area: "Krugersdorp" } : {}),
       ...(attribution ? { attribution } : {}),
     },
   });

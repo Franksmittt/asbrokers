@@ -1,4 +1,6 @@
 import { getClients, getRecentCorrespondence, getTasks } from "@/app/actions/crm";
+import { getAlbertKrugersdorpGoalBoard } from "@/app/actions/crm-goals";
+import { CrmCampaignBanner } from "@/components/crm/CrmCampaignBanner";
 import { CrmDashboardClient } from "@/components/crm/CrmDashboardClient";
 import type { CrmTask } from "@/lib/crm/types";
 
@@ -16,12 +18,14 @@ export default async function CrmDashboardPage() {
   let tasks: CrmTask[] = [];
   let clients: Awaited<ReturnType<typeof getClients>> = [];
   let recentCorrespondence: Awaited<ReturnType<typeof getRecentCorrespondence>> = [];
+  let goalBoard: Awaited<ReturnType<typeof getAlbertKrugersdorpGoalBoard>> | null = null;
 
   try {
-    [tasks, clients, recentCorrespondence] = await Promise.all([
+    [tasks, clients, recentCorrespondence, goalBoard] = await Promise.all([
       getTasks(),
       getClients(),
       getRecentCorrespondence(3),
+      getAlbertKrugersdorpGoalBoard(),
     ]);
   } catch (error) {
     console.error("[CRM] dashboard load failed:", error);
@@ -35,6 +39,7 @@ export default async function CrmDashboardPage() {
       clientCount={clients.length}
       tasksDueToday={tasksDueToday(tasks)}
       recentCorrespondence={recentCorrespondence}
+      campaignBanner={goalBoard ? <CrmCampaignBanner progress={goalBoard.progress} /> : null}
     />
   );
 }

@@ -1,3 +1,4 @@
+import { isKrugersdorpCatchment } from "@/lib/crm/area";
 import type { ServiceCategory } from "@/lib/crm/types";
 import { CRM_PIN_SUPERUSER_ID } from "@/lib/crm/constants";
 import { CRM_TEAM_MEMBERS } from "@/lib/crm/team-members";
@@ -46,7 +47,22 @@ const ROUTES: Record<ServiceCategory, AdvisorRoute> = {
   },
 };
 
-export function resolveAdvisorRoute(serviceCategory: ServiceCategory | string): AdvisorRoute {
+export function resolveAdvisorRoute(
+  serviceCategory: ServiceCategory | string,
+  options?: { area?: string; krugersdorpCommercial?: boolean }
+): AdvisorRoute {
+  const krugersdorpCommercial =
+    Boolean(options?.krugersdorpCommercial) ||
+    (serviceCategory === "short_term_business" && isKrugersdorpCatchment(options?.area));
+
+  if (krugersdorpCommercial) {
+    return {
+      advisorName: CRM_TEAM_MEMBERS.albert.name,
+      authUserId: CRM_PIN_SUPERUSER_ID,
+      reason: "Krugersdorp business-insurance campaign owner",
+    };
+  }
+
   if (serviceCategory in ROUTES) {
     return ROUTES[serviceCategory as ServiceCategory];
   }

@@ -2,6 +2,7 @@ import "server-only";
 
 import { generateText } from "ai";
 
+import { ALBERT_KRUGERSDORP_BIZ_CAMPAIGN, campaignPromptSnapshot, scoreCampaignProgress } from "@/lib/crm/goals";
 import type { CrmLead } from "@/lib/crm/types";
 import { SERVICE_LABELS } from "@/lib/crm/types";
 import { getRagContext } from "@/lib/db/rag";
@@ -127,6 +128,10 @@ export async function generateCrmMorningBrief(leads: CrmLead[]): Promise<CrmMorn
     system: CRM_AI_SYSTEM_BASE,
     prompt: `Generate a morning command brief for AS Brokers staff based on today's pipeline.
 
+${campaignPromptSnapshot(scoreCampaignProgress(ALBERT_KRUGERSDORP_BIZ_CAMPAIGN, leads))}
+
+If the Krugersdorp business-insurance goal is behind pace, put a campaign next action in topPriorities.
+
 Pipeline snapshot (${leads.length} visible leads):
 ${topLeads}
 
@@ -251,6 +256,9 @@ ${stats.topLeads
   .slice(0, 8)
   .map((l) => `- ${l.name}: ${l.status}, score ${l.lead_score}, ${l.intent}`)
   .join("\n")}
+
+${campaignPromptSnapshot(scoreCampaignProgress(ALBERT_KRUGERSDORP_BIZ_CAMPAIGN, stats.topLeads))}
+Include the Krugersdorp business-insurance goal in weekFocus when behind pace.
 
 Context:
 ${rag || "[No RAG context]"}`,

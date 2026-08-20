@@ -8,8 +8,10 @@ import { CorrespondenceSentimentBar } from "@/components/crm/CorrespondenceSenti
 import { ComplianceFlagBadge } from "@/components/crm/ComplianceFlagBadge";
 import { LeadPreMeetingBrief } from "@/components/crm/LeadPreMeetingBrief";
 import { sendWhatsAppMessage } from "@/app/actions/whatsapp";
+import { tagLeadArea } from "@/app/actions/crm-goals";
 import { LeadAiPanel } from "@/components/crm/LeadAiPanel";
 import { useCrm } from "@/components/crm/CrmContext";
+import { KRUGERSDORP_AREA_OPTIONS } from "@/lib/crm/area";
 import type { CrmCorrespondence, CrmLead, CrmReminder, CrmTask } from "@/lib/crm/types";
 import { SERVICE_LABELS } from "@/lib/crm/types";
 import { formatAdvisorLabel, formatLeadStatus } from "@/lib/crm/utils";
@@ -163,6 +165,12 @@ export function LeadDetailView({
     setReminderDue("");
   };
 
+  const saveArea = (formData: FormData) => {
+    startTransition(() => {
+      void tagLeadArea(formData).then(() => router.refresh());
+    });
+  };
+
   const sendReply = useCallback(() => {
     const text = draft.trim();
     if (!text) return;
@@ -251,6 +259,44 @@ export function LeadDetailView({
                 {formatAdvisorLabel(lead.assignedAdvisorId, lead.recommendedAdvisorName)}
               </span>
             </p>
+            {lead.area ? (
+              <p className="mt-2 text-xs text-gray-400">
+                Area · <span className="text-gray-100">{lead.area}</span>
+              </p>
+            ) : null}
+            {lead.campaignId ? (
+              <Link
+                href="/crm/goals"
+                className="mt-3 inline-flex text-xs font-medium text-cinematic-teal hover:text-white"
+              >
+                Counts toward Krugersdorp campaign →
+              </Link>
+            ) : null}
+            <form action={saveArea} className="mt-4 space-y-2">
+              <input type="hidden" name="leadId" value={lead.id} />
+              <label className="block">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+                  Tag area
+                </span>
+                <select
+                  name="area"
+                  defaultValue={lead.area ?? "Krugersdorp"}
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-void px-3 py-2 text-sm text-gray-100 focus:border-cinematic-teal/40 focus:outline-none"
+                >
+                  {KRUGERSDORP_AREA_OPTIONS.map((area) => (
+                    <option key={area} value={area}>
+                      {area}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="submit"
+                className="w-full rounded-xl bg-shark px-3 py-2 text-xs font-semibold text-white hover:bg-cinematic-teal/20"
+              >
+                Save area
+              </button>
+            </form>
             <span className="mt-4 inline-flex rounded-full bg-supernova-gold/20 px-3 py-1 text-xs font-bold tabular-nums text-supernova-gold">
               Lead score {lead.lead_score}
             </span>

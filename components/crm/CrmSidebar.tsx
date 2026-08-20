@@ -26,8 +26,19 @@ function KanbanIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function TargetIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" {...props}>
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="12" cy="12" r="1.25" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 const CRM_NAV = [
   { href: "/crm", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { href: "/crm/goals", label: "Goals", icon: TargetIcon, exact: false },
   { href: "/crm/kanban", label: "Kanban", icon: KanbanIcon, exact: false },
   { href: "/crm/leads", label: "Leads", icon: Users, exact: false },
   { href: "/crm/clients", label: "Clients", icon: Users, exact: false },

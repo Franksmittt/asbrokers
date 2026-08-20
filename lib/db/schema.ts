@@ -382,6 +382,38 @@ export type CrmAiAuditLog = typeof crmAiAuditLog.$inferSelect;
 export type NewCrmAiAuditLog = typeof crmAiAuditLog.$inferInsert;
 
 /**
+ * Owner/advisor campaign targets (e.g. 10 Krugersdorp commercial clients in 90 days).
+ * No FK to auth.users — PIN identities may not exist as auth rows.
+ */
+export const crmAdvisorGoals = pgTable(
+  "crm_advisor_goals",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    slug: varchar("slug", { length: 80 }).notNull(),
+    title: text("title").notNull(),
+    ownerAdvisorId: uuid("owner_advisor_id").notNull(),
+    ownerName: varchar("owner_name", { length: 120 }).notNull(),
+    serviceCategory: varchar("service_category", { length: 64 }).notNull(),
+    areaLabel: varchar("area_label", { length: 80 }).notNull(),
+    targetCount: integer("target_count").notNull(),
+    startDate: varchar("start_date", { length: 10 }).notNull(),
+    endDate: varchar("end_date", { length: 10 }).notNull(),
+    status: varchar("status", { length: 24 }).notNull().default("active"),
+    weeklyLog: jsonb("weekly_log").notNull().default([]),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("crm_advisor_goals_slug_uid").on(table.slug),
+    index("crm_advisor_goals_owner_idx").on(table.ownerAdvisorId),
+    index("crm_advisor_goals_status_idx").on(table.status),
+  ]
+);
+
+export type CrmAdvisorGoal = typeof crmAdvisorGoals.$inferSelect;
+export type NewCrmAdvisorGoal = typeof crmAdvisorGoals.$inferInsert;
+
+/**
  * Educational course CMS. Content is owner-authored in /studio/courses.
  * v1 app reads/writes an in-memory store; these tables are the production shape.
  */

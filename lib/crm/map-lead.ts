@@ -92,6 +92,10 @@ export function mapDbLeadToCrmLead(row: typeof crmLeads.$inferSelect): CrmLead {
         ? payload.delegatedAdvisorName
         : undefined,
     calculatorSession: parseCalculatorSession(payload.calculatorSession),
+    area: typeof payload.area === "string" ? payload.area : undefined,
+    createdAt: row.createdAt instanceof Date ? row.createdAt.toISOString() : undefined,
+    wonAt: typeof payload.wonAt === "string" ? payload.wonAt : undefined,
+    campaignId: typeof payload.campaignId === "string" ? payload.campaignId : undefined,
   };
 }
 

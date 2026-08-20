@@ -165,6 +165,11 @@ function LeadCard({
         <span className="text-[10px] font-medium text-zinc-400">
           {SERVICE_LABELS[lead.service_category]}
         </span>
+        {lead.area ? (
+          <span className="rounded-full bg-white/5 px-2 py-0.5 text-[9px] font-medium text-zinc-400">
+            {lead.area}
+          </span>
+        ) : null}
         {lead.recommendedAdvisorName ? (
           <span className="text-[10px] text-zinc-500">→ {lead.recommendedAdvisorName}</span>
         ) : null}

@@ -13,6 +13,7 @@ import { LessonSidebar } from "@/components/courses/LessonSidebar";
 import { getCourseBySlug, getStudentCourseState, openLesson } from "@/lib/courses/store";
 import { getLessonAccess, progressLabel, publishedLessons } from "@/lib/courses/progress";
 import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
+import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
@@ -43,7 +44,7 @@ export default async function LessonPage({ params, searchParams }: Props) {
   if (!lesson) notFound();
 
   const studentId = await getCourseStudentId();
-  if (course.registrationRequired && !studentId) {
+  if (courseRequiresStudentAuth(course) && !studentId) {
     redirect(registerPath(course.slug));
   }
 

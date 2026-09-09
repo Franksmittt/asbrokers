@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import {
@@ -7,11 +8,15 @@ import {
   listResponsesForStudent,
   listStudents,
 } from "@/lib/courses/store";
+import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { publishedLessons } from "@/lib/courses/progress";
 
 export const dynamic = "force-dynamic";
 
 export default async function CourseStudentsPage() {
+  if (!COURSE_STUDENT_AUTH_ENABLED) {
+    redirect("/studio/courses");
+  }
   const students = listStudents();
 
   return (

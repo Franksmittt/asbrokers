@@ -13,6 +13,7 @@ import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getCourseBySlug, getStudentCourseState } from "@/lib/courses/store";
 import { firstAvailableLesson, publishedLessons, progressLabel } from "@/lib/courses/progress";
 import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
+import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
 import { renderLessonText } from "@/lib/courses/text";
 import { buildPageMetadata } from "@/lib/seo-metadata";
@@ -45,9 +46,8 @@ export default async function CourseOverviewPage({ params }: Props) {
   const lessons = publishedLessons(course);
   const resume = firstAvailableLesson(course, state);
 
-  const startHref = resume
-    ? lessonPath(course.slug, resume.slug)
-    : registerPath(course.slug);
+  const startHref = resume ? lessonPath(course.slug, resume.slug) : coursePath(course.slug);
+  const needsRegister = courseRequiresStudentAuth(course) && !state;
 
   return (
     <PageWithFooter>
@@ -83,8 +83,12 @@ export default async function CourseOverviewPage({ params }: Props) {
               dangerouslySetInnerHTML={{ __html: renderLessonText(course.introduction) }}
             />
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={state ? startHref : registerPath(course.slug)} prefetch={false} className={WARM_BTN_PRIMARY}>
-                {state ? "Continue" : "Register to start"}
+              <Link
+                href={needsRegister ? registerPath(course.slug) : startHref}
+                prefetch={false}
+                className={WARM_BTN_PRIMARY}
+              >
+                {state ? "Continue" : "Start the course"}
               </Link>
               <Link href="/learn" prefetch={false} className={WARM_BTN_SECONDARY}>
                 All courses

@@ -1,7 +1,9 @@
 import Link from "next/link";
 
-import { createCourseAction } from "@/app/studio/courses/actions";
+import { createCourseAction, reorderCourseAction } from "@/app/studio/courses/actions";
 import { isCourseStudioPreviewUnlocked } from "@/lib/courses/studio-access";
+import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
+import { canMove } from "@/lib/courses/order";
 import { listCourses } from "@/lib/courses/store";
 import { publishedLessons } from "@/lib/courses/progress";
 import { studioCoursePath } from "@/lib/courses/paths";
@@ -26,19 +28,21 @@ export default async function CourseStudioIndexPage() {
           <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">Course Studio</p>
           <h1 className="mt-1 text-2xl font-semibold text-white">Courses</h1>
           <p className="mt-2 max-w-xl text-sm text-zinc-400">
-            Create courses and lessons yourself. Students see published courses at{" "}
+            Create courses and lessons yourself. Published courses appear at{" "}
             <Link href="/learn" className="text-[#3ecf8e] hover:underline">
               /learn
             </Link>
-            .
+            . Student registration is paused while you write the content.
           </p>
         </div>
-        <Link
-          href="/studio/courses/students"
-          className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
-        >
-          Student database
-        </Link>
+        {COURSE_STUDENT_AUTH_ENABLED ? (
+          <Link
+            href="/studio/courses/students"
+            className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+          >
+            Student database
+          </Link>
+        ) : null}
       </div>
 
       <form action={createCourseAction} className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
@@ -63,22 +67,45 @@ export default async function CourseStudioIndexPage() {
 
       <ul className="space-y-3">
         {courses.map((course) => (
-          <li key={course.id}>
-            <Link
-              href={studioCoursePath(course.id)}
-              className="flex items-center justify-between rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-4 hover:border-[#3a3a3a]"
-            >
-              <div>
-                <p className="font-medium text-white">{course.title}</p>
-                <p className="mt-1 text-xs text-zinc-500">
-                  /learn/{course.slug} · {course.lessons.length} lessons · {publishedLessons(course).length}{" "}
-                  published
-                </p>
-              </div>
-              <span className="rounded border border-[#2a2a2a] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400">
-                {course.status}
-              </span>
+          <li
+            key={course.id}
+            className="flex items-center gap-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-4"
+          >
+            <Link href={studioCoursePath(course.id)} className="min-w-0 flex-1 hover:opacity-90">
+              <p className="font-medium text-white">{course.title}</p>
+              <p className="mt-1 text-xs text-zinc-500">
+                /learn/{course.slug} · {course.lessons.length} lessons · {publishedLessons(course).length} published
+              </p>
             </Link>
+            <span className="rounded border border-[#2a2a2a] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400">
+              {course.status}
+            </span>
+            <div className="flex shrink-0 gap-1">
+              <form action={reorderCourseAction}>
+                <input type="hidden" name="courseId" value={course.id} />
+                <input type="hidden" name="direction" value="up" />
+                <button
+                  type="submit"
+                  disabled={!canMove(courses, course.id, "up")}
+                  aria-label={`Move ${course.title} up`}
+                  className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  Up
+                </button>
+              </form>
+              <form action={reorderCourseAction}>
+                <input type="hidden" name="courseId" value={course.id} />
+                <input type="hidden" name="direction" value="down" />
+                <button
+                  type="submit"
+                  disabled={!canMove(courses, course.id, "down")}
+                  aria-label={`Move ${course.title} down`}
+                  className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  Down
+                </button>
+              </form>
+            </div>
           </li>
         ))}
       </ul>

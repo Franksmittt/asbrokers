@@ -8,6 +8,8 @@ import {
   reorderLessonAction,
   updateCourseAction,
 } from "@/app/studio/courses/actions";
+import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
+import { canMove } from "@/lib/courses/order";
 import { getCourseById } from "@/lib/courses/store";
 import { coursePath, studioLessonPath } from "@/lib/courses/paths";
 
@@ -40,7 +42,7 @@ export default async function CourseEditorPage({ params }: Props) {
           rel="noreferrer"
           className="text-xs text-[#3ecf8e] hover:underline"
         >
-          View student page ↗
+          View published page ↗
         </Link>
       </div>
 
@@ -77,14 +79,23 @@ export default async function CourseEditorPage({ params }: Props) {
             <input name="sortOrder" type="number" min={0} defaultValue={course.sortOrder} className={field} />
           </label>
         </div>
-        <label className="flex items-center gap-2 text-sm text-zinc-300">
-          <input type="checkbox" name="registrationRequired" defaultChecked={course.registrationRequired} />
-          Registration required
-        </label>
-        <label className="flex items-center gap-2 text-sm text-zinc-300">
-          <input type="checkbox" name="sequentialLocking" defaultChecked={course.sequentialLocking} />
-          Sequential lesson locking
-        </label>
+        {COURSE_STUDENT_AUTH_ENABLED ? (
+          <>
+            <label className="flex items-center gap-2 text-sm text-zinc-300">
+              <input type="checkbox" name="registrationRequired" defaultChecked={course.registrationRequired} />
+              Registration required
+            </label>
+            <label className="flex items-center gap-2 text-sm text-zinc-300">
+              <input type="checkbox" name="sequentialLocking" defaultChecked={course.sequentialLocking} />
+              Sequential lesson locking
+            </label>
+          </>
+        ) : (
+          <p className="rounded-md border border-amber-500/20 bg-amber-950/30 px-3 py-2 text-xs text-amber-200/90">
+            Student registration is paused while you build courses. Anyone can open published lessons. We will turn
+            login, register, and sequential locking back on when the content is ready.
+          </p>
+        )}
         <button type="submit" className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black">
           Save course
         </button>
@@ -133,7 +144,12 @@ export default async function CourseEditorPage({ params }: Props) {
                   <input type="hidden" name="courseId" value={course.id} />
                   <input type="hidden" name="lessonId" value={lesson.id} />
                   <input type="hidden" name="direction" value="up" />
-                  <button type="submit" className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400">
+                  <button
+                    type="submit"
+                    disabled={!canMove(lessons, lesson.id, "up")}
+                    aria-label={`Move ${lesson.title} up`}
+                    className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+                  >
                     Up
                   </button>
                 </form>
@@ -141,7 +157,12 @@ export default async function CourseEditorPage({ params }: Props) {
                   <input type="hidden" name="courseId" value={course.id} />
                   <input type="hidden" name="lessonId" value={lesson.id} />
                   <input type="hidden" name="direction" value="down" />
-                  <button type="submit" className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400">
+                  <button
+                    type="submit"
+                    disabled={!canMove(lessons, lesson.id, "down")}
+                    aria-label={`Move ${lesson.title} down`}
+                    className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+                  >
                     Down
                   </button>
                 </form>

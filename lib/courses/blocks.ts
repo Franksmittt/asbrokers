@@ -21,7 +21,7 @@ export function createBlock(type: BlockType, sortOrder: number): LessonBlock {
     case "video":
       return { id, type, sortOrder, url: "", caption: "", posterUrl: "" };
     case "calculator":
-      return { id, type, sortOrder, calculatorId: "asset-017-personal-goal" };
+      return { id, type, sortOrder, calculatorId: "asset-001-retirement-growth" };
     case "image":
       return { id, type, sortOrder, url: "", alt: "", caption: "" };
     case "callout":

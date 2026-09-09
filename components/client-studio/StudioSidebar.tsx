@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { FileText, LogOut, Scroll } from "@/components/icons";
 import { studioLogout } from "@/app/studio/blog/actions";
 import { StudioClearCacheButton } from "@/components/client-studio/StudioClearCacheButton";
+import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { cn } from "@/lib/utils";
 
 function PenIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -55,14 +56,16 @@ function PeopleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-const STUDIO_NAV = [
-  { href: "/studio/blog/workspace", label: "Articles", icon: PenIcon, exact: true },
-  { href: "/studio/blog/workspace#drafts", label: "Drafts", icon: DraftsIcon, exact: false },
-  { href: "/studio/courses", label: "Courses", icon: CoursesIcon, exact: false },
-  { href: "/studio/courses/students", label: "Students", icon: PeopleIcon, exact: false },
-  { href: "/studio/blog/workspace/tutorial", label: "Tutorial", icon: Scroll, exact: false },
-  { href: "/studio/blog/workspace#copy-me", label: "Brand guide", icon: FileText, exact: false },
-] as const;
+const STUDIO_NAV = (
+  [
+    { href: "/studio/blog/workspace", label: "Articles", icon: PenIcon, exact: true },
+    { href: "/studio/blog/workspace#drafts", label: "Drafts", icon: DraftsIcon, exact: false },
+    { href: "/studio/courses", label: "Courses", icon: CoursesIcon, exact: false },
+    { href: "/studio/courses/students", label: "Students", icon: PeopleIcon, exact: false },
+    { href: "/studio/blog/workspace/tutorial", label: "Tutorial", icon: Scroll, exact: false },
+    { href: "/studio/blog/workspace#copy-me", label: "Brand guide", icon: FileText, exact: false },
+  ] as const
+).filter((item) => COURSE_STUDENT_AUTH_ENABLED || item.href !== "/studio/courses/students");
 
 function NavItem({
   href,

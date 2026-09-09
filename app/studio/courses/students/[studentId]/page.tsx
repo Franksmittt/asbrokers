@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import {
   getCourseById,
@@ -8,12 +8,16 @@ import {
   listEventsForStudent,
   listResponsesForStudent,
 } from "@/lib/courses/store";
+import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 
 export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ studentId: string }> };
 
 export default async function StudentDetailPage({ params }: Props) {
+  if (!COURSE_STUDENT_AUTH_ENABLED) {
+    redirect("/studio/courses");
+  }
   const { studentId } = await params;
   const student = getStudentById(studentId);
   if (!student) notFound();

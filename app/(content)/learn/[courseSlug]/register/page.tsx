@@ -10,6 +10,7 @@ import { RegisterForm } from "@/components/courses/RegisterForm";
 import { getCourseBySlug, getStudentCourseState } from "@/lib/courses/store";
 import { firstAvailableLesson } from "@/lib/courses/progress";
 import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
+import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 
@@ -39,7 +40,7 @@ export default async function CourseRegisterPage({ params }: Props) {
     redirect(next ? lessonPath(course.slug, next.slug) : coursePath(course.slug));
   }
 
-  if (!course.registrationRequired) {
+  if (!courseRequiresStudentAuth(course)) {
     redirect(coursePath(course.slug));
   }
 

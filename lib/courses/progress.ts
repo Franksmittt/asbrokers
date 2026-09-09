@@ -1,3 +1,4 @@
+import { COURSE_STUDENT_AUTH_ENABLED } from "./flags";
 import type {
   CourseEnrollment,
   CourseLesson,
@@ -32,7 +33,7 @@ export function getLessonAccess(
   const lessons = publishedLessons(course);
   const completed = new Set(state?.completedLessonIds ?? []);
   if (completed.has(lesson.id)) return "completed";
-  if (!course.sequentialLocking) return "available";
+  if (!COURSE_STUDENT_AUTH_ENABLED || !course.sequentialLocking) return "available";
 
   const index = lessons.findIndex((row) => row.id === lesson.id);
   if (index <= 0) return "available";

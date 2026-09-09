@@ -8,8 +8,10 @@ import {
   updateBlockAction,
   updateLessonAction,
 } from "@/app/studio/courses/actions";
+import { CourseCalculatorPicker } from "@/components/courses/CourseCalculatorPicker";
 import { BLOCK_LABELS } from "@/lib/courses/blocks";
-import { getStaffRegistryCalculators, formatStaffCalculatorLabel } from "@/lib/calculators/registry";
+import { listCourseCalculators, type CourseCalculatorOption } from "@/lib/courses/calculators";
+import { canMove } from "@/lib/courses/order";
 import { getCourseById } from "@/lib/courses/store";
 import { studioCoursePath } from "@/lib/courses/paths";
 import type { LessonBlock } from "@/lib/courses/types";
@@ -29,7 +31,7 @@ export default async function LessonBuilderPage({ params }: Props) {
   const lesson = course?.lessons.find((row) => row.id === lessonId);
   if (!course || !lesson) notFound();
   const blocks = [...lesson.blocks].sort((a, b) => a.sortOrder - b.sortOrder);
-  const calculators = getStaffRegistryCalculators();
+  const calculators = listCourseCalculators();
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8">
@@ -110,10 +112,13 @@ export default async function LessonBuilderPage({ params }: Props) {
             courseId={course.id}
             lessonId={lesson.id}
             block={block}
-            calculators={calculators.map((entry) => ({
-              id: entry.id,
-              label: formatStaffCalculatorLabel(entry),
-            }))}
+            calculators={
+              block.type === "calculator"
+                ? listCourseCalculators(block.calculatorId)
+                : calculators
+            }
+            canMoveUp={canMove(blocks, block.id, "up")}
+            canMoveDown={canMove(blocks, block.id, "down")}
           />
         ))}
         <div className="flex flex-wrap gap-2">
@@ -141,19 +146,35 @@ function BlockEditor({
   lessonId,
   block,
   calculators,
+  canMoveUp,
+  canMoveDown,
 }: {
   courseId: string;
   lessonId: string;
   block: LessonBlock;
-  calculators: { id: string; label: string }[];
+  calculators: CourseCalculatorOption[];
+  canMoveUp: boolean;
+  canMoveDown: boolean;
 }) {
   return (
     <div className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
         <p className="text-xs font-semibold uppercase tracking-wide text-[#3ecf8e]">{BLOCK_LABELS[block.type]}</p>
         <div className="flex gap-1">
-          <IconForm courseId={courseId} lessonId={lessonId} blockId={block.id} direction="up" />
-          <IconForm courseId={courseId} lessonId={lessonId} blockId={block.id} direction="down" />
+          <IconForm
+            courseId={courseId}
+            lessonId={lessonId}
+            blockId={block.id}
+            direction="up"
+            disabled={!canMoveUp}
+          />
+          <IconForm
+            courseId={courseId}
+            lessonId={lessonId}
+            blockId={block.id}
+            direction="down"
+            disabled={!canMoveDown}
+          />
           <form action={deleteBlockAction}>
             <input type="hidden" name="courseId" value={courseId} />
             <input type="hidden" name="lessonId" value={lessonId} />
@@ -171,7 +192,7 @@ function BlockEditor({
         <input type="hidden" name="type" value={block.type} />
         <BlockFields block={block} calculators={calculators} />
         <button type="submit" className="rounded-md border border-[#2a2a2a] px-3 py-1.5 text-xs text-zinc-200">
-          Save block
+          {block.type === "calculator" ? "Save calculator" : "Save block"}
         </button>
       </form>
     </div>
@@ -183,11 +204,13 @@ function IconForm({
   lessonId,
   blockId,
   direction,
+  disabled,
 }: {
   courseId: string;
   lessonId: string;
   blockId: string;
   direction: "up" | "down";
+  disabled: boolean;
 }) {
   return (
     <form action={reorderBlockAction}>
@@ -195,7 +218,12 @@ function IconForm({
       <input type="hidden" name="lessonId" value={lessonId} />
       <input type="hidden" name="blockId" value={blockId} />
       <input type="hidden" name="direction" value={direction} />
-      <button type="submit" className="rounded border border-[#2a2a2a] px-2 py-1 text-[11px] text-zinc-400">
+      <button
+        type="submit"
+        disabled={disabled}
+        aria-label={`Move block ${direction}`}
+        className="rounded border border-[#2a2a2a] px-2 py-1 text-[11px] text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+      >
         {direction === "up" ? "Up" : "Down"}
       </button>
     </form>
@@ -207,7 +235,7 @@ function BlockFields({
   calculators,
 }: {
   block: LessonBlock;
-  calculators: { id: string; label: string }[];
+  calculators: CourseCalculatorOption[];
 }) {
   switch (block.type) {
     case "heading":
@@ -239,15 +267,7 @@ function BlockFields({
         </>
       );
     case "calculator":
-      return (
-        <select name="calculatorId" defaultValue={block.calculatorId} className={field}>
-          {calculators.map((calc) => (
-            <option key={calc.id} value={calc.id}>
-              {calc.label}
-            </option>
-          ))}
-        </select>
-      );
+      return <CourseCalculatorPicker calculators={calculators} currentId={block.calculatorId} />;
     case "image":
       return (
         <>

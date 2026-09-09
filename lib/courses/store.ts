@@ -1,5 +1,7 @@
 import { newId, nowIso } from "./ids";
 import { createBlock, emptyLesson, sortBlocks } from "./blocks";
+import { COURSE_STUDENT_AUTH_ENABLED } from "./flags";
+import { moveBySortOrder } from "./order";
 import { createDemoClassroom, createSeedCourses } from "./seed";
 import { getLessonAccess, isLessonComplete, publishedLessons } from "./progress";
 import type {
@@ -116,8 +118,8 @@ export function createCourse(input: {
     featuredImageUrl: null,
     status: "draft",
     sortOrder: store().courses.length,
-    registrationRequired: true,
-    sequentialLocking: true,
+    registrationRequired: COURSE_STUDENT_AUTH_ENABLED,
+    sequentialLocking: COURSE_STUDENT_AUTH_ENABLED,
     createdAt: stamp,
     updatedAt: stamp,
     lessons: [],
@@ -206,18 +208,13 @@ export function deleteLesson(courseId: string, lessonId: string): void {
 
 export function reorderLessons(courseId: string, lessonId: string, direction: "up" | "down"): void {
   const course = findCourse(courseId);
-  const ordered = [...course.lessons].sort((a, b) => a.sortOrder - b.sortOrder);
-  const index = ordered.findIndex((row) => row.id === lessonId);
-  if (index < 0) return;
-  const swapWith = direction === "up" ? index - 1 : index + 1;
-  if (swapWith < 0 || swapWith >= ordered.length) return;
-  const current = ordered[index];
-  const other = ordered[swapWith];
-  if (!current || !other) return;
-  const temp = current.sortOrder;
-  current.sortOrder = other.sortOrder;
-  other.sortOrder = temp;
+  course.lessons = moveBySortOrder(course.lessons, lessonId, direction);
   touch(course);
+}
+
+export function reorderCourses(courseId: string, direction: "up" | "down"): void {
+  const s = store();
+  s.courses = moveBySortOrder(s.courses, courseId, direction);
 }
 
 export function addBlock(courseId: string, lessonId: string, type: LessonBlock["type"]): LessonBlock {
@@ -259,20 +256,13 @@ export function reorderBlock(
   direction: "up" | "down"
 ): void {
   const { course, lesson } = findLesson(courseId, lessonId);
-  const ordered = sortBlocks(lesson.blocks);
-  const index = ordered.findIndex((row) => row.id === blockId);
-  if (index < 0) return;
-  const swapWith = direction === "up" ? index - 1 : index + 1;
-  if (swapWith < 0 || swapWith >= ordered.length) return;
-  const next = [...ordered];
-  const current = next[index];
-  const other = next[swapWith];
-  if (!current || !other) return;
-  next[index] = other;
-  next[swapWith] = current;
-  lesson.blocks = sortBlocks(next);
+  lesson.blocks = moveBySortOrder(lesson.blocks, blockId, direction);
   lesson.updatedAt = nowIso();
   touch(course);
+}
+
+export function resetCourseStoreForTests(): void {
+  globalForCourses.__asbCourseStore = emptyStore();
 }
 
 export function listStudents(): CourseStudent[] {

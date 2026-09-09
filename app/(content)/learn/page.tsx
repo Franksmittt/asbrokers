@@ -20,7 +20,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/learn",
   title: "Free courses",
   description:
-    "Free educational courses from AS Brokers CC. Register once, then learn at your own pace with calculators, videos and private lesson responses.",
+    "Free educational courses from AS Brokers CC. Work through lessons at your own pace with calculators, videos and teaching notes.",
 });
 
 export default function LearnCatalogPage() {
@@ -42,7 +42,7 @@ export default function LearnCatalogPage() {
       <HubUtilityHero
         kicker="AS Brokers CC · FSP 17273"
         title="Free educational courses"
-        description="Courses you can take yourself. Lessons unlock in order, your progress is remembered, and any written answers stay private."
+        description="Courses you can take yourself. Open a lesson, try the calculators, and come back whenever you like."
       />
       <HubContentSection className="pt-0">
         {courses.length === 0 ? (
@@ -74,7 +74,6 @@ export default function LearnCatalogPage() {
                     </p>
                     <p className="mt-4 text-xs text-stone-500">
                       {total} {total === 1 ? "lesson" : "lessons"}
-                      {course.sequentialLocking ? " · sequential" : " · open access"}
                     </p>
                     <Link href={coursePath(course.slug)} prefetch={false} className={`${WARM_BTN_PRIMARY} mt-6`}>
                       View course

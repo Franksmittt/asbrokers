@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { canAccessCourseStudio } from "@/lib/courses/studio-access";
+import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { courseSettingsSchema, lessonSettingsSchema } from "@/lib/courses/schema";
 import { slugify } from "@/lib/courses/ids";
 import { studioCoursePath, studioLessonPath } from "@/lib/courses/paths";
@@ -16,6 +17,7 @@ import {
   deleteCourse,
   deleteLesson,
   reorderBlock,
+  reorderCourses,
   reorderLessons,
   updateBlock,
   updateCourse,
@@ -64,8 +66,8 @@ export async function updateCourseAction(formData: FormData): Promise<void> {
     featuredImageUrl: formString(formData, "featuredImageUrl") || null,
     status: formString(formData, "status"),
     sortOrder: formString(formData, "sortOrder"),
-    registrationRequired: formChecked(formData, "registrationRequired"),
-    sequentialLocking: formChecked(formData, "sequentialLocking"),
+    registrationRequired: COURSE_STUDENT_AUTH_ENABLED && formChecked(formData, "registrationRequired"),
+    sequentialLocking: COURSE_STUDENT_AUTH_ENABLED && formChecked(formData, "sequentialLocking"),
   });
   if (!parsed.success) {
     throw new Error(parsed.error.issues[0]?.message ?? "Could not save course.");
@@ -155,12 +157,24 @@ export async function deleteLessonAction(formData: FormData): Promise<void> {
   redirect(studioCoursePath(courseId));
 }
 
+export async function reorderCourseAction(formData: FormData): Promise<void> {
+  await requireStudio();
+  const courseId = formString(formData, "courseId");
+  const direction = formString(formData, "direction") === "up" ? "up" : "down";
+  reorderCourses(courseId, direction);
+  revalidatePath("/studio/courses");
+  revalidatePath("/learn");
+  redirect("/studio/courses");
+}
+
 export async function reorderLessonAction(formData: FormData): Promise<void> {
   await requireStudio();
   const courseId = formString(formData, "courseId");
   const direction = formString(formData, "direction") === "up" ? "up" : "down";
   reorderLessons(courseId, formString(formData, "lessonId"), direction);
   revalidatePath(studioCoursePath(courseId));
+  revalidatePath("/learn");
+  redirect(studioCoursePath(courseId));
 }
 
 export async function addBlockAction(formData: FormData): Promise<void> {
@@ -170,6 +184,7 @@ export async function addBlockAction(formData: FormData): Promise<void> {
   const type = formString(formData, "type") as BlockType;
   addBlock(courseId, lessonId, type);
   revalidatePath(studioLessonPath(courseId, lessonId));
+  redirect(studioLessonPath(courseId, lessonId));
 }
 
 export async function deleteBlockAction(formData: FormData): Promise<void> {
@@ -178,6 +193,7 @@ export async function deleteBlockAction(formData: FormData): Promise<void> {
   const lessonId = formString(formData, "lessonId");
   deleteBlock(courseId, lessonId, formString(formData, "blockId"));
   revalidatePath(studioLessonPath(courseId, lessonId));
+  redirect(studioLessonPath(courseId, lessonId));
 }
 
 export async function reorderBlockAction(formData: FormData): Promise<void> {
@@ -187,6 +203,7 @@ export async function reorderBlockAction(formData: FormData): Promise<void> {
   const direction = formString(formData, "direction") === "up" ? "up" : "down";
   reorderBlock(courseId, lessonId, formString(formData, "blockId"), direction);
   revalidatePath(studioLessonPath(courseId, lessonId));
+  redirect(studioLessonPath(courseId, lessonId));
 }
 
 export async function updateBlockAction(formData: FormData): Promise<void> {
@@ -198,6 +215,7 @@ export async function updateBlockAction(formData: FormData): Promise<void> {
   const patch = blockPatchFromForm(type, formData);
   updateBlock(courseId, lessonId, blockId, patch);
   revalidatePath(studioLessonPath(courseId, lessonId));
+  redirect(studioLessonPath(courseId, lessonId));
 }
 
 function blockPatchFromForm(type: BlockType, formData: FormData): Partial<LessonBlock> {
@@ -217,8 +235,10 @@ function blockPatchFromForm(type: BlockType, formData: FormData): Partial<Lesson
         caption: formString(formData, "caption"),
         posterUrl: formString(formData, "posterUrl"),
       };
-    case "calculator":
-      return { type, calculatorId: formString(formData, "calculatorId") };
+    case "calculator": {
+      const calculatorId = formString(formData, "calculatorId").trim();
+      return { type, calculatorId };
+    }
     case "image":
       return {
         type,

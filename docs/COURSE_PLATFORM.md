@@ -21,7 +21,7 @@ Student database: `/studio/courses/students`
 - Require a private written response per lesson (optional)
 - Sequential locking (optional per course)
 - Block types: heading, text, video, calculator, image, callout, CTA
-- Student registration (name, surname, email, POPIA consent)
+- Student registration (name, surname, email, POPIA consent) — **paused** while courses are authored (`COURSE_STUDENT_AUTH_ENABLED`)
 - Progress: started, opened, completed, course completed, offer clicked
 - Configurable final-lesson offer (heading, text, button, URL)
 
@@ -40,6 +40,10 @@ Production tables (Postgres / RLS on, no anon policies) are in:
 - Drizzle models in `lib/db/schema.ts`
 
 Apply those when ready to persist across deploys. Until then, studio edits reset when the server process restarts. Student progress in a running process is cookie + memory.
+
+## Student registration (paused)
+
+Student register, login, and the student database are **turned off** while Albert builds course content. Public `/learn` pages open without a form. Flip `COURSE_STUDENT_AUTH_ENABLED` in `lib/courses/flags.ts` to `true` when we put registration back.
 
 ## Adding a calculator later
 

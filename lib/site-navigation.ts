@@ -89,6 +89,7 @@ export const FOOTER_HOW_WE_HELP: NavLink[] = [
 
 /** Mega-footer: education and tools. */
 export const FOOTER_RESOURCES: NavLink[] = [
+  { label: "Weekly Newsletter", href: "/newsletter" },
   { label: "Insights", href: "/insights" },
   { label: "Courses", href: "/learn" },
   { label: "Calculators", href: "/calculators" },

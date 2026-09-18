@@ -78,8 +78,10 @@ test.describe("Course Studio stress walkthrough", () => {
     await expect(firstUp).toBeDisabled();
     await expect(firstDown).toBeEnabled();
     await firstDown.click();
-    await expect(page.getByRole("button", { name: "Move block up" }).first()).toBeEnabled();
+    await expect(page.getByRole("button", { name: "Move block down" }).first()).toBeEnabled();
+    await expect(page.getByRole("button", { name: "Move block up" }).nth(1)).toBeEnabled();
     await page.getByRole("button", { name: "Move block up" }).nth(1).click();
+    await expect(page.getByRole("button", { name: "Move block up" }).first()).toBeDisabled();
 
     await page.locator('select[name="status"]').selectOption("published");
     await clickSave(page, "Save lesson settings");

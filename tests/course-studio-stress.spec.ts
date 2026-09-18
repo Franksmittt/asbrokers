@@ -99,7 +99,7 @@ test.describe("Course Studio stress walkthrough", () => {
     await expect(page.getByRole("heading", { name: title })).toBeVisible();
     await page.locator("li").filter({ hasText: title }).getByRole("link", { name: "View course" }).click();
     await page.getByRole("link", { name: /Start the course|Continue/ }).click();
-    await expect(page.getByRole("heading", { name: "Lesson 1 numbers" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Lesson 1 numbers", level: 1 })).toBeVisible();
     await expect(page.locator("iframe[title*='Retirement Premium']")).toHaveCount(1);
     await expect(page.locator(`iframe[src*="youtube-nocookie.com/embed/dQw4w9WgXcQ"]`)).toBeVisible();
 

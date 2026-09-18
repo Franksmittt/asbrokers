@@ -18,15 +18,17 @@ type Props = {
 };
 
 export function CourseCalculatorPicker({ calculators, currentId }: Props) {
+  const savedId = sanitizeCourseCalculatorId(currentId);
   const [query, setQuery] = useState("");
-  const [selectedId, setSelectedId] = useState(() => sanitizeCourseCalculatorId(currentId));
+  const [previewId, setPreviewId] = useState(savedId);
 
   useEffect(() => {
-    setSelectedId(sanitizeCourseCalculatorId(currentId));
+    setPreviewId(sanitizeCourseCalculatorId(currentId));
+    setQuery("");
   }, [currentId]);
 
   const selected =
-    calculators.find((calc) => calc.id === selectedId) ??
+    calculators.find((calc) => calc.id === previewId) ??
     calculators.find((calc) => calc.id === DEFAULT_COURSE_CALCULATOR_ID) ??
     calculators[0];
 
@@ -47,7 +49,10 @@ export function CourseCalculatorPicker({ calculators, currentId }: Props) {
           const match = calculators.find((calc) =>
             `${calc.label} ${calc.title} ${calc.id}`.toLowerCase().includes(needle)
           );
-          if (match) setSelectedId(match.id);
+          if (!match) return;
+          setPreviewId(match.id);
+          const select = event.currentTarget.form?.elements.namedItem("calculatorId");
+          if (select instanceof HTMLSelectElement) select.value = match.id;
         }}
         onKeyDown={(event) => {
           if (event.key === "Enter") event.preventDefault();
@@ -58,8 +63,9 @@ export function CourseCalculatorPicker({ calculators, currentId }: Props) {
       <select
         name="calculatorId"
         required
-        value={selected?.id ?? DEFAULT_COURSE_CALCULATOR_ID}
-        onChange={(event) => setSelectedId(event.target.value)}
+        key={savedId}
+        defaultValue={savedId}
+        onChange={(event) => setPreviewId(event.target.value)}
         className={SELECT_CLASS}
       >
         {calculators.map((calc) => (

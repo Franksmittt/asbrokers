@@ -128,7 +128,6 @@ export default async function LessonBuilderPage({ params }: Props) {
             courseId={course.id}
             lessonId={lesson.id}
             block={block}
-            formRevision={lesson.updatedAt}
             calculators={
               block.type === "calculator"
                 ? listCourseCalculators(block.calculatorId)
@@ -171,7 +170,6 @@ function BlockEditor({
   calculators,
   canMoveUp,
   canMoveDown,
-  formRevision,
 }: {
   courseId: string;
   lessonId: string;
@@ -179,7 +177,6 @@ function BlockEditor({
   calculators: CourseCalculatorOption[];
   canMoveUp: boolean;
   canMoveDown: boolean;
-  formRevision: string;
 }) {
   return (
     <div className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-4">
@@ -212,7 +209,7 @@ function BlockEditor({
       </div>
       <StudioPersistForm
         action={updateBlockAction}
-        formKey={`${block.id}:${formRevision}`}
+        formKey={block.id}
         className="space-y-3"
       >
         <input type="hidden" name="courseId" value={courseId} />

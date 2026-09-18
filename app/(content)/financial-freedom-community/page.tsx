@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { HOME4_WRAP } from "@/components/home4/Home4Blocks";
-import { ArrowRight, Lock } from "@/components/icons";
+import { ArrowRight } from "@/components/icons";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { HubLcpPreload } from "@/components/seo/HubLcpPreload";
-import { calculatorPagePath } from "@/lib/calculators/page-path";
 import { buildPageMetadata, buildPageTitle } from "@/lib/seo-metadata";
 
 const CANVAS = "#F7F6F3";
@@ -17,27 +16,24 @@ export const metadata = buildPageMetadata({
   path: "/financial-freedom-community",
   title: "Financial Freedom Community™ | 12-Week Programme",
   description:
-    "Join the Financial Freedom Community™, a 12-week educational programme that unlocks members-only planning tools including the Goal Engineering Planner™. FSP 17273.",
+    "Join the Financial Freedom Community™, a 12-week educational programme from AS Brokers CC. FSP 17273.",
   keywords: [
     "Financial Freedom Community",
     "12-week financial freedom programme",
-    "Goal Engineering Planner",
     "Retirement Gap Method",
   ],
 });
 
 export default function FinancialFreedomCommunityPage() {
-  const plannerHref = calculatorPagePath("asset-017-personal-goal");
-
   return (
     <>
-      <HubLcpPreload src="/images/calc-lcp/asset-017.webp" variant="calc-split" />
+      <HubLcpPreload src="/images/retirement-planning-hero-16x9.webp" variant="calc-split" />
       <PageJsonLd
         path="/financial-freedom-community"
         webPage={{
           name: buildPageTitle("Financial Freedom Community™"),
           description:
-            "12-week educational programme unlocking members-only Retirement Gap Method™ planning tools.",
+            "12-week educational programme unlocking members-only Retirement Gap Method™ learning tools.",
         }}
         breadcrumbs={[
           { name: "Home", path: "/" },
@@ -55,11 +51,11 @@ export default function FinancialFreedomCommunityPage() {
               className="mt-4 max-w-3xl font-bold tracking-tight"
               style={{ fontSize: "clamp(1.75rem, 1.4rem + 1.2vw, 2.75rem)" }}
             >
-              Education first. Then unlock the planning tools.
+              Education first. Then unlock the members learning tools.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
-              The 12-week programme builds financial literacy and unlocks proprietary members-area
-              tools, including the Goal Engineering Planner™, after registration and payment.
+              The 12-week programme builds financial literacy and unlocks members-area
+              learning tools after registration and payment.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -77,11 +73,10 @@ export default function FinancialFreedomCommunityPage() {
                 The Retirement Gap Method™
               </Link>
               <Link
-                href={plannerHref}
+                href="/learn"
                 className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3.5 text-sm font-semibold text-white ring-1 ring-white/20"
               >
-                <Lock className="h-4 w-4" aria-hidden />
-                Goal Engineering Planner™
+                Free courses
               </Link>
             </div>
           </div>
@@ -102,8 +97,8 @@ export default function FinancialFreedomCommunityPage() {
                 activate membership.
               </li>
               <li>
-                <strong style={{ color: INK }}>3. Unlock</strong>, access the Goal Engineering
-                Planner™ and members learning centre tools.
+                <strong style={{ color: INK }}>3. Unlock</strong>, access the members learning centre
+                and classroom tools.
               </li>
             </ol>
             <p className="mt-6 text-sm leading-relaxed text-stone-600">

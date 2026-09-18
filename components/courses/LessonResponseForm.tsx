@@ -28,7 +28,7 @@ export function LessonResponseForm({
       <div className="rounded-3xl border border-[#006B6B]/20 bg-white p-6 ring-1 ring-stone-200">
         <p className="text-sm font-semibold text-[#006B6B]">Response saved privately</p>
         <p className="mt-2 text-sm text-stone-600">
-          Your answer is attached to your profile. It is not published on the website.
+          Your answer is in the classroom below. You can read other students’ answers, and Albert’s replies, from this lesson.
         </p>
       </div>
     );
@@ -65,7 +65,7 @@ export function LessonResponseForm({
         minLength={8}
         rows={5}
         className="w-full rounded-2xl border border-stone-300 bg-white px-4 py-3 text-base text-stone-900"
-        placeholder="Write a short reflection. Only AS Brokers can see this."
+        placeholder="Write a short reflection. After you submit, you can read other students’ answers."
       />
       {answerState.message && !answerState.ok ? (
         <p className="text-sm font-medium text-red-700" role="alert">
@@ -73,7 +73,7 @@ export function LessonResponseForm({
         </p>
       ) : null}
       <button type="submit" disabled={answering} className={`${WARM_BTN_PRIMARY} disabled:opacity-60`}>
-        {answering ? "Submitting…" : "Submit and continue"}
+        {answering ? "Submitting…" : "Submit answer"}
       </button>
     </form>
   );

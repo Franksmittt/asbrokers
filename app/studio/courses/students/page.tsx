@@ -17,7 +17,19 @@ export default async function CourseStudentsPage() {
   if (!COURSE_STUDENT_AUTH_ENABLED) {
     redirect("/studio/courses");
   }
-  const students = listStudents();
+  const students = await listStudents();
+  const rows = await Promise.all(
+    students.map(async (student) => {
+      const enrollments = await listEnrollmentsForStudent(student.id);
+      const enrollment = enrollments[0];
+      const course = enrollment ? await getCourseById(enrollment.courseId) : null;
+      const total = course ? publishedLessons(course).length : 0;
+      const events = await listEventsForStudent(student.id);
+      const completedLessons = events.filter((event) => event.type === "lesson_completed").length;
+      const responses = await listResponsesForStudent(student.id);
+      return { student, enrollment, course, total, completedLessons, responses };
+    })
+  );
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8">
@@ -27,8 +39,8 @@ export default async function CourseStudentsPage() {
         </Link>
         <h1 className="mt-2 text-2xl font-semibold text-white">Student database</h1>
         <p className="mt-2 max-w-2xl text-sm text-zinc-400">
-          Registrations, progress, private lesson answers, and whether the final offer was clicked. Extra fields can
-          be added later without rebuilding the player.
+          Registrations, progress, classroom answers, and whether the final offer was clicked. Reply to any
+          answer from the student page so the group can read it.
         </p>
       </div>
 
@@ -46,33 +58,22 @@ export default async function CourseStudentsPage() {
             </tr>
           </thead>
           <tbody>
-            {students.map((student) => {
-              const enrollments = listEnrollmentsForStudent(student.id);
-              const enrollment = enrollments[0];
-              const course = enrollment ? getCourseById(enrollment.courseId) : null;
-              const total = course ? publishedLessons(course).length : 0;
-              const events = listEventsForStudent(student.id);
-              const completedLessons = events.filter((event) => event.type === "lesson_completed").length;
-              const responses = listResponsesForStudent(student.id);
-              return (
-                <tr key={student.id} className="border-t border-[#2a2a2a] text-zinc-300">
-                  <td className="px-3 py-3">
-                    <Link href={`/studio/courses/students/${student.id}`} className="text-white hover:underline">
-                      {student.firstName} {student.surname}
-                    </Link>
-                    <p className="text-[11px] text-zinc-500">{responses.length} answers</p>
-                  </td>
-                  <td className="px-3 py-3">{student.email}</td>
-                  <td className="px-3 py-3 text-zinc-500">{student.createdAt.slice(0, 10)}</td>
-                  <td className="px-3 py-3">{course?.title ?? "—"}</td>
-                  <td className="px-3 py-3">
-                    {enrollment ? `${completedLessons} of ${total}` : "—"}
-                  </td>
-                  <td className="px-3 py-3">{enrollment?.completedAt ? enrollment.completedAt.slice(0, 10) : "No"}</td>
-                  <td className="px-3 py-3">{enrollment?.offerClickedAt ? "Yes" : "No"}</td>
-                </tr>
-              );
-            })}
+            {rows.map(({ student, enrollment, course, total, completedLessons, responses }) => (
+              <tr key={student.id} className="border-t border-[#2a2a2a] text-zinc-300">
+                <td className="px-3 py-3">
+                  <Link href={`/studio/courses/students/${student.id}`} className="text-white hover:underline">
+                    {student.firstName} {student.surname}
+                  </Link>
+                  <p className="text-[11px] text-zinc-500">{responses.length} answers</p>
+                </td>
+                <td className="px-3 py-3">{student.email}</td>
+                <td className="px-3 py-3 text-zinc-500">{student.createdAt.slice(0, 10)}</td>
+                <td className="px-3 py-3">{course?.title ?? "—"}</td>
+                <td className="px-3 py-3">{enrollment ? `${completedLessons} of ${total}` : "—"}</td>
+                <td className="px-3 py-3">{enrollment?.completedAt ? enrollment.completedAt.slice(0, 10) : "No"}</td>
+                <td className="px-3 py-3">{enrollment?.offerClickedAt ? "Yes" : "No"}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

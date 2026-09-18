@@ -573,9 +573,9 @@ export const HUB_RELATED: Record<string, RelatedLink[]> = {
       description: "The cornerstone framework behind the Community.",
     },
     {
-      href: "/calculators/goal-engineering-planner",
-      title: "Goal Engineering Planner™",
-      description: "Members-only planning tool unlocked after payment.",
+      href: "/learn",
+      title: "Free courses",
+      description: "Educational lessons with calculators and classroom answers.",
     },
     {
       href: "/calculators",

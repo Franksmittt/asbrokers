@@ -1,5 +1,5 @@
 /**
- * Canonical calculator registry, ASSET 001–017 (2026 rebuild).
+ * Canonical calculator registry, ASSET 001–016 (2026 rebuild).
  *
  * - `title` is the public-facing name (customers, embed iframe titles).
  * - `assetCode` + `title` form the staff label in Blog Studio / CRM (backend only).
@@ -136,12 +136,6 @@ export const CALCULATOR_REGISTRY: CalculatorRegistryEntry[] = [
     "Power of Growth Calculator",
     "ASSET 016",
     "asset-016-growth-comparison"
-  ),
-  staticHtml(
-    "asset-017-personal-goal.html",
-    "Goal Engineering Planner™",
-    "ASSET 017",
-    "asset-017-personal-goal"
   ),
 ];
 

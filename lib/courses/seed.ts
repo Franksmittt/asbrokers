@@ -140,13 +140,13 @@ export function createPublishedDemoCourse(): CourseRecord {
           text(
             "blk_1e",
             4,
-            "Use the Goal Engineering Planner below as a thinking tool, not a quote.\n\n" +
+              "Use the Retirement Growth Calculator below as a thinking tool, not a quote.\n\n" +
               "- What income would make the year work?\n" +
               "- What would that life actually cost in today's rands?\n" +
               "- How many years do you want that income to last?\n\n" +
               "Write the picture down. The later lessons test whether the capital you have, or can still add, can support that picture."
           ),
-          calculator("blk_1f", 5, "asset-017-personal-goal"),
+          calculator("blk_1f", 5, "asset-001-retirement-growth"),
           callout(
             "blk_1g",
             6,
@@ -525,6 +525,9 @@ export function createDemoClassroom(): {
         answer:
           "Retirement is when I stop the business. Financial freedom is when the capital can pay for our life without that business. I think I have been planning the date, not the condition.",
         submittedAt: "2026-08-12T09:41:00.000Z",
+        instructorReply:
+          "That distinction is the whole course. Keep testing the income picture against the capital you actually have.",
+        instructorRepliedAt: "2026-08-12T11:05:00.000Z",
       },
       {
         id: "rsp_l1",
@@ -532,6 +535,8 @@ export function createDemoClassroom(): {
         lessonId: l1,
         answer: "I wanted a retirement date at 63. After this lesson I can see that date is meaningless if the income does not cover the household.",
         submittedAt: "2026-08-05T07:10:00.000Z",
+        instructorReply: null,
+        instructorRepliedAt: null,
       },
       {
         id: "rsp_l2",
@@ -539,6 +544,8 @@ export function createDemoClassroom(): {
         lessonId: l2,
         answer: "The premium needed is higher than we are saving. Possible if we redirect the bonus, not from the monthly salary alone.",
         submittedAt: "2026-08-06T07:28:00.000Z",
+        instructorReply: "Redirecting a bonus is a real lever. Write the monthly number you can actually keep, then we look at the gap honestly.",
+        instructorRepliedAt: "2026-08-06T09:00:00.000Z",
       },
       {
         id: "rsp_l3",
@@ -546,6 +553,8 @@ export function createDemoClassroom(): {
         lessonId: l3,
         answer: "At 6% drawdown the capital faded in the illustration much sooner than I expected. I need to look at a lower starting income.",
         submittedAt: "2026-08-07T19:40:00.000Z",
+        instructorReply: null,
+        instructorRepliedAt: null,
       },
       {
         id: "rsp_l4",
@@ -553,6 +562,8 @@ export function createDemoClassroom(): {
         lessonId: l4,
         answer: "The growth rate the plan wanted looked ambitious after fees. I would rather change the contribution than assume that return.",
         submittedAt: "2026-08-09T08:44:00.000Z",
+        instructorReply: null,
+        instructorRepliedAt: null,
       },
       {
         id: "rsp_l5",
@@ -560,6 +571,8 @@ export function createDemoClassroom(): {
         lessonId: l5,
         answer: "I want help building a financial-freedom plan — especially drawdown and whether we should phase work rather than stop.",
         submittedAt: "2026-08-10T11:05:00.000Z",
+        instructorReply: null,
+        instructorRepliedAt: null,
       },
     ],
     events: [

@@ -83,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (entries.length >= 49500) break;
   }
 
-  for (const course of listPublishedCourses()) {
+  for (const course of await listPublishedCourses()) {
     push(coursePath(course.slug), course.updatedAt ? new Date(course.updatedAt) : undefined);
   }
 

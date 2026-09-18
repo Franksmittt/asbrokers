@@ -23,8 +23,8 @@ export const metadata: Metadata = buildPageMetadata({
     "Free educational courses from AS Brokers CC. Work through lessons at your own pace with calculators, videos and teaching notes.",
 });
 
-export default function LearnCatalogPage() {
-  const courses = listPublishedCourses();
+export default async function LearnCatalogPage() {
+  const courses = await listPublishedCourses();
 
   return (
     <PageWithFooter>

@@ -1,6 +1,6 @@
 /**
  * Public /calculators hub catalog: Retirement Gap Toolkit™ (ASSET 000).
- * Categories, start-here prompts, difficulty, and completion time for ASSET 001–017.
+ * Categories, start-here prompts, difficulty, and completion time for ASSET 001–016.
  */
 
 import {
@@ -61,7 +61,6 @@ export const HUB_DISPLAY_TITLES: Record<string, string> = {
   "asset-014-living-annuity": "Living Annuity Income & Sustainability Calculator",
   "asset-015-average-clause": "Average Clause Calculator",
   "asset-016-growth-comparison": "Power of Growth Calculator",
-  "asset-017-personal-goal": "Goal Engineering Planner™",
 };
 
 /** Problem-led blurbs keyed by registry id. */
@@ -97,8 +96,6 @@ export const HUB_CALCULATOR_PROBLEMS: Record<string, string> = {
     "Underinsurance illustration (restricted pending review).",
   "asset-016-growth-comparison":
     "Illustrate the mathematical cost of delaying the same growth plan under your assumptions.",
-  "asset-017-personal-goal":
-    "Members only: reverse-engineer a growth rate required for an entered financial goal under your assumptions.",
 };
 
 export const HUB_CALCULATOR_META: Record<
@@ -121,12 +118,11 @@ export const HUB_CALCULATOR_META: Record<
   "asset-014-living-annuity": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
   "asset-015-average-clause": { estimatedTime: "3–5 min", difficulty: "Beginner" },
   "asset-016-growth-comparison": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
-  "asset-017-personal-goal": { estimatedTime: "5–8 min", difficulty: "Intermediate" },
 };
 
 /**
  * Asset 000 category order (Albert brief).
- * Remaining ASSET tools sit in Investment Decisions / Insurance so all 001–017 remain visible.
+ * Remaining ASSET tools sit in Investment Decisions / Insurance so all 001–016 remain visible.
  */
 export const HUB_DOMAINS: readonly HubDomain[] = [
   {
@@ -162,12 +158,6 @@ export const HUB_DOMAINS: readonly HubDomain[] = [
       "asset-016-growth-comparison",
     ],
     everestDisclosure: true,
-  },
-  {
-    id: "members-tools",
-    label: "Members Planning Tools",
-    lead: "Proprietary Retirement Gap Method™ planners unlocked after Financial Freedom Community™ registration and payment.",
-    ids: ["asset-017-personal-goal"],
   },
   {
     id: "estate-planning",
@@ -242,7 +232,7 @@ function toHubCalculator(entry: CalculatorRegistryEntry): HubCalculator {
       "Illustrative educational calculator. Not personalised advice.",
     estimatedTime: meta.estimatedTime,
     difficulty: meta.difficulty,
-    membersOnly: entry.id === "asset-017-personal-goal",
+    membersOnly: false,
   };
 }
 

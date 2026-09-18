@@ -20,7 +20,7 @@ type Props = { params: Promise<{ courseSlug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { courseSlug } = await params;
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   return buildPageMetadata({
     path: registerPath(courseSlug),
     title: course ? `Register · ${course.title}` : "Register for the course",
@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CourseRegisterPage({ params }: Props) {
   const { courseSlug } = await params;
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   if (!course || course.status !== "published") notFound();
 
   const studentId = await getCourseStudentId();
-  const state = studentId ? getStudentCourseState(studentId, course.id) : null;
+  const state = studentId ? await getStudentCourseState(studentId, course.id) : null;
   if (state) {
     const next = firstAvailableLesson(course, state);
     redirect(next ? lessonPath(course.slug, next.slug) : coursePath(course.slug));

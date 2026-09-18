@@ -10,7 +10,7 @@ import {
 } from "@/app/studio/courses/actions";
 import { CourseCalculatorPicker } from "@/components/courses/CourseCalculatorPicker";
 import { BLOCK_LABELS } from "@/lib/courses/blocks";
-import { listCourseCalculators, type CourseCalculatorOption } from "@/lib/courses/calculators";
+import { listCourseCalculators, sanitizeCourseCalculatorId, type CourseCalculatorOption } from "@/lib/courses/calculators";
 import { canMove } from "@/lib/courses/order";
 import { getCourseById } from "@/lib/courses/store";
 import { studioCoursePath } from "@/lib/courses/paths";
@@ -27,7 +27,7 @@ const labelCls = "block text-xs font-medium text-zinc-400";
 
 export default async function LessonBuilderPage({ params }: Props) {
   const { courseId, lessonId } = await params;
-  const course = getCourseById(courseId);
+  const course = await getCourseById(courseId);
   const lesson = course?.lessons.find((row) => row.id === lessonId);
   if (!course || !lesson) notFound();
   const blocks = [...lesson.blocks].sort((a, b) => a.sortOrder - b.sortOrder);
@@ -267,7 +267,13 @@ function BlockFields({
         </>
       );
     case "calculator":
-      return <CourseCalculatorPicker calculators={calculators} currentId={block.calculatorId} />;
+      return (
+        <CourseCalculatorPicker
+          key={sanitizeCourseCalculatorId(block.calculatorId)}
+          calculators={calculators}
+          currentId={sanitizeCourseCalculatorId(block.calculatorId)}
+        />
+      );
     case "image":
       return (
         <>

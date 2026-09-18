@@ -11,8 +11,7 @@ function metaString(meta: Record<string, unknown> | undefined, key: string): str
 }
 
 /**
- * Active Financial Freedom Community™ membership unlocks members-only planners
- * (e.g. Goal Engineering Planner™ / Asset 017).
+ * Active Financial Freedom Community™ membership unlocks members-area learning tools.
  *
  * Status is expected on Supabase `app_metadata.ffc_membership` after signup + payment.
  * Staff/admin always have preview access.
@@ -40,8 +39,5 @@ export function membershipStatusLabel(user: MembershipUserLike): string {
   return status || "none";
 }
 
-/** Public + members routes that reference the Goal Engineering Planner™. */
-export const GOAL_ENGINEERING_PLANNER_ID = "asset-017-personal-goal";
-export const GOAL_ENGINEERING_EMBED_PATH = "/embed-calculators/asset-017-personal-goal.html";
 export const FINANCIAL_FREEDOM_REGISTER_PATH = "/financial-freedom-community/register";
 export const FINANCIAL_FREEDOM_COMMUNITY_PATH = "/financial-freedom-community";

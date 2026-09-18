@@ -1728,7 +1728,7 @@ export function BlogStudioClient(props: Props) {
               Choose one calculator for each {CALC_TOKEN} and paste one video link for each {VIDEO_TOKEN}.
               {embedReadySnippets.length > 0 && (
                 <span className="mt-1 block text-xs text-zinc-500">
-                  {embedReadySnippets.length} AS Brokers calculators available (ASSET 001–017).
+                  {embedReadySnippets.length} AS Brokers calculators available (ASSET 001–016).
                 </span>
               )}
             </p>

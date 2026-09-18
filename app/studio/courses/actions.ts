@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { canAccessCourseStudio } from "@/lib/courses/studio-access";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { courseSettingsSchema, lessonSettingsSchema } from "@/lib/courses/schema";
+import { sanitizeCourseCalculatorId } from "@/lib/courses/calculators";
 import { slugify } from "@/lib/courses/ids";
 import { studioCoursePath, studioLessonPath } from "@/lib/courses/paths";
 import type { BlockType, LessonBlock, LessonOffer } from "@/lib/courses/types";
@@ -19,6 +20,7 @@ import {
   reorderBlock,
   reorderCourses,
   reorderLessons,
+  replyToLessonResponse,
   updateBlock,
   updateCourse,
   updateLesson,
@@ -50,7 +52,7 @@ export async function createCourseAction(formData: FormData): Promise<void> {
   if (!parsed.success) {
     throw new Error(parsed.error.issues[0]?.message ?? "Could not create course.");
   }
-  const course = createCourse(parsed.data);
+  const course = await createCourse(parsed.data);
   revalidatePath("/studio/courses");
   revalidatePath("/learn");
   redirect(studioCoursePath(course.id));
@@ -72,7 +74,7 @@ export async function updateCourseAction(formData: FormData): Promise<void> {
   if (!parsed.success) {
     throw new Error(parsed.error.issues[0]?.message ?? "Could not save course.");
   }
-  updateCourse(courseId, parsed.data);
+  await updateCourse(courseId, parsed.data);
   revalidatePath("/studio/courses");
   revalidatePath(studioCoursePath(courseId));
   revalidatePath("/learn");
@@ -81,7 +83,7 @@ export async function updateCourseAction(formData: FormData): Promise<void> {
 
 export async function deleteCourseAction(formData: FormData): Promise<void> {
   await requireStudio();
-  deleteCourse(formString(formData, "courseId"));
+  await deleteCourse(formString(formData, "courseId"));
   revalidatePath("/studio/courses");
   revalidatePath("/learn");
   redirect("/studio/courses");
@@ -92,7 +94,7 @@ export async function addLessonAction(formData: FormData): Promise<void> {
   const courseId = formString(formData, "courseId");
   const title = formString(formData, "title").trim() || "New lesson";
   const slug = formString(formData, "slug").trim() || slugify(title);
-  const lesson = addLesson(courseId, title, slug);
+  const lesson = await addLesson(courseId, title, slug);
   revalidatePath(studioCoursePath(courseId));
   redirect(studioLessonPath(courseId, lesson.id));
 }
@@ -135,7 +137,7 @@ export async function updateLessonAction(formData: FormData): Promise<void> {
             openInNewTab: parsed.data.offerOpenInNewTab,
           }
         : null;
-  updateLesson(courseId, lessonId, {
+  await updateLesson(courseId, lessonId, {
     title: parsed.data.title,
     slug: parsed.data.slug,
     status: parsed.data.status,
@@ -152,7 +154,7 @@ export async function updateLessonAction(formData: FormData): Promise<void> {
 export async function deleteLessonAction(formData: FormData): Promise<void> {
   await requireStudio();
   const courseId = formString(formData, "courseId");
-  deleteLesson(courseId, formString(formData, "lessonId"));
+  await deleteLesson(courseId, formString(formData, "lessonId"));
   revalidatePath(studioCoursePath(courseId));
   redirect(studioCoursePath(courseId));
 }
@@ -161,7 +163,7 @@ export async function reorderCourseAction(formData: FormData): Promise<void> {
   await requireStudio();
   const courseId = formString(formData, "courseId");
   const direction = formString(formData, "direction") === "up" ? "up" : "down";
-  reorderCourses(courseId, direction);
+  await reorderCourses(courseId, direction);
   revalidatePath("/studio/courses");
   revalidatePath("/learn");
   redirect("/studio/courses");
@@ -171,10 +173,9 @@ export async function reorderLessonAction(formData: FormData): Promise<void> {
   await requireStudio();
   const courseId = formString(formData, "courseId");
   const direction = formString(formData, "direction") === "up" ? "up" : "down";
-  reorderLessons(courseId, formString(formData, "lessonId"), direction);
+  await reorderLessons(courseId, formString(formData, "lessonId"), direction);
   revalidatePath(studioCoursePath(courseId));
   revalidatePath("/learn");
-  redirect(studioCoursePath(courseId));
 }
 
 export async function addBlockAction(formData: FormData): Promise<void> {
@@ -182,18 +183,16 @@ export async function addBlockAction(formData: FormData): Promise<void> {
   const courseId = formString(formData, "courseId");
   const lessonId = formString(formData, "lessonId");
   const type = formString(formData, "type") as BlockType;
-  addBlock(courseId, lessonId, type);
+  await addBlock(courseId, lessonId, type);
   revalidatePath(studioLessonPath(courseId, lessonId));
-  redirect(studioLessonPath(courseId, lessonId));
 }
 
 export async function deleteBlockAction(formData: FormData): Promise<void> {
   await requireStudio();
   const courseId = formString(formData, "courseId");
   const lessonId = formString(formData, "lessonId");
-  deleteBlock(courseId, lessonId, formString(formData, "blockId"));
+  await deleteBlock(courseId, lessonId, formString(formData, "blockId"));
   revalidatePath(studioLessonPath(courseId, lessonId));
-  redirect(studioLessonPath(courseId, lessonId));
 }
 
 export async function reorderBlockAction(formData: FormData): Promise<void> {
@@ -201,9 +200,8 @@ export async function reorderBlockAction(formData: FormData): Promise<void> {
   const courseId = formString(formData, "courseId");
   const lessonId = formString(formData, "lessonId");
   const direction = formString(formData, "direction") === "up" ? "up" : "down";
-  reorderBlock(courseId, lessonId, formString(formData, "blockId"), direction);
+  await reorderBlock(courseId, lessonId, formString(formData, "blockId"), direction);
   revalidatePath(studioLessonPath(courseId, lessonId));
-  redirect(studioLessonPath(courseId, lessonId));
 }
 
 export async function updateBlockAction(formData: FormData): Promise<void> {
@@ -213,9 +211,8 @@ export async function updateBlockAction(formData: FormData): Promise<void> {
   const blockId = formString(formData, "blockId");
   const type = formString(formData, "type") as BlockType;
   const patch = blockPatchFromForm(type, formData);
-  updateBlock(courseId, lessonId, blockId, patch);
+  await updateBlock(courseId, lessonId, blockId, patch);
   revalidatePath(studioLessonPath(courseId, lessonId));
-  redirect(studioLessonPath(courseId, lessonId));
 }
 
 function blockPatchFromForm(type: BlockType, formData: FormData): Partial<LessonBlock> {
@@ -236,7 +233,7 @@ function blockPatchFromForm(type: BlockType, formData: FormData): Partial<Lesson
         posterUrl: formString(formData, "posterUrl"),
       };
     case "calculator": {
-      const calculatorId = formString(formData, "calculatorId").trim();
+      const calculatorId = sanitizeCourseCalculatorId(formString(formData, "calculatorId"));
       return { type, calculatorId };
     }
     case "image":
@@ -263,4 +260,15 @@ function blockPatchFromForm(type: BlockType, formData: FormData): Partial<Lesson
         openInNewTab: formChecked(formData, "openInNewTab"),
       };
   }
+}
+
+export async function replyToLessonResponseAction(formData: FormData): Promise<void> {
+  await requireStudio();
+  const responseId = formString(formData, "responseId");
+  const studentId = formString(formData, "studentId");
+  const reply = formString(formData, "reply");
+  await replyToLessonResponse(responseId, reply);
+  revalidatePath("/studio/courses/students");
+  if (studentId) revalidatePath(`/studio/courses/students/${studentId}`);
+  revalidatePath("/learn");
 }

@@ -11,7 +11,7 @@ import { studioCoursePath } from "@/lib/courses/paths";
 export const dynamic = "force-dynamic";
 
 export default async function CourseStudioIndexPage() {
-  const courses = listCourses();
+  const courses = await listCourses();
   const preview = await isCourseStudioPreviewUnlocked();
 
   return (

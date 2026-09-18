@@ -177,6 +177,18 @@ export type LessonResponse = {
   lessonId: string;
   answer: string;
   submittedAt: string;
+  instructorReply: string | null;
+  instructorRepliedAt: string | null;
+};
+
+export type CommunityAnswer = {
+  id: string;
+  displayName: string;
+  answer: string;
+  submittedAt: string;
+  instructorReply: string | null;
+  instructorRepliedAt: string | null;
+  isMine: boolean;
 };
 
 export type CourseEvent = {

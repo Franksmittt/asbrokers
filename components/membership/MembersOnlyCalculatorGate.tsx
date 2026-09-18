@@ -36,7 +36,7 @@ export function MembersOnlyCalculatorGate({
   calculatorPath,
   joinHref = FINANCIAL_FREEDOM_COMMUNITY_PATH,
   registerHref = FINANCIAL_FREEDOM_REGISTER_PATH,
-  adviceHref = "/contact?source=retirement_planning_session_asset_017",
+  adviceHref = "/contact?source=retirement_planning_session",
 }: Props) {
   const [state, setState] = useState<GateState>("checking");
   const loginHref = `/login?next=${encodeURIComponent(calculatorPath)}`;
@@ -104,7 +104,7 @@ export function MembersOnlyCalculatorGate({
               Members only
             </p>
             <h3 className="mt-1 text-xl font-bold tracking-tight sm:text-2xl">
-              Goal Engineering Planner™
+              {calculatorTitle}
             </h3>
           </div>
         </div>

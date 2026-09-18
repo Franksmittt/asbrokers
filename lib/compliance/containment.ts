@@ -17,7 +17,6 @@ export const CONTAINMENT_ALLOWED_CALCULATOR_IDS = [
   "asset-004-life-of-capital",
   "asset-005-future-value",
   "asset-016-growth-comparison",
-  "asset-017-personal-goal",
 ] as const;
 
 export type ContainmentAllowedCalculatorId =

@@ -8,10 +8,11 @@ import {
 } from "@/components/hub/HubContentShell";
 import { BlockRenderer } from "@/components/courses/BlockRenderer";
 import { FinalOffer } from "@/components/courses/FinalOffer";
+import { LessonCommunity } from "@/components/courses/LessonCommunity";
 import { LessonResponseForm } from "@/components/courses/LessonResponseForm";
 import { LessonSidebar } from "@/components/courses/LessonSidebar";
-import { getCourseBySlug, getStudentCourseState, openLesson } from "@/lib/courses/store";
-import { getLessonAccess, progressLabel, publishedLessons } from "@/lib/courses/progress";
+import { getCourseBySlug, getStudentCourseState, listCommunityAnswers, openLesson } from "@/lib/courses/store";
+import { getLessonAccess, nextLesson, progressLabel, publishedLessons } from "@/lib/courses/progress";
 import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
 import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
@@ -26,7 +27,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { courseSlug, lessonSlug } = await params;
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   const lesson = course?.lessons.find((row) => row.slug === lessonSlug);
   return buildPageMetadata({
     path: lessonPath(courseSlug, lessonSlug),
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LessonPage({ params, searchParams }: Props) {
   const { courseSlug, lessonSlug } = await params;
   const { completed } = await searchParams;
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   if (!course || course.status !== "published") notFound();
   const lesson = course.lessons.find((row) => row.slug === lessonSlug && row.status === "published");
   if (!lesson) notFound();
@@ -48,20 +49,28 @@ export default async function LessonPage({ params, searchParams }: Props) {
     redirect(registerPath(course.slug));
   }
 
-  let state = studentId ? getStudentCourseState(studentId, course.id) : null;
+  let state = studentId ? await getStudentCourseState(studentId, course.id) : null;
   if (studentId) {
-    const access = openLesson(studentId, course.id, lesson.id);
+    const access = await openLesson(studentId, course.id, lesson.id);
     if (access === "locked") {
       redirect(coursePath(course.slug));
     }
-    state = getStudentCourseState(studentId, course.id);
+    state = await getStudentCourseState(studentId, course.id);
   } else if (getLessonAccess(course, lesson, null) === "locked") {
     redirect(coursePath(course.slug));
   }
 
   const lessons = publishedLessons(course);
-  const completedThis = Boolean(state?.completedLessonIds.includes(lesson.id) || completed === "1");
+  const completedThis = Boolean(state?.responsesByLessonId[lesson.id] || state?.completedLessonIds.includes(lesson.id) || completed === "1");
   const showOffer = Boolean(lesson.isFinal && lesson.offer && completedThis);
+  const communityAnswers =
+    studentId && completedThis ? await listCommunityAnswers(course.id, lesson.id, studentId) : [];
+  const following = nextLesson(course, lesson);
+  const nextHref = following
+    ? lessonPath(course.slug, following.slug)
+    : lesson.isFinal
+      ? `${lessonPath(course.slug, lesson.slug)}?completed=1`
+      : coursePath(course.slug);
 
   return (
     <PageWithFooter>
@@ -87,6 +96,13 @@ export default async function LessonPage({ params, searchParams }: Props) {
                 prompt={lesson.responsePrompt || "What is your main takeaway from this lesson?"}
                 required={lesson.responseRequired}
                 alreadySubmitted={Boolean(state?.responsesByLessonId[lesson.id])}
+              />
+            ) : null}
+            {studentId && completedThis ? (
+              <LessonCommunity
+                answers={communityAnswers}
+                nextHref={nextHref}
+                nextLabel={following ? "Continue to the next lesson" : lesson.isFinal ? "Finish the course" : "Back to the course"}
               />
             ) : null}
             {showOffer && lesson.offer ? (

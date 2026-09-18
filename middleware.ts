@@ -25,10 +25,6 @@ import {
   CRM_PIN_COOKIE,
   hasCrmPinSessionFromCookieValue,
 } from "@/lib/crm/pin-session";
-import {
-  GOAL_ENGINEERING_EMBED_PATH,
-  hasActiveFinancialFreedomMembership,
-} from "@/lib/membership/access";
 import { normalizeRequestUrl } from "@/lib/url-normalize";
 import {
   ATTRIBUTION_COOKIE,
@@ -265,21 +261,6 @@ export async function middleware(request: NextRequest) {
   }
 
   const isCrmRoute = pathname === "/crm" || pathname.startsWith("/crm/");
-
-  /** Members-only planner embed, block direct public access to the HTML engine. */
-  if (pathname === GOAL_ENGINEERING_EMBED_PATH) {
-    const allowed = hasActiveFinancialFreedomMembership(user) || pinSession;
-    if (!allowed) {
-      const loginUrl = request.nextUrl.clone();
-      loginUrl.pathname = "/login";
-      loginUrl.searchParams.set("next", "/calculators/goal-engineering-planner");
-      const redirectResponse = NextResponse.redirect(loginUrl);
-      response.cookies.getAll().forEach((cookie) => {
-        redirectResponse.cookies.set(cookie);
-      });
-      return redirectResponse;
-    }
-  }
 
   if (isProtectedAppRoute(pathname)) {
     const crmPinAllowed = isCrmRoute && pinSession;

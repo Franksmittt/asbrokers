@@ -46,12 +46,12 @@ export async function registerForCourse(
     return { ok: false, message: parsed.error.issues[0]?.message ?? "Please check the form." };
   }
 
-  const course = getCourseBySlug(parsed.data.courseSlug);
+  const course = await getCourseBySlug(parsed.data.courseSlug);
   if (!course || course.status !== "published") {
     return { ok: false, message: "This course is not available." };
   }
 
-  const student = upsertStudent({
+  const student = await upsertStudent({
     firstName: parsed.data.firstName,
     surname: parsed.data.surname,
     email: parsed.data.email,
@@ -59,8 +59,8 @@ export async function registerForCourse(
     marketingConsent: Boolean(parsed.data.marketingConsent),
   });
   await setCourseStudentCookie(student.id);
-  ensureEnrollment(student.id, course.id);
-  const state = getStudentCourseState(student.id, course.id);
+  await ensureEnrollment(student.id, course.id);
+  const state = await getStudentCourseState(student.id, course.id);
   const next = firstAvailableLesson(course, state);
   revalidatePath(coursePath(course.slug));
   revalidatePath("/studio/courses/students");
@@ -80,7 +80,7 @@ export async function submitLessonAnswer(
     return { ok: false, message: parsed.error.issues[0]?.message ?? "Please write a short answer." };
   }
 
-  const course = getCourseBySlug(parsed.data.courseSlug);
+  const course = await getCourseBySlug(parsed.data.courseSlug);
   const lesson = course?.lessons.find((row) => row.slug === parsed.data.lessonSlug);
   if (!course || !lesson) return { ok: false, message: "Lesson not found." };
 
@@ -89,20 +89,12 @@ export async function submitLessonAnswer(
     redirect(registerPath(course.slug));
   }
 
-  submitLessonResponse(studentId, course.id, lesson.id, parsed.data.answer);
-  completeLesson(studentId, course.id, lesson.id);
+  await submitLessonResponse(studentId, course.id, lesson.id, parsed.data.answer);
+  await completeLesson(studentId, course.id, lesson.id);
   revalidatePath(lessonPath(course.slug, lesson.slug));
   revalidatePath(coursePath(course.slug));
   revalidatePath("/studio/courses/students");
-
-  if (lesson.isFinal) {
-    redirect(`${lessonPath(course.slug, lesson.slug)}?completed=1`);
-  }
-  const following = nextLesson(course, lesson);
-  if (following) {
-    redirect(lessonPath(course.slug, following.slug));
-  }
-  redirect(coursePath(course.slug));
+  return { ok: true };
 }
 
 export async function continueLesson(
@@ -111,7 +103,7 @@ export async function continueLesson(
 ): Promise<LearnActionState> {
   const courseSlug = String(formData.get("courseSlug") ?? "");
   const lessonSlug = String(formData.get("lessonSlug") ?? "");
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   const lesson = course?.lessons.find((row) => row.slug === lessonSlug);
   if (!course || !lesson) return { ok: false, message: "Lesson not found." };
   if (lesson.responseRequired) {
@@ -121,8 +113,8 @@ export async function continueLesson(
   const studentId = await getCourseStudentId();
   if (!studentId) redirect(registerPath(course.slug));
 
-  openLesson(studentId, course.id, lesson.id);
-  completeLesson(studentId, course.id, lesson.id);
+  await openLesson(studentId, course.id, lesson.id);
+  await completeLesson(studentId, course.id, lesson.id);
   revalidatePath(lessonPath(course.slug, lesson.slug));
   revalidatePath("/studio/courses/students");
 
@@ -139,11 +131,11 @@ export async function trackOfferClick(formData: FormData): Promise<void> {
   const lessonSlug = String(formData.get("lessonSlug") ?? "");
   const url = String(formData.get("url") ?? "/");
   const newTab = String(formData.get("newTab") ?? "") === "true";
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   const lesson = course?.lessons.find((row) => row.slug === lessonSlug);
   const studentId = await getCourseStudentId();
   if (course && lesson && studentId) {
-    recordOfferClick(studentId, course.id, lesson.id);
+    await recordOfferClick(studentId, course.id, lesson.id);
     revalidatePath("/studio/courses/students");
   }
   if (!newTab && url.startsWith("/")) {

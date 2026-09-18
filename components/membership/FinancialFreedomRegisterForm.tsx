@@ -43,7 +43,7 @@ export function FinancialFreedomRegisterForm() {
         <h2 className="text-xl font-bold text-shark">Registration received</h2>
         <p className="mt-3 text-base leading-relaxed text-stone-600">
           {state.message ||
-            "Thank you. The next step is programme payment. Once payment is confirmed, your membership will activate and unlock the Goal Engineering Planner™."}
+            "Thank you. The next step is programme payment. Once payment is confirmed, your membership will activate and unlock the members learning centre."}
         </p>
       </div>
     );

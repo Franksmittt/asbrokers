@@ -25,7 +25,7 @@ type Props = { params: Promise<{ courseSlug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { courseSlug } = await params;
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   if (!course || course.status !== "published") {
     return { title: "Course" };
   }
@@ -38,11 +38,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CourseOverviewPage({ params }: Props) {
   const { courseSlug } = await params;
-  const course = getCourseBySlug(courseSlug);
+  const course = await getCourseBySlug(courseSlug);
   if (!course || course.status !== "published") notFound();
 
   const studentId = await getCourseStudentId();
-  const state = studentId ? getStudentCourseState(studentId, course.id) : null;
+  const state = studentId ? await getStudentCourseState(studentId, course.id) : null;
   const lessons = publishedLessons(course);
   const resume = firstAvailableLesson(course, state);
 

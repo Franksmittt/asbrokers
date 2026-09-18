@@ -239,7 +239,7 @@ function DomainChapter({ domain }: { domain: HubDomain }) {
   );
 }
 
-/** Toolkit categories (ASSET 001–017) + related content. */
+/** Toolkit categories (ASSET 001–016) + related content. */
 export function CalculatorsHubBelowFold() {
   return (
     <>
@@ -254,7 +254,7 @@ export function CalculatorsHubBelowFold() {
             kicker="The full library"
             headingId="toolkit-heading"
             title="The Retirement Gap Toolkit™"
-            lead="Every Retirement Gap calculator (Assets 001–017), grouped into logical categories. Each card shows time, difficulty, and a short description."
+            lead="Every Retirement Gap calculator (Assets 001–016), grouped into logical categories. Each card shows time, difficulty, and a short description."
           />
         </div>
       </section>

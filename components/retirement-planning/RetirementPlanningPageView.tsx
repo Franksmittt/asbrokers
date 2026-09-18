@@ -28,7 +28,7 @@ const GENERAL_ADVICE_DISCLAIMER =
 
 const CALC_REALITY = calculatorPagePath("asset-002-retirement-reality-check");
 const CALC_GROWTH = calculatorPagePath("asset-001-retirement-growth");
-const CALC_GOAL = calculatorPagePath("asset-017-personal-goal");
+const CALC_PREMIUM = calculatorPagePath("asset-003-retirement-premium");
 
 const CALCULATORS = [
   {
@@ -44,10 +44,10 @@ const CALCULATORS = [
     href: CALC_GROWTH,
   },
   {
-    code: "ASSET 017",
-    title: "Goal Engineering Planner™",
-    description: "Members only, reverse-engineer the growth required to achieve a financial goal.",
-    href: CALC_GOAL,
+    code: "ASSET 003",
+    title: "Retirement Premium Calculator",
+    description: "See a monthly contribution illustration that may help close an entered funding gap.",
+    href: CALC_PREMIUM,
   },
 ] as const;
 

@@ -39,13 +39,6 @@ const EDUCATIONAL_TOOLS = [
       "An illustrative comparison of starting a growth projection today versus delaying the same inputs.",
     href: calculatorPagePath("asset-016-growth-comparison"),
   },
-  {
-    code: "ASSET 017",
-    title: "Goal Engineering Planner™",
-    description:
-      "Members-only educational tool that reverse-engineers a growth rate from user-entered goals and assumptions.",
-    href: calculatorPagePath("asset-017-personal-goal"),
-  },
 ] as const;
 
 type Props = { faqs: FAQItem[] };

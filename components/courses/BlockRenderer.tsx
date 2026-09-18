@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { CourseCalculatorFrame } from "@/components/courses/CourseCalculatorFrame";
 import { getCalculatorById, formatPublicCalculatorTitle } from "@/lib/calculators/registry";
+import { sanitizeCourseCalculatorId } from "@/lib/courses/calculators";
 import { renderLessonText } from "@/lib/courses/text";
 import { parseVideoUrl } from "@/lib/courses/video";
 import type { CalloutVariant, LessonBlock } from "@/lib/courses/types";
@@ -96,7 +97,7 @@ function BlockView({ block }: { block: LessonBlock }) {
       );
     }
     case "calculator": {
-      const calc = getCalculatorById(block.calculatorId);
+      const calc = getCalculatorById(sanitizeCourseCalculatorId(block.calculatorId));
       if (!calc) {
         return (
           <p className="rounded-2xl bg-stone-100 px-4 py-3 text-sm text-stone-500">

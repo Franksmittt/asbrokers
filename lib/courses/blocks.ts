@@ -1,3 +1,4 @@
+import { DEFAULT_COURSE_CALCULATOR_ID } from "./calculators";
 import { newId, nowIso } from "./ids";
 import type { BlockType, CourseLesson, LessonBlock } from "./types";
 
@@ -21,7 +22,7 @@ export function createBlock(type: BlockType, sortOrder: number): LessonBlock {
     case "video":
       return { id, type, sortOrder, url: "", caption: "", posterUrl: "" };
     case "calculator":
-      return { id, type, sortOrder, calculatorId: "asset-001-retirement-growth" };
+      return { id, type, sortOrder, calculatorId: DEFAULT_COURSE_CALCULATOR_ID };
     case "image":
       return { id, type, sortOrder, url: "", alt: "", caption: "" };
     case "callout":

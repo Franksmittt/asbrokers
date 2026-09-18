@@ -69,10 +69,6 @@ export const CALCULATOR_REVIEW_META: Record<string, CalculatorReviewMeta> = {
     group: "Retirement Gap Toolkit",
     note: "Decision Cost / cost of waiting (compound growth education)",
   },
-  "asset-017-personal-goal": {
-    group: "Financial Freedom Community",
-    note: "Members-only Goal Engineering Planner™ (locked publicly)",
-  },
 };
 
 export function getCalculatorReviewMeta(id: string): CalculatorReviewMeta {

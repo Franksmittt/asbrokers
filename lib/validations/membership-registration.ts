@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Financial Freedom Community™ member registration fields.
- * Signup → payment → active membership unlocks Goal Engineering Planner™
+ * Signup → payment → active membership unlocks members-area learning tools.
  * and other members-area learning tools.
  *
  * Registration UI + payment checkout come in a follow-up; this schema is the contract.

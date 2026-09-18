@@ -13,8 +13,8 @@ export const metadata = buildPageMetadata({
   path: "/financial-freedom-community/register",
   title: "Register | Financial Freedom Community™",
   description:
-    "Register for the Financial Freedom Community™. After signup and payment you unlock the Goal Engineering Planner™ and members learning tools. FSP 17273.",
-  keywords: ["Financial Freedom Community register", "Goal Engineering Planner membership"],
+    "Register for the Financial Freedom Community™. After signup and payment you unlock the members learning centre. FSP 17273.",
+  keywords: ["Financial Freedom Community register", "members learning centre"],
   noIndex: true,
 });
 
@@ -44,7 +44,7 @@ export default function FinancialFreedomRegisterPage() {
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">
               Complete your details below. After registration you will continue to payment. Active
-              membership unlocks the Goal Engineering Planner™ and the members learning centre.
+              membership unlocks the members learning centre.
             </p>
           </div>
         </section>
@@ -54,7 +54,7 @@ export default function FinancialFreedomRegisterPage() {
             <FinancialFreedomRegisterForm />
             <p className="mt-8 text-sm text-stone-600">
               Already registered?{" "}
-              <Link href="/login?next=/calculators/goal-engineering-planner" className="font-semibold text-teal-800">
+              <Link href="/login?next=/learn" className="font-semibold text-teal-800">
                 Member login
               </Link>
               {" · "}

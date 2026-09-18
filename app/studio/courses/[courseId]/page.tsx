@@ -19,7 +19,7 @@ type Props = { params: Promise<{ courseId: string }> };
 
 export default async function CourseEditorPage({ params }: Props) {
   const { courseId } = await params;
-  const course = getCourseById(courseId);
+  const course = await getCourseById(courseId);
   if (!course) notFound();
   const lessons = [...course.lessons].sort((a, b) => a.sortOrder - b.sortOrder);
 

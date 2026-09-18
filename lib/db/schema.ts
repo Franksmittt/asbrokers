@@ -573,6 +573,17 @@ export const courseEvents = pgTable(
   ]
 );
 
+/**
+ * Single-row JSON snapshot of Course Studio (courses, lessons, blocks, classroom).
+ * The typed course_* tables above are the longer-term shape; the snapshot is what
+ * the CMS reads and writes today so Albert’s edits survive serverless restarts.
+ */
+export const courseStudioSnapshot = pgTable("course_studio_snapshot", {
+  id: text("id").primaryKey(),
+  payload: jsonb("payload").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
 export type CourseRow = typeof courses.$inferSelect;
 export type CourseLessonRow = typeof courseLessons.$inferSelect;
 export type CourseStudentRow = typeof courseStudents.$inferSelect;

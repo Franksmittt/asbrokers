@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { BLOCK_TYPES, CALLOUT_VARIANTS, PUBLISH_STATUSES } from "./types";
+import { sanitizeCourseCalculatorId } from "./calculators";
 
 const statusSchema = z.enum(PUBLISH_STATUSES);
 const slugSchema = z
@@ -54,7 +55,12 @@ export const videoBlockSchema = z.object({
 
 export const calculatorBlockSchema = z.object({
   type: z.literal("calculator"),
-  calculatorId: z.string().trim().min(1).max(80),
+  calculatorId: z
+    .string()
+    .trim()
+    .min(1)
+    .max(80)
+    .transform((value) => sanitizeCourseCalculatorId(value)),
 });
 
 export const imageBlockSchema = z.object({

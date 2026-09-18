@@ -35,13 +35,6 @@ const EDUCATIONAL_TOOLS = [
       "An illustrative comparison of starting a growth projection today versus delaying the same inputs.",
     href: calculatorPagePath("asset-016-growth-comparison"),
   },
-  {
-    code: "ASSET 017",
-    title: "Goal Engineering Planner™",
-    description:
-      "Members-only educational tool that reverse-engineers a growth rate from user-entered goals and assumptions.",
-    href: calculatorPagePath("asset-017-personal-goal"),
-  },
 ] as const;
 
 const LIVE_PAGE_GAPS = [
@@ -67,7 +60,7 @@ const LIVE_PAGE_GAPS = [
     area: "Product calculators",
     live: "Lists Asset 011 and Asset 013 product comparison tools.",
     draft:
-      "Only educational calculators (Asset 016 / 017) plus the calculator holding page. Restricted tools are not promoted.",
+      "Only educational calculators (Asset 016) plus the calculator holding page. Restricted tools are not promoted.",
   },
   {
     area: "Advice boundary",

@@ -128,11 +128,12 @@ test.describe("Course Studio stress walkthrough", () => {
     await dismissCookies(page);
     await page.getByPlaceholder("Write a personal reply").fill("Yes — test the income against the capital.");
     await page.getByRole("button", { name: "Send reply" }).click();
-    await expect(page.getByText("Yes — test the income against the capital.")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Update reply" })).toBeVisible();
+    await expect(page.getByText("Your reply")).toBeVisible();
 
     await page.goto(publicLessonUrl.split("#")[0]);
     await expect(page.getByText("Reply from Albert")).toBeVisible();
-    await expect(page.getByText("Yes — test the income against the capital.")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Yes — test the income against the capital." })).toBeVisible();
   });
 
   test("demo lesson no longer defaults to retired Asset 017", async ({ page }) => {

@@ -71,6 +71,7 @@ export default async function LessonPage({ params, searchParams }: Props) {
     : lesson.isFinal
       ? `${lessonPath(course.slug, lesson.slug)}?completed=1`
       : coursePath(course.slug);
+  const canAnswer = Boolean(studentId || !courseRequiresStudentAuth(course));
 
   return (
     <PageWithFooter>
@@ -89,7 +90,7 @@ export default async function LessonPage({ params, searchParams }: Props) {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
           <article className="min-w-0 space-y-10">
             <BlockRenderer blocks={lesson.blocks} />
-            {studentId ? (
+            {canAnswer ? (
               <LessonResponseForm
                 courseSlug={course.slug}
                 lessonSlug={lesson.slug}

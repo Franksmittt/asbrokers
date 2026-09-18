@@ -16,7 +16,7 @@ export function LessonCommunity({
   nextLabel?: string;
 }) {
   return (
-    <section className="space-y-4 rounded-3xl border border-[#006B6B]/20 bg-white p-6 ring-1 ring-stone-200 sm:p-8">
+    <section id="classroom" className="space-y-4 rounded-3xl border border-[#006B6B]/20 bg-white p-6 ring-1 ring-stone-200 sm:p-8">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#006B6B]">Classroom</p>
         <h2 className="mt-2 text-lg font-semibold text-shark">Answers from this lesson</h2>

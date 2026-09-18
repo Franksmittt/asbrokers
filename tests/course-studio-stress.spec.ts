@@ -45,6 +45,7 @@ test.describe("Course Studio stress walkthrough", () => {
     expect(labels.some((label) => /ASSET 004/i.test(label))).toBeTruthy();
 
     await calcSelect.selectOption("asset-004-life-of-capital");
+    await expect(calcSelect).toHaveValue("asset-004-life-of-capital");
     await expect(page).toHaveURL(/\/lessons\/lsn_/);
     await clickSave(page, "Save calculator");
     await expect(calcSelect).toHaveValue("asset-004-life-of-capital");
@@ -53,6 +54,7 @@ test.describe("Course Studio stress walkthrough", () => {
     await expect(page.locator('select[name="calculatorId"]')).toHaveValue("asset-004-life-of-capital");
 
     await page.locator('select[name="calculatorId"]').selectOption("asset-003-retirement-premium");
+    await expect(page.locator('select[name="calculatorId"]')).toHaveValue("asset-003-retirement-premium");
     await clickSave(page, "Save calculator");
     await expect(page.locator('select[name="calculatorId"]')).toHaveValue("asset-003-retirement-premium");
     await page.reload();

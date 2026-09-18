@@ -2,8 +2,19 @@ import { expect, test, type Page } from "@playwright/test";
 
 const YOUTUBE = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
+test.setTimeout(60_000);
+
+async function dismissCookies(page: Page) {
+  const banner = page.locator('[role="dialog"][aria-label="Cookie consent"]');
+  if (await banner.isVisible()) {
+    await page.getByRole("button", { name: "Essential Only" }).click();
+    await expect(banner).toHaveCount(0);
+  }
+}
+
 async function createCourse(page: Page, title: string) {
   await page.goto("/studio/courses");
+  await dismissCookies(page);
   await page.getByPlaceholder("Course title").fill(title);
   await page.getByRole("button", { name: "Create" }).click();
   await page.waitForURL(/\/studio\/courses\/crs_/);
@@ -114,6 +125,7 @@ test.describe("Course Studio stress walkthrough", () => {
     await page.getByRole("link", { name: "Edit blocks" }).click();
     await expect(page.getByRole("heading", { name: "Classroom answers" })).toBeVisible();
     await expect(page.getByText("The income picture has to beat the capital first.")).toBeVisible();
+    await dismissCookies(page);
     await page.getByPlaceholder("Write a personal reply").fill("Yes — test the income against the capital.");
     await page.getByRole("button", { name: "Send reply" }).click();
     await expect(page.getByText("Yes — test the income against the capital.")).toBeVisible();

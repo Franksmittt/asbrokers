@@ -29,10 +29,12 @@ export type CourseStudioSnapshot = {
 };
 
 export function courseStudioSnapshotFilePath(): string {
-  return (
-    process.env.COURSE_STUDIO_SNAPSHOT_PATH?.trim() ||
-    path.join(process.cwd(), "data", "course-studio-snapshot.json")
-  );
+  const explicit = process.env.COURSE_STUDIO_SNAPSHOT_PATH?.trim();
+  if (explicit) return explicit;
+  if (process.env.VERCEL) {
+    return path.join("/tmp", "course-studio-snapshot.json");
+  }
+  return path.join(process.cwd(), "data", "course-studio-snapshot.json");
 }
 
 export function migrateCourseStudioSnapshot(payload: CourseStudioSnapshot): CourseStudioSnapshot {

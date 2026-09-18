@@ -4,11 +4,14 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { lessonResponseSchema, studentRegisterSchema } from "@/lib/courses/schema";
-import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
+import { coursePath, lessonPath, registerPath, studioLessonPath } from "@/lib/courses/paths";
+import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
+import { newId } from "@/lib/courses/ids";
 import {
   completeLesson,
   ensureEnrollment,
   getCourseBySlug,
+  getStudentById,
   getStudentCourseState,
   openLesson,
   recordOfferClick,
@@ -20,6 +23,27 @@ import {
   getCourseStudentId,
   setCourseStudentCookie,
 } from "@/lib/courses/student-session";
+
+async function requireLearnStudent(courseSlug: string): Promise<string> {
+  const existing = await getCourseStudentId();
+  if (existing) {
+    const student = await getStudentById(existing);
+    if (student) return existing;
+  }
+  if (COURSE_STUDENT_AUTH_ENABLED) {
+    redirect(registerPath(courseSlug));
+  }
+  const guestId = newId("stu");
+  const student = await upsertStudent({
+    firstName: "Student",
+    surname: "",
+    email: `guest-${guestId}@courses.asbrokers.local`,
+    privacyConsent: true,
+    marketingConsent: false,
+  });
+  await setCourseStudentCookie(student.id);
+  return student.id;
+}
 
 export type LearnActionState = {
   ok: boolean;
@@ -84,17 +108,15 @@ export async function submitLessonAnswer(
   const lesson = course?.lessons.find((row) => row.slug === parsed.data.lessonSlug);
   if (!course || !lesson) return { ok: false, message: "Lesson not found." };
 
-  const studentId = await getCourseStudentId();
-  if (!studentId) {
-    redirect(registerPath(course.slug));
-  }
+  const studentId = await requireLearnStudent(course.slug);
 
   await submitLessonResponse(studentId, course.id, lesson.id, parsed.data.answer);
   await completeLesson(studentId, course.id, lesson.id);
   revalidatePath(lessonPath(course.slug, lesson.slug));
   revalidatePath(coursePath(course.slug));
   revalidatePath("/studio/courses/students");
-  return { ok: true };
+  revalidatePath(studioLessonPath(course.id, lesson.id));
+  redirect(`${lessonPath(course.slug, lesson.slug)}#classroom`);
 }
 
 export async function continueLesson(
@@ -110,8 +132,7 @@ export async function continueLesson(
     return { ok: false, message: "This lesson requires a written response." };
   }
 
-  const studentId = await getCourseStudentId();
-  if (!studentId) redirect(registerPath(course.slug));
+  const studentId = await requireLearnStudent(course.slug);
 
   await openLesson(studentId, course.id, lesson.id);
   await completeLesson(studentId, course.id, lesson.id);

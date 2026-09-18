@@ -48,11 +48,18 @@ function emptyStore(): CourseStore {
   };
 }
 
-const globalForCourses = globalThis as { __asbCourseStore?: CourseStore };
+type CourseStoreGlobal = {
+  __asbCourseStore?: CourseStore;
+  __asbCourseHydrated?: boolean;
+  __asbCourseHydratePromise?: Promise<void> | null;
+  __asbCoursePersistEnabled?: boolean;
+};
 
-let persistEnabled = true;
-let hydrated = false;
-let hydratePromise: Promise<void> | null = null;
+const globalForCourses = globalThis as CourseStoreGlobal;
+
+function persistEnabled(): boolean {
+  return globalForCourses.__asbCoursePersistEnabled !== false;
+}
 
 function snapshotFromStore(value: CourseStore): CourseStudioSnapshot {
   return {
@@ -78,39 +85,34 @@ function applySnapshot(snapshot: CourseStudioSnapshot): CourseStore {
 }
 
 function store(): CourseStore {
-  if (!globalForCourses.__asbCourseStore) {
-    globalForCourses.__asbCourseStore = emptyStore();
+  const value = globalForCourses.__asbCourseStore;
+  if (!value) {
+    throw new Error("Course store used before ensureCourseStore().");
   }
-  return globalForCourses.__asbCourseStore;
+  return value;
 }
 
 async function persistIfEnabled(): Promise<void> {
-  if (!persistEnabled) return;
+  if (!persistEnabled()) return;
   await saveCourseSnapshot(snapshotFromStore(store()));
 }
 
 export async function ensureCourseStore(): Promise<void> {
-  if (hydrated) return;
-  if (!hydratePromise) {
-    hydratePromise = (async () => {
-      if (!persistEnabled) {
-        if (!globalForCourses.__asbCourseStore) {
-          globalForCourses.__asbCourseStore = emptyStore();
-        }
-        hydrated = true;
+  if (globalForCourses.__asbCourseHydrated) return;
+  if (!globalForCourses.__asbCourseHydratePromise) {
+    globalForCourses.__asbCourseHydratePromise = (async () => {
+      if (!persistEnabled()) {
+        globalForCourses.__asbCourseStore ??= emptyStore();
+        globalForCourses.__asbCourseHydrated = true;
         return;
       }
       const snapshot = await loadCourseSnapshot();
-      if (snapshot) {
-        globalForCourses.__asbCourseStore = applySnapshot(snapshot);
-      } else {
-        globalForCourses.__asbCourseStore = emptyStore();
-        await persistIfEnabled();
-      }
-      hydrated = true;
+      globalForCourses.__asbCourseStore = snapshot ? applySnapshot(snapshot) : emptyStore();
+      if (!snapshot) await persistIfEnabled();
+      globalForCourses.__asbCourseHydrated = true;
     })();
   }
-  await hydratePromise;
+  await globalForCourses.__asbCourseHydratePromise;
 }
 
 function touch(course: CourseRecord): CourseRecord {
@@ -360,9 +362,9 @@ export async function reorderBlock(
 }
 
 export function resetCourseStoreForTests(): void {
-  persistEnabled = false;
-  hydrated = true;
-  hydratePromise = Promise.resolve();
+  globalForCourses.__asbCoursePersistEnabled = false;
+  globalForCourses.__asbCourseHydrated = true;
+  globalForCourses.__asbCourseHydratePromise = Promise.resolve();
   globalForCourses.__asbCourseStore = emptyStore();
 }
 

@@ -1,11 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 import { useConsent } from "@/components/analytics/ConsentProvider";
 
 export function CookieConsent() {
+  const pathname = usePathname();
   const { consent, setConsent } = useConsent();
 
   if (consent !== null) return null;
+  if (pathname?.startsWith("/studio")) return null;
 
   return (
     <div

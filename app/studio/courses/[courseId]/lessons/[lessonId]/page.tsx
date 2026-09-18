@@ -5,16 +5,18 @@ import {
   addBlockAction,
   deleteBlockAction,
   reorderBlockAction,
+  replyToLessonResponseAction,
   updateBlockAction,
   updateLessonAction,
 } from "@/app/studio/courses/actions";
 import { CourseCalculatorPicker } from "@/components/courses/CourseCalculatorPicker";
+import { StudioPersistForm, StudioSaveButton, StudioSelect } from "@/components/courses/studio-controls";
 import { BLOCK_LABELS } from "@/lib/courses/blocks";
 import { listCourseCalculators, sanitizeCourseCalculatorId, type CourseCalculatorOption } from "@/lib/courses/calculators";
 import { canMove } from "@/lib/courses/order";
-import { getCourseById } from "@/lib/courses/store";
+import { getCourseById, listCommunityAnswers } from "@/lib/courses/store";
 import { studioCoursePath } from "@/lib/courses/paths";
-import type { LessonBlock } from "@/lib/courses/types";
+import type { CommunityAnswer, LessonBlock } from "@/lib/courses/types";
 import { BLOCK_TYPES } from "@/lib/courses/types";
 
 export const dynamic = "force-dynamic";
@@ -32,6 +34,7 @@ export default async function LessonBuilderPage({ params }: Props) {
   if (!course || !lesson) notFound();
   const blocks = [...lesson.blocks].sort((a, b) => a.sortOrder - b.sortOrder);
   const calculators = listCourseCalculators();
+  const classroom = await listCommunityAnswers(course.id, lesson.id);
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8">
@@ -39,11 +42,23 @@ export default async function LessonBuilderPage({ params }: Props) {
         <Link href={studioCoursePath(course.id)} className="text-xs text-zinc-500 hover:text-white">
           ← {course.title}
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-white">{lesson.title}</h1>
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <h1 className="text-2xl font-semibold text-white">{lesson.title}</h1>
+          <span
+            data-lesson-status={lesson.status}
+            className="rounded border border-[#2a2a2a] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400"
+          >
+            {lesson.status}
+          </span>
+        </div>
         <p className="mt-1 text-sm text-zinc-500">Blocks can be arranged in any order. This is not a fixed page layout.</p>
       </div>
 
-      <form action={updateLessonAction} className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+      <StudioPersistForm
+        action={updateLessonAction}
+        formKey={`${lesson.id}:${lesson.updatedAt}`}
+        className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5"
+      >
         <input type="hidden" name="courseId" value={course.id} />
         <input type="hidden" name="lessonId" value={lesson.id} />
         <div className="grid gap-4 sm:grid-cols-2">
@@ -58,10 +73,10 @@ export default async function LessonBuilderPage({ params }: Props) {
         </div>
         <label className={labelCls}>
           Status
-          <select name="status" defaultValue={lesson.status} className={field}>
+          <StudioSelect name="status" value={lesson.status} className={field}>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
-          </select>
+          </StudioSelect>
         </label>
         <label className="flex items-center gap-2 text-sm text-zinc-300">
           <input type="checkbox" name="isFinal" defaultChecked={lesson.isFinal} />
@@ -99,10 +114,11 @@ export default async function LessonBuilderPage({ params }: Props) {
               Open in a new window
             </label>
           </fieldset>
-        <button type="submit" className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black">
-          Save lesson settings
-        </button>
-      </form>
+        <StudioSaveButton
+          idleLabel="Save lesson settings"
+          className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black disabled:opacity-60"
+        />
+      </StudioPersistForm>
 
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-white">Content blocks</h2>
@@ -112,6 +128,7 @@ export default async function LessonBuilderPage({ params }: Props) {
             courseId={course.id}
             lessonId={lesson.id}
             block={block}
+            formRevision={lesson.updatedAt}
             calculators={
               block.type === "calculator"
                 ? listCourseCalculators(block.calculatorId)
@@ -137,6 +154,12 @@ export default async function LessonBuilderPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <StudioLessonClassroom
+        courseId={course.id}
+        lessonId={lesson.id}
+        answers={classroom}
+      />
     </div>
   );
 }
@@ -148,6 +171,7 @@ function BlockEditor({
   calculators,
   canMoveUp,
   canMoveDown,
+  formRevision,
 }: {
   courseId: string;
   lessonId: string;
@@ -155,6 +179,7 @@ function BlockEditor({
   calculators: CourseCalculatorOption[];
   canMoveUp: boolean;
   canMoveDown: boolean;
+  formRevision: string;
 }) {
   return (
     <div className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-4">
@@ -185,16 +210,21 @@ function BlockEditor({
           </form>
         </div>
       </div>
-      <form action={updateBlockAction} className="space-y-3">
+      <StudioPersistForm
+        action={updateBlockAction}
+        formKey={`${block.id}:${formRevision}`}
+        className="space-y-3"
+      >
         <input type="hidden" name="courseId" value={courseId} />
         <input type="hidden" name="lessonId" value={lessonId} />
         <input type="hidden" name="blockId" value={block.id} />
         <input type="hidden" name="type" value={block.type} />
         <BlockFields block={block} calculators={calculators} />
-        <button type="submit" className="rounded-md border border-[#2a2a2a] px-3 py-1.5 text-xs text-zinc-200">
-          {block.type === "calculator" ? "Save calculator" : "Save block"}
-        </button>
-      </form>
+        <StudioSaveButton
+          idleLabel={block.type === "calculator" ? "Save calculator" : "Save block"}
+          className="rounded-md border border-[#2a2a2a] px-3 py-1.5 text-xs text-zinc-200 disabled:opacity-60"
+        />
+      </StudioPersistForm>
     </div>
   );
 }
@@ -269,7 +299,6 @@ function BlockFields({
     case "calculator":
       return (
         <CourseCalculatorPicker
-          key={sanitizeCourseCalculatorId(block.calculatorId)}
           calculators={calculators}
           currentId={sanitizeCourseCalculatorId(block.calculatorId)}
         />
@@ -309,4 +338,61 @@ function BlockFields({
         </>
       );
   }
+}
+
+function StudioLessonClassroom({
+  courseId,
+  lessonId,
+  answers,
+}: {
+  courseId: string;
+  lessonId: string;
+  answers: CommunityAnswer[];
+}) {
+  return (
+    <section className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+      <div>
+        <h2 className="text-lg font-semibold text-white">Classroom answers</h2>
+        <p className="mt-1 text-sm text-zinc-500">
+          After a student submits on /learn, their answer appears here. Reply personally — the classroom can read it.
+        </p>
+      </div>
+      {answers.length === 0 ? (
+        <p className="text-sm text-zinc-500">No answers in this lesson yet.</p>
+      ) : (
+        <ul className="space-y-3">
+          {answers.map((row) => (
+            <li key={row.id} className="rounded-lg border border-[#2a2a2a] bg-black p-4">
+              <p className="text-xs text-zinc-500">
+                {row.displayName} · {row.submittedAt.slice(0, 16).replace("T", " ")}
+              </p>
+              <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-200">{row.answer}</p>
+              {row.instructorReply ? (
+                <div className="mt-3 rounded-md border border-[#3ecf8e]/20 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-[#3ecf8e]">Your reply</p>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-200">{row.instructorReply}</p>
+                </div>
+              ) : null}
+              <form action={replyToLessonResponseAction} className="mt-3 space-y-2">
+                <input type="hidden" name="responseId" value={row.id} />
+                <input type="hidden" name="courseId" value={courseId} />
+                <input type="hidden" name="lessonId" value={lessonId} />
+                <textarea
+                  name="reply"
+                  rows={3}
+                  required
+                  defaultValue={row.instructorReply ?? ""}
+                  placeholder="Write a personal reply. The classroom can read this."
+                  className={field}
+                />
+                <button type="submit" className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black">
+                  {row.instructorReply ? "Update reply" : "Send reply"}
+                </button>
+              </form>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
 }

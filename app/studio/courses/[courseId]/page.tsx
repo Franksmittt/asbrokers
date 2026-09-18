@@ -8,6 +8,7 @@ import {
   reorderLessonAction,
   updateCourseAction,
 } from "@/app/studio/courses/actions";
+import { StudioPersistForm, StudioSaveButton, StudioSelect } from "@/components/courses/studio-controls";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { canMove } from "@/lib/courses/order";
 import { getCourseById } from "@/lib/courses/store";
@@ -34,7 +35,15 @@ export default async function CourseEditorPage({ params }: Props) {
           <Link href="/studio/courses" className="text-xs text-zinc-500 hover:text-white">
             ← All courses
           </Link>
-          <h1 className="mt-2 text-2xl font-semibold text-white">{course.title}</h1>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl font-semibold text-white">{course.title}</h1>
+            <span
+              data-course-status={course.status}
+              className="rounded border border-[#2a2a2a] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400"
+            >
+              {course.status}
+            </span>
+          </div>
         </div>
         <Link
           href={coursePath(course.slug)}
@@ -46,7 +55,11 @@ export default async function CourseEditorPage({ params }: Props) {
         </Link>
       </div>
 
-      <form action={updateCourseAction} className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+      <StudioPersistForm
+        action={updateCourseAction}
+        formKey={`${course.id}:${course.updatedAt}`}
+        className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5"
+      >
         <input type="hidden" name="courseId" value={course.id} />
         <div className="grid gap-4 sm:grid-cols-2">
           <label className={label}>
@@ -69,10 +82,10 @@ export default async function CourseEditorPage({ params }: Props) {
         <div className="grid gap-4 sm:grid-cols-3">
           <label className={label}>
             Status
-            <select name="status" defaultValue={course.status} className={field}>
+            <StudioSelect name="status" value={course.status} className={field}>
               <option value="draft">Draft</option>
               <option value="published">Published</option>
-            </select>
+            </StudioSelect>
           </label>
           <label className={label}>
             Course order
@@ -96,10 +109,11 @@ export default async function CourseEditorPage({ params }: Props) {
             login, register, and sequential locking back on when the content is ready.
           </p>
         )}
-        <button type="submit" className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black">
-          Save course
-        </button>
-      </form>
+        <StudioSaveButton
+          idleLabel="Save course"
+          className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black disabled:opacity-60"
+        />
+      </StudioPersistForm>
 
       <section className="space-y-4">
         <div className="flex items-end justify-between gap-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { CourseCalculatorFrame } from "@/components/courses/CourseCalculatorFrame";
 import {
@@ -20,6 +20,10 @@ type Props = {
 export function CourseCalculatorPicker({ calculators, currentId }: Props) {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(() => sanitizeCourseCalculatorId(currentId));
+
+  useEffect(() => {
+    setSelectedId(sanitizeCourseCalculatorId(currentId));
+  }, [currentId]);
 
   const selected =
     calculators.find((calc) => calc.id === selectedId) ??

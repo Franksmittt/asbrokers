@@ -166,7 +166,6 @@ export async function reorderCourseAction(formData: FormData): Promise<void> {
   await reorderCourses(courseId, direction);
   revalidatePath("/studio/courses");
   revalidatePath("/learn");
-  redirect("/studio/courses");
 }
 
 export async function reorderLessonAction(formData: FormData): Promise<void> {
@@ -185,6 +184,7 @@ export async function addBlockAction(formData: FormData): Promise<void> {
   const type = formString(formData, "type") as BlockType;
   await addBlock(courseId, lessonId, type);
   revalidatePath(studioLessonPath(courseId, lessonId));
+  revalidatePath("/learn");
 }
 
 export async function deleteBlockAction(formData: FormData): Promise<void> {
@@ -193,6 +193,7 @@ export async function deleteBlockAction(formData: FormData): Promise<void> {
   const lessonId = formString(formData, "lessonId");
   await deleteBlock(courseId, lessonId, formString(formData, "blockId"));
   revalidatePath(studioLessonPath(courseId, lessonId));
+  revalidatePath("/learn");
 }
 
 export async function reorderBlockAction(formData: FormData): Promise<void> {
@@ -202,6 +203,7 @@ export async function reorderBlockAction(formData: FormData): Promise<void> {
   const direction = formString(formData, "direction") === "up" ? "up" : "down";
   await reorderBlock(courseId, lessonId, formString(formData, "blockId"), direction);
   revalidatePath(studioLessonPath(courseId, lessonId));
+  revalidatePath("/learn");
 }
 
 export async function updateBlockAction(formData: FormData): Promise<void> {
@@ -213,6 +215,7 @@ export async function updateBlockAction(formData: FormData): Promise<void> {
   const patch = blockPatchFromForm(type, formData);
   await updateBlock(courseId, lessonId, blockId, patch);
   revalidatePath(studioLessonPath(courseId, lessonId));
+  revalidatePath("/learn");
 }
 
 function blockPatchFromForm(type: BlockType, formData: FormData): Partial<LessonBlock> {
@@ -266,9 +269,12 @@ export async function replyToLessonResponseAction(formData: FormData): Promise<v
   await requireStudio();
   const responseId = formString(formData, "responseId");
   const studentId = formString(formData, "studentId");
+  const courseId = formString(formData, "courseId");
+  const lessonId = formString(formData, "lessonId");
   const reply = formString(formData, "reply");
   await replyToLessonResponse(responseId, reply);
   revalidatePath("/studio/courses/students");
   if (studentId) revalidatePath(`/studio/courses/students/${studentId}`);
+  if (courseId && lessonId) revalidatePath(studioLessonPath(courseId, lessonId));
   revalidatePath("/learn");
 }

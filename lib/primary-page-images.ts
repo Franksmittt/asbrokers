@@ -32,6 +32,7 @@ export const PAGE_PRIMARY_IMAGES: Record<string, string> = {
   "/solutions": "/images/solutions-hero-16x9.jpg",
   "/solutions/medical-aid": "/images/risk-arch-medical.jpg",
   "/solutions/discovery-health": "/images/risk-arch-medical.webp",
+  "/solutions/discovery-vitality": "/images/risk-arch-medical.webp",
   "/estate-planning": "/images/estate-planning-hero-16x9.jpg",
   "/retirement-planning": "/images/retirement-planning-hero-16x9.webp",
   "/regulatory-compliance": "/images/regulatory-compliance-inset-1x1.jpg",

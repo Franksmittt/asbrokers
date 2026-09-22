@@ -14,19 +14,23 @@ import { migrateCourseStudioSnapshot, saveCourseSnapshot, loadCourseSnapshot } f
 import {
   addBlock,
   addLesson,
+  addLessonComment,
   createCourse,
   getCourseById,
   listCommunityAnswers,
   listCourses,
+  listLessonComments,
   reorderBlock,
   reorderCourses,
   reorderLessons,
+  replyToLessonComment,
   replyToLessonResponse,
   resetCourseStoreForTests,
   submitLessonResponse,
   updateBlock,
   upsertStudent,
 } from "../lib/courses/store";
+import { formatStudentDisplayName } from "../lib/courses/display-name";
 
 beforeEach(() => {
   resetCourseStoreForTests();
@@ -203,10 +207,52 @@ describe("classroom answers", () => {
     assert.equal(thread.length, 2);
     const classmateRow = thread.find((row) => row.displayName.startsWith("Thabo"));
     assert.ok(classmateRow);
+    assert.equal(classmateRow?.displayName, "Thabo M.");
     const replied = await replyToLessonResponse(classmateRow!.id, "Keep testing the income against the capital.");
     assert.equal(replied.instructorReply, "Keep testing the income against the capital.");
     const afterReply = await listCommunityAnswers(course.id, lesson.id, albert.id);
     assert.equal(afterReply.find((row) => row.id === classmateRow!.id)?.instructorReply?.includes("income"), true);
+  });
+});
+
+describe("student display names", () => {
+  it("formats first name and surname initial like Frank S.", () => {
+    assert.equal(formatStudentDisplayName({ firstName: "Frank", surname: "Smit" }), "Frank S.");
+    assert.equal(formatStudentDisplayName({ firstName: "Thabo", surname: "Mokoena" }), "Thabo M.");
+    assert.equal(formatStudentDisplayName({ firstName: "Lerato", surname: "" }), "Lerato");
+  });
+});
+
+describe("lesson comments", () => {
+  it("lets students post multiple comments and Albert reply with Frank S. labels", async () => {
+    const course = await createCourse({ title: "Engage", slug: "engage-course" });
+    const lesson = await addLesson(course.id, "One", "one");
+    const frank = await upsertStudent({
+      firstName: "Frank",
+      surname: "Smit",
+      email: "frank@example.com",
+      privacyConsent: true,
+      marketingConsent: false,
+    });
+    const thabo = await upsertStudent({
+      firstName: "Thabo",
+      surname: "Mokoena",
+      email: "thabo3@example.com",
+      privacyConsent: true,
+      marketingConsent: false,
+    });
+    await addLessonComment(frank.id, course.id, lesson.id, "This lesson clarified the income condition.");
+    await addLessonComment(frank.id, course.id, lesson.id, "Going to try the calculator next.");
+    await addLessonComment(thabo.id, course.id, lesson.id, "Same realisation here.");
+    const thread = await listLessonComments(course.id, lesson.id, frank.id);
+    assert.equal(thread.length, 3);
+    assert.equal(thread[0]?.displayName, "Frank S.");
+    assert.equal(thread[0]?.isMine, true);
+    assert.equal(thread[2]?.displayName, "Thabo M.");
+    const replied = await replyToLessonComment(thread[0]!.id, "Great start, Frank — bring your numbers.");
+    assert.equal(replied.instructorReply?.includes("Frank"), true);
+    const after = await listLessonComments(course.id, lesson.id, frank.id);
+    assert.equal(after[0]?.instructorReply?.includes("Great start"), true);
   });
 });
 
@@ -257,6 +303,8 @@ describe("course studio snapshot", () => {
     if (block?.type === "calculator") {
       assert.equal(block.calculatorId, DEFAULT_COURSE_CALCULATOR_ID);
     }
+    assert.ok(Array.isArray(migrated.comments));
+    assert.equal(migrated.comments.length, 0);
   });
 
   it("round-trips a snapshot to disk so a calculator and video stay saved", async () => {

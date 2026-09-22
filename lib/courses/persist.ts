@@ -12,6 +12,7 @@ import type {
   CourseEvent,
   CourseRecord,
   CourseStudent,
+  LessonComment,
   LessonProgress,
   LessonResponse,
 } from "./types";
@@ -25,6 +26,7 @@ export type CourseStudioSnapshot = {
   enrollments: CourseEnrollment[];
   progress: LessonProgress[];
   responses: LessonResponse[];
+  comments: LessonComment[];
   events: CourseEvent[];
 };
 
@@ -38,6 +40,9 @@ export function courseStudioSnapshotFilePath(): string {
 }
 
 export function migrateCourseStudioSnapshot(payload: CourseStudioSnapshot): CourseStudioSnapshot {
+  if (!Array.isArray(payload.comments)) {
+    payload.comments = [];
+  }
   for (const course of payload.courses) {
     for (const lesson of course.lessons) {
       for (const block of lesson.blocks) {
@@ -51,12 +56,16 @@ export function migrateCourseStudioSnapshot(payload: CourseStudioSnapshot): Cour
     if (response.instructorReply === undefined) response.instructorReply = null;
     if (response.instructorRepliedAt === undefined) response.instructorRepliedAt = null;
   }
+  for (const comment of payload.comments) {
+    if (comment.instructorReply === undefined) comment.instructorReply = null;
+    if (comment.instructorRepliedAt === undefined) comment.instructorRepliedAt = null;
+  }
   return payload;
 }
 
 function isSnapshot(value: unknown): value is CourseStudioSnapshot {
   if (!value || typeof value !== "object") return false;
-  const row = value as CourseStudioSnapshot;
+  const row = value as CourseStudioSnapshot & { comments?: LessonComment[] };
   return (
     row.version === 1 &&
     Array.isArray(row.courses) &&

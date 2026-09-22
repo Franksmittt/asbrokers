@@ -191,6 +191,28 @@ export type CommunityAnswer = {
   isMine: boolean;
 };
 
+/** Freeform lesson discussion — students can post more than one. */
+export type LessonComment = {
+  id: string;
+  courseId: string;
+  lessonId: string;
+  studentId: string;
+  body: string;
+  createdAt: string;
+  instructorReply: string | null;
+  instructorRepliedAt: string | null;
+};
+
+export type LessonCommentView = {
+  id: string;
+  displayName: string;
+  body: string;
+  createdAt: string;
+  instructorReply: string | null;
+  instructorRepliedAt: string | null;
+  isMine: boolean;
+};
+
 export type CourseEvent = {
   id: string;
   studentId: string;

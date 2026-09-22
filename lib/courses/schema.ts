@@ -123,4 +123,17 @@ export const lessonResponseSchema = z.object({
   answer: z.string().trim().min(8, "Please write a short answer before continuing.").max(4000),
 });
 
+export const lessonCommentSchema = z.object({
+  courseSlug: slugSchema,
+  lessonSlug: slugSchema,
+  body: z.string().trim().min(3, "Write a short comment.").max(2000),
+});
+
+export const lessonCommentReplySchema = z.object({
+  commentId: z.string().trim().min(1),
+  courseId: z.string().trim().min(1),
+  lessonId: z.string().trim().min(1),
+  reply: z.string().trim().min(1, "Write a short reply before sending.").max(4000),
+});
+
 export { BLOCK_TYPES };

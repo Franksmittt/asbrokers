@@ -5,6 +5,7 @@ import {
   addBlockAction,
   deleteBlockAction,
   reorderBlockAction,
+  replyToLessonCommentAction,
   replyToLessonResponseAction,
   updateBlockAction,
   updateLessonAction,
@@ -15,9 +16,9 @@ import { StudioPersistForm, StudioSaveButton, StudioSelect } from "@/components/
 import { BLOCK_LABELS } from "@/lib/courses/blocks";
 import { listCourseCalculators, sanitizeCourseCalculatorId, type CourseCalculatorOption } from "@/lib/courses/calculators";
 import { canMove } from "@/lib/courses/order";
-import { getCourseById, listCommunityAnswers } from "@/lib/courses/store";
+import { getCourseById, listCommunityAnswers, listLessonComments } from "@/lib/courses/store";
 import { studioCoursePath } from "@/lib/courses/paths";
-import type { CommunityAnswer, LessonBlock } from "@/lib/courses/types";
+import type { CommunityAnswer, LessonBlock, LessonCommentView } from "@/lib/courses/types";
 import { BLOCK_TYPES } from "@/lib/courses/types";
 
 export const dynamic = "force-dynamic";
@@ -36,6 +37,7 @@ export default async function LessonBuilderPage({ params }: Props) {
   const blocks = [...lesson.blocks].sort((a, b) => a.sortOrder - b.sortOrder);
   const calculators = listCourseCalculators();
   const classroom = await listCommunityAnswers(course.id, lesson.id);
+  const discussion = await listLessonComments(course.id, lesson.id);
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8">
@@ -154,6 +156,8 @@ export default async function LessonBuilderPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <StudioLessonDiscussion courseId={course.id} lessonId={lesson.id} comments={discussion} />
 
       <StudioLessonClassroom
         courseId={course.id}
@@ -348,6 +352,64 @@ function BlockFields({
         </>
       );
   }
+}
+
+function StudioLessonDiscussion({
+  courseId,
+  lessonId,
+  comments,
+}: {
+  courseId: string;
+  lessonId: string;
+  comments: LessonCommentView[];
+}) {
+  return (
+    <section className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+      <div>
+        <h2 className="text-lg font-semibold text-white">Lesson comments</h2>
+        <p className="mt-1 text-sm text-zinc-500">
+          Students post here for engagement. Names show as first name + surname initial (Frank S.). Reply and the
+          class can read it on /learn.
+        </p>
+      </div>
+      {comments.length === 0 ? (
+        <p className="text-sm text-zinc-500">No comments on this lesson yet.</p>
+      ) : (
+        <ul className="space-y-3">
+          {comments.map((row) => (
+            <li key={row.id} className="rounded-lg border border-[#2a2a2a] bg-black p-4">
+              <p className="text-xs text-zinc-500">
+                {row.displayName} · {row.createdAt.slice(0, 16).replace("T", " ")}
+              </p>
+              <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-200">{row.body}</p>
+              {row.instructorReply ? (
+                <div className="mt-3 rounded-md border border-[#3ecf8e]/20 p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-[#3ecf8e]">Your reply</p>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-200">{row.instructorReply}</p>
+                </div>
+              ) : null}
+              <form action={replyToLessonCommentAction} className="mt-3 space-y-2">
+                <input type="hidden" name="commentId" value={row.id} />
+                <input type="hidden" name="courseId" value={courseId} />
+                <input type="hidden" name="lessonId" value={lessonId} />
+                <textarea
+                  name="reply"
+                  rows={3}
+                  required
+                  defaultValue={row.instructorReply ?? ""}
+                  placeholder="Write a personal reply. The discussion can read this."
+                  className={field}
+                />
+                <button type="submit" className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black">
+                  {row.instructorReply ? "Update reply" : "Send reply"}
+                </button>
+              </form>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
 }
 
 function StudioLessonClassroom({

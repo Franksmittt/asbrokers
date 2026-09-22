@@ -3,11 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { lessonResponseSchema, studentRegisterSchema } from "@/lib/courses/schema";
+import { lessonCommentSchema, lessonResponseSchema, studentRegisterSchema } from "@/lib/courses/schema";
 import { coursePath, lessonPath, registerPath, studioLessonPath } from "@/lib/courses/paths";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { newId } from "@/lib/courses/ids";
 import {
+  addLessonComment,
   completeLesson,
   ensureEnrollment,
   getCourseBySlug,
@@ -145,6 +146,33 @@ export async function continueLesson(
   const following = nextLesson(course, lesson);
   if (following) redirect(lessonPath(course.slug, following.slug));
   redirect(coursePath(course.slug));
+}
+
+export async function postLessonComment(
+  _prev: LearnActionState,
+  formData: FormData
+): Promise<LearnActionState> {
+  const parsed = lessonCommentSchema.safeParse({
+    courseSlug: formData.get("courseSlug"),
+    lessonSlug: formData.get("lessonSlug"),
+    body: formData.get("body"),
+  });
+  if (!parsed.success) {
+    return { ok: false, message: parsed.error.issues[0]?.message ?? "Please write a short comment." };
+  }
+
+  const course = await getCourseBySlug(parsed.data.courseSlug);
+  const lesson = course?.lessons.find((row) => row.slug === parsed.data.lessonSlug);
+  if (!course || !lesson || course.status !== "published" || lesson.status !== "published") {
+    return { ok: false, message: "Lesson not found." };
+  }
+
+  const studentId = await requireLearnStudent(course.slug);
+  await addLessonComment(studentId, course.id, lesson.id, parsed.data.body);
+  revalidatePath(lessonPath(course.slug, lesson.slug));
+  revalidatePath(studioLessonPath(course.id, lesson.id));
+  revalidatePath("/studio/courses/students");
+  redirect(`${lessonPath(course.slug, lesson.slug)}#discussion`);
 }
 
 export async function trackOfferClick(formData: FormData): Promise<void> {

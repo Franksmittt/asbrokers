@@ -1,6 +1,7 @@
 import { newId, nowIso } from "./ids";
 import { createBlock, emptyLesson, sortBlocks } from "./blocks";
 import { sanitizeCourseCalculatorId } from "./calculators";
+import { formatStudentDisplayName } from "./display-name";
 import { COURSE_STUDENT_AUTH_ENABLED } from "./flags";
 import { moveBySortOrder } from "./order";
 import {
@@ -20,6 +21,8 @@ import type {
   CourseStudent,
   LessonAccess,
   LessonBlock,
+  LessonComment,
+  LessonCommentView,
   LessonOffer,
   LessonProgress,
   LessonResponse,
@@ -33,6 +36,7 @@ type CourseStore = {
   enrollments: CourseEnrollment[];
   progress: LessonProgress[];
   responses: LessonResponse[];
+  comments: LessonComment[];
   events: CourseEvent[];
 };
 
@@ -44,6 +48,7 @@ function emptyStore(): CourseStore {
     enrollments: classroom.enrollments,
     progress: classroom.progress,
     responses: classroom.responses,
+    comments: classroom.comments ?? [],
     events: classroom.events,
   };
 }
@@ -69,6 +74,7 @@ function snapshotFromStore(value: CourseStore): CourseStudioSnapshot {
     enrollments: value.enrollments,
     progress: value.progress,
     responses: value.responses,
+    comments: value.comments,
     events: value.events,
   };
 }
@@ -80,6 +86,7 @@ function applySnapshot(snapshot: CourseStudioSnapshot): CourseStore {
     enrollments: snapshot.enrollments,
     progress: snapshot.progress,
     responses: snapshot.responses,
+    comments: Array.isArray(snapshot.comments) ? snapshot.comments : [],
     events: snapshot.events,
   };
 }
@@ -624,8 +631,7 @@ export async function listEnrollmentsForStudent(studentId: string): Promise<Cour
 }
 
 function communityDisplayName(student: CourseStudent): string {
-  const initial = student.surname.trim().charAt(0).toUpperCase();
-  return initial ? `${student.firstName} ${initial}.` : student.firstName;
+  return formatStudentDisplayName(student);
 }
 
 export async function listCommunityAnswers(
@@ -662,6 +668,69 @@ export async function listCommunityAnswers(
         isMine: Boolean(viewerEnrollment && row.enrollmentId === viewerEnrollment.id),
       };
     });
+}
+
+export async function addLessonComment(
+  studentId: string,
+  courseId: string,
+  lessonId: string,
+  body: string
+): Promise<LessonComment> {
+  await ensureCourseStore();
+  const course = findCourse(courseId);
+  const lesson = course.lessons.find((row) => row.id === lessonId);
+  if (!lesson) throw new Error("Lesson not found.");
+  const text = body.trim();
+  if (text.length < 3) throw new Error("Write a short comment.");
+  await ensureEnrollment(studentId, courseId);
+  const comment: LessonComment = {
+    id: newId("cmt"),
+    courseId,
+    lessonId,
+    studentId,
+    body: text,
+    createdAt: nowIso(),
+    instructorReply: null,
+    instructorRepliedAt: null,
+  };
+  store().comments.push(comment);
+  await persistIfEnabled();
+  return comment;
+}
+
+export async function listLessonComments(
+  courseId: string,
+  lessonId: string,
+  viewerStudentId?: string | null
+): Promise<LessonCommentView[]> {
+  await ensureCourseStore();
+  return store()
+    .comments.filter((row) => row.courseId === courseId && row.lessonId === lessonId)
+    .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+    .map((row) => {
+      const student = store().students.find((item) => item.id === row.studentId);
+      return {
+        id: row.id,
+        displayName: student ? communityDisplayName(student) : "Student",
+        body: row.body,
+        createdAt: row.createdAt,
+        instructorReply: row.instructorReply ?? null,
+        instructorRepliedAt: row.instructorRepliedAt ?? null,
+        isMine: Boolean(viewerStudentId && row.studentId === viewerStudentId),
+      };
+    });
+}
+
+export async function replyToLessonComment(commentId: string, reply: string): Promise<LessonComment> {
+  await ensureCourseStore();
+  const comment = store().comments.find((row) => row.id === commentId);
+  if (!comment) throw new Error("Comment not found.");
+  const text = reply.trim();
+  if (!text) throw new Error("Write a short reply before sending.");
+  comment.instructorReply = text;
+  comment.instructorRepliedAt = nowIso();
+  await persistIfEnabled();
+  return comment;
 }
 
 export async function replyToLessonResponse(responseId: string, reply: string): Promise<LessonResponse> {

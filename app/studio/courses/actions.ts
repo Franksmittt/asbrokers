@@ -20,6 +20,7 @@ import {
   reorderBlock,
   reorderCourses,
   reorderLessons,
+  replyToLessonComment,
   replyToLessonResponse,
   updateBlock,
   updateCourse,
@@ -275,6 +276,18 @@ export async function replyToLessonResponseAction(formData: FormData): Promise<v
   await replyToLessonResponse(responseId, reply);
   revalidatePath("/studio/courses/students");
   if (studentId) revalidatePath(`/studio/courses/students/${studentId}`);
+  if (courseId && lessonId) revalidatePath(studioLessonPath(courseId, lessonId));
+  revalidatePath("/learn");
+}
+
+export async function replyToLessonCommentAction(formData: FormData): Promise<void> {
+  await requireStudio();
+  const commentId = formString(formData, "commentId");
+  const courseId = formString(formData, "courseId");
+  const lessonId = formString(formData, "lessonId");
+  const reply = formString(formData, "reply");
+  await replyToLessonComment(commentId, reply);
+  revalidatePath("/studio/courses/students");
   if (courseId && lessonId) revalidatePath(studioLessonPath(courseId, lessonId));
   revalidatePath("/learn");
 }

@@ -9,9 +9,18 @@ import {
 import { BlockRenderer } from "@/components/courses/BlockRenderer";
 import { FinalOffer } from "@/components/courses/FinalOffer";
 import { LessonCommunity } from "@/components/courses/LessonCommunity";
+import { LessonDiscussion } from "@/components/courses/LessonDiscussion";
 import { LessonResponseForm } from "@/components/courses/LessonResponseForm";
 import { LessonSidebar } from "@/components/courses/LessonSidebar";
-import { getCourseBySlug, getStudentCourseState, listCommunityAnswers, openLesson } from "@/lib/courses/store";
+import { formatStudentDisplayName } from "@/lib/courses/display-name";
+import {
+  getCourseBySlug,
+  getStudentById,
+  getStudentCourseState,
+  listCommunityAnswers,
+  listLessonComments,
+  openLesson,
+} from "@/lib/courses/store";
 import { getLessonAccess, nextLesson, progressLabel, publishedLessons } from "@/lib/courses/progress";
 import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
 import { courseRequiresStudentAuth } from "@/lib/courses/flags";
@@ -60,11 +69,14 @@ export default async function LessonPage({ params, searchParams }: Props) {
     redirect(coursePath(course.slug));
   }
 
+  const student = studentId ? await getStudentById(studentId) : null;
+  const viewerLabel = student ? formatStudentDisplayName(student) : null;
   const lessons = publishedLessons(course);
   const completedThis = Boolean(state?.responsesByLessonId[lesson.id] || state?.completedLessonIds.includes(lesson.id) || completed === "1");
   const showOffer = Boolean(lesson.isFinal && lesson.offer && completedThis);
   const communityAnswers =
     studentId && completedThis ? await listCommunityAnswers(course.id, lesson.id, studentId) : [];
+  const discussionComments = await listLessonComments(course.id, lesson.id, studentId);
   const following = nextLesson(course, lesson);
   const nextHref = following
     ? lessonPath(course.slug, following.slug)
@@ -72,6 +84,7 @@ export default async function LessonPage({ params, searchParams }: Props) {
       ? `${lessonPath(course.slug, lesson.slug)}?completed=1`
       : coursePath(course.slug);
   const canAnswer = Boolean(studentId || !courseRequiresStudentAuth(course));
+  const canComment = Boolean(studentId);
 
   return (
     <PageWithFooter>
@@ -99,6 +112,14 @@ export default async function LessonPage({ params, searchParams }: Props) {
                 alreadySubmitted={Boolean(state?.responsesByLessonId[lesson.id])}
               />
             ) : null}
+            <LessonDiscussion
+              courseSlug={course.slug}
+              lessonSlug={lesson.slug}
+              comments={discussionComments}
+              canComment={canComment}
+              registerHref={courseRequiresStudentAuth(course) ? registerPath(course.slug) : null}
+              viewerLabel={viewerLabel}
+            />
             {studentId && completedThis ? (
               <LessonCommunity
                 answers={communityAnswers}

@@ -5,6 +5,7 @@ import type {
   CourseRecord,
   CourseStudent,
   LessonBlock,
+  LessonComment,
   LessonProgress,
   LessonResponse,
 } from "./types";
@@ -104,7 +105,7 @@ export function createPublishedDemoCourse(): CourseRecord {
     featuredImageUrl: "/images/retirement-planning-hero-16x9.webp",
     status: "published",
     sortOrder: 0,
-    registrationRequired: false,
+    registrationRequired: true,
     sequentialLocking: false,
     createdAt: STAMP,
     updatedAt: STAMP,
@@ -476,6 +477,7 @@ export function createDemoClassroom(): {
   enrollments: CourseEnrollment[];
   progress: LessonProgress[];
   responses: LessonResponse[];
+  comments: LessonComment[];
   events: CourseEvent[];
 } {
   const thabo = createSeedStudent();
@@ -571,6 +573,28 @@ export function createDemoClassroom(): {
         lessonId: l5,
         answer: "I want help building a financial-freedom plan — especially drawdown and whether we should phase work rather than stop.",
         submittedAt: "2026-08-10T11:05:00.000Z",
+        instructorReply: null,
+        instructorRepliedAt: null,
+      },
+    ],
+    comments: [
+      {
+        id: "cmt_t1",
+        courseId: COURSE_ID,
+        lessonId: l1,
+        studentId: thabo.id,
+        body: "This helped me stop chasing a retirement date and look at the income condition instead.",
+        createdAt: "2026-08-12T09:50:00.000Z",
+        instructorReply: "Glad it landed, Thabo. Bring your own numbers into the next lesson’s calculator.",
+        instructorRepliedAt: "2026-08-12T11:10:00.000Z",
+      },
+      {
+        id: "cmt_l1",
+        courseId: COURSE_ID,
+        lessonId: l1,
+        studentId: lerato.id,
+        body: "I had the same realisation — the date alone is not a plan.",
+        createdAt: "2026-08-05T07:20:00.000Z",
         instructorReply: null,
         instructorRepliedAt: null,
       },

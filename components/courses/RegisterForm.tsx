@@ -50,8 +50,9 @@ export function RegisterForm({ courseSlug, courseTitle }: { courseSlug: string; 
         <input type="checkbox" name="privacyConsent" value="true" required className="mt-1" />
         <span>
           I agree that AS Brokers CC (FSP 17273) may store my name and email to give me access to{" "}
-          <strong>{courseTitle}</strong>, remember my course progress, and keep a private record of any
-          lesson answers I submit. This is not a public comment section. See the{" "}
+          <strong>{courseTitle}</strong>, remember my course progress, show my first name and surname initial (for
+          example Frank S.) on lesson comments and classroom answers, and keep a private record of any lesson answers
+          I submit. See the{" "}
           <a href="/privacy" className="font-medium text-samsung-blue hover:underline">
             privacy notice
           </a>

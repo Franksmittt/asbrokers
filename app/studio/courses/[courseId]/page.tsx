@@ -8,6 +8,7 @@ import {
   reorderLessonAction,
   updateCourseAction,
 } from "@/app/studio/courses/actions";
+import { StudioImageField } from "@/components/courses/StudioImageField";
 import { StudioPersistForm, StudioSaveButton, StudioSelect } from "@/components/courses/studio-controls";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { canMove } from "@/lib/courses/order";
@@ -75,10 +76,13 @@ export default async function CourseEditorPage({ params }: Props) {
           Course introduction
           <textarea name="introduction" rows={7} defaultValue={course.introduction} className={field} />
         </label>
-        <label className={label}>
-          Featured image URL
-          <input name="featuredImageUrl" defaultValue={course.featuredImageUrl ?? ""} className={field} />
-        </label>
+        <StudioImageField
+          name="featuredImageUrl"
+          label="Featured image"
+          defaultValue={course.featuredImageUrl ?? ""}
+          placeholder="Paste a link or upload from your computer"
+          inputClassName={field}
+        />
         <div className="grid gap-4 sm:grid-cols-3">
           <label className={label}>
             Status

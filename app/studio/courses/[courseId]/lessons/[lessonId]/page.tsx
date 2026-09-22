@@ -10,6 +10,7 @@ import {
   updateLessonAction,
 } from "@/app/studio/courses/actions";
 import { CourseCalculatorPicker } from "@/components/courses/CourseCalculatorPicker";
+import { StudioImageField } from "@/components/courses/StudioImageField";
 import { StudioPersistForm, StudioSaveButton, StudioSelect } from "@/components/courses/studio-controls";
 import { BLOCK_LABELS } from "@/lib/courses/blocks";
 import { listCourseCalculators, sanitizeCourseCalculatorId, type CourseCalculatorOption } from "@/lib/courses/calculators";
@@ -290,7 +291,13 @@ function BlockFields({
         <>
           <input name="url" defaultValue={block.url} className={field} placeholder="YouTube or Vimeo URL" />
           <input name="caption" defaultValue={block.caption ?? ""} className={field} placeholder="Video title" />
-          <input name="posterUrl" defaultValue={block.posterUrl ?? ""} className={field} placeholder="Poster image URL (used until a video is added)" />
+          <StudioImageField
+            name="posterUrl"
+            label="Poster image (shown until a video is added)"
+            defaultValue={block.posterUrl ?? ""}
+            placeholder="Paste a link or upload from your computer"
+            inputClassName={field}
+          />
         </>
       );
     case "calculator":
@@ -303,7 +310,13 @@ function BlockFields({
     case "image":
       return (
         <>
-          <input name="url" defaultValue={block.url} className={field} placeholder="Image URL" />
+          <StudioImageField
+            name="url"
+            label="Image"
+            defaultValue={block.url}
+            placeholder="Paste a link or upload from your computer"
+            inputClassName={field}
+          />
           <input name="alt" defaultValue={block.alt} className={field} placeholder="Alt text" />
           <input name="caption" defaultValue={block.caption ?? ""} className={field} placeholder="Optional caption" />
         </>

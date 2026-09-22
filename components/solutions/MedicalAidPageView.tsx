@@ -67,6 +67,14 @@ export function MedicalAidPageView({ faqs }: Props) {
               Discovery Health 2026 matrix
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
+            <Link
+              href="/solutions/discovery-vitality"
+              prefetch={false}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-cinematic-teal hover:opacity-80"
+            >
+              Discovery Vitality
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
           </div>
         </div>
       </header>

@@ -155,6 +155,11 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "2026 DHMS plans, MSA/ATB/PHF, and Gap stacking.",
     },
     {
+      href: "/solutions/discovery-vitality",
+      title: "Discovery Vitality",
+      description: "Status, points, rewards, and signup through AS Brokers.",
+    },
+    {
       href: "/healthy-retirement-blueprint",
       title: "Healthy retirement blueprint",
       description: "Health pillar assessment for retirement planning.",
@@ -167,6 +172,11 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
   ],
   "/solutions/discovery-health": [
     {
+      href: "/solutions/discovery-vitality",
+      title: "Discovery Vitality",
+      description: "How Vitality status, points, and rewards typically work.",
+    },
+    {
       href: "/solutions/medical-aid",
       title: "Medical aid & gap structuring",
       description: "Demarcation, shortfalls, and claims advocacy across schemes.",
@@ -177,14 +187,31 @@ export const SOLUTION_RELATED: Record<string, RelatedLink[]> = {
       description: "Personal and commercial cover structured together.",
     },
     {
-      href: "/calculators",
-      title: "Educational planning tools",
-      description: "Illustrative insurance and wealth-structuring tools available for review.",
-    },
-    {
       href: "/contact?source=discovery_terminal",
       title: "Book a health consultation",
       description: "Call 011 954 6641, or reach FSP 17273 in Krugersdorp via WhatsApp.",
+    },
+  ],
+  "/solutions/discovery-vitality": [
+    {
+      href: "/solutions/discovery-health",
+      title: "Discovery Health medical aid",
+      description: "DHMS plan education and Gap stacking with AS Brokers.",
+    },
+    {
+      href: "/solutions/medical-aid",
+      title: "Medical aid & gap hub",
+      description: "Scheme structuring and claims advocacy across options.",
+    },
+    {
+      href: "/insurance",
+      title: "Insurance hub",
+      description: "Personal, medical, and business cover with FSP 17273.",
+    },
+    {
+      href: "/contact?source=vitality_page",
+      title: "Contact the office",
+      description: "Speak to AS Brokers in Krugersdorp about Vitality.",
     },
   ],
   "/estate-planning": [

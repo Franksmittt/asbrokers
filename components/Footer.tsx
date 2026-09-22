@@ -31,6 +31,7 @@ const LEGAL_LINKS = [
   { label: "Quiz", href: "/quiz" },
   { label: "Legacy conversations", href: "/legacy-conversations" },
   { label: "Discovery Health", href: "/solutions/discovery-health" },
+  { label: "Discovery Vitality", href: "/solutions/discovery-vitality" },
   { label: "Studio login", href: "/studio/blog/login" },
   { label: "CRM login", href: "/login" },
 ] as const;

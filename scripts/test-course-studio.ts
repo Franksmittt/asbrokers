@@ -296,6 +296,7 @@ describe("course studio snapshot", () => {
       enrollments: [],
       progress: [],
       responses: [],
+      comments: [],
       events: [],
     });
     const block = migrated.courses[0]?.lessons[0]?.blocks[0];
@@ -364,6 +365,7 @@ describe("course studio snapshot", () => {
           enrollments: [],
           progress: [],
           responses: [],
+          comments: [],
           events: [],
         },
         filePath

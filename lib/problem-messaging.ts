@@ -252,6 +252,22 @@ export const PAGE_MESSAGING: Record<string, PageMessaging> = {
       href: "/solutions/medical-aid",
     },
   },
+  "/solutions/discovery-vitality": {
+    path: "/solutions/discovery-vitality",
+    fiveSecondTest:
+      "Independent education on Discovery Vitality status, points, and rewards — then a short signup form with AS Brokers FSP 17273.",
+    h1: "Discovery Vitality through AS Brokers",
+    subhead:
+      "Understand how Vitality works beside medical aid, then request a signup conversation with AS Brokers CC in Krugersdorp.",
+    problem: "Vitality rules and device benefits are complex; brochure-only decisions miss conditions and fees.",
+    promise:
+      "FAIS-safe education plus broker-supported onboarding interest — no product recommendation from the webpage alone.",
+    primaryCta: { label: "Sign up interest", href: "#vitality-signup" },
+    secondaryCta: {
+      label: "Discovery Health medical aid",
+      href: "/solutions/discovery-health",
+    },
+  },
   "/legacy-readiness-checklist": {
     path: "/legacy-readiness-checklist",
     fiveSecondTest:

@@ -343,6 +343,15 @@ export function InsuranceHubPageView({ faqs }: Props) {
                 Discovery Health 2026
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
+              <Link
+                href="/solutions/discovery-vitality"
+                prefetch
+                className="inline-flex items-center gap-2 text-sm font-semibold transition hover:opacity-80"
+                style={{ color: TEAL_ON_DARK }}
+              >
+                Discovery Vitality
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </div>
           </div>
         </div>

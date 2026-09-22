@@ -26,6 +26,7 @@ const STATIC_PATHS = [
   "/providers",
   "/solutions/medical-aid",
   "/solutions/discovery-health",
+  "/solutions/discovery-vitality",
   "/premium-increase-calculator",
   "/insurance",
   "/investments",

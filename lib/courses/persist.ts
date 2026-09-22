@@ -39,11 +39,14 @@ export function courseStudioSnapshotFilePath(): string {
   return path.join(process.cwd(), "data", "course-studio-snapshot.json");
 }
 
-export function migrateCourseStudioSnapshot(payload: CourseStudioSnapshot): CourseStudioSnapshot {
-  if (!Array.isArray(payload.comments)) {
-    payload.comments = [];
-  }
-  for (const course of payload.courses) {
+export function migrateCourseStudioSnapshot(
+  payload: Omit<CourseStudioSnapshot, "comments"> & { comments?: LessonComment[] }
+): CourseStudioSnapshot {
+  const next: CourseStudioSnapshot = {
+    ...payload,
+    comments: Array.isArray(payload.comments) ? payload.comments : [],
+  };
+  for (const course of next.courses) {
     for (const lesson of course.lessons) {
       for (const block of lesson.blocks) {
         if (block.type === "calculator") {
@@ -52,15 +55,15 @@ export function migrateCourseStudioSnapshot(payload: CourseStudioSnapshot): Cour
       }
     }
   }
-  for (const response of payload.responses) {
+  for (const response of next.responses) {
     if (response.instructorReply === undefined) response.instructorReply = null;
     if (response.instructorRepliedAt === undefined) response.instructorRepliedAt = null;
   }
-  for (const comment of payload.comments) {
+  for (const comment of next.comments) {
     if (comment.instructorReply === undefined) comment.instructorReply = null;
     if (comment.instructorRepliedAt === undefined) comment.instructorRepliedAt = null;
   }
-  return payload;
+  return next;
 }
 
 function isSnapshot(value: unknown): value is CourseStudioSnapshot {

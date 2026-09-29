@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/BrandLogo";
 import { MarketingMobileMenu } from "@/components/MarketingMobileMenu";
-import { PRIMARY_NAV } from "@/lib/site-navigation";
+import { MarketingNavDropdown } from "@/components/MarketingNavDropdown";
+import { isNavGroup, PRIMARY_NAV } from "@/lib/site-navigation";
 
 /** Server-rendered marketing nav, mobile menu is zero-JS details/summary. */
 export function MarketingNav() {
@@ -23,21 +24,24 @@ export function MarketingNav() {
           </div>
         </Link>
         {/*
-          Eight immutable primary links fit without compressing the FSP mark from
-          xl upward. At 1024px, use the accessible mobile menu instead of wrapping
-          the fixed header into a taller, layout-shifting bar.
+          Compact top-level set (Services, Resources, About) fits from lg upward.
+          Below that, use the accessible mobile menu.
         */}
-        <div className="hidden xl:flex items-center gap-1 text-sm font-medium">
-          {PRIMARY_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              prefetch={false}
-              className="px-3 py-2 rounded-2xl text-[#2B2B2E] hover:text-shark whitespace-nowrap"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
+          {PRIMARY_NAV.map((item) =>
+            isNavGroup(item) ? (
+              <MarketingNavDropdown key={item.label} group={item} />
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                prefetch={false}
+                className="px-3 py-2 rounded-2xl text-[#2B2B2E] hover:text-shark whitespace-nowrap"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <Link

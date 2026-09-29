@@ -1,5 +1,5 @@
 import { Menu, X } from "@/components/icons";
-import { PRIMARY_NAV } from "@/lib/site-navigation";
+import { isNavGroup, PRIMARY_NAV } from "@/lib/site-navigation";
 
 const PANEL_ID = "mobile-nav-panel";
 const TOGGLE_ID = "mobile-nav-toggle";
@@ -12,7 +12,7 @@ const ICON_CLOSED_ID = "mobile-nav-icon-closed";
  */
 export function MarketingMobileMenu() {
   return (
-    <div className="relative xl:hidden">
+    <div className="relative lg:hidden">
       <button
         id={TOGGLE_ID}
         type="button"
@@ -35,15 +35,37 @@ export function MarketingMobileMenu() {
         className="fixed inset-x-0 top-[var(--marketing-nav-height)] z-50 max-h-[85vh] overflow-y-auto border-b border-stone-200 bg-[#F7F6F3] shadow-2xl ring-1 ring-stone-200/90"
       >
         <div className="mx-auto flex max-w-7xl flex-col px-4 py-3 sm:px-6">
-          {PRIMARY_NAV.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="rounded-2xl px-3 py-3 font-medium text-[#2B2B2E] hover:bg-white hover:text-shark"
-            >
-              {item.label}
-            </a>
-          ))}
+          {PRIMARY_NAV.map((item) =>
+            isNavGroup(item) ? (
+              <div key={item.label} className="py-2">
+                <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                  {item.label}
+                </p>
+                {item.children.map((child) => (
+                  <a
+                    key={child.href}
+                    href={child.href}
+                    className="block rounded-2xl px-3 py-2.5 font-medium text-[#2B2B2E] hover:bg-white hover:text-shark"
+                  >
+                    <span className="block">{child.label}</span>
+                    {child.description ? (
+                      <span className="mt-0.5 block text-xs font-normal text-stone-500">
+                        {child.description}
+                      </span>
+                    ) : null}
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                className="rounded-2xl px-3 py-3 font-medium text-[#2B2B2E] hover:bg-white hover:text-shark"
+              >
+                {item.label}
+              </a>
+            )
+          )}
           <div className="mt-3 border-t border-stone-300/80 pt-3">
             <a
               href="/contact?source=nav_cta"

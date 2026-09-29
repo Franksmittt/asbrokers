@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { User, Menu, X } from "./icons";
 import { BrandLogo } from "@/components/BrandLogo";
-import { isNavActive, PRIMARY_NAV } from "@/lib/site-navigation";
+import { isNavActive, PRIMARY_NAV_LINKS } from "@/lib/site-navigation";
 
 const dashboardPaths = ["/crm", "/login"];
 
@@ -40,7 +40,7 @@ export function Nav() {
   }, [mobileOpen]);
 
   const closeMobile = () => setMobileOpen(false);
-  const navLinks = PRIMARY_NAV.filter((item) => item.href !== "/contact");
+  const navLinks = PRIMARY_NAV_LINKS.filter((item) => item.href !== "/contact");
 
   if (isDashboard) {
     return (

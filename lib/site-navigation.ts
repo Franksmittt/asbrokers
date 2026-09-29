@@ -58,20 +58,82 @@ export const PILLAR_HUB: NavLink = {
   description: "Overview of all three pillars",
 };
 
-/** Primary header links (Contact is a separate CTA button). */
-export const PRIMARY_NAV: NavLink[] = [
-  // Core focus 2026-07-25: business insurance leads the site.
-  { label: "Business Insurance", href: "/solutions/business-insurance" },
-  { label: "Insurance", href: "/insurance" },
-  // CONTAINMENT 2026-07-22: Everest Wealth nav frozen. Restore href: "/everest-wealth"
-  // { label: "Everest Wealth", href: "/everest-wealth" },
-  { label: "Retirement", href: "/retirement-planning" },
-  { label: "Investments", href: "/investments" },
-  { label: "Estate", href: "/estate-planning" },
-  { label: "Calculators", href: "/calculators" },
-  { label: "Insights", href: "/insights" },
+export type NavGroup = {
+  label: string;
+  children: NavLink[];
+};
+
+export type PrimaryNavItem = NavLink | NavGroup;
+
+export function isNavGroup(item: PrimaryNavItem): item is NavGroup {
+  return "children" in item;
+}
+
+/**
+ * Compact primary header: two dropdowns + About.
+ * Contact stays a separate CTA button.
+ */
+export const PRIMARY_NAV: PrimaryNavItem[] = [
+  {
+    label: "Services",
+    children: [
+      // Core focus 2026-07-25: business insurance leads the site.
+      {
+        label: "Business Insurance",
+        href: "/solutions/business-insurance",
+        description: "Cover for shops, practices, fleets, and commercial risks",
+      },
+      {
+        label: "Insurance & Risk",
+        href: "/insurance",
+        description: "Personal and short-term risk advice",
+      },
+      // CONTAINMENT 2026-07-22: Everest Wealth nav frozen. Restore href: "/everest-wealth"
+      // { label: "Everest Wealth", href: "/everest-wealth", description: "..." },
+      {
+        label: "Retirement",
+        href: "/retirement-planning",
+        description: "Income planning and longevity readiness",
+      },
+      {
+        label: "Investments",
+        href: "/investments",
+        description: "Portfolio and wealth-building options",
+      },
+      {
+        label: "Estate",
+        href: "/estate-planning",
+        description: "Wills, duty, and legacy structuring",
+      },
+    ],
+  },
+  {
+    label: "Resources",
+    children: [
+      {
+        label: "Calculators",
+        href: "/calculators",
+        description: "Illustrative planning tools",
+      },
+      {
+        label: "Courses",
+        href: "/learn",
+        description: "Self-paced learning with Albert",
+      },
+      {
+        label: "Insights",
+        href: "/insights",
+        description: "Articles and practical guidance",
+      },
+    ],
+  },
   { label: "About", href: "/about" },
 ];
+
+/** Flat list of every primary-nav destination (for sitemaps, audits, mobile flatteners). */
+export const PRIMARY_NAV_LINKS: NavLink[] = PRIMARY_NAV.flatMap((item) =>
+  isNavGroup(item) ? item.children : [item]
+);
 
 /** Mega-footer: goal-led service links. */
 export const FOOTER_HOW_WE_HELP: NavLink[] = [

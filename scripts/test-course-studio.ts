@@ -13,13 +13,16 @@ import { canMove, moveBySortOrder } from "../lib/courses/order";
 import { migrateCourseStudioSnapshot, saveCourseSnapshot, loadCourseSnapshot } from "../lib/courses/persist";
 import {
   addBlock,
+  addCourseStaffAlert,
   addLesson,
   addLessonComment,
   createCourse,
+  deleteLessonComment,
   getCourseById,
   listCommunityAnswers,
   listCourses,
   listLessonComments,
+  listUnreadCourseStaffAlerts,
   reorderBlock,
   reorderCourses,
   reorderLessons,
@@ -254,6 +257,37 @@ describe("lesson comments", () => {
     const after = await listLessonComments(course.id, lesson.id, frank.id);
     assert.equal(after[0]?.instructorReply?.includes("Great start"), true);
   });
+
+  it("creates CRM staff alerts on comment and lets Albert delete comments", async () => {
+    const course = await createCourse({ title: "Notify", slug: "notify-course" });
+    const lesson = await addLesson(course.id, "One", "one");
+    const frank = await upsertStudent({
+      firstName: "Frank",
+      surname: "Smit",
+      email: "frank-notify@example.com",
+      privacyConsent: true,
+      marketingConsent: false,
+    });
+    const comment = await addLessonComment(frank.id, course.id, lesson.id, "Please review my drawdown plan.");
+    await addCourseStaffAlert({
+      type: "comment",
+      title: "New lesson comment",
+      body: `Frank S. on ${course.title} · ${lesson.title}: Please review my drawdown plan.`,
+      href: `/studio/courses/${course.id}/lessons/${lesson.id}`,
+      relatedCommentId: comment.id,
+      relatedStudentId: frank.id,
+      relatedCourseId: course.id,
+      relatedLessonId: lesson.id,
+    });
+    const alerts = await listUnreadCourseStaffAlerts();
+    assert.equal(alerts.some((row) => row.relatedCommentId === comment.id), true);
+    await deleteLessonComment(comment.id);
+    assert.equal((await listLessonComments(course.id, lesson.id)).length, 0);
+    assert.equal(
+      (await listUnreadCourseStaffAlerts()).some((row) => row.relatedCommentId === comment.id),
+      false
+    );
+  });
 });
 
 describe("course studio snapshot", () => {
@@ -306,6 +340,8 @@ describe("course studio snapshot", () => {
     }
     assert.ok(Array.isArray(migrated.comments));
     assert.equal(migrated.comments.length, 0);
+    assert.ok(Array.isArray(migrated.staffAlerts));
+    assert.equal(migrated.staffAlerts.length, 0);
   });
 
   it("round-trips a snapshot to disk so a calculator and video stay saved", async () => {
@@ -367,6 +403,7 @@ describe("course studio snapshot", () => {
           responses: [],
           comments: [],
           events: [],
+          staffAlerts: [],
         },
         filePath
       );

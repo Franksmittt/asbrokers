@@ -17,6 +17,7 @@ import {
   deleteBlock,
   deleteCourse,
   deleteLesson,
+  deleteLessonComment,
   reorderBlock,
   reorderCourses,
   reorderLessons,
@@ -290,4 +291,16 @@ export async function replyToLessonCommentAction(formData: FormData): Promise<vo
   revalidatePath("/studio/courses/students");
   if (courseId && lessonId) revalidatePath(studioLessonPath(courseId, lessonId));
   revalidatePath("/learn");
+}
+
+export async function deleteLessonCommentAction(formData: FormData): Promise<void> {
+  await requireStudio();
+  const commentId = formString(formData, "commentId");
+  const courseId = formString(formData, "courseId");
+  const lessonId = formString(formData, "lessonId");
+  await deleteLessonComment(commentId);
+  revalidatePath("/studio/courses/students");
+  if (courseId && lessonId) revalidatePath(studioLessonPath(courseId, lessonId));
+  revalidatePath("/learn");
+  revalidatePath("/crm");
 }

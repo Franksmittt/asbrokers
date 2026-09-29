@@ -11,6 +11,7 @@ import type {
   CourseEnrollment,
   CourseEvent,
   CourseRecord,
+  CourseStaffAlert,
   CourseStudent,
   LessonComment,
   LessonProgress,
@@ -28,6 +29,7 @@ export type CourseStudioSnapshot = {
   responses: LessonResponse[];
   comments: LessonComment[];
   events: CourseEvent[];
+  staffAlerts: CourseStaffAlert[];
 };
 
 export function courseStudioSnapshotFilePath(): string {
@@ -40,11 +42,15 @@ export function courseStudioSnapshotFilePath(): string {
 }
 
 export function migrateCourseStudioSnapshot(
-  payload: Omit<CourseStudioSnapshot, "comments"> & { comments?: LessonComment[] }
+  payload: Omit<CourseStudioSnapshot, "comments" | "staffAlerts"> & {
+    comments?: LessonComment[];
+    staffAlerts?: CourseStaffAlert[];
+  }
 ): CourseStudioSnapshot {
   const next: CourseStudioSnapshot = {
     ...payload,
     comments: Array.isArray(payload.comments) ? payload.comments : [],
+    staffAlerts: Array.isArray(payload.staffAlerts) ? payload.staffAlerts : [],
   };
   for (const course of next.courses) {
     for (const lesson of course.lessons) {

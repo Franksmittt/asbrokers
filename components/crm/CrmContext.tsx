@@ -15,6 +15,11 @@ import {
   addReminder as addReminderAction,
   updateLeadStatus as persistLeadStatus,
 } from "@/app/actions/crm";
+import {
+  markAllCourseAlertsRead as markAllCourseAlertsReadAction,
+  markCourseAlertRead as markCourseAlertReadAction,
+} from "@/app/actions/crm-course-alerts";
+import type { CourseStaffAlert } from "@/lib/courses/types";
 import type { CrmLead, CrmRole, LeadStatus } from "@/lib/crm/types";
 
 type CrmContextValue = {
@@ -24,10 +29,14 @@ type CrmContextValue = {
   canUseAi: boolean;
   leads: CrmLead[];
   visibleLeads: CrmLead[];
+  courseAlerts: CourseStaffAlert[];
+  unreadCourseAlerts: CourseStaffAlert[];
   updateLeadStatus: (leadId: string, status: LeadStatus) => void;
   getLeadById: (id: string) => CrmLead | undefined;
   addGlobalNote: (content: string) => Promise<void>;
   addReminder: (leadId: string, title: string, dueDate: string) => Promise<void>;
+  markCourseAlertRead: (alertId: string) => Promise<void>;
+  markAllCourseAlertsRead: () => Promise<void>;
 };
 
 const CrmContext = createContext<CrmContextValue | null>(null);
@@ -35,6 +44,7 @@ const CrmContext = createContext<CrmContextValue | null>(null);
 type CrmProviderProps = {
   children: ReactNode;
   initialLeads: CrmLead[];
+  initialCourseAlerts?: CourseStaffAlert[];
   role: CrmRole;
   staffId: string;
   staffName: string;
@@ -44,6 +54,7 @@ type CrmProviderProps = {
 export function CrmProvider({
   children,
   initialLeads,
+  initialCourseAlerts = [],
   role,
   staffId,
   staffName,
@@ -51,8 +62,13 @@ export function CrmProvider({
 }: CrmProviderProps) {
   const router = useRouter();
   const [leads, setLeads] = useState<CrmLead[]>(() => initialLeads);
+  const [courseAlerts, setCourseAlerts] = useState<CourseStaffAlert[]>(() => initialCourseAlerts);
 
   const visibleLeads = leads;
+  const unreadCourseAlerts = useMemo(
+    () => courseAlerts.filter((alert) => !alert.readAt),
+    [courseAlerts]
+  );
 
   const updateLeadStatus = useCallback((leadId: string, status: LeadStatus) => {
     setLeads((prev) => {
@@ -109,6 +125,29 @@ export function CrmProvider({
     [router]
   );
 
+  const markCourseAlertRead = useCallback(async (alertId: string) => {
+    const stamped = new Date().toISOString();
+    setCourseAlerts((prev) =>
+      prev.map((alert) => (alert.id === alertId ? { ...alert, readAt: alert.readAt ?? stamped } : alert))
+    );
+    const result = await markCourseAlertReadAction(alertId);
+    if (!result.ok) {
+      setCourseAlerts((prev) =>
+        prev.map((alert) => (alert.id === alertId ? { ...alert, readAt: null } : alert))
+      );
+    }
+  }, []);
+
+  const markAllCourseAlertsRead = useCallback(async () => {
+    const stamped = new Date().toISOString();
+    const previous = courseAlerts;
+    setCourseAlerts((prev) => prev.map((alert) => ({ ...alert, readAt: alert.readAt ?? stamped })));
+    const result = await markAllCourseAlertsReadAction();
+    if (!result.ok) {
+      setCourseAlerts(previous);
+    }
+  }, [courseAlerts]);
+
   const value = useMemo<CrmContextValue>(
     () => ({
       role,
@@ -117,10 +156,14 @@ export function CrmProvider({
       canUseAi,
       leads,
       visibleLeads,
+      courseAlerts,
+      unreadCourseAlerts,
       updateLeadStatus,
       getLeadById,
       addGlobalNote,
       addReminder,
+      markCourseAlertRead,
+      markAllCourseAlertsRead,
     }),
     [
       role,
@@ -129,10 +172,14 @@ export function CrmProvider({
       canUseAi,
       leads,
       visibleLeads,
+      courseAlerts,
+      unreadCourseAlerts,
       updateLeadStatus,
       getLeadById,
       addGlobalNote,
       addReminder,
+      markCourseAlertRead,
+      markAllCourseAlertsRead,
     ]
   );
 

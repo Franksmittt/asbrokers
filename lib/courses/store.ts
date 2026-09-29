@@ -18,6 +18,8 @@ import type {
   CourseEventType,
   CourseLesson,
   CourseRecord,
+  CourseStaffAlert,
+  CourseStaffAlertType,
   CourseStudent,
   LessonAccess,
   LessonBlock,
@@ -38,6 +40,7 @@ type CourseStore = {
   responses: LessonResponse[];
   comments: LessonComment[];
   events: CourseEvent[];
+  staffAlerts: CourseStaffAlert[];
 };
 
 function emptyStore(): CourseStore {
@@ -50,6 +53,7 @@ function emptyStore(): CourseStore {
     responses: classroom.responses,
     comments: classroom.comments ?? [],
     events: classroom.events,
+    staffAlerts: [],
   };
 }
 
@@ -76,6 +80,7 @@ function snapshotFromStore(value: CourseStore): CourseStudioSnapshot {
     responses: value.responses,
     comments: value.comments,
     events: value.events,
+    staffAlerts: value.staffAlerts,
   };
 }
 
@@ -88,6 +93,7 @@ function applySnapshot(snapshot: CourseStudioSnapshot): CourseStore {
     responses: snapshot.responses,
     comments: Array.isArray(snapshot.comments) ? snapshot.comments : [],
     events: snapshot.events,
+    staffAlerts: Array.isArray(snapshot.staffAlerts) ? snapshot.staffAlerts : [],
   };
 }
 
@@ -731,6 +737,89 @@ export async function replyToLessonComment(commentId: string, reply: string): Pr
   comment.instructorRepliedAt = nowIso();
   await persistIfEnabled();
   return comment;
+}
+
+/** Albert can remove a lesson comment (and any CRM alert tied to it). */
+export async function deleteLessonComment(commentId: string): Promise<void> {
+  await ensureCourseStore();
+  const before = store().comments.length;
+  store().comments = store().comments.filter((row) => row.id !== commentId);
+  if (store().comments.length === before) {
+    throw new Error("Comment not found.");
+  }
+  store().staffAlerts = store().staffAlerts.filter((row) => row.relatedCommentId !== commentId);
+  await persistIfEnabled();
+}
+
+export async function addCourseStaffAlert(input: {
+  type: CourseStaffAlertType;
+  title: string;
+  body: string;
+  href: string;
+  relatedCommentId?: string | null;
+  relatedStudentId?: string | null;
+  relatedCourseId?: string | null;
+  relatedLessonId?: string | null;
+}): Promise<CourseStaffAlert> {
+  await ensureCourseStore();
+  const alert: CourseStaffAlert = {
+    id: newId("alt"),
+    type: input.type,
+    title: input.title,
+    body: input.body,
+    href: input.href,
+    createdAt: nowIso(),
+    readAt: null,
+    relatedCommentId: input.relatedCommentId ?? null,
+    relatedStudentId: input.relatedStudentId ?? null,
+    relatedCourseId: input.relatedCourseId ?? null,
+    relatedLessonId: input.relatedLessonId ?? null,
+  };
+  store().staffAlerts.unshift(alert);
+  // Keep the CRM bell usable — drop oldest after a soft cap.
+  if (store().staffAlerts.length > 100) {
+    store().staffAlerts = store().staffAlerts.slice(0, 100);
+  }
+  await persistIfEnabled();
+  return alert;
+}
+
+export async function listCourseStaffAlerts(limit = 20): Promise<CourseStaffAlert[]> {
+  await ensureCourseStore();
+  return [...store().staffAlerts]
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, Math.max(1, Math.min(limit, 50)));
+}
+
+export async function listUnreadCourseStaffAlerts(limit = 20): Promise<CourseStaffAlert[]> {
+  await ensureCourseStore();
+  return store()
+    .staffAlerts.filter((row) => !row.readAt)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, Math.max(1, Math.min(limit, 50)));
+}
+
+export async function markCourseStaffAlertRead(alertId: string): Promise<void> {
+  await ensureCourseStore();
+  const alert = store().staffAlerts.find((row) => row.id === alertId);
+  if (!alert) return;
+  if (!alert.readAt) {
+    alert.readAt = nowIso();
+    await persistIfEnabled();
+  }
+}
+
+export async function markAllCourseStaffAlertsRead(): Promise<void> {
+  await ensureCourseStore();
+  const stamped = nowIso();
+  let changed = false;
+  for (const alert of store().staffAlerts) {
+    if (!alert.readAt) {
+      alert.readAt = stamped;
+      changed = true;
+    }
+  }
+  if (changed) await persistIfEnabled();
 }
 
 export async function replyToLessonResponse(responseId: string, reply: string): Promise<LessonResponse> {

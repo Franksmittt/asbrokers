@@ -24,7 +24,7 @@ export function MarketingNav() {
           </div>
         </Link>
         {/*
-          Compact top-level set (Services, Resources, About) fits from lg upward.
+          Services dropdown + Calculators / Courses / Insights / About fit from lg.
           Below that, use the accessible mobile menu.
         */}
         <div className="hidden lg:flex items-center gap-1 text-sm font-medium">

@@ -70,7 +70,7 @@ export function isNavGroup(item: PrimaryNavItem): item is NavGroup {
 }
 
 /**
- * Compact primary header: two dropdowns + About.
+ * Compact primary header: Services dropdown + top-level resource links + About.
  * Contact stays a separate CTA button.
  */
 export const PRIMARY_NAV: PrimaryNavItem[] = [
@@ -107,26 +107,9 @@ export const PRIMARY_NAV: PrimaryNavItem[] = [
       },
     ],
   },
-  {
-    label: "Resources",
-    children: [
-      {
-        label: "Calculators",
-        href: "/calculators",
-        description: "Illustrative planning tools",
-      },
-      {
-        label: "Courses",
-        href: "/learn",
-        description: "Self-paced learning with Albert",
-      },
-      {
-        label: "Insights",
-        href: "/insights",
-        description: "Articles and practical guidance",
-      },
-    ],
-  },
+  { label: "Calculators", href: "/calculators" },
+  { label: "Courses", href: "/learn" },
+  { label: "Insights", href: "/insights" },
   { label: "About", href: "/about" },
 ];
 

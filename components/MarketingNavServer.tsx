@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, X } from "@/components/icons";
 import { BrandLogo } from "@/components/BrandLogo";
-import { PRIMARY_NAV } from "@/lib/site-navigation";
+import { PRIMARY_NAV_LINKS } from "@/lib/site-navigation";
 
 /** Lightweight homepage nav, minimal JS, full mobile a11y (Phase 9 + 12). */
 export function MarketingNavServer() {
@@ -44,7 +44,7 @@ export function MarketingNavServer() {
           <Link href="/calculators" prefetch={false} className="px-3 py-2 rounded-2xl text-[#2B2B2E] hover:text-shark">
             Calculators
           </Link>
-          {PRIMARY_NAV.filter((item) => item.href !== "/calculators").map((item) => (
+          {PRIMARY_NAV_LINKS.filter((item) => item.href !== "/calculators").map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -97,7 +97,7 @@ export function MarketingNavServer() {
               >
                 Calculators
               </Link>
-              {PRIMARY_NAV.filter((item) => item.href !== "/calculators").map((item) => (
+              {PRIMARY_NAV_LINKS.filter((item) => item.href !== "/calculators").map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}

@@ -5,6 +5,7 @@ import {
   addBlockAction,
   deleteBlockAction,
   reorderBlockAction,
+  deleteLessonCommentAction,
   replyToLessonCommentAction,
   replyToLessonResponseAction,
   updateBlockAction,
@@ -402,6 +403,17 @@ function StudioLessonDiscussion({
                 />
                 <button type="submit" className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black">
                   {row.instructorReply ? "Update reply" : "Send reply"}
+                </button>
+              </form>
+              <form action={deleteLessonCommentAction} className="mt-2">
+                <input type="hidden" name="commentId" value={row.id} />
+                <input type="hidden" name="courseId" value={courseId} />
+                <input type="hidden" name="lessonId" value={lessonId} />
+                <button
+                  type="submit"
+                  className="rounded-md border border-red-500/40 px-3 py-1.5 text-xs font-medium text-red-300 transition-colors hover:bg-red-500/10"
+                >
+                  Delete comment
                 </button>
               </form>
             </li>

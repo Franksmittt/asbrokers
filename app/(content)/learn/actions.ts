@@ -7,11 +7,13 @@ import { lessonCommentSchema, lessonResponseSchema, studentRegisterSchema } from
 import { coursePath, lessonPath, registerPath, studioLessonPath } from "@/lib/courses/paths";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { newId } from "@/lib/courses/ids";
+import { notifyCourseComment, notifyCourseRegistration } from "@/lib/courses/crm-bridge";
 import {
   addLessonComment,
   completeLesson,
   ensureEnrollment,
   getCourseBySlug,
+  getEnrollment,
   getStudentById,
   getStudentCourseState,
   openLesson,
@@ -84,11 +86,18 @@ export async function registerForCourse(
     marketingConsent: Boolean(parsed.data.marketingConsent),
   });
   await setCourseStudentCookie(student.id);
+  const priorEnrollment = await getEnrollment(student.id, course.id);
   await ensureEnrollment(student.id, course.id);
+  await notifyCourseRegistration({
+    student,
+    course,
+    isNewEnrollment: !priorEnrollment,
+  });
   const state = await getStudentCourseState(student.id, course.id);
   const next = firstAvailableLesson(course, state);
   revalidatePath(coursePath(course.slug));
   revalidatePath("/studio/courses/students");
+  revalidatePath("/crm");
   redirect(next ? lessonPath(course.slug, next.slug) : coursePath(course.slug));
 }
 
@@ -168,10 +177,21 @@ export async function postLessonComment(
   }
 
   const studentId = await requireLearnStudent(course.slug);
-  await addLessonComment(studentId, course.id, lesson.id, parsed.data.body);
+  const comment = await addLessonComment(studentId, course.id, lesson.id, parsed.data.body);
+  const student = await getStudentById(studentId);
+  if (student) {
+    await notifyCourseComment({
+      student,
+      course,
+      lessonId: lesson.id,
+      lessonTitle: lesson.title,
+      comment,
+    });
+  }
   revalidatePath(lessonPath(course.slug, lesson.slug));
   revalidatePath(studioLessonPath(course.id, lesson.id));
   revalidatePath("/studio/courses/students");
+  revalidatePath("/crm");
   redirect(`${lessonPath(course.slug, lesson.slug)}#discussion`);
 }
 

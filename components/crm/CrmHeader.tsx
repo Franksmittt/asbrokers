@@ -11,9 +11,28 @@ type CrmHeaderProps = {
   role: "admin" | "staff";
 };
 
+type BellItem =
+  | {
+      kind: "lead";
+      id: string;
+      title: string;
+      subtitle: string;
+      href: string;
+      createdAt?: string;
+    }
+  | {
+      kind: "course";
+      id: string;
+      title: string;
+      subtitle: string;
+      href: string;
+      createdAt: string;
+      alertId: string;
+    };
+
 export function CrmHeader({ staffName, role }: CrmHeaderProps) {
   const router = useRouter();
-  const { visibleLeads } = useCrm();
+  const { visibleLeads, unreadCourseAlerts, markCourseAlertRead, markAllCourseAlertsRead } = useCrm();
   const [query, setQuery] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -35,7 +54,31 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
     () => visibleLeads.filter((lead) => lead.status === "new").slice(0, 12),
     [visibleLeads]
   );
-  const notificationCount = newLeadNotifications.length;
+
+  const bellItems = useMemo<BellItem[]>(() => {
+    const leads: BellItem[] = newLeadNotifications.map((lead) => ({
+      kind: "lead",
+      id: `lead-${lead.id}`,
+      title: lead.name,
+      subtitle: lead.intent || lead.email || "Inbound enquiry",
+      href: `/crm/leads/${lead.id}`,
+      createdAt: lead.createdAt,
+    }));
+    const courses: BellItem[] = unreadCourseAlerts.slice(0, 12).map((alert) => ({
+      kind: "course",
+      id: `course-${alert.id}`,
+      title: alert.title,
+      subtitle: alert.body,
+      href: alert.href,
+      createdAt: alert.createdAt,
+      alertId: alert.id,
+    }));
+    return [...leads, ...courses]
+      .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
+      .slice(0, 16);
+  }, [newLeadNotifications, unreadCourseAlerts]);
+
+  const notificationCount = newLeadNotifications.length + unreadCourseAlerts.length;
 
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -132,36 +175,55 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
           <div
             className="absolute right-4 top-14 z-[91] w-80 overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-2xl md:right-6"
             role="dialog"
-            aria-label="New lead notifications"
+            aria-label="CRM notifications"
           >
             <div className="flex items-center justify-between border-b border-[#2a2a2a] px-3 py-2.5">
-              <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">New leads</p>
-              <Link
-                href="/crm/leads?status=new"
-                className="text-[11px] text-[#3ecf8e] hover:underline"
-                onClick={() => setNotificationsOpen(false)}
-              >
-                View all
-              </Link>
+              <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">Notifications</p>
+              <div className="flex items-center gap-2">
+                {unreadCourseAlerts.length > 0 ? (
+                  <button
+                    type="button"
+                    className="text-[11px] text-zinc-400 hover:text-zinc-200"
+                    onClick={() => {
+                      void markAllCourseAlertsRead();
+                    }}
+                  >
+                    Mark courses read
+                  </button>
+                ) : null}
+                <Link
+                  href="/crm/leads?status=new"
+                  className="text-[11px] text-[#3ecf8e] hover:underline"
+                  onClick={() => setNotificationsOpen(false)}
+                >
+                  New leads
+                </Link>
+              </div>
             </div>
             <ul className="max-h-80 overflow-y-auto py-1">
-              {newLeadNotifications.length === 0 ? (
-                <li className="px-4 py-6 text-center text-sm text-zinc-500">No new leads right now.</li>
+              {bellItems.length === 0 ? (
+                <li className="px-4 py-6 text-center text-sm text-zinc-500">
+                  No new leads or course alerts right now.
+                </li>
               ) : (
-                newLeadNotifications.map((lead) => (
-                  <li key={lead.id}>
+                bellItems.map((item) => (
+                  <li key={item.id}>
                     <button
                       type="button"
                       className="flex w-full flex-col gap-0.5 px-4 py-2.5 text-left transition-colors hover:bg-[#161616]"
                       onClick={() => {
                         setNotificationsOpen(false);
-                        router.push(`/crm/leads/${lead.id}`);
+                        if (item.kind === "course") {
+                          void markCourseAlertRead(item.alertId);
+                        }
+                        router.push(item.href);
                       }}
                     >
-                      <span className="text-sm font-medium text-white">{lead.name}</span>
-                      <span className="truncate text-xs text-zinc-500">
-                        {lead.intent || lead.email || "Inbound enquiry"}
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-[#3ecf8e]/90">
+                        {item.kind === "course" ? "Course" : "Lead"}
                       </span>
+                      <span className="text-sm font-medium text-white">{item.title}</span>
+                      <span className="line-clamp-2 text-xs text-zinc-500">{item.subtitle}</span>
                     </button>
                   </li>
                 ))

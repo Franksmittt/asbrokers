@@ -203,6 +203,24 @@ export type LessonComment = {
   instructorRepliedAt: string | null;
 };
 
+/** In-app CRM alerts for Albert (course registrations also create CRM leads). */
+export const COURSE_STAFF_ALERT_TYPES = ["registration", "comment"] as const;
+export type CourseStaffAlertType = (typeof COURSE_STAFF_ALERT_TYPES)[number];
+
+export type CourseStaffAlert = {
+  id: string;
+  type: CourseStaffAlertType;
+  title: string;
+  body: string;
+  href: string;
+  createdAt: string;
+  readAt: string | null;
+  relatedCommentId?: string | null;
+  relatedStudentId?: string | null;
+  relatedCourseId?: string | null;
+  relatedLessonId?: string | null;
+};
+
 export type LessonCommentView = {
   id: string;
   displayName: string;

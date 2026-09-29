@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { getLeads } from "@/app/actions/crm";
+import { getCourseStaffAlerts } from "@/app/actions/crm-course-alerts";
 
 /** Auth-gated CRM, skip static prerender (no session at build time). */
 export const dynamic = "force-dynamic";
@@ -46,6 +47,13 @@ export default async function CrmLayout({ children }: { children: React.ReactNod
     console.error("[CRM] layout getLeads failed:", error);
   }
 
+  let initialCourseAlerts: Awaited<ReturnType<typeof getCourseStaffAlerts>> = [];
+  try {
+    initialCourseAlerts = await getCourseStaffAlerts(24);
+  } catch (error) {
+    console.error("[CRM] layout getCourseStaffAlerts failed:", error);
+  }
+
   const pinMemberKey = identity.viaPin ? await getCrmPinSessionMemberKey() : null;
   const displayName =
     identity.viaPin && pinMemberKey
@@ -56,6 +64,7 @@ export default async function CrmLayout({ children }: { children: React.ReactNod
   return (
     <CrmProvider
       initialLeads={initialLeads}
+      initialCourseAlerts={initialCourseAlerts}
       role={role}
       staffId={user.id}
       staffName={displayName}

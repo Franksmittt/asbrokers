@@ -5,8 +5,8 @@ import { createEditionAction, seedEditionAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 
-export default function NewsletterStudioPage() {
-  const editions = listEditions();
+export default async function NewsletterStudioPage() {
+  const editions = await listEditions();
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8">
@@ -21,8 +21,7 @@ export default function NewsletterStudioPage() {
             <Link href="/newsletter" className="text-[#3ecf8e] hover:underline">
               /newsletter
             </Link>
-            . Each edition uses the same evergreen structure — you only need to update the weekly
-            content.
+            . Editions are saved automatically. Click Publish when a week is ready for the public site.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

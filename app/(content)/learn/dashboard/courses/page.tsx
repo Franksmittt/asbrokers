@@ -16,9 +16,9 @@ export default async function StudentCoursesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-shark">My courses</h1>
+        <h1 className="text-2xl font-bold text-shark">My Journey</h1>
         <p className="mt-2 text-sm text-stone-600">
-          Everything you have started, plus published courses you can still join.
+          Everything on your Clarity Track — courses in progress, completed, and still open to join.
         </p>
       </div>
       <ul className="space-y-3">

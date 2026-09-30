@@ -29,6 +29,14 @@ export function studentProfilePath(): string {
   return "/learn/dashboard/profile";
 }
 
+export function studentJourneyPath(): string {
+  return "/learn/dashboard/courses";
+}
+
+export function studioLearnersPath(): string {
+  return "/studio/courses/learners";
+}
+
 export function studioCoursePath(courseId: string): string {
   return `/studio/courses/${courseId}`;
 }

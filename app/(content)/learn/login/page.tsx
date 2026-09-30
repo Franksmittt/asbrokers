@@ -17,12 +17,11 @@ export default async function StudentLoginPage({
     <div className="flex min-h-screen items-center justify-center bg-[#F7F6F3] px-4 py-12">
       <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-xl ring-1 ring-stone-200 sm:p-8">
         <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#006B6B]">
-          Student portal
+          Clarity Track
         </p>
         <h1 className="mt-2 text-2xl font-bold text-shark">Sign in to continue learning</h1>
         <p className="mt-2 text-sm text-stone-600">
-          Use the same email you registered with on a course. No password — we recognise your
-          learning profile.
+          Use the email you registered with. We send a one-time code — no password to remember.
         </p>
         <div className="mt-6">
           <StudentLoginForm nextPath={nextPath} />

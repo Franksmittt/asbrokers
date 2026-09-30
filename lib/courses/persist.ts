@@ -8,6 +8,11 @@ import { isPostgresConnectionError } from "@/lib/db/pg-error-chain";
 
 import { sanitizeCourseCalculatorId } from "./calculators";
 import { newId } from "./ids";
+import {
+  emptyClarityProfile,
+  type ClarityPointLedgerEntry,
+  type StudentClarityProfile,
+} from "./clarity-track";
 import type {
   CourseEnrollment,
   CourseEvent,
@@ -55,6 +60,8 @@ export type CourseStudioSnapshot = {
   events: CourseEvent[];
   staffAlerts: CourseStaffAlert[];
   portalConfig: StudentPortalConfig;
+  clarityProfiles: StudentClarityProfile[];
+  clarityLedger: ClarityPointLedgerEntry[];
 };
 
 export function courseStudioSnapshotFilePath(): string {
@@ -81,10 +88,15 @@ function migratePromoSlides(value: unknown): StudentPromoSlide[] {
 }
 
 export function migrateCourseStudioSnapshot(
-  payload: Omit<CourseStudioSnapshot, "comments" | "staffAlerts" | "portalConfig"> & {
+  payload: Omit<
+    CourseStudioSnapshot,
+    "comments" | "staffAlerts" | "portalConfig" | "clarityProfiles" | "clarityLedger"
+  > & {
     comments?: LessonComment[];
     staffAlerts?: CourseStaffAlert[];
     portalConfig?: Partial<StudentPortalConfig> | null;
+    clarityProfiles?: StudentClarityProfile[];
+    clarityLedger?: ClarityPointLedgerEntry[];
   }
 ): CourseStudioSnapshot {
   const next: CourseStudioSnapshot = {
@@ -94,7 +106,15 @@ export function migrateCourseStudioSnapshot(
     portalConfig: {
       promoSlides: migratePromoSlides(payload.portalConfig?.promoSlides),
     },
+    clarityProfiles: Array.isArray(payload.clarityProfiles) ? payload.clarityProfiles : [],
+    clarityLedger: Array.isArray(payload.clarityLedger) ? payload.clarityLedger : [],
   };
+  // Ensure every student has a clarity profile shell.
+  for (const student of next.students) {
+    if (!next.clarityProfiles.some((row) => row.studentId === student.id)) {
+      next.clarityProfiles.push(emptyClarityProfile(student.id));
+    }
+  }
   for (const course of next.courses) {
     if (course.access !== "free" && course.access !== "paid") course.access = "free";
     if (course.priceZar === undefined) course.priceZar = null;

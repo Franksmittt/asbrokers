@@ -190,6 +190,16 @@ export type StudentPortalConfig = {
   promoSlides: StudentPromoSlide[];
 };
 
+export type {
+  ClarityBadgeId,
+  ClarityPointLedgerEntry,
+  ClarityPointReason,
+  ClarityTierId,
+  StudentClarityProfile,
+  WealthCanvasPromptId,
+} from "./clarity-track";
+
+
 export type LessonProgress = {
   id: string;
   enrollmentId: string;

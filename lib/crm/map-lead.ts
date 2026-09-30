@@ -66,6 +66,7 @@ export function mapDbLeadToCrmLead(row: typeof crmLeads.$inferSelect): CrmLead {
       typeof payload.intent === "string"
         ? payload.intent
         : row.sourceFunnel?.trim() || "Inbound enquiry",
+    sourceFunnel: row.sourceFunnel?.trim() || undefined,
     service_category: parseServiceCategory(row.serviceCategory),
     lead_score: row.leadScore,
     assignedAdvisorId: row.assignedAdvisor ?? "",

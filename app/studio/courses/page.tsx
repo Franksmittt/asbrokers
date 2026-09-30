@@ -32,16 +32,28 @@ export default async function CourseStudioIndexPage() {
             <Link href="/learn" className="text-[#3ecf8e] hover:underline">
               /learn
             </Link>
-            . Student registration is paused while you write the content.
+            . Course signups land in{" "}
+            <Link href="/studio/courses/students" className="text-[#3ecf8e] hover:underline">
+              Students
+            </Link>{" "}
+            and also in CRM → Course registrations.
           </p>
         </div>
         {COURSE_STUDENT_AUTH_ENABLED ? (
-          <Link
-            href="/studio/courses/students"
-            className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
-          >
-            Student database
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/studio/courses/students"
+              className="rounded-md bg-[#3ecf8e] px-3 py-2 text-xs font-medium text-black"
+            >
+              View course signups
+            </Link>
+            <Link
+              href="/crm/course-registrations"
+              className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+            >
+              Open in CRM
+            </Link>
+          </div>
         ) : null}
       </div>
 

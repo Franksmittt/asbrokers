@@ -56,12 +56,23 @@ function PeopleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function NewsletterIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" {...props}>
+      <path d="M4 4h16v16H4z" strokeLinejoin="round" />
+      <path d="m4 8 8 5 8-5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 const STUDIO_NAV = (
   [
     { href: "/studio/blog/workspace", label: "Articles", icon: PenIcon, exact: true },
     { href: "/studio/blog/workspace#drafts", label: "Drafts", icon: DraftsIcon, exact: false },
     { href: "/studio/courses", label: "Courses", icon: CoursesIcon, exact: false },
     { href: "/studio/courses/students", label: "Students", icon: PeopleIcon, exact: false },
+    { href: "/studio/newsletter", label: "Newsletter", icon: NewsletterIcon, exact: true },
+    { href: "/studio/newsletter/subscribers", label: "Subscribers", icon: PeopleIcon, exact: true },
     { href: "/studio/blog/workspace/tutorial", label: "Tutorial", icon: Scroll, exact: false },
     { href: "/studio/blog/workspace#copy-me", label: "Brand guide", icon: FileText, exact: false },
   ] as const
@@ -162,6 +173,13 @@ export function StudioSidebar() {
               external
             />
             <NavItem href="/learn" label="View courses" icon={ExternalLinkIcon} active={false} external />
+            <NavItem
+              href="/newsletter"
+              label="View newsletter"
+              icon={ExternalLinkIcon}
+              active={false}
+              external
+            />
           </div>
         </nav>
 

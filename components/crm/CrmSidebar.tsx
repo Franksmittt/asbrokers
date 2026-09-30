@@ -48,6 +48,8 @@ const CRM_NAV = [
 ] as const;
 
 const CRM_FUNNEL_NAV = [
+  { href: "/crm/newsletter-subscribers", label: "Newsletter", icon: FileText },
+  { href: "/crm/course-registrations", label: "Course signups", icon: FileText },
   { href: "/crm/business-risk-reviews", label: "Risk reviews", icon: FileText },
   { href: "/crm/legacy-checklist-leads", label: "Legacy leads", icon: FileText },
   { href: "/crm/healthy-retirement-assessments", label: "Retirement health", icon: FileText },

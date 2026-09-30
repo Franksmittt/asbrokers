@@ -1,41 +1,23 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function NewsletterStudioLayout({
+import { StudioShell } from "@/components/client-studio/StudioShell";
+import { canAccessCourseStudio } from "@/lib/courses/studio-access";
+import { privateRouteMetadata } from "@/lib/seo-metadata";
+
+export const metadata = privateRouteMetadata(
+  "Newsletter Studio | AS Brokers",
+  "Build weekly newsletters and review subscribers."
+);
+
+export const dynamic = "force-dynamic";
+
+export default async function NewsletterStudioLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="min-h-screen bg-black">
-      {/* Studio Header */}
-      <header className="border-b border-[#2a2a2a] bg-[#0a0a0a]">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/studio/newsletter" className="text-lg font-semibold text-white">
-              Newsletter Studio
-            </Link>
-          </div>
-          <nav className="flex items-center gap-4 text-sm">
-            <Link
-              href="/studio/blog/workspace"
-              className="text-zinc-400 hover:text-white"
-            >
-              Blog Studio
-            </Link>
-            <Link
-              href="/studio/courses"
-              className="text-zinc-400 hover:text-white"
-            >
-              Course Studio
-            </Link>
-            <Link href="/" className="text-zinc-400 hover:text-white">
-              Site →
-            </Link>
-          </nav>
-        </div>
-      </header>
-
-      <div className="px-4 py-8">{children}</div>
-    </div>
-  );
+  if (!(await canAccessCourseStudio())) {
+    redirect("/studio/blog/login?next=/studio/newsletter");
+  }
+  return <StudioShell>{children}</StudioShell>;
 }

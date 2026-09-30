@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { studentLogoutAction } from "@/app/(content)/learn/dashboard/actions";
 import { StudentPromoBanner } from "@/components/courses/StudentPromoBanner";
 import { StudentSidebar } from "@/components/courses/StudentSidebar";
 import type { CourseStudent, StudentPromoSlide } from "@/lib/courses/types";
@@ -21,12 +22,19 @@ export function StudentShell({ student, promoSlides, children }: Props) {
       <div className="md:ml-[52px]">
         <header className="sticky top-0 z-30 hidden h-12 items-center justify-between border-b border-stone-200 bg-white/90 px-6 backdrop-blur md:flex">
           <div>
-            <p className="text-sm font-semibold text-shark">Student portal</p>
+            <p className="text-sm font-semibold text-shark">Clarity Track</p>
             <p className="text-[11px] text-stone-500">Signed in as {name}</p>
           </div>
-          <Link href="/learn" className="text-xs font-medium text-stone-500 hover:text-shark">
-            Course catalogue
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/learn" className="text-xs font-medium text-stone-500 hover:text-shark">
+              Catalogue
+            </Link>
+            <form action={studentLogoutAction}>
+              <button type="submit" className="text-xs font-medium text-stone-500 hover:text-shark">
+                Sign out
+              </button>
+            </form>
+          </div>
         </header>
         <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 pt-16 md:px-8 md:pt-8">
           {promoSlides.length > 0 ? <StudentPromoBanner slides={promoSlides} /> : null}

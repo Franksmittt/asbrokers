@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { href: "/learn/dashboard", label: "Dashboard", exact: true },
-  { href: "/learn/dashboard/courses", label: "My courses", exact: false },
-  { href: "/learn/dashboard/profile", label: "Profile", exact: true },
+  { href: "/learn/dashboard/courses", label: "My Journey", exact: false },
+  { href: "/learn/dashboard/profile", label: "Achievements", exact: true },
   { href: "/learn", label: "Catalogue", exact: true },
 ] as const;
 
@@ -27,10 +27,10 @@ export function StudentSidebar({ studentName }: { studentName: string }) {
         <div className="flex h-12 items-center border-b border-stone-200 px-2.5">
           <Link href="/learn/dashboard" className="flex min-w-0 items-center gap-2.5 overflow-hidden">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#0057B8]/10 text-xs font-bold text-[#0057B8]">
-              AS
+              CT
             </span>
             <span className="truncate text-sm font-semibold text-shark opacity-0 transition-opacity group-hover/sidebar:opacity-100">
-              Learning
+              Clarity Track
             </span>
           </Link>
         </div>
@@ -78,9 +78,9 @@ export function StudentSidebar({ studentName }: { studentName: string }) {
 
       <div className="fixed inset-x-0 top-0 z-40 flex h-12 items-center justify-between border-b border-stone-200 bg-white px-3 md:hidden">
         <Link href="/learn/dashboard" className="text-sm font-semibold text-shark">
-          Learning
+          Clarity Track
         </Link>
-        <div className="flex gap-1 overflow-x-auto">
+        <div className="flex items-center gap-1 overflow-x-auto">
           {NAV.map((item) => (
             <Link
               key={item.href}
@@ -90,6 +90,11 @@ export function StudentSidebar({ studentName }: { studentName: string }) {
               {item.label}
             </Link>
           ))}
+          <form action={studentLogoutAction}>
+            <button type="submit" className="shrink-0 rounded-md px-2 py-1 text-[11px] text-stone-500">
+              Sign out
+            </button>
+          </form>
         </div>
       </div>
     </>

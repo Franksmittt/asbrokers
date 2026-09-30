@@ -336,6 +336,8 @@ describe("course studio snapshot", () => {
       comments: [],
       events: [],
       staffAlerts: [],
+      clarityProfiles: [],
+      clarityLedger: [],
     });
     const block = migrated.courses[0]?.lessons[0]?.blocks[0];
     assert.equal(block?.type, "calculator");
@@ -415,6 +417,8 @@ describe("course studio snapshot", () => {
           events: [],
           staffAlerts: [],
           portalConfig: { promoSlides: [] },
+          clarityProfiles: [],
+          clarityLedger: [],
         },
         filePath
       );

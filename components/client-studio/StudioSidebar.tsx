@@ -88,6 +88,7 @@ const COURSE_TOOLS: NavItemDef[] = [
   { href: "/studio/courses", label: "All courses", icon: CoursesIcon, exact: true },
   ...(COURSE_STUDENT_AUTH_ENABLED
     ? [
+        { href: "/studio/courses/learners", label: "Learners", icon: PeopleIcon, exact: false },
         { href: "/studio/courses/analytics", label: "Progress", icon: PeopleIcon, exact: false },
         { href: "/studio/courses/students", label: "Students", icon: PeopleIcon, exact: false },
         { href: "/studio/courses/portal", label: "Student banner", icon: NewsletterIcon, exact: true },

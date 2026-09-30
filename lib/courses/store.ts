@@ -1,6 +1,16 @@
 import { newId, nowIso } from "./ids";
 import { createBlock, emptyLesson, sortBlocks } from "./blocks";
 import { sanitizeCourseCalculatorId } from "./calculators";
+import {
+  applyMomentum,
+  CLARITY_POINT_VALUES,
+  emptyClarityProfile,
+  type ClarityBadgeId,
+  type ClarityPointLedgerEntry,
+  type ClarityPointReason,
+  type StudentClarityProfile,
+  type WealthCanvasPromptId,
+} from "./clarity-track";
 import { formatStudentDisplayName } from "./display-name";
 import { COURSE_STUDENT_AUTH_ENABLED } from "./flags";
 import { moveBySortOrder } from "./order";
@@ -46,10 +56,46 @@ type CourseStore = {
   events: CourseEvent[];
   staffAlerts: CourseStaffAlert[];
   portalConfig: StudentPortalConfig;
+  clarityProfiles: StudentClarityProfile[];
+  clarityLedger: ClarityPointLedgerEntry[];
 };
 
 function emptyStore(): CourseStore {
   const classroom = createDemoClassroom();
+  const clarityProfiles = classroom.students.map((student) => {
+    const profile = emptyClarityProfile(student.id);
+    // Demo telemetry so Albert's coach view and student dashboards feel alive.
+    if (student.id === "stu_lerato_naidoo") {
+      profile.insightPoints = 920;
+      profile.momentumWeeks = 5;
+      profile.lastActiveWeekKey = "2026-W33";
+      profile.badgeIds = [
+        "first_steps",
+        "reflective_thinker",
+        "numbers_curious",
+        "course_finisher",
+        "retirement_ready",
+        "consistency_champion",
+      ];
+      profile.showOnTopAchievers = true;
+      profile.canvasAnswers = {
+        step_back_age: "Around 62 — once the practice can run without me every week.",
+        legacy_goal: "Keep the family home clear and fund two years of tertiary study.",
+        money_worry: "Medical costs rising faster than my retirement income.",
+        freedom_means: "Choosing my hours and taking one unhurried trip a year.",
+      };
+    } else if (student.id === "stu_thabo_mokoena") {
+      profile.insightPoints = 175;
+      profile.momentumWeeks = 2;
+      profile.lastActiveWeekKey = "2026-W34";
+      profile.badgeIds = ["first_steps", "reflective_thinker"];
+      profile.canvasAnswers = {
+        step_back_age: "I have not decided yet — that is why I am here.",
+        money_worry: "Whether my capital will last if markets are rough.",
+      };
+    }
+    return profile;
+  });
   return {
     courses: createSeedCourses(),
     students: classroom.students,
@@ -62,6 +108,8 @@ function emptyStore(): CourseStore {
     portalConfig: {
       promoSlides: DEFAULT_STUDENT_PORTAL_CONFIG.promoSlides.map((row) => ({ ...row })),
     },
+    clarityProfiles,
+    clarityLedger: [],
   };
 }
 
@@ -90,6 +138,8 @@ function snapshotFromStore(value: CourseStore): CourseStudioSnapshot {
     events: value.events,
     staffAlerts: value.staffAlerts,
     portalConfig: value.portalConfig,
+    clarityProfiles: value.clarityProfiles,
+    clarityLedger: value.clarityLedger,
   };
 }
 
@@ -106,6 +156,8 @@ function applySnapshot(snapshot: CourseStudioSnapshot): CourseStore {
     portalConfig: snapshot.portalConfig ?? {
       promoSlides: DEFAULT_STUDENT_PORTAL_CONFIG.promoSlides.map((row) => ({ ...row })),
     },
+    clarityProfiles: Array.isArray(snapshot.clarityProfiles) ? snapshot.clarityProfiles : [],
+    clarityLedger: Array.isArray(snapshot.clarityLedger) ? snapshot.clarityLedger : [],
   };
 }
 
@@ -440,8 +492,100 @@ export async function upsertStudent(input: {
     createdAt: nowIso(),
   };
   store().students.push(student);
+  if (!store().clarityProfiles.some((row) => row.studentId === student.id)) {
+    store().clarityProfiles.push(emptyClarityProfile(student.id));
+  }
   await persistIfEnabled();
   return student;
+}
+
+function ensureClarityProfile(studentId: string): StudentClarityProfile {
+  let profile = store().clarityProfiles.find((row) => row.studentId === studentId);
+  if (!profile) {
+    profile = emptyClarityProfile(studentId);
+    store().clarityProfiles.push(profile);
+  }
+  return profile;
+}
+
+function grantBadge(profile: StudentClarityProfile, badgeId: ClarityBadgeId): void {
+  if (!profile.badgeIds.includes(badgeId)) profile.badgeIds.push(badgeId);
+}
+
+async function awardClarityPoints(input: {
+  studentId: string;
+  reason: ClarityPointReason;
+  courseId?: string | null;
+  lessonId?: string | null;
+  dedupeKey: string;
+  badges?: ClarityBadgeId[];
+  countsForMomentum?: boolean;
+}): Promise<void> {
+  await ensureCourseStore();
+  if (store().clarityLedger.some((row) => row.dedupeKey === input.dedupeKey)) return;
+
+  const profile = ensureClarityProfile(input.studentId);
+  const points = CLARITY_POINT_VALUES[input.reason];
+  store().clarityLedger.push({
+    id: newId("ipt"),
+    studentId: input.studentId,
+    points,
+    reason: input.reason,
+    courseId: input.courseId ?? null,
+    lessonId: input.lessonId ?? null,
+    createdAt: nowIso(),
+    dedupeKey: input.dedupeKey,
+  });
+  profile.insightPoints += points;
+  if (input.countsForMomentum !== false) {
+    const result = applyMomentum(profile);
+    Object.assign(profile, result.profile);
+  }
+  for (const badge of input.badges ?? []) grantBadge(profile, badge);
+  profile.updatedAt = nowIso();
+}
+
+export async function getClarityProfile(studentId: string): Promise<StudentClarityProfile> {
+  await ensureCourseStore();
+  const profile = ensureClarityProfile(studentId);
+  return {
+    ...profile,
+    badgeIds: [...profile.badgeIds],
+    canvasAnswers: { ...profile.canvasAnswers },
+  };
+}
+
+export async function listClarityProfiles(): Promise<StudentClarityProfile[]> {
+  await ensureCourseStore();
+  return store().clarityProfiles.map((row) => ({
+    ...row,
+    badgeIds: [...row.badgeIds],
+    canvasAnswers: { ...row.canvasAnswers },
+  }));
+}
+
+export async function saveWealthCanvasAnswers(
+  studentId: string,
+  answers: Partial<Record<WealthCanvasPromptId, string>>
+): Promise<StudentClarityProfile> {
+  await ensureCourseStore();
+  const profile = ensureClarityProfile(studentId);
+  profile.canvasAnswers = { ...profile.canvasAnswers, ...answers };
+  profile.updatedAt = nowIso();
+  await persistIfEnabled();
+  return getClarityProfile(studentId);
+}
+
+export async function setTopAchieversOptIn(
+  studentId: string,
+  showOnTopAchievers: boolean
+): Promise<StudentClarityProfile> {
+  await ensureCourseStore();
+  const profile = ensureClarityProfile(studentId);
+  profile.showOnTopAchievers = showOnTopAchievers;
+  profile.updatedAt = nowIso();
+  await persistIfEnabled();
+  return getClarityProfile(studentId);
 }
 
 export async function getEnrollment(studentId: string, courseId: string): Promise<CourseEnrollment | null> {
@@ -565,6 +709,14 @@ export async function submitLessonResponse(
     instructorReply: null,
     instructorRepliedAt: null,
   });
+  await awardClarityPoints({
+    studentId,
+    reason: "reflection_submitted",
+    courseId,
+    lessonId,
+    dedupeKey: `reflection:${enrollment.id}:${lessonId}`,
+    badges: ["reflective_thinker"],
+  });
   await persistIfEnabled();
 }
 
@@ -594,7 +746,8 @@ export async function completeLesson(studentId: string, courseId: string, lesson
     };
     store().progress.push(progress);
   }
-  if (!progress.completedAt) {
+  const firstCompletion = !progress.completedAt;
+  if (firstCompletion) {
     progress.completedAt = nowIso();
     recordEvent({
       studentId,
@@ -603,6 +756,25 @@ export async function completeLesson(studentId: string, courseId: string, lesson
       enrollmentId: enrollment.id,
       type: "lesson_completed",
     });
+    await awardClarityPoints({
+      studentId,
+      reason: "lesson_completed",
+      courseId,
+      lessonId,
+      dedupeKey: `lesson:${enrollment.id}:${lessonId}`,
+      badges: ["first_steps"],
+    });
+    if (lesson.blocks.some((block) => block.type === "calculator")) {
+      await awardClarityPoints({
+        studentId,
+        reason: "calculator_used",
+        courseId,
+        lessonId,
+        dedupeKey: `calc:${enrollment.id}:${lessonId}`,
+        badges: ["numbers_curious"],
+        countsForMomentum: false,
+      });
+    }
   }
 
   const state = await getStudentCourseState(studentId, courseId);
@@ -617,13 +789,25 @@ export async function completeLesson(studentId: string, courseId: string, lesson
       enrollmentId: enrollment.id,
       type: "course_completed",
     });
+    const retirementish = /retirement/i.test(course.slug) || /retirement/i.test(course.title);
+    await awardClarityPoints({
+      studentId,
+      reason: "course_completed",
+      courseId,
+      lessonId,
+      dedupeKey: `course:${enrollment.id}`,
+      badges: retirementish
+        ? ["course_finisher", "retirement_ready"]
+        : ["course_finisher"],
+    });
   }
   await persistIfEnabled();
 }
 
 export async function recordOfferClick(studentId: string, courseId: string, lessonId: string): Promise<void> {
   const enrollment = await ensureEnrollment(studentId, courseId);
-  if (!enrollment.offerClickedAt) enrollment.offerClickedAt = nowIso();
+  const firstClick = !enrollment.offerClickedAt;
+  if (firstClick) enrollment.offerClickedAt = nowIso();
   recordEvent({
     studentId,
     courseId,
@@ -631,6 +815,16 @@ export async function recordOfferClick(studentId: string, courseId: string, less
     enrollmentId: enrollment.id,
     type: "offer_clicked",
   });
+  if (firstClick) {
+    await awardClarityPoints({
+      studentId,
+      reason: "offer_engaged",
+      courseId,
+      lessonId,
+      dedupeKey: `offer:${enrollment.id}`,
+      countsForMomentum: false,
+    });
+  }
   await persistIfEnabled();
 }
 

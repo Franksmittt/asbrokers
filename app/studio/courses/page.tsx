@@ -42,10 +42,16 @@ export default async function CourseStudioIndexPage() {
         {COURSE_STUDENT_AUTH_ENABLED ? (
           <div className="flex flex-wrap gap-2">
             <Link
-              href="/studio/courses/analytics"
+              href="/studio/courses/learners"
               className="rounded-md bg-[#3ecf8e] px-3 py-2 text-xs font-medium text-black"
             >
-              Progress overview
+              Learners coach view
+            </Link>
+            <Link
+              href="/studio/courses/analytics"
+              className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+            >
+              Progress
             </Link>
             <Link
               href="/studio/courses/students"

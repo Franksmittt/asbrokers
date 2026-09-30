@@ -95,6 +95,36 @@ export default async function CourseEditorPage({ params }: Props) {
             Course order
             <input name="sortOrder" type="number" min={0} defaultValue={course.sortOrder} className={field} />
           </label>
+          <label className={label}>
+            Free or paid
+            <StudioSelect name="access" value={course.access ?? "free"} className={field}>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+            </StudioSelect>
+          </label>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className={label}>
+            Price in Rand (paid courses)
+            <input
+              name="priceZar"
+              type="number"
+              min={0}
+              step="1"
+              defaultValue={course.priceZar ?? ""}
+              placeholder="e.g. 499"
+              className={field}
+            />
+          </label>
+          <label className={label}>
+            Paid-access note for students
+            <input
+              name="accessNote"
+              defaultValue={course.accessNote ?? ""}
+              placeholder="Albert will confirm access after payment."
+              className={field}
+            />
+          </label>
         </div>
         {COURSE_STUDENT_AUTH_ENABLED ? (
           <>

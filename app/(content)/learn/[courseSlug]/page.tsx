@@ -62,7 +62,13 @@ export default async function CourseOverviewPage({ params }: Props) {
       />
       {course.featuredImageUrl ? (
         <HubSplitHero
-          kicker="Free educational course"
+          kicker={
+            course.access === "paid"
+              ? course.priceZar
+                ? `Paid course · R${course.priceZar}`
+                : "Paid course"
+              : "Free educational course"
+          }
           title={course.title}
           description={progressLabel(course, state)}
           imageSrc={course.featuredImageUrl}
@@ -70,7 +76,13 @@ export default async function CourseOverviewPage({ params }: Props) {
         />
       ) : (
         <HubUtilityHero
-          kicker="Free educational course"
+          kicker={
+            course.access === "paid"
+              ? course.priceZar
+                ? `Paid course · R${course.priceZar}`
+                : "Paid course"
+              : "Free educational course"
+          }
           title={course.title}
           description={progressLabel(course, state)}
         />
@@ -82,14 +94,29 @@ export default async function CourseOverviewPage({ params }: Props) {
               className="max-w-3xl text-base leading-relaxed text-stone-600"
               dangerouslySetInnerHTML={{ __html: renderLessonText(course.introduction) }}
             />
+            {state?.enrollment.paymentStatus === "pending" ? (
+              <p className="mt-6 max-w-2xl rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                You have registered for this paid course. Albert will confirm access after payment.
+                {course.accessNote ? ` ${course.accessNote}` : ""}{" "}
+                <Link href="/learn/dashboard" className="font-semibold underline">
+                  View your dashboard
+                </Link>
+              </p>
+            ) : null}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href={needsRegister ? registerPath(course.slug) : startHref}
-                prefetch={false}
-                className={WARM_BTN_PRIMARY}
-              >
-                {state ? "Continue" : "Start the course"}
-              </Link>
+              {state?.enrollment.paymentStatus === "pending" ? (
+                <Link href="/learn/dashboard" prefetch={false} className={WARM_BTN_PRIMARY}>
+                  Go to dashboard
+                </Link>
+              ) : (
+                <Link
+                  href={needsRegister ? registerPath(course.slug) : startHref}
+                  prefetch={false}
+                  className={WARM_BTN_PRIMARY}
+                >
+                  {state ? "Continue" : "Start the course"}
+                </Link>
+              )}
               <Link href="/learn" prefetch={false} className={WARM_BTN_SECONDARY}>
                 All courses
               </Link>

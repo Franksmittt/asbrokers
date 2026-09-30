@@ -1,9 +1,10 @@
 import { z } from "zod";
 
-import { BLOCK_TYPES, CALLOUT_VARIANTS, PUBLISH_STATUSES } from "./types";
+import { BLOCK_TYPES, CALLOUT_VARIANTS, COURSE_ACCESS, PUBLISH_STATUSES } from "./types";
 import { sanitizeCourseCalculatorId } from "./calculators";
 
 const statusSchema = z.enum(PUBLISH_STATUSES);
+const accessSchema = z.enum(COURSE_ACCESS);
 const slugSchema = z
   .string()
   .trim()
@@ -19,6 +20,22 @@ export const courseSettingsSchema = z.object({
   sortOrder: z.coerce.number().int().min(0).max(999).default(0),
   registrationRequired: z.coerce.boolean().default(true),
   sequentialLocking: z.coerce.boolean().default(true),
+  access: accessSchema.default("free"),
+  priceZar: z.coerce.number().min(0).max(1_000_000).optional().nullable(),
+  accessNote: z.string().trim().max(500).default(""),
+});
+
+export const studentLoginSchema = z.object({
+  email: z.string().trim().email("Enter a valid email").max(200),
+});
+
+export const studentPromoSlideSchema = z.object({
+  id: z.string().trim().min(1).max(80).optional(),
+  title: z.string().trim().min(1, "Title is required").max(120),
+  body: z.string().trim().min(1, "Add a short line").max(280),
+  ctaLabel: z.string().trim().min(1, "Button label is required").max(60),
+  ctaHref: z.string().trim().min(1, "Link is required").max(500),
+  enabled: z.coerce.boolean().default(true),
 });
 
 export const lessonSettingsSchema = z.object({

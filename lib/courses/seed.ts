@@ -107,6 +107,9 @@ export function createPublishedDemoCourse(): CourseRecord {
     sortOrder: 0,
     registrationRequired: true,
     sequentialLocking: false,
+    access: "free",
+    priceZar: null,
+    accessNote: "",
     createdAt: STAMP,
     updatedAt: STAMP,
     lessons: [
@@ -379,6 +382,9 @@ export function createDraftDemoCourse(): CourseRecord {
     sortOrder: 1,
     registrationRequired: false,
     sequentialLocking: false,
+    access: "free",
+    priceZar: null,
+    accessNote: "",
     createdAt: STAMP,
     updatedAt: STAMP,
     lessons: [
@@ -496,6 +502,7 @@ export function createDemoClassroom(): {
     completedAt: null,
     currentLessonId: l2,
     offerClickedAt: null,
+    paymentStatus: "not_required",
   };
   const leratoEnroll: CourseEnrollment = {
     id: "enr_lerato",
@@ -505,6 +512,7 @@ export function createDemoClassroom(): {
     completedAt: "2026-08-10T11:05:00.000Z",
     currentLessonId: l5,
     offerClickedAt: "2026-08-10T11:07:00.000Z",
+    paymentStatus: "not_required",
   };
 
   return {

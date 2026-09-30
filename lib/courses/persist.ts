@@ -7,6 +7,7 @@ import { courseStudioSnapshot, getDb } from "@/lib/db";
 import { isPostgresConnectionError } from "@/lib/db/pg-error-chain";
 
 import { sanitizeCourseCalculatorId } from "./calculators";
+import { newId } from "./ids";
 import type {
   CourseEnrollment,
   CourseEvent,
@@ -16,9 +17,32 @@ import type {
   LessonComment,
   LessonProgress,
   LessonResponse,
+  StudentPortalConfig,
+  StudentPromoSlide,
 } from "./types";
 
 export const COURSE_STUDIO_SNAPSHOT_ID = "default";
+
+export const DEFAULT_STUDENT_PORTAL_CONFIG: StudentPortalConfig = {
+  promoSlides: [
+    {
+      id: "promo_business_insurance",
+      title: "Protect the business that funds your freedom",
+      body: "Ask Albert for a business insurance review — shops, practices, fleets and commercial risks.",
+      ctaLabel: "Request a review",
+      ctaHref: "/solutions/business-insurance",
+      enabled: true,
+    },
+    {
+      id: "promo_retirement",
+      title: "Is your retirement income on track?",
+      body: "Use our planning tools, then book a conversation when you want personal numbers checked.",
+      ctaLabel: "Explore retirement",
+      ctaHref: "/retirement-planning",
+      enabled: true,
+    },
+  ],
+};
 
 export type CourseStudioSnapshot = {
   version: 1;
@@ -30,6 +54,7 @@ export type CourseStudioSnapshot = {
   comments: LessonComment[];
   events: CourseEvent[];
   staffAlerts: CourseStaffAlert[];
+  portalConfig: StudentPortalConfig;
 };
 
 export function courseStudioSnapshotFilePath(): string {
@@ -41,24 +66,54 @@ export function courseStudioSnapshotFilePath(): string {
   return path.join(process.cwd(), "data", "course-studio-snapshot.json");
 }
 
+function migratePromoSlides(value: unknown): StudentPromoSlide[] {
+  if (!Array.isArray(value)) return DEFAULT_STUDENT_PORTAL_CONFIG.promoSlides.map((row) => ({ ...row }));
+  return value
+    .filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === "object")
+    .map((row, index) => ({
+      id: typeof row.id === "string" && row.id ? row.id : newId("promo"),
+      title: typeof row.title === "string" ? row.title : `Promo ${index + 1}`,
+      body: typeof row.body === "string" ? row.body : "",
+      ctaLabel: typeof row.ctaLabel === "string" ? row.ctaLabel : "Learn more",
+      ctaHref: typeof row.ctaHref === "string" ? row.ctaHref : "/contact",
+      enabled: row.enabled !== false,
+    }));
+}
+
 export function migrateCourseStudioSnapshot(
-  payload: Omit<CourseStudioSnapshot, "comments" | "staffAlerts"> & {
+  payload: Omit<CourseStudioSnapshot, "comments" | "staffAlerts" | "portalConfig"> & {
     comments?: LessonComment[];
     staffAlerts?: CourseStaffAlert[];
+    portalConfig?: Partial<StudentPortalConfig> | null;
   }
 ): CourseStudioSnapshot {
   const next: CourseStudioSnapshot = {
     ...payload,
     comments: Array.isArray(payload.comments) ? payload.comments : [],
     staffAlerts: Array.isArray(payload.staffAlerts) ? payload.staffAlerts : [],
+    portalConfig: {
+      promoSlides: migratePromoSlides(payload.portalConfig?.promoSlides),
+    },
   };
   for (const course of next.courses) {
+    if (course.access !== "free" && course.access !== "paid") course.access = "free";
+    if (course.priceZar === undefined) course.priceZar = null;
+    if (typeof course.accessNote !== "string") course.accessNote = "";
     for (const lesson of course.lessons) {
       for (const block of lesson.blocks) {
         if (block.type === "calculator") {
           block.calculatorId = sanitizeCourseCalculatorId(block.calculatorId);
         }
       }
+    }
+  }
+  for (const enrollment of next.enrollments) {
+    if (
+      enrollment.paymentStatus !== "not_required" &&
+      enrollment.paymentStatus !== "pending" &&
+      enrollment.paymentStatus !== "granted"
+    ) {
+      enrollment.paymentStatus = "not_required";
     }
   }
   for (const response of next.responses) {

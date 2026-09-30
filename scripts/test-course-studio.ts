@@ -305,6 +305,9 @@ describe("course studio snapshot", () => {
           sortOrder: 0,
           registrationRequired: false,
           sequentialLocking: false,
+          access: "free",
+          priceZar: null,
+          accessNote: "",
           createdAt: "2026-01-01T00:00:00.000Z",
           updatedAt: "2026-01-01T00:00:00.000Z",
           lessons: [
@@ -332,6 +335,7 @@ describe("course studio snapshot", () => {
       responses: [],
       comments: [],
       events: [],
+      staffAlerts: [],
     });
     const block = migrated.courses[0]?.lessons[0]?.blocks[0];
     assert.equal(block?.type, "calculator");
@@ -342,6 +346,9 @@ describe("course studio snapshot", () => {
     assert.equal(migrated.comments.length, 0);
     assert.ok(Array.isArray(migrated.staffAlerts));
     assert.equal(migrated.staffAlerts.length, 0);
+    assert.equal(migrated.courses[0]?.access, "free");
+    assert.ok(Array.isArray(migrated.portalConfig.promoSlides));
+    assert.ok(migrated.portalConfig.promoSlides.length >= 1);
   });
 
   it("round-trips a snapshot to disk so a calculator and video stay saved", async () => {
@@ -362,6 +369,9 @@ describe("course studio snapshot", () => {
               sortOrder: 0,
               registrationRequired: false,
               sequentialLocking: false,
+              access: "free",
+              priceZar: null,
+              accessNote: "",
               createdAt: "2026-01-01T00:00:00.000Z",
               updatedAt: "2026-01-01T00:00:00.000Z",
               lessons: [
@@ -404,6 +414,7 @@ describe("course studio snapshot", () => {
           comments: [],
           events: [],
           staffAlerts: [],
+          portalConfig: { promoSlides: [] },
         },
         filePath
       );

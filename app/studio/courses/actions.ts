@@ -5,11 +5,11 @@ import { redirect } from "next/navigation";
 
 import { canAccessCourseStudio } from "@/lib/courses/studio-access";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
-import { courseSettingsSchema, lessonSettingsSchema } from "@/lib/courses/schema";
+import { courseSettingsSchema, lessonSettingsSchema, studentPromoSlideSchema } from "@/lib/courses/schema";
 import { sanitizeCourseCalculatorId } from "@/lib/courses/calculators";
 import { slugify } from "@/lib/courses/ids";
-import { studioCoursePath, studioLessonPath } from "@/lib/courses/paths";
-import type { BlockType, LessonBlock, LessonOffer } from "@/lib/courses/types";
+import { studioCourseAnalyticsPath, studioCoursePath, studioLessonPath, studioStudentPortalPath } from "@/lib/courses/paths";
+import type { BlockType, LessonBlock, LessonOffer, StudentPromoSlide } from "@/lib/courses/types";
 import {
   addBlock,
   addLesson,
@@ -23,6 +23,8 @@ import {
   reorderLessons,
   replyToLessonComment,
   replyToLessonResponse,
+  saveStudentPortalConfig,
+  setEnrollmentPaymentStatus,
   updateBlock,
   updateCourse,
   updateLesson,
@@ -63,6 +65,8 @@ export async function createCourseAction(formData: FormData): Promise<void> {
 export async function updateCourseAction(formData: FormData): Promise<void> {
   await requireStudio();
   const courseId = formString(formData, "courseId");
+  const access = formString(formData, "access") === "paid" ? "paid" : "free";
+  const priceRaw = formString(formData, "priceZar").trim();
   const parsed = courseSettingsSchema.safeParse({
     title: formString(formData, "title"),
     slug: formString(formData, "slug"),
@@ -72,15 +76,64 @@ export async function updateCourseAction(formData: FormData): Promise<void> {
     sortOrder: formString(formData, "sortOrder"),
     registrationRequired: COURSE_STUDENT_AUTH_ENABLED && formChecked(formData, "registrationRequired"),
     sequentialLocking: COURSE_STUDENT_AUTH_ENABLED && formChecked(formData, "sequentialLocking"),
+    access,
+    priceZar: access === "paid" && priceRaw ? Number(priceRaw) : null,
+    accessNote: formString(formData, "accessNote"),
   });
   if (!parsed.success) {
     throw new Error(parsed.error.issues[0]?.message ?? "Could not save course.");
   }
-  await updateCourse(courseId, parsed.data);
+  await updateCourse(courseId, {
+    ...parsed.data,
+    priceZar: parsed.data.access === "paid" ? parsed.data.priceZar ?? null : null,
+  });
   revalidatePath("/studio/courses");
   revalidatePath(studioCoursePath(courseId));
+  revalidatePath(studioCourseAnalyticsPath());
   revalidatePath("/learn");
+  revalidatePath("/learn/dashboard");
   revalidatePath(`/learn/${parsed.data.slug}`);
+}
+
+export async function grantEnrollmentAccessAction(formData: FormData): Promise<void> {
+  await requireStudio();
+  const enrollmentId = formString(formData, "enrollmentId");
+  const enrollment = await setEnrollmentPaymentStatus(enrollmentId, "granted");
+  revalidatePath(studioCourseAnalyticsPath());
+  revalidatePath("/studio/courses/students");
+  revalidatePath(`/studio/courses/students/${enrollment.studentId}`);
+  revalidatePath("/learn/dashboard");
+  revalidatePath("/learn");
+}
+
+export async function saveStudentPortalConfigAction(formData: FormData): Promise<void> {
+  await requireStudio();
+  const count = Number.parseInt(formString(formData, "slideCount"), 10);
+  const slides: StudentPromoSlide[] = [];
+  for (let i = 0; i < Math.max(0, Math.min(count || 0, 8)); i += 1) {
+    const parsed = studentPromoSlideSchema.safeParse({
+      id: formString(formData, `slides[${i}].id`),
+      title: formString(formData, `slides[${i}].title`),
+      body: formString(formData, `slides[${i}].body`),
+      ctaLabel: formString(formData, `slides[${i}].ctaLabel`),
+      ctaHref: formString(formData, `slides[${i}].ctaHref`),
+      enabled: formChecked(formData, `slides[${i}].enabled`),
+    });
+    if (!parsed.success) {
+      throw new Error(parsed.error.issues[0]?.message ?? "Could not save banner.");
+    }
+    slides.push({
+      id: parsed.data.id || `promo_${i + 1}`,
+      title: parsed.data.title,
+      body: parsed.data.body,
+      ctaLabel: parsed.data.ctaLabel,
+      ctaHref: parsed.data.ctaHref,
+      enabled: parsed.data.enabled,
+    });
+  }
+  await saveStudentPortalConfig({ promoSlides: slides });
+  revalidatePath(studioStudentPortalPath());
+  revalidatePath("/learn/dashboard");
 }
 
 export async function deleteCourseAction(formData: FormData): Promise<void> {

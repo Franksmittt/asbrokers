@@ -42,16 +42,22 @@ export default async function CourseStudioIndexPage() {
         {COURSE_STUDENT_AUTH_ENABLED ? (
           <div className="flex flex-wrap gap-2">
             <Link
-              href="/studio/courses/students"
+              href="/studio/courses/analytics"
               className="rounded-md bg-[#3ecf8e] px-3 py-2 text-xs font-medium text-black"
             >
-              View course signups
+              Progress overview
             </Link>
             <Link
-              href="/crm/course-registrations"
+              href="/studio/courses/students"
               className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
             >
-              Open in CRM
+              Students
+            </Link>
+            <Link
+              href="/studio/courses/portal"
+              className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+            >
+              Student banner
             </Link>
           </div>
         ) : null}
@@ -86,7 +92,13 @@ export default async function CourseStudioIndexPage() {
             <Link href={studioCoursePath(course.id)} className="min-w-0 flex-1 hover:opacity-90">
               <p className="font-medium text-white">{course.title}</p>
               <p className="mt-1 text-xs text-zinc-500">
-                /learn/{course.slug} · {course.lessons.length} lessons · {publishedLessons(course).length} published
+                /learn/{course.slug} · {course.lessons.length} lessons · {publishedLessons(course).length}{" "}
+                published ·{" "}
+                {course.access === "paid"
+                  ? course.priceZar
+                    ? `Paid R${course.priceZar}`
+                    : "Paid"
+                  : "Free"}
               </p>
             </Link>
             <span className="rounded border border-[#2a2a2a] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400">

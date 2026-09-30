@@ -5,6 +5,7 @@ import { formatStudentDisplayName } from "./display-name";
 import { COURSE_STUDENT_AUTH_ENABLED } from "./flags";
 import { moveBySortOrder } from "./order";
 import {
+  DEFAULT_STUDENT_PORTAL_CONFIG,
   loadCourseSnapshot,
   saveCourseSnapshot,
   type CourseStudioSnapshot,
@@ -21,6 +22,7 @@ import type {
   CourseStaffAlert,
   CourseStaffAlertType,
   CourseStudent,
+  EnrollmentPaymentStatus,
   LessonAccess,
   LessonBlock,
   LessonComment,
@@ -30,6 +32,8 @@ import type {
   LessonResponse,
   PublishStatus,
   StudentCourseState,
+  StudentPortalConfig,
+  StudentPromoSlide,
 } from "./types";
 
 type CourseStore = {
@@ -41,6 +45,7 @@ type CourseStore = {
   comments: LessonComment[];
   events: CourseEvent[];
   staffAlerts: CourseStaffAlert[];
+  portalConfig: StudentPortalConfig;
 };
 
 function emptyStore(): CourseStore {
@@ -54,6 +59,9 @@ function emptyStore(): CourseStore {
     comments: classroom.comments ?? [],
     events: classroom.events,
     staffAlerts: [],
+    portalConfig: {
+      promoSlides: DEFAULT_STUDENT_PORTAL_CONFIG.promoSlides.map((row) => ({ ...row })),
+    },
   };
 }
 
@@ -81,6 +89,7 @@ function snapshotFromStore(value: CourseStore): CourseStudioSnapshot {
     comments: value.comments,
     events: value.events,
     staffAlerts: value.staffAlerts,
+    portalConfig: value.portalConfig,
   };
 }
 
@@ -94,6 +103,9 @@ function applySnapshot(snapshot: CourseStudioSnapshot): CourseStore {
     comments: Array.isArray(snapshot.comments) ? snapshot.comments : [],
     events: snapshot.events,
     staffAlerts: Array.isArray(snapshot.staffAlerts) ? snapshot.staffAlerts : [],
+    portalConfig: snapshot.portalConfig ?? {
+      promoSlides: DEFAULT_STUDENT_PORTAL_CONFIG.promoSlides.map((row) => ({ ...row })),
+    },
   };
 }
 
@@ -203,6 +215,9 @@ export async function createCourse(input: {
     sortOrder: store().courses.length,
     registrationRequired: COURSE_STUDENT_AUTH_ENABLED,
     sequentialLocking: COURSE_STUDENT_AUTH_ENABLED,
+    access: "free",
+    priceZar: null,
+    accessNote: "",
     createdAt: stamp,
     updatedAt: stamp,
     lessons: [],
@@ -447,6 +462,7 @@ export async function ensureEnrollment(studentId: string, courseId: string): Pro
     completedAt: null,
     currentLessonId: publishedLessons(course)[0]?.id ?? null,
     offerClickedAt: null,
+    paymentStatus: course.access === "paid" ? "pending" : "not_required",
   };
   store().enrollments.push(enrollment);
   recordEvent({
@@ -832,6 +848,51 @@ export async function replyToLessonResponse(responseId: string, reply: string): 
   response.instructorRepliedAt = nowIso();
   await persistIfEnabled();
   return response;
+}
+
+export async function listAllEnrollments(): Promise<CourseEnrollment[]> {
+  await ensureCourseStore();
+  return [...store().enrollments].sort((a, b) => b.startedAt.localeCompare(a.startedAt));
+}
+
+export async function listEnrollmentsForCourse(courseId: string): Promise<CourseEnrollment[]> {
+  await ensureCourseStore();
+  return store()
+    .enrollments.filter((row) => row.courseId === courseId)
+    .sort((a, b) => b.startedAt.localeCompare(a.startedAt));
+}
+
+export async function setEnrollmentPaymentStatus(
+  enrollmentId: string,
+  paymentStatus: EnrollmentPaymentStatus
+): Promise<CourseEnrollment> {
+  await ensureCourseStore();
+  const enrollment = store().enrollments.find((row) => row.id === enrollmentId);
+  if (!enrollment) throw new Error("Enrollment not found.");
+  enrollment.paymentStatus = paymentStatus;
+  await persistIfEnabled();
+  return enrollment;
+}
+
+export async function getStudentPortalConfig(): Promise<StudentPortalConfig> {
+  await ensureCourseStore();
+  return {
+    promoSlides: store().portalConfig.promoSlides.map((row) => ({ ...row })),
+  };
+}
+
+export async function listEnabledPromoSlides(): Promise<StudentPromoSlide[]> {
+  const config = await getStudentPortalConfig();
+  return config.promoSlides.filter((row) => row.enabled);
+}
+
+export async function saveStudentPortalConfig(config: StudentPortalConfig): Promise<StudentPortalConfig> {
+  await ensureCourseStore();
+  store().portalConfig = {
+    promoSlides: config.promoSlides.map((row) => ({ ...row })),
+  };
+  await persistIfEnabled();
+  return getStudentPortalConfig();
 }
 
 export type { PublishStatus };

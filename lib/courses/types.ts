@@ -7,6 +7,13 @@
 export const PUBLISH_STATUSES = ["draft", "published"] as const;
 export type PublishStatus = (typeof PUBLISH_STATUSES)[number];
 
+/** Course pricing access. Payment checkout is later; paid courses start as pending. */
+export const COURSE_ACCESS = ["free", "paid"] as const;
+export type CourseAccess = (typeof COURSE_ACCESS)[number];
+
+export const ENROLLMENT_PAYMENT_STATUSES = ["not_required", "pending", "granted"] as const;
+export type EnrollmentPaymentStatus = (typeof ENROLLMENT_PAYMENT_STATUSES)[number];
+
 export const CALLOUT_VARIANTS = ["info", "key", "warning", "example"] as const;
 export type CalloutVariant = (typeof CALLOUT_VARIANTS)[number];
 
@@ -137,6 +144,11 @@ export type CourseRecord = {
   sortOrder: number;
   registrationRequired: boolean;
   sequentialLocking: boolean;
+  /** Free courses open after register; paid wait for Albert to grant access. */
+  access: CourseAccess;
+  /** Shown when access is paid. Checkout integration comes later. */
+  priceZar: number | null;
+  accessNote: string;
   createdAt: string;
   updatedAt: string;
   lessons: CourseLesson[];
@@ -161,6 +173,21 @@ export type CourseEnrollment = {
   completedAt: string | null;
   currentLessonId: string | null;
   offerClickedAt: string | null;
+  paymentStatus: EnrollmentPaymentStatus;
+};
+
+/** Thin promo slides Albert shows on the student dashboard. */
+export type StudentPromoSlide = {
+  id: string;
+  title: string;
+  body: string;
+  ctaLabel: string;
+  ctaHref: string;
+  enabled: boolean;
+};
+
+export type StudentPortalConfig = {
+  promoSlides: StudentPromoSlide[];
 };
 
 export type LessonProgress = {

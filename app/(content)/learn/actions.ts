@@ -4,7 +4,13 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { lessonCommentSchema, lessonResponseSchema, studentRegisterSchema } from "@/lib/courses/schema";
-import { coursePath, lessonPath, registerPath, studioLessonPath } from "@/lib/courses/paths";
+import {
+  coursePath,
+  lessonPath,
+  registerPath,
+  studentDashboardPath,
+  studioLessonPath,
+} from "@/lib/courses/paths";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { newId } from "@/lib/courses/ids";
 import { notifyCourseComment, notifyCourseRegistration } from "@/lib/courses/crm-bridge";
@@ -87,18 +93,26 @@ export async function registerForCourse(
   });
   await setCourseStudentCookie(student.id);
   const priorEnrollment = await getEnrollment(student.id, course.id);
-  await ensureEnrollment(student.id, course.id);
+  const enrollment = await ensureEnrollment(student.id, course.id);
   await notifyCourseRegistration({
     student,
     course,
     isNewEnrollment: !priorEnrollment,
   });
-  const state = await getStudentCourseState(student.id, course.id);
-  const next = firstAvailableLesson(course, state);
   revalidatePath(coursePath(course.slug));
   revalidatePath("/studio/courses/students");
+  revalidatePath("/studio/courses/analytics");
+  revalidatePath("/learn/dashboard");
   revalidatePath("/crm");
-  redirect(next ? lessonPath(course.slug, next.slug) : coursePath(course.slug));
+
+  // Paid courses wait for Albert to grant access — send them to their dashboard.
+  if (enrollment.paymentStatus === "pending") {
+    redirect(studentDashboardPath());
+  }
+
+  const state = await getStudentCourseState(student.id, course.id);
+  const next = firstAvailableLesson(course, state);
+  redirect(next ? lessonPath(course.slug, next.slug) : studentDashboardPath());
 }
 
 export async function submitLessonAnswer(

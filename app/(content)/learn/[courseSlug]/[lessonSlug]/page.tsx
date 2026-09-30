@@ -22,10 +22,11 @@ import {
   openLesson,
 } from "@/lib/courses/store";
 import { getLessonAccess, nextLesson, progressLabel, publishedLessons } from "@/lib/courses/progress";
-import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
+import { coursePath, lessonPath, registerPath, studentDashboardPath } from "@/lib/courses/paths";
 import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
 import { buildPageMetadata } from "@/lib/seo-metadata";
+import { getEnrollment } from "@/lib/courses/store";
 
 export const dynamic = "force-dynamic";
 
@@ -56,6 +57,13 @@ export default async function LessonPage({ params, searchParams }: Props) {
   const studentId = await getCourseStudentId();
   if (courseRequiresStudentAuth(course) && !studentId) {
     redirect(registerPath(course.slug));
+  }
+
+  if (studentId) {
+    const enrollment = await getEnrollment(studentId, course.id);
+    if (enrollment?.paymentStatus === "pending") {
+      redirect(studentDashboardPath());
+    }
   }
 
   let state = studentId ? await getStudentCourseState(studentId, course.id) : null;

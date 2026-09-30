@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
-import { replyToLessonResponseAction } from "@/app/studio/courses/actions";
+import {
+  grantEnrollmentAccessAction,
+  replyToLessonResponseAction,
+} from "@/app/studio/courses/actions";
 import {
   getCourseById,
   getStudentById,
@@ -48,12 +51,34 @@ export default async function StudentDetailPage({ params }: Props) {
           const course = await getCourseById(enrollment.courseId);
           return (
             <section key={enrollment.id} className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
-              <h2 className="font-medium text-white">{course?.title ?? enrollment.courseId}</h2>
-              <p className="mt-2 text-xs text-zinc-500">
-                Started {enrollment.startedAt.slice(0, 10)}
-                {enrollment.completedAt ? ` · Completed ${enrollment.completedAt.slice(0, 10)}` : " · In progress"}
-                {enrollment.offerClickedAt ? " · Offer clicked" : ""}
-              </p>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h2 className="font-medium text-white">{course?.title ?? enrollment.courseId}</h2>
+                  <p className="mt-2 text-xs text-zinc-500">
+                    Started {enrollment.startedAt.slice(0, 10)}
+                    {enrollment.completedAt
+                      ? ` · Completed ${enrollment.completedAt.slice(0, 10)}`
+                      : " · In progress"}
+                    {enrollment.offerClickedAt ? " · Offer clicked" : ""}
+                    {enrollment.paymentStatus === "pending"
+                      ? " · Awaiting paid access"
+                      : enrollment.paymentStatus === "granted"
+                        ? " · Access granted"
+                        : ""}
+                  </p>
+                </div>
+                {enrollment.paymentStatus === "pending" ? (
+                  <form action={grantEnrollmentAccessAction}>
+                    <input type="hidden" name="enrollmentId" value={enrollment.id} />
+                    <button
+                      type="submit"
+                      className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black"
+                    >
+                      Grant access
+                    </button>
+                  </form>
+                ) : null}
+              </div>
             </section>
           );
         })

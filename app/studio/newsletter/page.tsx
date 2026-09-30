@@ -25,13 +25,21 @@ export default function NewsletterStudioPage() {
             content.
           </p>
         </div>
-        <Link
-          href="/newsletter"
-          target="_blank"
-          className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
-        >
-          View live newsletter →
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/studio/newsletter/subscribers"
+            className="rounded-md bg-[#3ecf8e] px-3 py-2 text-xs font-medium text-black"
+          >
+            View subscribers
+          </Link>
+          <Link
+            href="/newsletter"
+            target="_blank"
+            className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+          >
+            View live newsletter →
+          </Link>
+        </div>
       </div>
 
       {/* Create new edition */}

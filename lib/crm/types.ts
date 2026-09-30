@@ -35,6 +35,8 @@ export type CrmLead = {
   phone: string;
   status: LeadStatus;
   intent: string;
+  /** Funnel / form source (e.g. newsletter, course_registration). */
+  sourceFunnel?: string;
   service_category: ServiceCategory;
   lead_score: number;
   assignedAdvisorId: string;

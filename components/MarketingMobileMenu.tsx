@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Menu, X } from "@/components/icons";
 import { isNavGroup, PRIMARY_NAV } from "@/lib/site-navigation";
 
@@ -8,7 +10,8 @@ const ICON_CLOSED_ID = "mobile-nav-icon-closed";
 
 /**
  * Zero-JS mobile nav: real `<button>` (a11y role) + tiny inline script for toggle/Escape.
- * No React hydration on the marketing critical path.
+ * No React hydration on the marketing critical path. Links use next/link (still plain
+ * anchors in the DOM) so @next/next/no-html-link-for-pages stays clean.
  */
 export function MarketingMobileMenu() {
   return (
@@ -42,9 +45,10 @@ export function MarketingMobileMenu() {
                   {item.label}
                 </p>
                 {item.children.map((child) => (
-                  <a
+                  <Link
                     key={child.href}
                     href={child.href}
+                    prefetch={false}
                     className="block rounded-2xl px-3 py-2.5 font-medium text-[#2B2B2E] hover:bg-white hover:text-shark"
                   >
                     <span className="block">{child.label}</span>
@@ -53,26 +57,35 @@ export function MarketingMobileMenu() {
                         {child.description}
                       </span>
                     ) : null}
-                  </a>
+                  </Link>
                 ))}
               </div>
             ) : (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
+                prefetch={false}
                 className="rounded-2xl px-3 py-3 font-medium text-[#2B2B2E] hover:bg-white hover:text-shark"
               >
                 {item.label}
-              </a>
+              </Link>
             )
           )}
-          <div className="mt-3 border-t border-stone-300/80 pt-3">
-            <a
+          <div className="mt-3 space-y-2 border-t border-stone-300/80 pt-3">
+            <Link
+              href="/learn/account?mode=signin"
+              prefetch={false}
+              className="block w-full rounded-[2rem] py-3.5 text-center font-semibold text-[#0057B8] ring-1 ring-[#0057B8]/30"
+            >
+              Learn · Sign in
+            </Link>
+            <Link
               href="/contact?source=nav_cta"
+              prefetch={false}
               className="block w-full rounded-[2rem] bg-samsung-blue py-3.5 text-center font-semibold text-white shadow-md shadow-samsung-blue/20"
             >
               Contact us
-            </a>
+            </Link>
           </div>
         </div>
       </div>

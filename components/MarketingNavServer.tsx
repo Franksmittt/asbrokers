@@ -57,6 +57,13 @@ export function MarketingNavServer() {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <Link
+            href="/learn/account?mode=signin"
+            prefetch={false}
+            className="hidden sm:flex items-center px-3 py-2 rounded-[2rem] text-sm font-semibold text-[#0057B8] ring-1 ring-[#0057B8]/25 hover:bg-[#0057B8]/5"
+          >
+            Learn
+          </Link>
+          <Link
             href="/contact"
             prefetch={false}
             className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold bg-samsung-blue text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e]"
@@ -108,7 +115,15 @@ export function MarketingNavServer() {
                   {item.label}
                 </Link>
               ))}
-              <div className="border-t border-stone-300/80 mt-3 pt-3">
+              <div className="mt-3 space-y-2 border-t border-stone-300/80 pt-3">
+                <Link
+                  href="/learn/account?mode=signin"
+                  prefetch={false}
+                  onClick={closeMobile}
+                  className="block w-full rounded-[2rem] py-3.5 text-center font-semibold text-[#0057B8] ring-1 ring-[#0057B8]/30"
+                >
+                  Learn · Sign in
+                </Link>
                 <Link
                   href="/contact"
                   prefetch={false}

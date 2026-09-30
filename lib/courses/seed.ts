@@ -1,3 +1,4 @@
+import { DEMO_STUDENT_PASSWORD, hashPassword } from "./password";
 import type {
   CourseEnrollment,
   CourseEvent,
@@ -452,6 +453,14 @@ export function createSeedCourses(): CourseRecord[] {
   return [createPublishedDemoCourse(), createDraftDemoCourse()];
 }
 
+function demoPasswordFields() {
+  return {
+    passwordHash: hashPassword(DEMO_STUDENT_PASSWORD),
+    passwordResetTokenHash: null as string | null,
+    passwordResetExpiresAt: null as string | null,
+  };
+}
+
 export function createSeedStudent(): CourseStudent {
   return {
     id: "stu_thabo_mokoena",
@@ -462,6 +471,7 @@ export function createSeedStudent(): CourseStudent {
     marketingConsent: true,
     privacyConsent: true,
     createdAt: "2026-08-12T09:14:00.000Z",
+    ...demoPasswordFields(),
   };
 }
 
@@ -475,6 +485,7 @@ export function createSecondDemoStudent(): CourseStudent {
     marketingConsent: false,
     privacyConsent: true,
     createdAt: "2026-08-04T16:40:00.000Z",
+    ...demoPasswordFields(),
   };
 }
 

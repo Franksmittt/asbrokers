@@ -14,11 +14,31 @@ export function studentDashboardPath(): string {
   return "/learn/dashboard";
 }
 
-export function studentLoginPath(next?: string): string {
-  if (next && next.startsWith("/learn")) {
-    return `/learn/login?next=${encodeURIComponent(next)}`;
+export function studentAccountPath(opts?: {
+  mode?: "signin" | "signup";
+  next?: string;
+}): string {
+  const params = new URLSearchParams();
+  if (opts?.mode) params.set("mode", opts.mode);
+  if (opts?.next && opts.next.startsWith("/learn") && !opts.next.includes("://")) {
+    params.set("next", opts.next);
   }
-  return "/learn/login";
+  const qs = params.toString();
+  return qs ? `/learn/account?${qs}` : "/learn/account";
+}
+
+/** @deprecated Prefer studentAccountPath — kept for older links. */
+export function studentLoginPath(next?: string): string {
+  return studentAccountPath({ mode: "signin", next });
+}
+
+export function studentForgotPasswordPath(): string {
+  return "/learn/account/forgot";
+}
+
+export function studentResetPasswordPath(token?: string): string {
+  if (token) return `/learn/account/reset?token=${encodeURIComponent(token)}`;
+  return "/learn/account/reset";
 }
 
 export function studentCoursesPath(): string {

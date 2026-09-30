@@ -22,7 +22,13 @@ import {
   openLesson,
 } from "@/lib/courses/store";
 import { getLessonAccess, nextLesson, progressLabel, publishedLessons } from "@/lib/courses/progress";
-import { coursePath, lessonPath, registerPath, studentDashboardPath } from "@/lib/courses/paths";
+import {
+  coursePath,
+  lessonPath,
+  registerPath,
+  studentAccountPath,
+  studentDashboardPath,
+} from "@/lib/courses/paths";
 import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
 import { buildPageMetadata } from "@/lib/seo-metadata";
@@ -56,7 +62,12 @@ export default async function LessonPage({ params, searchParams }: Props) {
 
   const studentId = await getCourseStudentId();
   if (courseRequiresStudentAuth(course) && !studentId) {
-    redirect(registerPath(course.slug));
+    redirect(
+      studentAccountPath({
+        mode: "signin",
+        next: lessonPath(course.slug, lesson.slug),
+      })
+    );
   }
 
   if (studentId) {

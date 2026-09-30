@@ -584,6 +584,16 @@ export const courseStudioSnapshot = pgTable("course_studio_snapshot", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+/**
+ * Single-row JSON snapshot of Newsletter Studio editions.
+ * Auto-created at runtime if missing (same pattern as course_studio_snapshot).
+ */
+export const newsletterStudioSnapshot = pgTable("newsletter_studio_snapshot", {
+  id: text("id").primaryKey(),
+  payload: jsonb("payload").notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
 export type CourseRow = typeof courses.$inferSelect;
 export type CourseLessonRow = typeof courseLessons.$inferSelect;
 export type CourseStudentRow = typeof courseStudents.$inferSelect;

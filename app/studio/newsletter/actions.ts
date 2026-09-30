@@ -25,18 +25,18 @@ export async function createEditionAction(formData: FormData) {
   const date = formData.get("date") as string;
   if (!date) return;
 
-  const existing = getEditionByDate(date);
+  const existing = await getEditionByDate(date);
   if (existing) {
     redirect(`/studio/newsletter/${date}`);
   }
 
-  createEdition(date);
+  await createEdition(date);
   revalidatePath("/studio/newsletter");
   redirect(`/studio/newsletter/${date}`);
 }
 
 export async function seedEditionAction() {
-  seedSampleEdition();
+  await seedSampleEdition();
   revalidatePath("/studio/newsletter");
 }
 
@@ -72,7 +72,7 @@ export async function updateArticleOfTheWeekAction(formData: FormData) {
         : undefined,
   };
 
-  updateEdition(editionId, { articleOfTheWeek });
+  await updateEdition(editionId, { articleOfTheWeek });
   revalidatePath("/studio/newsletter");
   revalidatePath("/newsletter");
 }
@@ -89,7 +89,7 @@ export async function updateWatchChallengeAction(formData: FormData) {
     vitalityHref,
   };
 
-  updateEdition(editionId, { watchChallenge });
+  await updateEdition(editionId, { watchChallenge });
   revalidatePath("/studio/newsletter");
   revalidatePath("/newsletter");
 }
@@ -101,7 +101,7 @@ export async function updateCoursesAction(formData: FormData) {
   try {
     const availableCourses = JSON.parse(coursesJson);
     const courses: CoursesSection = { availableCourses };
-    updateEdition(editionId, { courses });
+    await updateEdition(editionId, { courses });
     revalidatePath("/studio/newsletter");
     revalidatePath("/newsletter");
   } catch (e) {
@@ -115,7 +115,7 @@ export async function updateSectionContentAction(formData: FormData) {
 
   try {
     const sectionContent: SectionDynamicContent[] = JSON.parse(sectionContentJson);
-    updateEdition(editionId, { sectionContent });
+    await updateEdition(editionId, { sectionContent });
     revalidatePath("/studio/newsletter");
     revalidatePath("/newsletter");
   } catch (e) {
@@ -141,7 +141,7 @@ export async function addSectionContentAction(formData: FormData) {
     const sectionIndex = existingSectionContent.findIndex((s) => s.sectionId === sectionId);
 
     if (sectionIndex >= 0) {
-      existingSectionContent[sectionIndex].content.push({ type, label, href });
+      existingSectionContent[sectionIndex]!.content.push({ type, label, href });
     } else {
       existingSectionContent.push({
         sectionId,
@@ -149,7 +149,7 @@ export async function addSectionContentAction(formData: FormData) {
       });
     }
 
-    updateEdition(editionId, { sectionContent: existingSectionContent });
+    await updateEdition(editionId, { sectionContent: existingSectionContent });
     revalidatePath("/studio/newsletter");
     revalidatePath("/newsletter");
   } catch (e) {
@@ -171,13 +171,13 @@ export async function removeSectionContentAction(formData: FormData) {
     const sectionIndex = existingSectionContent.findIndex((s) => s.sectionId === sectionId);
 
     if (sectionIndex >= 0) {
-      existingSectionContent[sectionIndex].content.splice(contentIndex, 1);
-      if (existingSectionContent[sectionIndex].content.length === 0) {
+      existingSectionContent[sectionIndex]!.content.splice(contentIndex, 1);
+      if (existingSectionContent[sectionIndex]!.content.length === 0) {
         existingSectionContent.splice(sectionIndex, 1);
       }
     }
 
-    updateEdition(editionId, { sectionContent: existingSectionContent });
+    await updateEdition(editionId, { sectionContent: existingSectionContent });
     revalidatePath("/studio/newsletter");
     revalidatePath("/newsletter");
   } catch (e) {
@@ -187,21 +187,21 @@ export async function removeSectionContentAction(formData: FormData) {
 
 export async function publishEditionAction(formData: FormData) {
   const editionId = formData.get("editionId") as string;
-  publishEdition(editionId);
+  await publishEdition(editionId);
   revalidatePath("/studio/newsletter");
   revalidatePath("/newsletter");
 }
 
 export async function unpublishEditionAction(formData: FormData) {
   const editionId = formData.get("editionId") as string;
-  unpublishEdition(editionId);
+  await unpublishEdition(editionId);
   revalidatePath("/studio/newsletter");
   revalidatePath("/newsletter");
 }
 
 export async function deleteEditionAction(formData: FormData) {
   const editionId = formData.get("editionId") as string;
-  deleteEdition(editionId);
+  await deleteEdition(editionId);
   revalidatePath("/studio/newsletter");
   redirect("/studio/newsletter");
 }

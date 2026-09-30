@@ -171,9 +171,6 @@ const nextConfig: NextConfig = {
 
     return [
       { source: "/solutions/estate-planning", destination: "/estate-planning", permanent: true },
-      /** Legacy Sanity Studio URL → Blog Studio (intentional CMS). */
-      { source: "/studio", destination: "/studio/blog", permanent: true },
-      { source: "/studio/", destination: "/studio/blog", permanent: true },
       /** Retired Studio changelog page. */
       {
         source: "/studio/blog/workspace/upgrades",

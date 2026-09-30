@@ -44,14 +44,14 @@ export function StudioLoginForm({ nextPath }: { nextPath: string }) {
         <p className="rounded-lg border border-red-500/30 bg-red-950/40 px-3 py-2 text-sm text-red-300">{error}</p>
       )}
       <p className="text-[11px] leading-relaxed text-zinc-500">
-        This password is only for writing articles. It is not linked to email or banking.
+        This password opens Insights, Courses, and Newsletter. It is not linked to email or banking.
       </p>
       <button
         type="submit"
         disabled={isPending}
         className="w-full rounded-md bg-[#3ecf8e] py-3 text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        {isPending ? "Signing in…" : "Enter studio"}
+        {isPending ? "Signing in…" : "Enter Studio"}
       </button>
     </form>
   );

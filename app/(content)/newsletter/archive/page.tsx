@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function NewsletterArchivePage() {
-  const editions = listPublishedEditions();
+export default async function NewsletterArchivePage() {
+  const editions = await listPublishedEditions();
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

@@ -6,24 +6,31 @@ import { getClientStudioSession, isClientStudioConfigured } from "@/lib/client-s
 import { StudioLoginForm } from "./StudioLoginForm";
 
 export const metadata = {
-  title: "Insights studio login",
+  title: "Studio login | AS Brokers",
   robots: "noindex, nofollow",
 };
 
 export const dynamic = "force-dynamic";
+
+function safeStudioNext(next: string | undefined): string {
+  if (next && next.startsWith("/studio") && !next.includes("://") && !next.startsWith("//")) {
+    return next;
+  }
+  return "/studio";
+}
 
 export default async function StudioBlogLoginPage({
   searchParams,
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
+  const { next } = await searchParams;
+  const nextPath = safeStudioNext(next);
+
   if (await getClientStudioSession()) {
-    redirect("/studio/blog/workspace");
+    redirect(nextPath);
   }
 
-  const { next } = await searchParams;
-  const nextPath =
-    next?.startsWith("/studio/") && !next.includes("://") ? next : "/studio/blog/workspace";
   const configured = isClientStudioConfigured();
 
   return (
@@ -31,8 +38,10 @@ export default async function StudioBlogLoginPage({
       <div className="w-full max-w-md rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-2xl sm:p-8">
         <div className="mb-8 text-center">
           <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-zinc-600">FSP 17273</p>
-          <h1 className="mb-1 text-2xl font-semibold text-white">Insights Studio</h1>
-          <p className="text-sm text-zinc-500">Write and publish articles to the live site.</p>
+          <h1 className="mb-1 text-2xl font-semibold text-white">AS Brokers Studio</h1>
+          <p className="text-sm text-zinc-500">
+            One login for Insights, Courses, and Newsletter.
+          </p>
         </div>
 
         {!configured ? (
@@ -48,23 +57,22 @@ export default async function StudioBlogLoginPage({
           <li className="flex gap-2">
             <span className="shrink-0 text-[#3ecf8e]/70">•</span>
             <span>
-              Forgot the password? Contact AS Brokers  -  it is not stored in this app for security.
+              After login you choose Insights / Blog, Courses, or Newsletter — three clear studios.
             </span>
           </li>
           <li className="flex gap-2">
             <span className="shrink-0 text-[#3ecf8e]/70">•</span>
             <span>
-              After login you&apos;ll see the editor, preview, and clear steps  -  nothing here changes bank or client
-              records.
+              Forgot the password? Contact AS Brokers — it is not stored in this app for security.
             </span>
           </li>
         </ul>
         <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-500">
-          Published posts appear under{" "}
-          <Link href="/insights" className="text-[#3ecf8e] hover:underline">
-            Insights
+          Need client leads and alerts? Use the{" "}
+          <Link href="/crm" className="text-[#3ecf8e] hover:underline">
+            CRM
           </Link>{" "}
-          (Blog Studio is the live publishing path for Insights).
+          instead.
         </p>
       </div>
     </div>

@@ -13,7 +13,7 @@ interface PageProps {
 
 export default async function NewsletterEditorPage({ params }: PageProps) {
   const { date } = await params;
-  const edition = getEditionByDate(date);
+  const edition = await getEditionByDate(date);
 
   if (!edition) {
     notFound();

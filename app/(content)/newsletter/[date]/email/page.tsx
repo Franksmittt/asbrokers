@@ -15,7 +15,7 @@ interface PageProps {
  */
 export default async function NewsletterEmailPage({ params }: PageProps) {
   const { date } = await params;
-  const edition = getResolvedEditionByDate(date);
+  const edition = await getResolvedEditionByDate(date);
 
   if (!edition) {
     notFound();

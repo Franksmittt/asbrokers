@@ -10,7 +10,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { date } = await params;
-  const edition = getResolvedEditionByDate(date);
+  const edition = await getResolvedEditionByDate(date);
 
   if (!edition) {
     return {
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export function generateStaticParams() {
-  const editions = listPublishedEditions();
+export async function generateStaticParams() {
+  const editions = await listPublishedEditions();
   return editions.map((edition) => ({
     date: edition.date,
   }));
@@ -43,7 +43,7 @@ export const dynamic = "force-dynamic";
 
 export default async function NewsletterDatePage({ params }: PageProps) {
   const { date } = await params;
-  const edition = getResolvedEditionByDate(date);
+  const edition = await getResolvedEditionByDate(date);
 
   if (!edition) {
     notFound();

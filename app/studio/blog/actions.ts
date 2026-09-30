@@ -200,14 +200,14 @@ export async function studioLogin(
   formData: FormData
 ): Promise<{ ok: true; next: string } | { ok: false; error: string }> {
   const password = String(formData.get("password") ?? "");
-  const nextRaw = String(formData.get("next") ?? "/studio/blog/workspace");
+  const nextRaw = String(formData.get("next") ?? "/studio");
   const next =
-    nextRaw.startsWith("/studio/") && !nextRaw.includes("://") && !nextRaw.startsWith("//")
+    nextRaw.startsWith("/studio") && !nextRaw.includes("://") && !nextRaw.startsWith("//")
       ? nextRaw
-      : "/studio/blog/workspace";
+      : "/studio";
 
   if (!isClientStudioConfigured()) {
-    return { ok: false, error: "Insights studio is not configured yet (missing password on server)." };
+    return { ok: false, error: "Studio is not configured yet (missing password on server)." };
   }
   if (!verifyStudioPassword(password)) {
     return { ok: false, error: "Incorrect password." };
@@ -219,7 +219,7 @@ export async function studioLogin(
 
 export async function studioLogout(): Promise<void> {
   await clearClientStudioSession();
-  redirect("/studio/blog/login");
+  redirect("/studio/blog/login?next=/studio");
 }
 
 export async function saveStudioPost(

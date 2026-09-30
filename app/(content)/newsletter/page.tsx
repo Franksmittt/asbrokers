@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { getLatestPublishedEdition, listPublishedEditions, resolveEdition, seedSampleEdition } from "@/lib/newsletter/store";
+import { getLatestPublishedEdition, listPublishedEditions, resolveEdition } from "@/lib/newsletter/store";
 import { NewsletterView } from "@/components/newsletter/NewsletterView";
 
 export const metadata: Metadata = {
@@ -18,16 +18,9 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function NewsletterPage() {
-  // Seed sample data for development if no editions exist
-  let edition = getLatestPublishedEdition();
-  if (!edition) {
-    // In dev/demo mode, seed a sample and show it
-    seedSampleEdition();
-    edition = getLatestPublishedEdition();
-  }
+export default async function NewsletterPage() {
+  const edition = await getLatestPublishedEdition();
 
-  // If still no published edition, show coming soon
   if (!edition) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16 text-center">
@@ -47,13 +40,12 @@ export default function NewsletterPage() {
   }
 
   const resolved = resolveEdition(edition);
-  const allEditions = listPublishedEditions();
+  const allEditions = await listPublishedEditions();
 
   return (
     <>
       <NewsletterView edition={resolved} />
 
-      {/* Archive link */}
       {allEditions.length > 1 && (
         <div className="mx-auto max-w-3xl border-t border-stone-200 px-4 pb-12 text-center">
           <Link

@@ -8,5 +8,5 @@ export default async function StudioBlogRootPage() {
   if (await getClientStudioSession()) {
     redirect("/studio/blog/workspace");
   }
-  redirect("/studio/blog/login");
+  redirect("/studio/blog/login?next=/studio/blog/workspace");
 }

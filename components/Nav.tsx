@@ -129,6 +129,13 @@ export function Nav() {
             <span className="hidden xl:inline">Client Portal</span>
           </Link>
           <Link
+            href="/learn/account?mode=signin"
+            prefetch={false}
+            className="hidden items-center rounded-[2rem] px-3 py-2 text-sm font-semibold text-[#0057B8] ring-1 ring-[#0057B8]/25 transition-all hover:bg-[#0057B8]/5 sm:flex"
+          >
+            Learn
+          </Link>
+          <Link
             href="/contact"
             prefetch={false}
             className="hidden items-center rounded-[2rem] bg-samsung-blue px-4 py-2 text-sm font-semibold text-white shadow-md shadow-samsung-blue/20 transition-all hover:bg-[#004a9e] sm:flex"
@@ -177,6 +184,14 @@ export function Nav() {
                 </Link>
               ))}
               <div className="border-t border-stone-300/80 mt-3 pt-3 flex flex-col gap-2">
+                <Link
+                  href="/learn/account?mode=signin"
+                  prefetch={false}
+                  onClick={closeMobile}
+                  className="w-full rounded-[2rem] py-3.5 text-center font-semibold text-[#0057B8] ring-1 ring-[#0057B8]/30"
+                >
+                  Learn · Sign in
+                </Link>
                 <Link
                   href="/contact"
                   prefetch={false}

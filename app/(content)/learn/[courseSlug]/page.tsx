@@ -12,7 +12,12 @@ import { LessonSidebar } from "@/components/courses/LessonSidebar";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { getCourseBySlug, getStudentCourseState } from "@/lib/courses/store";
 import { firstAvailableLesson, publishedLessons, progressLabel } from "@/lib/courses/progress";
-import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
+import {
+  coursePath,
+  lessonPath,
+  registerPath,
+  studentAccountPath,
+} from "@/lib/courses/paths";
 import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
 import { renderLessonText } from "@/lib/courses/text";
@@ -47,7 +52,18 @@ export default async function CourseOverviewPage({ params }: Props) {
   const resume = firstAvailableLesson(course, state);
 
   const startHref = resume ? lessonPath(course.slug, resume.slug) : coursePath(course.slug);
-  const needsRegister = courseRequiresStudentAuth(course) && !state;
+  const needsAccount = courseRequiresStudentAuth(course) && !studentId;
+  const needsEnroll = courseRequiresStudentAuth(course) && !!studentId && !state;
+  const primaryHref = needsAccount
+    ? studentAccountPath({ mode: "signup", next: registerPath(course.slug) })
+    : needsEnroll
+      ? registerPath(course.slug)
+      : startHref;
+  const primaryLabel = state
+    ? "Continue"
+    : needsAccount
+      ? "Create account to start"
+      : "Start the course";
 
   return (
     <PageWithFooter>
@@ -103,23 +119,35 @@ export default async function CourseOverviewPage({ params }: Props) {
                 </Link>
               </p>
             ) : null}
+            {!studentId ? (
+              <p className="mt-6 max-w-2xl rounded-2xl bg-[#F7F6F3] px-4 py-3 text-sm text-stone-600 ring-1 ring-stone-200">
+                This overview is open to everyone. Create a free Learn account to open lessons and
+                save your progress.
+              </p>
+            ) : null}
             <div className="mt-8 flex flex-wrap gap-3">
               {state?.enrollment.paymentStatus === "pending" ? (
                 <Link href="/learn/dashboard" prefetch={false} className={WARM_BTN_PRIMARY}>
                   Go to dashboard
                 </Link>
               ) : (
-                <Link
-                  href={needsRegister ? registerPath(course.slug) : startHref}
-                  prefetch={false}
-                  className={WARM_BTN_PRIMARY}
-                >
-                  {state ? "Continue" : "Start the course"}
+                <Link href={primaryHref} prefetch={false} className={WARM_BTN_PRIMARY}>
+                  {primaryLabel}
                 </Link>
               )}
-              <Link href="/learn" prefetch={false} className={WARM_BTN_SECONDARY}>
-                All courses
-              </Link>
+              {!studentId ? (
+                <Link
+                  href={studentAccountPath({ mode: "signin", next: registerPath(course.slug) })}
+                  prefetch={false}
+                  className={WARM_BTN_SECONDARY}
+                >
+                  Already have an account? Sign in
+                </Link>
+              ) : (
+                <Link href="/learn" prefetch={false} className={WARM_BTN_SECONDARY}>
+                  All courses
+                </Link>
+              )}
             </div>
           </div>
           <LessonSidebar course={course} lessons={lessons} currentSlug="" state={state} />

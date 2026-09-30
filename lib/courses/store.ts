@@ -11,6 +11,12 @@ import {
   type StudentClarityProfile,
   type WealthCanvasPromptId,
 } from "./clarity-track";
+import {
+  createPasswordResetToken,
+  hashPassword,
+  hashResetToken,
+  verifyPassword,
+} from "./password";
 import { formatStudentDisplayName } from "./display-name";
 import { COURSE_STUDENT_AUTH_ENABLED } from "./flags";
 import { moveBySortOrder } from "./order";
@@ -470,6 +476,7 @@ export async function upsertStudent(input: {
   email: string;
   privacyConsent: boolean;
   marketingConsent: boolean;
+  password?: string;
 }): Promise<CourseStudent> {
   await ensureCourseStore();
   const existing = store().students.find((row) => row.email === input.email.trim().toLowerCase());
@@ -478,6 +485,11 @@ export async function upsertStudent(input: {
     existing.surname = input.surname;
     existing.privacyConsent = input.privacyConsent;
     existing.marketingConsent = input.marketingConsent;
+    if (input.password) {
+      existing.passwordHash = hashPassword(input.password);
+      existing.passwordResetTokenHash = null;
+      existing.passwordResetExpiresAt = null;
+    }
     await persistIfEnabled();
     return existing;
   }
@@ -490,11 +502,58 @@ export async function upsertStudent(input: {
     privacyConsent: input.privacyConsent,
     marketingConsent: input.marketingConsent,
     createdAt: nowIso(),
+    passwordHash: input.password ? hashPassword(input.password) : null,
+    passwordResetTokenHash: null,
+    passwordResetExpiresAt: null,
   };
   store().students.push(student);
   if (!store().clarityProfiles.some((row) => row.studentId === student.id)) {
     store().clarityProfiles.push(emptyClarityProfile(student.id));
   }
+  await persistIfEnabled();
+  return student;
+}
+
+export async function authenticateStudent(
+  email: string,
+  password: string
+): Promise<CourseStudent | null> {
+  await ensureCourseStore();
+  const student = store().students.find((row) => row.email === email.trim().toLowerCase());
+  if (!student?.passwordHash) return null;
+  if (!verifyPassword(password, student.passwordHash)) return null;
+  return student;
+}
+
+export async function beginPasswordReset(
+  email: string
+): Promise<{ token: string; student: CourseStudent } | null> {
+  await ensureCourseStore();
+  const student = store().students.find((row) => row.email === email.trim().toLowerCase());
+  if (!student) return null;
+  const { token, tokenHash, expiresAt } = createPasswordResetToken();
+  student.passwordResetTokenHash = tokenHash;
+  student.passwordResetExpiresAt = expiresAt;
+  await persistIfEnabled();
+  return { token, student };
+}
+
+export async function resetStudentPassword(
+  token: string,
+  password: string
+): Promise<CourseStudent | null> {
+  await ensureCourseStore();
+  const tokenHash = hashResetToken(token);
+  const student = store().students.find(
+    (row) =>
+      row.passwordResetTokenHash === tokenHash &&
+      row.passwordResetExpiresAt &&
+      row.passwordResetExpiresAt > nowIso()
+  );
+  if (!student) return null;
+  student.passwordHash = hashPassword(password);
+  student.passwordResetTokenHash = null;
+  student.passwordResetExpiresAt = null;
   await persistIfEnabled();
   return student;
 }

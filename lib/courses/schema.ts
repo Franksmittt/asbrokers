@@ -29,6 +29,60 @@ export const studentLoginSchema = z.object({
   email: z.string().trim().email("Enter a valid email").max(200),
 });
 
+const checkboxTrue = z.preprocess(
+  (value) => value === true || value === "true" || value === "on",
+  z.literal(true, {
+    errorMap: () => ({ message: "Privacy consent is required." }),
+  })
+);
+
+const checkboxOptional = z.preprocess(
+  (value) => value === true || value === "true" || value === "on",
+  z.boolean().optional().default(false)
+);
+
+const passwordSchema = z
+  .string()
+  .min(8, "Use at least 8 characters")
+  .max(128, "Password is too long")
+  .regex(/[A-Za-z]/, "Include at least one letter")
+  .regex(/[0-9]/, "Include at least one number");
+
+export const studentSignInSchema = z.object({
+  email: z.string().trim().email("Enter a valid email").max(200).toLowerCase(),
+  password: z.string().min(1, "Enter your password").max(128),
+});
+
+export const studentSignUpSchema = z
+  .object({
+    firstName: z.string().trim().min(1, "First name is required").max(80),
+    surname: z.string().trim().min(1, "Surname is required").max(80),
+    email: z.string().trim().email("Enter a valid email address").max(160).toLowerCase(),
+    password: passwordSchema,
+    confirmPassword: z.string().min(1, "Confirm your password"),
+    privacyConsent: checkboxTrue,
+    marketingConsent: checkboxOptional,
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export const studentForgotPasswordSchema = z.object({
+  email: z.string().trim().email("Enter a valid email").max(200).toLowerCase(),
+});
+
+export const studentResetPasswordSchema = z
+  .object({
+    token: z.string().trim().min(20, "Reset link is invalid"),
+    password: passwordSchema,
+    confirmPassword: z.string().min(1, "Confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
 export const studentPromoSlideSchema = z.object({
   id: z.string().trim().min(1).max(80).optional(),
   title: z.string().trim().min(1, "Title is required").max(120),
@@ -112,18 +166,6 @@ export const blockPayloadSchema = z.discriminatedUnion("type", [
   calloutBlockSchema,
   ctaBlockSchema,
 ]);
-
-const checkboxTrue = z.preprocess(
-  (value) => value === true || value === "true" || value === "on",
-  z.literal(true, {
-    errorMap: () => ({ message: "Privacy consent is required to start the course." }),
-  })
-);
-
-const checkboxOptional = z.preprocess(
-  (value) => value === true || value === "true" || value === "on",
-  z.boolean().optional().default(false)
-);
 
 export const studentRegisterSchema = z.object({
   firstName: z.string().trim().min(1, "First name is required").max(80),

@@ -45,6 +45,13 @@ export function MarketingNav() {
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <Link
+            href="/learn/account?mode=signin"
+            prefetch={false}
+            className="hidden sm:flex items-center px-3 py-2 rounded-[2rem] text-sm font-semibold text-[#0057B8] ring-1 ring-[#0057B8]/25 hover:bg-[#0057B8]/5"
+          >
+            Learn
+          </Link>
+          <Link
             href="/contact?source=nav_cta"
             prefetch={false}
             className="hidden sm:flex items-center px-4 py-2 rounded-[2rem] text-sm font-semibold bg-samsung-blue text-white shadow-md shadow-samsung-blue/20 hover:bg-[#004a9e]"

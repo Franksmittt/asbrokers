@@ -1,15 +1,15 @@
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 
-import {
-  HubContentSection,
-  HubUtilityHero,
-  PageWithFooter,
-} from "@/components/hub/HubContentShell";
-import { RegisterForm } from "@/components/courses/RegisterForm";
-import { getCourseBySlug, getStudentCourseState } from "@/lib/courses/store";
+import { getCourseBySlug, ensureEnrollment, getStudentCourseState } from "@/lib/courses/store";
 import { firstAvailableLesson } from "@/lib/courses/progress";
-import { coursePath, lessonPath, registerPath } from "@/lib/courses/paths";
+import {
+  coursePath,
+  lessonPath,
+  registerPath,
+  studentAccountPath,
+  studentDashboardPath,
+} from "@/lib/courses/paths";
 import { courseRequiresStudentAuth } from "@/lib/courses/flags";
 import { getCourseStudentId } from "@/lib/courses/student-session";
 import { buildPageMetadata } from "@/lib/seo-metadata";
@@ -23,39 +23,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const course = await getCourseBySlug(courseSlug);
   return buildPageMetadata({
     path: registerPath(courseSlug),
-    title: course ? `Register · ${course.title}` : "Register for the course",
-    description: "Register with your name and email to start this free AS Brokers educational course.",
+    title: course ? `Start · ${course.title}` : "Start the course",
+    description: "Sign in to your Learn account to start this AS Brokers educational course.",
   });
 }
 
+/**
+ * Enroll a signed-in learner and send them into the course.
+ * Guests are sent to Create account / Sign in first.
+ */
 export default async function CourseRegisterPage({ params }: Props) {
   const { courseSlug } = await params;
   const course = await getCourseBySlug(courseSlug);
   if (!course || course.status !== "published") notFound();
 
-  const studentId = await getCourseStudentId();
-  const state = studentId ? await getStudentCourseState(studentId, course.id) : null;
-  if (state) {
-    const next = firstAvailableLesson(course, state);
-    redirect(next ? lessonPath(course.slug, next.slug) : coursePath(course.slug));
-  }
-
   if (!courseRequiresStudentAuth(course)) {
     redirect(coursePath(course.slug));
   }
 
-  return (
-    <PageWithFooter>
-      <HubUtilityHero
-        kicker="Free course registration"
-        title={course.title}
-        description="A few details so we can remember your progress and keep lesson answers private. This course is free."
-      />
-      <HubContentSection className="pt-0">
-        <div className="mx-auto max-w-xl">
-          <RegisterForm courseSlug={course.slug} courseTitle={course.title} />
-        </div>
-      </HubContentSection>
-    </PageWithFooter>
-  );
+  const studentId = await getCourseStudentId();
+  if (!studentId) {
+    redirect(studentAccountPath({ mode: "signup", next: registerPath(course.slug) }));
+  }
+
+  const prior = await getStudentCourseState(studentId, course.id);
+  if (!prior) {
+    const enrollment = await ensureEnrollment(studentId, course.id);
+    if (enrollment.paymentStatus === "pending") {
+      redirect(studentDashboardPath());
+    }
+  } else if (prior.enrollment.paymentStatus === "pending") {
+    redirect(studentDashboardPath());
+  }
+
+  const state = await getStudentCourseState(studentId, course.id);
+  const next = firstAvailableLesson(course, state);
+  redirect(next ? lessonPath(course.slug, next.slug) : coursePath(course.slug));
 }

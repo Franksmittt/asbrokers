@@ -10,7 +10,12 @@ import {
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
 import { listPublishedCourses } from "@/lib/courses/store";
 import { publishedLessons } from "@/lib/courses/progress";
-import { coursePath, studentDashboardPath, studentLoginPath } from "@/lib/courses/paths";
+import {
+  coursePath,
+  studentAccountPath,
+  studentDashboardPath,
+} from "@/lib/courses/paths";
+import { getCourseStudentId } from "@/lib/courses/student-session";
 import { buildPageMetadata } from "@/lib/seo-metadata";
 import { WARM_BTN_PRIMARY, WARM_BTN_SECONDARY } from "@/lib/warm-theme";
 
@@ -18,21 +23,22 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/learn",
-  title: "Courses",
+  title: "Courses overview",
   description:
-    "Educational courses from AS Brokers CC. Work through lessons at your own pace with calculators, videos and teaching notes.",
+    "Educational courses from AS Brokers CC. Browse the overview, then create a free account to open lessons and track your progress.",
 });
 
 export default async function LearnCatalogPage() {
   const courses = await listPublishedCourses();
+  const studentId = await getCourseStudentId();
 
   return (
     <PageWithFooter>
       <PageJsonLd
         path="/learn"
         webPage={{
-          name: "Courses | AS Brokers",
-          description: "Educational courses you can take at your own pace.",
+          name: "Courses overview | AS Brokers",
+          description: "Browse AS Brokers educational courses. Sign in to open lessons.",
         }}
         breadcrumbs={[
           { name: "Home", path: "/" },
@@ -41,17 +47,33 @@ export default async function LearnCatalogPage() {
       />
       <HubUtilityHero
         kicker="AS Brokers CC · FSP 17273"
-        title="Educational courses"
-        description="Courses you can take yourself. Sign in to your student portal to track progress, or open a lesson and come back whenever you like."
+        title="Courses overview"
+        description="Browse what is available. To open lessons and save your progress, create a free Learn account or sign in."
       />
       <HubContentSection className="pt-0">
         <div className="mb-8 flex flex-wrap gap-3">
-          <Link href={studentLoginPath(studentDashboardPath())} prefetch={false} className={WARM_BTN_PRIMARY}>
-            Student sign in
-          </Link>
-          <Link href={studentDashboardPath()} prefetch={false} className={WARM_BTN_SECONDARY}>
-            My dashboard
-          </Link>
+          {studentId ? (
+            <Link href={studentDashboardPath()} prefetch={false} className={WARM_BTN_PRIMARY}>
+              My learning home
+            </Link>
+          ) : (
+            <>
+              <Link
+                href={studentAccountPath({ mode: "signup", next: "/learn" })}
+                prefetch={false}
+                className={WARM_BTN_PRIMARY}
+              >
+                Create free account
+              </Link>
+              <Link
+                href={studentAccountPath({ mode: "signin", next: "/learn" })}
+                prefetch={false}
+                className={WARM_BTN_SECONDARY}
+              >
+                Sign in
+              </Link>
+            </>
+          )}
         </div>
         {courses.length === 0 ? (
           <p className="rounded-3xl bg-white p-8 text-stone-600 ring-1 ring-stone-200">
@@ -62,7 +84,10 @@ export default async function LearnCatalogPage() {
             {courses.map((course) => {
               const total = publishedLessons(course).length;
               return (
-                <li key={course.id} className="overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80">
+                <li
+                  key={course.id}
+                  className="overflow-hidden rounded-3xl bg-white/95 shadow-xl ring-1 ring-stone-200/80"
+                >
                   {course.featuredImageUrl ? (
                     <div className="relative aspect-[16/9] bg-stone-100">
                       <Image
@@ -82,15 +107,21 @@ export default async function LearnCatalogPage() {
                           : "Paid course"
                         : "Free course"}
                     </p>
-                    <h2 className="mt-3 text-2xl font-bold tracking-tight text-shark">{course.title}</h2>
+                    <h2 className="mt-3 text-2xl font-bold tracking-tight text-shark">
+                      {course.title}
+                    </h2>
                     <p className="mt-3 line-clamp-4 text-sm leading-relaxed text-stone-600">
                       {course.introduction.split("\n")[0]}
                     </p>
                     <p className="mt-4 text-xs text-stone-500">
-                      {total} {total === 1 ? "lesson" : "lessons"}
+                      {total} {total === 1 ? "lesson" : "lessons"} · Account required to open
                     </p>
-                    <Link href={coursePath(course.slug)} prefetch={false} className={`${WARM_BTN_PRIMARY} mt-6`}>
-                      View course
+                    <Link
+                      href={coursePath(course.slug)}
+                      prefetch={false}
+                      className={`${WARM_BTN_PRIMARY} mt-6`}
+                    >
+                      View overview
                     </Link>
                   </div>
                 </li>

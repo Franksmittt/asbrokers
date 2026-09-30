@@ -66,7 +66,13 @@ export function MarketingMobileMenu() {
               </a>
             )
           )}
-          <div className="mt-3 border-t border-stone-300/80 pt-3">
+          <div className="mt-3 space-y-2 border-t border-stone-300/80 pt-3">
+            <a
+              href="/learn/account?mode=signin"
+              className="block w-full rounded-[2rem] py-3.5 text-center font-semibold text-[#0057B8] ring-1 ring-[#0057B8]/30"
+            >
+              Learn · Sign in
+            </a>
             <a
               href="/contact?source=nav_cta"
               className="block w-full rounded-[2rem] bg-samsung-blue py-3.5 text-center font-semibold text-white shadow-md shadow-samsung-blue/20"

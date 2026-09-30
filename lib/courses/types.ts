@@ -163,6 +163,10 @@ export type CourseStudent = {
   marketingConsent: boolean;
   privacyConsent: boolean;
   createdAt: string;
+  /** scrypt$salt$hash — null until the learner sets a password. */
+  passwordHash: string | null;
+  passwordResetTokenHash: string | null;
+  passwordResetExpiresAt: string | null;
 };
 
 export type CourseEnrollment = {

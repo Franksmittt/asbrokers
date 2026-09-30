@@ -114,6 +114,9 @@ export function migrateCourseStudioSnapshot(
     if (!next.clarityProfiles.some((row) => row.studentId === student.id)) {
       next.clarityProfiles.push(emptyClarityProfile(student.id));
     }
+    if (student.passwordHash === undefined) student.passwordHash = null;
+    if (student.passwordResetTokenHash === undefined) student.passwordResetTokenHash = null;
+    if (student.passwordResetExpiresAt === undefined) student.passwordResetExpiresAt = null;
   }
   for (const course of next.courses) {
     if (course.access !== "free" && course.access !== "paid") course.access = "free";

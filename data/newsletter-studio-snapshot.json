@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "editions": [
+    {
+      "id": "newsletter-2026-09-28",
+      "date": "2026-09-28",
+      "status": "published",
+      "subjectLine": "Understanding Your Retirement Gap | AS Brokers",
+      "previewText": "Measure the gap between what you have and what you may need.",
+      "articleOfTheWeek": {
+        "title": "Understanding Your Retirement Gap",
+        "intro": "Many South Africans approach retirement with a dangerous gap between what they have saved and what they will actually need. This edition walks through how to measure that gap with clear assumptions.",
+        "whyItMatters": "If you do not measure your retirement gap early, options shrink. Awareness creates choices while you still have time.",
+        "articleHref": "/insights/retirement-gap-method",
+        "relatedCalculator": {
+          "label": "Retirement Reality Check",
+          "href": "/calculators/asset-002-retirement-reality-check"
+        },
+        "relatedCourse": {
+          "label": "Retirement vs Financial Freedom",
+          "href": "/learn/retirement-vs-financial-freedom"
+        }
+      },
+      "watchChallenge": {
+        "challengeHref": "/financial-freedom-community",
+        "vitalityHref": "/contact?topic=vitality",
+        "latestUpdateHref": "/insights/retirement-gap-method"
+      },
+      "courses": {
+        "availableCourses": [
+          {
+            "title": "Retirement vs Financial Freedom",
+            "description": "Retirement is a stage of life. Financial freedom is a financial position. This course explains the difference and why financial freedom should be the broader objective of a financial plan.",
+            "href": "/learn/retirement-vs-financial-freedom"
+          }
+        ]
+      },
+      "sectionContent": [
+        {
+          "sectionId": "retirement-planning",
+          "content": [
+            {
+              "type": "calculator",
+              "label": "Retirement Reality Check",
+              "href": "/calculators/asset-002-retirement-reality-check"
+            }
+          ]
+        },
+        {
+          "sectionId": "medical-aid",
+          "content": [
+            {
+              "type": "article",
+              "label": "Medical aid overview",
+              "href": "/insights/medical-aid"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-10-01T11:12:39.554Z",
+      "updatedAt": "2026-10-01T11:12:39.556Z",
+      "publishedAt": "2026-10-01T11:12:39.556Z"
+    },
+    {
+      "id": "newsletter-2026-09-21",
+      "date": "2026-09-21",
+      "status": "published",
+      "subjectLine": "Business insurance: what owners overlook | AS Brokers",
+      "previewText": "A practical checklist before renewal season.",
+      "articleOfTheWeek": {
+        "title": "Business Insurance: What Owners Overlook",
+        "intro": "Most business owners renew short-term cover on autopilot. This week we highlight the gaps that usually only show up at claim time.",
+        "whyItMatters": "Underinsurance and outdated sums insured can quietly erode protection while premiums feel 'fine'.",
+        "articleHref": "/insights/business-insurance",
+        "relatedCalculator": {
+          "label": "Average Clause Calculator",
+          "href": "/calculators/underinsurance-calculator"
+        }
+      },
+      "watchChallenge": {
+        "challengeHref": "/financial-freedom-community",
+        "vitalityHref": "/contact?topic=vitality",
+        "latestUpdateHref": "/insights/business-insurance"
+      },
+      "courses": {
+        "availableCourses": [
+          {
+            "title": "Retirement vs Financial Freedom",
+            "description": "Retirement is a stage of life. Financial freedom is a financial position. This course explains the difference and why financial freedom should be the broader objective of a financial plan.",
+            "href": "/learn/retirement-vs-financial-freedom"
+          }
+        ]
+      },
+      "sectionContent": [
+        {
+          "sectionId": "retirement-planning",
+          "content": [
+            {
+              "type": "calculator",
+              "label": "Average Clause Calculator",
+              "href": "/calculators/underinsurance-calculator"
+            }
+          ]
+        },
+        {
+          "sectionId": "medical-aid",
+          "content": [
+            {
+              "type": "article",
+              "label": "Medical aid overview",
+              "href": "/insights/medical-aid"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-10-01T11:12:39.557Z",
+      "updatedAt": "2026-10-01T11:12:39.557Z",
+      "publishedAt": "2026-10-01T11:12:39.557Z"
+    },
+    {
+      "id": "newsletter-2026-09-14",
+      "date": "2026-09-14",
+      "status": "scheduled",
+      "subjectLine": "Medical aid vs gap cover — draft",
+      "previewText": "Draft edition for Studio testing (not public).",
+      "articleOfTheWeek": {
+        "title": "Medical Aid vs Gap Cover: Knowing the Difference",
+        "intro": "Medical aid and gap cover solve different problems. This draft edition is for Studio testing — live preview, pickers, and email send.",
+        "whyItMatters": "Choosing cover without understanding the split often leaves families surprised by hospital shortfalls.",
+        "articleHref": "/insights/medical-aid",
+        "relatedCalculator": {
+          "label": "Income Tax Calculator",
+          "href": "/calculators/asset-006-income-tax"
+        },
+        "relatedCourse": {
+          "label": "Retirement vs Financial Freedom",
+          "href": "/learn/retirement-vs-financial-freedom"
+        }
+      },
+      "watchChallenge": {
+        "challengeHref": "/financial-freedom-community",
+        "vitalityHref": "/contact?topic=vitality",
+        "latestUpdateHref": "/insights/medical-aid"
+      },
+      "courses": {
+        "availableCourses": [
+          {
+            "title": "Retirement vs Financial Freedom",
+            "description": "Retirement is a stage of life. Financial freedom is a financial position. This course explains the difference and why financial freedom should be the broader objective of a financial plan.",
+            "href": "/learn/retirement-vs-financial-freedom"
+          }
+        ]
+      },
+      "sectionContent": [
+        {
+          "sectionId": "retirement-planning",
+          "content": [
+            {
+              "type": "calculator",
+              "label": "Income Tax Calculator",
+              "href": "/calculators/asset-006-income-tax"
+            }
+          ]
+        },
+        {
+          "sectionId": "medical-aid",
+          "content": [
+            {
+              "type": "article",
+              "label": "Medical aid overview",
+              "href": "/insights/medical-aid"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-10-01T11:12:39.557Z",
+      "updatedAt": "2026-10-01T11:12:39.570Z",
+      "scheduledAt": "2026-10-02T07:00:00.000Z"
+    }
+  ]
+}

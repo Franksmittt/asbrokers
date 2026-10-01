@@ -3,7 +3,12 @@
  * (same approach as Course Studio so Albert’s editions survive restarts).
  */
 
-import type { NewsletterEdition, ResolvedNewsletterEdition } from "./types";
+import type {
+  NewsletterCampaignStatus,
+  NewsletterEdition,
+  ResolvedNewsletterEdition,
+} from "./types";
+import { normalizeNewsletterStatus } from "./types";
 import { EVERGREEN_SECTIONS } from "./evergreen-sections";
 import {
   loadNewsletterSnapshot,
@@ -67,27 +72,39 @@ function generateEditionId(date: string): string {
   return `newsletter-${date}`;
 }
 
+function nextMondayDateString(from = new Date()): string {
+  const d = new Date(from);
+  const day = d.getDay();
+  const daysUntilMonday = day === 1 ? 7 : (8 - day) % 7 || 7;
+  d.setDate(d.getDate() + daysUntilMonday);
+  return d.toISOString().slice(0, 10);
+}
+
 /** Create a new newsletter edition with default structure */
 export async function createEdition(date: string): Promise<NewsletterEdition> {
   await ensureNewsletterStore();
   const id = generateEditionId(date);
   const now = new Date().toISOString();
 
+  const previous = (await listEditions())[0];
+
   const edition: NewsletterEdition = {
     id,
     date,
     status: "draft",
+    subjectLine: "",
+    previewText: "",
     articleOfTheWeek: {
       title: "",
       intro: "",
       whyItMatters: "",
       articleHref: "",
     },
-    watchChallenge: {
+    watchChallenge: previous?.watchChallenge ?? {
       challengeHref: "/financial-freedom-community",
       vitalityHref: "/contact?topic=vitality",
     },
-    courses: {
+    courses: previous?.courses ?? {
       availableCourses: [
         {
           title: "Retirement vs Financial Freedom",
@@ -97,7 +114,10 @@ export async function createEdition(date: string): Promise<NewsletterEdition> {
         },
       ],
     },
-    sectionContent: [],
+    // Keep evergreen link structure from last week so staff only change weekly deltas
+    sectionContent: previous?.sectionContent
+      ? structuredClone(previous.sectionContent)
+      : [],
     createdAt: now,
     updatedAt: now,
   };
@@ -105,6 +125,85 @@ export async function createEdition(date: string): Promise<NewsletterEdition> {
   editionsMap().set(id, edition);
   await persistIfEnabled();
   return edition;
+}
+
+/** Duplicate an edition onto a new date (clears weekly article fields). */
+export async function duplicateEdition(
+  sourceId: string,
+  newDate: string
+): Promise<NewsletterEdition | undefined> {
+  await ensureNewsletterStore();
+  const source = editionsMap().get(sourceId);
+  if (!source) return undefined;
+  if (editionsMap().has(generateEditionId(newDate))) {
+    throw new Error(`An edition already exists for ${newDate}`);
+  }
+
+  const now = new Date().toISOString();
+  const copy: NewsletterEdition = {
+    ...structuredClone(source),
+    id: generateEditionId(newDate),
+    date: newDate,
+    status: "draft",
+    subjectLine: "",
+    previewText: "",
+    scheduledAt: undefined,
+    sentAt: undefined,
+    lastTestSentTo: undefined,
+    lastTestSentAt: undefined,
+    publishedAt: undefined,
+    articleOfTheWeek: {
+      title: "",
+      intro: "",
+      whyItMatters: "",
+      articleHref: "",
+      relatedCalculator: undefined,
+      relatedVideo: undefined,
+      relatedCourse: undefined,
+    },
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  editionsMap().set(copy.id, copy);
+  await persistIfEnabled();
+  return copy;
+}
+
+export async function scheduleEdition(
+  id: string,
+  scheduledAt: string
+): Promise<NewsletterEdition | undefined> {
+  return updateEdition(id, {
+    status: "scheduled",
+    scheduledAt,
+  });
+}
+
+export async function cancelSchedule(id: string): Promise<NewsletterEdition | undefined> {
+  return updateEdition(id, {
+    status: "draft",
+    scheduledAt: undefined,
+  });
+}
+
+export async function markEditionSent(
+  id: string
+): Promise<NewsletterEdition | undefined> {
+  return updateEdition(id, {
+    status: "sent",
+    sentAt: new Date().toISOString(),
+    publishedAt: new Date().toISOString(),
+  });
+}
+
+export function suggestedEditionDate(): string {
+  return nextMondayDateString();
+}
+
+export function isWebVisibleStatus(status: NewsletterCampaignStatus | string): boolean {
+  const normalized = normalizeNewsletterStatus(status);
+  return normalized === "published" || normalized === "sent";
 }
 
 /** Get an edition by ID */
@@ -127,10 +226,10 @@ export async function listEditions(): Promise<NewsletterEdition[]> {
   );
 }
 
-/** List only published editions */
+/** List only published (or sent) editions for the public site */
 export async function listPublishedEditions(): Promise<NewsletterEdition[]> {
   const all = await listEditions();
-  return all.filter((e) => e.status === "published");
+  return all.filter((e) => isWebVisibleStatus(e.status));
 }
 
 /** Get the latest published edition */
@@ -159,11 +258,12 @@ export async function updateEdition(
   return updated;
 }
 
-/** Publish an edition */
+/** Publish an edition to the public web archive (does not email the list). */
 export async function publishEdition(id: string): Promise<NewsletterEdition | undefined> {
   return updateEdition(id, {
     status: "published",
     publishedAt: new Date().toISOString(),
+    scheduledAt: undefined,
   });
 }
 
@@ -172,6 +272,7 @@ export async function unpublishEdition(id: string): Promise<NewsletterEdition | 
   return updateEdition(id, {
     status: "draft",
     publishedAt: undefined,
+    scheduledAt: undefined,
   });
 }
 

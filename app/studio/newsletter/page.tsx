@@ -1,12 +1,20 @@
 import Link from "next/link";
 
-import { listEditions, seedSampleEdition } from "@/lib/newsletter/store";
-import { createEditionAction, seedEditionAction } from "./actions";
+import {
+  listEditions,
+  suggestedEditionDate,
+} from "@/lib/newsletter/store";
+import {
+  createEditionAction,
+  duplicateEditionAction,
+  seedMockEditionsAction,
+} from "./actions";
 
 export const dynamic = "force-dynamic";
 
 export default async function NewsletterStudioPage() {
   const editions = await listEditions();
+  const defaultDate = suggestedEditionDate();
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8">
@@ -17,11 +25,10 @@ export default async function NewsletterStudioPage() {
           </p>
           <h1 className="mt-1 text-2xl font-semibold text-white">Weekly Newsletter Builder</h1>
           <p className="mt-2 max-w-xl text-sm text-zinc-400">
-            Create and manage your weekly Financial Freedom newsletter. Published editions appear at{" "}
-            <Link href="/newsletter" className="text-[#3ecf8e] hover:underline">
-              /newsletter
-            </Link>
-            . Editions are saved automatically. Click Publish when a week is ready for the public site.
+            Assemble editions with live preview, article/calculator/course pickers, and schedule or
+            send via Resend.{" "}
+            <strong className="font-medium text-zinc-300">Publish</strong> = website only.{" "}
+            <strong className="font-medium text-zinc-300">Send</strong> = email subscribers.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -41,20 +48,20 @@ export default async function NewsletterStudioPage() {
         </div>
       </div>
 
-      {/* Create new edition */}
       <form
         action={createEditionAction}
         className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5"
       >
         <p className="text-sm font-medium text-white">Create a new newsletter edition</p>
         <p className="mt-1 text-xs text-zinc-500">
-          Select a date for the newsletter (typically a Monday).
+          Pick the edition date (typically a Monday). Defaults to next Monday.
         </p>
-        <div className="mt-4 flex gap-3">
+        <div className="mt-4 flex flex-wrap gap-3">
           <input
             name="date"
             type="date"
             required
+            defaultValue={defaultDate}
             className="rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white"
           />
           <button
@@ -66,19 +73,15 @@ export default async function NewsletterStudioPage() {
         </div>
       </form>
 
-      {/* Seed sample data (dev only) */}
-      {editions.length === 0 && (
-        <form action={seedEditionAction}>
-          <button
-            type="submit"
-            className="rounded-md border border-amber-500/30 bg-amber-950/40 px-4 py-2 text-sm text-amber-200 hover:bg-amber-950/60"
-          >
-            Seed sample newsletter for development
-          </button>
-        </form>
-      )}
+      <form action={seedMockEditionsAction}>
+        <button
+          type="submit"
+          className="rounded-md border border-amber-500/30 bg-amber-950/40 px-4 py-2 text-sm text-amber-200 hover:bg-amber-950/60"
+        >
+          Seed 3 mock newsletters (2 published + 1 draft)
+        </button>
+      </form>
 
-      {/* Edition list */}
       <div>
         <h2 className="mb-4 text-lg font-semibold text-white">Newsletter Editions</h2>
         {editions.length === 0 ? (
@@ -90,7 +93,7 @@ export default async function NewsletterStudioPage() {
             {editions.map((edition) => (
               <li
                 key={edition.id}
-                className="flex items-center gap-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-4"
+                className="flex flex-wrap items-center gap-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-4"
               >
                 <Link
                   href={`/studio/newsletter/${edition.date}`}
@@ -107,20 +110,25 @@ export default async function NewsletterStudioPage() {
                   <p className="mt-1 text-xs text-zinc-500">
                     {edition.articleOfTheWeek.title || "No article set"} ·{" "}
                     {edition.sectionContent.length} sections with content
+                    {edition.scheduledAt
+                      ? ` · scheduled ${new Date(edition.scheduledAt).toLocaleString("en-ZA")}`
+                      : ""}
                   </p>
                 </Link>
                 <span
                   className={`rounded border px-2 py-0.5 text-[10px] uppercase tracking-wide ${
-                    edition.status === "published"
+                    edition.status === "published" || edition.status === "sent"
                       ? "border-green-500/30 text-green-400"
-                      : "border-[#2a2a2a] text-zinc-400"
+                      : edition.status === "scheduled"
+                        ? "border-sky-500/30 text-sky-300"
+                        : "border-[#2a2a2a] text-zinc-400"
                   }`}
                 >
                   {edition.status}
                 </span>
-                <div className="flex shrink-0 gap-2">
+                <div className="flex shrink-0 flex-wrap gap-2">
                   <Link
-                    href={`/newsletter/${edition.date}`}
+                    href={`/studio/newsletter/${edition.date}/preview`}
                     target="_blank"
                     className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 hover:text-white"
                   >
@@ -132,6 +140,16 @@ export default async function NewsletterStudioPage() {
                   >
                     Edit
                   </Link>
+                  <form action={duplicateEditionAction}>
+                    <input type="hidden" name="sourceId" value={edition.id} />
+                    <input type="hidden" name="date" value={defaultDate} />
+                    <button
+                      type="submit"
+                      className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 hover:text-white"
+                    >
+                      Duplicate → next Mon
+                    </button>
+                  </form>
                 </div>
               </li>
             ))}

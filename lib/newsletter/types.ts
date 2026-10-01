@@ -1,6 +1,6 @@
 /**
  * AS Brokers Weekly Newsletter Types
- * Based on Albert's newsletter builder specification
+ * Based on Albert's newsletter builder specification + Studio upgrade blueprint
  */
 
 export type NewsletterSection =
@@ -19,6 +19,14 @@ export type NewsletterSection =
   | "vitality-wellness";
 
 export type ContentType = "article" | "video" | "course" | "calculator" | "webinar" | "checklist";
+
+/** Campaign lifecycle (publish = web; sent = email broadcast). */
+export type NewsletterCampaignStatus =
+  | "draft"
+  | "scheduled"
+  | "published"
+  | "sent"
+  | "archived";
 
 /** Optional content link within a section */
 export interface SectionContent {
@@ -74,8 +82,20 @@ export interface CoursesSection {
 /** Complete newsletter edition */
 export interface NewsletterEdition {
   id: string;
-  date: string; // YYYY-MM-DD format
-  status: "draft" | "published";
+  /** Logical edition date (YYYY-MM-DD) — also used in public URL */
+  date: string;
+  status: NewsletterCampaignStatus;
+  /** Email subject (optional; falls back to article title) */
+  subjectLine?: string;
+  /** Inbox preview text */
+  previewText?: string;
+  /** When to send email (ISO), SAST intended */
+  scheduledAt?: string;
+  /** When email broadcast completed */
+  sentAt?: string;
+  /** Last test-send recipient */
+  lastTestSentTo?: string;
+  lastTestSentAt?: string;
   articleOfTheWeek: ArticleOfTheWeek;
   watchChallenge: WatchChallenge;
   courses: CoursesSection;
@@ -88,4 +108,20 @@ export interface NewsletterEdition {
 /** Newsletter edition for display (with resolved evergreen content) */
 export interface ResolvedNewsletterEdition extends NewsletterEdition {
   evergreenSections: EvergreenSection[];
+}
+
+/** Normalize legacy editions that only had draft|published */
+export function normalizeNewsletterStatus(
+  status: string | undefined
+): NewsletterCampaignStatus {
+  if (
+    status === "draft" ||
+    status === "scheduled" ||
+    status === "published" ||
+    status === "sent" ||
+    status === "archived"
+  ) {
+    return status;
+  }
+  return "draft";
 }

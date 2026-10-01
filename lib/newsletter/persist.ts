@@ -24,15 +24,44 @@ export function newsletterStudioSnapshotFilePath(): string {
   return path.join(process.cwd(), "data", "newsletter-studio-snapshot.json");
 }
 
+function normalizeEdition(edition: NewsletterEdition): NewsletterEdition {
+  const status =
+    edition.status === "draft" ||
+    edition.status === "scheduled" ||
+    edition.status === "published" ||
+    edition.status === "sent" ||
+    edition.status === "archived"
+      ? edition.status
+      : "draft";
+  return {
+    ...edition,
+    status,
+    subjectLine: edition.subjectLine ?? "",
+    previewText: edition.previewText ?? "",
+    articleOfTheWeek: edition.articleOfTheWeek ?? {
+      title: "",
+      intro: "",
+      whyItMatters: "",
+      articleHref: "",
+    },
+    watchChallenge: edition.watchChallenge ?? {
+      challengeHref: "/financial-freedom-community",
+      vitalityHref: "/contact?topic=vitality",
+    },
+    courses: edition.courses ?? { availableCourses: [] },
+    sectionContent: Array.isArray(edition.sectionContent) ? edition.sectionContent : [],
+  };
+}
+
 export function migrateNewsletterSnapshot(
   payload: Partial<NewsletterStudioSnapshot> | NewsletterEdition[]
 ): NewsletterStudioSnapshot {
   if (Array.isArray(payload)) {
-    return { version: 1, editions: payload };
+    return { version: 1, editions: payload.map(normalizeEdition) };
   }
   return {
     version: 1,
-    editions: Array.isArray(payload.editions) ? payload.editions : [],
+    editions: (Array.isArray(payload.editions) ? payload.editions : []).map(normalizeEdition),
   };
 }
 

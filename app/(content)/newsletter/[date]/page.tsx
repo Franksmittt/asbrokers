@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { getResolvedEditionByDate, listPublishedEditions } from "@/lib/newsletter/store";
+import {
+  getResolvedEditionByDate,
+  isWebVisibleStatus,
+  listPublishedEditions,
+} from "@/lib/newsletter/store";
 import { NewsletterView } from "@/components/newsletter/NewsletterView";
 
 interface PageProps {
@@ -49,8 +53,8 @@ export default async function NewsletterDatePage({ params }: PageProps) {
     notFound();
   }
 
-  // Only show published editions publicly
-  if (edition.status !== "published") {
+  // Only show published/sent editions publicly
+  if (!isWebVisibleStatus(edition.status)) {
     notFound();
   }
 

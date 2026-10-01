@@ -4,25 +4,44 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
+  cancelSchedule,
   createEdition,
-  updateEdition,
-  publishEdition,
-  unpublishEdition,
   deleteEdition,
-  seedSampleEdition,
+  duplicateEdition,
+  getEdition,
   getEditionByDate,
+  publishEdition,
+  scheduleEdition,
+  seedSampleEdition,
+  suggestedEditionDate,
+  unpublishEdition,
+  updateEdition,
 } from "@/lib/newsletter/store";
+import { sendNewsletterTestEmail, sendNewsletterToSubscribers } from "@/lib/newsletter/send";
 import type {
   ArticleOfTheWeek,
-  WatchChallenge,
   CoursesSection,
-  SectionDynamicContent,
-  NewsletterSection,
   ContentType,
+  NewsletterEdition,
+  NewsletterSection,
+  SectionDynamicContent,
+  WatchChallenge,
 } from "@/lib/newsletter/types";
 
+function revalidateNewsletterPaths(date?: string) {
+  revalidatePath("/studio/newsletter");
+  revalidatePath("/newsletter");
+  revalidatePath("/newsletter/archive");
+  if (date) {
+    revalidatePath(`/studio/newsletter/${date}`);
+    revalidatePath(`/newsletter/${date}`);
+    revalidatePath(`/newsletter/${date}/email`);
+    revalidatePath(`/studio/newsletter/${date}/preview`);
+  }
+}
+
 export async function createEditionAction(formData: FormData) {
-  const date = formData.get("date") as string;
+  const date = (formData.get("date") as string) || suggestedEditionDate();
   if (!date) return;
 
   const existing = await getEditionByDate(date);
@@ -31,13 +50,61 @@ export async function createEditionAction(formData: FormData) {
   }
 
   await createEdition(date);
-  revalidatePath("/studio/newsletter");
+  revalidateNewsletterPaths(date);
   redirect(`/studio/newsletter/${date}`);
+}
+
+export async function duplicateEditionAction(formData: FormData) {
+  const sourceId = formData.get("sourceId") as string;
+  const date = (formData.get("date") as string) || suggestedEditionDate();
+  if (!sourceId || !date) return;
+
+  try {
+    const copy = await duplicateEdition(sourceId, date);
+    if (!copy) return;
+    revalidateNewsletterPaths(date);
+    redirect(`/studio/newsletter/${date}`);
+  } catch (error) {
+    console.error("[newsletter] duplicate failed:", error);
+  }
 }
 
 export async function seedEditionAction() {
   await seedSampleEdition();
   revalidatePath("/studio/newsletter");
+}
+
+export async function seedMockEditionsAction() {
+  const { seedMockEditions } = await import("@/lib/newsletter/seed-mocks");
+  await seedMockEditions();
+  revalidatePath("/studio/newsletter");
+  revalidatePath("/newsletter");
+}
+
+export async function saveEditionDraftAction(
+  edition: NewsletterEdition
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  try {
+    const existing = await getEdition(edition.id);
+    if (!existing) return { ok: false, error: "Edition not found" };
+
+    await updateEdition(edition.id, {
+      subjectLine: edition.subjectLine,
+      previewText: edition.previewText,
+      articleOfTheWeek: edition.articleOfTheWeek,
+      watchChallenge: edition.watchChallenge,
+      courses: edition.courses,
+      sectionContent: edition.sectionContent,
+      // Keep lifecycle fields from server unless explicitly changed elsewhere
+    });
+    revalidateNewsletterPaths(existing.date);
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : "Failed to save draft",
+    };
+  }
 }
 
 export async function updateArticleOfTheWeekAction(formData: FormData) {
@@ -72,9 +139,8 @@ export async function updateArticleOfTheWeekAction(formData: FormData) {
         : undefined,
   };
 
-  await updateEdition(editionId, { articleOfTheWeek });
-  revalidatePath("/studio/newsletter");
-  revalidatePath("/newsletter");
+  const updated = await updateEdition(editionId, { articleOfTheWeek });
+  revalidateNewsletterPaths(updated?.date);
 }
 
 export async function updateWatchChallengeAction(formData: FormData) {
@@ -89,9 +155,8 @@ export async function updateWatchChallengeAction(formData: FormData) {
     vitalityHref,
   };
 
-  await updateEdition(editionId, { watchChallenge });
-  revalidatePath("/studio/newsletter");
-  revalidatePath("/newsletter");
+  const updated = await updateEdition(editionId, { watchChallenge });
+  revalidateNewsletterPaths(updated?.date);
 }
 
 export async function updateCoursesAction(formData: FormData) {
@@ -101,9 +166,8 @@ export async function updateCoursesAction(formData: FormData) {
   try {
     const availableCourses = JSON.parse(coursesJson);
     const courses: CoursesSection = { availableCourses };
-    await updateEdition(editionId, { courses });
-    revalidatePath("/studio/newsletter");
-    revalidatePath("/newsletter");
+    const updated = await updateEdition(editionId, { courses });
+    revalidateNewsletterPaths(updated?.date);
   } catch (e) {
     console.error("Failed to parse courses JSON:", e);
   }
@@ -115,9 +179,8 @@ export async function updateSectionContentAction(formData: FormData) {
 
   try {
     const sectionContent: SectionDynamicContent[] = JSON.parse(sectionContentJson);
-    await updateEdition(editionId, { sectionContent });
-    revalidatePath("/studio/newsletter");
-    revalidatePath("/newsletter");
+    const updated = await updateEdition(editionId, { sectionContent });
+    revalidateNewsletterPaths(updated?.date);
   } catch (e) {
     console.error("Failed to parse section content JSON:", e);
   }
@@ -149,9 +212,8 @@ export async function addSectionContentAction(formData: FormData) {
       });
     }
 
-    await updateEdition(editionId, { sectionContent: existingSectionContent });
-    revalidatePath("/studio/newsletter");
-    revalidatePath("/newsletter");
+    const updated = await updateEdition(editionId, { sectionContent: existingSectionContent });
+    revalidateNewsletterPaths(updated?.date);
   } catch (e) {
     console.error("Failed to add section content:", e);
   }
@@ -177,9 +239,8 @@ export async function removeSectionContentAction(formData: FormData) {
       }
     }
 
-    await updateEdition(editionId, { sectionContent: existingSectionContent });
-    revalidatePath("/studio/newsletter");
-    revalidatePath("/newsletter");
+    const updated = await updateEdition(editionId, { sectionContent: existingSectionContent });
+    revalidateNewsletterPaths(updated?.date);
   } catch (e) {
     console.error("Failed to remove section content:", e);
   }
@@ -187,16 +248,14 @@ export async function removeSectionContentAction(formData: FormData) {
 
 export async function publishEditionAction(formData: FormData) {
   const editionId = formData.get("editionId") as string;
-  await publishEdition(editionId);
-  revalidatePath("/studio/newsletter");
-  revalidatePath("/newsletter");
+  const updated = await publishEdition(editionId);
+  revalidateNewsletterPaths(updated?.date);
 }
 
 export async function unpublishEditionAction(formData: FormData) {
   const editionId = formData.get("editionId") as string;
-  await unpublishEdition(editionId);
-  revalidatePath("/studio/newsletter");
-  revalidatePath("/newsletter");
+  const updated = await unpublishEdition(editionId);
+  revalidateNewsletterPaths(updated?.date);
 }
 
 export async function deleteEditionAction(formData: FormData) {
@@ -204,4 +263,49 @@ export async function deleteEditionAction(formData: FormData) {
   await deleteEdition(editionId);
   revalidatePath("/studio/newsletter");
   redirect("/studio/newsletter");
+}
+
+export async function scheduleEditionAction(
+  editionId: string,
+  scheduledAt: string
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (!scheduledAt || Number.isNaN(new Date(scheduledAt).getTime())) {
+    return { ok: false, error: "Pick a valid schedule date/time" };
+  }
+  const updated = await scheduleEdition(editionId, scheduledAt);
+  if (!updated) return { ok: false, error: "Edition not found" };
+  revalidateNewsletterPaths(updated.date);
+  return { ok: true };
+}
+
+export async function cancelScheduleAction(
+  editionId: string
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const updated = await cancelSchedule(editionId);
+  if (!updated) return { ok: false, error: "Edition not found" };
+  revalidateNewsletterPaths(updated.date);
+  return { ok: true };
+}
+
+export async function sendNewsletterTestAction(
+  editionId: string,
+  to: string
+): Promise<{ ok: true; id?: string } | { ok: false; error: string }> {
+  const result = await sendNewsletterTestEmail(editionId, to);
+  const edition = await getEdition(editionId);
+  revalidateNewsletterPaths(edition?.date);
+  return result;
+}
+
+export async function sendNewsletterNowAction(
+  editionId: string
+): Promise<
+  | { ok: true; sent: number; failed: number }
+  | { ok: false; error: string }
+> {
+  const result = await sendNewsletterToSubscribers(editionId);
+  const edition = await getEdition(editionId);
+  revalidateNewsletterPaths(edition?.date);
+  if (!result.ok) return result;
+  return { ok: true, sent: result.sent, failed: result.failed };
 }

@@ -135,6 +135,7 @@ export function sanitizeInsightBody(html: string): string {
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
       "*": ["class", "style", "id"],
+      section: ["class", "style", "id", "data-asb-insight"],
       img: ["src", "srcset", "alt", "title", "width", "height", "loading", "class"],
       table: ["class"],
       th: ["colspan", "rowspan", "class"],
@@ -181,7 +182,6 @@ export function sanitizeInsightBody(html: string): string {
     allowedSchemes: ["http", "https", "mailto", "tel"],
     allowProtocolRelative: false,
     allowVulnerableTags: true,
-    allowDataAttributes: true,
     allowedIframeHostnames: siteIframeHostnames(),
     // Calculator embeds use same-origin paths like /embed/calculators/future-value.
     allowIframeRelativeUrls: true,

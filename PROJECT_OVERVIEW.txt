@@ -2,6 +2,11 @@
   AS BROKERS WEBSITE - COMPLETE PROJECT OVERVIEW
 ================================================================================
 
+STATUS (Oct 2026): This long-form overview is HISTORICAL in places (Sanity CMS,
+old home shell, notebook UI). Prefer live code + BLOG_STUDIO_GUIDE.txt,
+docs/TASK12-STUDIO-ONLY-INSIGHTS.md, docs/TASK13-SANITY-DEAD-CODE.md, and
+docs/CRM_ROLLS_ROYCE.md for current architecture.
+
 Last updated: June 2026 (Production CRM + Gemini AI on www.asbrokers.co.za; ~8/10 maturity)
 
 Albert/staff CRM guide: ALBERT_CRM_GUIDE.txt | Roadmap: CRM_10_ROADMAP.txt

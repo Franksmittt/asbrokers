@@ -24,7 +24,6 @@ import {
   extractStudioBodyMetadata,
   withEmbeddedStudioBodyMetadata,
 } from "@/lib/client-studio/studio-body-metadata";
-import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export type SerializableStudioPost = {
@@ -49,12 +48,10 @@ export type SerializableStudioPost = {
 
 type Props = {
   initialPosts: SerializableStudioPost[];
-  initialNotebookNotes: SerializableNotebookNote[];
   databaseConfigured: boolean;
   databaseLoadError: string | null;
   imageUploadConfigured: boolean;
   studioConfigured: boolean;
-  allowBulkDelete: boolean;
 };
 
 const STUDIO_SELECT_CLASS =
@@ -607,9 +604,6 @@ export function BlogStudioClient(props: Props) {
     imageUploadConfigured,
     studioConfigured,
   } = props;
-  void props.initialNotebookNotes;
-  void props.allowBulkDelete;
-
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const copyResetTimer = useRef<number | null>(null);

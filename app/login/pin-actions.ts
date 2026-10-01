@@ -6,7 +6,6 @@ import {
   setCrmPinSession,
   verifyCrmPinInput,
 } from "@/lib/crm/pin-session";
-import { resolveCrmIdentity } from "@/lib/crm/resolve-session";
 
 export type CrmPinState = {
   success: boolean;
@@ -39,7 +38,3 @@ export async function signInWithCrmPin(
   redirect(allowed ? safeNext : "/crm");
 }
 
-export async function assertCrmPinOrSupabaseSession(): Promise<boolean> {
-  const identity = await resolveCrmIdentity();
-  return identity !== null;
-}

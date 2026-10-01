@@ -99,7 +99,7 @@ export type ClientInsightPost = typeof clientInsightPosts.$inferSelect;
 export type NewClientInsightPost = typeof clientInsightPosts.$inferInsert;
 
 /**
- * Owner notes in Insights studio (personal scratchpad). Not public; studio session only.
+ * Legacy studio notebook table (UI retired). Kept so existing DBs stay compatible with drizzle push.
  */
 export const studioNotebookNotes = pgTable(
   "studio_notebook_notes",

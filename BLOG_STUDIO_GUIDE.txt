@@ -14,9 +14,8 @@ financial education articles on the public website. It lives at:
 
   /studio/blog
 
-It is NOT Sanity CMS. Sanity code still exists in the repository as legacy
-(/studio/[[...tool]]), but the active, owner-operated workflow for Insights
-articles is Blog Studio only.
+It is NOT Sanity CMS. Sanity was fully removed; Insights are Studio-only
+(see docs/TASK12-STUDIO-ONLY-INSIGHTS.md and docs/TASK13-SANITY-DEAD-CODE.md).
 
 THE IDEA BEHIND IT
 ------------------
@@ -32,12 +31,11 @@ content, then uses Blog Studio to:
   5. Publish to the live site at /insights and /insights/[slug]
 
 The studio is designed for a non-developer owner:
-  - Password-gated (not Supabase Auth)
+  - Access via Studio password OR CRM staff PIN/session (Command Workspace bridge)
   - Visual publish-readiness checks (percentage + "Next fix")
   - Built-in brand guide and AI prompt templates
-  - Auto-fix for common HTML issues
+  - Markdown or warm HTML paste; dark night-mode markup blocked at publish
   - Work-in-progress saved in browser localStorage (7-day TTL)
-  - Private notebook scratchpad for drafts and notes
 
 PUBLIC OUTPUT
 -------------
@@ -64,7 +62,7 @@ STUDIO ROUTES (all noindex — not for search engines)
   Password login form. Shows "not configured" if CLIENT_STUDIO_PASSWORD unset.
 
 /studio/blog/workspace
-  Main editor — BlogStudioClient component. Loads all posts + notebook notes.
+  Main editor — BlogStudioClient component. Loads studio posts.
 
 /studio/blog/workspace/tutorial
   In-app owner tutorial (5-step workflow).
@@ -75,15 +73,16 @@ STUDIO ROUTES (all noindex — not for search engines)
 /studio/blog/workspace#copy-me
   Jump target — Copy brand guide / AI prompt presets.
 
+/workspace
+  Command Workspace home (Today / Serve / Teach / Publish / Grow / System).
+
 AUTH MODEL
 ----------
-  - Separate from CRM/portal Supabase Auth
-  - Shared password: CLIENT_STUDIO_PASSWORD (e.g. demo-studio-meeting locally)
+  - Studio password cookie OR CRM staff identity (PIN / Supabase) unlocks Studio
+  - Shared password: CLIENT_STUDIO_PASSWORD (optional if CRM session is present)
   - Session cookie: client-studio-session (httpOnly, 14 days, sameSite=lax)
-  - Session signed with CLIENT_STUDIO_SESSION_SECRET (16+ chars) or HMAC derived
-    from password if secret not set
-  - Password verified via SHA-256 hash + timing-safe compare (not plain text)
-  - Workspace layout redirects to /login if no valid session
+  - Gate helper: lib/client-studio/staff-access.ts (canAccessStaffStudio)
+  - Workspace layout redirects to studio login if neither session is valid
 
 KEY FILES
 ---------
@@ -93,8 +92,10 @@ KEY FILES
   app/studio/blog/workspace/page.tsx
   app/studio/blog/workspace/layout.tsx          — auth gate
   app/studio/blog/actions.ts                    — all server actions
-  app/studio/blog/notebook-actions.ts           — scratchpad CRUD
   lib/client-studio/session.ts                  — cookie + HMAC session
+  lib/client-studio/staff-access.ts             — CRM + Studio access bridge
+  lib/client-studio/insight-quality.ts          — dark-ban + warm rewrite
+  app/workspace/page.tsx                        — Command Workspace home
 
 ================================================================================
 3. THE 5-STEP OWNER WORKFLOW
@@ -309,9 +310,7 @@ PUBLIC RENDERING
 
 URL pattern: insightUrlPath(slug, locale) → /insights/{slug} or ?locale=af
 
-NOTE: lib/insights/feed.ts still attempts to merge legacy Sanity articles if
-NEXT_PUBLIC_SANITY_PROJECT_ID is set. In production AS Brokers uses studio
-posts only; Sanity merge is inactive when no project ID is configured.
+NOTE: lib/insights/feed.ts is Studio-only. Sanity merge was removed.
 
 ================================================================================
 9. ENVIRONMENT VARIABLES
@@ -357,25 +356,26 @@ NOT USED FOR BLOG STUDIO (legacy in repo only)
 ================================================================================
 
 UI
-  components/client-studio/BlogStudioClient.tsx      — main ~2000-line workspace
+  components/client-studio/BlogStudioClient.tsx      — main workspace editor
   components/client-studio/ClientInsightArticle.tsx    — public article page
   components/client-studio/ExecutableArticleHtml.tsx   — HTML + script execution
-  components/client-studio/StudioNotebookModal.tsx     — owner scratchpad
   components/insights/InsightsFeedFilter.tsx           — /insights filters
 
 LIB
   lib/client-studio/session.ts
+  lib/client-studio/staff-access.ts
   lib/client-studio/sanitize-body.ts
+  lib/client-studio/insight-quality.ts
+  lib/client-studio/markdown-body.ts
   lib/client-studio/image-slots.ts
   lib/client-studio/publish-slots.ts
   lib/client-studio/studio-body-metadata.ts
   lib/client-studio/calculator-code-pack.ts
-  lib/client-studio/brand-guide-content.ts
   lib/insights/feed.ts
   lib/insights/insightCategories.ts
 
 SCHEMA
-  lib/db/schema.ts — client_insight_posts + studio_notebook_notes definitions
+  lib/db/schema.ts — client_insight_posts (studio_notebook_notes table retained, UI retired)
 
 DOCS IN REPO
   docs/STUDIO_DATABASE.md
@@ -385,8 +385,8 @@ DOCS IN REPO
 12. SECURITY AND CRAWL POLICY
 ================================================================================
 
-  /studio/* is noindex, nofollow (middleware + layout metadata)
-  Studio session is password-only — not tied to CRM roles
+  /studio/* and /workspace are noindex, nofollow (middleware + layout metadata)
+  Studio access: password cookie and/or CRM staff identity
   Media proxy validates path segments before streaming from bucket
   Published HTML is sanitized before storage
   Service role key is server-only — never exposed to browser
@@ -414,12 +414,11 @@ AI output rules (summary):
 
   - DATABASE_URL must be correct for reliable direct Postgres saves; REST
     fallback works but is secondary
-  - Legacy Sanity code in repo is not the active CMS — do not configure Sanity
-    env vars unless deliberately re-enabling it
-  - Homepage insights teaser uses static mock cards, not live studio fetch
+  - Sanity CMS has been removed from the repo (Studio-only Insights)
+  - Homepage insights teaser uses static marketing cards, not live studio fetch
   - Image slot removal does not delete storage objects
-  - Bulk delete requires explicit env flag + confirmation phrase
   - Afrikaans locale supported in schema but primary workflow is English
+  - Portal still uses lib/mock-portal.ts until Phase 1 CRM backend swap completes
 
 ================================================================================
 END OF BLOG STUDIO GUIDE

@@ -1,6 +1,5 @@
 import { BlogStudioClient, type SerializableStudioPost } from "@/components/client-studio/BlogStudioClient";
 import { normalizeInsightCategories } from "@/lib/insights/insightCategories";
-import { fetchNotebookNotesInitial } from "@/lib/client-studio/notebook-server";
 import { listAllStudioPosts } from "@/lib/client-studio/posts";
 import { isStudioPostsStorageConfigured } from "@/lib/client-studio/studio-storage";
 import { isClientStudioConfigured } from "@/lib/client-studio/session";
@@ -43,18 +42,14 @@ export default async function StudioWorkspacePage() {
   const studioPosts = databaseConfigured ? await listAllStudioPosts() : { rows: [], loadError: null };
   const initialPosts = serialize(studioPosts.rows);
   const databaseLoadError = studioPosts.loadError;
-  const initialNotebookNotes = databaseConfigured ? await fetchNotebookNotesInitial() : [];
-  const allowBulkDelete = (process.env.CLIENT_STUDIO_ENABLE_BULK_DELETE ?? "").trim().toLowerCase() === "true";
 
   return (
     <BlogStudioClient
       initialPosts={initialPosts}
-      initialNotebookNotes={initialNotebookNotes}
       databaseConfigured={databaseConfigured}
       databaseLoadError={databaseLoadError}
       imageUploadConfigured={imageUploadConfigured}
       studioConfigured={studioConfigured}
-      allowBulkDelete={allowBulkDelete}
     />
   );
 }

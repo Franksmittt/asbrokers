@@ -13,7 +13,11 @@ export default async function LoginPage({
 
   const identity = await resolveCrmIdentity();
   if (identity) {
-    redirect(safeNext.startsWith("/crm") ? safeNext : "/crm");
+    const allowed =
+      safeNext.startsWith("/crm") ||
+      safeNext.startsWith("/workspace") ||
+      safeNext.startsWith("/studio");
+    redirect(allowed ? safeNext : "/crm");
   }
 
   return (

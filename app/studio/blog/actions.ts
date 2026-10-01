@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { createHash, randomUUID, timingSafeEqual } from "crypto";
@@ -16,11 +15,10 @@ import { sanitizeInsightBody } from "@/lib/client-studio/sanitize-body";
 import { countImageUploadSlots } from "@/lib/client-studio/image-slots";
 import {
   clearClientStudioSession,
-  getClientStudioSession,
   isClientStudioConfigured,
   setClientStudioSessionToken,
 } from "@/lib/client-studio/session";
-import { requireStaffStudioAccess } from "@/lib/client-studio/staff-access";
+import { requireStaffStudioAccess as requireStudioSession } from "@/lib/client-studio/staff-access";
 import {
   insertStudioPostForActions,
   loadStudioPostForActions,
@@ -37,7 +35,6 @@ import {
   STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT,
   STUDIO_BLOG_IMAGE_MIME_TYPES,
 } from "@/lib/client-studio/studio-storage";
-import { clientInsightPosts, getDb } from "@/lib/db";
 import { collectErrorText, missingClientInsightOptionalColumns } from "@/lib/db/pg-error-chain";
 import { getSupabaseService } from "@/lib/supabase/server";
 import {
@@ -98,10 +95,6 @@ function verifyStudioPassword(plain: string): boolean {
   const a = createHash("sha256").update(normalized, "utf8").digest();
   const b = createHash("sha256").update(expected, "utf8").digest();
   return timingSafeEqual(a, b);
-}
-
-async function requireStudioSession() {
-  await requireStaffStudioAccess();
 }
 
 function isAllowedHeroImageUrl(value: string): boolean {
@@ -515,11 +508,6 @@ export async function deleteStudioPost(id: string): Promise<{ ok: true } | { ok:
   return { ok: true };
 }
 
-/** @deprecated Prefer deleteStudioPost, same behaviour (drafts and live posts). */
-export async function deleteStudioDraft(id: string): Promise<{ ok: true } | { ok: false; error: string }> {
-  return deleteStudioPost(id);
-}
-
 export async function uploadStudioImage(
   formData: FormData
 ): Promise<{ ok: true; url: string } | { ok: false; error: string }> {
@@ -633,47 +621,6 @@ export async function getStudioUploadDiagnostics(): Promise<{
     summary: "Upload diagnostics passed. Client-side file or network issues are more likely now.",
     checks,
   };
-}
-
-export async function sanitizeStudioHtmlPreview(
-  rawHtml: string
-): Promise<{ ok: true; html: string } | { ok: false; error: string }> {
-  try {
-    await requireStudioSession();
-  } catch {
-    return { ok: false, error: "Session expired  -  sign in again." };
-  }
-
-  return { ok: true, html: sanitizeInsightBody(rawHtml) };
-}
-
-export async function deleteAllStudioPosts(
-  confirmationText: string
-): Promise<{ ok: true; deleted: number } | { ok: false; error: string }> {
-  try {
-    await requireStudioSession();
-  } catch {
-    return { ok: false, error: "Session expired  -  sign in again." };
-  }
-  if ((process.env.CLIENT_STUDIO_ENABLE_BULK_DELETE ?? "").trim().toLowerCase() !== "true") {
-    return { ok: false, error: "Bulk delete is disabled for safety." };
-  }
-  if (confirmationText.trim() !== "DELETE ALL") {
-    return { ok: false, error: 'Bulk delete cancelled. Type "DELETE ALL" exactly.' };
-  }
-
-  const db = getDb();
-  if (!db) return { ok: false, error: "Database is not connected." };
-
-  try {
-    const deleted = await db.delete(clientInsightPosts).returning({ id: clientInsightPosts.id });
-    revalidatePath("/");
-    revalidatePath("/insights");
-    revalidatePath("/studio/blog/workspace");
-    return { ok: true, deleted: deleted.length };
-  } catch {
-    return { ok: false, error: "Could not delete studio posts." };
-  }
 }
 
 /**

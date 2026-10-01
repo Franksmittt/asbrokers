@@ -1,8 +1,8 @@
 /**
- * Ad-click attribution capture. Middleware strips utm_ params, gclid, and
- * fbclid from URLs for SEO normalization; this module preserves them in a
- * first-party cookie before the strip so lead server actions can attach them
- * to CRM payloads.
+ * Ad-click + champion-link attribution capture. Middleware strips utm_ params,
+ * gclid, fbclid, and ref/broker from URLs for SEO normalization; this module
+ * preserves them in a first-party cookie before the strip so lead/course
+ * server actions can attach them to CRM + growth payloads.
  */
 
 export const ATTRIBUTION_COOKIE = "asb_attribution";
@@ -17,6 +17,11 @@ export type LeadAttribution = {
   utm_content?: string;
   gclid?: string;
   fbclid?: string;
+  /**
+   * Staff champion code from ?ref= or ?broker= (e.g. monique, johnny).
+   * Used for education Sourced credit — not FAIS product commission.
+   */
+  promoter_ref?: string;
   /** Landing pathname the click arrived on. */
   landing?: string;
   /** External referrer at capture time. */
@@ -43,7 +48,7 @@ function clean(value: string | null): string | undefined {
 
 /**
  * Extract attribution params from a request URL. Returns null when the URL
- * carries no ad/campaign identifiers (organic navigation).
+ * carries no ad/campaign/champion identifiers (organic navigation).
  */
 export function extractAttribution(
   url: URL,
@@ -71,6 +76,14 @@ export function extractAttribution(
     hasSignal = true;
   }
 
+  const promoter = clean(
+    url.searchParams.get("ref") ?? url.searchParams.get("broker")
+  );
+  if (promoter) {
+    attribution.promoter_ref = promoter.toLowerCase();
+    hasSignal = true;
+  }
+
   if (!hasSignal) return null;
 
   attribution.landing = url.pathname.slice(0, MAX_VALUE_LENGTH);
@@ -86,10 +99,28 @@ export function parseAttributionCookie(
 ): LeadAttribution | null {
   if (!value) return null;
   try {
-    const parsed = JSON.parse(value) as unknown;
+    const parsed: unknown = JSON.parse(value);
     if (!parsed || typeof parsed !== "object") return null;
     return parsed as LeadAttribution;
   } catch {
     return null;
   }
+}
+
+/**
+ * Merge a newly captured attribution into an existing cookie.
+ * Promoter ref is first-touch sticky; UTM/gclid refresh on new paid clicks.
+ */
+export function mergeAttribution(
+  existing: LeadAttribution | null | undefined,
+  incoming: LeadAttribution
+): LeadAttribution {
+  if (!existing) return incoming;
+  return {
+    ...existing,
+    ...incoming,
+    // Keep first champion who introduced them
+    promoter_ref: existing.promoter_ref || incoming.promoter_ref,
+    capturedAt: incoming.capturedAt || existing.capturedAt,
+  };
 }

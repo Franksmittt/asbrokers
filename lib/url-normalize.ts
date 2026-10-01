@@ -1,6 +1,7 @@
 /** Edge URL normalization, Phase 1. Skips /images/ and /fonts/ (case-sensitive paths). */
 
-const TRACKING_PARAM = /^(utm_|fbclid$|gclid$)/i;
+/** Strip ad + champion params after middleware cookies them. */
+const TRACKING_PARAM = /^(utm_|fbclid$|gclid$|ref$|broker$)/i;
 
 /** Repeated path segment 4+ times → faceted crawl trap. */
 const CRAWL_TRAP_PATH = /(\/[^/]+)\1{3,}/;

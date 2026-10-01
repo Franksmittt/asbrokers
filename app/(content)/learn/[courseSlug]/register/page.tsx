@@ -1,7 +1,13 @@
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 
-import { getCourseBySlug, ensureEnrollment, getStudentCourseState } from "@/lib/courses/store";
+import {
+  getCourseBySlug,
+  ensureEnrollment,
+  getStudentById,
+  getStudentCourseState,
+} from "@/lib/courses/store";
+import { notifyCourseRegistration } from "@/lib/courses/crm-bridge";
 import { firstAvailableLesson } from "@/lib/courses/progress";
 import {
   coursePath,
@@ -49,6 +55,14 @@ export default async function CourseRegisterPage({ params }: Props) {
   const prior = await getStudentCourseState(studentId, course.id);
   if (!prior) {
     const enrollment = await ensureEnrollment(studentId, course.id);
+    const student = await getStudentById(studentId);
+    if (student) {
+      await notifyCourseRegistration({
+        student,
+        course,
+        isNewEnrollment: true,
+      });
+    }
     if (enrollment.paymentStatus === "pending") {
       redirect(studentDashboardPath());
     }

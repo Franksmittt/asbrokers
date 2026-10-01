@@ -1,15 +1,19 @@
 import "server-only";
 
 import { insertCrmLead } from "@/lib/crm/insert-lead";
+import { getLeadAttribution } from "@/lib/crm/lead-attribution";
 import { notifyStaffLead } from "@/lib/email/notifications";
 import { formatStudentDisplayName } from "@/lib/courses/display-name";
 import { studioCoursePath, studioLessonPath } from "@/lib/courses/paths";
 import { addCourseStaffAlert } from "@/lib/courses/store";
 import type { CourseRecord, CourseStudent, LessonComment } from "@/lib/courses/types";
+import { getChampion } from "@/lib/growth/champions";
+import { resolveCourseServiceCategory } from "@/lib/growth/course-service";
+import { recordCourseEnrollmentAttribution } from "@/lib/growth/store";
 
 /**
- * Notify Albert in CRM + email when a student newly registers for a course.
- * Creates a CRM lead (status "new") so the existing CRM bell lights up.
+ * Notify CRM + email when a student newly registers for a course.
+ * Records growth attribution (champion / UTM) and routes by course service category.
  */
 export async function notifyCourseRegistration(input: {
   student: CourseStudent;
@@ -20,12 +24,27 @@ export async function notifyCourseRegistration(input: {
 
   const name = `${input.student.firstName} ${input.student.surname}`.trim();
   const href = studioCoursePath(input.course.id);
+  const attribution = await getLeadAttribution();
+  const serviceCategory = resolveCourseServiceCategory(input.course);
+  const champion = getChampion(attribution?.promoter_ref);
+
+  try {
+    await recordCourseEnrollmentAttribution({
+      student: input.student,
+      course: input.course,
+      isNewEnrollment: true,
+      promoterRef: attribution?.promoter_ref,
+      attribution,
+    });
+  } catch (error) {
+    console.error("[courses/crm-bridge] growth attribution failed:", error);
+  }
 
   try {
     await insertCrmLead({
       sourceFunnel: "course_registration",
-      serviceCategory: "retirement_everest",
-      leadScore: 55,
+      serviceCategory,
+      leadScore: champion ? 62 : 55,
       rawPayload: {
         name,
         email: input.student.email,
@@ -36,10 +55,16 @@ export async function notifyCourseRegistration(input: {
         courseTitle: input.course.title,
         studentId: input.student.id,
         marketingConsent: input.student.marketingConsent,
+        serviceCategory,
+        sourcedBy: champion?.key,
+        sourcedByName: champion?.name,
+        attribution,
         funnelData: {
           assessment: "Course registration",
           score: input.course.title,
-          keyRisk: "Learning interest",
+          keyRisk: champion
+            ? `Champion: ${champion.firstName}`
+            : "Learning interest",
           capital: ", ",
         },
       },
@@ -52,6 +77,8 @@ export async function notifyCourseRegistration(input: {
     Name: name,
     Email: input.student.email,
     Course: input.course.title,
+    Service: serviceCategory,
+    Champion: champion?.name ?? "Organic / unpaid",
     "Studio link": href,
     Marketing: input.student.marketingConsent ? "Yes" : "No",
   }).catch((error) => {

@@ -39,6 +39,7 @@ function TargetIcon(props: React.SVGProps<SVGSVGElement>) {
 const CRM_NAV = [
   { href: "/crm", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/crm/goals", label: "Goals", icon: TargetIcon, exact: false },
+  { href: "/crm/teacher", label: "Teacher OS", icon: Presentation, exact: false },
   { href: "/crm/kanban", label: "Kanban", icon: KanbanIcon, exact: false },
   { href: "/crm/leads", label: "Leads", icon: Users, exact: false },
   { href: "/crm/clients", label: "Clients", icon: Users, exact: false },

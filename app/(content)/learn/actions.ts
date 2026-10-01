@@ -27,6 +27,7 @@ import {
   submitLessonResponse,
   upsertStudent,
 } from "@/lib/courses/store";
+import { syncGrowthAfterLessonProgress } from "@/lib/growth/sync-progress";
 import { firstAvailableLesson, nextLesson } from "@/lib/courses/progress";
 import {
   getCourseStudentId,
@@ -136,10 +137,12 @@ export async function submitLessonAnswer(
 
   await submitLessonResponse(studentId, course.id, lesson.id, parsed.data.answer);
   await completeLesson(studentId, course.id, lesson.id);
+  await syncGrowthAfterLessonProgress({ studentId, course, kind: "lesson" });
   revalidatePath(lessonPath(course.slug, lesson.slug));
   revalidatePath(coursePath(course.slug));
   revalidatePath("/studio/courses/students");
   revalidatePath(studioLessonPath(course.id, lesson.id));
+  revalidatePath("/crm/teacher");
   redirect(`${lessonPath(course.slug, lesson.slug)}#classroom`);
 }
 
@@ -160,8 +163,10 @@ export async function continueLesson(
 
   await openLesson(studentId, course.id, lesson.id);
   await completeLesson(studentId, course.id, lesson.id);
+  await syncGrowthAfterLessonProgress({ studentId, course, kind: "lesson" });
   revalidatePath(lessonPath(course.slug, lesson.slug));
   revalidatePath("/studio/courses/students");
+  revalidatePath("/crm/teacher");
 
   if (lesson.isFinal) {
     redirect(`${lessonPath(course.slug, lesson.slug)}?completed=1`);
@@ -219,7 +224,9 @@ export async function trackOfferClick(formData: FormData): Promise<void> {
   const studentId = await getCourseStudentId();
   if (course && lesson && studentId) {
     await recordOfferClick(studentId, course.id, lesson.id);
+    await syncGrowthAfterLessonProgress({ studentId, course, kind: "offer" });
     revalidatePath("/studio/courses/students");
+    revalidatePath("/crm/teacher");
   }
   if (!newTab && url.startsWith("/")) {
     redirect(url);

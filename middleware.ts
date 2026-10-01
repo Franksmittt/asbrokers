@@ -30,6 +30,8 @@ import {
   ATTRIBUTION_COOKIE,
   ATTRIBUTION_MAX_AGE_SECONDS,
   extractAttribution,
+  mergeAttribution,
+  parseAttributionCookie,
 } from "@/lib/attribution";
 
 const GONE_CACHE = "public, max-age=86400";
@@ -113,9 +115,13 @@ export async function middleware(request: NextRequest) {
       request.headers.get("referer")
     );
     if (attribution) {
+      const existing = parseAttributionCookie(
+        request.cookies.get(ATTRIBUTION_COOKIE)?.value
+      );
+      const merged = mergeAttribution(existing, attribution);
       redirectResponse.cookies.set(
         ATTRIBUTION_COOKIE,
-        JSON.stringify(attribution),
+        JSON.stringify(merged),
         {
           path: "/",
           maxAge: ATTRIBUTION_MAX_AGE_SECONDS,

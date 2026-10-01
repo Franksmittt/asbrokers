@@ -40,6 +40,9 @@ data/course-studio-snapshot.json
 # Newsletter Studio local snapshot (Postgres is the production copy)
 data/newsletter-studio-snapshot.json
 
+# Education growth attribution ledger (local snapshot)
+data/growth-attribution-snapshot.json
+
 # Generated insights inventory (Task 9)
 docs/insights-source-inventory.generated.md
 docs/insights-source-inventory.generated.json

@@ -7,6 +7,11 @@ import { z } from "zod";
 
 import { createHash, randomUUID, timingSafeEqual } from "crypto";
 
+import {
+  insightQualityGateMessage,
+  prepareInsightHtmlForPublish,
+} from "@/lib/client-studio/insight-quality";
+import { normalizeStudioBodyInput } from "@/lib/client-studio/markdown-body";
 import { sanitizeInsightBody } from "@/lib/client-studio/sanitize-body";
 import { countImageUploadSlots } from "@/lib/client-studio/image-slots";
 import {
@@ -15,6 +20,7 @@ import {
   isClientStudioConfigured,
   setClientStudioSessionToken,
 } from "@/lib/client-studio/session";
+import { requireStaffStudioAccess } from "@/lib/client-studio/staff-access";
 import {
   insertStudioPostForActions,
   loadStudioPostForActions,
@@ -95,9 +101,7 @@ function verifyStudioPassword(plain: string): boolean {
 }
 
 async function requireStudioSession() {
-  if (!(await getClientStudioSession())) {
-    throw new Error("Not signed in.");
-  }
+  await requireStaffStudioAccess();
 }
 
 function isAllowedHeroImageUrl(value: string): boolean {
@@ -236,7 +240,10 @@ export async function saveStudioPost(
     return { ok: false, error: "Studio storage is not connected yet." };
   }
 
-  const parsed = postBaseSchema.safeParse(raw);
+  const parsed = postBaseSchema.safeParse({
+    ...raw,
+    bodyHtml: normalizeStudioBodyInput(raw.bodyHtml ?? ""),
+  });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Invalid input." };
   }
@@ -398,9 +405,18 @@ export async function publishStudioPost(
     };
   }
 
-  const sanitized = sanitizeInsightBody(row.bodyHtml);
+  const prepared = prepareInsightHtmlForPublish(row.bodyHtml);
+  const qualityError = insightQualityGateMessage(prepared.issues);
+  if (qualityError) {
+    return { ok: false, error: qualityError };
+  }
+  const sanitized = sanitizeInsightBody(prepared.html);
   if (!sanitized.trim()) {
-    return { ok: false, error: "Add some HTML content before publishing." };
+    return { ok: false, error: "Add some HTML or Markdown content before publishing." };
+  }
+  const residualQuality = insightQualityGateMessage(prepareInsightHtmlForPublish(sanitized).issues);
+  if (residualQuality) {
+    return { ok: false, error: residualQuality };
   }
   const unresolvedSlots = unresolvedPublishSlotMessage(row.bodyHtml);
   if (unresolvedSlots) {

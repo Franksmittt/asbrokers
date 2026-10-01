@@ -205,6 +205,18 @@ export function StudioSidebar() {
         </nav>
 
         <div className="space-y-1 border-t border-[#2a2a2a] p-2">
+          <NavItem
+            href="/workspace"
+            label="Command Workspace"
+            icon={HomeIcon}
+            active={pathname === "/workspace" || pathname.startsWith("/workspace/")}
+          />
+          <NavItem
+            href="/crm"
+            label="CRM"
+            icon={PeopleIcon}
+            active={pathname === "/crm" || pathname.startsWith("/crm/")}
+          />
           <StudioClearCacheButton variant="sidebar" />
           <form action={studioLogout}>
             <button

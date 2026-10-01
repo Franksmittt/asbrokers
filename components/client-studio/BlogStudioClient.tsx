@@ -541,7 +541,7 @@ function buildPersistHtml(
           calcIndex += 1;
           const snippet = selected ? snippetById.get(selected) : null;
           return snippet
-            ? `<div style="margin:34px 0;border-top:1px solid rgba(45,212,191,0.30);border-bottom:1px solid rgba(255,255,255,0.10);padding:clamp(18px,3vw,28px) 0;">${snippet}</div>`
+            ? `<div style="margin:34px 0;border-top:1px solid #E5E5E5;border-bottom:1px solid #E5E5E5;padding:clamp(18px,3vw,28px) 0;">${snippet}</div>`
             : CALC_TOKEN;
         }
         if (segment === VIDEO_TOKEN) {
@@ -550,9 +550,9 @@ function buildPersistHtml(
           if (!selected) return VIDEO_TOKEN;
           const youtubeId = extractYoutubeId(selected);
           if (youtubeId) {
-            return `<div style="margin:34px 0;"><iframe src="https://www.youtube.com/embed/${youtubeId}" title="YouTube video" loading="lazy" allowfullscreen style="display:block;width:100%;min-height:360px;border:1px solid rgba(255,255,255,0.12);border-radius:24px;box-shadow:0 22px 60px rgba(0,0,0,0.32);"></iframe></div>`;
+            return `<div style="margin:34px 0;"><iframe src="https://www.youtube.com/embed/${youtubeId}" title="YouTube video" loading="lazy" allowfullscreen style="display:block;width:100%;min-height:360px;border:1px solid #E5E5E5;border-radius:15px;"></iframe></div>`;
           }
-          return `<p style="margin:24px 0;"><a href="${escapeHtmlAttr(selected)}" target="_blank" rel="noreferrer" style="display:inline-flex;border:1px solid rgba(45,212,191,0.35);background:rgba(45,212,191,0.10);border-radius:999px;padding:12px 18px;color:#99f6e4;text-decoration:none;font-weight:700;">Watch video</a></p>`;
+          return `<p style="margin:24px 0;"><a href="${escapeHtmlAttr(selected)}" target="_blank" rel="noreferrer" style="display:inline-flex;border:1px solid rgba(0,107,107,0.35);background:rgba(0,107,107,0.08);border-radius:999px;padding:12px 18px;color:#006B6B;text-decoration:none;font-weight:700;">Watch video</a></p>`;
         }
         return segment;
       })
@@ -1580,18 +1580,19 @@ export function BlogStudioClient(props: Props) {
 
           <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
             <div className="mb-3">
-              <label className="block text-lg font-bold text-white">Step 1: Paste AI Blog Code</label>
+              <label className="block text-lg font-bold text-white">Step 1: Paste Markdown or warm HTML</label>
             </div>
             <p className="mb-2 text-sm text-zinc-400">
-              Paste raw HTML from AI. The studio detects each placeholder and creates image, calculator, and video
-              controls below. Do not paste calculator scripts manually.
+              Prefer Markdown headings and paragraphs (warm Paper &amp; Ink on save). HTML still works, but dark
+              night-mode classes are blocked at publish. Use {IMAGE_TOKEN}, {CALC_TOKEN}, and {VIDEO_TOKEN} for slots —
+              do not paste calculator scripts manually.
             </p>
             <textarea
               value={rawHtml}
               onChange={(e) => setRawHtml(e.target.value)}
               rows={11}
               className="w-full rounded-lg border border-white/10 bg-black/40 p-4 font-mono text-sm text-teal-100 transition-all focus:bg-black/55 focus:outline-none focus:ring-2 focus:ring-teal-500/40"
-              placeholder="Paste HTML here..."
+              placeholder="Paste Markdown or warm HTML…"
             />
           </div>
 

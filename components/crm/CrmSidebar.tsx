@@ -38,6 +38,7 @@ function TargetIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const CRM_NAV = [
   { href: "/crm", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { href: "/workspace", label: "Workspace", icon: LayoutDashboard, exact: true },
   { href: "/crm/goals", label: "Goals", icon: TargetIcon, exact: false },
   { href: "/crm/teacher", label: "Teacher OS", icon: Presentation, exact: false },
   { href: "/crm/kanban", label: "Kanban", icon: KanbanIcon, exact: false },
@@ -46,6 +47,7 @@ const CRM_NAV = [
   { href: "/crm/whatsapp", label: "WhatsApp", icon: MessageCircle, exact: false },
   { href: "/crm/tasks", label: "Tasks", icon: CheckSquare, exact: false },
   { href: "/crm/notes", label: "Notes", icon: Scroll, exact: false },
+  { href: "/studio", label: "Studio", icon: FileText, exact: false },
 ] as const;
 
 const CRM_FUNNEL_NAV = [

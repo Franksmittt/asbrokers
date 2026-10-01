@@ -1,4 +1,5 @@
 import sanitizeHtml from "sanitize-html";
+import { enforceWarmInsightHtml } from "@/lib/client-studio/insight-quality";
 import { getSiteOrigin } from "@/lib/site-url";
 
 const EXTERNAL_IFRAME_HOSTNAMES = [
@@ -40,12 +41,66 @@ function isAllowedCalculatorIframeSrc(src: string): boolean {
   }
 }
 
+function scrubDarkClassAttr(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  const cleaned = value
+    .split(/\s+/)
+    .filter(Boolean)
+    .filter((token) => {
+      const t = token.toLowerCase();
+      if (t.startsWith("dark:")) return false;
+      if (t === "prose-invert") return false;
+      if (/^bg-(?:black|zinc|neutral|gray|slate)-(?:8|9|95)0/.test(t)) return false;
+      if (t.startsWith("bg-black")) return false;
+      if (t === "bg-white/5" || t === "bg-white/10") return false;
+      if (t === "text-white" || t.startsWith("text-zinc-1") || t.startsWith("text-zinc-2") || t.startsWith("text-zinc-3")) {
+        return false;
+      }
+      if (t.startsWith("border-white/") || t.startsWith("ring-white/")) return false;
+      return true;
+    })
+    .join(" ");
+  return cleaned || undefined;
+}
+
+function scrubStyleAttr(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  // Drop colour / background declarations; keep layout sizing used by embeds.
+  const kept = value
+    .split(";")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .filter((decl) => {
+      const prop = decl.split(":")[0]?.trim().toLowerCase() ?? "";
+      if (!prop) return false;
+      if (
+        prop === "color" ||
+        prop === "background" ||
+        prop === "background-color" ||
+        prop === "background-image" ||
+        prop === "color-scheme" ||
+        prop.startsWith("border-color") ||
+        prop === "box-shadow" ||
+        prop === "text-shadow" ||
+        prop === "filter" ||
+        prop === "mix-blend-mode" ||
+        prop === "opacity"
+      ) {
+        return false;
+      }
+      return true;
+    });
+  return kept.length ? kept.join("; ") : undefined;
+}
+
 /**
  * Strips scripts/event handlers while keeping typical article HTML.
+ * Also warms dark AI tokens and strips colour-bearing style/class noise.
  * Applied when saving a published version; public pages use stored output.
  */
 export function sanitizeInsightBody(html: string): string {
-  return sanitizeHtml(html, {
+  const warmed = enforceWarmInsightHtml(html);
+  return sanitizeHtml(warmed, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
       "section",
       "h1",
@@ -95,6 +150,7 @@ export function sanitizeInsightBody(html: string): string {
         "loading",
         "referrerpolicy",
         "frameborder",
+        "data-asb-calculator-embed",
       ],
       script: ["src", "type", "async", "defer", "crossorigin", "integrity", "referrerpolicy", "id", "class"],
       form: ["action", "method", "class", "id", "name", "autocomplete", "novalidate"],
@@ -125,14 +181,38 @@ export function sanitizeInsightBody(html: string): string {
     allowedSchemes: ["http", "https", "mailto", "tel"],
     allowProtocolRelative: false,
     allowVulnerableTags: true,
+    allowDataAttributes: true,
     allowedIframeHostnames: siteIframeHostnames(),
     // Calculator embeds use same-origin paths like /embed/calculators/future-value.
     allowIframeRelativeUrls: true,
     transformTags: {
+      "*": (tagName, attribs) => {
+        if (attribs.class) {
+          const next = scrubDarkClassAttr(attribs.class);
+          if (next) attribs.class = next;
+          else delete attribs.class;
+        }
+        if (attribs.style) {
+          const next = scrubStyleAttr(attribs.style);
+          if (next) attribs.style = next;
+          else delete attribs.style;
+        }
+        return { tagName, attribs };
+      },
       iframe: (tagName, attribs) => {
         const src = attribs.src;
         if (typeof src === "string" && src.startsWith("/") && !isAllowedCalculatorIframeSrc(src)) {
           delete attribs.src;
+        }
+        if (attribs.class) {
+          const next = scrubDarkClassAttr(attribs.class);
+          if (next) attribs.class = next;
+          else delete attribs.class;
+        }
+        if (attribs.style) {
+          const next = scrubStyleAttr(attribs.style);
+          if (next) attribs.style = next;
+          else delete attribs.style;
         }
         return { tagName, attribs };
       },

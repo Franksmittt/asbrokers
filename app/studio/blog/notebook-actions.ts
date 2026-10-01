@@ -4,7 +4,7 @@ import { desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-import { getClientStudioSession } from "@/lib/client-studio/session";
+import { requireStaffStudioAccess } from "@/lib/client-studio/staff-access";
 import type { SerializableNotebookNote } from "@/lib/client-studio/notebook-types";
 import { getDb, studioNotebookNotes } from "@/lib/db";
 
@@ -14,9 +14,7 @@ const noteSchema = z.object({
 });
 
 async function requireStudioSession() {
-  if (!(await getClientStudioSession())) {
-    throw new Error("Not signed in.");
-  }
+  await requireStaffStudioAccess();
 }
 
 export async function listStudioNotebookNotes(): Promise<

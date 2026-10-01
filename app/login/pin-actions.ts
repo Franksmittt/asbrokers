@@ -31,7 +31,12 @@ export async function signInWithCrmPin(
   }
 
   await setCrmPinSession(member.key);
-  redirect(safeNext.startsWith("/crm") ? safeNext : "/crm");
+  // Allow staff post-login landing on CRM, Command Workspace, or Studio.
+  const allowed =
+    safeNext.startsWith("/crm") ||
+    safeNext.startsWith("/workspace") ||
+    safeNext.startsWith("/studio");
+  redirect(allowed ? safeNext : "/crm");
 }
 
 export async function assertCrmPinOrSupabaseSession(): Promise<boolean> {

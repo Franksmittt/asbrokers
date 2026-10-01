@@ -177,6 +177,12 @@ const nextConfig: NextConfig = {
         destination: "/studio/blog/workspace",
         permanent: true,
       },
+      /** Retired CRM calculator-review shell → live calculators grid. */
+      {
+        source: "/crm/calculator-review",
+        destination: "/crm/calculators",
+        permanent: true,
+      },
       ...retiredCatalogueRedirects.map(({ source, destination }) => ({
         source,
         destination,

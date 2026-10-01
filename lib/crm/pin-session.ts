@@ -178,11 +178,6 @@ export function crmPinUser(memberKey: CrmTeamMemberKey = "albert"): User {
   } as User;
 }
 
-/** @deprecated Use crmPinUser("albert") */
-export function crmPinSuperuser(): User {
-  return crmPinUser("albert");
-}
-
 export function crmPinRole(memberKey: CrmTeamMemberKey = "albert"): CrmRole {
   return CRM_TEAM_MEMBERS[memberKey].role;
 }

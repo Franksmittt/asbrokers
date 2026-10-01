@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { getClientStudioSession, isClientStudioConfigured } from "@/lib/client-studio/session";
+import { isClientStudioConfigured } from "@/lib/client-studio/session";
+import { canAccessStaffStudio } from "@/lib/client-studio/staff-access";
 
 import { StudioLoginForm } from "./StudioLoginForm";
 
@@ -27,7 +28,7 @@ export default async function StudioBlogLoginPage({
   const { next } = await searchParams;
   const nextPath = safeStudioNext(next);
 
-  if (await getClientStudioSession()) {
+  if (await canAccessStaffStudio()) {
     redirect(nextPath);
   }
 
@@ -47,7 +48,11 @@ export default async function StudioBlogLoginPage({
         {!configured ? (
           <p className="text-sm text-amber-200/90 leading-relaxed">
             This login is not active until <code className="text-amber-300">CLIENT_STUDIO_PASSWORD</code> is set on
-            the server. Ask your developer to enable the studio.
+            the server. Ask your developer to enable the studio — or sign in to the{" "}
+            <Link href="/crm" className="text-[#3ecf8e] hover:underline">
+              CRM
+            </Link>{" "}
+            (your CRM session also unlocks Studio).
           </p>
         ) : (
           <StudioLoginForm nextPath={nextPath} />
@@ -57,23 +62,24 @@ export default async function StudioBlogLoginPage({
           <li className="flex gap-2">
             <span className="shrink-0 text-[#3ecf8e]/70">•</span>
             <span>
-              After login you choose Insights / Blog, Courses, or Newsletter — three clear studios.
+              Prefer one login? Open the{" "}
+              <Link href="/crm" className="text-[#3ecf8e] hover:underline">
+                CRM with your PIN
+              </Link>{" "}
+              — that session unlocks Studio and the{" "}
+              <Link href="/workspace" className="text-[#3ecf8e] hover:underline">
+                Command Workspace
+              </Link>
+              .
             </span>
           </li>
           <li className="flex gap-2">
             <span className="shrink-0 text-[#3ecf8e]/70">•</span>
             <span>
-              Forgot the password? Contact AS Brokers — it is not stored in this app for security.
+              After login you choose Insights / Blog, Courses, or Newsletter — three clear studios.
             </span>
           </li>
         </ul>
-        <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-500">
-          Need client leads and alerts? Use the{" "}
-          <Link href="/crm" className="text-[#3ecf8e] hover:underline">
-            CRM
-          </Link>{" "}
-          instead.
-        </p>
       </div>
     </div>
   );

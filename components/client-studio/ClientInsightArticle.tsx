@@ -65,10 +65,10 @@ export function ClientInsightArticle({ post }: Props) {
         </time>
       </HubSplitHero>
 
-      <HubContentSection narrow className="pb-16">
-        <div className="max-w-full overflow-x-auto [&_a]:break-words [&_img]:max-h-none [&_img]:max-w-full [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_.max-w-3xl]:!max-w-none [&_section]:!max-w-none">
+      <HubContentSection narrow className="px-4 pb-20 pt-2 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-prose overflow-x-auto [&_a]:break-words [&_img]:mx-auto [&_img]:max-h-none [&_img]:max-w-full [&_img]:rounded-[15px] [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_section]:!max-w-none [&_iframe]:mx-auto [&_iframe]:max-w-full [&_iframe]:rounded-[15px]">
           <ExecutableArticleHtml
-            className="prose prose-stone max-w-none prose-headings:text-shark prose-p:text-stone-600 prose-a:text-samsung-blue hover:prose-a:text-cinematic-teal"
+            className="prose prose-stone prose-lg max-w-prose prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-[#1D1D1F] prose-p:text-[#52525b] prose-p:leading-[1.78] prose-li:text-[#52525b] prose-a:text-[#0057B8] hover:prose-a:text-[#006B6B] prose-blockquote:border-[#006B6B] prose-blockquote:text-[#1D1D1F] prose-strong:text-[#1D1D1F] prose-hr:border-[#E5E5E5]"
             html={html}
           />
         </div>

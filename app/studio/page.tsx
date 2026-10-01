@@ -6,6 +6,7 @@ import {
   getClientStudioSession,
   isClientStudioConfigured,
 } from "@/lib/client-studio/session";
+import { canAccessStaffStudio, hasCrmStudioBridge } from "@/lib/client-studio/staff-access";
 import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata = privateRouteMetadata(
@@ -38,7 +39,8 @@ const STUDIOS = [
 
 export default async function StudioHomePage() {
   const session = await getClientStudioSession();
-  if (!session && isClientStudioConfigured()) {
+  const crmBridge = await hasCrmStudioBridge();
+  if (!(await canAccessStaffStudio()) && isClientStudioConfigured()) {
     redirect("/studio/blog/login?next=/studio");
   }
 
@@ -53,6 +55,11 @@ export default async function StudioHomePage() {
           <p className="mx-auto mt-3 max-w-xl text-base text-zinc-400">
             Choose what you want to work on. Three studios — pick one, then build.
           </p>
+          {crmBridge ? (
+            <p className="mx-auto mt-3 max-w-xl text-xs text-[#3ecf8e]/90">
+              Opened via your CRM session — no separate Studio password needed.
+            </p>
+          ) : null}
         </div>
 
         <ul className="grid gap-4 sm:gap-5">
@@ -73,6 +80,10 @@ export default async function StudioHomePage() {
         </ul>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4 text-sm text-zinc-500">
+          <Link href="/workspace" className="hover:text-zinc-300">
+            Command Workspace
+          </Link>
+          <span aria-hidden>·</span>
           <Link href="/crm" className="hover:text-zinc-300">
             Open CRM
           </Link>

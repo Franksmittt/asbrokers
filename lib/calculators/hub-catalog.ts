@@ -204,13 +204,6 @@ export const HUB_START_HERE: readonly HubStartHereItem[] = [
   },
 ] as const;
 
-/** @deprecated Prefer HUB_START_HERE, kept for any legacy imports. */
-export const HUB_FEATURED_IDS = [
-  "asset-002-retirement-reality-check",
-  "asset-003-retirement-premium",
-  "asset-001-retirement-growth",
-] as const;
-
 function stripBrand(title: string): string {
   return title.replace(/^AS Brokers\s+/i, "");
 }
@@ -240,12 +233,6 @@ export const HUB_CALCULATORS: HubCalculator[] = CALCULATOR_REGISTRY.map(toHubCal
 
 export function getHubCalculatorById(id: string): HubCalculator | undefined {
   return HUB_CALCULATORS.find((c) => c.id === id);
-}
-
-export function getHubFeaturedCalculators(): HubCalculator[] {
-  return HUB_FEATURED_IDS.map((id) => getHubCalculatorById(id)).filter(
-    (c): c is HubCalculator => Boolean(c)
-  );
 }
 
 export function getHubDomainCalculators(domain: HubDomain): HubCalculator[] {

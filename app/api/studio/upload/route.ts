@@ -6,7 +6,7 @@ import {
   STUDIO_BLOG_IMAGE_FILE_SIZE_LIMIT,
   STUDIO_BLOG_IMAGE_MIME_TYPES,
 } from "@/lib/client-studio/studio-storage";
-import { getClientStudioSession } from "@/lib/client-studio/session";
+import { canAccessStaffStudio } from "@/lib/client-studio/staff-access";
 import { getSupabaseService } from "@/lib/supabase/server";
 
 const STUDIO_ALLOWED_IMAGE_TYPES = new Set<string>(STUDIO_BLOG_IMAGE_MIME_TYPES);
@@ -17,7 +17,7 @@ function safeExt(name: string): string {
 }
 
 export async function POST(req: NextRequest) {
-  if (!(await getClientStudioSession())) {
+  if (!(await canAccessStaffStudio())) {
     return NextResponse.json({ ok: false, error: "Session expired - sign in again." }, { status: 401 });
   }
 

@@ -44,7 +44,7 @@ export function StudioLoginForm({ nextPath }: { nextPath: string }) {
         <p className="rounded-lg border border-red-500/30 bg-red-950/40 px-3 py-2 text-sm text-red-300">{error}</p>
       )}
       <p className="text-[11px] leading-relaxed text-zinc-500">
-        This password opens Insights, Courses, and Newsletter. It is not linked to email or banking.
+        This password opens Insights, Courses, and Newsletter. If you already signed into the CRM, you can skip this and open Studio directly.
       </p>
       <button
         type="submit"

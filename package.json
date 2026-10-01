@@ -40,6 +40,7 @@
     "test:newsletter-studio": "tsx scripts/test-newsletter-studio.ts",
     "test:growth-attribution": "tsx scripts/test-growth-attribution.ts",
     "test:command-workspace": "tsx scripts/test-command-workspace.ts",
+    "test:command-workspace:e2e": "node scripts/e2e-command-workspace.mjs",
     "test:crm-goals": "tsx --test scripts/test-crm-goals.ts",
     "test:master": "tsx scripts/verify-phase12-master.ts",
     "gsc:canonical": "node scripts/gsc-canonical-check.mjs",

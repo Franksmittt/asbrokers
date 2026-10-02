@@ -125,6 +125,10 @@ export async function verifyPinSessionToken(token: string): Promise<CrmTeamMembe
   return memberKey;
 }
 
+/**
+ * Sync env-PIN lookup only (Edge-safe). Prefer `resolveCrmPinUser` from
+ * `pin-store` in Server Actions so persisted overrides are honoured.
+ */
 export function verifyCrmPinInput(pin: string): CrmTeamMember | null {
   return lookupCrmPinUser(pin);
 }

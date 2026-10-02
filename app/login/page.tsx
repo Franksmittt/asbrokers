@@ -24,8 +24,8 @@ export default async function LoginPage({
     <div className="flex min-h-screen flex-col items-center justify-center bg-vault-dark px-4 py-12">
       <div className="w-full max-w-md rounded-[2rem] border border-white/10 bg-vault-card/80 p-8 shadow-2xl rim-light">
         <div className="mb-8 text-center">
-          <h1 className="mb-1 text-2xl font-bold text-white">AS Brokers CRM</h1>
-          <p className="mb-2 text-sm text-zinc-400">Enter your access PIN</p>
+          <h1 className="mb-1 text-2xl font-bold text-white">AS Brokers</h1>
+          <p className="mb-2 text-sm text-zinc-400">Command Workspace · staff sign-in</p>
           <p className="trust-hallmark text-[10px] font-semibold uppercase tracking-wider text-zinc-500 tabular-nums">
             FSP 17273
           </p>
@@ -40,7 +40,7 @@ export default async function LoginPage({
         <PinLoginForm nextPath={safeNext} />
 
         <p className="mt-6 text-center text-[10px] text-zinc-500">
-          Demo access for authorised staff only. POPIA-compliant.
+          Authorised staff only. POPIA-compliant.
         </p>
       </div>
     </div>

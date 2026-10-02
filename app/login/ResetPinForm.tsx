@@ -3,25 +3,25 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { signInWithCrmPin, type CrmPinState } from "@/app/login/pin-actions";
+import { resetCrmPin, type CrmPinState } from "@/app/login/pin-actions";
 
-type PinLoginFormProps = {
-  nextPath: string;
+type ResetPinFormProps = {
+  token: string;
 };
 
-export function PinLoginForm({ nextPath }: PinLoginFormProps) {
+export function ResetPinForm({ token }: ResetPinFormProps) {
   const [state, formAction, isPending] = useActionState<CrmPinState, FormData>(
-    signInWithCrmPin,
+    resetCrmPin,
     null
   );
 
   return (
     <form action={formAction} className="space-y-6">
-      <input type="hidden" name="next" value={nextPath} />
+      <input type="hidden" name="token" value={token} />
 
       <div>
         <label htmlFor="pin" className="mb-1 block text-sm font-medium text-zinc-300">
-          Access PIN
+          New 5-digit PIN
         </label>
         <input
           id="pin"
@@ -30,7 +30,25 @@ export function PinLoginForm({ nextPath }: PinLoginFormProps) {
           inputMode="numeric"
           pattern="\d{5}"
           maxLength={5}
-          autoComplete="one-time-code"
+          autoComplete="new-password"
+          required
+          placeholder="•••••"
+          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-center text-2xl tracking-[0.4em] text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="confirmPin" className="mb-1 block text-sm font-medium text-zinc-300">
+          Confirm PIN
+        </label>
+        <input
+          id="confirmPin"
+          name="confirmPin"
+          type="password"
+          inputMode="numeric"
+          pattern="\d{5}"
+          maxLength={5}
+          autoComplete="new-password"
           required
           placeholder="•••••"
           className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-center text-2xl tracking-[0.4em] text-white placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50"
@@ -38,7 +56,7 @@ export function PinLoginForm({ nextPath }: PinLoginFormProps) {
       </div>
 
       <p className="text-xs text-zinc-500">
-        Enter your 5-digit staff PIN for CRM, Studio, and Command Workspace.
+        Choose a unique 5-digit PIN. You will use it for CRM, Studio, and Command Workspace.
       </p>
 
       {state?.message ? (
@@ -57,10 +75,9 @@ export function PinLoginForm({ nextPath }: PinLoginFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        aria-label={isPending ? "Signing in" : "Sign in with PIN"}
         className="w-full rounded-2xl bg-white py-3.5 font-semibold text-black transition-colors hover:bg-zinc-200 disabled:opacity-50"
       >
-        {isPending ? "Signing in…" : "Sign in"}
+        {isPending ? "Saving…" : "Set new PIN"}
       </button>
 
       <p className="text-center text-xs text-zinc-500">
@@ -68,7 +85,7 @@ export function PinLoginForm({ nextPath }: PinLoginFormProps) {
           href="/login/forgot"
           className="font-medium text-zinc-300 underline-offset-2 hover:underline"
         >
-          Forgot your PIN?
+          Request a new reset link
         </Link>
       </p>
     </form>

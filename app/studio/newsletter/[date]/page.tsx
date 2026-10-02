@@ -31,11 +31,11 @@ export default async function NewsletterEditorPage({ params }: PageProps) {
         <div>
           <Link
             href="/studio/newsletter"
-            className="text-xs text-zinc-500 hover:text-zinc-300"
+            className="text-xs text-[#52525b] hover:text-[#3F3F46]"
           >
             ← Back to newsletters
           </Link>
-          <h1 className="mt-2 text-2xl font-semibold text-white">
+          <h1 className="mt-2 text-2xl font-semibold text-[#1D1D1F]">
             {new Date(date).toLocaleDateString("en-ZA", {
               weekday: "long",
               year: "numeric",
@@ -43,7 +43,7 @@ export default async function NewsletterEditorPage({ params }: PageProps) {
               day: "numeric",
             })}
           </h1>
-          <p className="mt-1 text-sm text-zinc-400">
+          <p className="mt-1 text-sm text-[#52525b]">
             Side-by-side builder · autosave · content pickers · schedule &amp; send
           </p>
         </div>
@@ -51,14 +51,14 @@ export default async function NewsletterEditorPage({ params }: PageProps) {
           <Link
             href={`/studio/newsletter/${date}/preview`}
             target="_blank"
-            className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+            className="rounded-md border border-[#E5E5E5] px-3 py-2 text-xs font-medium text-[#3F3F46] hover:text-[#1D1D1F]"
           >
             Draft web preview
           </Link>
           <Link
             href={`/newsletter/${date}/email`}
             target="_blank"
-            className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+            className="rounded-md border border-[#E5E5E5] px-3 py-2 text-xs font-medium text-[#3F3F46] hover:text-[#1D1D1F]"
           >
             Email tab
           </Link>

@@ -19,19 +19,19 @@ export function LeadDetailPageClient({
       <div className="space-y-6">
         <Link
           href="/crm/kanban"
-          className="inline-flex items-center gap-2 text-sm font-medium text-gray-100 transition-colors hover:text-white"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[#52525b] transition-colors hover:text-[#1D1D1F]"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden />
           Back to Kanban
         </Link>
-        <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-10 text-center">
-          <h1 className="text-xl font-semibold text-white">Lead not found</h1>
-          <p className="mt-2 text-sm text-white/65">
+        <div className="rounded-2xl border border-[#E5E5E5] bg-[#F7F6F3] px-6 py-10 text-center">
+          <h1 className="text-xl font-semibold text-[#1D1D1F]">Lead not found</h1>
+          <p className="mt-2 text-sm text-[#1D1D1F]/65">
             This lead may have been removed, or you do not have access to it.
           </p>
           <Link
             href="/crm/leads"
-            className="mt-6 inline-flex rounded-xl bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-600"
+            className="mt-6 inline-flex rounded-xl bg-teal-700 px-5 py-2.5 text-sm font-semibold text-[#1D1D1F] transition hover:bg-teal-600"
           >
             Browse leads
           </Link>
@@ -44,7 +44,7 @@ export function LeadDetailPageClient({
     <div className="space-y-6">
       <Link
         href="/crm/kanban"
-        className="inline-flex items-center gap-2 text-sm font-medium text-gray-100 transition-colors hover:text-white"
+        className="inline-flex items-center gap-2 text-sm font-medium text-[#52525b] transition-colors hover:text-[#1D1D1F]"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden />
         Back to Kanban

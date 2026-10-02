@@ -20,28 +20,28 @@ export default async function NewsletterStudioPage() {
     <div className="mx-auto w-full max-w-5xl space-y-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+          <p className="text-[10px] font-medium uppercase tracking-wider text-[#52525b]">
             Newsletter Studio
           </p>
-          <h1 className="mt-1 text-2xl font-semibold text-white">Weekly Newsletter Builder</h1>
-          <p className="mt-2 max-w-xl text-sm text-zinc-400">
+          <h1 className="mt-1 text-2xl font-semibold text-[#1D1D1F]">Weekly Newsletter Builder</h1>
+          <p className="mt-2 max-w-xl text-sm text-[#52525b]">
             Assemble editions with live preview, article/calculator/course pickers, and schedule or
             send via Resend.{" "}
-            <strong className="font-medium text-zinc-300">Publish</strong> = website only.{" "}
-            <strong className="font-medium text-zinc-300">Send</strong> = email subscribers.
+            <strong className="font-medium text-[#3F3F46]">Publish</strong> = website only.{" "}
+            <strong className="font-medium text-[#3F3F46]">Send</strong> = email subscribers.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
             href="/studio/newsletter/subscribers"
-            className="rounded-md bg-[#3ecf8e] px-3 py-2 text-xs font-medium text-black"
+            className="rounded-md bg-[#006B6B] px-3 py-2 text-xs font-medium text-white"
           >
             View subscribers
           </Link>
           <Link
             href="/newsletter"
             target="_blank"
-            className="rounded-md border border-[#2a2a2a] px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white"
+            className="rounded-md border border-[#E5E5E5] px-3 py-2 text-xs font-medium text-[#3F3F46] hover:text-[#1D1D1F]"
           >
             View live newsletter →
           </Link>
@@ -50,10 +50,10 @@ export default async function NewsletterStudioPage() {
 
       <form
         action={createEditionAction}
-        className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5"
+        className="rounded-xl border border-[#E5E5E5] bg-white p-5"
       >
-        <p className="text-sm font-medium text-white">Create a new newsletter edition</p>
-        <p className="mt-1 text-xs text-zinc-500">
+        <p className="text-sm font-medium text-[#1D1D1F]">Create a new newsletter edition</p>
+        <p className="mt-1 text-xs text-[#52525b]">
           Pick the edition date (typically a Monday). Defaults to next Monday.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
@@ -62,11 +62,11 @@ export default async function NewsletterStudioPage() {
             type="date"
             required
             defaultValue={defaultDate}
-            className="rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white"
+            className="rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F]"
           />
           <button
             type="submit"
-            className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black"
+            className="rounded-md bg-[#006B6B] px-4 py-2 text-sm font-medium text-white"
           >
             Create Edition
           </button>
@@ -76,16 +76,16 @@ export default async function NewsletterStudioPage() {
       <form action={seedMockEditionsAction}>
         <button
           type="submit"
-          className="rounded-md border border-amber-500/30 bg-amber-950/40 px-4 py-2 text-sm text-amber-200 hover:bg-amber-950/60"
+          className="rounded-md border border-amber-200 bg-amber-950/40 px-4 py-2 text-sm text-amber-900 hover:bg-amber-950/60"
         >
           Seed 3 mock newsletters (2 published + 1 draft)
         </button>
       </form>
 
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-white">Newsletter Editions</h2>
+        <h2 className="mb-4 text-lg font-semibold text-[#1D1D1F]">Newsletter Editions</h2>
         {editions.length === 0 ? (
-          <p className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-5 py-8 text-center text-sm text-zinc-500">
+          <p className="rounded-xl border border-[#E5E5E5] bg-white px-5 py-8 text-center text-sm text-[#52525b]">
             No editions yet. Create your first newsletter edition above.
           </p>
         ) : (
@@ -93,13 +93,13 @@ export default async function NewsletterStudioPage() {
             {editions.map((edition) => (
               <li
                 key={edition.id}
-                className="flex flex-wrap items-center gap-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-4"
+                className="flex flex-wrap items-center gap-3 rounded-xl border border-[#E5E5E5] bg-white px-4 py-4"
               >
                 <Link
                   href={`/studio/newsletter/${edition.date}`}
                   className="min-w-0 flex-1 hover:opacity-90"
                 >
-                  <p className="font-medium text-white">
+                  <p className="font-medium text-[#1D1D1F]">
                     {new Date(edition.date).toLocaleDateString("en-ZA", {
                       weekday: "long",
                       year: "numeric",
@@ -107,7 +107,7 @@ export default async function NewsletterStudioPage() {
                       day: "numeric",
                     })}
                   </p>
-                  <p className="mt-1 text-xs text-zinc-500">
+                  <p className="mt-1 text-xs text-[#52525b]">
                     {edition.articleOfTheWeek.title || "No article set"} ·{" "}
                     {edition.sectionContent.length} sections with content
                     {edition.scheduledAt
@@ -121,7 +121,7 @@ export default async function NewsletterStudioPage() {
                       ? "border-green-500/30 text-green-400"
                       : edition.status === "scheduled"
                         ? "border-sky-500/30 text-sky-300"
-                        : "border-[#2a2a2a] text-zinc-400"
+                        : "border-[#E5E5E5] text-[#52525b]"
                   }`}
                 >
                   {edition.status}
@@ -130,13 +130,13 @@ export default async function NewsletterStudioPage() {
                   <Link
                     href={`/studio/newsletter/${edition.date}/preview`}
                     target="_blank"
-                    className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 hover:text-white"
+                    className="rounded-md border border-[#E5E5E5] px-2 py-1 text-xs text-[#52525b] hover:text-[#1D1D1F]"
                   >
                     Preview
                   </Link>
                   <Link
                     href={`/studio/newsletter/${edition.date}`}
-                    className="rounded-md bg-[#3ecf8e]/20 px-2 py-1 text-xs text-[#3ecf8e] hover:bg-[#3ecf8e]/30"
+                    className="rounded-md bg-[#006B6B]/20 px-2 py-1 text-xs text-[#006B6B] hover:bg-[#006B6B]/30"
                   >
                     Edit
                   </Link>
@@ -145,7 +145,7 @@ export default async function NewsletterStudioPage() {
                     <input type="hidden" name="date" value={defaultDate} />
                     <button
                       type="submit"
-                      className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 hover:text-white"
+                      className="rounded-md border border-[#E5E5E5] px-2 py-1 text-xs text-[#52525b] hover:text-[#1D1D1F]"
                     >
                       Duplicate → next Mon
                     </button>

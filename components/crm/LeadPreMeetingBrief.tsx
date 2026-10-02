@@ -50,10 +50,10 @@ export function LeadPreMeetingBrief({ leadId }: { leadId: string }) {
   };
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-shark p-5 ring-1 ring-white/5">
+    <section className="rounded-[2rem] border border-[#E5E5E5] bg-white p-5 ring-1 ring-[#E5E5E5]">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#71717a]">
             Pre-meeting brief
           </p>
           <p className="mt-1 text-xs text-gray-500">Gemini · FAIS-ready agenda for client meetings</p>
@@ -63,7 +63,7 @@ export function LeadPreMeetingBrief({ leadId }: { leadId: string }) {
             <button
               type="button"
               onClick={printBrief}
-              className="rounded-lg border border-white/10 px-3 py-1.5 text-[11px] text-gray-300 hover:text-white"
+              className="rounded-lg border border-[#E5E5E5] px-3 py-1.5 text-[11px] text-gray-300 hover:text-[#1D1D1F]"
             >
               Print / PDF
             </button>
@@ -72,19 +72,19 @@ export function LeadPreMeetingBrief({ leadId }: { leadId: string }) {
             type="button"
             onClick={generate}
             disabled={isPending}
-            className="rounded-lg bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white hover:bg-white/15 disabled:opacity-50"
+            className="rounded-lg bg-[#F0F0EE] px-3 py-1.5 text-[11px] font-medium text-[#1D1D1F] hover:bg-white/15 disabled:opacity-50"
           >
             {isPending ? "Generating…" : brief ? "Refresh" : "Generate brief"}
           </button>
         </div>
       </div>
 
-      {error ? <p className="mb-3 text-xs text-amber-300">{error}</p> : null}
+      {error ? <p className="mb-3 text-xs text-amber-900">{error}</p> : null}
 
       {brief ? (
         <div className="space-y-4 text-sm">
           <div>
-            <p className="font-semibold text-white">{brief.meetingTitle}</p>
+            <p className="font-semibold text-[#1D1D1F]">{brief.meetingTitle}</p>
             <p className="mt-2 text-gray-300">{brief.clientSnapshot}</p>
           </div>
           <div>
@@ -101,7 +101,7 @@ export function LeadPreMeetingBrief({ leadId }: { leadId: string }) {
             </p>
             <ul className="mt-2 space-y-1">
               {brief.complianceChecklist.map((item) => (
-                <li key={item} className="text-xs text-amber-200/90 before:mr-2 before:content-['✓']">
+                <li key={item} className="text-xs text-amber-900/90 before:mr-2 before:content-['✓']">
                   {item}
                 </li>
               ))}
@@ -109,7 +109,7 @@ export function LeadPreMeetingBrief({ leadId }: { leadId: string }) {
           </div>
         </div>
       ) : isPending ? (
-        <p className="text-sm text-gray-400">Building meeting brief…</p>
+        <p className="text-sm text-[#71717a]">Building meeting brief…</p>
       ) : (
         <p className="text-xs text-gray-500">
           Generate a structured brief before your consultation, includes talking points and FAIS checks.

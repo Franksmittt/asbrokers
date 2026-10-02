@@ -112,7 +112,7 @@ function LeadCard({
       role="button"
       tabIndex={0}
       className={cn(
-        "group relative cursor-grab rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-4 pt-8 text-left",
+        "group relative cursor-grab rounded-lg border border-[#E5E5E5] bg-white p-4 pt-8 text-left",
         "active:cursor-grabbing focus-visible:outline focus-visible:outline-2",
         "focus-visible:outline-offset-2 focus-visible:outline-[#3ecf8e]/60",
         isDropTarget && "ring-1 ring-[#3ecf8e]/30"
@@ -129,7 +129,7 @@ function LeadCard({
             stopCardNav(e);
             onQuickReminder(lead);
           }}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-black/80 text-zinc-300 ring-1 ring-[#2a2a2a] transition-colors hover:bg-[#141414] hover:text-white"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F6F3]/90 text-[#3F3F46] ring-1 ring-[#E5E5E5] transition-colors hover:bg-[#FAFAF8] hover:text-[#1D1D1F]"
         >
           <Bell className="h-3.5 w-3.5" />
         </button>
@@ -139,42 +139,42 @@ function LeadCard({
           rel="noopener noreferrer"
           aria-label={`WhatsApp ${lead.name}`}
           onClick={stopCardNav}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-black/80 text-whatsapp ring-1 ring-[#2a2a2a] transition-colors hover:bg-whatsapp/20"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F7F6F3]/90 text-whatsapp ring-1 ring-[#E5E5E5] transition-colors hover:bg-whatsapp/20"
         >
           <MessageCircle className="h-3.5 w-3.5" />
         </a>
       </div>
 
-      <p className="pr-16 text-sm font-semibold tracking-tight text-white">{lead.name}</p>
+      <p className="pr-16 text-sm font-semibold tracking-tight text-[#1D1D1F]">{lead.name}</p>
       {lead.company ? (
-        <p className="mt-1 text-[10px] uppercase tracking-wider text-zinc-500">{lead.company}</p>
+        <p className="mt-1 text-[10px] uppercase tracking-wider text-[#52525b]">{lead.company}</p>
       ) : null}
 
-      <div className="mt-4 rounded-md bg-[#3ecf8e]/10 px-3 py-2 ring-1 ring-[#3ecf8e]/20">
-        <p className="text-[10px] font-medium uppercase tracking-wider text-[#3ecf8e]">
+      <div className="mt-4 rounded-md bg-[#E8F3F3] px-3 py-2 ring-1 ring-[#3ecf8e]/20">
+        <p className="text-[10px] font-medium uppercase tracking-wider text-[#006B6B]">
           Est. capital
         </p>
-        <p className="mt-1 text-lg font-bold tabular-nums tracking-tight text-[#3ecf8e]">
+        <p className="mt-1 text-lg font-bold tabular-nums tracking-tight text-[#006B6B]">
           {formatCapitalDisplay(lead)}
         </p>
       </div>
 
-      <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-zinc-300">{lead.intent}</p>
+      <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-[#3F3F46]">{lead.intent}</p>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[#2a2a2a] pt-4">
-        <span className="text-[10px] font-medium text-zinc-400">
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[#E5E5E5] pt-4">
+        <span className="text-[10px] font-medium text-[#52525b]">
           {SERVICE_LABELS[lead.service_category]}
         </span>
         {lead.area ? (
-          <span className="rounded-full bg-white/5 px-2 py-0.5 text-[9px] font-medium text-zinc-400">
+          <span className="rounded-full bg-[#F7F6F3] px-2 py-0.5 text-[9px] font-medium text-[#52525b]">
             {lead.area}
           </span>
         ) : null}
         {lead.recommendedAdvisorName ? (
-          <span className="text-[10px] text-zinc-500">→ {lead.recommendedAdvisorName}</span>
+          <span className="text-[10px] text-[#52525b]">→ {lead.recommendedAdvisorName}</span>
         ) : null}
         {lead.aiPriorityLabel ? (
-          <span className="rounded-full bg-[#3ecf8e]/10 px-2 py-0.5 text-[9px] font-medium text-[#3ecf8e]">
+          <span className="rounded-full bg-[#E8F3F3] px-2 py-0.5 text-[9px] font-medium text-[#006B6B]">
             ✦ {lead.aiPriorityLabel}
           </span>
         ) : null}
@@ -286,15 +286,15 @@ export function LeadsKanban() {
               data-status={col.status}
               className="flex w-72 shrink-0 flex-col"
             >
-              <header className="mb-3 border-b border-[#2a2a2a] pb-3">
-                <h2 className="text-sm font-semibold tracking-[-0.03em] text-white">
+              <header className="mb-3 border-b border-[#E5E5E5] pb-3">
+                <h2 className="text-sm font-semibold tracking-[-0.03em] text-[#1D1D1F]">
                   {col.label}
-                  <span className="ml-2 font-normal text-zinc-600">·</span>
-                  <span className="ml-2 font-bold tabular-nums text-zinc-400">
+                  <span className="ml-2 font-normal text-[#71717a]">·</span>
+                  <span className="ml-2 font-bold tabular-nums text-[#52525b]">
                     {formatPipelineCurrency(col.totalCapital)}
                   </span>
                 </h2>
-                <p className="mt-1 text-[10px] tabular-nums text-zinc-600">
+                <p className="mt-1 text-[10px] tabular-nums text-[#71717a]">
                   {col.items.length} {col.items.length === 1 ? "dossier" : "dossiers"}
                 </p>
               </header>
@@ -304,7 +304,7 @@ export function LeadsKanban() {
                 className={cn(
                   "flex min-h-[16rem] flex-col gap-3 rounded-lg border border-dashed p-2 transition-colors",
                   isHovered
-                    ? "border-[#3ecf8e]/50 bg-[#3ecf8e]/5"
+                    ? "border-[#006B6B]/40 bg-[#006B6B]/5"
                     : "border-transparent bg-transparent"
                 )}
               >
@@ -318,7 +318,7 @@ export function LeadsKanban() {
                   />
                 ))}
                 {col.items.length === 0 ? (
-                  <p className="py-12 text-center text-xs text-zinc-600">Drop leads here</p>
+                  <p className="py-12 text-center text-xs text-[#71717a]">Drop leads here</p>
                 ) : null}
               </div>
             </div>

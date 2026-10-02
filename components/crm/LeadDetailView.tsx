@@ -24,8 +24,8 @@ const CHANNEL_META: Record<
   email: {
     label: "Email",
     icon: "✉",
-    text: "text-gray-100",
-    bg: "bg-zinc-500/10",
+    text: "text-[#52525b]",
+    bg: "bg-[#F0F0EE]",
   },
   whatsapp: {
     label: "WhatsApp",
@@ -36,8 +36,8 @@ const CHANNEL_META: Record<
   portal: {
     label: "Portal",
     icon: "◇",
-    text: "text-cinematic-teal",
-    bg: "bg-cinematic-teal/10",
+    text: "text-[#006B6B]",
+    bg: "bg-[#ECFDF5]",
   },
 };
 
@@ -85,36 +85,36 @@ const QUICK_REPLY_TEMPLATES = [
 function FunnelIntelligenceCard({ lead }: { lead: CrmLead }) {
   const { funnelData } = lead;
   return (
-    <section className="rounded-[2rem] bg-shark p-5 ring-1 ring-white/5">
-      <div className="mb-4 flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400">
+    <section className="rounded-[2rem] bg-white p-5 ring-1 ring-[#E5E5E5]">
+      <div className="mb-4 flex items-center justify-between gap-4 border-b border-[#E5E5E5] pb-4">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#71717a]">
           Funnel intelligence
         </p>
-        <span className="rounded-full bg-cinematic-teal/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-cinematic-teal">
+        <span className="rounded-full bg-cinematic-teal/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#006B6B]">
           Actuarial readout
         </span>
       </div>
 
-      <p className="text-xs font-medium text-gray-100">{funnelData.assessment}</p>
+      <p className="text-xs font-medium text-[#52525b]">{funnelData.assessment}</p>
 
       <div className="mt-4 grid grid-cols-2 gap-4">
-        <div className="rounded-xl bg-void/60 px-3 py-3 ring-1 ring-white/5">
-          <p className="text-[9px] font-semibold uppercase tracking-wider text-gray-400">Score</p>
+        <div className="rounded-xl bg-[#F7F6F3]/60 px-3 py-3 ring-1 ring-[#E5E5E5]">
+          <p className="text-[9px] font-semibold uppercase tracking-wider text-[#71717a]">Score</p>
           <p className="mt-1 text-2xl font-bold tabular-nums tracking-[-0.03em] text-supernova-gold">
             {funnelData.score}
           </p>
         </div>
-        <div className="rounded-xl bg-void/60 px-3 py-3 ring-1 ring-white/5">
-          <p className="text-[9px] font-semibold uppercase tracking-wider text-gray-400">Capital</p>
-          <p className="mt-1 text-lg font-bold tabular-nums tracking-tight text-cinematic-teal">
+        <div className="rounded-xl bg-[#F7F6F3]/60 px-3 py-3 ring-1 ring-[#E5E5E5]">
+          <p className="text-[9px] font-semibold uppercase tracking-wider text-[#71717a]">Capital</p>
+          <p className="mt-1 text-lg font-bold tabular-nums tracking-tight text-[#006B6B]">
             {funnelData.capital}
           </p>
         </div>
       </div>
 
-      <div className="mt-4 rounded-xl border border-dashed border-white/10 bg-void/40 px-3 py-3">
-        <p className="text-[9px] font-semibold uppercase tracking-wider text-gray-400">Key risk flag</p>
-        <p className="mt-1 text-sm font-medium text-gray-100">{funnelData.keyRisk}</p>
+      <div className="mt-4 rounded-xl border border-dashed border-[#E5E5E5] bg-[#F7F6F3]/40 px-3 py-3">
+        <p className="text-[9px] font-semibold uppercase tracking-wider text-[#71717a]">Key risk flag</p>
+        <p className="mt-1 text-sm font-medium text-[#52525b]">{funnelData.keyRisk}</p>
       </div>
     </section>
   );
@@ -206,10 +206,10 @@ export function LeadDetailView({
   return (
     <div className="grid min-h-[calc(100vh-8rem)] grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-8">
       <div className="space-y-4 lg:col-span-2">
-        <section className="rounded-[2rem] bg-shark p-6">
-          <p className="text-xs font-medium uppercase tracking-wider text-gray-400">Lead</p>
-          <h1 className="mt-1 text-2xl font-bold text-white">{lead.name}</h1>
-          <p className="mt-2 text-sm text-cinematic-teal">{formatLeadStatus(lead.status)}</p>
+        <section className="rounded-[2rem] bg-white p-6">
+          <p className="text-xs font-medium uppercase tracking-wider text-[#71717a]">Lead</p>
+          <h1 className="mt-1 text-2xl font-bold text-[#1D1D1F]">{lead.name}</h1>
+          <p className="mt-2 text-sm text-[#006B6B]">{formatLeadStatus(lead.status)}</p>
         </section>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
@@ -222,52 +222,52 @@ export function LeadDetailView({
           <FunnelIntelligenceCard lead={lead} />
 
           <section className="rim-light rounded-[2rem] p-5">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#71717a]">
               Contact
             </p>
-            <p className="mt-2 text-sm text-gray-100">{lead.email}</p>
-            <p className="text-sm text-gray-100">{lead.phone}</p>
+            <p className="mt-2 text-sm text-[#52525b]">{lead.email}</p>
+            <p className="text-sm text-[#52525b]">{lead.phone}</p>
             {lead.company ? (
-              <p className="mt-2 text-xs text-gray-400">{lead.company}</p>
+              <p className="mt-2 text-xs text-[#71717a]">{lead.company}</p>
             ) : null}
             <Link
               href={`/crm/calculator-session?leadId=${lead.id}`}
-              className="mt-4 inline-flex text-xs font-medium text-cinematic-teal hover:text-white"
+              className="mt-4 inline-flex text-xs font-medium text-[#006B6B] hover:text-[#1D1D1F]"
             >
               Open calculator session →
             </Link>
           </section>
 
           <section className="rim-light rounded-[2rem] p-5">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#71717a]">
               Intent
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-gray-100">{lead.intent}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[#52525b]">{lead.intent}</p>
             {lead.capitalHint ? (
               <p className="mt-3 text-xs font-medium text-supernova-gold">{lead.capitalHint}</p>
             ) : null}
           </section>
 
           <section className="rim-light rounded-[2rem] p-5 sm:col-span-2 lg:col-span-1">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#71717a]">
               Service & assignment
             </p>
-            <p className="mt-2 text-sm text-gray-100">{SERVICE_LABELS[lead.service_category]}</p>
-            <p className="mt-3 text-xs text-gray-400">
+            <p className="mt-2 text-sm text-[#52525b]">{SERVICE_LABELS[lead.service_category]}</p>
+            <p className="mt-3 text-xs text-[#71717a]">
               Assigned advisor ·{" "}
-              <span className="text-gray-100">
+              <span className="text-[#52525b]">
                 {formatAdvisorLabel(lead.assignedAdvisorId, lead.recommendedAdvisorName)}
               </span>
             </p>
             {lead.area ? (
-              <p className="mt-2 text-xs text-gray-400">
-                Area · <span className="text-gray-100">{lead.area}</span>
+              <p className="mt-2 text-xs text-[#71717a]">
+                Area · <span className="text-[#52525b]">{lead.area}</span>
               </p>
             ) : null}
             {lead.campaignId ? (
               <Link
                 href="/crm/goals"
-                className="mt-3 inline-flex text-xs font-medium text-cinematic-teal hover:text-white"
+                className="mt-3 inline-flex text-xs font-medium text-[#006B6B] hover:text-[#1D1D1F]"
               >
                 Counts toward Krugersdorp campaign →
               </Link>
@@ -275,13 +275,13 @@ export function LeadDetailView({
             <form action={saveArea} className="mt-4 space-y-2">
               <input type="hidden" name="leadId" value={lead.id} />
               <label className="block">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[#71717a]">
                   Tag area
                 </span>
                 <select
                   name="area"
                   defaultValue={lead.area ?? "Krugersdorp"}
-                  className="mt-1 w-full rounded-xl border border-white/10 bg-void px-3 py-2 text-sm text-gray-100 focus:border-cinematic-teal/40 focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#52525b] focus:border-cinematic-teal/40 focus:outline-none"
                 >
                   {KRUGERSDORP_AREA_OPTIONS.map((area) => (
                     <option key={area} value={area}>
@@ -292,7 +292,7 @@ export function LeadDetailView({
               </label>
               <button
                 type="submit"
-                className="w-full rounded-xl bg-shark px-3 py-2 text-xs font-semibold text-white hover:bg-cinematic-teal/20"
+                className="w-full rounded-xl bg-white px-3 py-2 text-xs font-semibold text-[#1D1D1F] hover:bg-cinematic-teal/20"
               >
                 Save area
               </button>
@@ -303,20 +303,20 @@ export function LeadDetailView({
           </section>
 
           <section className="rim-light rounded-[2rem] p-5">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#71717a]">
               Next actions / reminders
             </p>
             <ul className="mt-4 space-y-3">
               {reminders.length === 0 ? (
-                <li className="text-xs text-gray-400">No scheduled actions.</li>
+                <li className="text-xs text-[#71717a]">No scheduled actions.</li>
               ) : (
                 reminders.map((reminder) => (
                   <li
                     key={reminder.id}
-                    className="rounded-xl bg-shark px-3 py-3 text-sm text-gray-100"
+                    className="rounded-xl bg-white px-3 py-3 text-sm text-[#52525b]"
                   >
-                    <p className="font-medium text-white">{reminder.title}</p>
-                    <p className="mt-1 text-[10px] tabular-nums text-gray-400">
+                    <p className="font-medium text-[#1D1D1F]">{reminder.title}</p>
+                    <p className="mt-1 text-[10px] tabular-nums text-[#71717a]">
                       {formatReminderDue(reminder.dueDate)}
                     </p>
                   </li>
@@ -324,17 +324,17 @@ export function LeadDetailView({
               )}
             </ul>
             {tasks.length > 0 ? (
-              <ul className="mt-4 space-y-2 border-t border-white/10 pt-4">
+              <ul className="mt-4 space-y-2 border-t border-[#E5E5E5] pt-4">
                 {tasks.map((task) => (
                   <li key={task.id} className="text-xs text-gray-300">
-                    <span className="font-medium text-white">{task.title}</span>
+                    <span className="font-medium text-[#1D1D1F]">{task.title}</span>
                     <span className="text-gray-500"> · due {task.dueDate}</span>
                   </li>
                 ))}
               </ul>
             ) : null}
-            <div className="mt-4 space-y-3 border-t border-white/10 pt-4">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+            <div className="mt-4 space-y-3 border-t border-[#E5E5E5] pt-4">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#71717a]">
                 Schedule call
               </p>
               <input
@@ -342,20 +342,20 @@ export function LeadDetailView({
                 value={reminderTitle}
                 onChange={(e) => setReminderTitle(e.target.value)}
                 placeholder="Reminder title…"
-                className="w-full rounded-xl border border-white/10 bg-void px-4 py-3 text-sm text-gray-100 placeholder:text-gray-400 focus:border-supernova-gold/40 focus:outline-none"
+                className="w-full rounded-xl border border-[#E5E5E5] bg-[#F7F6F3] px-4 py-3 text-sm text-[#52525b] placeholder:text-[#A1A1AA] focus:border-supernova-gold/40 focus:outline-none"
               />
               <input
                 type="datetime-local"
                 value={reminderDue}
                 onChange={(e) => setReminderDue(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-void px-4 py-3 text-sm text-gray-100 focus:border-supernova-gold/40 focus:outline-none"
+                className="w-full rounded-xl border border-[#E5E5E5] bg-[#F7F6F3] px-4 py-3 text-sm text-[#52525b] focus:border-supernova-gold/40 focus:outline-none"
               />
               <button
                 type="button"
                 disabled={!reminderTitle.trim() || !reminderDue}
                 onClick={() => void scheduleReminder()}
                 className={cn(
-                  "w-full rounded-xl bg-shark px-4 py-3 text-sm font-semibold text-white transition-all duration-300 ease-apple",
+                  "w-full rounded-xl bg-white px-4 py-3 text-sm font-semibold text-[#1D1D1F] transition-all duration-300 ease-apple",
                   "hover:bg-supernova-gold/20 hover:shadow-[0_0_32px_rgba(255,127,80,0.4)]",
                   "disabled:cursor-not-allowed disabled:opacity-40"
                 )}
@@ -367,10 +367,10 @@ export function LeadDetailView({
         </div>
       </div>
 
-      <section className="flex flex-col rounded-[2rem] bg-shark/60 ring-1 ring-white/5 lg:col-span-3">
-        <header className="border-b border-white/10 px-5 py-4">
-          <h2 className="text-lg font-bold tracking-[-0.03em] text-white">Unified thread</h2>
-          <p className="text-xs text-gray-400">Email · WhatsApp · portal</p>
+      <section className="flex flex-col rounded-[2rem] bg-white ring-1 ring-[#E5E5E5] lg:col-span-3">
+        <header className="border-b border-[#E5E5E5] px-5 py-4">
+          <h2 className="text-lg font-bold tracking-[-0.03em] text-[#1D1D1F]">Unified thread</h2>
+          <p className="text-xs text-[#71717a]">Email · WhatsApp · portal</p>
           {canUseAi ? (
             <div className="mt-2">
               <CorrespondenceSentimentBar leadId={lead.id} />
@@ -395,10 +395,10 @@ export function LeadDetailView({
                     {meta.icon}
                   </span>
                   <span className={cn("text-sm font-semibold", meta.text)}>{msg.from}</span>
-                  <span className="rounded-full bg-void/40 px-2 py-0.5 text-[10px] uppercase tracking-wider text-white/50">
+                  <span className="rounded-full bg-[#F7F6F3]/40 px-2 py-0.5 text-[10px] uppercase tracking-wider text-[#1D1D1F]/50">
                     {meta.label}
                   </span>
-                  <time className="ml-auto text-[11px] text-gray-400" dateTime={msg.sentAt}>
+                  <time className="ml-auto text-[11px] text-[#71717a]" dateTime={msg.sentAt}>
                     {formatSentAt(msg.sentAt)}
                   </time>
                 </div>
@@ -408,21 +408,21 @@ export function LeadDetailView({
           })}
         </ul>
 
-        <div className="sticky bottom-0 border-t border-white/10 bg-void/90 px-4 py-4 backdrop-blur-xl sm:px-5">
+        <div className="sticky bottom-0 border-t border-[#E5E5E5] bg-[#F7F6F3]/90 px-4 py-4 backdrop-blur-xl sm:px-5">
           <div className="mb-3 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
             {QUICK_REPLY_TEMPLATES.map((template) => (
               <button
                 key={template.label}
                 type="button"
                 onClick={() => applyTemplate(template.build)}
-                className="shrink-0 rounded-full border border-white/15 bg-shark/80 px-3 py-1.5 text-[11px] font-medium text-gray-100 transition-colors hover:border-cinematic-teal/40 hover:text-white"
+                className="shrink-0 rounded-full border border-[#E5E5E5] bg-white/80 px-3 py-1.5 text-[11px] font-medium text-[#52525b] transition-colors hover:border-cinematic-teal/40 hover:text-[#1D1D1F]"
               >
                 {template.label}
               </button>
             ))}
           </div>
           {sendError ? (
-            <p className="mb-3 text-xs text-amber-300" role="alert">
+            <p className="mb-3 text-xs text-amber-900" role="alert">
               {sendError}
             </p>
           ) : null}
@@ -432,14 +432,14 @@ export function LeadDetailView({
               onChange={(e) => setDraft(e.target.value)}
               rows={2}
               placeholder="Reply via WhatsApp…"
-              className="min-h-[3rem] flex-1 resize-none rounded-2xl border border-white/10 bg-shark px-4 py-3 text-sm text-white placeholder:text-white/35 focus:border-cinematic-teal/50 focus:outline-none focus:ring-1 focus:ring-cinematic-teal/30"
+              className="min-h-[3rem] flex-1 resize-none rounded-2xl border border-[#E5E5E5] bg-white px-4 py-3 text-sm text-[#1D1D1F] placeholder:text-[#1D1D1F]/35 focus:border-cinematic-teal/50 focus:outline-none focus:ring-1 focus:ring-cinematic-teal/30"
             />
             <button
               type="button"
               disabled={!draft.trim() || isPending}
               onClick={sendReply}
               className={cn(
-                "self-end rounded-2xl bg-cinematic-teal px-5 py-3 text-sm font-semibold text-white transition-all duration-300 ease-apple",
+                "self-end rounded-2xl bg-cinematic-teal px-5 py-3 text-sm font-semibold text-[#1D1D1F] transition-all duration-300 ease-apple",
                 "hover:shadow-[0_0_40px_rgba(0,128,128,0.45)] disabled:cursor-not-allowed disabled:opacity-40"
               )}
             >

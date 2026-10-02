@@ -26,21 +26,21 @@ export default async function CourseEditorPage({ params }: Props) {
   const lessons = [...course.lessons].sort((a, b) => a.sortOrder - b.sortOrder);
 
   const field =
-    "mt-1 w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white placeholder:text-zinc-600";
-  const label = "block text-xs font-medium text-zinc-400";
+    "mt-1 w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] placeholder:text-[#A1A1AA]";
+  const label = "block text-xs font-medium text-[#52525b]";
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <Link href="/studio/courses" className="text-xs text-zinc-500 hover:text-white">
+          <Link href="/studio/courses" className="text-xs text-[#52525b] hover:text-[#1D1D1F]">
             ← All courses
           </Link>
           <div className="mt-2 flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-semibold text-white">{course.title}</h1>
+            <h1 className="text-2xl font-semibold text-[#1D1D1F]">{course.title}</h1>
             <span
               data-course-status={course.status}
-              className="rounded border border-[#2a2a2a] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400"
+              className="rounded border border-[#E5E5E5] px-2 py-0.5 text-[10px] uppercase tracking-wide text-[#52525b]"
             >
               {course.status}
             </span>
@@ -50,7 +50,7 @@ export default async function CourseEditorPage({ params }: Props) {
           href={coursePath(course.slug)}
           target="_blank"
           rel="noreferrer"
-          className="text-xs text-[#3ecf8e] hover:underline"
+          className="text-xs text-[#006B6B] hover:underline"
         >
           View published page ↗
         </Link>
@@ -59,7 +59,7 @@ export default async function CourseEditorPage({ params }: Props) {
       <StudioPersistForm
         action={updateCourseAction}
         formKey={`${course.id}:${course.updatedAt}`}
-        className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5"
+        className="space-y-4 rounded-xl border border-[#E5E5E5] bg-white p-5"
       >
         <input type="hidden" name="courseId" value={course.id} />
         <div className="grid gap-4 sm:grid-cols-2">
@@ -128,44 +128,44 @@ export default async function CourseEditorPage({ params }: Props) {
         </div>
         {COURSE_STUDENT_AUTH_ENABLED ? (
           <>
-            <label className="flex items-center gap-2 text-sm text-zinc-300">
+            <label className="flex items-center gap-2 text-sm text-[#3F3F46]">
               <input type="checkbox" name="registrationRequired" defaultChecked={course.registrationRequired} />
               Registration required
             </label>
-            <label className="flex items-center gap-2 text-sm text-zinc-300">
+            <label className="flex items-center gap-2 text-sm text-[#3F3F46]">
               <input type="checkbox" name="sequentialLocking" defaultChecked={course.sequentialLocking} />
               Sequential lesson locking
             </label>
           </>
         ) : (
-          <p className="rounded-md border border-amber-500/20 bg-amber-950/30 px-3 py-2 text-xs text-amber-200/90">
+          <p className="rounded-md border border-amber-500/20 bg-amber-950/30 px-3 py-2 text-xs text-amber-900/90">
             Student registration is paused while you build courses. Anyone can open published lessons. We will turn
             login, register, and sequential locking back on when the content is ready.
           </p>
         )}
         <StudioSaveButton
           idleLabel="Save course"
-          className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black disabled:opacity-60"
+          className="rounded-md bg-[#006B6B] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
         />
       </StudioPersistForm>
 
       <section className="space-y-4">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold text-white">Lessons</h2>
-            <p className="mt-1 text-xs text-zinc-500">Add, rename, reorder, publish, and mark one lesson as final.</p>
+            <h2 className="text-lg font-semibold text-[#1D1D1F]">Lessons</h2>
+            <p className="mt-1 text-xs text-[#52525b]">Add, rename, reorder, publish, and mark one lesson as final.</p>
           </div>
         </div>
 
-        <form action={addLessonAction} className="flex flex-col gap-3 rounded-xl border border-dashed border-[#2a2a2a] p-4 sm:flex-row">
+        <form action={addLessonAction} className="flex flex-col gap-3 rounded-xl border border-dashed border-[#E5E5E5] p-4 sm:flex-row">
           <input type="hidden" name="courseId" value={course.id} />
           <input
             name="title"
             required
             placeholder="New lesson title"
-            className="flex-1 rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white"
+            className="flex-1 rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F]"
           />
-          <button type="submit" className="rounded-md border border-[#3ecf8e]/40 px-4 py-2 text-sm text-[#3ecf8e]">
+          <button type="submit" className="rounded-md border border-[#006B6B]/35 px-4 py-2 text-sm text-[#006B6B]">
             Add lesson
           </button>
         </form>
@@ -174,13 +174,13 @@ export default async function CourseEditorPage({ params }: Props) {
           {lessons.map((lesson, index) => (
             <li
               key={lesson.id}
-              className="flex flex-col gap-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-4 sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-3 rounded-xl border border-[#E5E5E5] bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
             >
               <div>
-                <p className="font-medium text-white">
+                <p className="font-medium text-[#1D1D1F]">
                   {index + 1}. {lesson.title}
                 </p>
-                <p className="mt-1 text-[11px] text-zinc-500">
+                <p className="mt-1 text-[11px] text-[#52525b]">
                   {lesson.status}
                   {lesson.isFinal ? " · Final lesson" : ""}
                   {lesson.responseRequired ? " · Response required" : ""}
@@ -196,7 +196,7 @@ export default async function CourseEditorPage({ params }: Props) {
                     type="submit"
                     disabled={!canMove(lessons, lesson.id, "up")}
                     aria-label={`Move ${lesson.title} up`}
-                    className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+                    className="rounded-md border border-[#E5E5E5] px-2 py-1 text-xs text-[#52525b] disabled:cursor-not-allowed disabled:opacity-30"
                   >
                     Up
                   </button>
@@ -209,14 +209,14 @@ export default async function CourseEditorPage({ params }: Props) {
                     type="submit"
                     disabled={!canMove(lessons, lesson.id, "down")}
                     aria-label={`Move ${lesson.title} down`}
-                    className="rounded-md border border-[#2a2a2a] px-2 py-1 text-xs text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+                    className="rounded-md border border-[#E5E5E5] px-2 py-1 text-xs text-[#52525b] disabled:cursor-not-allowed disabled:opacity-30"
                   >
                     Down
                   </button>
                 </form>
                 <Link
                   href={studioLessonPath(course.id, lesson.id)}
-                  className="rounded-md bg-white/10 px-3 py-1 text-xs text-white"
+                  className="rounded-md bg-[#F0F0EE] px-3 py-1 text-xs text-[#1D1D1F]"
                 >
                   Edit blocks
                 </Link>

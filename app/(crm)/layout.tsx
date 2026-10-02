@@ -20,7 +20,7 @@ export default function CrmRouteGroupLayout({
     <MinimalAppShell>
       <div
         data-app-shell="crm"
-        className="min-h-screen bg-[#F7F6F3] text-[#1D1D1F] antialiased selection:bg-[#0057B8] selection:text-white"
+        className="min-h-screen bg-[#F7F6F3] text-[#1D1D1F] antialiased selection:bg-[#0057B8] selection:text-[#1D1D1F]"
       >
         {children}
       </div>

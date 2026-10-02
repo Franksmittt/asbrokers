@@ -6,11 +6,11 @@ import { StudioClearCacheButton } from "@/components/client-studio/StudioClearCa
 
 function resolveTitle(pathname: string): string {
   if (pathname.startsWith("/studio/newsletter/subscribers")) return "Subscribers";
-  if (pathname.startsWith("/studio/newsletter")) return "Newsletter Studio";
+  if (pathname.startsWith("/studio/newsletter")) return "Newsletter";
   if (pathname.startsWith("/studio/courses/students")) return "Students";
-  if (pathname.startsWith("/studio/courses")) return "Course Studio";
+  if (pathname.startsWith("/studio/courses")) return "Courses";
   if (pathname.startsWith("/studio/blog/workspace/tutorial")) return "Tutorial";
-  if (pathname.startsWith("/studio/blog/workspace")) return "Insights Studio";
+  if (pathname.startsWith("/studio/blog/workspace")) return "Insights";
   return "Studio";
 }
 
@@ -33,27 +33,24 @@ export function StudioHeader() {
   const live = liveLink(pathname);
 
   return (
-    <header className="sticky top-0 z-40 hidden h-12 items-center justify-between gap-4 border-b border-[#2a2a2a] bg-black/80 px-4 backdrop-blur-sm md:flex md:px-6">
+    <header className="sticky top-0 z-40 hidden h-14 items-center justify-between gap-4 border-b border-[#E5E5E5] bg-[#F7F6F3]/90 px-4 backdrop-blur-sm md:flex md:px-6">
       <div className="flex min-w-0 items-center gap-3">
-        <span className="text-sm font-medium text-white">{title}</span>
-        <span className="rounded border border-[#2a2a2a] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-500">
-          studio
-        </span>
+        <span className="text-sm font-semibold tracking-tight text-[#1D1D1F]">{title}</span>
       </div>
       <div className="flex items-center gap-3">
         <StudioClearCacheButton variant="header" />
         <Link
-          href="/studio"
-          className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1.5 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white"
+          href="/crm"
+          className="rounded-xl border border-[#E5E5E5] bg-white px-3 py-1.5 text-xs font-medium text-[#52525b] transition-colors hover:text-[#1D1D1F]"
         >
-          All studios
+          Home
         </Link>
         {live ? (
           <Link
             href={live.href}
             target="_blank"
             rel="noreferrer"
-            className="text-[12px] text-zinc-500 transition-colors hover:text-[#3ecf8e]"
+            className="text-[12px] font-medium text-[#0057B8] transition-colors hover:underline"
           >
             {live.label}
           </Link>

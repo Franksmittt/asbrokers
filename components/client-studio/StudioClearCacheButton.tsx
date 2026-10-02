@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { clearWebsiteCache } from "@/app/studio/blog/actions";
+import { useStaffSidebarOptional } from "@/components/staff/StaffSidebarContext";
 import { cn } from "@/lib/utils";
 
 function RefreshIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -14,19 +15,16 @@ function RefreshIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 type Props = {
-  /** Compact sidebar row vs header button. */
   variant?: "sidebar" | "header";
   className?: string;
 };
 
-/**
- * Lets Albert force-refresh the public Insights pages after publishing,
- * so browser/CDN-cached HTML updates without a hard browser clear.
- */
 export function StudioClearCacheButton({ variant = "sidebar", className }: Props) {
   const [pending, startTransition] = useTransition();
   const [message, setMessage] = useState<string | null>(null);
   const [ok, setOk] = useState<boolean | null>(null);
+  const sidebar = useStaffSidebarOptional();
+  const collapsed = sidebar?.collapsed ?? false;
 
   const onClick = () => {
     setMessage(null);
@@ -35,7 +33,7 @@ export function StudioClearCacheButton({ variant = "sidebar", className }: Props
       const result = await clearWebsiteCache();
       if (result.ok) {
         setOk(true);
-        setMessage(`Cache cleared (${result.refreshed} pages). Open Insights to check.`);
+        setMessage(`Cache cleared (${result.refreshed} pages).`);
       } else {
         setOk(false);
         setMessage(result.error);
@@ -50,13 +48,13 @@ export function StudioClearCacheButton({ variant = "sidebar", className }: Props
           type="button"
           onClick={onClick}
           disabled={pending}
-          className="inline-flex items-center gap-1.5 rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1.5 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3ecf8e]/40 hover:text-[#3ecf8e] disabled:opacity-60"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E5E5] bg-white px-3 py-1.5 text-xs font-medium text-[#52525b] transition-colors hover:text-[#006B6B] disabled:opacity-60"
         >
           <RefreshIcon className={cn("h-3.5 w-3.5", pending && "animate-spin")} aria-hidden />
-          {pending ? "Clearing…" : "Clear website cache"}
+          {pending ? "Clearing…" : "Clear cache"}
         </button>
         {message ? (
-          <p className={cn("max-w-xs text-right text-[11px]", ok ? "text-[#3ecf8e]" : "text-amber-400")}>
+          <p className={cn("max-w-xs text-right text-[11px]", ok ? "text-[#006B6B]" : "text-amber-700")}>
             {message}
           </p>
         ) : null}
@@ -71,27 +69,21 @@ export function StudioClearCacheButton({ variant = "sidebar", className }: Props
         onClick={onClick}
         disabled={pending}
         title="Clear website cache"
-        className="flex h-9 w-full items-center rounded-md px-2 text-[13px] text-zinc-400 transition-colors hover:bg-[#161616] hover:text-[#3ecf8e] disabled:opacity-60"
+        className={cn(
+          "flex h-10 w-full items-center rounded-xl text-[13px] text-[#52525b] transition-colors hover:bg-[#F0F0EE] hover:text-[#006B6B] disabled:opacity-60",
+          collapsed ? "justify-center" : "px-3"
+        )}
       >
         <RefreshIcon className={cn("h-[18px] w-[18px] shrink-0", pending && "animate-spin")} aria-hidden />
-        <span className="ml-3 truncate opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-          {pending ? "Clearing cache…" : "Clear website cache"}
-        </span>
+        {!collapsed ? (
+          <span className="ml-3 truncate">{pending ? "Clearing cache…" : "Clear website cache"}</span>
+        ) : null}
       </button>
-      {message ? (
-        <p
-          className={cn(
-            "px-2 text-[10px] leading-snug opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100",
-            ok ? "text-[#3ecf8e]" : "text-amber-400"
-          )}
-        >
+      {!collapsed && message ? (
+        <p className={cn("px-3 text-[10px] leading-snug", ok ? "text-[#006B6B]" : "text-amber-700")}>
           {message}
         </p>
-      ) : (
-        <p className="px-2 text-[10px] leading-snug text-zinc-600 opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-          After publishing, click this so the live Insights page updates.
-        </p>
-      )}
+      ) : null}
     </div>
   );
 }

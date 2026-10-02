@@ -30,26 +30,20 @@ export default function CrmLeadsPage() {
     : null;
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-5xl space-y-6">
       <header>
-        <h1 className="text-2xl font-bold text-white">Leads</h1>
-        <p className="mt-2 text-sm text-gray-100 tabular-nums">
+        <h1 className="font-serif text-3xl font-semibold tracking-tight text-[#1D1D1F]">Leads</h1>
+        <p className="mt-2 text-sm text-[#52525b] tabular-nums">
           {filteredLeads.length} record{filteredLeads.length === 1 ? "" : "s"}
-          {statusLabel ? ` · ${statusLabel}` : " in view"}
+          {statusLabel ? ` · ${statusLabel}` : ""}
         </p>
         {statusFilter ? (
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3">
             <Link
               href="/crm/leads"
-              className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1 text-xs text-zinc-400 transition-colors hover:text-white"
+              className="rounded-xl border border-[#E5E5E5] bg-white px-3 py-1.5 text-xs font-medium text-[#52525b] transition-colors hover:text-[#1D1D1F]"
             >
               Clear filter
-            </Link>
-            <Link
-              href="/crm/kanban"
-              className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1 text-xs text-zinc-400 transition-colors hover:text-white"
-            >
-              Open in Kanban
             </Link>
           </div>
         ) : null}
@@ -64,10 +58,10 @@ export default function CrmLeadsPage() {
               key={col.status}
               href={active ? "/crm/leads" : `/crm/leads?status=${col.status}`}
               className={cn(
-                "rounded-md border px-2.5 py-1 text-[11px] font-medium tabular-nums transition-colors",
+                "rounded-xl border px-2.5 py-1 text-[11px] font-medium tabular-nums transition-colors",
                 active
-                  ? "border-[#3ecf8e]/50 bg-[#3ecf8e]/10 text-[#3ecf8e]"
-                  : "border-[#2a2a2a] text-zinc-500 hover:border-[#3a3a3a] hover:text-zinc-300"
+                  ? "border-[#006B6B]/30 bg-[#E8F3F3] text-[#006B6B]"
+                  : "border-[#E5E5E5] bg-white text-[#71717a] hover:border-[#D4D4D4] hover:text-[#1D1D1F]"
               )}
             >
               {col.label} · {count}
@@ -76,42 +70,44 @@ export default function CrmLeadsPage() {
         })}
       </div>
 
-      <div className="overflow-x-auto rounded-[2rem] rim-light">
+      <div className="overflow-x-auto rounded-2xl border border-[#E5E5E5] bg-white shadow-sm">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead>
-            <tr className="border-b border-white/10 text-xs uppercase tracking-wider text-gray-400">
-              <th className="px-5 py-4 font-medium">Name</th>
-              <th className="px-5 py-4 font-medium">Service</th>
-              <th className="px-5 py-4 font-medium">Status</th>
-              <th className="px-5 py-4 font-medium">Advisor</th>
-              <th className="px-5 py-4 font-medium">Score</th>
+            <tr className="border-b border-[#E5E5E5] text-xs uppercase tracking-wider text-[#71717a]">
+              <th className="px-5 py-3.5 font-medium">Name</th>
+              <th className="px-5 py-3.5 font-medium">Service</th>
+              <th className="px-5 py-3.5 font-medium">Status</th>
+              <th className="px-5 py-3.5 font-medium">Advisor</th>
+              <th className="px-5 py-3.5 font-medium">Score</th>
             </tr>
           </thead>
           <tbody>
             {filteredLeads.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-5 py-12 text-center text-sm text-zinc-500">
+                <td colSpan={5} className="px-5 py-12 text-center text-sm text-[#71717a]">
                   No leads{statusLabel ? ` in ${statusLabel}` : ""}.
                 </td>
               </tr>
             ) : (
               filteredLeads.map((lead) => (
-                <tr key={lead.id} className="border-b border-white/5 hover:bg-white/5">
+                <tr key={lead.id} className="border-b border-[#F0F0EE] last:border-0 hover:bg-[#FAFAF8]">
                   <td className="px-5 py-3">
                     <Link
                       href={`/crm/leads/${lead.id}`}
-                      className="font-medium text-white hover:text-cinematic-teal"
+                      className="font-medium text-[#1D1D1F] hover:text-[#0057B8]"
                     >
                       {lead.name}
                     </Link>
                   </td>
-                  <td className="px-5 py-3 text-gray-100">{SERVICE_LABELS[lead.service_category]}</td>
-                  <td className="px-5 py-3 text-gray-100">{formatLeadStatus(lead.status)}</td>
-                  <td className="px-5 py-3 text-gray-100">
+                  <td className="px-5 py-3 text-[#52525b]">
+                    {SERVICE_LABELS[lead.service_category]}
+                  </td>
+                  <td className="px-5 py-3 text-[#52525b]">{formatLeadStatus(lead.status)}</td>
+                  <td className="px-5 py-3 text-[#52525b]">
                     {formatAdvisorLabel(lead.assignedAdvisorId)}
                   </td>
                   <td className="px-5 py-3">
-                    <span className="rounded-full bg-supernova-gold/20 px-2 py-0.5 text-xs font-bold tabular-nums text-supernova-gold">
+                    <span className="rounded-lg bg-[#F7F6F3] px-2 py-0.5 text-xs font-semibold tabular-nums text-[#52525b]">
                       {lead.lead_score}
                     </span>
                   </td>

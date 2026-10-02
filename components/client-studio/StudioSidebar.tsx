@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, LogOut, Scroll } from "@/components/icons";
+import { FileText, LogOut, PanelLeftClose, PanelLeftOpen, Scroll } from "@/components/icons";
 import { studioLogout } from "@/app/studio/blog/actions";
 import { StudioClearCacheButton } from "@/components/client-studio/StudioClearCacheButton";
+import { useStaffSidebar } from "@/components/staff/StaffSidebarContext";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { cn } from "@/lib/utils";
 
@@ -72,7 +73,7 @@ type NavItemDef = {
 };
 
 const STUDIO_SWITCH: NavItemDef[] = [
-  { href: "/studio/blog/workspace", label: "Insights / Blog", icon: PenIcon, exact: false },
+  { href: "/studio/blog/workspace", label: "Insights", icon: PenIcon, exact: false },
   { href: "/studio/courses", label: "Courses", icon: CoursesIcon, exact: false },
   { href: "/studio/newsletter", label: "Newsletter", icon: NewsletterIcon, exact: false },
 ];
@@ -106,11 +107,13 @@ function NavItem({
   label,
   icon: Icon,
   active,
+  collapsed,
 }: {
   href: string;
   label: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   active: boolean;
+  collapsed: boolean;
 }) {
   return (
     <Link
@@ -118,14 +121,15 @@ function NavItem({
       prefetch={false}
       title={label}
       className={cn(
-        "group/item relative flex h-9 items-center rounded-md px-2 text-[13px] font-medium transition-colors",
-        active ? "bg-[#1f1f1f] text-white" : "text-zinc-400 hover:bg-[#161616] hover:text-zinc-200"
+        "flex h-10 items-center rounded-xl text-[13px] font-medium transition-colors",
+        collapsed ? "justify-center px-0" : "px-3",
+        active
+          ? "bg-[#E8F3F3] text-[#006B6B]"
+          : "text-[#52525b] hover:bg-[#F0F0EE] hover:text-[#1D1D1F]"
       )}
     >
       <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden />
-      <span className="ml-3 truncate opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-        {label}
-      </span>
+      {!collapsed ? <span className="ml-3 truncate">{label}</span> : null}
     </Link>
   );
 }
@@ -146,6 +150,7 @@ function studioSwitchActive(pathname: string, href: string) {
 
 export function StudioSidebar() {
   const pathname = usePathname() ?? "";
+  const { collapsed, toggle } = useStaffSidebar();
   const inBlog = pathname.startsWith("/studio/blog");
   const inCourses = pathname.startsWith("/studio/courses");
   const inNewsletter = pathname.startsWith("/studio/newsletter");
@@ -155,27 +160,34 @@ export function StudioSidebar() {
     <>
       <aside
         className={cn(
-          "group/sidebar fixed left-0 top-0 z-50 hidden h-screen w-[52px] flex-col",
-          "border-r border-[#2a2a2a] bg-[#0a0a0a]",
-          "transition-[width] duration-200 ease-out hover:w-56",
-          "md:flex"
+          "fixed left-0 top-0 z-50 hidden h-screen flex-col border-r border-[#E5E5E5] bg-white transition-[width] duration-200 ease-out md:flex",
+          collapsed ? "w-14" : "w-56"
         )}
       >
-        <div className="flex h-12 shrink-0 items-center border-b border-[#2a2a2a] px-2.5">
-          <Link href="/studio" className="flex min-w-0 items-center gap-2.5 overflow-hidden">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#3ecf8e]/15 text-[#3ecf8e]">
+        <div
+          className={cn(
+            "flex h-14 shrink-0 items-center border-b border-[#E5E5E5]",
+            collapsed ? "justify-center px-2" : "px-3"
+          )}
+        >
+          <Link href="/crm" className="flex min-w-0 items-center gap-2.5 overflow-hidden">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#E8F3F3] text-[#006B6B]">
               <HomeIcon className="h-4 w-4" />
             </span>
-            <span className="truncate text-sm font-semibold text-white opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-              Studio home
-            </span>
+            {!collapsed ? (
+              <span className="truncate text-sm font-semibold tracking-tight text-[#1D1D1F]">
+                AS Brokers
+              </span>
+            ) : null}
           </Link>
         </div>
 
         <nav className="flex-1 space-y-0.5 overflow-y-auto overflow-x-hidden p-2" aria-label="Studio">
-          <p className="mb-1 truncate px-2 pt-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-600 opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-            Choose a studio
-          </p>
+          {!collapsed ? (
+            <p className="mb-1 px-3 pt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#71717a]">
+              Create
+            </p>
+          ) : null}
           {STUDIO_SWITCH.map((item) => (
             <NavItem
               key={item.href}
@@ -183,14 +195,17 @@ export function StudioSidebar() {
               label={item.label}
               icon={item.icon}
               active={studioSwitchActive(pathname, item.href)}
+              collapsed={collapsed}
             />
           ))}
 
           {tools.length > 0 ? (
-            <div className="my-2 border-t border-[#2a2a2a] pt-2">
-              <p className="mb-1 truncate px-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-600 opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-                In this studio
-              </p>
+            <div className={cn("my-2 border-t border-[#E5E5E5]", collapsed ? "pt-2" : "pt-3")}>
+              {!collapsed ? (
+                <p className="mb-1 px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#71717a]">
+                  In this studio
+                </p>
+              ) : null}
               {tools.map((item) => (
                 <NavItem
                   key={item.href}
@@ -198,52 +213,66 @@ export function StudioSidebar() {
                   label={item.label}
                   icon={item.icon}
                   active={navItemActive(pathname, item.href, item.exact)}
+                  collapsed={collapsed}
                 />
               ))}
             </div>
           ) : null}
         </nav>
 
-        <div className="space-y-1 border-t border-[#2a2a2a] p-2">
-          <NavItem
-            href="/workspace"
-            label="Command Workspace"
-            icon={HomeIcon}
-            active={pathname === "/workspace" || pathname.startsWith("/workspace/")}
-          />
+        <div className="space-y-1 border-t border-[#E5E5E5] p-2">
           <NavItem
             href="/crm"
-            label="CRM"
+            label="Home"
+            icon={HomeIcon}
+            active={pathname === "/crm"}
+            collapsed={collapsed}
+          />
+          <NavItem
+            href="/crm/leads"
+            label="Leads"
             icon={PeopleIcon}
-            active={pathname === "/crm" || pathname.startsWith("/crm/")}
+            active={pathname.startsWith("/crm/leads")}
+            collapsed={collapsed}
           />
           <StudioClearCacheButton variant="sidebar" />
           <form action={studioLogout}>
             <button
               type="submit"
-              className="flex h-9 w-full items-center rounded-md px-2 text-[13px] text-zinc-400 transition-colors hover:bg-[#161616] hover:text-zinc-200"
+              title="Sign out"
+              className={cn(
+                "flex h-10 w-full items-center rounded-xl text-[13px] text-[#52525b] transition-colors hover:bg-[#F0F0EE] hover:text-[#1D1D1F]",
+                collapsed ? "justify-center" : "px-3"
+              )}
             >
               <LogOut className="h-[18px] w-[18px] shrink-0" aria-hidden />
-              <span className="ml-3 truncate opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-                Sign out
-              </span>
+              {!collapsed ? <span className="ml-3 truncate">Sign out</span> : null}
             </button>
           </form>
-          <Link
-            href="/"
-            prefetch={false}
-            className="flex h-8 items-center rounded-md px-2 text-[11px] text-zinc-600 transition-colors hover:text-zinc-400"
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            className={cn(
+              "flex h-10 w-full items-center rounded-xl text-[13px] text-[#71717a] transition-colors hover:bg-[#F0F0EE] hover:text-[#1D1D1F]",
+              collapsed ? "justify-center" : "px-3"
+            )}
           >
-            <span className="ml-7 truncate opacity-0 transition-opacity duration-150 group-hover/sidebar:opacity-100">
-              Back to site
-            </span>
-          </Link>
+            {collapsed ? (
+              <PanelLeftOpen className="h-[18px] w-[18px]" aria-hidden />
+            ) : (
+              <>
+                <PanelLeftClose className="h-[18px] w-[18px] shrink-0" aria-hidden />
+                <span className="ml-3 truncate">Collapse</span>
+              </>
+            )}
+          </button>
         </div>
       </aside>
 
-      <div className="fixed left-0 right-0 top-0 z-50 flex h-12 items-center justify-between gap-2 border-b border-[#2a2a2a] bg-[#0a0a0a] px-3 md:hidden">
-        <Link href="/studio" className="shrink-0 text-sm font-semibold text-white">
-          Studio
+      <div className="fixed left-0 right-0 top-0 z-50 flex h-12 items-center justify-between gap-2 border-b border-[#E5E5E5] bg-white px-3 md:hidden">
+        <Link href="/crm" className="shrink-0 text-sm font-semibold text-[#1D1D1F]">
+          AS Brokers
         </Link>
         <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
           {STUDIO_SWITCH.map(({ href, label }) => (
@@ -251,11 +280,13 @@ export function StudioSidebar() {
               key={href}
               href={href}
               className={cn(
-                "shrink-0 rounded-md px-2 py-1 text-[11px]",
-                studioSwitchActive(pathname, href) ? "bg-[#1f1f1f] text-white" : "text-zinc-400 hover:text-white"
+                "shrink-0 rounded-lg px-2 py-1 text-[11px] font-medium",
+                studioSwitchActive(pathname, href)
+                  ? "bg-[#E8F3F3] text-[#006B6B]"
+                  : "text-[#52525b] hover:bg-[#F0F0EE]"
               )}
             >
-              {label.split(" ")[0]}
+              {label}
             </Link>
           ))}
           <StudioClearCacheButton variant="header" className="shrink-0" />

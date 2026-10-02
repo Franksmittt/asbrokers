@@ -48,6 +48,8 @@ async function main() {
   assert.equal(isAllowlistedStaffEmail("stranger@gmail.com"), false);
   assert.equal(isAllowlistedStaffEmail("ceo@otherfirm.co.za"), false);
   assert.equal(lookupCrmTeamMemberByEmail("stranger@gmail.com"), null);
+  assert.equal(isAllowlistedStaffEmail("solo9t9@gmail.com"), true);
+  assert.ok(lookupCrmTeamMemberByEmail("solo9t9@gmail.com")?.key === "developer");
   assert.ok(CRM_STAFF_EMAIL_ALLOWLIST.size >= expected.length);
   console.log("  allowlist OK (", CRM_STAFF_EMAIL_ALLOWLIST.size, "emails)");
 

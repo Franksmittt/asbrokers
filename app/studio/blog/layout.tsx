@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function StudioBlogLayout({ children }: { children: React.ReactNode }) {
-  return <div className="min-h-dvh bg-black text-zinc-200 text-[15px] leading-snug antialiased">{children}</div>;
+  return (
+    <div className="min-h-dvh bg-[#F7F6F3] text-[#1D1D1F] text-[15px] leading-snug antialiased">
+      {children}
+    </div>
+  );
 }

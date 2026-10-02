@@ -32,7 +32,8 @@ type BellItem =
 
 export function CrmHeader({ staffName, role }: CrmHeaderProps) {
   const router = useRouter();
-  const { visibleLeads, unreadCourseAlerts, markCourseAlertRead, markAllCourseAlertsRead } = useCrm();
+  const { visibleLeads, unreadCourseAlerts, markCourseAlertRead, markAllCourseAlertsRead } =
+    useCrm();
   const [query, setQuery] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -80,21 +81,18 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
 
   const notificationCount = newLeadNotifications.length + unreadCourseAlerts.length;
 
-  const onKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        setNotificationsOpen(false);
-        setPaletteOpen(true);
-      }
-      if (event.key === "Escape") {
-        setPaletteOpen(false);
-        setNotificationsOpen(false);
-        setQuery("");
-      }
-    },
-    []
-  );
+  const onKeyDown = useCallback((event: KeyboardEvent) => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      setNotificationsOpen(false);
+      setPaletteOpen(true);
+    }
+    if (event.key === "Escape") {
+      setPaletteOpen(false);
+      setNotificationsOpen(false);
+      setQuery("");
+    }
+  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
@@ -107,11 +105,13 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 flex h-12 items-center justify-between gap-4 border-b border-[#2a2a2a] bg-black/80 px-4 backdrop-blur-sm md:px-6">
+      <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-4 border-b border-[#E5E5E5] bg-[#F7F6F3]/90 px-4 backdrop-blur-sm md:px-6">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="hidden text-sm font-medium text-white sm:inline">AS Brokers</span>
+          <span className="hidden text-sm font-semibold tracking-tight text-[#1D1D1F] sm:inline">
+            Command Workspace
+          </span>
           <span
-            className="truncate rounded border border-[#2a2a2a] px-1.5 py-0.5 text-[11px] font-medium tracking-wide text-zinc-300"
+            className="truncate rounded-lg border border-[#E5E5E5] bg-white px-2 py-0.5 text-[11px] font-medium text-[#52525b]"
             title={`${staffName} · ${role === "admin" ? "Admin" : "Staff"}`}
           >
             {staffName}
@@ -121,25 +121,19 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
         <button
           type="button"
           onClick={() => setPaletteOpen(true)}
-          className="hidden h-8 max-w-md flex-1 items-center gap-2 rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 text-left text-[13px] text-zinc-500 transition-colors hover:border-[#3a3a3a] hover:text-zinc-400 sm:flex"
+          className="hidden h-9 max-w-md flex-1 items-center gap-2 rounded-xl border border-[#E5E5E5] bg-white px-3 text-left text-[13px] text-[#71717a] transition-colors hover:border-[#D4D4D4] hover:text-[#52525b] sm:flex"
         >
           <Search className="h-3.5 w-3.5 shrink-0" aria-hidden />
           <span className="flex-1 truncate">Search leads…</span>
-          <kbd className="rounded border border-[#2a2a2a] bg-[#141414] px-1.5 py-0.5 text-[10px] font-medium text-zinc-500">
+          <kbd className="rounded-md border border-[#E5E5E5] bg-[#FAFAF8] px-1.5 py-0.5 text-[10px] font-medium text-[#71717a]">
             {shortcutLabel}
           </kbd>
         </button>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/crm/whatsapp"
-            className="hidden rounded-md px-2 py-1 text-[12px] text-zinc-500 transition-colors hover:text-zinc-300 sm:inline"
-          >
-            WhatsApp
-          </Link>
           <button
             type="button"
-            className="relative flex h-8 w-8 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-[#161616] hover:text-zinc-300"
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl text-[#71717a] transition-colors hover:bg-white hover:text-[#1D1D1F]"
             aria-label="Notifications"
             aria-expanded={notificationsOpen}
             aria-haspopup="dialog"
@@ -150,13 +144,13 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
           >
             <Bell className="h-4 w-4" />
             {notificationCount > 0 ? (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#3ecf8e] px-1 text-[9px] font-semibold text-black">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#006B6B] px-1 text-[9px] font-semibold text-white">
                 {notificationCount > 9 ? "9+" : notificationCount}
               </span>
             ) : null}
           </button>
           <div
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#3ecf8e]/15 text-[#3ecf8e]"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8F3F3] text-[#006B6B]"
             title={staffName}
           >
             <User className="h-4 w-4" />
@@ -173,17 +167,19 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
             onClick={() => setNotificationsOpen(false)}
           />
           <div
-            className="absolute right-4 top-14 z-[91] w-80 overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-2xl md:right-6"
+            className="absolute right-4 top-16 z-[91] w-80 overflow-hidden rounded-2xl border border-[#E5E5E5] bg-white shadow-xl md:right-6"
             role="dialog"
-            aria-label="CRM notifications"
+            aria-label="Notifications"
           >
-            <div className="flex items-center justify-between border-b border-[#2a2a2a] px-3 py-2.5">
-              <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">Notifications</p>
+            <div className="flex items-center justify-between border-b border-[#E5E5E5] px-3 py-2.5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#71717a]">
+                Notifications
+              </p>
               <div className="flex items-center gap-2">
                 {unreadCourseAlerts.length > 0 ? (
                   <button
                     type="button"
-                    className="text-[11px] text-zinc-400 hover:text-zinc-200"
+                    className="text-[11px] text-[#52525b] hover:text-[#1D1D1F]"
                     onClick={() => {
                       void markAllCourseAlertsRead();
                     }}
@@ -193,7 +189,7 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
                 ) : null}
                 <Link
                   href="/crm/leads?status=new"
-                  className="text-[11px] text-[#3ecf8e] hover:underline"
+                  className="text-[11px] font-medium text-[#0057B8] hover:underline"
                   onClick={() => setNotificationsOpen(false)}
                 >
                   New leads
@@ -202,7 +198,7 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
             </div>
             <ul className="max-h-80 overflow-y-auto py-1">
               {bellItems.length === 0 ? (
-                <li className="px-4 py-6 text-center text-sm text-zinc-500">
+                <li className="px-4 py-6 text-center text-sm text-[#71717a]">
                   No new leads or course alerts right now.
                 </li>
               ) : (
@@ -210,7 +206,7 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
                   <li key={item.id}>
                     <button
                       type="button"
-                      className="flex w-full flex-col gap-0.5 px-4 py-2.5 text-left transition-colors hover:bg-[#161616]"
+                      className="flex w-full flex-col gap-0.5 px-4 py-2.5 text-left transition-colors hover:bg-[#F7F6F3]"
                       onClick={() => {
                         setNotificationsOpen(false);
                         if (item.kind === "course") {
@@ -219,11 +215,11 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
                         router.push(item.href);
                       }}
                     >
-                      <span className="text-[10px] font-semibold uppercase tracking-wide text-[#3ecf8e]/90">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-[#006B6B]">
                         {item.kind === "course" ? "Course" : "Lead"}
                       </span>
-                      <span className="text-sm font-medium text-white">{item.title}</span>
-                      <span className="line-clamp-2 text-xs text-zinc-500">{item.subtitle}</span>
+                      <span className="text-sm font-medium text-[#1D1D1F]">{item.title}</span>
+                      <span className="line-clamp-2 text-xs text-[#71717a]">{item.subtitle}</span>
                     </button>
                   </li>
                 ))
@@ -233,9 +229,9 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
         </div>
       ) : null}
 
-      {paletteOpen && (
+      {paletteOpen ? (
         <div
-          className="fixed inset-0 z-[100] flex items-start justify-center bg-black/70 p-4 pt-[12vh]"
+          className="fixed inset-0 z-[100] flex items-start justify-center bg-[#1D1D1F]/40 p-4 pt-[12vh]"
           role="dialog"
           aria-modal="true"
           aria-label="Search leads"
@@ -245,23 +241,23 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
           }}
         >
           <div
-            className="w-full max-w-lg overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-2xl"
+            className="w-full max-w-lg overflow-hidden rounded-2xl border border-[#E5E5E5] bg-white shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center gap-2 border-b border-[#2a2a2a] px-3">
-              <Search className="h-4 w-4 text-zinc-500" aria-hidden />
+            <div className="flex items-center gap-2 border-b border-[#E5E5E5] px-3">
+              <Search className="h-4 w-4 text-[#71717a]" aria-hidden />
               <input
                 autoFocus
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search leads by name, email, or phone…"
-                className="h-11 flex-1 bg-transparent text-sm text-white placeholder:text-zinc-600 focus:outline-none"
+                className="h-12 flex-1 bg-transparent text-sm text-[#1D1D1F] placeholder:text-[#A1A1AA] focus:outline-none"
               />
-              <kbd className="text-[10px] text-zinc-600">Esc</kbd>
+              <kbd className="text-[10px] text-[#A1A1AA]">Esc</kbd>
             </div>
             <ul className="max-h-72 overflow-y-auto py-1">
               {matches.length === 0 ? (
-                <li className="px-4 py-6 text-center text-sm text-zinc-500">
+                <li className="px-4 py-6 text-center text-sm text-[#71717a]">
                   {query.trim() ? "No matching leads." : "Type to search leads…"}
                 </li>
               ) : (
@@ -269,15 +265,15 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
                   <li key={lead.id}>
                     <button
                       type="button"
-                      className="flex w-full flex-col gap-0.5 px-4 py-2.5 text-left transition-colors hover:bg-[#161616]"
+                      className="flex w-full flex-col gap-0.5 px-4 py-2.5 text-left transition-colors hover:bg-[#F7F6F3]"
                       onClick={() => {
                         setPaletteOpen(false);
                         setQuery("");
                         router.push(`/crm/leads/${lead.id}`);
                       }}
                     >
-                      <span className="text-sm font-medium text-white">{lead.name}</span>
-                      <span className="text-xs text-zinc-500">{lead.email || lead.phone}</span>
+                      <span className="text-sm font-medium text-[#1D1D1F]">{lead.name}</span>
+                      <span className="text-xs text-[#71717a]">{lead.email || lead.phone}</span>
                     </button>
                   </li>
                 ))
@@ -285,7 +281,7 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
             </ul>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 }

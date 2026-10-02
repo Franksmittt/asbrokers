@@ -3,12 +3,12 @@ import { MinimalAppShell } from "@/components/MinimalAppShell";
 import { privateRouteMetadata } from "@/lib/seo-metadata";
 
 export const metadata: Metadata = privateRouteMetadata(
-  "CRM | AS Brokers",
-  "Staff CRM workspace, not for public indexing."
+  "Command Workspace | AS Brokers",
+  "Staff workspace, not for public indexing."
 );
 
 /**
- * CRM route group, dark baseline isolated from marketing (content) layout.
+ * CRM route group — Paper & Ink light baseline (isolated from marketing layout).
  * URLs remain /crm/* via nested app/(crm)/crm/ segment.
  */
 export default function CrmRouteGroupLayout({
@@ -20,7 +20,7 @@ export default function CrmRouteGroupLayout({
     <MinimalAppShell>
       <div
         data-app-shell="crm"
-        className="min-h-screen bg-void text-white antialiased selection:bg-samsung-blue selection:text-white"
+        className="min-h-screen bg-[#F7F6F3] text-[#1D1D1F] antialiased selection:bg-[#0057B8] selection:text-white"
       >
         {children}
       </div>

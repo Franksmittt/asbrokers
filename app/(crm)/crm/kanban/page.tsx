@@ -9,8 +9,8 @@ export default function CrmKanbanPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold tracking-[-0.03em] text-white">Wealth Pipeline</h1>
-        <p className="mt-2 text-sm text-gray-100">
+        <h1 className="text-2xl font-bold tracking-[-0.03em] text-[#1D1D1F]">Wealth Pipeline</h1>
+        <p className="mt-2 text-sm text-[#52525b]">
           Elite financial dossiers, drag between stages or tap to open.
         </p>
       </header>

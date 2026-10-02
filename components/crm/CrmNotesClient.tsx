@@ -45,18 +45,18 @@ export function CrmNotesClient({ initialNotes }: { initialNotes: CrmGlobalNote[]
   return (
     <div className="flex min-h-[calc(100vh-10rem)] flex-col">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-[-0.03em] text-white">Notes</h1>
-        <p className="mt-2 text-sm text-gray-100">Team thoughts, Apple Notes inspired workspace</p>
+        <h1 className="text-3xl font-bold tracking-[-0.03em] text-[#1D1D1F]">Notes</h1>
+        <p className="mt-2 text-sm text-[#52525b]">Team thoughts, Apple Notes inspired workspace</p>
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col gap-8 lg:flex-row">
         <aside className="flex w-full flex-col lg:w-1/3">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-400">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-wider text-[#71717a]">
             All notes
           </p>
           <ul className="max-h-[40vh] flex-1 space-y-2 overflow-y-auto lg:max-h-none">
             {sortedNotes.length === 0 ? (
-              <li className="text-sm text-gray-400">No notes yet.</li>
+              <li className="text-sm text-[#71717a]">No notes yet.</li>
             ) : (
               sortedNotes.map((note) => (
                 <li key={note.id}>
@@ -66,14 +66,14 @@ export function CrmNotesClient({ initialNotes }: { initialNotes: CrmGlobalNote[]
                     className={cn(
                       "w-full rounded-2xl px-4 py-4 text-left transition-colors",
                       selectedNote?.id === note.id
-                        ? "bg-shark ring-1 ring-white/10"
-                        : "hover:bg-shark/60"
+                        ? "bg-white ring-1 ring-[#E5E5E5]"
+                        : "hover:bg-white"
                     )}
                   >
-                    <p className="line-clamp-2 text-sm font-medium text-white">
+                    <p className="line-clamp-2 text-sm font-medium text-[#1D1D1F]">
                       {notePreview(note.content)}
                     </p>
-                    <p className="mt-2 text-[10px] text-gray-400">
+                    <p className="mt-2 text-[10px] text-[#71717a]">
                       {formatAdvisorLabel(note.authorId)} · {formatNoteTime(note.timestamp)}
                     </p>
                   </button>
@@ -86,11 +86,11 @@ export function CrmNotesClient({ initialNotes }: { initialNotes: CrmGlobalNote[]
         <div className="relative flex min-h-[24rem] flex-1 flex-col lg:w-2/3">
           {selectedNote ? (
             <div className="mb-8 rounded-[2rem] rim-light p-6">
-              <p className="text-[10px] text-gray-400">
+              <p className="text-[10px] text-[#71717a]">
                 {formatAdvisorLabel(selectedNote.authorId)} ·{" "}
                 {formatNoteTime(selectedNote.timestamp)}
               </p>
-              <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-gray-100">
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-[#52525b]">
                 {selectedNote.content}
               </p>
             </div>
@@ -100,7 +100,7 @@ export function CrmNotesClient({ initialNotes }: { initialNotes: CrmGlobalNote[]
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             placeholder="Capture a thought for the team…"
-            className="min-h-[20rem] flex-1 resize-none bg-void px-2 py-4 text-base leading-relaxed text-gray-100 placeholder:text-gray-400 focus:outline-none focus:ring-0"
+            className="min-h-[20rem] flex-1 resize-none bg-[#F7F6F3] px-2 py-4 text-base leading-relaxed text-[#52525b] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-0"
           />
 
           <button
@@ -108,7 +108,7 @@ export function CrmNotesClient({ initialNotes }: { initialNotes: CrmGlobalNote[]
             disabled={!draft.trim()}
             onClick={() => void handleSave()}
             className={cn(
-              "absolute bottom-4 right-4 rounded-2xl rim-light px-6 py-3 text-sm font-semibold text-white",
+              "absolute bottom-4 right-4 rounded-2xl rim-light px-6 py-3 text-sm font-semibold text-[#1D1D1F]",
               "transition-all duration-300 ease-apple hover:shadow-cta-glow-blue",
               "disabled:cursor-not-allowed disabled:opacity-40"
             )}

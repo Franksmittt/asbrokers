@@ -27,8 +27,8 @@ export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ courseId: string; lessonId: string }> };
 
 const field =
-  "mt-1 w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white placeholder:text-zinc-600";
-const labelCls = "block text-xs font-medium text-zinc-400";
+  "mt-1 w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] placeholder:text-[#A1A1AA]";
+const labelCls = "block text-xs font-medium text-[#52525b]";
 
 export default async function LessonBuilderPage({ params }: Props) {
   const { courseId, lessonId } = await params;
@@ -43,25 +43,25 @@ export default async function LessonBuilderPage({ params }: Props) {
   return (
     <div className="mx-auto w-full max-w-5xl space-y-8">
       <div>
-        <Link href={studioCoursePath(course.id)} className="text-xs text-zinc-500 hover:text-white">
+        <Link href={studioCoursePath(course.id)} className="text-xs text-[#52525b] hover:text-[#1D1D1F]">
           ← {course.title}
         </Link>
         <div className="mt-2 flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-semibold text-white">{lesson.title}</h1>
+          <h1 className="text-2xl font-semibold text-[#1D1D1F]">{lesson.title}</h1>
           <span
             data-lesson-status={lesson.status}
-            className="rounded border border-[#2a2a2a] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400"
+            className="rounded border border-[#E5E5E5] px-2 py-0.5 text-[10px] uppercase tracking-wide text-[#52525b]"
           >
             {lesson.status}
           </span>
         </div>
-        <p className="mt-1 text-sm text-zinc-500">Blocks can be arranged in any order. This is not a fixed page layout.</p>
+        <p className="mt-1 text-sm text-[#52525b]">Blocks can be arranged in any order. This is not a fixed page layout.</p>
       </div>
 
       <StudioPersistForm
         action={updateLessonAction}
         formKey={`${lesson.id}:${lesson.updatedAt}`}
-        className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5"
+        className="space-y-4 rounded-xl border border-[#E5E5E5] bg-white p-5"
       >
         <input type="hidden" name="courseId" value={course.id} />
         <input type="hidden" name="lessonId" value={lesson.id} />
@@ -82,11 +82,11 @@ export default async function LessonBuilderPage({ params }: Props) {
             <option value="published">Published</option>
           </StudioSelect>
         </label>
-        <label className="flex items-center gap-2 text-sm text-zinc-300">
+        <label className="flex items-center gap-2 text-sm text-[#3F3F46]">
           <input type="checkbox" name="isFinal" defaultChecked={lesson.isFinal} />
           Final lesson
         </label>
-        <label className="flex items-center gap-2 text-sm text-zinc-300">
+        <label className="flex items-center gap-2 text-sm text-[#3F3F46]">
           <input type="checkbox" name="responseRequired" defaultChecked={lesson.responseRequired} />
           Response required
         </label>
@@ -94,9 +94,9 @@ export default async function LessonBuilderPage({ params }: Props) {
           Student question
           <textarea name="responsePrompt" rows={3} defaultValue={lesson.responsePrompt} className={field} />
         </label>
-        <fieldset className="space-y-3 rounded-lg border border-[#2a2a2a] p-4">
-            <legend className="px-1 text-xs uppercase tracking-wide text-zinc-500">Final lesson offer</legend>
-            <p className="text-[11px] text-zinc-500">Used when this lesson is marked final. Leave blank on other lessons.</p>
+        <fieldset className="space-y-3 rounded-lg border border-[#E5E5E5] p-4">
+            <legend className="px-1 text-xs uppercase tracking-wide text-[#52525b]">Final lesson offer</legend>
+            <p className="text-[11px] text-[#52525b]">Used when this lesson is marked final. Leave blank on other lessons.</p>
             <label className={labelCls}>
               Offer heading
               <input name="offerHeading" defaultValue={lesson.offer?.heading ?? ""} className={field} />
@@ -113,19 +113,19 @@ export default async function LessonBuilderPage({ params }: Props) {
               Button URL
               <input name="offerButtonUrl" defaultValue={lesson.offer?.buttonUrl ?? ""} className={field} />
             </label>
-            <label className="flex items-center gap-2 text-sm text-zinc-300">
+            <label className="flex items-center gap-2 text-sm text-[#3F3F46]">
               <input type="checkbox" name="offerOpenInNewTab" defaultChecked={lesson.offer?.openInNewTab ?? true} />
               Open in a new window
             </label>
           </fieldset>
         <StudioSaveButton
           idleLabel="Save lesson settings"
-          className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black disabled:opacity-60"
+          className="rounded-md bg-[#006B6B] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
         />
       </StudioPersistForm>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-white">Content blocks</h2>
+        <h2 className="text-lg font-semibold text-[#1D1D1F]">Content blocks</h2>
         {blocks.map((block) => (
           <BlockEditor
             key={block.id}
@@ -149,7 +149,7 @@ export default async function LessonBuilderPage({ params }: Props) {
               <input type="hidden" name="type" value={type} />
               <button
                 type="submit"
-                className="rounded-md border border-[#2a2a2a] px-3 py-1.5 text-xs text-zinc-300 hover:text-white"
+                className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs text-[#3F3F46] hover:text-[#1D1D1F]"
               >
                 + {BLOCK_LABELS[type]}
               </button>
@@ -185,9 +185,9 @@ function BlockEditor({
   canMoveDown: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-4">
+    <div className="rounded-xl border border-[#E5E5E5] bg-white p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-[#3ecf8e]">{BLOCK_LABELS[block.type]}</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-[#006B6B]">{BLOCK_LABELS[block.type]}</p>
         <div className="flex gap-1">
           <IconForm
             courseId={courseId}
@@ -225,7 +225,7 @@ function BlockEditor({
         <BlockFields block={block} calculators={calculators} />
         <StudioSaveButton
           idleLabel={block.type === "calculator" ? "Save calculator" : "Save block"}
-          className="rounded-md border border-[#2a2a2a] px-3 py-1.5 text-xs text-zinc-200 disabled:opacity-60"
+          className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs text-[#1D1D1F] disabled:opacity-60"
         />
       </StudioPersistForm>
     </div>
@@ -255,7 +255,7 @@ function IconForm({
         type="submit"
         disabled={disabled}
         aria-label={`Move block ${direction}`}
-        className="rounded border border-[#2a2a2a] px-2 py-1 text-[11px] text-zinc-400 disabled:cursor-not-allowed disabled:opacity-30"
+        className="rounded border border-[#E5E5E5] px-2 py-1 text-[11px] text-[#52525b] disabled:cursor-not-allowed disabled:opacity-30"
       >
         {direction === "up" ? "Up" : "Down"}
       </button>
@@ -346,7 +346,7 @@ function BlockFields({
           <textarea name="body" rows={3} defaultValue={block.body ?? ""} className={field} placeholder="Optional text" />
           <input name="buttonText" defaultValue={block.buttonText} className={field} placeholder="Button text" />
           <input name="buttonUrl" defaultValue={block.buttonUrl} className={field} placeholder="/contact or https://…" />
-          <label className="flex items-center gap-2 text-sm text-zinc-300">
+          <label className="flex items-center gap-2 text-sm text-[#3F3F46]">
             <input type="checkbox" name="openInNewTab" defaultChecked={block.openInNewTab} />
             Open in a new window
           </label>
@@ -365,28 +365,28 @@ function StudioLessonDiscussion({
   comments: LessonCommentView[];
 }) {
   return (
-    <section className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+    <section className="space-y-4 rounded-xl border border-[#E5E5E5] bg-white p-5">
       <div>
-        <h2 className="text-lg font-semibold text-white">Lesson comments</h2>
-        <p className="mt-1 text-sm text-zinc-500">
+        <h2 className="text-lg font-semibold text-[#1D1D1F]">Lesson comments</h2>
+        <p className="mt-1 text-sm text-[#52525b]">
           Students post here for engagement. Names show as first name + surname initial (Frank S.). Reply and the
           class can read it on /learn.
         </p>
       </div>
       {comments.length === 0 ? (
-        <p className="text-sm text-zinc-500">No comments on this lesson yet.</p>
+        <p className="text-sm text-[#52525b]">No comments on this lesson yet.</p>
       ) : (
         <ul className="space-y-3">
           {comments.map((row) => (
-            <li key={row.id} className="rounded-lg border border-[#2a2a2a] bg-black p-4">
-              <p className="text-xs text-zinc-500">
+            <li key={row.id} className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-4">
+              <p className="text-xs text-[#52525b]">
                 {row.displayName} · {row.createdAt.slice(0, 16).replace("T", " ")}
               </p>
-              <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-200">{row.body}</p>
+              <p className="mt-2 whitespace-pre-wrap text-sm text-[#1D1D1F]">{row.body}</p>
               {row.instructorReply ? (
-                <div className="mt-3 rounded-md border border-[#3ecf8e]/20 p-3">
-                  <p className="text-[11px] uppercase tracking-wide text-[#3ecf8e]">Your reply</p>
-                  <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-200">{row.instructorReply}</p>
+                <div className="mt-3 rounded-md border border-[#A7F3D0] p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-[#006B6B]">Your reply</p>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-[#1D1D1F]">{row.instructorReply}</p>
                 </div>
               ) : null}
               <form action={replyToLessonCommentAction} className="mt-3 space-y-2">
@@ -401,7 +401,7 @@ function StudioLessonDiscussion({
                   placeholder="Write a personal reply. The discussion can read this."
                   className={field}
                 />
-                <button type="submit" className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black">
+                <button type="submit" className="rounded-md bg-[#006B6B] px-3 py-1.5 text-xs font-medium text-white">
                   {row.instructorReply ? "Update reply" : "Send reply"}
                 </button>
               </form>
@@ -411,7 +411,7 @@ function StudioLessonDiscussion({
                 <input type="hidden" name="lessonId" value={lessonId} />
                 <button
                   type="submit"
-                  className="rounded-md border border-red-500/40 px-3 py-1.5 text-xs font-medium text-red-300 transition-colors hover:bg-red-500/10"
+                  className="rounded-md border border-red-200 px-3 py-1.5 text-xs font-medium text-red-800 transition-colors hover:bg-red-50"
                 >
                   Delete comment
                 </button>
@@ -434,27 +434,27 @@ function StudioLessonClassroom({
   answers: CommunityAnswer[];
 }) {
   return (
-    <section className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+    <section className="space-y-4 rounded-xl border border-[#E5E5E5] bg-white p-5">
       <div>
-        <h2 className="text-lg font-semibold text-white">Classroom answers</h2>
-        <p className="mt-1 text-sm text-zinc-500">
+        <h2 className="text-lg font-semibold text-[#1D1D1F]">Classroom answers</h2>
+        <p className="mt-1 text-sm text-[#52525b]">
           After a student submits on /learn, their answer appears here. Reply personally — the classroom can read it.
         </p>
       </div>
       {answers.length === 0 ? (
-        <p className="text-sm text-zinc-500">No answers in this lesson yet.</p>
+        <p className="text-sm text-[#52525b]">No answers in this lesson yet.</p>
       ) : (
         <ul className="space-y-3">
           {answers.map((row) => (
-            <li key={row.id} className="rounded-lg border border-[#2a2a2a] bg-black p-4">
-              <p className="text-xs text-zinc-500">
+            <li key={row.id} className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-4">
+              <p className="text-xs text-[#52525b]">
                 {row.displayName} · {row.submittedAt.slice(0, 16).replace("T", " ")}
               </p>
-              <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-200">{row.answer}</p>
+              <p className="mt-2 whitespace-pre-wrap text-sm text-[#1D1D1F]">{row.answer}</p>
               {row.instructorReply ? (
-                <div className="mt-3 rounded-md border border-[#3ecf8e]/20 p-3">
-                  <p className="text-[11px] uppercase tracking-wide text-[#3ecf8e]">Your reply</p>
-                  <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-200">{row.instructorReply}</p>
+                <div className="mt-3 rounded-md border border-[#A7F3D0] p-3">
+                  <p className="text-[11px] uppercase tracking-wide text-[#006B6B]">Your reply</p>
+                  <p className="mt-1 whitespace-pre-wrap text-sm text-[#1D1D1F]">{row.instructorReply}</p>
                 </div>
               ) : null}
               <form action={replyToLessonResponseAction} className="mt-3 space-y-2">
@@ -469,7 +469,7 @@ function StudioLessonClassroom({
                   placeholder="Write a personal reply. The classroom can read this."
                   className={field}
                 />
-                <button type="submit" className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black">
+                <button type="submit" className="rounded-md bg-[#006B6B] px-3 py-1.5 text-xs font-medium text-white">
                   {row.instructorReply ? "Update reply" : "Send reply"}
                 </button>
               </form>

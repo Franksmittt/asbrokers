@@ -27,7 +27,7 @@ export function StudioLoginForm({ nextPath }: { nextPath: string }) {
   return (
     <form action={handleSubmit} className="space-y-5">
       <div>
-        <label htmlFor="studio-password" className="block text-sm font-medium text-zinc-300 mb-1">
+        <label htmlFor="studio-password" className="block text-sm font-medium text-[#3F3F46] mb-1">
           Studio password
         </label>
         <input
@@ -36,20 +36,20 @@ export function StudioLoginForm({ nextPath }: { nextPath: string }) {
           type="password"
           required
           autoComplete="current-password"
-          className="w-full rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#3ecf8e]/30"
+          className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-3 text-[#1D1D1F] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006B6B]/30"
           placeholder="Provided by AS Brokers"
         />
       </div>
       {error && (
-        <p className="rounded-lg border border-red-500/30 bg-red-950/40 px-3 py-2 text-sm text-red-300">{error}</p>
+        <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">{error}</p>
       )}
-      <p className="text-[11px] leading-relaxed text-zinc-500">
+      <p className="text-[11px] leading-relaxed text-[#52525b]">
         This password opens Insights, Courses, and Newsletter. If you already signed into the CRM, you can skip this and open Studio directly.
       </p>
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded-md bg-[#3ecf8e] py-3 text-sm font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="w-full rounded-md bg-[#006B6B] py-3 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {isPending ? "Signing in…" : "Enter Studio"}
       </button>

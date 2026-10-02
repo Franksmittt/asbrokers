@@ -47,44 +47,44 @@ export function CrmAiActivityFeed() {
   }, []);
 
   return (
-    <section className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+    <section className="rounded-lg border border-[#E5E5E5] bg-white p-5">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <h2 className="text-sm font-medium text-white">AI activity log</h2>
-          <p className="text-xs text-zinc-500">POPIA audit trail · Gemini actions</p>
+          <h2 className="text-sm font-medium text-[#1D1D1F]">AI activity log</h2>
+          <p className="text-xs text-[#52525b]">POPIA audit trail · Gemini actions</p>
         </div>
         <button
           type="button"
           onClick={load}
           disabled={isPending}
-          className="text-xs text-zinc-400 hover:text-white disabled:opacity-50"
+          className="text-xs text-[#52525b] hover:text-[#1D1D1F] disabled:opacity-50"
         >
           Refresh
         </button>
       </div>
 
-      {error ? <p className="text-sm text-amber-300">{error}</p> : null}
+      {error ? <p className="text-sm text-amber-900">{error}</p> : null}
 
       {entries.length === 0 && !isPending ? (
-        <p className="text-sm text-zinc-500">No AI actions logged yet.</p>
+        <p className="text-sm text-[#52525b]">No AI actions logged yet.</p>
       ) : (
         <ul className="max-h-72 space-y-2 overflow-y-auto">
           {entries.map((entry) => (
             <li
               key={entry.id}
-              className="flex flex-col gap-1 rounded-md border border-[#2a2a2a] bg-[#111] px-3 py-2 sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-1 rounded-md border border-[#E5E5E5] bg-[#FAFAF8] px-3 py-2 sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="min-w-0">
-                <p className="text-xs font-medium text-[#3ecf8e]">
+                <p className="text-xs font-medium text-[#006B6B]">
                   {ACTION_LABELS[entry.actionType] ?? entry.actionType}
                 </p>
                 {entry.summary ? (
-                  <p className="truncate text-xs text-zinc-400">{entry.summary}</p>
+                  <p className="truncate text-xs text-[#52525b]">{entry.summary}</p>
                 ) : null}
               </div>
-              <div className="flex shrink-0 items-center gap-3 text-[10px] text-zinc-500">
+              <div className="flex shrink-0 items-center gap-3 text-[10px] text-[#52525b]">
                 {entry.leadId ? (
-                  <Link href={`/crm/leads/${entry.leadId}`} className="hover:text-[#3ecf8e]">
+                  <Link href={`/crm/leads/${entry.leadId}`} className="hover:text-[#006B6B]">
                     View lead
                   </Link>
                 ) : null}

@@ -79,21 +79,21 @@ export default async function TeacherOsPage({
   return (
     <div>
       {isOwnerView ? (
-        <div className="border-b border-[#2a2a2a] bg-[#0a0a0a] px-4 py-2 text-center text-xs text-zinc-500 sm:px-6">
+        <div className="border-b border-[#E5E5E5] bg-white px-4 py-2 text-center text-xs text-[#52525b] sm:px-6">
           Owner tools:{" "}
-          <a href="/crm/teacher?seed=1" className="text-[#3ecf8e] hover:underline">
+          <a href="/crm/teacher?seed=1" className="text-[#006B6B] hover:underline">
             Seed demo learners
           </a>
           {" · "}
-          <a href="/crm/teacher?as=monique" className="text-zinc-300 hover:underline">
+          <a href="/crm/teacher?as=monique" className="text-[#3F3F46] hover:underline">
             View as Monique
           </a>
           {" · "}
-          <a href="/crm/teacher?as=johnny" className="text-zinc-300 hover:underline">
+          <a href="/crm/teacher?as=johnny" className="text-[#3F3F46] hover:underline">
             View as Johnny
           </a>
           {" · "}
-          <a href="/crm/teacher" className="text-zinc-300 hover:underline">
+          <a href="/crm/teacher" className="text-[#3F3F46] hover:underline">
             My desk
           </a>
         </div>

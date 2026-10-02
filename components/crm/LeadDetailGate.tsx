@@ -16,8 +16,8 @@ export function LeadDetailGate({
   if (role === "staff" && lead.assignedAdvisorId !== staffId && lead.delegatedAdvisorId !== staffId) {
     return (
       <div className="rounded-[2rem] rim-light p-8 text-center">
-        <p className="text-lg font-semibold text-white">Lead not in your view</p>
-        <p className="mt-2 text-sm text-gray-100">
+        <p className="text-lg font-semibold text-[#1D1D1F]">Lead not in your view</p>
+        <p className="mt-2 text-sm text-[#52525b]">
           This lead is assigned to another advisor. Contact your principal if you need access.
         </p>
       </div>

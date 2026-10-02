@@ -9,10 +9,10 @@ const SENTIMENT_STYLE: Record<
   ThreadSentiment["overall"],
   { label: string; className: string }
 > = {
-  positive: { label: "Positive", className: "bg-[#3ecf8e]/15 text-[#3ecf8e]" },
-  neutral: { label: "Neutral", className: "bg-zinc-500/15 text-zinc-300" },
-  concerned: { label: "Concerned", className: "bg-amber-500/15 text-amber-300" },
-  urgent: { label: "Urgent", className: "bg-red-500/15 text-red-300" },
+  positive: { label: "Positive", className: "bg-[#E8F3F3] text-[#006B6B]" },
+  neutral: { label: "Neutral", className: "bg-[#F0F0EE] text-[#3F3F46]" },
+  concerned: { label: "Concerned", className: "bg-amber-500/15 text-amber-900" },
+  urgent: { label: "Urgent", className: "bg-red-50 text-red-800" },
 };
 
 export function CorrespondenceSentimentBar({ leadId }: { leadId: string }) {
@@ -37,11 +37,11 @@ export function CorrespondenceSentimentBar({ leadId }: { leadId: string }) {
   }, [leadId]);
 
   if (error && !sentiment) {
-    return <p className="text-[11px] text-zinc-500">Sentiment: {error}</p>;
+    return <p className="text-[11px] text-[#52525b]">Sentiment: {error}</p>;
   }
 
   if (!sentiment) {
-    return <p className="text-[11px] text-zinc-500">{isPending ? "Analysing tone…" : null}</p>;
+    return <p className="text-[11px] text-[#52525b]">{isPending ? "Analysing tone…" : null}</p>;
   }
 
   const style = SENTIMENT_STYLE[sentiment.overall];
@@ -51,12 +51,12 @@ export function CorrespondenceSentimentBar({ leadId }: { leadId: string }) {
       <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${style.className}`}>
         {style.label}
       </span>
-      <span className="text-[11px] text-zinc-400">{sentiment.summary}</span>
+      <span className="text-[11px] text-[#52525b]">{sentiment.summary}</span>
       <button
         type="button"
         onClick={load}
         disabled={isPending}
-        className="text-[10px] text-zinc-600 hover:text-zinc-400 disabled:opacity-50"
+        className="text-[10px] text-[#71717a] hover:text-[#52525b] disabled:opacity-50"
       >
         Refresh
       </button>

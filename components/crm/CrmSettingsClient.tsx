@@ -65,13 +65,13 @@ function PermissionToggles({
 
   return (
     <div className="space-y-3">
-      <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">Access controls</p>
+      <p className="text-xs font-medium uppercase tracking-wider text-[#52525b]">Access controls</p>
       {CRM_PERMISSION_KEYS.map((key) => (
         <label
           key={key}
           className={cn(
-            "flex items-start gap-3 rounded-lg border border-[#2a2a2a] px-3 py-2.5",
-            disabled ? "opacity-60" : "hover:border-[#3ecf8e]/30"
+            "flex items-start gap-3 rounded-lg border border-[#E5E5E5] px-3 py-2.5",
+            disabled ? "opacity-60" : "hover:border-[#006B6B]/30"
           )}
         >
           <input
@@ -79,16 +79,16 @@ function PermissionToggles({
             checked={disabled ? true : permissions[key]}
             disabled={disabled}
             onChange={(event) => onChange(key, event.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-[#2a2a2a] bg-black accent-[#3ecf8e]"
+            className="mt-0.5 h-4 w-4 rounded border-[#E5E5E5] bg-[#F7F6F3] accent-[#3ecf8e]"
           />
           <span>
-            <span className="block text-sm text-white">{PERMISSION_LABELS[key].label}</span>
-            <span className="mt-0.5 block text-xs text-zinc-500">{PERMISSION_LABELS[key].hint}</span>
+            <span className="block text-sm text-[#1D1D1F]">{PERMISSION_LABELS[key].label}</span>
+            <span className="mt-0.5 block text-xs text-[#52525b]">{PERMISSION_LABELS[key].hint}</span>
           </span>
         </label>
       ))}
       {disabled ? (
-        <p className="text-xs text-zinc-500">Admins always have full access.</p>
+        <p className="text-xs text-[#52525b]">Admins always have full access.</p>
       ) : null}
     </div>
   );
@@ -149,21 +149,21 @@ function UserFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1D1D1F]/40 p-4">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="user-form-title"
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-2xl"
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-lg border border-[#E5E5E5] bg-white shadow-2xl"
       >
-        <div className="flex items-center justify-between border-b border-[#2a2a2a] px-5 py-4">
-          <h2 id="user-form-title" className="text-lg font-semibold text-white">
+        <div className="flex items-center justify-between border-b border-[#E5E5E5] px-5 py-4">
+          <h2 id="user-form-title" className="text-lg font-semibold text-[#1D1D1F]">
             {mode === "add" ? "Add team member" : "Edit team member"}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md p-1 text-zinc-400 hover:bg-[#161616] hover:text-white"
+            className="rounded-md p-1 text-[#52525b] hover:bg-[#F0F0EE] hover:text-[#1D1D1F]"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
@@ -172,25 +172,25 @@ function UserFormModal({
 
         <form onSubmit={handleSubmit} className="space-y-5 p-5">
           {mode === "add" ? (
-            <p className="rounded-md border border-[#3ecf8e]/20 bg-[#3ecf8e]/5 px-3 py-2 text-xs leading-relaxed text-zinc-300">
+            <p className="rounded-md border border-[#A7F3D0] bg-[#006B6B]/5 px-3 py-2 text-xs leading-relaxed text-[#3F3F46]">
               They&apos;ll receive a secure invite link by email, no password needed. Once they
               accept, they can sign in anytime with a magic link.
             </p>
           ) : null}
 
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium text-zinc-400">Full name</span>
+            <span className="text-xs font-medium text-[#52525b]">Full name</span>
             <input
               required
               value={form.fullName}
               onChange={(event) => setForm((prev) => ({ ...prev, fullName: event.target.value }))}
-              className="w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white outline-none focus:border-[#3ecf8e]/50"
+              className="w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] outline-none focus:border-[#006B6B]/40"
               placeholder="Albert Smith"
             />
           </label>
 
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium text-zinc-400">Email address</span>
+            <span className="text-xs font-medium text-[#52525b]">Email address</span>
             <input
               required
               type="email"
@@ -198,25 +198,25 @@ function UserFormModal({
               readOnly={mode === "edit"}
               onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
               className={cn(
-                "w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white outline-none focus:border-[#3ecf8e]/50",
-                mode === "edit" && "cursor-not-allowed text-zinc-500"
+                "w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] outline-none focus:border-[#006B6B]/40",
+                mode === "edit" && "cursor-not-allowed text-[#52525b]"
               )}
               placeholder="advisor@asbrokers.co.za"
             />
           </label>
 
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium text-zinc-400">Contact number</span>
+            <span className="text-xs font-medium text-[#52525b]">Contact number</span>
             <input
               value={form.phone}
               onChange={(event) => setForm((prev) => ({ ...prev, phone: event.target.value }))}
-              className="w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white outline-none focus:border-[#3ecf8e]/50"
+              className="w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] outline-none focus:border-[#006B6B]/40"
               placeholder="+27 82 000 0000"
             />
           </label>
 
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium text-zinc-400">Role</span>
+            <span className="text-xs font-medium text-[#52525b]">Role</span>
             <select
               value={form.role}
               onChange={(event) =>
@@ -225,7 +225,7 @@ function UserFormModal({
                   role: event.target.value as CrmRole,
                 }))
               }
-              className="w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white outline-none focus:border-[#3ecf8e]/50"
+              className="w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] outline-none focus:border-[#006B6B]/40"
             >
               <option value="staff">Staff, limited access (configurable)</option>
               <option value="admin">Admin, full access (super user)</option>
@@ -233,18 +233,18 @@ function UserFormModal({
           </label>
 
           {mode === "edit" ? (
-            <label className="flex items-center gap-3 rounded-lg border border-[#2a2a2a] px-3 py-2.5">
+            <label className="flex items-center gap-3 rounded-lg border border-[#E5E5E5] px-3 py-2.5">
               <input
                 type="checkbox"
                 checked={form.isActive}
                 onChange={(event) =>
                   setForm((prev) => ({ ...prev, isActive: event.target.checked }))
                 }
-                className="h-4 w-4 rounded border-[#2a2a2a] bg-black accent-[#3ecf8e]"
+                className="h-4 w-4 rounded border-[#E5E5E5] bg-[#F7F6F3] accent-[#3ecf8e]"
               />
               <span>
-                <span className="block text-sm text-white">Active access</span>
-                <span className="text-xs text-zinc-500">Turn off to revoke CRM access immediately.</span>
+                <span className="block text-sm text-[#1D1D1F]">Active access</span>
+                <span className="text-xs text-[#52525b]">Turn off to revoke CRM access immediately.</span>
               </span>
             </label>
           ) : null}
@@ -266,14 +266,14 @@ function UserFormModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-md px-4 py-2 text-sm text-zinc-400 hover:text-white"
+              className="rounded-md px-4 py-2 text-sm text-[#52525b] hover:text-[#1D1D1F]"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={pending}
-              className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-semibold text-black disabled:opacity-60"
+              className="rounded-md bg-[#006B6B] px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
               {pending ? "Saving…" : mode === "add" ? "Send invite" : "Save changes"}
             </button>
@@ -325,8 +325,8 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
     <div className="space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-[-0.03em] text-white">Settings</h1>
-          <p className="mt-2 max-w-2xl text-sm text-zinc-400">
+          <h1 className="text-2xl font-bold tracking-[-0.03em] text-[#1D1D1F]">Settings</h1>
+          <p className="mt-2 max-w-2xl text-sm text-[#52525b]">
             Manage who can access the CRM, what they can see, and send secure invite links. Super
             users (admins) can add staff, adjust permissions, or revoke access at any time.
           </p>
@@ -337,21 +337,21 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
             setEditingUser(null);
             setFormMode("add");
           }}
-          className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-semibold text-black"
+          className="rounded-md bg-[#006B6B] px-4 py-2 text-sm font-semibold text-white"
         >
           Add team member
         </button>
       </header>
 
       {actionError ? (
-        <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+        <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
           {actionError}
         </p>
       ) : null}
 
-      <div className="overflow-x-auto rounded-lg border border-[#2a2a2a]">
+      <div className="overflow-x-auto rounded-lg border border-[#E5E5E5]">
         <table className="min-w-full text-left text-sm">
-          <thead className="border-b border-[#2a2a2a] bg-[#0a0a0a] text-xs uppercase tracking-wider text-zinc-500">
+          <thead className="border-b border-[#E5E5E5] bg-white text-xs uppercase tracking-wider text-[#52525b]">
             <tr>
               <th className="px-4 py-3 font-medium">Name</th>
               <th className="px-4 py-3 font-medium">Email</th>
@@ -361,19 +361,19 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
               <th className="px-4 py-3 font-medium text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#2a2a2a]">
+          <tbody className="divide-y divide-[#E5E5E5]">
             {sortedUsers.map((user) => (
-              <tr key={user.id} className="bg-black/40">
-                <td className="px-4 py-3 font-medium text-white">{user.fullName}</td>
-                <td className="px-4 py-3 text-zinc-400">{user.email}</td>
-                <td className="px-4 py-3 text-zinc-400">{user.phone ?? ", "}</td>
+              <tr key={user.id} className="bg-[#FAFAF8]">
+                <td className="px-4 py-3 font-medium text-[#1D1D1F]">{user.fullName}</td>
+                <td className="px-4 py-3 text-[#52525b]">{user.email}</td>
+                <td className="px-4 py-3 text-[#52525b]">{user.phone ?? ", "}</td>
                 <td className="px-4 py-3">
                   <span
                     className={cn(
                       "rounded-full px-2 py-0.5 text-xs font-medium",
                       user.role === "admin"
-                        ? "bg-[#3ecf8e]/15 text-[#3ecf8e]"
-                        : "bg-zinc-800 text-zinc-300"
+                        ? "bg-[#E8F3F3] text-[#006B6B]"
+                        : "bg-zinc-800 text-[#3F3F46]"
                     )}
                   >
                     {user.role === "admin" ? "Admin" : "Staff"}
@@ -385,7 +385,7 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
                   ) : user.invitePending ? (
                     <span className="text-xs text-amber-400">Invite pending</span>
                   ) : (
-                    <span className="text-xs text-zinc-500">Active</span>
+                    <span className="text-xs text-[#52525b]">Active</span>
                   )}
                 </td>
                 <td className="px-4 py-3">
@@ -395,7 +395,7 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
                         type="button"
                         disabled={resendingId === user.id}
                         onClick={() => void handleResend(user.id)}
-                        className="rounded-md border border-[#2a2a2a] px-2.5 py-1 text-xs text-zinc-300 hover:border-[#3ecf8e]/40 hover:text-white disabled:opacity-50"
+                        className="rounded-md border border-[#E5E5E5] px-2.5 py-1 text-xs text-[#3F3F46] hover:border-[#006B6B]/35 hover:text-[#1D1D1F] disabled:opacity-50"
                       >
                         {resendingId === user.id ? "Sending…" : "Resend link"}
                       </button>
@@ -403,7 +403,7 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
                     <button
                       type="button"
                       onClick={() => openEdit(user)}
-                      className="rounded-md border border-[#2a2a2a] px-2.5 py-1 text-xs text-zinc-300 hover:border-[#3ecf8e]/40 hover:text-white"
+                      className="rounded-md border border-[#E5E5E5] px-2.5 py-1 text-xs text-[#3F3F46] hover:border-[#006B6B]/35 hover:text-[#1D1D1F]"
                     >
                       Edit
                     </button>
@@ -413,7 +413,7 @@ export function CrmSettingsClient({ initialUsers }: { initialUsers: CrmStaffUser
             ))}
             {sortedUsers.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center text-zinc-500">
+                <td colSpan={6} className="px-4 py-12 text-center text-[#52525b]">
                   No team members yet. Add your first advisor above.
                 </td>
               </tr>

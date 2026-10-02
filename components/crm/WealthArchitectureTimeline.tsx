@@ -18,20 +18,20 @@ const PHASE_NODE_STYLES: Record<
   { active: string; idle: string; dot: string; badge: string }
 > = {
   create: {
-    active: "bg-teal-500/20 text-teal-100 border-teal-400/50 shadow-[0_0_24px_rgba(45,212,191,0.25)]",
-    idle: "bg-white/[0.04] text-zinc-200 border-white/15 hover:border-teal-500/30 hover:bg-teal-500/10",
+    active: "bg-teal-500/20 text-[#134E4A] border-teal-400/50 shadow-[0_0_24px_rgba(45,212,191,0.25)]",
+    idle: "bg-white/[0.04] text-[#1D1D1F] border-[#E5E5E5] hover:border-teal-500/30 hover:bg-teal-500/10",
     dot: "bg-teal-400",
     badge: "bg-teal-500/15 text-teal-200 border-teal-500/30",
   },
   protect: {
     active: "bg-amber-500/15 text-amber-100 border-amber-400/45 shadow-[0_0_24px_rgba(251,191,36,0.18)]",
-    idle: "bg-white/[0.04] text-zinc-200 border-white/15 hover:border-amber-500/30 hover:bg-amber-500/10",
+    idle: "bg-white/[0.04] text-[#1D1D1F] border-[#E5E5E5] hover:border-amber-200 hover:bg-amber-50",
     dot: "bg-amber-400",
-    badge: "bg-amber-500/15 text-amber-200 border-amber-500/30",
+    badge: "bg-amber-500/15 text-amber-900 border-amber-200",
   },
   "pass-on": {
     active: "bg-violet-500/15 text-violet-100 border-violet-400/45 shadow-[0_0_24px_rgba(167,139,250,0.2)]",
-    idle: "bg-white/[0.04] text-zinc-200 border-white/15 hover:border-violet-500/30 hover:bg-violet-500/10",
+    idle: "bg-white/[0.04] text-[#1D1D1F] border-[#E5E5E5] hover:border-violet-500/30 hover:bg-violet-500/10",
     dot: "bg-violet-400",
     badge: "bg-violet-500/15 text-violet-200 border-violet-500/30",
   },
@@ -53,7 +53,7 @@ function highlightBody(text: string, phrases: string[] = []): React.ReactNode {
   return (
     <>
       {before}
-      <span className="font-medium text-cinematic-teal">{matched}</span>
+      <span className="font-medium text-[#006B6B]">{matched}</span>
       {restPhrases.length > 0 ? highlightBody(after, restPhrases) : after}
     </>
   );
@@ -75,9 +75,9 @@ function ContentPanel({ node, onClose }: { node: TimelineNode; onClose: () => vo
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "100%", opacity: 0 }}
       transition={{ duration: DURATION, ease: APPLE_EASE }}
-      className="absolute inset-y-0 right-0 z-20 flex w-full max-w-md flex-col overflow-hidden rounded-l-[2rem] border-l border-white/10 bg-zinc-950/95 shadow-[-12px_0_48px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+      className="absolute inset-y-0 right-0 z-20 flex w-full max-w-md flex-col overflow-hidden rounded-l-[2rem] border-l border-[#E5E5E5] bg-zinc-950/95 shadow-[-12px_0_48px_rgba(0,0,0,0.55)] backdrop-blur-xl"
     >
-      <div className="border-b border-white/10 bg-gradient-to-r from-white/[0.04] to-transparent px-6 py-5 md:px-8">
+      <div className="border-b border-[#E5E5E5] bg-gradient-to-r from-white/[0.04] to-transparent px-6 py-5 md:px-8">
         <div className="mb-3 flex items-start justify-between gap-4">
           <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${styles.badge}`}>
             {phaseLabel(phase)}
@@ -85,7 +85,7 @@ function ContentPanel({ node, onClose }: { node: TimelineNode; onClose: () => vo
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 rounded-xl p-2 text-zinc-400 transition-colors hover:bg-white/10 hover:text-white"
+            className="shrink-0 rounded-xl p-2 text-[#52525b] transition-colors hover:bg-[#F0F0EE] hover:text-[#1D1D1F]"
             aria-label="Close panel"
           >
             <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +93,7 @@ function ContentPanel({ node, onClose }: { node: TimelineNode; onClose: () => vo
             </svg>
           </button>
         </div>
-        <h2 className="text-xl font-bold tracking-tight text-white md:text-2xl">{displayContent.headline}</h2>
+        <h2 className="text-xl font-bold tracking-tight text-[#1D1D1F] md:text-2xl">{displayContent.headline}</h2>
       </div>
 
       <div className="flex-1 overflow-y-auto px-6 py-5 md:px-8">
@@ -110,7 +110,7 @@ function ContentPanel({ node, onClose }: { node: TimelineNode; onClose: () => vo
             ))}
           </div>
         )}
-        <p className="mb-6 text-sm leading-relaxed text-zinc-300">
+        <p className="mb-6 text-sm leading-relaxed text-[#3F3F46]">
           {highlightBody(displayContent.body, displayContent.highlightPhrases)}
         </p>
         {displayContent.bullets && displayContent.bullets.length > 0 && (
@@ -118,7 +118,7 @@ function ContentPanel({ node, onClose }: { node: TimelineNode; onClose: () => vo
             {displayContent.bullets.map((b, i) => (
               <li
                 key={i}
-                className="flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-3 py-2.5 text-sm text-zinc-300"
+                className="flex items-start gap-3 rounded-xl border border-[#F0F0EE] bg-[#FAFAF8] px-3 py-2.5 text-sm text-[#3F3F46]"
               >
                 <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${styles.dot}`} />
                 <span>{b}</span>
@@ -146,8 +146,8 @@ function TabChip({
       onClick={onClick}
       className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all ${
         active
-          ? "border-cinematic-teal/40 bg-cinematic-teal/15 text-cinematic-teal"
-          : "border-white/10 bg-white/5 text-zinc-400 hover:border-white/20 hover:text-zinc-200"
+          ? "border-cinematic-teal/40 bg-cinematic-teal/15 text-[#006B6B]"
+          : "border-[#E5E5E5] bg-[#F7F6F3] text-[#52525b] hover:border-[#D4D4D4] hover:text-[#1D1D1F]"
       }`}
     >
       {label}
@@ -188,8 +188,8 @@ function NodeButton({
 function ColumnHeader({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
     <div className="mb-3 text-center">
-      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">{title}</p>
-      {subtitle && <p className="mt-0.5 text-[10px] text-zinc-600">{subtitle}</p>}
+      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#52525b]">{title}</p>
+      {subtitle && <p className="mt-0.5 text-[10px] text-[#71717a]">{subtitle}</p>}
     </div>
   );
 }
@@ -207,7 +207,7 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
 
   return (
     <div
-      className={`relative overflow-x-auto overflow-y-hidden rounded-[2rem] border border-white/10 bg-[#050506] shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_24px_80px_rgba(0,0,0,0.45)] ${
+      className={`relative overflow-x-auto overflow-y-hidden rounded-[2rem] border border-[#E5E5E5] bg-[#050506] shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_24px_80px_rgba(0,0,0,0.45)] ${
         presentation ? "min-h-[calc(100vh-5rem)]" : "min-h-[72vh]"
       }`}
     >
@@ -226,7 +226,7 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
           style={{ animationDuration: "7s" }}
         />
         <div
-          className="absolute -bottom-[15%] right-[-10%] h-[50%] w-[40%] animate-pulse rounded-full bg-amber-500/10 blur-[100px]"
+          className="absolute -bottom-[15%] right-[-10%] h-[50%] w-[40%] animate-pulse rounded-full bg-amber-50 blur-[100px]"
           style={{ animationDuration: "9s" }}
           aria-hidden
         />
@@ -238,7 +238,7 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
         <div className="relative flex items-stretch gap-0">
           <section className="flex w-40 shrink-0 flex-col items-center justify-center gap-4">
             <ColumnHeader title="Start" subtitle="Tools & models" />
-            <div className="text-white/30" aria-hidden>
+            <div className="text-[#1D1D1F]/30" aria-hidden>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -252,7 +252,7 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
             />
           </section>
 
-          <div className="w-6 shrink-0 self-center border-t border-dashed border-white/15" />
+          <div className="w-6 shrink-0 self-center border-t border-dashed border-[#E5E5E5]" />
 
           <section className="flex w-72 shrink-0 flex-col justify-between py-1">
             <ColumnHeader title="Foundation" subtitle="Estate & structure" />
@@ -267,7 +267,7 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
             </div>
           </section>
 
-          <div className="w-5 shrink-0 self-center border-t border-dashed border-white/15" />
+          <div className="w-5 shrink-0 self-center border-t border-dashed border-[#E5E5E5]" />
 
           <section className="relative flex w-[19rem] shrink-0 flex-col justify-between py-1">
             <ColumnHeader title="Life risk" subtitle="Protection layer" />
@@ -289,7 +289,7 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
             </div>
           </section>
 
-          <div className="w-5 shrink-0 self-center border-t border-dashed border-white/15" />
+          <div className="w-5 shrink-0 self-center border-t border-dashed border-[#E5E5E5]" />
 
           <section className="relative flex w-[19rem] shrink-0 flex-col justify-between py-1">
             <ColumnHeader title="Short-term & health" />
@@ -310,19 +310,19 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
             </div>
           </section>
 
-          <div className="w-5 shrink-0 self-center border-t border-dashed border-white/15" />
+          <div className="w-5 shrink-0 self-center border-t border-dashed border-[#E5E5E5]" />
 
           <section className="relative flex w-80 shrink-0 flex-col justify-between py-1">
             <ColumnHeader title="Accumulation" subtitle="Retirement path" />
             <div className="flex justify-center">
-              <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-zinc-500">
+              <span className="rounded-full border border-[#E5E5E5] bg-[#FAFAF8] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#52525b]">
                 Retirement planning
               </span>
             </div>
             <div className="relative z-[1] flex justify-center">
               <NodeButton label="Investments" phase="create" isActive={activeNodeId === "investments"} onClick={() => toggleNode("investments")} reduceMotion={reduceMotion} />
             </div>
-            <p className="text-center text-[10px] leading-snug text-zinc-600">
+            <p className="text-center text-[10px] leading-snug text-[#71717a]">
               Before & after retirement
             </p>
             <div className="relative mt-2 flex flex-col items-center gap-3">
@@ -340,7 +340,7 @@ export function WealthArchitectureTimeline({ presentation = false }: Props) {
       </AnimatePresence>
 
       {!activeNodeId && (
-        <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-black/50 px-4 py-1.5 text-[11px] text-zinc-500 backdrop-blur-sm">
+        <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-[#E5E5E5] bg-[#F7F6F3]/50 px-4 py-1.5 text-[11px] text-[#52525b] backdrop-blur-sm">
           Tap any topic to open talking points
         </div>
       )}

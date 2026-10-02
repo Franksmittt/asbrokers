@@ -19,7 +19,7 @@ export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ studentId: string }> };
 
 const field =
-  "mt-2 w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white placeholder:text-zinc-600";
+  "mt-2 w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] placeholder:text-[#A1A1AA]";
 
 export default async function StudentDetailPage({ params }: Props) {
   if (!COURSE_STUDENT_AUTH_ENABLED) {
@@ -36,25 +36,25 @@ export default async function StudentDetailPage({ params }: Props) {
   return (
     <div className="mx-auto w-full max-w-4xl space-y-8">
       <div>
-        <Link href="/studio/courses/students" className="text-xs text-zinc-500 hover:text-white">
+        <Link href="/studio/courses/students" className="text-xs text-[#52525b] hover:text-[#1D1D1F]">
           ← Students
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-white">
+        <h1 className="mt-2 text-2xl font-semibold text-[#1D1D1F]">
           {student.firstName} {student.surname}
         </h1>
-        <p className="mt-1 text-sm text-zinc-400">{student.email}</p>
-        <p className="mt-1 text-xs text-zinc-500">Registered {student.createdAt.slice(0, 10)}</p>
+        <p className="mt-1 text-sm text-[#52525b]">{student.email}</p>
+        <p className="mt-1 text-xs text-[#52525b]">Registered {student.createdAt.slice(0, 10)}</p>
       </div>
 
       {await Promise.all(
         enrollments.map(async (enrollment) => {
           const course = await getCourseById(enrollment.courseId);
           return (
-            <section key={enrollment.id} className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+            <section key={enrollment.id} className="rounded-xl border border-[#E5E5E5] bg-white p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h2 className="font-medium text-white">{course?.title ?? enrollment.courseId}</h2>
-                  <p className="mt-2 text-xs text-zinc-500">
+                  <h2 className="font-medium text-[#1D1D1F]">{course?.title ?? enrollment.courseId}</h2>
+                  <p className="mt-2 text-xs text-[#52525b]">
                     Started {enrollment.startedAt.slice(0, 10)}
                     {enrollment.completedAt
                       ? ` · Completed ${enrollment.completedAt.slice(0, 10)}`
@@ -72,7 +72,7 @@ export default async function StudentDetailPage({ params }: Props) {
                     <input type="hidden" name="enrollmentId" value={enrollment.id} />
                     <button
                       type="submit"
-                      className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black"
+                      className="rounded-md bg-[#006B6B] px-3 py-1.5 text-xs font-medium text-white"
                     >
                       Grant access
                     </button>
@@ -85,13 +85,13 @@ export default async function StudentDetailPage({ params }: Props) {
       )}
 
       <section>
-        <h2 className="text-lg font-semibold text-white">Classroom answers</h2>
-        <p className="mt-1 text-sm text-zinc-500">
+        <h2 className="text-lg font-semibold text-[#1D1D1F]">Classroom answers</h2>
+        <p className="mt-1 text-sm text-[#52525b]">
           Reply personally. Your reply is visible to this student and to everyone else who has submitted in that lesson.
         </p>
         <ul className="mt-4 space-y-3">
           {responses.length === 0 ? (
-            <li className="text-sm text-zinc-500">No answers submitted yet.</li>
+            <li className="text-sm text-[#52525b]">No answers submitted yet.</li>
           ) : (
             await Promise.all(
               responses.map(async (response) => {
@@ -102,15 +102,15 @@ export default async function StudentDetailPage({ params }: Props) {
                     .flatMap((course) => course?.lessons ?? [])
                     .find((lesson) => lesson.id === response.lessonId)?.title ?? response.lessonId;
                 return (
-                  <li key={response.id} className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-4">
-                    <p className="text-xs text-zinc-500">
+                  <li key={response.id} className="rounded-xl border border-[#E5E5E5] bg-white p-4">
+                    <p className="text-xs text-[#52525b]">
                       {lessonTitle} · {response.submittedAt.slice(0, 16).replace("T", " ")}
                     </p>
-                    <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-200">{response.answer}</p>
+                    <p className="mt-2 whitespace-pre-wrap text-sm text-[#1D1D1F]">{response.answer}</p>
                     {response.instructorReply ? (
-                      <div className="mt-3 rounded-lg border border-[#3ecf8e]/20 bg-black p-3">
-                        <p className="text-[11px] uppercase tracking-wide text-[#3ecf8e]">Your reply</p>
-                        <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-200">{response.instructorReply}</p>
+                      <div className="mt-3 rounded-lg border border-[#A7F3D0] bg-[#F7F6F3] p-3">
+                        <p className="text-[11px] uppercase tracking-wide text-[#006B6B]">Your reply</p>
+                        <p className="mt-1 whitespace-pre-wrap text-sm text-[#1D1D1F]">{response.instructorReply}</p>
                       </div>
                     ) : null}
                     <form action={replyToLessonResponseAction} className="mt-3 space-y-2">
@@ -124,7 +124,7 @@ export default async function StudentDetailPage({ params }: Props) {
                         placeholder="Write a personal reply. The classroom can read this."
                         className={field}
                       />
-                      <button type="submit" className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black">
+                      <button type="submit" className="rounded-md bg-[#006B6B] px-3 py-1.5 text-xs font-medium text-white">
                         {response.instructorReply ? "Update reply" : "Send reply"}
                       </button>
                     </form>
@@ -137,12 +137,12 @@ export default async function StudentDetailPage({ params }: Props) {
       </section>
 
       <section>
-        <h2 className="text-lg font-semibold text-white">Activity</h2>
-        <ol className="mt-4 space-y-2 text-sm text-zinc-400">
+        <h2 className="text-lg font-semibold text-[#1D1D1F]">Activity</h2>
+        <ol className="mt-4 space-y-2 text-sm text-[#52525b]">
           {events.map((event) => (
             <li key={event.id}>
-              <span className="text-zinc-200">{event.type.replaceAll("_", " ")}</span>
-              <span className="text-zinc-600"> · {event.createdAt.slice(0, 16).replace("T", " ")}</span>
+              <span className="text-[#1D1D1F]">{event.type.replaceAll("_", " ")}</span>
+              <span className="text-[#71717a]"> · {event.createdAt.slice(0, 16).replace("T", " ")}</span>
             </li>
           ))}
         </ol>

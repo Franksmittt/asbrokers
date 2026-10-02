@@ -23,7 +23,7 @@ export function LoginForm({ nextPath }: LoginFormProps) {
       <input type="hidden" name="next" value={nextPath} />
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium text-zinc-300">
+        <label htmlFor="email" className="mb-1 block text-sm font-medium text-[#3F3F46]">
           Work email
         </label>
         <input
@@ -33,11 +33,11 @@ export function LoginForm({ nextPath }: LoginFormProps) {
           autoComplete="email"
           required
           placeholder="you@asbrokers.co.za"
-          className="w-full rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-cinematic-teal/50"
+          className="w-full rounded-2xl border border-[#E5E5E5] bg-[#FAFAF8] px-4 py-3 text-[#1D1D1F] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006B6B]/35"
         />
       </div>
 
-      <p className="text-xs text-zinc-500">
+      <p className="text-xs text-[#71717a]">
         We&apos;ll send a one-time secure link. No password required.
       </p>
 
@@ -46,8 +46,8 @@ export function LoginForm({ nextPath }: LoginFormProps) {
           role="status"
           className={
             state.success
-              ? "rounded-2xl border border-cinematic-teal/30 bg-cinematic-teal/10 px-4 py-3 text-sm text-cinematic-teal"
-              : "rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-300"
+              ? "rounded-2xl border border-[#A7F3D0] bg-[#ECFDF5] px-4 py-3 text-sm text-[#065F46]"
+              : "rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
           }
         >
           {state.message}
@@ -57,7 +57,7 @@ export function LoginForm({ nextPath }: LoginFormProps) {
       <button
         type="submit"
         disabled={isPending || state?.success === true}
-        className="w-full rounded-2xl bg-white py-3.5 font-semibold text-black transition-colors hover:bg-zinc-200 disabled:opacity-50"
+        className="w-full rounded-2xl bg-[#006B6B] py-3.5 font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {isPending ? "Dispatching…" : "Send secure link"}
       </button>

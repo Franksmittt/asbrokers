@@ -66,26 +66,26 @@ export function HealthyRetirementAssessmentsAdmin({ initialRows }: { initialRows
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <p className="trust-hallmark mb-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+        <p className="trust-hallmark mb-1 text-[10px] font-semibold uppercase tracking-wider text-[#52525b]">
           CRM · Health pillar
         </p>
-        <h1 className="text-2xl font-bold text-white sm:text-3xl">Healthy Retirement assessments</h1>
-        <p className="mt-2 text-sm text-zinc-400">
+        <h1 className="text-2xl font-bold text-[#1D1D1F] sm:text-3xl">Healthy Retirement assessments</h1>
+        <p className="mt-2 text-sm text-[#52525b]">
           Retirement Health Gap™ submissions from the Healthy Retirement Blueprint™.
         </p>
       </div>
 
-      <div className="rim-light grid gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="rim-light grid gap-4 rounded-2xl border border-[#E5E5E5] bg-white/[0.04] p-4 md:grid-cols-2 lg:grid-cols-4">
         <input
           placeholder="Search name, email, phone…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="rounded-xl border border-white/15 bg-zinc-950 px-3 py-2 text-sm text-white lg:col-span-2"
+          className="rounded-xl border border-[#E5E5E5] bg-zinc-950 px-3 py-2 text-sm text-[#1D1D1F] lg:col-span-2"
         />
         <select
           value={band}
           onChange={(e) => setBand(e.target.value)}
-          className="rounded-xl border border-white/15 bg-zinc-950 px-3 py-2 text-sm text-white"
+          className="rounded-xl border border-[#E5E5E5] bg-zinc-950 px-3 py-2 text-sm text-[#1D1D1F]"
         >
           {BANDS.map((b) => (
             <option key={b.value} value={b.value}>
@@ -97,7 +97,7 @@ export function HealthyRetirementAssessmentsAdmin({ initialRows }: { initialRows
           type="button"
           onClick={handleExport}
           disabled={isPending}
-          className="rounded-xl bg-[#00549F] px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+          className="rounded-xl bg-[#00549F] px-4 py-2 text-sm font-semibold text-[#1D1D1F] disabled:opacity-60"
         >
           Export CSV
         </button>
@@ -105,19 +105,19 @@ export function HealthyRetirementAssessmentsAdmin({ initialRows }: { initialRows
           type="date"
           value={fromDate}
           onChange={(e) => setFromDate(e.target.value)}
-          className="rounded-xl border border-white/15 bg-zinc-950 px-3 py-2 text-sm text-white"
+          className="rounded-xl border border-[#E5E5E5] bg-zinc-950 px-3 py-2 text-sm text-[#1D1D1F]"
         />
         <input
           type="date"
           value={toDate}
           onChange={(e) => setToDate(e.target.value)}
-          className="rounded-xl border border-white/15 bg-zinc-950 px-3 py-2 text-sm text-white"
+          className="rounded-xl border border-[#E5E5E5] bg-zinc-950 px-3 py-2 text-sm text-[#1D1D1F]"
         />
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-white/10">
+      <div className="overflow-x-auto rounded-2xl border border-[#E5E5E5]">
         <table className="min-w-full text-left text-sm">
-          <thead className="border-b border-white/10 bg-white/[0.03] text-xs uppercase tracking-wider text-zinc-500">
+          <thead className="border-b border-[#E5E5E5] bg-[#FAFAF8] text-xs uppercase tracking-wider text-[#52525b]">
             <tr>
               <th className="px-4 py-3">Date</th>
               <th className="px-4 py-3">Name</th>
@@ -128,20 +128,20 @@ export function HealthyRetirementAssessmentsAdmin({ initialRows }: { initialRows
               <th className="px-4 py-3">Report</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-[#EFEFEA]">
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-zinc-500">
+                <td colSpan={7} className="px-4 py-8 text-center text-[#52525b]">
                   {isPending ? "Loading…" : "No assessments yet."}
                 </td>
               </tr>
             ) : (
               rows.map((row) => (
-                <tr key={row.id} className="text-zinc-300 hover:bg-white/[0.02]">
-                  <td className="whitespace-nowrap px-4 py-3 text-zinc-500">
+                <tr key={row.id} className="text-[#3F3F46] hover:bg-white/[0.02]">
+                  <td className="whitespace-nowrap px-4 py-3 text-[#52525b]">
                     {new Date(row.createdAt).toLocaleString("en-ZA")}
                   </td>
-                  <td className="px-4 py-3 font-medium text-white">{row.firstName}</td>
+                  <td className="px-4 py-3 font-medium text-[#1D1D1F]">{row.firstName}</td>
                   <td className="px-4 py-3">{row.email}</td>
                   <td className="px-4 py-3">{row.healthScore}</td>
                   <td className="px-4 py-3">{row.healthGap}</td>

@@ -116,8 +116,8 @@ export function NewsletterEditorClient({
   }, [draft, router]);
 
   const inputClass =
-    "w-full rounded-md border border-[#2a2a2a] bg-black px-3 py-2 text-sm text-white placeholder:text-zinc-600";
-  const labelClass = "block text-xs font-medium text-zinc-400 mb-1";
+    "w-full rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-sm text-[#1D1D1F] placeholder:text-[#A1A1AA]";
+  const labelClass = "block text-xs font-medium text-[#52525b] mb-1";
 
   function patchDraft(patch: Partial<NewsletterEdition>) {
     setDraft((prev) => ({ ...prev, ...patch }));
@@ -170,17 +170,17 @@ export function NewsletterEditorClient({
       ? "border-green-500/30 text-green-400"
       : draft.status === "scheduled"
         ? "border-sky-500/30 text-sky-300"
-        : "border-[#2a2a2a] text-zinc-400";
+        : "border-[#E5E5E5] text-[#52525b]";
 
   return (
     <div className="space-y-4">
       {/* Top bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#E5E5E5] bg-white px-4 py-3">
         <div className="flex flex-wrap items-center gap-3">
           <span className={`rounded border px-2 py-0.5 text-[10px] uppercase tracking-wide ${statusBadge}`}>
             {draft.status}
           </span>
-          <span className="text-xs text-zinc-500">
+          <span className="text-xs text-[#52525b]">
             {saveState === "saving" || pending
               ? "Saving…"
               : saveState === "saved"
@@ -189,7 +189,7 @@ export function NewsletterEditorClient({
                   ? "Save failed"
                   : "Ready"}
           </span>
-          {message ? <span className="text-xs text-amber-300">{message}</span> : null}
+          {message ? <span className="text-xs text-amber-900">{message}</span> : null}
         </div>
         <div className="flex flex-wrap gap-2">
           {[
@@ -203,8 +203,8 @@ export function NewsletterEditorClient({
               onClick={() => setPanel(tab.id)}
               className={`rounded-md px-3 py-1.5 text-xs font-medium ${
                 panel === tab.id
-                  ? "bg-[#3ecf8e]/20 text-[#3ecf8e]"
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-[#006B6B]/20 text-[#006B6B]"
+                  : "text-[#52525b] hover:text-[#1D1D1F]"
               }`}
             >
               {tab.label}
@@ -215,12 +215,12 @@ export function NewsletterEditorClient({
 
       <div className="grid gap-4 xl:grid-cols-2">
         {/* Editor pane */}
-        <div className="space-y-4 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-4">
+        <div className="space-y-4 rounded-xl border border-[#E5E5E5] bg-white p-4">
           {panel === "content" ? (
             <div className="space-y-6">
               <div>
-                <h2 className="text-lg font-semibold text-white">Campaign settings</h2>
-                <p className="mt-1 text-xs text-zinc-500">
+                <h2 className="text-lg font-semibold text-[#1D1D1F]">Campaign settings</h2>
+                <p className="mt-1 text-xs text-[#52525b]">
                   Edition date is the Monday label in the archive. Send time is separate (SAST).
                 </p>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -254,8 +254,8 @@ export function NewsletterEditorClient({
                 </div>
               </div>
 
-              <div className="border-t border-[#2a2a2a] pt-5">
-                <h2 className="text-lg font-semibold text-white">Article of the Week</h2>
+              <div className="border-t border-[#E5E5E5] pt-5">
+                <h2 className="text-lg font-semibold text-[#1D1D1F]">Article of the Week</h2>
                 <div className="mt-4 space-y-4">
                   <ContentPicker
                     label="Select insight / article"
@@ -333,8 +333,8 @@ export function NewsletterEditorClient({
                 </div>
               </div>
 
-              <div className="border-t border-[#2a2a2a] pt-5">
-                <h2 className="text-lg font-semibold text-white">104-Week Challenge</h2>
+              <div className="border-t border-[#E5E5E5] pt-5">
+                <h2 className="text-lg font-semibold text-[#1D1D1F]">104-Week Challenge</h2>
                 <div className="mt-4 space-y-4">
                   <ContentPicker
                     label="Challenge page"
@@ -378,20 +378,20 @@ export function NewsletterEditorClient({
                 </div>
               </div>
 
-              <div className="border-t border-[#2a2a2a] pt-5">
-                <h2 className="text-lg font-semibold text-white">Courses in this edition</h2>
-                <p className="mt-1 text-xs text-zinc-500">
+              <div className="border-t border-[#E5E5E5] pt-5">
+                <h2 className="text-lg font-semibold text-[#1D1D1F]">Courses in this edition</h2>
+                <p className="mt-1 text-xs text-[#52525b]">
                   Select published Clarity Track courses to feature.
                 </p>
                 <div className="mt-3 space-y-2">
                   {draft.courses.availableCourses.map((course, idx) => (
                     <div
                       key={`${course.href}-${idx}`}
-                      className="flex items-center justify-between rounded-md border border-[#2a2a2a] bg-black/40 px-3 py-2"
+                      className="flex items-center justify-between rounded-md border border-[#E5E5E5] bg-[#FAFAF8] px-3 py-2"
                     >
                       <div className="min-w-0">
-                        <p className="truncate text-sm text-white">{course.title}</p>
-                        <p className="truncate text-[11px] text-zinc-500">{course.href}</p>
+                        <p className="truncate text-sm text-[#1D1D1F]">{course.title}</p>
+                        <p className="truncate text-[11px] text-[#52525b]">{course.href}</p>
                       </div>
                       <button
                         type="button"
@@ -443,26 +443,26 @@ export function NewsletterEditorClient({
           {panel === "sections" ? (
             <div className="space-y-5">
               <div>
-                <h2 className="text-lg font-semibold text-white">Evergreen section links</h2>
-                <p className="mt-1 text-xs text-zinc-500">
+                <h2 className="text-lg font-semibold text-[#1D1D1F]">Evergreen section links</h2>
+                <p className="mt-1 text-xs text-[#52525b]">
                   Only update sections that need a fresh link this week. Structure carries over from last edition.
                 </p>
               </div>
               {evergreenSections.map((section) => {
                 const block = draft.sectionContent.find((s) => s.sectionId === section.id);
                 return (
-                  <div key={section.id} className="border-t border-[#2a2a2a] pt-4">
-                    <h3 className="font-medium text-white">{section.title}</h3>
+                  <div key={section.id} className="border-t border-[#E5E5E5] pt-4">
+                    <h3 className="font-medium text-[#1D1D1F]">{section.title}</h3>
                     {block?.content?.length ? (
                       <ul className="mt-2 space-y-2">
                         {block.content.map((item, idx) => (
                           <li
                             key={`${item.href}-${idx}`}
-                            className="flex items-center justify-between rounded-md border border-[#2a2a2a] bg-black/40 px-3 py-2 text-sm"
+                            className="flex items-center justify-between rounded-md border border-[#E5E5E5] bg-[#FAFAF8] px-3 py-2 text-sm"
                           >
-                            <span className="text-zinc-300">
+                            <span className="text-[#3F3F46]">
                               {item.label}{" "}
-                              <span className="text-zinc-600">({item.type})</span>
+                              <span className="text-[#71717a]">({item.type})</span>
                             </span>
                             <button
                               type="button"
@@ -488,16 +488,16 @@ export function NewsletterEditorClient({
           {panel === "schedule" ? (
             <div className="space-y-6">
               <div>
-                <h2 className="text-lg font-semibold text-white">Review &amp; send</h2>
-                <p className="mt-1 text-xs text-zinc-500">
-                  <strong className="text-zinc-300">Publish</strong> only updates the website archive.
-                  <strong className="text-zinc-300"> Send</strong> emails subscribers via Resend.
+                <h2 className="text-lg font-semibold text-[#1D1D1F]">Review &amp; send</h2>
+                <p className="mt-1 text-xs text-[#52525b]">
+                  <strong className="text-[#3F3F46]">Publish</strong> only updates the website archive.
+                  <strong className="text-[#3F3F46]"> Send</strong> emails subscribers via Resend.
                 </p>
               </div>
 
-              <div className="rounded-lg border border-[#2a2a2a] bg-black/40 p-4 space-y-3">
-                <h3 className="text-sm font-medium text-white">Pre-flight checklist</h3>
-                <ul className="space-y-1 text-xs text-zinc-400">
+              <div className="rounded-lg border border-[#E5E5E5] bg-[#FAFAF8] p-4 space-y-3">
+                <h3 className="text-sm font-medium text-[#1D1D1F]">Pre-flight checklist</h3>
+                <ul className="space-y-1 text-xs text-[#52525b]">
                   <li>✓ Article title: {draft.articleOfTheWeek.title ? "set" : "missing"}</li>
                   <li>✓ Article link: {draft.articleOfTheWeek.articleHref ? "set" : "missing"}</li>
                   <li>✓ FAIS footer included in email template (FSP 17273)</li>
@@ -505,9 +505,9 @@ export function NewsletterEditorClient({
                 </ul>
               </div>
 
-              <div className="rounded-lg border border-[#2a2a2a] bg-black/40 p-4 space-y-3">
-                <h3 className="text-sm font-medium text-white">Website publish</h3>
-                <p className="text-xs text-zinc-500">
+              <div className="rounded-lg border border-[#E5E5E5] bg-[#FAFAF8] p-4 space-y-3">
+                <h3 className="text-sm font-medium text-[#1D1D1F]">Website publish</h3>
+                <p className="text-xs text-[#52525b]">
                   Makes `/newsletter/{draft.date}` public. Does not email anyone.
                 </p>
                 {draft.status === "published" || draft.status === "sent" ? (
@@ -515,7 +515,7 @@ export function NewsletterEditorClient({
                     <input type="hidden" name="editionId" value={draft.id} />
                     <button
                       type="submit"
-                      className="rounded-md border border-amber-500/30 bg-amber-950/40 px-4 py-2 text-sm text-amber-200"
+                      className="rounded-md border border-amber-200 bg-amber-950/40 px-4 py-2 text-sm text-amber-900"
                     >
                       Unpublish from website
                     </button>
@@ -525,7 +525,7 @@ export function NewsletterEditorClient({
                     <input type="hidden" name="editionId" value={draft.id} />
                     <button
                       type="submit"
-                      className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black"
+                      className="rounded-md bg-[#006B6B] px-4 py-2 text-sm font-medium text-white"
                     >
                       Publish to website
                     </button>
@@ -533,9 +533,9 @@ export function NewsletterEditorClient({
                 )}
               </div>
 
-              <div className="rounded-lg border border-[#2a2a2a] bg-black/40 p-4 space-y-3">
-                <h3 className="text-sm font-medium text-white">Schedule (SAST)</h3>
-                <p className="text-xs text-zinc-500">
+              <div className="rounded-lg border border-[#E5E5E5] bg-[#FAFAF8] p-4 space-y-3">
+                <h3 className="text-sm font-medium text-[#1D1D1F]">Schedule (SAST)</h3>
+                <p className="text-xs text-[#52525b]">
                   Defaults to next Monday 07:00. Scheduling stores the send time; a worker can pick it up, or send now below.
                 </p>
                 <input
@@ -569,7 +569,7 @@ export function NewsletterEditorClient({
                   {draft.status === "scheduled" ? (
                     <button
                       type="button"
-                      className="rounded-md border border-[#2a2a2a] px-4 py-2 text-sm text-zinc-300"
+                      className="rounded-md border border-[#E5E5E5] px-4 py-2 text-sm text-[#3F3F46]"
                       onClick={() => {
                         startTransition(async () => {
                           const result = await cancelScheduleAction(draft.id);
@@ -591,10 +591,10 @@ export function NewsletterEditorClient({
                 </div>
               </div>
 
-              <div className="rounded-lg border border-[#2a2a2a] bg-black/40 p-4 space-y-3">
-                <h3 className="text-sm font-medium text-white">Test send</h3>
+              <div className="rounded-lg border border-[#E5E5E5] bg-[#FAFAF8] p-4 space-y-3">
+                <h3 className="text-sm font-medium text-[#1D1D1F]">Test send</h3>
                 {!resendConfigured ? (
-                  <p className="text-xs text-amber-300">
+                  <p className="text-xs text-amber-900">
                     RESEND_API_KEY is not configured in this environment — test send will fail until it is set.
                   </p>
                 ) : null}
@@ -607,7 +607,7 @@ export function NewsletterEditorClient({
                 />
                 <button
                   type="button"
-                  className="rounded-md bg-[#3ecf8e] px-4 py-2 text-sm font-medium text-black"
+                  className="rounded-md bg-[#006B6B] px-4 py-2 text-sm font-medium text-white"
                   onClick={() => {
                     startTransition(async () => {
                       const result = await sendNewsletterTestAction(draft.id, testEmail);
@@ -623,22 +623,22 @@ export function NewsletterEditorClient({
                   Send test email
                 </button>
                 {draft.lastTestSentAt ? (
-                  <p className="text-[11px] text-zinc-500">
+                  <p className="text-[11px] text-[#52525b]">
                     Last test: {draft.lastTestSentTo} ·{" "}
                     {new Date(draft.lastTestSentAt).toLocaleString("en-ZA")}
                   </p>
                 ) : null}
               </div>
 
-              <div className="rounded-lg border border-red-500/20 bg-red-950/20 p-4 space-y-3">
-                <h3 className="text-sm font-medium text-red-300">Send to subscribers now</h3>
-                <p className="text-xs text-zinc-400">
+              <div className="rounded-lg border border-red-200 bg-red-50 p-4 space-y-3">
+                <h3 className="text-sm font-medium text-red-800">Send to subscribers now</h3>
+                <p className="text-xs text-[#52525b]">
                   Emails CRM newsletter subscribers via Resend and publishes the web edition.
                   Confirm carefully — this is not a draft preview.
                 </p>
                 <button
                   type="button"
-                  className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white"
+                  className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-[#1D1D1F]"
                   onClick={() => {
                     if (
                       !confirm(
@@ -665,12 +665,12 @@ export function NewsletterEditorClient({
                 </button>
               </div>
 
-              <div className="border-t border-[#2a2a2a] pt-4">
+              <div className="border-t border-[#E5E5E5] pt-4">
                 <form action={deleteEditionAction}>
                   <input type="hidden" name="editionId" value={draft.id} />
                   <button
                     type="submit"
-                    className="rounded-md border border-red-500/30 bg-red-950/40 px-4 py-2 text-sm text-red-300"
+                    className="rounded-md border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-800"
                     onClick={(e) => {
                       if (!confirm("Delete this edition permanently?")) e.preventDefault();
                     }}
@@ -686,7 +686,7 @@ export function NewsletterEditorClient({
         {/* Live preview pane */}
         <div className="xl:sticky xl:top-4 xl:h-[calc(100vh-6rem)]">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+            <p className="text-xs font-medium uppercase tracking-wide text-[#52525b]">
               Live preview
             </p>
             <div className="flex flex-wrap gap-2">
@@ -694,7 +694,7 @@ export function NewsletterEditorClient({
                 type="button"
                 onClick={() => setPreviewMode("web")}
                 className={`rounded px-2 py-1 text-xs ${
-                  previewMode === "web" ? "bg-white/10 text-white" : "text-zinc-500"
+                  previewMode === "web" ? "bg-[#F0F0EE] text-[#1D1D1F]" : "text-[#52525b]"
                 }`}
               >
                 Web
@@ -703,7 +703,7 @@ export function NewsletterEditorClient({
                 type="button"
                 onClick={() => setPreviewMode("email")}
                 className={`rounded px-2 py-1 text-xs ${
-                  previewMode === "email" ? "bg-white/10 text-white" : "text-zinc-500"
+                  previewMode === "email" ? "bg-[#F0F0EE] text-[#1D1D1F]" : "text-[#52525b]"
                 }`}
               >
                 Email
@@ -712,7 +712,7 @@ export function NewsletterEditorClient({
                 type="button"
                 onClick={() => setDevice("desktop")}
                 className={`rounded px-2 py-1 text-xs ${
-                  device === "desktop" ? "bg-white/10 text-white" : "text-zinc-500"
+                  device === "desktop" ? "bg-[#F0F0EE] text-[#1D1D1F]" : "text-[#52525b]"
                 }`}
               >
                 Desktop
@@ -721,7 +721,7 @@ export function NewsletterEditorClient({
                 type="button"
                 onClick={() => setDevice("mobile")}
                 className={`rounded px-2 py-1 text-xs ${
-                  device === "mobile" ? "bg-white/10 text-white" : "text-zinc-500"
+                  device === "mobile" ? "bg-[#F0F0EE] text-[#1D1D1F]" : "text-[#52525b]"
                 }`}
               >
                 Mobile
@@ -764,7 +764,7 @@ function SectionAddRow({
       <select
         value={type}
         onChange={(e) => setType(e.target.value as ContentType)}
-        className="rounded-md border border-[#2a2a2a] bg-black px-2 py-2 text-xs text-white"
+        className="rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-2 py-2 text-xs text-[#1D1D1F]"
       >
         {CONTENT_TYPES.map((ct) => (
           <option key={ct.value} value={ct.value}>

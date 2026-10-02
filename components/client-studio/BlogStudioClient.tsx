@@ -55,12 +55,12 @@ type Props = {
 };
 
 const STUDIO_SELECT_CLASS =
-  "w-full rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-2.5 text-sm text-zinc-50 outline-none focus:border-[#3ecf8e]/40 [&>option]:bg-[#0a0a0a] [&>option]:text-zinc-50";
+  "w-full rounded-lg border border-[#E5E5E5] bg-white p-2.5 text-sm text-[#1D1D1F] outline-none focus:border-[#006B6B]/35 [&>option]:bg-white [&>option]:text-[#1D1D1F]";
 const STUDIO_FIELD_CLASS =
-  "w-full rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#3ecf8e]/30";
+  "w-full rounded-lg border border-[#E5E5E5] bg-white px-3 py-2 text-sm text-[#1D1D1F] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006B6B]/30";
 const STUDIO_FIELD_LABEL_CLASS =
-  "mb-1 block text-xs font-bold uppercase tracking-[0.14em] text-zinc-300";
-const STUDIO_FIELD_HINT_CLASS = "mt-1 text-[11px] leading-relaxed text-zinc-500";
+  "mb-1 block text-xs font-bold uppercase tracking-[0.14em] text-[#3F3F46]";
+const STUDIO_FIELD_HINT_CLASS = "mt-1 text-[11px] leading-relaxed text-[#71717a]";
 const RECENT_BLOG_POSTS_LIMIT = 5;
 const STUDIO_WIP_STORAGE_KEY = "asbrokers-blog-studio-wip";
 const WIP_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
@@ -390,10 +390,10 @@ function buildPreviewDoc(html: string): string {
     [class~="gap-3"]{gap:.75rem}[class~="gap-4"]{gap:1rem}[class~="gap-6"]{gap:1.5rem}[class~="gap-8"]{gap:2rem}
     [class~="list-disc"]{list-style:disc}[class~="list-none"]{list-style:none}
     [class~="pl-6"]{padding-left:1.5rem}[class~="p-6"]{padding:1.5rem}[class~="rounded-2xl"]{border-radius:1rem}[class~="rounded-3xl"]{border-radius:1.5rem}
-    [class~="text-white"]{color:#1D1D1F}[class~="text-zinc-100"]{color:#1D1D1F}[class~="text-zinc-200"]{color:#2B2B2E}[class~="text-zinc-300"]{color:#52525b}[class~="text-zinc-400"]{color:#71717a}
-    [class~="text-teal-200"]{color:#006B6B}[class~="text-[#3ecf8e]"]{color:#006B6B}[class~="text-[#3ecf8e]/90"]{color:#0F766E}[class~="text-emerald-300"]{color:#0F766E}[class~="text-amber-200"]{color:#92400e}[class~="text-amber-300"]{color:#b45309}[class~="text-orange-200"]{color:#9a3412}
-    [class~="bg-white/5"]{background:#ffffff}[class~="bg-black/30"]{background:#ffffff}[class~="bg-teal-500/10"]{background:rgba(0,107,107.08)}[class~="bg-amber-500/10"]{background:rgba(245,158,11.1)}
-    [class~="border"]{border-width:1px;border-style:solid}[class~="border-white/10"]{border-color:#E5E5E5}[class~="border-teal-500/30"]{border-color:rgba(0,107,107.35)}[class~="border-amber-500/30"]{border-color:rgba(245,158,11.35)}
+    [class~="text-[#1D1D1F]"]{color:#1D1D1F}[class~="text-[#1D1D1F]"]{color:#1D1D1F}[class~="text-[#1D1D1F]"]{color:#2B2B2E}[class~="text-[#3F3F46]"]{color:#52525b}[class~="text-[#52525b]"]{color:#71717a}
+    [class~="text-[#0F766E]"]{color:#006B6B}[class~="text-[#006B6B]"]{color:#006B6B}[class~="text-[#006B6B]/90"]{color:#0F766E}[class~="text-[#047857]"]{color:#0F766E}[class~="text-[#B45309]"]{color:#92400e}[class~="text-[#B45309]"]{color:#b45309}[class~="text-orange-200"]{color:#9a3412}
+    [class~="bg-[#F7F6F3]"]{background:#ffffff}[class~="bg-[#F7F6F3]"]{background:#ffffff}[class~="bg-teal-500/10"]{background:rgba(0,107,107.08)}[class~="bg-amber-50"]{background:rgba(245,158,11.1)}
+    [class~="border"]{border-width:1px;border-style:solid}[class~="border-[#E5E5E5]"]{border-color:#E5E5E5}[class~="border-teal-500/30"]{border-color:rgba(0,107,107.35)}[class~="border-amber-200"]{border-color:rgba(245,158,11.35)}
     .slot{margin:1.75rem 0;padding:1rem;border:1px dashed rgba(0,107,107.45);border-radius:15px;background:rgba(0,107,107.06);color:#006B6B}
   </style></head><body>${html}<script>
   (() => {
@@ -778,8 +778,8 @@ export function BlogStudioClient(props: Props) {
   if (!studioConfigured) {
     return (
       <div className="mx-auto max-w-lg px-4 py-16 text-center">
-        <h1 className="mb-3 text-xl font-semibold text-white">Insights studio is off</h1>
-        <p className="text-sm text-zinc-400">Set CLIENT_STUDIO_PASSWORD on the server and reload this page.</p>
+        <h1 className="mb-3 text-xl font-semibold text-[#1D1D1F]">Insights studio is off</h1>
+        <p className="text-sm text-[#52525b]">Set CLIENT_STUDIO_PASSWORD on the server and reload this page.</p>
       </div>
     );
   }
@@ -1057,7 +1057,7 @@ export function BlogStudioClient(props: Props) {
       <div
         key={post.id}
         className={`rounded-lg border px-3 py-3 transition ${
-          isActive ? "border-teal-500/40 bg-teal-500/10" : "border-white/10 bg-black/25"
+          isActive ? "border-teal-500/40 bg-teal-500/10" : "border-[#E5E5E5] bg-[#F7F6F3]"
         }`}
       >
         <div className="flex items-start gap-3">
@@ -1067,16 +1067,16 @@ export function BlogStudioClient(props: Props) {
             className="min-w-0 flex-1 text-left"
           >
             <div className="flex items-start justify-between gap-3">
-              <span className="text-sm font-semibold text-zinc-100">{post.title}</span>
+              <span className="text-sm font-semibold text-[#1D1D1F]">{post.title}</span>
               <span
                 className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-                  isLive ? "bg-emerald-500/15 text-emerald-200" : "bg-white/10 text-zinc-300"
+                  isLive ? "bg-[#D1FAE5] text-[#065F46]" : "bg-[#F0F0EE] text-[#3F3F46]"
                 }`}
               >
                 {isLive ? "Live" : "Draft"}
               </span>
             </div>
-            <p className="mt-1 text-xs text-zinc-500">
+            <p className="mt-1 text-xs text-[#52525b]">
               Updated {formatStudioDate(post.updatedAt)}
               {post.publishedAt ? ` · Published ${formatStudioDate(post.publishedAt)}` : ""}
             </p>
@@ -1085,14 +1085,14 @@ export function BlogStudioClient(props: Props) {
                 {normalizeInsightCategories(post.categories).map((value) => (
                   <span
                     key={`${post.id}-${value}`}
-                    className="rounded-full border border-teal-500/25 bg-teal-500/10 px-2 py-0.5 text-[10px] font-semibold text-teal-100"
+                    className="rounded-full border border-teal-500/25 bg-teal-500/10 px-2 py-0.5 text-[10px] font-semibold text-[#134E4A]"
                   >
                     {INSIGHT_CATEGORY_LABEL_BY_VALUE[value as InsightCategoryValue]}
                   </span>
                 ))}
               </p>
             ) : (
-              <p className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-amber-300/90">
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-[#B45309]/90">
                 No categories yet
               </p>
             )}
@@ -1107,8 +1107,8 @@ export function BlogStudioClient(props: Props) {
               onClick={() => togglePostLive(post)}
               className={`relative h-7 w-12 rounded-full border transition ${
                 isLive
-                  ? "border-emerald-400/50 bg-emerald-500/30"
-                  : "border-white/15 bg-white/10"
+                  ? "border-emerald-400/50 bg-[#A7F3D0]"
+                  : "border-[#E5E5E5] bg-[#F0F0EE]"
               } disabled:cursor-not-allowed disabled:opacity-50`}
             >
               <span
@@ -1117,14 +1117,14 @@ export function BlogStudioClient(props: Props) {
                 }`}
               />
             </button>
-            <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+            <span className="text-[10px] font-semibold uppercase tracking-wide text-[#52525b]">
               {isBusy ? "Saving..." : isLive ? "On Insights" : "Hidden"}
             </span>
             <button
               type="button"
               onClick={() => removePost(post)}
               disabled={isBusy || isPending}
-              className="rounded-md border border-red-500/30 bg-red-500/10 px-2 py-1 text-[11px] font-semibold text-red-200 hover:bg-red-500/15 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-md border border-red-200 bg-red-50 px-2 py-1 text-[11px] font-semibold text-red-200 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Delete
             </button>
@@ -1404,20 +1404,20 @@ export function BlogStudioClient(props: Props) {
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col pb-8 text-zinc-200">
-      <div className="sticky top-0 z-30 -mx-4 mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-[#2a2a2a] bg-black/90 px-4 py-4 backdrop-blur-sm md:-mx-8 md:px-8">
+    <div className="flex min-h-0 flex-1 flex-col pb-8 text-[#1D1D1F]">
+      <div className="sticky top-0 z-30 -mx-4 mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-[#E5E5E5] bg-[#F7F6F3]/95 px-4 py-4 backdrop-blur-sm md:-mx-8 md:px-8">
         <div>
-          <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-600">FSP 17273</p>
-          <h1 className="text-lg font-semibold tracking-tight text-white sm:text-xl">Blog workspace</h1>
+          <p className="text-[10px] font-medium uppercase tracking-wider text-[#71717a]">FSP 17273</p>
+          <h1 className="text-lg font-semibold tracking-tight text-[#1D1D1F] sm:text-xl">Blog workspace</h1>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-1.5 text-xs text-zinc-400">
-            Status: <span className="font-medium text-[#3ecf8e]">{status}</span>
+          <div className="rounded-md border border-[#E5E5E5] bg-white px-3 py-1.5 text-xs text-[#52525b]">
+            Status: <span className="font-medium text-[#006B6B]">{status}</span>
           </div>
           <button
             type="button"
             onClick={() => document.getElementById("studio-preview")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-            className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white lg:hidden"
+            className="rounded-md border border-[#E5E5E5] bg-white px-3 py-2 text-xs font-medium text-[#3F3F46] transition-colors hover:border-[#D4D4D4] hover:text-[#1D1D1F] lg:hidden"
           >
             Preview
           </button>
@@ -1425,7 +1425,7 @@ export function BlogStudioClient(props: Props) {
             type="button"
             onClick={() => saveOrPublish(false)}
             disabled={isPending}
-            className="rounded-md border border-[#2a2a2a] bg-[#0a0a0a] px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-[#3a3a3a] hover:text-white disabled:opacity-50"
+            className="rounded-md border border-[#E5E5E5] bg-white px-4 py-2 text-xs font-medium text-[#3F3F46] transition-colors hover:border-[#D4D4D4] hover:text-[#1D1D1F] disabled:opacity-50"
           >
             {currentPostStatus === "published" ? "Save live changes" : "Save draft"}
           </button>
@@ -1433,7 +1433,7 @@ export function BlogStudioClient(props: Props) {
             type="button"
             onClick={() => saveOrPublish(true)}
             disabled={isPending || !canPublish}
-            className="rounded-md bg-[#3ecf8e] px-4 py-2 text-xs font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="rounded-md bg-[#006B6B] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             Publish
           </button>
@@ -1442,24 +1442,24 @@ export function BlogStudioClient(props: Props) {
 
       <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 gap-6 lg:grid-cols-12">
         {databaseLoadError && (
-          <div className="rounded-xl border border-amber-500/35 bg-amber-500/10 px-4 py-3 text-sm text-amber-100 lg:col-span-12">
+          <div className="rounded-xl border border-amber-500/35 bg-amber-50 px-4 py-3 text-sm text-amber-100 lg:col-span-12">
             {databaseLoadError}
           </div>
         )}
         <div className="space-y-6 lg:col-span-5">
-          <section className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
+          <section className="rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
             <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Blog library</p>
-                <h2 className="mt-1 text-xl font-bold text-white">Open an existing blog post</h2>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#006B6B]">Blog library</p>
+                <h2 className="mt-1 text-xl font-bold text-[#1D1D1F]">Open an existing blog post</h2>
+                <p className="mt-2 text-sm leading-relaxed text-[#52525b]">
                   Load any saved draft or published article, edit the HTML/details, then save or publish again.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={startNewDraft}
-                className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-100 hover:bg-white/10"
+                className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-xs font-semibold text-[#1D1D1F] hover:bg-[#F0F0EE]"
               >
                 Start new draft
               </button>
@@ -1477,8 +1477,8 @@ export function BlogStudioClient(props: Props) {
               ))}
             </select>
             {selectedId && (
-              <div className="mt-3 rounded-lg border border-white/10 bg-black/25 p-3 text-xs text-zinc-400">
-                <span className="font-semibold text-zinc-200">Currently editing:</span>{" "}
+              <div className="mt-3 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3 text-xs text-[#52525b]">
+                <span className="font-semibold text-[#1D1D1F]">Currently editing:</span>{" "}
                 {currentPostStatus === "published" ? "Published post" : "Draft"}.
                 {currentPostStatus === "published"
                   ? " Saving changes updates the live article; use Publish again after slot changes."
@@ -1487,36 +1487,36 @@ export function BlogStudioClient(props: Props) {
             )}
           </section>
 
-          <section id="drafts" className="scroll-mt-24 rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
+          <section id="drafts" className="scroll-mt-24 rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
             <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Drafts</p>
-                <h2 className="mt-1 text-xl font-bold text-white">Unpublished articles</h2>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#006B6B]">Drafts</p>
+                <h2 className="mt-1 text-xl font-bold text-[#1D1D1F]">Unpublished articles</h2>
+                <p className="mt-2 text-sm leading-relaxed text-[#52525b]">
                   Every saved draft that is not live on Insights yet. Open one to keep editing, or start a new draft above.
                 </p>
               </div>
-              <span className="rounded-md border border-[#2a2a2a] bg-black/30 px-2.5 py-1 text-xs font-semibold text-zinc-300">
+              <span className="rounded-md border border-[#E5E5E5] bg-[#F7F6F3] px-2.5 py-1 text-xs font-semibold text-[#3F3F46]">
                 {draftPosts.length} draft{draftPosts.length === 1 ? "" : "s"}
               </span>
             </div>
             {!databaseConfigured ? (
-              <p className="text-sm text-zinc-500">Connect the database to load drafts here.</p>
+              <p className="text-sm text-[#52525b]">Connect the database to load drafts here.</p>
             ) : databaseLoadError ? (
-              <p className="text-sm text-amber-200">{databaseLoadError}</p>
+              <p className="text-sm text-[#B45309]">{databaseLoadError}</p>
             ) : draftPosts.length === 0 ? (
-              <p className="text-sm text-zinc-500">No drafts yet. Click Start new draft, then Save draft.</p>
+              <p className="text-sm text-[#52525b]">No drafts yet. Click Start new draft, then Save draft.</p>
             ) : (
               <div className="space-y-2">{draftPosts.map((post) => renderPostPickerButton(post))}</div>
             )}
           </section>
 
-          <section id="copy-me" className="scroll-mt-24 rounded-xl border border-emerald-500/25 bg-emerald-950/10 p-6 shadow-sm">
+          <section id="copy-me" className="scroll-mt-24 rounded-xl border border-[#A7F3D0] bg-[#ECFDF5] p-6 shadow-sm">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-300">Copy me</p>
-                <h2 className="mt-1 text-xl font-bold text-white">Copy the brand guide and blog rules</h2>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-400">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#047857]">Copy me</p>
+                <h2 className="mt-1 text-xl font-bold text-[#1D1D1F]">Copy the brand guide and blog rules</h2>
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-[#52525b]">
                   Open this when starting a new article. Choose a preset, copy it into AI, then paste the returned HTML below.
                 </p>
               </div>
@@ -1525,7 +1525,7 @@ export function BlogStudioClient(props: Props) {
                 aria-expanded={isBrandGuideOpen}
                 aria-controls="brand-guide-presets"
                 onClick={() => setIsBrandGuideOpen((open) => !open)}
-                className="rounded-lg border border-emerald-400/35 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100 transition-colors hover:bg-emerald-500/15"
+                className="rounded-lg border border-[#6EE7B7] bg-[#ECFDF5] px-3 py-2 text-xs font-semibold text-[#065F46] transition-colors hover:bg-[#D1FAE5]"
               >
                 {isBrandGuideOpen ? "Hide brand guide" : "Open brand guide"}
               </button>
@@ -1533,29 +1533,29 @@ export function BlogStudioClient(props: Props) {
             {isBrandGuideOpen && (
               <div id="brand-guide-presets" className="mt-5">
                 {successBanner && (
-                  <div className="mb-4 rounded-lg border border-emerald-400/40 bg-emerald-500/15 px-4 py-3 text-sm font-semibold text-emerald-100">
+                  <div className="mb-4 rounded-lg border border-[#34D399] bg-[#D1FAE5] px-4 py-3 text-sm font-semibold text-[#065F46]">
                     {successBanner}
                   </div>
                 )}
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {COPY_PROMPT_PRESETS.map((preset) => (
                     <div key={preset.id} className="group relative">
-                      <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-64 -translate-x-1/2 rounded-lg border border-white/10 bg-black px-3 py-2 text-xs leading-relaxed text-zinc-200 opacity-0 shadow-xl transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-64 -translate-x-1/2 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-xs leading-relaxed text-[#1D1D1F] opacity-0 shadow-xl transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
                         {preset.hover}
                       </div>
                       <button
                         type="button"
                         title={preset.hover}
                         onClick={() => void copyPromptPreset(preset)}
-                        className="h-full w-full rounded-xl border border-white/10 bg-black/30 p-4 text-left transition hover:border-emerald-400/50 hover:bg-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
+                        className="h-full w-full rounded-xl border border-[#E5E5E5] bg-[#F7F6F3] p-4 text-left transition hover:border-emerald-400/50 hover:bg-[#ECFDF5] focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
                       >
-                        <span className="block text-sm font-bold text-white">{preset.title}</span>
-                        <span className="mt-1 block text-xs text-zinc-400">{preset.includes}</span>
+                        <span className="block text-sm font-bold text-[#1D1D1F]">{preset.title}</span>
+                        <span className="mt-1 block text-xs text-[#52525b]">{preset.includes}</span>
                         <span
                           className={`mt-3 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${
                             copiedPromptId === preset.id
-                              ? "bg-emerald-400 text-emerald-950"
-                              : "bg-white/5 text-emerald-200"
+                              ? "bg-emerald-400 text-[#064E3B]"
+                              : "bg-[#F7F6F3] text-[#065F46]"
                           }`}
                         >
                           {copiedPromptId === preset.id ? "Copied!" : "Copy prompt"}
@@ -1564,7 +1564,7 @@ export function BlogStudioClient(props: Props) {
                     </div>
                   ))}
                 </div>
-                <p className="mt-4 rounded-lg border border-white/10 bg-black/25 p-3 text-xs leading-relaxed text-zinc-400">
+                <p className="mt-4 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3 text-xs leading-relaxed text-[#52525b]">
                   Slot reminder: every {IMAGE_TOKEN} becomes an upload field below, every {CALC_TOKEN} becomes a
                   calculator selector, and every {VIDEO_TOKEN} becomes a video-link field.
                 </p>
@@ -1572,11 +1572,11 @@ export function BlogStudioClient(props: Props) {
             )}
           </section>
 
-          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
             <div className="mb-3">
-              <label className="block text-lg font-bold text-white">Step 1: Paste Markdown or warm HTML</label>
+              <label className="block text-lg font-bold text-[#1D1D1F]">Step 1: Paste Markdown or warm HTML</label>
             </div>
-            <p className="mb-2 text-sm text-zinc-400">
+            <p className="mb-2 text-sm text-[#52525b]">
               Prefer Markdown headings and paragraphs (warm Paper &amp; Ink on save). HTML still works, but dark
               night-mode classes are blocked at publish. Use {IMAGE_TOKEN}, {CALC_TOKEN}, and {VIDEO_TOKEN} for slots —
               do not paste calculator scripts manually.
@@ -1585,42 +1585,42 @@ export function BlogStudioClient(props: Props) {
               value={rawHtml}
               onChange={(e) => setRawHtml(e.target.value)}
               rows={11}
-              className="w-full rounded-lg border border-white/10 bg-black/40 p-4 font-mono text-sm text-teal-100 transition-all focus:bg-black/55 focus:outline-none focus:ring-2 focus:ring-teal-500/40"
+              className="w-full rounded-lg border border-[#E5E5E5] bg-[#FAFAF8] p-4 font-mono text-sm text-[#134E4A] transition-all focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#006B6B]/35"
               placeholder="Paste Markdown or warm HTML…"
             />
           </div>
 
-          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">Step 2: Upload Images</h2>
-              <span className="text-xs font-semibold text-zinc-400">{imageCount - missingImages}/{imageCount} mapped</span>
+              <h2 className="text-lg font-bold text-[#1D1D1F]">Step 2: Upload Images</h2>
+              <span className="text-xs font-semibold text-[#52525b]">{imageCount - missingImages}/{imageCount} mapped</span>
             </div>
-            <p className="mb-3 text-sm text-zinc-400">
+            <p className="mb-3 text-sm text-[#52525b]">
               The upload boxes come from {IMAGE_TOKEN} placeholders and existing images in the post. Open a saved post here to
               replace or remove the images without changing any Supabase storage settings.
             </p>
-            <details className="mb-3 rounded-lg border border-white/10 bg-black/25 p-3">
-              <summary className="cursor-pointer text-xs font-semibold text-zinc-400 hover:text-zinc-200">
+            <details className="mb-3 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3">
+              <summary className="cursor-pointer text-xs font-semibold text-[#52525b] hover:text-[#1D1D1F]">
                 Upload troubleshooting
               </summary>
               <div className="flex items-center justify-between gap-2">
-                <p className="mt-3 text-xs text-zinc-400">
+                <p className="mt-3 text-xs text-[#52525b]">
                   If uploads fail, run diagnostics to verify session, Supabase keys, and bucket access.
                 </p>
                 <button
                   type="button"
                   onClick={runUploadDebug}
                   disabled={isPending || uploadDebugRunning}
-                  className="rounded-md border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-200 disabled:opacity-40"
+                  className="rounded-md border border-[#D4D4D4] bg-[#F7F6F3] px-3 py-1.5 text-xs font-semibold text-[#1D1D1F] disabled:opacity-40"
                 >
                   {uploadDebugRunning ? "Running..." : "Run upload debug"}
                 </button>
               </div>
               {uploadDebugSummary && (
-                <p className="mt-2 text-xs text-amber-200/90">{uploadDebugSummary}</p>
+                <p className="mt-2 text-xs text-[#B45309]/90">{uploadDebugSummary}</p>
               )}
               {uploadDebugChecks.length > 0 && (
-                <ul className="mt-2 list-disc space-y-1 pl-4 text-[11px] text-zinc-400">
+                <ul className="mt-2 list-disc space-y-1 pl-4 text-[11px] text-[#52525b]">
                   {uploadDebugChecks.map((line, idx) => (
                     <li key={`dbg-${idx}`}>{line}</li>
                   ))}
@@ -1631,34 +1631,34 @@ export function BlogStudioClient(props: Props) {
               const assignedUrl = imageUrls[i];
               const selectedFile = slotFiles[i];
               return (
-                <div key={`img-slot-${i}`} className="mb-3 rounded-lg border border-white/10 bg-black/30 p-4">
+                <div key={`img-slot-${i}`} className="mb-3 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-4">
                   <div className="mb-3 flex items-center justify-between gap-3">
-                    <span className="text-sm font-bold text-zinc-100">
+                    <span className="text-sm font-bold text-[#1D1D1F]">
                       Image Slot #{i + 1} {i === 0 ? "(Cover Thumbnail)" : ""}
                     </span>
-                    <span className={assignedUrl ? "text-xs font-semibold text-emerald-300" : "text-xs font-semibold text-amber-300"}>
+                    <span className={assignedUrl ? "text-xs font-semibold text-[#047857]" : "text-xs font-semibold text-[#B45309]"}>
                       {assignedUrl ? "Assigned" : "Needs image"}
                     </span>
                   </div>
 
                   {assignedUrl ? (
-                    <div className="mb-3 grid gap-3 rounded-lg border border-white/10 bg-white/5 p-3 sm:grid-cols-[112px_1fr]">
+                    <div className="mb-3 grid gap-3 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3 sm:grid-cols-[112px_1fr]">
                       <img
                         src={assignedUrl}
                         alt={`Current image for slot ${i + 1}`}
-                        className="h-28 w-full rounded-lg border border-white/10 object-cover sm:w-28"
+                        className="h-28 w-full rounded-lg border border-[#E5E5E5] object-cover sm:w-28"
                       />
                       <div className="flex flex-col justify-center gap-2">
-                        <p className="text-xs font-semibold text-zinc-200">Current image</p>
-                        <p className="break-all text-[11px] leading-relaxed text-zinc-500">{assignedUrl}</p>
-                        <p className="text-[11px] leading-relaxed text-zinc-400">
+                        <p className="text-xs font-semibold text-[#1D1D1F]">Current image</p>
+                        <p className="break-all text-[11px] leading-relaxed text-[#52525b]">{assignedUrl}</p>
+                        <p className="text-[11px] leading-relaxed text-[#52525b]">
                           Choose a new file below and upload it to replace this image. Remove only marks the slot as pending; it
                           does not delete anything from Supabase storage.
                         </p>
                       </div>
                     </div>
                   ) : (
-                    <div className="mb-3 rounded-lg border border-dashed border-amber-400/30 bg-amber-500/10 p-3 text-xs text-amber-100">
+                    <div className="mb-3 rounded-lg border border-dashed border-amber-400/30 bg-amber-50 p-3 text-xs text-amber-100">
                       No image assigned to this slot. Upload one before publishing.
                     </div>
                   )}
@@ -1673,14 +1673,14 @@ export function BlogStudioClient(props: Props) {
                           [i]: (e.target.files?.[0] as File | undefined) ?? null,
                         }))
                       }
-                      className="block w-full text-sm text-zinc-400 file:mr-3 file:rounded-md file:border-0 file:bg-zinc-900 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-white"
+                      className="block w-full text-sm text-[#52525b] file:mr-3 file:rounded-md file:border-0 file:bg-[#E8F3F3] file:px-4 file:py-2 file:text-xs file:font-semibold file:text-[#006B6B]"
                     />
                     <div className="flex gap-2">
                       <button
                         type="button"
                         onClick={() => void uploadSlot(i)}
                         disabled={isPending || !selectedFile || Boolean(uploadingSlots[i])}
-                        className="rounded-md border border-white/20 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-200 disabled:opacity-40"
+                        className="rounded-md border border-[#D4D4D4] bg-[#F7F6F3] px-3 py-2 text-xs font-semibold text-[#1D1D1F] disabled:opacity-40"
                       >
                         {uploadingSlots[i] ? "Uploading..." : assignedUrl ? "Upload replacement" : "Upload"}
                       </button>
@@ -1689,7 +1689,7 @@ export function BlogStudioClient(props: Props) {
                           type="button"
                           onClick={() => clearImageSlot(i)}
                           disabled={isPending || Boolean(uploadingSlots[i])}
-                          className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-200 hover:bg-red-500/15 disabled:opacity-40"
+                          className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-200 hover:bg-red-50 disabled:opacity-40"
                         >
                           Remove
                         </button>
@@ -1697,40 +1697,40 @@ export function BlogStudioClient(props: Props) {
                     </div>
                   </div>
                   {selectedFile && (
-                    <p className="mt-2 text-[11px] text-teal-200">
+                    <p className="mt-2 text-[11px] text-[#0F766E]">
                       Selected: {selectedFile.name}. Click {assignedUrl ? "Upload replacement" : "Upload"} to map it to this slot.
                     </p>
                   )}
                   {slotMessages[i] && (
-                    <p className="mt-2 text-[11px] text-zinc-400">{slotMessages[i]}</p>
+                    <p className="mt-2 text-[11px] text-[#52525b]">{slotMessages[i]}</p>
                   )}
                 </div>
               );
             })}
             {imageCount === 0 && (
-              <p className="text-sm italic text-zinc-500">No image placeholders or editable image tags detected.</p>
+              <p className="text-sm italic text-[#52525b]">No image placeholders or editable image tags detected.</p>
             )}
           </div>
 
-          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
+          <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
             <div className="mb-3 flex items-center justify-between gap-3">
-              <h2 className="text-lg font-bold text-white">Step 3: Select Calculators & Videos</h2>
-              <span className="text-xs font-semibold text-zinc-400">
+              <h2 className="text-lg font-bold text-[#1D1D1F]">Step 3: Select Calculators & Videos</h2>
+              <span className="text-xs font-semibold text-[#52525b]">
                 {calcCount} calculator / {videoCount} video
               </span>
             </div>
-            <p className="mb-3 text-sm text-zinc-400">
+            <p className="mb-3 text-sm text-[#52525b]">
               Choose one calculator for each {CALC_TOKEN} and paste one video link for each {VIDEO_TOKEN}.
               {embedReadySnippets.length > 0 && (
-                <span className="mt-1 block text-xs text-zinc-500">
+                <span className="mt-1 block text-xs text-[#52525b]">
                   {embedReadySnippets.length} AS Brokers calculators available (ASSET 001–016).
                 </span>
               )}
             </p>
             <div className="space-y-3">
               {Array.from({ length: calcCount }).map((_, i) => (
-                <div key={`calc-slot-${i}`} className="rounded-lg border border-white/10 bg-black/30 p-4">
-                  <p className="mb-2 text-sm font-bold text-zinc-100">Calculator Slot #{i + 1}</p>
+                <div key={`calc-slot-${i}`} className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-4">
+                  <p className="mb-2 text-sm font-bold text-[#1D1D1F]">Calculator Slot #{i + 1}</p>
                   <select
                     value={calcSelection[i] ?? ""}
                     onChange={(e) =>
@@ -1751,8 +1751,8 @@ export function BlogStudioClient(props: Props) {
                 </div>
               ))}
               {Array.from({ length: videoCount }).map((_, i) => (
-                <div key={`video-slot-${i}`} className="rounded-lg border border-white/10 bg-black/30 p-4">
-                  <p className="mb-2 text-sm font-bold text-zinc-100">Video Slot #{i + 1}</p>
+                <div key={`video-slot-${i}`} className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-4">
+                  <p className="mb-2 text-sm font-bold text-[#1D1D1F]">Video Slot #{i + 1}</p>
                   <input
                     value={videoUrls[i] ?? ""}
                     onChange={(e) =>
@@ -1762,26 +1762,26 @@ export function BlogStudioClient(props: Props) {
                       }))
                     }
                     placeholder="Paste YouTube URL or video ID"
-                    className="w-full rounded-lg border border-white/10 bg-black/40 p-2.5 text-sm text-zinc-100"
+                    className="w-full rounded-lg border border-[#E5E5E5] bg-[#FAFAF8] p-2.5 text-sm text-[#1D1D1F]"
                   />
                 </div>
               ))}
               {calcCount === 0 && videoCount === 0 && (
-                <p className="text-sm italic text-zinc-500">
+                <p className="text-sm italic text-[#52525b]">
                   No [CALCULATOR_SLOT] or [VIDEO_SLOT] placeholders detected.
                 </p>
               )}
             </div>
           </div>
 
-          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
-            <h2 className="mb-1 text-lg font-bold text-white">Step 4: Post Details</h2>
-            <p className="mb-4 text-sm text-zinc-400">
+          <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
+            <h2 className="mb-1 text-lg font-bold text-[#1D1D1F]">Step 4: Post Details</h2>
+            <p className="mb-4 text-sm text-[#52525b]">
               Each field keeps its label while you type. Save stores title, slug, article HTML, images, and
               calculator choices so a refresh will not lose your work.
             </p>
             {wipRestoreOffer && (
-              <div className="mb-4 rounded-lg border border-amber-500/35 bg-amber-500/10 p-3">
+              <div className="mb-4 rounded-lg border border-amber-500/35 bg-amber-50 p-3">
                 <p className="text-sm text-amber-100">
                   Unsaved work found from{" "}
                   {new Date(wipRestoreOffer.savedAt).toLocaleString("en-ZA", {
@@ -1801,7 +1801,7 @@ export function BlogStudioClient(props: Props) {
                   <button
                     type="button"
                     onClick={clearStudioWip}
-                    className="rounded-md border border-white/15 px-3 py-1.5 text-xs font-semibold text-zinc-200"
+                    className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs font-semibold text-[#1D1D1F]"
                   >
                     Dismiss
                   </button>
@@ -1811,7 +1811,7 @@ export function BlogStudioClient(props: Props) {
             <div className="grid grid-cols-1 gap-4">
               <div>
                 <label htmlFor="studio-post-title" className={STUDIO_FIELD_LABEL_CLASS}>
-                  Article title <span className="text-[#3ecf8e]/90">*</span>
+                  Article title <span className="text-[#006B6B]/90">*</span>
                 </label>
                 <input
                   id="studio-post-title"
@@ -1825,7 +1825,7 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div>
                 <label htmlFor="studio-post-slug" className={STUDIO_FIELD_LABEL_CLASS}>
-                  URL slug <span className="text-[#3ecf8e]/90">*</span>
+                  URL slug <span className="text-[#006B6B]/90">*</span>
                 </label>
                 <input
                   id="studio-post-slug"
@@ -1839,7 +1839,7 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div>
                 <label htmlFor="studio-post-excerpt" className={STUDIO_FIELD_LABEL_CLASS}>
-                  Short summary <span className="text-[#3ecf8e]/90">*</span>
+                  Short summary <span className="text-[#006B6B]/90">*</span>
                 </label>
                 <textarea
                   id="studio-post-excerpt"
@@ -1853,13 +1853,13 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div id="studio-categories">
                 <label className={STUDIO_FIELD_LABEL_CLASS}>
-                  Categories <span className="text-[#3ecf8e]/90">*</span>
+                  Categories <span className="text-[#006B6B]/90">*</span>
                 </label>
                 <div className="mt-2 flex flex-wrap gap-x-4 gap-y-3">
                   {INSIGHT_CATEGORIES.map((cat) => {
                     const checked = selectedCategories.includes(cat.value);
                     return (
-                      <label key={cat.value} className="inline-flex items-center gap-2 text-sm text-zinc-300">
+                      <label key={cat.value} className="inline-flex items-center gap-2 text-sm text-[#3F3F46]">
                         <input
                           type="checkbox"
                           checked={checked}
@@ -1881,7 +1881,7 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div>
                 <label htmlFor="studio-post-meta-title" className={STUDIO_FIELD_LABEL_CLASS}>
-                  SEO title <span className="font-normal normal-case tracking-normal text-zinc-500">(optional)</span>
+                  SEO title <span className="font-normal normal-case tracking-normal text-[#52525b]">(optional)</span>
                 </label>
                 <input
                   id="studio-post-meta-title"
@@ -1894,7 +1894,7 @@ export function BlogStudioClient(props: Props) {
               </div>
               <div>
                 <label htmlFor="studio-post-meta-description" className={STUDIO_FIELD_LABEL_CLASS}>
-                  SEO description <span className="font-normal normal-case tracking-normal text-zinc-500">(optional)</span>
+                  SEO description <span className="font-normal normal-case tracking-normal text-[#52525b]">(optional)</span>
                 </label>
                 <textarea
                   id="studio-post-meta-description"
@@ -1907,60 +1907,60 @@ export function BlogStudioClient(props: Props) {
               </div>
             </div>
             {imageUrls[0] && (
-              <div className="mt-4 flex items-center space-x-3 rounded-lg border border-white/10 bg-black/30 p-3">
-                <img src={imageUrls[0]} alt="Thumbnail" className="h-12 w-12 rounded border border-white/10 object-cover" />
-                <p className="text-xs text-zinc-400">Cover thumbnail auto-mapped from Image Slot #1.</p>
+              <div className="mt-4 flex items-center space-x-3 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3">
+                <img src={imageUrls[0]} alt="Thumbnail" className="h-12 w-12 rounded border border-[#E5E5E5] object-cover" />
+                <p className="text-xs text-[#52525b]">Cover thumbnail auto-mapped from Image Slot #1.</p>
               </div>
             )}
-            <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-white/10 pt-4">
+            <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-[#E5E5E5] pt-4">
               <button
                 type="button"
                 onClick={() => saveOrPublish(false)}
                 disabled={isPending || !databaseConfigured}
-                className="rounded-lg border border-teal-500/40 bg-[#3ecf8e] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90 disabled:opacity-50"
+                className="rounded-lg border border-teal-500/40 bg-[#006B6B] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90 disabled:opacity-50"
               >
                 {isPending ? "Saving…" : currentPostStatus === "published" ? "Save live changes" : "Save draft"}
               </button>
               {lastSavedAt && (
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-[#52525b]">
                   Last saved {formatStudioDate(lastSavedAt)} at{" "}
                   {new Date(lastSavedAt).toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit" })}
                 </p>
               )}
               {!databaseConfigured && (
-                <p className="text-xs text-amber-300">Connect the database before saving.</p>
+                <p className="text-xs text-[#B45309]">Connect the database before saving.</p>
               )}
             </div>
           </div>
 
-          <div className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
-            <h2 className="mb-3 text-lg font-bold text-white">Detected Slots</h2>
+          <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
+            <h2 className="mb-3 text-lg font-bold text-[#1D1D1F]">Detected Slots</h2>
             <div className="grid grid-cols-3 gap-2 text-center text-xs">
-              <div className="rounded-lg border border-white/10 bg-black/30 p-3">
-                <span className="block text-lg font-bold text-emerald-300">{imageCount}</span>
-                <span className="text-zinc-400">Images</span>
+              <div className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3">
+                <span className="block text-lg font-bold text-[#047857]">{imageCount}</span>
+                <span className="text-[#52525b]">Images</span>
               </div>
-              <div className="rounded-lg border border-white/10 bg-black/30 p-3">
-                <span className="block text-lg font-bold text-emerald-300">{calcCount}</span>
-                <span className="text-zinc-400">Calculators</span>
+              <div className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3">
+                <span className="block text-lg font-bold text-[#047857]">{calcCount}</span>
+                <span className="text-[#52525b]">Calculators</span>
               </div>
-              <div className="rounded-lg border border-white/10 bg-black/30 p-3">
-                <span className="block text-lg font-bold text-emerald-300">{videoCount}</span>
-                <span className="text-zinc-400">Videos</span>
+              <div className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] p-3">
+                <span className="block text-lg font-bold text-[#047857]">{videoCount}</span>
+                <span className="text-[#52525b]">Videos</span>
               </div>
             </div>
-            <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+            <p className="mt-3 text-xs leading-relaxed text-[#52525b]">
               If the AI adds more placeholders, these counts and the required upload/select fields update
               automatically.
             </p>
           </div>
 
-          <section className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-6 shadow-sm">
+          <section className="rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm">
             <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Recent posts</p>
-                <h2 className="mt-1 text-lg font-bold text-white">Jump back into a saved article</h2>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#006B6B]">Recent posts</p>
+                <h2 className="mt-1 text-lg font-bold text-[#1D1D1F]">Jump back into a saved article</h2>
+                <p className="mt-2 text-sm leading-relaxed text-[#52525b]">
                   Open a post to edit it. Use the switch to show or hide it on Insights, or delete it permanently.
                 </p>
               </div>
@@ -1968,7 +1968,7 @@ export function BlogStudioClient(props: Props) {
                 <button
                   type="button"
                   onClick={() => setShowAllPosts(true)}
-                  className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-100 hover:bg-white/10"
+                  className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-xs font-semibold text-[#1D1D1F] hover:bg-[#F0F0EE]"
                 >
                   View all ({sortedPosts.length})
                 </button>
@@ -1976,11 +1976,11 @@ export function BlogStudioClient(props: Props) {
             </div>
 
             {!databaseConfigured ? (
-              <p className="text-sm text-zinc-500">Connect the database to load saved posts here.</p>
+              <p className="text-sm text-[#52525b]">Connect the database to load saved posts here.</p>
             ) : databaseLoadError ? (
-              <p className="text-sm text-amber-200">{databaseLoadError}</p>
+              <p className="text-sm text-[#B45309]">{databaseLoadError}</p>
             ) : sortedPosts.length === 0 ? (
-              <p className="text-sm text-zinc-500">No saved posts yet. Save a draft to see it here.</p>
+              <p className="text-sm text-[#52525b]">No saved posts yet. Save a draft to see it here.</p>
             ) : (
               <div className="space-y-2">{recentPosts.map((post) => renderPostPickerButton(post))}</div>
             )}
@@ -1988,16 +1988,16 @@ export function BlogStudioClient(props: Props) {
         </div>
 
         <div id="studio-preview" className="scroll-mt-24 lg:sticky lg:top-16 lg:col-span-7 lg:self-start">
-          <div className="flex h-full flex-col overflow-hidden rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] shadow-sm">
-            <div className="flex items-center justify-between border-b border-white/10 bg-black/30 px-6 py-4">
-              <span className="text-lg font-bold text-white">Step 5: Review &amp; Publish</span>
+          <div className="flex h-full flex-col overflow-hidden rounded-lg border border-[#E5E5E5] bg-white shadow-sm">
+            <div className="flex items-center justify-between border-b border-[#E5E5E5] bg-[#F7F6F3] px-6 py-4">
+              <span className="text-lg font-bold text-[#1D1D1F]">Step 5: Review &amp; Publish</span>
               <div className="flex flex-wrap items-center justify-end gap-2">
-                <div className="inline-flex rounded-lg bg-black/40 p-1">
+                <div className="inline-flex rounded-lg bg-[#FAFAF8] p-1">
                   <button
                     type="button"
                     onClick={() => setActiveTab("preview")}
                     className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
-                      activeTab === "preview" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
+                      activeTab === "preview" ? "bg-white text-teal-600 shadow-sm" : "text-[#52525b]"
                     }`}
                   >
                     Live Reading Preview
@@ -2006,7 +2006,7 @@ export function BlogStudioClient(props: Props) {
                     type="button"
                     onClick={() => setActiveTab("code")}
                     className={`rounded-md px-4 py-1.5 text-sm font-semibold ${
-                      activeTab === "code" ? "bg-white text-teal-600 shadow-sm" : "text-zinc-400"
+                      activeTab === "code" ? "bg-white text-teal-600 shadow-sm" : "text-[#52525b]"
                     }`}
                   >
                     Backend Code Output
@@ -2018,26 +2018,26 @@ export function BlogStudioClient(props: Props) {
                     setActiveTab("preview");
                     setIsPreviewFullscreen(true);
                   }}
-                  className="rounded-lg border border-teal-500/35 bg-teal-500/10 px-3 py-2 text-xs font-semibold text-teal-100 hover:opacity-90/15"
+                  className="rounded-lg border border-teal-500/35 bg-teal-500/10 px-3 py-2 text-xs font-semibold text-[#134E4A] hover:bg-[#CCFBF1]"
                 >
                   Fullscreen preview
                 </button>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2 border-b border-white/10 bg-black/20 px-6 py-3 text-xs">
-              <p className={step2Ready ? "text-emerald-300" : "text-amber-300"}>
+            <div className="grid grid-cols-2 gap-2 border-b border-[#E5E5E5] bg-[#F7F6F3]/20 px-6 py-3 text-xs">
+              <p className={step2Ready ? "text-[#047857]" : "text-[#B45309]"}>
                 {step2Ready ? "PASS" : "FIX"} Images assigned ({imageCount - missingImages}/{imageCount})
               </p>
-              <p className={step3Ready ? "text-emerald-300" : "text-amber-300"}>
+              <p className={step3Ready ? "text-[#047857]" : "text-[#B45309]"}>
                 {step3Ready ? "PASS" : "FIX"} Calculators/videos assigned
               </p>
-              <p className={postDetailsReady ? "text-emerald-300" : "text-amber-300"}>
+              <p className={postDetailsReady ? "text-[#047857]" : "text-[#B45309]"}>
                 {postDetailsReady ? "PASS" : "FIX"} Title, slug, excerpt completed
               </p>
-              <p className={postCategoriesReady ? "text-emerald-300" : "text-amber-300"}>
+              <p className={postCategoriesReady ? "text-[#047857]" : "text-[#B45309]"}>
                 {postCategoriesReady ? "PASS" : "FIX"} Categories selected
               </p>
-              <p className={canPublish ? "text-emerald-300" : "text-amber-300"}>
+              <p className={canPublish ? "text-[#047857]" : "text-[#B45309]"}>
                 {canPublish ? "READY" : "NOT READY"} for publish
               </p>
             </div>
@@ -2047,19 +2047,19 @@ export function BlogStudioClient(props: Props) {
                 <iframe
                   title="Live reading preview"
                   sandbox="allow-same-origin allow-scripts allow-forms"
-                  className="h-[70vh] w-full rounded-lg border border-white/10 bg-[#F7F6F3] opacity-100"
+                  className="h-[70vh] w-full rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] opacity-100"
                   srcDoc={previewSrcDoc}
                 />
               </div>
             ) : (
-              <div className="flex-1 overflow-y-auto bg-black/40 p-6 text-sm text-zinc-100">
+              <div className="flex-1 overflow-y-auto bg-[#FAFAF8] p-6 text-sm text-[#1D1D1F]">
                 <div className="mb-4">
-                  <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-emerald-300">
+                  <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-[#047857]">
                     Supabase DB Payload:
                   </span>
-                  <p className="text-xs text-zinc-400">This structured data is what gets saved.</p>
+                  <p className="text-xs text-[#52525b]">This structured data is what gets saved.</p>
                 </div>
-                <pre className="max-h-[70vh] overflow-x-auto rounded-lg bg-black/60 p-4 text-xs text-[#3ecf8e]">{payloadPreview}</pre>
+                <pre className="max-h-[70vh] overflow-x-auto rounded-lg bg-[#F7F6F3]/60 p-4 text-xs text-[#006B6B]">{payloadPreview}</pre>
               </div>
             )}
           </div>
@@ -2068,23 +2068,23 @@ export function BlogStudioClient(props: Props) {
 
       {showAllPosts && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#1D1D1F]/40 px-4 py-8"
           onClick={() => setShowAllPosts(false)}
         >
           <div
-            className="flex max-h-[min(80vh,720px)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#121214] shadow-2xl"
+            className="flex max-h-[min(80vh,720px)] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-[#E5E5E5] bg-[#121214] shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
+            <div className="flex items-start justify-between gap-3 border-b border-[#E5E5E5] px-5 py-4">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">All saved posts</p>
-                <h2 className="mt-1 text-lg font-bold text-white">Choose an article to edit</h2>
-                <p className="mt-1 text-sm text-zinc-400">{sortedPosts.length} saved posts, newest first.</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#006B6B]">All saved posts</p>
+                <h2 className="mt-1 text-lg font-bold text-[#1D1D1F]">Choose an article to edit</h2>
+                <p className="mt-1 text-sm text-[#52525b]">{sortedPosts.length} saved posts, newest first.</p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowAllPosts(false)}
-                className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-zinc-100 hover:bg-white/10"
+                className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] px-3 py-2 text-xs font-semibold text-[#1D1D1F] hover:bg-[#F0F0EE]"
               >
                 Close
               </button>
@@ -2097,16 +2097,16 @@ export function BlogStudioClient(props: Props) {
       )}
 
       {isPreviewFullscreen && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-[#050506] text-white">
-          <div className="flex shrink-0 items-center justify-between border-b border-white/10 bg-[#0a0a0c] px-4 py-3">
+        <div className="fixed inset-0 z-50 flex flex-col bg-[#050506] text-[#1D1D1F]">
+          <div className="flex shrink-0 items-center justify-between border-b border-[#E5E5E5] bg-[#0a0a0c] px-4 py-3">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#3ecf8e]">Fullscreen preview</p>
-              <h2 className="text-sm font-semibold text-white">{title || "Untitled blog post"}</h2>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#006B6B]">Fullscreen preview</p>
+              <h2 className="text-sm font-semibold text-[#1D1D1F]">{title || "Untitled blog post"}</h2>
             </div>
             <button
               type="button"
               onClick={() => setIsPreviewFullscreen(false)}
-              className="rounded-lg border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-zinc-100 hover:bg-white/10"
+              className="rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] px-4 py-2 text-sm font-semibold text-[#1D1D1F] hover:bg-[#F0F0EE]"
             >
               Close
             </button>
@@ -2124,8 +2124,8 @@ export function BlogStudioClient(props: Props) {
         <div
           className={`fixed bottom-4 right-4 max-w-xl rounded-lg border px-4 py-3 text-sm shadow-lg ${
             successBanner
-              ? "border-emerald-400/40 bg-emerald-500 text-emerald-950"
-              : "border-white/10 bg-[#121214] text-zinc-200"
+              ? "border-[#34D399] bg-emerald-500 text-[#064E3B]"
+              : "border-[#E5E5E5] bg-[#121214] text-[#1D1D1F]"
           }`}
         >
           {successBanner || banner}

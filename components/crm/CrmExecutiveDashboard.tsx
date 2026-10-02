@@ -58,9 +58,9 @@ export function CrmExecutiveDashboard() {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-8">
       <header>
-        <p className="text-xs font-medium uppercase tracking-wider text-zinc-600">Owner command centre</p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight text-white">Executive dashboard</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-wider text-[#71717a]">Owner command centre</p>
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight text-[#1D1D1F]">Executive dashboard</h1>
+        <p className="mt-1 text-sm text-[#52525b]">
           AI-powered pipeline intelligence for Albert · FSP 17273
         </p>
       </header>
@@ -82,36 +82,36 @@ export function CrmExecutiveDashboard() {
         ].map((card) => (
           <div
             key={card.label}
-            className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-5"
+            className="rounded-lg border border-[#E5E5E5] bg-white p-5"
           >
-            <p className="text-xs text-zinc-500">{card.label}</p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums text-white">{card.value}</p>
+            <p className="text-xs text-[#52525b]">{card.label}</p>
+            <p className="mt-2 text-3xl font-semibold tabular-nums text-[#1D1D1F]">{card.value}</p>
           </div>
         ))}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-5">
-          <h2 className="text-sm font-medium text-white">Service mix</h2>
+        <section className="rounded-lg border border-[#E5E5E5] bg-white p-5">
+          <h2 className="text-sm font-medium text-[#1D1D1F]">Service mix</h2>
           <ul className="mt-4 space-y-2">
             {serviceMix.map(([label, count]) => (
               <li key={label} className="flex justify-between text-sm">
-                <span className="text-zinc-400">{label}</span>
-                <span className="tabular-nums text-white">{count}</span>
+                <span className="text-[#52525b]">{label}</span>
+                <span className="tabular-nums text-[#1D1D1F]">{count}</span>
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-5">
-          <h2 className="text-sm font-medium text-white">Pipeline stages</h2>
+        <section className="rounded-lg border border-[#E5E5E5] bg-white p-5">
+          <h2 className="text-sm font-medium text-[#1D1D1F]">Pipeline stages</h2>
           <ul className="mt-4 space-y-2">
             {Object.entries(stats.byStatus).map(([status, count]) => (
               <li key={status} className="flex justify-between text-sm">
-                <Link href={`/crm/leads?status=${status}`} className="capitalize text-zinc-400 hover:text-[#3ecf8e]">
+                <Link href={`/crm/leads?status=${status}`} className="capitalize text-[#52525b] hover:text-[#006B6B]">
                   {status}
                 </Link>
-                <span className="tabular-nums text-white">{count}</span>
+                <span className="tabular-nums text-[#1D1D1F]">{count}</span>
               </li>
             ))}
           </ul>
@@ -119,13 +119,13 @@ export function CrmExecutiveDashboard() {
       </div>
 
       {canUseAi ? (
-      <section className="rounded-lg border border-[#3ecf8e]/20 bg-gradient-to-br from-[#0a0a0a] to-[#0f1a14] p-6 ring-1 ring-[#3ecf8e]/10">
+      <section className="rounded-lg border border-[#A7F3D0] bg-gradient-to-br from-white to-[#ECFDF5] p-6 ring-1 ring-[#A7F3D0]/60">
         <div className="mb-4 flex items-center justify-between">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#3ecf8e]">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#006B6B]">
               Gemini AI executive report
             </p>
-            <h2 className="mt-1 text-lg font-medium text-white">
+            <h2 className="mt-1 text-lg font-medium text-[#1D1D1F]">
               {report?.headline ?? "Generating owner briefing…"}
             </h2>
           </div>
@@ -133,23 +133,23 @@ export function CrmExecutiveDashboard() {
             type="button"
             onClick={loadReport}
             disabled={isPending}
-            className="rounded-md border border-[#2a2a2a] px-3 py-1.5 text-xs text-zinc-400 hover:text-white disabled:opacity-50"
+            className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs text-[#52525b] hover:text-[#1D1D1F] disabled:opacity-50"
           >
             Refresh AI
           </button>
         </div>
 
-        {error ? <p className="text-sm text-amber-300">{error}</p> : null}
+        {error ? <p className="text-sm text-amber-900">{error}</p> : null}
 
         {report ? (
           <div className="space-y-5">
-            <p className="text-sm leading-relaxed text-zinc-300">{report.narrative}</p>
+            <p className="text-sm leading-relaxed text-[#3F3F46]">{report.narrative}</p>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <p className="text-[10px] font-semibold uppercase text-[#3ecf8e]">Strengths</p>
+                <p className="text-[10px] font-semibold uppercase text-[#006B6B]">Strengths</p>
                 <ul className="mt-2 space-y-1">
                   {report.strengths.map((s) => (
-                    <li key={s} className="text-xs text-zinc-400">
+                    <li key={s} className="text-xs text-[#52525b]">
                       {s}
                     </li>
                   ))}
@@ -159,7 +159,7 @@ export function CrmExecutiveDashboard() {
                 <p className="text-[10px] font-semibold uppercase text-amber-400">Risks</p>
                 <ul className="mt-2 space-y-1">
                   {report.risks.map((r) => (
-                    <li key={r} className="text-xs text-zinc-400">
+                    <li key={r} className="text-xs text-[#52525b]">
                       {r}
                     </li>
                   ))}
@@ -167,19 +167,19 @@ export function CrmExecutiveDashboard() {
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-semibold uppercase text-zinc-500">This week focus</p>
+              <p className="text-[10px] font-semibold uppercase text-[#52525b]">This week focus</p>
               <ul className="mt-2 space-y-1">
                 {report.weekFocus.map((w) => (
-                  <li key={w} className="text-sm text-white">
+                  <li key={w} className="text-sm text-[#1D1D1F]">
                     {w}
                   </li>
                 ))}
               </ul>
             </div>
-            <p className="text-xs text-zinc-500">{report.forecastNote}</p>
+            <p className="text-xs text-[#52525b]">{report.forecastNote}</p>
           </div>
         ) : isPending ? (
-          <p className="text-sm text-zinc-500">Analysing business metrics…</p>
+          <p className="text-sm text-[#52525b]">Analysing business metrics…</p>
         ) : null}
       </section>
       ) : null}

@@ -38,7 +38,7 @@ function renderAnswer(text: string) {
       <Link
         key={`${id}-${match.index}`}
         href={`/crm/leads/${id}`}
-        className="font-medium text-[#3ecf8e] underline-offset-2 hover:underline"
+        className="font-medium text-[#006B6B] underline-offset-2 hover:underline"
       >
         View lead
       </Link>
@@ -98,24 +98,24 @@ export function CrmLeadAdvisorChat() {
   };
 
   return (
-    <section className="rounded-lg border border-[#3ecf8e]/25 bg-gradient-to-br from-[#0a0a0a] to-[#0f1a14] p-5 ring-1 ring-[#3ecf8e]/10">
+    <section className="rounded-lg border border-[#A7F3D0] bg-gradient-to-br from-white to-[#ECFDF5] p-5 ring-1 ring-[#A7F3D0]/60">
       <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-[#3ecf8e]">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-[#006B6B]">
             Gemini · Albert&apos;s executive assistant
           </p>
-          <p className="mt-1 text-sm text-zinc-400">
+          <p className="mt-1 text-sm text-[#52525b]">
             Ask questions, move Kanban stages, delegate to Johnny, reschedule calls, or send WhatsApp, Albert only.
           </p>
         </div>
-        <span className="rounded-full bg-[#3ecf8e]/10 px-2.5 py-1 text-[10px] font-medium text-[#3ecf8e]">
+        <span className="rounded-full bg-[#E8F3F3] px-2.5 py-1 text-[10px] font-medium text-[#006B6B]">
           {leadCount} leads in context
         </span>
       </div>
 
-      <div className="mb-3 flex max-h-72 flex-col gap-3 overflow-y-auto rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] p-3">
+      <div className="mb-3 flex max-h-72 flex-col gap-3 overflow-y-auto rounded-lg border border-[#E5E5E5] bg-white p-3">
         {messages.length === 0 ? (
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-[#52525b]">
             Try: &ldquo;Delegate the business insurance lead to Johnny&rdquo; or &ldquo;Move [lead name] to qualified.&rdquo;
           </p>
         ) : (
@@ -124,8 +124,8 @@ export function CrmLeadAdvisorChat() {
               <div
                 className={
                   msg.role === "user"
-                    ? "ml-8 rounded-xl bg-[#1a1a1a] px-3 py-2 text-sm text-zinc-200"
-                    : "mr-4 rounded-xl border border-[#3ecf8e]/20 bg-[#0f1a14] px-3 py-2 text-sm leading-relaxed text-zinc-100"
+                    ? "ml-8 rounded-xl bg-[#1a1a1a] px-3 py-2 text-sm text-[#1D1D1F]"
+                    : "mr-4 rounded-xl border border-[#A7F3D0] bg-[#0f1a14] px-3 py-2 text-sm leading-relaxed text-[#1D1D1F]"
                 }
               >
                 {msg.role === "assistant" ? renderAnswer(msg.text) : msg.text}
@@ -135,7 +135,7 @@ export function CrmLeadAdvisorChat() {
                   {msg.actionsTaken.map((action) => (
                     <li
                       key={action}
-                      className="rounded-md border border-[#3ecf8e]/20 bg-[#3ecf8e]/5 px-2 py-1 text-[11px] text-[#3ecf8e]"
+                      className="rounded-md border border-[#A7F3D0] bg-[#006B6B]/5 px-2 py-1 text-[11px] text-[#006B6B]"
                     >
                       ✓ {action}
                     </li>
@@ -146,11 +146,11 @@ export function CrmLeadAdvisorChat() {
           ))
         )}
         {isPending ? (
-          <p className="text-xs text-zinc-500">Working on it…</p>
+          <p className="text-xs text-[#52525b]">Working on it…</p>
         ) : null}
       </div>
 
-      {error ? <p className="mb-2 text-xs text-amber-300">{error}</p> : null}
+      {error ? <p className="mb-2 text-xs text-amber-900">{error}</p> : null}
 
       <div className="mb-3 flex flex-wrap gap-2">
         {SUGGESTIONS.map((s) => (
@@ -159,7 +159,7 @@ export function CrmLeadAdvisorChat() {
             type="button"
             disabled={isPending}
             onClick={() => submit(s)}
-            className="rounded-full border border-[#2a2a2a] px-3 py-1 text-[11px] text-zinc-400 transition-colors hover:border-[#3ecf8e]/40 hover:text-white disabled:opacity-50"
+            className="rounded-full border border-[#E5E5E5] px-3 py-1 text-[11px] text-[#52525b] transition-colors hover:border-[#006B6B]/35 hover:text-[#1D1D1F] disabled:opacity-50"
           >
             {s}
           </button>
@@ -179,12 +179,12 @@ export function CrmLeadAdvisorChat() {
           onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
           disabled={isPending}
-          className="min-w-0 flex-1 rounded-lg border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:border-[#3ecf8e]/50 focus:outline-none focus:ring-1 focus:ring-[#3ecf8e]/30 disabled:opacity-50"
+          className="min-w-0 flex-1 rounded-lg border border-[#E5E5E5] bg-white px-3 py-2.5 text-sm text-[#1D1D1F] placeholder:text-[#A1A1AA] focus:border-[#006B6B]/40 focus:outline-none focus:ring-1 focus:ring-[#006B6B]/30 disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={isPending || !input.trim()}
-          className="shrink-0 rounded-lg bg-[#3ecf8e] px-4 py-2.5 text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="shrink-0 rounded-lg bg-[#006B6B] px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
         >
           Ask
         </button>

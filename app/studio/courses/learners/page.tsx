@@ -17,11 +17,11 @@ export default async function StudioLearnersPage() {
   return (
     <div className="mx-auto w-full max-w-6xl space-y-8">
       <div>
-        <Link href="/studio/courses" className="text-xs text-zinc-500 hover:text-white">
+        <Link href="/studio/courses" className="text-xs text-[#52525b] hover:text-[#1D1D1F]">
           ← Courses
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-white">Learners · Coach view</h1>
-        <p className="mt-2 max-w-3xl text-sm text-zinc-400">
+        <h1 className="mt-2 text-2xl font-semibold text-[#1D1D1F]">Learners · Coach view</h1>
+        <p className="mt-2 max-w-3xl text-sm text-[#52525b]">
           Who is winning, who is stuck, and who is ready for a conversation. Built for Monday-morning
           clarity — not vanity metrics.
         </p>
@@ -37,39 +37,39 @@ export default async function StudioLearnersPage() {
             ["High intent", view.totals.highIntent],
           ] as const
         ).map(([label, value]) => (
-          <div key={label} className="rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] px-3 py-3">
-            <p className="text-[10px] uppercase tracking-wide text-zinc-500">{label}</p>
-            <p className="text-2xl font-semibold text-white">{value}</p>
+          <div key={label} className="rounded-xl border border-[#E5E5E5] bg-white px-3 py-3">
+            <p className="text-[10px] uppercase tracking-wide text-[#52525b]">{label}</p>
+            <p className="text-2xl font-semibold text-[#1D1D1F]">{value}</p>
           </div>
         ))}
       </div>
 
-      <section className="space-y-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
+      <section className="space-y-3 rounded-xl border border-[#E5E5E5] bg-white p-5">
         <div className="flex items-end justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold text-white">Needs attention</h2>
-            <p className="mt-1 text-xs text-zinc-500">
+            <h2 className="text-lg font-semibold text-[#1D1D1F]">Needs attention</h2>
+            <p className="mt-1 text-xs text-[#52525b]">
               Stalled 21+ days, or waiting for you to grant paid access.
             </p>
           </div>
         </div>
         {view.needsAttention.length === 0 ? (
-          <p className="text-sm text-zinc-500">Nobody needs a nudge right now. Nice.</p>
+          <p className="text-sm text-[#52525b]">Nobody needs a nudge right now. Nice.</p>
         ) : (
           <ul className="space-y-2">
             {view.needsAttention.map((item) => (
               <li
                 key={`${item.kind}-${item.enrollment.id}`}
-                className="flex flex-col gap-3 rounded-lg border border-[#2a2a2a] bg-black px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-3 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wide text-amber-300/90">
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-amber-900/90">
                     {KIND_LABEL[item.kind]}
                   </p>
-                  <Link href={item.href} className="mt-1 block font-medium text-white hover:underline">
+                  <Link href={item.href} className="mt-1 block font-medium text-[#1D1D1F] hover:underline">
                     {item.student.firstName} {item.student.surname}
                   </Link>
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-[#52525b]">
                     {item.courseTitle} · {item.detail}
                   </p>
                 </div>
@@ -78,7 +78,7 @@ export default async function StudioLearnersPage() {
                     <input type="hidden" name="enrollmentId" value={item.enrollment.id} />
                     <button
                       type="submit"
-                      className="rounded-md bg-[#3ecf8e] px-3 py-1.5 text-xs font-medium text-black"
+                      className="rounded-md bg-[#006B6B] px-3 py-1.5 text-xs font-medium text-white"
                     >
                       Grant access
                     </button>
@@ -86,7 +86,7 @@ export default async function StudioLearnersPage() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="text-xs font-medium text-[#3ecf8e] hover:underline"
+                    className="text-xs font-medium text-[#006B6B] hover:underline"
                   >
                     Open student
                   </Link>
@@ -97,18 +97,18 @@ export default async function StudioLearnersPage() {
         )}
       </section>
 
-      <section className="space-y-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
-        <h2 className="text-lg font-semibold text-white">Top performers</h2>
-        <p className="text-xs text-zinc-500">
+      <section className="space-y-3 rounded-xl border border-[#E5E5E5] bg-white p-5">
+        <h2 className="text-lg font-semibold text-[#1D1D1F]">Top performers</h2>
+        <p className="text-xs text-[#52525b]">
           Score = Insight Points × 0.6 + Momentum weeks × 16. These are motivated, disciplined
           learners — often your best advisory conversations.
         </p>
         {view.topPerformers.length === 0 ? (
-          <p className="text-sm text-zinc-500">No Clarity Track activity yet.</p>
+          <p className="text-sm text-[#52525b]">No Clarity Track activity yet.</p>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-[#2a2a2a]">
+          <div className="overflow-x-auto rounded-lg border border-[#E5E5E5]">
             <table className="min-w-full text-left text-sm">
-              <thead className="bg-[#111] text-[11px] uppercase tracking-wide text-zinc-500">
+              <thead className="bg-[#FAFAF8] text-[11px] uppercase tracking-wide text-[#52525b]">
                 <tr>
                   <th className="px-3 py-2">#</th>
                   <th className="px-3 py-2">Student</th>
@@ -121,22 +121,22 @@ export default async function StudioLearnersPage() {
               </thead>
               <tbody>
                 {view.topPerformers.map((row, index) => (
-                  <tr key={row.student.id} className="border-t border-[#2a2a2a] text-zinc-300">
-                    <td className="px-3 py-2 text-zinc-500">{index + 1}</td>
+                  <tr key={row.student.id} className="border-t border-[#E5E5E5] text-[#3F3F46]">
+                    <td className="px-3 py-2 text-[#52525b]">{index + 1}</td>
                     <td className="px-3 py-2">
                       <Link
                         href={`/studio/courses/students/${row.student.id}`}
-                        className="text-white hover:underline"
+                        className="text-[#1D1D1F] hover:underline"
                       >
                         {row.displayName}
                       </Link>
-                      <p className="text-[11px] text-zinc-500">{row.student.email}</p>
+                      <p className="text-[11px] text-[#52525b]">{row.student.email}</p>
                     </td>
                     <td className="px-3 py-2">{row.tierLabel}</td>
                     <td className="px-3 py-2">{row.clarity.insightPoints}</td>
                     <td className="px-3 py-2">{row.clarity.momentumWeeks} w</td>
                     <td className="px-3 py-2">{row.coursesCompleted}</td>
-                    <td className="px-3 py-2 font-semibold text-[#3ecf8e]">{row.score}</td>
+                    <td className="px-3 py-2 font-semibold text-[#006B6B]">{row.score}</td>
                   </tr>
                 ))}
               </tbody>
@@ -145,29 +145,29 @@ export default async function StudioLearnersPage() {
         )}
       </section>
 
-      <section className="space-y-3 rounded-xl border border-[#2a2a2a] bg-[#0a0a0a] p-5">
-        <h2 className="text-lg font-semibold text-white">High-intent prospects</h2>
-        <p className="text-xs text-zinc-500">
+      <section className="space-y-3 rounded-xl border border-[#E5E5E5] bg-white p-5">
+        <h2 className="text-lg font-semibold text-[#1D1D1F]">High-intent prospects</h2>
+        <p className="text-xs text-[#52525b]">
           Finished a course and clicked a next-step offer — warm, contextual conversations.
         </p>
         {view.highIntent.length === 0 ? (
-          <p className="text-sm text-zinc-500">No high-intent signals yet.</p>
+          <p className="text-sm text-[#52525b]">No high-intent signals yet.</p>
         ) : (
           <ul className="space-y-2">
             {view.highIntent.map((item) => (
               <li
                 key={item.enrollment.id}
-                className="flex items-center justify-between gap-3 rounded-lg border border-[#2a2a2a] bg-black px-4 py-3"
+                className="flex items-center justify-between gap-3 rounded-lg border border-[#E5E5E5] bg-[#F7F6F3] px-4 py-3"
               >
                 <div>
-                  <Link href={item.href} className="font-medium text-white hover:underline">
+                  <Link href={item.href} className="font-medium text-[#1D1D1F] hover:underline">
                     {item.student.firstName} {item.student.surname}
                   </Link>
-                  <p className="text-xs text-zinc-500">{item.courseTitle}</p>
+                  <p className="text-xs text-[#52525b]">{item.courseTitle}</p>
                 </div>
                 <Link
                   href="/contact"
-                  className="text-xs font-medium text-[#3ecf8e] hover:underline"
+                  className="text-xs font-medium text-[#006B6B] hover:underline"
                 >
                   Invite to consult
                 </Link>

@@ -22,8 +22,8 @@ export function ComplianceFlagBadge({
         className={cn(
           "rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide",
           high.length > 0
-            ? "bg-red-500/15 text-red-300 ring-1 ring-red-500/30"
-            : "bg-amber-500/15 text-amber-300 ring-1 ring-amber-500/30"
+            ? "bg-red-50 text-red-800 ring-1 ring-red-200"
+            : "bg-amber-500/15 text-amber-900 ring-1 ring-amber-500/30"
         )}
         title={flags.map((f) => f.message).join(" · ")}
       >
@@ -40,8 +40,8 @@ export function ComplianceFlagBadge({
           className={cn(
             "rounded-xl px-3 py-2 text-xs ring-1",
             flag.severity === "high"
-              ? "bg-red-500/10 text-red-200 ring-red-500/25"
-              : "bg-amber-500/10 text-amber-200 ring-amber-500/25"
+              ? "bg-red-50 text-red-200 ring-red-500/25"
+              : "bg-amber-50 text-amber-900 ring-amber-500/25"
           )}
         >
           <p className="font-semibold uppercase tracking-wide text-[9px] opacity-80">

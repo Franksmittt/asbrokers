@@ -130,7 +130,7 @@ export const CRM_TEAM_MEMBERS: Record<CrmTeamMemberKey, CrmTeamMember> = {
   developer: {
     key: "developer",
     id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    email: "developer@asbrokers.co.za",
+    email: "solo9t9@gmail.com",
     name: "Developer",
     role: "admin",
     pin: process.env.CRM_PIN_DEVELOPER?.trim() || "85879",

@@ -28,7 +28,8 @@ const ROUTES: Record<ServiceCategory, AdvisorRoute> = {
     reason: "Business insurance & commercial short-term",
   },
   short_term_personal: {
-    advisorName: "Monique Schuurman",
+    advisorName: CRM_TEAM_MEMBERS.monique.name,
+    authUserId: CRM_TEAM_MEMBERS.monique.id,
     reason: "Personal short-term insurance & renewals",
   },
   life_personal: {
@@ -42,7 +43,8 @@ const ROUTES: Record<ServiceCategory, AdvisorRoute> = {
     reason: "Medical aid & wellness (operations oversight)",
   },
   claims: {
-    advisorName: "Shanel van Niekerk",
+    advisorName: CRM_TEAM_MEMBERS.shanel.name,
+    authUserId: CRM_TEAM_MEMBERS.shanel.id,
     reason: "Claims consultant",
   },
 };
@@ -75,10 +77,14 @@ export function resolveAdvisorRoute(
 
 /** Display label for assigned advisor UUID or recommended name from payload. */
 const KNOWN_ADVISOR_NAMES: Record<string, string> = {
-  [CRM_PIN_SUPERUSER_ID]: "Albert Schuurman",
-  [CRM_TEAM_MEMBERS.johnny.id]: "Johnny Farinha",
-  [CRM_TEAM_MEMBERS.petro.id]: "Petro Vermeulen",
-  [CRM_TEAM_MEMBERS.developer.id]: "Developer",
+  [CRM_PIN_SUPERUSER_ID]: CRM_TEAM_MEMBERS.albert.name,
+  [CRM_TEAM_MEMBERS.elize.id]: CRM_TEAM_MEMBERS.elize.name,
+  [CRM_TEAM_MEMBERS.johnny.id]: CRM_TEAM_MEMBERS.johnny.name,
+  [CRM_TEAM_MEMBERS.petro.id]: CRM_TEAM_MEMBERS.petro.name,
+  [CRM_TEAM_MEMBERS.monique.id]: CRM_TEAM_MEMBERS.monique.name,
+  [CRM_TEAM_MEMBERS.shanel.id]: CRM_TEAM_MEMBERS.shanel.name,
+  [CRM_TEAM_MEMBERS.corne.id]: CRM_TEAM_MEMBERS.corne.name,
+  [CRM_TEAM_MEMBERS.developer.id]: CRM_TEAM_MEMBERS.developer.name,
 };
 
 export function advisorDisplayName(

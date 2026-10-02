@@ -30,6 +30,29 @@ type BellItem =
       alertId: string;
     };
 
+const DISMISSED_LEADS_KEY = "asb-crm-dismissed-lead-notifs";
+
+function readDismissedLeadIds(): Set<string> {
+  try {
+    const raw = window.localStorage.getItem(DISMISSED_LEADS_KEY);
+    if (!raw) return new Set();
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return new Set();
+    return new Set(parsed.filter((id): id is string => typeof id === "string"));
+  } catch {
+    return new Set();
+  }
+}
+
+function writeDismissedLeadIds(ids: Set<string>) {
+  try {
+    // Cap growth — keep the newest 400 dismissals.
+    window.localStorage.setItem(DISMISSED_LEADS_KEY, JSON.stringify([...ids].slice(-400)));
+  } catch {
+    /* ignore */
+  }
+}
+
 export function CrmHeader({ staffName, role }: CrmHeaderProps) {
   const router = useRouter();
   const { visibleLeads, unreadCourseAlerts, markCourseAlertRead, markAllCourseAlertsRead } =
@@ -37,6 +60,29 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
   const [query, setQuery] = useState("");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [dismissedLeadIds, setDismissedLeadIds] = useState<Set<string>>(() => new Set());
+
+  useEffect(() => {
+    setDismissedLeadIds(readDismissedLeadIds());
+  }, []);
+
+  const dismissLeadNotification = useCallback((leadId: string) => {
+    setDismissedLeadIds((prev) => {
+      const next = new Set(prev);
+      next.add(leadId);
+      writeDismissedLeadIds(next);
+      return next;
+    });
+  }, []);
+
+  const dismissAllLeadNotifications = useCallback((leadIds: string[]) => {
+    setDismissedLeadIds((prev) => {
+      const next = new Set(prev);
+      for (const id of leadIds) next.add(id);
+      writeDismissedLeadIds(next);
+      return next;
+    });
+  }, []);
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -52,8 +98,11 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
   }, [query, visibleLeads]);
 
   const newLeadNotifications = useMemo(
-    () => visibleLeads.filter((lead) => lead.status === "new").slice(0, 12),
-    [visibleLeads]
+    () =>
+      visibleLeads
+        .filter((lead) => lead.status === "new" && !dismissedLeadIds.has(lead.id))
+        .slice(0, 12),
+    [visibleLeads, dismissedLeadIds]
   );
 
   const bellItems = useMemo<BellItem[]>(() => {
@@ -176,15 +225,16 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
                 Notifications
               </p>
               <div className="flex items-center gap-2">
-                {unreadCourseAlerts.length > 0 ? (
+                {notificationCount > 0 ? (
                   <button
                     type="button"
-                    className="text-[11px] text-[#52525b] hover:text-[#1D1D1F]"
+                    className="text-[11px] font-medium text-[#52525b] hover:text-[#1D1D1F]"
                     onClick={() => {
+                      dismissAllLeadNotifications(newLeadNotifications.map((l) => l.id));
                       void markAllCourseAlertsRead();
                     }}
                   >
-                    Mark courses read
+                    Clear all
                   </button>
                 ) : null}
                 <Link
@@ -211,6 +261,10 @@ export function CrmHeader({ staffName, role }: CrmHeaderProps) {
                         setNotificationsOpen(false);
                         if (item.kind === "course") {
                           void markCourseAlertRead(item.alertId);
+                        } else {
+                          // lead-${uuid}
+                          const leadId = item.id.replace(/^lead-/, "");
+                          dismissLeadNotification(leadId);
                         }
                         router.push(item.href);
                       }}

@@ -14,7 +14,6 @@ import { normalizeStudioBodyInput } from "@/lib/client-studio/markdown-body";
 import { sanitizeInsightBody } from "@/lib/client-studio/sanitize-body";
 import { countImageUploadSlots } from "@/lib/client-studio/image-slots";
 import {
-  clearClientStudioSession,
   isClientStudioConfigured,
   setClientStudioSessionToken,
 } from "@/lib/client-studio/session";
@@ -215,8 +214,9 @@ export async function studioLogin(
 }
 
 export async function studioLogout(): Promise<void> {
-  await clearClientStudioSession();
-  redirect("/studio/blog/login?next=/studio");
+  // Clear Studio cookie AND CRM PIN — staff usually enter Studio via PIN bridge.
+  const { staffLogout } = await import("@/lib/staff-logout");
+  await staffLogout("/login");
 }
 
 export async function saveStudioPost(

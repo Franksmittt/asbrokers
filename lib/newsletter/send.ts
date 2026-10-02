@@ -59,15 +59,9 @@ export async function sendNewsletterToSubscribers(editionId: string): Promise<Se
     return { ok: false, error: "Set Article of the Week title and link before sending" };
   }
 
-  const { listLeadsBySourceFunnel } = await import("@/lib/crm/list-leads-by-funnel");
-  const leads = await listLeadsBySourceFunnel("newsletter");
-  const emails = Array.from(
-    new Set(
-      leads
-        .map((lead) => lead.email?.trim().toLowerCase())
-        .filter((value): value is string => Boolean(value && value.includes("@")))
-    )
-  );
+  // Active newsletter-funnel leads + archived contacts (emails retained after 14-day purge).
+  const { listRetainedMarketingEmails } = await import("@/lib/crm/archive-stale-leads");
+  const emails = await listRetainedMarketingEmails();
 
   if (emails.length === 0) {
     // Still allow a successful path when list is empty — publish web edition

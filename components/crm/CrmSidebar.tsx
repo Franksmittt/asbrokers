@@ -60,6 +60,7 @@ const PRIMARY_NAV = [
 
 const LEADS_NAV = [
   { href: "/crm/leads", label: "Leads", icon: Users, exact: false },
+  { href: "/crm/expired-leads", label: "Expired", icon: Users, exact: false },
   { href: "/crm/clients", label: "Clients", icon: Users, exact: false },
   { href: "/crm/whatsapp", label: "WhatsApp", icon: MessageCircle, exact: false },
 ] as const;

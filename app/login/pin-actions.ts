@@ -6,10 +6,8 @@ import {
   completeCrmPinReset,
   requestCrmPinResetEmail,
 } from "@/lib/crm/pin-reset";
-import {
-  setCrmPinSession,
-  verifyCrmPinInput,
-} from "@/lib/crm/pin-session";
+import { resolveCrmPinUser } from "@/lib/crm/pin-store";
+import { setCrmPinSession } from "@/lib/crm/pin-session";
 import { crmPinForgotSchema, crmPinResetSchema } from "@/lib/validations/crm-pin";
 
 export type CrmPinState = {
@@ -41,7 +39,7 @@ export async function signInWithCrmPin(
     return { success: false, message: "Enter the 5-digit access PIN." };
   }
 
-  const member = await verifyCrmPinInput(pin);
+  const member = await resolveCrmPinUser(pin);
   if (!member) {
     return { success: false, message: "Incorrect PIN. Please try again." };
   }

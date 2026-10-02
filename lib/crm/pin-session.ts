@@ -7,9 +7,9 @@ import {
   CRM_PIN_SUPERUSER_ID,
   CRM_PIN_SUPERUSER_NAME,
 } from "@/lib/crm/constants";
-import { resolveCrmPinUser } from "@/lib/crm/pin-store";
 import {
   CRM_TEAM_MEMBERS,
+  lookupCrmPinUser,
   type CrmTeamMember,
   type CrmTeamMemberKey,
 } from "@/lib/crm/team-members";
@@ -125,9 +125,12 @@ export async function verifyPinSessionToken(token: string): Promise<CrmTeamMembe
   return memberKey;
 }
 
-/** Resolve staff from PIN (env bootstrap + persisted overrides). */
-export async function verifyCrmPinInput(pin: string): Promise<CrmTeamMember | null> {
-  return resolveCrmPinUser(pin);
+/**
+ * Sync env-PIN lookup only (Edge-safe). Prefer `resolveCrmPinUser` from
+ * `pin-store` in Server Actions so persisted overrides are honoured.
+ */
+export function verifyCrmPinInput(pin: string): CrmTeamMember | null {
+  return lookupCrmPinUser(pin);
 }
 
 export async function getCrmPinSessionMemberKey(): Promise<CrmTeamMemberKey | null> {

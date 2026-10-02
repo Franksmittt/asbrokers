@@ -74,5 +74,11 @@ export async function setClientStudioSessionToken(): Promise<void> {
 
 export async function clearClientStudioSession(): Promise<void> {
   const c = await cookies();
-  c.set(COOKIE_NAME, "", { path: COOKIE_PATH, maxAge: 0 });
+  c.set(COOKIE_NAME, "", {
+    path: COOKIE_PATH,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 0,
+  });
 }

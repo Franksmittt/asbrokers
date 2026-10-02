@@ -167,7 +167,14 @@ export async function setCrmPinSession(memberKey: CrmTeamMemberKey): Promise<voi
 
 export async function clearCrmPinSession(): Promise<void> {
   const c = await cookies();
-  c.set(CRM_PIN_COOKIE, "", { path: "/", maxAge: 0 });
+  // Match setCrmPinSession attributes so browsers actually drop the cookie.
+  c.set(CRM_PIN_COOKIE, "", {
+    path: "/",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 0,
+  });
 }
 
 export function crmPinUser(memberKey: CrmTeamMemberKey = "albert"): User {

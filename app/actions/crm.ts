@@ -112,6 +112,9 @@ export async function getLeads(): Promise<CrmLead[]> {
   }
 
   try {
+    const { archiveStaleCrmLeads } = await import("@/lib/crm/archive-stale-leads");
+    await archiveStaleCrmLeads();
+
     const scope = leadScopeFilter(user.id, canViewAllLeads);
     const rows = scope
       ? await db.select().from(crmLeads).where(scope)

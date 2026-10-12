@@ -1,6 +1,7 @@
 import { newId, nowIso } from "./ids";
 import { createBlock, emptyLesson, sortBlocks } from "./blocks";
 import { sanitizeCourseCalculatorId } from "./calculators";
+import { sanitizeCoursePdfUrl, sanitizePdfFileName } from "./pdf";
 import {
   applyMomentum,
   CLARITY_POINT_VALUES,
@@ -416,7 +417,14 @@ export async function updateBlock(
   const nextPatch =
     patch.type === "calculator" && "calculatorId" in patch
       ? { ...patch, calculatorId: sanitizeCourseCalculatorId(patch.calculatorId) }
-      : patch;
+      : patch.type === "pdf"
+        ? {
+            ...patch,
+            ...("url" in patch ? { url: sanitizeCoursePdfUrl(String(patch.url ?? "")) } : {}),
+            ...("title" in patch ? { title: String(patch.title ?? "").trim().slice(0, 160) } : {}),
+            ...("fileName" in patch ? { fileName: sanitizePdfFileName(String(patch.fileName ?? "")) } : {}),
+          }
+        : patch;
   Object.assign(block, nextPatch, { id: block.id, type: block.type });
   lesson.updatedAt = nowIso();
   touch(course);

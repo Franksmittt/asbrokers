@@ -13,6 +13,7 @@ import {
 } from "@/app/studio/courses/actions";
 import { CourseCalculatorPicker } from "@/components/courses/CourseCalculatorPicker";
 import { StudioImageField } from "@/components/courses/StudioImageField";
+import { StudioPdfField } from "@/components/courses/StudioPdfField";
 import { StudioPersistForm, StudioSaveButton, StudioSelect } from "@/components/courses/studio-controls";
 import { BLOCK_LABELS } from "@/lib/courses/blocks";
 import { listCourseCalculators, sanitizeCourseCalculatorId, type CourseCalculatorOption } from "@/lib/courses/calculators";
@@ -324,6 +325,16 @@ function BlockFields({
           />
           <input name="alt" defaultValue={block.alt} className={field} placeholder="Alt text" />
           <input name="caption" defaultValue={block.caption ?? ""} className={field} placeholder="Optional caption" />
+        </>
+      );
+    case "pdf":
+      return (
+        <>
+          <label className={labelCls}>
+            Name the client sees
+            <input name="title" defaultValue={block.title} className={field} placeholder="Lesson workbook" />
+          </label>
+          <StudioPdfField defaultUrl={block.url} defaultFileName={block.fileName} inputClassName={field} />
         </>
       );
     case "callout":

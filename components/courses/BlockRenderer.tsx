@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CourseCalculatorFrame } from "@/components/courses/CourseCalculatorFrame";
 import { getCalculatorById, formatPublicCalculatorTitle } from "@/lib/calculators/registry";
 import { sanitizeCourseCalculatorId } from "@/lib/courses/calculators";
+import { coursePdfDownloadHref, sanitizePdfFileName } from "@/lib/courses/pdf";
 import { renderLessonText } from "@/lib/courses/text";
 import { parseVideoUrl } from "@/lib/courses/video";
 import type { CalloutVariant, LessonBlock } from "@/lib/courses/types";
@@ -135,6 +136,31 @@ function BlockView({ block }: { block: LessonBlock }) {
           {block.caption ? <figcaption className="text-sm text-stone-500">{block.caption}</figcaption> : null}
         </figure>
       );
+    case "pdf": {
+      const href = coursePdfDownloadHref(block.url, block.fileName);
+      if (!href) return null;
+      const title = block.title.trim() || "Lesson PDF";
+      const downloadName = sanitizePdfFileName(block.fileName) || "document.pdf";
+      const external = href.startsWith("https://");
+      return (
+        <div className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-lg ring-1 ring-stone-200 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#006B6B]">PDF</p>
+            <p className="mt-1 text-lg font-semibold text-shark">{title}</p>
+            {block.fileName ? <p className="mt-1 truncate text-sm text-stone-500">{block.fileName}</p> : null}
+          </div>
+          <a
+            href={href}
+            download={external ? undefined : downloadName}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noreferrer" : undefined}
+            className={`${WARM_BTN_PRIMARY} shrink-0`}
+          >
+            Download PDF
+          </a>
+        </div>
+      );
+    }
     case "callout":
       return (
         <aside className={`rounded-3xl border px-5 py-4 sm:px-6 sm:py-5 ${CALLOUT_STYLES[block.variant]}`}>

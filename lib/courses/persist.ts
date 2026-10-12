@@ -7,6 +7,7 @@ import { courseStudioSnapshot, getDb } from "@/lib/db";
 import { isPostgresConnectionError } from "@/lib/db/pg-error-chain";
 
 import { sanitizeCourseCalculatorId } from "./calculators";
+import { sanitizeCoursePdfUrl, sanitizePdfFileName } from "./pdf";
 import { newId } from "./ids";
 import {
   emptyClarityProfile,
@@ -126,6 +127,11 @@ export function migrateCourseStudioSnapshot(
       for (const block of lesson.blocks) {
         if (block.type === "calculator") {
           block.calculatorId = sanitizeCourseCalculatorId(block.calculatorId);
+        }
+        if (block.type === "pdf") {
+          block.url = sanitizeCoursePdfUrl(typeof block.url === "string" ? block.url : "");
+          block.title = typeof block.title === "string" ? block.title.trim().slice(0, 160) : "";
+          block.fileName = sanitizePdfFileName(typeof block.fileName === "string" ? block.fileName : "");
         }
       }
     }

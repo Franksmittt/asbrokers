@@ -23,6 +23,7 @@ export const BLOCK_TYPES = [
   "video",
   "calculator",
   "image",
+  "pdf",
   "callout",
   "cta",
 ] as const;
@@ -89,6 +90,16 @@ export type ImageBlock = {
   caption?: string;
 };
 
+/** Downloadable PDF. `url` is the private media proxy or an https link. */
+export type PdfBlock = {
+  id: string;
+  type: "pdf";
+  sortOrder: number;
+  url: string;
+  title: string;
+  fileName: string;
+};
+
 export type CalloutBlock = {
   id: string;
   type: "callout";
@@ -115,6 +126,7 @@ export type LessonBlock =
   | VideoBlock
   | CalculatorBlock
   | ImageBlock
+  | PdfBlock
   | CalloutBlock
   | CtaBlock;
 

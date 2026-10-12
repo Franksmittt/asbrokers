@@ -34,6 +34,13 @@ import {
   upsertStudent,
 } from "../lib/courses/store";
 import { formatStudentDisplayName } from "../lib/courses/display-name";
+import {
+  contentDispositionAttachment,
+  coursePdfDownloadHref,
+  isPdfUpload,
+  sanitizeCoursePdfUrl,
+  sanitizePdfFileName,
+} from "../lib/courses/pdf";
 
 beforeEach(() => {
   resetCourseStoreForTests();
@@ -157,6 +164,44 @@ describe("course store reorder + calculator replace", () => {
       assert.equal(saved.url, "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
       assert.equal(saved.caption, "Lesson video");
     }
+  });
+
+  it("saves a PDF block the client can download and drops unsafe links", async () => {
+    const course = await createCourse({ title: "Workbook", slug: "workbook-course" });
+    const lesson = await addLesson(course.id, "One", "one");
+    const block = await addBlock(course.id, lesson.id, "pdf");
+    assert.equal(block.type, "pdf");
+    await updateBlock(course.id, lesson.id, block.id, {
+      type: "pdf",
+      url: "/api/studio/media?bucket=course-pdfs&path=courses/2026-10-12/abc.pdf",
+      title: "  Retirement workbook  ",
+      fileName: "Retirement workbook.pdf",
+    });
+    const fresh = (await getCourseById(course.id))!.lessons.find((row) => row.id === lesson.id)!;
+    const saved = fresh.blocks.find((row) => row.id === block.id);
+    assert.equal(saved?.type, "pdf");
+    if (saved?.type !== "pdf") return;
+    assert.equal(saved.title, "Retirement workbook");
+    assert.equal(saved.fileName, "Retirement workbook.pdf");
+    assert.equal(
+      saved.url,
+      "/api/studio/media?bucket=course-pdfs&path=courses%2F2026-10-12%2Fabc.pdf"
+    );
+    assert.match(coursePdfDownloadHref(saved.url, saved.fileName), /download=1/);
+    assert.match(coursePdfDownloadHref(saved.url, saved.fileName), /Retirement/);
+
+    await updateBlock(course.id, lesson.id, block.id, {
+      type: "pdf",
+      url: "javascript:alert(1)",
+      title: "Nope",
+      fileName: "../secret.pdf",
+    });
+    const blocked = (await getCourseById(course.id))!.lessons
+      .find((row) => row.id === lesson.id)!
+      .blocks.find((row) => row.id === block.id);
+    if (blocked?.type !== "pdf") return;
+    assert.equal(blocked.url, "");
+    assert.equal(blocked.fileName, "secret.pdf");
   });
 
   it("reorders courses on the studio list", async () => {
@@ -437,5 +482,35 @@ describe("course studio snapshot", () => {
     } finally {
       await rm(dir, { recursive: true, force: true });
     }
+  });
+});
+
+describe("course PDF downloads", () => {
+  it("keeps https links and private media paths, and rejects other URLs", () => {
+    assert.equal(sanitizeCoursePdfUrl("https://example.com/files/notes.pdf"), "https://example.com/files/notes.pdf");
+    assert.equal(sanitizeCoursePdfUrl("http://example.com/notes.pdf"), "");
+    assert.equal(sanitizeCoursePdfUrl("javascript:alert(1)"), "");
+    assert.equal(
+      sanitizeCoursePdfUrl("/api/studio/media?bucket=course-pdfs&path=../secret.pdf"),
+      ""
+    );
+    assert.equal(sanitizePdfFileName("My workbook.pdf"), "My workbook.pdf");
+    assert.equal(sanitizePdfFileName("../../etc/passwd"), "passwd.pdf");
+    assert.equal(sanitizePdfFileName(""), "");
+    assert.equal(isPdfUpload("application/pdf", "notes.pdf"), true);
+    assert.equal(isPdfUpload("", "notes.PDF"), true);
+    assert.equal(isPdfUpload("image/png", "notes.pdf"), false);
+    assert.equal(isPdfUpload("application/pdf", "notes.exe"), false);
+    const href = coursePdfDownloadHref(
+      "/api/studio/media?bucket=course-pdfs&path=courses/2026-10-12/file.pdf",
+      "Workbook.pdf"
+    );
+    assert.match(href, /^\/api\/studio\/media\?/);
+    assert.match(href, /download=1/);
+    assert.match(href, /name=Workbook\.pdf/);
+    assert.equal(
+      contentDispositionAttachment('bad"name\r\n.pdf'),
+      'attachment; filename="bad-name-.pdf"; filename*=UTF-8\'\'bad-name-.pdf'
+    );
   });
 });

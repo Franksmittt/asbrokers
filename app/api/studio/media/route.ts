@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { contentDispositionAttachment, isSafeStoragePath, sanitizePdfFileName } from "@/lib/courses/pdf";
 import { getSupabaseService } from "@/lib/supabase/server";
 
 function safeSegment(value: string): boolean {
@@ -10,7 +11,13 @@ export async function GET(req: NextRequest) {
   const bucket = req.nextUrl.searchParams.get("bucket")?.trim() ?? "";
   const objectPath = req.nextUrl.searchParams.get("path")?.trim() ?? "";
 
-  if (!bucket || !objectPath || !safeSegment(bucket) || !safeSegment(objectPath)) {
+  if (
+    !bucket ||
+    !objectPath ||
+    !safeSegment(bucket) ||
+    bucket.includes("..") ||
+    !isSafeStoragePath(objectPath)
+  ) {
     return NextResponse.json({ error: "Invalid media path." }, { status: 400 });
   }
 
@@ -24,10 +31,15 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Media file not found." }, { status: 404 });
   }
 
-  return new NextResponse(data, {
-    headers: {
-      "Content-Type": data.type || "application/octet-stream",
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
-  });
+  const downloadPdf = req.nextUrl.searchParams.get("download") === "1" && objectPath.toLowerCase().endsWith(".pdf");
+  const headers: Record<string, string> = {
+    "Content-Type": downloadPdf ? "application/pdf" : data.type || "application/octet-stream",
+    "Cache-Control": "public, max-age=31536000, immutable",
+  };
+  if (downloadPdf) {
+    const requested = sanitizePdfFileName(req.nextUrl.searchParams.get("name") ?? "");
+    headers["Content-Disposition"] = contentDispositionAttachment(requested || objectPath.split("/").pop() || "document.pdf");
+  }
+
+  return new NextResponse(data, { headers });
 }

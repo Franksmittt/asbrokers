@@ -8,6 +8,7 @@ export const BLOCK_LABELS: Record<BlockType, string> = {
   video: "Video",
   calculator: "Calculator",
   image: "Image",
+  pdf: "PDF",
   callout: "Callout",
   cta: "Button / CTA",
 };
@@ -25,6 +26,8 @@ export function createBlock(type: BlockType, sortOrder: number): LessonBlock {
       return { id, type, sortOrder, calculatorId: DEFAULT_COURSE_CALCULATOR_ID };
     case "image":
       return { id, type, sortOrder, url: "", alt: "", caption: "" };
+    case "pdf":
+      return { id, type, sortOrder, url: "", title: "", fileName: "" };
     case "callout":
       return { id, type, sortOrder, variant: "key", title: "Important point", body: "" };
     case "cta":

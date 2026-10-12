@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-import { BLOCK_TYPES, CALLOUT_VARIANTS, COURSE_ACCESS, PUBLISH_STATUSES } from "./types";
 import { sanitizeCourseCalculatorId } from "./calculators";
+import { sanitizeCoursePdfUrl, sanitizePdfFileName } from "./pdf";
+import { BLOCK_TYPES, CALLOUT_VARIANTS, COURSE_ACCESS, PUBLISH_STATUSES } from "./types";
 
 const statusSchema = z.enum(PUBLISH_STATUSES);
 const accessSchema = z.enum(COURSE_ACCESS);
@@ -141,6 +142,23 @@ export const imageBlockSchema = z.object({
   caption: z.string().trim().max(200).optional().default(""),
 });
 
+export const pdfBlockSchema = z.object({
+  type: z.literal("pdf"),
+  url: z
+    .string()
+    .trim()
+    .max(2000)
+    .default("")
+    .transform((value) => sanitizeCoursePdfUrl(value)),
+  title: z.string().trim().max(160).default(""),
+  fileName: z
+    .string()
+    .trim()
+    .max(160)
+    .default("")
+    .transform((value) => sanitizePdfFileName(value)),
+});
+
 export const calloutBlockSchema = z.object({
   type: z.literal("callout"),
   variant: z.enum(CALLOUT_VARIANTS).default("key"),
@@ -163,6 +181,7 @@ export const blockPayloadSchema = z.discriminatedUnion("type", [
   videoBlockSchema,
   calculatorBlockSchema,
   imageBlockSchema,
+  pdfBlockSchema,
   calloutBlockSchema,
   ctaBlockSchema,
 ]);

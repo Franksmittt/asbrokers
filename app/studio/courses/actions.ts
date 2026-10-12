@@ -7,6 +7,7 @@ import { canAccessCourseStudio } from "@/lib/courses/studio-access";
 import { COURSE_STUDENT_AUTH_ENABLED } from "@/lib/courses/flags";
 import { courseSettingsSchema, lessonSettingsSchema, studentPromoSlideSchema } from "@/lib/courses/schema";
 import { sanitizeCourseCalculatorId } from "@/lib/courses/calculators";
+import { sanitizeCoursePdfUrl, sanitizePdfFileName } from "@/lib/courses/pdf";
 import { slugify } from "@/lib/courses/ids";
 import { studioCourseAnalyticsPath, studioCoursePath, studioLessonPath, studioStudentPortalPath } from "@/lib/courses/paths";
 import type { BlockType, LessonBlock, LessonOffer, StudentPromoSlide } from "@/lib/courses/types";
@@ -300,6 +301,13 @@ function blockPatchFromForm(type: BlockType, formData: FormData): Partial<Lesson
         url: formString(formData, "url"),
         alt: formString(formData, "alt"),
         caption: formString(formData, "caption"),
+      };
+    case "pdf":
+      return {
+        type,
+        url: sanitizeCoursePdfUrl(formString(formData, "url")),
+        title: formString(formData, "title").trim().slice(0, 160),
+        fileName: sanitizePdfFileName(formString(formData, "fileName")),
       };
     case "callout":
       return {

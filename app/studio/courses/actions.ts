@@ -19,6 +19,7 @@ import {
   deleteCourse,
   deleteLesson,
   deleteLessonComment,
+  getCourseById,
   reorderBlock,
   reorderCourses,
   reorderLessons,
@@ -159,9 +160,10 @@ export async function updateLessonAction(formData: FormData): Promise<void> {
   await requireStudio();
   const courseId = formString(formData, "courseId");
   const lessonId = formString(formData, "lessonId");
+  const title = formString(formData, "title");
   const parsed = lessonSettingsSchema.safeParse({
-    title: formString(formData, "title"),
-    slug: formString(formData, "slug"),
+    title,
+    slug: slugify(formString(formData, "slug").trim() || title),
     status: formString(formData, "status"),
     isFinal: formChecked(formData, "isFinal"),
     responseRequired: formChecked(formData, "responseRequired"),
@@ -205,6 +207,29 @@ export async function updateLessonAction(formData: FormData): Promise<void> {
   revalidatePath(studioCoursePath(courseId));
   revalidatePath(studioLessonPath(courseId, lessonId));
   revalidatePath("/learn");
+  const course = await getCourseById(courseId);
+  const lesson = course?.lessons.find((row) => row.id === lessonId);
+  if (course && lesson) {
+    revalidatePath(`/learn/${course.slug}`);
+    revalidatePath(`/learn/${course.slug}/${lesson.slug}`);
+  }
+}
+
+/** Publish one lesson without touching its blocks or student question. */
+export async function publishLessonAction(formData: FormData): Promise<void> {
+  await requireStudio();
+  const courseId = formString(formData, "courseId");
+  const lessonId = formString(formData, "lessonId");
+  await updateLesson(courseId, lessonId, { status: "published" });
+  revalidatePath(studioCoursePath(courseId));
+  revalidatePath(studioLessonPath(courseId, lessonId));
+  revalidatePath("/learn");
+  const course = await getCourseById(courseId);
+  const lesson = course?.lessons.find((row) => row.id === lessonId);
+  if (course && lesson) {
+    revalidatePath(`/learn/${course.slug}`);
+    revalidatePath(`/learn/${course.slug}/${lesson.slug}`);
+  }
 }
 
 export async function deleteLessonAction(formData: FormData): Promise<void> {

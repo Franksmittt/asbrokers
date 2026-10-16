@@ -41,14 +41,17 @@ export function StudioSelect({
   }, [value]);
 
   return (
-    <select
-      name={name}
-      value={current}
-      onChange={(event) => setCurrent(event.target.value)}
-      className={className}
-    >
-      {children}
-    </select>
+    <>
+      <input type="hidden" name={name} value={current} />
+      <select
+        name={name}
+        value={current}
+        onChange={(event) => setCurrent(event.target.value)}
+        className={className}
+      >
+        {children}
+      </select>
+    </>
   );
 }
 

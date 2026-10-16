@@ -21,9 +21,11 @@ import {
 import { formatStudentDisplayName } from "./display-name";
 import { COURSE_STUDENT_AUTH_ENABLED } from "./flags";
 import { moveBySortOrder } from "./order";
+import { deepEqual, mergeCourseStudioSnapshots } from "./merge-snapshot";
 import {
   DEFAULT_STUDENT_PORTAL_CONFIG,
   loadCourseSnapshot,
+  migrateCourseStudioSnapshot,
   saveCourseSnapshot,
   type CourseStudioSnapshot,
 } from "./persist";
@@ -122,9 +124,11 @@ function emptyStore(): CourseStore {
 
 type CourseStoreGlobal = {
   __asbCourseStore?: CourseStore;
+  __asbCourseBaseline?: CourseStudioSnapshot;
   __asbCourseHydrated?: boolean;
   __asbCourseHydratePromise?: Promise<void> | null;
   __asbCoursePersistEnabled?: boolean;
+  __asbCoursePersistQueue?: Promise<void>;
 };
 
 const globalForCourses = globalThis as CourseStoreGlobal;
@@ -176,27 +180,63 @@ function store(): CourseStore {
   return value;
 }
 
+/**
+ * Write the in-memory store without letting a stale copy wipe a publish (or any
+ * other edit) that landed in the database after this process loaded.
+ */
+async function persistNow(): Promise<void> {
+  if (!persistEnabled()) return;
+  const remote = await loadCourseSnapshot();
+  const local = snapshotFromStore(store());
+  const base = globalForCourses.__asbCourseBaseline;
+  const merged = remote && base ? mergeCourseStudioSnapshots(base, local, remote) : local;
+  const normalized = migrateCourseStudioSnapshot(structuredClone(merged));
+  globalForCourses.__asbCourseStore = applySnapshot(normalized);
+  globalForCourses.__asbCourseBaseline = structuredClone(normalized);
+  await saveCourseSnapshot(normalized);
+}
+
 async function persistIfEnabled(): Promise<void> {
   if (!persistEnabled()) return;
-  await saveCourseSnapshot(snapshotFromStore(store()));
+  const previous = globalForCourses.__asbCoursePersistQueue ?? Promise.resolve();
+  const run = previous.then(() => persistNow());
+  globalForCourses.__asbCoursePersistQueue = run.then(
+    () => undefined,
+    () => undefined
+  );
+  await run;
+}
+
+/** Pick up a publish (or any save) from another server when this process has no unsaved edits. */
+async function refreshCleanStore(): Promise<void> {
+  if (!persistEnabled() || !globalForCourses.__asbCourseBaseline || !globalForCourses.__asbCourseStore) return;
+  const local = snapshotFromStore(store());
+  if (!deepEqual(local, globalForCourses.__asbCourseBaseline)) return;
+  const remote = await loadCourseSnapshot();
+  if (!remote || deepEqual(remote, local)) return;
+  globalForCourses.__asbCourseStore = applySnapshot(remote);
+  globalForCourses.__asbCourseBaseline = structuredClone(remote);
 }
 
 export async function ensureCourseStore(): Promise<void> {
-  if (globalForCourses.__asbCourseHydrated) return;
-  if (!globalForCourses.__asbCourseHydratePromise) {
-    globalForCourses.__asbCourseHydratePromise = (async () => {
-      if (!persistEnabled()) {
-        globalForCourses.__asbCourseStore ??= emptyStore();
+  if (!globalForCourses.__asbCourseHydrated) {
+    if (!globalForCourses.__asbCourseHydratePromise) {
+      globalForCourses.__asbCourseHydratePromise = (async () => {
+        if (!persistEnabled()) {
+          globalForCourses.__asbCourseStore ??= emptyStore();
+          globalForCourses.__asbCourseHydrated = true;
+          return;
+        }
+        const snapshot = await loadCourseSnapshot();
+        globalForCourses.__asbCourseStore = snapshot ? applySnapshot(snapshot) : emptyStore();
+        globalForCourses.__asbCourseBaseline = structuredClone(snapshotFromStore(globalForCourses.__asbCourseStore));
+        if (!snapshot) await persistIfEnabled();
         globalForCourses.__asbCourseHydrated = true;
-        return;
-      }
-      const snapshot = await loadCourseSnapshot();
-      globalForCourses.__asbCourseStore = snapshot ? applySnapshot(snapshot) : emptyStore();
-      if (!snapshot) await persistIfEnabled();
-      globalForCourses.__asbCourseHydrated = true;
-    })();
+      })();
+    }
+    await globalForCourses.__asbCourseHydratePromise;
   }
-  await globalForCourses.__asbCourseHydratePromise;
+  await refreshCleanStore();
 }
 
 function touch(course: CourseRecord): CourseRecord {
@@ -460,6 +500,19 @@ export function resetCourseStoreForTests(): void {
   globalForCourses.__asbCourseHydrated = true;
   globalForCourses.__asbCourseHydratePromise = Promise.resolve();
   globalForCourses.__asbCourseStore = emptyStore();
+  globalForCourses.__asbCourseBaseline = undefined;
+  globalForCourses.__asbCoursePersistQueue = undefined;
+}
+
+/** Load whatever snapshot is on disk (or in Postgres) and keep later saves. */
+export async function hydrateCourseStoreForTests(): Promise<void> {
+  globalForCourses.__asbCoursePersistEnabled = true;
+  globalForCourses.__asbCourseHydrated = false;
+  globalForCourses.__asbCourseHydratePromise = null;
+  globalForCourses.__asbCourseStore = undefined;
+  globalForCourses.__asbCourseBaseline = undefined;
+  globalForCourses.__asbCoursePersistQueue = undefined;
+  await ensureCourseStore();
 }
 
 export async function listStudents(): Promise<CourseStudent[]> {

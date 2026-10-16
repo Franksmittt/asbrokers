@@ -5,6 +5,7 @@ import {
   addLessonAction,
   deleteCourseAction,
   deleteLessonAction,
+  publishLessonAction,
   reorderLessonAction,
   updateCourseAction,
 } from "@/app/studio/courses/actions";
@@ -214,6 +215,18 @@ export default async function CourseEditorPage({ params }: Props) {
                     Down
                   </button>
                 </form>
+                {lesson.status !== "published" ? (
+                  <form action={publishLessonAction}>
+                    <input type="hidden" name="courseId" value={course.id} />
+                    <input type="hidden" name="lessonId" value={lesson.id} />
+                    <button
+                      type="submit"
+                      className="rounded-md bg-[#006B6B] px-3 py-1 text-xs font-medium text-white"
+                    >
+                      Publish
+                    </button>
+                  </form>
+                ) : null}
                 <Link
                   href={studioLessonPath(course.id, lesson.id)}
                   className="rounded-md bg-[#F0F0EE] px-3 py-1 text-xs text-[#1D1D1F]"

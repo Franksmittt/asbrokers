@@ -6,6 +6,7 @@ import {
   deleteBlockAction,
   reorderBlockAction,
   deleteLessonCommentAction,
+  publishLessonAction,
   replyToLessonCommentAction,
   replyToLessonResponseAction,
   updateBlockAction,
@@ -55,13 +56,38 @@ export default async function LessonBuilderPage({ params }: Props) {
           >
             {lesson.status}
           </span>
+          {lesson.status !== "published" ? (
+            <form action={publishLessonAction}>
+              <input type="hidden" name="courseId" value={course.id} />
+              <input type="hidden" name="lessonId" value={lesson.id} />
+              <button
+                type="submit"
+                className="rounded-md bg-[#006B6B] px-3 py-1.5 text-xs font-medium text-white"
+              >
+                Publish lesson
+              </button>
+            </form>
+          ) : null}
         </div>
         <p className="mt-1 text-sm text-[#52525b]">Blocks can be arranged in any order. This is not a fixed page layout.</p>
       </div>
 
       <StudioPersistForm
         action={updateLessonAction}
-        formKey={`${lesson.id}:${lesson.updatedAt}`}
+        formKey={[
+          lesson.id,
+          lesson.status,
+          lesson.title,
+          lesson.slug,
+          lesson.isFinal ? "1" : "0",
+          lesson.responseRequired ? "1" : "0",
+          lesson.responsePrompt,
+          lesson.offer?.heading ?? "",
+          lesson.offer?.body ?? "",
+          lesson.offer?.buttonText ?? "",
+          lesson.offer?.buttonUrl ?? "",
+          lesson.offer?.openInNewTab === false ? "0" : "1",
+        ].join("\u0001")}
         className="space-y-4 rounded-xl border border-[#E5E5E5] bg-white p-5"
       >
         <input type="hidden" name="courseId" value={course.id} />
@@ -82,6 +108,9 @@ export default async function LessonBuilderPage({ params }: Props) {
             <option value="draft">Draft</option>
             <option value="published">Published</option>
           </StudioSelect>
+          <span className="mt-1 block text-[11px] font-normal text-[#71717a]">
+            Choose Published and click Save lesson settings. Saving a block keeps this status as it is.
+          </span>
         </label>
         <label className="flex items-center gap-2 text-sm text-[#3F3F46]">
           <input type="checkbox" name="isFinal" defaultChecked={lesson.isFinal} />

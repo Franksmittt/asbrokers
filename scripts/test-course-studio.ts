@@ -10,6 +10,7 @@ import {
   sanitizeCourseCalculatorId,
 } from "../lib/courses/calculators";
 import { canMove, moveBySortOrder } from "../lib/courses/order";
+import { mergeCourseStudioSnapshots } from "../lib/courses/merge-snapshot";
 import { migrateCourseStudioSnapshot, saveCourseSnapshot, loadCourseSnapshot } from "../lib/courses/persist";
 import {
   addBlock,
@@ -512,5 +513,95 @@ describe("course PDF downloads", () => {
       contentDispositionAttachment('bad"name\r\n.pdf'),
       'attachment; filename="bad-name-.pdf"; filename*=UTF-8\'\'bad-name-.pdf'
     );
+  });
+});
+
+function vitalitySnapshot(status: "draft" | "published", body: string, updatedAt: string) {
+  return {
+    version: 1 as const,
+    courses: [
+      {
+        id: "crs_health",
+        title: "The 104 Week Health Challenge",
+        slug: "the-104-week-health-challenge",
+        introduction: "",
+        featuredImageUrl: null,
+        status: "published" as const,
+        sortOrder: 0,
+        registrationRequired: true,
+        sequentialLocking: false,
+        access: "free" as const,
+        priceZar: null,
+        accessNote: "",
+        createdAt: "2026-10-01T00:00:00.000Z",
+        updatedAt: "2026-10-01T00:00:00.000Z",
+        lessons: [
+          {
+            id: "lsn_watch",
+            courseId: "crs_health",
+            title: "The Watch That Changed My Behaviour",
+            slug: "the-watch-that-changed-my-behaviour",
+            sortOrder: 0,
+            status: "published" as const,
+            isFinal: false,
+            responseRequired: true,
+            responsePrompt: "What changed?",
+            offer: null,
+            createdAt: "2026-10-02T00:00:00.000Z",
+            updatedAt: "2026-10-02T00:00:00.000Z",
+            blocks: [{ id: "blk_watch", type: "text" as const, sortOrder: 0, body: "Lesson 1" }],
+          },
+          {
+            id: "lsn_vitality",
+            courseId: "crs_health",
+            title: "Vitality Is My Accountability Partner",
+            slug: "vitality-is-my-accountability-partner",
+            sortOrder: 1,
+            status,
+            isFinal: false,
+            responseRequired: true,
+            responsePrompt: "Have you started a routine before?",
+            offer: null,
+            createdAt: "2026-10-14T19:32:31.717Z",
+            updatedAt,
+            blocks: [{ id: "blk_vitality", type: "text" as const, sortOrder: 0, body }],
+          },
+        ],
+      },
+    ],
+    students: [],
+    enrollments: [],
+    progress: [],
+    responses: [],
+    comments: [],
+    events: [],
+    staffAlerts: [],
+    portalConfig: { promoSlides: [] },
+    clarityProfiles: [],
+    clarityLedger: [],
+  };
+}
+
+describe("course snapshot merge", () => {
+  it("keeps a publish when a block save still has the old draft status", () => {
+    const base = vitalitySnapshot("draft", "original lesson", "2026-10-16T06:00:00.000Z");
+    const blockSave = vitalitySnapshot("draft", "Vitality holds me accountable.", "2026-10-16T06:56:46.983Z");
+    const published = vitalitySnapshot("published", "original lesson", "2026-10-16T06:40:00.000Z");
+    const merged = mergeCourseStudioSnapshots(base, blockSave, published);
+    const lesson = merged.courses[0]?.lessons.find((row) => row.id === "lsn_vitality");
+    assert.equal(lesson?.status, "published");
+    assert.equal(lesson?.blocks[0] && "body" in lesson.blocks[0] ? lesson.blocks[0].body : "", "Vitality holds me accountable.");
+    assert.equal(lesson?.responsePrompt, "Have you started a routine before?");
+    assert.equal(merged.courses[0]?.lessons[0]?.title, "The Watch That Changed My Behaviour");
+  });
+
+  it("keeps a block edit when this save is the one that publishes", () => {
+    const base = vitalitySnapshot("draft", "original lesson", "2026-10-16T06:00:00.000Z");
+    const publish = vitalitySnapshot("published", "original lesson", "2026-10-16T06:57:00.000Z");
+    const blockSave = vitalitySnapshot("draft", "Vitality holds me accountable.", "2026-10-16T06:56:46.983Z");
+    const merged = mergeCourseStudioSnapshots(base, publish, blockSave);
+    const lesson = merged.courses[0]?.lessons.find((row) => row.id === "lsn_vitality");
+    assert.equal(lesson?.status, "published");
+    assert.equal(lesson?.blocks[0] && "body" in lesson.blocks[0] ? lesson.blocks[0].body : "", "Vitality holds me accountable.");
   });
 });

@@ -63,12 +63,14 @@ export function MarketingHubHero({
           >
             {title}
           </h1>
-          <p
-            className="mt-5 max-w-xl leading-relaxed"
-            style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: HUB_BODY }}
-          >
-            {description}
-          </p>
+          {description ? (
+            <p
+              className="mt-5 max-w-xl leading-relaxed"
+              style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: HUB_BODY }}
+            >
+              {description}
+            </p>
+          ) : null}
           {actions ? (
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
               {actions}

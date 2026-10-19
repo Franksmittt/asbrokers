@@ -96,8 +96,8 @@
 .insight-article li,
 .insight-article li[style] {
   color: #52525b !important;
-  font-size: 1.0625rem;
-  line-height: 1.75;
+  font-size: 1.0625rem !important;
+  line-height: 1.75 !important;
 }
 
 .insight-article p {
@@ -107,9 +107,11 @@
 .insight-article p[style*="font-weight:700"],
 .insight-article p[style*="font-weight: 700"] {
   font-family: var(--font-serif), Georgia, serif !important;
+  font-size: 1.75rem !important;
   font-weight: 600 !important;
+  line-height: 1.15 !important;
   color: #1d1d1f !important;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.02em !important;
 }
 
 .insight-article p[style*="text-transform:uppercase"],
@@ -232,4 +234,146 @@
 .insight-article .insight-repeat-title,
 .insight-article .insight-repeat-cover {
   display: none !important;
+}
+
+/*
+ * One reading column for every post. Inline studio layout (1040px shells,
+ * 720–900px text, mixed grids, clamp type, negative caption margins) is
+ * cleared so headings, copy, images, quotes, and cards share the same edges.
+ */
+.insight-article,
+.insight-article :is(section, article, header, div, p, h1, h2, h3, h4, ul, ol, li, blockquote, aside, figure) {
+  float: none !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.insight-article > :is(section, article) {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2rem !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.insight-article > :is(section, article) > *,
+.insight-article [style*="display:grid"] > *,
+.insight-article [style*="display: grid"] > * {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+.insight-article .space-y-10 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 0 !important;
+}
+
+.insight-article [style*="display:grid"],
+.insight-article [style*="display: grid"] {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.25rem !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.insight-article :is(header, div, p, h1, h2, h3, h4, ul, ol, blockquote, figure) {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.insight-article header,
+.insight-article header[style] {
+  margin: 0 !important;
+  padding: 0 0 1.5rem !important;
+}
+
+.insight-article :is(h1, h2) {
+  margin: 0 0 0.75rem !important;
+}
+
+.insight-article :is(h3, h4) {
+  margin: 0 0 0.5rem !important;
+}
+
+.insight-article p {
+  margin: 0 0 1rem !important;
+}
+
+.insight-article :is(div, section) > p:last-child,
+.insight-article :is(header, aside, blockquote, li) > p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.insight-article p[style*="font-size:13px"],
+.insight-article p[style*="font-size:14px"],
+.insight-article p[style*="font-size:15px"],
+.insight-article figure + p {
+  margin-top: 0.35rem !important;
+  margin-bottom: 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  color: #71717a !important;
+}
+
+.insight-article p[style*="border-top"] {
+  margin-top: 0.25rem !important;
+  padding-top: 1rem !important;
+  border: none !important;
+  border-top: 1px solid #e5e5e5 !important;
+}
+
+.insight-article :is(ul, ol) {
+  margin: 0.25rem 0 0 !important;
+  padding: 0 0 0 1.25rem !important;
+}
+
+.insight-article figure {
+  margin: 0 !important;
+}
+
+.insight-article img,
+.insight-article iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.insight-article :is(div, section)[style*="border:1px"][style*="padding"],
+.insight-article :is(div, section)[style*="border: 1px"][style*="padding"] {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 1.25rem 1.35rem !important;
+  background: #ffffff !important;
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.insight-article div[style*="border-top"][style*="border-bottom"] {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 1.35rem 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-top: 1px solid #e5e5e5 !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+  box-shadow: none !important;
+}
+
+.insight-article div[style*="border-top"][style*="border-bottom"] :is(p, h2, h3) {
+  margin: 0 !important;
+  font-family: var(--font-serif), Georgia, serif !important;
+  font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.625rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: #1d1d1f !important;
 }

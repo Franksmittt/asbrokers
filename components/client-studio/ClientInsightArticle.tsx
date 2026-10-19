@@ -90,9 +90,9 @@ export function ClientInsightArticle({ post }: Props) {
         }
       />
 
-      <section className="pb-16 pt-10 md:pb-24 md:pt-14" aria-label={post.title}>
+      <section className="pb-20 pt-12 md:pb-28 md:pt-16" aria-label={post.title}>
         <div className={HOME4_WRAP}>
-          <div className="max-w-3xl">
+          <div className="mx-auto w-full max-w-3xl">
             <ExecutableArticleHtml className="insight-article" html={html} />
           </div>
         </div>

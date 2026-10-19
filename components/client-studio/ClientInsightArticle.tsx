@@ -1,18 +1,22 @@
+import Image from "next/image";
 import { ExecutableArticleHtml } from "@/components/client-studio/ExecutableArticleHtml";
-import {
-  HubContentSection,
-  HubSplitHero,
-  PageWithFooter,
-} from "@/components/hub/HubContentShell";
+import "./insight-article.css";
+import { PageWithFooter } from "@/components/hub/HubContentShell";
+import { HubHeroAfterLink } from "@/components/hub/HubHeroAfterLink";
+import { HubHeroKicker } from "@/components/hub/HubHeroKicker";
+import { MarketingHubHero } from "@/components/hub/MarketingHubHero";
 import { PageJsonLd } from "@/components/seo/PageJsonLd";
+import { HOME4_WRAP } from "@/lib/layout-constants";
 import { insightUrlPath } from "@/lib/site-url";
+import { presentInsightArticleHtml } from "@/lib/insights/article-presentation";
 import { resolveStudioInsightCoverImage } from "@/lib/insights/cover-image";
+import { getAlt } from "@/lib/image-alt";
 import type { StudioPostRow } from "@/lib/client-studio/posts";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-ZA", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   });
 }
@@ -23,13 +27,17 @@ type Props = {
 
 export function ClientInsightArticle({ post }: Props) {
   const published = post.publishedAt?.toISOString() ?? post.updatedAt.toISOString();
-  const html = post.bodyHtmlPublished ?? "";
   const path = insightUrlPath(post.slug, post.locale ?? "en");
   const heroImage = resolveStudioInsightCoverImage({
     heroImageUrl: post.heroImageUrl,
     bodyHtmlPublished: post.bodyHtmlPublished,
     bodyHtml: post.bodyHtml,
   });
+  const html = presentInsightArticleHtml(post.bodyHtmlPublished ?? "", {
+    title: post.title,
+    coverSrc: heroImage,
+  });
+  const excerpt = post.excerpt?.trim() || null;
 
   return (
     <PageWithFooter>
@@ -52,27 +60,43 @@ export function ClientInsightArticle({ post }: Props) {
           { name: post.title, path },
         ]}
       />
-      <HubSplitHero
-        kicker="Insights studio"
+      <MarketingHubHero
+        kicker={<HubHeroKicker shortLabel="Insights" longLabel="Insights" />}
         title={post.title}
-        description={post.excerpt ?? undefined}
-        imageSrc={heroImage}
-        imageAlt={post.title}
-        priority
-      >
-        <time className="mt-4 block text-xs font-medium uppercase tracking-wider text-stone-500" dateTime={published}>
-          {formatDate(published)}
-        </time>
-      </HubSplitHero>
+        description={excerpt}
+        borderBottom
+        visual={
+          <figure className="relative aspect-[16/10] h-full min-h-[14rem] overflow-hidden border border-stone-300/90 bg-white lg:aspect-auto">
+            <Image
+              src={heroImage}
+              alt={getAlt(heroImage, post.title)}
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
+          </figure>
+        }
+        after={
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+            <time
+              className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-500"
+              dateTime={published}
+            >
+              {formatDate(published)}
+            </time>
+            <HubHeroAfterLink prompt="More from the library?" href="/insights" label="All insights" />
+          </div>
+        }
+      />
 
-      <HubContentSection narrow className="px-4 pb-20 pt-2 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-prose overflow-x-auto [&_a]:break-words [&_img]:mx-auto [&_img]:max-h-none [&_img]:max-w-full [&_img]:rounded-[15px] [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_section]:!max-w-none [&_iframe]:mx-auto [&_iframe]:max-w-full [&_iframe]:rounded-[15px]">
-          <ExecutableArticleHtml
-            className="prose prose-stone prose-lg max-w-prose prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-[#1D1D1F] prose-p:text-[#52525b] prose-p:leading-[1.78] prose-li:text-[#52525b] prose-a:text-[#0057B8] hover:prose-a:text-[#006B6B] prose-blockquote:border-[#006B6B] prose-blockquote:text-[#1D1D1F] prose-strong:text-[#1D1D1F] prose-hr:border-[#E5E5E5]"
-            html={html}
-          />
+      <section className="pb-16 pt-10 md:pb-24 md:pt-14" aria-label={post.title}>
+        <div className={HOME4_WRAP}>
+          <div className="max-w-3xl">
+            <ExecutableArticleHtml className="insight-article" html={html} />
+          </div>
         </div>
-      </HubContentSection>
+      </section>
     </PageWithFooter>
   );
 }

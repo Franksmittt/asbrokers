@@ -1,0 +1,235 @@
+/*
+ * Published insight HTML ships with its own inline styles, including a dark
+ * studio skin (near-black backgrounds, white type, glass cards). These rules
+ * remap that skin onto the public editorial system: warm canvas, serif
+ * headings, stone body, teal kickers, hairline borders. Copy and image
+ * sources are untouched. !important is required because the colours live in
+ * style attributes.
+ */
+
+.insight-article {
+  color: #2b2b2e;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.insight-article > :is(section, article) {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.insight-article :not(iframe)[style*="#050506"],
+.insight-article :not(iframe)[style*="#0a0a0c"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  color: #2b2b2e !important;
+}
+
+.insight-article > section[style*="#050506"],
+.insight-article > article[style*="#050506"] {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.insight-article [style*="rgba(255,255,255,0.045)"],
+.insight-article [style*="rgba(255,255,255,0.03)"],
+.insight-article [style*="linear-gradient"] {
+  background: #ffffff !important;
+  background-image: none !important;
+  border-color: #e5e5e5 !important;
+  box-shadow: none !important;
+}
+
+.insight-article [style*="rgba(255,255,255,0.1)"] {
+  border-color: #e5e5e5 !important;
+}
+
+.insight-article [style*="color:#fff"],
+.insight-article [style*="color:#e5e7eb"],
+.insight-article [style*="color:#d4d4d8"],
+.insight-article [style*="color:#a1a1aa"],
+.insight-article [style*="color:#71717a"],
+.insight-article [style*="color:#fef3c7"] {
+  color: #2b2b2e !important;
+}
+
+.insight-article [style*="font-family"] {
+  font-family: var(--font-sans), system-ui, sans-serif !important;
+}
+
+.insight-article header,
+.insight-article header[style] {
+  margin: 0 0 0.5rem;
+  padding: 0 0 1.5rem !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+
+.insight-article :is(h1, h2, h3, h4),
+.insight-article :is(h1, h2, h3, h4)[style] {
+  font-family: var(--font-serif), Georgia, serif !important;
+  font-weight: 600 !important;
+  color: #1d1d1f !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.2 !important;
+}
+
+.insight-article h1,
+.insight-article h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 2.125rem) !important;
+}
+
+.insight-article h3,
+.insight-article h4 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: clamp(1.25rem, 1.1rem + 0.35vw, 1.5rem) !important;
+}
+
+.insight-article p,
+.insight-article p[style],
+.insight-article li,
+.insight-article li[style] {
+  color: #52525b !important;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.insight-article p {
+  margin: 0 0 1rem;
+}
+
+.insight-article p[style*="font-weight:700"],
+.insight-article p[style*="font-weight: 700"] {
+  font-family: var(--font-serif), Georgia, serif !important;
+  font-weight: 600 !important;
+  color: #1d1d1f !important;
+  letter-spacing: -0.02em;
+}
+
+.insight-article p[style*="text-transform:uppercase"],
+.insight-article p[style*="letter-spacing:0.16em"],
+.insight-article p[style*="letter-spacing:0.18em"],
+.insight-article p[style*="letter-spacing: 0.16em"],
+.insight-article p[style*="letter-spacing: 0.18em"],
+.insight-article p[style*="#5eead4"],
+.insight-article p[style*="#99f6e4"] {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-sans), system-ui, sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  color: #006b6b !important;
+  letter-spacing: 0.16em !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+}
+
+.insight-article strong,
+.insight-article strong[style] {
+  font-weight: 600;
+  color: #1d1d1f !important;
+}
+
+.insight-article strong[style*="#5eead4"],
+.insight-article strong[style*="#99f6e4"] {
+  color: #006b6b !important;
+}
+
+.insight-article a {
+  color: #0057b8 !important;
+  text-underline-offset: 3px;
+}
+
+.insight-article a:hover {
+  color: #006b6b !important;
+}
+
+.insight-article blockquote,
+.insight-article blockquote[style],
+.insight-article blockquote p,
+.insight-article blockquote p[style] {
+  font-family: var(--font-serif), Georgia, serif !important;
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.75rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: #1d1d1f !important;
+  letter-spacing: -0.02em !important;
+}
+
+.insight-article blockquote {
+  margin: 2rem 0 !important;
+  padding: 1.35rem 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-top: 1px solid #e5e5e5 !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+  box-shadow: none !important;
+}
+
+.insight-article aside,
+.insight-article aside[style] {
+  margin: 0.25rem 0 0.5rem;
+  padding: 0.15rem 0 0.15rem 1.15rem !important;
+  color: #1d1d1f !important;
+  background: transparent !important;
+  border: none !important;
+  border-left: 3px solid #006b6b !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.insight-article :is(ul, ol) {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.insight-article ul {
+  list-style: disc;
+}
+
+.insight-article ol {
+  list-style: decimal;
+}
+
+.insight-article li + li {
+  margin-top: 0.35rem;
+}
+
+.insight-article figure {
+  margin: 1.5rem 0;
+}
+
+.insight-article img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  background: #ffffff !important;
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 15px !important;
+  box-shadow: none !important;
+}
+
+.insight-article iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 15px !important;
+  box-shadow: none !important;
+}
+
+.insight-article hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.insight-article .insight-repeat-title,
+.insight-article .insight-repeat-cover {
+  display: none !important;
+}
